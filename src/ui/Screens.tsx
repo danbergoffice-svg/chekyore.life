@@ -1,27 +1,158 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { heirs, inheritanceShare } from '../engine/life'
 import { regionOf, yearsBetween } from '../engine/rules'
-import type { EraDef, GameState, LifeSummary } from '../engine/types'
+import type { EraDef, GameState, LifeSummary, SceneDef } from '../engine/types'
 import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
 import { Scene } from '../pixel/Scene'
 import { useUi } from './text'
 
-export function Menu(props: { canContinue: boolean; onNew: () => void; onContinue: () => void; go: (s: 'memorial' | 'settings' | 'about') => void }) {
-  const { t } = useUi()
+const ERA_LIST = ['E01', 'E02', 'E03', 'E04', 'E05', 'E06', 'E07', 'E08', 'E09', 'E10', 'E11', 'E12']
+
+/** Виды для заставки: меняются каждые несколько секунд. */
+const SHOWCASE: { region: string; scene: SceneDef }[] = [
+  { region: 'rome', scene: { place: 'landmark', time: 'sunset', people: 4, props: ['sun'] } },
+  { region: 'egypt', scene: { place: 'river', time: 'day', people: 2, props: ['palm', 'grain'] } },
+  { region: 'athens', scene: { place: 'landmark', time: 'dawn', people: 3, props: ['olive'] } },
+  { region: 'rome', scene: { place: 'market', time: 'day', people: 5, props: ['amphora', 'cart'] } },
+  { region: 'egypt', scene: { place: 'harbor', time: 'sunset', people: 3, props: ['boat', 'sun'] } },
+  { region: 'athens', scene: { place: 'street', time: 'night', people: 2, props: ['moon', 'lamp'] } },
+]
+
+interface MenuProps {
+  current: GameState | null
+  memorial: LifeSummary[]
+  eras: Record<string, EraDef>
+  onNew: () => void
+  onContinue: () => void
+  onOpenLife: (heroId: string) => void
+  go: (s: 'memorial' | 'settings' | 'about') => void
+}
+
+export function Menu({ current, memorial, eras, onNew, onContinue, onOpenLife, go }: MenuProps) {
+  const { t, lang } = useUi()
+  const [shot, setShot] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setShot((x) => (x + 1) % SHOWCASE.length), 5000)
+    return () => clearInterval(id)
+  }, [])
+  const view = SHOWCASE[shot]
+  const hero = current?.hero
+  const playing = !!current && current.phase !== 'dead' && !!hero
+  const allEvents = Object.values(eras).flatMap((e) => e.events)
+  const stats = {
+    events: allEvents.length,
+    history: allEvents.filter((e) => e.type === 'global_historical').length,
+    news: Object.values(eras).reduce((n, e) => n + e.news.length, 0),
+    jobs: Object.values(eras).reduce((n, e) => n + e.professions.length, 0),
+  }
   return (
     <div class="screen menu">
+      <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={t(`region.${view.region}`)} />
+      <p class="small muted center">
+        {t(`region.${view.region}`)} · {t('era.E03')}
+      </p>
       <div class="title-block">
         <span class="badge">{t('beta.badge')}</span>
         <h1 class="game-title">{t('app.title')}</h1>
         <p class="lead">{t('app.tagline')}</p>
       </div>
+
       <div class="stack">
-        {props.canContinue && <button class="primary" onClick={props.onContinue}>{t('menu.continue')}</button>}
-        <button class={props.canContinue ? 'secondary' : 'primary'} onClick={props.onNew}>{t('menu.new')}</button>
-        <button class="secondary" onClick={() => props.go('memorial')}>{t('menu.memorial')}</button>
-        <button class="secondary" onClick={() => props.go('settings')}>{t('menu.settings')}</button>
-        <button class="link" onClick={() => props.go('about')}>{t('menu.about')}</button>
+        {playing && hero && (
+          <button class="primary continue" onClick={onContinue}>
+            <span>{t('menu.continue')}</span>
+            <span class="option-desc">
+              {nameOf(hero.name, lang)} · {t('life.age', { n: hero.age })} · {t(`region.${hero.region}`)} · {formatYear(current!.year, lang)}
+            </span>
+          </button>
+        )}
+        <button class={playing ? 'secondary' : 'primary'} onClick={onNew}>
+          {t('menu.new')}
+        </button>
+      </div>
+
+      <section class="block">
+        <h2 class="section-title">{t('menu.how')}</h2>
+        <ol class="how">
+          {[1, 2, 3, 4].map((i) => (
+            <li>
+              <strong>{t(`menu.how.${i}.title`)}</strong>
+              <span>{t(`menu.how.${i}.text`)}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="block">
+        <h2 class="section-title">{t('menu.eras')}</h2>
+        <ol class="eras">
+          {ERA_LIST.map((id) => (
+            <li class={eras[id] ? 'open' : 'soon'}>
+              <span class="era-name">{t(`eras.${id}`)}</span>
+              <span class="muted small">{t(`eras.${id}.years`)}</span>
+              <span class="era-state small">{eras[id] ? t('menu.era_open') : t('menu.era_soon')}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="block">
+        <h2 class="section-title">{t('menu.inside')}</h2>
+        <ul class="stats">
+          <li>
+            <strong>{stats.events}</strong> {t('menu.stat.events')}
+          </li>
+          <li>
+            <strong>{stats.history}</strong> {t('menu.stat.history')}
+          </li>
+          <li>
+            <strong>{stats.news}</strong> {t('menu.stat.news')}
+          </li>
+          <li>
+            <strong>{stats.jobs}</strong> {t('menu.stat.jobs')}
+          </li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2 class="section-title">{t('menu.your_lives')}</h2>
+        {memorial.length === 0 ? (
+          <p class="muted">{t('menu.no_lives')}</p>
+        ) : (
+          <>
+            <p class="muted">{t('menu.lives_count', { n: memorial.length, years: memorial.reduce((s, l) => s + l.age, 0) })}</p>
+            <ul class="people">
+              {[...memorial]
+                .reverse()
+                .slice(0, 3)
+                .map((l) => (
+                  <li>
+                    <button class="tree-row" onClick={() => onOpenLife(l.heroId)}>
+                      <span class="person-name">
+                        {nameOf(l.name, lang)} · {t('death.lived', { n: l.age })}
+                      </span>
+                      <span class="muted small">
+                        {t(`region.${l.region}`)} · {formatYear(l.birthYear, lang)} · {t(`archetype.${l.report.pattern.code}`)}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+            </ul>
+            <button class="link" onClick={() => go('memorial')}>
+              {t('menu.memorial')} →
+            </button>
+          </>
+        )}
+      </section>
+
+      <div class="menu-links">
+        <button class="link" onClick={() => go('settings')}>
+          {t('menu.settings')}
+        </button>
+        <button class="link" onClick={() => go('about')}>
+          {t('menu.about')}
+        </button>
       </div>
       <p class="small muted">{t('beta.notice')}</p>
     </div>

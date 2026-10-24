@@ -1,174 +1,1731 @@
 {
   "id": "E03",
-  "years": [-500, 200],
-  "stages": { "youth": 12, "adult": 18, "old": 55 },
-  "marriageAge": { "m": [20, 34], "f": [14, 22] },
+  "years": [
+    -500,
+    200
+  ],
+  "stages": {
+    "youth": 12,
+    "adult": 18,
+    "old": 55
+  },
+  "marriageAge": {
+    "m": [
+      20,
+      34
+    ],
+    "f": [
+      14,
+      22
+    ]
+  },
   "lifeExpectancy": 25,
   "inheritance": "equal",
-  "traits": ["cautious", "ambitious", "kind", "hot_tempered", "curious", "reserved", "generous", "pious", "cunning", "brave"],
-  "skills": ["literacy", "trade", "craft", "farming", "military", "medicine", "management", "oratory", "seafaring"],
+  "traits": [
+    "cautious",
+    "ambitious",
+    "kind",
+    "hot_tempered",
+    "curious",
+    "reserved",
+    "generous",
+    "pious",
+    "cunning",
+    "brave"
+  ],
+  "skills": [
+    "literacy",
+    "trade",
+    "craft",
+    "farming",
+    "military",
+    "medicine",
+    "management",
+    "oratory",
+    "seafaring"
+  ],
   "regions": [
     {
       "id": "rome",
       "weight": 4,
-      "years": [-500, 200],
+      "years": [
+        -500,
+        200
+      ],
       "coin": "denarius",
-      "classWeights": { "slave": 20, "peasant": 38, "craftsman": 18, "trader": 8, "landowner": 12, "noble": 2 },
+      "classWeights": {
+        "slave": 20,
+        "peasant": 38,
+        "craftsman": 18,
+        "trader": 8,
+        "landowner": 12,
+        "noble": 2
+      },
       "names": {
         "m": [
-          { "id": "marcus", "ru": "Марк", "en": "Marcus" },
-          { "id": "gaius", "ru": "Гай", "en": "Gaius" },
-          { "id": "lucius", "ru": "Луций", "en": "Lucius" },
-          { "id": "publius", "ru": "Публий", "en": "Publius" },
-          { "id": "quintus", "ru": "Квинт", "en": "Quintus" },
-          { "id": "titus", "ru": "Тит", "en": "Titus" },
-          { "id": "gnaeus", "ru": "Гней", "en": "Gnaeus" },
-          { "id": "sextus", "ru": "Секст", "en": "Sextus" },
-          { "id": "aulus", "ru": "Авл", "en": "Aulus" },
-          { "id": "decimus", "ru": "Децим", "en": "Decimus" }
+          {
+            "id": "marcus",
+            "ru": "Марк",
+            "en": "Marcus"
+          },
+          {
+            "id": "gaius",
+            "ru": "Гай",
+            "en": "Gaius"
+          },
+          {
+            "id": "lucius",
+            "ru": "Луций",
+            "en": "Lucius"
+          },
+          {
+            "id": "publius",
+            "ru": "Публий",
+            "en": "Publius"
+          },
+          {
+            "id": "quintus",
+            "ru": "Квинт",
+            "en": "Quintus"
+          },
+          {
+            "id": "titus",
+            "ru": "Тит",
+            "en": "Titus"
+          },
+          {
+            "id": "gnaeus",
+            "ru": "Гней",
+            "en": "Gnaeus"
+          },
+          {
+            "id": "sextus",
+            "ru": "Секст",
+            "en": "Sextus"
+          },
+          {
+            "id": "aulus",
+            "ru": "Авл",
+            "en": "Aulus"
+          },
+          {
+            "id": "decimus",
+            "ru": "Децим",
+            "en": "Decimus"
+          }
         ],
         "f": [
-          { "id": "julia", "ru": "Юлия", "en": "Julia" },
-          { "id": "cornelia", "ru": "Корнелия", "en": "Cornelia" },
-          { "id": "claudia", "ru": "Клавдия", "en": "Claudia" },
-          { "id": "valeria", "ru": "Валерия", "en": "Valeria" },
-          { "id": "tullia", "ru": "Туллия", "en": "Tullia" },
-          { "id": "livia", "ru": "Ливия", "en": "Livia" },
-          { "id": "aurelia", "ru": "Аврелия", "en": "Aurelia" },
-          { "id": "flavia", "ru": "Флавия", "en": "Flavia" },
-          { "id": "antonia", "ru": "Антония", "en": "Antonia" },
-          { "id": "caecilia", "ru": "Цецилия", "en": "Caecilia" }
+          {
+            "id": "julia",
+            "ru": "Юлия",
+            "en": "Julia"
+          },
+          {
+            "id": "cornelia",
+            "ru": "Корнелия",
+            "en": "Cornelia"
+          },
+          {
+            "id": "claudia",
+            "ru": "Клавдия",
+            "en": "Claudia"
+          },
+          {
+            "id": "valeria",
+            "ru": "Валерия",
+            "en": "Valeria"
+          },
+          {
+            "id": "tullia",
+            "ru": "Туллия",
+            "en": "Tullia"
+          },
+          {
+            "id": "livia",
+            "ru": "Ливия",
+            "en": "Livia"
+          },
+          {
+            "id": "aurelia",
+            "ru": "Аврелия",
+            "en": "Aurelia"
+          },
+          {
+            "id": "flavia",
+            "ru": "Флавия",
+            "en": "Flavia"
+          },
+          {
+            "id": "antonia",
+            "ru": "Антония",
+            "en": "Antonia"
+          },
+          {
+            "id": "caecilia",
+            "ru": "Цецилия",
+            "en": "Caecilia"
+          }
         ]
       }
     },
     {
       "id": "athens",
       "weight": 2,
-      "years": [-500, 200],
+      "years": [
+        -500,
+        200
+      ],
       "coin": "drachma",
       "inheritance": "sons_first",
-      "classWeights": { "slave": 25, "peasant": 30, "craftsman": 20, "trader": 10, "landowner": 12, "noble": 3 },
+      "classWeights": {
+        "slave": 25,
+        "peasant": 30,
+        "craftsman": 20,
+        "trader": 10,
+        "landowner": 12,
+        "noble": 3
+      },
       "names": {
         "m": [
-          { "id": "ariston", "ru": "Аристон", "en": "Ariston" },
-          { "id": "kallias", "ru": "Каллий", "en": "Kallias" },
-          { "id": "lysias", "ru": "Лисий", "en": "Lysias" },
-          { "id": "theron", "ru": "Терон", "en": "Theron" },
-          { "id": "phaidros", "ru": "Федр", "en": "Phaedrus" },
-          { "id": "glaukon", "ru": "Главкон", "en": "Glaucon" },
-          { "id": "philon", "ru": "Филон", "en": "Philon" },
-          { "id": "xanthippos", "ru": "Ксантипп", "en": "Xanthippus" },
-          { "id": "dion", "ru": "Дион", "en": "Dion" },
-          { "id": "nikias", "ru": "Никий", "en": "Nicias" }
+          {
+            "id": "ariston",
+            "ru": "Аристон",
+            "en": "Ariston"
+          },
+          {
+            "id": "kallias",
+            "ru": "Каллий",
+            "en": "Kallias"
+          },
+          {
+            "id": "lysias",
+            "ru": "Лисий",
+            "en": "Lysias"
+          },
+          {
+            "id": "theron",
+            "ru": "Терон",
+            "en": "Theron"
+          },
+          {
+            "id": "phaidros",
+            "ru": "Федр",
+            "en": "Phaedrus"
+          },
+          {
+            "id": "glaukon",
+            "ru": "Главкон",
+            "en": "Glaucon"
+          },
+          {
+            "id": "philon",
+            "ru": "Филон",
+            "en": "Philon"
+          },
+          {
+            "id": "xanthippos",
+            "ru": "Ксантипп",
+            "en": "Xanthippus"
+          },
+          {
+            "id": "dion",
+            "ru": "Дион",
+            "en": "Dion"
+          },
+          {
+            "id": "nikias",
+            "ru": "Никий",
+            "en": "Nicias"
+          }
         ],
         "f": [
-          { "id": "melitta", "ru": "Мелитта", "en": "Melitta" },
-          { "id": "nikarete", "ru": "Никарета", "en": "Nikarete" },
-          { "id": "theano", "ru": "Феано", "en": "Theano" },
-          { "id": "kleo", "ru": "Клео", "en": "Kleo" },
-          { "id": "lysistrate", "ru": "Лисистрата", "en": "Lysistrate" },
-          { "id": "myrrhine", "ru": "Миррина", "en": "Myrrhine" },
-          { "id": "archippe", "ru": "Архиппа", "en": "Archippe" },
-          { "id": "hegeso", "ru": "Гегесо", "en": "Hegeso" },
-          { "id": "phano", "ru": "Фано", "en": "Phano" },
-          { "id": "glykera", "ru": "Гликера", "en": "Glykera" }
+          {
+            "id": "melitta",
+            "ru": "Мелитта",
+            "en": "Melitta"
+          },
+          {
+            "id": "nikarete",
+            "ru": "Никарета",
+            "en": "Nikarete"
+          },
+          {
+            "id": "theano",
+            "ru": "Феано",
+            "en": "Theano"
+          },
+          {
+            "id": "kleo",
+            "ru": "Клео",
+            "en": "Kleo"
+          },
+          {
+            "id": "lysistrate",
+            "ru": "Лисистрата",
+            "en": "Lysistrate"
+          },
+          {
+            "id": "myrrhine",
+            "ru": "Миррина",
+            "en": "Myrrhine"
+          },
+          {
+            "id": "archippe",
+            "ru": "Архиппа",
+            "en": "Archippe"
+          },
+          {
+            "id": "hegeso",
+            "ru": "Гегесо",
+            "en": "Hegeso"
+          },
+          {
+            "id": "phano",
+            "ru": "Фано",
+            "en": "Phano"
+          },
+          {
+            "id": "glykera",
+            "ru": "Гликера",
+            "en": "Glykera"
+          }
         ]
       }
     },
     {
       "id": "egypt",
       "weight": 4,
-      "years": [-350, 200],
+      "years": [
+        -350,
+        200
+      ],
       "coin": "drachma",
-      "classWeights": { "slave": 8, "peasant": 60, "craftsman": 14, "trader": 7, "landowner": 7, "noble": 2 },
+      "classWeights": {
+        "slave": 8,
+        "peasant": 60,
+        "craftsman": 14,
+        "trader": 7,
+        "landowner": 7,
+        "noble": 2
+      },
       "names": {
         "m": [
-          { "id": "horos", "ru": "Хор", "en": "Horos" },
-          { "id": "petesouchos", "ru": "Петесух", "en": "Petesouchos" },
-          { "id": "pamonthes", "ru": "Памонт", "en": "Pamonthes" },
-          { "id": "apollonios", "ru": "Аполлоний", "en": "Apollonios" },
-          { "id": "ptolemaios", "ru": "Птолемей", "en": "Ptolemaios" },
-          { "id": "pakhom", "ru": "Пахом", "en": "Pakhom" },
-          { "id": "onnophris", "ru": "Оннофрис", "en": "Onnophris" },
-          { "id": "didymos", "ru": "Дидим", "en": "Didymos" },
-          { "id": "sarapion", "ru": "Серапион", "en": "Sarapion" },
-          { "id": "hermias", "ru": "Гермий", "en": "Hermias" }
+          {
+            "id": "horos",
+            "ru": "Хор",
+            "en": "Horos"
+          },
+          {
+            "id": "petesouchos",
+            "ru": "Петесух",
+            "en": "Petesouchos"
+          },
+          {
+            "id": "pamonthes",
+            "ru": "Памонт",
+            "en": "Pamonthes"
+          },
+          {
+            "id": "apollonios",
+            "ru": "Аполлоний",
+            "en": "Apollonios"
+          },
+          {
+            "id": "ptolemaios",
+            "ru": "Птолемей",
+            "en": "Ptolemaios"
+          },
+          {
+            "id": "pakhom",
+            "ru": "Пахом",
+            "en": "Pakhom"
+          },
+          {
+            "id": "onnophris",
+            "ru": "Оннофрис",
+            "en": "Onnophris"
+          },
+          {
+            "id": "didymos",
+            "ru": "Дидим",
+            "en": "Didymos"
+          },
+          {
+            "id": "sarapion",
+            "ru": "Серапион",
+            "en": "Sarapion"
+          },
+          {
+            "id": "hermias",
+            "ru": "Гермий",
+            "en": "Hermias"
+          }
         ],
         "f": [
-          { "id": "tasoucharion", "ru": "Тасухарион", "en": "Tasoucharion" },
-          { "id": "thermouthis", "ru": "Термутис", "en": "Thermouthis" },
-          { "id": "isidora", "ru": "Исидора", "en": "Isidora" },
-          { "id": "taesis", "ru": "Таэсис", "en": "Taesis" },
-          { "id": "berenike", "ru": "Береника", "en": "Berenike" },
-          { "id": "arsinoe", "ru": "Арсиноя", "en": "Arsinoe" },
-          { "id": "tamystha", "ru": "Тамиста", "en": "Tamystha" },
-          { "id": "herais", "ru": "Гераида", "en": "Herais" },
-          { "id": "sarapias", "ru": "Сарапиада", "en": "Sarapias" },
-          { "id": "thaisous", "ru": "Таисус", "en": "Thaisous" }
+          {
+            "id": "tasoucharion",
+            "ru": "Тасухарион",
+            "en": "Tasoucharion"
+          },
+          {
+            "id": "thermouthis",
+            "ru": "Термутис",
+            "en": "Thermouthis"
+          },
+          {
+            "id": "isidora",
+            "ru": "Исидора",
+            "en": "Isidora"
+          },
+          {
+            "id": "taesis",
+            "ru": "Таэсис",
+            "en": "Taesis"
+          },
+          {
+            "id": "berenike",
+            "ru": "Береника",
+            "en": "Berenike"
+          },
+          {
+            "id": "arsinoe",
+            "ru": "Арсиноя",
+            "en": "Arsinoe"
+          },
+          {
+            "id": "tamystha",
+            "ru": "Тамиста",
+            "en": "Tamystha"
+          },
+          {
+            "id": "herais",
+            "ru": "Гераида",
+            "en": "Herais"
+          },
+          {
+            "id": "sarapias",
+            "ru": "Сарапиада",
+            "en": "Sarapias"
+          },
+          {
+            "id": "thaisous",
+            "ru": "Таисус",
+            "en": "Thaisous"
+          }
         ]
       }
     }
   ],
   "classes": [
-    { "id": "slave", "status": 5, "money": [0, 5], "upkeep": 0, "mortality": 1.15, "tags": ["enslaved"] },
-    { "id": "peasant", "status": 25, "money": [40, 160], "upkeep": 140, "mortality": 1.0, "tags": ["rural", "raised_farming"] },
-    { "id": "craftsman", "status": 38, "money": [60, 220], "upkeep": 190, "mortality": 1.0, "tags": ["lives_in_city", "raised_craft"] },
-    { "id": "trader", "status": 48, "money": [150, 500], "upkeep": 250, "mortality": 0.95, "tags": ["lives_in_city", "raised_trade"] },
-    { "id": "landowner", "status": 72, "money": [500, 1500], "upkeep": 450, "mortality": 0.85, "tags": ["raised_management", "wealthy"] },
-    { "id": "noble", "status": 92, "money": [3000, 9000], "upkeep": 1200, "mortality": 0.8, "tags": ["lives_in_city", "raised_management", "wealthy"] }
+    {
+      "id": "slave",
+      "status": 5,
+      "money": [
+        0,
+        5
+      ],
+      "upkeep": 0,
+      "mortality": 1.15,
+      "tags": [
+        "enslaved"
+      ]
+    },
+    {
+      "id": "peasant",
+      "status": 25,
+      "money": [
+        40,
+        160
+      ],
+      "upkeep": 140,
+      "mortality": 1.0,
+      "tags": [
+        "rural",
+        "raised_farming"
+      ]
+    },
+    {
+      "id": "craftsman",
+      "status": 38,
+      "money": [
+        60,
+        220
+      ],
+      "upkeep": 190,
+      "mortality": 1.0,
+      "tags": [
+        "lives_in_city",
+        "raised_craft"
+      ]
+    },
+    {
+      "id": "trader",
+      "status": 48,
+      "money": [
+        150,
+        500
+      ],
+      "upkeep": 250,
+      "mortality": 0.95,
+      "tags": [
+        "lives_in_city",
+        "raised_trade"
+      ]
+    },
+    {
+      "id": "landowner",
+      "status": 72,
+      "money": [
+        500,
+        1500
+      ],
+      "upkeep": 450,
+      "mortality": 0.85,
+      "tags": [
+        "raised_management",
+        "wealthy"
+      ]
+    },
+    {
+      "id": "noble",
+      "status": 92,
+      "money": [
+        3000,
+        9000
+      ],
+      "upkeep": 1200,
+      "mortality": 0.8,
+      "tags": [
+        "lives_in_city",
+        "raised_management",
+        "wealthy"
+      ]
+    }
   ],
   "professions": [
-    { "id": "farmer", "classes": ["peasant"], "minAge": 12, "income": [150, 260], "skill": "farming" },
-    { "id": "laborer", "classes": ["peasant", "craftsman"], "minAge": 12, "income": [130, 210], "skill": "craft", "mortality": 1.1 },
-    { "id": "artisan", "classes": ["craftsman", "peasant"], "minAge": 12, "income": [180, 330], "skill": "craft" },
-    { "id": "weaver", "sex": "f", "classes": ["craftsman", "peasant", "trader"], "minAge": 12, "income": [140, 240], "skill": "craft" },
-    { "id": "midwife", "sex": "f", "classes": ["peasant", "craftsman", "slave"], "minAge": 16, "income": [150, 260], "skill": "medicine" },
-    { "id": "merchant", "classes": ["trader", "craftsman"], "minAge": 14, "income": [150, 650], "skill": "trade", "stress": 2 },
-    { "id": "sailor", "sex": "m", "classes": ["peasant", "craftsman", "trader"], "minAge": 14, "income": [170, 290], "skill": "seafaring", "mortality": 1.4 },
-    { "id": "legionary", "sex": "m", "regions": ["rome"], "classes": ["peasant", "craftsman", "landowner"], "minAge": 17, "income": [220, 320], "skill": "military", "mortality": 1.6, "stress": 3 },
-    { "id": "soldier", "sex": "m", "regions": ["athens", "egypt"], "classes": ["peasant", "craftsman", "landowner"], "minAge": 17, "income": [160, 270], "skill": "military", "mortality": 1.5, "stress": 3 },
-    { "id": "scribe", "minAge": 14, "classes": ["craftsman", "trader", "landowner", "slave"], "requirements": [{ "skill": "literacy", "op": ">=", "value": 20 }], "income": [200, 360], "skill": "literacy" },
-    { "id": "physician", "minAge": 16, "classes": ["craftsman", "trader", "landowner", "slave"], "requirements": [{ "skill": "literacy", "op": ">=", "value": 25 }, { "param": "intellect", "op": ">=", "value": 55 }], "income": [260, 650], "skill": "medicine" },
-    { "id": "rhetor", "sex": "m", "minAge": 16, "classes": ["landowner", "noble"], "requirements": [{ "skill": "literacy", "op": ">=", "value": 25 }], "income": [350, 1000], "skill": "oratory", "reputation": 2, "stress": 2 },
-    { "id": "priest", "minAge": 16, "classes": ["craftsman", "landowner", "noble"], "income": [220, 420], "skill": "literacy", "reputation": 1 },
-    { "id": "landholder", "classes": ["landowner", "noble"], "minAge": 16, "income": [550, 950], "skill": "management" },
-    { "id": "magistrate", "sex": "m", "classes": ["noble"], "minAge": 18, "income": [1800, 4000], "skill": "management", "reputation": 2, "stress": 3 },
-    { "id": "matron", "sex": "f", "classes": ["landowner", "noble"], "minAge": 14, "income": [500, 1500], "skill": "management" },
-    { "id": "household_slave", "classes": ["slave"], "minAge": 10, "income": [5, 25], "skill": "craft" },
-    { "id": "field_slave", "classes": ["slave"], "minAge": 10, "income": [0, 10], "skill": "farming", "mortality": 1.3, "stress": 3 },
-    { "id": "gladiator", "sex": "m", "regions": ["rome"], "classes": ["slave"], "minAge": 17, "requirements": [{ "param": "strength", "op": ">=", "value": 55 }], "income": [10, 80], "skill": "military", "mortality": 2.5, "stress": 5 }
+    {
+      "id": "farmer",
+      "classes": [
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "farming"
+    },
+    {
+      "id": "laborer",
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 12,
+      "income": [
+        130,
+        210
+      ],
+      "skill": "craft",
+      "mortality": 1.1
+    },
+    {
+      "id": "artisan",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        180,
+        330
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "weaver",
+      "sex": "f",
+      "classes": [
+        "craftsman",
+        "peasant",
+        "trader"
+      ],
+      "minAge": 12,
+      "income": [
+        140,
+        240
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "midwife",
+      "sex": "f",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "slave"
+      ],
+      "minAge": 16,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "merchant",
+      "classes": [
+        "trader",
+        "craftsman"
+      ],
+      "minAge": 14,
+      "income": [
+        150,
+        650
+      ],
+      "skill": "trade",
+      "stress": 2
+    },
+    {
+      "id": "sailor",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 14,
+      "income": [
+        170,
+        290
+      ],
+      "skill": "seafaring",
+      "mortality": 1.4
+    },
+    {
+      "id": "legionary",
+      "sex": "m",
+      "regions": [
+        "rome"
+      ],
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner"
+      ],
+      "minAge": 17,
+      "income": [
+        220,
+        320
+      ],
+      "skill": "military",
+      "mortality": 1.6,
+      "stress": 3
+    },
+    {
+      "id": "soldier",
+      "sex": "m",
+      "regions": [
+        "athens",
+        "egypt"
+      ],
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner"
+      ],
+      "minAge": 17,
+      "income": [
+        160,
+        270
+      ],
+      "skill": "military",
+      "mortality": 1.5,
+      "stress": 3
+    },
+    {
+      "id": "scribe",
+      "minAge": 14,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner",
+        "slave"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 20
+        }
+      ],
+      "income": [
+        200,
+        360
+      ],
+      "skill": "literacy"
+    },
+    {
+      "id": "physician",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner",
+        "slave"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 25
+        },
+        {
+          "param": "intellect",
+          "op": ">=",
+          "value": 55
+        }
+      ],
+      "income": [
+        260,
+        650
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "rhetor",
+      "sex": "m",
+      "minAge": 16,
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 25
+        }
+      ],
+      "income": [
+        350,
+        1000
+      ],
+      "skill": "oratory",
+      "reputation": 2,
+      "stress": 2
+    },
+    {
+      "id": "priest",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "landowner",
+        "noble"
+      ],
+      "income": [
+        220,
+        420
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "landholder",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 16,
+      "income": [
+        550,
+        950
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "magistrate",
+      "sex": "m",
+      "classes": [
+        "noble"
+      ],
+      "minAge": 18,
+      "income": [
+        1800,
+        4000
+      ],
+      "skill": "management",
+      "reputation": 2,
+      "stress": 3
+    },
+    {
+      "id": "matron",
+      "sex": "f",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "income": [
+        500,
+        1500
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "household_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        5,
+        25
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "field_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        0,
+        10
+      ],
+      "skill": "farming",
+      "mortality": 1.3,
+      "stress": 3
+    },
+    {
+      "id": "gladiator",
+      "sex": "m",
+      "regions": [
+        "rome"
+      ],
+      "classes": [
+        "slave"
+      ],
+      "minAge": 17,
+      "requirements": [
+        {
+          "param": "strength",
+          "op": ">=",
+          "value": 55
+        }
+      ],
+      "income": [
+        10,
+        80
+      ],
+      "skill": "military",
+      "mortality": 2.5,
+      "stress": 5
+    },
+    {
+      "id": "centurion",
+      "promotion_only": true,
+      "sex": "m",
+      "regions": [
+        "rome"
+      ],
+      "minAge": 25,
+      "income": [
+        700,
+        1100
+      ],
+      "skill": "military",
+      "mortality": 1.5,
+      "stress": 3,
+      "reputation": 2
+    },
+    {
+      "id": "officer",
+      "promotion_only": true,
+      "sex": "m",
+      "regions": [
+        "athens",
+        "egypt"
+      ],
+      "minAge": 25,
+      "income": [
+        500,
+        900
+      ],
+      "skill": "military",
+      "mortality": 1.4,
+      "stress": 3,
+      "reputation": 2
+    },
+    {
+      "id": "workshop_owner",
+      "promotion_only": true,
+      "minAge": 20,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "craft",
+      "stress": 2,
+      "reputation": 1
+    },
+    {
+      "id": "shipowner",
+      "promotion_only": true,
+      "minAge": 25,
+      "income": [
+        700,
+        2000
+      ],
+      "skill": "trade",
+      "stress": 3,
+      "reputation": 1
+    },
+    {
+      "id": "official",
+      "promotion_only": true,
+      "minAge": 22,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "literacy",
+      "stress": 2,
+      "reputation": 2
+    },
+    {
+      "id": "overseer",
+      "promotion_only": true,
+      "classes": [
+        "slave"
+      ],
+      "minAge": 20,
+      "income": [
+        20,
+        60
+      ],
+      "skill": "management",
+      "stress": 2
+    }
   ],
   "focuses": [
-    { "id": "play", "ages": [5, 11], "effects": [{ "param": "happiness", "delta": 4 }, { "param": "strength", "delta": 1 }, { "param": "loneliness", "delta": -4 }] },
-    { "id": "learn", "ages": [5, 11], "conditions": [{ "classes": ["craftsman", "trader", "landowner", "noble"] }], "effects": [{ "param": "intellect", "delta": 2 }, { "skill": "literacy", "delta": 5 }, { "param": "money", "delta": -20 }] },
-    { "id": "help_family", "ages": [5, 11], "effects": [{ "param": "diligence", "delta": 2 }, { "skill": "craft", "delta": 2 }, { "skill": "farming", "delta": 2 }, { "param": "money", "delta": 10 }] },
-    { "id": "work", "ages": [12, 120], "incomeMultiplier": 1.5, "effects": [{ "param": "diligence", "delta": 1 }, { "param": "stress", "delta": 3 }] },
-    { "id": "study", "ages": [12, 60], "conditions": [{ "classes": ["craftsman", "trader", "landowner", "noble", "peasant"] }, { "param": "money", "op": ">=", "value": 60 }], "effects": [{ "param": "intellect", "delta": 2 }, { "skill": "literacy", "delta": 5 }, { "skill": "oratory", "delta": 2 }, { "param": "money", "delta": -60 }] },
-    { "id": "family", "ages": [14, 120], "effects": [{ "param": "loneliness", "delta": -6 }, { "param": "happiness", "delta": 3 }, { "npc_attitude": "spouse", "delta": 6 }, { "npc_attitude": "child", "delta": 6 }, { "npc_attitude": "mother", "delta": 4 }, { "npc_attitude": "father", "delta": 4 }] },
-    { "id": "health", "ages": [12, 120], "effects": [{ "param": "health", "delta": 3 }, { "param": "stress", "delta": -4 }] },
-    { "id": "trade", "ages": [16, 70], "conditions": [{ "classes": ["peasant", "craftsman", "trader", "landowner", "noble"] }], "effects": [{ "skill": "trade", "delta": 4 }, { "param": "stress", "delta": 3 }, { "chance": 0.5, "effects": [{ "param": "money", "delta": 120 }] }, { "chance": 0.35, "effects": [{ "param": "money", "delta": -70 }] }] },
-    { "id": "service", "ages": [17, 45], "conditions": [{ "sex": "m" }, { "classes": ["peasant", "craftsman", "landowner", "noble"] }], "effects": [{ "skill": "military", "delta": 4 }, { "param": "strength", "delta": 2 }, { "param": "reputation", "delta": 2 }, { "param": "stress", "delta": 3 }, { "chance": 0.06, "effects": [{ "param": "health", "delta": -15 }] }] },
-    { "id": "rest", "ages": [12, 120], "effects": [{ "param": "happiness", "delta": 5 }, { "param": "stress", "delta": -6 }, { "param": "loneliness", "delta": -3 }, { "param": "money", "delta": -15 }] },
-    { "id": "religion", "ages": [12, 120], "effects": [{ "param": "faith", "delta": 5 }, { "param": "stress", "delta": -4 }, { "param": "happiness", "delta": 2 }, { "param": "reputation", "delta": 1 }] },
-    { "id": "savings", "ages": [16, 120], "conditions": [{ "classes": ["peasant", "craftsman", "trader", "landowner", "noble"] }], "effects": [{ "param": "money", "delta": 60 }, { "param": "happiness", "delta": -2 }, { "param": "stress", "delta": 1 }] }
+    {
+      "id": "play",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 1
+        },
+        {
+          "param": "loneliness",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "ages": [
+        5,
+        11
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "param": "money",
+          "delta": -20
+        }
+      ]
+    },
+    {
+      "id": "help_family",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 2
+        },
+        {
+          "skill": "craft",
+          "delta": 2
+        },
+        {
+          "skill": "farming",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": 10
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "ages": [
+        12,
+        120
+      ],
+      "incomeMultiplier": 1.5,
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        }
+      ]
+    },
+    {
+      "id": "study",
+      "ages": [
+        12,
+        60
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble",
+            "peasant"
+          ]
+        },
+        {
+          "param": "money",
+          "op": ">=",
+          "value": 60
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "skill": "oratory",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": -60
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "ages": [
+        14,
+        120
+      ],
+      "effects": [
+        {
+          "param": "loneliness",
+          "delta": -6
+        },
+        {
+          "param": "happiness",
+          "delta": 3
+        },
+        {
+          "npc_attitude": "spouse",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "child",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "mother",
+          "delta": 4
+        },
+        {
+          "npc_attitude": "father",
+          "delta": 4
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "health",
+          "delta": 3
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "ages": [
+        16,
+        70
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "trade",
+          "delta": 4
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.5,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        },
+        {
+          "chance": 0.35,
+          "effects": [
+            {
+              "param": "money",
+              "delta": -70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "ages": [
+        17,
+        45
+      ],
+      "conditions": [
+        {
+          "sex": "m"
+        },
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "military",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 2
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.06,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -6
+        },
+        {
+          "param": "loneliness",
+          "delta": -3
+        },
+        {
+          "param": "money",
+          "delta": -15
+        }
+      ]
+    },
+    {
+      "id": "religion",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "faith",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 1
+        }
+      ]
+    },
+    {
+      "id": "savings",
+      "ages": [
+        16,
+        120
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "money",
+          "delta": 60
+        },
+        {
+          "param": "happiness",
+          "delta": -2
+        },
+        {
+          "param": "stress",
+          "delta": 1
+        }
+      ]
+    }
   ],
   "mortality": {
     "qx": [
-      [0, 0.27], [1, 0.05], [5, 0.013], [10, 0.01], [15, 0.013], [20, 0.017], [25, 0.019], [30, 0.021], [35, 0.023],
-      [40, 0.026], [45, 0.03], [50, 0.037], [55, 0.046], [60, 0.066], [65, 0.092], [70, 0.13], [75, 0.19], [80, 0.28], [85, 0.35], [90, 0.45]
+      [
+        0,
+        0.27
+      ],
+      [
+        1,
+        0.05
+      ],
+      [
+        5,
+        0.013
+      ],
+      [
+        10,
+        0.01
+      ],
+      [
+        15,
+        0.013
+      ],
+      [
+        20,
+        0.017
+      ],
+      [
+        25,
+        0.019
+      ],
+      [
+        30,
+        0.021
+      ],
+      [
+        35,
+        0.023
+      ],
+      [
+        40,
+        0.026
+      ],
+      [
+        45,
+        0.03
+      ],
+      [
+        50,
+        0.037
+      ],
+      [
+        55,
+        0.046
+      ],
+      [
+        60,
+        0.066
+      ],
+      [
+        65,
+        0.092
+      ],
+      [
+        70,
+        0.13
+      ],
+      [
+        75,
+        0.19
+      ],
+      [
+        80,
+        0.28
+      ],
+      [
+        85,
+        0.35
+      ],
+      [
+        90,
+        0.45
+      ]
     ],
     "childbirth": 0.015,
     "calibration": 0.82,
     "causes": [
-      { "id": "infant_illness", "ages": [0, 4], "weight": 10 },
-      { "id": "fever", "ages": [0, 120], "weight": 5 },
-      { "id": "illness", "ages": [5, 120], "weight": 8 },
-      { "id": "accident", "ages": [5, 70], "weight": 2 },
-      { "id": "war", "ages": [17, 50], "weight": 6, "conditions": [{ "profession": ["legionary", "soldier"] }] },
-      { "id": "arena", "ages": [17, 50], "weight": 10, "conditions": [{ "profession": ["gladiator"] }] },
-      { "id": "shipwreck", "ages": [14, 70], "weight": 4, "conditions": [{ "profession": ["sailor"] }] },
-      { "id": "hunger", "ages": [0, 120], "weight": 2, "conditions": [{ "tag": "in_debt" }] },
-      { "id": "old_age", "ages": [60, 120], "weight": 12 }
+      {
+        "id": "infant_illness",
+        "ages": [
+          0,
+          4
+        ],
+        "weight": 10
+      },
+      {
+        "id": "fever",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 5
+      },
+      {
+        "id": "illness",
+        "ages": [
+          5,
+          120
+        ],
+        "weight": 8
+      },
+      {
+        "id": "accident",
+        "ages": [
+          5,
+          70
+        ],
+        "weight": 2
+      },
+      {
+        "id": "war",
+        "ages": [
+          17,
+          50
+        ],
+        "weight": 6,
+        "conditions": [
+          {
+            "profession": [
+              "legionary",
+              "soldier"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "arena",
+        "ages": [
+          17,
+          50
+        ],
+        "weight": 10,
+        "conditions": [
+          {
+            "profession": [
+              "gladiator"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shipwreck",
+        "ages": [
+          14,
+          70
+        ],
+        "weight": 4,
+        "conditions": [
+          {
+            "profession": [
+              "sailor"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hunger",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 2,
+        "conditions": [
+          {
+            "tag": "in_debt"
+          }
+        ]
+      },
+      {
+        "id": "old_age",
+        "ages": [
+          60,
+          120
+        ],
+        "weight": 12
+      }
     ]
-  }
+  },
+  "lifestyle": [
+    {
+      "id": "food",
+      "minAge": 12,
+      "default": "plain",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "meager",
+          "cost": -40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -1
+            },
+            {
+              "param": "happiness",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.08
+        },
+        {
+          "id": "plain",
+          "cost": 0
+        },
+        {
+          "id": "varied",
+          "cost": 70,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 70
+            }
+          ]
+        },
+        {
+          "id": "feasts",
+          "cost": 300,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 2
+            },
+            {
+              "param": "reputation",
+              "delta": 1
+            },
+            {
+              "chance": 0.3,
+              "effects": [
+                {
+                  "param": "health",
+                  "delta": -1
+                }
+              ]
+            }
+          ],
+          "mortality": 1.02,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exercise",
+      "minAge": 8,
+      "default": "chores",
+      "options": [
+        {
+          "id": "rest",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "stress",
+              "delta": -2
+            },
+            {
+              "chance": 0.5,
+              "effects": [
+                {
+                  "param": "health",
+                  "delta": -1
+                }
+              ]
+            }
+          ],
+          "mortality": 1.03
+        },
+        {
+          "id": "chores",
+          "cost": 0
+        },
+        {
+          "id": "walks",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 0.5
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.98
+        },
+        {
+          "id": "gymnasium",
+          "cost": 40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            },
+            {
+              "param": "strength",
+              "delta": 1
+            }
+          ],
+          "mortality": 0.93,
+          "requirements": [
+            {
+              "classes": [
+                "craftsman",
+                "trader",
+                "landowner",
+                "noble"
+              ]
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medicine",
+      "minAge": 12,
+      "default": "home",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "home",
+          "cost": 0
+        },
+        {
+          "id": "temple",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "faith",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.97,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "id": "physician",
+          "cost": 150,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1
+            },
+            {
+              "remove_tag": "ill"
+            }
+          ],
+          "mortality": 0.86,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baths",
+      "minAge": 10,
+      "default": "sometimes",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "rarely",
+          "cost": 0,
+          "mortality": 1.02
+        },
+        {
+          "id": "sometimes",
+          "cost": 5
+        },
+        {
+          "id": "daily",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 1
+            },
+            {
+              "param": "loneliness",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.97,
+          "requirements": [
+            {
+              "tag": "lives_in_city"
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -58,7 +58,7 @@ export function createT(lang: Lang, defaults: TextOptions = {}): T {
       return key
     }
     const value = (p: TextParam): string => {
-      if (typeof p === 'object') return 'name' in p ? nameOf(p.name, lang) : t(p.key, params, o)
+      if (typeof p === 'object') return 'name' in p ? nameOf(p.name, lang) : t(p.key, params, p.sex ? { ...o, sex: p.sex } : o)
       return String(p)
     }
     // {g:мужская|женская} — по полу героя; {g=param:…|…} — по полу из параметра.

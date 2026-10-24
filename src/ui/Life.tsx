@@ -1,8 +1,19 @@
-import { useEffect, useState } from 'preact/hooks'
-import { availableFocuses, choiceAvailable, currentEvent, eventChoices, eventParams, eventTextKey, riskChance, stageOf } from '../engine/game'
-import { addYears, npcAge, regionOf } from '../engine/rules'
+import { useEffect, useRef, useState } from 'preact/hooks'
+import {
+  availableFocuses,
+  choiceAvailable,
+  currentEvent,
+  eventChoices,
+  eventParams,
+  eventTextKey,
+  lifestyleDefs,
+  lifestyleOption,
+  riskChance,
+  stageOf,
+} from '../engine/game'
+import { checkAll, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
-import type { ChoiceDef, EraDef, EventDef, GameState } from '../engine/types'
+import type { ChoiceDef, DiaryEntry, EraDef, GameState, Npc } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
 import { Scene } from '../pixel/Scene'
 import { entryScene } from './Summary'
@@ -11,19 +22,33 @@ import type { Change } from './text'
 
 type Tab = 'life' | 'hero' | 'people' | 'diary'
 
-const AUTO_DELAY = { 1: 2400, 2: 1200, 4: 600 } as const
+/** Год длится 30 секунд на обычной скорости. */
+const YEAR_MS = 30000
+const TICK_MS = 100
+export const SPEEDS = [0, 1, 2, 4, 10] as const
+export type Speed = (typeof SPEEDS)[number]
 
 interface LifeProps {
   state: GameState
   era: EraDef
-  onLive: (focus: string | null) => void
+  onStart: (focus: string | null) => void
+  onFinish: () => void
   onChoose: (choiceId: string | null) => void
   onDismiss: () => void
+  onLifestyle: (category: string, option: string) => void
   onMenu: () => void
-  lastChanges: Change[]
+  choiceChanges: Change[]
+  yearChanges: Change[]
 }
 
-export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChanges }: LifeProps) {
+/** Видна ли запись дневника: записи текущего года появляются по ходу года. */
+function visible(state: GameState, index: number, entry: DiaryEntry, progress: number): boolean {
+  if (state.phase !== 'running' || entry.year !== state.year) return true
+  const at = state.reveal[index]
+  return at === undefined || at <= progress
+}
+
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onMenu, choiceChanges, yearChanges }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region }
@@ -31,25 +56,56 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
   const [tab, setTab] = useState<Tab>('life')
   const focuses = availableFocuses(state, era)
   const [focus, setFocus] = useState<string | null>(state.lastFocus)
-  const [auto, setAuto] = useState<0 | 1 | 2 | 4>(0)
-  const selected = focuses.find((f) => f.id === focus)?.id ?? null
-  const canLive = state.phase === 'year' && (focuses.length === 0 || selected !== null)
+  const selected = focuses.find((f) => f.id === focus)?.id ?? focuses.find((f) => f.id === 'work')?.id ?? focuses[0]?.id ?? null
+  const [speed, setSpeed] = useState<Speed>(1)
+  const [progress, setProgress] = useState(0)
 
+  const next = state.queue[0]
+  const modalOpen = state.phase === 'running' && !!next && progress >= next.at
+
+  // Часы года. Ссылки на свежие значения, чтобы таймер не держал устаревшие.
+  const live = useRef({ state, progress, speed, modalOpen, selected, onStart, onFinish })
+  live.current = { state, progress, speed, modalOpen, selected, onStart, onFinish }
   useEffect(() => {
-    if (!auto || !canLive || tab !== 'life') return
-    const id = setTimeout(() => onLive(selected ?? focuses[0]?.id ?? null), AUTO_DELAY[auto])
-    return () => clearTimeout(id)
-  })
+    const id = setInterval(() => {
+      const c = live.current
+      if (!c.speed || c.modalOpen || c.state.phase === 'dead') return
+      if (c.state.phase === 'year') {
+        setProgress(0)
+        c.onStart(c.selected)
+        return
+      }
+      const np = c.progress + (TICK_MS * c.speed) / YEAR_MS
+      const ev = c.state.queue[0]
+      if (ev && np >= ev.at) setProgress(ev.at)
+      else if (np >= 1 && !ev) {
+        setProgress(0)
+        c.onFinish()
+      } else setProgress(Math.min(np, 1))
+    }, TICK_MS)
+    return () => clearInterval(id)
+  }, [])
 
-  const thisYear = hero.diary.filter((d) => d.year === state.year || d.year === addYears(state.year, -1)).slice(-6)
+  /** Перемотать к следующему событию или к концу года. */
+  const skip = () => {
+    if (state.phase === 'year') return onStart(selected)
+    if (next) setProgress(next.at)
+    else {
+      setProgress(0)
+      onFinish()
+    }
+  }
+
   const stage = stageOf(state, era)
-  // Сцена года: последнее событие или момент, иначе дом в детстве и город во взрослой жизни.
-  const lastEntry = [...thisYear].reverse().find((d) => d.eventId)
-  const yearScene = lastEntry
-    ? entryScene(lastEntry, era)
+  const entries = hero.diary.map((d, i) => [d, i] as const).filter(([d, i]) => visible(state, i, d, progress) && !d.key.startsWith('diary.stage_'))
+  const feed = entries.slice(-14).reverse()
+  const lastScene = [...entries].reverse().find(([d]) => d.eventId && d.year === state.year)
+  const yearScene = lastScene
+    ? entryScene(lastScene[0], era)
     : stage === 'infancy' || stage === 'childhood'
       ? { place: 'home' as const, time: 'day' as const, people: 3, props: ['cradle' as const] }
       : { place: 'landmark' as const, time: 'day' as const, people: 3, props: ['sun' as const] }
+  const kids = hero.npcs.filter((n) => n.role === 'child' && n.alive)
 
   return (
     <div class="life">
@@ -64,6 +120,7 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
         <p class="hero-meta">
           {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')} · {formatMoney(t, hero.money, coin)}
           {hero.money < 0 && <span class="warn"> · {t('life.debt')}</span>}
+          {hero.tags.includes('ill') && <span class="warn"> · {t('life.ill', {}, o)}</span>}
         </p>
         <Bar label={t('attr.health')} value={hero.attrs.health} />
       </header>
@@ -79,16 +136,43 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
       {tab === 'life' && (
         <section class="panel">
           <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:${state.year}`} />
-          {lastChanges.length > 0 && <ChangeList changes={lastChanges} coin={coin} />}
-          <h2 class="section-title">{t('life.this_year')}</h2>
-          {thisYear.length === 0 ? (
+          <div class="year-clock" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-label={t('life.year_progress')}>
+            <span class="year-label">{formatYear(state.year, lang)}</span>
+            <span class="year-track">
+              <span class="year-fill" style={{ width: `${Math.round((state.phase === 'running' ? progress : 0) * 100)}%` }} />
+            </span>
+          </div>
+
+          {yearChanges.length > 0 && (
+            <>
+              <p class="small muted">{t('life.last_year')}</p>
+              <ChangeList changes={yearChanges} coin={coin} />
+            </>
+          )}
+
+          <h2 class="section-title">{t('life.feed')}</h2>
+          {feed.length === 0 ? (
             <p class="muted">{t('life.nothing')}</p>
           ) : (
             <ul class="feed">
-              {thisYear.map((d) => (
-                <li>{diaryText(t, d, hero.sex, hero.region)}</li>
+              {feed.map(([d]) => (
+                <li class={`${d.news ? 'news' : ''} ${d.major ? 'major' : ''} ${d.year === state.year ? 'now' : ''}`}>
+                  <span class="diary-age">{d.news ? t('life.news') : t('diary.age', { n: d.age })}</span>
+                  <span>{diaryText(t, d, hero.sex, hero.region)}</span>
+                </li>
               ))}
             </ul>
+          )}
+
+          {kids.length > 0 && (
+            <>
+              <h2 class="section-title">{t('life.children')}</h2>
+              <ul class="kids">
+                {kids.map((k) => (
+                  <ChildRow child={k} year={state.year} all={hero.npcs} />
+                ))}
+              </ul>
+            </>
           )}
 
           {stage === 'infancy' || focuses.length === 0 ? (
@@ -96,6 +180,7 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
           ) : (
             <>
               <h2 class="section-title">{t('life.focus')}</h2>
+              <p class="small muted">{t('life.focus_hint')}</p>
               <div class="focus-grid">
                 {focuses.map((f) => (
                   <button class={f.id === selected ? 'focus active' : 'focus'} aria-pressed={f.id === selected} onClick={() => setFocus(f.id)}>
@@ -106,19 +191,24 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
               </div>
             </>
           )}
+          {lifestyleDefs(state, era).length > 0 && (
+            <button class="link" onClick={() => setTab('hero')}>
+              {t('life.lifestyle_link')} →
+            </button>
+          )}
 
           <div class="actions sticky">
-            <button class="primary" disabled={!canLive} onClick={() => onLive(selected)}>
-              {t('life.live_year')}
-            </button>
-            <div class="speed" role="group" aria-label={t('life.auto')}>
-              <span class="muted">{t('life.auto')}</span>
-              {([0, 1, 2, 4] as const).map((s) => (
-                <button class={auto === s ? 'chip active' : 'chip'} aria-pressed={auto === s} onClick={() => setAuto(s)}>
+            <div class="speed" role="group" aria-label={t('life.speed')}>
+              {SPEEDS.map((s) => (
+                <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => setSpeed(s)}>
                   {s === 0 ? '❚❚' : `×${s}`}
                 </button>
               ))}
+              <button class="chip" onClick={skip} aria-label={t('life.skip')} title={t('life.skip')}>
+                ⏭
+              </button>
             </div>
+            {speed === 0 && <p class="small muted center">{t('life.paused')}</p>}
           </div>
         </section>
       )}
@@ -130,6 +220,7 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
           <div class="bars">
             {ATTRIBUTES.map((id) => <Bar label={t(`attr.${id}`)} value={hero.attrs[id]} />)}
           </div>
+          <Lifestyle state={state} era={era} coin={coin} onChange={onLifestyle} />
           <h2 class="section-title">{t('hero.traits')}</h2>
           <p>{hero.traits.map((tr) => t(`trait.${tr}`)).join(', ')}</p>
           <h2 class="section-title">{t('hero.skills')}</h2>
@@ -150,12 +241,12 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
 
       {tab === 'diary' && (
         <section class="panel">
-          {hero.diary.length === 0 ? (
+          {entries.length === 0 ? (
             <p class="muted">{t('diary.empty')}</p>
           ) : (
             <ol class="diary">
-              {[...hero.diary].reverse().map((d) => (
-                <li class={d.major ? 'major' : ''}>
+              {[...entries].reverse().map(([d]) => (
+                <li class={`${d.major ? 'major' : ''} ${d.news ? 'news' : ''}`}>
                   <span class="diary-age">{t('diary.age', { n: d.age })}</span>
                   <span>{diaryText(t, d, hero.sex, hero.region)}</span>
                 </li>
@@ -165,7 +256,7 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
         </section>
       )}
 
-      {state.phase === 'event' && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={lastChanges} />}
+      {modalOpen && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />}
     </div>
   )
 }
@@ -197,18 +288,73 @@ function ChangeList({ changes, coin }: { changes: Change[]; coin: string }) {
   )
 }
 
+function ChildRow({ child, year, all }: { child: Npc; year: number; all: Npc[] }) {
+  const { t, lang } = useUi()
+  const grand = all.filter((g) => g.role === 'grandchild' && g.parentId === child.id && g.alive).length
+  const bits = [t('life.age', { n: Math.max(0, npcAge(child, year)) })]
+  if (child.profession) bits.push(t(`prof.${child.profession}`, {}, { sex: child.sex }).toLowerCase())
+  if (child.married) bits.push(t('people.married', { sex: child.sex }))
+  if (grand) bits.push(t('people.grandkids', { n: grand }))
+  return (
+    <li class="person">
+      <span class="person-role">{t('npc.child', { sex: child.sex })}</span>
+      <span class="person-name">{nameOf(child.name, lang)}</span>
+      <span class="muted">{bits.join(' · ')}</span>
+    </li>
+  )
+}
+
+function Lifestyle({ state, era, coin, onChange }: { state: GameState; era: EraDef; coin: string; onChange: (c: string, o: string) => void }) {
+  const { t } = useUi()
+  const defs = lifestyleDefs(state, era)
+  if (defs.length === 0) return null
+  return (
+    <>
+      <h2 class="section-title">{t('lifestyle.title')}</h2>
+      <p class="small muted">{t('lifestyle.hint')}</p>
+      {defs.map((def) => {
+        const current = lifestyleOption(state, def).id
+        return (
+          <fieldset class="choice-group lifestyle">
+            <legend>{t(`lifestyle.${def.id}`)}</legend>
+            {def.options.map((opt) => {
+              const ok = checkAll(state, opt.requirements)
+              return (
+                <button type="button" class={opt.id === current ? 'option active' : 'option'} aria-pressed={opt.id === current} disabled={!ok} onClick={() => onChange(def.id, opt.id)}>
+                  <span class="option-label">{t(`lifestyle.${def.id}.${opt.id}`)}</span>
+                  <span class="option-desc">{t(`lifestyle.${def.id}.${opt.id}.desc`)}</span>
+                  <span class="option-desc">
+                    {opt.cost > 0 ? t('lifestyle.cost', { cost: formatMoney(t, opt.cost, coin) }) : opt.cost < 0 ? t('lifestyle.saves', { cost: formatMoney(t, -opt.cost, coin) }) : t('lifestyle.free')}
+                  </span>
+                </button>
+              )
+            })}
+          </fieldset>
+        )
+      })}
+    </>
+  )
+}
+
 function People({ state }: { state: GameState }) {
   const { t, lang } = useUi()
   const hero = state.hero
   const alive = hero.npcs.filter((n) => n.alive)
   const dead = hero.npcs.filter((n) => !n.alive)
-  const row = (n: (typeof hero.npcs)[number]) => (
+  const row = (n: Npc) => (
     <li class="person">
       <span class="person-role">{t(`npc.${n.role}`, { sex: n.sex })}</span>
       <span class="person-name">{nameOf(n.name, lang)}</span>
       <span class="muted">
         {n.alive
-          ? `${t('life.age', { n: Math.max(0, npcAge(n, state.year)) })} · ${attitudeText(t, n)}`
+          ? [
+              t('life.age', { n: Math.max(0, npcAge(n, state.year)) }),
+              attitudeText(t, n),
+              n.profession ? t(`prof.${n.profession}`, {}, { sex: n.sex }).toLowerCase() : '',
+              n.married ? t('people.married', { sex: n.sex }) : '',
+            ]
+              .filter(Boolean)
+              .join(' · ')
           : t('npc.dead', { sex: n.sex, year: formatYear(n.deathYear ?? state.year, lang) })}
       </span>
     </li>
@@ -253,19 +399,21 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   const params = active ? eventParams(state, active) : {}
   const choices = eventChoices(state, era, ev)
   const isProfession = ev.dynamic === 'profession'
-  const label = (c: ChoiceDef) => (isProfession ? t(`prof.${c.id}`, {}, o) : t(`ev.${ev.id}.${c.id}`, params, o))
+  const isName = ev.dynamic === 'name'
+  const label = (c: ChoiceDef) => (isName ? nameOf(c.id, lang) : isProfession ? t(`prof.${c.id}`, {}, o) : t(`ev.${ev.id}.${c.id}`, params, o))
   const cost = (c: ChoiceDef) => {
     const m = (c.effects ?? []).reduce((sum, e) => sum + ('param' in e && e.param === 'money' && e.delta < 0 ? e.delta : 0), 0)
     return m < 0 ? formatMoney(t, -m, coin) : null
   }
-  const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession ? `ev.${ev.id}.${outcome.choiceId}.${outcome.result}` : null
+  const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession && !isName ? `ev.${ev.id}.${outcome.choiceId}.${outcome.result}` : null
   const resultText = resultKey && hasKey(lang, resultKey) ? t(resultKey, params, o) : null
 
   return (
     <div class="modal-backdrop">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ev-title">
+      <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="ev-title">
         <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} label={t(`ev.${ev.id}.title`, params, o)} />
         <div class="modal-body">
+          {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
           <h2 id="ev-title">{t(`ev.${ev.id}.title`, params, o)}</h2>
           <p class="event-text">{t(eventTextKey(ev, active?.variant), params, o)}</p>
 

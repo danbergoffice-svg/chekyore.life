@@ -13,10 +13,11 @@ import {
   note,
   npcAge,
   qx,
+  regionOf,
   statusOf,
 } from './rules'
 import { summarize } from './life'
-import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, Npc, TextParam, Topic } from './types'
+import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, TextParam, Topic } from './types'
 
 /** Через сколько лет одно и то же событие может повториться. */
 const COOLDOWN = 8
@@ -39,10 +40,16 @@ export function stageOf(state: GameState, era: EraDef): 'infancy' | 'childhood' 
 
 // ---------- Ход года ----------
 
-/** Прожить год с выбранным фокусом. После этого либо есть события в очереди, либо год уже закончился. */
-export function liveYear(state: GameState, era: EraDef, focusId: string | null): void {
-  if (state.phase !== 'year') throw new Error(`liveYear in phase ${state.phase}`)
+/**
+ * Начать год с выбранным фокусом. Всё, что случится за год, рассчитывается сразу, но показывается
+ * постепенно: у событий есть момент `at` (доля года), у записей дневника — `state.reveal`.
+ * Когда часы года дойдут до конца и все события будут разобраны, вызывается finishYear.
+ */
+export function startYear(state: GameState, era: EraDef, focusId: string | null): void {
+  if (state.phase !== 'year') throw new Error(`startYear in phase ${state.phase}`)
   const hero = state.hero
+  state.reveal = {}
+  const firstEntry = hero.diary.length
   const focus = availableFocuses(state, era).find((f) => f.id === focusId) ?? null
   state.lastFocus = focus?.id ?? null
   if (focus) {
@@ -50,17 +57,51 @@ export function liveYear(state: GameState, era: EraDef, focusId: string | null):
     addPattern(hero, era.patternWeights.focus[focus.id])
   }
   if (hero.profession && hero.age >= era.stages.youth) addPattern(hero, era.patternWeights.profession[hero.profession])
-  background(state, era, focus)
+  applyLifestyle(state, era)
+  const births = background(state, era, focus)
   if (!hero.alive) return die(state, era)
-  rollEvents(state, era)
+  rollEvents(state, era, births)
   if (!hero.alive) return die(state, era)
-  if (state.queue.length > 0) state.phase = 'event'
-  else endYear(state, era)
+  for (let i = firstEntry; i < hero.diary.length; i++) state.reveal[i] = Math.round((0.05 + next(state) * 0.85) * 100) / 100
+  state.phase = 'running'
 }
 
-function background(state: GameState, era: EraDef, focus: FocusDef | null): void {
+/** Закончить год: проверка смертности, возраст +1. Вызывается, когда все события года разобраны. */
+export function finishYear(state: GameState, era: EraDef): void {
+  if (state.phase !== 'running') throw new Error(`finishYear in phase ${state.phase}`)
+  if (state.queue.length > 0) throw new Error('Events are still waiting')
+  endYear(state, era)
+}
+
+// ---------- Образ жизни ----------
+
+export function lifestyleDefs(state: GameState, era: EraDef): LifestyleDef[] {
+  return era.lifestyle.filter((d) => state.hero.age >= d.minAge && (!d.classes || d.classes.includes(state.hero.cls)))
+}
+
+export function lifestyleOption(state: GameState, def: LifestyleDef): LifestyleOption {
+  const chosen = def.options.find((o) => o.id === state.hero.lifestyle[def.id])
+  if (chosen && checkAll(state, chosen.requirements)) return chosen
+  return def.options.find((o) => o.id === def.default)!
+}
+
+function applyLifestyle(state: GameState, era: EraDef): void {
+  for (const def of lifestyleDefs(state, era)) {
+    const opt = lifestyleOption(state, def)
+    state.hero.money -= opt.cost
+    applyEffects(state, era, opt.effects)
+  }
+}
+
+function lifestyleMortality(state: GameState, era: EraDef): number {
+  return lifestyleDefs(state, era).reduce((m, def) => m * (lifestyleOption(state, def).mortality ?? 1), 1)
+}
+
+/** Фоновые процессы года. Возвращает новорождённых детей, чтобы им выбрали имена. */
+function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[] {
   const hero = state.hero
   const age = hero.age
+  const births: Npc[] = []
 
   // Работа и расходы взрослого.
   if (age >= era.stages.youth) {
@@ -113,6 +154,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): void
       const p = 0.28 + (focus?.id === 'family' ? 0.12 : 0) - (motherAge > 38 ? 0.12 : 0)
       if (chance(state, p)) {
         applyEffects(state, era, [{ add_npc: 'child', attitude: 50 }])
+        births.push(hero.npcs[hero.npcs.length - 1])
         changeParam(hero, 'happiness', 8)
         const risk = era.mortality.childbirth * (state.settings.mortality === 'soft' ? 0.5 : 1)
         if (chance(state, risk)) {
@@ -123,10 +165,33 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): void
     }
   }
 
-  // Внуки: у взрослых детей рождаются свои дети.
+  // Жизнь детей: выбирают дело, женятся и выходят замуж, у них рождаются свои дети.
   for (const child of aliveNpcs(hero, 'child')) {
     const a = npcAge(child, state.year)
-    if (a >= 18 && a <= 42 && chance(state, 0.14)) {
+    const opts = { who: { name: child.name }, sex: child.sex }
+    if (!child.profession && a >= 13 && a <= 18 && chance(state, 0.4)) {
+      const trades = era.professions.filter(
+        (p) =>
+          !p.promotion_only &&
+          (!p.sex || p.sex === child.sex) &&
+          (!p.classes || p.classes.includes(hero.cls)) &&
+          (!p.regions || p.regions.includes(hero.region)) &&
+          p.minAge <= a &&
+          !p.requirements,
+      )
+      if (trades.length) {
+        child.profession = pick(state, trades).id
+        note(state, { key: 'diary.child_trade', params: { ...opts, prof: { key: `prof.${child.profession}.as`, sex: child.sex } }, topic: 'family', score: 18, mood: 2, major: true })
+        changeParam(hero, 'happiness', 2)
+      }
+    }
+    const [m0, m1] = era.marriageAge[child.sex]
+    if (!child.married && a >= m0 && a <= m1 + 6 && chance(state, 0.3)) {
+      child.married = true
+      note(state, { key: 'diary.child_married', params: opts, topic: 'family', icon: 'wedding', score: 28, mood: 4, major: true })
+      changeParam(hero, 'happiness', 4)
+    }
+    if (child.married && a >= 18 && a <= 42 && chance(state, 0.14)) {
       const before = hero.npcs.length
       applyEffects(state, era, [{ add_npc: 'grandchild', attitude: 50 }])
       const g = hero.npcs[before]
@@ -141,6 +206,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): void
     if (!npc.alive) continue
     if (chance(state, npcMortality(state, era, npc))) killNpc(state, npc)
   }
+  return births.filter((b) => b.alive)
 }
 
 function npcMortality(state: GameState, era: EraDef, npc: Npc): number {
@@ -153,7 +219,7 @@ function npcMortality(state: GameState, era: EraDef, npc: Npc): number {
 /** Вероятность смерти героя в этом году. */
 export function heroMortality(state: GameState, era: EraDef): number {
   const hero = state.hero
-  let q = qx(era, hero.age) * (era.mortality.calibration ?? 1)
+  let q = qx(era, hero.age) * (era.mortality.calibration ?? 1) * lifestyleMortality(state, era)
   const cls = era.classes.find((c) => c.id === hero.cls)
   q *= cls?.mortality ?? 1
   const prof = era.professions.find((p) => p.id === hero.profession)
@@ -163,6 +229,7 @@ export function heroMortality(state: GameState, era: EraDef): number {
   if (hero.money > 1000) q *= 0.85
   if (hero.tags.includes('in_debt')) q *= 1.15
   if (hero.tags.includes('epidemic')) q *= 2
+  if (hero.tags.includes('ill')) q *= 1.6
   if (state.settings.mortality === 'soft' && hero.age < 15) q *= 0.25
   if (h <= 0) q = 1
   return Math.min(1, q)
@@ -210,6 +277,7 @@ function activate(state: GameState, ev: EventDef, from?: number, npcId?: string)
   const same = npcs.find((n) => n.id === npcId)
   return {
     eventId: ev.id,
+    at: Math.round((0.1 + next(state) * 0.75) * 100) / 100,
     npcId: same ? same.id : npcs.length ? pick(state, npcs).id : undefined,
     variant: ev.variants ? int(state, 1, ev.variants) : undefined,
     from,
@@ -235,9 +303,12 @@ function topicOf(ev: EventDef): Topic {
   return 'life'
 }
 
-function rollEvents(state: GameState, era: EraDef): void {
+function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const hero = state.hero
   const picked: ActiveEvent[] = []
+  // 0. Новорождённым выбирают имя.
+  const naming = era.events.find((e) => e.dynamic === 'name')
+  if (naming) for (const b of births) picked.push({ ...activate(state, naming), npcId: b.id })
   const has = (ev: EventDef) => picked.some((p) => p.eventId === ev.id)
   const add = (ev: EventDef | undefined, from?: number, npcId?: string) => {
     if (ev && !has(ev)) picked.push(activate(state, ev, from, npcId))
@@ -261,20 +332,37 @@ function rollEvents(state: GameState, era: EraDef): void {
   // 3. Возрастная развилка (не больше одной в год).
   add(decisions.find((ev) => ev.milestone && eligible(state, era, ev)))
 
+  // 3а. Поворотный момент: примерно раз в 7–12 лет что-то круто меняет жизнь.
+  if (hero.age >= 14 && hero.age - hero.lastTurning >= 7 && chance(state, 0.3)) {
+    const turning = weighted(state, decisions.filter((ev) => ev.turning && !has(ev) && eligible(state, era, ev)), (e) => eventWeight(state, e))
+    if (turning) {
+      add(turning)
+      hero.lastTurning = hero.age
+    }
+  }
+
   // 4. Обычные события по весам.
   const dist = hero.age < 5 ? [0.7, 0.3, 0, 0] : state.settings.mode === 'quick' ? [0.45, 0.4, 0.12, 0.03] : [0.2, 0.45, 0.25, 0.1]
   let r = next(state)
   let count = 0
   while (count < dist.length - 1 && r >= dist[count]) r -= dist[count++]
   count = Math.max(0, count - (picked.length > 1 ? 1 : 0))
-  const pool = decisions.filter((ev) => !ev.trigger_only && !ev.milestone && ev.global_chance === undefined && eligible(state, era, ev))
+  const pool = decisions.filter((ev) => !ev.trigger_only && !ev.milestone && !ev.turning && !ev.dynamic && ev.global_chance === undefined && eligible(state, era, ev))
   for (let i = 0; i < count; i++) add(weighted(state, pool.filter((p) => !has(p)), (e) => eventWeight(state, e)))
 
-  state.queue = picked
+  state.queue = picked.sort((a, b) => a.at - b.at)
   for (const p of picked) hero.seen[p.eventId] = state.year
 
+  // Вести из мира этого года.
+  if (hero.age >= 6) {
+    for (const n of era.news) {
+      if (n.year !== state.year || n.exclude_regions?.includes(hero.region)) continue
+      note(state, { key: `news.${n.id}`, news: n.id, topic: 'history', score: 4 })
+    }
+  }
+
   // 5. Моменты жизни: происходят сами и сразу попадают в ленту.
-  const moments = era.events.filter((ev) => ev.moment && !ev.trigger_only && eligible(state, era, ev))
+  const moments = era.events.filter((ev) => ev.moment && !ev.trigger_only && !ev.turning && eligible(state, era, ev))
   const momentCount = state.settings.mode === 'quick' ? (chance(state, 0.7) ? 1 : 0) : 1 + (chance(state, 0.5) ? 1 : 0)
   for (let i = 0; i < momentCount && hero.alive; i++) {
     const ev = weighted(state, moments.filter((m) => hero.seen[m.id] !== state.year), (e) => eventWeight(state, e))
@@ -307,6 +395,7 @@ export function professionChoices(state: GameState, era: EraDef): ChoiceDef[] {
   return era.professions
     .filter(
       (p) =>
+        !p.promotion_only &&
         (!p.classes || p.classes.includes(hero.cls)) &&
         (!p.sex || p.sex === hero.sex) &&
         (!p.regions || p.regions.includes(hero.region)) &&
@@ -319,9 +408,22 @@ export function professionChoices(state: GameState, era: EraDef): ChoiceDef[] {
     }))
 }
 
+/** Три имени на выбор для новорождённого: детерминированно от id ребёнка, чтобы не менялись при перерисовке. */
+export function nameChoices(state: GameState, era: EraDef): ChoiceDef[] {
+  const npc = state.hero.npcs.find((n) => n.id === state.queue[0]?.npcId)
+  if (!npc) return []
+  const names = regionOf(era, state.hero.region).names[npc.sex]
+  let h = 0
+  for (const ch of npc.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  const ids = new Set<string>([npc.name])
+  for (let i = 0; ids.size < 3 && i < 20; i++) ids.add(names[(h + i * 7) % names.length].id)
+  return [...ids].map((id) => ({ id, effects: [] }))
+}
+
 /** Варианты выбора текущего события. Пустой список — информационное событие с кнопкой «Далее». */
 export function eventChoices(state: GameState, era: EraDef, ev: EventDef): ChoiceDef[] {
   if (ev.dynamic === 'profession') return professionChoices(state, era)
+  if (ev.dynamic === 'name') return nameChoices(state, era)
   return ev.choices ?? []
 }
 
@@ -367,6 +469,10 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     }
   }
   active.outcome = { choiceId: choice?.id ?? 'ok', result }
+  if (ev.dynamic === 'name' && choice) {
+    const npc = hero.npcs.find((n) => n.id === active.npcId)
+    if (npc) npc.name = choice.id
+  }
 
   const decision = choices.length > 1
   const mood = Math.round(hero.hidden.happiness - moodBefore)
@@ -374,7 +480,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     key: `ev.${ev.id}.title`,
     params: {
       ...params,
-      choice: { key: choice ? (ev.dynamic === 'profession' ? `prof.${choice.id}` : `ev.${ev.id}.${choice.id}`) : 'ui.ok' },
+      choice: choice && ev.dynamic === 'name' ? { name: choice.id } : { key: choice ? (ev.dynamic === 'profession' ? `prof.${choice.id}` : `ev.${ev.id}.${choice.id}`) : 'ui.ok' },
       result,
     },
     major: ev.milestone || ev.type === 'global_historical' || result !== 'ok' || !!ev.icon || !!choice?.icon,
@@ -396,6 +502,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
       (active.from !== undefined ? 10 : 0),
   }
   const index = note(state, entry)
+  state.reveal[index] = active.at
   for (const t of triggers) hero.triggers.push({ ...t, from: index, npcId: active.npcId })
 }
 
@@ -412,7 +519,6 @@ export function dismiss(state: GameState, era: EraDef): void {
     if (ev && checkAll(state, ev.conditions) && !npcGone) break
     state.queue.shift()
   }
-  if (state.queue.length === 0) endYear(state, era)
 }
 
 function recordYear(state: GameState, era: EraDef): void {
@@ -468,17 +574,17 @@ function die(state: GameState, era: EraDef): void {
 
 /** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов). */
 export function autoplay(state: GameState, era: EraDef, maxYears = 130): GameState {
-  for (let i = 0; i < maxYears * 4 && state.phase !== 'dead'; i++) {
+  for (let i = 0; i < maxYears * 6 && state.phase !== 'dead'; i++) {
     if (state.phase === 'year') {
       const focuses = availableFocuses(state, era)
       const f = focuses.length ? focuses[Math.floor(next(state) * focuses.length)].id : null
-      liveYear(state, era, f)
-    } else if (state.phase === 'event') {
+      startYear(state, era, f)
+    } else if (state.queue.length > 0) {
       const ev = currentEvent(state, era)!
       const options = eventChoices(state, era, ev).filter((c) => choiceAvailable(state, c))
       choose(state, era, options.length ? options[Math.floor(next(state) * options.length)].id : null)
       dismiss(state, era)
-    }
+    } else finishYear(state, era)
   }
   return state
 }

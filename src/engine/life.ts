@@ -4,7 +4,7 @@ import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
 import type { AttrId, DiaryEntry, EraDef, Family, GameSettings, GameState, Hero, LifeSummary, Npc } from './types'
 
-export const SAVE_VERSION = 2
+export const SAVE_VERSION = 3
 
 function emptyHero(seed: number): Hero {
   return {
@@ -33,6 +33,8 @@ function emptyHero(seed: number): Hero {
     history: [],
     pattern: { craft_power: 0, home_road: 0, faith_reason: 0, memory_future: 0 },
     places: [],
+    lifestyle: {},
+    lastTurning: 0,
     seed,
   }
 }
@@ -70,6 +72,7 @@ export function newLife(era: EraDef, settings: GameSettings, seed: number, famil
     settings,
     lastFocus: null,
     nextId: 1,
+    reveal: {},
   }
   state.family.id ||= `f${seed.toString(36)}`
   hero.id = `h${seed.toString(36)}`

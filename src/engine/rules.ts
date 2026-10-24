@@ -190,6 +190,11 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       if (hero.places[hero.places.length - 1] !== e.move) hero.places.push(e.move)
       addPattern(hero, era.patternWeights.actions.move)
       note(state, { key: 'diary.moved', params: { place: { key: `place.${e.move}` } }, major: true, topic: 'life', icon: 'move', score: 30 })
+    } else if ('npc_profession' in e) {
+      const npc = hero.npcs.find((n) => n.id === ctx.npcId)
+      if (npc) npc.profession = e.npc_profession
+    } else if ('set_lifestyle' in e) {
+      hero.lifestyle[e.set_lifestyle] = e.option
     } else if ('add_npc' in e) {
       const newborn = e.add_npc === 'child' || e.add_npc === 'grandchild' || e.newborn
       const npc = makeNpc(state, era, e.add_npc, undefined, newborn ? state.year : undefined, e.attitude ?? 30)

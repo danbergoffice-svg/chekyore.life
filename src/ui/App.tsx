@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { track } from '../analytics'
-import { DEFAULT_ERA, eraById } from '../content'
-import { choose, dismiss, liveYear } from '../engine/game'
+import { DEFAULT_ERA, ERAS, eraById } from '../content'
+import { choose, dismiss, finishYear, startYear } from '../engine/game'
 import { continueWithHeir, heirs, newLife } from '../engine/life'
 import { newSeed } from '../engine/rng'
 import type { GameState, LifeSummary } from '../engine/types'
@@ -32,8 +32,10 @@ export function App() {
   const [memorial, setMemorial] = useState<LifeSummary[]>([])
   const [opened, setOpened] = useState<string | null>(null)
   const game = useRef<GameState | null>(null)
-  const before = useRef<Snapshot | null>(null)
-  const [lastChanges, setLastChanges] = useState<Change[]>([])
+  // Снимки героя: в начале года (итоги прошлого года) и перед выбором в событии.
+  const yearStart = useRef<Snapshot | null>(null)
+  const [yearChanges, setYearChanges] = useState<Change[]>([])
+  const [choiceChanges, setChoiceChanges] = useState<Change[]>([])
   const [, rerender] = useReducer((x: number) => x + 1, 0)
 
   const ui = useMemo(() => ({ t: createT(prefs.lang), lang: prefs.lang }), [prefs.lang])
@@ -74,7 +76,6 @@ export function App() {
 
   const afterTurn = () => {
     const s = game.current!
-    if (before.current) setLastChanges(changes(before.current, s))
     if (s.phase === 'dead') {
       const life = s.family.lives[s.family.lives.length - 1]
       life.record = memorial.length + 1
@@ -92,40 +93,54 @@ export function App() {
     game.current = newLife(eraById(DEFAULT_ERA), settings, newSeed())
     const h = game.current.hero
     track('life_start', { era: h.era, region: h.region, cls: h.cls, sex: h.sex, mode: prefs.mode })
-    setLastChanges([])
+    setYearChanges([])
     setScreen('reveal')
     persist()
   }
 
-  const onLive = (focus: string | null) => {
-    before.current = snapshot(game.current!)
-    liveYear(game.current!, era, focus)
+  const onStart = (focus: string | null) => {
+    if (game.current?.phase !== 'year') return
+    yearStart.current = snapshot(game.current)
+    startYear(game.current, era, focus)
+    afterTurn()
+  }
+
+  const onFinish = () => {
+    if (game.current?.phase !== 'running') return
+    finishYear(game.current, era)
+    if (yearStart.current) setYearChanges(changes(yearStart.current, game.current))
     afterTurn()
   }
 
   const onChoose = (choiceId: string | null) => {
-    before.current = snapshot(game.current!)
+    const before = snapshot(game.current!)
     choose(game.current!, era, choiceId)
+    setChoiceChanges(changes(before, game.current!))
     afterTurn()
   }
 
   const onDismiss = () => {
-    before.current = null
-    setLastChanges([])
+    setChoiceChanges([])
     dismiss(game.current!, era)
     afterTurn()
+  }
+
+  const onLifestyle = (category: string, option: string) => {
+    if (!game.current) return
+    game.current.hero.lifestyle[category] = option
+    persist()
   }
 
   const onHeir = (childId: string) => {
     game.current = continueWithHeir(game.current!, era, childId)
     track('heir_chosen', { generation: game.current.hero.generation })
-    setLastChanges([])
+    setYearChanges([])
     setScreen('reveal')
     persist()
   }
 
   const onExport = () => {
-    const blob = new Blob([JSON.stringify({ version: 2, game: game.current, memorial })], { type: 'application/json' })
+    const blob = new Blob([JSON.stringify({ version: 3, game: game.current, memorial })], { type: 'application/json' })
     const a = document.createElement('a')
     a.href = URL.createObjectURL(blob)
     a.download = 'thousands-of-lives-save.json'
@@ -166,7 +181,6 @@ export function App() {
   }
   const lastLife = state?.phase === 'dead' ? memorial.find((l) => l.heroId === state.hero.id) ?? state.family.lives[state.family.lives.length - 1] : null
   const openedLife = memorial.find((l) => l.heroId === opened)
-  const canContinue = !!state
 
   return (
     <UiContext.Provider value={ui}>
@@ -174,16 +188,33 @@ export function App() {
         {screen === 'loading' && <div class="screen" aria-busy="true" />}
         {screen === 'menu' && (
           <Menu
-            canContinue={canContinue}
+            current={state}
+            memorial={memorial}
+            eras={ERAS}
             onNew={() => setScreen('setup')}
             onContinue={() => setScreen(state?.phase === 'dead' ? 'death' : 'life')}
+            onOpenLife={(id) => {
+              setOpened(id)
+              setScreen('past')
+            }}
             go={setScreen}
           />
         )}
         {screen === 'setup' && <Setup prefs={prefs} onPrefs={setPrefs} onStart={startNew} onBack={toMenu} />}
         {screen === 'reveal' && state && <Reveal state={state} era={era} onStart={() => setScreen('life')} />}
         {screen === 'life' && state && state.phase !== 'dead' && (
-          <Life state={state} era={era} onLive={onLive} onChoose={onChoose} onDismiss={onDismiss} onMenu={toMenu} lastChanges={lastChanges} />
+          <Life
+            state={state}
+            era={era}
+            onStart={onStart}
+            onFinish={onFinish}
+            onChoose={onChoose}
+            onDismiss={onDismiss}
+            onLifestyle={onLifestyle}
+            onMenu={toMenu}
+            choiceChanges={choiceChanges}
+            yearChanges={yearChanges}
+          />
         )}
         {screen === 'death' && state && lastLife && (
           <Summary

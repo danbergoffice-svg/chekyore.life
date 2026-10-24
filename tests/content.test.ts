@@ -20,6 +20,12 @@ describe('Контент', () => {
     for (const s of era.skills) required.push(`skill.${s}`)
     for (const c of era.mortality.causes) required.push(`cause.${c.id}`)
     required.push('cause.childbirth', 'cause.epidemic')
+    for (const l of era.lifestyle) {
+      required.push(`lifestyle.${l.id}`)
+      for (const o of l.options) required.push(`lifestyle.${l.id}.${o.id}`, `lifestyle.${l.id}.${o.id}.desc`)
+    }
+    for (const n of era.news) required.push(`news.${n.id}`)
+    for (const p of era.professions) required.push(`prof.${p.id}.as`)
     for (const ev of era.events) {
       if (!ev.moment) required.push(`ev.${ev.id}.title`)
       if (ev.variants) for (let i = 1; i <= ev.variants; i++) required.push(`ev.${ev.id}.text.${i}`)
@@ -83,6 +89,13 @@ describe('Контент', () => {
         }
       }
       expect(broken).toEqual([])
+    })
+
+    it(`${era.id}: вести из мира описаны правильно`, () => {
+      const bad = era.news.filter((n) => !Number.isInteger(n.year) || n.year === 0 || n.year < era.years[0] - 50 || n.year > era.years[1] || !['confirmed', 'reconstructed', 'disputed'].includes(n.confidence))
+      expect(bad.map((n) => n.id)).toEqual([])
+      const ids = era.news.map((n) => n.id)
+      expect(ids.length).toBe(new Set(ids).size)
     })
 
     it(`${era.id}: не меньше 8 профессий`, () => {

@@ -82,6 +82,8 @@ export interface ClassDef {
 
 export interface ProfessionDef {
   id: string
+  /** Ступень карьеры: доступна только через события работы, не при выборе дела. */
+  promotion_only?: boolean
   classes?: string[]
   sex?: Sex
   regions?: string[]
@@ -102,6 +104,26 @@ export interface FocusDef {
   effects: Effect[]
   /** Доход профессии за год работы умножается на это число. */
   incomeMultiplier?: number
+}
+
+/** Образ жизни: питание, движение, лечение, бани. Настройка действует каждый год, пока её не поменять. */
+export interface LifestyleOption {
+  id: string
+  /** Расход в год (может быть отрицательным — экономия). */
+  cost: number
+  effects?: Effect[]
+  /** Множитель смертности. */
+  mortality?: number
+  requirements?: Condition[]
+}
+
+export interface LifestyleDef {
+  id: string
+  minAge: number
+  default: string
+  /** Сословия, которые сами решают этот вопрос (рабам обычно нет). */
+  classes?: string[]
+  options: LifestyleOption[]
 }
 
 export interface MortalityDef {
@@ -136,8 +158,19 @@ export interface EraDef {
   /** Средняя продолжительность жизни для сравнения на итоговой карточке. */
   lifeExpectancy: number
   inheritance: 'equal' | 'sons_first'
+  lifestyle: LifestyleDef[]
   events: EventDef[]
+  news: NewsDef[]
   patternWeights: PatternWeights
+}
+
+/** Весть из мира: исторический факт, который доходит до героя в этот год. */
+export interface NewsDef {
+  id: string
+  year: number
+  /** Где весть не показывать (там это событие и так случается с героем). */
+  exclude_regions?: string[]
+  confidence: 'confirmed' | 'reconstructed' | 'disputed'
 }
 
 export interface PatternWeights {
@@ -186,6 +219,8 @@ export type Effect =
   | { remove_npc: NpcTarget }
   | { kill_npc: NpcTarget; cause?: string }
   | { move: string }
+  | { npc_profession: string }
+  | { set_lifestyle: string; option: string }
   | { kill: string }
   | { chance: number; effects: Effect[] }
 
@@ -244,6 +279,8 @@ export interface EventDef {
   milestone?: boolean
   /** Момент жизни: показывается в ленте без остановки, без выбора. */
   moment?: boolean
+  /** Поворотный момент: случается примерно раз в 7–12 лет и меняет жизнь. */
+  turning?: boolean
   /** Событие про конкретного человека: нужна живая роль, её имя доступно в тексте как {npc}. */
   npc?: NpcRole
   npc_age?: [number, number]
@@ -258,7 +295,7 @@ export interface EventDef {
   /** Эффекты самого события, применяются при любом выборе. */
   effects?: Effect[]
   /** Варианты выбора собираются движком: 'profession' — доступные профессии. */
-  dynamic?: 'profession'
+  dynamic?: 'profession' | 'name'
   /** Если выборов нет, показывается одна кнопка «Далее». */
   choices?: ChoiceDef[]
   historian_note?: boolean
@@ -282,9 +319,12 @@ export interface Npc {
   since?: number
   /** Для внуков: id ребёнка героя. */
   parentId?: string
+  /** Дело и семья взрослых детей. */
+  profession?: string
+  married?: boolean
 }
 
-export type TextParam = string | number | { name: string } | { key: string }
+export type TextParam = string | number | { name: string } | { key: string; sex?: Sex }
 
 export interface DiaryEntry {
   year: number
@@ -304,6 +344,8 @@ export interface DiaryEntry {
   /** Номер записи-решения, последствием которого стала эта запись. */
   causedBy?: number
   eventId?: string
+  /** Весть из мира. */
+  news?: string
 }
 
 export interface YearRecord {
@@ -357,6 +399,10 @@ export interface Hero {
   pattern: Record<Axis, number>
   /** Где жил герой: ключи мест в текстах. */
   places: string[]
+  /** Выбранный образ жизни: категория → вариант. */
+  lifestyle: Record<string, string>
+  /** Возраст последнего поворотного момента. */
+  lastTurning: number
   deathYear?: number
   deathCause?: string
   seed: number
@@ -402,6 +448,8 @@ export interface Family {
 
 export interface ActiveEvent {
   eventId: string
+  /** Когда в течение года показать событие: доля года 0…1. */
+  at: number
   /** Персонаж, о котором событие. */
   npcId?: string
   variant?: number
@@ -411,7 +459,8 @@ export interface ActiveEvent {
   outcome: { choiceId: string; result: 'ok' | 'success' | 'failure' } | null
 }
 
-export type Phase = 'year' | 'event' | 'dead'
+/** year — год ещё не начался; running — год идёт (события ждут своего момента); dead — жизнь окончена. */
+export type Phase = 'year' | 'running' | 'dead'
 
 export interface GameSettings {
   mode: 'quick' | 'full'
@@ -430,4 +479,6 @@ export interface GameState {
   settings: GameSettings
   lastFocus: string | null
   nextId: number
+  /** Когда в течение текущего года появляются записи дневника: номер записи → доля года. */
+  reveal: Record<number, number>
 }
