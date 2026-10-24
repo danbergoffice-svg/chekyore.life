@@ -16,6 +16,7 @@ jobs:
           echo "== HTTP"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" http://thousands.life/ || true
           echo "== HTTPS"; curl -sS -w "\n%{http_code}\n" https://thousands.life/ | grep -E '<title>|^[0-9]{3}$' || true
           echo "== HTTPS www"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://www.thousands.life/ || true
+          echo "== asset"; curl -sS https://thousands.life/ | grep -o "index-[A-Za-z0-9_-]*\.js" || true
           echo "== github.io"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://danbergoffice-svg.github.io/chekyore.life/ || true
           } > out.txt 2>&1
           echo "::notice::$(sed ':a;N;$!ba;s/\n/ | /g' out.txt)"
