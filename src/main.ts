@@ -1,4 +1,7 @@
 import './style.css'
+import { initAnalytics } from './analytics'
+
+initAnalytics()
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 
