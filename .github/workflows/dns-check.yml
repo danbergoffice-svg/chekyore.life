@@ -8,14 +8,14 @@ jobs:
     steps:
       - run: |
           {
-          echo "== NS";   dig +short NS chekyore.life
-          echo "== A";    dig +short A chekyore.life
-          echo "== AAAA"; dig +short AAAA chekyore.life
-          echo "== www";  dig +short www.chekyore.life
-          echo "== TXT";  dig +short TXT _github-pages-challenge-danbergoffice-svg.chekyore.life
-          echo "== HTTP"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" http://chekyore.life/ || true
-          echo "== HTTPS"; curl -sS -w "\n%{http_code}\n" https://chekyore.life/ | grep -E '<title>|^[0-9]{3}$' || true
-          echo "== HTTPS www"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://www.chekyore.life/ || true
+          echo "== NS";   dig +short NS thousands.life
+          echo "== A";    dig +short A thousands.life
+          echo "== AAAA"; dig +short AAAA thousands.life
+          echo "== www";  dig +short www.thousands.life
+          echo "== TXT";  dig +short TXT _github-pages-challenge-danbergoffice-svg.thousands.life
+          echo "== HTTP"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" http://thousands.life/ || true
+          echo "== HTTPS"; curl -sS -w "\n%{http_code}\n" https://thousands.life/ | grep -E '<title>|^[0-9]{3}$' || true
+          echo "== HTTPS www"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://www.thousands.life/ || true
           echo "== github.io"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://danbergoffice-svg.github.io/chekyore.life/ || true
           } > out.txt 2>&1
           echo "::notice::$(sed ':a;N;$!ba;s/\n/ | /g' out.txt)"
