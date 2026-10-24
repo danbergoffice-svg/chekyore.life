@@ -1,0 +1,21 @@
+:root {
+  --bg: #1c1814;
+  --fg: #f2e9dc;
+  --muted: #a89a86;
+  --accent: #e0b46c;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Georgia, "Times New Roman", serif;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+main { max-width: 32rem; text-align: center; }
+h1 { font-size: clamp(2rem, 8vw, 3rem); margin: 0 0 1rem; color: var(--accent); }
+p { line-height: 1.6; color: var(--muted); margin: 0 0 0.75rem; }
+.soon { margin-top: 2rem; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; }

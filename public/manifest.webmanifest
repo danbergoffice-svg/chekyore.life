@@ -1,0 +1,9 @@
+{
+  "name": "Тысячи жизней",
+  "short_name": "Тысячи жизней",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1c1814",
+  "theme_color": "#1c1814",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
