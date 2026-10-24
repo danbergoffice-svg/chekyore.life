@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
+          {
           echo "== NS";   dig +short NS chekyore.life
           echo "== A";    dig +short A chekyore.life
           echo "== AAAA"; dig +short AAAA chekyore.life
@@ -16,3 +17,5 @@ jobs:
           echo "== HTTPS"; curl -sS -w "\n%{http_code}\n" https://chekyore.life/ | grep -E '<title>|^[0-9]{3}$' || true
           echo "== HTTPS www"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://www.chekyore.life/ || true
           echo "== github.io"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://danbergoffice-svg.github.io/chekyore.life/ || true
+          } > out.txt 2>&1
+          while IFS= read -r line; do echo "::notice::$line"; done < out.txt
