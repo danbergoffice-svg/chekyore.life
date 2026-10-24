@@ -139,7 +139,7 @@ describe('Контент', () => {
     for (const lang of LANGS) {
       for (const sex of ['m', 'f'] as const) {
         const t = createT(lang, { sex })
-        const params = { n: 3, sex, psex: sex, npc_sex: sex, npc: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x', grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1 }
+        const params = { n: 3, sex, psex: sex, npc_sex: sex, npc: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x', grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x' }
         const left = allKeys(lang).filter((k) => /[{}]/.test(t(k, params)))
         expect(left).toEqual([])
       }
