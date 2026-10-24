@@ -153,7 +153,7 @@ function npcMortality(state: GameState, era: EraDef, npc: Npc): number {
 /** Вероятность смерти героя в этом году. */
 export function heroMortality(state: GameState, era: EraDef): number {
   const hero = state.hero
-  let q = qx(era, hero.age)
+  let q = qx(era, hero.age) * (era.mortality.calibration ?? 1)
   const cls = era.classes.find((c) => c.id === hero.cls)
   q *= cls?.mortality ?? 1
   const prof = era.professions.find((p) => p.id === hero.profession)
@@ -205,11 +205,12 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   return checkAll(state, ev.conditions)
 }
 
-function activate(state: GameState, ev: EventDef, from?: number): ActiveEvent {
+function activate(state: GameState, ev: EventDef, from?: number, npcId?: string): ActiveEvent {
   const npcs = npcCandidates(state, ev)
+  const same = npcs.find((n) => n.id === npcId)
   return {
     eventId: ev.id,
-    npcId: npcs.length ? pick(state, npcs).id : undefined,
+    npcId: same ? same.id : npcs.length ? pick(state, npcs).id : undefined,
     variant: ev.variants ? int(state, 1, ev.variants) : undefined,
     from,
     outcome: null,
@@ -238,8 +239,8 @@ function rollEvents(state: GameState, era: EraDef): void {
   const hero = state.hero
   const picked: ActiveEvent[] = []
   const has = (ev: EventDef) => picked.some((p) => p.eventId === ev.id)
-  const add = (ev: EventDef | undefined, from?: number) => {
-    if (ev && !has(ev)) picked.push(activate(state, ev, from))
+  const add = (ev: EventDef | undefined, from?: number, npcId?: string) => {
+    if (ev && !has(ev)) picked.push(activate(state, ev, from, npcId))
   }
   const byId = (id: string) => era.events.find((e) => e.id === id)
   const decisions = era.events.filter((ev) => !ev.moment)
@@ -249,7 +250,7 @@ function rollEvents(state: GameState, era: EraDef): void {
   hero.triggers = hero.triggers.filter((t) => t.year > state.year)
   for (const t of due) {
     const ev = byId(t.eventId)
-    if (ev && chance(state, t.chance) && eligible(state, era, ev, true)) add(ev, t.from)
+    if (ev && chance(state, t.chance) && eligible(state, era, ev, true)) add(ev, t.from, t.npcId)
   }
 
   // 2. Исторические события в этом регионе и году.
@@ -395,7 +396,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
       (active.from !== undefined ? 10 : 0),
   }
   const index = note(state, entry)
-  for (const t of triggers) hero.triggers.push({ ...t, from: index })
+  for (const t of triggers) hero.triggers.push({ ...t, from: index, npcId: active.npcId })
 }
 
 /** Закрыть показанный итог события и перейти к следующему. */

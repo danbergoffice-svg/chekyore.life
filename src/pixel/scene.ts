@@ -271,9 +271,9 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, p:
 
 // ---------- Человечки и предметы ----------
 
-function person(px: Px, x: number, p: Palette, r: () => number, k: number, small = false) {
+function person(px: Px, x: number, p: Palette, r: () => number, k: number, small = false, base = GROUND) {
   const h = small ? 8 : 12
-  const top = GROUND + 1 - h
+  const top = base + 1 - h
   const skin = p.skin[Math.floor(r() * p.skin.length)]
   const cloth = p.clothes[Math.floor(r() * p.clothes.length)]
   px(x + 1, top, 3, 1, shade('#2a2018', k * 0.5)) // волосы
@@ -419,13 +419,32 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
   ground(px, place, p, time, r)
   const k = SHADE[time]
   const placed = props.filter((x) => x !== 'sun' && x !== 'moon' && x !== 'rain')
-  placed.forEach((kind, i) => prop(px, kind, PROP_X[i % PROP_X.length] + Math.floor(r() * 6), time, p, k, r))
-  const n = Math.max(0, Math.min(6, scene.people ?? 2))
-  const span = n > 1 ? Math.min(96, n * 16) : 0
-  const start = 96 - span / 2
+  // На воде люди стоят в лодке, в гавани — на причале.
+  const water = place === 'sea'
+  const boatX = water ? 84 : 0
+  const xs = placed.map((_, i) => (water && placed[i] === 'boat' ? boatX : PROP_X[i % PROP_X.length] + Math.floor(r() * 6)))
+  if (water && !placed.includes('boat') && (scene.people ?? 0) > 0) {
+    placed.push('boat')
+    xs.push(boatX)
+  }
+  placed.forEach((kind, i) => prop(px, kind, xs[i], time, p, k, r))
+  let n = Math.max(0, Math.min(6, scene.people ?? 2))
+  let span = n > 1 ? Math.min(96, n * 16) : 0
+  let start = 96 - span / 2
+  let base = GROUND
+  if (water) {
+    n = Math.min(n, 2)
+    span = n > 1 ? 7 : 0
+    start = boatX + 3
+    base = GROUND + 3
+  } else if (place === 'harbor') {
+    span = n > 1 ? Math.min(50, n * 12) : 0
+    start = 74 - span / 2
+    base = GROUND - 2
+  }
   for (let i = 0; i < n; i++) {
-    const x = start + (n > 1 ? (i * span) / (n - 1) : 0) + Math.floor(r() * 4) - 2
-    person(px, x, p, r, k, place === 'home' && i === n - 1 && n > 2)
+    const x = start + (n > 1 ? (i * span) / (n - 1) : 0) + (water ? 0 : Math.floor(r() * 4) - 2)
+    person(px, x, p, r, k, place === 'home' && i === n - 1 && n > 2, base)
   }
   if (props.includes('rain')) prop(px, 'rain', 0, time, p, k, r)
 }
