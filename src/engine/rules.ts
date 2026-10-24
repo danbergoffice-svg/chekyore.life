@@ -193,6 +193,9 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     } else if ('npc_profession' in e) {
       const npc = hero.npcs.find((n) => n.id === ctx.npcId)
       if (npc) npc.profession = e.npc_profession
+    } else if ('npc_married' in e) {
+      const npc = hero.npcs.find((n) => n.id === ctx.npcId)
+      if (npc) npc.married = e.npc_married
     } else if ('set_lifestyle' in e) {
       hero.lifestyle[e.set_lifestyle] = e.option
     } else if ('add_npc' in e) {

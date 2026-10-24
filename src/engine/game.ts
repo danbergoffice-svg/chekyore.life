@@ -247,6 +247,7 @@ function eventWeight(state: GameState, ev: EventDef): number {
 function npcCandidates(state: GameState, ev: EventDef): Npc[] {
   if (!ev.npc) return []
   return aliveNpcs(state.hero, ev.npc).filter((n) => {
+    if (ev.npc_married !== undefined && !!n.married !== ev.npc_married) return false
     if (!ev.npc_age) return true
     const a = npcAge(n, state.year)
     return a >= ev.npc_age[0] && a <= ev.npc_age[1]

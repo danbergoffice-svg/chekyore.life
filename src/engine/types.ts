@@ -220,6 +220,7 @@ export type Effect =
   | { kill_npc: NpcTarget; cause?: string }
   | { move: string }
   | { npc_profession: string }
+  | { npc_married: boolean }
   | { set_lifestyle: string; option: string }
   | { kill: string }
   | { chance: number; effects: Effect[] }
@@ -284,6 +285,8 @@ export interface EventDef {
   /** Событие про конкретного человека: нужна живая роль, её имя доступно в тексте как {npc}. */
   npc?: NpcRole
   npc_age?: [number, number]
+  /** Отбор человека события по семейному положению. */
+  npc_married?: boolean
   /** Сколько вариантов текста: ev.id.text.1 … ev.id.text.N. */
   variants?: number
   topic?: Topic

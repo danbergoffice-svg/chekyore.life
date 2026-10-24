@@ -1,0 +1,5437 @@
+[
+ {
+  "id": "c_first_steps",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   0,
+   2
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 5
+   }
+  ],
+  "base_weight": 5,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "cradle"
+   ]
+  }
+ },
+ {
+  "id": "c_teething",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   0,
+   2
+  ],
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": -1
+   }
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp",
+    "cradle"
+   ]
+  }
+ },
+ {
+  "id": "c_amulet",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   0,
+   1
+  ],
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "cradle",
+    "lamp"
+   ]
+  }
+ },
+ {
+  "id": "c_infant_fever",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   0,
+   2
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.85,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 5
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 10
+      },
+      {
+       "param": "happiness",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "vow",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       7,
+       10
+      ],
+      "chance": 0.8,
+      "trigger_event": "c_vow_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "herbs",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 4
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "param": "health",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_vow_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "altar",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": -3
+     },
+     {
+      "npc_profession": "priest"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "forget",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -5
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "happiness",
+        "delta": -5
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_nurse",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   0,
+   1
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "cradle"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hire",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       12,
+       20
+      ],
+      "chance": 0.7,
+      "trigger_event": "c_nurse_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "family",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_nurse_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "table",
+    "amphora"
+   ]
+  }
+ },
+ {
+  "id": "c_broken_amphora",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   3,
+   7
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "punish",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -8
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "laugh",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "memory_future": 1
+    }
+   },
+   {
+    "id": "truth",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 2
+     }
+    ],
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 5
+      },
+      {
+       "param": "self_esteem",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "npc_attitude": "npc",
+       "delta": -3
+      },
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       10,
+       16
+      ],
+      "chance": 0.7,
+      "trigger_event": "c_honest_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_honest_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "param": "reputation",
+    "delta": 3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 5
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  }
+ },
+ {
+  "id": "c_fear_dark",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   3,
+   7
+  ],
+  "effects": [
+   {
+    "param": "money",
+    "delta": -3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 3
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp",
+    "bed"
+   ]
+  }
+ },
+ {
+  "id": "c_pet",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   4,
+   10
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 4
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2
+  }
+ },
+ {
+  "id": "c_toys",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   2,
+   6
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 5
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "horse"
+   ]
+  }
+ },
+ {
+  "id": "c_mischief",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   3,
+   8
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": 1
+   }
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 2
+  },
+  "variants": 3
+ },
+ {
+  "id": "c_question",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   3,
+   8
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 2
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "variants": 2
+ },
+ {
+  "id": "c_river",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   4,
+   9
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "tree",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "teach",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 8
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       10,
+       16
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_swim_later"
+     }
+    ],
+    "pattern": {
+     "home_road": 2,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "forbid",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -6
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "thank",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_swim_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 5
+   },
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat"
+   ]
+  }
+ },
+ {
+  "id": "c_child_fall",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   4,
+   11
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "olive"
+   ]
+  },
+  "choices": [
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 50
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "bonesetter",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 1
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": -3
+      }
+     ]
+    }
+   },
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -5
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 1
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_lost",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   4,
+   9
+  ],
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 4
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "base_weight": 2,
+  "topic": "family",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 5
+  }
+ },
+ {
+  "id": "c_knucklebones",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   5,
+   10
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 2
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "table"
+   ]
+  }
+ },
+ {
+  "id": "c_teacher",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   7,
+   11
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "teacher",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -6
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "new_teacher",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "home_teach",
+    "requirements": [
+     {
+      "skill": "literacy",
+      "op": ">=",
+      "value": 20
+     }
+    ],
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_bully",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   7,
+   12
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 4
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 4
+      },
+      {
+       "param": "happiness",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       10,
+       18
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_bully_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "parents",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 2
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -2
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "avoid",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -5
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_bully_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "market",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "amphora"
+   ]
+  }
+ },
+ {
+  "id": "c_talent",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   7,
+   12
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lessons",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 70
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -70
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 8
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 0.75,
+      "trigger_event": "c_talent_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": 3,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "choir",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 0.5,
+      "trigger_event": "c_talent_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "free",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_talent_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 5
+   },
+   {
+    "param": "happiness",
+    "delta": 6
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 4
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  }
+ },
+ {
+  "id": "c_figs",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   6,
+   12
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -5
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "defend",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -3
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     },
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "dinner",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 2
+      },
+      {
+       "param": "happiness",
+       "delta": 3
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -2
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_help_work",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   8,
+   12
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 4
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2
+  }
+ },
+ {
+  "id": "c_rebellion",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   13,
+   17
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "strict",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -10
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "talk",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 10
+      },
+      {
+       "param": "stress",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "npc_attitude": "npc",
+       "delta": -5
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 1
+    }
+   },
+   {
+    "id": "freedom",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.4,
+      "trigger_event": "c_law"
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_first_love",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   13,
+   17
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 1
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 2
+  }
+ },
+ {
+  "id": "c_teen_wrestle",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   13,
+   17
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": -1
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 3
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "table"
+   ]
+  }
+ },
+ {
+  "id": "c_coming_of_age",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   14,
+   17
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 2
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "altar"
+   ]
+  }
+ },
+ {
+  "id": "c_trade",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   12,
+   16
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "base_weight": 5,
+  "topic": "family",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "anvil"
+   ]
+  },
+  "choices": [
+   {
+    "id": "craft",
+    "effects": [
+     {
+      "npc_profession": "artisan"
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       8,
+       12
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_trade_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": -3,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "scribe",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "npc_profession": "scribe"
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       8,
+       12
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_trade_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 2,
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "merchant",
+    "effects": [
+     {
+      "npc_profession": "merchant"
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": 3,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "free",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_trade_high",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   12,
+   16
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "base_weight": 5,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "priest",
+    "effects": [
+     {
+      "npc_profession": "priest"
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "npc_profession": "physician"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       8,
+       12
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_trade_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "estates",
+    "effects": [
+     {
+      "npc_profession": "landholder"
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "free",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_trade_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 4
+   },
+   {
+    "param": "reputation",
+    "delta": 2
+   },
+   {
+    "param": "money",
+    "delta": 30
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  }
+ },
+ {
+  "id": "c_wedding",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   15,
+   28
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "table",
+    "amphora",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lavish",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 250
+     }
+    ],
+    "effects": [
+     {
+      "npc_married": true
+     },
+     {
+      "param": "money",
+      "delta": -250
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": -2
+    },
+    "icon": "wedding"
+   },
+   {
+    "id": "modest",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "npc_married": true
+     },
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 1
+    }
+   },
+   {
+    "id": "borrow",
+    "effects": [
+     {
+      "npc_married": true
+     },
+     {
+      "param": "money",
+      "delta": -200
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       7
+      ],
+      "chance": 0.75,
+      "trigger_event": "c_wedding_debt_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 2,
+     "memory_future": 3
+    }
+   }
+  ],
+  "npc_married": false
+ },
+ {
+  "id": "c_wedding_debt_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "base_weight": 1,
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "together",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -70
+     },
+     {
+      "param": "self_esteem",
+      "delta": -2
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_far_away",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   16,
+   26
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "bless",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 50
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 15
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       9
+      ],
+      "chance": 0.75,
+      "trigger_event": "c_far_return"
+     }
+    ],
+    "pattern": {
+     "home_road": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "let_go",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       9
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_far_return"
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "forbid",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -20
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_far_return",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 8
+   },
+   {
+    "param": "loneliness",
+    "delta": -6
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 5
+   },
+   {
+    "param": "money",
+    "delta": 40
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "harbor",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "boat",
+    "amphora"
+   ]
+  }
+ },
+ {
+  "id": "c_debts",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   17,
+   35
+  ],
+  "base_weight": 3,
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.4,
+      "trigger_event": "c_debts_again"
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "half",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 70
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -70
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -1
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -20
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 0.5,
+      "trigger_event": "c_lesson_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_debts_again",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "base_weight": 1,
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 200
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -200
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "cut",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -15
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_business",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   18,
+   35
+  ],
+  "once": true,
+  "base_weight": 3,
+  "topic": "money",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "amphora",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "give",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 200
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -200
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 12
+     },
+     {
+      "chance": 0.6,
+      "effects": [
+       {
+        "set_flag": "c_biz_good"
+       }
+      ]
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 1,
+      "trigger_event": "c_business_good"
+     },
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 1,
+      "trigger_event": "c_business_bad"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "partner",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 5
+     },
+     {
+      "chance": 0.6,
+      "effects": [
+       {
+        "set_flag": "c_biz_good"
+       }
+      ]
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 1,
+      "trigger_event": "c_business_good"
+     },
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 1,
+      "trigger_event": "c_business_bad"
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -12
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_business_good",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "conditions": [
+   {
+    "flag": "c_biz_good"
+   }
+  ],
+  "effects": [
+   {
+    "param": "money",
+    "delta": 250
+   },
+   {
+    "param": "happiness",
+    "delta": 6
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 5
+   },
+   {
+    "clear_flag": "c_biz_good"
+   }
+  ],
+  "base_weight": 1,
+  "topic": "money",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "coins",
+    "amphora"
+   ]
+  }
+ },
+ {
+  "id": "c_business_bad",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "conditions": [
+   {
+    "flag_absent": "c_biz_good"
+   }
+  ],
+  "base_weight": 1,
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "comfort",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 12
+     },
+     {
+      "param": "happiness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "reproach",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -10
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_law",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   16,
+   30
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "patron",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 2
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "reputation",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "answer",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -12
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_lesson_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_lesson_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "effects": [
+   {
+    "npc_attitude": "npc",
+    "delta": 15
+   },
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "param": "self_esteem",
+    "delta": 3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "table",
+    "lamp"
+   ]
+  }
+ },
+ {
+  "id": "c_pride",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   20,
+   50
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4
+  },
+  "variants": 3
+ },
+ {
+  "id": "c_new_faith",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   17,
+   35
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "forbid",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -20
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       12
+      ],
+      "chance": 0.75,
+      "trigger_event": "c_faith_reconcile"
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "listen",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -1,
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_faith_reconcile",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "child",
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "embrace",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 30
+     },
+     {
+      "param": "happiness",
+      "delta": 10
+     },
+     {
+      "param": "loneliness",
+      "delta": -8
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    },
+    "icon": "love"
+   },
+   {
+    "id": "terms",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_visit_old",
+  "type": "family",
+  "moment": true,
+  "npc": "child",
+  "npc_age": [
+   20,
+   70
+  ],
+  "age_range": [
+   50,
+   110
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "loneliness",
+    "delta": -4
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 2
+   }
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "table"
+   ]
+  },
+  "variants": 2
+ },
+ {
+  "id": "c_old_care",
+  "type": "family",
+  "npc": "child",
+  "npc_age": [
+   22,
+   75
+  ],
+  "age_range": [
+   60,
+   110
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "once": true,
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "lamp",
+    "bed"
+   ]
+  },
+  "choices": [
+   {
+    "id": "move",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -15
+     },
+     {
+      "param": "happiness",
+      "delta": 6
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 8
+     },
+     {
+      "param": "health",
+      "delta": 3
+     },
+     {
+      "money_pct": -20
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "home_road": -2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     },
+     {
+      "param": "health",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "help",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 120
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     },
+     {
+      "param": "health",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_grand_first_hold",
+  "type": "family",
+  "moment": true,
+  "npc": "grandchild",
+  "npc_age": [
+   0,
+   1
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 5
+   }
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "cradle"
+   ]
+  }
+ },
+ {
+  "id": "c_grand_spoil",
+  "type": "family",
+  "npc": "grandchild",
+  "npc_age": [
+   3,
+   10
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "spoil",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "happiness",
+      "delta": 5
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 12
+     }
+    ],
+    "pattern": {
+     "memory_future": 1
+    }
+   },
+   {
+    "id": "obey",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -4
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "build",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 0.7,
+      "trigger_event": "c_grand_craft_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_grand_craft_later",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "grandchild",
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 6
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 5
+   }
+  ],
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2
+  }
+ },
+ {
+  "id": "c_grand_story",
+  "type": "family",
+  "moment": true,
+  "npc": "grandchild",
+  "npc_age": [
+   4,
+   12
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": -3
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 3
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  }
+ },
+ {
+  "id": "c_grand_mischief",
+  "type": "family",
+  "moment": true,
+  "npc": "grandchild",
+  "npc_age": [
+   4,
+   11
+  ],
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": 1
+   }
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2
+  }
+ },
+ {
+  "id": "c_h_marsh_fever",
+  "type": "personal",
+  "regions": [
+   "rome"
+  ],
+  "age_range": [
+   14,
+   85
+  ],
+  "effects": [
+   {
+    "add_tag": "ill"
+   },
+   {
+    "param": "health",
+    "delta": -3
+   }
+  ],
+  "base_weight": 2,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 70
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -70
+     },
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "health",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "hills",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "health",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "charm",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -5
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 15
+     },
+     {
+      "param": "health",
+      "delta": -4
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "craft_power": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_h_eye",
+  "type": "personal",
+  "regions": [
+   "egypt"
+  ],
+  "age_range": [
+   10,
+   90
+  ],
+  "effects": [
+   {
+    "add_tag": "ill"
+   },
+   {
+    "param": "health",
+    "delta": -3
+   }
+  ],
+  "base_weight": 2,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "doctor",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "remove_tag": "ill"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "kohl",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -3
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     },
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.3,
+      "trigger_event": "c_h_eyes_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -4
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     },
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_h_eyes_later"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_eyes_later",
+  "type": "personal",
+  "trigger_only": true,
+  "effects": [
+   {
+    "param": "health",
+    "delta": -3
+   },
+   {
+    "param": "happiness",
+    "delta": -3
+   },
+   {
+    "param": "intellect",
+    "delta": -2
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  }
+ },
+ {
+  "id": "c_h_wound",
+  "type": "personal",
+  "age_range": [
+   14,
+   90
+  ],
+  "effects": [
+   {
+    "add_tag": "ill"
+   },
+   {
+    "param": "health",
+    "delta": -3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "anvil"
+   ]
+  },
+  "choices": [
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 50
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "health",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "honey",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_h_stomach",
+  "type": "personal",
+  "age_range": [
+   16,
+   90
+  ],
+  "effects": [
+   {
+    "add_tag": "ill"
+   },
+   {
+    "param": "health",
+    "delta": -3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "bed",
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "barley",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      },
+      {
+       "param": "health",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -4
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "purge",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "remove_tag": "ill"
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.75,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    }
+   },
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -5
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_h_cough",
+  "type": "personal",
+  "age_range": [
+   16,
+   90
+  ],
+  "effects": [
+   {
+    "add_tag": "ill"
+   },
+   {
+    "param": "health",
+    "delta": -3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "voyage",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "health",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "rest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     }
+    ],
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 20
+     },
+     {
+      "param": "health",
+      "delta": -4
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_tooth",
+  "type": "personal",
+  "age_range": [
+   14,
+   90
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4
+  },
+  "choices": [
+   {
+    "id": "pull",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ]
+   },
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "endure",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "add_tag": "ill"
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_bone",
+  "type": "personal",
+  "age_range": [
+   10,
+   90
+  ],
+  "effects": [
+   {
+    "add_tag": "ill"
+   },
+   {
+    "param": "health",
+    "delta": -3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "remove_tag": "ill"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "bonesetter",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "remove_tag": "ill"
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -4
+      },
+      {
+       "set_flag": "c_limp"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_limp_later"
+     }
+    ]
+   },
+   {
+    "id": "self",
+    "effects": [
+     {
+      "remove_tag": "ill"
+     }
+    ],
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -1
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      },
+      {
+       "set_flag": "c_limp"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_limp_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_h_limp_later",
+  "type": "personal",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "flag": "c_limp"
+   }
+  ],
+  "effects": [
+   {
+    "param": "health",
+    "delta": -1
+   },
+   {
+    "param": "strength",
+    "delta": -2
+   },
+   {
+    "param": "happiness",
+    "delta": -2
+   },
+   {
+    "clear_flag": "c_limp"
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 2
+  }
+ },
+ {
+  "id": "c_h_plague",
+  "type": "personal",
+  "age_range": [
+   16,
+   90
+  ],
+  "conditions": [
+   {
+    "tag": "lives_in_city"
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "harbor",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "smoke",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "leave",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "stay",
+    "risk_roll": {
+     "success_chance_base": 0.75,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "add_tag": "ill"
+      },
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "help",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 5
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "add_tag": "ill"
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ],
+    "pattern": {
+     "craft_power": -3,
+     "faith_reason": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_h_lingering",
+  "type": "personal",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "ill"
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "physician",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "remove_tag": "ill"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "health",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "health",
+      "delta": -5
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_still_ill",
+  "type": "personal",
+  "conditions": [
+   {
+    "tag": "ill"
+   }
+  ],
+  "base_weight": 6,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "health",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "rest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -25
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      },
+      {
+       "param": "stress",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -3
+      }
+     ]
+    }
+   },
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 15
+     },
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "remove_tag": "ill"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "variants": 2
+ },
+ {
+  "id": "c_h_recovered",
+  "type": "personal",
+  "moment": true,
+  "conditions": [
+   {
+    "tag": "ill"
+   }
+  ],
+  "effects": [
+   {
+    "remove_tag": "ill"
+   },
+   {
+    "param": "happiness",
+    "delta": 4
+   }
+  ],
+  "base_weight": 6,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "sun"
+   ]
+  }
+ },
+ {
+  "id": "c_h_family_doctor",
+  "type": "personal",
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   20,
+   85
+  ],
+  "once": true,
+  "base_weight": 3,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "set_lifestyle": "medicine",
+      "option": "physician"
+     },
+     {
+      "param": "health",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       12
+      ],
+      "chance": 0.5,
+      "trigger_event": "c_h_doctor_saves"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "set_lifestyle": "medicine",
+      "option": "temple"
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_h_doctor_saves",
+  "type": "personal",
+  "trigger_only": true,
+  "effects": [
+   {
+    "param": "health",
+    "delta": 6
+   },
+   {
+    "remove_tag": "ill"
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "bed"
+   ]
+  }
+ },
+ {
+  "id": "c_h_gym_invite",
+  "type": "personal",
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   16,
+   55
+  ],
+  "once": true,
+  "base_weight": 3,
+  "topic": "health",
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "set_lifestyle": "exercise",
+      "option": "gymnasium"
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "health",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_h_gym_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "walks",
+    "effects": [
+     {
+      "set_lifestyle": "exercise",
+      "option": "walks"
+     },
+     {
+      "param": "health",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_gym_later",
+  "type": "personal",
+  "trigger_only": true,
+  "effects": [
+   {
+    "param": "health",
+    "delta": 5
+   },
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "sun"
+   ]
+  }
+ },
+ {
+  "id": "c_h_asclepius",
+  "type": "personal",
+  "regions": [
+   "athens",
+   "egypt"
+  ],
+  "years": [
+   -420,
+   200
+  ],
+  "conditions": [
+   {
+    "tag": "ill"
+   }
+  ],
+  "base_weight": 4,
+  "topic": "health",
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "altar",
+    "lamp",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sleep",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      },
+      {
+       "param": "health",
+       "delta": 4
+      },
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "doctors",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "remove_tag": "ill"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_asclepius_rome",
+  "type": "personal",
+  "regions": [
+   "rome"
+  ],
+  "years": [
+   -291,
+   200
+  ],
+  "conditions": [
+   {
+    "tag": "ill"
+   }
+  ],
+  "base_weight": 4,
+  "topic": "health",
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "altar",
+    "lamp",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sleep",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     }
+    ],
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      },
+      {
+       "param": "health",
+       "delta": 4
+      },
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "doctors",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "remove_tag": "ill"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_diet",
+  "type": "personal",
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   30,
+   85
+  ],
+  "base_weight": 3,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "table",
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "follow",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 70
+     }
+    ],
+    "effects": [
+     {
+      "set_lifestyle": "food",
+      "option": "varied"
+     },
+     {
+      "set_lifestyle": "exercise",
+      "option": "walks"
+     },
+     {
+      "param": "health",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "walks",
+    "effects": [
+     {
+      "set_lifestyle": "exercise",
+      "option": "walks"
+     },
+     {
+      "param": "health",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "feast",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "c_h_gout_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": 1
+    }
+   }
+  ]
+ },
+ {
+  "id": "c_h_gout_later",
+  "type": "personal",
+  "trigger_only": true,
+  "effects": [
+   {
+    "add_tag": "ill"
+   },
+   {
+    "param": "health",
+    "delta": -3
+   }
+  ],
+  "base_weight": 1,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "bed",
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "diet",
+    "effects": [
+     {
+      "set_lifestyle": "food",
+      "option": "plain"
+     },
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "happiness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "remove_tag": "ill"
+     }
+    ]
+   },
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "happiness",
+      "delta": -2
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -3
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "c_h_lingering"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_aging",
+  "type": "personal",
+  "moment": true,
+  "age_range": [
+   40,
+   55
+  ],
+  "effects": [
+   {
+    "param": "health",
+    "delta": -1
+   },
+   {
+    "param": "self_esteem",
+    "delta": -1
+   }
+  ],
+  "base_weight": 3,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 1
+  },
+  "variants": 3
+ },
+ {
+  "id": "c_h_back",
+  "type": "personal",
+  "age_range": [
+   40,
+   85
+  ],
+  "base_weight": 3,
+  "topic": "health",
+  "scene": {
+   "place": "bath",
+   "time": "day",
+   "people": 3
+  },
+  "choices": [
+   {
+    "id": "baths",
+    "requirements": [
+     {
+      "tag": "lives_in_city"
+     },
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 25
+     }
+    ],
+    "effects": [
+     {
+      "set_lifestyle": "baths",
+      "option": "daily"
+     },
+     {
+      "param": "health",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": 1
+    }
+   },
+   {
+    "id": "walks",
+    "effects": [
+     {
+      "set_lifestyle": "exercise",
+      "option": "walks"
+     },
+     {
+      "param": "health",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "rest",
+    "effects": [
+     {
+      "set_lifestyle": "exercise",
+      "option": "rest"
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "health",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "c_h_quack",
+  "type": "personal",
+  "moment": true,
+  "age_range": [
+   14,
+   90
+  ],
+  "once": true,
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "base_weight": 2,
+  "topic": "health",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "amphora"
+   ]
+  }
+ }
+]
