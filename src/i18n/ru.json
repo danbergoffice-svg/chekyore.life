@@ -349,5 +349,7 @@
   "share.filtered": "Некоторые слова скрыты.",
   "share.close": "Закрыть",
   "share.card.lived": "{n} {p=n:год|года|лет}",
-  "share.card.cta": "Тысячи жизней · thousands.life"
+  "share.card.cta": "Тысячи жизней · thousands.life",
+  "diary.adopted_m": "В семье появился приёмный сын — {child}.",
+  "diary.adopted_f": "В семье появилась приёмная дочь — {child}."
 }

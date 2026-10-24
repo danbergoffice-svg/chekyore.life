@@ -178,7 +178,7 @@ export type Effect =
   | { add_trait: string }
   | { set_class: string }
   | { set_profession: string | null }
-  | { add_npc: NpcRole; attitude?: number; newborn?: boolean }
+  | { add_npc: NpcRole; attitude?: number; newborn?: boolean; adopted?: boolean }
   | { npc_attitude: NpcTarget; delta: number }
   | { remove_npc: NpcTarget }
   | { kill_npc: NpcTarget; cause?: string }

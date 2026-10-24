@@ -200,7 +200,8 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       }
       if (e.add_npc === 'child') {
         addPattern(hero, era.patternWeights.actions.child)
-        note(state, { key: `diary.child_born_${npc.sex}`, params: { child: { name: npc.name } }, major: true, topic: 'family', icon: 'child', score: 40, mood: 10 })
+        const key = e.adopted ? `diary.adopted_${npc.sex}` : `diary.child_born_${npc.sex}`
+        note(state, { key, params: { child: { name: npc.name } }, major: true, topic: 'family', icon: 'child', score: 40, mood: 10 })
       }
     } else if ('npc_attitude' in e) {
       for (const n of targets(state, e.npc_attitude, ctx)) n.attitude = clamp(n.attitude + e.delta, -100, 100)

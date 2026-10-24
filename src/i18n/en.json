@@ -349,5 +349,7 @@
   "share.filtered": "Some words were hidden.",
   "share.close": "Close",
   "share.card.lived": "{n} {p=n:year|years}",
-  "share.card.cta": "Thousands of Lives · thousands.life"
+  "share.card.cta": "Thousands of Lives · thousands.life",
+  "diary.adopted_m": "You took in a son: {child}.",
+  "diary.adopted_f": "You took in a daughter: {child}."
 }
