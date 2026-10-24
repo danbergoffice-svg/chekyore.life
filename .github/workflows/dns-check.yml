@@ -1,0 +1,18 @@
+name: DNS check
+on:
+  push:
+    branches: [dns-check]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "== NS";   dig +short NS chekyore.life
+          echo "== A";    dig +short A chekyore.life
+          echo "== AAAA"; dig +short AAAA chekyore.life
+          echo "== www";  dig +short www.chekyore.life
+          echo "== TXT";  dig +short TXT _github-pages-challenge-danbergoffice-svg.chekyore.life
+          echo "== HTTP"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" http://chekyore.life/ || true
+          echo "== HTTPS"; curl -sS -w "\n%{http_code}\n" https://chekyore.life/ | grep -E '<title>|^[0-9]{3}$' || true
+          echo "== HTTPS www"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://www.chekyore.life/ || true
+          echo "== github.io"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://danbergoffice-svg.github.io/chekyore.life/ || true
