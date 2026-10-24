@@ -7,7 +7,10 @@
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "types": ["vite/client"]
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

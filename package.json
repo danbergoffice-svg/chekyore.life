@@ -4,12 +4,17 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
-    "vite": "^6.4.5"
+    "vite": "^6.4.5",
+    "vitest": "^3.2.7"
   },
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "preact": "^10.29.8"
+  }
 }
