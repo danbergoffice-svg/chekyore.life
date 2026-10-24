@@ -18,4 +18,4 @@ jobs:
           echo "== HTTPS www"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://www.chekyore.life/ || true
           echo "== github.io"; curl -sS -o /dev/null -w "%{http_code} -> %{redirect_url}\n" https://danbergoffice-svg.github.io/chekyore.life/ || true
           } > out.txt 2>&1
-          while IFS= read -r line; do echo "::notice::$line"; done < out.txt
+          echo "::notice::$(sed ':a;N;$!ba;s/\n/ | /g' out.txt)"
