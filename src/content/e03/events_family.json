@@ -3311,7 +3311,7 @@
     "delta": -3
    }
   ],
-  "base_weight": 2,
+  "base_weight": 1.0,
   "topic": "health",
   "scene": {
    "place": "home",
@@ -3481,7 +3481,7 @@
     "delta": -3
    }
   ],
-  "base_weight": 2,
+  "base_weight": 1.0,
   "topic": "health",
   "scene": {
    "place": "home",
@@ -3653,7 +3653,7 @@
     "delta": -3
    }
   ],
-  "base_weight": 1,
+  "base_weight": 0.5,
   "topic": "health",
   "scene": {
    "place": "workshop",
@@ -3780,7 +3780,7 @@
     "delta": -3
    }
   ],
-  "base_weight": 1,
+  "base_weight": 0.5,
   "topic": "health",
   "scene": {
    "place": "home",
@@ -3920,7 +3920,7 @@
     "delta": -3
    }
   ],
-  "base_weight": 1,
+  "base_weight": 0.5,
   "topic": "health",
   "scene": {
    "place": "home",
@@ -4045,7 +4045,7 @@
    14,
    90
   ],
-  "base_weight": 1,
+  "base_weight": 0.5,
   "topic": "health",
   "scene": {
    "place": "market",
@@ -4157,7 +4157,7 @@
     "delta": -3
    }
   ],
-  "base_weight": 1,
+  "base_weight": 0.5,
   "topic": "health",
   "scene": {
    "place": "street",
@@ -4318,7 +4318,7 @@
     "tag": "lives_in_city"
    }
   ],
-  "base_weight": 1,
+  "base_weight": 0.5,
   "topic": "health",
   "scene": {
    "place": "harbor",
@@ -4524,7 +4524,7 @@
     "tag": "ill"
    }
   ],
-  "base_weight": 6,
+  "base_weight": 3.0,
   "topic": "health",
   "scene": {
    "place": "home",
@@ -4662,7 +4662,7 @@
     "delta": 4
    }
   ],
-  "base_weight": 6,
+  "base_weight": 3.0,
   "topic": "health",
   "scene": {
    "place": "home",
@@ -4924,7 +4924,7 @@
     "tag": "ill"
    }
   ],
-  "base_weight": 4,
+  "base_weight": 2.0,
   "topic": "health",
   "scene": {
    "place": "temple",
@@ -5024,7 +5024,7 @@
     "tag": "ill"
    }
   ],
-  "base_weight": 4,
+  "base_weight": 2.0,
   "topic": "health",
   "scene": {
    "place": "temple",

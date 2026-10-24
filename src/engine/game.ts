@@ -202,8 +202,9 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   }
 
   // Родные и близкие тоже стареют.
+  // Новорождённых в год рождения не трогаем: иначе имя выбирают ребёнку, которого в ленте уже нет.
   for (const npc of hero.npcs) {
-    if (!npc.alive) continue
+    if (!npc.alive || npc.birthYear === state.year) continue
     if (chance(state, npcMortality(state, era, npc))) killNpc(state, npc)
   }
   return births.filter((b) => b.alive)
@@ -304,18 +305,60 @@ function topicOf(ev: EventDef): Topic {
   return 'life'
 }
 
+interface Buckets {
+  byId: Map<string, EventDef>
+  naming?: EventDef
+  globals: EventDef[]
+  milestones: EventDef[]
+  turning: EventDef[]
+  regular: EventDef[]
+  moments: EventDef[]
+}
+
+/** События эпохи, разложенные по видам один раз: так год считается в разы быстрее. */
+const bucketCache = new WeakMap<EraDef, Buckets>()
+function buckets(era: EraDef): Buckets {
+  let b = bucketCache.get(era)
+  if (!b) {
+    const ev = era.events
+    b = {
+      byId: new Map(ev.map((e) => [e.id, e])),
+      naming: ev.find((e) => e.dynamic === 'name'),
+      globals: ev.filter((e) => !e.moment && e.global_chance !== undefined),
+      milestones: ev.filter((e) => !e.moment && e.milestone),
+      turning: ev.filter((e) => !e.moment && e.turning && !e.trigger_only),
+      regular: ev.filter((e) => !e.moment && !e.trigger_only && !e.milestone && !e.turning && !e.dynamic && e.global_chance === undefined),
+      moments: ev.filter((e) => e.moment && !e.trigger_only && !e.turning),
+    }
+    bucketCache.set(era, b)
+  }
+  return b
+}
+
+/** Быстрая предварительная проверка без условий: регион, сословие, пол, возраст, годы. */
+function quickFit(state: GameState, ev: EventDef): boolean {
+  const hero = state.hero
+  return (
+    (!ev.age_range || (hero.age >= ev.age_range[0] && hero.age <= ev.age_range[1])) &&
+    (!ev.years || (state.year >= ev.years[0] && state.year <= ev.years[1])) &&
+    (!ev.regions || ev.regions.includes(hero.region)) &&
+    (!ev.classes || ev.classes.includes(hero.cls)) &&
+    (!ev.sex || ev.sex === hero.sex)
+  )
+}
+
 function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
+  const b = buckets(era)
   const hero = state.hero
   const picked: ActiveEvent[] = []
   // 0. Новорождённым выбирают имя.
-  const naming = era.events.find((e) => e.dynamic === 'name')
-  if (naming) for (const b of births) picked.push({ ...activate(state, naming), npcId: b.id })
+  if (b.naming) for (const baby of births) picked.push({ ...activate(state, b.naming), npcId: baby.id })
   const has = (ev: EventDef) => picked.some((p) => p.eventId === ev.id)
   const add = (ev: EventDef | undefined, from?: number, npcId?: string) => {
     if (ev && !has(ev)) picked.push(activate(state, ev, from, npcId))
   }
-  const byId = (id: string) => era.events.find((e) => e.id === id)
-  const decisions = era.events.filter((ev) => !ev.moment)
+  const byId = (id: string) => b.byId.get(id)
+  const fits = (ev: EventDef) => quickFit(state, ev) && eligible(state, era, ev)
 
   // 1. Отложенные последствия прошлых решений.
   const due = hero.triggers.filter((t) => t.year <= state.year)
@@ -326,16 +369,16 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   }
 
   // 2. Исторические события в этом регионе и году.
-  for (const ev of decisions) {
-    if (ev.global_chance !== undefined && eligible(state, era, ev) && chance(state, ev.global_chance)) add(ev)
+  for (const ev of b.globals) {
+    if (fits(ev) && chance(state, ev.global_chance!)) add(ev)
   }
 
   // 3. Возрастная развилка (не больше одной в год).
-  add(decisions.find((ev) => ev.milestone && eligible(state, era, ev)))
+  add(b.milestones.find(fits))
 
   // 3а. Поворотный момент: примерно раз в 7–12 лет что-то круто меняет жизнь.
   if (hero.age >= 14 && hero.age - hero.lastTurning >= 7 && chance(state, 0.3)) {
-    const turning = weighted(state, decisions.filter((ev) => ev.turning && !has(ev) && eligible(state, era, ev)), (e) => eventWeight(state, e))
+    const turning = weighted(state, b.turning.filter((ev) => !has(ev) && fits(ev)), (e) => eventWeight(state, e))
     if (turning) {
       add(turning)
       hero.lastTurning = hero.age
@@ -348,8 +391,10 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   let count = 0
   while (count < dist.length - 1 && r >= dist[count]) r -= dist[count++]
   count = Math.max(0, count - (picked.length > 1 ? 1 : 0))
-  const pool = decisions.filter((ev) => !ev.trigger_only && !ev.milestone && !ev.turning && !ev.dynamic && ev.global_chance === undefined && eligible(state, era, ev))
-  for (let i = 0; i < count; i++) add(weighted(state, pool.filter((p) => !has(p)), (e) => eventWeight(state, e)))
+  if (count > 0) {
+    const pool = b.regular.filter(fits)
+    for (let i = 0; i < count; i++) add(weighted(state, pool.filter((p) => !has(p)), (e) => eventWeight(state, e)))
+  }
 
   state.queue = picked.sort((a, b) => a.at - b.at)
   for (const p of picked) hero.seen[p.eventId] = state.year
@@ -363,7 +408,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   }
 
   // 5. Моменты жизни: происходят сами и сразу попадают в ленту.
-  const moments = era.events.filter((ev) => ev.moment && !ev.trigger_only && !ev.turning && eligible(state, era, ev))
+  const moments = b.moments.filter(fits)
   const momentCount = state.settings.mode === 'quick' ? (chance(state, 0.7) ? 1 : 0) : 1 + (chance(state, 0.5) ? 1 : 0)
   for (let i = 0; i < momentCount && hero.alive; i++) {
     const ev = weighted(state, moments.filter((m) => hero.seen[m.id] !== state.year), (e) => eventWeight(state, e))
