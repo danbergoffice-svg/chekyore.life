@@ -1,7 +1,22 @@
-import { chance, int, next, weighted } from './rng'
-import { addYears, aliveNpcs, applyEffects, changeParam, changeSkill, check, checkAll, getParam, killNpc, npcAge } from './rules'
+import { chance, int, next, pick, weighted } from './rng'
+import {
+  addPattern,
+  addYears,
+  aliveNpcs,
+  applyEffects,
+  changeParam,
+  changeSkill,
+  check,
+  checkAll,
+  getParam,
+  killNpc,
+  note,
+  npcAge,
+  qx,
+  statusOf,
+} from './rules'
 import { summarize } from './life'
-import type { ChoiceDef, EraDef, EventDef, FocusDef, GameState, Npc } from './types'
+import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, Npc, TextParam, Topic } from './types'
 
 /** Через сколько лет одно и то же событие может повториться. */
 const COOLDOWN = 8
@@ -27,12 +42,18 @@ export function stageOf(state: GameState, era: EraDef): 'infancy' | 'childhood' 
 /** Прожить год с выбранным фокусом. После этого либо есть события в очереди, либо год уже закончился. */
 export function liveYear(state: GameState, era: EraDef, focusId: string | null): void {
   if (state.phase !== 'year') throw new Error(`liveYear in phase ${state.phase}`)
+  const hero = state.hero
   const focus = availableFocuses(state, era).find((f) => f.id === focusId) ?? null
   state.lastFocus = focus?.id ?? null
-  if (focus) applyEffects(state, era, focus.effects)
+  if (focus) {
+    applyEffects(state, era, focus.effects)
+    addPattern(hero, era.patternWeights.focus[focus.id])
+  }
+  if (hero.profession && hero.age >= era.stages.youth) addPattern(hero, era.patternWeights.profession[hero.profession])
   background(state, era, focus)
-  if (!state.hero.alive) return die(state, era)
+  if (!hero.alive) return die(state, era)
   rollEvents(state, era)
+  if (!hero.alive) return die(state, era)
   if (state.queue.length > 0) state.phase = 'event'
   else endYear(state, era)
 }
@@ -92,6 +113,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): void
       const p = 0.28 + (focus?.id === 'family' ? 0.12 : 0) - (motherAge > 38 ? 0.12 : 0)
       if (chance(state, p)) {
         applyEffects(state, era, [{ add_npc: 'child', attitude: 50 }])
+        changeParam(hero, 'happiness', 8)
         const risk = era.mortality.childbirth * (state.settings.mortality === 'soft' ? 0.5 : 1)
         if (chance(state, risk)) {
           if (hero.sex === 'f') applyEffects(state, era, [{ kill: 'childbirth' }])
@@ -101,18 +123,24 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): void
     }
   }
 
+  // Внуки: у взрослых детей рождаются свои дети.
+  for (const child of aliveNpcs(hero, 'child')) {
+    const a = npcAge(child, state.year)
+    if (a >= 18 && a <= 42 && chance(state, 0.14)) {
+      const before = hero.npcs.length
+      applyEffects(state, era, [{ add_npc: 'grandchild', attitude: 50 }])
+      const g = hero.npcs[before]
+      g.parentId = child.id
+      note(state, { key: `diary.grandchild_born_${g.sex}`, params: { child: { name: g.name }, parent: { name: child.name } }, major: true, topic: 'family', icon: 'child', score: 30, mood: 6 })
+      changeParam(hero, 'happiness', 5)
+    }
+  }
+
   // Родные и близкие тоже стареют.
   for (const npc of hero.npcs) {
     if (!npc.alive) continue
-    const q = npcMortality(state, era, npc)
-    if (chance(state, q)) killNpc(state, npc)
+    if (chance(state, npcMortality(state, era, npc))) killNpc(state, npc)
   }
-}
-
-function qx(era: EraDef, age: number): number {
-  let q = era.mortality.qx[0][1]
-  for (const [from, value] of era.mortality.qx) if (age >= from) q = value
-  return q
 }
 
 function npcMortality(state: GameState, era: EraDef, npc: Npc): number {
@@ -148,6 +176,16 @@ function eventWeight(state: GameState, ev: EventDef): number {
   return w
 }
 
+/** Персонажи, о которых может быть событие. */
+function npcCandidates(state: GameState, ev: EventDef): Npc[] {
+  if (!ev.npc) return []
+  return aliveNpcs(state.hero, ev.npc).filter((n) => {
+    if (!ev.npc_age) return true
+    const a = npcAge(n, state.year)
+    return a >= ev.npc_age[0] && a <= ev.npc_age[1]
+  })
+}
+
 /** Подходит ли событие герою прямо сейчас (без учёта случайности). */
 export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTiming = false): boolean {
   const hero = state.hero
@@ -162,49 +200,100 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   const last = hero.seen[ev.id]
   if (last !== undefined && (ev.once || ev.milestone || ev.global_chance !== undefined)) return false
   if (last !== undefined && !ignoreTiming && state.year - last < COOLDOWN) return false
+  if (ev.npc && npcCandidates(state, ev).length === 0) return false
   if (ev.dynamic === 'profession' && professionChoices(state, era).length === 0) return false
   return checkAll(state, ev.conditions)
 }
 
+function activate(state: GameState, ev: EventDef, from?: number): ActiveEvent {
+  const npcs = npcCandidates(state, ev)
+  return {
+    eventId: ev.id,
+    npcId: npcs.length ? pick(state, npcs).id : undefined,
+    variant: ev.variants ? int(state, 1, ev.variants) : undefined,
+    from,
+    outcome: null,
+  }
+}
+
+/** Параметры текста события: имя и пол персонажа, о котором оно. */
+export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId'>): Record<string, TextParam> {
+  const npc = state.hero.npcs.find((n) => n.id === active.npcId)
+  return npc ? { npc: { name: npc.name }, npc_sex: npc.sex } : {}
+}
+
+export function eventTextKey(ev: EventDef, variant?: number): string {
+  return variant ? `ev.${ev.id}.text.${variant}` : `ev.${ev.id}.text`
+}
+
+function topicOf(ev: EventDef): Topic {
+  if (ev.topic) return ev.topic
+  if (ev.type === 'family') return 'family'
+  if (ev.type === 'global_historical') return 'history'
+  if (ev.type === 'local') return 'money'
+  return 'life'
+}
+
 function rollEvents(state: GameState, era: EraDef): void {
   const hero = state.hero
-  const picked: EventDef[] = []
-  const add = (ev: EventDef | undefined) => {
-    if (ev && !picked.includes(ev)) picked.push(ev)
+  const picked: ActiveEvent[] = []
+  const has = (ev: EventDef) => picked.some((p) => p.eventId === ev.id)
+  const add = (ev: EventDef | undefined, from?: number) => {
+    if (ev && !has(ev)) picked.push(activate(state, ev, from))
   }
   const byId = (id: string) => era.events.find((e) => e.id === id)
+  const decisions = era.events.filter((ev) => !ev.moment)
 
   // 1. Отложенные последствия прошлых решений.
   const due = hero.triggers.filter((t) => t.year <= state.year)
   hero.triggers = hero.triggers.filter((t) => t.year > state.year)
   for (const t of due) {
     const ev = byId(t.eventId)
-    if (ev && chance(state, t.chance) && eligible(state, era, ev, true)) add(ev)
+    if (ev && chance(state, t.chance) && eligible(state, era, ev, true)) add(ev, t.from)
   }
 
   // 2. Исторические события в этом регионе и году.
-  for (const ev of era.events) {
+  for (const ev of decisions) {
     if (ev.global_chance !== undefined && eligible(state, era, ev) && chance(state, ev.global_chance)) add(ev)
   }
 
   // 3. Возрастная развилка (не больше одной в год).
-  const milestone = era.events.find((ev) => ev.milestone && eligible(state, era, ev))
-  add(milestone)
+  add(decisions.find((ev) => ev.milestone && eligible(state, era, ev)))
 
   // 4. Обычные события по весам.
-  const dist = hero.age < 5 ? [0.6, 0.4, 0, 0] : state.settings.mode === 'quick' ? [0.35, 0.45, 0.15, 0.05] : [0.15, 0.4, 0.3, 0.15]
+  const dist = hero.age < 5 ? [0.7, 0.3, 0, 0] : state.settings.mode === 'quick' ? [0.45, 0.4, 0.12, 0.03] : [0.2, 0.45, 0.25, 0.1]
   let r = next(state)
   let count = 0
   while (count < dist.length - 1 && r >= dist[count]) r -= dist[count++]
   count = Math.max(0, count - (picked.length > 1 ? 1 : 0))
-  const pool = era.events.filter((ev) => !ev.trigger_only && !ev.milestone && ev.global_chance === undefined && eligible(state, era, ev))
-  for (let i = 0; i < count; i++) {
-    const ev = weighted(state, pool.filter((p) => !picked.includes(p)), (e) => eventWeight(state, e))
-    add(ev)
-  }
+  const pool = decisions.filter((ev) => !ev.trigger_only && !ev.milestone && ev.global_chance === undefined && eligible(state, era, ev))
+  for (let i = 0; i < count; i++) add(weighted(state, pool.filter((p) => !has(p)), (e) => eventWeight(state, e)))
 
-  state.queue = picked.map((ev) => ({ eventId: ev.id, outcome: null }))
-  for (const ev of picked) hero.seen[ev.id] = state.year
+  state.queue = picked
+  for (const p of picked) hero.seen[p.eventId] = state.year
+
+  // 5. Моменты жизни: происходят сами и сразу попадают в ленту.
+  const moments = era.events.filter((ev) => ev.moment && !ev.trigger_only && eligible(state, era, ev))
+  const momentCount = state.settings.mode === 'quick' ? (chance(state, 0.7) ? 1 : 0) : 1 + (chance(state, 0.5) ? 1 : 0)
+  for (let i = 0; i < momentCount && hero.alive; i++) {
+    const ev = weighted(state, moments.filter((m) => hero.seen[m.id] !== state.year), (e) => eventWeight(state, e))
+    if (!ev) break
+    hero.seen[ev.id] = state.year
+    const active = activate(state, ev)
+    const mood = hero.hidden.happiness
+    applyEffects(state, era, ev.effects, { npcId: active.npcId })
+    addPattern(hero, ev.pattern)
+    note(state, {
+      key: eventTextKey(ev, active.variant),
+      params: eventParams(state, active),
+      topic: topicOf(ev),
+      icon: ev.icon,
+      eventId: ev.id,
+      mood: Math.round(hero.hidden.happiness - mood),
+      major: !!ev.icon,
+      score: 6 + Math.abs(hero.hidden.happiness - mood) + (ev.icon ? 15 : 0) + (active.npcId ? 5 : 0),
+    })
+  }
 }
 
 export function currentEvent(state: GameState, era: EraDef): EventDef | null {
@@ -249,6 +338,7 @@ export function riskChance(state: GameState, choice: ChoiceDef): number | null {
 
 /** Сделать выбор в текущем событии. id = null для информационного события. */
 export function choose(state: GameState, era: EraDef, choiceId: string | null): void {
+  const hero = state.hero
   const active = state.queue[0]
   const ev = currentEvent(state, era)
   if (!active || !ev || active.outcome) throw new Error('No event to choose in')
@@ -256,27 +346,56 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   const choice = choices.find((c) => c.id === choiceId)
   if (choices.length > 0 && (!choice || !choiceAvailable(state, choice))) throw new Error(`Bad choice ${choiceId}`)
 
+  const ctx = { npcId: active.npcId }
+  const params = eventParams(state, active)
+  const moodBefore = hero.hidden.happiness
   let result: 'ok' | 'success' | 'failure' = 'ok'
-  applyEffects(state, era, ev.effects)
+  applyEffects(state, era, ev.effects, ctx)
+  addPattern(hero, ev.pattern)
+  const triggers: { eventId: string; year: number; chance: number }[] = []
   if (choice) {
-    applyEffects(state, era, choice.effects)
+    applyEffects(state, era, choice.effects, ctx)
+    addPattern(hero, choice.pattern)
     if (choice.risk_roll) {
       const success = chance(state, riskChance(state, choice)!)
       result = success ? 'success' : 'failure'
-      applyEffects(state, era, success ? choice.risk_roll.on_success : choice.risk_roll.on_failure)
+      applyEffects(state, era, success ? choice.risk_roll.on_success : choice.risk_roll.on_failure, ctx)
     }
     for (const d of choice.delayed_effects ?? []) {
-      state.hero.triggers.push({ eventId: d.trigger_event, year: addYears(state.year, int(state, d.after_years[0], d.after_years[1])), chance: d.chance })
+      triggers.push({ eventId: d.trigger_event, year: addYears(state.year, int(state, d.after_years[0], d.after_years[1])), chance: d.chance })
     }
   }
   active.outcome = { choiceId: choice?.id ?? 'ok', result }
-  state.hero.diary.push({
-    year: state.year,
-    age: state.hero.age,
+
+  const decision = choices.length > 1
+  const mood = Math.round(hero.hidden.happiness - moodBefore)
+  const entry: Omit<DiaryEntry, 'year' | 'age'> = {
     key: `ev.${ev.id}.title`,
-    params: { choice: { key: choice ? (ev.dynamic === 'profession' ? `prof.${choice.id}` : `ev.${ev.id}.${choice.id}`) : 'ui.ok' }, result },
-    major: ev.milestone || ev.type === 'global_historical' || result !== 'ok',
-  })
+    params: {
+      ...params,
+      choice: { key: choice ? (ev.dynamic === 'profession' ? `prof.${choice.id}` : `ev.${ev.id}.${choice.id}`) : 'ui.ok' },
+      result,
+    },
+    major: ev.milestone || ev.type === 'global_historical' || result !== 'ok' || !!ev.icon || !!choice?.icon,
+    topic: ev.dynamic === 'profession' ? 'work' : topicOf(ev),
+    icon: choice?.icon ?? ev.icon,
+    eventId: ev.id,
+    decision,
+    mood,
+    causedBy: active.from,
+    score:
+      Math.abs(mood) +
+      (ev.milestone ? 25 : 0) +
+      (ev.type === 'global_historical' ? 20 : 0) +
+      (ev.once ? 5 : 0) +
+      (active.npcId ? 8 : 0) +
+      (decision ? 10 : 0) +
+      (choice?.icon || ev.icon ? 15 : 0) +
+      (result !== 'ok' ? 5 : 0) +
+      (active.from !== undefined ? 10 : 0),
+  }
+  const index = note(state, entry)
+  for (const t of triggers) hero.triggers.push({ ...t, from: index })
 }
 
 /** Закрыть показанный итог события и перейти к следующему. */
@@ -288,10 +407,25 @@ export function dismiss(state: GameState, era: EraDef): void {
   // Пропускаем события, которые стали неуместны после предыдущих решений.
   while (state.queue.length > 0) {
     const ev = currentEvent(state, era)
-    if (ev && checkAll(state, ev.conditions)) break
+    const npcGone = state.queue[0].npcId && !state.hero.npcs.some((n) => n.id === state.queue[0].npcId && n.alive)
+    if (ev && checkAll(state, ev.conditions) && !npcGone) break
     state.queue.shift()
   }
   if (state.queue.length === 0) endYear(state, era)
+}
+
+function recordYear(state: GameState, era: EraDef): void {
+  const hero = state.hero
+  hero.history.push({
+    age: hero.age,
+    year: state.year,
+    happiness: Math.round(hero.hidden.happiness),
+    stress: Math.round(hero.hidden.stress),
+    health: Math.round(hero.attrs.health),
+    money: hero.money,
+    status: statusOf(hero, era),
+    focus: state.lastFocus,
+  })
 }
 
 function endYear(state: GameState, era: EraDef): void {
@@ -302,12 +436,13 @@ function endYear(state: GameState, era: EraDef): void {
     hero.deathCause = pickCause(state, era)
     return die(state, era)
   }
+  recordYear(state, era)
   hero.tags = hero.tags.filter((t) => t !== 'epidemic')
   state.year = addYears(state.year, 1)
   hero.age += 1
-  if (hero.age === era.stages.youth) hero.diary.push({ year: state.year, age: hero.age, key: 'diary.stage_youth' })
-  if (hero.age === era.stages.adult) hero.diary.push({ year: state.year, age: hero.age, key: 'diary.stage_adult' })
-  if (hero.age === era.stages.old) hero.diary.push({ year: state.year, age: hero.age, key: 'diary.stage_old' })
+  if (hero.age === era.stages.youth) note(state, { key: 'diary.stage_youth', topic: 'life' })
+  if (hero.age === era.stages.adult) note(state, { key: 'diary.stage_adult', topic: 'life' })
+  if (hero.age === era.stages.old) note(state, { key: 'diary.stage_old', topic: 'life' })
   state.phase = 'year'
 }
 
@@ -323,10 +458,11 @@ function die(state: GameState, era: EraDef): void {
   hero.alive = false
   hero.deathYear ??= state.year
   hero.deathCause ??= pickCause(state, era)
-  hero.diary.push({ year: state.year, age: hero.age, key: `diary.died`, params: { cause: { key: `cause.${hero.deathCause}` } }, major: true })
+  recordYear(state, era)
+  note(state, { key: 'diary.died', params: { cause: { key: `cause.${hero.deathCause}` } }, major: true, topic: 'health', icon: 'death', score: 100 })
   state.queue = []
   state.phase = 'dead'
-  state.family.lives.push(summarize(state))
+  state.family.lives.push(summarize(state, era))
 }
 
 /** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов). */
@@ -345,4 +481,3 @@ export function autoplay(state: GameState, era: EraDef, maxYears = 130): GameSta
   }
   return state
 }
-

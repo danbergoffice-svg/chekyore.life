@@ -4,8 +4,8 @@ import { regionOf, yearsBetween } from '../engine/rules'
 import type { EraDef, GameState, LifeSummary } from '../engine/types'
 import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
-import { Art } from './Art'
-import { diaryText, useUi } from './text'
+import { Scene } from '../pixel/Scene'
+import { useUi } from './text'
 
 export function Menu(props: { canContinue: boolean; onNew: () => void; onContinue: () => void; go: (s: 'memorial' | 'settings' | 'about') => void }) {
   const { t } = useUi()
@@ -92,7 +92,11 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
   const coin = regionOf(props.era, hero.region).coin
   return (
     <div class="screen reveal">
-      <Art category="birth" />
+      <Scene
+        scene={isHeir ? { place: 'landmark', time: 'day', people: 3, props: ['sun'] } : { place: 'home', time: 'dawn', people: 3, props: ['cradle', 'lamp'] }}
+        region={hero.region}
+        seed={hero.id}
+      />
       <p class="eyebrow">{isHeir ? t('reveal.heir') : t('reveal.born', {}, o)}</p>
       <h1 class="hero-name big">{nameOf(hero.name, lang)}</h1>
       <dl class="facts">
@@ -123,58 +127,6 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
       </dl>
       <p class="intro">{t(`region.${hero.region}.intro`)}</p>
       <button class="primary" onClick={props.onStart}>{t('reveal.start')}</button>
-    </div>
-  )
-}
-
-export function LifeCard({ life, era }: { life: LifeSummary; era: EraDef }) {
-  const { t, lang } = useUi()
-  const o = { sex: life.sex, region: life.region }
-  return (
-    <article class="life-card">
-      <Art category="death" />
-      <div class="life-card-body">
-        <h2>{nameOf(life.name, lang)}</h2>
-        <p class="muted">
-          {formatYear(life.birthYear, lang)} — {formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}
-        </p>
-        <p class="muted">
-          {t(`region.${life.region}`)} · {life.profession ? t(`prof.${life.profession}`, {}, o) : t(`class.${life.cls}`, {}, o)}
-        </p>
-        <p>
-          {t('death.cause')}: {t(`cause.${life.cause}`)}
-        </p>
-        <h3>{t('death.bio')}</h3>
-        <ul class="bio">
-          {life.biography.map((d) => (
-            <li>
-              <span class="diary-age">{t('diary.age', { n: d.age })}</span> {diaryText(t, d, life.sex, life.region)}
-            </li>
-          ))}
-        </ul>
-        <p class="small muted">{t('death.compare', { n: era.lifeExpectancy })}</p>
-      </div>
-    </article>
-  )
-}
-
-export function Death(props: { state: GameState; era: EraDef; onHeirs: () => void; onNew: () => void; onMenu: () => void }) {
-  const { t } = useUi()
-  const life = props.state.family.lives[props.state.family.lives.length - 1]
-  const kids = heirs(props.state)
-  return (
-    <div class="screen death">
-      <h1>{t('death.title')}</h1>
-      <LifeCard life={life} era={props.era} />
-      <div class="stack">
-        {kids.length > 0 ? (
-          <button class="primary" onClick={props.onHeirs}>{t('death.continue')}</button>
-        ) : (
-          <p class="muted">{t('death.no_heirs')}</p>
-        )}
-        <button class={kids.length > 0 ? 'secondary' : 'primary'} onClick={props.onNew}>{t('death.new')}</button>
-        <button class="link" onClick={props.onMenu}>{t('death.menu')}</button>
-      </div>
     </div>
   )
 }
@@ -210,9 +162,8 @@ export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: str
   )
 }
 
-export function Memorial(props: { memorial: LifeSummary[]; eras: Record<string, EraDef>; onBack: () => void }) {
+export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: string) => void; onBack: () => void }) {
   const { t, lang } = useUi()
-  const [open, setOpen] = useState<string | null>(null)
   const families = new Map<string, LifeSummary[]>()
   for (const l of props.memorial) families.set(l.familyId, [...(families.get(l.familyId) ?? []), l])
   return (
@@ -228,13 +179,14 @@ export function Memorial(props: { memorial: LifeSummary[]; eras: Record<string, 
           <ol class="tree">
             {lives.map((l) => (
               <li>
-                <button class="tree-row" aria-expanded={open === l.heroId} onClick={() => setOpen(open === l.heroId ? null : l.heroId)}>
-                  <span class="muted">{t('memorial.generation', { n: l.generation })}</span>
+                <button class="tree-row" onClick={() => props.onOpen(l.heroId)}>
+                  <span class="muted">
+                    {t('memorial.generation', { n: l.generation })} · {t(`region.${l.region}`)} · {t(`archetype.${l.report.pattern.code}`)}
+                  </span>
                   <span>
-                    {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} — {formatYear(l.deathYear, lang)}
+                    {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} — {formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}
                   </span>
                 </button>
-                {open === l.heroId && props.eras[l.era] && <LifeCard life={l} era={props.eras[l.era]} />}
               </li>
             ))}
           </ol>

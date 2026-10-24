@@ -1,3 +1,4 @@
+import type { LifeReport } from './report'
 // Типы движка. Движок не содержит исторических данных: всё приходит из content/*.json.
 
 export type Sex = 'm' | 'f'
@@ -10,7 +11,40 @@ export type HiddenId = (typeof HIDDEN)[number]
 /** Всё, что можно читать и менять числом: атрибуты, скрытые параметры и достаток. */
 export type ParamId = AttrId | HiddenId | 'money'
 
-export type NpcRole = 'father' | 'mother' | 'sibling' | 'friend' | 'spouse' | 'child' | 'mentor' | 'rival' | 'patron'
+export type NpcRole = 'father' | 'mother' | 'sibling' | 'friend' | 'spouse' | 'child' | 'grandchild' | 'mentor' | 'rival' | 'patron'
+/** Роль в эффектах: 'npc' — персонаж, к которому привязано текущее событие. */
+export type NpcTarget = NpcRole | 'npc'
+
+/** Оси «Узора жизни»: отрицательное значение — левая сторона, положительное — правая. */
+export const AXES = ['craft_power', 'home_road', 'faith_reason', 'memory_future'] as const
+export type Axis = (typeof AXES)[number]
+export type PatternDelta = Partial<Record<Axis, number>>
+
+/** Темы записей для фильтров полной записи жизни. */
+export const TOPICS = ['family', 'work', 'health', 'money', 'history', 'life'] as const
+export type Topic = (typeof TOPICS)[number]
+
+/** Описание пиксельной сцены. Из него же собирается промпт для настоящей иллюстрации. */
+export const SCENE_PLACES = ['landmark', 'home', 'street', 'market', 'temple', 'field', 'river', 'sea', 'harbor', 'workshop', 'school', 'camp', 'battle', 'arena', 'road', 'tomb', 'palace', 'bath'] as const
+export type ScenePlace = (typeof SCENE_PLACES)[number]
+export const SCENE_TIMES = ['day', 'dawn', 'sunset', 'night', 'overcast'] as const
+export type SceneTime = (typeof SCENE_TIMES)[number]
+export const SCENE_PROPS = [
+  'sun', 'moon', 'fire', 'smoke', 'boat', 'bed', 'cradle', 'table', 'scroll', 'coins', 'amphora', 'tree', 'palm', 'olive',
+  'grain', 'goat', 'horse', 'cart', 'lamp', 'altar', 'statue', 'rain', 'banner', 'shield', 'loom', 'anvil',
+] as const
+export type SceneProp = (typeof SCENE_PROPS)[number]
+
+export interface SceneDef {
+  place?: ScenePlace
+  time?: SceneTime
+  /** Сколько человечков в кадре, 0–6. */
+  people?: number
+  props?: SceneProp[]
+}
+
+/** Значки карты жизни. */
+export type Icon = 'birth' | 'child' | 'wedding' | 'death' | 'move' | 'loss' | 'find' | 'war' | 'disaster' | 'freedom' | 'study' | 'love'
 
 // ---------- Контент ----------
 
@@ -35,6 +69,8 @@ export interface RegionDef {
 
 export interface ClassDef {
   id: string
+  /** Место в обществе эпохи, 0–100: основа для графика положения. */
+  status: number
   /** Стартовый достаток семьи [от, до]. */
   money: [number, number]
   /** Расходы на жизнь в год. */
@@ -98,6 +134,15 @@ export interface EraDef {
   lifeExpectancy: number
   inheritance: 'equal' | 'sons_first'
   events: EventDef[]
+  patternWeights: PatternWeights
+}
+
+export interface PatternWeights {
+  /** Делитель для перевода накопленного счёта в шкалу −100…100. */
+  scale: number
+  focus: Record<string, PatternDelta>
+  profession: Record<string, PatternDelta>
+  actions: Record<'move' | 'child' | 'marriage' | 'study_tag', PatternDelta>
 }
 
 // ---------- События ----------
@@ -134,9 +179,10 @@ export type Effect =
   | { set_class: string }
   | { set_profession: string | null }
   | { add_npc: NpcRole; attitude?: number; newborn?: boolean }
-  | { npc_attitude: NpcRole; delta: number }
-  | { remove_npc: NpcRole }
-  | { kill_npc: NpcRole; cause?: string }
+  | { npc_attitude: NpcTarget; delta: number }
+  | { remove_npc: NpcTarget }
+  | { kill_npc: NpcTarget; cause?: string }
+  | { move: string }
   | { kill: string }
   | { chance: number; effects: Effect[] }
 
@@ -161,6 +207,9 @@ export interface RiskRoll {
 
 export interface ChoiceDef {
   id: string
+  /** Вклад решения в «Узор жизни». */
+  pattern?: PatternDelta
+  icon?: Icon
   requirements?: Condition[]
   effects?: Effect[]
   delayed_effects?: DelayedEffect[]
@@ -190,6 +239,18 @@ export interface EventDef {
   global_chance?: number
   /** Развилка: выпадает в первую очередь, когда условия выполнены. */
   milestone?: boolean
+  /** Момент жизни: показывается в ленте без остановки, без выбора. */
+  moment?: boolean
+  /** Событие про конкретного человека: нужна живая роль, её имя доступно в тексте как {npc}. */
+  npc?: NpcRole
+  npc_age?: [number, number]
+  /** Сколько вариантов текста: ev.id.text.1 … ev.id.text.N. */
+  variants?: number
+  topic?: Topic
+  icon?: Icon
+  pattern?: PatternDelta
+  /** Пиксельная сцена события; без неё рисуется место по умолчанию для региона. */
+  scene?: SceneDef
   image_slot?: string
   /** Эффекты самого события, применяются при любом выборе. */
   effects?: Effect[]
@@ -214,6 +275,10 @@ export interface Npc {
   attitude: number
   alive: boolean
   deathYear?: number
+  /** С какого года рядом (для супругов — год свадьбы). */
+  since?: number
+  /** Для внуков: id ребёнка героя. */
+  parentId?: string
 }
 
 export type TextParam = string | number | { name: string } | { key: string }
@@ -225,12 +290,36 @@ export interface DiaryEntry {
   params?: Record<string, TextParam>
   /** Важная запись: попадает в жизнеописание. */
   major?: boolean
+  topic?: Topic
+  icon?: Icon
+  /** Вес для выбора ключевых моментов. */
+  score?: number
+  /** Изменение счастья, которое принесла запись. */
+  mood?: number
+  /** Игрок принимал решение. */
+  decision?: boolean
+  /** Номер записи-решения, последствием которого стала эта запись. */
+  causedBy?: number
+  eventId?: string
+}
+
+export interface YearRecord {
+  age: number
+  year: number
+  happiness: number
+  stress: number
+  health: number
+  money: number
+  status: number
+  focus: string | null
 }
 
 export interface PendingTrigger {
   eventId: string
   year: number
   chance: number
+  /** Номер записи дневника с решением, которое запустило последствие. */
+  from?: number
 }
 
 export interface Hero {
@@ -257,6 +346,12 @@ export interface Hero {
   /** Когда событие было в последний раз: id → год. */
   seen: Record<string, number>
   diary: DiaryEntry[]
+  /** Срез состояния в конце каждого прожитого года. */
+  history: YearRecord[]
+  /** Накопленный счёт по осям «Узора жизни». */
+  pattern: Record<Axis, number>
+  /** Где жил герой: ключи мест в текстах. */
+  places: string[]
   deathYear?: number
   deathCause?: string
   seed: number
@@ -279,6 +374,18 @@ export interface LifeSummary {
   children: number
   biography: DiaryEntry[]
   money: number
+  /** Номер записи в мемориале. */
+  record?: number
+  /** Полный дневник, близкие и итоги — чтобы экран итогов открывался из мемориала. */
+  diary: DiaryEntry[]
+  npcs: Npc[]
+  history: YearRecord[]
+  places: string[]
+  traits: string[]
+  report: LifeReport
+  /** Отмеченные звёздочкой записи и строка игрока для карточки. */
+  starred?: number[]
+  playerLine?: string
 }
 
 export interface Family {
@@ -290,6 +397,11 @@ export interface Family {
 
 export interface ActiveEvent {
   eventId: string
+  /** Персонаж, о котором событие. */
+  npcId?: string
+  variant?: number
+  /** Номер записи-решения, если это отложенное последствие. */
+  from?: number
   /** Выбранный вариант и итог; пока null — игрок ещё не выбрал. */
   outcome: { choiceId: string; result: 'ok' | 'success' | 'failure' } | null
 }

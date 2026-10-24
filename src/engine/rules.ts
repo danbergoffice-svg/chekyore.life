@@ -1,6 +1,6 @@
 import { chance, int, pick } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
-import type { AttrId, Condition, EraDef, Effect, GameState, Hero, HiddenId, Npc, NpcRole, Op, ParamId, Sex } from './types'
+import type { AttrId, Condition, DiaryEntry, EraDef, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, Sex } from './types'
 
 // ---------- Годы ----------
 // Года хранятся исторически: -44 — это 44 г. до н.э., нулевого года нет.
@@ -21,6 +21,13 @@ export function yearsBetween(from: number, to: number): number {
 
 export function npcAge(npc: Npc, year: number): number {
   return yearsBetween(npc.birthYear, year)
+}
+
+/** Вероятность умереть в течение года в этом возрасте по таблице эпохи. */
+export function qx(era: EraDef, age: number): number {
+  let q = era.mortality.qx[0][1]
+  for (const [from, value] of era.mortality.qx) if (age >= from) q = value
+  return q
 }
 
 // ---------- Параметры ----------
@@ -119,6 +126,7 @@ export function makeNpc(state: GameState, era: EraDef, role: NpcRole, sex?: Sex,
     friend: [-2, 2],
     spouse: hero.sex === 'm' ? [-15, -3] : [3, 15],
     child: [0, 0],
+    grandchild: [0, 0],
     mentor: [18, 35],
     rival: [-3, 3],
     patron: [10, 30],
@@ -133,14 +141,39 @@ export function makeNpc(state: GameState, era: EraDef, role: NpcRole, sex?: Sex,
     traits: [pick(state, era.traits)],
     attitude,
     alive: true,
+    since: state.year,
   }
   hero.npcs.push(npc)
   return npc
 }
 
+// ---------- Дневник и узор ----------
+
+/** Добавить запись в дневник и вернуть её номер. */
+export function note(state: GameState, entry: Omit<DiaryEntry, 'year' | 'age'>): number {
+  const hero = state.hero
+  hero.diary.push({ year: state.year, age: hero.age, ...entry })
+  return hero.diary.length - 1
+}
+
+export function addPattern(hero: Hero, delta: PatternDelta | undefined, times = 1): void {
+  if (!delta) return
+  for (const [axis, v] of Object.entries(delta)) hero.pattern[axis as keyof Hero['pattern']] += (v ?? 0) * times
+}
+
+/** Контекст события: к какому персонажу оно привязано. */
+export interface EffectContext {
+  npcId?: string
+}
+
+function targets(state: GameState, role: NpcTarget, ctx: EffectContext): Npc[] {
+  if (role === 'npc') return state.hero.npcs.filter((n) => n.id === ctx.npcId && n.alive)
+  return aliveNpcs(state.hero, role)
+}
+
 // ---------- Эффекты ----------
 
-export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | undefined): void {
+export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | undefined, ctx: EffectContext = {}): void {
   const hero = state.hero
   for (const e of effects ?? []) {
     if ('param' in e) changeParam(hero, e.param, e.delta)
@@ -153,17 +186,30 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     else if ('add_trait' in e) { if (!hero.traits.includes(e.add_trait)) hero.traits.push(e.add_trait) }
     else if ('set_class' in e) hero.cls = e.set_class
     else if ('set_profession' in e) hero.profession = e.set_profession
-    else if ('add_npc' in e) {
-      const npc = makeNpc(state, era, e.add_npc, undefined, e.add_npc === 'child' || e.newborn ? state.year : undefined, e.attitude ?? 30)
-      if (e.add_npc === 'spouse' && !hero.tags.includes('married')) hero.tags.push('married')
-      if (e.add_npc === 'child') hero.diary.push({ year: state.year, age: hero.age, key: `diary.child_born_${npc.sex}`, params: { child: { name: npc.name } }, major: true })
+    else if ('move' in e) {
+      if (hero.places[hero.places.length - 1] !== e.move) hero.places.push(e.move)
+      addPattern(hero, era.patternWeights.actions.move)
+      note(state, { key: 'diary.moved', params: { place: { key: `place.${e.move}` } }, major: true, topic: 'life', icon: 'move', score: 30 })
+    } else if ('add_npc' in e) {
+      const newborn = e.add_npc === 'child' || e.add_npc === 'grandchild' || e.newborn
+      const npc = makeNpc(state, era, e.add_npc, undefined, newborn ? state.year : undefined, e.attitude ?? 30)
+      if (e.add_npc === 'spouse') {
+        if (!hero.tags.includes('married')) hero.tags.push('married')
+        addPattern(hero, era.patternWeights.actions.marriage)
+        note(state, { key: 'diary.married', params: { who: { name: npc.name }, sex: npc.sex }, major: true, topic: 'family', icon: 'wedding', score: 45 })
+      }
+      if (e.add_npc === 'child') {
+        addPattern(hero, era.patternWeights.actions.child)
+        note(state, { key: `diary.child_born_${npc.sex}`, params: { child: { name: npc.name } }, major: true, topic: 'family', icon: 'child', score: 40, mood: 10 })
+      }
     } else if ('npc_attitude' in e) {
-      for (const n of aliveNpcs(hero, e.npc_attitude)) n.attitude = clamp(n.attitude + e.delta, -100, 100)
+      for (const n of targets(state, e.npc_attitude, ctx)) n.attitude = clamp(n.attitude + e.delta, -100, 100)
     } else if ('remove_npc' in e) {
-      hero.npcs = hero.npcs.filter((n) => !(n.role === e.remove_npc && n.alive))
-      if (e.remove_npc === 'spouse') hero.tags = hero.tags.filter((t) => t !== 'married')
+      const gone = new Set(targets(state, e.remove_npc, ctx).map((n) => n.id))
+      if (hero.npcs.some((n) => gone.has(n.id) && n.role === 'spouse')) hero.tags = hero.tags.filter((t) => t !== 'married')
+      hero.npcs = hero.npcs.filter((n) => !gone.has(n.id))
     } else if ('kill_npc' in e) {
-      const npc = aliveNpcs(hero, e.kill_npc)[0]
+      const npc = targets(state, e.kill_npc, ctx)[0]
       if (npc) killNpc(state, npc)
     } else if ('kill' in e) {
       if (hero.alive) {
@@ -172,19 +218,39 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
         hero.deathYear = state.year
       }
     } else if ('chance' in e) {
-      if (chance(state, e.chance)) applyEffects(state, era, e.effects)
+      if (chance(state, e.chance)) applyEffects(state, era, e.effects, ctx)
     }
   }
 }
+
+const CLOSE: NpcRole[] = ['father', 'mother', 'spouse', 'child', 'grandchild', 'sibling', 'friend']
 
 export function killNpc(state: GameState, npc: Npc): void {
   const hero = state.hero
   npc.alive = false
   npc.deathYear = state.year
   if (npc.role === 'spouse') hero.tags = hero.tags.filter((t) => t !== 'married')
-  if (['father', 'mother', 'spouse', 'child'].includes(npc.role)) {
-    hero.diary.push({ year: state.year, age: hero.age, key: `diary.death_${npc.role}`, params: { who: { name: npc.name }, sex: npc.sex }, major: npc.role !== 'child' || npcAge(npc, state.year) > 1 })
-    changeParam(hero, 'happiness', -15)
-    changeParam(hero, 'stress', 10)
+  if (CLOSE.includes(npc.role)) {
+    const close = ['father', 'mother', 'spouse', 'child'].includes(npc.role)
+    note(state, {
+      key: `diary.death_${npc.role}`,
+      params: { who: { name: npc.name }, sex: npc.sex },
+      major: close && (npc.role !== 'child' || npcAge(npc, state.year) > 1),
+      topic: 'family',
+      icon: 'death',
+      score: close ? 35 : 15,
+      mood: close ? -15 : -6,
+    })
+    changeParam(hero, 'happiness', close ? -15 : -6)
+    changeParam(hero, 'stress', close ? 10 : 4)
   }
+}
+
+/** Положение в обществе эпохи, 0–100: сословие, достаток относительно расходов и репутация. */
+export function statusOf(hero: Hero, era: EraDef): number {
+  const cls = era.classes.find((c) => c.id === hero.cls)
+  const base = cls?.status ?? 30
+  const upkeep = Math.max(cls?.upkeep ?? 100, 100)
+  const wealth = hero.money <= 0 ? -6 : Math.max(-6, Math.min(10, 6 * Math.log10(hero.money / upkeep)))
+  return Math.round(clamp(base + wealth + hero.hidden.reputation * 0.1))
 }

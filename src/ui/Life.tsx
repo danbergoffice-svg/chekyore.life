@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'preact/hooks'
-import { availableFocuses, choiceAvailable, currentEvent, eventChoices, riskChance, stageOf } from '../engine/game'
+import { availableFocuses, choiceAvailable, currentEvent, eventChoices, eventParams, eventTextKey, riskChance, stageOf } from '../engine/game'
 import { addYears, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, EraDef, EventDef, GameState } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
-import { Art } from './Art'
-import type { ArtCategory } from './Art'
+import { Scene } from '../pixel/Scene'
+import { entryScene } from './Summary'
 import { attitudeText, diaryText, feelings, useUi } from './text'
 import type { Change } from './text'
 
@@ -43,6 +43,13 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
 
   const thisYear = hero.diary.filter((d) => d.year === state.year || d.year === addYears(state.year, -1)).slice(-6)
   const stage = stageOf(state, era)
+  // Сцена года: последнее событие или момент, иначе дом в детстве и город во взрослой жизни.
+  const lastEntry = [...thisYear].reverse().find((d) => d.eventId)
+  const yearScene = lastEntry
+    ? entryScene(lastEntry, era)
+    : stage === 'infancy' || stage === 'childhood'
+      ? { place: 'home' as const, time: 'day' as const, people: 3, props: ['cradle' as const] }
+      : { place: 'landmark' as const, time: 'day' as const, people: 3, props: ['sun' as const] }
 
   return (
     <div class="life">
@@ -71,6 +78,7 @@ export function Life({ state, era, onLive, onChoose, onDismiss, onMenu, lastChan
 
       {tab === 'life' && (
         <section class="panel">
+          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:${state.year}`} />
           {lastChanges.length > 0 && <ChangeList changes={lastChanges} coin={coin} />}
           <h2 class="section-title">{t('life.this_year')}</h2>
           {thisYear.length === 0 ? (
@@ -224,9 +232,6 @@ function People({ state }: { state: GameState }) {
   )
 }
 
-const categoryOf = (ev: EventDef): ArtCategory =>
-  ev.dynamic === 'profession' ? 'work' : ev.type === 'global_historical' ? 'global' : ev.type === 'local' ? 'local' : ev.type === 'family' ? 'family' : 'personal'
-
 interface EventProps {
   state: GameState
   era: EraDef
@@ -243,24 +248,26 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region }
   const coin = regionOf(era, hero.region).coin
-  const outcome = state.queue[0]?.outcome
+  const active = state.queue[0]
+  const outcome = active?.outcome
+  const params = active ? eventParams(state, active) : {}
   const choices = eventChoices(state, era, ev)
   const isProfession = ev.dynamic === 'profession'
-  const label = (c: ChoiceDef) => (isProfession ? t(`prof.${c.id}`, {}, o) : t(`ev.${ev.id}.${c.id}`, {}, o))
+  const label = (c: ChoiceDef) => (isProfession ? t(`prof.${c.id}`, {}, o) : t(`ev.${ev.id}.${c.id}`, params, o))
   const cost = (c: ChoiceDef) => {
     const m = (c.effects ?? []).reduce((sum, e) => sum + ('param' in e && e.param === 'money' && e.delta < 0 ? e.delta : 0), 0)
     return m < 0 ? formatMoney(t, -m, coin) : null
   }
   const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession ? `ev.${ev.id}.${outcome.choiceId}.${outcome.result}` : null
-  const resultText = resultKey && hasKey(lang, resultKey) ? t(resultKey, {}, o) : null
+  const resultText = resultKey && hasKey(lang, resultKey) ? t(resultKey, params, o) : null
 
   return (
     <div class="modal-backdrop">
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ev-title">
-        <Art category={categoryOf(ev)} label={t(`ev.${ev.id}.title`, {}, o)} />
+        <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} label={t(`ev.${ev.id}.title`, params, o)} />
         <div class="modal-body">
-          <h2 id="ev-title">{t(`ev.${ev.id}.title`, {}, o)}</h2>
-          <p class="event-text">{t(`ev.${ev.id}.text`, {}, o)}</p>
+          <h2 id="ev-title">{t(`ev.${ev.id}.title`, params, o)}</h2>
+          <p class="event-text">{t(eventTextKey(ev, active?.variant), params, o)}</p>
 
           {ev.historian_note && (
             <div class="note">

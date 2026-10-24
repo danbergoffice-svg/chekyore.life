@@ -110,12 +110,12 @@
     }
   ],
   "classes": [
-    { "id": "slave", "money": [0, 5], "upkeep": 0, "mortality": 1.15, "tags": ["enslaved"] },
-    { "id": "peasant", "money": [40, 160], "upkeep": 140, "mortality": 1.0, "tags": ["rural", "raised_farming"] },
-    { "id": "craftsman", "money": [60, 220], "upkeep": 190, "mortality": 1.0, "tags": ["lives_in_city", "raised_craft"] },
-    { "id": "trader", "money": [150, 500], "upkeep": 250, "mortality": 0.95, "tags": ["lives_in_city", "raised_trade"] },
-    { "id": "landowner", "money": [500, 1500], "upkeep": 450, "mortality": 0.85, "tags": ["raised_management", "wealthy"] },
-    { "id": "noble", "money": [3000, 9000], "upkeep": 1200, "mortality": 0.8, "tags": ["lives_in_city", "raised_management", "wealthy"] }
+    { "id": "slave", "status": 5, "money": [0, 5], "upkeep": 0, "mortality": 1.15, "tags": ["enslaved"] },
+    { "id": "peasant", "status": 25, "money": [40, 160], "upkeep": 140, "mortality": 1.0, "tags": ["rural", "raised_farming"] },
+    { "id": "craftsman", "status": 38, "money": [60, 220], "upkeep": 190, "mortality": 1.0, "tags": ["lives_in_city", "raised_craft"] },
+    { "id": "trader", "status": 48, "money": [150, 500], "upkeep": 250, "mortality": 0.95, "tags": ["lives_in_city", "raised_trade"] },
+    { "id": "landowner", "status": 72, "money": [500, 1500], "upkeep": 450, "mortality": 0.85, "tags": ["raised_management", "wealthy"] },
+    { "id": "noble", "status": 92, "money": [3000, 9000], "upkeep": 1200, "mortality": 0.8, "tags": ["lives_in_city", "raised_management", "wealthy"] }
   ],
   "professions": [
     { "id": "farmer", "classes": ["peasant"], "minAge": 12, "income": [150, 260], "skill": "farming" },

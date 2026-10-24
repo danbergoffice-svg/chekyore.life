@@ -1,0 +1,44 @@
+{
+  "scale": 40,
+  "focus": {
+    "play": {},
+    "learn": { "faith_reason": 1.5, "memory_future": 0.5 },
+    "help_family": { "craft_power": -1, "home_road": -1, "memory_future": -0.5 },
+    "work": { "craft_power": -0.5 },
+    "study": { "faith_reason": 2.5, "memory_future": 1 },
+    "family": { "home_road": -2, "memory_future": -1.5 },
+    "health": { "home_road": -0.5 },
+    "trade": { "home_road": 2, "memory_future": 1.5, "craft_power": 0.5 },
+    "service": { "craft_power": 1.5, "home_road": 2 },
+    "rest": { "home_road": -1 },
+    "religion": { "faith_reason": -3, "memory_future": -1 },
+    "savings": { "memory_future": -1.5 }
+  },
+  "profession": {
+    "farmer": { "craft_power": -1.5, "home_road": -1.5, "memory_future": -0.5 },
+    "laborer": { "craft_power": -1.5 },
+    "artisan": { "craft_power": -2, "home_road": -0.5 },
+    "weaver": { "craft_power": -2, "home_road": -1 },
+    "midwife": { "craft_power": -1.5, "faith_reason": 0.5 },
+    "merchant": { "home_road": 2, "memory_future": 1.5 },
+    "sailor": { "home_road": 3, "memory_future": 1 },
+    "legionary": { "craft_power": 1.5, "home_road": 2.5 },
+    "soldier": { "craft_power": 1.5, "home_road": 2 },
+    "scribe": { "craft_power": -0.5, "faith_reason": 2 },
+    "physician": { "craft_power": -1, "faith_reason": 2.5 },
+    "rhetor": { "craft_power": 2.5, "faith_reason": 1.5 },
+    "priest": { "craft_power": 1, "faith_reason": -3, "memory_future": -1.5 },
+    "landholder": { "craft_power": 1.5, "home_road": -1.5, "memory_future": -1 },
+    "magistrate": { "craft_power": 3, "memory_future": 0.5 },
+    "matron": { "craft_power": 1, "home_road": -2, "memory_future": -1 },
+    "household_slave": { "craft_power": -1, "home_road": -1 },
+    "field_slave": { "craft_power": -1.5, "home_road": -1 },
+    "gladiator": { "craft_power": 0.5, "memory_future": 1.5 }
+  },
+  "actions": {
+    "move": { "home_road": 8, "memory_future": 3 },
+    "child": { "memory_future": -3, "home_road": -1 },
+    "marriage": { "home_road": -4, "memory_future": -2 },
+    "study_tag": { "faith_reason": 6 }
+  }
+}

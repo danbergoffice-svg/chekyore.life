@@ -1,481 +1,62 @@
 [
-  {
-    "id": "infant_fever", "type": "personal", "age_range": [0, 4], "base_weight": 3,
-    "effects": [{ "param": "health", "delta": -8 }, { "npc_attitude": "mother", "delta": 10 }]
-  },
-  {
-    "id": "sibling_born", "type": "family", "age_range": [1, 10], "base_weight": 3,
-    "conditions": [{ "has_npc": "mother", "age_max": 40 }],
-    "effects": [{ "add_npc": "sibling", "newborn": true, "attitude": 40 }, { "param": "loneliness", "delta": -3 }]
-  },
-  {
-    "id": "childhood_friend", "type": "personal", "age_range": [5, 11], "base_weight": 4,
-    "conditions": [{ "no_npc": "friend" }],
-    "choices": [
-      { "id": "befriend", "effects": [{ "add_npc": "friend", "attitude": 40 }, { "param": "loneliness", "delta": -10 }, { "param": "happiness", "delta": 5 }] },
-      { "id": "alone", "effects": [{ "param": "loneliness", "delta": 3 }, { "param": "intellect", "delta": 1 }] }
-    ]
-  },
-  {
-    "id": "found_coin", "type": "personal", "age_range": [5, 13], "base_weight": 3,
-    "choices": [
-      { "id": "keep", "effects": [{ "param": "money", "delta": 10 }, { "param": "happiness", "delta": 2 }] },
-      { "id": "parents", "effects": [{ "npc_attitude": "father", "delta": 10 }, { "npc_attitude": "mother", "delta": 10 }, { "param": "self_esteem", "delta": 3 }] },
-      { "id": "offering", "effects": [{ "param": "faith", "delta": 6 }] }
-    ]
-  },
-  {
-    "id": "school_offer", "type": "personal", "age_range": [6, 10], "base_weight": 5, "once": true,
-    "classes": ["craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "skill": "literacy", "op": "<", "value": 30 }],
-    "choices": [
-      { "id": "attend", "effects": [{ "param": "money", "delta": -30 }, { "skill": "literacy", "delta": 12 }, { "param": "intellect", "delta": 4 }, { "add_tag": "schooled" }] },
-      { "id": "help_home", "effects": [{ "param": "diligence", "delta": 4 }, { "param": "money", "delta": 10 }] }
-    ]
-  },
-  {
-    "id": "slave_letters", "type": "personal", "age_range": [6, 14], "base_weight": 4, "once": true,
-    "classes": ["slave"],
-    "choices": [
-      { "id": "listen", "risk_roll": { "param": "intellect", "success_chance_base": 0.6, "on_success": [{ "skill": "literacy", "delta": 12 }, { "param": "intellect", "delta": 3 }], "on_failure": [{ "param": "health", "delta": -4 }, { "param": "stress", "delta": 8 }, { "param": "self_esteem", "delta": -5 }] } },
-      { "id": "ignore", "effects": [{ "param": "diligence", "delta": 1 }] }
-    ]
-  },
-  {
-    "id": "sibling_ill", "type": "family", "age_range": [3, 14], "base_weight": 2, "sensitive": true,
-    "conditions": [{ "has_npc": "sibling", "age_max": 10 }],
-    "choices": [
-      { "id": "care", "effects": [{ "param": "stress", "delta": 5 }], "risk_roll": { "param": "diligence", "success_chance_base": 0.6, "on_success": [{ "npc_attitude": "sibling", "delta": 20 }], "on_failure": [{ "kill_npc": "sibling" }] } },
-      { "id": "pray", "effects": [{ "param": "faith", "delta": 5 }], "risk_roll": { "success_chance_base": 0.55, "on_success": [{ "param": "faith", "delta": 5 }], "on_failure": [{ "kill_npc": "sibling" }] } }
-    ]
-  },
-  {
-    "id": "profession_choice", "type": "personal", "milestone": true, "dynamic": "profession", "age_range": [12, 25], "base_weight": 1,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "no_profession": true }]
-  },
-  {
-    "id": "slave_assignment", "type": "personal", "milestone": true, "dynamic": "profession", "age_range": [10, 25], "base_weight": 1,
-    "classes": ["slave"],
-    "conditions": [{ "no_profession": true }]
-  },
-  {
-    "id": "mentor_offer", "type": "personal", "age_range": [12, 20], "base_weight": 3, "once": true,
-    "classes": ["peasant", "craftsman", "trader"],
-    "conditions": [{ "no_npc": "mentor" }],
-    "choices": [
-      { "id": "apprentice", "effects": [{ "add_npc": "mentor", "attitude": 40 }, { "skill": "craft", "delta": 8 }, { "skill": "trade", "delta": 4 }, { "param": "diligence", "delta": 2 }] },
-      { "id": "decline", "effects": [{ "param": "happiness", "delta": 2 }] }
-    ]
-  },
-  {
-    "id": "first_love", "type": "personal", "age_range": [14, 22], "base_weight": 4, "once": true,
-    "conditions": [{ "tag_absent": "married" }],
-    "choices": [
-      { "id": "confess", "risk_roll": { "param": "charisma", "success_chance_base": 0.5, "on_success": [{ "param": "happiness", "delta": 12 }, { "param": "self_esteem", "delta": 8 }], "on_failure": [{ "param": "self_esteem", "delta": -10 }, { "param": "happiness", "delta": -6 }] } },
-      { "id": "silent", "effects": [{ "param": "stress", "delta": 3 }, { "param": "loneliness", "delta": 4 }] }
-    ]
-  },
-  {
-    "id": "marriage_f", "type": "family", "milestone": true, "sex": "f", "age_range": [14, 22], "base_weight": 1,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "tag_absent": "married" }, { "no_npc": "spouse" }],
-    "choices": [
-      { "id": "accept", "effects": [{ "add_npc": "spouse", "attitude": 30 }, { "money_pct": -20 }, { "param": "loneliness", "delta": -10 }] },
-      { "id": "plead", "risk_roll": { "param": "charisma", "success_chance_base": 0.4, "on_success": [{ "npc_attitude": "father", "delta": -10 }, { "param": "self_esteem", "delta": 5 }], "on_failure": [{ "add_npc": "spouse", "attitude": 10 }, { "param": "happiness", "delta": -8 }, { "param": "stress", "delta": 8 }] },
-        "delayed_effects": [{ "after_years": [2, 5], "chance": 1, "trigger_event": "marriage_later" }] }
-    ]
-  },
-  {
-    "id": "marriage_m", "type": "family", "milestone": true, "sex": "m", "age_range": [20, 34], "base_weight": 1,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "tag_absent": "married" }, { "no_npc": "spouse" }],
-    "choices": [
-      { "id": "dowry", "requirements": [{ "any": [{ "param": "reputation", "op": ">=", "value": 10 }, { "param": "charisma", "op": ">=", "value": 60 }] }], "effects": [{ "add_npc": "spouse", "attitude": 15 }, { "money_pct": 25 }, { "param": "money", "delta": 100 }, { "param": "reputation", "delta": 3 }] },
-      { "id": "love", "effects": [{ "add_npc": "spouse", "attitude": 50 }, { "param": "happiness", "delta": 8 }, { "param": "loneliness", "delta": -12 }] },
-      { "id": "wait", "effects": [{ "param": "self_esteem", "delta": 1 }], "delayed_effects": [{ "after_years": [3, 6], "chance": 1, "trigger_event": "marriage_later" }] }
-    ]
-  },
-  {
-    "id": "marriage_later", "type": "family", "trigger_only": true, "base_weight": 1,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "tag_absent": "married" }, { "no_npc": "spouse" }, { "age": [14, 50] }],
-    "choices": [
-      { "id": "marry", "effects": [{ "add_npc": "spouse", "attitude": 35 }, { "param": "happiness", "delta": 5 }, { "param": "loneliness", "delta": -10 }] },
-      { "id": "single", "effects": [{ "param": "loneliness", "delta": 5 }, { "param": "self_esteem", "delta": 2 }] }
-    ]
-  },
-  {
-    "id": "contubernium", "type": "family", "milestone": true, "age_range": [16, 32], "base_weight": 1,
-    "classes": ["slave"],
-    "conditions": [{ "no_npc": "spouse" }],
-    "choices": [
-      { "id": "together", "effects": [{ "add_npc": "spouse", "attitude": 45 }, { "param": "happiness", "delta": 8 }, { "param": "loneliness", "delta": -15 }] },
-      { "id": "refuse", "effects": [{ "param": "loneliness", "delta": 5 }] }
-    ]
-  },
-  {
-    "id": "brawl", "type": "personal", "age_range": [14, 35], "base_weight": 3,
-    "weight_modifiers": [{ "if": { "sex": "m" }, "multiply": 2 }, { "if": { "trait": "hot_tempered" }, "multiply": 2 }],
-    "choices": [
-      { "id": "fight", "risk_roll": { "param": "strength", "success_chance_base": 0.5, "on_success": [{ "param": "self_esteem", "delta": 6 }, { "param": "reputation", "delta": 3 }], "on_failure": [{ "param": "health", "delta": -12 }, { "param": "reputation", "delta": -3 }] } },
-      { "id": "walk_away", "effects": [{ "param": "self_esteem", "delta": -4 }, { "param": "stress", "delta": -2 }] },
-      { "id": "talk", "risk_roll": { "param": "charisma", "success_chance_base": 0.5, "on_success": [{ "param": "reputation", "delta": 4 }], "on_failure": [{ "param": "self_esteem", "delta": -3 }] } }
-    ]
-  },
-  {
-    "id": "work_injury", "type": "personal", "age_range": [14, 65], "base_weight": 3,
-    "conditions": [{ "profession": ["farmer", "laborer", "artisan", "field_slave", "household_slave", "sailor", "weaver"] }],
-    "choices": [
-      { "id": "rest", "effects": [{ "param": "money", "delta": -40 }, { "param": "health", "delta": -3 }] },
-      { "id": "keep_working", "effects": [{ "param": "health", "delta": -12 }, { "param": "money", "delta": 20 }, { "param": "diligence", "delta": 2 }] }
-    ]
-  },
-  {
-    "id": "loan_request", "type": "personal", "age_range": [20, 65], "base_weight": 3,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "param": "money", "op": ">=", "value": 100 }],
-    "choices": [
-      { "id": "lend", "effects": [{ "param": "money", "delta": -80 }, { "param": "reputation", "delta": 2 }], "delayed_effects": [{ "after_years": [2, 5], "chance": 0.6, "trigger_event": "loan_returned" }] },
-      { "id": "refuse", "effects": [{ "param": "reputation", "delta": -2 }] }
-    ]
-  },
-  {
-    "id": "loan_returned", "type": "personal", "trigger_only": true, "base_weight": 1,
-    "effects": [{ "param": "money", "delta": 100 }, { "param": "reputation", "delta": 2 }, { "param": "happiness", "delta": 3 }]
-  },
-  {
-    "id": "venture", "type": "personal", "age_range": [20, 60], "base_weight": 4,
-    "conditions": [{ "profession": ["merchant", "sailor", "artisan"] }, { "param": "money", "op": ">=", "value": 150 }],
-    "choices": [
-      { "id": "invest", "effects": [{ "param": "money", "delta": -150 }], "risk_roll": { "param": "trade", "success_chance_base": 0.5, "on_success": [{ "param": "money", "delta": 380 }, { "skill": "trade", "delta": 4 }], "on_failure": [{ "param": "stress", "delta": 8 }] } },
-      { "id": "decline", "effects": [{ "param": "self_esteem", "delta": -1 }] }
-    ]
-  },
-  {
-    "id": "patron_offer", "type": "personal", "regions": ["rome"], "age_range": [18, 55], "base_weight": 3, "once": true,
-    "classes": ["peasant", "craftsman", "trader"],
-    "conditions": [{ "no_npc": "patron" }],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "client", "effects": [{ "add_npc": "patron", "attitude": 30 }, { "param": "reputation", "delta": 3 }, { "param": "money", "delta": 40 }], "delayed_effects": [{ "after_years": [2, 6], "chance": 0.7, "trigger_event": "patron_favor" }] },
-      { "id": "independent", "effects": [{ "param": "self_esteem", "delta": 4 }] }
-    ]
-  },
-  {
-    "id": "patron_favor", "type": "personal", "trigger_only": true, "base_weight": 1,
-    "conditions": [{ "has_npc": "patron" }],
-    "choices": [
-      { "id": "agree", "effects": [{ "npc_attitude": "patron", "delta": 20 }, { "param": "money", "delta": 100 }, { "param": "faith", "delta": -5 }, { "param": "self_esteem", "delta": -6 }, { "set_flag": "lied_in_court" }], "delayed_effects": [{ "after_years": [3, 8], "chance": 0.35, "trigger_event": "perjury_exposed" }] },
-      { "id": "refuse", "effects": [{ "remove_npc": "patron" }, { "param": "money", "delta": -30 }, { "param": "reputation", "delta": 3 }, { "param": "self_esteem", "delta": 5 }] }
-    ]
-  },
-  {
-    "id": "perjury_exposed", "type": "personal", "trigger_only": true, "base_weight": 1,
-    "conditions": [{ "flag": "lied_in_court" }],
-    "effects": [{ "param": "reputation", "delta": -15 }, { "param": "stress", "delta": 10 }, { "param": "money", "delta": -60 }]
-  },
-  {
-    "id": "spouse_ill", "type": "family", "age_range": [16, 90], "base_weight": 2,
-    "conditions": [{ "has_npc": "spouse" }],
-    "choices": [
-      { "id": "physician", "requirements": [{ "param": "money", "op": ">=", "value": 60 }], "effects": [{ "param": "money", "delta": -60 }], "risk_roll": { "success_chance_base": 0.8, "on_success": [{ "npc_attitude": "spouse", "delta": 10 }], "on_failure": [{ "kill_npc": "spouse", "cause": "illness" }] } },
-      { "id": "temple", "effects": [{ "param": "faith", "delta": 5 }, { "param": "money", "delta": -10 }], "risk_roll": { "success_chance_base": 0.6, "on_success": [{ "npc_attitude": "spouse", "delta": 10 }], "on_failure": [{ "kill_npc": "spouse", "cause": "illness" }] } },
-      { "id": "care", "effects": [{ "param": "stress", "delta": 8 }], "risk_roll": { "param": "diligence", "success_chance_base": 0.65, "on_success": [{ "npc_attitude": "spouse", "delta": 15 }], "on_failure": [{ "kill_npc": "spouse", "cause": "illness" }] } }
-    ]
-  },
-  {
-    "id": "child_school", "type": "family", "age_range": [22, 75], "base_weight": 3,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "has_npc": "child", "age_min": 6, "age_max": 11 }],
-    "choices": [
-      { "id": "send", "requirements": [{ "param": "money", "op": ">=", "value": 60 }], "effects": [{ "param": "money", "delta": -60 }, { "npc_attitude": "child", "delta": 10 }, { "set_flag": "family_educated" }] },
-      { "id": "keep", "effects": [{ "param": "money", "delta": 15 }] }
-    ]
-  },
-  {
-    "id": "festival", "type": "local", "age_range": [5, 90], "base_weight": 3,
-    "choices": [
-      { "id": "celebrate", "effects": [{ "param": "happiness", "delta": 6 }, { "param": "stress", "delta": -5 }, { "param": "money", "delta": -15 }, { "param": "loneliness", "delta": -4 }] },
-      { "id": "work", "effects": [{ "param": "money", "delta": 20 }, { "param": "diligence", "delta": 1 }] }
-    ]
-  },
-  {
-    "id": "insula_fire", "type": "local", "regions": ["rome"], "age_range": [8, 90], "base_weight": 2,
-    "conditions": [{ "tag": "lives_in_city" }, { "tag_absent": "wealthy" }],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "save_goods", "risk_roll": { "param": "strength", "success_chance_base": 0.5, "on_success": [{ "param": "self_esteem", "delta": 3 }], "on_failure": [{ "param": "health", "delta": -15 }, { "money_pct": -20 }] } },
-      { "id": "flee", "effects": [{ "money_pct": -30 }, { "param": "stress", "delta": 6 }] }
-    ]
-  },
-  {
-    "id": "tax_collector", "type": "local", "regions": ["egypt"], "age_range": [16, 80], "base_weight": 3,
-    "classes": ["peasant", "craftsman", "trader"],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "pay", "effects": [{ "param": "money", "delta": -60 }, { "param": "stress", "delta": 3 }] },
-      { "id": "bribe", "effects": [{ "param": "money", "delta": -25 }], "risk_roll": { "param": "charisma", "success_chance_base": 0.55, "on_failure": [{ "param": "money", "delta": -80 }, { "param": "reputation", "delta": -5 }] } },
-      { "id": "petition", "risk_roll": { "param": "literacy", "success_chance_base": 0.4, "on_success": [{ "param": "reputation", "delta": 3 }, { "param": "self_esteem", "delta": 4 }], "on_failure": [{ "param": "money", "delta": -60 }, { "param": "stress", "delta": 6 }] } }
-    ]
-  },
-  {
-    "id": "low_flood", "type": "local", "regions": ["egypt"], "age_range": [10, 90], "base_weight": 2,
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "hoard", "requirements": [{ "param": "money", "op": ">=", "value": 50 }], "effects": [{ "param": "money", "delta": -50 }, { "param": "stress", "delta": -2 }] },
-      { "id": "hope", "risk_roll": { "param": "risk_tolerance", "success_chance_base": 0.5, "on_failure": [{ "param": "health", "delta": -10 }, { "param": "money", "delta": -30 }, { "param": "stress", "delta": 8 }] } }
-    ]
-  },
-  {
-    "id": "grain_shortage", "type": "local", "regions": ["rome", "athens"], "years": [-500, 200], "age_range": [10, 70], "base_weight": 3,
-    "classes": ["craftsman", "peasant", "trader"],
-    "conditions": [{ "param": "reputation", "op": ">=", "value": -20 }, { "tag_absent": "wealthy" }],
-    "weight_modifiers": [{ "if": { "trait": "cautious" }, "multiply": 1.2 }, { "if": { "tag": "lives_in_city" }, "multiply": 1.5 }],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "buy_reserve", "requirements": [{ "param": "money", "op": ">=", "value": 40 }], "effects": [{ "param": "money", "delta": -40 }, { "param": "stress", "delta": -5 }, { "add_tag": "prepared_for_hunger" }], "delayed_effects": [{ "after_years": [2, 6], "chance": 0.5, "trigger_event": "neighbor_asks_help" }] },
-      { "id": "wait", "effects": [{ "param": "health", "delta": -3 }, { "param": "stress", "delta": 8 }], "risk_roll": { "param": "risk_tolerance", "success_chance_base": 0.4, "on_failure": [{ "param": "health", "delta": -10 }] } }
-    ]
-  },
-  {
-    "id": "neighbor_asks_help", "type": "local", "trigger_only": true, "base_weight": 1,
-    "choices": [
-      { "id": "help", "effects": [{ "param": "money", "delta": -20 }, { "param": "reputation", "delta": 5 }, { "param": "faith", "delta": 2 }] },
-      { "id": "refuse", "effects": [{ "param": "reputation", "delta": -4 }, { "param": "self_esteem", "delta": -2 }] }
-    ]
-  },
-  {
-    "id": "assembly", "type": "local", "regions": ["athens"], "years": [-507, -322], "sex": "m", "age_range": [18, 75], "base_weight": 4,
-    "classes": ["peasant", "craftsman", "landowner", "noble"],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "speak", "risk_roll": { "param": "oratory", "success_chance_base": 0.35, "on_success": [{ "param": "reputation", "delta": 8 }, { "param": "self_esteem", "delta": 5 }], "on_failure": [{ "param": "reputation", "delta": -4 }, { "param": "self_esteem", "delta": -6 }] } },
-      { "id": "vote", "effects": [{ "param": "reputation", "delta": 1 }] },
-      { "id": "skip", "effects": [{ "param": "money", "delta": 20 }] }
-    ]
-  },
-  {
-    "id": "liturgy", "type": "local", "regions": ["athens"], "years": [-500, -300], "age_range": [25, 75], "base_weight": 4,
-    "classes": ["landowner", "noble"],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "pay", "requirements": [{ "param": "money", "op": ">=", "value": 400 }], "effects": [{ "param": "money", "delta": -400 }, { "param": "reputation", "delta": 12 }] },
-      { "id": "antidosis", "risk_roll": { "param": "charisma", "success_chance_base": 0.4, "on_success": [{ "param": "self_esteem", "delta": 4 }], "on_failure": [{ "money_pct": -30 }, { "param": "reputation", "delta": -5 }] } },
-      { "id": "plead", "effects": [{ "param": "reputation", "delta": -6 }] }
-    ]
-  },
-  {
-    "id": "philosopher", "type": "personal", "regions": ["athens"], "age_range": [15, 40], "base_weight": 3, "once": true,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "choices": [
-      { "id": "follow", "effects": [{ "param": "intellect", "delta": 5 }, { "skill": "oratory", "delta": 5 }, { "param": "faith", "delta": -3 }, { "param": "money", "delta": -20 }, { "add_tag": "philosophy" }] },
-      { "id": "mock", "effects": [{ "param": "self_esteem", "delta": 2 }] }
-    ]
-  },
-  {
-    "id": "museum", "type": "personal", "regions": ["egypt"], "years": [-290, 200], "age_range": [15, 35], "base_weight": 3, "once": true,
-    "classes": ["craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "param": "intellect", "op": ">=", "value": 55 }, { "skill": "literacy", "op": ">=", "value": 15 }],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "study", "requirements": [{ "param": "money", "op": ">=", "value": 100 }], "effects": [{ "param": "money", "delta": -100 }, { "param": "intellect", "delta": 6 }, { "skill": "medicine", "delta": 10 }, { "skill": "literacy", "delta": 6 }, { "add_tag": "lives_in_city" }] },
-      { "id": "decline", "effects": [{ "param": "happiness", "delta": 1 }] }
-    ]
-  },
-  {
-    "id": "games", "type": "local", "regions": ["rome"], "years": [-264, 200], "age_range": [8, 85], "base_weight": 2,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "attend", "effects": [{ "param": "happiness", "delta": 5 }, { "param": "stress", "delta": -4 }] },
-      { "id": "stay_home", "effects": [{ "param": "diligence", "delta": 1 }] }
-    ]
-  },
-  {
-    "id": "manumission", "type": "personal", "age_range": [20, 70], "base_weight": 3, "once": true,
-    "classes": ["slave"],
-    "conditions": [{ "param": "reputation", "op": ">=", "value": -15 }],
-    "weight_modifiers": [{ "if": { "tag": "lives_in_city" }, "multiply": 1.5 }],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "buy_freedom", "requirements": [{ "param": "money", "op": ">=", "value": 150 }], "effects": [{ "param": "money", "delta": -150 }, { "set_class": "craftsman" }, { "add_tag": "freedman" }, { "remove_tag": "enslaved" }, { "param": "self_esteem", "delta": 15 }, { "param": "happiness", "delta": 15 }, { "set_profession": "artisan" }] },
-      { "id": "serve_on", "effects": [{ "param": "reputation", "delta": 2 }], "delayed_effects": [{ "after_years": [5, 15], "chance": 0.4, "trigger_event": "freed_in_will" }] }
-    ]
-  },
-  {
-    "id": "freed_in_will", "type": "personal", "trigger_only": true, "base_weight": 1,
-    "classes": ["slave"],
-    "effects": [{ "set_class": "craftsman" }, { "add_tag": "freedman" }, { "remove_tag": "enslaved" }, { "param": "happiness", "delta": 20 }, { "param": "self_esteem", "delta": 10 }, { "set_profession": "artisan" }]
-  },
-  {
-    "id": "escape", "type": "personal", "age_range": [16, 45], "base_weight": 1, "sensitive": true,
-    "classes": ["slave"],
-    "weight_modifiers": [{ "if": { "param": "stress", "op": ">=", "value": 60 }, "multiply": 3 }],
-    "choices": [
-      { "id": "flee", "risk_roll": { "param": "risk_tolerance", "success_chance_base": 0.35, "on_success": [{ "set_class": "peasant" }, { "remove_tag": "enslaved" }, { "add_tag": "fugitive" }, { "set_profession": "laborer" }, { "param": "happiness", "delta": 15 }], "on_failure": [{ "param": "health", "delta": -20 }, { "param": "self_esteem", "delta": -10 }, { "param": "stress", "delta": 15 }] } },
-      { "id": "stay", "effects": [{ "param": "stress", "delta": 4 }] }
-    ]
-  },
-  {
-    "id": "recruitment_rome", "type": "personal", "regions": ["rome"], "sex": "m", "age_range": [17, 30], "base_weight": 4, "once": true,
-    "classes": ["peasant", "craftsman", "landowner"],
-    "conditions": [{ "profession": ["farmer", "laborer", "artisan", "merchant", "landholder"] }],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "enlist", "effects": [{ "set_profession": "legionary" }, { "skill": "military", "delta": 10 }, { "param": "strength", "delta": 3 }, { "param": "stress", "delta": 5 }] },
-      { "id": "stay", "effects": [{ "param": "self_esteem", "delta": -1 }] }
-    ]
-  },
-  {
-    "id": "recruitment_greek", "type": "personal", "regions": ["athens", "egypt"], "sex": "m", "age_range": [17, 30], "base_weight": 4, "once": true,
-    "classes": ["peasant", "craftsman", "landowner"],
-    "conditions": [{ "profession": ["farmer", "laborer", "artisan", "merchant", "landholder"] }],
-    "choices": [
-      { "id": "enlist", "effects": [{ "set_profession": "soldier" }, { "skill": "military", "delta": 10 }, { "param": "strength", "delta": 3 }, { "param": "stress", "delta": 5 }] },
-      { "id": "stay", "effects": [{ "param": "self_esteem", "delta": -1 }] }
-    ]
-  },
-  {
-    "id": "campaign", "type": "personal", "age_range": [17, 50], "base_weight": 5,
-    "conditions": [{ "profession": ["legionary", "soldier"] }],
-    "choices": [
-      { "id": "brave", "risk_roll": { "param": "military", "success_chance_base": 0.5, "on_success": [{ "param": "reputation", "delta": 8 }, { "param": "money", "delta": 120 }], "on_failure": [{ "param": "health", "delta": -25 }, { "chance": 0.25, "effects": [{ "kill": "war" }] }] } },
-      { "id": "careful", "risk_roll": { "param": "military", "success_chance_base": 0.7, "on_success": [{ "param": "money", "delta": 30 }], "on_failure": [{ "param": "health", "delta": -10 }] } }
-    ]
-  },
-  {
-    "id": "will", "type": "family", "age_range": [50, 110], "base_weight": 3, "once": true,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "conditions": [{ "has_npc": "child" }],
-    "choices": [
-      { "id": "equal", "effects": [{ "npc_attitude": "child", "delta": 10 }, { "param": "stress", "delta": -3 }] },
-      { "id": "eldest", "effects": [{ "npc_attitude": "child", "delta": -5 }, { "param": "reputation", "delta": 2 }] },
-      { "id": "temple", "effects": [{ "param": "faith", "delta": 10 }, { "npc_attitude": "child", "delta": -15 }, { "money_pct": -20 }] }
-    ]
-  },
-  {
-    "id": "old_friend", "type": "personal", "age_range": [45, 110], "base_weight": 2,
-    "conditions": [{ "has_npc": "friend" }],
-    "choices": [
-      { "id": "visit", "effects": [{ "param": "happiness", "delta": 6 }, { "param": "loneliness", "delta": -8 }, { "npc_attitude": "friend", "delta": 10 }] },
-      { "id": "letter", "effects": [{ "param": "loneliness", "delta": -3 }] }
-    ]
-  },
-
-  {
-    "id": "g_marathon", "type": "global_historical", "regions": ["athens"], "years": [-490, -490], "age_range": [5, 120], "base_weight": 1, "global_chance": 1,
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "param": "self_esteem", "delta": 3 }, { "param": "happiness", "delta": 4 }]
-  },
-  {
-    "id": "g_salamis", "type": "global_historical", "regions": ["athens"], "years": [-480, -480], "age_range": [0, 120], "base_weight": 1, "global_chance": 1,
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "evacuate", "effects": [{ "money_pct": -40 }, { "param": "stress", "delta": 10 }] },
-      { "id": "stay", "risk_roll": { "param": "strength", "success_chance_base": 0.3, "on_success": [{ "param": "reputation", "delta": 5 }], "on_failure": [{ "param": "health", "delta": -25 }, { "money_pct": -60 }, { "chance": 0.4, "effects": [{ "kill": "war" }] }] } }
-    ]
-  },
-  {
-    "id": "g_peloponnesian", "type": "global_historical", "regions": ["athens"], "years": [-431, -431], "age_range": [5, 120], "base_weight": 1, "global_chance": 1,
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "money_pct": -15 }, { "param": "stress", "delta": 6 }]
-  },
-  {
-    "id": "g_athens_plague", "type": "global_historical", "regions": ["athens"], "years": [-430, -426], "age_range": [0, 120], "base_weight": 1, "global_chance": 0.5,
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "add_tag": "epidemic" }],
-    "choices": [
-      { "id": "care", "effects": [{ "param": "faith", "delta": 3 }, { "param": "reputation", "delta": 4 }], "risk_roll": { "param": "health", "success_chance_base": 0.5, "on_failure": [{ "param": "health", "delta": -20 }] } },
-      { "id": "isolate", "effects": [{ "param": "loneliness", "delta": 10 }], "risk_roll": { "param": "health", "success_chance_base": 0.7, "on_failure": [{ "param": "health", "delta": -15 }] } }
-    ]
-  },
-  {
-    "id": "g_sicily", "type": "global_historical", "regions": ["athens"], "years": [-413, -413], "age_range": [5, 120], "base_weight": 1, "global_chance": 1,
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "param": "happiness", "delta": -6 }, { "param": "stress", "delta": 5 }]
-  },
-  {
-    "id": "g_sulla", "type": "global_historical", "regions": ["athens"], "years": [-86, -86], "age_range": [0, 120], "base_weight": 1, "global_chance": 1, "sensitive": true,
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "money_pct": -40 }, { "param": "health", "delta": -5 }, { "param": "stress", "delta": 12 }]
-  },
-  {
-    "id": "g_alexander", "type": "global_historical", "regions": ["egypt"], "years": [-332, -331], "age_range": [5, 120], "base_weight": 1, "global_chance": 1,
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "welcome", "effects": [{ "param": "happiness", "delta": 3 }] },
-      { "id": "wary", "effects": [{ "param": "self_esteem", "delta": 1 }] }
-    ]
-  },
-  {
-    "id": "g_alexandria", "type": "global_historical", "regions": ["egypt"], "years": [-331, -280], "age_range": [16, 60], "base_weight": 1, "global_chance": 0.15,
-    "classes": ["peasant", "craftsman", "trader", "landowner"],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "move", "requirements": [{ "param": "money", "op": ">=", "value": 50 }], "effects": [{ "param": "money", "delta": -50 }, { "add_tag": "lives_in_city" }, { "remove_tag": "rural" }, { "skill": "trade", "delta": 5 }, { "param": "happiness", "delta": 3 }] },
-      { "id": "stay", "effects": [{ "param": "loneliness", "delta": -2 }] }
-    ]
-  },
-  {
-    "id": "g_roman_egypt", "type": "global_historical", "regions": ["egypt"], "years": [-30, -30], "age_range": [5, 120], "base_weight": 1, "global_chance": 1,
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "money_pct": -5 }, { "param": "stress", "delta": 3 }]
-  },
-  {
-    "id": "g_hannibal", "type": "global_historical", "regions": ["rome"], "years": [-218, -216], "age_range": [8, 120], "base_weight": 1, "global_chance": 0.8,
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "enlist", "requirements": [{ "sex": "m" }, { "age": [17, 46] }, { "classes": ["peasant", "craftsman", "landowner", "noble"] }], "risk_roll": { "param": "strength", "success_chance_base": 0.55, "on_success": [{ "param": "reputation", "delta": 8 }, { "skill": "military", "delta": 10 }], "on_failure": [{ "param": "health", "delta": -20 }, { "chance": 0.35, "effects": [{ "kill": "war" }] }] } },
-      { "id": "support", "effects": [{ "param": "money", "delta": -40 }, { "param": "reputation", "delta": 3 }, { "param": "stress", "delta": 6 }] }
-    ]
-  },
-  {
-    "id": "g_carthage", "type": "global_historical", "regions": ["rome"], "years": [-146, -146], "age_range": [5, 120], "base_weight": 1, "global_chance": 1,
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "param": "happiness", "delta": 2 }]
-  },
-  {
-    "id": "g_spartacus", "type": "global_historical", "regions": ["rome"], "years": [-73, -71], "age_range": [8, 120], "base_weight": 1, "global_chance": 0.6,
-    "classes": ["peasant", "craftsman", "trader", "landowner", "noble"],
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "param": "stress", "delta": 6 }]
-  },
-  {
-    "id": "g_spartacus_slave", "type": "global_historical", "regions": ["rome"], "years": [-73, -71], "age_range": [16, 50], "base_weight": 1, "global_chance": 0.6, "sensitive": true,
-    "classes": ["slave"],
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "join", "risk_roll": { "param": "strength", "success_chance_base": 0.25, "on_success": [{ "set_class": "peasant" }, { "remove_tag": "enslaved" }, { "add_tag": "fugitive" }, { "set_profession": "laborer" }], "on_failure": [{ "kill": "war" }] } },
-      { "id": "stay", "effects": [{ "param": "stress", "delta": 8 }] }
-    ]
-  },
-  {
-    "id": "g_caesar", "type": "global_historical", "regions": ["rome"], "years": [-44, -44], "age_range": [10, 120], "base_weight": 1, "global_chance": 1,
-    "historian_note": true, "confidence": "confirmed",
-    "choices": [
-      { "id": "mourn", "effects": [{ "param": "faith", "delta": 2 }, { "param": "stress", "delta": 4 }] },
-      { "id": "liberators", "effects": [{ "param": "self_esteem", "delta": 3 }, { "param": "reputation", "delta": -2 }] },
-      { "id": "silent", "effects": [{ "param": "stress", "delta": 2 }] }
-    ]
-  },
-  {
-    "id": "g_great_fire", "type": "global_historical", "regions": ["rome"], "years": [64, 64], "age_range": [5, 120], "base_weight": 1, "global_chance": 1,
-    "conditions": [{ "tag": "lives_in_city" }],
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "money_pct": -35 }, { "param": "stress", "delta": 10 }],
-    "choices": [
-      { "id": "help", "effects": [{ "param": "reputation", "delta": 5 }, { "param": "health", "delta": -5 }] },
-      { "id": "flee", "effects": [{ "param": "self_esteem", "delta": -2 }] }
-    ]
-  },
-  {
-    "id": "g_antonine_plague", "type": "global_historical", "years": [165, 180], "age_range": [0, 120], "base_weight": 1, "global_chance": 0.3,
-    "historian_note": true, "confidence": "confirmed",
-    "effects": [{ "add_tag": "epidemic" }],
-    "choices": [
-      { "id": "care", "effects": [{ "param": "faith", "delta": 3 }, { "param": "reputation", "delta": 4 }], "risk_roll": { "param": "health", "success_chance_base": 0.5, "on_failure": [{ "param": "health", "delta": -20 }] } },
-      { "id": "isolate", "effects": [{ "param": "loneliness", "delta": 10 }], "risk_roll": { "param": "health", "success_chance_base": 0.7, "on_failure": [{ "param": "health", "delta": -15 }] } }
-    ]
-  }
+  {"id": "infant_fever", "type": "personal", "age_range": [0, 4], "base_weight": 3, "topic": "health", "scene": {"place": "home", "time": "night", "people": 2, "props": ["lamp", "bed"]}, "effects": [{"param": "health", "delta": -8}, {"npc_attitude": "mother", "delta": 10}]},
+  {"id": "sibling_born", "type": "family", "age_range": [1, 10], "base_weight": 3, "topic": "family", "icon": "child", "scene": {"place": "home", "time": "day", "people": 3, "props": ["cradle"]}, "conditions": [{"has_npc": "mother", "age_max": 40}], "effects": [{"add_npc": "sibling", "newborn": true, "attitude": 40}, {"param": "loneliness", "delta": -3}]},
+  {"id": "childhood_friend", "type": "personal", "age_range": [5, 11], "base_weight": 4, "topic": "life", "scene": {"place": "street", "time": "day", "people": 2, "props": ["tree"]}, "conditions": [{"no_npc": "friend"}], "choices": [{"id": "befriend", "effects": [{"add_npc": "friend", "attitude": 40}, {"param": "loneliness", "delta": -10}, {"param": "happiness", "delta": 5}]}, {"id": "alone", "effects": [{"param": "loneliness", "delta": 3}, {"param": "intellect", "delta": 1}]}]},
+  {"id": "found_coin", "type": "personal", "age_range": [5, 13], "base_weight": 3, "topic": "money", "icon": "find", "scene": {"place": "street", "time": "day", "people": 1, "props": ["coins"]}, "choices": [{"id": "keep", "effects": [{"param": "money", "delta": 10}, {"param": "happiness", "delta": 2}]}, {"id": "parents", "effects": [{"npc_attitude": "father", "delta": 10}, {"npc_attitude": "mother", "delta": 10}, {"param": "self_esteem", "delta": 3}]}, {"id": "offering", "effects": [{"param": "faith", "delta": 6}]}]},
+  {"id": "school_offer", "type": "personal", "age_range": [6, 10], "base_weight": 5, "topic": "life", "icon": "study", "scene": {"place": "school", "time": "day", "people": 3, "props": ["scroll"]}, "once": true, "classes": ["craftsman", "trader", "landowner", "noble"], "conditions": [{"skill": "literacy", "op": "<", "value": 30}], "choices": [{"id": "attend", "effects": [{"param": "money", "delta": -30}, {"skill": "literacy", "delta": 12}, {"param": "intellect", "delta": 4}, {"add_tag": "schooled"}], "pattern": {"faith_reason": 4}}, {"id": "help_home", "effects": [{"param": "diligence", "delta": 4}, {"param": "money", "delta": 10}]}]},
+  {"id": "slave_letters", "type": "personal", "age_range": [6, 14], "base_weight": 4, "topic": "life", "icon": "study", "scene": {"place": "home", "time": "day", "people": 3, "props": ["scroll", "lamp"]}, "once": true, "classes": ["slave"], "choices": [{"id": "listen", "risk_roll": {"param": "intellect", "success_chance_base": 0.6, "on_success": [{"skill": "literacy", "delta": 12}, {"param": "intellect", "delta": 3}], "on_failure": [{"param": "health", "delta": -4}, {"param": "stress", "delta": 8}, {"param": "self_esteem", "delta": -5}]}}, {"id": "ignore", "effects": [{"param": "diligence", "delta": 1}]}]},
+  {"id": "sibling_ill", "type": "family", "age_range": [3, 14], "base_weight": 2, "topic": "family", "scene": {"place": "home", "time": "night", "people": 3, "props": ["bed", "lamp"]}, "sensitive": true, "conditions": [{"has_npc": "sibling", "age_max": 10}], "choices": [{"id": "care", "effects": [{"param": "stress", "delta": 5}], "risk_roll": {"param": "diligence", "success_chance_base": 0.6, "on_success": [{"npc_attitude": "sibling", "delta": 20}], "on_failure": [{"kill_npc": "sibling"}]}}, {"id": "pray", "effects": [{"param": "faith", "delta": 5}], "risk_roll": {"success_chance_base": 0.55, "on_success": [{"param": "faith", "delta": 5}], "on_failure": [{"kill_npc": "sibling"}]}}]},
+  {"id": "profession_choice", "type": "personal", "milestone": true, "dynamic": "profession", "age_range": [12, 25], "base_weight": 1, "topic": "work", "scene": {"place": "workshop", "time": "day", "people": 2, "props": ["anvil", "amphora"]}, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "conditions": [{"no_profession": true}]},
+  {"id": "slave_assignment", "type": "personal", "milestone": true, "dynamic": "profession", "age_range": [10, 25], "base_weight": 1, "topic": "work", "scene": {"place": "field", "time": "day", "people": 3, "props": ["grain"]}, "classes": ["slave"], "conditions": [{"no_profession": true}]},
+  {"id": "mentor_offer", "type": "personal", "age_range": [12, 20], "base_weight": 3, "topic": "work", "scene": {"place": "workshop", "time": "day", "people": 2, "props": ["anvil"]}, "once": true, "classes": ["peasant", "craftsman", "trader"], "conditions": [{"no_npc": "mentor"}], "choices": [{"id": "apprentice", "effects": [{"add_npc": "mentor", "attitude": 40}, {"skill": "craft", "delta": 8}, {"skill": "trade", "delta": 4}, {"param": "diligence", "delta": 2}], "pattern": {"craft_power": -4}}, {"id": "decline", "effects": [{"param": "happiness", "delta": 2}]}]},
+  {"id": "first_love", "type": "personal", "age_range": [14, 22], "base_weight": 4, "topic": "life", "icon": "love", "scene": {"place": "river", "time": "sunset", "people": 2, "props": ["tree"]}, "once": true, "conditions": [{"tag_absent": "married"}], "choices": [{"id": "confess", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "happiness", "delta": 12}, {"param": "self_esteem", "delta": 8}], "on_failure": [{"param": "self_esteem", "delta": -10}, {"param": "happiness", "delta": -6}]}}, {"id": "silent", "effects": [{"param": "stress", "delta": 3}, {"param": "loneliness", "delta": 4}]}]},
+  {"id": "marriage_f", "type": "family", "milestone": true, "sex": "f", "age_range": [14, 22], "base_weight": 1, "topic": "family", "scene": {"place": "home", "time": "day", "people": 4, "props": ["table", "lamp"]}, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "conditions": [{"tag_absent": "married"}, {"no_npc": "spouse"}], "choices": [{"id": "accept", "effects": [{"add_npc": "spouse", "attitude": 30}, {"money_pct": -20}, {"param": "loneliness", "delta": -10}]}, {"id": "plead", "risk_roll": {"param": "charisma", "success_chance_base": 0.4, "on_success": [{"npc_attitude": "father", "delta": -10}, {"param": "self_esteem", "delta": 5}], "on_failure": [{"add_npc": "spouse", "attitude": 10}, {"param": "happiness", "delta": -8}, {"param": "stress", "delta": 8}]}, "delayed_effects": [{"after_years": [2, 5], "chance": 1, "trigger_event": "marriage_later"}]}]},
+  {"id": "marriage_m", "type": "family", "milestone": true, "sex": "m", "age_range": [20, 34], "base_weight": 1, "topic": "family", "scene": {"place": "home", "time": "day", "people": 4, "props": ["table", "amphora"]}, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "conditions": [{"tag_absent": "married"}, {"no_npc": "spouse"}], "choices": [{"id": "dowry", "requirements": [{"any": [{"param": "reputation", "op": ">=", "value": 10}, {"param": "charisma", "op": ">=", "value": 60}]}], "effects": [{"add_npc": "spouse", "attitude": 15}, {"money_pct": 25}, {"param": "money", "delta": 100}, {"param": "reputation", "delta": 3}], "pattern": {"craft_power": 3, "memory_future": -2}}, {"id": "love", "effects": [{"add_npc": "spouse", "attitude": 50}, {"param": "happiness", "delta": 8}, {"param": "loneliness", "delta": -12}], "pattern": {"home_road": -3, "memory_future": 2}}, {"id": "wait", "effects": [{"param": "self_esteem", "delta": 1}], "delayed_effects": [{"after_years": [3, 6], "chance": 1, "trigger_event": "marriage_later"}]}]},
+  {"id": "marriage_later", "type": "family", "trigger_only": true, "base_weight": 1, "topic": "family", "scene": {"place": "home", "time": "sunset", "people": 2, "props": ["table"]}, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "conditions": [{"tag_absent": "married"}, {"no_npc": "spouse"}, {"age": [14, 50]}], "choices": [{"id": "marry", "effects": [{"add_npc": "spouse", "attitude": 35}, {"param": "happiness", "delta": 5}, {"param": "loneliness", "delta": -10}]}, {"id": "single", "effects": [{"param": "loneliness", "delta": 5}, {"param": "self_esteem", "delta": 2}]}]},
+  {"id": "contubernium", "type": "family", "milestone": true, "age_range": [16, 32], "base_weight": 1, "topic": "family", "scene": {"place": "home", "time": "night", "people": 2, "props": ["lamp"]}, "classes": ["slave"], "conditions": [{"no_npc": "spouse"}], "choices": [{"id": "together", "effects": [{"add_npc": "spouse", "attitude": 45}, {"param": "happiness", "delta": 8}, {"param": "loneliness", "delta": -15}]}, {"id": "refuse", "effects": [{"param": "loneliness", "delta": 5}]}]},
+  {"id": "brawl", "type": "personal", "age_range": [14, 35], "base_weight": 3, "topic": "life", "scene": {"place": "market", "time": "day", "people": 4, "props": ["amphora"]}, "weight_modifiers": [{"if": {"sex": "m"}, "multiply": 2}, {"if": {"trait": "hot_tempered"}, "multiply": 2}], "choices": [{"id": "fight", "risk_roll": {"param": "strength", "success_chance_base": 0.5, "on_success": [{"param": "self_esteem", "delta": 6}, {"param": "reputation", "delta": 3}], "on_failure": [{"param": "health", "delta": -12}, {"param": "reputation", "delta": -3}]}}, {"id": "walk_away", "effects": [{"param": "self_esteem", "delta": -4}, {"param": "stress", "delta": -2}]}, {"id": "talk", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "reputation", "delta": 4}], "on_failure": [{"param": "self_esteem", "delta": -3}]}}]},
+  {"id": "work_injury", "type": "personal", "age_range": [14, 65], "base_weight": 3, "topic": "health", "scene": {"place": "workshop", "time": "day", "people": 1, "props": ["anvil"]}, "conditions": [{"profession": ["farmer", "laborer", "artisan", "field_slave", "household_slave", "sailor", "weaver"]}], "choices": [{"id": "rest", "effects": [{"param": "money", "delta": -40}, {"param": "health", "delta": -3}]}, {"id": "keep_working", "effects": [{"param": "health", "delta": -12}, {"param": "money", "delta": 20}, {"param": "diligence", "delta": 2}]}]},
+  {"id": "loan_request", "type": "personal", "age_range": [20, 65], "base_weight": 3, "topic": "money", "scene": {"place": "street", "time": "day", "people": 2, "props": ["coins"]}, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "conditions": [{"param": "money", "op": ">=", "value": 100}], "choices": [{"id": "lend", "effects": [{"param": "money", "delta": -80}, {"param": "reputation", "delta": 2}], "delayed_effects": [{"after_years": [2, 5], "chance": 0.6, "trigger_event": "loan_returned"}]}, {"id": "refuse", "effects": [{"param": "reputation", "delta": -2}]}]},
+  {"id": "loan_returned", "type": "personal", "trigger_only": true, "base_weight": 1, "topic": "money", "scene": {"place": "street", "time": "day", "people": 2, "props": ["coins"]}, "effects": [{"param": "money", "delta": 100}, {"param": "reputation", "delta": 2}, {"param": "happiness", "delta": 3}]},
+  {"id": "venture", "type": "personal", "age_range": [20, 60], "base_weight": 4, "topic": "money", "scene": {"place": "harbor", "time": "day", "people": 2, "props": ["boat", "amphora"]}, "conditions": [{"profession": ["merchant", "sailor", "artisan"]}, {"param": "money", "op": ">=", "value": 150}], "choices": [{"id": "invest", "effects": [{"param": "money", "delta": -150}], "risk_roll": {"param": "trade", "success_chance_base": 0.5, "on_success": [{"param": "money", "delta": 380}, {"skill": "trade", "delta": 4}], "on_failure": [{"param": "stress", "delta": 8}]}, "pattern": {"memory_future": 5, "home_road": 2}}, {"id": "decline", "effects": [{"param": "self_esteem", "delta": -1}], "pattern": {"memory_future": -3}}]},
+  {"id": "patron_offer", "type": "personal", "regions": ["rome"], "age_range": [18, 55], "base_weight": 3, "topic": "work", "scene": {"place": "palace", "time": "dawn", "people": 4, "props": ["statue"]}, "once": true, "classes": ["peasant", "craftsman", "trader"], "conditions": [{"no_npc": "patron"}], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "client", "effects": [{"add_npc": "patron", "attitude": 30}, {"param": "reputation", "delta": 3}, {"param": "money", "delta": 40}], "delayed_effects": [{"after_years": [2, 6], "chance": 0.7, "trigger_event": "patron_favor"}], "pattern": {"craft_power": 3, "memory_future": -2}}, {"id": "independent", "effects": [{"param": "self_esteem", "delta": 4}], "pattern": {"craft_power": -3, "memory_future": 2}}]},
+  {"id": "patron_favor", "type": "personal", "trigger_only": true, "base_weight": 1, "topic": "life", "scene": {"place": "landmark", "time": "day", "people": 5, "props": ["scroll"]}, "conditions": [{"has_npc": "patron"}], "choices": [{"id": "agree", "effects": [{"npc_attitude": "patron", "delta": 20}, {"param": "money", "delta": 100}, {"param": "faith", "delta": -5}, {"param": "self_esteem", "delta": -6}, {"set_flag": "lied_in_court"}], "delayed_effects": [{"after_years": [3, 8], "chance": 0.35, "trigger_event": "perjury_exposed"}], "pattern": {"craft_power": 4}}, {"id": "refuse", "effects": [{"remove_npc": "patron"}, {"param": "money", "delta": -30}, {"param": "reputation", "delta": 3}, {"param": "self_esteem", "delta": 5}], "pattern": {"faith_reason": -2, "craft_power": -3}}]},
+  {"id": "perjury_exposed", "type": "personal", "trigger_only": true, "base_weight": 1, "topic": "life", "icon": "loss", "scene": {"place": "street", "time": "overcast", "people": 4, "props": []}, "conditions": [{"flag": "lied_in_court"}], "effects": [{"param": "reputation", "delta": -15}, {"param": "stress", "delta": 10}, {"param": "money", "delta": -60}]},
+  {"id": "spouse_ill", "type": "family", "age_range": [16, 90], "base_weight": 2, "topic": "family", "scene": {"place": "home", "time": "night", "people": 2, "props": ["bed", "lamp"]}, "conditions": [{"has_npc": "spouse"}], "choices": [{"id": "physician", "requirements": [{"param": "money", "op": ">=", "value": 60}], "effects": [{"param": "money", "delta": -60}], "risk_roll": {"success_chance_base": 0.8, "on_success": [{"npc_attitude": "spouse", "delta": 10}], "on_failure": [{"kill_npc": "spouse", "cause": "illness"}]}, "pattern": {"faith_reason": 3}}, {"id": "temple", "effects": [{"param": "faith", "delta": 5}, {"param": "money", "delta": -10}], "risk_roll": {"success_chance_base": 0.6, "on_success": [{"npc_attitude": "spouse", "delta": 10}], "on_failure": [{"kill_npc": "spouse", "cause": "illness"}]}, "pattern": {"faith_reason": -3}}, {"id": "care", "effects": [{"param": "stress", "delta": 8}], "risk_roll": {"param": "diligence", "success_chance_base": 0.65, "on_success": [{"npc_attitude": "spouse", "delta": 15}], "on_failure": [{"kill_npc": "spouse", "cause": "illness"}]}}]},
+  {"id": "child_school", "type": "family", "age_range": [22, 75], "base_weight": 3, "topic": "family", "scene": {"place": "school", "time": "day", "people": 3, "props": ["scroll"]}, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "conditions": [{"has_npc": "child", "age_min": 6, "age_max": 11}], "choices": [{"id": "send", "requirements": [{"param": "money", "op": ">=", "value": 60}], "effects": [{"param": "money", "delta": -60}, {"npc_attitude": "child", "delta": 10}, {"set_flag": "family_educated"}]}, {"id": "keep", "effects": [{"param": "money", "delta": 15}]}]},
+  {"id": "festival", "type": "local", "age_range": [5, 90], "base_weight": 3, "topic": "life", "scene": {"place": "landmark", "time": "sunset", "people": 6, "props": ["banner", "fire"]}, "choices": [{"id": "celebrate", "effects": [{"param": "happiness", "delta": 6}, {"param": "stress", "delta": -5}, {"param": "money", "delta": -15}, {"param": "loneliness", "delta": -4}]}, {"id": "work", "effects": [{"param": "money", "delta": 20}, {"param": "diligence", "delta": 1}]}]},
+  {"id": "insula_fire", "type": "local", "regions": ["rome"], "age_range": [8, 90], "base_weight": 2, "topic": "money", "icon": "disaster", "scene": {"place": "street", "time": "night", "people": 3, "props": ["fire", "smoke"]}, "conditions": [{"tag": "lives_in_city"}, {"tag_absent": "wealthy"}], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "save_goods", "risk_roll": {"param": "strength", "success_chance_base": 0.5, "on_success": [{"param": "self_esteem", "delta": 3}], "on_failure": [{"param": "health", "delta": -15}, {"money_pct": -20}]}}, {"id": "flee", "effects": [{"money_pct": -30}, {"param": "stress", "delta": 6}]}]},
+  {"id": "tax_collector", "type": "local", "regions": ["egypt"], "age_range": [16, 80], "base_weight": 3, "topic": "money", "scene": {"place": "field", "time": "day", "people": 2, "props": ["scroll", "grain"]}, "classes": ["peasant", "craftsman", "trader"], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "pay", "effects": [{"param": "money", "delta": -60}, {"param": "stress", "delta": 3}]}, {"id": "bribe", "effects": [{"param": "money", "delta": -25}], "risk_roll": {"param": "charisma", "success_chance_base": 0.55, "on_failure": [{"param": "money", "delta": -80}, {"param": "reputation", "delta": -5}]}}, {"id": "petition", "risk_roll": {"param": "literacy", "success_chance_base": 0.4, "on_success": [{"param": "reputation", "delta": 3}, {"param": "self_esteem", "delta": 4}], "on_failure": [{"param": "money", "delta": -60}, {"param": "stress", "delta": 6}]}}]},
+  {"id": "low_flood", "type": "local", "regions": ["egypt"], "age_range": [10, 90], "base_weight": 2, "topic": "money", "icon": "disaster", "scene": {"place": "river", "time": "day", "people": 2, "props": ["palm", "grain"]}, "historian_note": true, "confidence": "confirmed", "choices": [{"id": "hoard", "requirements": [{"param": "money", "op": ">=", "value": 50}], "effects": [{"param": "money", "delta": -50}, {"param": "stress", "delta": -2}]}, {"id": "hope", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.5, "on_failure": [{"param": "health", "delta": -10}, {"param": "money", "delta": -30}, {"param": "stress", "delta": 8}]}}]},
+  {"id": "grain_shortage", "type": "local", "regions": ["rome", "athens"], "years": [-500, 200], "age_range": [10, 70], "base_weight": 3, "topic": "money", "scene": {"place": "market", "time": "overcast", "people": 5, "props": ["grain", "amphora"]}, "classes": ["craftsman", "peasant", "trader"], "conditions": [{"param": "reputation", "op": ">=", "value": -20}, {"tag_absent": "wealthy"}], "weight_modifiers": [{"if": {"trait": "cautious"}, "multiply": 1.2}, {"if": {"tag": "lives_in_city"}, "multiply": 1.5}], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "buy_reserve", "requirements": [{"param": "money", "op": ">=", "value": 40}], "effects": [{"param": "money", "delta": -40}, {"param": "stress", "delta": -5}, {"add_tag": "prepared_for_hunger"}], "delayed_effects": [{"after_years": [2, 6], "chance": 0.5, "trigger_event": "neighbor_asks_help"}]}, {"id": "wait", "effects": [{"param": "health", "delta": -3}, {"param": "stress", "delta": 8}], "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.4, "on_failure": [{"param": "health", "delta": -10}]}}]},
+  {"id": "neighbor_asks_help", "type": "local", "trigger_only": true, "base_weight": 1, "topic": "life", "scene": {"place": "home", "time": "day", "people": 3, "props": ["grain"]}, "choices": [{"id": "help", "effects": [{"param": "money", "delta": -20}, {"param": "reputation", "delta": 5}, {"param": "faith", "delta": 2}]}, {"id": "refuse", "effects": [{"param": "reputation", "delta": -4}, {"param": "self_esteem", "delta": -2}]}]},
+  {"id": "assembly", "type": "local", "regions": ["athens"], "years": [-507, -322], "sex": "m", "age_range": [18, 75], "base_weight": 4, "topic": "history", "scene": {"place": "landmark", "time": "day", "people": 6, "props": []}, "classes": ["peasant", "craftsman", "landowner", "noble"], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "speak", "risk_roll": {"param": "oratory", "success_chance_base": 0.35, "on_success": [{"param": "reputation", "delta": 8}, {"param": "self_esteem", "delta": 5}], "on_failure": [{"param": "reputation", "delta": -4}, {"param": "self_esteem", "delta": -6}]}, "pattern": {"craft_power": 4}}, {"id": "vote", "effects": [{"param": "reputation", "delta": 1}]}, {"id": "skip", "effects": [{"param": "money", "delta": 20}]}]},
+  {"id": "liturgy", "type": "local", "regions": ["athens"], "years": [-500, -300], "age_range": [25, 75], "base_weight": 4, "topic": "money", "scene": {"place": "harbor", "time": "day", "people": 3, "props": ["boat", "coins"]}, "classes": ["landowner", "noble"], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "pay", "requirements": [{"param": "money", "op": ">=", "value": 400}], "effects": [{"param": "money", "delta": -400}, {"param": "reputation", "delta": 12}]}, {"id": "antidosis", "risk_roll": {"param": "charisma", "success_chance_base": 0.4, "on_success": [{"param": "self_esteem", "delta": 4}], "on_failure": [{"money_pct": -30}, {"param": "reputation", "delta": -5}]}}, {"id": "plead", "effects": [{"param": "reputation", "delta": -6}]}]},
+  {"id": "philosopher", "type": "personal", "regions": ["athens"], "age_range": [15, 40], "base_weight": 3, "topic": "life", "icon": "study", "scene": {"place": "market", "time": "day", "people": 4, "props": ["olive"]}, "once": true, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "choices": [{"id": "follow", "effects": [{"param": "intellect", "delta": 5}, {"skill": "oratory", "delta": 5}, {"param": "faith", "delta": -3}, {"param": "money", "delta": -20}, {"add_tag": "philosophy"}], "pattern": {"faith_reason": 6}}, {"id": "mock", "effects": [{"param": "self_esteem", "delta": 2}], "pattern": {"faith_reason": -3}}]},
+  {"id": "museum", "type": "personal", "regions": ["egypt"], "years": [-290, 200], "age_range": [15, 35], "base_weight": 3, "topic": "work", "icon": "study", "scene": {"place": "school", "time": "day", "people": 3, "props": ["scroll", "statue"]}, "once": true, "classes": ["craftsman", "trader", "landowner", "noble"], "conditions": [{"param": "intellect", "op": ">=", "value": 55}, {"skill": "literacy", "op": ">=", "value": 15}], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "study", "requirements": [{"param": "money", "op": ">=", "value": 100}], "effects": [{"param": "money", "delta": -100}, {"param": "intellect", "delta": 6}, {"skill": "medicine", "delta": 10}, {"skill": "literacy", "delta": 6}, {"add_tag": "lives_in_city"}], "pattern": {"faith_reason": 6, "home_road": 3}}, {"id": "decline", "effects": [{"param": "happiness", "delta": 1}]}]},
+  {"id": "games", "type": "local", "regions": ["rome"], "years": [-264, 200], "age_range": [8, 85], "base_weight": 2, "topic": "life", "scene": {"place": "arena", "time": "day", "people": 6, "props": ["banner"]}, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "attend", "effects": [{"param": "happiness", "delta": 5}, {"param": "stress", "delta": -4}]}, {"id": "stay_home", "effects": [{"param": "diligence", "delta": 1}]}]},
+  {"id": "manumission", "type": "personal", "age_range": [20, 70], "base_weight": 3, "topic": "life", "icon": "freedom", "scene": {"place": "home", "time": "day", "people": 2, "props": ["coins", "scroll"]}, "once": true, "classes": ["slave"], "conditions": [{"param": "reputation", "op": ">=", "value": -15}], "weight_modifiers": [{"if": {"tag": "lives_in_city"}, "multiply": 1.5}], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "buy_freedom", "requirements": [{"param": "money", "op": ">=", "value": 150}], "effects": [{"param": "money", "delta": -150}, {"set_class": "craftsman"}, {"add_tag": "freedman"}, {"remove_tag": "enslaved"}, {"param": "self_esteem", "delta": 15}, {"param": "happiness", "delta": 15}, {"set_profession": "artisan"}], "pattern": {"memory_future": 5}, "icon": "freedom"}, {"id": "serve_on", "effects": [{"param": "reputation", "delta": 2}], "delayed_effects": [{"after_years": [5, 15], "chance": 0.4, "trigger_event": "freed_in_will"}]}]},
+  {"id": "freed_in_will", "type": "personal", "trigger_only": true, "base_weight": 1, "topic": "life", "icon": "freedom", "scene": {"place": "home", "time": "day", "people": 2, "props": ["scroll"]}, "classes": ["slave"], "effects": [{"set_class": "craftsman"}, {"add_tag": "freedman"}, {"remove_tag": "enslaved"}, {"param": "happiness", "delta": 20}, {"param": "self_esteem", "delta": 10}, {"set_profession": "artisan"}]},
+  {"id": "escape", "type": "personal", "age_range": [16, 45], "base_weight": 1, "topic": "life", "scene": {"place": "road", "time": "night", "people": 1, "props": ["moon"]}, "sensitive": true, "classes": ["slave"], "weight_modifiers": [{"if": {"param": "stress", "op": ">=", "value": 60}, "multiply": 3}], "choices": [{"id": "flee", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.35, "on_success": [{"set_class": "peasant"}, {"remove_tag": "enslaved"}, {"add_tag": "fugitive"}, {"set_profession": "laborer"}, {"param": "happiness", "delta": 15}], "on_failure": [{"param": "health", "delta": -20}, {"param": "self_esteem", "delta": -10}, {"param": "stress", "delta": 15}]}, "pattern": {"home_road": 6, "memory_future": 6}, "icon": "freedom"}, {"id": "stay", "effects": [{"param": "stress", "delta": 4}]}]},
+  {"id": "recruitment_rome", "type": "personal", "regions": ["rome"], "sex": "m", "age_range": [17, 30], "base_weight": 4, "topic": "work", "scene": {"place": "camp", "time": "day", "people": 4, "props": ["banner", "shield"]}, "once": true, "classes": ["peasant", "craftsman", "landowner"], "conditions": [{"profession": ["farmer", "laborer", "artisan", "merchant", "landholder"]}], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "enlist", "effects": [{"set_profession": "legionary"}, {"skill": "military", "delta": 10}, {"param": "strength", "delta": 3}, {"param": "stress", "delta": 5}], "pattern": {"home_road": 5, "craft_power": 2}}, {"id": "stay", "effects": [{"param": "self_esteem", "delta": -1}]}]},
+  {"id": "recruitment_greek", "type": "personal", "regions": ["athens", "egypt"], "sex": "m", "age_range": [17, 30], "base_weight": 4, "topic": "work", "scene": {"place": "camp", "time": "day", "people": 4, "props": ["shield"]}, "once": true, "classes": ["peasant", "craftsman", "landowner"], "conditions": [{"profession": ["farmer", "laborer", "artisan", "merchant", "landholder"]}], "choices": [{"id": "enlist", "effects": [{"set_profession": "soldier"}, {"skill": "military", "delta": 10}, {"param": "strength", "delta": 3}, {"param": "stress", "delta": 5}], "pattern": {"home_road": 5, "craft_power": 2}}, {"id": "stay", "effects": [{"param": "self_esteem", "delta": -1}]}]},
+  {"id": "campaign", "type": "personal", "age_range": [17, 50], "base_weight": 5, "topic": "work", "icon": "war", "scene": {"place": "battle", "time": "overcast", "people": 6, "props": ["banner", "shield"]}, "conditions": [{"profession": ["legionary", "soldier"]}], "choices": [{"id": "brave", "risk_roll": {"param": "military", "success_chance_base": 0.5, "on_success": [{"param": "reputation", "delta": 8}, {"param": "money", "delta": 120}], "on_failure": [{"param": "health", "delta": -25}, {"chance": 0.25, "effects": [{"kill": "war"}]}]}}, {"id": "careful", "risk_roll": {"param": "military", "success_chance_base": 0.7, "on_success": [{"param": "money", "delta": 30}], "on_failure": [{"param": "health", "delta": -10}]}}]},
+  {"id": "will", "type": "family", "age_range": [50, 110], "base_weight": 3, "topic": "family", "scene": {"place": "home", "time": "sunset", "people": 3, "props": ["scroll", "lamp"]}, "once": true, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "conditions": [{"has_npc": "child"}], "choices": [{"id": "equal", "effects": [{"npc_attitude": "child", "delta": 10}, {"param": "stress", "delta": -3}], "pattern": {"memory_future": -3}}, {"id": "eldest", "effects": [{"npc_attitude": "child", "delta": -5}, {"param": "reputation", "delta": 2}]}, {"id": "temple", "effects": [{"param": "faith", "delta": 10}, {"npc_attitude": "child", "delta": -15}, {"money_pct": -20}], "pattern": {"faith_reason": -5}}]},
+  {"id": "old_friend", "type": "personal", "age_range": [45, 110], "base_weight": 2, "topic": "life", "scene": {"place": "road", "time": "sunset", "people": 2, "props": ["olive"]}, "conditions": [{"has_npc": "friend"}], "choices": [{"id": "visit", "effects": [{"param": "happiness", "delta": 6}, {"param": "loneliness", "delta": -8}, {"npc_attitude": "friend", "delta": 10}]}, {"id": "letter", "effects": [{"param": "loneliness", "delta": -3}]}]},
+  {"id": "g_marathon", "type": "global_historical", "regions": ["athens"], "years": [-490, -490], "age_range": [5, 120], "base_weight": 1, "topic": "history", "icon": "war", "scene": {"place": "battle", "time": "day", "people": 6, "props": ["shield"]}, "global_chance": 1, "historian_note": true, "confidence": "confirmed", "effects": [{"param": "self_esteem", "delta": 3}, {"param": "happiness", "delta": 4}]},
+  {"id": "g_salamis", "type": "global_historical", "regions": ["athens"], "years": [-480, -480], "age_range": [0, 120], "base_weight": 1, "topic": "history", "icon": "war", "scene": {"place": "sea", "time": "day", "people": 3, "props": ["boat", "smoke"]}, "global_chance": 1, "historian_note": true, "confidence": "confirmed", "choices": [{"id": "evacuate", "effects": [{"money_pct": -40}, {"param": "stress", "delta": 10}]}, {"id": "stay", "risk_roll": {"param": "strength", "success_chance_base": 0.3, "on_success": [{"param": "reputation", "delta": 5}], "on_failure": [{"param": "health", "delta": -25}, {"money_pct": -60}, {"chance": 0.4, "effects": [{"kill": "war"}]}]}}]},
+  {"id": "g_peloponnesian", "type": "global_historical", "regions": ["athens"], "years": [-431, -431], "age_range": [5, 120], "base_weight": 1, "topic": "history", "icon": "war", "scene": {"place": "landmark", "time": "overcast", "people": 5, "props": ["shield"]}, "global_chance": 1, "historian_note": true, "confidence": "confirmed", "effects": [{"money_pct": -15}, {"param": "stress", "delta": 6}]},
+  {"id": "g_athens_plague", "type": "global_historical", "regions": ["athens"], "years": [-430, -426], "age_range": [0, 120], "base_weight": 1, "topic": "history", "icon": "disaster", "scene": {"place": "street", "time": "overcast", "people": 3, "props": ["fire", "smoke"]}, "global_chance": 0.5, "historian_note": true, "confidence": "confirmed", "effects": [{"add_tag": "epidemic"}], "choices": [{"id": "care", "effects": [{"param": "faith", "delta": 3}, {"param": "reputation", "delta": 4}], "risk_roll": {"param": "health", "success_chance_base": 0.5, "on_failure": [{"param": "health", "delta": -20}]}}, {"id": "isolate", "effects": [{"param": "loneliness", "delta": 10}], "risk_roll": {"param": "health", "success_chance_base": 0.7, "on_failure": [{"param": "health", "delta": -15}]}}]},
+  {"id": "g_sicily", "type": "global_historical", "regions": ["athens"], "years": [-413, -413], "age_range": [5, 120], "base_weight": 1, "topic": "history", "icon": "loss", "scene": {"place": "harbor", "time": "overcast", "people": 4, "props": ["boat"]}, "global_chance": 1, "historian_note": true, "confidence": "confirmed", "effects": [{"param": "happiness", "delta": -6}, {"param": "stress", "delta": 5}]},
+  {"id": "g_sulla", "type": "global_historical", "regions": ["athens"], "years": [-86, -86], "age_range": [0, 120], "base_weight": 1, "topic": "history", "icon": "war", "scene": {"place": "landmark", "time": "night", "people": 4, "props": ["fire", "smoke"]}, "global_chance": 1, "sensitive": true, "historian_note": true, "confidence": "confirmed", "effects": [{"money_pct": -40}, {"param": "health", "delta": -5}, {"param": "stress", "delta": 12}]},
+  {"id": "g_alexander", "type": "global_historical", "regions": ["egypt"], "years": [-332, -331], "age_range": [5, 120], "base_weight": 1, "topic": "history", "scene": {"place": "temple", "time": "day", "people": 5, "props": ["banner", "horse"]}, "global_chance": 1, "historian_note": true, "confidence": "confirmed", "choices": [{"id": "welcome", "effects": [{"param": "happiness", "delta": 3}]}, {"id": "wary", "effects": [{"param": "self_esteem", "delta": 1}]}]},
+  {"id": "g_alexandria", "type": "global_historical", "regions": ["egypt"], "years": [-331, -280], "age_range": [16, 60], "base_weight": 1, "topic": "history", "scene": {"place": "harbor", "time": "day", "people": 4, "props": ["boat", "cart"]}, "global_chance": 0.15, "classes": ["peasant", "craftsman", "trader", "landowner"], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "move", "requirements": [{"param": "money", "op": ">=", "value": 50}], "effects": [{"param": "money", "delta": -50}, {"skill": "trade", "delta": 5}, {"param": "happiness", "delta": 3}, {"add_tag": "lives_in_city"}, {"remove_tag": "rural"}, {"move": "alexandria"}], "pattern": {"home_road": 6, "memory_future": 4}, "icon": "move"}, {"id": "stay", "effects": [{"param": "loneliness", "delta": -2}]}]},
+  {"id": "g_roman_egypt", "type": "global_historical", "regions": ["egypt"], "years": [-30, -30], "age_range": [5, 120], "base_weight": 1, "topic": "history", "scene": {"place": "landmark", "time": "day", "people": 4, "props": ["banner"]}, "global_chance": 1, "historian_note": true, "confidence": "confirmed", "effects": [{"money_pct": -5}, {"param": "stress", "delta": 3}]},
+  {"id": "g_hannibal", "type": "global_historical", "regions": ["rome"], "years": [-218, -216], "age_range": [8, 120], "base_weight": 1, "topic": "history", "icon": "war", "scene": {"place": "camp", "time": "overcast", "people": 5, "props": ["banner", "shield"]}, "global_chance": 0.8, "historian_note": true, "confidence": "confirmed", "choices": [{"id": "enlist", "requirements": [{"sex": "m"}, {"age": [17, 46]}, {"classes": ["peasant", "craftsman", "landowner", "noble"]}], "risk_roll": {"param": "strength", "success_chance_base": 0.55, "on_success": [{"param": "reputation", "delta": 8}, {"skill": "military", "delta": 10}], "on_failure": [{"param": "health", "delta": -20}, {"chance": 0.35, "effects": [{"kill": "war"}]}]}}, {"id": "support", "effects": [{"param": "money", "delta": -40}, {"param": "reputation", "delta": 3}, {"param": "stress", "delta": 6}]}]},
+  {"id": "g_carthage", "type": "global_historical", "regions": ["rome"], "years": [-146, -146], "age_range": [5, 120], "base_weight": 1, "topic": "history", "scene": {"place": "landmark", "time": "day", "people": 6, "props": ["banner"]}, "global_chance": 1, "historian_note": true, "confidence": "confirmed", "effects": [{"param": "happiness", "delta": 2}]},
+  {"id": "g_spartacus", "type": "global_historical", "regions": ["rome"], "years": [-73, -71], "age_range": [8, 120], "base_weight": 1, "topic": "history", "icon": "war", "scene": {"place": "road", "time": "overcast", "people": 4, "props": ["fire"]}, "global_chance": 0.6, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "historian_note": true, "confidence": "confirmed", "effects": [{"param": "stress", "delta": 6}]},
+  {"id": "g_spartacus_slave", "type": "global_historical", "regions": ["rome"], "years": [-73, -71], "age_range": [16, 50], "base_weight": 1, "topic": "history", "icon": "war", "scene": {"place": "field", "time": "night", "people": 4, "props": ["fire", "moon"]}, "global_chance": 0.6, "sensitive": true, "classes": ["slave"], "historian_note": true, "confidence": "confirmed", "choices": [{"id": "join", "risk_roll": {"param": "strength", "success_chance_base": 0.25, "on_success": [{"set_class": "peasant"}, {"remove_tag": "enslaved"}, {"add_tag": "fugitive"}, {"set_profession": "laborer"}], "on_failure": [{"kill": "war"}]}}, {"id": "stay", "effects": [{"param": "stress", "delta": 8}]}]},
+  {"id": "g_caesar", "type": "global_historical", "regions": ["rome"], "years": [-44, -44], "age_range": [10, 120], "base_weight": 1, "topic": "history", "scene": {"place": "landmark", "time": "day", "people": 6, "props": ["statue"]}, "global_chance": 1, "historian_note": true, "confidence": "confirmed", "choices": [{"id": "mourn", "effects": [{"param": "faith", "delta": 2}, {"param": "stress", "delta": 4}], "pattern": {"memory_future": -2}}, {"id": "liberators", "effects": [{"param": "self_esteem", "delta": 3}, {"param": "reputation", "delta": -2}], "pattern": {"memory_future": 3, "faith_reason": 2}}, {"id": "silent", "effects": [{"param": "stress", "delta": 2}]}]},
+  {"id": "g_great_fire", "type": "global_historical", "regions": ["rome"], "years": [64, 64], "age_range": [5, 120], "base_weight": 1, "topic": "history", "icon": "disaster", "scene": {"place": "landmark", "time": "night", "people": 4, "props": ["fire", "smoke"]}, "global_chance": 1, "conditions": [{"tag": "lives_in_city"}], "historian_note": true, "confidence": "confirmed", "effects": [{"money_pct": -35}, {"param": "stress", "delta": 10}], "choices": [{"id": "help", "effects": [{"param": "reputation", "delta": 5}, {"param": "health", "delta": -5}]}, {"id": "flee", "effects": [{"param": "self_esteem", "delta": -2}]}]},
+  {"id": "g_antonine_plague", "type": "global_historical", "years": [165, 180], "age_range": [0, 120], "base_weight": 1, "topic": "history", "icon": "disaster", "scene": {"place": "street", "time": "overcast", "people": 3, "props": ["lamp", "smoke"]}, "global_chance": 0.3, "historian_note": true, "confidence": "confirmed", "effects": [{"add_tag": "epidemic"}], "choices": [{"id": "care", "effects": [{"param": "faith", "delta": 3}, {"param": "reputation", "delta": 4}], "risk_roll": {"param": "health", "success_chance_base": 0.5, "on_failure": [{"param": "health", "delta": -20}]}}, {"id": "isolate", "effects": [{"param": "loneliness", "delta": 10}], "risk_roll": {"param": "health", "success_chance_base": 0.7, "on_failure": [{"param": "health", "delta": -15}]}}]}
 ]

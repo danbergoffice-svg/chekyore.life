@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Сцены</title>
+    <style>
+      body { background: #15171a; color: #ccc; font: 13px sans-serif; margin: 12px; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      canvas { width: 100%; image-rendering: pixelated; display: block; }
+      p { margin: 4px 0 0; }
+    </style>
+  </head>
+  <body>
+    <div class="grid" id="grid"></div>
+    <script type="module">
+      import { drawScene, W, H } from '../src/pixel/scene.ts'
+      const params = new URLSearchParams(location.search)
+      const list = JSON.parse(params.get('list') || '[]')
+      const grid = document.getElementById('grid')
+      for (const item of list) {
+        const box = document.createElement('div')
+        const c = document.createElement('canvas')
+        c.width = W; c.height = H
+        drawScene(c.getContext('2d'), item)
+        const p = document.createElement('p')
+        p.textContent = item.label || `${item.region} · ${item.scene.place} · ${item.scene.time || 'day'}`
+        box.append(c, p); grid.append(box)
+      }
+      document.body.dataset.ready = '1'
+    </script>
+  </body>
+</html>

@@ -72,9 +72,14 @@ function migrate(game: GameState | undefined): GameState | null {
   return game
 }
 
+/** Жизни из первой беты без итогового отчёта открыть нельзя — их пропускаем. */
+function cleanMemorial(memorial: LifeSummary[] | undefined): LifeSummary[] {
+  return (memorial ?? []).filter((l) => l && typeof l === 'object' && 'report' in l && Array.isArray(l.diary))
+}
+
 export async function loadSave(): Promise<SaveFile> {
   const [game, memorial] = await Promise.all([get<GameState>('game'), get<LifeSummary[]>('memorial')])
-  return { version: SAVE_VERSION, game: migrate(game), memorial: memorial ?? [] }
+  return { version: SAVE_VERSION, game: migrate(game), memorial: cleanMemorial(memorial) }
 }
 
 export function saveGame(game: GameState | null): Promise<void> {
@@ -110,7 +115,7 @@ export function parseSaveFile(text: string): SaveFile | null {
   try {
     const data = JSON.parse(text) as SaveFile
     if (!Array.isArray(data.memorial)) return null
-    return { version: SAVE_VERSION, game: migrate(data.game ?? undefined), memorial: data.memorial }
+    return { version: SAVE_VERSION, game: migrate(data.game ?? undefined), memorial: cleanMemorial(data.memorial) }
   } catch {
     return null
   }

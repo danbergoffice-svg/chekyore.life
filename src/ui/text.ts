@@ -16,7 +16,7 @@ export const useUi = () => useContext(UiContext)
 export function diaryText(t: T, e: DiaryEntry, sex: Hero['sex'], region: string): string {
   const opts = { sex, region }
   if (e.key.startsWith('ev.')) {
-    let s = t(e.key, {}, opts)
+    let s = t(e.key, e.params, opts)
     const choice = e.params?.choice
     if (choice && typeof choice === 'object' && 'key' in choice && choice.key !== 'ui.ok') s += ` — ${t(choice.key, {}, opts)}`
     if (e.params?.result === 'success') s += ` (${t('diary.success')})`

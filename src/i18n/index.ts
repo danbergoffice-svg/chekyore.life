@@ -1,6 +1,4 @@
 import { ERAS } from '../content'
-import e03en from '../content/e03/en.json'
-import e03ru from '../content/e03/ru.json'
 import type { Lang, Sex, TextParam } from '../engine/types'
 import en from './en.json'
 import ru from './ru.json'
@@ -8,9 +6,14 @@ import ru from './ru.json'
 // Новый язык добавляется файлами перевода и строкой здесь, без правок остального кода.
 export const LANGS: Lang[] = ['ru', 'en']
 
+// Тексты контента: все файлы ru*.json / en*.json в папках эпох.
+const merge = (files: Record<string, Record<string, string>>) => Object.assign({}, ...Object.values(files)) as Record<string, string>
+const contentRu = merge(import.meta.glob('../content/*/ru*.json', { eager: true, import: 'default' }))
+const contentEn = merge(import.meta.glob('../content/*/en*.json', { eager: true, import: 'default' }))
+
 const dicts: Record<Lang, Record<string, string>> = {
-  ru: { ...ru, ...e03ru },
-  en: { ...en, ...e03en },
+  ru: { ...ru, ...contentRu },
+  en: { ...en, ...contentEn },
 }
 
 const names: Record<string, { ru: string; en: string }> = {}

@@ -1,9 +1,10 @@
 import { bell, chance, int, pick, weighted } from './rng'
 import { addYears, aliveNpcs, clamp, makeNpc, regionOf, yearsBetween } from './rules'
+import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
 import type { AttrId, DiaryEntry, EraDef, Family, GameSettings, GameState, Hero, LifeSummary, Npc } from './types'
 
-export const SAVE_VERSION = 1
+export const SAVE_VERSION = 2
 
 function emptyHero(seed: number): Hero {
   return {
@@ -29,6 +30,9 @@ function emptyHero(seed: number): Hero {
     triggers: [],
     seen: {},
     diary: [],
+    history: [],
+    pattern: { craft_power: 0, home_road: 0, faith_reason: 0, memory_future: 0 },
+    places: [],
     seed,
   }
 }
@@ -73,6 +77,7 @@ export function newLife(era: EraDef, settings: GameSettings, seed: number, famil
 
   const region = weighted(state, era.regions, (r) => r.weight)!
   hero.region = region.id
+  hero.places = [region.id]
   hero.birthYear = int(state, region.years[0], region.years[1] - 40)
   if (hero.birthYear === 0) hero.birthYear = 1
   state.year = hero.birthYear
@@ -95,7 +100,7 @@ export function newLife(era: EraDef, settings: GameSettings, seed: number, famil
   for (let i = 0; i < siblings; i++) {
     makeNpc(state, era, 'sibling', undefined, addYears(hero.birthYear, -int(state, 1, 10)), int(state, 10, 60))
   }
-  hero.diary.push({ year: state.year, age: 0, key: 'diary.born', params: { region: { key: `region.${hero.region}` }, cls: { key: `class.${hero.cls}` } }, major: true })
+  hero.diary.push({ year: state.year, age: 0, key: 'diary.born', params: { region: { key: `region.${hero.region}` }, cls: { key: `class.${hero.cls}` } }, major: true, topic: 'family', icon: 'birth', score: 100 })
   return state
 }
 
@@ -106,7 +111,7 @@ function biography(h: Hero): DiaryEntry[] {
 }
 
 /** Сводка прожитой жизни для мемориала и родословной. */
-export function summarize(state: GameState): LifeSummary {
+export function summarize(state: GameState, era: EraDef): LifeSummary {
   const h = state.hero
   return {
     heroId: h.id,
@@ -125,6 +130,12 @@ export function summarize(state: GameState): LifeSummary {
     children: h.npcs.filter((n) => n.role === 'child').length,
     biography: biography(h),
     money: h.money,
+    diary: h.diary,
+    npcs: h.npcs,
+    history: h.history,
+    places: h.places,
+    traits: h.traits,
+    report: buildReport(state, era),
   }
 }
 
@@ -167,6 +178,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   state.nextId = prev.nextId
   hero.era = parent.era
   hero.region = parent.region
+  hero.places = [parent.places[parent.places.length - 1] ?? parent.region]
   hero.cls = parent.cls
   hero.generation = parent.generation + 1
   hero.name = child.name
@@ -206,6 +218,6 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     if (n.role === 'spouse') hero.npcs.push({ ...n, role: n.sex === 'm' ? 'father' : 'mother', attitude: 50 })
     if (n.role === 'child' && n.id !== child.id && n.alive) hero.npcs.push({ ...n, role: 'sibling', attitude: 30 })
   }
-  hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, major: true })
+  hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, major: true, topic: 'family', icon: 'birth', score: 100 })
   return state
 }

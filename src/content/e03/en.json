@@ -1,24 +1,20 @@
 {
   "era.E03": "Classical Antiquity",
   "era.E03.years": "500 BC — AD 200",
-
   "region.rome": "Rome",
   "region.athens": "Athens",
   "region.egypt": "Egypt",
   "region.rome.intro": "Rome grows from a town on the Tiber into the capital of an empire. Family, patrons and money decide everything, and the poor live in cramped apartment blocks called insulae.",
   "region.athens.intro": "Athens is a city of the assembly, the theatre and the philosophers. But only male citizens vote, and many of its people are slaves or foreigners.",
   "region.egypt.intro": "Egypt lives by the rhythm of the Nile floods. Greek kings, and later the Romans, tax millions of farmers, while scholars from all over the world work in Alexandria.",
-
   "coin.denarius": "{p=n:denarius|denarii}",
   "coin.drachma": "{p=n:drachma|drachmas}",
-
   "class.slave": "a slave",
   "class.peasant": "a peasant",
   "class.craftsman": "a craftsman's child",
   "class.trader": "a merchant family",
   "class.landowner": "a landowning family",
   "class.noble": "a noble family",
-
   "prof.farmer": "Farmer",
   "prof.laborer": "Day laborer",
   "prof.artisan": "Craftsman",
@@ -38,7 +34,6 @@
   "prof.household_slave": "Household slave",
   "prof.field_slave": "Estate slave",
   "prof.gladiator": "Gladiator",
-
   "prof.farmer.desc": "Fields, livestock and endless dependence on the weather.",
   "prof.laborer.desc": "Any work for a day's pay.",
   "prof.artisan.desc": "A pottery, a forge or a shoemaker's stall.",
@@ -58,7 +53,6 @@
   "prof.household_slave.desc": "Work in the master's house: kitchen, cleaning, errands.",
   "prof.field_slave.desc": "Hard labor in the estate's fields.",
   "prof.gladiator.desc": "Fighting in the arena for show. Fame is possible, a long life is rare.",
-
   "trait.cautious": "cautious",
   "trait.ambitious": "ambitious",
   "trait.kind": "kind",
@@ -69,7 +63,6 @@
   "trait.pious": "pious",
   "trait.cunning": "cunning",
   "trait.brave": "brave",
-
   "skill.literacy": "Literacy",
   "skill.trade": "Trade",
   "skill.craft": "Craft",
@@ -79,7 +72,6 @@
   "skill.management": "Management",
   "skill.oratory": "Oratory",
   "skill.seafaring": "Seafaring",
-
   "focus.play": "Play",
   "focus.play.desc": "Run around with other children and be happy",
   "focus.learn": "School",
@@ -104,7 +96,6 @@
   "focus.religion.desc": "Temples, sacrifices, rites",
   "focus.savings": "Thrift",
   "focus.savings.desc": "Spend less, save more",
-
   "cause.infant_illness": "a childhood illness",
   "cause.fever": "fever",
   "cause.illness": "illness",
@@ -117,36 +108,29 @@
   "cause.childbirth": "childbirth",
   "cause.epidemic": "plague",
   "cause.unknown": "unknown causes",
-
   "ev.infant_fever.title": "Fever",
   "ev.infant_fever.text": "One winter you fell gravely ill. Your mother sat by your bed for three nights. You survived, but stayed weak for a long time.",
-
   "ev.sibling_born.title": "A new baby",
   "ev.sibling_born.text": "Your mother gave birth to another child. The house got more crowded, and louder.",
-
   "ev.childhood_friend.title": "The neighbors' child",
   "ev.childhood_friend.text": "A child from next door calls you every day to play by the well.",
   "ev.childhood_friend.befriend": "Make friends",
   "ev.childhood_friend.alone": "Keep to yourself",
-
   "ev.found_coin.title": "A coin in the dust",
   "ev.found_coin.text": "You found a coin in the street. Nobody saw.",
   "ev.found_coin.keep": "Keep it",
   "ev.found_coin.parents": "Give it to your parents",
   "ev.found_coin.offering": "Take it to the temple",
-
   "ev.school_offer.title": "School",
   "ev.school_offer.text": "Your parents wonder whether to send you to a schoolmaster. It costs money, and they need your help at home now.",
   "ev.school_offer.attend": "Go to school",
   "ev.school_offer.help_home": "Stay and help",
-
   "ev.slave_letters.title": "Someone else's lessons",
   "ev.slave_letters.text": "The master's children are learning to read. You could stand by the door and listen, but if you're caught, you'll be punished.",
   "ev.slave_letters.listen": "Listen in secret",
   "ev.slave_letters.listen.success": "The letters turn into words. Now you can read a little.",
   "ev.slave_letters.listen.failure": "The overseer caught you. The lesson cost you dearly.",
   "ev.slave_letters.ignore": "Don't risk it",
-
   "ev.sibling_ill.title": "Illness at home",
   "ev.sibling_ill.text": "Your little brother or sister is burning with fever. The adults whisper anxiously.",
   "ev.sibling_ill.care": "Look after them",
@@ -155,47 +139,39 @@
   "ev.sibling_ill.pray": "Pray to the gods",
   "ev.sibling_ill.pray.success": "The gods listened: the child recovered.",
   "ev.sibling_ill.pray.failure": "The child died. The house fell silent for a long time.",
-
   "ev.profession_choice.title": "A trade for life",
   "ev.profession_choice.text": "You are no longer a child. Time to choose how you will earn your living.",
   "ev.slave_assignment.title": "Work for a slave",
   "ev.slave_assignment.text": "The steward is deciding what work to give you. You can try asking for something.",
-
   "ev.mentor_offer.title": "The old master",
   "ev.mentor_offer.text": "A craftsman down the street is looking for an apprentice. Lots of work, little pay, but he'll teach you everything he knows.",
   "ev.mentor_offer.apprentice": "Become an apprentice",
   "ev.mentor_offer.decline": "Decline",
-
   "ev.first_love.title": "First love",
   "ev.first_love.text": "You keep thinking about one person. Say something, or stay silent?",
   "ev.first_love.confess": "Confess",
   "ev.first_love.confess.success": "The feeling was mutual. You will remember this summer forever.",
   "ev.first_love.confess.failure": "They laughed at you. It hurt.",
   "ev.first_love.silent": "Stay silent",
-
   "ev.marriage_f.title": "A match",
   "ev.marriage_f.text": "Your father has arranged your marriage. That is the custom: girls marry young, and few ask what they think.",
   "ev.marriage_f.accept": "Agree",
   "ev.marriage_f.plead": "Beg your father to wait",
   "ev.marriage_f.plead.success": "Your father is angry, but gives in. For now.",
   "ev.marriage_f.plead.failure": "Your father won't budge. The wedding will happen.",
-
   "ev.marriage_m.title": "Time to marry",
   "ev.marriage_m.text": "Your relatives think it's time you had a family. There is a bride with a good dowry, but your heart is elsewhere.",
   "ev.marriage_m.dowry": "The bride with the dowry",
   "ev.marriage_m.love": "Marry for love",
   "ev.marriage_m.wait": "Wait",
-
   "ev.marriage_later.title": "Another match",
   "ev.marriage_later.text": "Marriage comes up again. The years go by, and living alone is hard.",
   "ev.marriage_later.marry": "Marry",
   "ev.marriage_later.single": "Stay single",
-
   "ev.contubernium.title": "A union without law",
   "ev.contubernium.text": "Slaves may not marry by law. But your master allows you to live with the person you have grown close to.",
   "ev.contubernium.together": "Live together",
   "ev.contubernium.refuse": "Refuse",
-
   "ev.brawl.title": "A quarrel at the market",
   "ev.brawl.text": "Some bully insulted you and your family in front of everyone.",
   "ev.brawl.fight": "Fight",
@@ -205,41 +181,33 @@
   "ev.brawl.talk": "Answer with words",
   "ev.brawl.talk.success": "Your reply made the crowd laugh. The bully left empty-handed.",
   "ev.brawl.talk.failure": "Words didn't help. Now they're laughing at you.",
-
   "ev.work_injury.title": "An injury",
   "ev.work_injury.text": "You hurt yourself badly at work. Your hand barely obeys you.",
   "ev.work_injury.rest": "Rest until it heals",
   "ev.work_injury.keep_working": "Work through the pain",
-
   "ev.loan_request.title": "A loan",
   "ev.loan_request.text": "A neighbor asks to borrow money: his wife is ill and the doctor is expensive.",
   "ev.loan_request.lend": "Lend it",
   "ev.loan_request.refuse": "Refuse",
-
   "ev.loan_returned.title": "A debt repaid",
   "ev.loan_returned.text": "The neighbor you helped came back with the money, and with gratitude.",
-
   "ev.venture.title": "A profitable deal",
   "ev.venture.text": "An acquaintance is raising money for a cargo to ship overseas. If the ship arrives, the profit will be large.",
   "ev.venture.invest": "Invest",
   "ev.venture.invest.success": "The ship came back and the goods sold for three times the price.",
   "ev.venture.invest.failure": "The ship never came back. The money is gone.",
   "ev.venture.decline": "Don't risk it",
-
   "ev.patron_offer.title": "A patron",
   "ev.patron_offer.text": "A rich Roman offers to make you his client: greet him every morning and support him at elections. In return, protection and gifts.",
   "ev.patron_offer.note": "Patronage ran through Roman society: clients greeted their patron each morning, escorted him and voted for him, and he helped them with money and in court.",
   "ev.patron_offer.client": "Become a client",
   "ev.patron_offer.independent": "Stay independent",
-
   "ev.patron_favor.title": "The patron's request",
   "ev.patron_favor.text": "Your patron asks you to testify in his favor in court. You know it isn't true.",
   "ev.patron_favor.agree": "Lie for your patron",
   "ev.patron_favor.refuse": "Refuse",
-
   "ev.perjury_exposed.title": "The lie comes out",
   "ev.perjury_exposed.text": "It came out that you once lied in court. Neighbors turn away, and you had to pay a fine.",
-
   "ev.spouse_ill.title": "Illness in the family",
   "ev.spouse_ill.text": "Your {g:wife|husband} has fallen gravely ill. You have to decide what to do.",
   "ev.spouse_ill.physician": "Call a physician",
@@ -251,12 +219,10 @@
   "ev.spouse_ill.care": "Nurse them yourself",
   "ev.spouse_ill.care.success": "The sleepless nights paid off: the illness has passed.",
   "ev.spouse_ill.care.failure": "It didn't help. Your {g:wife|husband} is gone.",
-
   "ev.child_school.title": "Schooling the children",
   "ev.child_school.text": "Your child has grown. You could send them to a teacher, or keep them home to help.",
   "ev.child_school.send": "Send to school",
   "ev.child_school.keep": "Keep at home",
-
   "ev.festival.title": "A festival",
   "ev.festival.text": "There's a festival in town: processions, food, singing until dawn.",
   "ev.festival.text.rome": "Saturnalia! For a few days slaves and masters swap places, and everyone gives gifts and feasts.",
@@ -264,7 +230,6 @@
   "ev.festival.text.egypt": "The festival of Isis: processions to the temple, music, boats on the Nile.",
   "ev.festival.celebrate": "Celebrate",
   "ev.festival.work": "Work while others party",
-
   "ev.insula_fire.title": "Fire",
   "ev.insula_fire.text": "At night the apartment block you live in caught fire. The flames spread fast through the wooden floors.",
   "ev.insula_fire.note": "Fires were common in Rome: insulae were tall and cramped, with wooden floors. Augustus created the vigiles, a night watch and fire brigade.",
@@ -272,7 +237,6 @@
   "ev.insula_fire.save_goods.success": "You managed to carry out the most valuable things.",
   "ev.insula_fire.save_goods.failure": "Smoke and fire. You got out burned and with almost nothing.",
   "ev.insula_fire.flee": "Run right away",
-
   "ev.tax_collector.title": "The tax collector",
   "ev.tax_collector.text": "The tax collector demands more than is due, and makes no secret that he'll keep some for himself.",
   "ev.tax_collector.note": "Taxes in Egypt were collected in great detail: thousands of surviving papyri are receipts, registers and complaints about collectors' abuses.",
@@ -283,7 +247,6 @@
   "ev.tax_collector.petition": "Complain to the strategos",
   "ev.tax_collector.petition.success": "The complaint was accepted. The collector had to back down.",
   "ev.tax_collector.petition.failure": "Nobody read the complaint. You had to pay anyway.",
-
   "ev.low_flood.title": "A low flood",
   "ev.low_flood.text": "The Nile flood was weak. The fields won't get enough water, and spring will be hungry.",
   "ev.low_flood.note": "Egypt's harvest depended entirely on the Nile flood. Its height was measured with nilometers and used to set taxes.",
@@ -291,7 +254,6 @@
   "ev.low_flood.hope": "Hope for the best",
   "ev.low_flood.hope.success": "It worked out: neighbors shared, and prices fell before the stores ran out.",
   "ev.low_flood.hope.failure": "Spring was hungry.",
-
   "ev.grain_shortage.title": "Not enough bread",
   "ev.grain_shortage.text": "The grain ships are late, and the price of bread rises every day.",
   "ev.grain_shortage.note": "The great cities of antiquity lived on imported grain. Supply disruptions quickly led to hunger and unrest.",
@@ -299,12 +261,10 @@
   "ev.grain_shortage.wait": "Wait",
   "ev.grain_shortage.wait.success": "The ships arrived before the food ran out.",
   "ev.grain_shortage.wait.failure": "You went hungry.",
-
   "ev.neighbor_asks_help.title": "A neighbor in need",
   "ev.neighbor_asks_help.text": "Your neighbor remembers you had a grain reserve and asks you to help feed his children.",
   "ev.neighbor_asks_help.help": "Help",
   "ev.neighbor_asks_help.refuse": "Refuse",
-
   "ev.assembly.title": "The Assembly",
   "ev.assembly.text": "The ekklesia gathers on the Pnyx hill to decide whether to go to war. Any citizen may speak.",
   "ev.assembly.note": "In democratic Athens the supreme body was the assembly of all adult male citizens. Women, slaves and resident foreigners (metics) took no part.",
@@ -313,7 +273,6 @@
   "ev.assembly.speak.failure": "They booed you and wouldn't let you finish.",
   "ev.assembly.vote": "Vote silently",
   "ev.assembly.skip": "Skip it and work",
-
   "ev.liturgy.title": "A liturgy",
   "ev.liturgy.text": "As a wealthy citizen, the city requires you to pay for fitting out a warship.",
   "ev.liturgy.note": "Liturgies were mandatory public expenses of rich Athenians: equipping a trireme, staging a chorus. One could challenge a richer man who had avoided the duty to an exchange of property (antidosis).",
@@ -322,51 +281,42 @@
   "ev.liturgy.antidosis.success": "Your rival chose to pay himself.",
   "ev.liturgy.antidosis.failure": "Your rival agreed to the exchange. You lost part of your property and respect.",
   "ev.liturgy.plead": "Plead poverty",
-
   "ev.philosopher.title": "A philosopher in the agora",
   "ev.philosopher.text": "In the square, a man in a worn cloak asks passers-by awkward questions about justice. Young people gather around him.",
   "ev.philosopher.follow": "Listen and argue",
   "ev.philosopher.mock": "Laugh and leave",
-
   "ev.museum.title": "The Mouseion",
   "ev.museum.text": "At the Mouseion of Alexandria, scholars study the stars, plants and the human body. You could become one of their students.",
   "ev.museum.note": "The Mouseion and the Library of Alexandria, founded by the Ptolemies, were the greatest center of learning of the age. Euclid, Eratosthenes and the physicians Herophilus and Erasistratus worked there.",
   "ev.museum.study": "Study",
   "ev.museum.decline": "Not for me",
-
   "ev.games.title": "Games in the arena",
   "ev.games.text": "A Roman noble is putting on games: gladiator fights and beast hunts. Entry is free.",
   "ev.games.note": "The first gladiator fights in Rome took place in 264 BC at a funeral. Later, games became a way for politicians to win popular favor.",
   "ev.games.attend": "Go",
   "ev.games.stay_home": "Stay home",
-
   "ev.manumission.title": "Freedom for a price",
   "ev.manumission.text": "Your master is ready to set you free if you pay a ransom from your savings.",
   "ev.manumission.note": "Roman slaves could keep personal savings (peculium) and buy their freedom. Freedmen became citizens, though with limits; their children were born with full rights.",
   "ev.manumission.buy_freedom": "Buy your freedom",
   "ev.manumission.serve_on": "Keep serving",
-
   "ev.freed_in_will.title": "Freed by will",
   "ev.freed_in_will.text": "Your master died and freed you in his will. You are free.",
-
   "ev.escape.title": "A chance to run",
   "ev.escape.text": "The estate gates were left open for the night. Runaway slaves are hunted and cruelly punished.",
   "ev.escape.flee": "Run",
   "ev.escape.flee.success": "You reached another town where nobody knows you. A new life begins: poor, but free.",
   "ev.escape.flee.failure": "You were caught and brought back. The punishment was harsh.",
   "ev.escape.stay": "Stay",
-
   "ev.recruitment_rome.title": "The levy",
   "ev.recruitment_rome.text": "The legions are recruiting. Service is long, but the pay is regular and veterans get land.",
   "ev.recruitment_rome.note": "After the reforms of the late 2nd century BC the legions became professional: volunteers, including the poor, joined for pay and a plot of land on discharge.",
   "ev.recruitment_rome.enlist": "Enlist",
   "ev.recruitment_rome.stay": "Stay home",
-
   "ev.recruitment_greek.title": "Recruitment",
   "ev.recruitment_greek.text": "The army needs men. You could serve for pay and a share of the loot.",
   "ev.recruitment_greek.enlist": "Enlist",
   "ev.recruitment_greek.stay": "Stay home",
-
   "ev.campaign.title": "Campaign",
   "ev.campaign.text": "The army marches out. A battle lies ahead.",
   "ev.campaign.brave": "Fight in the front ranks",
@@ -375,22 +325,18 @@
   "ev.campaign.careful": "Stay careful",
   "ev.campaign.careful.success": "You came back alive with a little loot.",
   "ev.campaign.careful.failure": "Even caution didn't save you from a wound.",
-
   "ev.will.title": "The will",
   "ev.will.text": "The years are taking their toll. Time to decide how to divide your property.",
   "ev.will.equal": "Equally among the children",
   "ev.will.eldest": "Most to the eldest",
   "ev.will.temple": "Leave part to the temple",
-
   "ev.old_friend.title": "An old friend",
   "ev.old_friend.text": "A friend from your youth sent word: it's been a long time.",
   "ev.old_friend.visit": "Visit",
   "ev.old_friend.letter": "Write back",
-
   "ev.g_marathon.title": "Marathon",
   "ev.g_marathon.text": "A Persian army landed at Marathon. The Athenian hoplites charged at a run and routed it. The city rejoices.",
   "ev.g_marathon.note": "The Battle of Marathon in 490 BC was a victory of the Athenians and Plataeans over the Persian force that landed in Attica.",
-
   "ev.g_salamis.title": "The Persians march on Athens",
   "ev.g_salamis.text": "King Xerxes' enormous army is advancing on Athens. Themistocles urges the people to leave the city and trust the fleet.",
   "ev.g_salamis.note": "In 480 BC the Athenians evacuated to Salamis and Troezen. The Persians burned the Acropolis, but were soon defeated in the naval battle of Salamis.",
@@ -398,11 +344,9 @@
   "ev.g_salamis.stay": "Stay to defend the Acropolis",
   "ev.g_salamis.stay.success": "You survived. And at Salamis the fleet crushed the Persians.",
   "ev.g_salamis.stay.failure": "The Persians took the Acropolis. You barely escaped, and everything you owned burned.",
-
   "ev.g_peloponnesian.title": "War with Sparta",
   "ev.g_peloponnesian.text": "War has broken out with Sparta and its allies. Villagers move inside the Long Walls while the enemy ravages the fields of Attica.",
   "ev.g_peloponnesian.note": "The Peloponnesian War (431–404 BC) between Athens and Sparta ended in Athens' defeat.",
-
   "ev.g_athens_plague.title": "Plague in Athens",
   "ev.g_athens_plague.text": "A terrible disease broke out in the city, crowded with refugees. Whole families are dying.",
   "ev.g_athens_plague.note": "The epidemic of 430–426 BC killed an estimated quarter of Athens' population, Pericles among them. What disease it was is still debated.",
@@ -412,31 +356,25 @@
   "ev.g_athens_plague.isolate": "Shut yourself in",
   "ev.g_athens_plague.isolate.success": "The disease passed you by.",
   "ev.g_athens_plague.isolate.failure": "The disease reached you anyway.",
-
   "ev.g_sicily.title": "Disaster in Sicily",
   "ev.g_sicily.text": "News arrived: the great fleet and army sent to Sicily have been destroyed. Nearly every family is grieving.",
   "ev.g_sicily.note": "The Sicilian Expedition (415–413 BC) ended with the destruction of the Athenian fleet and army at Syracuse.",
-
   "ev.g_sulla.title": "Sulla takes Athens",
   "ev.g_sulla.text": "After a long siege, Sulla's Romans burst into the city. Many were killed and houses were looted.",
   "ev.g_sulla.note": "In 86 BC Sulla captured Athens, which had sided with King Mithridates of Pontus.",
-
   "ev.g_alexander.title": "Alexander in Egypt",
   "ev.g_alexander.text": "The Persian governor surrendered without a fight. The young Macedonian king Alexander sacrificed to the Egyptian gods, and the priests proclaimed him pharaoh.",
   "ev.g_alexander.note": "Alexander the Great took Egypt in 332 BC. After his death the country was ruled by the Ptolemaic dynasty.",
   "ev.g_alexander.welcome": "Rejoice at the end of Persian rule",
   "ev.g_alexander.wary": "Wait and see",
-
   "ev.g_alexandria.title": "A new city by the sea",
   "ev.g_alexandria.text": "Alexandria is being built on the coast. Craftsmen and merchants are invited, with promises of work and profit.",
   "ev.g_alexandria.note": "Founded in 331 BC, Alexandria quickly became the Ptolemaic capital and one of the largest cities in the world.",
   "ev.g_alexandria.move": "Move there",
   "ev.g_alexandria.stay": "Stay",
-
   "ev.g_roman_egypt.title": "Egypt becomes Roman",
   "ev.g_roman_egypt.text": "Cleopatra is dead. Octavian has declared Egypt a possession of Rome. The new masters are counting land and taxes.",
   "ev.g_roman_egypt.note": "After Antony and Cleopatra's defeat at Actium (31 BC), Egypt became a Roman province in 30 BC and Rome's main granary.",
-
   "ev.g_hannibal.title": "Hannibal in Italy",
   "ev.g_hannibal.text": "The Carthaginian general Hannibal has crossed the Alps and is crushing Roman armies. The city is raising new legions.",
   "ev.g_hannibal.note": "In the Second Punic War (218–201 BC) Rome suffered defeats at the Trebia, Lake Trasimene and Cannae, but held on and won.",
@@ -444,15 +382,12 @@
   "ev.g_hannibal.enlist.success": "You survived terrible battles and came back a seasoned soldier.",
   "ev.g_hannibal.enlist.failure": "You were badly wounded.",
   "ev.g_hannibal.support": "Help with money",
-
   "ev.g_carthage.title": "Carthage destroyed",
   "ev.g_carthage.text": "News arrived: Carthage has been taken and destroyed. Rome celebrates.",
   "ev.g_carthage.note": "In 146 BC, at the end of the Third Punic War, the Romans destroyed Carthage.",
-
   "ev.g_spartacus.title": "Spartacus' revolt",
   "ev.g_spartacus.text": "Runaway gladiators led by Spartacus have defeated several Roman armies. Thousands of slaves are joining them. Italy is afraid.",
   "ev.g_spartacus.note": "Spartacus' revolt (73–71 BC) was crushed by Crassus.",
-
   "ev.g_spartacus_slave.title": "Spartacus is calling",
   "ev.g_spartacus_slave.text": "They say Spartacus' army is very close. The slaves whisper at night: run to him or not?",
   "ev.g_spartacus_slave.note": "Spartacus' revolt (73–71 BC) was crushed by Crassus; about six thousand captives were crucified along the Appian Way.",
@@ -460,20 +395,17 @@
   "ev.g_spartacus_slave.join.success": "In the chaos of the defeat you managed to slip away and start a life as a free person.",
   "ev.g_spartacus_slave.join.failure": "The revolt was crushed.",
   "ev.g_spartacus_slave.stay": "Stay",
-
   "ev.g_caesar.title": "The Ides of March",
   "ev.g_caesar.text": "Caesar has been killed in the Senate by conspirators. The city holds its breath: some weep, others talk of liberty restored.",
   "ev.g_caesar.note": "Gaius Julius Caesar was killed on 15 March 44 BC. A new civil war soon followed.",
   "ev.g_caesar.mourn": "Mourn Caesar",
   "ev.g_caesar.liberators": "Support the conspirators",
   "ev.g_caesar.silent": "Keep your opinion to yourself",
-
   "ev.g_great_fire.title": "The Great Fire",
   "ev.g_great_fire.text": "Rome has been burning for days. Whole districts have turned to ash.",
   "ev.g_great_fire.note": "The fire of AD 64, under Nero, destroyed a large part of Rome.",
   "ev.g_great_fire.help": "Help your neighbors",
   "ev.g_great_fire.flee": "Save yourself",
-
   "ev.g_antonine_plague.title": "The Great Plague",
   "ev.g_antonine_plague.text": "A disease with rash and fever has come from the East. It spreads from city to city, sparing no one.",
   "ev.g_antonine_plague.note": "The Antonine Plague (from AD 165) was an epidemic, possibly smallpox, brought back by troops from the East. It killed millions across the empire.",
@@ -482,5 +414,37 @@
   "ev.g_antonine_plague.care.failure": "You caught it and hovered between life and death for a long time.",
   "ev.g_antonine_plague.isolate": "Shut yourself in",
   "ev.g_antonine_plague.isolate.success": "The disease passed you by.",
-  "ev.g_antonine_plague.isolate.failure": "The disease reached you anyway."
+  "ev.g_antonine_plague.isolate.failure": "The disease reached you anyway.",
+  "place.rome": "Rome",
+  "place.athens": "Athens",
+  "place.egypt": "Egypt",
+  "place.alexandria": "Alexandria",
+  "region.rome.in": "in Rome",
+  "region.athens.in": "in Athens",
+  "region.egypt.in": "in Egypt",
+  "class.slave.family": "into a slave family",
+  "class.peasant.family": "into a peasant family",
+  "class.craftsman.family": "into a craftsman's family",
+  "class.trader.family": "into a merchant family",
+  "class.landowner.family": "into a landowning family",
+  "class.noble.family": "into a noble family",
+  "prof.farmer.as": "a farmer",
+  "prof.laborer.as": "a day laborer",
+  "prof.artisan.as": "a craftsman",
+  "prof.weaver.as": "a weaver",
+  "prof.midwife.as": "a midwife",
+  "prof.merchant.as": "a merchant",
+  "prof.sailor.as": "a sailor",
+  "prof.legionary.as": "a legionary",
+  "prof.soldier.as": "a soldier",
+  "prof.scribe.as": "a scribe",
+  "prof.physician.as": "a physician",
+  "prof.rhetor.as": "an orator",
+  "prof.priest.as": "a {g:priest|priestess}",
+  "prof.landholder.as": "a landowner",
+  "prof.magistrate.as": "a magistrate",
+  "prof.matron.as": "the mistress of a large household",
+  "prof.household_slave.as": "a household slave",
+  "prof.field_slave.as": "an estate slave",
+  "prof.gladiator.as": "a gladiator"
 }
