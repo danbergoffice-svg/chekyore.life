@@ -1,6 +1,8 @@
 # Тысячи жизней (рабочее название)
 
-Браузерная игра-симулятор жизни в разных исторических эпохах. Сайт: https://thousands.life
+Браузерная игра-симулятор жизни в разных исторических эпохах (Thousands of Lives). Сайт: https://thousands.life
+
+ТЗ: [docs/game_spec.json](docs/game_spec.json), принятые решения: [docs/DECISIONS.md](docs/DECISIONS.md).
 
 ## Разработка
 
