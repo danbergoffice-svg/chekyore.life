@@ -68,7 +68,7 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   if (!hero.alive) return die(state, era)
   rollEvents(state, era, births)
   if (!hero.alive) return die(state, era)
-  for (let i = firstEntry; i < hero.diary.length; i++) state.reveal[i] = Math.round((0.05 + next(state) * 0.85) * 100) / 100
+  for (let i = firstEntry; i < hero.diary.length; i++) if (!hero.diary[i].primer) state.reveal[i] = Math.round((0.05 + next(state) * 0.85) * 100) / 100
   // Справки — равномерно по году, чтобы было время прочитать.
   let nth = 0
   for (let i = firstEntry; i < hero.diary.length; i++) if (hero.diary[i].primer) state.reveal[i] = 0.06 + 0.23 * nth++

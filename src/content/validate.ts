@@ -162,7 +162,7 @@ function checkCountry(era: EraDef, bad: string[]) {
 /** Справка «О твоём мире»: по каждой из 16 тем есть общая карточка (без условий), ссылки верны. */
 function checkPrimers(era: EraDef, bad: string[]) {
   const primers = era.primers ?? []
-  if (!primers.length) return
+  if (!primers.length) return void bad.push('нет справки «О твоём мире» (primer.json)')
   for (const topic of PRIMER_TOPICS) if (!primers.some((p) => p.topic === topic && !p.regions && !p.classes && !p.religions && !p.sex && !p.years)) bad.push(`справка: нет общей карточки на тему ${topic}`)
   const ids = new Set<string>()
   for (const p of primers) {
