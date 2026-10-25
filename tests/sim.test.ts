@@ -8,9 +8,13 @@ const ERAS = await loadAllEras()
 const historical: GameSettings = { mode: 'full', mortality: 'historical', softenHeavy: false }
 const soft: GameSettings = { mode: 'full', mortality: 'soft', softenHeavy: false }
 
-function run(era: EraDef, settings: GameSettings, n: number) {
+/** Долгие прогоны отдают управление, чтобы воркер vitest успевал отвечать (иначе «Timeout calling onTaskUpdate»). */
+const breathe = () => new Promise((r) => setTimeout(r, 0))
+
+async function run(era: EraDef, settings: GameSettings, n: number) {
   const ages: number[] = []
   for (let i = 0; i < n; i++) {
+    if (i % 25 === 0) await breathe()
     const s = autoplay(newLife(era, settings, i + 1), era)
     expect(s.phase).toBe('dead')
     ages.push(s.hero.age)
@@ -49,17 +53,18 @@ describe('Симуляция', () => {
   })
 
   for (const era of Object.values(ERAS)) {
-    it(`${era.id}: историческая смертность близка к ориентиру, мягкая — большинство взрослеет`, () => {
-      const h = run(era, historical, 400)
+    it(`${era.id}: историческая смертность близка к ориентиру, мягкая — большинство взрослеет`, async () => {
+      const h = await run(era, historical, 400)
       expect(h.mean).toBeGreaterThan(era.lifeExpectancy - 5)
       expect(h.mean).toBeLessThan(era.lifeExpectancy + 5)
-      const s = run(era, soft, 200)
+      const s = await run(era, soft, 200)
       expect(s.adult).toBeGreaterThan(0.65)
     })
 
-    it(`${era.id}: род продолжается через наследника`, () => {
+    it(`${era.id}: род продолжается через наследника`, async () => {
       let continued = 0
       for (let i = 0; i < 80; i++) {
+        if (i % 10 === 0) await breathe()
         const s = autoplay(newLife(era, soft, 1000 + i), era)
         const kids = heirs(s)
         if (kids.length === 0) continue
