@@ -1,0 +1,2400 @@
+[
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_yemrehanna",
+  "regions": [
+   "lalibela"
+  ],
+  "years": [
+   1150,
+   1175
+  ],
+  "global_chance": 0.15,
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp",
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_lalibela_carving",
+  "regions": [
+   "lalibela"
+  ],
+  "years": [
+   1185,
+   1221
+  ],
+  "global_chance": 0.3,
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "anvil",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -5
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "skill": "craft",
+      "delta": 4
+     },
+     {
+      "param": "self_esteem",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": -4,
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "grain",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_jerusalem_lost",
+  "regions": [
+   "lalibela",
+   "aksum"
+  ],
+  "years": [
+   1188,
+   1192
+  ],
+  "global_chance": 0.3,
+  "scene": {
+   "place": "temple",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_yekuno_amlak",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "years": [
+   1270,
+   1272
+  ],
+  "global_chance": 0.5,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "welcome",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "mourn",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     },
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_debre_libanos",
+  "regions": [
+   "shewa"
+  ],
+  "years": [
+   1284,
+   1300
+  ],
+  "global_chance": 0.2,
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "tree",
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_kebra_nagast",
+  "regions": [
+   "aksum"
+  ],
+  "years": [
+   1314,
+   1330
+  ],
+  "global_chance": 0.2,
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_amda_seyon",
+  "regions": [
+   "shewa"
+  ],
+  "years": [
+   1329,
+   1332
+  ],
+  "global_chance": 0.4,
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "march",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "skill": "military",
+       "delta": 5
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 5
+    }
+   },
+   {
+    "id": "supply",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_abuna_salama",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "years": [
+   1350,
+   1388
+  ],
+  "global_chance": 0.15,
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_zara_yaqob_crowned",
+  "regions": [
+   "aksum"
+  ],
+  "years": [
+   1436,
+   1437
+  ],
+  "global_chance": 0.6,
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_zara_yaqob_laws",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "years": [
+   1438,
+   1465
+  ],
+  "global_chance": 0.2,
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "altar",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "obey",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -20
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "grumble",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_gomit",
+  "regions": [
+   "shewa"
+  ],
+  "years": [
+   1445,
+   1446
+  ],
+  "global_chance": 0.5,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_debre_mitmaq",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "religions": [
+   "tewahedo"
+  ],
+  "years": [
+   1450,
+   1452
+  ],
+  "global_chance": 0.4,
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "altar",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_debre_berhan",
+  "regions": [
+   "shewa"
+  ],
+  "years": [
+   1456,
+   1458
+  ],
+  "global_chance": 0.5,
+  "scene": {
+   "place": "landmark",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "moon",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 4
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_yeshaq_decree",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "religions": [
+   "judaism"
+  ],
+  "years": [
+   1414,
+   1429
+  ],
+  "global_chance": 0.2,
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "shield",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 5
+   },
+   {
+    "param": "money",
+    "delta": -40
+   },
+   {
+    "param": "faith",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_covilha",
+  "regions": [
+   "shewa"
+  ],
+  "years": [
+   1494,
+   1500
+  ],
+  "global_chance": 0.2,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_eleni",
+  "regions": [
+   "shewa"
+  ],
+  "years": [
+   1508,
+   1516
+  ],
+  "global_chance": 0.2,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_mahfuz",
+  "regions": [
+   "shewa",
+   "harar"
+  ],
+  "years": [
+   1517,
+   1518
+  ],
+  "global_chance": 0.5,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_harar_capital",
+  "regions": [
+   "harar"
+  ],
+  "years": [
+   1520,
+   1522
+  ],
+  "global_chance": 0.5,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 30
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_alvares",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "years": [
+   1520,
+   1526
+  ],
+  "global_chance": 0.25,
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "trade",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_jihad_call",
+  "regions": [
+   "harar"
+  ],
+  "years": [
+   1527,
+   1530
+  ],
+  "global_chance": 0.5,
+  "icon": "war",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "set_flag": "eth_jihad"
+     }
+    ],
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "skill": "military",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 6,
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "give",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -1
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_shimbra_kure",
+  "regions": [
+   "shewa"
+  ],
+  "years": [
+   1529,
+   1529
+  ],
+  "global_chance": 0.6,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": 4
+    }
+   },
+   {
+    "id": "stand",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "add_trait": "brave"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_gran_shewa",
+  "regions": [
+   "shewa"
+  ],
+  "years": [
+   1531,
+   1540
+  ],
+  "global_chance": 0.4,
+  "religions": [
+   "tewahedo",
+   "african_traditional",
+   "judaism",
+   "catholic"
+  ],
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     },
+     {
+      "set_flag": "eth_forced_convert"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "amba",
+    "effects": [
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "health",
+      "delta": -6
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": 5,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "resist",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "faith",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "money_pct": -60
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_gran_lasta",
+  "regions": [
+   "lalibela"
+  ],
+  "years": [
+   1533,
+   1540
+  ],
+  "global_chance": 0.35,
+  "religions": [
+   "tewahedo",
+   "judaism",
+   "catholic"
+  ],
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "landmark",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "faith",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -40
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     },
+     {
+      "set_flag": "eth_forced_convert"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_gran_aksum",
+  "regions": [
+   "aksum"
+  ],
+  "years": [
+   1535,
+   1540
+  ],
+  "global_chance": 0.4,
+  "religions": [
+   "tewahedo",
+   "judaism",
+   "catholic"
+  ],
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "landmark",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ark",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5,
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     },
+     {
+      "set_flag": "eth_forced_convert"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_harar_spoils",
+  "regions": [
+   "harar"
+  ],
+  "years": [
+   1531,
+   1542
+  ],
+  "global_chance": 0.3,
+  "sensitive": true,
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "grain",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "faith",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "alms",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -20
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_gama_arrives",
+  "regions": [
+   "aksum"
+  ],
+  "years": [
+   1541,
+   1542
+  ],
+  "global_chance": 0.5,
+  "icon": "war",
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "help",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_gama_death",
+  "regions": [
+   "aksum",
+   "lalibela"
+  ],
+  "years": [
+   1542,
+   1543
+  ],
+  "global_chance": 0.5,
+  "sensitive": true,
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 4
+   },
+   {
+    "param": "happiness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_wayna_daga",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "years": [
+   1543,
+   1544
+  ],
+  "global_chance": 0.6,
+  "icon": "freedom",
+  "scene": {
+   "place": "battle",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "banner",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "return",
+    "requirements": [
+     {
+      "religion": [
+       "islam"
+      ]
+     },
+     {
+      "flag": "eth_forced_convert"
+     }
+    ],
+    "effects": [
+     {
+      "set_religion": "tewahedo"
+     },
+     {
+      "param": "happiness",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": -6
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "celebrate",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "quiet",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_imam_mourned",
+  "regions": [
+   "harar"
+  ],
+  "years": [
+   1543,
+   1544
+  ],
+  "global_chance": 0.6,
+  "icon": "loss",
+  "scene": {
+   "place": "temple",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -5
+   },
+   {
+    "param": "stress",
+    "delta": 3
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_harar_wall",
+  "regions": [
+   "harar"
+  ],
+  "years": [
+   1551,
+   1567
+  ],
+  "global_chance": 0.2,
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "anvil",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "build",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_galawdewos_falls",
+  "regions": [
+   "shewa",
+   "harar"
+  ],
+  "years": [
+   1559,
+   1560
+  ],
+  "global_chance": 0.5,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_oromo",
+  "regions": [
+   "shewa",
+   "lalibela"
+  ],
+  "years": [
+   1560,
+   1600
+  ],
+  "global_chance": 0.15,
+  "icon": "move",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "goat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "amba",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": 4,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "trade",
+    "effects": [
+     {
+      "skill": "trade",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -30
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_harar_oromo",
+  "regions": [
+   "harar"
+  ],
+  "years": [
+   1567,
+   1580
+  ],
+  "global_chance": 0.2,
+  "icon": "war",
+  "scene": {
+   "place": "landmark",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "shield",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 5
+   },
+   {
+    "param": "money",
+    "delta": -30
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_massawa_ottoman",
+  "regions": [
+   "aksum"
+  ],
+  "years": [
+   1557,
+   1560
+  ],
+  "global_chance": 0.3,
+  "scene": {
+   "place": "market",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": -30
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_sarsa_dengel",
+  "regions": [
+   "aksum"
+  ],
+  "years": [
+   1578,
+   1579
+  ],
+  "global_chance": 0.5,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_susenyos_catholic",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "years": [
+   1622,
+   1631
+  ],
+  "global_chance": 0.25,
+  "religions": [
+   "tewahedo",
+   "catholic"
+  ],
+  "sensitive": true,
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "altar",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_religion": "catholic"
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -30
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -6
+    }
+   },
+   {
+    "id": "outward",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 6
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_lasta_revolt",
+  "regions": [
+   "lalibela"
+  ],
+  "years": [
+   1630,
+   1632
+  ],
+  "global_chance": 0.45,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "faith",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "money_pct": -40
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "hide",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 6
+     },
+     {
+      "money_pct": -20
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_fasilides",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "years": [
+   1632,
+   1634
+  ],
+  "global_chance": 0.6,
+  "icon": "freedom",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "altar",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "return",
+    "requirements": [
+     {
+      "religion": [
+       "catholic"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "set_religion": "tewahedo"
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "rejoice",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "shrug",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": 1
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_gondar",
+  "regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ],
+  "years": [
+   1636,
+   1645
+  ],
+  "global_chance": 0.2,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "anvil",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "skill": "craft",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 4,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "id": "eth_h_harar_emirate",
+  "regions": [
+   "harar"
+  ],
+  "years": [
+   1647,
+   1650
+  ],
+  "global_chance": 0.5,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -2
+   },
+   {
+    "param": "self_esteem",
+    "delta": 1
+   }
+  ]
+ }
+]
