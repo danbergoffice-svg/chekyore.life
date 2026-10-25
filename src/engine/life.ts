@@ -18,7 +18,10 @@ export interface Birth {
 /** equal — все страны поровну; population — по числу жителей, как в жизни. */
 export type Lottery = 'equal' | 'population'
 
-/** Регионы, где можно родиться в этой стране (успеть прожить хотя бы 40 лет до конца окна). */
+/** Сколько лет до конца окна страны можно ещё родиться: так многие застают последние великие события (конкисту, падение Константинополя). */
+export const BIRTH_MARGIN = 20
+
+/** Регионы, где можно родиться в этой стране. */
 function birthRegions(era: EraMeta): RegionDef[] {
   return era.regions.filter((r) => r.years[1] - r.years[0] >= 40)
 }
@@ -27,12 +30,12 @@ function birthRegions(era: EraMeta): RegionDef[] {
 function pickPlace(h: { rng: number }, era: EraMeta | EraDef): { region: RegionDef; year: number } {
   const regions = birthRegions(era)
   const from = Math.min(...regions.map((r) => r.years[0]))
-  const to = Math.max(...regions.map((r) => r.years[1] - 40))
+  const to = Math.max(...regions.map((r) => r.years[1] - BIRTH_MARGIN))
   let year = int(h, from, to)
   if (year === 0) year = 1
-  const open = regions.filter((r) => year >= r.years[0] && year <= r.years[1] - 40)
+  const open = regions.filter((r) => year >= r.years[0] && year <= r.years[1] - BIRTH_MARGIN)
   const region = weighted(h, open.length ? open : regions, (r) => r.weight)!
-  if (!open.length) year = int(h, region.years[0], region.years[1] - 40) || 1
+  if (!open.length) year = int(h, region.years[0], region.years[1] - BIRTH_MARGIN) || 1
   return { region, year }
 }
 

@@ -97,7 +97,7 @@ export function Slots(props: { birth: Birth; seed: number; ready: boolean; onDon
     for (let i = 0; i < DECOYS; i++) {
       const id = ERA_IDS[(i + Math.floor(r() * 3)) % ERA_IDS.length]
       const meta = ERA_META[id]
-      const year = Math.round(meta.years[0] + r() * (meta.years[1] - meta.years[0] - 40)) || 1
+      const year = Math.round(meta.years[0] + r() * (meta.years[1] - meta.years[0] - 20)) || 1
       where.push({ top: t(`era.${id}.short`), bottom: formatYear(year, lang) })
       const cls = pick(Object.keys(CLASS_ICON))
       status.push({ top: t(`class.${cls}.short`), icon: CLASS_ICON[cls] })

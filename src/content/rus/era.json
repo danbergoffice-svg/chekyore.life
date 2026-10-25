@@ -2007,6 +2007,18 @@
         "landowner",
         "noble"
       ],
+      "requirements": [
+        {
+          "religion": [
+            "orthodox"
+          ]
+        },
+        {
+          "param": "faith",
+          "op": ">=",
+          "value": 60
+        }
+      ],
       "income": [
         60,
         160
@@ -2673,7 +2685,7 @@
       ]
     ],
     "childbirth": 0.015,
-    "calibration": 0.8,
+    "calibration": 0.86,
     "causes": [
       {
         "id": "infant_illness",

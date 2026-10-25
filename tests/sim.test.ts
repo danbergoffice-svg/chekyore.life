@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { ERA_IDS, ERA_META, loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
-import { continueWithHeir, heirs, newLife, rollBirth } from '../src/engine/life'
+import { BIRTH_MARGIN, continueWithHeir, heirs, newLife, rollBirth } from '../src/engine/life'
 import type { EraDef, GameSettings } from '../src/engine/types'
 
 const ERAS = await loadAllEras()
@@ -37,7 +37,7 @@ describe('Симуляция', () => {
         c[b.era] = (c[b.era] ?? 0) + 1
         const region = ERA_META[b.era].regions.find((r) => r.id === b.region)!
         expect(b.year).toBeGreaterThanOrEqual(region.years[0])
-        expect(b.year).toBeLessThanOrEqual(region.years[1] - 40)
+        expect(b.year).toBeLessThanOrEqual(region.years[1] - BIRTH_MARGIN)
       }
       return c
     }

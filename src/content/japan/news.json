@@ -1,0 +1,935 @@
+[
+ {
+  "id": "n_jpn_saigyo",
+  "year": 1186,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yoshitsune_flees",
+  "year": 1187,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hiraizumi",
+  "year": 1189,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_eisai",
+  "year": 1191,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_goshirakawa",
+  "year": 1192,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kamakura",
+   "kyoto"
+  ]
+ },
+ {
+  "id": "n_jpn_todaiji",
+  "year": 1195,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_honen",
+  "year": 1198,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yoritomo_dies",
+  "year": 1199,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_sanetomo",
+  "year": 1203,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yoriie_killed",
+  "year": 1204,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_shinkokin",
+  "year": 1205,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_genghis",
+  "year": 1206,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_honen_exile",
+  "year": 1207,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hojoki",
+  "year": 1212,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_wada",
+  "year": 1213,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_zhongdu",
+  "year": 1215,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_sanetomo_killed",
+  "year": 1219,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_jokyu",
+  "year": 1221,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kyoto",
+   "kamakura",
+   "echigo"
+  ]
+ },
+ {
+  "id": "n_jpn_dogen_china",
+  "year": 1223,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_masako",
+  "year": 1225,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_genghis_dies",
+  "year": 1227,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_goseibai_news",
+  "year": 1232,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kamakura",
+   "echigo",
+   "kyoto"
+  ]
+ },
+ {
+  "id": "n_jpn_jin_falls",
+  "year": 1234,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kamakura_buddha_start",
+  "year": 1238,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_mongols_west",
+  "year": 1240,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yasutoki_dies",
+  "year": 1242,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_eiheiji",
+  "year": 1244,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hoji",
+  "year": 1247,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_bronze_buddha",
+  "year": 1252,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_jpn_kenchoji",
+  "year": 1253,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_baghdad",
+  "year": 1258,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_goryeo",
+  "year": 1259,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kublai",
+  "year": 1260,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_shinran_dies",
+  "year": 1262,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_mongol_letter",
+  "year": 1268,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_nichiren_sado",
+  "year": 1271,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_bunei_news",
+  "year": 1274,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hakata"
+  ]
+ },
+ {
+  "id": "n_jpn_envoys_executed",
+  "year": 1275,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hangzhou",
+  "year": 1276,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_song_falls",
+  "year": 1279,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_koan_news",
+  "year": 1281,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hakata"
+  ]
+ },
+ {
+  "id": "n_jpn_engakuji",
+  "year": 1282,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tokimune_dies",
+  "year": 1284,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_shimotsuki",
+  "year": 1285,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ippen_dies",
+  "year": 1289,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_einin_news",
+  "year": 1293,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kamakura"
+  ]
+ },
+ {
+  "id": "n_jpn_kublai_dies",
+  "year": 1294,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yishan",
+  "year": 1299,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ships_seen",
+  "year": 1301,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_jpn_kagen",
+  "year": 1305,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kasuga_scroll",
+  "year": 1309,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_bunpo",
+  "year": 1317,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_godaigo",
+  "year": 1318,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_genko_shakusho",
+  "year": 1322,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_sinan_ship",
+  "year": 1323,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_shochu",
+  "year": 1324,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kenchoji_ship",
+  "year": 1325,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_genko",
+  "year": 1331,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_oki",
+  "year": 1332,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kamakura_falls_news",
+  "year": 1333,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kamakura",
+   "kyoto"
+  ]
+ },
+ {
+  "id": "n_jpn_minatogawa",
+  "year": 1336,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_takauji_shogun",
+  "year": 1338,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_godaigo_dies",
+  "year": 1339,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tenryuji_ship",
+  "year": 1342,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_shijonawate",
+  "year": 1348,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kanno",
+  "year": 1350,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_red_turbans",
+  "year": 1351,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tadayoshi_dies",
+  "year": 1352,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_jpn_takauji_dies",
+  "year": 1358,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_south_takes_kyoto",
+  "year": 1361,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yoshiakira_dies",
+  "year": 1367,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ming",
+  "year": 1368,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ming_envoy",
+  "year": 1369,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ryoshun",
+  "year": 1372,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_zeami",
+  "year": 1374,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_jpn_flower_palace",
+  "year": 1378,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hwangsan",
+  "year": 1380,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kanami_dies",
+  "year": 1384,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_gozan",
+  "year": 1386,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_toki",
+  "year": 1390,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_meitoku",
+  "year": 1391,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_joseon",
+  "year": 1392,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_reunion_news",
+  "year": 1393,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kyoto"
+  ]
+ },
+ {
+  "id": "n_jpn_kinkaku",
+  "year": 1397,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kyoto"
+  ]
+ },
+ {
+  "id": "n_jpn_oei_war",
+  "year": 1399,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tally_first",
+  "year": 1404,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hakata",
+   "sakai"
+  ]
+ },
+ {
+  "id": "n_jpn_zheng_he",
+  "year": 1405,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yoshimitsu_dies",
+  "year": 1408,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ming_break",
+  "year": 1411,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_zenshu",
+  "year": 1416,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_oei_invasion_news",
+  "year": 1419,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hakata"
+  ]
+ },
+ {
+  "id": "n_jpn_korean_envoy",
+  "year": 1420,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_shocho_news",
+  "year": 1428,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kyoto",
+   "sakai"
+  ]
+ },
+ {
+  "id": "n_jpn_yoshinori",
+  "year": 1429,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tally_resumed",
+  "year": 1432,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_eikyo",
+  "year": 1438,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kakitsu",
+  "year": 1441,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tsushima_treaty",
+  "year": 1443,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hangul",
+  "year": 1446,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tumu",
+  "year": 1449,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kyotoku",
+  "year": 1454,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_koshamain",
+  "year": 1457,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tokusei_again",
+  "year": 1462,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_jpn_honganji_burned",
+  "year": 1465,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_onin_news",
+  "year": 1467,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kyoto"
+  ]
+ },
+ {
+  "id": "n_jpn_yoshizaki",
+  "year": 1471,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_leaders_die",
+  "year": 1473,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_onin_ends",
+  "year": 1477,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ginkaku",
+  "year": 1482,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yamashiro_ikki",
+  "year": 1485,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kaga",
+  "year": 1488,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yoshimasa_dies",
+  "year": 1490,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_meio_coup",
+  "year": 1493,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_odawara",
+  "year": 1495,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_jpn_meio_quake",
+  "year": 1498,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_jpn_gion_revived",
+  "year": 1500,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_masamoto_killed",
+  "year": 1507,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_sanpo",
+  "year": 1510,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_malacca",
+  "year": 1511,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_portuguese_canton",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ningbo",
+  "year": 1523,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_iwami",
+  "year": 1526,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_haifuki",
+  "year": 1533,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_tenbun",
+  "year": 1536,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kyoto"
+  ]
+ },
+ {
+  "id": "n_jpn_dosan",
+  "year": 1542,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_jpn_tanegashima",
+  "year": 1543,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_last_tally",
+  "year": 1547,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_xavier",
+  "year": 1549,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ouchi_fall",
+  "year": 1551,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kawanakajima_news",
+  "year": 1553,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "echigo"
+  ]
+ },
+ {
+  "id": "n_jpn_itsukushima",
+  "year": 1555,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_macau",
+  "year": 1557,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_okehazama",
+  "year": 1560,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kenshin",
+  "year": 1561,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_omura",
+  "year": 1563,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yoshiteru_killed",
+  "year": 1565,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_nobunaga_news",
+  "year": 1568,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kyoto",
+   "sakai"
+  ]
+ },
+ {
+  "id": "n_jpn_frois",
+  "year": 1569,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_anegawa",
+  "year": 1570,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hiei_news",
+  "year": 1571,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kyoto"
+  ]
+ },
+ {
+  "id": "n_jpn_nagasaki",
+  "year": 1572,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_jpn_muromachi_end",
+  "year": 1573,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_nagashino",
+  "year": 1575,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_azuchi",
+  "year": 1576,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kenshin_dies",
+  "year": 1578,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ishiyama_ends",
+  "year": 1580,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "sakai"
+  ]
+ },
+ {
+  "id": "n_jpn_tensho_embassy",
+  "year": 1582,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_osaka_castle",
+  "year": 1583,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_komaki",
+  "year": 1584,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kampaku",
+  "year": 1585,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_toyotomi",
+  "year": 1586,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_kitano",
+  "year": 1587,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_odawara_falls",
+  "year": 1590,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_rikyu",
+  "year": 1591,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_yi_sunsin",
+  "year": 1592,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hideyori",
+  "year": 1593,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_fushimi_quake",
+  "year": 1596,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_nagasaki_martyrs",
+  "year": 1597,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hideyoshi_dies",
+  "year": 1598,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_adams",
+  "year": 1601,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_jpn_edo_shogun",
+  "year": 1603,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_hidetada",
+  "year": 1605,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ryukyu_satsuma",
+  "year": 1609,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_christian_ban",
+  "year": 1614,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_osaka_falls",
+  "year": 1615,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ieyasu_dies",
+  "year": 1616,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_iemitsu",
+  "year": 1623,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_sankin",
+  "year": 1635,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_shimabara",
+  "year": 1637,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_portuguese_banned",
+  "year": 1639,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_dejima",
+  "year": 1641,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_ming_falls",
+  "year": 1644,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_meireki",
+  "year": 1657,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_jpn_koxinga",
+  "year": 1662,
+  "confidence": "confirmed"
+ }
+]

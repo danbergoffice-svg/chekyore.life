@@ -1,0 +1,2676 @@
+[
+ {
+  "id": "jpn_h_genpei",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   0,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "kamakura",
+   "hakata",
+   "echigo"
+  ],
+  "years": [
+   1180,
+   1185
+  ],
+  "global_chance": 0.4,
+  "icon": "war",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   },
+   {
+    "money_pct": -10
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_nara_burn",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   0,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto"
+  ],
+  "years": [
+   1181,
+   1182
+  ],
+  "global_chance": 0.6,
+  "icon": "disaster",
+  "sensitive": true,
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_yowa",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   0,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "hakata"
+  ],
+  "years": [
+   1181,
+   1182
+  ],
+  "global_chance": 0.5,
+  "icon": "disaster",
+  "sensitive": true,
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -6
+   },
+   {
+    "add_tag": "epidemic"
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_dannoura",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   0,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "kamakura",
+   "hakata"
+  ],
+  "years": [
+   1185,
+   1185
+  ],
+  "global_chance": 0.7,
+  "icon": "war",
+  "scene": {
+   "place": "sea",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_jito",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   0,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "echigo",
+   "hakata"
+  ],
+  "years": [
+   1186,
+   1195
+  ],
+  "global_chance": 0.25,
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "money_pct": -5
+   },
+   {
+    "param": "stress",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_shogun",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   0,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kamakura",
+   "kyoto"
+  ],
+  "years": [
+   1192,
+   1192
+  ],
+  "global_chance": 0.6,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_jokyu",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   10,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "kamakura",
+   "echigo"
+  ],
+  "years": [
+   1221,
+   1221
+  ],
+  "global_chance": 0.7,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "court",
+    "risk_roll": {
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      },
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "kamakura",
+    "risk_roll": {
+     "success_chance_base": 0.75,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 80
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "aside",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {}
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_kanki",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   5,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "kamakura",
+   "hakata",
+   "echigo"
+  ],
+  "years": [
+   1230,
+   1232
+  ],
+  "global_chance": 0.5,
+  "icon": "disaster",
+  "sensitive": true,
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "add_tag": "epidemic"
+   },
+   {
+    "param": "health",
+    "delta": -5
+   }
+  ],
+  "choices": [
+   {
+    "id": "share",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "own",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 5
+     },
+     {
+      "param": "health",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "sell",
+    "requirements": [
+     {
+      "classes": [
+       "peasant",
+       "craftsman"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "set_class": "slave"
+     },
+     {
+      "set_profession": "household_slave"
+     },
+     {
+      "add_tag": "enslaved"
+     },
+     {
+      "remove_tag": "rural"
+     },
+     {
+      "remove_tag": "lives_in_city"
+     },
+     {
+      "param": "health",
+      "delta": 6
+     },
+     {
+      "param": "happiness",
+      "delta": -20
+     },
+     {
+      "param": "self_esteem",
+      "delta": -10
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_goseibai",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   12,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kamakura",
+   "echigo",
+   "kyoto"
+  ],
+  "years": [
+   1232,
+   1233
+  ],
+  "global_chance": 0.4,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_shoka",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   5,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kamakura",
+   "kyoto",
+   "echigo"
+  ],
+  "years": [
+   1257,
+   1260
+  ],
+  "global_chance": 0.3,
+  "icon": "disaster",
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "add_tag": "epidemic"
+   },
+   {
+    "money_pct": -10
+   }
+  ],
+  "choices": [
+   {
+    "id": "help",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "hoard",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_bunei",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   6,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "hakata"
+  ],
+  "years": [
+   1274,
+   1274
+  ],
+  "global_chance": 0.85,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "boat",
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "fight",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 12
+      },
+      {
+       "skill": "military",
+       "delta": 5
+      },
+      {
+       "add_trait": "brave"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      }
+     ],
+     "param": "strength"
+    },
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "temple",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "faith",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -30
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_bourui",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   14,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "hakata"
+  ],
+  "years": [
+   1276,
+   1277
+  ],
+  "global_chance": 0.6,
+  "scene": {
+   "place": "sea",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "evade",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "param": "money",
+       "delta": -40
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_koan",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   6,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "hakata"
+  ],
+  "years": [
+   1281,
+   1281
+  ],
+  "global_chance": 0.85,
+  "icon": "war",
+  "scene": {
+   "place": "sea",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "boat",
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 5
+   },
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "param": "stress",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_einin_quake",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   5,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kamakura"
+  ],
+  "years": [
+   1293,
+   1293
+  ],
+  "global_chance": 0.7,
+  "icon": "disaster",
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "money_pct": -20
+   },
+   {
+    "param": "stress",
+    "delta": 8
+   }
+  ],
+  "choices": [
+   {
+    "id": "dig",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "add_npc": "friend",
+       "attitude": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ],
+     "param": "strength"
+    },
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "goods",
+    "effects": [
+     {
+      "money_pct": -10
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_tokusei",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "money",
+  "age_range": [
+   16,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kamakura",
+   "kyoto"
+  ],
+  "years": [
+   1297,
+   1298
+  ],
+  "global_chance": 0.5,
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "reclaim",
+    "requirements": [
+     {
+      "classes": [
+       "landowner",
+       "noble"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "lose",
+    "requirements": [
+     {
+      "classes": [
+       "trader",
+       "craftsman"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {}
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_kamakura_fall",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   5,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kamakura",
+   "kyoto"
+  ],
+  "years": [
+   1333,
+   1333
+  ],
+  "global_chance": 0.9,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "defend",
+    "risk_roll": {
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "money_pct": -30
+      }
+     ],
+     "param": "strength"
+    },
+    "pattern": {
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "join",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 100
+      },
+      {
+       "param": "reputation",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_kenmu",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   12,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "echigo",
+   "kamakura"
+  ],
+  "years": [
+   1334,
+   1335
+  ],
+  "global_chance": 0.4,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_nanboku",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   14,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "echigo",
+   "hakata",
+   "sakai"
+  ],
+  "years": [
+   1336,
+   1392
+  ],
+  "global_chance": 0.05,
+  "icon": "war",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "north",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -30
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "south",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "bend",
+    "effects": [
+     {
+      "money_pct": -15
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_reunion",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   6,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto"
+  ],
+  "years": [
+   1392,
+   1392
+  ],
+  "global_chance": 0.6,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_kitayama",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   6,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto"
+  ],
+  "years": [
+   1397,
+   1408
+  ],
+  "global_chance": 0.12,
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_ming_trade",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "money",
+  "age_range": [
+   16,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "hakata",
+   "sakai"
+  ],
+  "years": [
+   1402,
+   1410
+  ],
+  "global_chance": 0.25,
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "invest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 250
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4,
+     "home_road": 2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_oei",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   6,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "hakata"
+  ],
+  "years": [
+   1419,
+   1419
+  ],
+  "global_chance": 0.6,
+  "icon": "war",
+  "scene": {
+   "place": "harbor",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "boat",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_shocho",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   14,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "sakai"
+  ],
+  "years": [
+   1428,
+   1428
+  ],
+  "global_chance": 0.6,
+  "icon": "war",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "remove_tag": "in_debt"
+      },
+      {
+       "param": "money",
+       "delta": 30
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ],
+     "param": "risk_tolerance"
+    },
+    "pattern": {
+     "memory_future": 5,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "guard",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 40
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ],
+     "param": "strength"
+    },
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "inside",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {}
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_kansho",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   5,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "echigo",
+   "sakai"
+  ],
+  "years": [
+   1459,
+   1461
+  ],
+  "global_chance": 0.35,
+  "icon": "disaster",
+  "sensitive": true,
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "add_tag": "epidemic"
+   },
+   {
+    "param": "health",
+    "delta": -4
+   }
+  ],
+  "choices": [
+   {
+    "id": "donate",
+    "effects": [
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "guard",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_onin",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   8,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto"
+  ],
+  "years": [
+   1467,
+   1477
+  ],
+  "global_chance": 0.3,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "defend",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "money_pct": -40
+      }
+     ],
+     "param": "strength"
+    },
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "ashigaru",
+    "requirements": [
+     {
+      "sex": "m"
+     },
+     {
+      "classes": [
+       "peasant",
+       "craftsman",
+       "slave"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_sakai_rise",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "money",
+  "age_range": [
+   10,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "sakai"
+  ],
+  "years": [
+   1469,
+   1480
+  ],
+  "global_chance": 0.2,
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 40
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_hokke",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   12,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto"
+  ],
+  "years": [
+   1532,
+   1536
+  ],
+  "global_chance": 0.25,
+  "icon": "war",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "requirements": [
+     {
+      "religion": [
+       "buddhist"
+      ]
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "param": "faith",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -30
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "aside",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_teppo",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "money",
+  "age_range": [
+   14,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "sakai",
+   "hakata"
+  ],
+  "years": [
+   1545,
+   1556
+  ],
+  "global_chance": 0.15,
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "anvil",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "invest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "no",
+    "effects": [],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_xavier",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   8,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "regions": [
+   "hakata",
+   "kyoto"
+  ],
+  "years": [
+   1550,
+   1551
+  ],
+  "global_chance": 0.5,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": []
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_kawanakajima",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   14,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "echigo"
+  ],
+  "years": [
+   1553,
+   1564
+  ],
+  "global_chance": 0.15,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "requirements": [
+     {
+      "sex": "m"
+     }
+    ],
+    "effects": [
+     {
+      "skill": "military",
+      "delta": 4
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "money",
+       "delta": 60
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      }
+     ],
+     "param": "strength"
+    },
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "supply",
+    "effects": [
+     {
+      "money_pct": -15
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -5
+      },
+      {
+       "param": "money",
+       "delta": -30
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_nobunaga",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   10,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "sakai"
+  ],
+  "years": [
+   1568,
+   1569
+  ],
+  "global_chance": 0.6,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_hiei",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   8,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto"
+  ],
+  "years": [
+   1571,
+   1571
+  ],
+  "global_chance": 0.7,
+  "icon": "disaster",
+  "sensitive": true,
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 5
+   },
+   {
+    "param": "faith",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_ishiyama",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "money",
+  "age_range": [
+   16,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "sakai"
+  ],
+  "years": [
+   1570,
+   1580
+  ],
+  "global_chance": 0.12,
+  "icon": "war",
+  "scene": {
+   "place": "harbor",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "honganji",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -30
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "nobunaga",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "neither",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_honnoji",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   8,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "sakai"
+  ],
+  "years": [
+   1582,
+   1582
+  ],
+  "global_chance": 0.8,
+  "icon": "war",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_kenchi",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "money",
+  "age_range": [
+   16,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "hakata",
+   "sakai",
+   "echigo"
+  ],
+  "classes": [
+   "peasant",
+   "landowner"
+  ],
+  "years": [
+   1582,
+   1598
+  ],
+  "global_chance": 0.1,
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "honest",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -80
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "bribe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 50
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -4
+      }
+     ],
+     "param": "charisma"
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_kyushu",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   8,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "hakata"
+  ],
+  "years": [
+   1587,
+   1587
+  ],
+  "global_chance": 0.8,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 30
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_katanagari",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   14,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "hakata",
+   "sakai",
+   "echigo"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "years": [
+   1588,
+   1590
+  ],
+  "global_chance": 0.4,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "give",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -2,
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_korea",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   16,
+   50
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "hakata",
+   "sakai",
+   "echigo"
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "years": [
+   1592,
+   1597
+  ],
+  "global_chance": 0.12,
+  "icon": "war",
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "money",
+      "delta": 60
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "money",
+       "delta": 80
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -30
+      }
+     ],
+     "param": "strength"
+    },
+    "icon": "move",
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 6
+    }
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "param": "money",
+       "delta": -50
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_uesugi_move",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   10,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "echigo"
+  ],
+  "years": [
+   1598,
+   1598
+  ],
+  "global_chance": 0.6,
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "cart",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "follow",
+    "requirements": [
+     {
+      "classes": [
+       "landowner",
+       "noble"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "jpn_h_sekigahara",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "age_range": [
+   8,
+   120
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "kyoto",
+   "hakata",
+   "sakai",
+   "echigo"
+  ],
+  "years": [
+   1600,
+   1600
+  ],
+  "global_chance": 0.85,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "banner",
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ }
+]

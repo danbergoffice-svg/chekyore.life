@@ -70,6 +70,11 @@
   "confidence": "confirmed"
  },
  {
+  "id": "n_eur_cluny",
+  "year": 1057,
+  "confidence": "reconstructed"
+ },
+ {
   "id": "n_eur_henry1_fr",
   "year": 1060,
   "confidence": "confirmed"
@@ -77,6 +82,11 @@
  {
   "id": "n_eur_sicily",
   "year": 1061,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eur_westminster",
+  "year": 1065,
   "confidence": "confirmed"
  },
  {
@@ -110,6 +120,11 @@
    "cologne",
    "florence"
   ]
+ },
+ {
+  "id": "n_eur_gregory7",
+  "year": 1080,
+  "confidence": "confirmed"
  },
  {
   "id": "n_eur_rome1084",
@@ -168,6 +183,11 @@
  {
   "id": "n_eur_rufus",
   "year": 1100,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eur_tinchebray",
+  "year": 1106,
   "confidence": "confirmed"
  },
  {
@@ -241,11 +261,6 @@
   "confidence": "confirmed"
  },
  {
-  "id": "n_eur_damascus",
-  "year": 1148,
-  "confidence": "confirmed"
- },
- {
   "id": "n_eur_eleanor_henry",
   "year": 1152,
   "confidence": "confirmed"
@@ -261,6 +276,11 @@
   "confidence": "confirmed"
  },
  {
+  "id": "n_eur_schism1159",
+  "year": 1159,
+  "confidence": "confirmed"
+ },
+ {
   "id": "n_eur_milan",
   "year": 1162,
   "confidence": "confirmed"
@@ -272,6 +292,11 @@
   "exclude_regions": [
    "cologne"
   ]
+ },
+ {
+  "id": "n_eur_oxford_scholars",
+  "year": 1167,
+  "confidence": "reconstructed"
  },
  {
   "id": "n_eur_becket",
@@ -297,9 +322,9 @@
   "confidence": "confirmed"
  },
  {
-  "id": "n_eur_paris_paved",
-  "year": 1186,
-  "confidence": "reconstructed"
+  "id": "n_eur_constance1183",
+  "year": 1183,
+  "confidence": "confirmed"
  },
  {
   "id": "n_eur_hattin",
@@ -307,17 +332,7 @@
   "confidence": "confirmed"
  },
  {
-  "id": "n_eur_saladin_tithe",
-  "year": 1188,
-  "confidence": "confirmed"
- },
- {
   "id": "n_eur_barbarossa_dies",
-  "year": 1190,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_york",
   "year": 1190,
   "confidence": "confirmed"
  },
@@ -468,22 +483,12 @@
   "confidence": "confirmed"
  },
  {
-  "id": "n_eur_interregnum",
-  "year": 1254,
-  "confidence": "confirmed"
- },
- {
   "id": "n_eur_sorbonne",
   "year": 1257,
   "confidence": "confirmed"
  },
  {
   "id": "n_eur_baghdad",
-  "year": 1258,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_oxford",
   "year": 1258,
   "confidence": "confirmed"
  },
@@ -495,11 +500,6 @@
  {
   "id": "n_eur_lewes",
   "year": 1264,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_evesham",
-  "year": 1265,
   "confidence": "confirmed"
  },
  {
@@ -525,6 +525,11 @@
  {
   "id": "n_eur_condemnation",
   "year": 1277,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eur_albert",
+  "year": 1280,
   "confidence": "confirmed"
  },
  {
@@ -591,6 +596,11 @@
   "confidence": "confirmed"
  },
  {
+  "id": "n_eur_templar_arrest",
+  "year": 1307,
+  "confidence": "confirmed"
+ },
+ {
   "id": "n_eur_avignon",
   "year": 1309,
   "confidence": "confirmed"
@@ -609,6 +619,16 @@
   "id": "n_eur_bannockburn",
   "year": 1314,
   "confidence": "confirmed"
+ },
+ {
+  "id": "n_eur_famine",
+  "year": 1317,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "paris",
+   "london",
+   "cologne"
+  ]
  },
  {
   "id": "n_eur_shepherds",
@@ -636,9 +656,34 @@
   "confidence": "confirmed"
  },
  {
+  "id": "n_eur_arno",
+  "year": 1333,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "florence"
+  ]
+ },
+ {
+  "id": "n_eur_war1337",
+  "year": 1337,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "paris",
+   "london"
+  ]
+ },
+ {
   "id": "n_eur_sluys",
   "year": 1340,
   "confidence": "confirmed"
+ },
+ {
+  "id": "n_eur_bardi",
+  "year": 1345,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "florence"
+  ]
  },
  {
   "id": "n_eur_crecy",
@@ -680,6 +725,14 @@
   "confidence": "confirmed"
  },
  {
+  "id": "n_eur_jacquerie",
+  "year": 1358,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "paris"
+  ]
+ },
+ {
   "id": "n_eur_bretigny",
   "year": 1360,
   "confidence": "confirmed"
@@ -715,9 +768,20 @@
   "confidence": "confirmed"
  },
  {
-  "id": "n_eur_charles5_dies",
-  "year": 1380,
-  "confidence": "confirmed"
+  "id": "n_eur_ciompi",
+  "year": 1378,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "florence"
+  ]
+ },
+ {
+  "id": "n_eur_peasants1381",
+  "year": 1381,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "london"
+  ]
  },
  {
   "id": "n_eur_wyclif",
@@ -809,6 +873,15 @@
   "confidence": "confirmed"
  },
  {
+  "id": "n_eur_joan_orleans",
+  "year": 1429,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "paris",
+   "london"
+  ]
+ },
+ {
   "id": "n_eur_joan_burned",
   "year": 1431,
   "confidence": "confirmed",
@@ -821,6 +894,14 @@
   "id": "n_eur_bojador",
   "year": 1434,
   "confidence": "confirmed"
+ },
+ {
+  "id": "n_eur_medici_return",
+  "year": 1434,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "florence"
+  ]
  },
  {
   "id": "n_eur_paris_retaken",
@@ -848,6 +929,11 @@
   "confidence": "confirmed"
  },
  {
+  "id": "n_eur_formigny",
+  "year": 1450,
+  "confidence": "confirmed"
+ },
+ {
   "id": "n_eur_constantinople1453",
   "year": 1453,
   "confidence": "confirmed"
@@ -856,6 +942,11 @@
   "id": "n_eur_castillon",
   "year": 1453,
   "confidence": "confirmed"
+ },
+ {
+  "id": "n_eur_bible42",
+  "year": 1455,
+  "confidence": "reconstructed"
  },
  {
   "id": "n_eur_comet1456",
@@ -883,11 +974,6 @@
   "confidence": "confirmed"
  },
  {
-  "id": "n_eur_lorenzo",
-  "year": 1469,
-  "confidence": "confirmed"
- },
- {
   "id": "n_eur_neuss",
   "year": 1475,
   "confidence": "confirmed"
@@ -895,6 +981,11 @@
  {
   "id": "n_eur_cologne_free",
   "year": 1475,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eur_toro",
+  "year": 1476,
   "confidence": "confirmed"
  },
  {
@@ -985,58 +1076,13 @@
   "confidence": "confirmed"
  },
  {
-  "id": "n_eur_amerigo",
-  "year": 1504,
-  "confidence": "reconstructed"
- },
- {
   "id": "n_eur_st_peters",
   "year": 1506,
   "confidence": "confirmed"
  },
  {
-  "id": "n_eur_henry8",
-  "year": 1509,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_marignano",
-  "year": 1515,
-  "confidence": "confirmed"
- },
- {
   "id": "n_eur_luther",
   "year": 1517,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_mexico",
-  "year": 1521,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_magellan",
-  "year": 1522,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_pavia",
-  "year": 1525,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_sack_rome",
-  "year": 1527,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_supremacy",
-  "year": 1534,
-  "confidence": "confirmed"
- },
- {
-  "id": "n_eur_trent",
-  "year": 1545,
   "confidence": "confirmed"
  }
 ]

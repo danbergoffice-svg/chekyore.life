@@ -1549,7 +1549,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 2,
+  "base_weight": 8,
   "topic": "life",
   "id": "rus_d_terem",
   "regions": [
@@ -1561,12 +1561,13 @@
   ],
   "sex": "f",
   "age_range": [
-   12,
-   18
+   11,
+   20
   ],
   "classes": [
    "noble",
-   "landowner"
+   "landowner",
+   "trader"
   ],
   "scene": {
    "place": "palace",
@@ -4765,7 +4766,7 @@
   "type": "personal",
   "turning": true,
   "once": true,
-  "base_weight": 3,
+  "base_weight": 8,
   "topic": "life",
   "id": "rus_t_stroganov",
   "regions": [
@@ -4850,7 +4851,7 @@
   "type": "personal",
   "turning": true,
   "once": true,
-  "base_weight": 3,
+  "base_weight": 8,
   "topic": "life",
   "id": "rus_t_don",
   "years": [
@@ -5083,7 +5084,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 9,
+  "base_weight": 15,
   "topic": "work",
   "id": "rus_j_icon_commission",
   "conditions": [
@@ -5166,7 +5167,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 12,
+  "base_weight": 15,
   "topic": "work",
   "id": "rus_j_icon_workshop",
   "conditions": [
@@ -5391,7 +5392,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 4,
+  "base_weight": 12,
   "topic": "work",
   "id": "rus_j_trapper_sable",
   "conditions": [
@@ -5537,7 +5538,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 10,
+  "base_weight": 15,
   "topic": "work",
   "id": "rus_j_bell",
   "conditions": [
@@ -5616,7 +5617,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 6,
+  "base_weight": 15,
   "topic": "work",
   "id": "rus_j_cannon_yard",
   "regions": [
@@ -5640,7 +5641,7 @@
    }
   ],
   "age_range": [
-   22,
+   20,
    60
   ],
   "once": true,
@@ -5695,7 +5696,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 8,
+  "base_weight": 12,
   "topic": "work",
   "id": "rus_j_silver_spoons",
   "regions": [
@@ -5725,7 +5726,7 @@
    }
   ],
   "age_range": [
-   16,
+   14,
    50
   ],
   "once": true,
@@ -6525,7 +6526,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 5,
+  "base_weight": 8,
   "topic": "life",
   "icon": "move",
   "id": "rus_mv_service_capital",
@@ -7178,7 +7179,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 3,
+  "base_weight": 1,
   "topic": "life",
   "id": "rus_r_late_vows",
   "age_range": [
@@ -7202,6 +7203,11 @@
   "conditions": [
    {
     "no_npc": "spouse"
+   },
+   {
+    "param": "faith",
+    "op": ">=",
+    "value": 50
    }
   ],
   "scene": {

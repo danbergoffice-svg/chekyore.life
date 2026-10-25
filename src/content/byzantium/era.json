@@ -3094,6 +3094,11 @@
    }
   ]
  },
+ "exclude_events": [
+  "f_monk",
+  "f_monk_late",
+  "f_m_bells"
+ ],
  "lifestyle": [
   {
    "id": "food",

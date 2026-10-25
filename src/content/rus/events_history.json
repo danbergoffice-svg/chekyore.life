@@ -6,17 +6,17 @@
   "historian_note": true,
   "confidence": "confirmed",
   "age_range": [
-   5,
+   0,
    120
   ],
-  "global_chance": 0.4,
+  "global_chance": 0.5,
   "id": "rus_h_pantheon",
   "regions": [
    "kiev"
   ],
   "years": [
    980,
-   983
+   984
   ],
   "scene": {
    "place": "landmark",
@@ -465,6 +465,9 @@
   ],
   "global_chance": 0.3,
   "id": "rus_h_salnitsa",
+  "others": [
+   "spouse"
+  ],
   "regions": [
    "kiev"
   ],
@@ -1291,17 +1294,17 @@
   "historian_note": true,
   "confidence": "confirmed",
   "age_range": [
-   5,
+   0,
    120
   ],
-  "global_chance": 0.5,
+  "global_chance": 0.6,
   "id": "rus_h_neva",
   "regions": [
    "novgorod"
   ],
   "years": [
    1240,
-   1240
+   1241
   ],
   "scene": {
    "place": "river",

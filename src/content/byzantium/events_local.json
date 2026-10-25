@@ -61,41 +61,6 @@
   ]
  },
  {
-  "id": "byz_m_easter",
-  "type": "local",
-  "moment": true,
-  "age_range": [
-   4,
-   90
-  ],
-  "religions": [
-   "christian"
-  ],
-  "base_weight": 4,
-  "once": true,
-  "variants": 2,
-  "topic": "life",
-  "scene": {
-   "place": "temple",
-   "time": "night",
-   "people": 5,
-   "props": [
-    "lamp",
-    "fire"
-   ]
-  },
-  "effects": [
-   {
-    "param": "happiness",
-    "delta": 3
-   },
-   {
-    "param": "faith",
-    "delta": 2
-   }
-  ]
- },
- {
   "id": "byz_m_name_day",
   "type": "local",
   "moment": true,
@@ -785,43 +750,6 @@
   "effects": [
    {
     "param": "stress",
-    "delta": 1
-   },
-   {
-    "param": "happiness",
-    "delta": -1
-   }
-  ]
- },
- {
-  "id": "byz_m_lent",
-  "type": "local",
-  "moment": true,
-  "age_range": [
-   10,
-   90
-  ],
-  "religions": [
-   "orthodox"
-  ],
-  "base_weight": 3,
-  "once": true,
-  "topic": "life",
-  "scene": {
-   "place": "home",
-   "time": "day",
-   "people": 3,
-   "props": [
-    "table"
-   ]
-  },
-  "effects": [
-   {
-    "param": "faith",
-    "delta": 2
-   },
-   {
-    "param": "health",
     "delta": 1
    },
    {
@@ -3877,65 +3805,6 @@
     "pattern": {
      "memory_future": 3
     }
-   }
-  ]
- },
- {
-  "id": "byz_d_relic",
-  "type": "personal",
-  "age_range": [
-   14,
-   80
-  ],
-  "religions": [
-   "christian"
-  ],
-  "base_weight": 2,
-  "once": true,
-  "topic": "life",
-  "scene": {
-   "place": "market",
-   "time": "day",
-   "people": 3,
-   "props": [
-    "coins"
-   ]
-  },
-  "choices": [
-   {
-    "id": "buy",
-    "effects": [
-     {
-      "param": "money",
-      "delta": -30
-     },
-     {
-      "param": "faith",
-      "delta": 4
-     }
-    ],
-    "pattern": {
-     "faith_reason": -3
-    }
-   },
-   {
-    "id": "mock",
-    "effects": [
-     {
-      "param": "intellect",
-      "delta": 1
-     },
-     {
-      "param": "reputation",
-      "delta": 1
-     }
-    ],
-    "pattern": {
-     "faith_reason": 3
-    }
-   },
-   {
-    "id": "ignore"
    }
   ]
  },
@@ -8130,6 +7999,150 @@
     ],
     "pattern": {
      "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "f_mixed_love",
+  "type": "family",
+  "not_eras": [
+   "MAY",
+   "ANE",
+   "AMR",
+   "EUR",
+   "JPN"
+  ],
+  "age_range": [
+   16,
+   35
+  ],
+  "conditions": [
+   {
+    "no_npc": "spouse"
+   },
+   {
+    "tag_absent": "married"
+   },
+   {
+    "tag_absent": "byz_vowed"
+   }
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "other"
+     },
+     {
+      "add_npc": "spouse",
+      "attitude": 60
+     },
+     {
+      "param": "happiness",
+      "delta": 10
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     },
+     {
+      "param": "faith",
+      "delta": -3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.6,
+      "trigger_event": "f_convert_kin"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -1,
+     "memory_future": 6
+    },
+    "icon": "love"
+   },
+   {
+    "id": "both",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "add_npc": "spouse",
+       "attitude": 50
+      },
+      {
+       "param": "happiness",
+       "delta": 8
+      },
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "happiness",
+       "delta": -12
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      },
+      {
+       "param": "loneliness",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": 4
+    },
+    "icon": "love"
+   },
+   {
+    "id": "part",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": -10
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": -5
     }
    }
   ]
