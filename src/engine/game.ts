@@ -357,10 +357,13 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
 function activate(state: GameState, ev: EventDef, from?: number, npcId?: string): ActiveEvent {
   const npcs = npcCandidates(state, ev)
   const same = npcs.find((n) => n.id === npcId)
+  const npc = same ?? (npcs.length ? pick(state, npcs) : undefined)
   return {
     eventId: ev.id,
     at: Math.round((0.1 + next(state) * 0.75) * 100) / 100,
-    npcId: same ? same.id : npcs.length ? pick(state, npcs).id : undefined,
+    npcId: npc?.id,
+    npcName: npc?.name,
+    npcSex: npc?.sex,
     variant: ev.variants ? int(state, 1, ev.variants) : undefined,
     from,
     outcome: null,
@@ -368,9 +371,10 @@ function activate(state: GameState, ev: EventDef, from?: number, npcId?: string)
 }
 
 /** Параметры текста события: имя и пол персонажа, о котором оно. */
-export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId'>): Record<string, TextParam> {
+export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex'>): Record<string, TextParam> {
   const npc = state.hero.npcs.find((n) => n.id === active.npcId)
-  return npc ? { npc: { name: npc.name }, npc_sex: npc.sex } : {}
+  if (npc) return { npc: { name: npc.name }, npc_sex: npc.sex }
+  return active.npcName ? { npc: { name: active.npcName }, npc_sex: active.npcSex ?? 'm' } : {}
 }
 
 export function eventTextKey(ev: EventDef, variant?: number): string {
@@ -432,7 +436,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const hero = state.hero
   const picked: ActiveEvent[] = []
   // 0. Новорождённым выбирают имя.
-  if (b.naming) for (const baby of births) picked.push({ ...activate(state, b.naming), npcId: baby.id })
+  if (b.naming) for (const baby of births) picked.push({ ...activate(state, b.naming), npcId: baby.id, npcName: baby.name, npcSex: baby.sex })
   const has = (ev: EventDef) => picked.some((p) => p.eventId === ev.id)
   const add = (ev: EventDef | undefined, from?: number, npcId?: string) => {
     if (ev && !has(ev)) picked.push(activate(state, ev, from, npcId))

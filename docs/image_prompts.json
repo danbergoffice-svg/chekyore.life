@@ -2076,6 +2076,1128 @@
     "prompt": "in front of a temple, with table, amphora, 6 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
   },
   {
+    "slot": "img_e03_d_rumor_rome.webp",
+    "event": "d_rumor",
+    "region": "rome",
+    "prompt": "a city street with houses, with amphora, lamp, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_rumor_athens.webp",
+    "event": "d_rumor",
+    "region": "athens",
+    "prompt": "a city street with houses, with amphora, lamp, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_rumor_egypt.webp",
+    "event": "d_rumor",
+    "region": "egypt",
+    "prompt": "a city street with houses, with amphora, lamp, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_unfaithful_rome.webp",
+    "event": "d_unfaithful",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_unfaithful_athens.webp",
+    "event": "d_unfaithful",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_unfaithful_egypt.webp",
+    "event": "d_unfaithful",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_old_secret_rome.webp",
+    "event": "d_old_secret",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_old_secret_athens.webp",
+    "event": "d_old_secret",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_old_secret_egypt.webp",
+    "event": "d_old_secret",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_late_peace_rome.webp",
+    "event": "d_late_peace",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, moon, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_late_peace_athens.webp",
+    "event": "d_late_peace",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, moon, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_late_peace_egypt.webp",
+    "event": "d_late_peace",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, moon, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_cold_house_rome.webp",
+    "event": "d_cold_house",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_cold_house_athens.webp",
+    "event": "d_cold_house",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_cold_house_egypt.webp",
+    "event": "d_cold_house",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_temptation_rome.webp",
+    "event": "d_temptation",
+    "region": "rome",
+    "prompt": "a city street with houses, with tree, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_temptation_athens.webp",
+    "event": "d_temptation",
+    "region": "athens",
+    "prompt": "a city street with houses, with tree, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_temptation_egypt.webp",
+    "event": "d_temptation",
+    "region": "egypt",
+    "prompt": "a city street with houses, with tree, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_affair_found_rome.webp",
+    "event": "d_affair_found",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, scroll, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_affair_found_athens.webp",
+    "event": "d_affair_found",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, scroll, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_affair_found_egypt.webp",
+    "event": "d_affair_found",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, scroll, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_jealous_rome.webp",
+    "event": "d_jealous",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, amphora, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_jealous_athens.webp",
+    "event": "d_jealous",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, amphora, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_jealous_egypt.webp",
+    "event": "d_jealous",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, amphora, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_jealous_scene_rome.webp",
+    "event": "d_jealous_scene",
+    "region": "rome",
+    "prompt": "a busy market with stalls, with amphora, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_jealous_scene_athens.webp",
+    "event": "d_jealous_scene",
+    "region": "athens",
+    "prompt": "a busy market with stalls, with amphora, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_jealous_scene_egypt.webp",
+    "event": "d_jealous_scene",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, with amphora, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_gambler_rome.webp",
+    "event": "d_gambler",
+    "region": "rome",
+    "prompt": "inside a modest home, with coins, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_gambler_athens.webp",
+    "event": "d_gambler",
+    "region": "athens",
+    "prompt": "inside a modest home, with coins, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_gambler_egypt.webp",
+    "event": "d_gambler",
+    "region": "egypt",
+    "prompt": "inside a modest home, with coins, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_gambler_again_rome.webp",
+    "event": "d_gambler_again",
+    "region": "rome",
+    "prompt": "inside a modest home, with coins, scroll, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_gambler_again_athens.webp",
+    "event": "d_gambler_again",
+    "region": "athens",
+    "prompt": "inside a modest home, with coins, scroll, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_gambler_again_egypt.webp",
+    "event": "d_gambler_again",
+    "region": "egypt",
+    "prompt": "inside a modest home, with coins, scroll, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_illness_rome.webp",
+    "event": "d_sp_illness",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_illness_athens.webp",
+    "event": "d_sp_illness",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_illness_egypt.webp",
+    "event": "d_sp_illness",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_drowned_rome.webp",
+    "event": "d_sp_drowned",
+    "region": "rome",
+    "prompt": "a river bank, with boat, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_drowned_athens.webp",
+    "event": "d_sp_drowned",
+    "region": "athens",
+    "prompt": "a river bank, with boat, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_drowned_egypt.webp",
+    "event": "d_sp_drowned",
+    "region": "egypt",
+    "prompt": "a river bank, with boat, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_grief_year_rome.webp",
+    "event": "d_grief_year",
+    "region": "rome",
+    "prompt": "a quiet tomb by the road, with lamp, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_grief_year_athens.webp",
+    "event": "d_grief_year",
+    "region": "athens",
+    "prompt": "a quiet tomb by the road, with lamp, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_grief_year_egypt.webp",
+    "event": "d_grief_year",
+    "region": "egypt",
+    "prompt": "a quiet tomb by the road, with lamp, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_spouse_accused_rome.webp",
+    "event": "d_t_spouse_accused",
+    "region": "rome",
+    "prompt": "a city street with houses, with shield, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_spouse_accused_athens.webp",
+    "event": "d_t_spouse_accused",
+    "region": "athens",
+    "prompt": "a city street with houses, with shield, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_spouse_accused_egypt.webp",
+    "event": "d_t_spouse_accused",
+    "region": "egypt",
+    "prompt": "a city street with houses, with shield, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_back_rome.webp",
+    "event": "d_sp_back",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_back_athens.webp",
+    "event": "d_sp_back",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sp_back_egypt.webp",
+    "event": "d_sp_back",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_ex_meeting_rome.webp",
+    "event": "d_ex_meeting",
+    "region": "rome",
+    "prompt": "a busy market with stalls, with amphora, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_ex_meeting_athens.webp",
+    "event": "d_ex_meeting",
+    "region": "athens",
+    "prompt": "a busy market with stalls, with amphora, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_ex_meeting_egypt.webp",
+    "event": "d_ex_meeting",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, with amphora, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_remarry_rome.webp",
+    "event": "d_remarry",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_remarry_athens.webp",
+    "event": "d_remarry",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_remarry_egypt.webp",
+    "event": "d_remarry",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_new_love_rome.webp",
+    "event": "d_new_love",
+    "region": "rome",
+    "prompt": "a city street with houses, with tree, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_new_love_athens.webp",
+    "event": "d_new_love",
+    "region": "athens",
+    "prompt": "a city street with houses, with tree, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_new_love_egypt.webp",
+    "event": "d_new_love",
+    "region": "egypt",
+    "prompt": "a city street with houses, with tree, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_inlaws_rome.webp",
+    "event": "d_inlaws",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, amphora, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_inlaws_athens.webp",
+    "event": "d_inlaws",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, amphora, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_inlaws_egypt.webp",
+    "event": "d_inlaws",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, amphora, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_inlaws_need_rome.webp",
+    "event": "d_inlaws_need",
+    "region": "rome",
+    "prompt": "a city street with houses, with fire, smoke, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_inlaws_need_athens.webp",
+    "event": "d_inlaws_need",
+    "region": "athens",
+    "prompt": "a city street with houses, with fire, smoke, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_inlaws_need_egypt.webp",
+    "event": "d_inlaws_need",
+    "region": "egypt",
+    "prompt": "a city street with houses, with fire, smoke, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_brawl_rome.webp",
+    "event": "d_son_brawl",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_brawl_athens.webp",
+    "event": "d_son_brawl",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_brawl_egypt.webp",
+    "event": "d_son_brawl",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_released_rome.webp",
+    "event": "d_son_released",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_released_athens.webp",
+    "event": "d_son_released",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_released_egypt.webp",
+    "event": "d_son_released",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_redeemed_rome.webp",
+    "event": "d_son_redeemed",
+    "region": "rome",
+    "prompt": "inside a craftsman workshop, with coins, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_redeemed_athens.webp",
+    "event": "d_son_redeemed",
+    "region": "athens",
+    "prompt": "inside a craftsman workshop, with coins, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_redeemed_egypt.webp",
+    "event": "d_son_redeemed",
+    "region": "egypt",
+    "prompt": "inside a craftsman workshop, with coins, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_criminal_rome.webp",
+    "event": "d_son_criminal",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_criminal_athens.webp",
+    "event": "d_son_criminal",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_son_criminal_egypt.webp",
+    "event": "d_son_criminal",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_elope_rome.webp",
+    "event": "d_elope",
+    "region": "rome",
+    "prompt": "a country road with cypress trees, with cart, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_elope_athens.webp",
+    "event": "d_elope",
+    "region": "athens",
+    "prompt": "a country road with cypress trees, with cart, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_elope_egypt.webp",
+    "event": "d_elope",
+    "region": "egypt",
+    "prompt": "a country road with cypress trees, with cart, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_elope_later_rome.webp",
+    "event": "d_elope_later",
+    "region": "rome",
+    "prompt": "inside a modest home, with cradle, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_elope_later_athens.webp",
+    "event": "d_elope_later",
+    "region": "athens",
+    "prompt": "inside a modest home, with cradle, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_elope_later_egypt.webp",
+    "event": "d_elope_later",
+    "region": "egypt",
+    "prompt": "inside a modest home, with cradle, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_disowned_return_rome.webp",
+    "event": "d_disowned_return",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_disowned_return_athens.webp",
+    "event": "d_disowned_return",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_disowned_return_egypt.webp",
+    "event": "d_disowned_return",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_child_death_rome.webp",
+    "event": "d_child_death",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_child_death_athens.webp",
+    "event": "d_child_death",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_child_death_egypt.webp",
+    "event": "d_child_death",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_child_betrayed_rome.webp",
+    "event": "d_child_betrayed",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_child_betrayed_athens.webp",
+    "event": "d_child_betrayed",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_child_betrayed_egypt.webp",
+    "event": "d_child_betrayed",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_illegit_rome.webp",
+    "event": "d_illegit",
+    "region": "rome",
+    "prompt": "inside a modest home, with cradle, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_illegit_athens.webp",
+    "event": "d_illegit",
+    "region": "athens",
+    "prompt": "inside a modest home, with cradle, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_illegit_egypt.webp",
+    "event": "d_illegit",
+    "region": "egypt",
+    "prompt": "inside a modest home, with cradle, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_illegit_grown_rome.webp",
+    "event": "d_illegit_grown",
+    "region": "rome",
+    "prompt": "inside a craftsman workshop, with anvil, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_illegit_grown_athens.webp",
+    "event": "d_illegit_grown",
+    "region": "athens",
+    "prompt": "inside a craftsman workshop, with anvil, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_illegit_grown_egypt.webp",
+    "event": "d_illegit_grown",
+    "region": "egypt",
+    "prompt": "inside a craftsman workshop, with anvil, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_drowning_rome.webp",
+    "event": "d_drowning",
+    "region": "rome",
+    "prompt": "a river bank, with boat, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_drowning_athens.webp",
+    "event": "d_drowning",
+    "region": "athens",
+    "prompt": "a river bank, with boat, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_drowning_egypt.webp",
+    "event": "d_drowning",
+    "region": "egypt",
+    "prompt": "a river bank, with boat, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_friend_family_thanks_rome.webp",
+    "event": "d_friend_family_thanks",
+    "region": "rome",
+    "prompt": "a city street with houses, with amphora, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_friend_family_thanks_athens.webp",
+    "event": "d_friend_family_thanks",
+    "region": "athens",
+    "prompt": "a city street with houses, with amphora, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_friend_family_thanks_egypt.webp",
+    "event": "d_friend_family_thanks",
+    "region": "egypt",
+    "prompt": "a city street with houses, with amphora, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_friend_sudden_rome.webp",
+    "event": "d_friend_sudden",
+    "region": "rome",
+    "prompt": "public baths, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_friend_sudden_athens.webp",
+    "event": "d_friend_sudden",
+    "region": "athens",
+    "prompt": "public baths, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_friend_sudden_egypt.webp",
+    "event": "d_friend_sudden",
+    "region": "egypt",
+    "prompt": "public baths, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_accident_rome.webp",
+    "event": "d_sib_accident",
+    "region": "rome",
+    "prompt": "inside a craftsman workshop, with smoke, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_accident_athens.webp",
+    "event": "d_sib_accident",
+    "region": "athens",
+    "prompt": "inside a craftsman workshop, with smoke, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_accident_egypt.webp",
+    "event": "d_sib_accident",
+    "region": "egypt",
+    "prompt": "inside a craftsman workshop, with smoke, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_betrayal_rome.webp",
+    "event": "d_sib_betrayal",
+    "region": "rome",
+    "prompt": "inside a modest home, with scroll, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_betrayal_athens.webp",
+    "event": "d_sib_betrayal",
+    "region": "athens",
+    "prompt": "inside a modest home, with scroll, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_betrayal_egypt.webp",
+    "event": "d_sib_betrayal",
+    "region": "egypt",
+    "prompt": "inside a modest home, with scroll, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_repays_rome.webp",
+    "event": "d_sib_repays",
+    "region": "rome",
+    "prompt": "inside a modest home, with coins, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_repays_athens.webp",
+    "event": "d_sib_repays",
+    "region": "athens",
+    "prompt": "inside a modest home, with coins, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_repays_egypt.webp",
+    "event": "d_sib_repays",
+    "region": "egypt",
+    "prompt": "inside a modest home, with coins, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_deathbed_rome.webp",
+    "event": "d_sib_deathbed",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_deathbed_athens.webp",
+    "event": "d_sib_deathbed",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_deathbed_egypt.webp",
+    "event": "d_sib_deathbed",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_brother_war_rome.webp",
+    "event": "d_brother_war",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, shield, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_brother_war_athens.webp",
+    "event": "d_brother_war",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, shield, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_brother_war_egypt.webp",
+    "event": "d_brother_war",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, shield, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_brother_heals_rome.webp",
+    "event": "d_brother_heals",
+    "region": "rome",
+    "prompt": "farm fields, with olive, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_brother_heals_athens.webp",
+    "event": "d_brother_heals",
+    "region": "athens",
+    "prompt": "farm fields, with olive, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_brother_heals_egypt.webp",
+    "event": "d_brother_heals",
+    "region": "egypt",
+    "prompt": "farm fields, with olive, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_sib_captive_rome.webp",
+    "event": "d_t_sib_captive",
+    "region": "rome",
+    "prompt": "a harbor with ships, with boat, scroll, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_sib_captive_athens.webp",
+    "event": "d_t_sib_captive",
+    "region": "athens",
+    "prompt": "a harbor with ships, with boat, scroll, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_sib_captive_egypt.webp",
+    "event": "d_t_sib_captive",
+    "region": "egypt",
+    "prompt": "a harbor with ships, with boat, scroll, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_lost_news_rome.webp",
+    "event": "d_sib_lost_news",
+    "region": "rome",
+    "prompt": "a harbor with ships, with boat, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_lost_news_athens.webp",
+    "event": "d_sib_lost_news",
+    "region": "athens",
+    "prompt": "a harbor with ships, with boat, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_sib_lost_news_egypt.webp",
+    "event": "d_sib_lost_news",
+    "region": "egypt",
+    "prompt": "a harbor with ships, with boat, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_bondage_egypt.webp",
+    "event": "d_t_bondage",
+    "region": "egypt",
+    "prompt": "farm fields, with scroll, grain, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_bonded_free_rome.webp",
+    "event": "d_bonded_free",
+    "region": "rome",
+    "prompt": "farm fields, with grain, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_bonded_free_athens.webp",
+    "event": "d_bonded_free",
+    "region": "athens",
+    "prompt": "farm fields, with grain, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_bonded_free_egypt.webp",
+    "event": "d_bonded_free",
+    "region": "egypt",
+    "prompt": "farm fields, with grain, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_father_family_rome.webp",
+    "event": "d_t_father_family",
+    "region": "rome",
+    "prompt": "a busy market with stalls, with amphora, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_father_family_athens.webp",
+    "event": "d_t_father_family",
+    "region": "athens",
+    "prompt": "a busy market with stalls, with amphora, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_father_family_egypt.webp",
+    "event": "d_t_father_family",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, with amphora, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_father_will_rome.webp",
+    "event": "d_father_will",
+    "region": "rome",
+    "prompt": "inside a modest home, with scroll, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_father_will_athens.webp",
+    "event": "d_father_will",
+    "region": "athens",
+    "prompt": "inside a modest home, with scroll, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_father_will_egypt.webp",
+    "event": "d_father_will",
+    "region": "egypt",
+    "prompt": "inside a modest home, with scroll, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_mother_sudden_rome.webp",
+    "event": "d_mother_sudden",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, loom, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_mother_sudden_athens.webp",
+    "event": "d_mother_sudden",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, loom, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_mother_sudden_egypt.webp",
+    "event": "d_mother_sudden",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, loom, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_parent_care_rome.webp",
+    "event": "d_parent_care",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_parent_care_athens.webp",
+    "event": "d_parent_care",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_parent_care_egypt.webp",
+    "event": "d_parent_care",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_parent_blessing_rome.webp",
+    "event": "d_parent_blessing",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_parent_blessing_athens.webp",
+    "event": "d_parent_blessing",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_parent_blessing_egypt.webp",
+    "event": "d_parent_blessing",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, bed, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_secret_birth_rome.webp",
+    "event": "d_t_secret_birth",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_secret_birth_athens.webp",
+    "event": "d_t_secret_birth",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_secret_birth_egypt.webp",
+    "event": "d_t_secret_birth",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_night_jail_rome.webp",
+    "event": "d_night_jail",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, fire, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_night_jail_athens.webp",
+    "event": "d_night_jail",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, fire, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_night_jail_egypt.webp",
+    "event": "d_night_jail",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, fire, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_record_haunts_rome.webp",
+    "event": "d_record_haunts",
+    "region": "rome",
+    "prompt": "a busy market with stalls, with scroll, coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_record_haunts_athens.webp",
+    "event": "d_record_haunts",
+    "region": "athens",
+    "prompt": "a busy market with stalls, with scroll, coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_record_haunts_egypt.webp",
+    "event": "d_record_haunts",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, with scroll, coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_theft_rome.webp",
+    "event": "d_t_theft",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_theft_athens.webp",
+    "event": "d_t_theft",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_theft_egypt.webp",
+    "event": "d_t_theft",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_publican_rome.webp",
+    "event": "d_t_publican",
+    "region": "rome",
+    "prompt": "inside a modest home, with scroll, coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_publican_athens.webp",
+    "event": "d_t_publican",
+    "region": "athens",
+    "prompt": "inside a modest home, with scroll, coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_publican_egypt.webp",
+    "event": "d_t_publican",
+    "region": "egypt",
+    "prompt": "inside a modest home, with scroll, coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_debt_prison_rome.webp",
+    "event": "d_t_debt_prison",
+    "region": "rome",
+    "prompt": "a city street with houses, with shield, coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_debt_prison_athens.webp",
+    "event": "d_t_debt_prison",
+    "region": "athens",
+    "prompt": "a city street with houses, with shield, coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_t_debt_prison_egypt.webp",
+    "event": "d_t_debt_prison",
+    "region": "egypt",
+    "prompt": "a city street with houses, with shield, coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_chains_rome.webp",
+    "event": "d_chains",
+    "region": "rome",
+    "prompt": "a country road with cypress trees, with cart, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_chains_athens.webp",
+    "event": "d_chains",
+    "region": "athens",
+    "prompt": "a country road with cypress trees, with cart, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_chains_egypt.webp",
+    "event": "d_chains",
+    "region": "egypt",
+    "prompt": "a country road with cypress trees, with cart, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_spouse_late_rome.webp",
+    "event": "d_m_spouse_late",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_spouse_late_athens.webp",
+    "event": "d_m_spouse_late",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_spouse_late_egypt.webp",
+    "event": "d_m_spouse_late",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_grave_rome.webp",
+    "event": "d_m_grave",
+    "region": "rome",
+    "prompt": "a quiet tomb by the road, with lamp, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_grave_athens.webp",
+    "event": "d_m_grave",
+    "region": "athens",
+    "prompt": "a quiet tomb by the road, with lamp, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_grave_egypt.webp",
+    "event": "d_m_grave",
+    "region": "egypt",
+    "prompt": "a quiet tomb by the road, with lamp, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_toy_rome.webp",
+    "event": "d_m_toy",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_toy_athens.webp",
+    "event": "d_m_toy",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_toy_egypt.webp",
+    "event": "d_m_toy",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_cold_feast_rome.webp",
+    "event": "d_m_cold_feast",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_cold_feast_athens.webp",
+    "event": "d_m_cold_feast",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, 5 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_cold_feast_egypt.webp",
+    "event": "d_m_cold_feast",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, 5 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_dice_rome.webp",
+    "event": "d_m_dice",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, coins, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_dice_athens.webp",
+    "event": "d_m_dice",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, coins, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_dice_egypt.webp",
+    "event": "d_m_dice",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, coins, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_whisper_rome.webp",
+    "event": "d_m_whisper",
+    "region": "rome",
+    "prompt": "a busy market with stalls, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_whisper_athens.webp",
+    "event": "d_m_whisper",
+    "region": "athens",
+    "prompt": "a busy market with stalls, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_d_m_whisper_egypt.webp",
+    "event": "d_m_whisper",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
     "slot": "img_e03_c_first_steps_rome.webp",
     "event": "c_first_steps",
     "region": "rome",
@@ -4516,6 +5638,1062 @@
     "event": "t_auxilia_discharge",
     "region": "egypt",
     "prompt": "a military camp with tents, with scroll, shield, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_symposium_rome.webp",
+    "event": "v_wine_symposium",
+    "region": "rome",
+    "prompt": "inside a modest home, with amphora, lamp, table, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_symposium_athens.webp",
+    "event": "v_wine_symposium",
+    "region": "athens",
+    "prompt": "inside a modest home, with amphora, lamp, table, 5 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_symposium_egypt.webp",
+    "event": "v_wine_symposium",
+    "region": "egypt",
+    "prompt": "inside a modest home, with amphora, lamp, table, 5 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_grief_rome.webp",
+    "event": "v_wine_grief",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, amphora, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_grief_athens.webp",
+    "event": "v_wine_grief",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, amphora, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_grief_egypt.webp",
+    "event": "v_wine_grief",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, amphora, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_tavern_rome.webp",
+    "event": "v_wine_tavern",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, amphora, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_tavern_athens.webp",
+    "event": "v_wine_tavern",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, amphora, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_tavern_egypt.webp",
+    "event": "v_wine_tavern",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, amphora, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_scandal_rome.webp",
+    "event": "v_wine_scandal",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, amphora, lamp, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_scandal_athens.webp",
+    "event": "v_wine_scandal",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, amphora, lamp, 5 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_scandal_egypt.webp",
+    "event": "v_wine_scandal",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, amphora, lamp, 5 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_missed_work_rome.webp",
+    "event": "v_wine_missed_work",
+    "region": "rome",
+    "prompt": "inside a craftsman workshop, with sun, amphora, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_missed_work_athens.webp",
+    "event": "v_wine_missed_work",
+    "region": "athens",
+    "prompt": "inside a craftsman workshop, with sun, amphora, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_missed_work_egypt.webp",
+    "event": "v_wine_missed_work",
+    "region": "egypt",
+    "prompt": "inside a craftsman workshop, with sun, amphora, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_fall_rome.webp",
+    "event": "v_wine_fall",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_fall_athens.webp",
+    "event": "v_wine_fall",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_fall_egypt.webp",
+    "event": "v_wine_fall",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_quit_rome.webp",
+    "event": "v_wine_quit",
+    "region": "rome",
+    "prompt": "inside a modest home, with amphora, scroll, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_quit_athens.webp",
+    "event": "v_wine_quit",
+    "region": "athens",
+    "prompt": "inside a modest home, with amphora, scroll, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_quit_egypt.webp",
+    "event": "v_wine_quit",
+    "region": "egypt",
+    "prompt": "inside a modest home, with amphora, scroll, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_relapse_rome.webp",
+    "event": "v_wine_relapse",
+    "region": "rome",
+    "prompt": "inside a modest home, with amphora, table, lamp, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_relapse_athens.webp",
+    "event": "v_wine_relapse",
+    "region": "athens",
+    "prompt": "inside a modest home, with amphora, table, lamp, 5 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_relapse_egypt.webp",
+    "event": "v_wine_relapse",
+    "region": "egypt",
+    "prompt": "inside a modest home, with amphora, table, lamp, 5 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_sober_rome.webp",
+    "event": "v_wine_sober",
+    "region": "rome",
+    "prompt": "inside a modest home, with sun, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_sober_athens.webp",
+    "event": "v_wine_sober",
+    "region": "athens",
+    "prompt": "inside a modest home, with sun, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_sober_egypt.webp",
+    "event": "v_wine_sober",
+    "region": "egypt",
+    "prompt": "inside a modest home, with sun, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; dawn light; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_liver_rome.webp",
+    "event": "v_wine_liver",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_liver_athens.webp",
+    "event": "v_wine_liver",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_liver_egypt.webp",
+    "event": "v_wine_liver",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_spouse_ultimatum_rome.webp",
+    "event": "v_wine_spouse_ultimatum",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, amphora, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_spouse_ultimatum_athens.webp",
+    "event": "v_wine_spouse_ultimatum",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, amphora, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_spouse_ultimatum_egypt.webp",
+    "event": "v_wine_spouse_ultimatum",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, amphora, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_child_ashamed_rome.webp",
+    "event": "v_wine_child_ashamed",
+    "region": "rome",
+    "prompt": "a city street with houses, with sun, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_child_ashamed_athens.webp",
+    "event": "v_wine_child_ashamed",
+    "region": "athens",
+    "prompt": "a city street with houses, with sun, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_wine_child_ashamed_egypt.webp",
+    "event": "v_wine_child_ashamed",
+    "region": "egypt",
+    "prompt": "a city street with houses, with sun, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_first_rome.webp",
+    "event": "v_dice_first",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_first_athens.webp",
+    "event": "v_dice_first",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_first_egypt.webp",
+    "event": "v_dice_first",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_saturnalia_rome.webp",
+    "event": "v_dice_saturnalia",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, table, coins, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_bigwin_rome.webp",
+    "event": "v_dice_bigwin",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_bigwin_athens.webp",
+    "event": "v_dice_bigwin",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_bigwin_egypt.webp",
+    "event": "v_dice_bigwin",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_loss_rome.webp",
+    "event": "v_dice_loss",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, lamp, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_loss_athens.webp",
+    "event": "v_dice_loss",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, lamp, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_loss_egypt.webp",
+    "event": "v_dice_loss",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, lamp, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_collectors_rome.webp",
+    "event": "v_dice_collectors",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_collectors_athens.webp",
+    "event": "v_dice_collectors",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_collectors_egypt.webp",
+    "event": "v_dice_collectors",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_aedile_rome.webp",
+    "event": "v_dice_aedile",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, coins, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_loaded_rome.webp",
+    "event": "v_dice_loaded",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_loaded_athens.webp",
+    "event": "v_dice_loaded",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_loaded_egypt.webp",
+    "event": "v_dice_loaded",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, lamp, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_quit_rome.webp",
+    "event": "v_dice_quit",
+    "region": "rome",
+    "prompt": "in front of a temple, with altar, coins, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_quit_athens.webp",
+    "event": "v_dice_quit",
+    "region": "athens",
+    "prompt": "in front of a temple, with altar, coins, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_quit_egypt.webp",
+    "event": "v_dice_quit",
+    "region": "egypt",
+    "prompt": "in front of a temple, with altar, coins, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_relapse_rome.webp",
+    "event": "v_dice_relapse",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, lamp, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_relapse_athens.webp",
+    "event": "v_dice_relapse",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, lamp, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_dice_relapse_egypt.webp",
+    "event": "v_dice_relapse",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, lamp, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_pain_rome.webp",
+    "event": "v_poppy_pain",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_pain_athens.webp",
+    "event": "v_poppy_pain",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_pain_egypt.webp",
+    "event": "v_poppy_pain",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_more_rome.webp",
+    "event": "v_poppy_more",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, bed, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_more_athens.webp",
+    "event": "v_poppy_more",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, bed, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_more_egypt.webp",
+    "event": "v_poppy_more",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, bed, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_dreams_rome.webp",
+    "event": "v_poppy_dreams",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, bed, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_dreams_athens.webp",
+    "event": "v_poppy_dreams",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, bed, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_dreams_egypt.webp",
+    "event": "v_poppy_dreams",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, bed, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_cost_rome.webp",
+    "event": "v_poppy_cost",
+    "region": "rome",
+    "prompt": "a busy market with stalls, with coins, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_cost_athens.webp",
+    "event": "v_poppy_cost",
+    "region": "athens",
+    "prompt": "a busy market with stalls, with coins, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_cost_egypt.webp",
+    "event": "v_poppy_cost",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, with coins, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_overdose_rome.webp",
+    "event": "v_poppy_overdose",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_overdose_athens.webp",
+    "event": "v_poppy_overdose",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_overdose_egypt.webp",
+    "event": "v_poppy_overdose",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_quit_rome.webp",
+    "event": "v_poppy_quit",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, scroll, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_quit_athens.webp",
+    "event": "v_poppy_quit",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, scroll, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_quit_egypt.webp",
+    "event": "v_poppy_quit",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, scroll, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_relapse_rome.webp",
+    "event": "v_poppy_relapse",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_relapse_athens.webp",
+    "event": "v_poppy_relapse",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_poppy_relapse_egypt.webp",
+    "event": "v_poppy_relapse",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_glut_feast_rome.webp",
+    "event": "v_glut_feast",
+    "region": "rome",
+    "prompt": "inside a modest home, with table, amphora, lamp, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_glut_feast_athens.webp",
+    "event": "v_glut_feast",
+    "region": "athens",
+    "prompt": "inside a modest home, with table, amphora, lamp, 5 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_glut_feast_egypt.webp",
+    "event": "v_glut_feast",
+    "region": "egypt",
+    "prompt": "inside a modest home, with table, amphora, lamp, 5 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_glut_gout_rome.webp",
+    "event": "v_glut_gout",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_glut_gout_athens.webp",
+    "event": "v_glut_gout",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_glut_gout_egypt.webp",
+    "event": "v_glut_gout",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_greed_famine_rome.webp",
+    "event": "v_greed_famine",
+    "region": "rome",
+    "prompt": "inside a modest home, with grain, coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_greed_famine_athens.webp",
+    "event": "v_greed_famine",
+    "region": "athens",
+    "prompt": "inside a modest home, with grain, coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_greed_famine_egypt.webp",
+    "event": "v_greed_famine",
+    "region": "egypt",
+    "prompt": "inside a modest home, with grain, coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rage_home_rome.webp",
+    "event": "v_rage_home",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, table, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rage_home_athens.webp",
+    "event": "v_rage_home",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, table, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rage_home_egypt.webp",
+    "event": "v_rage_home",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, table, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rage_child_rome.webp",
+    "event": "v_rage_child",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rage_child_athens.webp",
+    "event": "v_rage_child",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rage_child_egypt.webp",
+    "event": "v_rage_child",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_theft_chance_rome.webp",
+    "event": "v_theft_chance",
+    "region": "rome",
+    "prompt": "inside a craftsman workshop, with coins, lamp, 1 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_theft_chance_athens.webp",
+    "event": "v_theft_chance",
+    "region": "athens",
+    "prompt": "inside a craftsman workshop, with coins, lamp, 1 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_theft_chance_egypt.webp",
+    "event": "v_theft_chance",
+    "region": "egypt",
+    "prompt": "inside a craftsman workshop, with coins, lamp, 1 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_theft_caught_rome.webp",
+    "event": "v_theft_caught",
+    "region": "rome",
+    "prompt": "inside a craftsman workshop, with scroll, coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_theft_caught_athens.webp",
+    "event": "v_theft_caught",
+    "region": "athens",
+    "prompt": "inside a craftsman workshop, with scroll, coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_theft_caught_egypt.webp",
+    "event": "v_theft_caught",
+    "region": "egypt",
+    "prompt": "inside a craftsman workshop, with scroll, coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_fraud_weights_rome.webp",
+    "event": "v_fraud_weights",
+    "region": "rome",
+    "prompt": "a busy market with stalls, with coins, amphora, 4 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_fraud_weights_athens.webp",
+    "event": "v_fraud_weights",
+    "region": "athens",
+    "prompt": "a busy market with stalls, with coins, amphora, 4 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_fraud_weights_egypt.webp",
+    "event": "v_fraud_weights",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, with coins, amphora, 4 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_fraud_exposed_rome.webp",
+    "event": "v_fraud_exposed",
+    "region": "rome",
+    "prompt": "a busy market with stalls, with coins, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_fraud_exposed_athens.webp",
+    "event": "v_fraud_exposed",
+    "region": "athens",
+    "prompt": "a busy market with stalls, with coins, 5 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_fraud_exposed_egypt.webp",
+    "event": "v_fraud_exposed",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, with coins, 5 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_vanity_purple_rome.webp",
+    "event": "v_vanity_purple",
+    "region": "rome",
+    "prompt": "a busy market with stalls, with coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_vanity_purple_athens.webp",
+    "event": "v_vanity_purple",
+    "region": "athens",
+    "prompt": "a busy market with stalls, with coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_vanity_purple_egypt.webp",
+    "event": "v_vanity_purple",
+    "region": "egypt",
+    "prompt": "a busy market with stalls, with coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_brothel_rome.webp",
+    "event": "v_lust_brothel",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_brothel_athens.webp",
+    "event": "v_lust_brothel",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_brothel_egypt.webp",
+    "event": "v_lust_brothel",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_affair_rome.webp",
+    "event": "v_lust_affair",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_affair_athens.webp",
+    "event": "v_lust_affair",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_affair_egypt.webp",
+    "event": "v_lust_affair",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_affair_found_rome.webp",
+    "event": "v_lust_affair_found",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_affair_found_athens.webp",
+    "event": "v_lust_affair_found",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_lust_affair_found_egypt.webp",
+    "event": "v_lust_affair_found",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_envy_neighbor_rome.webp",
+    "event": "v_envy_neighbor",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_envy_neighbor_athens.webp",
+    "event": "v_envy_neighbor",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_envy_neighbor_egypt.webp",
+    "event": "v_envy_neighbor",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_rome.webp",
+    "event": "v_rel_spouse_drink",
+    "region": "rome",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_athens.webp",
+    "event": "v_rel_spouse_drink",
+    "region": "athens",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_egypt.webp",
+    "event": "v_rel_spouse_drink",
+    "region": "egypt",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; warm sunset; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_later_rome.webp",
+    "event": "v_rel_spouse_drink_later",
+    "region": "rome",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_later_athens.webp",
+    "event": "v_rel_spouse_drink_later",
+    "region": "athens",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_later_egypt.webp",
+    "event": "v_rel_spouse_drink_later",
+    "region": "egypt",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_end_rome.webp",
+    "event": "v_rel_spouse_drink_end",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_end_athens.webp",
+    "event": "v_rel_spouse_drink_end",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_end_egypt.webp",
+    "event": "v_rel_spouse_drink_end",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_moment_rome.webp",
+    "event": "v_rel_spouse_drink_moment",
+    "region": "rome",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_moment_athens.webp",
+    "event": "v_rel_spouse_drink_moment",
+    "region": "athens",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_drink_moment_egypt.webp",
+    "event": "v_rel_spouse_drink_moment",
+    "region": "egypt",
+    "prompt": "inside a modest home, with amphora, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_races_rome.webp",
+    "event": "v_rel_spouse_races",
+    "region": "rome",
+    "prompt": "an arena with stands, with coins, banner, 5 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_races_athens.webp",
+    "event": "v_rel_spouse_races",
+    "region": "athens",
+    "prompt": "an arena with stands, with coins, banner, 5 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_races_egypt.webp",
+    "event": "v_rel_spouse_races",
+    "region": "egypt",
+    "prompt": "an arena with stands, with coins, banner, 5 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_races_later_rome.webp",
+    "event": "v_rel_spouse_races_later",
+    "region": "rome",
+    "prompt": "inside a modest home, with coins, lamp, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_races_later_athens.webp",
+    "event": "v_rel_spouse_races_later",
+    "region": "athens",
+    "prompt": "inside a modest home, with coins, lamp, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_spouse_races_later_egypt.webp",
+    "event": "v_rel_spouse_races_later",
+    "region": "egypt",
+    "prompt": "inside a modest home, with coins, lamp, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_dice_rome.webp",
+    "event": "v_rel_child_dice",
+    "region": "rome",
+    "prompt": "inside a modest home, with coins, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_dice_athens.webp",
+    "event": "v_rel_child_dice",
+    "region": "athens",
+    "prompt": "inside a modest home, with coins, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_dice_egypt.webp",
+    "event": "v_rel_child_dice",
+    "region": "egypt",
+    "prompt": "inside a modest home, with coins, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_debt_rome.webp",
+    "event": "v_rel_child_debt",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, coins, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_debt_athens.webp",
+    "event": "v_rel_child_debt",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, coins, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_debt_egypt.webp",
+    "event": "v_rel_child_debt",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, coins, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_wine_rome.webp",
+    "event": "v_rel_child_wine",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_wine_athens.webp",
+    "event": "v_rel_child_wine",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_wine_egypt.webp",
+    "event": "v_rel_child_wine",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_wine_later_rome.webp",
+    "event": "v_rel_child_wine_later",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, amphora, 3 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_wine_later_athens.webp",
+    "event": "v_rel_child_wine_later",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, amphora, 3 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_child_wine_later_egypt.webp",
+    "event": "v_rel_child_wine_later",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, amphora, 3 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_sibling_drink_rome.webp",
+    "event": "v_rel_sibling_drink",
+    "region": "rome",
+    "prompt": "a city street with houses, with lamp, amphora, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_sibling_drink_athens.webp",
+    "event": "v_rel_sibling_drink",
+    "region": "athens",
+    "prompt": "a city street with houses, with lamp, amphora, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_sibling_drink_egypt.webp",
+    "event": "v_rel_sibling_drink",
+    "region": "egypt",
+    "prompt": "a city street with houses, with lamp, amphora, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_sibling_drink_end_rome.webp",
+    "event": "v_rel_sibling_drink_end",
+    "region": "rome",
+    "prompt": "a city street with houses, with rain, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_sibling_drink_end_athens.webp",
+    "event": "v_rel_sibling_drink_end",
+    "region": "athens",
+    "prompt": "a city street with houses, with rain, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_sibling_drink_end_egypt.webp",
+    "event": "v_rel_sibling_drink_end",
+    "region": "egypt",
+    "prompt": "a city street with houses, with rain, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_father_drunk_rome.webp",
+    "event": "v_rel_father_drunk",
+    "region": "rome",
+    "prompt": "inside a modest home, with lamp, amphora, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_father_drunk_athens.webp",
+    "event": "v_rel_father_drunk",
+    "region": "athens",
+    "prompt": "inside a modest home, with lamp, amphora, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_father_drunk_egypt.webp",
+    "event": "v_rel_father_drunk",
+    "region": "egypt",
+    "prompt": "inside a modest home, with lamp, amphora, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_father_old_rome.webp",
+    "event": "v_rel_father_old",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_father_old_athens.webp",
+    "event": "v_rel_father_old",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_father_old_egypt.webp",
+    "event": "v_rel_father_old",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_mother_poppy_rome.webp",
+    "event": "v_rel_mother_poppy",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_mother_poppy_athens.webp",
+    "event": "v_rel_mother_poppy",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_mother_poppy_egypt.webp",
+    "event": "v_rel_mother_poppy",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_mother_poppy_end_rome.webp",
+    "event": "v_rel_mother_poppy_end",
+    "region": "rome",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_mother_poppy_end_athens.webp",
+    "event": "v_rel_mother_poppy_end",
+    "region": "athens",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_mother_poppy_end_egypt.webp",
+    "event": "v_rel_mother_poppy_end",
+    "region": "egypt",
+    "prompt": "inside a modest home, with bed, lamp, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; night, moonlight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_friend_surety_rome.webp",
+    "event": "v_rel_friend_surety",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, scroll, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_friend_surety_athens.webp",
+    "event": "v_rel_friend_surety",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, scroll, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_friend_surety_egypt.webp",
+    "event": "v_rel_friend_surety",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, scroll, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; daylight; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_friend_ruin_rome.webp",
+    "event": "v_rel_friend_ruin",
+    "region": "rome",
+    "prompt": "a city street with houses, with coins, 2 small figures in period clothing; ancient Rome, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_friend_ruin_athens.webp",
+    "event": "v_rel_friend_ruin",
+    "region": "athens",
+    "prompt": "a city street with houses, with coins, 2 small figures in period clothing; ancient Athens, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
+  },
+  {
+    "slot": "img_e03_v_rel_friend_ruin_egypt.webp",
+    "event": "v_rel_friend_ruin",
+    "region": "egypt",
+    "prompt": "a city street with houses, with coins, 2 small figures in period clothing; Ptolemaic or Roman Egypt, classical antiquity, 500 BC to AD 200; flat pixel art, limited palette, no outlines, simple shapes, no text; overcast grey sky; wide panorama 16:5"
   },
   {
     "slot": "img_e03_j_any_fire_rome.webp",

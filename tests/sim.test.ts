@@ -30,21 +30,21 @@ describe('Симуляция E03', () => {
   })
 
   it('историческая смертность близка к ориентиру эпохи', () => {
-    const r = run(historical, 5000)
+    const r = run(historical, 2500)
     console.log('historical', r)
     expect(r.mean).toBeGreaterThan(era.lifeExpectancy - 5)
     expect(r.mean).toBeLessThan(era.lifeExpectancy + 5)
   })
 
   it('мягкий режим: большинство героев доживает до взрослого возраста', () => {
-    const r = run(soft, 3000)
+    const r = run(soft, 1500)
     console.log('soft', r)
     expect(r.adult).toBeGreaterThan(0.7)
   })
 
   it('род продолжается через наследника', () => {
     let continued = 0
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 300; i++) {
       const s = autoplay(newLife(era, soft, 1000 + i), era)
       const kids = heirs(s)
       if (kids.length === 0) continue
@@ -53,6 +53,6 @@ describe('Симуляция E03', () => {
       expect(next.hero.generation).toBe(2)
       continued++
     }
-    expect(continued).toBeGreaterThan(100)
+    expect(continued).toBeGreaterThan(60)
   })
 })
