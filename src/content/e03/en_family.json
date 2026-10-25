@@ -238,7 +238,7 @@
   "ev.c_visit_old.text.1": "Your {g=npc_sex:son|daughter} {npc} turned up unannounced — with a basket of food and some tools — and spent the day fixing your leaky roof. Refused any payment, and scolded you for not asking sooner.",
   "ev.c_visit_old.text.2": "Your {g=npc_sex:son|daughter} {npc} now drops by every evening — \"just passing.\" Passing, it turns out, from the other side of town.",
   "ev.c_old_care.title": "Under One Roof",
-  "ev.c_old_care.text": "Your legs obey you less and less, and the house feels bigger every year. Your {g=npc_sex:son|daughter} {npc} offers: \"Come and live with us. There's room, the children would love it, and I'd stop worrying.\"",
+  "ev.c_old_care.text": "Your legs obey you less and less, and the house feels bigger every year. Your {g=npc_sex:son|daughter} {npc} offers: \"Come and live with us. There's room, everyone would be glad, and I'd stop worrying.\"",
   "ev.c_old_care.move": "Move in with your {g=npc_sex:son|daughter}",
   "ev.c_old_care.move.ok": "They gave you the best corner by the hearth. Noisy, crowded — and for the first time in years, falling asleep isn't frightening.",
   "ev.c_old_care.stay": "Stay in your own home while your legs still carry you",

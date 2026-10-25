@@ -1452,6 +1452,7 @@
  },
  {
   "id": "j_art_apprentice",
+  "others": ["child"],
   "type": "personal",
   "age_range": [
    28,
@@ -1832,6 +1833,7 @@
  },
  {
   "id": "j_weave_pattern_later",
+  "others": ["child"],
   "type": "personal",
   "trigger_only": true,
   "base_weight": 1,
@@ -1862,6 +1864,7 @@
  },
  {
   "id": "j_mid_physician",
+  "others": ["mother"],
   "type": "personal",
   "age_range": [
    20,
@@ -1957,6 +1960,7 @@
  },
  {
   "id": "j_mid_blame",
+  "others": ["mother"],
   "type": "personal",
   "age_range": [
    20,
@@ -2957,6 +2961,7 @@
  },
  {
   "id": "j_leg_watch",
+  "others": ["sibling"],
   "type": "personal",
   "age_range": [
    17,
@@ -3956,6 +3961,7 @@
  },
  {
   "id": "j_scr_census",
+  "others": ["mother", "child"],
   "type": "local",
   "regions": [
    "rome",
@@ -4247,6 +4253,7 @@
  },
  {
   "id": "j_phys_poison",
+  "others": ["father"],
   "type": "personal",
   "age_range": [
    22,
@@ -4790,6 +4797,7 @@
  },
  {
   "id": "j_rhet_pupil",
+  "others": ["father", "child"],
   "type": "personal",
   "age_range": [
    25,
@@ -6083,6 +6091,7 @@
  },
  {
   "id": "j_mat_loan",
+  "others": ["spouse"],
   "type": "personal",
   "age_range": [
    22,
@@ -6186,6 +6195,7 @@
  },
  {
   "id": "j_mat_loan_repaid",
+  "others": ["spouse"],
   "type": "personal",
   "trigger_only": true,
   "base_weight": 1,
@@ -6613,6 +6623,7 @@
  },
  {
   "id": "j_hs_letters",
+  "others": ["child"],
   "type": "personal",
   "age_range": [
    12,

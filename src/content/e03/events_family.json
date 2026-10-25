@@ -62,6 +62,7 @@
  },
  {
   "id": "c_amulet",
+  "conditions": [{"has_npc": "spouse"}],
   "type": "family",
   "moment": true,
   "npc": "child",

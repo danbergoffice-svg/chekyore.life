@@ -62,7 +62,7 @@
   "ev.t_pirates.join.ok": "The captain liked your strength and gave you an oar and a share of the plunder. There's no road back to an honest life now — not for a while.",
 
   "ev.t_pirates_recognized.title": "A Face from Home",
-  "ev.t_pirates_recognized.text": "In the market a merchant stares at you — and goes pale. “You're from our town! I knew your father!” You were born free, kidnapped by pirates, and now there's someone who can swear to it.",
+  "ev.t_pirates_recognized.text": "In the market a merchant stares at you — and goes pale. “You're from our town! I knew your family!” You were born free, kidnapped by pirates, and now there's someone who can swear to it.",
   "ev.t_pirates_recognized.plead": "Beg him to buy your freedom",
   "ev.t_pirates_recognized.plead.ok": "The merchant paid your master and took you home. You're free, but you owe him a great deal — and you'll be paying it back for years.",
   "ev.t_pirates_recognized.sue": "Claim your freedom in court",
@@ -121,8 +121,8 @@
   "ev.t_treasure_informer.deny.failure": "They found the pot, and for lying the fine was doubled. The neighbors greet you through clenched teeth now.",
 
   "ev.t_distant_inheritance.title": "A Letter About an Inheritance",
-  "ev.t_distant_inheritance.text": "A messenger brings a sealed letter: in a distant city your mother's cousin has died childless — a man you never met. His will leaves everything to you: house, workshop, slaves. And debts, which no one can put a number to.",
-  "ev.t_distant_inheritance.text.rome": "A messenger brings a will sealed by seven witnesses: in a distant city your mother's cousin has died childless. Everything is yours — on condition that you take his name and honor his tomb. And debts, which no one can put a number to.",
+  "ev.t_distant_inheritance.text": "A messenger brings a sealed letter: in a distant city a distant relative of yours has died childless — a man you never met. His will leaves everything to you: house, workshop, slaves. And debts, which no one can put a number to.",
+  "ev.t_distant_inheritance.text.rome": "A messenger brings a will sealed by seven witnesses: in a distant city a distant relative of yours has died childless. Everything is yours — on condition that you take his name and honor his tomb. And debts, which no one can put a number to.",
   "ev.t_distant_inheritance.accept": "Accept the whole inheritance",
   "ev.t_distant_inheritance.accept.success": "The debts were small and the house is in the best part of town. Suddenly you're a person of means.",
   "ev.t_distant_inheritance.accept.failure": "The creditors descended like gulls. The debts ate the inheritance, and you had to pay the rest out of your own pocket.",
@@ -275,7 +275,7 @@
   "ev.t_overseer_chance.refuse.ok": "The steward shrugged and chose someone else. The work stays the same, but the others in the barracks now share their last crust with you.",
 
   "ev.t_slave_born_free.title": "You Were Born Free",
-  "ev.t_slave_born_free.text": "A dying old slave woman called you over one night and whispered: you were stolen as a baby from a free family in the next town; she remembers your father's name and the street. Which means that by law you shouldn't be a slave at all.",
+  "ev.t_slave_born_free.text": "A dying old slave woman called you over one night and whispered: you were stolen as a baby from a free family in the next town; she remembers the family's name and the street. Which means that by law you shouldn't be a slave at all.",
   "ev.t_slave_born_free.sue": "Claim your freedom in court",
   "ev.t_slave_born_free.sue.success": "A free man agreed to plead your cause, and old witnesses confirmed the story. The court declared you freeborn.",
   "ev.t_slave_born_free.sue.failure": "Your master called it an old woman's ravings, and the court agreed. Now he looks at you as an enemy.",
@@ -285,7 +285,7 @@
   "ev.t_slave_born_free.silent.ok": "You buried the old woman and her secret with her. But at night you think about an unknown street in the next town.",
 
   "ev.t_born_free_family.title": "A Brother",
-  "ev.t_born_free_family.text": "A stranger with your eyes stands at the gate. “Mother died still waiting for you,” he says. “I've saved enough to buy you out. Let's go home.”",
+  "ev.t_born_free_family.text": "A stranger with your eyes stands at the gate. “They've been waiting for you at home all these years,” he says. “I've saved enough to buy you out. Let's go home.”",
   "ev.t_born_free_family.go": "Go with him",
   "ev.t_born_free_family.go.ok": "Your master took the money, and you walked out of the gate free. You have a brother, a home, and the name you were given at birth.",
   "ev.t_born_free_family.stay": "Stay for the people here",
@@ -321,9 +321,9 @@
   "ev.t_master_heirs.concede.ok": "You gave them the estate outside the city. The house is quieter, if not warmer.",
 
   "ev.t_dowry_divorce.title": "The Dowry",
-  "ev.t_dowry_divorce.text": "You've found out that {npc} has squandered your dowry — on dice, debts and empty schemes. Your father and brothers put it plainly: divorce, and demand your property back before it's too late. The law is on your side, but courts are slow.",
+  "ev.t_dowry_divorce.text": "You've found out that {npc} has squandered your dowry — on dice, debts and empty schemes. Your family puts it plainly: divorce, and demand your property back before it's too late. The law is on your side, but courts are slow.",
   "ev.t_dowry_divorce.divorce": "Divorce and reclaim the dowry",
-  "ev.t_dowry_divorce.divorce.success": "You returned to your father's house with your dowry and your head held high. Free, with money — and with new thoughts about the future.",
+  "ev.t_dowry_divorce.divorce.success": "You returned to your family home with your dowry and your head held high. Free, with money — and with new thoughts about the future.",
   "ev.t_dowry_divorce.divorce.failure": "The divorce went through, but only a fraction came back. The neighbor women whisper that it was all your own fault.",
   "ev.t_dowry_divorce.take_purse": "Take the purse into your own hands",
   "ev.t_dowry_divorce.take_purse.ok": "The key to the strongbox now hangs at your belt. Your husband doesn't like it, but for the first time in years the household makes ends meet.",
@@ -365,8 +365,8 @@
   "ev.t_poetess.publish": "Recite under your own name",
   "ev.t_poetess.publish.success": "Your verses are copied onto papyrus and learned by heart. The best houses invite you, and even your family is proud now — out loud.",
   "ev.t_poetess.publish.failure": "The gossip was louder than the poems. People say all sorts of things about you, and not one word is about rhyme.",
-  "ev.t_poetess.under_his_name": "Let your brother read them as his own",
-  "ev.t_poetess.under_his_name.ok": "Your brother got the fame and the gifts; you got a share of the money and a quiet bitterness. At least he shares honestly.",
+  "ev.t_poetess.under_his_name": "Let a male relative recite them as his own",
+  "ev.t_poetess.under_his_name.ok": "Your kinsman got the fame and the gifts; you got a share of the money and a quiet bitterness. At least he shares honestly.",
   "ev.t_poetess.burn": "Burn the scrolls",
   "ev.t_poetess.burn.ok": "The hearth fire made short work of the papyrus. The lines still sound in your head, but soon they'll fade too.",
 
@@ -375,8 +375,8 @@
 
   "ev.t_youth_teacher.title": "The Wandering Teacher",
   "ev.t_youth_teacher.text": "A wandering teacher — gray-haired, in worn sandals, with a bag of scrolls — watched you argue with a merchant and invited you to come with him: to study, copy books, see the world. But your hands are needed at home, and your father has no love for philosophers.",
-  "ev.t_youth_teacher.ask_blessing": "Ask your parents' blessing",
-  "ev.t_youth_teacher.ask_blessing.success": "Your father was silent a long time, then said, “Just don't become one of those windbags.” Your mother packed a bundle, and at dawn you left with the teacher.",
+  "ev.t_youth_teacher.ask_blessing": "Ask your father's blessing",
+  "ev.t_youth_teacher.ask_blessing.success": "Your father was silent a long time, then said, “Just don't become one of those windbags.” A bundle was packed for you, and at dawn you left with the teacher.",
   "ev.t_youth_teacher.ask_blessing.failure": "Your father forbade you even to think of it. The teacher left alone, and you watched the road for a long time.",
   "ev.t_youth_teacher.run_off": "Slip away at night without asking",
   "ev.t_youth_teacher.run_off.ok": "You caught up with the teacher at the city gate. Ahead: scrolls, arguments and new cities. Behind: a home where you won't soon be forgiven.",
@@ -617,7 +617,7 @@
   "ev.t_province_governor.honest": "Govern honestly",
   "ev.t_province_governor.honest.ok": "You judged fairly and took no gifts. You brought back almost no money, but the provincials walked you all the way to your ship.",
   "ev.t_province_governor.decline": "Decline the province",
-  "ev.t_province_governor.decline.ok": "You stayed in Rome. Your creditors are unhappy, the senators surprised, and your wife delighted.",
+  "ev.t_province_governor.decline.ok": "You stayed in Rome. Your creditors are unhappy, the senators surprised, and your household delighted.",
 
   "ev.t_repetundae.title": "The Extortion Trial",
   "ev.t_repetundae.text": "The provincials sent an embassy to Rome, and an ambitious young orator has charged you with extortion. He's gathered mountains of evidence, and the whole Forum is talking about the trial.",
@@ -670,14 +670,14 @@
   "ev.t_gladiator_falls.stay.ok": "His comrades from the school took up a collection for you. You stayed in Capua — here at least they remember his name.",
 
   "ev.t_nexum.title": "Debt Bondage",
-  "ev.t_nexum.text": "The bad harvest has eaten all your stores. The patrician moneylender will give grain and money only under nexum: if you don't repay on time, you'll work off the debt in his house — in chains, if he chooses. The children are hungry, and he's in no hurry.",
+  "ev.t_nexum.text": "The bad harvest has eaten all your stores. The patrician moneylender will give grain and money only under nexum: if you don't repay on time, you'll work off the debt in his house — in chains, if he chooses. Your household is hungry, and he's in no hurry.",
   "ev.t_nexum.note": "The early Roman Republic knew nexum — debt bondage in which the debtor pledged his own person and could be put in chains by the creditor. According to tradition it was abolished by the Lex Poetelia around 326 BC, after plebeian anger reached a breaking point. The details come mainly from Livy.",
   "ev.t_nexum.bind": "Pledge yourself",
-  "ev.t_nexum.bind.ok": "You swore before witnesses with bronze and scales. There's grain, the children are fed. And the deadline is already dripping away like a water clock.",
+  "ev.t_nexum.bind.ok": "You swore before witnesses with bronze and scales. There's grain, and no one at home goes hungry. And the deadline is already dripping away like a water clock.",
   "ev.t_nexum.sell_land": "Sell your land",
   "ev.t_nexum.sell_land.ok": "You sold your father's plot to a patrician neighbor. Now you're free — and you hire yourself out to him as a day laborer.",
   "ev.t_nexum.colony": "Sign up for a new colony",
-  "ev.t_nexum.colony.ok": "Rome is founding a colony on conquered land, and the settlers get plots. You leave with your family and a hundred others like you — to start from nothing on the frontier.",
+  "ev.t_nexum.colony.ok": "Rome is founding a colony on conquered land, and the settlers get plots. You leave with a hundred others like you — to start from nothing on the frontier.",
   "ev.t_nexum.clan_patron": "Ask your clan's patron for help",
   "ev.t_nexum.clan_patron.success": "The patron helped with grain, no bondage — in exchange for loyalty and your vote in the assembly. That's a chain too, but a softer one.",
   "ev.t_nexum.clan_patron.failure": "The patron was busy with his own affairs and wouldn't even see you. You went home with nothing.",
@@ -744,5 +744,5 @@
   "ev.t_auxilia.refuse.ok": "You stayed in the village. Your mother stopped crying, and the recruiters moved on to the neighbors.",
 
   "ev.t_auxilia_discharge.title": "The Bronze Tablet",
-  "ev.t_auxilia_discharge.text": "A quarter century is behind you. You've been handed a bronze tablet: from now on you're a Roman citizen, and so are your children. With your discharge money you buy land in the Fayum, where other veterans live, and the peasant neighbors bow to you in the street."
+  "ev.t_auxilia_discharge.text": "A quarter century is behind you. You've been handed a bronze tablet: from now on you're a Roman citizen, a right your descendants will inherit. With your discharge money you buy land in the Fayum, where other veterans live, and the peasant neighbors bow to you in the street."
 }

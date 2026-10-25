@@ -79,7 +79,7 @@
   "ev.a_moneylender.text": "The money ran out before the winter did. The moneylender by the temple will give you as much as you ask — at interest that turns the neighbors' beards gray at the mere mention.",
   "ev.a_moneylender.borrow": "Borrow from the moneylender",
   "ev.a_moneylender.sell_bracelet": "Sell your mother's bracelet",
-  "ev.a_moneylender.ask_kin": "Ask your brother or sister",
+  "ev.a_moneylender.ask_kin": "Ask your kin for a loan",
   "ev.a_moneylender.tighten": "Tighten your belt until spring",
   "ev.a_moneylender_returns.title": "Debt with Interest",
   "ev.a_moneylender_returns.text": "The old moneylender is dead, but his son remembers every coin. He arrives with a tablet in hand: over the years your debt has nearly doubled.",
@@ -144,7 +144,7 @@
   "ev.a_lawsuit.settle": "Pay and forget it",
 
   "ev.a_inheritance.title": "Father's Grove",
-  "ev.a_inheritance.text": "After your father's death, {npc} claims the whole olive grove: \"I looked after Father while you were off who knows where.\" And {g=npc_sex:he|she} is not entirely wrong.",
+  "ev.a_inheritance.text": "The inheritance isn't divided yet, and {npc} already claims the whole olive grove: \"I looked after the old man while you were off who knows where.\" And {g=npc_sex:he|she} is not entirely wrong.",
   "ev.a_inheritance.split": "Divide it equally, by law",
   "ev.a_inheritance.yield": "Give up the grove",
   "ev.a_inheritance.court": "Go to court for your share",
