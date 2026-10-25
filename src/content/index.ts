@@ -1,4 +1,4 @@
-import type { EraDef, EraMeta, EventDef, NewsDef, ReligionDef } from '../engine/types'
+import type { EraDef, EraMeta, EventDef, NewsDef, PrimerDef, ReligionDef } from '../engine/types'
 import patternWeights from './pattern_weights.json'
 import religions from './religions.json'
 
@@ -9,7 +9,7 @@ import religions from './religions.json'
 // Местное событие с тем же id заменяет общее.
 
 const metas = import.meta.glob<EraMeta>('./*/era.json', { eager: true, import: 'default' })
-const packs = import.meta.glob<unknown[]>(['./*/events*.json', './*/news*.json'], { import: 'default' })
+const packs = import.meta.glob<unknown[]>(['./*/events*.json', './*/news*.json', './*/primer*.json'], { import: 'default' })
 
 export const RELIGIONS = religions as ReligionDef[]
 export const RELIGION_BY_ID = new Map(RELIGIONS.map((r) => [r.id, r]))
@@ -33,7 +33,7 @@ export const ERA_IDS = Object.keys(ERA_META).sort((a, b) => ERA_META[a].years[0]
 
 export const DEFAULT_ERA = 'E03'
 
-async function loadFiles<T>(folder: string, kind: 'events' | 'news'): Promise<T[]> {
+async function loadFiles<T>(folder: string, kind: 'events' | 'news' | 'primer'): Promise<T[]> {
   const loaders = Object.entries(packs)
     .filter(([path]) => path.startsWith(`./${folder}/${kind}`))
     .sort(([a], [b]) => a.localeCompare(b))
@@ -90,8 +90,8 @@ export function loadEra(id: string): Promise<EraDef> {
   if (!meta) return Promise.reject(new Error(`Unknown era ${id}`))
   if (id in loading) return loading[id]
   common ??= loadFiles<EventDef>('common', 'events')
-  loading[id] = Promise.all([common, loadFiles<EventDef>(ERA_FOLDER[id], 'events'), loadFiles<NewsDef>(ERA_FOLDER[id], 'news')]).then(
-    ([shared, local, news]) => {
+  loading[id] = Promise.all([common, loadFiles<EventDef>(ERA_FOLDER[id], 'events'), loadFiles<NewsDef>(ERA_FOLDER[id], 'news'), loadFiles<PrimerDef>(ERA_FOLDER[id], 'primer')]).then(
+    ([shared, local, news, primers]) => {
       const byId = new Map<string, EventDef>()
       for (const ev of shared) if (fitsEra(ev, meta)) byId.set(ev.id, ev)
       for (const ev of local) byId.set(ev.id, ev)
@@ -100,7 +100,7 @@ export function loadEra(id: string): Promise<EraDef> {
         if (!ev.choices?.some((c) => c.delayed_effects?.some((d) => !byId.has(d.trigger_event)))) return ev
         return { ...ev, choices: ev.choices.map((c) => ({ ...c, delayed_effects: c.delayed_effects?.filter((d) => byId.has(d.trigger_event)) })) }
       })
-      const era: EraDef = { ...meta, events, news, patternWeights: patternWeights as EraDef['patternWeights'] }
+      const era: EraDef = { ...meta, events, news, primers, patternWeights: patternWeights as EraDef['patternWeights'] }
       loaded[id] = era
       return era
     },

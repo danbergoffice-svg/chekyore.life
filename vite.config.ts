@@ -10,9 +10,9 @@ export default defineConfig({
       output: {
         // Контент страны склеивается в несколько файлов: события и вести, тексты на каждом языке.
         manualChunks(id) {
-          const m = id.match(/src\/content\/(\w+)\/(events|news|ru|en)[^/]*\.json$/)
+          const m = id.match(/src\/content\/(\w+)\/(events|news|primer|ru|en)[^/]*\.json$/)
           if (!m) return undefined
-          const kind = m[2] === 'news' ? 'events' : m[2]
+          const kind = m[2] === 'news' || m[2] === 'primer' ? 'events' : m[2]
           return `c-${m[1]}-${kind}`
         },
       },

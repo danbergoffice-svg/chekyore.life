@@ -14,7 +14,7 @@ import {
 } from '../engine/game'
 import { checkAll, contextParams, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
-import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Npc, SceneTime } from '../engine/types'
+import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Hero, Npc, SceneTime } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
 import { Scene } from '../pixel/Scene'
 import { eventCast, familyCast } from './cast'
@@ -161,12 +161,16 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <p class="muted">{t('life.nothing')}</p>
           ) : (
             <ul class="feed">
-              {feed.map(([d]) => (
+              {feed.map(([d]) =>
+                d.primer ? (
+                  <PrimerCard id={d.primer} o={o} />
+                ) : (
                 <li class={`${d.news ? 'news' : ''} ${d.major ? 'major' : ''} ${d.year === state.year ? 'now' : ''}`}>
                   <span class="diary-age">{d.news ? t('life.news') : t('diary.age', { n: d.age })}</span>
                   <span>{diaryText(t, d, hero.sex, hero.region, hero.religion)}</span>
                 </li>
-              ))}
+                ),
+              )}
             </ul>
           )}
 
@@ -265,12 +269,16 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <p class="muted">{t('diary.empty')}</p>
           ) : (
             <ol class="diary">
-              {[...entries].reverse().map(([d]) => (
+              {[...entries].reverse().map(([d]) =>
+                d.primer ? (
+                  <PrimerCard id={d.primer} o={o} />
+                ) : (
                 <li class={`${d.major ? 'major' : ''} ${d.news ? 'news' : ''}`}>
                   <span class="diary-age">{t('diary.age', { n: d.age })}</span>
                   <span>{diaryText(t, d, hero.sex, hero.region, hero.religion)}</span>
                 </li>
-              ))}
+                ),
+              )}
             </ol>
           )}
         </section>
@@ -305,6 +313,18 @@ function ChangeList({ changes, coin }: { changes: Change[]; coin: string }) {
         </li>
       ))}
     </ul>
+  )
+}
+
+/** Карточка исторической справки «О твоём мире». */
+function PrimerCard({ id, o }: { id: string; o: { sex: Hero['sex']; region: string; religion: string } }) {
+  const { t } = useUi()
+  return (
+    <li class="primer">
+      <span class="eyebrow">{t('primer.label')}</span>
+      <strong class="primer-title">{t(`primer.${id}.title`, {}, o)}</strong>
+      <span class="primer-text">{t(`primer.${id}.text`, {}, o)}</span>
+    </li>
   )
 }
 

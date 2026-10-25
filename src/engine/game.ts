@@ -20,6 +20,8 @@ import {
 } from './rules'
 import { householdYear } from './household'
 import { summarize } from './life'
+import { PRIMER_TOPICS } from './types'
+import type { PrimerDef } from './types'
 import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, TextParam, Topic } from './types'
 
 /** Через сколько лет одно и то же событие может повториться. */
@@ -67,6 +69,9 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   rollEvents(state, era, births)
   if (!hero.alive) return die(state, era)
   for (let i = firstEntry; i < hero.diary.length; i++) state.reveal[i] = Math.round((0.05 + next(state) * 0.85) * 100) / 100
+  // Справки — равномерно по году, чтобы было время прочитать.
+  let nth = 0
+  for (let i = firstEntry; i < hero.diary.length; i++) if (hero.diary[i].primer) state.reveal[i] = 0.06 + 0.23 * nth++
   // Запись о рождении появляется вместе с окном выбора имени, а не раньше.
   for (const q of state.queue) {
     const ev = era.events.find((e) => e.id === q.eventId)
@@ -501,6 +506,11 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   state.queue = picked.sort((a, b) => a.at - b.at)
   for (const p of picked) hero.seen[p.eventId] = state.year
 
+  // Историческая справка в первые годы: младенцу ещё нечего решать — игрок узнаёт свой мир.
+  if (hero.generation === 1 && hero.age <= 3) {
+    for (const p of primersForYear(state, era)) note(state, { key: `primer.${p.id}.title`, primer: p.id, topic: 'history', score: 2 })
+  }
+
   // Вести из мира этого года.
   if (hero.age >= 6) {
     for (const n of era.news) {
@@ -531,6 +541,40 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
       score: 6 + Math.abs(hero.hidden.happiness - mood) + (ev.icon ? 15 : 0) + (active.npcId ? 5 : 0),
     })
   }
+}
+
+/** Сколько тем справки на возраст: 0 лет — темы 1–4, 1 год — 5–8, 2 — 9–12, 3 — 13–16. */
+const PRIMERS_PER_YEAR = 4
+
+/** Подходит ли карточка герою и насколько она точна (больше — точнее); -1 — не подходит. */
+function primerFit(state: GameState, p: PrimerDef): number {
+  const h = state.hero
+  if (p.regions && !p.regions.includes(h.region)) return -1
+  if (p.classes && !p.classes.includes(h.cls)) return -1
+  if (p.religions && !faithMatches(h.religion, p.religions)) return -1
+  if (p.sex && p.sex !== h.sex) return -1
+  if (p.years && (state.year < p.years[0] || state.year > p.years[1])) return -1
+  return (p.regions ? 4 : 0) + (p.classes ? 3 : 0) + (p.religions ? 3 : 0) + (p.years ? 2 : 0) + (p.sex ? 1 : 0)
+}
+
+/** Карточки справки на этот год: по одной на тему, самая точная из подходящих. */
+export function primersForYear(state: GameState, era: EraDef): PrimerDef[] {
+  const topics = PRIMER_TOPICS.slice(state.hero.age * PRIMERS_PER_YEAR, (state.hero.age + 1) * PRIMERS_PER_YEAR)
+  const out: PrimerDef[] = []
+  for (const topic of topics) {
+    let best: PrimerDef | undefined
+    let score = -1
+    for (const p of era.primers ?? []) {
+      if (p.topic !== topic) continue
+      const f = primerFit(state, p)
+      if (f > score) {
+        best = p
+        score = f
+      }
+    }
+    if (best) out.push(best)
+  }
+  return out
 }
 
 export function currentEvent(state: GameState, era: EraDef): EventDef | null {

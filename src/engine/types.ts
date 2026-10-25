@@ -215,7 +215,30 @@ export interface EraMeta {
 export interface EraDef extends EraMeta {
   events: EventDef[]
   news: NewsDef[]
+  primers: PrimerDef[]
   patternWeights: PatternWeights
+}
+
+/** Темы исторической справки для первых лет жизни, по порядку показа. */
+export const PRIMER_TOPICS = [
+  'world', 'society', 'birth', 'childhood', 'home', 'food', 'clothes', 'faith',
+  'work', 'place', 'law', 'health', 'women', 'leisure', 'knowledge', 'war',
+] as const
+export type PrimerTopic = (typeof PRIMER_TOPICS)[number]
+
+/**
+ * Историческая справка «О твоём мире»: пока герой младенец (0–3 года), в ленте появляются карточки о времени и месте.
+ * По каждой теме показывается одна карточка — самая точная из подходящих (край, сословие, вера, годы, пол).
+ * Тексты: primer.<id>.title, primer.<id>.text.
+ */
+export interface PrimerDef {
+  id: string
+  topic: PrimerTopic
+  regions?: string[]
+  classes?: string[]
+  religions?: string[]
+  years?: [number, number]
+  sex?: Sex
 }
 
 /** Весть из мира: исторический факт, который доходит до героя в этот год. */
@@ -428,6 +451,8 @@ export interface DiaryEntry {
   eventId?: string
   /** Весть из мира. */
   news?: string
+  /** Историческая справка (id карточки). */
+  primer?: string
   /** Где жил герой и какой веры был, когда это случилось: тексты зависят от края и веры. */
   reg?: string
   rel?: string

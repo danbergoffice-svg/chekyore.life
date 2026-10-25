@@ -501,5 +501,6 @@
   "animal.camel": "a camel",
   "animal.horse": "a horse",
   "animal.dog": "the dog",
-  "animal.cat": "the cat"
+  "animal.cat": "the cat",
+  "primer.label": "About your world"
 }

@@ -1,7 +1,7 @@
 // Проверка контента страны: тексты на обоих языках, ссылки, сцены, вера, регионы.
 // Используется в тестах (tests/content.test.ts) и в инструменте npm run check -- <ID> для авторов контента.
 import { allKeys, createT, hasKey, LANGS } from '../i18n'
-import { SCENE_PLACES, SCENE_PROPS, SCENE_TIMES, TOPICS } from '../engine/types'
+import { PRIMER_TOPICS, SCENE_PLACES, SCENE_PROPS, SCENE_TIMES, TOPICS } from '../engine/types'
 import type { Condition, Effect, EraDef, EventDef } from '../engine/types'
 import { ERA_META, RELIGION_BY_ID, RELIGIONS } from '.'
 
@@ -57,6 +57,7 @@ function requiredKeys(era: EraDef): string[] {
     for (const o of l.options) required.push(`lifestyle.${l.id}.${o.id}`, `lifestyle.${l.id}.${o.id}.desc`)
   }
   for (const n of era.news) required.push(`news.${n.id}`)
+  for (const p of era.primers ?? []) required.push(`primer.${p.id}.title`, `primer.${p.id}.text`)
   for (const ev of era.events) {
     if (!ev.moment) required.push(`ev.${ev.id}.title`)
     if (ev.variants) for (let i = 1; i <= ev.variants; i++) required.push(`ev.${ev.id}.text.${i}`)
@@ -158,11 +159,28 @@ function checkCountry(era: EraDef, bad: string[]) {
   if (ids.length !== new Set(ids).size) bad.push('повторяются id вестей')
 }
 
+/** Справка «О твоём мире»: по каждой из 16 тем есть общая карточка (без условий), ссылки верны. */
+function checkPrimers(era: EraDef, bad: string[]) {
+  const primers = era.primers ?? []
+  if (!primers.length) return
+  for (const topic of PRIMER_TOPICS) if (!primers.some((p) => p.topic === topic && !p.regions && !p.classes && !p.religions && !p.sex && !p.years)) bad.push(`справка: нет общей карточки на тему ${topic}`)
+  const ids = new Set<string>()
+  for (const p of primers) {
+    if (ids.has(p.id)) bad.push(`справка ${p.id}: повтор id`)
+    ids.add(p.id)
+    if (!(PRIMER_TOPICS as readonly string[]).includes(p.topic)) bad.push(`справка ${p.id}: тема ${p.topic}`)
+    for (const r of p.regions ?? []) if (!era.regions.some((x) => x.id === r)) bad.push(`справка ${p.id}: регион ${r}`)
+    for (const c of p.classes ?? []) if (!era.classes.some((x) => x.id === c)) bad.push(`справка ${p.id}: сословие ${c}`)
+    for (const r of p.religions ?? []) if (!religionWords.has(r)) bad.push(`справка ${p.id}: вера ${r}`)
+  }
+}
+
 /** Все проблемы страны; пустой список — всё в порядке. */
 export function validateEra(era: EraDef): string[] {
   const bad: string[] = []
   for (const lang of LANGS) for (const k of requiredKeys(era)) if (!hasKey(lang, k)) bad.push(`нет текста ${k} (${lang})`)
   checkCountry(era, bad)
+  checkPrimers(era, bad)
   for (const ev of era.events) {
     checkScenes(ev, bad)
     checkRefs(era, ev, bad)

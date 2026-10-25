@@ -501,5 +501,6 @@
   "animal.camel": "верблюд",
   "animal.horse": "лошадь",
   "animal.dog": "пёс",
-  "animal.cat": "кошка"
+  "animal.cat": "кошка",
+  "primer.label": "О твоём мире"
 }

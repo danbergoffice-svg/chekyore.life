@@ -519,3 +519,18 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
   .slot-machine { padding: 12px 8px 14px; }
 }
 .cap { display: inline-block; } .cap::first-letter { text-transform: uppercase; }
+
+/* Историческая справка «О твоём мире» в первые годы жизни */
+.feed li.primer, .diary li.primer {
+  display: grid;
+  gap: 4px;
+  grid-template-columns: 1fr;
+  padding: 12px 14px;
+  margin: 6px 0;
+  border-radius: 10px;
+  background: var(--paper-2);
+  border-left: 3px solid var(--gold);
+}
+.primer .eyebrow { margin: 0; font-size: 12px; }
+.primer-title { font-size: 1.02em; }
+.primer-text { color: var(--ink-2); line-height: 1.45; }
