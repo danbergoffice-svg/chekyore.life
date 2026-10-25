@@ -1,0 +1,2998 @@
+{
+  "id": "ANE",
+  "years": [
+    -1550,
+    -1070
+  ],
+  "population": 6,
+  "features": [
+    "river",
+    "writing",
+    "horses",
+    "wine",
+    "slavery",
+    "sea"
+  ],
+  "exclude_events": [
+    "found_coin",
+    "y_false_coin",
+    "t_buried_treasure",
+    "t_treasure_informer",
+    "d_drowning",
+    "d_m_dice",
+    "j_mid_book",
+    "j_mid_book_later",
+    "v_poppy_quit",
+    "j_phys_treatise_later",
+    "j_phys_debate",
+    "j_merch_branch_later",
+    "v_wine_symposium",
+    "w_old_lares",
+    "t_youth_teacher",
+    "d_t_publican",
+    "j_ship_pirates",
+    "manumission",
+    "c_h_diet",
+    "v_rage_home"
+  ],
+  "stages": {
+    "youth": 12,
+    "adult": 16,
+    "old": 50
+  },
+  "marriageAge": {
+    "m": [
+      17,
+      30
+    ],
+    "f": [
+      12,
+      20
+    ]
+  },
+  "lifeExpectancy": 24,
+  "inheritance": "equal",
+  "traits": [
+    "cautious",
+    "ambitious",
+    "kind",
+    "hot_tempered",
+    "curious",
+    "reserved",
+    "generous",
+    "pious",
+    "cunning",
+    "brave"
+  ],
+  "skills": [
+    "literacy",
+    "trade",
+    "craft",
+    "farming",
+    "military",
+    "medicine",
+    "management",
+    "oratory",
+    "seafaring"
+  ],
+  "regions": [
+    {
+      "id": "thebes",
+      "weight": 3,
+      "years": [
+        -1550,
+        -1070
+      ],
+      "coin": "deben",
+      "classWeights": {
+        "slave": 6,
+        "peasant": 60,
+        "craftsman": 17,
+        "trader": 4,
+        "landowner": 11,
+        "noble": 2
+      },
+      "names": {
+        "m": [
+          {
+            "id": "ane_ahmose",
+            "ru": "Яхмос",
+            "en": "Ahmose"
+          },
+          {
+            "id": "ane_amenemhat",
+            "ru": "Аменемхет",
+            "en": "Amenemhat"
+          },
+          {
+            "id": "ane_amenhotep",
+            "ru": "Аменхотеп",
+            "en": "Amenhotep"
+          },
+          {
+            "id": "ane_amenmose",
+            "ru": "Аменмос",
+            "en": "Amenmose"
+          },
+          {
+            "id": "ane_thutmose",
+            "ru": "Тутмос",
+            "en": "Thutmose"
+          },
+          {
+            "id": "ane_ramose",
+            "ru": "Рамос",
+            "en": "Ramose"
+          },
+          {
+            "id": "ane_paser",
+            "ru": "Пасер",
+            "en": "Paser"
+          },
+          {
+            "id": "ane_pashedu",
+            "ru": "Пашеду",
+            "en": "Pashedu"
+          },
+          {
+            "id": "ane_nakht",
+            "ru": "Нахт",
+            "en": "Nakht"
+          },
+          {
+            "id": "ane_sennedjem",
+            "ru": "Сеннеджем",
+            "en": "Sennedjem"
+          },
+          {
+            "id": "ane_khabekhnet",
+            "ru": "Хабехнет",
+            "en": "Khabekhnet"
+          },
+          {
+            "id": "ane_kha",
+            "ru": "Ха",
+            "en": "Kha"
+          },
+          {
+            "id": "ane_nebamun",
+            "ru": "Небамон",
+            "en": "Nebamun"
+          },
+          {
+            "id": "ane_neferhotep",
+            "ru": "Неферхотеп",
+            "en": "Neferhotep"
+          },
+          {
+            "id": "ane_paneb",
+            "ru": "Панеб",
+            "en": "Paneb"
+          },
+          {
+            "id": "ane_huy",
+            "ru": "Хуи",
+            "en": "Huy"
+          },
+          {
+            "id": "ane_ipuy",
+            "ru": "Ипуи",
+            "en": "Ipuy"
+          },
+          {
+            "id": "ane_qenherkhepeshef",
+            "ru": "Кенхерхепешеф",
+            "en": "Qenherkhepeshef"
+          },
+          {
+            "id": "ane_menna",
+            "ru": "Менна",
+            "en": "Menna"
+          },
+          {
+            "id": "ane_userhat",
+            "ru": "Усерхат",
+            "en": "Userhat"
+          },
+          {
+            "id": "ane_djehuty",
+            "ru": "Джехути",
+            "en": "Djehuty"
+          },
+          {
+            "id": "ane_hori",
+            "ru": "Хори",
+            "en": "Hori"
+          },
+          {
+            "id": "ane_minmose",
+            "ru": "Минмос",
+            "en": "Minmose"
+          },
+          {
+            "id": "ane_ptahmose",
+            "ru": "Птахмос",
+            "en": "Ptahmose"
+          },
+          {
+            "id": "ane_sobekhotep",
+            "ru": "Себекхотеп",
+            "en": "Sobekhotep"
+          },
+          {
+            "id": "ane_mahu",
+            "ru": "Маху",
+            "en": "Mahu"
+          },
+          {
+            "id": "ane_inherkhau",
+            "ru": "Инхерхау",
+            "en": "Inherkhau"
+          },
+          {
+            "id": "ane_amennakht",
+            "ru": "Аменнахт",
+            "en": "Amennakht"
+          },
+          {
+            "id": "ane_panehsy",
+            "ru": "Панехси",
+            "en": "Panehsy"
+          },
+          {
+            "id": "ane_khaemwaset",
+            "ru": "Хаэмуасет",
+            "en": "Khaemwaset"
+          },
+          {
+            "id": "ane_wennefer",
+            "ru": "Уэннефер",
+            "en": "Wennefer"
+          },
+          {
+            "id": "ane_nebnefer",
+            "ru": "Небнефер",
+            "en": "Nebnefer"
+          },
+          {
+            "id": "ane_pentawer",
+            "ru": "Пентаур",
+            "en": "Pentawer"
+          },
+          {
+            "id": "ane_seti",
+            "ru": "Сети",
+            "en": "Seti"
+          },
+          {
+            "id": "ane_bakenkhonsu",
+            "ru": "Бакенхонсу",
+            "en": "Bakenkhonsu"
+          }
+        ],
+        "f": [
+          {
+            "id": "ane_meritamun",
+            "ru": "Меритамон",
+            "en": "Meritamun"
+          },
+          {
+            "id": "ane_tiy",
+            "ru": "Тия",
+            "en": "Tiy"
+          },
+          {
+            "id": "ane_tuya",
+            "ru": "Туя",
+            "en": "Tuya"
+          },
+          {
+            "id": "ane_nefertari",
+            "ru": "Нефертари",
+            "en": "Nefertari"
+          },
+          {
+            "id": "ane_iset",
+            "ru": "Исет",
+            "en": "Iset"
+          },
+          {
+            "id": "ane_mutemwia",
+            "ru": "Мутемуйя",
+            "en": "Mutemwia"
+          },
+          {
+            "id": "ane_baketamun",
+            "ru": "Бакетамон",
+            "en": "Baketamun"
+          },
+          {
+            "id": "ane_mutnodjmet",
+            "ru": "Мутнеджмет",
+            "en": "Mutnodjmet"
+          },
+          {
+            "id": "ane_nebettawy",
+            "ru": "Небеттауи",
+            "en": "Nebettawy"
+          },
+          {
+            "id": "ane_henuttawy",
+            "ru": "Хенуттауи",
+            "en": "Henuttawy"
+          },
+          {
+            "id": "ane_takhat",
+            "ru": "Тахат",
+            "en": "Takhat"
+          },
+          {
+            "id": "ane_iyneferti",
+            "ru": "Иинеферти",
+            "en": "Iyneferti"
+          },
+          {
+            "id": "ane_henutmehyt",
+            "ru": "Хенутмехит",
+            "en": "Henutmehyt"
+          },
+          {
+            "id": "ane_meryt",
+            "ru": "Мерит",
+            "en": "Meryt"
+          },
+          {
+            "id": "ane_satamun",
+            "ru": "Сатамон",
+            "en": "Satamun"
+          },
+          {
+            "id": "ane_ahhotep",
+            "ru": "Яххотеп",
+            "en": "Ahhotep"
+          },
+          {
+            "id": "ane_tjuyu",
+            "ru": "Тую",
+            "en": "Tjuyu"
+          },
+          {
+            "id": "ane_rennefer",
+            "ru": "Ренефер",
+            "en": "Rennefer"
+          },
+          {
+            "id": "ane_naunakhte",
+            "ru": "Наунахте",
+            "en": "Naunakhte"
+          },
+          {
+            "id": "ane_mutemheb",
+            "ru": "Мутемхеб",
+            "en": "Mutemheb"
+          },
+          {
+            "id": "ane_werel",
+            "ru": "Уэрел",
+            "en": "Werel"
+          },
+          {
+            "id": "ane_hunero",
+            "ru": "Хунеро",
+            "en": "Hunero"
+          },
+          {
+            "id": "ane_raia",
+            "ru": "Рая",
+            "en": "Raia"
+          },
+          {
+            "id": "ane_sheritre",
+            "ru": "Шеритра",
+            "en": "Sheritre"
+          },
+          {
+            "id": "ane_nubemtekh",
+            "ru": "Нубемтех",
+            "en": "Nubemtekh"
+          },
+          {
+            "id": "ane_tentopet",
+            "ru": "Тентопет",
+            "en": "Tentopet"
+          },
+          {
+            "id": "ane_wiay",
+            "ru": "Уиаи",
+            "en": "Wiay"
+          },
+          {
+            "id": "ane_inhapi",
+            "ru": "Инхапи",
+            "en": "Inhapi"
+          },
+          {
+            "id": "ane_mutnofret",
+            "ru": "Мутнофрет",
+            "en": "Mutnofret"
+          },
+          {
+            "id": "ane_henut",
+            "ru": "Хенут",
+            "en": "Henut"
+          },
+          {
+            "id": "ane_nebetiunet",
+            "ru": "Небетиунет",
+            "en": "Nebetiunet"
+          },
+          {
+            "id": "ane_tamaket",
+            "ru": "Тамакет",
+            "en": "Tamaket"
+          },
+          {
+            "id": "ane_iuy",
+            "ru": "Иуи",
+            "en": "Iuy"
+          },
+          {
+            "id": "ane_tawosret",
+            "ru": "Таусерт",
+            "en": "Tawosret"
+          }
+        ]
+      },
+      "tags": [
+        "capital"
+      ],
+      "religions": {
+        "egyptian_gods": 100
+      },
+      "scene": {
+        "style": "egyptian",
+        "land": "desert",
+        "prompt": "Thebes on the Nile in the Egyptian New Kingdom: temples of Karnak and Luxor on the east bank, mortuary temples and the cliffs of the Valley of the Kings on the west bank, mud-brick houses, palm groves, papyrus boats"
+      }
+    },
+    {
+      "id": "memphis",
+      "weight": 3,
+      "years": [
+        -1550,
+        -1070
+      ],
+      "coin": "deben",
+      "classWeights": {
+        "slave": 7,
+        "peasant": 56,
+        "craftsman": 18,
+        "trader": 7,
+        "landowner": 10,
+        "noble": 2
+      },
+      "names": {
+        "m": [
+          {
+            "id": "ane_ahmose",
+            "ru": "Яхмос",
+            "en": "Ahmose"
+          },
+          {
+            "id": "ane_amenemhat",
+            "ru": "Аменемхет",
+            "en": "Amenemhat"
+          },
+          {
+            "id": "ane_amenhotep",
+            "ru": "Аменхотеп",
+            "en": "Amenhotep"
+          },
+          {
+            "id": "ane_amenmose",
+            "ru": "Аменмос",
+            "en": "Amenmose"
+          },
+          {
+            "id": "ane_thutmose",
+            "ru": "Тутмос",
+            "en": "Thutmose"
+          },
+          {
+            "id": "ane_ramose",
+            "ru": "Рамос",
+            "en": "Ramose"
+          },
+          {
+            "id": "ane_paser",
+            "ru": "Пасер",
+            "en": "Paser"
+          },
+          {
+            "id": "ane_pashedu",
+            "ru": "Пашеду",
+            "en": "Pashedu"
+          },
+          {
+            "id": "ane_nakht",
+            "ru": "Нахт",
+            "en": "Nakht"
+          },
+          {
+            "id": "ane_sennedjem",
+            "ru": "Сеннеджем",
+            "en": "Sennedjem"
+          },
+          {
+            "id": "ane_khabekhnet",
+            "ru": "Хабехнет",
+            "en": "Khabekhnet"
+          },
+          {
+            "id": "ane_kha",
+            "ru": "Ха",
+            "en": "Kha"
+          },
+          {
+            "id": "ane_nebamun",
+            "ru": "Небамон",
+            "en": "Nebamun"
+          },
+          {
+            "id": "ane_neferhotep",
+            "ru": "Неферхотеп",
+            "en": "Neferhotep"
+          },
+          {
+            "id": "ane_paneb",
+            "ru": "Панеб",
+            "en": "Paneb"
+          },
+          {
+            "id": "ane_huy",
+            "ru": "Хуи",
+            "en": "Huy"
+          },
+          {
+            "id": "ane_ipuy",
+            "ru": "Ипуи",
+            "en": "Ipuy"
+          },
+          {
+            "id": "ane_qenherkhepeshef",
+            "ru": "Кенхерхепешеф",
+            "en": "Qenherkhepeshef"
+          },
+          {
+            "id": "ane_menna",
+            "ru": "Менна",
+            "en": "Menna"
+          },
+          {
+            "id": "ane_userhat",
+            "ru": "Усерхат",
+            "en": "Userhat"
+          },
+          {
+            "id": "ane_djehuty",
+            "ru": "Джехути",
+            "en": "Djehuty"
+          },
+          {
+            "id": "ane_hori",
+            "ru": "Хори",
+            "en": "Hori"
+          },
+          {
+            "id": "ane_minmose",
+            "ru": "Минмос",
+            "en": "Minmose"
+          },
+          {
+            "id": "ane_ptahmose",
+            "ru": "Птахмос",
+            "en": "Ptahmose"
+          },
+          {
+            "id": "ane_sobekhotep",
+            "ru": "Себекхотеп",
+            "en": "Sobekhotep"
+          },
+          {
+            "id": "ane_mahu",
+            "ru": "Маху",
+            "en": "Mahu"
+          },
+          {
+            "id": "ane_inherkhau",
+            "ru": "Инхерхау",
+            "en": "Inherkhau"
+          },
+          {
+            "id": "ane_amennakht",
+            "ru": "Аменнахт",
+            "en": "Amennakht"
+          },
+          {
+            "id": "ane_panehsy",
+            "ru": "Панехси",
+            "en": "Panehsy"
+          },
+          {
+            "id": "ane_khaemwaset",
+            "ru": "Хаэмуасет",
+            "en": "Khaemwaset"
+          },
+          {
+            "id": "ane_wennefer",
+            "ru": "Уэннефер",
+            "en": "Wennefer"
+          },
+          {
+            "id": "ane_nebnefer",
+            "ru": "Небнефер",
+            "en": "Nebnefer"
+          },
+          {
+            "id": "ane_pentawer",
+            "ru": "Пентаур",
+            "en": "Pentawer"
+          },
+          {
+            "id": "ane_seti",
+            "ru": "Сети",
+            "en": "Seti"
+          },
+          {
+            "id": "ane_bakenkhonsu",
+            "ru": "Бакенхонсу",
+            "en": "Bakenkhonsu"
+          }
+        ],
+        "f": [
+          {
+            "id": "ane_meritamun",
+            "ru": "Меритамон",
+            "en": "Meritamun"
+          },
+          {
+            "id": "ane_tiy",
+            "ru": "Тия",
+            "en": "Tiy"
+          },
+          {
+            "id": "ane_tuya",
+            "ru": "Туя",
+            "en": "Tuya"
+          },
+          {
+            "id": "ane_nefertari",
+            "ru": "Нефертари",
+            "en": "Nefertari"
+          },
+          {
+            "id": "ane_iset",
+            "ru": "Исет",
+            "en": "Iset"
+          },
+          {
+            "id": "ane_mutemwia",
+            "ru": "Мутемуйя",
+            "en": "Mutemwia"
+          },
+          {
+            "id": "ane_baketamun",
+            "ru": "Бакетамон",
+            "en": "Baketamun"
+          },
+          {
+            "id": "ane_mutnodjmet",
+            "ru": "Мутнеджмет",
+            "en": "Mutnodjmet"
+          },
+          {
+            "id": "ane_nebettawy",
+            "ru": "Небеттауи",
+            "en": "Nebettawy"
+          },
+          {
+            "id": "ane_henuttawy",
+            "ru": "Хенуттауи",
+            "en": "Henuttawy"
+          },
+          {
+            "id": "ane_takhat",
+            "ru": "Тахат",
+            "en": "Takhat"
+          },
+          {
+            "id": "ane_iyneferti",
+            "ru": "Иинеферти",
+            "en": "Iyneferti"
+          },
+          {
+            "id": "ane_henutmehyt",
+            "ru": "Хенутмехит",
+            "en": "Henutmehyt"
+          },
+          {
+            "id": "ane_meryt",
+            "ru": "Мерит",
+            "en": "Meryt"
+          },
+          {
+            "id": "ane_satamun",
+            "ru": "Сатамон",
+            "en": "Satamun"
+          },
+          {
+            "id": "ane_ahhotep",
+            "ru": "Яххотеп",
+            "en": "Ahhotep"
+          },
+          {
+            "id": "ane_tjuyu",
+            "ru": "Тую",
+            "en": "Tjuyu"
+          },
+          {
+            "id": "ane_rennefer",
+            "ru": "Ренефер",
+            "en": "Rennefer"
+          },
+          {
+            "id": "ane_naunakhte",
+            "ru": "Наунахте",
+            "en": "Naunakhte"
+          },
+          {
+            "id": "ane_mutemheb",
+            "ru": "Мутемхеб",
+            "en": "Mutemheb"
+          },
+          {
+            "id": "ane_werel",
+            "ru": "Уэрел",
+            "en": "Werel"
+          },
+          {
+            "id": "ane_hunero",
+            "ru": "Хунеро",
+            "en": "Hunero"
+          },
+          {
+            "id": "ane_raia",
+            "ru": "Рая",
+            "en": "Raia"
+          },
+          {
+            "id": "ane_sheritre",
+            "ru": "Шеритра",
+            "en": "Sheritre"
+          },
+          {
+            "id": "ane_nubemtekh",
+            "ru": "Нубемтех",
+            "en": "Nubemtekh"
+          },
+          {
+            "id": "ane_tentopet",
+            "ru": "Тентопет",
+            "en": "Tentopet"
+          },
+          {
+            "id": "ane_wiay",
+            "ru": "Уиаи",
+            "en": "Wiay"
+          },
+          {
+            "id": "ane_inhapi",
+            "ru": "Инхапи",
+            "en": "Inhapi"
+          },
+          {
+            "id": "ane_mutnofret",
+            "ru": "Мутнофрет",
+            "en": "Mutnofret"
+          },
+          {
+            "id": "ane_henut",
+            "ru": "Хенут",
+            "en": "Henut"
+          },
+          {
+            "id": "ane_nebetiunet",
+            "ru": "Небетиунет",
+            "en": "Nebetiunet"
+          },
+          {
+            "id": "ane_tamaket",
+            "ru": "Тамакет",
+            "en": "Tamaket"
+          },
+          {
+            "id": "ane_iuy",
+            "ru": "Иуи",
+            "en": "Iuy"
+          },
+          {
+            "id": "ane_tawosret",
+            "ru": "Таусерт",
+            "en": "Tawosret"
+          }
+        ]
+      },
+      "tags": [
+        "port"
+      ],
+      "religions": {
+        "egyptian_gods": 97,
+        "mesopotamian_gods": 3
+      },
+      "scene": {
+        "style": "egyptian",
+        "land": "desert",
+        "prompt": "Memphis, the great administrative city of New Kingdom Egypt: the temple of Ptah, busy Nile harbour of Peru-nefer with cargo ships, white walls, the old pyramids of Saqqara and Giza on the desert edge"
+      }
+    },
+    {
+      "id": "babylon",
+      "weight": 3,
+      "years": [
+        -1550,
+        -1070
+      ],
+      "coin": "shekel",
+      "inheritance": "sons_first",
+      "classWeights": {
+        "slave": 8,
+        "peasant": 56,
+        "craftsman": 15,
+        "trader": 9,
+        "landowner": 10,
+        "noble": 2
+      },
+      "names": {
+        "m": [
+          {
+            "id": "ane_iddin_marduk",
+            "ru": "Иддин-Мардук",
+            "en": "Iddin-Marduk"
+          },
+          {
+            "id": "ane_kidin_marduk",
+            "ru": "Кидин-Мардук",
+            "en": "Kidin-Marduk"
+          },
+          {
+            "id": "ane_enlil_kidinni",
+            "ru": "Эллиль-кидинни",
+            "en": "Enlil-kidinni"
+          },
+          {
+            "id": "ane_ninurta_nadin_shumi",
+            "ru": "Нинурта-надин-шуми",
+            "en": "Ninurta-nadin-shumi"
+          },
+          {
+            "id": "ane_enlil_mukin_apli",
+            "ru": "Эллиль-мукин-апли",
+            "en": "Enlil-mukin-apli"
+          },
+          {
+            "id": "ane_sin_leqi_unninni",
+            "ru": "Син-леке-уннинни",
+            "en": "Sin-leqi-unninni"
+          },
+          {
+            "id": "ane_ina_esagil_zeri",
+            "ru": "Ина-Эсагила-зери",
+            "en": "Ina-Esagila-zeri"
+          },
+          {
+            "id": "ane_ili_ippashra",
+            "ru": "Или-иппашра",
+            "en": "Ili-ippashra"
+          },
+          {
+            "id": "ane_warad_marduk",
+            "ru": "Варад-Мардук",
+            "en": "Warad-Marduk"
+          },
+          {
+            "id": "ane_etel_pi_marduk",
+            "ru": "Этель-пи-Мардук",
+            "en": "Etel-pi-Marduk"
+          },
+          {
+            "id": "ane_ahu_waqar",
+            "ru": "Аху-вакар",
+            "en": "Ahu-waqar"
+          },
+          {
+            "id": "ane_apil_sin",
+            "ru": "Апиль-Син",
+            "en": "Apil-Sin"
+          },
+          {
+            "id": "ane_ilshu_ibni",
+            "ru": "Илшу-ибни",
+            "en": "Ilshu-ibni"
+          },
+          {
+            "id": "ane_sin_iqisham",
+            "ru": "Син-икишам",
+            "en": "Sin-iqisham"
+          },
+          {
+            "id": "ane_mar_esagil",
+            "ru": "Мар-Эсагила",
+            "en": "Mar-Esagila"
+          },
+          {
+            "id": "ane_ili_iqisha",
+            "ru": "Или-икиша",
+            "en": "Ili-iqisha"
+          },
+          {
+            "id": "ane_kudur_enlil",
+            "ru": "Кудур-Эллиль",
+            "en": "Kudur-Enlil"
+          },
+          {
+            "id": "ane_nazi_enlil",
+            "ru": "Нази-Эллиль",
+            "en": "Nazi-Enlil"
+          },
+          {
+            "id": "ane_kadashman_sah",
+            "ru": "Кадашман-Сах",
+            "en": "Kadashman-Sah"
+          },
+          {
+            "id": "ane_shagarakti",
+            "ru": "Шагаракти",
+            "en": "Shagarakti"
+          },
+          {
+            "id": "ane_burna_sah",
+            "ru": "Бурна-Сах",
+            "en": "Burna-Sah"
+          },
+          {
+            "id": "ane_uzi_shuqamuna",
+            "ru": "Узи-Шукамуна",
+            "en": "Uzi-Shuqamuna"
+          },
+          {
+            "id": "ane_marduk_nasir",
+            "ru": "Мардук-насир",
+            "en": "Marduk-nasir"
+          },
+          {
+            "id": "ane_shamash_iddina",
+            "ru": "Шамаш-иддина",
+            "en": "Shamash-iddina"
+          },
+          {
+            "id": "ane_nabu_zera_ibni",
+            "ru": "Набу-зера-ибни",
+            "en": "Nabu-zera-ibni"
+          },
+          {
+            "id": "ane_ibni_marduk",
+            "ru": "Ибни-Мардук",
+            "en": "Ibni-Marduk"
+          },
+          {
+            "id": "ane_sin_magir",
+            "ru": "Син-магир",
+            "en": "Sin-magir"
+          },
+          {
+            "id": "ane_amel_marduk",
+            "ru": "Амель-Мардук",
+            "en": "Amel-Marduk"
+          },
+          {
+            "id": "ane_taqish_gula",
+            "ru": "Такиш-Гула",
+            "en": "Taqish-Gula"
+          },
+          {
+            "id": "ane_rimutu",
+            "ru": "Римуту",
+            "en": "Rimutu"
+          },
+          {
+            "id": "ane_mushezib",
+            "ru": "Мушезиб",
+            "en": "Mushezib"
+          },
+          {
+            "id": "ane_eriba_marduk",
+            "ru": "Эриба-Мардук",
+            "en": "Eriba-Marduk"
+          },
+          {
+            "id": "ane_belanu",
+            "ru": "Беланум",
+            "en": "Belanum"
+          }
+        ],
+        "f": [
+          {
+            "id": "ane_ahatum",
+            "ru": "Ахатум",
+            "en": "Ahatum"
+          },
+          {
+            "id": "ane_ahassunu",
+            "ru": "Ахассуну",
+            "en": "Ahassunu"
+          },
+          {
+            "id": "ane_amat_shamash",
+            "ru": "Амат-Шамаш",
+            "en": "Amat-Shamash"
+          },
+          {
+            "id": "ane_amat_gula",
+            "ru": "Амат-Гула",
+            "en": "Amat-Gula"
+          },
+          {
+            "id": "ane_belessunu",
+            "ru": "Белессуну",
+            "en": "Belessunu"
+          },
+          {
+            "id": "ane_beltani",
+            "ru": "Белтани",
+            "en": "Beltani"
+          },
+          {
+            "id": "ane_damiqtum",
+            "ru": "Дамиктум",
+            "en": "Damiqtum"
+          },
+          {
+            "id": "ane_erishti_aya",
+            "ru": "Эришти-Айя",
+            "en": "Erishti-Aya"
+          },
+          {
+            "id": "ane_huzalatum",
+            "ru": "Хузалатум",
+            "en": "Huzalatum"
+          },
+          {
+            "id": "ane_iltani",
+            "ru": "Илтани",
+            "en": "Iltani"
+          },
+          {
+            "id": "ane_ishtar_ummi",
+            "ru": "Иштар-умми",
+            "en": "Ishtar-ummi"
+          },
+          {
+            "id": "ane_lamassani",
+            "ru": "Ламассани",
+            "en": "Lamassani"
+          },
+          {
+            "id": "ane_lamassatum",
+            "ru": "Ламассатум",
+            "en": "Lamassatum"
+          },
+          {
+            "id": "ane_naramtum",
+            "ru": "Нарамтум",
+            "en": "Naramtum"
+          },
+          {
+            "id": "ane_rubatum",
+            "ru": "Рубатум",
+            "en": "Rubatum"
+          },
+          {
+            "id": "ane_sabitum",
+            "ru": "Сабитум",
+            "en": "Sabitum"
+          },
+          {
+            "id": "ane_shat_aya",
+            "ru": "Шат-Айя",
+            "en": "Shat-Aya"
+          },
+          {
+            "id": "ane_shat_sin",
+            "ru": "Шат-Син",
+            "en": "Shat-Sin"
+          },
+          {
+            "id": "ane_tabni_ishtar",
+            "ru": "Табни-Иштар",
+            "en": "Tabni-Ishtar"
+          },
+          {
+            "id": "ane_taram_sagila",
+            "ru": "Тарам-Сагила",
+            "en": "Taram-Sagila"
+          },
+          {
+            "id": "ane_ummi_waqrat",
+            "ru": "Умми-вакрат",
+            "en": "Ummi-waqrat"
+          },
+          {
+            "id": "ane_ina_esagil_ramat",
+            "ru": "Ина-Эсагила-рамат",
+            "en": "Ina-Esagila-ramat"
+          },
+          {
+            "id": "ane_etirtu",
+            "ru": "Этирту",
+            "en": "Etirtu"
+          },
+          {
+            "id": "ane_kunnutu",
+            "ru": "Куннуту",
+            "en": "Kunnutu"
+          },
+          {
+            "id": "ane_taribatu",
+            "ru": "Тарибату",
+            "en": "Taribatu"
+          },
+          {
+            "id": "ane_nidintum",
+            "ru": "Нидинтум",
+            "en": "Nidintum"
+          },
+          {
+            "id": "ane_mushezibtu",
+            "ru": "Мушезибту",
+            "en": "Mushezibtu"
+          },
+          {
+            "id": "ane_inbatum",
+            "ru": "Инбатум",
+            "en": "Inbatum"
+          },
+          {
+            "id": "ane_gula_remat",
+            "ru": "Гула-ремат",
+            "en": "Gula-remat"
+          },
+          {
+            "id": "ane_nanaya_ummi",
+            "ru": "Нанайя-умми",
+            "en": "Nanaya-ummi"
+          },
+          {
+            "id": "ane_belet_ili",
+            "ru": "Белет-или",
+            "en": "Belet-ili"
+          },
+          {
+            "id": "ane_qishtum",
+            "ru": "Киштум",
+            "en": "Qishtum"
+          }
+        ]
+      },
+      "tags": [
+        "capital"
+      ],
+      "religions": {
+        "mesopotamian_gods": 100
+      },
+      "scene": {
+        "style": "mesopotamian",
+        "land": "dry",
+        "prompt": "Kassite Babylon on the Euphrates, Late Bronze Age: mud-brick city walls and gates, the temple of Marduk Esagila and its ziggurat, date palms along irrigation canals, reed boats"
+      }
+    },
+    {
+      "id": "assur",
+      "weight": 2,
+      "years": [
+        -1550,
+        -1070
+      ],
+      "coin": "shekel",
+      "inheritance": "sons_first",
+      "classWeights": {
+        "slave": 9,
+        "peasant": 54,
+        "craftsman": 15,
+        "trader": 10,
+        "landowner": 10,
+        "noble": 2
+      },
+      "names": {
+        "m": [
+          {
+            "id": "ane_ashur_iddin",
+            "ru": "Ашшур-иддин",
+            "en": "Ashur-iddin"
+          },
+          {
+            "id": "ane_babu_aha_iddina",
+            "ru": "Бабу-аха-иддина",
+            "en": "Babu-aha-iddina"
+          },
+          {
+            "id": "ane_bel_qarrad",
+            "ru": "Бел-каррад",
+            "en": "Bel-qarrad"
+          },
+          {
+            "id": "ane_ina_ashur_shumi_asbat",
+            "ru": "Ина-Ашшур-шуми-асбат",
+            "en": "Ina-Ashur-shumi-asbat"
+          },
+          {
+            "id": "ane_ili_padda",
+            "ru": "Или-падда",
+            "en": "Ili-padda"
+          },
+          {
+            "id": "ane_abi_ili",
+            "ru": "Аби-или",
+            "en": "Abi-ili"
+          },
+          {
+            "id": "ane_aplaya",
+            "ru": "Аплайя",
+            "en": "Aplaya"
+          },
+          {
+            "id": "ane_ubru",
+            "ru": "Убру",
+            "en": "Ubru"
+          },
+          {
+            "id": "ane_urad_sherua",
+            "ru": "Урад-Шеруа",
+            "en": "Urad-Sherua"
+          },
+          {
+            "id": "ane_adad_shumu_lishir",
+            "ru": "Адад-шуму-лишир",
+            "en": "Adad-shumu-lishir"
+          },
+          {
+            "id": "ane_kidin_adad",
+            "ru": "Кидин-Адад",
+            "en": "Kidin-Adad"
+          },
+          {
+            "id": "ane_etel_pi_ashur",
+            "ru": "Этель-пи-Ашшур",
+            "en": "Etel-pi-Ashur"
+          },
+          {
+            "id": "ane_ashur_mushabshi",
+            "ru": "Ашшур-мушабши",
+            "en": "Ashur-mushabshi"
+          },
+          {
+            "id": "ane_iddin_ashur",
+            "ru": "Иддин-Ашшур",
+            "en": "Iddin-Ashur"
+          },
+          {
+            "id": "ane_puzur_ashur",
+            "ru": "Пузур-Ашшур",
+            "en": "Puzur-Ashur"
+          },
+          {
+            "id": "ane_kidin_sin",
+            "ru": "Кидин-Син",
+            "en": "Kidin-Sin"
+          },
+          {
+            "id": "ane_mudammiq_ashur",
+            "ru": "Мудаммик-Ашшур",
+            "en": "Mudammiq-Ashur"
+          },
+          {
+            "id": "ane_qibi_ashur",
+            "ru": "Киби-Ашшур",
+            "en": "Qibi-Ashur"
+          },
+          {
+            "id": "ane_shamash_nasir",
+            "ru": "Шамаш-насир",
+            "en": "Shamash-nasir"
+          },
+          {
+            "id": "ane_mutakkil_nusku",
+            "ru": "Мутаккиль-Нуску",
+            "en": "Mutakkil-Nusku"
+          },
+          {
+            "id": "ane_urad_ilani",
+            "ru": "Урад-илани",
+            "en": "Urad-ilani"
+          },
+          {
+            "id": "ane_silli_ashur",
+            "ru": "Цилли-Ашшур",
+            "en": "Silli-Ashur"
+          },
+          {
+            "id": "ane_ashur_kashid",
+            "ru": "Ашшур-кашид",
+            "en": "Ashur-kashid"
+          },
+          {
+            "id": "ane_sin_ashared",
+            "ru": "Син-ашаред",
+            "en": "Sin-ashared"
+          },
+          {
+            "id": "ane_adad_bel_gabbe",
+            "ru": "Адад-бел-габбе",
+            "en": "Adad-bel-gabbe"
+          },
+          {
+            "id": "ane_ninurta_eresh",
+            "ru": "Нинурта-эреш",
+            "en": "Ninurta-eresh"
+          },
+          {
+            "id": "ane_ashur_bel_ilani",
+            "ru": "Ашшур-бел-илани",
+            "en": "Ashur-bel-ilani"
+          },
+          {
+            "id": "ane_riba_ashur",
+            "ru": "Риба-Ашшур",
+            "en": "Riba-Ashur"
+          },
+          {
+            "id": "ane_erib_adad",
+            "ru": "Эриб-Адад",
+            "en": "Erib-Adad"
+          },
+          {
+            "id": "ane_ashur_aha_iddina",
+            "ru": "Ашшур-аха-иддина",
+            "en": "Ashur-aha-iddina"
+          },
+          {
+            "id": "ane_lullayu",
+            "ru": "Луллайю",
+            "en": "Lullayu"
+          },
+          {
+            "id": "ane_ashur_rimanni",
+            "ru": "Ашшур-риманни",
+            "en": "Ashur-rimanni"
+          },
+          {
+            "id": "ane_tab_silli_ashur",
+            "ru": "Таб-цилли-Ашшур",
+            "en": "Tab-silli-Ashur"
+          }
+        ],
+        "f": [
+          {
+            "id": "ane_ahat_abisha",
+            "ru": "Ахат-абиша",
+            "en": "Ahat-abisha"
+          },
+          {
+            "id": "ane_ishtar_lamassi",
+            "ru": "Иштар-ламасси",
+            "en": "Ishtar-lamassi"
+          },
+          {
+            "id": "ane_lamassi",
+            "ru": "Ламасси",
+            "en": "Lamassi"
+          },
+          {
+            "id": "ane_shat_ishtar",
+            "ru": "Шат-Иштар",
+            "en": "Shat-Ishtar"
+          },
+          {
+            "id": "ane_muballitat",
+            "ru": "Мубаллитат",
+            "en": "Muballitat"
+          },
+          {
+            "id": "ane_taram_kubi",
+            "ru": "Тарам-Куби",
+            "en": "Taram-Kubi"
+          },
+          {
+            "id": "ane_ishtar_bashti",
+            "ru": "Иштар-башти",
+            "en": "Ishtar-bashti"
+          },
+          {
+            "id": "ane_ahaha",
+            "ru": "Ахаха",
+            "en": "Ahaha"
+          },
+          {
+            "id": "ane_waqartum",
+            "ru": "Вакартум",
+            "en": "Waqartum"
+          },
+          {
+            "id": "ane_shalimma",
+            "ru": "Шалимма",
+            "en": "Shalimma"
+          },
+          {
+            "id": "ane_shimat_ashur",
+            "ru": "Шимат-Ашшур",
+            "en": "Shimat-Ashur"
+          },
+          {
+            "id": "ane_ummi_ishtar",
+            "ru": "Умми-Иштар",
+            "en": "Ummi-Ishtar"
+          },
+          {
+            "id": "ane_belatum",
+            "ru": "Белатум",
+            "en": "Belatum"
+          },
+          {
+            "id": "ane_ashur_duri",
+            "ru": "Ашшур-дури",
+            "en": "Ashur-duri"
+          },
+          {
+            "id": "ane_tariqum",
+            "ru": "Тарикум",
+            "en": "Tariqum"
+          },
+          {
+            "id": "ane_sherua_ummi",
+            "ru": "Шеруа-умми",
+            "en": "Sherua-ummi"
+          },
+          {
+            "id": "ane_mushallimtu",
+            "ru": "Мушаллимту",
+            "en": "Mushallimtu"
+          },
+          {
+            "id": "ane_abi_ummi",
+            "ru": "Аби-умми",
+            "en": "Abi-ummi"
+          },
+          {
+            "id": "ane_ishtar_tabni",
+            "ru": "Иштар-табни",
+            "en": "Ishtar-tabni"
+          },
+          {
+            "id": "ane_sheshura",
+            "ru": "Шешура",
+            "en": "Sheshura"
+          },
+          {
+            "id": "ane_ahat_ili",
+            "ru": "Ахат-или",
+            "en": "Ahat-ili"
+          },
+          {
+            "id": "ane_mutibasha",
+            "ru": "Мутибаша",
+            "en": "Mutibasha"
+          },
+          {
+            "id": "ane_nishi_ishtar",
+            "ru": "Ниши-Иштар",
+            "en": "Nishi-Ishtar"
+          },
+          {
+            "id": "ane_tabi_ashur",
+            "ru": "Таби-Ашшур",
+            "en": "Tabi-Ashur"
+          },
+          {
+            "id": "ane_hatitu",
+            "ru": "Хатиту",
+            "en": "Hatitu"
+          },
+          {
+            "id": "ane_amat_ninlil",
+            "ru": "Амат-Нинлиль",
+            "en": "Amat-Ninlil"
+          },
+          {
+            "id": "ane_belti_lamassi",
+            "ru": "Белти-ламасси",
+            "en": "Belti-lamassi"
+          },
+          {
+            "id": "ane_sapirtu",
+            "ru": "Сапирту",
+            "en": "Sapirtu"
+          },
+          {
+            "id": "ane_zakiti",
+            "ru": "Закити",
+            "en": "Zakiti"
+          },
+          {
+            "id": "ane_inbi_ishtar",
+            "ru": "Инби-Иштар",
+            "en": "Inbi-Ishtar"
+          },
+          {
+            "id": "ane_ashuritu",
+            "ru": "Ашшурити",
+            "en": "Ashuritu"
+          },
+          {
+            "id": "ane_ili_rimni",
+            "ru": "Или-римни",
+            "en": "Ili-rimni"
+          }
+        ]
+      },
+      "religions": {
+        "mesopotamian_gods": 100
+      },
+      "scene": {
+        "style": "mesopotamian",
+        "land": "dry",
+        "prompt": "The city of Assur on a rocky bluff above the Tigris, Middle Assyrian period: the temple of the god Ashur, ziggurat, royal palace, city walls, steppe and barley fields beyond the river"
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "slave",
+      "status": 5,
+      "money": [
+        0,
+        5
+      ],
+      "upkeep": 0,
+      "mortality": 1.15,
+      "tags": [
+        "enslaved"
+      ]
+    },
+    {
+      "id": "peasant",
+      "status": 25,
+      "money": [
+        40,
+        160
+      ],
+      "upkeep": 140,
+      "mortality": 1,
+      "tags": [
+        "rural",
+        "raised_farming"
+      ]
+    },
+    {
+      "id": "craftsman",
+      "status": 38,
+      "money": [
+        60,
+        220
+      ],
+      "upkeep": 190,
+      "mortality": 1,
+      "tags": [
+        "lives_in_city",
+        "raised_craft"
+      ]
+    },
+    {
+      "id": "trader",
+      "status": 48,
+      "money": [
+        150,
+        500
+      ],
+      "upkeep": 250,
+      "mortality": 0.95,
+      "tags": [
+        "lives_in_city",
+        "raised_trade"
+      ]
+    },
+    {
+      "id": "landowner",
+      "status": 72,
+      "money": [
+        500,
+        1500
+      ],
+      "upkeep": 450,
+      "mortality": 0.85,
+      "tags": [
+        "raised_management",
+        "wealthy"
+      ]
+    },
+    {
+      "id": "noble",
+      "status": 92,
+      "money": [
+        3000,
+        9000
+      ],
+      "upkeep": 1200,
+      "mortality": 0.8,
+      "tags": [
+        "lives_in_city",
+        "raised_management",
+        "wealthy"
+      ]
+    }
+  ],
+  "professions": [
+    {
+      "id": "farmer",
+      "classes": [
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "farming"
+    },
+    {
+      "id": "laborer",
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 12,
+      "income": [
+        130,
+        210
+      ],
+      "skill": "craft",
+      "mortality": 1.1
+    },
+    {
+      "id": "artisan",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        180,
+        330
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "weaver",
+      "sex": "f",
+      "classes": [
+        "craftsman",
+        "peasant",
+        "trader"
+      ],
+      "minAge": 12,
+      "income": [
+        140,
+        240
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "midwife",
+      "sex": "f",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "slave"
+      ],
+      "minAge": 16,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "merchant",
+      "classes": [
+        "trader",
+        "craftsman"
+      ],
+      "minAge": 14,
+      "income": [
+        150,
+        650
+      ],
+      "skill": "trade",
+      "stress": 2
+    },
+    {
+      "id": "sailor",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 14,
+      "income": [
+        170,
+        290
+      ],
+      "skill": "seafaring",
+      "mortality": 1.3
+    },
+    {
+      "id": "soldier",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner"
+      ],
+      "minAge": 17,
+      "income": [
+        160,
+        270
+      ],
+      "skill": "military",
+      "mortality": 1.5,
+      "stress": 3
+    },
+    {
+      "id": "scribe",
+      "sex": "m",
+      "minAge": 14,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 20
+        }
+      ],
+      "income": [
+        240,
+        420
+      ],
+      "skill": "literacy",
+      "reputation": 2
+    },
+    {
+      "id": "physician",
+      "sex": "m",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 25
+        },
+        {
+          "param": "intellect",
+          "op": ">=",
+          "value": 55
+        }
+      ],
+      "income": [
+        260,
+        650
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "priest",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "landowner",
+        "noble"
+      ],
+      "income": [
+        220,
+        420
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "landholder",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 16,
+      "income": [
+        550,
+        950
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "magistrate",
+      "sex": "m",
+      "classes": [
+        "noble"
+      ],
+      "minAge": 18,
+      "income": [
+        1800,
+        4000
+      ],
+      "skill": "management",
+      "reputation": 2,
+      "stress": 3
+    },
+    {
+      "id": "matron",
+      "sex": "f",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "income": [
+        500,
+        1500
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "household_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        5,
+        25
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "field_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        0,
+        10
+      ],
+      "skill": "farming",
+      "mortality": 1.3,
+      "stress": 3
+    },
+    {
+      "id": "tomb_builder",
+      "sex": "m",
+      "regions": [
+        "thebes"
+      ],
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 14,
+      "income": [
+        220,
+        340
+      ],
+      "skill": "craft",
+      "reputation": 1,
+      "stress": 2
+    },
+    {
+      "id": "embalmer",
+      "sex": "m",
+      "regions": [
+        "thebes",
+        "memphis"
+      ],
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 14,
+      "income": [
+        200,
+        360
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "maryannu",
+      "sex": "m",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 17,
+      "requirements": [
+        {
+          "param": "strength",
+          "op": ">=",
+          "value": 45
+        }
+      ],
+      "income": [
+        400,
+        800
+      ],
+      "skill": "military",
+      "mortality": 1.6,
+      "stress": 3,
+      "reputation": 2
+    },
+    {
+      "id": "brewer",
+      "sex": "f",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 13,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "baru",
+      "sex": "m",
+      "regions": [
+        "babylon",
+        "assur"
+      ],
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "minAge": 16,
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 20
+        }
+      ],
+      "income": [
+        280,
+        600
+      ],
+      "skill": "literacy",
+      "reputation": 2
+    },
+    {
+      "id": "potter",
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 12,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "chantress",
+      "sex": "f",
+      "regions": [
+        "thebes",
+        "memphis"
+      ],
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "income": [
+        160,
+        320
+      ],
+      "skill": "oratory",
+      "reputation": 1
+    },
+    {
+      "id": "officer",
+      "promotion_only": true,
+      "sex": "m",
+      "minAge": 25,
+      "income": [
+        500,
+        900
+      ],
+      "skill": "military",
+      "mortality": 1.4,
+      "stress": 3,
+      "reputation": 2
+    },
+    {
+      "id": "workshop_owner",
+      "promotion_only": true,
+      "minAge": 20,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "craft",
+      "stress": 2,
+      "reputation": 1
+    },
+    {
+      "id": "shipowner",
+      "promotion_only": true,
+      "minAge": 25,
+      "income": [
+        700,
+        2000
+      ],
+      "skill": "trade",
+      "stress": 3,
+      "reputation": 1
+    },
+    {
+      "id": "official",
+      "promotion_only": true,
+      "minAge": 22,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "literacy",
+      "stress": 2,
+      "reputation": 2
+    },
+    {
+      "id": "overseer",
+      "promotion_only": true,
+      "classes": [
+        "slave"
+      ],
+      "minAge": 20,
+      "income": [
+        20,
+        60
+      ],
+      "skill": "management",
+      "stress": 2
+    }
+  ],
+  "focuses": [
+    {
+      "id": "play",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 1
+        },
+        {
+          "param": "loneliness",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "ages": [
+        5,
+        11
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "param": "money",
+          "delta": -20
+        }
+      ]
+    },
+    {
+      "id": "help_family",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 2
+        },
+        {
+          "skill": "craft",
+          "delta": 2
+        },
+        {
+          "skill": "farming",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": 10
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "ages": [
+        12,
+        120
+      ],
+      "incomeMultiplier": 1.5,
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        }
+      ]
+    },
+    {
+      "id": "study",
+      "ages": [
+        12,
+        60
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble",
+            "peasant"
+          ]
+        },
+        {
+          "param": "money",
+          "op": ">=",
+          "value": 60
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "skill": "oratory",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": -60
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "ages": [
+        14,
+        120
+      ],
+      "effects": [
+        {
+          "param": "loneliness",
+          "delta": -6
+        },
+        {
+          "param": "happiness",
+          "delta": 3
+        },
+        {
+          "npc_attitude": "spouse",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "child",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "mother",
+          "delta": 4
+        },
+        {
+          "npc_attitude": "father",
+          "delta": 4
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "health",
+          "delta": 3
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "ages": [
+        16,
+        70
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "trade",
+          "delta": 4
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.5,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        },
+        {
+          "chance": 0.35,
+          "effects": [
+            {
+              "param": "money",
+              "delta": -70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "ages": [
+        17,
+        45
+      ],
+      "conditions": [
+        {
+          "sex": "m"
+        },
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "military",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 2
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.06,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -6
+        },
+        {
+          "param": "loneliness",
+          "delta": -3
+        },
+        {
+          "param": "money",
+          "delta": -15
+        }
+      ]
+    },
+    {
+      "id": "religion",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "faith",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 1
+        }
+      ]
+    },
+    {
+      "id": "savings",
+      "ages": [
+        16,
+        120
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "money",
+          "delta": 60
+        },
+        {
+          "param": "happiness",
+          "delta": -2
+        },
+        {
+          "param": "stress",
+          "delta": 1
+        }
+      ]
+    }
+  ],
+  "mortality": {
+    "qx": [
+      [
+        0,
+        0.3
+      ],
+      [
+        1,
+        0.06
+      ],
+      [
+        5,
+        0.015
+      ],
+      [
+        10,
+        0.011
+      ],
+      [
+        15,
+        0.014
+      ],
+      [
+        20,
+        0.019
+      ],
+      [
+        25,
+        0.022
+      ],
+      [
+        30,
+        0.025
+      ],
+      [
+        35,
+        0.028
+      ],
+      [
+        40,
+        0.032
+      ],
+      [
+        45,
+        0.037
+      ],
+      [
+        50,
+        0.045
+      ],
+      [
+        55,
+        0.056
+      ],
+      [
+        60,
+        0.075
+      ],
+      [
+        65,
+        0.1
+      ],
+      [
+        70,
+        0.14
+      ],
+      [
+        75,
+        0.2
+      ],
+      [
+        80,
+        0.28
+      ],
+      [
+        85,
+        0.35
+      ],
+      [
+        90,
+        0.45
+      ]
+    ],
+    "childbirth": 0.018,
+    "calibration": 0.85,
+    "causes": [
+      {
+        "id": "infant_illness",
+        "ages": [
+          0,
+          4
+        ],
+        "weight": 10
+      },
+      {
+        "id": "fever",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 5
+      },
+      {
+        "id": "illness",
+        "ages": [
+          5,
+          120
+        ],
+        "weight": 8
+      },
+      {
+        "id": "accident",
+        "ages": [
+          5,
+          70
+        ],
+        "weight": 2
+      },
+      {
+        "id": "scorpion",
+        "ages": [
+          3,
+          80
+        ],
+        "weight": 1
+      },
+      {
+        "id": "war",
+        "ages": [
+          17,
+          50
+        ],
+        "weight": 6,
+        "conditions": [
+          {
+            "profession": [
+              "soldier",
+              "maryannu",
+              "officer"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "drowning",
+        "ages": [
+          14,
+          70
+        ],
+        "weight": 3,
+        "conditions": [
+          {
+            "profession": [
+              "sailor"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cave_in",
+        "ages": [
+          14,
+          70
+        ],
+        "weight": 3,
+        "conditions": [
+          {
+            "profession": [
+              "tomb_builder"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hunger",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 2,
+        "conditions": [
+          {
+            "tag": "in_debt"
+          }
+        ]
+      },
+      {
+        "id": "old_age",
+        "ages": [
+          55,
+          120
+        ],
+        "weight": 12
+      }
+    ]
+  },
+  "lifestyle": [
+    {
+      "id": "food",
+      "minAge": 12,
+      "default": "plain",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "meager",
+          "cost": -40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -2
+            },
+            {
+              "param": "happiness",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.12
+        },
+        {
+          "id": "plain",
+          "cost": 0
+        },
+        {
+          "id": "varied",
+          "cost": 70,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            }
+          ],
+          "mortality": 0.92,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 70
+            }
+          ]
+        },
+        {
+          "id": "feasts",
+          "cost": 300,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 2
+            },
+            {
+              "param": "reputation",
+              "delta": 1
+            },
+            {
+              "chance": 0.3,
+              "effects": [
+                {
+                  "param": "health",
+                  "delta": -1
+                }
+              ]
+            }
+          ],
+          "mortality": 1.02,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exercise",
+      "minAge": 8,
+      "default": "chores",
+      "options": [
+        {
+          "id": "rest",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "stress",
+              "delta": -2
+            },
+            {
+              "param": "health",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.05
+        },
+        {
+          "id": "chores",
+          "cost": 0
+        },
+        {
+          "id": "walks",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.96
+        },
+        {
+          "id": "gymnasium",
+          "cost": 40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 2
+            },
+            {
+              "param": "strength",
+              "delta": 1
+            }
+          ],
+          "mortality": 0.9,
+          "requirements": [
+            {
+              "classes": [
+                "craftsman",
+                "trader",
+                "landowner",
+                "noble"
+              ]
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medicine",
+      "minAge": 12,
+      "default": "home",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "home",
+          "cost": 0
+        },
+        {
+          "id": "temple",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "faith",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "id": "physician",
+          "cost": 150,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            },
+            {
+              "remove_tag": "ill"
+            }
+          ],
+          "mortality": 0.85,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baths",
+      "minAge": 10,
+      "default": "sometimes",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "rarely",
+          "cost": 0,
+          "mortality": 1.04
+        },
+        {
+          "id": "sometimes",
+          "cost": 5
+        },
+        {
+          "id": "daily",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 1
+            },
+            {
+              "param": "loneliness",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "tag": "lives_in_city"
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "vices": [
+    {
+      "tag": "drinker",
+      "cost": 40,
+      "mortality": 1.18,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2
+        },
+        {
+          "param": "happiness",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": -2
+        },
+        {
+          "param": "diligence",
+          "delta": -1
+        },
+        {
+          "param": "reputation",
+          "delta": -1
+        }
+      ]
+    },
+    {
+      "tag": "gambler",
+      "cost": 0,
+      "mortality": 1.03,
+      "effects": [
+        {
+          "param": "stress",
+          "delta": 4
+        },
+        {
+          "chance": 0.4,
+          "effects": [
+            {
+              "money_pct": -25
+            }
+          ]
+        },
+        {
+          "chance": 0.2,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "opium",
+      "cost": 60,
+      "mortality": 1.22,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2.5
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "diligence",
+          "delta": -2
+        },
+        {
+          "param": "intellect",
+          "delta": -1
+        }
+      ]
+    }
+  ]
+}

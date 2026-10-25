@@ -1,0 +1,3118 @@
+{
+  "id": "IND",
+  "years": [
+    1200,
+    1600
+  ],
+  "population": 110,
+  "features": [
+    "coins",
+    "writing",
+    "paper",
+    "iron",
+    "horses",
+    "elephants",
+    "rice",
+    "monsoon",
+    "sea",
+    "river",
+    "slavery",
+    "camels",
+    "gunpowder"
+  ],
+  "exclude_events": [
+    "a_goat_vineyard",
+    "a_stolen_tunic",
+    "c_broken_amphora",
+    "c_h_gym_invite",
+    "c_h_back",
+    "d_m_grave",
+    "j_land_vines",
+    "j_fs_vines",
+    "j_mag_election"
+  ],
+  "stages": {
+    "youth": 12,
+    "adult": 18,
+    "old": 55
+  },
+  "marriageAge": {
+    "m": [
+      16,
+      30
+    ],
+    "f": [
+      12,
+      18
+    ]
+  },
+  "lifeExpectancy": 26,
+  "inheritance": "sons_first",
+  "traits": [
+    "cautious",
+    "ambitious",
+    "kind",
+    "hot_tempered",
+    "curious",
+    "reserved",
+    "generous",
+    "pious",
+    "cunning",
+    "brave"
+  ],
+  "skills": [
+    "literacy",
+    "trade",
+    "craft",
+    "farming",
+    "military",
+    "medicine",
+    "management",
+    "oratory",
+    "seafaring"
+  ],
+  "regions": [
+    {
+      "id": "delhi",
+      "weight": 4,
+      "years": [
+        1200,
+        1600
+      ],
+      "coin": "tanka",
+      "classWeights": {
+        "slave": 8,
+        "peasant": 50,
+        "craftsman": 18,
+        "trader": 10,
+        "landowner": 10,
+        "noble": 4
+      },
+      "names": {
+        "m": [
+          {
+            "id": "ind_ram",
+            "ru": "Рам",
+            "en": "Ram"
+          },
+          {
+            "id": "ind_mohan",
+            "ru": "Мохан",
+            "en": "Mohan"
+          },
+          {
+            "id": "ind_hari",
+            "ru": "Хари",
+            "en": "Hari"
+          },
+          {
+            "id": "ind_govind",
+            "ru": "Говинд",
+            "en": "Govind"
+          },
+          {
+            "id": "ind_kishan",
+            "ru": "Кишан",
+            "en": "Kishan"
+          },
+          {
+            "id": "ind_lakhan",
+            "ru": "Лакхан",
+            "en": "Lakhan"
+          },
+          {
+            "id": "ind_bhola",
+            "ru": "Бхола",
+            "en": "Bhola"
+          },
+          {
+            "id": "ind_sundar",
+            "ru": "Сундар",
+            "en": "Sundar"
+          },
+          {
+            "id": "ind_prithvi",
+            "ru": "Притхви",
+            "en": "Prithvi"
+          },
+          {
+            "id": "ind_hemu",
+            "ru": "Хему",
+            "en": "Hemu"
+          },
+          {
+            "id": "ind_todar",
+            "ru": "Тодар",
+            "en": "Todar"
+          },
+          {
+            "id": "ind_man",
+            "ru": "Ман",
+            "en": "Man"
+          },
+          {
+            "id": "ind_raghu",
+            "ru": "Рагху",
+            "en": "Raghu"
+          },
+          {
+            "id": "ind_jai",
+            "ru": "Джай",
+            "en": "Jai"
+          },
+          {
+            "id": "ind_bharat",
+            "ru": "Бхарат",
+            "en": "Bharat"
+          },
+          {
+            "id": "ind_tulsi",
+            "ru": "Тулси",
+            "en": "Tulsi"
+          },
+          {
+            "id": "ind_kabir",
+            "ru": "Кабир",
+            "en": "Kabir"
+          },
+          {
+            "id": "ind_amir",
+            "ru": "Амир",
+            "en": "Amir"
+          },
+          {
+            "id": "ind_khusrau",
+            "ru": "Хусрау",
+            "en": "Khusrau"
+          },
+          {
+            "id": "ind_nizam",
+            "ru": "Низам",
+            "en": "Nizam"
+          },
+          {
+            "id": "ind_mahmud",
+            "ru": "Махмуд",
+            "en": "Mahmud"
+          },
+          {
+            "id": "ind_firuz",
+            "ru": "Фируз",
+            "en": "Firuz"
+          },
+          {
+            "id": "ind_ghiyas",
+            "ru": "Гияс",
+            "en": "Ghiyas"
+          },
+          {
+            "id": "ind_ibrahim",
+            "ru": "Ибрахим",
+            "en": "Ibrahim"
+          },
+          {
+            "id": "ind_bahlul",
+            "ru": "Бахлул",
+            "en": "Bahlul"
+          },
+          {
+            "id": "ind_sikandar",
+            "ru": "Искандер",
+            "en": "Sikandar"
+          },
+          {
+            "id": "ind_farid",
+            "ru": "Фарид",
+            "en": "Farid"
+          },
+          {
+            "id": "ind_salim",
+            "ru": "Салим",
+            "en": "Salim"
+          },
+          {
+            "id": "ind_murad",
+            "ru": "Мурад",
+            "en": "Murad"
+          },
+          {
+            "id": "ind_abdul",
+            "ru": "Абдул",
+            "en": "Abdul"
+          },
+          {
+            "id": "ind_bairam",
+            "ru": "Байрам",
+            "en": "Bairam"
+          },
+          {
+            "id": "ind_sher",
+            "ru": "Шер",
+            "en": "Sher"
+          },
+          {
+            "id": "ind_ahmad",
+            "ru": "Ахмад",
+            "en": "Ahmad"
+          },
+          {
+            "id": "ind_chand",
+            "ru": "Чанд",
+            "en": "Chand"
+          }
+        ],
+        "f": [
+          {
+            "id": "ind_razia",
+            "ru": "Разия",
+            "en": "Razia"
+          },
+          {
+            "id": "ind_gulbadan",
+            "ru": "Гульбадан",
+            "en": "Gulbadan"
+          },
+          {
+            "id": "ind_hamida",
+            "ru": "Хамида",
+            "en": "Hamida"
+          },
+          {
+            "id": "ind_maham",
+            "ru": "Махам",
+            "en": "Maham"
+          },
+          {
+            "id": "ind_salima",
+            "ru": "Салима",
+            "en": "Salima"
+          },
+          {
+            "id": "ind_ruqaiya",
+            "ru": "Рукайя",
+            "en": "Ruqaiya"
+          },
+          {
+            "id": "ind_bilqis",
+            "ru": "Билкис",
+            "en": "Bilqis"
+          },
+          {
+            "id": "ind_nur",
+            "ru": "Нур",
+            "en": "Nur"
+          },
+          {
+            "id": "ind_mumtaz",
+            "ru": "Мумтаз",
+            "en": "Mumtaz"
+          },
+          {
+            "id": "ind_fatima",
+            "ru": "Фатима",
+            "en": "Fatima"
+          },
+          {
+            "id": "ind_ayesha",
+            "ru": "Айша",
+            "en": "Ayesha"
+          },
+          {
+            "id": "ind_amina",
+            "ru": "Амина",
+            "en": "Amina"
+          },
+          {
+            "id": "ind_sakina",
+            "ru": "Сакина",
+            "en": "Sakina"
+          },
+          {
+            "id": "ind_zainab",
+            "ru": "Зайнаб",
+            "en": "Zainab"
+          },
+          {
+            "id": "ind_mehr",
+            "ru": "Мехр",
+            "en": "Mehr"
+          },
+          {
+            "id": "ind_sita",
+            "ru": "Сита",
+            "en": "Sita"
+          },
+          {
+            "id": "ind_gita",
+            "ru": "Гита",
+            "en": "Gita"
+          },
+          {
+            "id": "ind_sushila",
+            "ru": "Сушила",
+            "en": "Sushila"
+          },
+          {
+            "id": "ind_kaushalya",
+            "ru": "Каушалья",
+            "en": "Kaushalya"
+          },
+          {
+            "id": "ind_kamla",
+            "ru": "Камла",
+            "en": "Kamla"
+          },
+          {
+            "id": "ind_savitri",
+            "ru": "Савитри",
+            "en": "Savitri"
+          },
+          {
+            "id": "ind_radha",
+            "ru": "Радха",
+            "en": "Radha"
+          },
+          {
+            "id": "ind_lakshmi",
+            "ru": "Лакшми",
+            "en": "Lakshmi"
+          },
+          {
+            "id": "ind_parvati",
+            "ru": "Парвати",
+            "en": "Parvati"
+          },
+          {
+            "id": "ind_durgavati",
+            "ru": "Дургавати",
+            "en": "Durgavati"
+          },
+          {
+            "id": "ind_padmini",
+            "ru": "Падмини",
+            "en": "Padmini"
+          },
+          {
+            "id": "ind_harkha",
+            "ru": "Харкха",
+            "en": "Harkha"
+          },
+          {
+            "id": "ind_ganga",
+            "ru": "Ганга",
+            "en": "Ganga"
+          },
+          {
+            "id": "ind_yamuna",
+            "ru": "Ямуна",
+            "en": "Yamuna"
+          },
+          {
+            "id": "ind_champa",
+            "ru": "Чампа",
+            "en": "Champa"
+          },
+          {
+            "id": "ind_ratna",
+            "ru": "Ратна",
+            "en": "Ratna"
+          },
+          {
+            "id": "ind_mira",
+            "ru": "Мира",
+            "en": "Mira"
+          },
+          {
+            "id": "ind_bhagwati",
+            "ru": "Бхагвати",
+            "en": "Bhagwati"
+          },
+          {
+            "id": "ind_kesar",
+            "ru": "Кесар",
+            "en": "Kesar"
+          }
+        ]
+      },
+      "tags": [
+        "capital"
+      ],
+      "religions": {
+        "hindu": 87,
+        "islam": 9,
+        "jain": 4
+      },
+      "religionEras": [
+        {
+          "from": 1300,
+          "religions": {
+            "hindu": 80,
+            "islam": 16,
+            "jain": 4
+          }
+        },
+        {
+          "from": 1450,
+          "religions": {
+            "hindu": 74,
+            "islam": 23,
+            "jain": 3
+          }
+        },
+        {
+          "from": 1540,
+          "religions": {
+            "hindu": 70,
+            "islam": 27,
+            "jain": 3
+          }
+        }
+      ],
+      "classReligions": {
+        "noble": {
+          "islam": 75,
+          "hindu": 24,
+          "jain": 1
+        }
+      },
+      "scene": {
+        "style": "indian",
+        "land": "dry",
+        "prompt": "Delhi on the Yamuna plain: red sandstone minarets, domed tombs, mud-brick lanes, dusty fields and mango groves"
+      }
+    },
+    {
+      "id": "vijayanagara",
+      "weight": 3,
+      "years": [
+        1336,
+        1600
+      ],
+      "coin": "fanam",
+      "classWeights": {
+        "slave": 5,
+        "peasant": 55,
+        "craftsman": 17,
+        "trader": 9,
+        "landowner": 11,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "ind_krishna",
+            "ru": "Кришна",
+            "en": "Krishna"
+          },
+          {
+            "id": "ind_rama",
+            "ru": "Рама",
+            "en": "Rama"
+          },
+          {
+            "id": "ind_timma",
+            "ru": "Тимма",
+            "en": "Timma"
+          },
+          {
+            "id": "ind_basava",
+            "ru": "Басава",
+            "en": "Basava"
+          },
+          {
+            "id": "ind_mallappa",
+            "ru": "Маллаппа",
+            "en": "Mallappa"
+          },
+          {
+            "id": "ind_channa",
+            "ru": "Ченна",
+            "en": "Channa"
+          },
+          {
+            "id": "ind_venkata",
+            "ru": "Венката",
+            "en": "Venkata"
+          },
+          {
+            "id": "ind_narasimha",
+            "ru": "Нарасимха",
+            "en": "Narasimha"
+          },
+          {
+            "id": "ind_harihara",
+            "ru": "Харихара",
+            "en": "Harihara"
+          },
+          {
+            "id": "ind_bukka",
+            "ru": "Букка",
+            "en": "Bukka"
+          },
+          {
+            "id": "ind_tirumala",
+            "ru": "Тирумала",
+            "en": "Tirumala"
+          },
+          {
+            "id": "ind_achyuta",
+            "ru": "Ачьюта",
+            "en": "Achyuta"
+          },
+          {
+            "id": "ind_veerabhadra",
+            "ru": "Вирабхадра",
+            "en": "Veerabhadra"
+          },
+          {
+            "id": "ind_linga",
+            "ru": "Линга",
+            "en": "Linga"
+          },
+          {
+            "id": "ind_siddappa",
+            "ru": "Сиддаппа",
+            "en": "Siddappa"
+          },
+          {
+            "id": "ind_govinda",
+            "ru": "Говинда",
+            "en": "Govinda"
+          },
+          {
+            "id": "ind_nagappa",
+            "ru": "Нагаппа",
+            "en": "Nagappa"
+          },
+          {
+            "id": "ind_ranga",
+            "ru": "Ранга",
+            "en": "Ranga"
+          },
+          {
+            "id": "ind_kumara",
+            "ru": "Кумара",
+            "en": "Kumara"
+          },
+          {
+            "id": "ind_somanatha",
+            "ru": "Соманатха",
+            "en": "Somanatha"
+          },
+          {
+            "id": "ind_virupaksha",
+            "ru": "Вирупакша",
+            "en": "Virupaksha"
+          },
+          {
+            "id": "ind_chinna",
+            "ru": "Чинна",
+            "en": "Chinna"
+          },
+          {
+            "id": "ind_peddanna",
+            "ru": "Педдана",
+            "en": "Peddanna"
+          },
+          {
+            "id": "ind_appaya",
+            "ru": "Аппайя",
+            "en": "Appaya"
+          },
+          {
+            "id": "ind_kesava",
+            "ru": "Кешава",
+            "en": "Kesava"
+          },
+          {
+            "id": "ind_mahadeva",
+            "ru": "Махадева",
+            "en": "Mahadeva"
+          },
+          {
+            "id": "ind_shankara",
+            "ru": "Шанкара",
+            "en": "Shankara"
+          },
+          {
+            "id": "ind_gangadhara",
+            "ru": "Гангадхара",
+            "en": "Gangadhara"
+          },
+          {
+            "id": "ind_madhava",
+            "ru": "Мадхава",
+            "en": "Madhava"
+          },
+          {
+            "id": "ind_sayana",
+            "ru": "Саяна",
+            "en": "Sayana"
+          },
+          {
+            "id": "ind_devaraya",
+            "ru": "Деварая",
+            "en": "Devaraya"
+          },
+          {
+            "id": "ind_hampanna",
+            "ru": "Хампанна",
+            "en": "Hampanna"
+          }
+        ],
+        "f": [
+          {
+            "id": "ind_tirumalamba",
+            "ru": "Тирумаламба",
+            "en": "Tirumalamba"
+          },
+          {
+            "id": "ind_chinnadevi",
+            "ru": "Чиннадеви",
+            "en": "Chinnadevi"
+          },
+          {
+            "id": "ind_lakshmamma",
+            "ru": "Лакшмамма",
+            "en": "Lakshmamma"
+          },
+          {
+            "id": "ind_kamala",
+            "ru": "Камала",
+            "en": "Kamala"
+          },
+          {
+            "id": "ind_nagamma",
+            "ru": "Нагамма",
+            "en": "Nagamma"
+          },
+          {
+            "id": "ind_honnamma",
+            "ru": "Хоннамма",
+            "en": "Honnamma"
+          },
+          {
+            "id": "ind_akka",
+            "ru": "Акка",
+            "en": "Akka"
+          },
+          {
+            "id": "ind_mallamma",
+            "ru": "Малламма",
+            "en": "Mallamma"
+          },
+          {
+            "id": "ind_channamma",
+            "ru": "Ченнамма",
+            "en": "Channamma"
+          },
+          {
+            "id": "ind_basamma",
+            "ru": "Басамма",
+            "en": "Basamma"
+          },
+          {
+            "id": "ind_rukmini",
+            "ru": "Рукмини",
+            "en": "Rukmini"
+          },
+          {
+            "id": "ind_gauri",
+            "ru": "Гаури",
+            "en": "Gauri"
+          },
+          {
+            "id": "ind_saraswati",
+            "ru": "Сарасвати",
+            "en": "Saraswati"
+          },
+          {
+            "id": "ind_annapurna",
+            "ru": "Аннапурна",
+            "en": "Annapurna"
+          },
+          {
+            "id": "ind_tulasi",
+            "ru": "Туласи",
+            "en": "Tulasi"
+          },
+          {
+            "id": "ind_padma",
+            "ru": "Падма",
+            "en": "Padma"
+          },
+          {
+            "id": "ind_kaveri",
+            "ru": "Кавери",
+            "en": "Kaveri"
+          },
+          {
+            "id": "ind_yashoda",
+            "ru": "Яшода",
+            "en": "Yashoda"
+          },
+          {
+            "id": "ind_bhagirathi",
+            "ru": "Бхагиратхи",
+            "en": "Bhagirathi"
+          },
+          {
+            "id": "ind_mangamma",
+            "ru": "Мангамма",
+            "en": "Mangamma"
+          },
+          {
+            "id": "ind_venkamma",
+            "ru": "Венкамма",
+            "en": "Venkamma"
+          },
+          {
+            "id": "ind_rangamma",
+            "ru": "Рангамма",
+            "en": "Rangamma"
+          },
+          {
+            "id": "ind_durgamma",
+            "ru": "Дургамма",
+            "en": "Durgamma"
+          },
+          {
+            "id": "ind_kanakamma",
+            "ru": "Канакамма",
+            "en": "Kanakamma"
+          },
+          {
+            "id": "ind_thimmamma",
+            "ru": "Тиммамма",
+            "en": "Thimmamma"
+          },
+          {
+            "id": "ind_obavva",
+            "ru": "Обавва",
+            "en": "Obavva"
+          },
+          {
+            "id": "ind_sharada",
+            "ru": "Шарада",
+            "en": "Sharada"
+          },
+          {
+            "id": "ind_hemavati",
+            "ru": "Хемавати",
+            "en": "Hemavati"
+          },
+          {
+            "id": "ind_varadambika",
+            "ru": "Варадамбика",
+            "en": "Varadambika"
+          },
+          {
+            "id": "ind_gangamma",
+            "ru": "Гангамма",
+            "en": "Gangamma"
+          },
+          {
+            "id": "ind_mohana",
+            "ru": "Мохана",
+            "en": "Mohana"
+          },
+          {
+            "id": "ind_tara",
+            "ru": "Тара",
+            "en": "Tara"
+          }
+        ]
+      },
+      "religions": {
+        "hindu": 92,
+        "jain": 4,
+        "islam": 4
+      },
+      "religionEras": [
+        {
+          "from": 1450,
+          "religions": {
+            "hindu": 91,
+            "jain": 3,
+            "islam": 6
+          }
+        }
+      ],
+      "scene": {
+        "style": "indian",
+        "land": "dry",
+        "prompt": "Hampi on the Tungabhadra river: granite boulder hills, towering temple gopurams, stone bazaar colonnades, banana groves and paddy fields"
+      }
+    },
+    {
+      "id": "bengal",
+      "weight": 4,
+      "years": [
+        1200,
+        1600
+      ],
+      "coin": "tanka",
+      "classWeights": {
+        "slave": 6,
+        "peasant": 60,
+        "craftsman": 16,
+        "trader": 8,
+        "landowner": 8,
+        "noble": 2
+      },
+      "names": {
+        "m": [
+          {
+            "id": "ind_haridas",
+            "ru": "Харидас",
+            "en": "Haridas"
+          },
+          {
+            "id": "ind_gopal",
+            "ru": "Гопал",
+            "en": "Gopal"
+          },
+          {
+            "id": "ind_madhab",
+            "ru": "Мадхаб",
+            "en": "Madhab"
+          },
+          {
+            "id": "ind_nimai",
+            "ru": "Нимай",
+            "en": "Nimai"
+          },
+          {
+            "id": "ind_shyam",
+            "ru": "Шьям",
+            "en": "Shyam"
+          },
+          {
+            "id": "ind_kanai",
+            "ru": "Канай",
+            "en": "Kanai"
+          },
+          {
+            "id": "ind_balaram",
+            "ru": "Баларам",
+            "en": "Balaram"
+          },
+          {
+            "id": "ind_chandidas",
+            "ru": "Чандидас",
+            "en": "Chandidas"
+          },
+          {
+            "id": "ind_mukunda",
+            "ru": "Мукунда",
+            "en": "Mukunda"
+          },
+          {
+            "id": "ind_raghunath",
+            "ru": "Рагхунатх",
+            "en": "Raghunath"
+          },
+          {
+            "id": "ind_sanatan",
+            "ru": "Санатан",
+            "en": "Sanatan"
+          },
+          {
+            "id": "ind_rup",
+            "ru": "Руп",
+            "en": "Rup"
+          },
+          {
+            "id": "ind_jiva",
+            "ru": "Джива",
+            "en": "Jiva"
+          },
+          {
+            "id": "ind_murari",
+            "ru": "Мурари",
+            "en": "Murari"
+          },
+          {
+            "id": "ind_shrinivas",
+            "ru": "Шринивас",
+            "en": "Shrinivas"
+          },
+          {
+            "id": "ind_gadadhar",
+            "ru": "Гададхар",
+            "en": "Gadadhar"
+          },
+          {
+            "id": "ind_kashinath",
+            "ru": "Кашинатх",
+            "en": "Kashinath"
+          },
+          {
+            "id": "ind_nitai",
+            "ru": "Нитай",
+            "en": "Nitai"
+          },
+          {
+            "id": "ind_ramai",
+            "ru": "Рамай",
+            "en": "Ramai"
+          },
+          {
+            "id": "ind_bhabananda",
+            "ru": "Бхабананда",
+            "en": "Bhabananda"
+          },
+          {
+            "id": "ind_hussain",
+            "ru": "Хусейн",
+            "en": "Hussain"
+          },
+          {
+            "id": "ind_nusrat",
+            "ru": "Нусрат",
+            "en": "Nusrat"
+          },
+          {
+            "id": "ind_alauddin",
+            "ru": "Алауддин",
+            "en": "Alauddin"
+          },
+          {
+            "id": "ind_ilyas",
+            "ru": "Ильяс",
+            "en": "Ilyas"
+          },
+          {
+            "id": "ind_jalal",
+            "ru": "Джалал",
+            "en": "Jalal"
+          },
+          {
+            "id": "ind_rukun",
+            "ru": "Рукун",
+            "en": "Rukun"
+          },
+          {
+            "id": "ind_shamsuddin",
+            "ru": "Шамсуддин",
+            "en": "Shamsuddin"
+          },
+          {
+            "id": "ind_barbak",
+            "ru": "Барбак",
+            "en": "Barbak"
+          },
+          {
+            "id": "ind_daud",
+            "ru": "Дауд",
+            "en": "Daud"
+          },
+          {
+            "id": "ind_ismail",
+            "ru": "Исмаил",
+            "en": "Ismail"
+          },
+          {
+            "id": "ind_karim",
+            "ru": "Карим",
+            "en": "Karim"
+          },
+          {
+            "id": "ind_rahim",
+            "ru": "Рахим",
+            "en": "Rahim"
+          },
+          {
+            "id": "ind_fazl",
+            "ru": "Фазл",
+            "en": "Fazl"
+          }
+        ],
+        "f": [
+          {
+            "id": "ind_shachi",
+            "ru": "Шачи",
+            "en": "Shachi"
+          },
+          {
+            "id": "ind_bishnupriya",
+            "ru": "Бишнуприя",
+            "en": "Bishnupriya"
+          },
+          {
+            "id": "ind_radhika",
+            "ru": "Радхика",
+            "en": "Radhika"
+          },
+          {
+            "id": "ind_malati",
+            "ru": "Малати",
+            "en": "Malati"
+          },
+          {
+            "id": "ind_sumati",
+            "ru": "Сумати",
+            "en": "Sumati"
+          },
+          {
+            "id": "ind_kamala",
+            "ru": "Камала",
+            "en": "Kamala"
+          },
+          {
+            "id": "ind_durga",
+            "ru": "Дурга",
+            "en": "Durga"
+          },
+          {
+            "id": "ind_kalidasi",
+            "ru": "Калидаси",
+            "en": "Kalidasi"
+          },
+          {
+            "id": "ind_lakshmi",
+            "ru": "Лакшми",
+            "en": "Lakshmi"
+          },
+          {
+            "id": "ind_annada",
+            "ru": "Аннада",
+            "en": "Annada"
+          },
+          {
+            "id": "ind_basanti",
+            "ru": "Басанти",
+            "en": "Basanti"
+          },
+          {
+            "id": "ind_champa",
+            "ru": "Чампа",
+            "en": "Champa"
+          },
+          {
+            "id": "ind_chandana",
+            "ru": "Чандана",
+            "en": "Chandana"
+          },
+          {
+            "id": "ind_jahnava",
+            "ru": "Джахнава",
+            "en": "Jahnava"
+          },
+          {
+            "id": "ind_padmavati",
+            "ru": "Падмавати",
+            "en": "Padmavati"
+          },
+          {
+            "id": "ind_sita",
+            "ru": "Сита",
+            "en": "Sita"
+          },
+          {
+            "id": "ind_gauri",
+            "ru": "Гаури",
+            "en": "Gauri"
+          },
+          {
+            "id": "ind_bimala",
+            "ru": "Бимала",
+            "en": "Bimala"
+          },
+          {
+            "id": "ind_kusum",
+            "ru": "Кусум",
+            "en": "Kusum"
+          },
+          {
+            "id": "ind_mohini",
+            "ru": "Мохини",
+            "en": "Mohini"
+          },
+          {
+            "id": "ind_ratnavali",
+            "ru": "Ратнавали",
+            "en": "Ratnavali"
+          },
+          {
+            "id": "ind_uma",
+            "ru": "Ума",
+            "en": "Uma"
+          },
+          {
+            "id": "ind_jamuna",
+            "ru": "Джамуна",
+            "en": "Jamuna"
+          },
+          {
+            "id": "ind_phulmoni",
+            "ru": "Пхулмони",
+            "en": "Phulmoni"
+          },
+          {
+            "id": "ind_sundari",
+            "ru": "Сундари",
+            "en": "Sundari"
+          },
+          {
+            "id": "ind_amina",
+            "ru": "Амина",
+            "en": "Amina"
+          },
+          {
+            "id": "ind_fatima",
+            "ru": "Фатима",
+            "en": "Fatima"
+          },
+          {
+            "id": "ind_khadija",
+            "ru": "Хадиджа",
+            "en": "Khadija"
+          },
+          {
+            "id": "ind_zainab",
+            "ru": "Зайнаб",
+            "en": "Zainab"
+          },
+          {
+            "id": "ind_sakina",
+            "ru": "Сакина",
+            "en": "Sakina"
+          },
+          {
+            "id": "ind_rahima",
+            "ru": "Рахима",
+            "en": "Rahima"
+          },
+          {
+            "id": "ind_mariam",
+            "ru": "Марьям",
+            "en": "Mariam"
+          }
+        ]
+      },
+      "tags": [
+        "port"
+      ],
+      "religions": {
+        "hindu": 79,
+        "buddhist": 12,
+        "islam": 7,
+        "jain": 2
+      },
+      "religionEras": [
+        {
+          "from": 1300,
+          "religions": {
+            "hindu": 76,
+            "islam": 18,
+            "buddhist": 5,
+            "jain": 1
+          }
+        },
+        {
+          "from": 1450,
+          "religions": {
+            "hindu": 66,
+            "islam": 31,
+            "buddhist": 3
+          }
+        },
+        {
+          "from": 1550,
+          "religions": {
+            "hindu": 60,
+            "islam": 38,
+            "buddhist": 2
+          }
+        }
+      ],
+      "classReligions": {
+        "noble": {
+          "islam": 70,
+          "hindu": 30
+        }
+      },
+      "scene": {
+        "style": "indian",
+        "land": "green",
+        "prompt": "Gaur and Pandua in the Bengal delta: brick mosques with curved roofs, bamboo huts on stilts, rice paddies, river boats and palm trees"
+      }
+    },
+    {
+      "id": "gujarat",
+      "weight": 2,
+      "years": [
+        1200,
+        1600
+      ],
+      "coin": "tanka",
+      "classWeights": {
+        "slave": 5,
+        "peasant": 45,
+        "craftsman": 20,
+        "trader": 18,
+        "landowner": 9,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "ind_vastupal",
+            "ru": "Ваступал",
+            "en": "Vastupal"
+          },
+          {
+            "id": "ind_tejpal",
+            "ru": "Теджпал",
+            "en": "Tejpal"
+          },
+          {
+            "id": "ind_jagadu",
+            "ru": "Джагаду",
+            "en": "Jagadu"
+          },
+          {
+            "id": "ind_narsinh",
+            "ru": "Нарсинх",
+            "en": "Narsinh"
+          },
+          {
+            "id": "ind_bhimdev",
+            "ru": "Бхимдев",
+            "en": "Bhimdev"
+          },
+          {
+            "id": "ind_karna",
+            "ru": "Карна",
+            "en": "Karna"
+          },
+          {
+            "id": "ind_kumarpal",
+            "ru": "Кумарпал",
+            "en": "Kumarpal"
+          },
+          {
+            "id": "ind_shantidas",
+            "ru": "Шантидас",
+            "en": "Shantidas"
+          },
+          {
+            "id": "ind_virji",
+            "ru": "Вирджи",
+            "en": "Virji"
+          },
+          {
+            "id": "ind_lalji",
+            "ru": "Лалджи",
+            "en": "Lalji"
+          },
+          {
+            "id": "ind_devchand",
+            "ru": "Девчанд",
+            "en": "Devchand"
+          },
+          {
+            "id": "ind_somchand",
+            "ru": "Сомчанд",
+            "en": "Somchand"
+          },
+          {
+            "id": "ind_motichand",
+            "ru": "Мотичанд",
+            "en": "Motichand"
+          },
+          {
+            "id": "ind_premji",
+            "ru": "Премджи",
+            "en": "Premji"
+          },
+          {
+            "id": "ind_jivan",
+            "ru": "Дживан",
+            "en": "Jivan"
+          },
+          {
+            "id": "ind_khimji",
+            "ru": "Химджи",
+            "en": "Khimji"
+          },
+          {
+            "id": "ind_dharmsi",
+            "ru": "Дхармси",
+            "en": "Dharmsi"
+          },
+          {
+            "id": "ind_manek",
+            "ru": "Манек",
+            "en": "Manek"
+          },
+          {
+            "id": "ind_harji",
+            "ru": "Харджи",
+            "en": "Harji"
+          },
+          {
+            "id": "ind_ramdas",
+            "ru": "Рамдас",
+            "en": "Ramdas"
+          },
+          {
+            "id": "ind_kanji",
+            "ru": "Канджи",
+            "en": "Kanji"
+          },
+          {
+            "id": "ind_mulji",
+            "ru": "Мулджи",
+            "en": "Mulji"
+          },
+          {
+            "id": "ind_naran",
+            "ru": "Наран",
+            "en": "Naran"
+          },
+          {
+            "id": "ind_bhoja",
+            "ru": "Бходжа",
+            "en": "Bhoja"
+          },
+          {
+            "id": "ind_amar",
+            "ru": "Амар",
+            "en": "Amar"
+          },
+          {
+            "id": "ind_ahmad",
+            "ru": "Ахмад",
+            "en": "Ahmad"
+          },
+          {
+            "id": "ind_mahmud",
+            "ru": "Махмуд",
+            "en": "Mahmud"
+          },
+          {
+            "id": "ind_muzaffar",
+            "ru": "Музаффар",
+            "en": "Muzaffar"
+          },
+          {
+            "id": "ind_yusuf",
+            "ru": "Юсуф",
+            "en": "Yusuf"
+          },
+          {
+            "id": "ind_hasan",
+            "ru": "Хасан",
+            "en": "Hasan"
+          },
+          {
+            "id": "ind_bahadur",
+            "ru": "Бахадур",
+            "en": "Bahadur"
+          },
+          {
+            "id": "ind_alibhai",
+            "ru": "Алибхай",
+            "en": "Alibhai"
+          }
+        ],
+        "f": [
+          {
+            "id": "ind_anupama",
+            "ru": "Анупама",
+            "en": "Anupama"
+          },
+          {
+            "id": "ind_lalita",
+            "ru": "Лалита",
+            "en": "Lalita"
+          },
+          {
+            "id": "ind_devki",
+            "ru": "Девки",
+            "en": "Devki"
+          },
+          {
+            "id": "ind_rajbai",
+            "ru": "Раджбай",
+            "en": "Rajbai"
+          },
+          {
+            "id": "ind_jasoda",
+            "ru": "Джасода",
+            "en": "Jasoda"
+          },
+          {
+            "id": "ind_kunvar",
+            "ru": "Кунвар",
+            "en": "Kunvar"
+          },
+          {
+            "id": "ind_ratanbai",
+            "ru": "Ратанбай",
+            "en": "Ratanbai"
+          },
+          {
+            "id": "ind_manekbai",
+            "ru": "Манекбай",
+            "en": "Manekbai"
+          },
+          {
+            "id": "ind_ladubai",
+            "ru": "Ладубай",
+            "en": "Ladubai"
+          },
+          {
+            "id": "ind_sonbai",
+            "ru": "Сонбай",
+            "en": "Sonbai"
+          },
+          {
+            "id": "ind_hirbai",
+            "ru": "Хирбай",
+            "en": "Hirbai"
+          },
+          {
+            "id": "ind_champa",
+            "ru": "Чампа",
+            "en": "Champa"
+          },
+          {
+            "id": "ind_kesar",
+            "ru": "Кесар",
+            "en": "Kesar"
+          },
+          {
+            "id": "ind_gangabai",
+            "ru": "Гангабай",
+            "en": "Gangabai"
+          },
+          {
+            "id": "ind_jamna",
+            "ru": "Джамна",
+            "en": "Jamna"
+          },
+          {
+            "id": "ind_parvati",
+            "ru": "Парвати",
+            "en": "Parvati"
+          },
+          {
+            "id": "ind_puri",
+            "ru": "Пури",
+            "en": "Puri"
+          },
+          {
+            "id": "ind_rupa",
+            "ru": "Рупа",
+            "en": "Rupa"
+          },
+          {
+            "id": "ind_santok",
+            "ru": "Санток",
+            "en": "Santok"
+          },
+          {
+            "id": "ind_divali",
+            "ru": "Дивали",
+            "en": "Divali"
+          },
+          {
+            "id": "ind_kamli",
+            "ru": "Камли",
+            "en": "Kamli"
+          },
+          {
+            "id": "ind_menka",
+            "ru": "Менка",
+            "en": "Menka"
+          },
+          {
+            "id": "ind_navalbai",
+            "ru": "Навалбай",
+            "en": "Navalbai"
+          },
+          {
+            "id": "ind_amba",
+            "ru": "Амба",
+            "en": "Amba"
+          },
+          {
+            "id": "ind_dhanbai",
+            "ru": "Дханбай",
+            "en": "Dhanbai"
+          },
+          {
+            "id": "ind_moti",
+            "ru": "Моти",
+            "en": "Moti"
+          },
+          {
+            "id": "ind_sita",
+            "ru": "Сита",
+            "en": "Sita"
+          },
+          {
+            "id": "ind_radha",
+            "ru": "Радха",
+            "en": "Radha"
+          },
+          {
+            "id": "ind_fatima",
+            "ru": "Фатима",
+            "en": "Fatima"
+          },
+          {
+            "id": "ind_rabia",
+            "ru": "Рабия",
+            "en": "Rabia"
+          },
+          {
+            "id": "ind_khadija",
+            "ru": "Хадиджа",
+            "en": "Khadija"
+          },
+          {
+            "id": "ind_zubeida",
+            "ru": "Зубейда",
+            "en": "Zubeida"
+          }
+        ]
+      },
+      "tags": [
+        "port"
+      ],
+      "religions": {
+        "hindu": 82,
+        "jain": 12,
+        "islam": 6
+      },
+      "religionEras": [
+        {
+          "from": 1300,
+          "religions": {
+            "hindu": 78,
+            "jain": 11,
+            "islam": 11
+          }
+        },
+        {
+          "from": 1450,
+          "religions": {
+            "hindu": 72,
+            "jain": 10,
+            "islam": 18
+          }
+        }
+      ],
+      "classReligions": {
+        "trader": {
+          "hindu": 50,
+          "jain": 32,
+          "islam": 18
+        }
+      },
+      "scene": {
+        "style": "indian",
+        "land": "dry",
+        "prompt": "Cambay and Ahmedabad in Gujarat: carved stone stepwells, white Jain temples, mosques with lattice windows, a busy harbour with dhows and cotton fields"
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "slave",
+      "status": 5,
+      "money": [
+        0,
+        5
+      ],
+      "upkeep": 0,
+      "mortality": 1.15,
+      "tags": [
+        "enslaved"
+      ]
+    },
+    {
+      "id": "peasant",
+      "status": 25,
+      "money": [
+        40,
+        160
+      ],
+      "upkeep": 140,
+      "mortality": 1,
+      "tags": [
+        "rural",
+        "raised_farming"
+      ]
+    },
+    {
+      "id": "craftsman",
+      "status": 38,
+      "money": [
+        60,
+        220
+      ],
+      "upkeep": 190,
+      "mortality": 1,
+      "tags": [
+        "lives_in_city",
+        "raised_craft"
+      ]
+    },
+    {
+      "id": "trader",
+      "status": 48,
+      "money": [
+        150,
+        500
+      ],
+      "upkeep": 250,
+      "mortality": 0.95,
+      "tags": [
+        "lives_in_city",
+        "raised_trade"
+      ]
+    },
+    {
+      "id": "landowner",
+      "status": 72,
+      "money": [
+        500,
+        1500
+      ],
+      "upkeep": 450,
+      "mortality": 0.85,
+      "tags": [
+        "raised_management",
+        "wealthy"
+      ]
+    },
+    {
+      "id": "noble",
+      "status": 92,
+      "money": [
+        3000,
+        9000
+      ],
+      "upkeep": 1200,
+      "mortality": 0.8,
+      "tags": [
+        "lives_in_city",
+        "raised_management",
+        "wealthy"
+      ]
+    }
+  ],
+  "professions": [
+    {
+      "id": "farmer",
+      "classes": [
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        150,
+        250
+      ],
+      "skill": "farming"
+    },
+    {
+      "id": "laborer",
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 12,
+      "income": [
+        120,
+        200
+      ],
+      "skill": "craft",
+      "mortality": 1.1
+    },
+    {
+      "id": "artisan",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        180,
+        320
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "weaver",
+      "sex": "f",
+      "classes": [
+        "craftsman",
+        "peasant",
+        "trader"
+      ],
+      "minAge": 12,
+      "income": [
+        140,
+        240
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "midwife",
+      "sex": "f",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "slave"
+      ],
+      "minAge": 16,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "merchant",
+      "classes": [
+        "trader",
+        "craftsman"
+      ],
+      "minAge": 14,
+      "income": [
+        150,
+        650
+      ],
+      "skill": "trade",
+      "stress": 2
+    },
+    {
+      "id": "sailor",
+      "sex": "m",
+      "regions": [
+        "bengal",
+        "gujarat"
+      ],
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 14,
+      "income": [
+        170,
+        290
+      ],
+      "skill": "seafaring",
+      "mortality": 1.4
+    },
+    {
+      "id": "soldier",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner"
+      ],
+      "minAge": 16,
+      "income": [
+        160,
+        280
+      ],
+      "skill": "military",
+      "mortality": 1.5,
+      "stress": 3
+    },
+    {
+      "id": "scribe",
+      "minAge": 14,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 20
+        }
+      ],
+      "income": [
+        200,
+        360
+      ],
+      "skill": "literacy"
+    },
+    {
+      "id": "physician",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 25
+        },
+        {
+          "param": "intellect",
+          "op": ">=",
+          "value": 55
+        }
+      ],
+      "income": [
+        260,
+        650
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "priest",
+      "sex": "m",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "landowner",
+        "noble",
+        "peasant"
+      ],
+      "requirements": [
+        {
+          "religion": [
+            "hindu"
+          ]
+        }
+      ],
+      "income": [
+        200,
+        420
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "landholder",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 16,
+      "income": [
+        550,
+        950
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "magistrate",
+      "sex": "m",
+      "classes": [
+        "noble"
+      ],
+      "minAge": 18,
+      "income": [
+        1800,
+        4000
+      ],
+      "skill": "management",
+      "reputation": 2,
+      "stress": 3
+    },
+    {
+      "id": "matron",
+      "sex": "f",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "income": [
+        500,
+        1500
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "household_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        5,
+        25
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "field_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        0,
+        10
+      ],
+      "skill": "farming",
+      "mortality": 1.3,
+      "stress": 3
+    },
+    {
+      "id": "devadasi",
+      "sex": "f",
+      "regions": [
+        "vijayanagara",
+        "gujarat"
+      ],
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 12,
+      "requirements": [
+        {
+          "religion": [
+            "hindu"
+          ]
+        }
+      ],
+      "income": [
+        150,
+        400
+      ],
+      "skill": "oratory",
+      "reputation": 1
+    },
+    {
+      "id": "mahout",
+      "sex": "m",
+      "regions": [
+        "delhi",
+        "vijayanagara",
+        "bengal"
+      ],
+      "classes": [
+        "peasant",
+        "craftsman",
+        "slave"
+      ],
+      "minAge": 12,
+      "income": [
+        160,
+        300
+      ],
+      "skill": "military",
+      "mortality": 1.3,
+      "stress": 2
+    },
+    {
+      "id": "muslin_weaver",
+      "sex": "m",
+      "regions": [
+        "bengal"
+      ],
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        180,
+        340
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "spice_trader",
+      "regions": [
+        "gujarat",
+        "bengal",
+        "vijayanagara"
+      ],
+      "classes": [
+        "trader"
+      ],
+      "minAge": 16,
+      "income": [
+        250,
+        900
+      ],
+      "skill": "trade",
+      "stress": 3
+    },
+    {
+      "id": "faqir",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 16,
+      "requirements": [
+        {
+          "religion": [
+            "hindu",
+            "islam"
+          ]
+        }
+      ],
+      "income": [
+        20,
+        110
+      ],
+      "skill": "oratory",
+      "reputation": 1
+    },
+    {
+      "id": "kavi",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 30
+        }
+      ],
+      "income": [
+        280,
+        900
+      ],
+      "skill": "literacy",
+      "reputation": 2,
+      "stress": 2
+    },
+    {
+      "id": "qazi",
+      "sex": "m",
+      "minAge": 20,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "requirements": [
+        {
+          "religion": [
+            "islam"
+          ]
+        },
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 30
+        }
+      ],
+      "income": [
+        300,
+        750
+      ],
+      "skill": "literacy",
+      "reputation": 2,
+      "stress": 2
+    },
+    {
+      "id": "officer",
+      "promotion_only": true,
+      "sex": "m",
+      "minAge": 22,
+      "income": [
+        500,
+        950
+      ],
+      "skill": "military",
+      "mortality": 1.4,
+      "stress": 3,
+      "reputation": 2
+    },
+    {
+      "id": "workshop_owner",
+      "promotion_only": true,
+      "minAge": 20,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "craft",
+      "stress": 2,
+      "reputation": 1
+    },
+    {
+      "id": "shipowner",
+      "promotion_only": true,
+      "regions": [
+        "bengal",
+        "gujarat"
+      ],
+      "minAge": 25,
+      "income": [
+        700,
+        2000
+      ],
+      "skill": "trade",
+      "stress": 3,
+      "reputation": 1
+    },
+    {
+      "id": "official",
+      "promotion_only": true,
+      "minAge": 22,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "literacy",
+      "stress": 2,
+      "reputation": 2
+    },
+    {
+      "id": "overseer",
+      "promotion_only": true,
+      "classes": [
+        "slave"
+      ],
+      "minAge": 20,
+      "income": [
+        20,
+        60
+      ],
+      "skill": "management",
+      "stress": 2
+    }
+  ],
+  "focuses": [
+    {
+      "id": "play",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 1
+        },
+        {
+          "param": "loneliness",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "ages": [
+        5,
+        11
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "param": "money",
+          "delta": -20
+        }
+      ]
+    },
+    {
+      "id": "help_family",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 2
+        },
+        {
+          "skill": "craft",
+          "delta": 2
+        },
+        {
+          "skill": "farming",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": 10
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "ages": [
+        12,
+        120
+      ],
+      "incomeMultiplier": 1.5,
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        }
+      ]
+    },
+    {
+      "id": "study",
+      "ages": [
+        12,
+        60
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble",
+            "peasant"
+          ]
+        },
+        {
+          "param": "money",
+          "op": ">=",
+          "value": 60
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "skill": "oratory",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": -60
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "ages": [
+        14,
+        120
+      ],
+      "effects": [
+        {
+          "param": "loneliness",
+          "delta": -6
+        },
+        {
+          "param": "happiness",
+          "delta": 3
+        },
+        {
+          "npc_attitude": "spouse",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "child",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "mother",
+          "delta": 4
+        },
+        {
+          "npc_attitude": "father",
+          "delta": 4
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "health",
+          "delta": 3
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "ages": [
+        16,
+        70
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "trade",
+          "delta": 4
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.5,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        },
+        {
+          "chance": 0.35,
+          "effects": [
+            {
+              "param": "money",
+              "delta": -70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "ages": [
+        17,
+        45
+      ],
+      "conditions": [
+        {
+          "sex": "m"
+        },
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "military",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 2
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.06,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -6
+        },
+        {
+          "param": "loneliness",
+          "delta": -3
+        },
+        {
+          "param": "money",
+          "delta": -15
+        }
+      ]
+    },
+    {
+      "id": "religion",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "faith",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 1
+        }
+      ]
+    },
+    {
+      "id": "savings",
+      "ages": [
+        16,
+        120
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "money",
+          "delta": 60
+        },
+        {
+          "param": "happiness",
+          "delta": -2
+        },
+        {
+          "param": "stress",
+          "delta": 1
+        }
+      ]
+    }
+  ],
+  "mortality": {
+    "qx": [
+      [
+        0,
+        0.28
+      ],
+      [
+        1,
+        0.055
+      ],
+      [
+        5,
+        0.014
+      ],
+      [
+        10,
+        0.01
+      ],
+      [
+        15,
+        0.013
+      ],
+      [
+        20,
+        0.017
+      ],
+      [
+        25,
+        0.019
+      ],
+      [
+        30,
+        0.021
+      ],
+      [
+        35,
+        0.024
+      ],
+      [
+        40,
+        0.027
+      ],
+      [
+        45,
+        0.032
+      ],
+      [
+        50,
+        0.039
+      ],
+      [
+        55,
+        0.05
+      ],
+      [
+        60,
+        0.07
+      ],
+      [
+        65,
+        0.1
+      ],
+      [
+        70,
+        0.14
+      ],
+      [
+        75,
+        0.2
+      ],
+      [
+        80,
+        0.29
+      ],
+      [
+        85,
+        0.37
+      ],
+      [
+        90,
+        0.47
+      ]
+    ],
+    "childbirth": 0.016,
+    "calibration": 0.8,
+    "causes": [
+      {
+        "id": "infant_illness",
+        "ages": [
+          0,
+          4
+        ],
+        "weight": 10
+      },
+      {
+        "id": "fever",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 6
+      },
+      {
+        "id": "smallpox",
+        "ages": [
+          0,
+          40
+        ],
+        "weight": 3
+      },
+      {
+        "id": "illness",
+        "ages": [
+          5,
+          120
+        ],
+        "weight": 7
+      },
+      {
+        "id": "accident",
+        "ages": [
+          5,
+          70
+        ],
+        "weight": 2
+      },
+      {
+        "id": "snakebite",
+        "ages": [
+          5,
+          70
+        ],
+        "weight": 1,
+        "conditions": [
+          {
+            "tag": "rural"
+          }
+        ]
+      },
+      {
+        "id": "war",
+        "ages": [
+          16,
+          50
+        ],
+        "weight": 6,
+        "conditions": [
+          {
+            "profession": [
+              "soldier",
+              "officer",
+              "mahout"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shipwreck",
+        "ages": [
+          14,
+          70
+        ],
+        "weight": 4,
+        "conditions": [
+          {
+            "profession": [
+              "sailor",
+              "shipowner"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hunger",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 2,
+        "conditions": [
+          {
+            "tag": "in_debt"
+          }
+        ]
+      },
+      {
+        "id": "famine",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 2,
+        "conditions": [
+          {
+            "classes": [
+              "peasant",
+              "slave"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "old_age",
+        "ages": [
+          60,
+          120
+        ],
+        "weight": 12
+      }
+    ]
+  },
+  "lifestyle": [
+    {
+      "id": "food",
+      "minAge": 12,
+      "default": "plain",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "meager",
+          "cost": -40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -2
+            },
+            {
+              "param": "happiness",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.12
+        },
+        {
+          "id": "plain",
+          "cost": 0
+        },
+        {
+          "id": "varied",
+          "cost": 70,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            }
+          ],
+          "mortality": 0.92,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 70
+            }
+          ]
+        },
+        {
+          "id": "feasts",
+          "cost": 300,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 2
+            },
+            {
+              "param": "reputation",
+              "delta": 1
+            },
+            {
+              "chance": 0.3,
+              "effects": [
+                {
+                  "param": "health",
+                  "delta": -1
+                }
+              ]
+            }
+          ],
+          "mortality": 1.02,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exercise",
+      "minAge": 8,
+      "default": "chores",
+      "options": [
+        {
+          "id": "rest",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "stress",
+              "delta": -2
+            },
+            {
+              "param": "health",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.05
+        },
+        {
+          "id": "chores",
+          "cost": 0
+        },
+        {
+          "id": "walks",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.96
+        },
+        {
+          "id": "gymnasium",
+          "cost": 40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 2
+            },
+            {
+              "param": "strength",
+              "delta": 1
+            }
+          ],
+          "mortality": 0.9,
+          "requirements": [
+            {
+              "classes": [
+                "craftsman",
+                "trader",
+                "landowner",
+                "noble"
+              ]
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medicine",
+      "minAge": 12,
+      "default": "home",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "home",
+          "cost": 0
+        },
+        {
+          "id": "temple",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "faith",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "id": "physician",
+          "cost": 150,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            },
+            {
+              "remove_tag": "ill"
+            }
+          ],
+          "mortality": 0.85,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baths",
+      "minAge": 10,
+      "default": "sometimes",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "rarely",
+          "cost": 0,
+          "mortality": 1.04
+        },
+        {
+          "id": "sometimes",
+          "cost": 5
+        },
+        {
+          "id": "daily",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 1
+            },
+            {
+              "param": "loneliness",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "tag": "lives_in_city"
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "vices": [
+    {
+      "tag": "drinker",
+      "cost": 40,
+      "mortality": 1.18,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2
+        },
+        {
+          "param": "happiness",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": -2
+        },
+        {
+          "param": "diligence",
+          "delta": -1
+        },
+        {
+          "param": "reputation",
+          "delta": -1
+        }
+      ]
+    },
+    {
+      "tag": "gambler",
+      "cost": 0,
+      "mortality": 1.03,
+      "effects": [
+        {
+          "param": "stress",
+          "delta": 4
+        },
+        {
+          "chance": 0.4,
+          "effects": [
+            {
+              "money_pct": -25
+            }
+          ]
+        },
+        {
+          "chance": 0.2,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "opium",
+      "cost": 60,
+      "mortality": 1.22,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2.5
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "diligence",
+          "delta": -2
+        },
+        {
+          "param": "intellect",
+          "delta": -1
+        }
+      ]
+    }
+  ]
+}

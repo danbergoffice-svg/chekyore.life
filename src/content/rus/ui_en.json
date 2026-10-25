@@ -1,0 +1,17 @@
+{
+  "era.RUS": "Rus and Muscovy",
+  "era.RUS.years": "AD 980 — 1600",
+  "era.RUS.short": "Rus",
+  "region.kiev": "Kiev",
+  "region.novgorod": "Novgorod",
+  "region.vladimir": "Vladimir",
+  "region.moscow": "Moscow",
+  "region.kiev.intro": "Kiev stands on the high bank of the Dnieper, the \"mother of Rus cities\". Boats come here from Constantinople and the Baltic, the grand prince holds court, and any year nomads may ride in from the southern steppe.",
+  "region.novgorod.intro": "Novgorod is a free trading city on the Volkhov. The town assembly, the veche, invites princes and throws them out, the streets are paved with logs, and people send each other notes scratched on birch bark, even children and women.",
+  "region.vladimir.intro": "Vladimir on the Klyazma is the young capital of the forested north-east. Its princes build white-stone cathedrals, peasants clear the forest for fields, and the winters are long and snowy.",
+  "region.moscow.intro": "Moscow was a small forest town and grew into the capital of all Rus. It has the Kremlin, a market square, hundreds of churches and wooden houses that burn down every few years. Over everything stands the will of the grand prince, and later of the tsar.",
+  "region.kiev.in": "in Kiev",
+  "region.novgorod.in": "in Novgorod",
+  "region.vladimir.in": "in Vladimir",
+  "region.moscow.in": "in Moscow"
+}
