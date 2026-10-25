@@ -1,0 +1,1092 @@
+[
+ {
+  "id": "n_rus_vladimir_kiev",
+  "year": 980,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_varangian_martyrs",
+  "year": 983,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_envoys",
+  "year": 987,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_anna",
+  "year": 989,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_pereyaslavl",
+  "year": 992,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_tithe",
+  "year": 996,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev"
+  ]
+ },
+ {
+  "id": "n_rus_olaf",
+  "year": 1000,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_otto",
+  "year": 1002,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_bulgar_trade",
+  "year": 1006,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_rus_lithuania",
+  "year": 1009,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_basil",
+  "year": 1014,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_boleslaw",
+  "year": 1018,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_listven",
+  "year": 1024,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_divide",
+  "year": 1026,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_yuriev",
+  "year": 1030,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_pechenegs_near",
+  "year": 1034,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_golden_gate",
+  "year": 1037,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev"
+  ]
+ },
+ {
+  "id": "n_rus_books",
+  "year": 1040,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_tsargrad_campaign",
+  "year": 1043,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_mazovia",
+  "year": 1047,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_hilarion",
+  "year": 1051,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_yaroslav_dies",
+  "year": 1054,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_polovtsy",
+  "year": 1055,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_polovtsy_raid",
+  "year": 1061,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vseslav_novgorod",
+  "year": 1066,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_alta",
+  "year": 1068,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev"
+  ]
+ },
+ {
+  "id": "n_rus_manzikert",
+  "year": 1071,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_theodosius",
+  "year": 1074,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_nezhatina",
+  "year": 1078,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_oleg_return",
+  "year": 1083,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_yaropolk",
+  "year": 1086,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_theodosius_relics",
+  "year": 1091,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_locusts",
+  "year": 1095,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vasilko",
+  "year": 1097,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_jerusalem",
+  "year": 1099,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_peace_polovtsy",
+  "year": 1101,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_dolobsk",
+  "year": 1103,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev"
+  ]
+ },
+ {
+  "id": "n_rus_daniel",
+  "year": 1107,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vladimir_town",
+  "year": 1108,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_salnitsa_news",
+  "year": 1111,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev"
+  ]
+ },
+ {
+  "id": "n_rus_monomakh_kiev",
+  "year": 1113,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev"
+  ]
+ },
+ {
+  "id": "n_rus_chronicle",
+  "year": 1116,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_templars",
+  "year": 1119,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_concordat",
+  "year": 1122,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_monomakh_dies",
+  "year": 1125,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_famine_novgorod",
+  "year": 1128,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_mstislav_dies",
+  "year": 1132,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_novgorod_free",
+  "year": 1136,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "novgorod"
+  ]
+ },
+ {
+  "id": "n_rus_vsevolod_olgovich",
+  "year": 1139,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_edessa",
+  "year": 1144,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_moscow_first",
+  "year": 1147,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_yury_kiev",
+  "year": 1149,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_pereslavl",
+  "year": 1152,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vladimir_icon",
+  "year": 1155,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_assumption",
+  "year": 1158,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_euphrosyne",
+  "year": 1161,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_nerl",
+  "year": 1165,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kiev_sacked",
+  "year": 1169,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev"
+  ]
+ },
+ {
+  "id": "n_rus_znamenie_news",
+  "year": 1170,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "novgorod"
+  ]
+ },
+ {
+  "id": "n_rus_andrei_killed",
+  "year": 1174,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_vsevolod",
+  "year": 1176,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_orel",
+  "year": 1184,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_saladin",
+  "year": 1187,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_barbarossa",
+  "year": 1190,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_svyatoslav_dies",
+  "year": 1194,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_dmitrievsky",
+  "year": 1197,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_roman",
+  "year": 1199,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_constantinople",
+  "year": 1204,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_genghis",
+  "year": 1206,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vsevolod_dies",
+  "year": 1212,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_lipitsa",
+  "year": 1216,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_khwarezm",
+  "year": 1219,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_nizhny",
+  "year": 1221,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kalka_news",
+  "year": 1223,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev",
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_genghis_dies",
+  "year": 1227,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_novgorod_hunger",
+  "year": 1230,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "novgorod"
+  ]
+ },
+ {
+  "id": "n_rus_omovzha",
+  "year": 1234,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_volga_bulgaria",
+  "year": 1236,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_torzhok",
+  "year": 1238,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_kiev_falls",
+  "year": 1240,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kiev"
+  ]
+ },
+ {
+  "id": "n_rus_yarlyk",
+  "year": 1243,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_mikhail",
+  "year": 1246,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_carpini",
+  "year": 1247,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_nevryuy",
+  "year": 1252,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_census_news",
+  "year": 1257,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "novgorod",
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_besermen",
+  "year": 1262,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_nevsky_dies",
+  "year": 1263,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_rakovor",
+  "year": 1268,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_novgorod_yaroslav",
+  "year": 1270,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kirill_council",
+  "year": 1274,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_second_census",
+  "year": 1275,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kublai",
+  "year": 1279,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kavgadyi",
+  "year": 1281,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_tsarevich_driven",
+  "year": 1285,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_rostov_veche",
+  "year": 1289,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_acre",
+  "year": 1291,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_dyuden_news",
+  "year": 1293,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vladimir",
+   "moscow"
+  ]
+ },
+ {
+  "id": "n_rus_maxim",
+  "year": 1299,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_pereslavl_moscow",
+  "year": 1302,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_tver",
+  "year": 1305,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_peter_metropolitan",
+  "year": 1308,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_uzbek",
+  "year": 1313,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_bortenevo",
+  "year": 1317,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_mikhail_killed",
+  "year": 1318,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_oreshek",
+  "year": 1323,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_peter_moscow",
+  "year": 1325,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_tver_rising",
+  "year": 1327,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kalita_novgorod",
+  "year": 1332,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow"
+  ]
+ },
+ {
+  "id": "n_rus_kalita_fire",
+  "year": 1335,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_sergius_hermit",
+  "year": 1337,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "moscow",
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_kalita_dies",
+  "year": 1340,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_caffa",
+  "year": 1346,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_magnus",
+  "year": 1348,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_europe_plague",
+  "year": 1350,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_semyon_dies",
+  "year": 1353,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow",
+   "novgorod",
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_janibek",
+  "year": 1357,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_ivan_dies",
+  "year": 1359,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_blue_waters",
+  "year": 1362,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_ushkuiniki_nizhny",
+  "year": 1366,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_litovshchina",
+  "year": 1368,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_timur",
+  "year": 1370,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kostroma",
+  "year": 1375,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vozha",
+  "year": 1378,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kulikovo_news",
+  "year": 1380,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow",
+   "vladimir"
+  ]
+ },
+ {
+  "id": "n_rus_tokhtamysh_news",
+  "year": 1382,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow"
+  ]
+ },
+ {
+  "id": "n_rus_jogaila",
+  "year": 1386,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_donskoy_dies",
+  "year": 1389,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_sergius_dies",
+  "year": 1392,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_timur_yelets",
+  "year": 1395,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vorskla",
+  "year": 1399,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_ankara",
+  "year": 1402,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_rus_rublev",
+  "year": 1405,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_edigey",
+  "year": 1408,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_grunwald",
+  "year": 1410,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_hus",
+  "year": 1415,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_novgorod_coins",
+  "year": 1420,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_sergius_relics",
+  "year": 1422,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vasily_i_dies",
+  "year": 1425,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vytautas",
+  "year": 1430,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_yury_moscow",
+  "year": 1433,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_zosima",
+  "year": 1436,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_isidore",
+  "year": 1441,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_suzdal_battle",
+  "year": 1445,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_jonas",
+  "year": 1448,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_tsargrad_falls",
+  "year": 1453,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_yazhelbitsy",
+  "year": 1456,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kiev_metropolis",
+  "year": 1458,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_ivan_iii",
+  "year": 1462,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_nikitin_leaves",
+  "year": 1466,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_kazan_war",
+  "year": 1468,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_shelon_news",
+  "year": 1471,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "novgorod"
+  ]
+ },
+ {
+  "id": "n_rus_sophia",
+  "year": 1472,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_nikitin_notes",
+  "year": 1475,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_dormition",
+  "year": 1479,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_ugra_news",
+  "year": 1480,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow"
+  ]
+ },
+ {
+  "id": "n_rus_tver_annexed",
+  "year": 1485,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kazan_taken",
+  "year": 1487,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vyatka",
+  "year": 1489,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_year_7000",
+  "year": 1492,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_hansa_closed",
+  "year": 1494,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_sudebnik",
+  "year": 1497,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vedrosha",
+  "year": 1500,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_monastic_lands",
+  "year": 1503,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_ivan_iii_dies",
+  "year": 1505,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_pskov",
+  "year": 1510,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_rus_smolensk",
+  "year": 1514,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_luther",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_mehmed_giray",
+  "year": 1521,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_novodevichy",
+  "year": 1524,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_solomonia",
+  "year": 1525,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_ivan_born",
+  "year": 1530,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_vasily_iii_dies",
+  "year": 1533,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_kopeck",
+  "year": 1535,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_glinskaya",
+  "year": 1538,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_rus_oka",
+  "year": 1541,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_boyar_rule",
+  "year": 1545,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_rus_tsar",
+  "year": 1547,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow",
+   "novgorod"
+  ]
+ },
+ {
+  "id": "n_rus_streltsy",
+  "year": 1550,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_chancellor",
+  "year": 1553,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_astrakhan",
+  "year": 1556,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_livonia",
+  "year": 1558,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow",
+   "novgorod"
+  ]
+ },
+ {
+  "id": "n_rus_st_basil",
+  "year": 1561,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_fedorov",
+  "year": 1564,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_oprichnina",
+  "year": 1565,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow"
+  ]
+ },
+ {
+  "id": "n_rus_philip",
+  "year": 1569,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_oprichnina_end",
+  "year": 1572,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow"
+  ]
+ },
+ {
+  "id": "n_rus_simeon",
+  "year": 1575,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_bathory",
+  "year": 1579,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_yermak",
+  "year": 1582,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_ivan_iv_dies",
+  "year": 1584,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_tsar_cannon",
+  "year": 1586,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_patriarch",
+  "year": 1589,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_white_city",
+  "year": 1593,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_brest",
+  "year": 1596,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_godunov",
+  "year": 1598,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_famine_starts",
+  "year": 1601,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "moscow",
+   "novgorod"
+  ]
+ },
+ {
+  "id": "n_rus_false_dmitry",
+  "year": 1604,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_rus_godunov_dies",
+  "year": 1605,
+  "confidence": "confirmed"
+ }
+]

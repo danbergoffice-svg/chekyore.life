@@ -4599,7 +4599,7 @@
   "type": "personal",
   "turning": true,
   "once": true,
-  "base_weight": 3,
+  "base_weight": 6,
   "topic": "life",
   "id": "rus_t_far_trade",
   "years": [
@@ -5316,7 +5316,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 4,
+  "base_weight": 8,
   "topic": "work",
   "id": "rus_j_bortnik_sign",
   "conditions": [
@@ -5544,7 +5544,8 @@
   "conditions": [
    {
     "profession": [
-     "bell_caster"
+     "bell_caster",
+     "workshop_owner"
     ]
    }
   ],
@@ -5637,7 +5638,7 @@
    {
     "skill": "craft",
     "op": ">=",
-    "value": 35
+    "value": 25
    }
   ],
   "age_range": [
@@ -6430,7 +6431,7 @@
  },
  {
   "type": "personal",
-  "base_weight": 2,
+  "base_weight": 8,
   "topic": "life",
   "icon": "move",
   "id": "rus_mv_vyvod",
