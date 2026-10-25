@@ -1,0 +1,17 @@
+{
+ "era.BYZ": "Byzantium: Empire of the Romans",
+ "era.BYZ.years": "AD 850 — 1453",
+ "era.BYZ.short": "Byzantium",
+ "region.constantinople": "Constantinople",
+ "region.thessalonica": "Thessalonica",
+ "region.nicaea": "Nicaea",
+ "region.trebizond": "Trebizond",
+ "region.constantinople.intro": "Constantinople, simply \"the City\" to its people, is the capital of the Romans on the Bosporus. The dome of Hagia Sophia floats over the rooftops, ships from every land crowd the Golden Horn, and the Blues and Greens roar in the Hippodrome. The Eparch sets the price of bread and silk, and fortunes are made and broken in the palace.",
+ "region.thessalonica.intro": "Thessalonica is the empire's second city, a port on the Thermaic Gulf under the protection of Saint Demetrios. Merchants from all over the Balkans come to its autumn fair, and its Bulgarian and Slavic neighbors bring trade one year and war the next.",
+ "region.nicaea.intro": "Nicaea, the city of the First Ecumenical Council, sits by Lake Askania in the heart of the Anatolian themes. Around it lie olive groves, vineyards and villages that pay taxes and send soldiers. From the east, the Turks draw ever closer.",
+ "region.trebizond.intro": "Trebizond is a Black Sea port squeezed between the waves and the green Pontic mountains. Caravans with silk and spices arrive here from the East, and up in the mountains the monastery of Sumela clings to a sheer cliff. It rains here more than anywhere else in the empire.",
+ "region.constantinople.in": "in Constantinople",
+ "region.thessalonica.in": "in Thessalonica",
+ "region.nicaea.in": "in Nicaea",
+ "region.trebizond.in": "in Trebizond"
+}

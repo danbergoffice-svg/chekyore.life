@@ -1,0 +1,17 @@
+{
+ "era.AMR": "Aztecs and Incas",
+ "era.AMR.years": "1400 — 1535",
+ "era.AMR.short": "Aztecs & Incas",
+ "region.tenochtitlan": "Tenochtitlan",
+ "region.texcoco": "Texcoco",
+ "region.cusco": "Cusco",
+ "region.quito": "Quito",
+ "region.tenochtitlan.in": "in Tenochtitlan",
+ "region.texcoco.in": "in Texcoco",
+ "region.cusco.in": "in Cusco",
+ "region.quito.in": "in Quito",
+ "region.tenochtitlan.intro": "The Mexica city stands on an island in the middle of a lake: canals instead of streets, causeways to the shore, the pyramid of the Great Temple above the roofs. Life here turns on service to the gods, war and the tribute that flows in from every corner of the empire.",
+ "region.texcoco.intro": "Texcoco, on the eastern shore of the lake, is an ally of Tenochtitlan and a city of poets, lawmakers and craftsmen. Its ruler Nezahualcoyotl builds aqueducts and gardens and writes poems himself about how briefly anything lasts on earth.",
+ "region.cusco.intro": "Cusco, the \"navel of the world\", is the Inca capital high in the Andes. Its walls are built of stones fitted without mortar, runners carry messages along the roads, and storehouses hold food for the lean years. There is no money: everyone pays the state in labour.",
+ "region.quito.intro": "Quito is the northern edge of the Inca realm, conquered in the second half of the 15th century. It has eternal spring, volcanoes above the valley and stubborn local lords who remember the time before the Incas. Whole communities are resettled here from the south to hold the new lands."
+}

@@ -682,7 +682,7 @@
       "people": 3,
       "props": [
         "coins",
-        "olive"
+        "grain"
       ]
     },
     "choices": [
@@ -1088,7 +1088,8 @@
       "time": "sunset",
       "people": 5,
       "props": [
-        "amphora"
+        "lamp",
+        "fire"
       ]
     },
     "choices": [
@@ -2068,6 +2069,9 @@
   {
     "id": "j_mid_book",
     "type": "personal",
+    "needs": [
+      "writing"
+    ],
     "age_range": [
       25,
       70
@@ -2153,6 +2157,9 @@
   {
     "id": "j_mid_book_later",
     "type": "personal",
+    "needs": [
+      "writing"
+    ],
     "trigger_only": true,
     "base_weight": 1,
     "topic": "work",
@@ -2205,7 +2212,7 @@
       "people": 3,
       "props": [
         "coins",
-        "amphora"
+        "grain"
       ]
     },
     "choices": [
@@ -2319,7 +2326,7 @@
       "people": 5,
       "props": [
         "grain",
-        "amphora"
+        "coins"
       ]
     },
     "choices": [
@@ -2519,6 +2526,9 @@
   {
     "id": "j_sail_late",
     "type": "personal",
+    "needs": [
+      "sea"
+    ],
     "age_range": [
       16,
       55
@@ -2743,7 +2753,7 @@
       "people": 2,
       "props": [
         "coins",
-        "horse"
+        "sun"
       ]
     },
     "effects": [
@@ -3424,6 +3434,9 @@
   {
     "id": "j_phys_debate",
     "type": "personal",
+    "needs": [
+      "writing"
+    ],
     "age_range": [
       22,
       70
@@ -3527,6 +3540,9 @@
   {
     "id": "j_phys_treatise_later",
     "type": "personal",
+    "needs": [
+      "writing"
+    ],
     "trigger_only": true,
     "base_weight": 1,
     "topic": "work",
@@ -3580,7 +3596,7 @@
       "time": "day",
       "people": 6,
       "props": [
-        "statue",
+        "banner",
         "scroll"
       ]
     },
@@ -3771,7 +3787,8 @@
       "time": "day",
       "people": 3,
       "props": [
-        "statue"
+        "banner",
+        "table"
       ]
     },
     "effects": [
@@ -4006,7 +4023,7 @@
       "props": [
         "coins",
         "lamp",
-        "statue"
+        "altar"
       ]
     },
     "choices": [
@@ -4164,6 +4181,9 @@
   {
     "id": "j_land_vines",
     "type": "personal",
+    "needs": [
+      "wine"
+    ],
     "age_range": [
       22,
       65
@@ -4184,7 +4204,7 @@
       "people": 3,
       "props": [
         "tree",
-        "amphora"
+        "coins"
       ]
     },
     "choices": [
@@ -4250,6 +4270,9 @@
   {
     "id": "j_land_vines_harvest",
     "type": "personal",
+    "needs": [
+      "wine"
+    ],
     "trigger_only": true,
     "base_weight": 1,
     "topic": "work",
@@ -4258,7 +4281,7 @@
       "time": "sunset",
       "people": 4,
       "props": [
-        "amphora",
+        "tree",
         "sun"
       ]
     },
@@ -4552,8 +4575,8 @@
       "time": "day",
       "people": 6,
       "props": [
-        "statue",
-        "banner"
+        "banner",
+        "sun"
       ]
     },
     "effects": [
@@ -4692,7 +4715,7 @@
       "time": "day",
       "people": 6,
       "props": [
-        "statue",
+        "banner",
         "coins"
       ]
     },
@@ -4807,7 +4830,7 @@
       "people": 6,
       "props": [
         "scroll",
-        "statue"
+        "banner"
       ]
     },
     "choices": [
@@ -5239,7 +5262,7 @@
       "people": 2,
       "props": [
         "table",
-        "amphora"
+        "lamp"
       ]
     },
     "choices": [
@@ -5592,7 +5615,7 @@
       "people": 5,
       "props": [
         "grain",
-        "horse"
+        "sun"
       ]
     },
     "choices": [
@@ -5906,7 +5929,7 @@
       "people": 5,
       "props": [
         "banner",
-        "horse"
+        "shield"
       ]
     },
     "choices": [
@@ -6333,7 +6356,7 @@
       "people": 3,
       "props": [
         "scroll",
-        "statue"
+        "table"
       ]
     },
     "choices": [
@@ -6709,7 +6732,7 @@
       "people": 3,
       "props": [
         "horse",
-        "palm"
+        "sun"
       ]
     },
     "effects": [
@@ -6734,6 +6757,9 @@
   {
     "id": "j_own_workers",
     "type": "personal",
+    "needs": [
+      "slavery"
+    ],
     "age_range": [
       22,
       65
@@ -7030,6 +7056,9 @@
   {
     "id": "j_ship_pirates",
     "type": "personal",
+    "needs": [
+      "sea"
+    ],
     "age_range": [
       25,
       70
@@ -7263,7 +7292,7 @@
       "people": 3,
       "props": [
         "scroll",
-        "statue"
+        "banner"
       ]
     },
     "effects": [

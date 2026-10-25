@@ -1,0 +1,17 @@
+{
+  "era.ANE": "Pharaonic Egypt and Mesopotamia",
+  "era.ANE.years": "1550 — 1070 BC",
+  "era.ANE.short": "Egypt & Babylon",
+  "region.thebes": "Thebes",
+  "region.memphis": "Memphis",
+  "region.babylon": "Babylon",
+  "region.assur": "Assur",
+  "region.thebes.intro": "Thebes is the city of Amun and the capital of the New Kingdom. The temples of Karnak stand on the east bank; on the west, royal tombs are cut into the cliffs, and a village of craftsmen builds them. Life follows the rhythm of the Nile flood and the temple festivals.",
+  "region.memphis.intro": "Memphis is Egypt's oldest city, full of scribes and officials, and its harbour unloads ships from Byblos and Cyprus. Beyond the city, on the desert's edge, stand pyramids that are already a thousand years old.",
+  "region.babylon.intro": "Babylon is ruled by Kassite kings who came down from the mountains, yet the city still prays to Marduk. It lives by its canals, date groves and barley, while scribes copy old tablets and compose new ones.",
+  "region.assur.intro": "Assur is the city of the god Ashur, on a cliff above the Tigris. For a long time it paid tribute to the kings of Mitanni, but now its own kings lead armies west and south. People here value a firm hand, loyalty to the king and careful accounts.",
+  "region.thebes.in": "in Thebes",
+  "region.memphis.in": "in Memphis",
+  "region.babylon.in": "in Babylon",
+  "region.assur.in": "in Assur"
+}

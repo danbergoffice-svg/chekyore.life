@@ -223,7 +223,7 @@
       "people": 3,
       "props": [
         "coins",
-        "amphora"
+        "table"
       ]
     },
     "effects": [
@@ -240,6 +240,9 @@
   {
     "id": "a_stolen_tunic",
     "type": "personal",
+    "needs": [
+      "baths"
+    ],
     "moment": true,
     "age_range": [
       18,
@@ -298,8 +301,8 @@
       "people": 5,
       "props": [
         "table",
-        "amphora",
-        "lamp"
+        "lamp",
+        "fire"
       ]
     },
     "effects": [
@@ -367,8 +370,8 @@
       "time": "day",
       "people": 1,
       "props": [
-        "scroll",
-        "lamp"
+        "lamp",
+        "table"
       ]
     },
     "effects": [
@@ -389,6 +392,9 @@
   {
     "id": "a_sailor_dolphins",
     "type": "personal",
+    "needs": [
+      "sea"
+    ],
     "moment": true,
     "age_range": [
       16,
@@ -565,8 +571,8 @@
       "time": "dawn",
       "people": 2,
       "props": [
-        "cart",
-        "horse"
+        "sun",
+        "tree"
       ]
     },
     "effects": [
@@ -661,6 +667,10 @@
   {
     "id": "a_goat_vineyard",
     "type": "personal",
+    "not_eras": [
+      "MAY",
+      "AMR"
+    ],
     "moment": true,
     "age_range": [
       16,
@@ -718,7 +728,7 @@
       "time": "day",
       "people": 4,
       "props": [
-        "amphora",
+        "grain",
         "boat"
       ]
     },
@@ -882,7 +892,7 @@
       "people": 3,
       "props": [
         "altar",
-        "statue"
+        "lamp"
       ]
     },
     "effects": [
@@ -998,7 +1008,8 @@
       "time": "dawn",
       "people": 6,
       "props": [
-        "statue"
+        "sun",
+        "banner"
       ]
     },
     "effects": [
@@ -1071,7 +1082,7 @@
       "people": 2,
       "props": [
         "table",
-        "amphora"
+        "lamp"
       ]
     },
     "effects": [
@@ -1236,7 +1247,7 @@
       "people": 3,
       "props": [
         "lamp",
-        "amphora"
+        "table"
       ]
     },
     "effects": [
@@ -2131,7 +2142,7 @@
       "time": "sunset",
       "people": 2,
       "props": [
-        "amphora",
+        "coins",
         "lamp"
       ]
     },
@@ -2366,7 +2377,7 @@
       "people": 4,
       "props": [
         "table",
-        "amphora"
+        "lamp"
       ]
     },
     "choices": [
@@ -2676,7 +2687,7 @@
       "time": "overcast",
       "people": 2,
       "props": [
-        "olive",
+        "tree",
         "scroll"
       ]
     },
@@ -2778,8 +2789,8 @@
       "time": "day",
       "people": 2,
       "props": [
-        "cart",
-        "amphora"
+        "grain",
+        "tree"
       ]
     },
     "effects": [
@@ -2832,7 +2843,7 @@
       "people": 3,
       "props": [
         "boat",
-        "amphora"
+        "grain"
       ]
     },
     "choices": [
@@ -2974,7 +2985,7 @@
       "time": "overcast",
       "people": 3,
       "props": [
-        "amphora",
+        "grain",
         "scroll"
       ]
     },
@@ -3311,7 +3322,7 @@
       "people": 2,
       "props": [
         "coins",
-        "amphora"
+        "lamp"
       ]
     },
     "effects": [
@@ -3340,6 +3351,9 @@
   {
     "id": "a_peculium",
     "type": "personal",
+    "needs": [
+      "slavery"
+    ],
     "age_range": [
       25,
       70
@@ -3461,7 +3475,7 @@
       "time": "day",
       "people": 2,
       "props": [
-        "palm",
+        "grain",
         "coins"
       ]
     },
@@ -3504,7 +3518,7 @@
       "time": "day",
       "people": 2,
       "props": [
-        "olive",
+        "grain",
         "tree"
       ]
     },
@@ -3821,7 +3835,7 @@
       "people": 2,
       "props": [
         "cart",
-        "amphora"
+        "coins"
       ]
     },
     "choices": [
@@ -4325,8 +4339,8 @@
       "time": "sunset",
       "people": 5,
       "props": [
-        "cart",
-        "horse"
+        "sun",
+        "tree"
       ]
     },
     "effects": [
@@ -4373,7 +4387,7 @@
       "people": 6,
       "props": [
         "table",
-        "amphora"
+        "lamp"
       ]
     },
     "choices": [

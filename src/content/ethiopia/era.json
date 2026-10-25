@@ -1,0 +1,3154 @@
+{
+  "id": "ETH",
+  "years": [
+    1150,
+    1650
+  ],
+  "population": 4,
+  "features": [
+    "horses",
+    "iron",
+    "writing",
+    "river",
+    "slavery",
+    "camels"
+  ],
+  "stages": {
+    "youth": 12,
+    "adult": 18,
+    "old": 55
+  },
+  "marriageAge": {
+    "m": [
+      18,
+      30
+    ],
+    "f": [
+      13,
+      20
+    ]
+  },
+  "lifeExpectancy": 28,
+  "inheritance": "equal",
+  "traits": [
+    "cautious",
+    "ambitious",
+    "kind",
+    "hot_tempered",
+    "curious",
+    "reserved",
+    "generous",
+    "pious",
+    "cunning",
+    "brave"
+  ],
+  "skills": [
+    "literacy",
+    "trade",
+    "craft",
+    "farming",
+    "military",
+    "medicine",
+    "management",
+    "oratory",
+    "seafaring"
+  ],
+  "regions": [
+    {
+      "id": "lalibela",
+      "weight": 3,
+      "years": [
+        1150,
+        1650
+      ],
+      "coin": "amole",
+      "tags": [
+        "capital"
+      ],
+      "capital": [
+        1150,
+        1270
+      ],
+      "classWeights": {
+        "slave": 6,
+        "peasant": 62,
+        "craftsman": 12,
+        "trader": 4,
+        "landowner": 13,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "eth_lalibela",
+            "ru": "Лалибела",
+            "en": "Lalibela"
+          },
+          {
+            "id": "eth_yemrehanna",
+            "ru": "Йемреханна",
+            "en": "Yemrehanna"
+          },
+          {
+            "id": "eth_naakueto",
+            "ru": "Наакуето",
+            "en": "Na'akueto"
+          },
+          {
+            "id": "eth_yekuno",
+            "ru": "Йэкуно",
+            "en": "Yekuno"
+          },
+          {
+            "id": "eth_dawit",
+            "ru": "Давит",
+            "en": "Dawit"
+          },
+          {
+            "id": "eth_tewodros",
+            "ru": "Теводрос",
+            "en": "Tewodros"
+          },
+          {
+            "id": "eth_yeshaq",
+            "ru": "Йисхак",
+            "en": "Yeshaq"
+          },
+          {
+            "id": "eth_yaqob",
+            "ru": "Якоб",
+            "en": "Yaqob"
+          },
+          {
+            "id": "eth_eskender",
+            "ru": "Эскендер",
+            "en": "Eskender"
+          },
+          {
+            "id": "eth_naod",
+            "ru": "Наод",
+            "en": "Na'od"
+          },
+          {
+            "id": "eth_minas",
+            "ru": "Минас",
+            "en": "Minas"
+          },
+          {
+            "id": "eth_giyorgis",
+            "ru": "Гийоргис",
+            "en": "Giyorgis"
+          },
+          {
+            "id": "eth_mikael",
+            "ru": "Микаэль",
+            "en": "Mika'el"
+          },
+          {
+            "id": "eth_gabrel",
+            "ru": "Габриэль",
+            "en": "Gabre'el"
+          },
+          {
+            "id": "eth_yohannes",
+            "ru": "Йоханнес",
+            "en": "Yohannes"
+          },
+          {
+            "id": "eth_estifanos",
+            "ru": "Эстифанос",
+            "en": "Estifanos"
+          },
+          {
+            "id": "eth_filpos",
+            "ru": "Филпос",
+            "en": "Filpos"
+          },
+          {
+            "id": "eth_marqos",
+            "ru": "Маркос",
+            "en": "Marqos"
+          },
+          {
+            "id": "eth_matewos",
+            "ru": "Матевос",
+            "en": "Matewos"
+          },
+          {
+            "id": "eth_yared",
+            "ru": "Йаред",
+            "en": "Yared"
+          },
+          {
+            "id": "eth_taklahaymanot",
+            "ru": "Текле Хайманот",
+            "en": "Takla Haymanot"
+          },
+          {
+            "id": "eth_gabramaryam",
+            "ru": "Гэбре Марьям",
+            "en": "Gabra Maryam"
+          },
+          {
+            "id": "eth_gabrakrestos",
+            "ru": "Гэбре Крестос",
+            "en": "Gabra Krestos"
+          },
+          {
+            "id": "eth_waldagiyorgis",
+            "ru": "Вольде Гийоргис",
+            "en": "Walda Giyorgis"
+          },
+          {
+            "id": "eth_habtamaryam",
+            "ru": "Хабте Марьям",
+            "en": "Habta Maryam"
+          },
+          {
+            "id": "eth_feqreiyasus",
+            "ru": "Фикре Иясус",
+            "en": "Feqra Iyasus"
+          },
+          {
+            "id": "eth_tasfaseyon",
+            "ru": "Тесфа Цион",
+            "en": "Tasfa Seyon"
+          },
+          {
+            "id": "eth_haylamaryam",
+            "ru": "Хайле Марьям",
+            "en": "Hayla Maryam"
+          },
+          {
+            "id": "eth_amanuel",
+            "ru": "Амануэль",
+            "en": "Amanu'el"
+          },
+          {
+            "id": "eth_kaleb",
+            "ru": "Калеб",
+            "en": "Kaleb"
+          },
+          {
+            "id": "eth_abreha",
+            "ru": "Абреха",
+            "en": "Abreha"
+          },
+          {
+            "id": "eth_atsbeha",
+            "ru": "Ацбеха",
+            "en": "Atsbeha"
+          },
+          {
+            "id": "eth_iyasu",
+            "ru": "Иясу",
+            "en": "Iyasu"
+          },
+          {
+            "id": "eth_bezabeh",
+            "ru": "Безабех",
+            "en": "Bezabeh"
+          },
+          {
+            "id": "eth_tewolde",
+            "ru": "Тевольде",
+            "en": "Tewolde"
+          },
+          {
+            "id": "eth_zamikael",
+            "ru": "За-Микаэль",
+            "en": "Za-Mika'el"
+          }
+        ],
+        "f": [
+          {
+            "id": "eth_masqalkebra",
+            "ru": "Маскаль Кебра",
+            "en": "Masqal Kebra"
+          },
+          {
+            "id": "eth_eleni",
+            "ru": "Элени",
+            "en": "Eleni"
+          },
+          {
+            "id": "eth_sablawangel",
+            "ru": "Сабла Вангель",
+            "en": "Sabla Wangel"
+          },
+          {
+            "id": "eth_krestossamra",
+            "ru": "Крестос Самра",
+            "en": "Krestos Samra"
+          },
+          {
+            "id": "eth_walattapetros",
+            "ru": "Валатта Петрос",
+            "en": "Walatta Petros"
+          },
+          {
+            "id": "eth_walattamaryam",
+            "ru": "Валатта Марьям",
+            "en": "Walatta Maryam"
+          },
+          {
+            "id": "eth_walattagiyorgis",
+            "ru": "Валатта Гийоргис",
+            "en": "Walatta Giyorgis"
+          },
+          {
+            "id": "eth_amatamikael",
+            "ru": "Амата Микаэль",
+            "en": "Amata Mika'el"
+          },
+          {
+            "id": "eth_maryam",
+            "ru": "Марьям",
+            "en": "Maryam"
+          },
+          {
+            "id": "eth_seyon",
+            "ru": "Цион",
+            "en": "Seyon"
+          },
+          {
+            "id": "eth_hirut",
+            "ru": "Хирут",
+            "en": "Hirut"
+          },
+          {
+            "id": "eth_elsabet",
+            "ru": "Эльсабет",
+            "en": "Elsabet"
+          },
+          {
+            "id": "eth_marta",
+            "ru": "Марта",
+            "en": "Marta"
+          },
+          {
+            "id": "eth_sara",
+            "ru": "Сара",
+            "en": "Sara"
+          },
+          {
+            "id": "eth_rahel",
+            "ru": "Рахель",
+            "en": "Rahel"
+          },
+          {
+            "id": "eth_feqertakrestos",
+            "ru": "Фикирте Крестос",
+            "en": "Feqerta Krestos"
+          },
+          {
+            "id": "eth_ehtakrestos",
+            "ru": "Эхта Крестос",
+            "en": "Ehta Krestos"
+          },
+          {
+            "id": "eth_egziekebra",
+            "ru": "Эгзиэ Кебра",
+            "en": "Egzi'e Kebra"
+          },
+          {
+            "id": "eth_delsamra",
+            "ru": "Дель Самра",
+            "en": "Del Samra"
+          },
+          {
+            "id": "eth_berhan",
+            "ru": "Берхан",
+            "en": "Berhan"
+          },
+          {
+            "id": "eth_madhen",
+            "ru": "Медхин",
+            "en": "Madhen"
+          },
+          {
+            "id": "eth_romana",
+            "ru": "Романа",
+            "en": "Romana"
+          },
+          {
+            "id": "eth_mogasa",
+            "ru": "Могаса",
+            "en": "Mogasa"
+          },
+          {
+            "id": "eth_bilensaba",
+            "ru": "Билен Саба",
+            "en": "Bilen Saba"
+          },
+          {
+            "id": "eth_tsehay",
+            "ru": "Цехай",
+            "en": "Tsehay"
+          },
+          {
+            "id": "eth_warqe",
+            "ru": "Ворке",
+            "en": "Warqe"
+          },
+          {
+            "id": "eth_desta",
+            "ru": "Деста",
+            "en": "Desta"
+          },
+          {
+            "id": "eth_askalamaryam",
+            "ru": "Аскала Марьям",
+            "en": "Askala Maryam"
+          },
+          {
+            "id": "eth_mangesha",
+            "ru": "Мангеша",
+            "en": "Mangesha"
+          },
+          {
+            "id": "eth_yodit",
+            "ru": "Йодит",
+            "en": "Yodit"
+          },
+          {
+            "id": "eth_zawditu",
+            "ru": "Заудиту",
+            "en": "Zawditu"
+          },
+          {
+            "id": "eth_almaz",
+            "ru": "Алмаз",
+            "en": "Almaz"
+          },
+          {
+            "id": "eth_lamlam",
+            "ru": "Ламлам",
+            "en": "Lamlam"
+          }
+        ]
+      },
+      "religions": {
+        "tewahedo": 92,
+        "islam": 4,
+        "judaism": 4
+      },
+      "religionEras": [
+        {
+          "from": 1531,
+          "religions": {
+            "tewahedo": 82,
+            "islam": 14,
+            "judaism": 4
+          }
+        },
+        {
+          "from": 1544,
+          "religions": {
+            "tewahedo": 91,
+            "islam": 5,
+            "judaism": 4
+          }
+        },
+        {
+          "from": 1622,
+          "religions": {
+            "tewahedo": 88,
+            "catholic": 3,
+            "islam": 5,
+            "judaism": 4
+          }
+        },
+        {
+          "from": 1633,
+          "religions": {
+            "tewahedo": 91,
+            "islam": 5,
+            "judaism": 4
+          }
+        }
+      ],
+      "scene": {
+        "style": "ethiopian",
+        "land": "mountains",
+        "prompt": "Lasta mountains with churches carved down into red volcanic rock, round stone houses with thatched roofs, terraced fields"
+      }
+    },
+    {
+      "id": "aksum",
+      "weight": 3,
+      "years": [
+        1150,
+        1650
+      ],
+      "coin": "amole",
+      "tags": [],
+      "classWeights": {
+        "slave": 6,
+        "peasant": 60,
+        "craftsman": 12,
+        "trader": 6,
+        "landowner": 13,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "eth_lalibela",
+            "ru": "Лалибела",
+            "en": "Lalibela"
+          },
+          {
+            "id": "eth_yemrehanna",
+            "ru": "Йемреханна",
+            "en": "Yemrehanna"
+          },
+          {
+            "id": "eth_naakueto",
+            "ru": "Наакуето",
+            "en": "Na'akueto"
+          },
+          {
+            "id": "eth_yekuno",
+            "ru": "Йэкуно",
+            "en": "Yekuno"
+          },
+          {
+            "id": "eth_dawit",
+            "ru": "Давит",
+            "en": "Dawit"
+          },
+          {
+            "id": "eth_tewodros",
+            "ru": "Теводрос",
+            "en": "Tewodros"
+          },
+          {
+            "id": "eth_yeshaq",
+            "ru": "Йисхак",
+            "en": "Yeshaq"
+          },
+          {
+            "id": "eth_yaqob",
+            "ru": "Якоб",
+            "en": "Yaqob"
+          },
+          {
+            "id": "eth_eskender",
+            "ru": "Эскендер",
+            "en": "Eskender"
+          },
+          {
+            "id": "eth_naod",
+            "ru": "Наод",
+            "en": "Na'od"
+          },
+          {
+            "id": "eth_minas",
+            "ru": "Минас",
+            "en": "Minas"
+          },
+          {
+            "id": "eth_giyorgis",
+            "ru": "Гийоргис",
+            "en": "Giyorgis"
+          },
+          {
+            "id": "eth_mikael",
+            "ru": "Микаэль",
+            "en": "Mika'el"
+          },
+          {
+            "id": "eth_gabrel",
+            "ru": "Габриэль",
+            "en": "Gabre'el"
+          },
+          {
+            "id": "eth_yohannes",
+            "ru": "Йоханнес",
+            "en": "Yohannes"
+          },
+          {
+            "id": "eth_estifanos",
+            "ru": "Эстифанос",
+            "en": "Estifanos"
+          },
+          {
+            "id": "eth_filpos",
+            "ru": "Филпос",
+            "en": "Filpos"
+          },
+          {
+            "id": "eth_marqos",
+            "ru": "Маркос",
+            "en": "Marqos"
+          },
+          {
+            "id": "eth_matewos",
+            "ru": "Матевос",
+            "en": "Matewos"
+          },
+          {
+            "id": "eth_yared",
+            "ru": "Йаред",
+            "en": "Yared"
+          },
+          {
+            "id": "eth_taklahaymanot",
+            "ru": "Текле Хайманот",
+            "en": "Takla Haymanot"
+          },
+          {
+            "id": "eth_gabramaryam",
+            "ru": "Гэбре Марьям",
+            "en": "Gabra Maryam"
+          },
+          {
+            "id": "eth_gabrakrestos",
+            "ru": "Гэбре Крестос",
+            "en": "Gabra Krestos"
+          },
+          {
+            "id": "eth_waldagiyorgis",
+            "ru": "Вольде Гийоргис",
+            "en": "Walda Giyorgis"
+          },
+          {
+            "id": "eth_habtamaryam",
+            "ru": "Хабте Марьям",
+            "en": "Habta Maryam"
+          },
+          {
+            "id": "eth_feqreiyasus",
+            "ru": "Фикре Иясус",
+            "en": "Feqra Iyasus"
+          },
+          {
+            "id": "eth_tasfaseyon",
+            "ru": "Тесфа Цион",
+            "en": "Tasfa Seyon"
+          },
+          {
+            "id": "eth_haylamaryam",
+            "ru": "Хайле Марьям",
+            "en": "Hayla Maryam"
+          },
+          {
+            "id": "eth_amanuel",
+            "ru": "Амануэль",
+            "en": "Amanu'el"
+          },
+          {
+            "id": "eth_kaleb",
+            "ru": "Калеб",
+            "en": "Kaleb"
+          },
+          {
+            "id": "eth_abreha",
+            "ru": "Абреха",
+            "en": "Abreha"
+          },
+          {
+            "id": "eth_atsbeha",
+            "ru": "Ацбеха",
+            "en": "Atsbeha"
+          },
+          {
+            "id": "eth_iyasu",
+            "ru": "Иясу",
+            "en": "Iyasu"
+          },
+          {
+            "id": "eth_bezabeh",
+            "ru": "Безабех",
+            "en": "Bezabeh"
+          },
+          {
+            "id": "eth_tewolde",
+            "ru": "Тевольде",
+            "en": "Tewolde"
+          },
+          {
+            "id": "eth_zamikael",
+            "ru": "За-Микаэль",
+            "en": "Za-Mika'el"
+          }
+        ],
+        "f": [
+          {
+            "id": "eth_masqalkebra",
+            "ru": "Маскаль Кебра",
+            "en": "Masqal Kebra"
+          },
+          {
+            "id": "eth_eleni",
+            "ru": "Элени",
+            "en": "Eleni"
+          },
+          {
+            "id": "eth_sablawangel",
+            "ru": "Сабла Вангель",
+            "en": "Sabla Wangel"
+          },
+          {
+            "id": "eth_krestossamra",
+            "ru": "Крестос Самра",
+            "en": "Krestos Samra"
+          },
+          {
+            "id": "eth_walattapetros",
+            "ru": "Валатта Петрос",
+            "en": "Walatta Petros"
+          },
+          {
+            "id": "eth_walattamaryam",
+            "ru": "Валатта Марьям",
+            "en": "Walatta Maryam"
+          },
+          {
+            "id": "eth_walattagiyorgis",
+            "ru": "Валатта Гийоргис",
+            "en": "Walatta Giyorgis"
+          },
+          {
+            "id": "eth_amatamikael",
+            "ru": "Амата Микаэль",
+            "en": "Amata Mika'el"
+          },
+          {
+            "id": "eth_maryam",
+            "ru": "Марьям",
+            "en": "Maryam"
+          },
+          {
+            "id": "eth_seyon",
+            "ru": "Цион",
+            "en": "Seyon"
+          },
+          {
+            "id": "eth_hirut",
+            "ru": "Хирут",
+            "en": "Hirut"
+          },
+          {
+            "id": "eth_elsabet",
+            "ru": "Эльсабет",
+            "en": "Elsabet"
+          },
+          {
+            "id": "eth_marta",
+            "ru": "Марта",
+            "en": "Marta"
+          },
+          {
+            "id": "eth_sara",
+            "ru": "Сара",
+            "en": "Sara"
+          },
+          {
+            "id": "eth_rahel",
+            "ru": "Рахель",
+            "en": "Rahel"
+          },
+          {
+            "id": "eth_feqertakrestos",
+            "ru": "Фикирте Крестос",
+            "en": "Feqerta Krestos"
+          },
+          {
+            "id": "eth_ehtakrestos",
+            "ru": "Эхта Крестос",
+            "en": "Ehta Krestos"
+          },
+          {
+            "id": "eth_egziekebra",
+            "ru": "Эгзиэ Кебра",
+            "en": "Egzi'e Kebra"
+          },
+          {
+            "id": "eth_delsamra",
+            "ru": "Дель Самра",
+            "en": "Del Samra"
+          },
+          {
+            "id": "eth_berhan",
+            "ru": "Берхан",
+            "en": "Berhan"
+          },
+          {
+            "id": "eth_madhen",
+            "ru": "Медхин",
+            "en": "Madhen"
+          },
+          {
+            "id": "eth_romana",
+            "ru": "Романа",
+            "en": "Romana"
+          },
+          {
+            "id": "eth_mogasa",
+            "ru": "Могаса",
+            "en": "Mogasa"
+          },
+          {
+            "id": "eth_bilensaba",
+            "ru": "Билен Саба",
+            "en": "Bilen Saba"
+          },
+          {
+            "id": "eth_tsehay",
+            "ru": "Цехай",
+            "en": "Tsehay"
+          },
+          {
+            "id": "eth_warqe",
+            "ru": "Ворке",
+            "en": "Warqe"
+          },
+          {
+            "id": "eth_desta",
+            "ru": "Деста",
+            "en": "Desta"
+          },
+          {
+            "id": "eth_askalamaryam",
+            "ru": "Аскала Марьям",
+            "en": "Askala Maryam"
+          },
+          {
+            "id": "eth_mangesha",
+            "ru": "Мангеша",
+            "en": "Mangesha"
+          },
+          {
+            "id": "eth_yodit",
+            "ru": "Йодит",
+            "en": "Yodit"
+          },
+          {
+            "id": "eth_zawditu",
+            "ru": "Заудиту",
+            "en": "Zawditu"
+          },
+          {
+            "id": "eth_almaz",
+            "ru": "Алмаз",
+            "en": "Almaz"
+          },
+          {
+            "id": "eth_lamlam",
+            "ru": "Ламлам",
+            "en": "Lamlam"
+          }
+        ]
+      },
+      "religions": {
+        "tewahedo": 90,
+        "islam": 5,
+        "judaism": 5
+      },
+      "religionEras": [
+        {
+          "from": 1535,
+          "religions": {
+            "tewahedo": 80,
+            "islam": 15,
+            "judaism": 5
+          }
+        },
+        {
+          "from": 1544,
+          "religions": {
+            "tewahedo": 89,
+            "islam": 6,
+            "judaism": 5
+          }
+        },
+        {
+          "from": 1557,
+          "religions": {
+            "tewahedo": 88,
+            "catholic": 1,
+            "islam": 6,
+            "judaism": 5
+          }
+        },
+        {
+          "from": 1622,
+          "religions": {
+            "tewahedo": 83,
+            "catholic": 6,
+            "islam": 6,
+            "judaism": 5
+          }
+        },
+        {
+          "from": 1633,
+          "religions": {
+            "tewahedo": 88,
+            "catholic": 1,
+            "islam": 6,
+            "judaism": 5
+          }
+        }
+      ],
+      "scene": {
+        "style": "ethiopian",
+        "land": "green",
+        "prompt": "ancient granite stelae and the old church of Mary of Zion in Aksum, Tigray highlands with flat-topped mountains"
+      }
+    },
+    {
+      "id": "shewa",
+      "weight": 3,
+      "years": [
+        1270,
+        1650
+      ],
+      "coin": "amole",
+      "tags": [
+        "capital"
+      ],
+      "capital": [
+        1270,
+        1530
+      ],
+      "classWeights": {
+        "slave": 8,
+        "peasant": 56,
+        "craftsman": 11,
+        "trader": 6,
+        "landowner": 14,
+        "noble": 5
+      },
+      "names": {
+        "m": [
+          {
+            "id": "eth_lalibela",
+            "ru": "Лалибела",
+            "en": "Lalibela"
+          },
+          {
+            "id": "eth_yemrehanna",
+            "ru": "Йемреханна",
+            "en": "Yemrehanna"
+          },
+          {
+            "id": "eth_naakueto",
+            "ru": "Наакуето",
+            "en": "Na'akueto"
+          },
+          {
+            "id": "eth_yekuno",
+            "ru": "Йэкуно",
+            "en": "Yekuno"
+          },
+          {
+            "id": "eth_dawit",
+            "ru": "Давит",
+            "en": "Dawit"
+          },
+          {
+            "id": "eth_tewodros",
+            "ru": "Теводрос",
+            "en": "Tewodros"
+          },
+          {
+            "id": "eth_yeshaq",
+            "ru": "Йисхак",
+            "en": "Yeshaq"
+          },
+          {
+            "id": "eth_yaqob",
+            "ru": "Якоб",
+            "en": "Yaqob"
+          },
+          {
+            "id": "eth_eskender",
+            "ru": "Эскендер",
+            "en": "Eskender"
+          },
+          {
+            "id": "eth_naod",
+            "ru": "Наод",
+            "en": "Na'od"
+          },
+          {
+            "id": "eth_minas",
+            "ru": "Минас",
+            "en": "Minas"
+          },
+          {
+            "id": "eth_giyorgis",
+            "ru": "Гийоргис",
+            "en": "Giyorgis"
+          },
+          {
+            "id": "eth_mikael",
+            "ru": "Микаэль",
+            "en": "Mika'el"
+          },
+          {
+            "id": "eth_gabrel",
+            "ru": "Габриэль",
+            "en": "Gabre'el"
+          },
+          {
+            "id": "eth_yohannes",
+            "ru": "Йоханнес",
+            "en": "Yohannes"
+          },
+          {
+            "id": "eth_estifanos",
+            "ru": "Эстифанос",
+            "en": "Estifanos"
+          },
+          {
+            "id": "eth_filpos",
+            "ru": "Филпос",
+            "en": "Filpos"
+          },
+          {
+            "id": "eth_marqos",
+            "ru": "Маркос",
+            "en": "Marqos"
+          },
+          {
+            "id": "eth_matewos",
+            "ru": "Матевос",
+            "en": "Matewos"
+          },
+          {
+            "id": "eth_yared",
+            "ru": "Йаред",
+            "en": "Yared"
+          },
+          {
+            "id": "eth_taklahaymanot",
+            "ru": "Текле Хайманот",
+            "en": "Takla Haymanot"
+          },
+          {
+            "id": "eth_gabramaryam",
+            "ru": "Гэбре Марьям",
+            "en": "Gabra Maryam"
+          },
+          {
+            "id": "eth_gabrakrestos",
+            "ru": "Гэбре Крестос",
+            "en": "Gabra Krestos"
+          },
+          {
+            "id": "eth_waldagiyorgis",
+            "ru": "Вольде Гийоргис",
+            "en": "Walda Giyorgis"
+          },
+          {
+            "id": "eth_habtamaryam",
+            "ru": "Хабте Марьям",
+            "en": "Habta Maryam"
+          },
+          {
+            "id": "eth_feqreiyasus",
+            "ru": "Фикре Иясус",
+            "en": "Feqra Iyasus"
+          },
+          {
+            "id": "eth_tasfaseyon",
+            "ru": "Тесфа Цион",
+            "en": "Tasfa Seyon"
+          },
+          {
+            "id": "eth_haylamaryam",
+            "ru": "Хайле Марьям",
+            "en": "Hayla Maryam"
+          },
+          {
+            "id": "eth_amanuel",
+            "ru": "Амануэль",
+            "en": "Amanu'el"
+          },
+          {
+            "id": "eth_kaleb",
+            "ru": "Калеб",
+            "en": "Kaleb"
+          },
+          {
+            "id": "eth_abreha",
+            "ru": "Абреха",
+            "en": "Abreha"
+          },
+          {
+            "id": "eth_atsbeha",
+            "ru": "Ацбеха",
+            "en": "Atsbeha"
+          },
+          {
+            "id": "eth_iyasu",
+            "ru": "Иясу",
+            "en": "Iyasu"
+          },
+          {
+            "id": "eth_bezabeh",
+            "ru": "Безабех",
+            "en": "Bezabeh"
+          },
+          {
+            "id": "eth_tewolde",
+            "ru": "Тевольде",
+            "en": "Tewolde"
+          },
+          {
+            "id": "eth_zamikael",
+            "ru": "За-Микаэль",
+            "en": "Za-Mika'el"
+          }
+        ],
+        "f": [
+          {
+            "id": "eth_masqalkebra",
+            "ru": "Маскаль Кебра",
+            "en": "Masqal Kebra"
+          },
+          {
+            "id": "eth_eleni",
+            "ru": "Элени",
+            "en": "Eleni"
+          },
+          {
+            "id": "eth_sablawangel",
+            "ru": "Сабла Вангель",
+            "en": "Sabla Wangel"
+          },
+          {
+            "id": "eth_krestossamra",
+            "ru": "Крестос Самра",
+            "en": "Krestos Samra"
+          },
+          {
+            "id": "eth_walattapetros",
+            "ru": "Валатта Петрос",
+            "en": "Walatta Petros"
+          },
+          {
+            "id": "eth_walattamaryam",
+            "ru": "Валатта Марьям",
+            "en": "Walatta Maryam"
+          },
+          {
+            "id": "eth_walattagiyorgis",
+            "ru": "Валатта Гийоргис",
+            "en": "Walatta Giyorgis"
+          },
+          {
+            "id": "eth_amatamikael",
+            "ru": "Амата Микаэль",
+            "en": "Amata Mika'el"
+          },
+          {
+            "id": "eth_maryam",
+            "ru": "Марьям",
+            "en": "Maryam"
+          },
+          {
+            "id": "eth_seyon",
+            "ru": "Цион",
+            "en": "Seyon"
+          },
+          {
+            "id": "eth_hirut",
+            "ru": "Хирут",
+            "en": "Hirut"
+          },
+          {
+            "id": "eth_elsabet",
+            "ru": "Эльсабет",
+            "en": "Elsabet"
+          },
+          {
+            "id": "eth_marta",
+            "ru": "Марта",
+            "en": "Marta"
+          },
+          {
+            "id": "eth_sara",
+            "ru": "Сара",
+            "en": "Sara"
+          },
+          {
+            "id": "eth_rahel",
+            "ru": "Рахель",
+            "en": "Rahel"
+          },
+          {
+            "id": "eth_feqertakrestos",
+            "ru": "Фикирте Крестос",
+            "en": "Feqerta Krestos"
+          },
+          {
+            "id": "eth_ehtakrestos",
+            "ru": "Эхта Крестос",
+            "en": "Ehta Krestos"
+          },
+          {
+            "id": "eth_egziekebra",
+            "ru": "Эгзиэ Кебра",
+            "en": "Egzi'e Kebra"
+          },
+          {
+            "id": "eth_delsamra",
+            "ru": "Дель Самра",
+            "en": "Del Samra"
+          },
+          {
+            "id": "eth_berhan",
+            "ru": "Берхан",
+            "en": "Berhan"
+          },
+          {
+            "id": "eth_madhen",
+            "ru": "Медхин",
+            "en": "Madhen"
+          },
+          {
+            "id": "eth_romana",
+            "ru": "Романа",
+            "en": "Romana"
+          },
+          {
+            "id": "eth_mogasa",
+            "ru": "Могаса",
+            "en": "Mogasa"
+          },
+          {
+            "id": "eth_bilensaba",
+            "ru": "Билен Саба",
+            "en": "Bilen Saba"
+          },
+          {
+            "id": "eth_tsehay",
+            "ru": "Цехай",
+            "en": "Tsehay"
+          },
+          {
+            "id": "eth_warqe",
+            "ru": "Ворке",
+            "en": "Warqe"
+          },
+          {
+            "id": "eth_desta",
+            "ru": "Деста",
+            "en": "Desta"
+          },
+          {
+            "id": "eth_askalamaryam",
+            "ru": "Аскала Марьям",
+            "en": "Askala Maryam"
+          },
+          {
+            "id": "eth_mangesha",
+            "ru": "Мангеша",
+            "en": "Mangesha"
+          },
+          {
+            "id": "eth_yodit",
+            "ru": "Йодит",
+            "en": "Yodit"
+          },
+          {
+            "id": "eth_zawditu",
+            "ru": "Заудиту",
+            "en": "Zawditu"
+          },
+          {
+            "id": "eth_almaz",
+            "ru": "Алмаз",
+            "en": "Almaz"
+          },
+          {
+            "id": "eth_lamlam",
+            "ru": "Ламлам",
+            "en": "Lamlam"
+          }
+        ]
+      },
+      "religions": {
+        "tewahedo": 78,
+        "islam": 13,
+        "african_traditional": 6,
+        "judaism": 3
+      },
+      "religionEras": [
+        {
+          "from": 1531,
+          "religions": {
+            "tewahedo": 56,
+            "islam": 37,
+            "african_traditional": 5,
+            "judaism": 2
+          }
+        },
+        {
+          "from": 1544,
+          "religions": {
+            "tewahedo": 74,
+            "islam": 14,
+            "african_traditional": 10,
+            "judaism": 2
+          }
+        },
+        {
+          "from": 1570,
+          "religions": {
+            "tewahedo": 58,
+            "islam": 14,
+            "african_traditional": 26,
+            "judaism": 2
+          }
+        },
+        {
+          "from": 1622,
+          "religions": {
+            "tewahedo": 54,
+            "catholic": 4,
+            "islam": 14,
+            "african_traditional": 26,
+            "judaism": 2
+          }
+        },
+        {
+          "from": 1633,
+          "religions": {
+            "tewahedo": 58,
+            "islam": 14,
+            "african_traditional": 26,
+            "judaism": 2
+          }
+        }
+      ],
+      "classReligions": {
+        "trader": {
+          "islam": 55,
+          "tewahedo": 45
+        }
+      },
+      "scene": {
+        "style": "ethiopian",
+        "land": "green",
+        "prompt": "green Shewan plateau with a vast royal camp of white tents, round thatched huts and steep flat-topped ambas"
+      }
+    },
+    {
+      "id": "harar",
+      "weight": 2,
+      "years": [
+        1500,
+        1650
+      ],
+      "coin": "amole",
+      "tags": [],
+      "inheritance": "sons_first",
+      "classWeights": {
+        "slave": 10,
+        "peasant": 38,
+        "craftsman": 20,
+        "trader": 19,
+        "landowner": 10,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "eth_h_ahmad",
+            "ru": "Ахмад",
+            "en": "Ahmad"
+          },
+          {
+            "id": "eth_h_muhammad",
+            "ru": "Мухаммад",
+            "en": "Muhammad"
+          },
+          {
+            "id": "eth_h_abubakr",
+            "ru": "Абу Бакр",
+            "en": "Abu Bakr"
+          },
+          {
+            "id": "eth_h_umar",
+            "ru": "Умар",
+            "en": "Umar"
+          },
+          {
+            "id": "eth_h_uthman",
+            "ru": "Усман",
+            "en": "Uthman"
+          },
+          {
+            "id": "eth_h_ali",
+            "ru": "Али",
+            "en": "Ali"
+          },
+          {
+            "id": "eth_h_nur",
+            "ru": "Нур",
+            "en": "Nur"
+          },
+          {
+            "id": "eth_h_abdalrahman",
+            "ru": "Абд ар-Рахман",
+            "en": "Abd al-Rahman"
+          },
+          {
+            "id": "eth_h_abdallah",
+            "ru": "Абдаллах",
+            "en": "Abdallah"
+          },
+          {
+            "id": "eth_h_ibrahim",
+            "ru": "Ибрахим",
+            "en": "Ibrahim"
+          },
+          {
+            "id": "eth_h_yusuf",
+            "ru": "Юсуф",
+            "en": "Yusuf"
+          },
+          {
+            "id": "eth_h_ismail",
+            "ru": "Исмаил",
+            "en": "Isma'il"
+          },
+          {
+            "id": "eth_h_mahfuz",
+            "ru": "Махфуз",
+            "en": "Mahfuz"
+          },
+          {
+            "id": "eth_h_jibril",
+            "ru": "Джибрил",
+            "en": "Jibril"
+          },
+          {
+            "id": "eth_h_hamza",
+            "ru": "Хамза",
+            "en": "Hamza"
+          },
+          {
+            "id": "eth_h_hasan",
+            "ru": "Хасан",
+            "en": "Hasan"
+          },
+          {
+            "id": "eth_h_husayn",
+            "ru": "Хусейн",
+            "en": "Husayn"
+          },
+          {
+            "id": "eth_h_said",
+            "ru": "Саид",
+            "en": "Sa'id"
+          },
+          {
+            "id": "eth_h_salih",
+            "ru": "Салих",
+            "en": "Salih"
+          },
+          {
+            "id": "eth_h_musa",
+            "ru": "Муса",
+            "en": "Musa"
+          },
+          {
+            "id": "eth_h_isa",
+            "ru": "Иса",
+            "en": "Isa"
+          },
+          {
+            "id": "eth_h_adam",
+            "ru": "Адам",
+            "en": "Adam"
+          },
+          {
+            "id": "eth_h_khalid",
+            "ru": "Халид",
+            "en": "Khalid"
+          },
+          {
+            "id": "eth_h_mansur",
+            "ru": "Мансур",
+            "en": "Mansur"
+          },
+          {
+            "id": "eth_h_mujahid",
+            "ru": "Муджахид",
+            "en": "Mujahid"
+          },
+          {
+            "id": "eth_h_sabraddin",
+            "ru": "Сабр ад-Дин",
+            "en": "Sabr ad-Din"
+          },
+          {
+            "id": "eth_h_saddin",
+            "ru": "Саад ад-Дин",
+            "en": "Sa'd ad-Din"
+          },
+          {
+            "id": "eth_h_badlay",
+            "ru": "Бадлай",
+            "en": "Badlay"
+          },
+          {
+            "id": "eth_h_jamal",
+            "ru": "Джамал",
+            "en": "Jamal"
+          },
+          {
+            "id": "eth_h_talha",
+            "ru": "Тальха",
+            "en": "Talha"
+          },
+          {
+            "id": "eth_h_zubayr",
+            "ru": "Зубайр",
+            "en": "Zubayr"
+          },
+          {
+            "id": "eth_h_hamid",
+            "ru": "Хамид",
+            "en": "Hamid"
+          },
+          {
+            "id": "eth_h_abun",
+            "ru": "Абун",
+            "en": "Abun"
+          },
+          {
+            "id": "eth_h_harbi",
+            "ru": "Харби",
+            "en": "Harbi"
+          }
+        ],
+        "f": [
+          {
+            "id": "eth_h_bati",
+            "ru": "Бати",
+            "en": "Bati"
+          },
+          {
+            "id": "eth_h_fatima",
+            "ru": "Фатима",
+            "en": "Fatima"
+          },
+          {
+            "id": "eth_h_fatuma",
+            "ru": "Фатума",
+            "en": "Fatuma"
+          },
+          {
+            "id": "eth_h_khadija",
+            "ru": "Хадиджа",
+            "en": "Khadija"
+          },
+          {
+            "id": "eth_h_aisha",
+            "ru": "Аиша",
+            "en": "Aisha"
+          },
+          {
+            "id": "eth_h_amina",
+            "ru": "Амина",
+            "en": "Amina"
+          },
+          {
+            "id": "eth_h_maryam",
+            "ru": "Марьям",
+            "en": "Maryam"
+          },
+          {
+            "id": "eth_h_zaynab",
+            "ru": "Зайнаб",
+            "en": "Zaynab"
+          },
+          {
+            "id": "eth_h_halima",
+            "ru": "Халима",
+            "en": "Halima"
+          },
+          {
+            "id": "eth_h_safiya",
+            "ru": "Сафия",
+            "en": "Safiya"
+          },
+          {
+            "id": "eth_h_ruqayya",
+            "ru": "Рукайя",
+            "en": "Ruqayya"
+          },
+          {
+            "id": "eth_h_hawa",
+            "ru": "Хава",
+            "en": "Hawa"
+          },
+          {
+            "id": "eth_h_sumaya",
+            "ru": "Сумайя",
+            "en": "Sumayya"
+          },
+          {
+            "id": "eth_h_asma",
+            "ru": "Асма",
+            "en": "Asma"
+          },
+          {
+            "id": "eth_h_hafsa",
+            "ru": "Хафса",
+            "en": "Hafsa"
+          },
+          {
+            "id": "eth_h_salma",
+            "ru": "Сальма",
+            "en": "Salma"
+          },
+          {
+            "id": "eth_h_saida",
+            "ru": "Саида",
+            "en": "Sa'ida"
+          },
+          {
+            "id": "eth_h_rahma",
+            "ru": "Рахма",
+            "en": "Rahma"
+          },
+          {
+            "id": "eth_h_nafisa",
+            "ru": "Нафиса",
+            "en": "Nafisa"
+          },
+          {
+            "id": "eth_h_latifa",
+            "ru": "Латифа",
+            "en": "Latifa"
+          },
+          {
+            "id": "eth_h_maymuna",
+            "ru": "Маймуна",
+            "en": "Maymuna"
+          },
+          {
+            "id": "eth_h_sakina",
+            "ru": "Сакина",
+            "en": "Sakina"
+          },
+          {
+            "id": "eth_h_habiba",
+            "ru": "Хабиба",
+            "en": "Habiba"
+          },
+          {
+            "id": "eth_h_zahra",
+            "ru": "Захра",
+            "en": "Zahra"
+          },
+          {
+            "id": "eth_h_munira",
+            "ru": "Мунира",
+            "en": "Munira"
+          },
+          {
+            "id": "eth_h_zuhra",
+            "ru": "Зухра",
+            "en": "Zuhra"
+          },
+          {
+            "id": "eth_h_gisti",
+            "ru": "Гисти",
+            "en": "Gisti"
+          },
+          {
+            "id": "eth_h_ummkulthum",
+            "ru": "Умм Кульсум",
+            "en": "Umm Kulthum"
+          },
+          {
+            "id": "eth_h_hajira",
+            "ru": "Хаджира",
+            "en": "Hajira"
+          },
+          {
+            "id": "eth_h_aminat",
+            "ru": "Аминат",
+            "en": "Aminat"
+          },
+          {
+            "id": "eth_h_shamsiya",
+            "ru": "Шамсия",
+            "en": "Shamsiya"
+          },
+          {
+            "id": "eth_h_badriya",
+            "ru": "Бадрия",
+            "en": "Badriya"
+          }
+        ]
+      },
+      "religions": {
+        "islam": 93,
+        "tewahedo": 5,
+        "african_traditional": 2
+      },
+      "religionEras": [
+        {
+          "from": 1531,
+          "religions": {
+            "islam": 95,
+            "tewahedo": 4,
+            "african_traditional": 1
+          }
+        }
+      ],
+      "scene": {
+        "style": "islamic",
+        "land": "dry",
+        "prompt": "walled Muslim city of Harar with whitewashed stone houses, narrow lanes, mosques and gates, dry hills with coffee shrubs"
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "slave",
+      "status": 5,
+      "money": [
+        0,
+        5
+      ],
+      "upkeep": 0,
+      "mortality": 1.15,
+      "tags": [
+        "enslaved"
+      ]
+    },
+    {
+      "id": "peasant",
+      "status": 25,
+      "money": [
+        40,
+        150
+      ],
+      "upkeep": 135,
+      "mortality": 1,
+      "tags": [
+        "rural",
+        "raised_farming"
+      ]
+    },
+    {
+      "id": "craftsman",
+      "status": 30,
+      "money": [
+        50,
+        200
+      ],
+      "upkeep": 180,
+      "mortality": 1,
+      "tags": [
+        "raised_craft"
+      ]
+    },
+    {
+      "id": "trader",
+      "status": 45,
+      "money": [
+        150,
+        500
+      ],
+      "upkeep": 240,
+      "mortality": 0.95,
+      "tags": [
+        "lives_in_city",
+        "raised_trade"
+      ]
+    },
+    {
+      "id": "landowner",
+      "status": 70,
+      "money": [
+        500,
+        1500
+      ],
+      "upkeep": 450,
+      "mortality": 0.85,
+      "tags": [
+        "raised_management",
+        "wealthy"
+      ]
+    },
+    {
+      "id": "noble",
+      "status": 92,
+      "money": [
+        3000,
+        9000
+      ],
+      "upkeep": 1200,
+      "mortality": 0.8,
+      "tags": [
+        "raised_management",
+        "wealthy"
+      ]
+    }
+  ],
+  "professions": [
+    {
+      "id": "farmer",
+      "classes": [
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        150,
+        250
+      ],
+      "skill": "farming"
+    },
+    {
+      "id": "laborer",
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 12,
+      "income": [
+        130,
+        200
+      ],
+      "skill": "craft",
+      "mortality": 1.1
+    },
+    {
+      "id": "artisan",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        170,
+        320
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "weaver",
+      "sex": "f",
+      "classes": [
+        "craftsman",
+        "peasant",
+        "trader"
+      ],
+      "minAge": 12,
+      "income": [
+        130,
+        230
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "midwife",
+      "sex": "f",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "slave"
+      ],
+      "minAge": 16,
+      "income": [
+        140,
+        250
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "merchant",
+      "classes": [
+        "trader",
+        "craftsman"
+      ],
+      "minAge": 14,
+      "income": [
+        150,
+        650
+      ],
+      "skill": "trade",
+      "stress": 2
+    },
+    {
+      "id": "soldier",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner"
+      ],
+      "minAge": 16,
+      "income": [
+        150,
+        270
+      ],
+      "skill": "military",
+      "mortality": 1.5,
+      "stress": 3
+    },
+    {
+      "id": "scribe",
+      "minAge": 14,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 25
+        }
+      ],
+      "income": [
+        200,
+        380
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "physician",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "requirements": [
+        {
+          "skill": "medicine",
+          "op": ">=",
+          "value": 10
+        },
+        {
+          "param": "intellect",
+          "op": ">=",
+          "value": 50
+        }
+      ],
+      "income": [
+        220,
+        500
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "priest",
+      "sex": "m",
+      "minAge": 16,
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner",
+        "noble"
+      ],
+      "income": [
+        180,
+        380
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "landholder",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 16,
+      "income": [
+        550,
+        950
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "magistrate",
+      "sex": "m",
+      "classes": [
+        "noble"
+      ],
+      "minAge": 18,
+      "income": [
+        1800,
+        4000
+      ],
+      "skill": "management",
+      "reputation": 2,
+      "stress": 3
+    },
+    {
+      "id": "matron",
+      "sex": "f",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "income": [
+        500,
+        1500
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "household_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        5,
+        25
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "field_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        0,
+        10
+      ],
+      "skill": "farming",
+      "mortality": 1.25,
+      "stress": 3
+    },
+    {
+      "id": "debtera",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner"
+      ],
+      "minAge": 15,
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 15
+        }
+      ],
+      "income": [
+        170,
+        340
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "monk",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "minAge": 15,
+      "income": [
+        60,
+        160
+      ],
+      "skill": "literacy",
+      "reputation": 2
+    },
+    {
+      "id": "icon_painter",
+      "sex": "m",
+      "classes": [
+        "craftsman",
+        "peasant",
+        "landowner"
+      ],
+      "minAge": 14,
+      "income": [
+        190,
+        380
+      ],
+      "skill": "craft",
+      "reputation": 1
+    },
+    {
+      "id": "coffee_merchant",
+      "regions": [
+        "harar"
+      ],
+      "classes": [
+        "trader",
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 15,
+      "income": [
+        170,
+        600
+      ],
+      "skill": "trade",
+      "stress": 2
+    },
+    {
+      "id": "salt_carrier",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 15,
+      "income": [
+        170,
+        300
+      ],
+      "skill": "trade",
+      "mortality": 1.3,
+      "stress": 2
+    },
+    {
+      "id": "church_carver",
+      "sex": "m",
+      "regions": [
+        "lalibela"
+      ],
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 14,
+      "income": [
+        170,
+        300
+      ],
+      "skill": "craft",
+      "mortality": 1.1
+    },
+    {
+      "id": "beta_israel_smith",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "requirements": [
+        {
+          "religion": [
+            "judaism"
+          ]
+        }
+      ],
+      "income": [
+        160,
+        300
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "officer",
+      "promotion_only": true,
+      "sex": "m",
+      "minAge": 22,
+      "income": [
+        500,
+        900
+      ],
+      "skill": "military",
+      "mortality": 1.4,
+      "stress": 3,
+      "reputation": 2
+    },
+    {
+      "id": "workshop_owner",
+      "promotion_only": true,
+      "minAge": 20,
+      "income": [
+        400,
+        850
+      ],
+      "skill": "craft",
+      "stress": 2,
+      "reputation": 1
+    },
+    {
+      "id": "official",
+      "promotion_only": true,
+      "minAge": 22,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "literacy",
+      "stress": 2,
+      "reputation": 2
+    },
+    {
+      "id": "overseer",
+      "promotion_only": true,
+      "classes": [
+        "slave"
+      ],
+      "minAge": 20,
+      "income": [
+        20,
+        60
+      ],
+      "skill": "management",
+      "stress": 2
+    }
+  ],
+  "focuses": [
+    {
+      "id": "play",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 1
+        },
+        {
+          "param": "loneliness",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "ages": [
+        5,
+        11
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "param": "money",
+          "delta": -20
+        }
+      ]
+    },
+    {
+      "id": "help_family",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 2
+        },
+        {
+          "skill": "craft",
+          "delta": 2
+        },
+        {
+          "skill": "farming",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": 10
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "ages": [
+        12,
+        120
+      ],
+      "incomeMultiplier": 1.5,
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        }
+      ]
+    },
+    {
+      "id": "study",
+      "ages": [
+        12,
+        60
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble",
+            "peasant"
+          ]
+        },
+        {
+          "param": "money",
+          "op": ">=",
+          "value": 60
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "skill": "oratory",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": -60
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "ages": [
+        14,
+        120
+      ],
+      "effects": [
+        {
+          "param": "loneliness",
+          "delta": -6
+        },
+        {
+          "param": "happiness",
+          "delta": 3
+        },
+        {
+          "npc_attitude": "spouse",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "child",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "mother",
+          "delta": 4
+        },
+        {
+          "npc_attitude": "father",
+          "delta": 4
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "health",
+          "delta": 3
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "ages": [
+        16,
+        70
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "trade",
+          "delta": 4
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.5,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        },
+        {
+          "chance": 0.35,
+          "effects": [
+            {
+              "param": "money",
+              "delta": -70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "ages": [
+        17,
+        45
+      ],
+      "conditions": [
+        {
+          "sex": "m"
+        },
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "military",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 2
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.06,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -6
+        },
+        {
+          "param": "loneliness",
+          "delta": -3
+        },
+        {
+          "param": "money",
+          "delta": -15
+        }
+      ]
+    },
+    {
+      "id": "religion",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "faith",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 1
+        }
+      ]
+    },
+    {
+      "id": "savings",
+      "ages": [
+        16,
+        120
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "money",
+          "delta": 60
+        },
+        {
+          "param": "happiness",
+          "delta": -2
+        },
+        {
+          "param": "stress",
+          "delta": 1
+        }
+      ]
+    }
+  ],
+  "mortality": {
+    "qx": [
+      [
+        0,
+        0.27
+      ],
+      [
+        1,
+        0.05
+      ],
+      [
+        5,
+        0.013
+      ],
+      [
+        10,
+        0.01
+      ],
+      [
+        15,
+        0.013
+      ],
+      [
+        20,
+        0.017
+      ],
+      [
+        25,
+        0.019
+      ],
+      [
+        30,
+        0.021
+      ],
+      [
+        35,
+        0.023
+      ],
+      [
+        40,
+        0.026
+      ],
+      [
+        45,
+        0.03
+      ],
+      [
+        50,
+        0.037
+      ],
+      [
+        55,
+        0.046
+      ],
+      [
+        60,
+        0.066
+      ],
+      [
+        65,
+        0.092
+      ],
+      [
+        70,
+        0.13
+      ],
+      [
+        75,
+        0.19
+      ],
+      [
+        80,
+        0.28
+      ],
+      [
+        85,
+        0.35
+      ],
+      [
+        90,
+        0.45
+      ]
+    ],
+    "childbirth": 0.016,
+    "calibration": 0.72,
+    "causes": [
+      {
+        "id": "infant_illness",
+        "ages": [
+          0,
+          4
+        ],
+        "weight": 10
+      },
+      {
+        "id": "fever",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 5
+      },
+      {
+        "id": "illness",
+        "ages": [
+          5,
+          120
+        ],
+        "weight": 8
+      },
+      {
+        "id": "accident",
+        "ages": [
+          5,
+          70
+        ],
+        "weight": 2
+      },
+      {
+        "id": "war",
+        "ages": [
+          16,
+          50
+        ],
+        "weight": 6,
+        "conditions": [
+          {
+            "profession": [
+              "soldier",
+              "officer"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "eth_road",
+        "ages": [
+          14,
+          70
+        ],
+        "weight": 4,
+        "conditions": [
+          {
+            "profession": [
+              "salt_carrier",
+              "merchant",
+              "coffee_merchant"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hunger",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 2,
+        "conditions": [
+          {
+            "tag": "in_debt"
+          }
+        ]
+      },
+      {
+        "id": "old_age",
+        "ages": [
+          60,
+          120
+        ],
+        "weight": 12
+      }
+    ]
+  },
+  "lifestyle": [
+    {
+      "id": "food",
+      "minAge": 12,
+      "default": "plain",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "meager",
+          "cost": -40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -2
+            },
+            {
+              "param": "happiness",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.12
+        },
+        {
+          "id": "plain",
+          "cost": 0
+        },
+        {
+          "id": "varied",
+          "cost": 70,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            }
+          ],
+          "mortality": 0.92,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 70
+            }
+          ]
+        },
+        {
+          "id": "feasts",
+          "cost": 300,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 2
+            },
+            {
+              "param": "reputation",
+              "delta": 1
+            },
+            {
+              "chance": 0.3,
+              "effects": [
+                {
+                  "param": "health",
+                  "delta": -1
+                }
+              ]
+            }
+          ],
+          "mortality": 1.02,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exercise",
+      "minAge": 8,
+      "default": "chores",
+      "options": [
+        {
+          "id": "rest",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "stress",
+              "delta": -2
+            },
+            {
+              "param": "health",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.05
+        },
+        {
+          "id": "chores",
+          "cost": 0
+        },
+        {
+          "id": "walks",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.96
+        },
+        {
+          "id": "gymnasium",
+          "cost": 40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 2
+            },
+            {
+              "param": "strength",
+              "delta": 1
+            }
+          ],
+          "mortality": 0.9,
+          "requirements": [
+            {
+              "classes": [
+                "craftsman",
+                "trader",
+                "landowner",
+                "noble"
+              ]
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medicine",
+      "minAge": 12,
+      "default": "home",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "home",
+          "cost": 0
+        },
+        {
+          "id": "temple",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "faith",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "id": "physician",
+          "cost": 150,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            },
+            {
+              "remove_tag": "ill"
+            }
+          ],
+          "mortality": 0.85,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baths",
+      "minAge": 10,
+      "default": "sometimes",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "rarely",
+          "cost": 0,
+          "mortality": 1.04
+        },
+        {
+          "id": "sometimes",
+          "cost": 5
+        },
+        {
+          "id": "daily",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 1
+            },
+            {
+              "param": "loneliness",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "tag": "lives_in_city"
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "vices": [
+    {
+      "tag": "drinker",
+      "cost": 40,
+      "mortality": 1.18,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2
+        },
+        {
+          "param": "happiness",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": -2
+        },
+        {
+          "param": "diligence",
+          "delta": -1
+        },
+        {
+          "param": "reputation",
+          "delta": -1
+        }
+      ]
+    },
+    {
+      "tag": "gambler",
+      "cost": 0,
+      "mortality": 1.03,
+      "effects": [
+        {
+          "param": "stress",
+          "delta": 4
+        },
+        {
+          "chance": 0.4,
+          "effects": [
+            {
+              "money_pct": -25
+            }
+          ]
+        },
+        {
+          "chance": 0.2,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "opium",
+      "cost": 60,
+      "mortality": 1.22,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2.5
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "diligence",
+          "delta": -2
+        },
+        {
+          "param": "intellect",
+          "delta": -1
+        }
+      ]
+    }
+  ],
+  "exclude_events": [
+    "a_stolen_tunic",
+    "a_goat_vineyard",
+    "a_harbor_wages",
+    "a_voyage",
+    "a_inheritance",
+    "a_good_harvest",
+    "d_friend_sudden",
+    "d_sp_drowned",
+    "d_t_sib_captive",
+    "d_m_grave",
+    "c_broken_amphora",
+    "c_honest_later",
+    "c_h_gym_invite",
+    "c_h_back",
+    "c_child_fall",
+    "c_far_away",
+    "c_h_plague",
+    "c_h_quack",
+    "c_h_family_doctor",
+    "v_wine_symposium",
+    "v_wine_fall",
+    "v_glut_gout",
+    "v_poppy_pain",
+    "v_poppy_more",
+    "v_poppy_dreams",
+    "v_poppy_cost",
+    "v_poppy_overdose",
+    "v_poppy_quit",
+    "v_poppy_relapse",
+    "v_rel_mother_poppy",
+    "v_rel_mother_poppy_end",
+    "j_land_vines",
+    "j_land_vines_harvest",
+    "j_fs_vines",
+    "j_own_contract",
+    "j_scr_papyrus",
+    "j_farm_buyout",
+    "j_mag_games",
+    "j_merch_hoard",
+    "j_hs_secret",
+    "j_ovs_will",
+    "t_shipwreck_vow",
+    "t_child_kidnapped",
+    "t_grain_hoard",
+    "t_poems_live_on",
+    "w_old_sun_bench",
+    "w_old_lares",
+    "w_tomb_visit",
+    "y_sibling_quarrel",
+    "y_sibling_remembers",
+    "y_goat_kid",
+    "y_cheat_school"
+  ]
+}

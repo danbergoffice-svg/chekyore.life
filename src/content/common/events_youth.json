@@ -38,6 +38,9 @@
   {
     "id": "y_wooden_toy",
     "type": "family",
+    "needs": [
+      "horses"
+    ],
     "moment": true,
     "age_range": [
       3,
@@ -117,7 +120,7 @@
       "time": "day",
       "people": 2,
       "props": [
-        "amphora"
+        "table"
       ]
     },
     "effects": [
@@ -166,6 +169,10 @@
   {
     "id": "y_goat_kid",
     "type": "personal",
+    "not_eras": [
+      "MAY",
+      "AMR"
+    ],
     "moment": true,
     "age_range": [
       4,
@@ -220,7 +227,7 @@
       "time": "day",
       "people": 3,
       "props": [
-        "statue"
+        "table"
       ]
     },
     "effects": [
@@ -326,7 +333,7 @@
       "time": "day",
       "people": 3,
       "props": [
-        "amphora"
+        "sun"
       ]
     },
     "effects": [
@@ -433,7 +440,7 @@
       "people": 2,
       "props": [
         "fire",
-        "amphora"
+        "table"
       ]
     },
     "effects": [
@@ -543,6 +550,9 @@
   {
     "id": "y_false_coin",
     "type": "family",
+    "needs": [
+      "coins"
+    ],
     "moment": true,
     "age_range": [
       6,
@@ -758,6 +768,9 @@
   {
     "id": "y_wax_tablet",
     "type": "personal",
+    "needs": [
+      "writing"
+    ],
     "moment": true,
     "age_range": [
       7,
@@ -817,7 +830,7 @@
       "people": 4,
       "props": [
         "coins",
-        "amphora"
+        "grain"
       ]
     },
     "effects": [
@@ -852,7 +865,7 @@
       "people": 2,
       "props": [
         "grain",
-        "cart"
+        "sun"
       ]
     },
     "effects": [
@@ -1242,7 +1255,7 @@
       "people": 2,
       "props": [
         "coins",
-        "statue"
+        "lamp"
       ]
     },
     "conditions": [
@@ -1375,6 +1388,9 @@
       }
     ],
     "type": "local",
+    "needs": [
+      "slavery"
+    ],
     "age_range": [
       9,
       14
@@ -1867,7 +1883,7 @@
       "time": "dawn",
       "people": 3,
       "props": [
-        "amphora"
+        "sun"
       ]
     },
     "choices": [
@@ -1959,7 +1975,7 @@
       "time": "day",
       "people": 3,
       "props": [
-        "amphora"
+        "table"
       ]
     },
     "choices": [
@@ -2353,7 +2369,7 @@
       "people": 3,
       "props": [
         "coins",
-        "amphora"
+        "anvil"
       ]
     },
     "choices": [
@@ -2503,8 +2519,8 @@
       "time": "day",
       "people": 3,
       "props": [
-        "amphora",
-        "statue"
+        "table",
+        "lamp"
       ]
     },
     "choices": [

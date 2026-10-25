@@ -145,6 +145,9 @@
   {
     "id": "found_coin",
     "type": "personal",
+    "needs": [
+      "coins"
+    ],
     "age_range": [
       5,
       13
@@ -205,6 +208,9 @@
   {
     "id": "school_offer",
     "type": "personal",
+    "needs": [
+      "writing"
+    ],
     "age_range": [
       6,
       10
@@ -276,6 +282,9 @@
   {
     "id": "slave_letters",
     "type": "personal",
+    "needs": [
+      "writing"
+    ],
     "age_range": [
       6,
       14
@@ -431,7 +440,7 @@
       "people": 2,
       "props": [
         "anvil",
-        "amphora"
+        "grain"
       ]
     },
     "classes": [
@@ -718,7 +727,7 @@
       "people": 4,
       "props": [
         "table",
-        "amphora"
+        "lamp"
       ]
     },
     "classes": [
@@ -956,7 +965,7 @@
       "time": "day",
       "people": 4,
       "props": [
-        "amphora"
+        "table"
       ]
     },
     "weight_modifiers": [
@@ -1196,6 +1205,9 @@
   {
     "id": "venture",
     "type": "personal",
+    "needs": [
+      "sea"
+    ],
     "age_range": [
       20,
       60
@@ -1208,7 +1220,7 @@
       "people": 2,
       "props": [
         "boat",
-        "amphora"
+        "grain"
       ]
     },
     "conditions": [
@@ -1508,6 +1520,9 @@
   {
     "id": "child_school",
     "type": "family",
+    "needs": [
+      "writing"
+    ],
     "age_range": [
       22,
       75
@@ -2079,7 +2094,7 @@
       "time": "sunset",
       "people": 2,
       "props": [
-        "olive"
+        "tree"
       ]
     },
     "conditions": [
