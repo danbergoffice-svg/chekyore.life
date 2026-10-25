@@ -1,0 +1,268 @@
+[
+  {
+    "id": "isl_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "isl_p_world_abbasid",
+    "topic": "world",
+    "years": [
+      750,
+      945
+    ]
+  },
+  {
+    "id": "isl_p_world_buyid",
+    "topic": "world",
+    "years": [
+      946,
+      1095
+    ]
+  },
+  {
+    "id": "isl_p_world_crusades",
+    "topic": "world",
+    "years": [
+      1096,
+      1249
+    ]
+  },
+  {
+    "id": "isl_p_world_baghdad_fall",
+    "topic": "world",
+    "regions": [
+      "baghdad"
+    ],
+    "years": [
+      1250,
+      1300
+    ]
+  },
+  {
+    "id": "isl_p_world_mamluk",
+    "topic": "world",
+    "years": [
+      1250,
+      1515
+    ]
+  },
+  {
+    "id": "isl_p_world_ottoman",
+    "topic": "world",
+    "years": [
+      1516,
+      1600
+    ]
+  },
+  {
+    "id": "isl_p_world_istanbul",
+    "topic": "world",
+    "regions": [
+      "istanbul"
+    ],
+    "years": [
+      1453,
+      1600
+    ]
+  },
+  {
+    "id": "isl_p_world_fatimid",
+    "topic": "world",
+    "regions": [
+      "cairo"
+    ],
+    "years": [
+      969,
+      1170
+    ]
+  },
+  {
+    "id": "isl_p_world_cordoba_emirate",
+    "topic": "world",
+    "regions": [
+      "cordoba"
+    ],
+    "years": [
+      756,
+      928
+    ]
+  },
+  {
+    "id": "isl_p_world_cordoba_caliphate",
+    "topic": "world",
+    "regions": [
+      "cordoba"
+    ],
+    "years": [
+      929,
+      1031
+    ]
+  },
+  {
+    "id": "isl_p_world_cordoba_taifa",
+    "topic": "world",
+    "regions": [
+      "cordoba"
+    ],
+    "years": [
+      1032,
+      1236
+    ]
+  },
+  {
+    "id": "isl_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "isl_p_society_slave",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "isl_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "isl_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "isl_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "isl_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "isl_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "isl_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "isl_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "isl_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "isl_p_faith_christian",
+    "topic": "faith",
+    "religions": [
+      "christian"
+    ]
+  },
+  {
+    "id": "isl_p_faith_mozarab",
+    "topic": "faith",
+    "regions": [
+      "cordoba"
+    ],
+    "religions": [
+      "christian"
+    ]
+  },
+  {
+    "id": "isl_p_faith_jewish",
+    "topic": "faith",
+    "religions": [
+      "judaism"
+    ]
+  },
+  {
+    "id": "isl_p_faith_zoroastrian",
+    "topic": "faith",
+    "religions": [
+      "zoroastrian"
+    ]
+  },
+  {
+    "id": "isl_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "isl_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "isl_p_place_baghdad",
+    "topic": "place",
+    "regions": [
+      "baghdad"
+    ]
+  },
+  {
+    "id": "isl_p_place_damascus",
+    "topic": "place",
+    "regions": [
+      "damascus"
+    ]
+  },
+  {
+    "id": "isl_p_place_cairo",
+    "topic": "place",
+    "regions": [
+      "cairo"
+    ]
+  },
+  {
+    "id": "isl_p_place_cordoba",
+    "topic": "place",
+    "regions": [
+      "cordoba"
+    ]
+  },
+  {
+    "id": "isl_p_place_istanbul",
+    "topic": "place",
+    "regions": [
+      "istanbul"
+    ]
+  },
+  {
+    "id": "isl_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "isl_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "isl_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "isl_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "isl_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "isl_p_war",
+    "topic": "war"
+  },
+  {
+    "id": "isl_p_war_ottoman",
+    "topic": "war",
+    "years": [
+      1453,
+      1600
+    ]
+  }
+]

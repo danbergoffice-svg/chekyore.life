@@ -1,0 +1,169 @@
+[
+  {
+    "id": "may_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "may_p_world_550",
+    "topic": "world",
+    "years": [
+      550,
+      599
+    ]
+  },
+  {
+    "id": "may_p_world_600",
+    "topic": "world",
+    "years": [
+      600,
+      695
+    ]
+  },
+  {
+    "id": "may_p_world_696",
+    "topic": "world",
+    "years": [
+      696,
+      760
+    ]
+  },
+  {
+    "id": "may_p_world_761",
+    "topic": "world",
+    "years": [
+      761,
+      829
+    ]
+  },
+  {
+    "id": "may_p_world_830",
+    "topic": "world",
+    "years": [
+      830,
+      900
+    ]
+  },
+  {
+    "id": "may_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "may_p_place_tikal",
+    "topic": "place",
+    "regions": [
+      "tikal"
+    ]
+  },
+  {
+    "id": "may_p_place_calakmul",
+    "topic": "place",
+    "regions": [
+      "calakmul"
+    ]
+  },
+  {
+    "id": "may_p_place_palenque",
+    "topic": "place",
+    "regions": [
+      "palenque"
+    ]
+  },
+  {
+    "id": "may_p_place_copan",
+    "topic": "place",
+    "regions": [
+      "copan"
+    ]
+  },
+  {
+    "id": "may_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "may_p_society_slave",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "may_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "may_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "may_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "may_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "may_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "may_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "may_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "may_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "may_p_faith_noble",
+    "topic": "faith",
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "may_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "may_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "may_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "may_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "may_p_women_noble",
+    "topic": "women",
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "may_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "may_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "may_p_war",
+    "topic": "war"
+  }
+]

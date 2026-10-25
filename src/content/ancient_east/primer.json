@@ -1,0 +1,270 @@
+[
+  {
+    "id": "ane_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "ane_p_world_eg_rise",
+    "topic": "world",
+    "regions": [
+      "thebes",
+      "memphis"
+    ],
+    "years": [
+      -1550,
+      -1426
+    ]
+  },
+  {
+    "id": "ane_p_world_eg_gold",
+    "topic": "world",
+    "regions": [
+      "thebes",
+      "memphis"
+    ],
+    "years": [
+      -1425,
+      -1353
+    ]
+  },
+  {
+    "id": "ane_p_world_eg_amarna",
+    "topic": "world",
+    "regions": [
+      "thebes",
+      "memphis"
+    ],
+    "years": [
+      -1352,
+      -1295
+    ]
+  },
+  {
+    "id": "ane_p_world_eg_ramesses",
+    "topic": "world",
+    "regions": [
+      "thebes",
+      "memphis"
+    ],
+    "years": [
+      -1294,
+      -1186
+    ]
+  },
+  {
+    "id": "ane_p_world_eg_decline",
+    "topic": "world",
+    "regions": [
+      "thebes",
+      "memphis"
+    ],
+    "years": [
+      -1185,
+      -1070
+    ]
+  },
+  {
+    "id": "ane_p_world_bab_kassite",
+    "topic": "world",
+    "regions": [
+      "babylon"
+    ],
+    "years": [
+      -1550,
+      -1226
+    ]
+  },
+  {
+    "id": "ane_p_world_bab_troubles",
+    "topic": "world",
+    "regions": [
+      "babylon"
+    ],
+    "years": [
+      -1225,
+      -1070
+    ]
+  },
+  {
+    "id": "ane_p_world_assur_mitanni",
+    "topic": "world",
+    "regions": [
+      "assur"
+    ],
+    "years": [
+      -1550,
+      -1364
+    ]
+  },
+  {
+    "id": "ane_p_world_assur_rise",
+    "topic": "world",
+    "regions": [
+      "assur"
+    ],
+    "years": [
+      -1363,
+      -1208
+    ]
+  },
+  {
+    "id": "ane_p_world_assur_tiglath",
+    "topic": "world",
+    "regions": [
+      "assur"
+    ],
+    "years": [
+      -1207,
+      -1070
+    ]
+  },
+  {
+    "id": "ane_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "ane_p_place_thebes",
+    "topic": "place",
+    "regions": [
+      "thebes"
+    ]
+  },
+  {
+    "id": "ane_p_place_memphis",
+    "topic": "place",
+    "regions": [
+      "memphis"
+    ]
+  },
+  {
+    "id": "ane_p_place_babylon",
+    "topic": "place",
+    "regions": [
+      "babylon"
+    ]
+  },
+  {
+    "id": "ane_p_place_assur",
+    "topic": "place",
+    "regions": [
+      "assur"
+    ]
+  },
+  {
+    "id": "ane_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "ane_p_society_slave",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "ane_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "ane_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "ane_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "ane_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "ane_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "ane_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "ane_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "ane_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "ane_p_faith_egypt",
+    "topic": "faith",
+    "religions": [
+      "egyptian_gods"
+    ]
+  },
+  {
+    "id": "ane_p_faith_meso",
+    "topic": "faith",
+    "religions": [
+      "mesopotamian_gods"
+    ]
+  },
+  {
+    "id": "ane_p_faith_meso_memphis",
+    "topic": "faith",
+    "regions": [
+      "memphis"
+    ],
+    "religions": [
+      "mesopotamian_gods"
+    ]
+  },
+  {
+    "id": "ane_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "ane_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "ane_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "ane_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "ane_p_women_egypt",
+    "topic": "women",
+    "regions": [
+      "thebes",
+      "memphis"
+    ]
+  },
+  {
+    "id": "ane_p_women_meso",
+    "topic": "women",
+    "regions": [
+      "babylon",
+      "assur"
+    ]
+  },
+  {
+    "id": "ane_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "ane_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "ane_p_war",
+    "topic": "war"
+  }
+]

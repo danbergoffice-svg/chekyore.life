@@ -1,0 +1,497 @@
+[
+  {
+    "id": "amr_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "amr_p_world_tepanec",
+    "topic": "world",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ],
+    "years": [
+      1400,
+      1427
+    ]
+  },
+  {
+    "id": "amr_p_world_alliance",
+    "topic": "world",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ],
+    "years": [
+      1428,
+      1518
+    ]
+  },
+  {
+    "id": "amr_p_world_cortes",
+    "topic": "world",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ],
+    "years": [
+      1519,
+      1521
+    ]
+  },
+  {
+    "id": "amr_p_world_newspain",
+    "topic": "world",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ],
+    "years": [
+      1522,
+      1535
+    ]
+  },
+  {
+    "id": "amr_p_world_cusco_early",
+    "topic": "world",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "years": [
+      1400,
+      1437
+    ]
+  },
+  {
+    "id": "amr_p_world_pachacuti",
+    "topic": "world",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "years": [
+      1438,
+      1492
+    ]
+  },
+  {
+    "id": "amr_p_world_huayna",
+    "topic": "world",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "years": [
+      1493,
+      1527
+    ]
+  },
+  {
+    "id": "amr_p_world_civilwar",
+    "topic": "world",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "years": [
+      1528,
+      1532
+    ]
+  },
+  {
+    "id": "amr_p_world_pizarro",
+    "topic": "world",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "years": [
+      1533,
+      1535
+    ]
+  },
+  {
+    "id": "amr_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "amr_p_society_mex",
+    "topic": "society",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_society_and",
+    "topic": "society",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_society_slave_mex",
+    "topic": "society",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ],
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "amr_p_society_slave_and",
+    "topic": "society",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "amr_p_society_peasant_mex",
+    "topic": "society",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ],
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "amr_p_society_peasant_and",
+    "topic": "society",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "amr_p_society_noble_mex",
+    "topic": "society",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ],
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "amr_p_society_noble_and",
+    "topic": "society",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "amr_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "amr_p_birth_mex",
+    "topic": "birth",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_birth_and",
+    "topic": "birth",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "amr_p_childhood_mex",
+    "topic": "childhood",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_childhood_and",
+    "topic": "childhood",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "amr_p_home_mex",
+    "topic": "home",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_home_and",
+    "topic": "home",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "amr_p_food_mex",
+    "topic": "food",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_food_and",
+    "topic": "food",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "amr_p_clothes_mex",
+    "topic": "clothes",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_clothes_and",
+    "topic": "clothes",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "amr_p_faith_aztec",
+    "topic": "faith",
+    "religions": [
+      "aztec_gods"
+    ]
+  },
+  {
+    "id": "amr_p_faith_andean",
+    "topic": "faith",
+    "religions": [
+      "andean"
+    ]
+  },
+  {
+    "id": "amr_p_faith_catholic",
+    "topic": "faith",
+    "religions": [
+      "catholic"
+    ]
+  },
+  {
+    "id": "amr_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "amr_p_work_mex",
+    "topic": "work",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_work_and",
+    "topic": "work",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "amr_p_place_tenochtitlan",
+    "topic": "place",
+    "regions": [
+      "tenochtitlan"
+    ]
+  },
+  {
+    "id": "amr_p_place_texcoco",
+    "topic": "place",
+    "regions": [
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_place_cusco",
+    "topic": "place",
+    "regions": [
+      "cusco"
+    ]
+  },
+  {
+    "id": "amr_p_place_quito",
+    "topic": "place",
+    "regions": [
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "amr_p_law_mex",
+    "topic": "law",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_law_and",
+    "topic": "law",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "amr_p_health_mex",
+    "topic": "health",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_health_and",
+    "topic": "health",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "amr_p_women_mex",
+    "topic": "women",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_women_and",
+    "topic": "women",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "amr_p_leisure_mex",
+    "topic": "leisure",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_leisure_and",
+    "topic": "leisure",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "amr_p_knowledge_mex",
+    "topic": "knowledge",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_knowledge_and",
+    "topic": "knowledge",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  },
+  {
+    "id": "amr_p_war",
+    "topic": "war"
+  },
+  {
+    "id": "amr_p_war_mex",
+    "topic": "war",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ]
+  },
+  {
+    "id": "amr_p_war_and",
+    "topic": "war",
+    "regions": [
+      "cusco",
+      "quito"
+    ]
+  }
+]

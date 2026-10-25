@@ -1,0 +1,227 @@
+[
+  {
+    "id": "eur_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "eur_p_world_1000",
+    "topic": "world",
+    "years": [
+      1000,
+      1095
+    ]
+  },
+  {
+    "id": "eur_p_world_crusades",
+    "topic": "world",
+    "years": [
+      1096,
+      1199
+    ]
+  },
+  {
+    "id": "eur_p_world_high",
+    "topic": "world",
+    "years": [
+      1200,
+      1346
+    ]
+  },
+  {
+    "id": "eur_p_world_plague",
+    "topic": "world",
+    "years": [
+      1347,
+      1453
+    ]
+  },
+  {
+    "id": "eur_p_world_print",
+    "topic": "world",
+    "years": [
+      1454,
+      1500
+    ]
+  },
+  {
+    "id": "eur_p_world_florence_commune",
+    "topic": "world",
+    "regions": [
+      "florence"
+    ],
+    "years": [
+      1115,
+      1433
+    ]
+  },
+  {
+    "id": "eur_p_world_florence_medici",
+    "topic": "world",
+    "regions": [
+      "florence"
+    ],
+    "years": [
+      1434,
+      1500
+    ]
+  },
+  {
+    "id": "eur_p_world_toledo",
+    "topic": "world",
+    "regions": [
+      "toledo"
+    ],
+    "years": [
+      1085,
+      1500
+    ]
+  },
+  {
+    "id": "eur_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "eur_p_society_serf",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "eur_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "eur_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "eur_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "eur_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "eur_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "eur_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "eur_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "eur_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "eur_p_faith_jewish",
+    "topic": "faith",
+    "religions": [
+      "judaism"
+    ]
+  },
+  {
+    "id": "eur_p_faith_toledo_jewish",
+    "topic": "faith",
+    "regions": [
+      "toledo"
+    ],
+    "religions": [
+      "judaism"
+    ]
+  },
+  {
+    "id": "eur_p_faith_muslim",
+    "topic": "faith",
+    "religions": [
+      "islam"
+    ]
+  },
+  {
+    "id": "eur_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "eur_p_work_florence",
+    "topic": "work",
+    "regions": [
+      "florence"
+    ]
+  },
+  {
+    "id": "eur_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "eur_p_place_paris",
+    "topic": "place",
+    "regions": [
+      "paris"
+    ]
+  },
+  {
+    "id": "eur_p_place_london",
+    "topic": "place",
+    "regions": [
+      "london"
+    ]
+  },
+  {
+    "id": "eur_p_place_florence",
+    "topic": "place",
+    "regions": [
+      "florence"
+    ]
+  },
+  {
+    "id": "eur_p_place_cologne",
+    "topic": "place",
+    "regions": [
+      "cologne"
+    ]
+  },
+  {
+    "id": "eur_p_place_toledo",
+    "topic": "place",
+    "regions": [
+      "toledo"
+    ]
+  },
+  {
+    "id": "eur_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "eur_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "eur_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "eur_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "eur_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "eur_p_war",
+    "topic": "war"
+  }
+]

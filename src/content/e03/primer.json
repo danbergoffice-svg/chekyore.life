@@ -1,0 +1,341 @@
+[
+  {
+    "id": "e03_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "e03_p_world_rome_early",
+    "topic": "world",
+    "regions": [
+      "rome"
+    ],
+    "years": [
+      -500,
+      -265
+    ]
+  },
+  {
+    "id": "e03_p_world_rome_punic",
+    "topic": "world",
+    "regions": [
+      "rome"
+    ],
+    "years": [
+      -264,
+      -134
+    ]
+  },
+  {
+    "id": "e03_p_world_rome_civil",
+    "topic": "world",
+    "regions": [
+      "rome"
+    ],
+    "years": [
+      -133,
+      -31
+    ]
+  },
+  {
+    "id": "e03_p_world_rome_augustus",
+    "topic": "world",
+    "regions": [
+      "rome"
+    ],
+    "years": [
+      -30,
+      68
+    ]
+  },
+  {
+    "id": "e03_p_world_rome_empire",
+    "topic": "world",
+    "regions": [
+      "rome"
+    ],
+    "years": [
+      69,
+      200
+    ]
+  },
+  {
+    "id": "e03_p_world_athens_classical",
+    "topic": "world",
+    "regions": [
+      "athens"
+    ],
+    "years": [
+      -500,
+      -323
+    ]
+  },
+  {
+    "id": "e03_p_world_athens_hellen",
+    "topic": "world",
+    "regions": [
+      "athens"
+    ],
+    "years": [
+      -322,
+      -87
+    ]
+  },
+  {
+    "id": "e03_p_world_athens_roman",
+    "topic": "world",
+    "regions": [
+      "athens"
+    ],
+    "years": [
+      -86,
+      200
+    ]
+  },
+  {
+    "id": "e03_p_world_egypt_late",
+    "topic": "world",
+    "regions": [
+      "egypt"
+    ],
+    "years": [
+      -350,
+      -333
+    ]
+  },
+  {
+    "id": "e03_p_world_egypt_ptolemaic",
+    "topic": "world",
+    "regions": [
+      "egypt"
+    ],
+    "years": [
+      -332,
+      -31
+    ]
+  },
+  {
+    "id": "e03_p_world_egypt_roman",
+    "topic": "world",
+    "regions": [
+      "egypt"
+    ],
+    "years": [
+      -30,
+      200
+    ]
+  },
+  {
+    "id": "e03_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "e03_p_place_rome_rep",
+    "topic": "place",
+    "regions": [
+      "rome"
+    ],
+    "years": [
+      -500,
+      -31
+    ]
+  },
+  {
+    "id": "e03_p_place_rome_imp",
+    "topic": "place",
+    "regions": [
+      "rome"
+    ],
+    "years": [
+      -30,
+      200
+    ]
+  },
+  {
+    "id": "e03_p_place_athens",
+    "topic": "place",
+    "regions": [
+      "athens"
+    ]
+  },
+  {
+    "id": "e03_p_place_egypt",
+    "topic": "place",
+    "regions": [
+      "egypt"
+    ]
+  },
+  {
+    "id": "e03_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "e03_p_society_slave",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "e03_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "e03_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "e03_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "e03_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "e03_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "e03_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "e03_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "e03_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "e03_p_faith_rome",
+    "topic": "faith",
+    "regions": [
+      "rome"
+    ],
+    "religions": [
+      "roman_gods"
+    ]
+  },
+  {
+    "id": "e03_p_faith_athens",
+    "topic": "faith",
+    "regions": [
+      "athens"
+    ],
+    "religions": [
+      "roman_gods"
+    ]
+  },
+  {
+    "id": "e03_p_faith_egypt_greek",
+    "topic": "faith",
+    "regions": [
+      "egypt"
+    ],
+    "religions": [
+      "roman_gods"
+    ]
+  },
+  {
+    "id": "e03_p_faith_egypt",
+    "topic": "faith",
+    "religions": [
+      "egyptian_gods"
+    ]
+  },
+  {
+    "id": "e03_p_faith_judaism",
+    "topic": "faith",
+    "religions": [
+      "judaism"
+    ]
+  },
+  {
+    "id": "e03_p_faith_judaism_alex",
+    "topic": "faith",
+    "regions": [
+      "egypt"
+    ],
+    "religions": [
+      "judaism"
+    ],
+    "years": [
+      -331,
+      200
+    ]
+  },
+  {
+    "id": "e03_p_faith_christian",
+    "topic": "faith",
+    "religions": [
+      "christian"
+    ]
+  },
+  {
+    "id": "e03_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "e03_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "e03_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "e03_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "e03_p_women_athens",
+    "topic": "women",
+    "regions": [
+      "athens"
+    ]
+  },
+  {
+    "id": "e03_p_women_rome",
+    "topic": "women",
+    "regions": [
+      "rome"
+    ]
+  },
+  {
+    "id": "e03_p_women_egypt",
+    "topic": "women",
+    "regions": [
+      "egypt"
+    ]
+  },
+  {
+    "id": "e03_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "e03_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "e03_p_knowledge_alex",
+    "topic": "knowledge",
+    "regions": [
+      "egypt"
+    ],
+    "years": [
+      -290,
+      200
+    ]
+  },
+  {
+    "id": "e03_p_war",
+    "topic": "war"
+  }
+]

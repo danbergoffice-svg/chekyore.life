@@ -1,0 +1,203 @@
+[
+  {
+    "id": "waf_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "waf_p_world_sundiata",
+    "topic": "world",
+    "years": [
+      1230,
+      1311
+    ]
+  },
+  {
+    "id": "waf_p_world_musa",
+    "topic": "world",
+    "years": [
+      1312,
+      1360
+    ]
+  },
+  {
+    "id": "waf_p_world_decline",
+    "topic": "world",
+    "years": [
+      1361,
+      1463
+    ]
+  },
+  {
+    "id": "waf_p_world_sonni",
+    "topic": "world",
+    "years": [
+      1464,
+      1492
+    ]
+  },
+  {
+    "id": "waf_p_world_askia",
+    "topic": "world",
+    "years": [
+      1493,
+      1590
+    ]
+  },
+  {
+    "id": "waf_p_world_morocco",
+    "topic": "world",
+    "years": [
+      1591,
+      1600
+    ]
+  },
+  {
+    "id": "waf_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "waf_p_society_slave",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "waf_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "waf_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "waf_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "waf_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "waf_p_childhood_islam",
+    "topic": "childhood",
+    "religions": [
+      "islam"
+    ]
+  },
+  {
+    "id": "waf_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "waf_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "waf_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "waf_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "waf_p_faith_islam",
+    "topic": "faith",
+    "religions": [
+      "islam"
+    ]
+  },
+  {
+    "id": "waf_p_faith_traditional",
+    "topic": "faith",
+    "religions": [
+      "african_traditional"
+    ]
+  },
+  {
+    "id": "waf_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "waf_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "waf_p_place_niani",
+    "topic": "place",
+    "regions": [
+      "niani"
+    ]
+  },
+  {
+    "id": "waf_p_place_timbuktu",
+    "topic": "place",
+    "regions": [
+      "timbuktu"
+    ]
+  },
+  {
+    "id": "waf_p_place_gao",
+    "topic": "place",
+    "regions": [
+      "gao"
+    ]
+  },
+  {
+    "id": "waf_p_place_djenne",
+    "topic": "place",
+    "regions": [
+      "djenne"
+    ]
+  },
+  {
+    "id": "waf_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "waf_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "waf_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "waf_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "waf_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "waf_p_knowledge_timbuktu",
+    "topic": "knowledge",
+    "regions": [
+      "timbuktu"
+    ],
+    "years": [
+      1450,
+      1600
+    ]
+  },
+  {
+    "id": "waf_p_war",
+    "topic": "war"
+  },
+  {
+    "id": "waf_p_war_songhai",
+    "topic": "war",
+    "years": [
+      1464,
+      1590
+    ]
+  }
+]
