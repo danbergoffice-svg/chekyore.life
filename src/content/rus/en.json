@@ -159,5 +159,8 @@
   "ev.a_stolen_tunic.text.RUS": "While you were steaming in the bathhouse, someone took your best shirt from the changing room. You had to run home through the snow in somebody else's torn coat, wishing the thief everything you could think of.",
   "ev.a_good_harvest.text.2.RUS": "A generous year: the rye stands like a wall, sheaves are drying in the barn, and the flails beat on the threshing floor until dark. The cottage smells of fresh bread.",
   "ev.t_honorary_decree.title.RUS": "A Good Name",
-  "ev.t_honorary_decree.text.RUS": "People remember that hungry year. The elders came to bow before you with bread and salt, the church holds a prayer service for you, and at feasts you are seated in the place of honour. People already speak of you the way the old songs speak of the righteous."
+  "ev.t_honorary_decree.text.RUS": "People remember that hungry year. The elders came to bow before you with bread and salt, the church holds a prayer service for you, and at feasts you are seated in the place of honour. People already speak of you the way the old songs speak of the righteous.",
+  "place.rus_lithuania": "Lithuania",
+  "place.rus_kama": "the Stroganov lands on the Kama",
+  "place.rus_don": "the Don"
 }

@@ -2901,7 +2901,7 @@
  {
   "id": "ane_d_adoption",
   "type": "personal",
-  "base_weight": 1.5,
+  "base_weight": 5,
   "regions": [
    "thebes",
    "memphis"
@@ -6603,7 +6603,8 @@
   "classes": [
    "craftsman",
    "landowner",
-   "trader"
+   "trader",
+   "peasant"
   ],
   "age_range": [
    16,

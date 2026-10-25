@@ -1340,7 +1340,7 @@
     },
     {
       "id": "harar",
-      "weight": 2,
+      "weight": 1,
       "years": [
         1500,
         1650
@@ -2046,7 +2046,7 @@
         {
           "skill": "literacy",
           "op": ">=",
-          "value": 15
+          "value": 10
         }
       ],
       "income": [

@@ -1,0 +1,1995 @@
+[
+ {
+  "id": "may_g_star_war_562",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   562,
+   563
+  ],
+  "global_chance": 0.6,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "smoke",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hide",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     },
+     {
+      "param": "happiness",
+      "delta": -5
+     }
+    ]
+   },
+   {
+    "id": "defend",
+    "requirements": [
+     {
+      "sex": "m"
+     },
+     {
+      "age": [
+       16,
+       50
+      ]
+     }
+    ],
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "param": "happiness",
+       "delta": -4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "chance": 0.3,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "icon": "war"
+   }
+  ]
+ },
+ {
+  "id": "may_g_hiatus",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   563,
+   680
+  ],
+  "global_chance": 0.15,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": -25
+   },
+   {
+    "param": "self_esteem",
+    "delta": -2
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_g_flight_657",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   657,
+   658
+  ],
+  "global_chance": 0.5,
+  "icon": "war",
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ]
+   },
+   {
+    "id": "follow",
+    "requirements": [
+     {
+      "classes": [
+       "landowner",
+       "noble"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "money_pct": -35
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move"
+   }
+  ]
+ },
+ {
+  "id": "may_g_dos_pilas_war",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   672,
+   679
+  ],
+  "global_chance": 0.25,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "camp",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "requirements": [
+     {
+      "sex": "m"
+     },
+     {
+      "age": [
+       16,
+       50
+      ]
+     }
+    ],
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "skill": "military",
+       "delta": 5
+      },
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "chance": 0.25,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "icon": "war"
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_jasaw",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   682,
+   683
+  ],
+  "global_chance": 0.5,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_g_stela30",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   692,
+   692
+  ],
+  "global_chance": 0.6,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "statue",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_g_victory_695",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   695,
+   696
+  ],
+  "global_chance": 0.6,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "celebrate",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 6
+     },
+     {
+      "param": "self_esteem",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -10
+     }
+    ]
+   },
+   {
+    "id": "gifts",
+    "requirements": [
+     {
+      "classes": [
+       "trader",
+       "landowner",
+       "noble"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_temple_i",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   732,
+   736
+  ],
+  "global_chance": 0.3,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "sun",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "skill": "craft",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_yikin_wars",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   743,
+   744
+  ],
+  "global_chance": 0.5,
+  "icon": "war",
+  "scene": {
+   "place": "landmark",
+   "time": "sunset",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "param": "money",
+    "delta": 20
+   }
+  ]
+ },
+ {
+  "id": "may_g_temple_iv",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   740,
+   750
+  ],
+  "global_chance": 0.2,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "sun",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -2
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_g_tikal_late",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   810,
+   868
+  ],
+  "global_chance": 0.2,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 3,
+   "props": []
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": -30
+   },
+   {
+    "param": "stress",
+    "delta": 4
+   },
+   {
+    "param": "happiness",
+    "delta": -3
+   },
+   {
+    "add_tag": "drought_years"
+   }
+  ]
+ },
+ {
+  "id": "may_g_last_stela_869",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   869,
+   870
+  ],
+  "global_chance": 0.5,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_g_tikal_abandon",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "tikal"
+  ],
+  "years": [
+   870,
+   950
+  ],
+  "global_chance": 0.25,
+  "icon": "move",
+  "scene": {
+   "place": "landmark",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "move": "may_lineage_village"
+     },
+     {
+      "add_tag": "rural"
+     },
+     {
+      "remove_tag": "lives_in_city"
+     },
+     {
+      "money_pct": -20
+     }
+    ],
+    "icon": "move"
+   }
+  ]
+ },
+ {
+  "id": "may_g_kaan_arrives",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "calakmul"
+  ],
+  "years": [
+   631,
+   640
+  ],
+  "global_chance": 0.3,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "param": "money",
+    "delta": 20
+   }
+  ]
+ },
+ {
+  "id": "may_g_yuknoom_great",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "calakmul"
+  ],
+  "years": [
+   636,
+   686
+  ],
+  "global_chance": 0.15,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "trade",
+    "requirements": [
+     {
+      "classes": [
+       "trader",
+       "craftsman"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": 90
+     },
+     {
+      "skill": "trade",
+      "delta": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_kaan_palenque",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   45
+  ],
+  "regions": [
+   "calakmul"
+  ],
+  "years": [
+   599,
+   611
+  ],
+  "global_chance": 0.2,
+  "sex": "m",
+  "icon": "war",
+  "scene": {
+   "place": "camp",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "skill": "military",
+       "delta": 5
+      },
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "icon": "war"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_kaan_defeat",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "calakmul"
+  ],
+  "years": [
+   695,
+   696
+  ],
+  "global_chance": 0.6,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -5
+   },
+   {
+    "param": "self_esteem",
+    "delta": -4
+   },
+   {
+    "param": "money",
+    "delta": -30
+   }
+  ]
+ },
+ {
+  "id": "may_g_stelae_731",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "calakmul"
+  ],
+  "years": [
+   731,
+   731
+  ],
+  "global_chance": 0.6,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "statue",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_g_quirigua_plot",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "calakmul"
+  ],
+  "years": [
+   736,
+   738
+  ],
+  "global_chance": 0.25,
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 40
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_g_calakmul_decline",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "calakmul"
+  ],
+  "years": [
+   800,
+   900
+  ],
+  "global_chance": 0.2,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": -30
+   },
+   {
+    "param": "stress",
+    "delta": 4
+   },
+   {
+    "add_tag": "drought_years"
+   }
+  ]
+ },
+ {
+  "id": "may_g_palenque_sacked",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "palenque"
+  ],
+  "years": [
+   599,
+   611
+  ],
+  "global_chance": 0.25,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -35
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ]
+   },
+   {
+    "id": "shrines",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "health",
+      "delta": -6
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_pakal_accession",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "palenque"
+  ],
+  "years": [
+   615,
+   616
+  ],
+  "global_chance": 0.5,
+  "others": [
+   "mother"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_g_pakal_palace",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "palenque"
+  ],
+  "years": [
+   654,
+   661
+  ],
+  "global_chance": 0.25,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave",
+   "trader"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "statue",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "skill": "craft",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "may_g_pakal_death",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "palenque"
+  ],
+  "years": [
+   683,
+   685
+  ],
+  "global_chance": 0.5,
+  "icon": "death",
+  "scene": {
+   "place": "tomb",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "mourn",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "happiness",
+      "delta": -3
+     }
+    ]
+   },
+   {
+    "id": "work",
+    "requirements": [
+     {
+      "classes": [
+       "peasant",
+       "craftsman",
+       "slave"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "money",
+      "delta": 20
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_cross_group",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "palenque"
+  ],
+  "years": [
+   690,
+   692
+  ],
+  "global_chance": 0.4,
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "smoke",
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 4
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_g_tonina_711",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "palenque"
+  ],
+  "years": [
+   711,
+   712
+  ],
+  "global_chance": 0.6,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -4
+   },
+   {
+    "param": "stress",
+    "delta": 4
+   },
+   {
+    "param": "self_esteem",
+    "delta": -3
+   }
+  ]
+ },
+ {
+  "id": "may_g_palenque_end",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "palenque"
+  ],
+  "years": [
+   795,
+   870
+  ],
+  "global_chance": 0.2,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "move": "may_river_town"
+     },
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "icon": "move"
+   }
+  ]
+ },
+ {
+  "id": "may_g_smoke_imix",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "copan"
+  ],
+  "years": [
+   652,
+   653
+  ],
+  "global_chance": 0.5,
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "statue",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_g_rabbit_738",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "copan"
+  ],
+  "years": [
+   738,
+   739
+  ],
+  "global_chance": 0.6,
+  "icon": "loss",
+  "sensitive": true,
+  "scene": {
+   "place": "landmark",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -6
+   },
+   {
+    "param": "self_esteem",
+    "delta": -4
+   },
+   {
+    "param": "stress",
+    "delta": 5
+   },
+   {
+    "param": "faith",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_g_stairway_755",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "copan"
+  ],
+  "years": [
+   753,
+   756
+  ],
+  "global_chance": 0.4,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "statue",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "look",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "skill": "literacy",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "work",
+    "requirements": [
+     {
+      "classes": [
+       "craftsman",
+       "peasant"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "skill": "craft",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "health",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_altar_q",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "copan"
+  ],
+  "years": [
+   776,
+   777
+  ],
+  "global_chance": 0.5,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "altar",
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_g_copan_crowded",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "copan"
+  ],
+  "years": [
+   780,
+   840
+  ],
+  "global_chance": 0.2,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave",
+   "trader"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -4
+   },
+   {
+    "param": "money",
+    "delta": -20
+   },
+   {
+    "param": "stress",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "may_g_altar_l",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "regions": [
+   "copan"
+  ],
+  "years": [
+   822,
+   830
+  ],
+  "global_chance": 0.4,
+  "scene": {
+   "place": "workshop",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": -3
+   },
+   {
+    "param": "happiness",
+    "delta": -3
+   },
+   {
+    "add_tag": "drought_years"
+   }
+  ]
+ },
+ {
+  "id": "may_g_drought",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   6,
+   120
+  ],
+  "years": [
+   800,
+   920
+  ],
+  "global_chance": 0.2,
+  "icon": "disaster",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "add_tag": "drought_years"
+     }
+    ]
+   },
+   {
+    "id": "forage",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "skill": "farming",
+      "delta": 2
+     },
+     {
+      "add_tag": "drought_years"
+     }
+    ]
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -25
+     },
+     {
+      "add_tag": "drought_years"
+     }
+    ],
+    "icon": "move"
+   }
+  ]
+ },
+ {
+  "id": "may_g_war_everywhere",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "years": [
+   780,
+   870
+  ],
+  "global_chance": 0.15,
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "battle",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "fire",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "wall",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "hide",
+    "effects": [
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_g_tonina_909",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   6,
+   120
+  ],
+  "years": [
+   909,
+   912
+  ],
+  "global_chance": 0.3,
+  "scene": {
+   "place": "landmark",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": -2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ }
+]

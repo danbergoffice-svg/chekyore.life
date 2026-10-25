@@ -1,0 +1,2801 @@
+[
+ {
+  "id": "amr_h_ixtlilxochitl",
+  "type": "global_historical",
+  "years": [
+   1418,
+   1419
+  ],
+  "regions": [
+   "texcoco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "icon": "war",
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "smoke",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 5
+      },
+      {
+       "set_flag": "family_amr_loyal_texcoco"
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "bow",
+    "effects": [
+     {
+      "money_pct": -15
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_tepanec_war",
+  "type": "global_historical",
+  "years": [
+   1427,
+   1428
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.5,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      },
+      {
+       "money_pct": -20
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_triple_alliance",
+  "type": "global_historical",
+  "years": [
+   1429,
+   1431
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.5,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_nezahualcoyotl",
+  "type": "global_historical",
+  "years": [
+   1431,
+   1433
+  ],
+  "regions": [
+   "texcoco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "reputation",
+    "delta": 1
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_moctezuma_i",
+  "type": "global_historical",
+  "years": [
+   1440,
+   1441
+  ],
+  "regions": [
+   "tenochtitlan"
+  ],
+  "global_chance": 0.5,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_flood_1449",
+  "type": "global_historical",
+  "years": [
+   1449,
+   1450
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.55,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "icon": "disaster",
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "rain",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "skill": "craft",
+      "delta": 3
+     },
+     {
+      "money_pct": -10
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "money_pct": -5
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_famine",
+  "type": "global_historical",
+  "years": [
+   1451,
+   1454
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.5,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "disaster",
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -10
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "hoard",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -5
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "coast",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -3
+      },
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "icon": "move",
+    "pattern": {
+     "home_road": 5
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_new_fire_1455",
+  "type": "global_historical",
+  "years": [
+   1455,
+   1455
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "landmark",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "moon"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 5
+   },
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "stress",
+    "delta": -4
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_flower_wars",
+  "type": "global_historical",
+  "years": [
+   1455,
+   1518
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.15,
+  "historian_note": true,
+  "confidence": "disputed",
+  "sensitive": true,
+  "sex": "m",
+  "age_range": [
+   17,
+   40
+  ],
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "skill": "military",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "chance": 0.15,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_aqueduct",
+  "type": "global_historical",
+  "years": [
+   1465,
+   1467
+  ],
+  "regions": [
+   "tenochtitlan"
+  ],
+  "global_chance": 0.4,
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_nezahualcoyotl_death",
+  "type": "global_historical",
+  "years": [
+   1472,
+   1472
+  ],
+  "regions": [
+   "texcoco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -3
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_tlatelolco",
+  "type": "global_historical",
+  "years": [
+   1473,
+   1473
+  ],
+  "regions": [
+   "tenochtitlan"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "icon": "war",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     }
+    ],
+    "risk_roll": {
+     "param": "trade",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 220
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_tarascan",
+  "type": "global_historical",
+  "years": [
+   1478,
+   1479
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.45,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "icon": "war",
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -4
+   },
+   {
+    "param": "stress",
+    "delta": 3
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_templo_mayor",
+  "type": "global_historical",
+  "years": [
+   1487,
+   1487
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.55,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "altar",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "attend",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "away",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_ahuitzotl_flood",
+  "type": "global_historical",
+  "years": [
+   1499,
+   1500
+  ],
+  "regions": [
+   "tenochtitlan"
+  ],
+  "global_chance": 0.5,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "icon": "disaster",
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "money_pct": -20
+   },
+   {
+    "param": "stress",
+    "delta": 4
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_moctezuma_ii",
+  "type": "global_historical",
+  "years": [
+   1502,
+   1503
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.5,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 1
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_new_fire_1507",
+  "type": "global_historical",
+  "years": [
+   1507,
+   1507
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "landmark",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "renew",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_omens",
+  "type": "global_historical",
+  "years": [
+   1515,
+   1518
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.35,
+  "historian_note": true,
+  "confidence": "disputed",
+  "scene": {
+   "place": "landmark",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "moon"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 5
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_cortes",
+  "type": "global_historical",
+  "years": [
+   1519,
+   1519
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "look",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "hide",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_noche_triste",
+  "type": "global_historical",
+  "years": [
+   1520,
+   1520
+  ],
+  "regions": [
+   "tenochtitlan"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "river",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "boat",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -3,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_smallpox_mx",
+  "type": "global_historical",
+  "years": [
+   1520,
+   1521
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.55,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "disaster",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "bed",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "care",
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "faith",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -30
+      },
+      {
+       "add_tag": "ill"
+      },
+      {
+       "chance": 0.25,
+       "effects": [
+        {
+         "kill": "epidemic"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "isolate",
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "loneliness",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "add_tag": "ill"
+      },
+      {
+       "chance": 0.2,
+       "effects": [
+        {
+         "kill": "epidemic"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_fall",
+  "type": "global_historical",
+  "years": [
+   1521,
+   1521
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "smoke",
+    "fire",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "defend",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -70
+      },
+      {
+       "param": "happiness",
+       "delta": -15
+      },
+      {
+       "add_trait": "brave"
+      }
+     ],
+     "on_failure": [
+      {
+       "kill": "war"
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -6
+    }
+   },
+   {
+    "id": "flee",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "money_pct": -60
+      },
+      {
+       "param": "happiness",
+       "delta": -12
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -90
+      },
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "happiness",
+       "delta": -15
+      }
+     ]
+    },
+    "icon": "move",
+    "pattern": {
+     "home_road": 5
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_new_spain",
+  "type": "global_historical",
+  "years": [
+   1522,
+   1530
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.45,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "money_pct": -25
+     },
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "learn",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "skill": "oratory",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     },
+     {
+      "param": "money",
+      "delta": 30
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_franciscans",
+  "type": "global_historical",
+  "years": [
+   1524,
+   1526
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.45,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_cuauhtemoc",
+  "type": "global_historical",
+  "years": [
+   1525,
+   1525
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.4,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -4
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_viceroy",
+  "type": "global_historical",
+  "years": [
+   1535,
+   1536
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.35,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "petition",
+    "risk_roll": {
+     "param": "oratory",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -20
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "quiet",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_cocoliztli",
+  "type": "global_historical",
+  "years": [
+   1545,
+   1548
+  ],
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "global_chance": 0.45,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "disaster",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "bed",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "care",
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -30
+      },
+      {
+       "add_tag": "ill"
+      },
+      {
+       "chance": 0.25,
+       "effects": [
+        {
+         "kill": "epidemic"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     },
+     {
+      "chance": 0.15,
+      "effects": [
+       {
+        "param": "health",
+        "delta": -20
+       },
+       {
+        "add_tag": "ill"
+       }
+      ]
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_chanka",
+  "type": "global_historical",
+  "years": [
+   1438,
+   1438
+  ],
+  "regions": [
+   "cusco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "disputed",
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "defend",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -8
+     },
+     {
+      "money_pct": -20
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 4
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_cusco_rebuilt",
+  "type": "global_historical",
+  "years": [
+   1440,
+   1460
+  ],
+  "regions": [
+   "cusco"
+  ],
+  "global_chance": 0.15,
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "skill": "craft",
+       "delta": 8
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "avoid",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_sacsayhuaman",
+  "type": "global_historical",
+  "years": [
+   1460,
+   1500
+  ],
+  "regions": [
+   "cusco"
+  ],
+  "global_chance": 0.15,
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -2
+   },
+   {
+    "skill": "craft",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_topa_north",
+  "type": "global_historical",
+  "years": [
+   1463,
+   1471
+  ],
+  "regions": [
+   "cusco"
+  ],
+  "global_chance": 0.25,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "icon": "war",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "skill": "military",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "icon": "move",
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     },
+     {
+      "skill": "farming",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_quito_conquered",
+  "type": "global_historical",
+  "years": [
+   1462,
+   1470
+  ],
+  "regions": [
+   "quito"
+  ],
+  "global_chance": 0.4,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "submit",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "resist",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "migrate": "cusco"
+      },
+      {
+       "param": "happiness",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -5
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_chimor",
+  "type": "global_historical",
+  "years": [
+   1470,
+   1472
+  ],
+  "regions": [
+   "cusco"
+  ],
+  "global_chance": 0.4,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "classes": [
+   "craftsman",
+   "peasant"
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "learn",
+    "effects": [
+     {
+      "skill": "craft",
+      "delta": 8
+     },
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": 4,
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "ignore",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_pachacuti_death",
+  "type": "global_historical",
+  "years": [
+   1471,
+   1472
+  ],
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "global_chance": 0.45,
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "stress",
+    "delta": 1
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_huayna_capac",
+  "type": "global_historical",
+  "years": [
+   1493,
+   1494
+  ],
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "global_chance": 0.45,
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_tomebamba",
+  "type": "global_historical",
+  "years": [
+   1500,
+   1525
+  ],
+  "regions": [
+   "quito"
+  ],
+  "global_chance": 0.15,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "skill": "management",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "away",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_smallpox_an",
+  "type": "global_historical",
+  "years": [
+   1525,
+   1528
+  ],
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "global_chance": 0.5,
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "sensitive": true,
+  "icon": "disaster",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "bed",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "care",
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -30
+      },
+      {
+       "add_tag": "ill"
+      },
+      {
+       "chance": 0.25,
+       "effects": [
+        {
+         "kill": "epidemic"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "huaca",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "add_tag": "ill"
+      },
+      {
+       "chance": 0.2,
+       "effects": [
+        {
+         "kill": "epidemic"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_civil_war",
+  "type": "global_historical",
+  "years": [
+   1529,
+   1532
+  ],
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "global_chance": 0.45,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "huascar",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "health",
+        "delta": -15
+       },
+       {
+        "money_pct": -40
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "atahualpa",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "chance": 0.35,
+      "effects": [
+       {
+        "param": "health",
+        "delta": -10
+       }
+      ]
+     },
+     {
+      "chance": 0.4,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 120
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_cajamarca",
+  "type": "global_historical",
+  "years": [
+   1532,
+   1533
+  ],
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "global_chance": 0.5,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "give",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "hide",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_spanish_cusco",
+  "type": "global_historical",
+  "years": [
+   1533,
+   1534
+  ],
+  "regions": [
+   "cusco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": 4,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "hide",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 4,
+     "memory_future": -3
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_ruminahui",
+  "type": "global_historical",
+  "years": [
+   1534,
+   1534
+  ],
+  "regions": [
+   "quito"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "disaster",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "follow",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "money_pct": -30
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -50
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -5,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_manco",
+  "type": "global_historical",
+  "years": [
+   1536,
+   1537
+  ],
+  "regions": [
+   "cusco"
+  ],
+  "global_chance": 0.6,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "add_trait": "brave"
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ],
+     "on_failure": [
+      {
+       "kill": "war"
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -6
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ],
+  "age_range": [
+   0,
+   120
+  ],
+  "topic": "history",
+  "base_weight": 3
+ },
+ {
+  "id": "amr_h_potosi",
+  "type": "global_historical",
+  "years": [
+   1545,
+   1550
+  ],
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "global_chance": 0.35,
+  "historian_note": true,
+  "confidence": "confirmed",
+  "sensitive": true,
+  "sex": "m",
+  "age_range": [
+   16,
+   50
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -15
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     },
+     {
+      "param": "money",
+      "delta": 40
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 120
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ],
+  "topic": "history",
+  "base_weight": 3
+ }
+]

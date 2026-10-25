@@ -10,7 +10,7 @@
       4,
       90
     ],
-    "base_weight": 3,
+    "base_weight": 2,
     "variants": 3,
     "topic": "life",
     "scene": {
@@ -86,7 +86,7 @@
       4,
       90
     ],
-    "base_weight": 2,
+    "base_weight": 1,
     "variants": 2,
     "topic": "life",
     "scene": {
@@ -124,7 +124,7 @@
       10,
       90
     ],
-    "base_weight": 2,
+    "base_weight": 1,
     "variants": 2,
     "topic": "life",
     "scene": {
@@ -336,7 +336,7 @@
       6,
       90
     ],
-    "base_weight": 3,
+    "base_weight": 2,
     "variants": 3,
     "topic": "life",
     "scene": {
@@ -811,7 +811,7 @@
       3,
       90
     ],
-    "base_weight": 3,
+    "base_weight": 2,
     "variants": 2,
     "topic": "life",
     "scene": {
@@ -917,7 +917,7 @@
       4,
       90
     ],
-    "base_weight": 2,
+    "base_weight": 1,
     "variants": 2,
     "topic": "life",
     "scene": {
@@ -1024,7 +1024,7 @@
       3,
       90
     ],
-    "base_weight": 3,
+    "base_weight": 2,
     "variants": 2,
     "topic": "life",
     "scene": {
@@ -1264,7 +1264,7 @@
       3,
       90
     ],
-    "base_weight": 3,
+    "base_weight": 2,
     "variants": 2,
     "topic": "life",
     "scene": {
@@ -4154,6 +4154,13 @@
   {
     "id": "f_preacher",
     "type": "local",
+    "not_eras": [
+      "MAY",
+      "ANE",
+      "AMR",
+      "EUR",
+      "JPN"
+    ],
     "age_range": [
       15,
       70
@@ -4163,7 +4170,7 @@
         "minority": false
       }
     ],
-    "base_weight": 2,
+    "base_weight": 1,
     "once": true,
     "topic": "life",
     "scene": {
@@ -4292,6 +4299,13 @@
   {
     "id": "f_mixed_love",
     "type": "family",
+    "not_eras": [
+      "MAY",
+      "ANE",
+      "AMR",
+      "EUR",
+      "JPN"
+    ],
     "age_range": [
       16,
       35
@@ -4304,7 +4318,7 @@
         "tag_absent": "married"
       }
     ],
-    "base_weight": 2,
+    "base_weight": 1,
     "once": true,
     "topic": "family",
     "scene": {
@@ -6227,7 +6241,6 @@
     "religions": [
       "judaism",
       "christian",
-      "catholic",
       "orthodox",
       "tewahedo",
       "zoroastrian",
@@ -6237,15 +6250,140 @@
       "chinese_folk",
       "shinto",
       "slavic_pagan",
-      "african_traditional",
-      "egyptian_gods",
-      "mesopotamian_gods",
-      "maya_gods",
-      "aztec_gods",
-      "andean"
+      "african_traditional"
     ],
     "not_eras": [
-      "AMR"
+      "IND",
+      "CHN"
+    ],
+    "age_range": [
+      18,
+      80
+    ],
+    "conditions": [
+      {
+        "minority": true
+      }
+    ],
+    "base_weight": 3,
+    "topic": "money",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "effects": [
+          {
+            "money_pct": -15
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2,
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "plead",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.45,
+          "on_success": [
+            {
+              "money_pct": -5
+            },
+            {
+              "param": "stress",
+              "delta": -2
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -20
+            },
+            {
+              "param": "reputation",
+              "delta": -3
+            },
+            {
+              "param": "stress",
+              "delta": 4
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 1
+        }
+      },
+      {
+        "id": "convert",
+        "effects": [
+          {
+            "set_religion": "majority"
+          },
+          {
+            "param": "faith",
+            "delta": -8
+          },
+          {
+            "param": "reputation",
+            "delta": 4
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ],
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              8
+            ],
+            "chance": 0.5,
+            "trigger_event": "f_convert_kin"
+          },
+          {
+            "after_years": [
+              4,
+              9
+            ],
+            "chance": 0.5,
+            "trigger_event": "f_convert_friends"
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3,
+          "memory_future": 6
+        },
+        "icon": "find"
+      }
+    ]
+  },
+  {
+    "id": "f_min_tax_c",
+    "type": "personal",
+    "religions": [
+      "catholic"
+    ],
+    "not_eras": [
+      "AMR",
+      "BYZ",
+      "ISL"
     ],
     "age_range": [
       18,
@@ -6374,135 +6512,8 @@
     "not_eras": [
       "ISL",
       "IND",
-      "WAF"
-    ],
-    "age_range": [
-      18,
-      80
-    ],
-    "conditions": [
-      {
-        "minority": true
-      }
-    ],
-    "base_weight": 3,
-    "topic": "money",
-    "scene": {
-      "place": "street",
-      "time": "day",
-      "people": 3,
-      "props": [
-        "coins",
-        "scroll"
-      ]
-    },
-    "choices": [
-      {
-        "id": "pay",
-        "effects": [
-          {
-            "money_pct": -15
-          },
-          {
-            "param": "stress",
-            "delta": 3
-          },
-          {
-            "param": "faith",
-            "delta": 2
-          }
-        ],
-        "pattern": {
-          "faith_reason": -2,
-          "memory_future": -2
-        }
-      },
-      {
-        "id": "plead",
-        "risk_roll": {
-          "param": "charisma",
-          "success_chance_base": 0.45,
-          "on_success": [
-            {
-              "money_pct": -5
-            },
-            {
-              "param": "stress",
-              "delta": -2
-            }
-          ],
-          "on_failure": [
-            {
-              "money_pct": -20
-            },
-            {
-              "param": "reputation",
-              "delta": -3
-            },
-            {
-              "param": "stress",
-              "delta": 4
-            }
-          ]
-        },
-        "pattern": {
-          "craft_power": 1
-        }
-      },
-      {
-        "id": "convert",
-        "effects": [
-          {
-            "set_religion": "majority"
-          },
-          {
-            "param": "faith",
-            "delta": -8
-          },
-          {
-            "param": "reputation",
-            "delta": 4
-          },
-          {
-            "param": "stress",
-            "delta": 6
-          }
-        ],
-        "delayed_effects": [
-          {
-            "after_years": [
-              3,
-              8
-            ],
-            "chance": 0.5,
-            "trigger_event": "f_convert_kin"
-          },
-          {
-            "after_years": [
-              4,
-              9
-            ],
-            "chance": 0.5,
-            "trigger_event": "f_convert_friends"
-          }
-        ],
-        "pattern": {
-          "faith_reason": 3,
-          "memory_future": 6
-        },
-        "icon": "find"
-      }
-    ]
-  },
-  {
-    "id": "f_min_tax_r",
-    "type": "personal",
-    "religions": [
-      "roman_gods"
-    ],
-    "not_eras": [
-      "E03",
-      "ANE"
+      "WAF",
+      "BYZ"
     ],
     "age_range": [
       18,
@@ -6628,7 +6639,6 @@
     "religions": [
       "judaism",
       "christian",
-      "catholic",
       "orthodox",
       "tewahedo",
       "zoroastrian",
@@ -6638,15 +6648,146 @@
       "chinese_folk",
       "shinto",
       "slavic_pagan",
-      "african_traditional",
-      "egyptian_gods",
-      "mesopotamian_gods",
-      "maya_gods",
-      "aztec_gods",
-      "andean"
+      "african_traditional"
     ],
     "not_eras": [
-      "AMR"
+      "IND",
+      "CHN"
+    ],
+    "age_range": [
+      10,
+      80
+    ],
+    "conditions": [
+      {
+        "minority": true
+      }
+    ],
+    "base_weight": 1,
+    "once": true,
+    "sensitive": true,
+    "topic": "life",
+    "icon": "disaster",
+    "scene": {
+      "place": "street",
+      "time": "night",
+      "people": 6,
+      "props": [
+        "fire",
+        "smoke"
+      ]
+    },
+    "choices": [
+      {
+        "id": "hide",
+        "risk_roll": {
+          "success_chance_base": 0.6,
+          "on_success": [
+            {
+              "money_pct": -10
+            },
+            {
+              "param": "stress",
+              "delta": 8
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -30
+            },
+            {
+              "param": "health",
+              "delta": -15
+            },
+            {
+              "param": "stress",
+              "delta": 12
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": -2
+        }
+      },
+      {
+        "id": "defend",
+        "risk_roll": {
+          "param": "strength",
+          "success_chance_base": 0.4,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 8
+            },
+            {
+              "param": "self_esteem",
+              "delta": 6
+            },
+            {
+              "param": "stress",
+              "delta": 6
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -20
+            },
+            {
+              "param": "health",
+              "delta": -25
+            },
+            {
+              "param": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 3,
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "authorities",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": 3
+            },
+            {
+              "param": "reputation",
+              "delta": 2
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -25
+            },
+            {
+              "param": "stress",
+              "delta": 8
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "f_min_riot_c",
+    "type": "local",
+    "religions": [
+      "catholic"
+    ],
+    "not_eras": [
+      "AMR",
+      "BYZ",
+      "ISL"
     ],
     "age_range": [
       10,
@@ -6781,141 +6922,8 @@
     "not_eras": [
       "ISL",
       "IND",
-      "WAF"
-    ],
-    "age_range": [
-      10,
-      80
-    ],
-    "conditions": [
-      {
-        "minority": true
-      }
-    ],
-    "base_weight": 1,
-    "once": true,
-    "sensitive": true,
-    "topic": "life",
-    "icon": "disaster",
-    "scene": {
-      "place": "street",
-      "time": "night",
-      "people": 6,
-      "props": [
-        "fire",
-        "smoke"
-      ]
-    },
-    "choices": [
-      {
-        "id": "hide",
-        "risk_roll": {
-          "success_chance_base": 0.6,
-          "on_success": [
-            {
-              "money_pct": -10
-            },
-            {
-              "param": "stress",
-              "delta": 8
-            }
-          ],
-          "on_failure": [
-            {
-              "money_pct": -30
-            },
-            {
-              "param": "health",
-              "delta": -15
-            },
-            {
-              "param": "stress",
-              "delta": 12
-            }
-          ]
-        },
-        "pattern": {
-          "home_road": -2
-        }
-      },
-      {
-        "id": "defend",
-        "risk_roll": {
-          "param": "strength",
-          "success_chance_base": 0.4,
-          "on_success": [
-            {
-              "param": "reputation",
-              "delta": 8
-            },
-            {
-              "param": "self_esteem",
-              "delta": 6
-            },
-            {
-              "param": "stress",
-              "delta": 6
-            }
-          ],
-          "on_failure": [
-            {
-              "money_pct": -20
-            },
-            {
-              "param": "health",
-              "delta": -25
-            },
-            {
-              "param": "stress",
-              "delta": 10
-            }
-          ]
-        },
-        "pattern": {
-          "craft_power": 3,
-          "memory_future": -3
-        }
-      },
-      {
-        "id": "authorities",
-        "risk_roll": {
-          "param": "charisma",
-          "success_chance_base": 0.5,
-          "on_success": [
-            {
-              "param": "stress",
-              "delta": 3
-            },
-            {
-              "param": "reputation",
-              "delta": 2
-            }
-          ],
-          "on_failure": [
-            {
-              "money_pct": -25
-            },
-            {
-              "param": "stress",
-              "delta": 8
-            }
-          ]
-        },
-        "pattern": {
-          "craft_power": 2
-        }
-      }
-    ]
-  },
-  {
-    "id": "f_min_riot_r",
-    "type": "local",
-    "religions": [
-      "roman_gods"
-    ],
-    "not_eras": [
-      "E03",
-      "ANE"
+      "WAF",
+      "BYZ"
     ],
     "age_range": [
       10,
@@ -7047,7 +7055,6 @@
     "religions": [
       "judaism",
       "christian",
-      "catholic",
       "orthodox",
       "tewahedo",
       "zoroastrian",
@@ -7057,15 +7064,190 @@
       "chinese_folk",
       "shinto",
       "slavic_pagan",
-      "african_traditional",
-      "egyptian_gods",
-      "mesopotamian_gods",
-      "maya_gods",
-      "aztec_gods",
-      "andean"
+      "african_traditional"
     ],
     "not_eras": [
-      "AMR"
+      "IND",
+      "CHN"
+    ],
+    "age_range": [
+      14,
+      80
+    ],
+    "conditions": [
+      {
+        "minority": true
+      }
+    ],
+    "base_weight": 1,
+    "once": true,
+    "sensitive": true,
+    "topic": "life",
+    "icon": "loss",
+    "scene": {
+      "place": "street",
+      "time": "overcast",
+      "people": 4,
+      "props": [
+        "scroll",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "convert",
+        "effects": [
+          {
+            "set_religion": "majority"
+          },
+          {
+            "param": "faith",
+            "delta": -10
+          },
+          {
+            "param": "stress",
+            "delta": 8
+          },
+          {
+            "param": "happiness",
+            "delta": -6
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              8
+            ],
+            "chance": 0.5,
+            "trigger_event": "f_convert_kin"
+          }
+        ],
+        "pattern": {
+          "faith_reason": 2,
+          "memory_future": 5
+        },
+        "icon": "find"
+      },
+      {
+        "id": "secret",
+        "effects": [
+          {
+            "set_religion": "majority"
+          },
+          {
+            "set_flag": "f_secret_faith"
+          },
+          {
+            "param": "faith",
+            "delta": 3
+          },
+          {
+            "param": "stress",
+            "delta": 12
+          }
+        ],
+        "delayed_effects": [
+          {
+            "after_years": [
+              4,
+              10
+            ],
+            "chance": 0.6,
+            "trigger_event": "f_secret_faith_later"
+          }
+        ],
+        "pattern": {
+          "faith_reason": -4,
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "flee",
+        "effects": [
+          {
+            "migrate": "@other"
+          },
+          {
+            "money_pct": -40
+          },
+          {
+            "param": "faith",
+            "delta": 8
+          },
+          {
+            "param": "stress",
+            "delta": 10
+          },
+          {
+            "param": "happiness",
+            "delta": -6
+          }
+        ],
+        "pattern": {
+          "faith_reason": -6,
+          "home_road": 8
+        },
+        "icon": "move"
+      },
+      {
+        "id": "refuse",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.3,
+          "on_success": [
+            {
+              "param": "faith",
+              "delta": 10
+            },
+            {
+              "param": "reputation",
+              "delta": 4
+            },
+            {
+              "param": "self_esteem",
+              "delta": 6
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -50
+            },
+            {
+              "param": "health",
+              "delta": -10
+            },
+            {
+              "param": "stress",
+              "delta": 15
+            },
+            {
+              "param": "faith",
+              "delta": 6
+            }
+          ]
+        },
+        "pattern": {
+          "faith_reason": -8,
+          "memory_future": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "f_min_forced_c",
+    "type": "personal",
+    "religions": [
+      "catholic"
+    ],
+    "not_eras": [
+      "AMR",
+      "BYZ",
+      "ISL"
     ],
     "age_range": [
       14,
@@ -7244,185 +7426,8 @@
     "not_eras": [
       "ISL",
       "IND",
-      "WAF"
-    ],
-    "age_range": [
-      14,
-      80
-    ],
-    "conditions": [
-      {
-        "minority": true
-      }
-    ],
-    "base_weight": 1,
-    "once": true,
-    "sensitive": true,
-    "topic": "life",
-    "icon": "loss",
-    "scene": {
-      "place": "street",
-      "time": "overcast",
-      "people": 4,
-      "props": [
-        "scroll",
-        "banner"
-      ]
-    },
-    "choices": [
-      {
-        "id": "convert",
-        "effects": [
-          {
-            "set_religion": "majority"
-          },
-          {
-            "param": "faith",
-            "delta": -10
-          },
-          {
-            "param": "stress",
-            "delta": 8
-          },
-          {
-            "param": "happiness",
-            "delta": -6
-          },
-          {
-            "param": "reputation",
-            "delta": 2
-          }
-        ],
-        "delayed_effects": [
-          {
-            "after_years": [
-              3,
-              8
-            ],
-            "chance": 0.5,
-            "trigger_event": "f_convert_kin"
-          }
-        ],
-        "pattern": {
-          "faith_reason": 2,
-          "memory_future": 5
-        },
-        "icon": "find"
-      },
-      {
-        "id": "secret",
-        "effects": [
-          {
-            "set_religion": "majority"
-          },
-          {
-            "set_flag": "f_secret_faith"
-          },
-          {
-            "param": "faith",
-            "delta": 3
-          },
-          {
-            "param": "stress",
-            "delta": 12
-          }
-        ],
-        "delayed_effects": [
-          {
-            "after_years": [
-              4,
-              10
-            ],
-            "chance": 0.6,
-            "trigger_event": "f_secret_faith_later"
-          }
-        ],
-        "pattern": {
-          "faith_reason": -4,
-          "memory_future": -2
-        }
-      },
-      {
-        "id": "flee",
-        "effects": [
-          {
-            "migrate": "@other"
-          },
-          {
-            "money_pct": -40
-          },
-          {
-            "param": "faith",
-            "delta": 8
-          },
-          {
-            "param": "stress",
-            "delta": 10
-          },
-          {
-            "param": "happiness",
-            "delta": -6
-          }
-        ],
-        "pattern": {
-          "faith_reason": -6,
-          "home_road": 8
-        },
-        "icon": "move"
-      },
-      {
-        "id": "refuse",
-        "risk_roll": {
-          "param": "charisma",
-          "success_chance_base": 0.3,
-          "on_success": [
-            {
-              "param": "faith",
-              "delta": 10
-            },
-            {
-              "param": "reputation",
-              "delta": 4
-            },
-            {
-              "param": "self_esteem",
-              "delta": 6
-            }
-          ],
-          "on_failure": [
-            {
-              "money_pct": -50
-            },
-            {
-              "param": "health",
-              "delta": -10
-            },
-            {
-              "param": "stress",
-              "delta": 15
-            },
-            {
-              "param": "faith",
-              "delta": 6
-            }
-          ]
-        },
-        "pattern": {
-          "faith_reason": -8,
-          "memory_future": -4
-        }
-      }
-    ]
-  },
-  {
-    "id": "f_min_forced_r",
-    "type": "personal",
-    "religions": [
-      "roman_gods"
-    ],
-    "not_eras": [
-      "E03",
-      "ANE"
+      "WAF",
+      "BYZ"
     ],
     "age_range": [
       14,
@@ -7598,7 +7603,6 @@
     "religions": [
       "judaism",
       "christian",
-      "catholic",
       "orthodox",
       "tewahedo",
       "zoroastrian",
@@ -7608,15 +7612,136 @@
       "chinese_folk",
       "shinto",
       "slavic_pagan",
-      "african_traditional",
-      "egyptian_gods",
-      "mesopotamian_gods",
-      "maya_gods",
-      "aztec_gods",
-      "andean"
+      "african_traditional"
     ],
     "not_eras": [
-      "AMR"
+      "IND",
+      "CHN"
+    ],
+    "age_range": [
+      16,
+      60
+    ],
+    "conditions": [
+      {
+        "minority": true
+      }
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "work",
+    "scene": {
+      "place": "workshop",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "pretend",
+        "effects": [
+          {
+            "set_flag": "f_hidden_faith"
+          },
+          {
+            "param": "money",
+            "delta": 60
+          },
+          {
+            "param": "reputation",
+            "delta": 4
+          },
+          {
+            "param": "stress",
+            "delta": 8
+          },
+          {
+            "param": "faith",
+            "delta": -4
+          }
+        ],
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              8
+            ],
+            "chance": 0.4,
+            "trigger_event": "f_hidden_exposed"
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3,
+          "craft_power": 4
+        }
+      },
+      {
+        "id": "convert",
+        "effects": [
+          {
+            "set_religion": "majority"
+          },
+          {
+            "param": "money",
+            "delta": 60
+          },
+          {
+            "param": "reputation",
+            "delta": 6
+          },
+          {
+            "param": "faith",
+            "delta": -8
+          }
+        ],
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              8
+            ],
+            "chance": 0.5,
+            "trigger_event": "f_convert_kin"
+          }
+        ],
+        "pattern": {
+          "craft_power": 4,
+          "memory_future": 5
+        },
+        "icon": "find"
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 4
+          },
+          {
+            "param": "faith",
+            "delta": 5
+          }
+        ],
+        "pattern": {
+          "faith_reason": -4,
+          "craft_power": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "f_min_hide_c",
+    "type": "personal",
+    "religions": [
+      "catholic"
+    ],
+    "not_eras": [
+      "AMR",
+      "BYZ",
+      "ISL"
     ],
     "age_range": [
       16,
@@ -7741,131 +7866,8 @@
     "not_eras": [
       "ISL",
       "IND",
-      "WAF"
-    ],
-    "age_range": [
-      16,
-      60
-    ],
-    "conditions": [
-      {
-        "minority": true
-      }
-    ],
-    "base_weight": 2,
-    "once": true,
-    "topic": "work",
-    "scene": {
-      "place": "workshop",
-      "time": "day",
-      "people": 3,
-      "props": [
-        "coins",
-        "scroll"
-      ]
-    },
-    "choices": [
-      {
-        "id": "pretend",
-        "effects": [
-          {
-            "set_flag": "f_hidden_faith"
-          },
-          {
-            "param": "money",
-            "delta": 60
-          },
-          {
-            "param": "reputation",
-            "delta": 4
-          },
-          {
-            "param": "stress",
-            "delta": 8
-          },
-          {
-            "param": "faith",
-            "delta": -4
-          }
-        ],
-        "delayed_effects": [
-          {
-            "after_years": [
-              3,
-              8
-            ],
-            "chance": 0.4,
-            "trigger_event": "f_hidden_exposed"
-          }
-        ],
-        "pattern": {
-          "faith_reason": 3,
-          "craft_power": 4
-        }
-      },
-      {
-        "id": "convert",
-        "effects": [
-          {
-            "set_religion": "majority"
-          },
-          {
-            "param": "money",
-            "delta": 60
-          },
-          {
-            "param": "reputation",
-            "delta": 6
-          },
-          {
-            "param": "faith",
-            "delta": -8
-          }
-        ],
-        "delayed_effects": [
-          {
-            "after_years": [
-              3,
-              8
-            ],
-            "chance": 0.5,
-            "trigger_event": "f_convert_kin"
-          }
-        ],
-        "pattern": {
-          "craft_power": 4,
-          "memory_future": 5
-        },
-        "icon": "find"
-      },
-      {
-        "id": "refuse",
-        "effects": [
-          {
-            "param": "self_esteem",
-            "delta": 4
-          },
-          {
-            "param": "faith",
-            "delta": 5
-          }
-        ],
-        "pattern": {
-          "faith_reason": -4,
-          "craft_power": -2
-        }
-      }
-    ]
-  },
-  {
-    "id": "f_min_hide_r",
-    "type": "personal",
-    "religions": [
-      "roman_gods"
-    ],
-    "not_eras": [
-      "E03",
-      "ANE"
+      "WAF",
+      "BYZ"
     ],
     "age_range": [
       16,
@@ -7987,7 +7989,6 @@
     "religions": [
       "judaism",
       "christian",
-      "catholic",
       "orthodox",
       "tewahedo",
       "zoroastrian",
@@ -7997,15 +7998,107 @@
       "chinese_folk",
       "shinto",
       "slavic_pagan",
-      "african_traditional",
-      "egyptian_gods",
-      "mesopotamian_gods",
-      "maya_gods",
-      "aztec_gods",
-      "andean"
+      "african_traditional"
     ],
     "not_eras": [
-      "AMR"
+      "IND",
+      "CHN"
+    ],
+    "age_range": [
+      16,
+      70
+    ],
+    "conditions": [
+      {
+        "minority": true
+      }
+    ],
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "road",
+      "time": "dawn",
+      "people": 4,
+      "props": [
+        "cart",
+        "sun"
+      ]
+    },
+    "choices": [
+      {
+        "id": "go",
+        "effects": [
+          {
+            "migrate": "@other"
+          },
+          {
+            "money_pct": -25
+          },
+          {
+            "param": "happiness",
+            "delta": 2
+          },
+          {
+            "param": "loneliness",
+            "delta": 6
+          },
+          {
+            "param": "faith",
+            "delta": 3
+          },
+          {
+            "param": "stress",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "home_road": 8,
+          "memory_future": 4
+        },
+        "icon": "move"
+      },
+      {
+        "id": "stay",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 6
+          },
+          {
+            "param": "faith",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "home_road": -6,
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "wait",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "home_road": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "f_min_flee_c",
+    "type": "personal",
+    "religions": [
+      "catholic"
+    ],
+    "not_eras": [
+      "AMR",
+      "BYZ",
+      "ISL"
     ],
     "age_range": [
       16,
@@ -8101,102 +8194,8 @@
     "not_eras": [
       "ISL",
       "IND",
-      "WAF"
-    ],
-    "age_range": [
-      16,
-      70
-    ],
-    "conditions": [
-      {
-        "minority": true
-      }
-    ],
-    "base_weight": 1,
-    "once": true,
-    "topic": "life",
-    "scene": {
-      "place": "road",
-      "time": "dawn",
-      "people": 4,
-      "props": [
-        "cart",
-        "sun"
-      ]
-    },
-    "choices": [
-      {
-        "id": "go",
-        "effects": [
-          {
-            "migrate": "@other"
-          },
-          {
-            "money_pct": -25
-          },
-          {
-            "param": "happiness",
-            "delta": 2
-          },
-          {
-            "param": "loneliness",
-            "delta": 6
-          },
-          {
-            "param": "faith",
-            "delta": 3
-          },
-          {
-            "param": "stress",
-            "delta": -3
-          }
-        ],
-        "pattern": {
-          "home_road": 8,
-          "memory_future": 4
-        },
-        "icon": "move"
-      },
-      {
-        "id": "stay",
-        "effects": [
-          {
-            "param": "stress",
-            "delta": 6
-          },
-          {
-            "param": "faith",
-            "delta": 4
-          }
-        ],
-        "pattern": {
-          "home_road": -6,
-          "memory_future": -3
-        }
-      },
-      {
-        "id": "wait",
-        "effects": [
-          {
-            "param": "stress",
-            "delta": 3
-          }
-        ],
-        "pattern": {
-          "home_road": -2
-        }
-      }
-    ]
-  },
-  {
-    "id": "f_min_flee_r",
-    "type": "personal",
-    "religions": [
-      "roman_gods"
-    ],
-    "not_eras": [
-      "E03",
-      "ANE"
+      "WAF",
+      "BYZ"
     ],
     "age_range": [
       16,
@@ -8289,7 +8288,6 @@
     "religions": [
       "judaism",
       "christian",
-      "catholic",
       "orthodox",
       "tewahedo",
       "zoroastrian",
@@ -8299,15 +8297,105 @@
       "chinese_folk",
       "shinto",
       "slavic_pagan",
-      "african_traditional",
-      "egyptian_gods",
-      "mesopotamian_gods",
-      "maya_gods",
-      "aztec_gods",
-      "andean"
+      "african_traditional"
     ],
     "not_eras": [
-      "AMR"
+      "IND",
+      "CHN"
+    ],
+    "age_range": [
+      18,
+      70
+    ],
+    "conditions": [
+      {
+        "minority": true
+      }
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "accept",
+        "effects": [
+          {
+            "add_npc": "patron",
+            "attitude": 40
+          },
+          {
+            "money_pct": -10
+          },
+          {
+            "param": "stress",
+            "delta": -6
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "craft_power": 4
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 3
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      },
+      {
+        "id": "community",
+        "effects": [
+          {
+            "param": "loneliness",
+            "delta": -4
+          },
+          {
+            "param": "faith",
+            "delta": 3
+          },
+          {
+            "param": "money",
+            "delta": -10
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "f_min_patron_c",
+    "type": "personal",
+    "religions": [
+      "catholic"
+    ],
+    "not_eras": [
+      "AMR",
+      "BYZ",
+      "ISL"
     ],
     "age_range": [
       18,
@@ -8401,100 +8489,8 @@
     "not_eras": [
       "ISL",
       "IND",
-      "WAF"
-    ],
-    "age_range": [
-      18,
-      70
-    ],
-    "conditions": [
-      {
-        "minority": true
-      }
-    ],
-    "base_weight": 2,
-    "once": true,
-    "topic": "life",
-    "scene": {
-      "place": "palace",
-      "time": "day",
-      "people": 3,
-      "props": [
-        "coins",
-        "banner"
-      ]
-    },
-    "choices": [
-      {
-        "id": "accept",
-        "effects": [
-          {
-            "add_npc": "patron",
-            "attitude": 40
-          },
-          {
-            "money_pct": -10
-          },
-          {
-            "param": "stress",
-            "delta": -6
-          },
-          {
-            "param": "reputation",
-            "delta": 3
-          }
-        ],
-        "pattern": {
-          "craft_power": 4
-        }
-      },
-      {
-        "id": "refuse",
-        "effects": [
-          {
-            "param": "self_esteem",
-            "delta": 3
-          },
-          {
-            "param": "stress",
-            "delta": 3
-          }
-        ],
-        "pattern": {
-          "craft_power": -3
-        }
-      },
-      {
-        "id": "community",
-        "effects": [
-          {
-            "param": "loneliness",
-            "delta": -4
-          },
-          {
-            "param": "faith",
-            "delta": 3
-          },
-          {
-            "param": "money",
-            "delta": -10
-          }
-        ],
-        "pattern": {
-          "memory_future": -3
-        }
-      }
-    ]
-  },
-  {
-    "id": "f_min_patron_r",
-    "type": "personal",
-    "religions": [
-      "roman_gods"
-    ],
-    "not_eras": [
-      "E03",
-      "ANE"
+      "WAF",
+      "BYZ"
     ],
     "age_range": [
       18,
@@ -8585,17 +8581,139 @@
     "religions": [
       "judaism",
       "christian",
-      "catholic",
       "orthodox",
       "tewahedo",
       "zoroastrian",
-      "hindu",
       "buddhist",
-      "jain",
-      "chinese_folk"
+      "jain"
     ],
     "not_eras": [
-      "AMR"
+      "IND",
+      "CHN"
+    ],
+    "age_range": [
+      14,
+      80
+    ],
+    "conditions": [
+      {
+        "minority": true
+      }
+    ],
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "scroll",
+        "fire"
+      ]
+    },
+    "choices": [
+      {
+        "id": "hide",
+        "risk_roll": {
+          "success_chance_base": 0.55,
+          "on_success": [
+            {
+              "param": "faith",
+              "delta": 8
+            },
+            {
+              "param": "self_esteem",
+              "delta": 5
+            },
+            {
+              "param": "stress",
+              "delta": 5
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -20
+            },
+            {
+              "param": "reputation",
+              "delta": -4
+            },
+            {
+              "param": "stress",
+              "delta": 10
+            },
+            {
+              "param": "health",
+              "delta": -5
+            }
+          ]
+        },
+        "pattern": {
+          "faith_reason": -5,
+          "memory_future": -4
+        }
+      },
+      {
+        "id": "give",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": -5
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          },
+          {
+            "param": "self_esteem",
+            "delta": -4
+          }
+        ],
+        "pattern": {
+          "faith_reason": 2
+        }
+      },
+      {
+        "id": "memorize",
+        "requirements": [
+          {
+            "skill": "literacy",
+            "op": ">=",
+            "value": 20
+          }
+        ],
+        "effects": [
+          {
+            "skill": "literacy",
+            "delta": 3
+          },
+          {
+            "param": "intellect",
+            "delta": 2
+          },
+          {
+            "param": "faith",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2,
+          "memory_future": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "f_min_books_c",
+    "type": "personal",
+    "religions": [
+      "catholic"
+    ],
+    "not_eras": [
+      "AMR",
+      "BYZ",
+      "ISL"
     ],
     "age_range": [
       14,
@@ -8719,7 +8837,8 @@
     "not_eras": [
       "ISL",
       "IND",
-      "WAF"
+      "WAF",
+      "BYZ"
     ],
     "age_range": [
       14,
@@ -8840,7 +8959,6 @@
     "religions": [
       "judaism",
       "christian",
-      "catholic",
       "orthodox",
       "tewahedo",
       "zoroastrian",
@@ -8850,15 +8968,118 @@
       "chinese_folk",
       "shinto",
       "slavic_pagan",
-      "african_traditional",
-      "egyptian_gods",
-      "mesopotamian_gods",
-      "maya_gods",
-      "aztec_gods",
-      "andean"
+      "african_traditional"
     ],
     "not_eras": [
-      "AMR"
+      "IND",
+      "CHN"
+    ],
+    "age_range": [
+      16,
+      60
+    ],
+    "conditions": [
+      {
+        "minority": true
+      }
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "street",
+      "time": "sunset",
+      "people": 2,
+      "props": [
+        "sun"
+      ]
+    },
+    "choices": [
+      {
+        "id": "convert",
+        "effects": [
+          {
+            "set_religion": "majority"
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "param": "money",
+            "delta": 30
+          },
+          {
+            "param": "faith",
+            "delta": -6
+          },
+          {
+            "param": "loneliness",
+            "delta": -3
+          }
+        ],
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              8
+            ],
+            "chance": 0.5,
+            "trigger_event": "f_convert_kin"
+          },
+          {
+            "after_years": [
+              4,
+              9
+            ],
+            "chance": 0.5,
+            "trigger_event": "f_convert_friends"
+          }
+        ],
+        "pattern": {
+          "craft_power": 3,
+          "memory_future": 6
+        },
+        "icon": "find"
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 4
+          },
+          {
+            "param": "self_esteem",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3,
+          "memory_future": -4
+        }
+      },
+      {
+        "id": "think",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "f_min_convert_offer_c",
+    "type": "personal",
+    "religions": [
+      "catholic"
+    ],
+    "not_eras": [
+      "AMR",
+      "BYZ",
+      "ISL"
     ],
     "age_range": [
       16,
@@ -8965,113 +9186,8 @@
     "not_eras": [
       "ISL",
       "IND",
-      "WAF"
-    ],
-    "age_range": [
-      16,
-      60
-    ],
-    "conditions": [
-      {
-        "minority": true
-      }
-    ],
-    "base_weight": 2,
-    "once": true,
-    "topic": "life",
-    "scene": {
-      "place": "street",
-      "time": "sunset",
-      "people": 2,
-      "props": [
-        "sun"
-      ]
-    },
-    "choices": [
-      {
-        "id": "convert",
-        "effects": [
-          {
-            "set_religion": "majority"
-          },
-          {
-            "param": "reputation",
-            "delta": 8
-          },
-          {
-            "param": "money",
-            "delta": 30
-          },
-          {
-            "param": "faith",
-            "delta": -6
-          },
-          {
-            "param": "loneliness",
-            "delta": -3
-          }
-        ],
-        "delayed_effects": [
-          {
-            "after_years": [
-              3,
-              8
-            ],
-            "chance": 0.5,
-            "trigger_event": "f_convert_kin"
-          },
-          {
-            "after_years": [
-              4,
-              9
-            ],
-            "chance": 0.5,
-            "trigger_event": "f_convert_friends"
-          }
-        ],
-        "pattern": {
-          "craft_power": 3,
-          "memory_future": 6
-        },
-        "icon": "find"
-      },
-      {
-        "id": "refuse",
-        "effects": [
-          {
-            "param": "faith",
-            "delta": 4
-          },
-          {
-            "param": "self_esteem",
-            "delta": 3
-          }
-        ],
-        "pattern": {
-          "faith_reason": -3,
-          "memory_future": -4
-        }
-      },
-      {
-        "id": "think",
-        "effects": [
-          {
-            "param": "stress",
-            "delta": 2
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "f_min_convert_offer_r",
-    "type": "personal",
-    "religions": [
-      "roman_gods"
-    ],
-    "not_eras": [
-      "E03",
-      "ANE"
+      "WAF",
+      "BYZ"
     ],
     "age_range": [
       16,

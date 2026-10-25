@@ -15,6 +15,7 @@ import {
   npcAge,
   qx,
   regionOf,
+  resolveFaith,
   statusOf,
 } from './rules'
 import { summarize } from './life'
@@ -336,6 +337,17 @@ function npcCandidates(state: GameState, ev: EventDef): Npc[] {
   })
 }
 
+const otherFaithCache = new WeakMap<EventDef, boolean>()
+/** Событие предлагает перейти в чужую веру края — без чужой веры оно бессмысленно. */
+function convertsToOther(ev: EventDef): boolean {
+  let v = otherFaithCache.get(ev)
+  if (v === undefined) {
+    v = JSON.stringify(ev).includes('"set_religion":"other"')
+    otherFaithCache.set(ev, v)
+  }
+  return v
+}
+
 /** Подходит ли событие герою прямо сейчас (без учёта случайности). */
 export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTiming = false): boolean {
   const hero = state.hero
@@ -352,6 +364,7 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   if (last !== undefined && (ev.once || ev.milestone || ev.global_chance !== undefined)) return false
   if (last !== undefined && !ignoreTiming && state.year - last < COOLDOWN) return false
   if (ev.npc && npcCandidates(state, ev).length === 0) return false
+  if (convertsToOther(ev) && !resolveFaith(state, 'other')) return false
   if (ev.dynamic === 'profession' && professionChoices(state, era).length === 0) return false
   return checkAll(state, ev.conditions)
 }

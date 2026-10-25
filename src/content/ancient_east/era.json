@@ -1900,7 +1900,7 @@
         "craftsman",
         "peasant"
       ],
-      "minAge": 14,
+      "minAge": 12,
       "income": [
         220,
         340
@@ -1920,7 +1920,7 @@
         "craftsman",
         "peasant"
       ],
-      "minAge": 14,
+      "minAge": 12,
       "income": [
         200,
         360
@@ -1934,7 +1934,7 @@
         "landowner",
         "noble"
       ],
-      "minAge": 17,
+      "minAge": 16,
       "requirements": [
         {
           "param": "strength",
@@ -1959,7 +1959,7 @@
         "craftsman",
         "trader"
       ],
-      "minAge": 13,
+      "minAge": 12,
       "income": [
         150,
         260
@@ -1978,7 +1978,7 @@
         "trader",
         "landowner"
       ],
-      "minAge": 16,
+      "minAge": 14,
       "requirements": [
         {
           "skill": "literacy",
@@ -2019,7 +2019,7 @@
         "landowner",
         "noble"
       ],
-      "minAge": 14,
+      "minAge": 12,
       "income": [
         160,
         320
