@@ -1,0 +1,221 @@
+[
+  {
+    "id": "rus_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "rus_p_world_vladimir",
+    "topic": "world",
+    "years": [
+      980,
+      1053
+    ]
+  },
+  {
+    "id": "rus_p_world_appanage",
+    "topic": "world",
+    "years": [
+      1054,
+      1236
+    ]
+  },
+  {
+    "id": "rus_p_world_horde",
+    "topic": "world",
+    "years": [
+      1237,
+      1358
+    ]
+  },
+  {
+    "id": "rus_p_world_donskoy",
+    "topic": "world",
+    "years": [
+      1359,
+      1461
+    ]
+  },
+  {
+    "id": "rus_p_world_ivan3",
+    "topic": "world",
+    "years": [
+      1462,
+      1532
+    ]
+  },
+  {
+    "id": "rus_p_world_ivan4",
+    "topic": "world",
+    "years": [
+      1533,
+      1600
+    ]
+  },
+  {
+    "id": "rus_p_world_novgorod",
+    "topic": "world",
+    "regions": [
+      "novgorod"
+    ],
+    "years": [
+      1136,
+      1478
+    ]
+  },
+  {
+    "id": "rus_p_world_kiev_ruin",
+    "topic": "world",
+    "regions": [
+      "kiev"
+    ],
+    "years": [
+      1240,
+      1300
+    ]
+  },
+  {
+    "id": "rus_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "rus_p_society_slave",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "rus_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "rus_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "rus_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "rus_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "rus_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "rus_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "rus_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "rus_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "rus_p_faith_pagan",
+    "topic": "faith",
+    "religions": [
+      "slavic_pagan"
+    ]
+  },
+  {
+    "id": "rus_p_faith_jewish",
+    "topic": "faith",
+    "religions": [
+      "judaism"
+    ]
+  },
+  {
+    "id": "rus_p_faith_muslim",
+    "topic": "faith",
+    "religions": [
+      "islam"
+    ]
+  },
+  {
+    "id": "rus_p_faith_catholic",
+    "topic": "faith",
+    "religions": [
+      "catholic"
+    ]
+  },
+  {
+    "id": "rus_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "rus_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "rus_p_place_kiev",
+    "topic": "place",
+    "regions": [
+      "kiev"
+    ]
+  },
+  {
+    "id": "rus_p_place_novgorod",
+    "topic": "place",
+    "regions": [
+      "novgorod"
+    ]
+  },
+  {
+    "id": "rus_p_place_vladimir",
+    "topic": "place",
+    "regions": [
+      "vladimir"
+    ]
+  },
+  {
+    "id": "rus_p_place_moscow",
+    "topic": "place",
+    "regions": [
+      "moscow"
+    ]
+  },
+  {
+    "id": "rus_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "rus_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "rus_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "rus_p_women_novgorod",
+    "topic": "women",
+    "regions": [
+      "novgorod"
+    ]
+  },
+  {
+    "id": "rus_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "rus_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "rus_p_war",
+    "topic": "war"
+  }
+]

@@ -554,7 +554,9 @@ function primerFit(state: GameState, p: PrimerDef): number {
   if (p.religions && !faithMatches(h.religion, p.religions)) return -1
   if (p.sex && p.sex !== h.sex) return -1
   if (p.years && (state.year < p.years[0] || state.year > p.years[1])) return -1
-  return (p.regions ? 4 : 0) + (p.classes ? 3 : 0) + (p.religions ? 3 : 0) + (p.years ? 2 : 0) + (p.sex ? 1 : 0)
+  // В теме веры точнее всего совпадение веры: обращённому в Теночтитлане — карточка о его новой вере, а не о богах края.
+  const faithWeight = p.topic === 'faith' ? 5 : 3
+  return (p.regions ? 4 : 0) + (p.classes ? 3 : 0) + (p.religions ? faithWeight : 0) + (p.years ? 2 : 0) + (p.sex ? 1 : 0)
 }
 
 /** Карточки справки на этот год: по одной на тему, самая точная из подходящих. */

@@ -1,0 +1,264 @@
+[
+  {
+    "id": "eth_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "eth_p_world_zagwe",
+    "topic": "world",
+    "years": [
+      1150,
+      1269
+    ]
+  },
+  {
+    "id": "eth_p_world_solomonic",
+    "topic": "world",
+    "years": [
+      1270,
+      1433
+    ]
+  },
+  {
+    "id": "eth_p_world_zara",
+    "topic": "world",
+    "years": [
+      1434,
+      1527
+    ]
+  },
+  {
+    "id": "eth_p_world_gran",
+    "topic": "world",
+    "years": [
+      1528,
+      1543
+    ]
+  },
+  {
+    "id": "eth_p_world_oromo",
+    "topic": "world",
+    "years": [
+      1544,
+      1631
+    ]
+  },
+  {
+    "id": "eth_p_world_gondar",
+    "topic": "world",
+    "years": [
+      1632,
+      1650
+    ]
+  },
+  {
+    "id": "eth_p_world_harar_adal",
+    "topic": "world",
+    "regions": [
+      "harar"
+    ],
+    "years": [
+      1520,
+      1543
+    ]
+  },
+  {
+    "id": "eth_p_world_harar_nur",
+    "topic": "world",
+    "regions": [
+      "harar"
+    ],
+    "years": [
+      1544,
+      1650
+    ]
+  },
+  {
+    "id": "eth_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "eth_p_society_slave",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "eth_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "eth_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "eth_p_society_harar",
+    "topic": "society",
+    "regions": [
+      "harar"
+    ]
+  },
+  {
+    "id": "eth_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "eth_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "eth_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "eth_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "eth_p_food_harar",
+    "topic": "food",
+    "regions": [
+      "harar"
+    ]
+  },
+  {
+    "id": "eth_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "eth_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "eth_p_faith_tewahedo",
+    "topic": "faith",
+    "religions": [
+      "tewahedo"
+    ]
+  },
+  {
+    "id": "eth_p_faith_islam",
+    "topic": "faith",
+    "religions": [
+      "islam"
+    ]
+  },
+  {
+    "id": "eth_p_faith_judaism",
+    "topic": "faith",
+    "religions": [
+      "judaism"
+    ]
+  },
+  {
+    "id": "eth_p_faith_traditional",
+    "topic": "faith",
+    "religions": [
+      "african_traditional"
+    ]
+  },
+  {
+    "id": "eth_p_faith_catholic_early",
+    "topic": "faith",
+    "religions": [
+      "catholic"
+    ],
+    "years": [
+      1557,
+      1621
+    ]
+  },
+  {
+    "id": "eth_p_faith_catholic_late",
+    "topic": "faith",
+    "religions": [
+      "catholic"
+    ],
+    "years": [
+      1622,
+      1650
+    ]
+  },
+  {
+    "id": "eth_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "eth_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "eth_p_place_lalibela",
+    "topic": "place",
+    "regions": [
+      "lalibela"
+    ]
+  },
+  {
+    "id": "eth_p_place_aksum",
+    "topic": "place",
+    "regions": [
+      "aksum"
+    ]
+  },
+  {
+    "id": "eth_p_place_shewa",
+    "topic": "place",
+    "regions": [
+      "shewa"
+    ]
+  },
+  {
+    "id": "eth_p_place_harar",
+    "topic": "place",
+    "regions": [
+      "harar"
+    ]
+  },
+  {
+    "id": "eth_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "eth_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "eth_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "eth_p_women_harar",
+    "topic": "women",
+    "regions": [
+      "harar"
+    ]
+  },
+  {
+    "id": "eth_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "eth_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "eth_p_war",
+    "topic": "war"
+  },
+  {
+    "id": "eth_p_war_guns",
+    "topic": "war",
+    "years": [
+      1529,
+      1650
+    ]
+  }
+]
