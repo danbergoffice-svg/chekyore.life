@@ -64,7 +64,6 @@
   "a_inheritance",
   "a_sibling_reconcile",
   "a_bakery",
-  "a_debtor_saves",
   "d_t_sib_captive",
   "d_sib_lost_news",
   "c_far_away",
@@ -82,7 +81,6 @@
   "t_shipwreck_vow",
   "t_child_kidnapped",
   "t_grain_hoard",
-  "t_friend_returns",
   "j_farm_new_way",
   "j_lab_crane",
   "j_weave_pattern",
@@ -102,11 +100,9 @@
   "y_wooden_toy",
   "d_m_toy",
   "c_toys",
-  "y_runaway_thanks",
   "v_wine_symposium",
   "v_wine_scandal",
   "v_wine_fall",
-  "v_wine_liver",
   "v_glut_feast",
   "w_old_lares",
   "w_old_sun_bench",
@@ -2585,7 +2581,7 @@
    ]
   ],
   "childbirth": 0.016,
-  "calibration": 0.8,
+  "calibration": 0.86,
   "causes": [
    {
     "id": "infant_illness",
