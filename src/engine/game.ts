@@ -545,7 +545,8 @@ export function professionChoices(state: GameState, era: EraDef): ChoiceDef[] {
         (!p.classes || p.classes.includes(hero.cls)) &&
         (!p.sex || p.sex === hero.sex) &&
         (!p.regions || p.regions.includes(hero.region)) &&
-        hero.age >= p.minAge &&
+        // Дело выбирают в 12 лет: до положенного возраста герой ходит в учениках.
+        hero.age >= p.minAge - 6 &&
         checkAll(state, p.requirements),
     )
     .map((p) => ({

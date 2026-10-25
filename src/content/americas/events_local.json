@@ -4647,7 +4647,7 @@
    {
     "param": "loneliness",
     "op": ">=",
-    "value": 30
+    "value": 10
    }
   ],
   "scene": {

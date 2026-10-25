@@ -23,13 +23,24 @@ function birthRegions(era: EraMeta): RegionDef[] {
   return era.regions.filter((r) => r.years[1] - r.years[0] >= 40)
 }
 
+/** Сначала год, потом край среди тех, что существуют в этот год: так город, открытый в 1500-м, не выпадает чаще, чем жил. */
+function pickPlace(h: { rng: number }, era: EraMeta | EraDef): { region: RegionDef; year: number } {
+  const regions = birthRegions(era)
+  const from = Math.min(...regions.map((r) => r.years[0]))
+  const to = Math.max(...regions.map((r) => r.years[1] - 40))
+  let year = int(h, from, to)
+  if (year === 0) year = 1
+  const open = regions.filter((r) => year >= r.years[0] && year <= r.years[1] - 40)
+  const region = weighted(h, open.length ? open : regions, (r) => r.weight)!
+  if (!open.length) year = int(h, region.years[0], region.years[1] - 40) || 1
+  return { region, year }
+}
+
 /** Лотерея рождения. Отдельный поток случайных чисел, чтобы жизнь от того же seed не менялась. */
 export function rollBirth(seed: number, lottery: Lottery, eras: EraMeta[]): Birth {
   const h = { rng: (seed ^ 0x5bd1e995) >>> 0 }
   const era = lottery === 'population' ? weighted(h, eras, (e) => e.population)! : pick(h, eras)
-  const region = weighted(h, birthRegions(era), (r) => r.weight)!
-  let year = int(h, region.years[0], region.years[1] - 40)
-  if (year === 0) year = 1
+  const { region, year } = pickPlace(h, era)
   const classes = era.classes.filter((c) => (region.classWeights[c.id] ?? 0) > 0)
   const cls = weighted(h, classes, (c) => region.classWeights[c.id])!.id
   return { era: era.id, region: region.id, year, cls, sex: chance(h, 0.5) ? 'm' : 'f' }
@@ -108,11 +119,11 @@ export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: num
   hero.id = `h${seed.toString(36)}`
   hero.era = era.id
 
-  const region = birth ? regionOf(era, birth.region) : weighted(state, birthRegions(era), (r) => r.weight)!
+  const place = birth ? { region: regionOf(era, birth.region), year: birth.year } : pickPlace(state, era)
+  const region = place.region
   hero.region = region.id
   hero.places = [region.id]
-  hero.birthYear = birth?.year ?? int(state, region.years[0], region.years[1] - 40)
-  if (hero.birthYear === 0) hero.birthYear = 1
+  hero.birthYear = place.year
   state.year = hero.birthYear
 
   const classes = era.classes.filter((c) => (region.classWeights[c.id] ?? 0) > 0)
