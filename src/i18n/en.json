@@ -417,5 +417,15 @@
   "eras.E11": "Cold war",
   "eras.E11.years": "1945–1991",
   "eras.E12": "Digital age",
-  "eras.E12.years": "1991–2026"
+  "eras.E12.years": "1991–2026",
+  "diary.debt_start": "Money ran short and you fell into debt. The worry keeps you awake at night.",
+  "diary.debt_paid": "The debts are paid off. At last you can sleep in peace.",
+  "lifestyle.expected": "Living like this, you can expect to live to about {n}.",
+  "lifestyle.health_year": "health {d} a year",
+  "lifestyle.risk": "risk of death {d}%",
+  "life.expected": "≈ to age {n}",
+  "hero.vices": "Vices",
+  "vice.drinker": "drinks",
+  "vice.gambler": "gambles at dice",
+  "vice.opium": "takes poppy juice"
 }

@@ -437,3 +437,5 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .stats strong { display: block; font-size: 1.5rem; color: var(--accent); }
 .menu-links { display: flex; gap: 20px; justify-content: center; margin: 12px 0; }
 .menu .block { margin: 24px 0; }
+.expected { font-weight: 700; color: var(--accent); }
+.option-effect { display: block; font-size: 0.8rem; color: var(--gold); margin-top: 2px; }

@@ -114,6 +114,16 @@ export function regionOf(era: EraDef, id: string) {
   return r
 }
 
+/** Имя, которого ещё нет у героя и его близких: так в одной семье не бывает двух Марков. */
+export function freshName(state: GameState, names: { id: string }[]): string {
+  const used = new Set([state.hero.name, ...state.hero.npcs.filter((n) => n.alive).map((n) => n.name)])
+  for (let i = 0; i < 12; i++) {
+    const id = pick(state, names).id
+    if (!used.has(id)) return id
+  }
+  return pick(state, names).id
+}
+
 export function makeNpc(state: GameState, era: EraDef, role: NpcRole, sex?: Sex, birthYear?: number, attitude = 30): Npc {
   const hero = state.hero
   const s: Sex =
@@ -135,7 +145,7 @@ export function makeNpc(state: GameState, era: EraDef, role: NpcRole, sex?: Sex,
   const npc: Npc = {
     id: `n${state.nextId++}`,
     role,
-    name: pick(state, region.names[s]).id,
+    name: freshName(state, region.names[s]),
     sex: s,
     birthYear: birthYear ?? addYears(hero.birthYear, -int(state, a, b)),
     traits: [pick(state, era.traits)],
@@ -193,6 +203,14 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     } else if ('npc_profession' in e) {
       const npc = hero.npcs.find((n) => n.id === ctx.npcId)
       if (npc) npc.profession = e.npc_profession
+    } else if ('npc_tag' in e || 'npc_untag' in e) {
+      const npc = hero.npcs.find((n) => n.id === ctx.npcId)
+      if (npc) {
+        const tags = new Set(npc.tags ?? [])
+        if ('npc_tag' in e) tags.add(e.npc_tag)
+        else tags.delete(e.npc_untag)
+        npc.tags = [...tags]
+      }
     } else if ('npc_married' in e) {
       const npc = hero.npcs.find((n) => n.id === ctx.npcId)
       if (npc) npc.married = e.npc_married

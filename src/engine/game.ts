@@ -63,6 +63,16 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   rollEvents(state, era, births)
   if (!hero.alive) return die(state, era)
   for (let i = firstEntry; i < hero.diary.length; i++) state.reveal[i] = Math.round((0.05 + next(state) * 0.85) * 100) / 100
+  // Запись о рождении появляется вместе с окном выбора имени, а не раньше.
+  for (const q of state.queue) {
+    const ev = era.events.find((e) => e.id === q.eventId)
+    if (ev?.dynamic !== 'name') continue
+    const baby = hero.npcs.find((n) => n.id === q.npcId)
+    for (let i = firstEntry; i < hero.diary.length; i++) {
+      const child = hero.diary[i].params?.child
+      if (baby && hero.diary[i].key.startsWith('diary.child_born') && child && typeof child === 'object' && 'name' in child && child.name === baby.name) state.reveal[i] = Math.min(1, q.at + 0.005)
+    }
+  }
   state.phase = 'running'
 }
 
@@ -124,11 +134,39 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
     // Земля и капитал приносят доход состоятельным семьям.
     const rent = hero.tags.includes('wealthy') && hero.money > 0 ? hero.money * 0.025 : 0
     hero.money = Math.round(hero.money + income + rent - upkeep)
+
+    // Деньги и настроение: долг давит, достаток радует.
+    const level = Math.max(cls?.upkeep ?? 0, 100)
+    const wasInDebt = hero.tags.includes('in_debt')
     if (hero.money < 0) {
-      changeParam(hero, 'stress', 5)
-      changeParam(hero, 'health', -1)
-      if (!hero.tags.includes('in_debt')) hero.tags.push('in_debt')
-    } else hero.tags = hero.tags.filter((t) => t !== 'in_debt')
+      const depth = Math.min(3, -hero.money / level)
+      changeParam(hero, 'stress', 6 + depth * 4)
+      changeParam(hero, 'happiness', -3 - depth * 2)
+      changeParam(hero, 'health', -1 - depth * 0.5)
+      changeParam(hero, 'self_esteem', -2)
+      if (!wasInDebt) {
+        hero.tags.push('in_debt')
+        note(state, { key: 'diary.debt_start', topic: 'money', icon: 'loss', score: 20, mood: -4, major: true })
+      }
+    } else {
+      if (wasInDebt) {
+        hero.tags = hero.tags.filter((t) => t !== 'in_debt')
+        note(state, { key: 'diary.debt_paid', topic: 'money', score: 18, mood: 5 })
+        changeParam(hero, 'happiness', 5)
+        changeParam(hero, 'stress', -8)
+      }
+      if (hero.money > level * 5) {
+        changeParam(hero, 'happiness', 2)
+        changeParam(hero, 'stress', -2)
+      } else if (hero.money < level * 0.3) changeParam(hero, 'stress', 2)
+    }
+  }
+
+  // Пороки героя: пьянство, игра, маковый отвар — каждый год, пока не избавится.
+  for (const vice of era.vices) {
+    if (!hero.tags.includes(vice.tag)) continue
+    hero.money -= vice.cost ?? 0
+    applyEffects(state, era, vice.effects)
   }
 
   // Старение и самочувствие.
@@ -231,9 +269,27 @@ export function heroMortality(state: GameState, era: EraDef): number {
   if (hero.tags.includes('in_debt')) q *= 1.15
   if (hero.tags.includes('epidemic')) q *= 2
   if (hero.tags.includes('ill')) q *= 1.6
+  for (const vice of era.vices) if (hero.tags.includes(vice.tag)) q *= vice.mortality ?? 1
   if (state.settings.mortality === 'soft' && hero.age < 15) q *= 0.25
   if (h <= 0) q = 1
   return Math.min(1, q)
+}
+
+/**
+ * До скольких лет герой доживёт в среднем, если ничего не менять: таблица эпохи с поправкой
+ * на всё, что сейчас влияет на его смертность (здоровье, образ жизни, пороки, долги, профессия).
+ */
+export function expectedAge(state: GameState, era: EraDef): number {
+  const age = state.hero.age
+  const base = qx(era, age) * (era.mortality.calibration ?? 1)
+  const m = base > 0 ? heroMortality(state, era) / base : 1
+  let alive = 1
+  let years = 0
+  for (let x = age; x < 110; x++) {
+    alive *= 1 - Math.min(1, qx(era, x) * (era.mortality.calibration ?? 1) * m)
+    years += alive
+  }
+  return Math.round(age + years + 0.5)
 }
 
 // ---------- События ----------
@@ -249,6 +305,8 @@ function npcCandidates(state: GameState, ev: EventDef): Npc[] {
   if (!ev.npc) return []
   return aliveNpcs(state.hero, ev.npc).filter((n) => {
     if (ev.npc_married !== undefined && !!n.married !== ev.npc_married) return false
+    if (ev.npc_tag && !n.tags?.includes(ev.npc_tag)) return false
+    if (ev.npc_no_tag && n.tags?.includes(ev.npc_no_tag)) return false
     if (!ev.npc_age) return true
     const a = npcAge(n, state.year)
     return a >= ev.npc_age[0] && a <= ev.npc_age[1]
@@ -459,10 +517,14 @@ export function nameChoices(state: GameState, era: EraDef): ChoiceDef[] {
   const npc = state.hero.npcs.find((n) => n.id === state.queue[0]?.npcId)
   if (!npc) return []
   const names = regionOf(era, state.hero.region).names[npc.sex]
+  const used = new Set([state.hero.name, ...state.hero.npcs.filter((n) => n.alive && n.id !== npc.id).map((n) => n.name)])
   let h = 0
   for (const ch of npc.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
   const ids = new Set<string>([npc.name])
-  for (let i = 0; ids.size < 3 && i < 20; i++) ids.add(names[(h + i * 7) % names.length].id)
+  for (let i = 0; ids.size < 3 && i < names.length * 2; i++) {
+    const id = names[(h + i * 13) % names.length].id
+    if (!used.has(id)) ids.add(id)
+  }
   return [...ids].map((id) => ({ id, effects: [] }))
 }
 
@@ -517,7 +579,14 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   active.outcome = { choiceId: choice?.id ?? 'ok', result }
   if (ev.dynamic === 'name' && choice) {
     const npc = hero.npcs.find((n) => n.id === active.npcId)
-    if (npc) npc.name = choice.id
+    if (npc) {
+      // Запись о рождении в дневнике тоже получает выбранное имя.
+      for (const d of hero.diary) {
+        const child = d.params?.child
+        if (d.year === state.year && d.key.startsWith('diary.child_born') && child && typeof child === 'object' && 'name' in child && child.name === npc.name) d.params!.child = { name: choice.id }
+      }
+      npc.name = choice.id
+    }
   }
 
   const decision = choices.length > 1

@@ -62,6 +62,32 @@ describe('Контент', () => {
       expect(bad).toEqual([])
     })
 
+    it(`${era.id}: родные упоминаются только если они есть у героя`, () => {
+      // Слова про родных в русском тексте → событие должно быть о таком человеке (npc) или проверять has_npc,
+      // либо явно сказать, что это чужие родственники (others).
+      const ROLE: Record<string, RegExp> = {
+        father: /(^|[^а-яё])(отец|отца|отцу|отцом|отце|папа|папы|папе)([^а-яё]|$)/,
+        mother: /(^|[^а-яё])(мать|матери|матерью|мама|мамы|маме|маму|мамой)([^а-яё]|$)/,
+        spouse: /(^|[^а-яё])(твой муж|твоя жена|мужа|жену|жены|супруг[а-яё]*)([^а-яё]|$)/,
+        sibling: /(^|[^а-яё])(брат|брата|брату|сестра|сестры|сестру|сестре)([^а-яё]|$)/,
+        child: /(^|[^а-яё])(твой сын|твоя дочь|твоего сына|твою дочь|твоему сыну|сына|дочери|дочь)([^а-яё]|$)/,
+        grandchild: /(^|[^а-яё])(внук[а-яё]*|внучк[а-яё]*)([^а-яё]|$)/,
+      }
+      const bad: string[] = []
+      const t = createT('ru')
+      for (const ev of era.events) {
+        const keys = allKeys('ru').filter((k) => k.startsWith(`ev.${ev.id}.`) && !k.endsWith('.note'))
+        const text = keys.map((k) => t(k, {}, { sex: 'm' }) + ' ' + t(k, {}, { sex: 'f' })).join(' ').toLowerCase()
+        const conds = JSON.stringify(ev.conditions ?? [])
+        for (const [role, re] of Object.entries(ROLE)) {
+          if (!re.test(text)) continue
+          if (ev.npc === role || conds.includes(`"has_npc":"${role}"`) || ev.others?.includes(role as never)) continue
+          bad.push(`${ev.id}: ${role}`)
+        }
+      }
+      expect(bad).toEqual([])
+    })
+
     it(`${era.id}: у каждого события есть выбор без условий`, () => {
       const bad = era.events.filter((e) => e.choices && e.choices.length > 0 && e.choices.every((c) => (c.requirements ?? []).length > 0))
       expect(bad.map((e) => e.id)).toEqual([])
@@ -139,7 +165,7 @@ describe('Контент', () => {
     for (const lang of LANGS) {
       for (const sex of ['m', 'f'] as const) {
         const t = createT(lang, { sex })
-        const params = { n: 3, sex, psex: sex, npc_sex: sex, npc: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x', grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x' }
+        const params = { n: 3, sex, psex: sex, npc_sex: sex, npc: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x', grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1' }
         const left = allKeys(lang).filter((k) => /[{}]/.test(t(k, params)))
         expect(left).toEqual([])
       }

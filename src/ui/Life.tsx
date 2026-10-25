@@ -6,6 +6,7 @@ import {
   eventChoices,
   eventParams,
   eventTextKey,
+  expectedAge,
   lifestyleDefs,
   lifestyleOption,
   riskChance,
@@ -13,7 +14,7 @@ import {
 } from '../engine/game'
 import { checkAll, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
-import type { ChoiceDef, DiaryEntry, EraDef, GameState, Npc } from '../engine/types'
+import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Npc } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
 import { Scene } from '../pixel/Scene'
 import { entryScene } from './Summary'
@@ -123,6 +124,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           {hero.tags.includes('ill') && <span class="warn"> · {t('life.ill', {}, o)}</span>}
         </p>
         <Bar label={t('attr.health')} value={hero.attrs.health} />
+        {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
       </header>
 
       <nav class="tabs" role="tablist">
@@ -220,6 +222,12 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <div class="bars">
             {ATTRIBUTES.map((id) => <Bar label={t(`attr.${id}`)} value={hero.attrs[id]} />)}
           </div>
+          {era.vices.some((v) => hero.tags.includes(v.tag)) && (
+            <>
+              <h2 class="section-title">{t('hero.vices')}</h2>
+              <p class="warn">{era.vices.filter((v) => hero.tags.includes(v.tag)).map((v) => t(`vice.${v.tag}`, {}, o)).join(', ')}</p>
+            </>
+          )}
           <Lifestyle state={state} era={era} coin={coin} onChange={onLifestyle} />
           <h2 class="section-title">{t('hero.traits')}</h2>
           <p>{hero.traits.map((tr) => t(`trait.${tr}`)).join(', ')}</p>
@@ -308,9 +316,11 @@ function Lifestyle({ state, era, coin, onChange }: { state: GameState; era: EraD
   const { t } = useUi()
   const defs = lifestyleDefs(state, era)
   if (defs.length === 0) return null
+  const healthPerYear = (effects: Effect[] | undefined) => (effects ?? []).reduce((s, e) => s + ('param' in e && e.param === 'health' ? e.delta : 0), 0)
   return (
     <>
       <h2 class="section-title">{t('lifestyle.title')}</h2>
+      <p class="expected">{t('lifestyle.expected', { n: expectedAge(state, era) })}</p>
       <p class="small muted">{t('lifestyle.hint')}</p>
       {defs.map((def) => {
         const current = lifestyleOption(state, def).id
@@ -326,6 +336,16 @@ function Lifestyle({ state, era, coin, onChange }: { state: GameState; era: EraD
                   <span class="option-desc">
                     {opt.cost > 0 ? t('lifestyle.cost', { cost: formatMoney(t, opt.cost, coin) }) : opt.cost < 0 ? t('lifestyle.saves', { cost: formatMoney(t, -opt.cost, coin) }) : t('lifestyle.free')}
                   </span>
+                  {(healthPerYear(opt.effects) !== 0 || (opt.mortality ?? 1) !== 1) && (
+                    <span class="option-effect">
+                      {[
+                        healthPerYear(opt.effects) ? t('lifestyle.health_year', { d: `${healthPerYear(opt.effects) > 0 ? '+' : '−'}${Math.abs(healthPerYear(opt.effects))}` }) : '',
+                        (opt.mortality ?? 1) !== 1 ? t('lifestyle.risk', { d: `${(opt.mortality ?? 1) > 1 ? '+' : '−'}${Math.round(Math.abs((opt.mortality ?? 1) - 1) * 100)}` }) : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' · ')}
+                    </span>
+                  )}
                 </button>
               )
             })}

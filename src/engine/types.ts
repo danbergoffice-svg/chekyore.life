@@ -117,6 +117,15 @@ export interface LifestyleOption {
   requirements?: Condition[]
 }
 
+/** Порок или привычка героя: действует каждый год, пока есть метка. */
+export interface ViceDef {
+  tag: string
+  effects?: Effect[]
+  /** Расход в год. */
+  cost?: number
+  mortality?: number
+}
+
 export interface LifestyleDef {
   id: string
   minAge: number
@@ -159,6 +168,7 @@ export interface EraDef {
   lifeExpectancy: number
   inheritance: 'equal' | 'sons_first'
   lifestyle: LifestyleDef[]
+  vices: ViceDef[]
   events: EventDef[]
   news: NewsDef[]
   patternWeights: PatternWeights
@@ -221,6 +231,8 @@ export type Effect =
   | { move: string }
   | { npc_profession: string }
   | { npc_married: boolean }
+  | { npc_tag: string }
+  | { npc_untag: string }
   | { set_lifestyle: string; option: string }
   | { kill: string }
   | { chance: number; effects: Effect[] }
@@ -287,6 +299,11 @@ export interface EventDef {
   npc_age?: [number, number]
   /** Отбор человека события по семейному положению. */
   npc_married?: boolean
+  /** Отбор человека события по метке (например, пьёт) и по её отсутствию. */
+  npc_tag?: string
+  npc_no_tag?: string
+  /** Родственники, которые упомянуты в тексте, но это чужие люди (не нужна проверка, что они есть у героя). */
+  others?: NpcRole[]
   /** Сколько вариантов текста: ev.id.text.1 … ev.id.text.N. */
   variants?: number
   topic?: Topic
@@ -325,6 +342,8 @@ export interface Npc {
   /** Дело и семья взрослых детей. */
   profession?: string
   married?: boolean
+  /** Метки человека: пороки, болезни, судьба (drinker, gambler, opium, arrested…). */
+  tags?: string[]
 }
 
 export type TextParam = string | number | { name: string } | { key: string; sex?: Sex }

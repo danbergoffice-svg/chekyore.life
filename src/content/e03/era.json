@@ -112,6 +112,156 @@
             "id": "decimus",
             "ru": "Децим",
             "en": "Decimus"
+          },
+          {
+            "id": "ro_m_tiberius",
+            "ru": "Тиберий",
+            "en": "Tiberius"
+          },
+          {
+            "id": "ro_m_servius",
+            "ru": "Сервий",
+            "en": "Servius"
+          },
+          {
+            "id": "ro_m_spurius",
+            "ru": "Спурий",
+            "en": "Spurius"
+          },
+          {
+            "id": "ro_m_manius",
+            "ru": "Маний",
+            "en": "Manius"
+          },
+          {
+            "id": "ro_m_appius",
+            "ru": "Аппий",
+            "en": "Appius"
+          },
+          {
+            "id": "ro_m_numerius",
+            "ru": "Нумерий",
+            "en": "Numerius"
+          },
+          {
+            "id": "ro_m_vibius",
+            "ru": "Вибий",
+            "en": "Vibius"
+          },
+          {
+            "id": "ro_m_faustus",
+            "ru": "Фавст",
+            "en": "Faustus"
+          },
+          {
+            "id": "ro_m_felix",
+            "ru": "Феликс",
+            "en": "Felix"
+          },
+          {
+            "id": "ro_m_rufus",
+            "ru": "Руф",
+            "en": "Rufus"
+          },
+          {
+            "id": "ro_m_celer",
+            "ru": "Целер",
+            "en": "Celer"
+          },
+          {
+            "id": "ro_m_priscus",
+            "ru": "Приск",
+            "en": "Priscus"
+          },
+          {
+            "id": "ro_m_severus",
+            "ru": "Север",
+            "en": "Severus"
+          },
+          {
+            "id": "ro_m_maximus",
+            "ru": "Максим",
+            "en": "Maximus"
+          },
+          {
+            "id": "ro_m_crispus",
+            "ru": "Крисп",
+            "en": "Crispus"
+          },
+          {
+            "id": "ro_m_fuscus",
+            "ru": "Фуск",
+            "en": "Fuscus"
+          },
+          {
+            "id": "ro_m_varus",
+            "ru": "Вар",
+            "en": "Varus"
+          },
+          {
+            "id": "ro_m_paullus",
+            "ru": "Павел",
+            "en": "Paullus"
+          },
+          {
+            "id": "ro_m_primus",
+            "ru": "Прим",
+            "en": "Primus"
+          },
+          {
+            "id": "ro_m_secundus",
+            "ru": "Секунд",
+            "en": "Secundus"
+          },
+          {
+            "id": "ro_m_tertius",
+            "ru": "Терций",
+            "en": "Tertius"
+          },
+          {
+            "id": "ro_m_victor",
+            "ru": "Виктор",
+            "en": "Victor"
+          },
+          {
+            "id": "ro_m_hilarus",
+            "ru": "Гилар",
+            "en": "Hilarus"
+          },
+          {
+            "id": "ro_m_fortunatus",
+            "ru": "Фортунат",
+            "en": "Fortunatus"
+          },
+          {
+            "id": "ro_m_januarius",
+            "ru": "Януарий",
+            "en": "Januarius"
+          },
+          {
+            "id": "ro_m_sabinus",
+            "ru": "Сабин",
+            "en": "Sabinus"
+          },
+          {
+            "id": "ro_m_valens",
+            "ru": "Валент",
+            "en": "Valens"
+          },
+          {
+            "id": "ro_m_pudens",
+            "ru": "Пудент",
+            "en": "Pudens"
+          },
+          {
+            "id": "ro_m_clemens",
+            "ru": "Клемент",
+            "en": "Clemens"
+          },
+          {
+            "id": "ro_m_modestus",
+            "ru": "Модест",
+            "en": "Modestus"
           }
         ],
         "f": [
@@ -164,6 +314,156 @@
             "id": "caecilia",
             "ru": "Цецилия",
             "en": "Caecilia"
+          },
+          {
+            "id": "ro_f_octavia",
+            "ru": "Октавия",
+            "en": "Octavia"
+          },
+          {
+            "id": "ro_f_sempronia",
+            "ru": "Семпрония",
+            "en": "Sempronia"
+          },
+          {
+            "id": "ro_f_fabia",
+            "ru": "Фабия",
+            "en": "Fabia"
+          },
+          {
+            "id": "ro_f_junia",
+            "ru": "Юния",
+            "en": "Junia"
+          },
+          {
+            "id": "ro_f_calpurnia",
+            "ru": "Кальпурния",
+            "en": "Calpurnia"
+          },
+          {
+            "id": "ro_f_domitia",
+            "ru": "Домиция",
+            "en": "Domitia"
+          },
+          {
+            "id": "ro_f_aemilia",
+            "ru": "Эмилия",
+            "en": "Aemilia"
+          },
+          {
+            "id": "ro_f_porcia",
+            "ru": "Порция",
+            "en": "Porcia"
+          },
+          {
+            "id": "ro_f_servilia",
+            "ru": "Сервилия",
+            "en": "Servilia"
+          },
+          {
+            "id": "ro_f_sulpicia",
+            "ru": "Сульпиция",
+            "en": "Sulpicia"
+          },
+          {
+            "id": "ro_f_licinia",
+            "ru": "Лициния",
+            "en": "Licinia"
+          },
+          {
+            "id": "ro_f_pompeia",
+            "ru": "Помпея",
+            "en": "Pompeia"
+          },
+          {
+            "id": "ro_f_terentia",
+            "ru": "Теренция",
+            "en": "Terentia"
+          },
+          {
+            "id": "ro_f_vipsania",
+            "ru": "Випсания",
+            "en": "Vipsania"
+          },
+          {
+            "id": "ro_f_marcia",
+            "ru": "Марция",
+            "en": "Marcia"
+          },
+          {
+            "id": "ro_f_clodia",
+            "ru": "Клодия",
+            "en": "Clodia"
+          },
+          {
+            "id": "ro_f_hortensia",
+            "ru": "Гортензия",
+            "en": "Hortensia"
+          },
+          {
+            "id": "ro_f_plautia",
+            "ru": "Плавтия",
+            "en": "Plautia"
+          },
+          {
+            "id": "ro_f_statilia",
+            "ru": "Статилия",
+            "en": "Statilia"
+          },
+          {
+            "id": "ro_f_vibia",
+            "ru": "Вибия",
+            "en": "Vibia"
+          },
+          {
+            "id": "ro_f_prima",
+            "ru": "Прима",
+            "en": "Prima"
+          },
+          {
+            "id": "ro_f_secunda",
+            "ru": "Секунда",
+            "en": "Secunda"
+          },
+          {
+            "id": "ro_f_tertia",
+            "ru": "Терция",
+            "en": "Tertia"
+          },
+          {
+            "id": "ro_f_fortunata",
+            "ru": "Фортуната",
+            "en": "Fortunata"
+          },
+          {
+            "id": "ro_f_felicula",
+            "ru": "Феликула",
+            "en": "Felicula"
+          },
+          {
+            "id": "ro_f_restituta",
+            "ru": "Реститута",
+            "en": "Restituta"
+          },
+          {
+            "id": "ro_f_prisca",
+            "ru": "Приска",
+            "en": "Prisca"
+          },
+          {
+            "id": "ro_f_rufina",
+            "ru": "Руфина",
+            "en": "Rufina"
+          },
+          {
+            "id": "ro_f_sabina",
+            "ru": "Сабина",
+            "en": "Sabina"
+          },
+          {
+            "id": "ro_f_lucilla",
+            "ru": "Луцилла",
+            "en": "Lucilla"
           }
         ]
       }
@@ -236,6 +536,156 @@
             "id": "nikias",
             "ru": "Никий",
             "en": "Nicias"
+          },
+          {
+            "id": "at_m_agathon",
+            "ru": "Агафон",
+            "en": "Agathon"
+          },
+          {
+            "id": "at_m_antiphon",
+            "ru": "Антифонт",
+            "en": "Antiphon"
+          },
+          {
+            "id": "at_m_archias",
+            "ru": "Архий",
+            "en": "Archias"
+          },
+          {
+            "id": "at_m_aristides",
+            "ru": "Аристид",
+            "en": "Aristides"
+          },
+          {
+            "id": "at_m_charmides",
+            "ru": "Хармид",
+            "en": "Charmides"
+          },
+          {
+            "id": "at_m_demeas",
+            "ru": "Демей",
+            "en": "Demeas"
+          },
+          {
+            "id": "at_m_diocles",
+            "ru": "Диокл",
+            "en": "Diocles"
+          },
+          {
+            "id": "at_m_euthydemus",
+            "ru": "Евтидем",
+            "en": "Euthydemus"
+          },
+          {
+            "id": "at_m_eucrates",
+            "ru": "Евкрат",
+            "en": "Eucrates"
+          },
+          {
+            "id": "at_m_hermogenes",
+            "ru": "Гермоген",
+            "en": "Hermogenes"
+          },
+          {
+            "id": "at_m_hippias",
+            "ru": "Гиппий",
+            "en": "Hippias"
+          },
+          {
+            "id": "at_m_kleinias",
+            "ru": "Клиний",
+            "en": "Kleinias"
+          },
+          {
+            "id": "at_m_crito",
+            "ru": "Критон",
+            "en": "Crito"
+          },
+          {
+            "id": "at_m_lycon",
+            "ru": "Ликон",
+            "en": "Lycon"
+          },
+          {
+            "id": "at_m_meno",
+            "ru": "Менон",
+            "en": "Meno"
+          },
+          {
+            "id": "at_m_nicomachus",
+            "ru": "Никомах",
+            "en": "Nicomachus"
+          },
+          {
+            "id": "at_m_philippos",
+            "ru": "Филипп",
+            "en": "Philippos"
+          },
+          {
+            "id": "at_m_phormion",
+            "ru": "Формион",
+            "en": "Phormion"
+          },
+          {
+            "id": "at_m_pasion",
+            "ru": "Пасион",
+            "en": "Pasion"
+          },
+          {
+            "id": "at_m_polemarchus",
+            "ru": "Полемарх",
+            "en": "Polemarchus"
+          },
+          {
+            "id": "at_m_simon",
+            "ru": "Симон",
+            "en": "Simon"
+          },
+          {
+            "id": "at_m_sostratus",
+            "ru": "Сострат",
+            "en": "Sostratus"
+          },
+          {
+            "id": "at_m_stephanus",
+            "ru": "Стефан",
+            "en": "Stephanus"
+          },
+          {
+            "id": "at_m_thrasyllus",
+            "ru": "Фрасилл",
+            "en": "Thrasyllus"
+          },
+          {
+            "id": "at_m_timon",
+            "ru": "Тимон",
+            "en": "Timon"
+          },
+          {
+            "id": "at_m_zenon",
+            "ru": "Зенон",
+            "en": "Zenon"
+          },
+          {
+            "id": "at_m_demetrius",
+            "ru": "Деметрий",
+            "en": "Demetrius"
+          },
+          {
+            "id": "at_m_apollodorus",
+            "ru": "Аполлодор",
+            "en": "Apollodorus"
+          },
+          {
+            "id": "at_m_diodorus",
+            "ru": "Диодор",
+            "en": "Diodorus"
+          },
+          {
+            "id": "at_m_chares",
+            "ru": "Харет",
+            "en": "Chares"
           }
         ],
         "f": [
@@ -288,6 +738,156 @@
             "id": "glykera",
             "ru": "Гликера",
             "en": "Glykera"
+          },
+          {
+            "id": "at_f_aspasia",
+            "ru": "Аспасия",
+            "en": "Aspasia"
+          },
+          {
+            "id": "at_f_philinna",
+            "ru": "Филинна",
+            "en": "Philinna"
+          },
+          {
+            "id": "at_f_timarete",
+            "ru": "Тимарета",
+            "en": "Timarete"
+          },
+          {
+            "id": "at_f_eukoline",
+            "ru": "Евколина",
+            "en": "Eukoline"
+          },
+          {
+            "id": "at_f_mnesarete",
+            "ru": "Мнесарета",
+            "en": "Mnesarete"
+          },
+          {
+            "id": "at_f_kallisto",
+            "ru": "Каллисто",
+            "en": "Kallisto"
+          },
+          {
+            "id": "at_f_kleoboule",
+            "ru": "Клеобула",
+            "en": "Kleoboule"
+          },
+          {
+            "id": "at_f_nikostrate",
+            "ru": "Никострата",
+            "en": "Nikostrate"
+          },
+          {
+            "id": "at_f_philoumene",
+            "ru": "Филумена",
+            "en": "Philoumene"
+          },
+          {
+            "id": "at_f_praxagora",
+            "ru": "Праксагора",
+            "en": "Praxagora"
+          },
+          {
+            "id": "at_f_chrysis",
+            "ru": "Хрисида",
+            "en": "Chrysis"
+          },
+          {
+            "id": "at_f_thais",
+            "ru": "Таида",
+            "en": "Thais"
+          },
+          {
+            "id": "at_f_doris",
+            "ru": "Дорида",
+            "en": "Doris"
+          },
+          {
+            "id": "at_f_eirene",
+            "ru": "Ирина",
+            "en": "Eirene"
+          },
+          {
+            "id": "at_f_euphrosyne",
+            "ru": "Евфросина",
+            "en": "Euphrosyne"
+          },
+          {
+            "id": "at_f_hedeia",
+            "ru": "Гедея",
+            "en": "Hedeia"
+          },
+          {
+            "id": "at_f_kallirhoe",
+            "ru": "Каллироя",
+            "en": "Kallirhoe"
+          },
+          {
+            "id": "at_f_lampito",
+            "ru": "Лампито",
+            "en": "Lampito"
+          },
+          {
+            "id": "at_f_malthake",
+            "ru": "Малфака",
+            "en": "Malthake"
+          },
+          {
+            "id": "at_f_melissa",
+            "ru": "Мелисса",
+            "en": "Melissa"
+          },
+          {
+            "id": "at_f_neaira",
+            "ru": "Неэра",
+            "en": "Neaira"
+          },
+          {
+            "id": "at_f_nikandra",
+            "ru": "Никандра",
+            "en": "Nikandra"
+          },
+          {
+            "id": "at_f_pamphile",
+            "ru": "Памфила",
+            "en": "Pamphile"
+          },
+          {
+            "id": "at_f_philomela",
+            "ru": "Филомела",
+            "en": "Philomela"
+          },
+          {
+            "id": "at_f_rhodope",
+            "ru": "Родопа",
+            "en": "Rhodope"
+          },
+          {
+            "id": "at_f_sosipatra",
+            "ru": "Сосипатра",
+            "en": "Sosipatra"
+          },
+          {
+            "id": "at_f_thaleia",
+            "ru": "Талия",
+            "en": "Thaleia"
+          },
+          {
+            "id": "at_f_xanthe",
+            "ru": "Ксанфа",
+            "en": "Xanthe"
+          },
+          {
+            "id": "at_f_zoe",
+            "ru": "Зоя",
+            "en": "Zoe"
+          },
+          {
+            "id": "at_f_agariste",
+            "ru": "Агариста",
+            "en": "Agariste"
           }
         ]
       }
@@ -359,6 +959,156 @@
             "id": "hermias",
             "ru": "Гермий",
             "en": "Hermias"
+          },
+          {
+            "id": "eg_m_harpocration",
+            "ru": "Гарпократион",
+            "en": "Harpocration"
+          },
+          {
+            "id": "eg_m_petosiris",
+            "ru": "Петосирис",
+            "en": "Petosiris"
+          },
+          {
+            "id": "eg_m_harsiesis",
+            "ru": "Харсиесис",
+            "en": "Harsiesis"
+          },
+          {
+            "id": "eg_m_herakleides",
+            "ru": "Гераклид",
+            "en": "Herakleides"
+          },
+          {
+            "id": "eg_m_imouthes",
+            "ru": "Имуфес",
+            "en": "Imouthes"
+          },
+          {
+            "id": "eg_m_kollouthos",
+            "ru": "Коллуф",
+            "en": "Kollouthos"
+          },
+          {
+            "id": "eg_m_menches",
+            "ru": "Менхес",
+            "en": "Menches"
+          },
+          {
+            "id": "eg_m_orsenouphis",
+            "ru": "Орсенуфис",
+            "en": "Orsenouphis"
+          },
+          {
+            "id": "eg_m_pasis",
+            "ru": "Пасис",
+            "en": "Pasis"
+          },
+          {
+            "id": "eg_m_patermouthis",
+            "ru": "Патермуфис",
+            "en": "Patermouthis"
+          },
+          {
+            "id": "eg_m_peteesis",
+            "ru": "Петеесис",
+            "en": "Peteesis"
+          },
+          {
+            "id": "eg_m_phanias",
+            "ru": "Фаний",
+            "en": "Phanias"
+          },
+          {
+            "id": "eg_m_pnepheros",
+            "ru": "Пнеферос",
+            "en": "Pnepheros"
+          },
+          {
+            "id": "eg_m_psenamounis",
+            "ru": "Псенамунис",
+            "en": "Psenamounis"
+          },
+          {
+            "id": "eg_m_harpaesis",
+            "ru": "Харпаесис",
+            "en": "Harpaesis"
+          },
+          {
+            "id": "eg_m_horion",
+            "ru": "Горион",
+            "en": "Horion"
+          },
+          {
+            "id": "eg_m_isidoros",
+            "ru": "Исидор",
+            "en": "Isidoros"
+          },
+          {
+            "id": "eg_m_kastor",
+            "ru": "Кастор",
+            "en": "Kastor"
+          },
+          {
+            "id": "eg_m_marres",
+            "ru": "Маррес",
+            "en": "Marres"
+          },
+          {
+            "id": "eg_m_nikanor",
+            "ru": "Никанор",
+            "en": "Nikanor"
+          },
+          {
+            "id": "eg_m_paniskos",
+            "ru": "Паниск",
+            "en": "Paniskos"
+          },
+          {
+            "id": "eg_m_satabous",
+            "ru": "Сатабус",
+            "en": "Satabous"
+          },
+          {
+            "id": "eg_m_stotoetis",
+            "ru": "Стотоэтис",
+            "en": "Stotoetis"
+          },
+          {
+            "id": "eg_m_teos",
+            "ru": "Теос",
+            "en": "Teos"
+          },
+          {
+            "id": "eg_m_thoteus",
+            "ru": "Тотеус",
+            "en": "Thoteus"
+          },
+          {
+            "id": "eg_m_zenodotos",
+            "ru": "Зенодот",
+            "en": "Zenodotos"
+          },
+          {
+            "id": "eg_m_dionysios",
+            "ru": "Дионисий",
+            "en": "Dionysios"
+          },
+          {
+            "id": "eg_m_heron",
+            "ru": "Герон",
+            "en": "Heron"
+          },
+          {
+            "id": "eg_m_ammonios",
+            "ru": "Аммоний",
+            "en": "Ammonios"
+          },
+          {
+            "id": "eg_m_theon",
+            "ru": "Теон",
+            "en": "Theon"
           }
         ],
         "f": [
@@ -411,6 +1161,156 @@
             "id": "thaisous",
             "ru": "Таисус",
             "en": "Thaisous"
+          },
+          {
+            "id": "eg_f_kleopatra",
+            "ru": "Клеопатра",
+            "en": "Kleopatra"
+          },
+          {
+            "id": "eg_f_apollonia",
+            "ru": "Аполлония",
+            "en": "Apollonia"
+          },
+          {
+            "id": "eg_f_demetria",
+            "ru": "Деметрия",
+            "en": "Demetria"
+          },
+          {
+            "id": "eg_f_didyme",
+            "ru": "Дидима",
+            "en": "Didyme"
+          },
+          {
+            "id": "eg_f_eirene",
+            "ru": "Ирина",
+            "en": "Eirene"
+          },
+          {
+            "id": "eg_f_isarion",
+            "ru": "Исарион",
+            "en": "Isarion"
+          },
+          {
+            "id": "eg_f_senpamonthes",
+            "ru": "Сенпамонт",
+            "en": "Senpamonthes"
+          },
+          {
+            "id": "eg_f_tapais",
+            "ru": "Тапаис",
+            "en": "Tapais"
+          },
+          {
+            "id": "eg_f_tasemis",
+            "ru": "Тасемис",
+            "en": "Tasemis"
+          },
+          {
+            "id": "eg_f_tetosiris",
+            "ru": "Тетосирис",
+            "en": "Tetosiris"
+          },
+          {
+            "id": "eg_f_thatres",
+            "ru": "Татрес",
+            "en": "Thatres"
+          },
+          {
+            "id": "eg_f_senouris",
+            "ru": "Сенурис",
+            "en": "Senouris"
+          },
+          {
+            "id": "eg_f_tapontos",
+            "ru": "Тапонтос",
+            "en": "Tapontos"
+          },
+          {
+            "id": "eg_f_tanechotis",
+            "ru": "Танехотис",
+            "en": "Tanechotis"
+          },
+          {
+            "id": "eg_f_herakleia",
+            "ru": "Гераклия",
+            "en": "Herakleia"
+          },
+          {
+            "id": "eg_f_ptolemais",
+            "ru": "Птолемаида",
+            "en": "Ptolemais"
+          },
+          {
+            "id": "eg_f_philotera",
+            "ru": "Филотера",
+            "en": "Philotera"
+          },
+          {
+            "id": "eg_f_kyrilla",
+            "ru": "Кирилла",
+            "en": "Kyrilla"
+          },
+          {
+            "id": "eg_f_ammonarion",
+            "ru": "Аммонарион",
+            "en": "Ammonarion"
+          },
+          {
+            "id": "eg_f_dionysia",
+            "ru": "Дионисия",
+            "en": "Dionysia"
+          },
+          {
+            "id": "eg_f_hermione",
+            "ru": "Гермиона",
+            "en": "Hermione"
+          },
+          {
+            "id": "eg_f_nike",
+            "ru": "Ника",
+            "en": "Nike"
+          },
+          {
+            "id": "eg_f_sambathion",
+            "ru": "Самбатион",
+            "en": "Sambathion"
+          },
+          {
+            "id": "eg_f_taous",
+            "ru": "Таус",
+            "en": "Taous"
+          },
+          {
+            "id": "eg_f_thamounis",
+            "ru": "Тамунис",
+            "en": "Thamounis"
+          },
+          {
+            "id": "eg_f_senthotes",
+            "ru": "Сентотес",
+            "en": "Senthotes"
+          },
+          {
+            "id": "eg_f_tisais",
+            "ru": "Тисаис",
+            "en": "Tisais"
+          },
+          {
+            "id": "eg_f_thermoutharion",
+            "ru": "Термутарион",
+            "en": "Thermoutharion"
+          },
+          {
+            "id": "eg_f_tapsois",
+            "ru": "Тапсоис",
+            "en": "Tapsois"
+          },
+          {
+            "id": "eg_f_helene",
+            "ru": "Елена",
+            "en": "Helene"
           }
         ]
       }
@@ -1478,14 +2378,14 @@
           "effects": [
             {
               "param": "health",
-              "delta": -1
+              "delta": -2
             },
             {
               "param": "happiness",
               "delta": -1
             }
           ],
-          "mortality": 1.08
+          "mortality": 1.12
         },
         {
           "id": "plain",
@@ -1497,10 +2397,10 @@
           "effects": [
             {
               "param": "health",
-              "delta": 1
+              "delta": 1.5
             }
           ],
-          "mortality": 0.95,
+          "mortality": 0.92,
           "requirements": [
             {
               "param": "money",
@@ -1556,16 +2456,11 @@
               "delta": -2
             },
             {
-              "chance": 0.5,
-              "effects": [
-                {
-                  "param": "health",
-                  "delta": -1
-                }
-              ]
+              "param": "health",
+              "delta": -1
             }
           ],
-          "mortality": 1.03
+          "mortality": 1.05
         },
         {
           "id": "chores",
@@ -1577,14 +2472,14 @@
           "effects": [
             {
               "param": "health",
-              "delta": 0.5
+              "delta": 1
             },
             {
               "param": "stress",
               "delta": -1
             }
           ],
-          "mortality": 0.98
+          "mortality": 0.96
         },
         {
           "id": "gymnasium",
@@ -1592,14 +2487,14 @@
           "effects": [
             {
               "param": "health",
-              "delta": 1.5
+              "delta": 2
             },
             {
               "param": "strength",
               "delta": 1
             }
           ],
-          "mortality": 0.93,
+          "mortality": 0.9,
           "requirements": [
             {
               "classes": [
@@ -1647,7 +2542,7 @@
               "delta": -1
             }
           ],
-          "mortality": 0.97,
+          "mortality": 0.95,
           "requirements": [
             {
               "param": "money",
@@ -1662,13 +2557,13 @@
           "effects": [
             {
               "param": "health",
-              "delta": 1
+              "delta": 1.5
             },
             {
               "remove_tag": "ill"
             }
           ],
-          "mortality": 0.86,
+          "mortality": 0.85,
           "requirements": [
             {
               "param": "money",
@@ -1694,7 +2589,7 @@
         {
           "id": "rarely",
           "cost": 0,
-          "mortality": 1.02
+          "mortality": 1.04
         },
         {
           "id": "sometimes",
@@ -1713,7 +2608,7 @@
               "delta": -1
             }
           ],
-          "mortality": 0.97,
+          "mortality": 0.95,
           "requirements": [
             {
               "tag": "lives_in_city"
@@ -1724,6 +2619,86 @@
               "value": 25
             }
           ]
+        }
+      ]
+    }
+  ],
+  "vices": [
+    {
+      "tag": "drinker",
+      "cost": 40,
+      "mortality": 1.18,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2
+        },
+        {
+          "param": "happiness",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": -2
+        },
+        {
+          "param": "diligence",
+          "delta": -1
+        },
+        {
+          "param": "reputation",
+          "delta": -1
+        }
+      ]
+    },
+    {
+      "tag": "gambler",
+      "cost": 0,
+      "mortality": 1.03,
+      "effects": [
+        {
+          "param": "stress",
+          "delta": 4
+        },
+        {
+          "chance": 0.4,
+          "effects": [
+            {
+              "money_pct": -25
+            }
+          ]
+        },
+        {
+          "chance": 0.2,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "opium",
+      "cost": 60,
+      "mortality": 1.22,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2.5
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "diligence",
+          "delta": -2
+        },
+        {
+          "param": "intellect",
+          "delta": -1
         }
       ]
     }
