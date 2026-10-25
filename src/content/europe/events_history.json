@@ -160,6 +160,9 @@
   ],
   "base_weight": 1,
   "global_chance": 0.5,
+  "others": [
+   "father"
+  ],
   "topic": "history",
   "scene": {
    "place": "palace",
@@ -231,6 +234,9 @@
   ],
   "base_weight": 1,
   "global_chance": 0.5,
+  "others": [
+   "father"
+  ],
   "topic": "history",
   "icon": "war",
   "scene": {
@@ -518,6 +524,9 @@
   ],
   "base_weight": 1,
   "global_chance": 0.15,
+  "others": [
+   "father"
+  ],
   "topic": "history",
   "scene": {
    "place": "landmark",
@@ -858,6 +867,9 @@
   "base_weight": 1,
   "global_chance": 0.1,
   "sensitive": true,
+  "others": [
+   "father"
+  ],
   "topic": "history",
   "icon": "war",
   "scene": {
@@ -2177,6 +2189,9 @@
   ],
   "base_weight": 1,
   "global_chance": 0.3,
+  "others": [
+   "father"
+  ],
   "topic": "history",
   "scene": {
    "place": "temple",
@@ -2717,6 +2732,9 @@
   ],
   "base_weight": 1,
   "global_chance": 0.6,
+  "others": [
+   "father"
+  ],
   "topic": "history",
   "scene": {
    "place": "landmark",
