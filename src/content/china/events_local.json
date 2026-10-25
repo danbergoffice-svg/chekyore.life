@@ -1,0 +1,7747 @@
+[
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_lantern",
+  "age_range": [
+   3,
+   70
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "moment": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "id": "chn_m_new_year",
+  "age_range": [
+   3,
+   12
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "smoke",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_qingming",
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "tomb",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "tree",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_dragon_boat",
+  "regions": [
+   "kaifeng",
+   "hangzhou",
+   "quanzhou",
+   "chengdu"
+  ],
+  "age_range": [
+   4,
+   70
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_mid_autumn",
+  "age_range": [
+   3,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "moon",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_teahouse",
+  "regions": [
+   "hangzhou"
+  ],
+  "years": [
+   1100,
+   1644
+  ],
+  "age_range": [
+   14,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "table",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -3
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_west_lake",
+  "regions": [
+   "hangzhou"
+  ],
+  "years": [
+   1090,
+   1644
+  ],
+  "age_range": [
+   8,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "boat",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -4
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_night_market",
+  "regions": [
+   "kaifeng"
+  ],
+  "years": [
+   960,
+   1127
+  ],
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "market",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": -5
+   },
+   {
+    "param": "happiness",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_foreigners",
+  "regions": [
+   "quanzhou"
+  ],
+  "years": [
+   960,
+   1370
+  ],
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_jiaozi",
+  "regions": [
+   "chengdu"
+  ],
+  "years": [
+   1024,
+   1300
+  ],
+  "age_range": [
+   8,
+   70
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_pepper",
+  "regions": [
+   "chengdu"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_kang",
+  "regions": [
+   "beijing"
+  ],
+  "age_range": [
+   3,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "bed"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -2
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_camels",
+  "regions": [
+   "beijing"
+  ],
+  "age_range": [
+   5,
+   60
+  ],
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "cart",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_printed_book",
+  "age_range": [
+   6,
+   14
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 3
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_kite",
+  "age_range": [
+   5,
+   12
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_crickets",
+  "age_range": [
+   8,
+   40
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_silkworms",
+  "sex": "f",
+  "age_range": [
+   7,
+   16
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "loom",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "craft",
+    "delta": 2
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "id": "chn_m_rice_planting",
+  "regions": [
+   "hangzhou",
+   "quanzhou",
+   "chengdu"
+  ],
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "age_range": [
+   8,
+   60
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "rain",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_dragon_pump",
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "age_range": [
+   10,
+   60
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "sun",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "strength",
+    "delta": 1
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "moment": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "health",
+  "id": "chn_m_footbinding",
+  "sex": "f",
+  "sensitive": true,
+  "age_range": [
+   5,
+   8
+  ],
+  "years": [
+   1100,
+   1644
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "bed"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -3
+   },
+   {
+    "param": "happiness",
+    "delta": -4
+   },
+   {
+    "param": "strength",
+    "delta": -2
+   },
+   {
+    "add_tag": "bound_feet"
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_ancestor_tablet",
+  "age_range": [
+   4,
+   12
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "altar",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_calligraphy",
+  "age_range": [
+   6,
+   16
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 2
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_zaju",
+  "regions": [
+   "beijing",
+   "hangzhou"
+  ],
+  "years": [
+   1260,
+   1644
+  ],
+  "age_range": [
+   8,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_shadow_puppets",
+  "age_range": [
+   4,
+   12
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_congee",
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "age_range": [
+   4,
+   60
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": -1
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_bride_chair",
+  "age_range": [
+   6,
+   20
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_fortune_teller",
+  "age_range": [
+   14,
+   60
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "table",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": -2
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_blue_white",
+  "years": [
+   1330,
+   1644
+  ],
+  "age_range": [
+   10,
+   80
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "table",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_abacus",
+  "years": [
+   1400,
+   1644
+  ],
+  "age_range": [
+   8,
+   18
+  ],
+  "classes": [
+   "craftsman",
+   "trader"
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "coins",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "trade",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_temple_fair",
+  "age_range": [
+   5,
+   70
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "smoke",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_grand_canal",
+  "regions": [
+   "hangzhou",
+   "beijing"
+  ],
+  "years": [
+   1293,
+   1644
+  ],
+  "age_range": [
+   8,
+   70
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_song_tea",
+  "years": [
+   960,
+   1368
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_ming_tea",
+  "years": [
+   1391,
+   1644
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "table",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_frozen_canal",
+  "regions": [
+   "kaifeng",
+   "beijing"
+  ],
+  "age_range": [
+   4,
+   60
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_temple_bell",
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_luoyang_bridge",
+  "regions": [
+   "quanzhou"
+  ],
+  "years": [
+   1059,
+   1644
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_kitchen_god",
+  "age_range": [
+   3,
+   14
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_quanzhou_temples",
+  "regions": [
+   "quanzhou"
+  ],
+  "years": [
+   1250,
+   1400
+  ],
+  "age_range": [
+   8,
+   70
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "statue",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_m_brocade",
+  "regions": [
+   "chengdu"
+  ],
+  "age_range": [
+   8,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "loom"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_clan_school",
+  "age_range": [
+   7,
+   11
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "study",
+    "icon": "study",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 8
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "add_tag": "schooled"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       8,
+       14
+      ],
+      "chance": 0.6,
+      "trigger_event": "chn_d_clan_school_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "work",
+    "effects": [
+     {
+      "skill": "farming",
+      "delta": 3
+     },
+     {
+      "param": "money",
+      "delta": 15
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_clan_school_later",
+  "age_range": [
+   14,
+   40
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "help",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "skill": "literacy",
+      "delta": 2
+     },
+     {
+      "param": "money",
+      "delta": -10
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -6
+     },
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "once": false,
+  "base_weight": 3,
+  "id": "chn_d_grain_tax",
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "landowner"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -25
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "complain",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 4
+      },
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "bribe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -12
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_lijia",
+  "years": [
+   1381,
+   1644
+  ],
+  "age_range": [
+   25,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 120
+   }
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "risk_roll": {
+     "param": "management",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "management",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -30
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "buy_out",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "flee",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "add_tag": "fugitive"
+     },
+     {
+      "param": "reputation",
+      "delta": -8
+     },
+     {
+      "money_pct": -20
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "once": true,
+  "base_weight": 5,
+  "id": "chn_d_green_sprouts",
+  "years": [
+   1069,
+   1085
+  ],
+  "regions": [
+   "kaifeng",
+   "hangzhou",
+   "quanzhou",
+   "chengdu"
+  ],
+  "age_range": [
+   18,
+   65
+  ],
+  "classes": [
+   "peasant"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "scroll",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 0.85,
+      "trigger_event": "chn_d_green_sprouts_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_green_sprouts_later",
+  "topic": "money",
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "grain",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -75
+     }
+    ]
+   },
+   {
+    "id": "beg",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": -40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -90
+      },
+      {
+       "add_tag": "in_debt"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_funeral_loan",
+  "npc": "friend",
+  "age_range": [
+   20,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "lamp",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lend",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 15
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       9
+      ],
+      "chance": 0.6,
+      "trigger_event": "chn_d_funeral_loan_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "small",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -15
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_funeral_loan_later",
+  "npc": "friend",
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "coins",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 80
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 10
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_father_ill",
+  "npc": "father",
+  "npc_age": [
+   50,
+   95
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "medicine",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "care",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -25
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 15
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "home_road": -3
+    }
+   },
+   {
+    "id": "work",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -10
+     },
+     {
+      "param": "reputation",
+      "delta": -4
+     },
+     {
+      "param": "money",
+      "delta": 20
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "once": true,
+  "base_weight": 5,
+  "id": "chn_d_paper_money",
+  "years": [
+   1340,
+   1368
+  ],
+  "age_range": [
+   18,
+   75
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 150
+   }
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "money_pct": -10
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "keep",
+    "risk_roll": {
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_gambling",
+  "age_range": [
+   16,
+   50
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "slave"
+  ],
+  "conditions": [
+   {
+    "tag_absent": "gambler"
+   }
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "play",
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 40
+      },
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      },
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ]
+    },
+    "effects": [
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "add_tag": "gambler"
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "once": true,
+  "base_weight": 4,
+  "id": "chn_d_adopt_heir",
+  "others": [
+   "child"
+  ],
+  "age_range": [
+   32,
+   55
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "tag": "married"
+   },
+   {
+    "no_npc": "child"
+   }
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "altar",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "adopt",
+    "icon": "child",
+    "effects": [
+     {
+      "add_npc": "child",
+      "attitude": 40,
+      "adopted": true
+     },
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "happiness",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "chance": 0.25,
+      "effects": [
+       {
+        "add_npc": "child",
+        "attitude": 40
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_concubine",
+  "sex": "m",
+  "npc": "spouse",
+  "age_range": [
+   28,
+   55
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "tag": "married"
+   }
+  ],
+  "sensitive": true,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "table",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": -20
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "add_npc": "child",
+        "attitude": 30
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 12
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "once": true,
+  "base_weight": 4,
+  "id": "chn_d_widow",
+  "sex": "f",
+  "years": [
+   1300,
+   1644
+  ],
+  "age_range": [
+   20,
+   45
+  ],
+  "conditions": [
+   {
+    "flag": "d_widowed"
+   },
+   {
+    "tag_absent": "married"
+   }
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "altar",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "chaste",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       10,
+       20
+      ],
+      "chance": 0.4,
+      "trigger_event": "chn_d_widow_arch"
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "remarry",
+    "icon": "wedding",
+    "effects": [
+     {
+      "add_npc": "spouse",
+      "attitude": 30
+     },
+     {
+      "param": "reputation",
+      "delta": -6
+     },
+     {
+      "param": "happiness",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": -8
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_widow_arch",
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 10
+   },
+   {
+    "param": "self_esteem",
+    "delta": 6
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_bandits",
+  "sex": "m",
+  "age_range": [
+   16,
+   35
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "road",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "tree",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "add_tag": "outlaw"
+     },
+     {
+      "param": "reputation",
+      "delta": -10
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.8,
+      "trigger_event": "chn_d_bandits_amnesty"
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "report",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 40
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_bandits_amnesty",
+  "conditions": [
+   {
+    "tag": "outlaw"
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "remove_tag": "outlaw"
+     },
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "home_road": -2
+    }
+   },
+   {
+    "id": "refuse",
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 100
+      },
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "chance": 0.25,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_lawsuit",
+  "age_range": [
+   25,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "songshi",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 50
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 80
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -30
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3,
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "elders",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 3
+      },
+      {
+       "param": "loneliness",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "yield",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": -3
+     },
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "id": "chn_d_buy_land",
+  "age_range": [
+   30,
+   65
+  ],
+  "classes": [
+   "trader"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 400
+   }
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "grain",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "land",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -300
+     },
+     {
+      "set_class": "landowner"
+     },
+     {
+      "add_tag": "wealthy"
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       12
+      ],
+      "chance": 0.6,
+      "trigger_event": "chn_d_buy_land_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "shop",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -200
+     }
+    ],
+    "risk_roll": {
+     "param": "trade",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 450
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -50
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_buy_land_later",
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "table",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 6
+   },
+   {
+    "param": "money",
+    "delta": 100
+   },
+   {
+    "param": "self_esteem",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_corvee",
+  "sex": "m",
+  "age_range": [
+   18,
+   50
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "cart",
+    "rain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -5
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ]
+   },
+   {
+    "id": "substitute",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ]
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -50
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_salt_smugglers",
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.75,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 50
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -80
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.5,
+      "trigger_event": "chn_d_salt_smugglers_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_salt_smugglers_later",
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "add_tag": "criminal"
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "refuse",
+    "risk_roll": {
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_d_temple_stele",
+  "age_range": [
+   30,
+   75
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 200
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "statue",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "much",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       8,
+       15
+      ],
+      "chance": 0.6,
+      "trigger_event": "chn_d_temple_stele_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "little",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "nothing",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_temple_stele_later",
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 5
+   },
+   {
+    "param": "happiness",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 5,
+  "id": "chn_d_arab_partner",
+  "regions": [
+   "quanzhou"
+  ],
+  "years": [
+   980,
+   1357
+  ],
+  "age_range": [
+   20,
+   60
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 100
+   }
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "invest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       4
+      ],
+      "chance": 0.95,
+      "trigger_event": "chn_d_arab_partner_later"
+     }
+    ],
+    "pattern": {
+     "home_road": 3,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_d_arab_partner_later",
+  "topic": "money",
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "wait",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 350
+      },
+      {
+       "param": "happiness",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "happiness",
+       "delta": -6
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "sell_share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 70
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "family",
+  "once": false,
+  "base_weight": 3,
+  "id": "chn_d_child_fever",
+  "npc": "child",
+  "npc_age": [
+   1,
+   10
+  ],
+  "age_range": [
+   18,
+   60
+  ],
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "daoist",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 8
+      },
+      {
+       "param": "happiness",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.8,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 8
+      },
+      {
+       "param": "happiness",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 5
+    }
+   },
+   {
+    "id": "home",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 10
+      },
+      {
+       "param": "happiness",
+       "delta": -6
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "id": "chn_f_convert",
+  "religions": [
+   "chinese_folk"
+  ],
+  "age_range": [
+   25,
+   70
+  ],
+  "conditions": [
+   {
+    "param": "stress",
+    "op": ">=",
+    "value": 40
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "statue",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "buddhist"
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "stress",
+      "delta": -6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "both",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "id": "chn_f_ordination",
+  "religions": [
+   "buddhist"
+  ],
+  "age_range": [
+   14,
+   35
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "tag_absent": "married"
+   }
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "statue",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ordain",
+    "icon": "study",
+    "effects": [
+     {
+      "set_profession": "monk"
+     },
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "faith",
+      "delta": 10
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     },
+     {
+      "skill": "literacy",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -6,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "lay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_f_pilgrimage",
+  "religions": [
+   "buddhist"
+  ],
+  "age_range": [
+   18,
+   65
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "tree",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "faith",
+      "delta": 10
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.85,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "donate",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_f_white_lotus",
+  "years": [
+   1280,
+   1644
+  ],
+  "age_range": [
+   16,
+   55
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "religions": [
+   "buddhist",
+   "chinese_folk"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": -5
+     },
+     {
+      "set_flag": "white_lotus"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.5,
+      "trigger_event": "chn_f_white_lotus_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_f_white_lotus_later",
+  "conditions": [
+   {
+    "flag": "white_lotus"
+   }
+  ],
+  "sensitive": true,
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "deny",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "add_tag": "arrested"
+      },
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    }
+   },
+   {
+    "id": "flee",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "add_tag": "fugitive"
+     },
+     {
+      "money_pct": -30
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "bribe",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_f_elixir",
+  "religions": [
+   "chinese_folk"
+  ],
+  "age_range": [
+   35,
+   75
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 4
+      },
+      {
+       "param": "faith",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "add_tag": "ill"
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_f_ancestral_rite",
+  "religions": [
+   "chinese_folk"
+  ],
+  "years": [
+   1200,
+   1644
+  ],
+  "age_range": [
+   30,
+   75
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "altar",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lavish",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "modest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 5,
+  "id": "chn_f_jesuit",
+  "regions": [
+   "beijing",
+   "hangzhou"
+  ],
+  "years": [
+   1601,
+   1644
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "baptize",
+    "effects": [
+     {
+      "set_religion": "catholic"
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "study",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 3
+     },
+     {
+      "skill": "literacy",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 5
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "id": "chn_f_synagogue",
+  "regions": [
+   "kaifeng"
+  ],
+  "religions": [
+   "judaism"
+  ],
+  "years": [
+   1163,
+   1644
+  ],
+  "age_range": [
+   12,
+   70
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "torah",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "classics",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": -3
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "id": "chn_f_pu_name",
+  "regions": [
+   "quanzhou"
+  ],
+  "religions": [
+   "islam"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "adapt",
+    "effects": [
+     {
+      "skill": "trade",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "faith",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_mv_capital",
+  "regions": [
+   "quanzhou",
+   "chengdu"
+  ],
+  "age_range": [
+   16,
+   35
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "cart",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "@capital"
+     },
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     },
+     {
+      "remove_tag": "rural"
+     },
+     {
+      "add_tag": "lives_in_city"
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "chn_mv_port",
+  "regions": [
+   "kaifeng",
+   "hangzhou",
+   "chengdu",
+   "beijing"
+  ],
+  "years": [
+   980,
+   1370
+  ],
+  "age_range": [
+   16,
+   40
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "quanzhou"
+     },
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "skill": "trade",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 5,
+  "id": "chn_mv_sichuan",
+  "regions": [
+   "hangzhou",
+   "quanzhou",
+   "beijing"
+  ],
+  "years": [
+   1371,
+   1430
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "cart",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "chengdu"
+     },
+     {
+      "param": "money",
+      "delta": 30
+     },
+     {
+      "skill": "farming",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "id": "chn_mv_yongle",
+  "regions": [
+   "hangzhou",
+   "quanzhou",
+   "chengdu"
+  ],
+  "years": [
+   1403,
+   1421
+  ],
+  "age_range": [
+   18,
+   65
+  ],
+  "classes": [
+   "trader",
+   "landowner"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "cart",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "beijing"
+     },
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "buy_out",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_t_exam_accused",
+  "others": [
+   "child"
+  ],
+  "age_range": [
+   18,
+   50
+  ],
+  "conditions": [
+   {
+    "sex": "m"
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 25
+   }
+  ],
+  "icon": "loss",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "self_esteem",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -15
+      },
+      {
+       "set_flag": "exam_banned"
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "bribe",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 200
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -200
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -10
+     },
+     {
+      "param": "stress",
+      "delta": 10
+     },
+     {
+      "set_flag": "exam_banned"
+     }
+    ],
+    "pattern": {
+     "craft_power": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 6,
+  "topic": "life",
+  "id": "chn_t_mongol_capture",
+  "years": [
+   1211,
+   1279
+  ],
+  "regions": [
+   "kaifeng",
+   "chengdu",
+   "hangzhou"
+  ],
+  "age_range": [
+   14,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "smoke",
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "craft",
+    "risk_roll": {
+     "param": "craft",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "set_class": "craftsman"
+      },
+      {
+       "set_profession": "artisan"
+      },
+      {
+       "money_pct": -80
+      },
+      {
+       "param": "loneliness",
+       "delta": 10
+      },
+      {
+       "skill": "craft",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "effects": [
+     {
+      "money_pct": -70
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 6,
+  "topic": "life",
+  "id": "chn_t_wokou",
+  "years": [
+   1540,
+   1566
+  ],
+  "regions": [
+   "quanzhou",
+   "hangzhou"
+  ],
+  "age_range": [
+   14,
+   70
+  ],
+  "icon": "war",
+  "sensitive": true,
+  "scene": {
+   "place": "harbor",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "boat",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "add_trait": "brave"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "chance": 0.2,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "join",
+    "requirements": [
+     {
+      "sex": "m"
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "add_tag": "outlaw"
+     },
+     {
+      "param": "reputation",
+      "delta": -15
+     },
+     {
+      "set_profession": "sailor"
+     },
+     {
+      "skill": "seafaring",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 6
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "id": "chn_t_treasure",
+  "age_range": [
+   14,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "coins",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "keep",
+    "risk_roll": {
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      },
+      {
+       "param": "happiness",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": 100
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 40
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "buy_freedom",
+    "requirements": [
+     {
+      "tag": "enslaved"
+     }
+    ],
+    "effects": [
+     {
+      "set_class": "peasant"
+     },
+     {
+      "remove_tag": "enslaved"
+     },
+     {
+      "add_tag": "freedman"
+     },
+     {
+      "set_profession": "laborer"
+     },
+     {
+      "param": "happiness",
+      "delta": 15
+     },
+     {
+      "param": "self_esteem",
+      "delta": 10
+     }
+    ],
+    "icon": "freedom",
+    "pattern": {
+     "memory_future": 6,
+     "home_road": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_t_famine",
+  "age_range": [
+   14,
+   50
+  ],
+  "classes": [
+   "peasant"
+  ],
+  "sensitive": true,
+  "icon": "disaster",
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "set_class": "slave"
+     },
+     {
+      "set_profession": "household_slave"
+     },
+     {
+      "add_tag": "enslaved"
+     },
+     {
+      "param": "health",
+      "delta": 5
+     },
+     {
+      "param": "self_esteem",
+      "delta": -15
+     },
+     {
+      "param": "happiness",
+      "delta": -12
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "flee",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "health",
+      "delta": -8
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "endure",
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "chance": 0.15,
+       "effects": [
+        {
+         "kill": "hunger"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "id": "chn_t_palace_selection",
+  "sex": "f",
+  "years": [
+   1368,
+   1644
+  ],
+  "age_range": [
+   13,
+   17
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "conditions": [
+   {
+    "tag_absent": "married"
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "palace",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "@capital"
+     },
+     {
+      "param": "money",
+      "delta": 50
+     },
+     {
+      "add_tag": "palace_maid"
+     },
+     {
+      "param": "loneliness",
+      "delta": 12
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       8,
+       14
+      ],
+      "chance": 0.7,
+      "trigger_event": "chn_t_palace_release"
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "marry",
+    "icon": "wedding",
+    "effects": [
+     {
+      "add_npc": "spouse",
+      "attitude": 10
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "migrate": "@capital"
+      },
+      {
+       "add_tag": "palace_maid"
+      },
+      {
+       "param": "loneliness",
+       "delta": 12
+      },
+      {
+       "param": "happiness",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_t_palace_release",
+  "conditions": [
+   {
+    "tag": "palace_maid"
+   }
+  ],
+  "topic": "life",
+  "icon": "freedom",
+  "scene": {
+   "place": "palace",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "remove_tag": "palace_maid"
+   },
+   {
+    "param": "money",
+    "delta": 120
+   },
+   {
+    "param": "happiness",
+    "delta": 8
+   },
+   {
+    "skill": "management",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "id": "chn_t_eunuch_patron",
+  "regions": [
+   "beijing"
+  ],
+  "years": [
+   1420,
+   1644
+  ],
+  "age_range": [
+   18,
+   55
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 50
+     },
+     {
+      "param": "reputation",
+      "delta": -4
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "chn_t_eunuch_fall"
+     }
+    ],
+    "pattern": {
+     "craft_power": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_t_eunuch_fall",
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "banner",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "confess",
+    "effects": [
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "reputation",
+      "delta": -10
+     }
+    ]
+   },
+   {
+    "id": "flee",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "add_tag": "fugitive"
+     },
+     {
+      "money_pct": -30
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "deny",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "add_tag": "arrested"
+      },
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -60
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 5,
+  "topic": "life",
+  "id": "chn_t_junk_return",
+  "regions": [
+   "quanzhou"
+  ],
+  "age_range": [
+   20,
+   60
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 50
+   }
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "duty",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 400
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "smuggle",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 700
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -200
+      },
+      {
+       "add_tag": "arrested"
+      },
+      {
+       "param": "reputation",
+       "delta": -8
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_t_land_seized",
+  "age_range": [
+   20,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "icon": "loss",
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "scroll",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "court",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 50
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "commend",
+    "effects": [
+     {
+      "set_class": "peasant"
+     },
+     {
+      "set_profession": "farmer"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     }
+    ],
+    "pattern": {
+     "craft_power": -4
+    }
+   },
+   {
+    "id": "flee",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -40
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "chn_t_city_fire",
+  "regions": [
+   "kaifeng",
+   "hangzhou",
+   "beijing"
+  ],
+  "age_range": [
+   14,
+   80
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "icon": "disaster",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "save_goods",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "money_pct": -40
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "help",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 50
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "id": "chn_t_inheritance",
+  "regions": [
+   "kaifeng",
+   "hangzhou",
+   "chengdu",
+   "beijing"
+  ],
+  "age_range": [
+   18,
+   50
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "effects": [
+     {
+      "migrate": "quanzhou"
+     },
+     {
+      "param": "money",
+      "delta": 250
+     },
+     {
+      "set_class": "trader"
+     },
+     {
+      "set_profession": "merchant"
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 150
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 5,
+  "topic": "life",
+  "id": "chn_t_master_ruined",
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "slave"
+  ],
+  "icon": "freedom",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "burn",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "set_class": "peasant"
+      },
+      {
+       "remove_tag": "enslaved"
+      },
+      {
+       "add_tag": "freedman"
+      },
+      {
+       "set_profession": "laborer"
+      },
+      {
+       "param": "happiness",
+       "delta": 15
+      },
+      {
+       "param": "self_esteem",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "buy",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 30
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "set_class": "peasant"
+     },
+     {
+      "remove_tag": "enslaved"
+     },
+     {
+      "add_tag": "freedman"
+     },
+     {
+      "set_profession": "laborer"
+     },
+     {
+      "param": "happiness",
+      "delta": 15
+     },
+     {
+      "param": "self_esteem",
+      "delta": 10
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": false,
+  "base_weight": 8,
+  "topic": "work",
+  "id": "chn_j_exam_prefecture",
+  "age_range": [
+   16,
+   45
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "exam_scholar"
+    ]
+   },
+   {
+    "tag_absent": "juren"
+   },
+   {
+    "flag_absent": "exam_banned"
+   }
+  ],
+  "icon": "study",
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "honest",
+    "risk_roll": {
+     "param": "literacy",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "add_tag": "juren"
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 8
+      },
+      {
+       "param": "self_esteem",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "crib",
+    "risk_roll": {
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "add_tag": "juren"
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -15
+      },
+      {
+       "set_flag": "exam_banned"
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "skip",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "param": "money",
+      "delta": -20
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": false,
+  "base_weight": 8,
+  "topic": "work",
+  "id": "chn_j_exam_capital",
+  "age_range": [
+   20,
+   55
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "exam_scholar"
+    ]
+   },
+   {
+    "tag": "juren"
+   },
+   {
+    "flag_absent": "exam_banned"
+   }
+  ],
+  "icon": "study",
+  "scene": {
+   "place": "palace",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sit",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "risk_roll": {
+     "param": "literacy",
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "set_profession": "official"
+      },
+      {
+       "param": "reputation",
+       "delta": 12
+      },
+      {
+       "param": "money",
+       "delta": 100
+      },
+      {
+       "param": "happiness",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 8
+      },
+      {
+       "param": "self_esteem",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -30
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_exam_old",
+  "age_range": [
+   36,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "exam_scholar"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "tutor",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     },
+     {
+      "set_flag": "tutor"
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "clerk",
+    "effects": [
+     {
+      "set_profession": "scribe"
+     },
+     {
+      "param": "money",
+      "delta": 40
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_monk_pawn",
+  "age_range": [
+   16,
+   80
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "monk"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "coins",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fair",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "interest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 20
+     },
+     {
+      "param": "faith",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_monk_certificate",
+  "years": [
+   1067,
+   1644
+  ],
+  "age_range": [
+   14,
+   80
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "monk"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "risk",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "set_profession": "laborer"
+      },
+      {
+       "param": "faith",
+       "delta": -5
+      },
+      {
+       "param": "happiness",
+       "delta": -6
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_tea_monopoly",
+  "age_range": [
+   14,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "tea_grower"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "tree",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "state",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 20
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "smuggle",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 80
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_tea_contest",
+  "years": [
+   960,
+   1368
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "tea_grower"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "table",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "enter",
+    "risk_roll": {
+     "param": "farming",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -15
+      },
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "skip",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_kiln_firing",
+  "age_range": [
+   14,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "porcelain_maker"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     }
+    ],
+    "risk_roll": {
+     "param": "craft",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "skill": "craft",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "hire",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 100
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_kiln_crackle",
+  "age_range": [
+   20,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "porcelain_maker"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell_art",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "smash",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "money",
+      "delta": -30
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_kiln_own",
+  "age_range": [
+   28,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "porcelain_maker",
+     "artisan"
+    ]
+   },
+   {
+    "skill": "craft",
+    "op": ">=",
+    "value": 30
+   },
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 200
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "fire",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -200
+     },
+     {
+      "set_profession": "workshop_owner"
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_salt_frontier",
+  "years": [
+   1370,
+   1644
+  ],
+  "age_range": [
+   18,
+   65
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "salt_merchant"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "cart",
+    "grain",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "risk_roll": {
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      },
+      {
+       "skill": "trade",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "money",
+       "delta": -150
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "buy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 180
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -50
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_salt_inspector",
+  "age_range": [
+   18,
+   65
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "salt_merchant"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "gift",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "refuse",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -200
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "complain",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -30
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_story_official",
+  "age_range": [
+   16,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "storyteller"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "table",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "bold",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "money",
+       "delta": -40
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "safe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 20
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "flatter",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 50
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_story_book",
+  "age_range": [
+   18,
+   70
+  ],
+  "years": [
+   1100,
+   1644
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "storyteller"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_canal_lock",
+  "regions": [
+   "hangzhou",
+   "beijing",
+   "kaifeng"
+  ],
+  "age_range": [
+   14,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "sailor"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     }
+    ]
+   },
+   {
+    "id": "wait",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 1
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      }
+     ]
+    }
+   },
+   {
+    "id": "push",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -8
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_junk_voyage",
+  "regions": [
+   "quanzhou"
+  ],
+  "age_range": [
+   16,
+   50
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "sailor"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "sea",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "risk_roll": {
+     "param": "seafaring",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "skill": "seafaring",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_own_boat",
+  "age_range": [
+   28,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "sailor"
+    ]
+   },
+   {
+    "skill": "seafaring",
+    "op": ">=",
+    "value": 30
+   },
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 250
+   }
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -250
+     },
+     {
+      "set_profession": "shipowner"
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_flying_plots",
+  "age_range": [
+   16,
+   65
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "scribe"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "agree",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "reputation",
+      "delta": -6
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       9
+      ],
+      "chance": 0.5,
+      "trigger_event": "chn_j_flying_plots_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "add_npc": "rival",
+      "attitude": -30
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "report",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -50
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "id": "chn_j_flying_plots_later",
+  "topic": "work",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "confess",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "reputation",
+      "delta": -6
+     }
+    ]
+   },
+   {
+    "id": "blame",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "add_tag": "arrested"
+      },
+      {
+       "money_pct": -50
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_clerk_promotion",
+  "age_range": [
+   26,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "scribe"
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 40
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_military_household",
+  "years": [
+   1368,
+   1644
+  ],
+  "age_range": [
+   17,
+   50
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "soldier"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "icon": "move",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.75,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "desert",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "migrate": "@other"
+      },
+      {
+       "add_tag": "fugitive"
+      },
+      {
+       "set_profession": "laborer"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_hold_gate",
+  "age_range": [
+   22,
+   50
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "soldier"
+    ]
+   },
+   {
+    "skill": "military",
+    "op": ">=",
+    "value": 25
+   }
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "claim",
+    "effects": [
+     {
+      "set_profession": "officer"
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 50
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "chn_j_physician_prefect",
+  "age_range": [
+   22,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "physician"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "treat",
+    "risk_roll": {
+     "param": "medicine",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "refer",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ }
+]

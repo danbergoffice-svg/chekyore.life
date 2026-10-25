@@ -29,6 +29,11 @@
   "confidence": "reconstructed"
  },
  {
+  "id": "n_ane_ahmose_pyramid",
+  "year": -1531,
+  "confidence": "reconstructed"
+ },
+ {
   "id": "n_ane_tura",
   "year": -1528,
   "confidence": "reconstructed"
@@ -94,6 +99,11 @@
  {
   "id": "n_ane_kush_revolt2",
   "year": -1490,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_kush_viceroy",
+  "year": -1485,
   "confidence": "reconstructed"
  },
  {
@@ -205,6 +215,11 @@
   "confidence": "reconstructed"
  },
  {
+  "id": "n_ane_coregency",
+  "year": -1427,
+  "confidence": "reconstructed"
+ },
+ {
   "id": "n_ane_thutmose3_dies",
   "year": -1425,
   "confidence": "reconstructed"
@@ -225,6 +240,11 @@
   "confidence": "reconstructed"
  },
  {
+  "id": "n_ane_ugarit_script",
+  "year": -1406,
+  "confidence": "disputed"
+ },
+ {
   "id": "n_ane_kikkuli",
   "year": -1400,
   "confidence": "disputed"
@@ -242,6 +262,11 @@
  {
   "id": "n_ane_mitanni_bride",
   "year": -1398,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_kurigalzu_refusal",
+  "year": -1394,
   "confidence": "reconstructed"
  },
  {
@@ -644,6 +669,11 @@
   ]
  },
  {
+  "id": "n_ane_tukulti_epic",
+  "year": -1221,
+  "confidence": "reconstructed"
+ },
+ {
   "id": "n_ane_adad_shuma_usur",
   "year": -1216,
   "confidence": "reconstructed",
@@ -691,6 +721,11 @@
   "id": "n_ane_wu_ding",
   "year": -1200,
   "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_siptah",
+  "year": -1197,
+  "confidence": "reconstructed"
  },
  {
   "id": "n_ane_bay",
@@ -762,6 +797,11 @@
   "confidence": "reconstructed"
  },
  {
+  "id": "n_ane_shutruk",
+  "year": -1162,
+  "confidence": "reconstructed"
+ },
+ {
   "id": "n_ane_elam_raid",
   "year": -1158,
   "confidence": "reconstructed",
@@ -810,6 +850,11 @@
   "confidence": "reconstructed"
  },
  {
+  "id": "n_ane_ramesses4_dies",
+  "year": -1147,
+  "confidence": "reconstructed"
+ },
+ {
   "id": "n_ane_ramesses5",
   "year": -1143,
   "confidence": "disputed"
@@ -820,8 +865,18 @@
   "confidence": "reconstructed"
  },
  {
+  "id": "n_ane_ramesses7",
+  "year": -1136,
+  "confidence": "reconstructed"
+ },
+ {
   "id": "n_ane_ashur_dan_dies",
   "year": -1133,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ashur_resha_ishi",
+  "year": -1132,
   "confidence": "reconstructed"
  },
  {
@@ -946,6 +1001,11 @@
   "confidence": "reconstructed"
  },
  {
+  "id": "n_ane_babylon_temples",
+  "year": -1064,
+  "confidence": "reconstructed"
+ },
+ {
   "id": "n_ane_esagil_kin_apli",
   "year": -1060,
   "confidence": "reconstructed"
@@ -953,6 +1013,11 @@
  {
   "id": "n_ane_pinedjem",
   "year": -1054,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_assur_famine",
+  "year": -1050,
   "confidence": "reconstructed"
  },
  {
