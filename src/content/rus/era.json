@@ -3133,22 +3133,10 @@
   ],
   "exclude_events": [
     "a_sailor_dolphins",
-    "a_goat_vineyard",
-    "a_kitchen_figs",
-    "c_figs",
-    "c_broken_amphora",
-    "c_honest_later",
-    "v_wine_symposium",
-    "v_vanity_purple",
     "j_land_vines",
     "j_land_vines_harvest",
-    "j_fs_vines",
     "j_glad_recruit_later",
-    "j_sail_late",
-    "j_scr_papyrus",
     "t_victor_honors",
-    "c_h_gym_invite",
-    "c_h_gym_later",
     "contubernium"
   ]
 }
