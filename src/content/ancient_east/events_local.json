@@ -4079,9 +4079,9 @@
   "type": "personal",
   "turning": true,
   "once": true,
-  "base_weight": 3,
+  "base_weight": 8,
   "age_range": [
-   20,
+   18,
    50
   ],
   "topic": "work",
@@ -4097,7 +4097,7 @@
    {
     "skill": "military",
     "op": ">=",
-    "value": 25
+    "value": 15
    }
   ],
   "scene": {
@@ -5422,7 +5422,7 @@
    {
     "skill": "military",
     "op": ">=",
-    "value": 35
+    "value": 20
    }
   ],
   "scene": {
@@ -5645,7 +5645,7 @@
   "type": "personal",
   "base_weight": 10,
   "age_range": [
-   30,
+   24,
    60
   ],
   "once": true,
@@ -5659,7 +5659,7 @@
    {
     "skill": "craft",
     "op": ">=",
-    "value": 35
+    "value": 20
    }
   ],
   "scene": {

@@ -14,26 +14,7 @@
     "sea"
   ],
   "exclude_events": [
-    "found_coin",
-    "y_false_coin",
-    "t_buried_treasure",
-    "t_treasure_informer",
-    "d_drowning",
-    "d_m_dice",
-    "j_mid_book",
-    "j_mid_book_later",
-    "v_poppy_quit",
-    "j_phys_treatise_later",
-    "j_phys_debate",
-    "j_merch_branch_later",
-    "v_wine_symposium",
-    "w_old_lares",
-    "t_youth_teacher",
-    "d_t_publican",
-    "j_ship_pirates",
-    "manumission",
-    "c_h_diet",
-    "v_rage_home"
+    "j_phys_debate"
   ],
   "stages": {
     "youth": 12,

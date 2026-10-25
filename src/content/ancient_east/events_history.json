@@ -4,7 +4,7 @@
   "type": "global_historical",
   "base_weight": 1,
   "age_range": [
-   10,
+   0,
    120
   ],
   "topic": "history",
@@ -15,7 +15,7 @@
   ],
   "years": [
    -1550,
-   -1540
+   -1532
   ],
   "global_chance": 0.3,
   "confidence": "reconstructed",
@@ -115,7 +115,7 @@
   "type": "global_historical",
   "base_weight": 1,
   "age_range": [
-   10,
+   0,
    120
   ],
   "topic": "history",
@@ -125,7 +125,7 @@
   ],
   "years": [
    -1550,
-   -1530
+   -1520
   ],
   "global_chance": 0.2,
   "confidence": "disputed",
@@ -3356,7 +3356,7 @@
    -1080,
    -1076
   ],
-  "global_chance": 0.25,
+  "global_chance": 0.45,
   "confidence": "disputed",
   "icon": "war",
   "scene": {
