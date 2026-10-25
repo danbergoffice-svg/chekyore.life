@@ -202,7 +202,7 @@ household_slave, field_slave). Повышение — `{"set_profession": "centu
   встречаются в стране, или его id в `exclude_events` страны.
 
 ### Тексты под страну, край и веру
-Движок ищет ключ по цепочке: `ключ.<регион>` → `ключ.<вера>` → `ключ.<ID страны>` → `ключ`.
+Движок ищет ключ по цепочке: `ключ.<регион>` → `ключ.<вера>` → `ключ.<семья вер>` (christian, islamic, dharmic, east_asian, polytheist, mesoamerican…) → `ключ.<ID страны>` → `ключ`.
 Так общий текст получает местный вариант без нового события:
 `class.landowner.JPN` = «из самурайского рода», `prof.soldier.JPN` = «асигару»,
 `lifestyle.baths.RUS` = «Баня», `ev.y_school.text.CHN` = …, `religion.roman_gods.athens` = «боги Олимпа».

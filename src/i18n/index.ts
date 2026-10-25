@@ -1,4 +1,4 @@
-import { ERA_FOLDER, ERA_META, REGION_ERA } from '../content'
+import { ERA_FOLDER, ERA_META, REGION_ERA, RELIGION_BY_ID } from '../content'
 import type { Lang, Sex, TextParam } from '../engine/types'
 import en from './en.json'
 import ru from './ru.json'
@@ -86,7 +86,13 @@ export function createT(lang: Lang, defaults: TextOptions = {}): T {
     const o = { ...defaults, ...opts }
     const dict = dicts[lang]
     const era = o.region ? REGION_ERA[o.region] : undefined
-    let s = (o.region && dict[`${key}.${o.region}`]) || (o.religion && dict[`${key}.${o.religion}`]) || (era && dict[`${key}.${era}`]) || dict[key]
+    const group = o.religion ? RELIGION_BY_ID.get(o.religion)?.group : undefined
+    let s =
+      (o.region && dict[`${key}.${o.region}`]) ||
+      (o.religion && dict[`${key}.${o.religion}`]) ||
+      (group && dict[`${key}.${group}`]) ||
+      (era && dict[`${key}.${era}`]) ||
+      dict[key]
     if (s === undefined) {
       if (import.meta.env.DEV) console.warn(`[i18n] ${lang}: no key ${key}`)
       return key
