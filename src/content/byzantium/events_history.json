@@ -53,11 +53,11 @@
    867
   ],
   "age_range": [
-   6,
+   4,
    120
   ],
   "base_weight": 1,
-  "global_chance": 0.2,
+  "global_chance": 0.45,
   "topic": "history",
   "scene": {
    "place": "temple",
@@ -118,7 +118,7 @@
    860
   ],
   "age_range": [
-   6,
+   0,
    120
   ],
   "base_weight": 1,
@@ -134,47 +134,14 @@
     "fire"
    ]
   },
-  "choices": [
+  "effects": [
    {
-    "id": "save",
-    "risk_roll": {
-     "param": "strength",
-     "success_chance_base": 0.5,
-     "on_success": [
-      {
-       "param": "self_esteem",
-       "delta": 3
-      }
-     ],
-     "on_failure": [
-      {
-       "money_pct": -40
-      },
-      {
-       "param": "health",
-       "delta": -10
-      }
-     ]
-    },
-    "pattern": {
-     "craft_power": 2
-    }
+    "param": "stress",
+    "delta": 4
    },
    {
-    "id": "walls",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 4
-     },
-     {
-      "param": "faith",
-      "delta": 3
-     }
-    ],
-    "pattern": {
-     "faith_reason": -2
-    }
+    "param": "faith",
+    "delta": 2
    }
   ],
   "historian_note": true,
@@ -191,11 +158,11 @@
    863
   ],
   "age_range": [
-   6,
+   0,
    120
   ],
   "base_weight": 1,
-  "global_chance": 0.4,
+  "global_chance": 0.6,
   "topic": "history",
   "scene": {
    "place": "temple",

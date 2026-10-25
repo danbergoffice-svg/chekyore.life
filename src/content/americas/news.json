@@ -1,0 +1,1189 @@
+[
+ {
+  "id": "n_amr_inca_small",
+  "year": 1400,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_ankara",
+  "year": 1402,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_huitzilihuitl_cotton",
+  "year": 1403,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_timur_dies",
+  "year": 1405,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_zheng_he",
+  "year": 1405,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_yongle_book",
+  "year": 1408,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_tezozomoc",
+  "year": 1409,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_viracocha",
+  "year": 1410,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_grunwald",
+  "year": 1410,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_texcoco_war",
+  "year": 1414,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_hus",
+  "year": 1415,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_ceuta",
+  "year": 1415,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_chimalpopoca",
+  "year": 1417,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_ixtlilxochitl",
+  "year": 1418,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_ayarmaca",
+  "year": 1420,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_madeira",
+  "year": 1420,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_beijing",
+  "year": 1421,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_chimor_power",
+  "year": 1425,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_tezozomoc_dies",
+  "year": 1426,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_chimalpopoca_dies",
+  "year": 1427,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_le_loi",
+  "year": 1428,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_xochimilco",
+  "year": 1430,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_lupaca_colla",
+  "year": 1430,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_joan",
+  "year": 1431,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_texcoco_laws",
+  "year": 1433,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_zheng_he_end",
+  "year": 1433,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_bojador",
+  "year": 1434,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_cuauhnahuac",
+  "year": 1438,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_itzcoatl_dies",
+  "year": 1440,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito",
+   "tenochtitlan"
+  ]
+ },
+ {
+  "id": "n_amr_mayapan",
+  "year": 1441,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_lagos_slaves",
+  "year": 1444,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_colla_conquest",
+  "year": 1445,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_chalco_war",
+  "year": 1446,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_hangul",
+  "year": 1446,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_tumu",
+  "year": 1449,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_machu_picchu",
+  "year": 1450,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_gutenberg",
+  "year": 1450,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_amr_constantinople",
+  "year": 1453,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_roses",
+  "year": 1455,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_coixtlahuaca",
+  "year": 1458,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_chincha",
+  "year": 1458,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_purepecha",
+  "year": 1460,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_henry_navigator",
+  "year": 1460,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_gulf_coast",
+  "year": 1461,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_minchancaman",
+  "year": 1462,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_chalco_falls",
+  "year": 1465,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_aqueduct_news",
+  "year": 1466,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito",
+   "tenochtitlan"
+  ]
+ },
+ {
+  "id": "n_amr_onin",
+  "year": 1467,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_timbuktu",
+  "year": 1468,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_moctezuma_dies",
+  "year": 1469,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_ferdinand_isabella",
+  "year": 1469,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_chanchan_falls",
+  "year": 1470,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco",
+   "cusco"
+  ]
+ },
+ {
+  "id": "n_amr_nezahual_dies",
+  "year": 1472,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_tlatelolco_news",
+  "year": 1473,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito",
+   "tenochtitlan"
+  ]
+ },
+ {
+  "id": "n_amr_matlatzinca",
+  "year": 1476,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_sun_stone",
+  "year": 1479,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_sea_voyage",
+  "year": 1480,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_ugra",
+  "year": 1480,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_axayacatl_dies",
+  "year": 1481,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_inquisition",
+  "year": 1481,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_elmina",
+  "year": 1482,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_tizoc_stone",
+  "year": 1483,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_chile",
+  "year": 1485,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_bosworth",
+  "year": 1485,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_tizoc_dies",
+  "year": 1486,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_oztoma",
+  "year": 1488,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_colla_revolt",
+  "year": 1488,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_dias",
+  "year": 1488,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_kongo",
+  "year": 1491,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_granada",
+  "year": 1492,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_columbus",
+  "year": 1492,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_columbus2",
+  "year": 1493,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_ahuitzotl_south",
+  "year": 1494,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_tordesillas",
+  "year": 1494,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_chachapoya",
+  "year": 1496,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_guiengola",
+  "year": 1497,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_cabot",
+  "year": 1497,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_gama",
+  "year": 1498,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_xoconochco",
+  "year": 1500,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_cabral",
+  "year": 1500,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_ismail",
+  "year": 1501,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_maya_canoe",
+  "year": 1502,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_famine_1505",
+  "year": 1505,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_tomebamba_news",
+  "year": 1505,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_columbus_dies",
+  "year": 1506,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_america_map",
+  "year": 1507,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_puerto_rico",
+  "year": 1508,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_yahuarcocha",
+  "year": 1510,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_goa",
+  "year": 1510,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_aguilar",
+  "year": 1511,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_cuba",
+  "year": 1511,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_malacca",
+  "year": 1511,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_huexotzinco",
+  "year": 1512,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_burgos",
+  "year": 1512,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_balboa",
+  "year": 1513,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_las_casas",
+  "year": 1514,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_nezahualpilli_dies",
+  "year": 1515,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_ixtlilxochitl_ii",
+  "year": 1516,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_cordoba",
+  "year": 1517,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_luther",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_cairo",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_grijalva",
+  "year": 1518,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_smallpox_hispaniola",
+  "year": 1518,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_cholula",
+  "year": 1519,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_panama",
+  "year": 1519,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_magellan",
+  "year": 1519,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_moctezuma_dies2",
+  "year": 1520,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito",
+   "tenochtitlan"
+  ]
+ },
+ {
+  "id": "n_amr_chiriguano",
+  "year": 1520,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_suleiman",
+  "year": 1520,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_magellan_strait",
+  "year": 1520,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_magellan_dies",
+  "year": 1521,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_mexico_city",
+  "year": 1522,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_andagoya",
+  "year": 1522,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_elcano",
+  "year": 1522,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_alvarado_guatemala",
+  "year": 1523,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_utatlan",
+  "year": 1524,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_aleixo_garcia",
+  "year": 1525,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_balsa_raft",
+  "year": 1526,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_babur",
+  "year": 1526,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_montejo",
+  "year": 1527,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_tumbes",
+  "year": 1527,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_sack_rome",
+  "year": 1527,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_audiencia",
+  "year": 1528,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_sahagun",
+  "year": 1529,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_toledo",
+  "year": 1529,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_vienna",
+  "year": 1529,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_michoacan",
+  "year": 1530,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_puebla",
+  "year": 1531,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_guadalupe",
+  "year": 1531,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_puna",
+  "year": 1531,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_piura",
+  "year": 1532,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_atahualpa_executed",
+  "year": 1533,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_cartier",
+  "year": 1534,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_lima",
+  "year": 1535,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_manco_news",
+  "year": 1536,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco",
+   "cusco"
+  ]
+ },
+ {
+  "id": "n_amr_almagro",
+  "year": 1537,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_sublimis",
+  "year": 1537,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_las_salinas",
+  "year": 1538,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_printing",
+  "year": 1539,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_mixton",
+  "year": 1541,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_pizarro_killed",
+  "year": 1541,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_de_soto",
+  "year": 1541,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_merida",
+  "year": 1542,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_amazon",
+  "year": 1542,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_new_laws",
+  "year": 1542,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_copernicus",
+  "year": 1543,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_manco_killed",
+  "year": 1544,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_trent",
+  "year": 1545,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_zacatecas",
+  "year": 1546,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_inaquito",
+  "year": 1546,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_ivan_tsar",
+  "year": 1547,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_gonzalo",
+  "year": 1548,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_xavier",
+  "year": 1549,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_valladolid",
+  "year": 1550,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_university",
+  "year": 1551,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_san_marcos",
+  "year": 1551,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_flood_1555",
+  "year": 1555,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "cusco",
+   "quito"
+  ]
+ },
+ {
+  "id": "n_amr_akbar",
+  "year": 1556,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_amr_sayri_tupac",
+  "year": 1558,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_taki_onqoy",
+  "year": 1564,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ },
+ {
+  "id": "n_amr_tupac_amaru",
+  "year": 1572,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tenochtitlan",
+   "texcoco"
+  ]
+ }
+]

@@ -1,0 +1,1071 @@
+[
+ {
+  "id": "n_chn_song",
+  "year": 960,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kaifeng"
+  ]
+ },
+ {
+  "id": "n_chn_cup_of_wine",
+  "year": 961,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_chn_jingnan_hunan",
+  "year": 963,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_shu",
+  "year": 965,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "chengdu"
+  ]
+ },
+ {
+  "id": "n_chn_cairo",
+  "year": 969,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_southern_han",
+  "year": 971,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_li_yu",
+  "year": 975,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_taizu_dies",
+  "year": 976,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_wuyue",
+  "year": 978,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_gaoliang",
+  "year": 979,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_taiping_yulan",
+  "year": 983,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_yongxi",
+  "year": 986,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_rus",
+  "year": 988,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_wang_xiaobo",
+  "year": 993,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "chengdu"
+  ]
+ },
+ {
+  "id": "n_chn_zhenzong",
+  "year": 997,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_mahmud",
+  "year": 1001,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_liao_invades",
+  "year": 1004,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_chanyuan",
+  "year": 1005,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kaifeng"
+  ]
+ },
+ {
+  "id": "n_chn_heavenly_texts",
+  "year": 1008,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_champa_rice",
+  "year": 1012,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_empress_liu",
+  "year": 1022,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jiaozi",
+  "year": 1024,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "chengdu"
+  ]
+ },
+ {
+  "id": "n_chn_xia_emperor",
+  "year": 1038,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_sanchuankou",
+  "year": 1040,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_qingli",
+  "year": 1043,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_wujing",
+  "year": 1044,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_bi_sheng",
+  "year": 1045,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_chn_yellow_river_1048",
+  "year": 1048,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_nong_zhigao",
+  "year": 1052,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_guest_star",
+  "year": 1054,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_su_brothers",
+  "year": 1057,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_luoyang_bridge",
+  "year": 1059,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zizhi_start",
+  "year": 1066,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_manzikert",
+  "year": 1071,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zheng_xia",
+  "year": 1074,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_dai_viet",
+  "year": 1076,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_crow_terrace",
+  "year": 1079,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_yongle_city",
+  "year": 1082,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zizhi_done",
+  "year": 1084,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_shenzong_dies",
+  "year": 1085,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_su_song_clock",
+  "year": 1092,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jerusalem",
+  "year": 1099,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_huizong",
+  "year": 1100,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_su_shi_dies",
+  "year": 1101,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_blacklist",
+  "year": 1104,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_huashigang",
+  "year": 1105,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jin_founded",
+  "year": 1115,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_sea_alliance",
+  "year": 1120,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou"
+  ]
+ },
+ {
+  "id": "n_chn_yanjing",
+  "year": 1122,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_liao_falls",
+  "year": 1125,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jingkang",
+  "year": 1127,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kaifeng"
+  ]
+ },
+ {
+  "id": "n_chn_huangtiandang",
+  "year": 1130,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou"
+  ]
+ },
+ {
+  "id": "n_chn_huizong_dies",
+  "year": 1135,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_linan",
+  "year": 1138,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou"
+  ]
+ },
+ {
+  "id": "n_chn_yancheng",
+  "year": 1140,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_shaoxing_peace",
+  "year": 1142,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou"
+  ]
+ },
+ {
+  "id": "n_chn_hailing",
+  "year": 1150,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zhongdu",
+  "year": 1153,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_qin_hui_dies",
+  "year": 1155,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_caishi",
+  "year": 1161,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_synagogue",
+  "year": 1163,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_longxing",
+  "year": 1165,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_lu_you",
+  "year": 1170,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_saladin",
+  "year": 1171,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_goose_lake",
+  "year": 1175,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zhu_xi_granaries",
+  "year": 1181,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jerusalem_1187",
+  "year": 1187,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_four_books",
+  "year": 1190,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_yellow_river_1194",
+  "year": 1194,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_false_learning",
+  "year": 1196,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zhu_xi_dies",
+  "year": 1200,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_hangzhou_fire",
+  "year": 1201,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_genghis",
+  "year": 1206,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_mongols_jin",
+  "year": 1211,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jin_to_kaifeng",
+  "year": 1214,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zhongdu_falls",
+  "year": 1215,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_khwarazm",
+  "year": 1219,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_changchun",
+  "year": 1221,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_genghis_dies",
+  "year": 1227,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_thunder_bombs",
+  "year": 1232,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kaifeng"
+  ]
+ },
+ {
+  "id": "n_chn_jin_falls",
+  "year": 1234,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_war_begins",
+  "year": 1235,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_chengdu_falls",
+  "year": 1236,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "chengdu"
+  ]
+ },
+ {
+  "id": "n_chn_lixue",
+  "year": 1241,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_diaoyu",
+  "year": 1243,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_song_ci",
+  "year": 1247,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_baghdad",
+  "year": 1258,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_mongke",
+  "year": 1259,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_khubilai",
+  "year": 1260,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_dadu_start",
+  "year": 1267,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_xiangyang_siege",
+  "year": 1268,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou",
+   "quanzhou",
+   "chengdu"
+  ]
+ },
+ {
+  "id": "n_chn_yuan",
+  "year": 1271,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_xiangyang_falls",
+  "year": 1273,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou",
+   "quanzhou",
+   "chengdu"
+  ]
+ },
+ {
+  "id": "n_chn_japan_1274",
+  "year": 1274,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_linan_falls",
+  "year": 1276,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou"
+  ]
+ },
+ {
+  "id": "n_chn_yamen",
+  "year": 1279,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_kamikaze",
+  "year": 1281,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_wen_tianxiang",
+  "year": 1283,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_bach_dang",
+  "year": 1288,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_quake_1290",
+  "year": 1290,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_polo_leaves",
+  "year": 1291,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_chn_tonghui",
+  "year": 1293,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_khubilai_dies",
+  "year": 1294,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_huang_daopo",
+  "year": 1295,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_chn_montecorvino",
+  "year": 1307,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_exams_1315",
+  "year": 1315,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_two_capitals",
+  "year": 1328,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_epidemic_1331",
+  "year": 1331,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_toghon",
+  "year": 1333,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_five_surnames",
+  "year": 1337,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_chn_flood_1344",
+  "year": 1344,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_black_death",
+  "year": 1348,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_red_turbans",
+  "year": 1351,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "kaifeng",
+   "hangzhou",
+   "chengdu",
+   "beijing"
+  ]
+ },
+ {
+  "id": "n_chn_han_liner",
+  "year": 1355,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_nanjing",
+  "year": 1356,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_poyang",
+  "year": 1363,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_suzhou",
+  "year": 1367,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_ming",
+  "year": 1368,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou",
+   "quanzhou",
+   "chengdu",
+   "beijing"
+  ]
+ },
+ {
+  "id": "n_chn_timur",
+  "year": 1370,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_mongolia_1372",
+  "year": 1372,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_baochao",
+  "year": 1375,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_hu_weiyong",
+  "year": 1380,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "hangzhou",
+   "quanzhou",
+   "chengdu"
+  ]
+ },
+ {
+  "id": "n_chn_yellow_registers",
+  "year": 1381,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jinyiwei",
+  "year": 1382,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_buir",
+  "year": 1388,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_lan_yu",
+  "year": 1393,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_north_south_exam",
+  "year": 1397,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_hongwu_dies",
+  "year": 1398,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jingnan_war",
+  "year": 1399,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_yongle",
+  "year": 1402,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_beijing_named",
+  "year": 1403,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zheng_he",
+  "year": 1405,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "quanzhou",
+   "hangzhou"
+  ]
+ },
+ {
+  "id": "n_chn_yongle_dadian",
+  "year": 1408,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_mongol_campaign",
+  "year": 1410,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_grand_canal",
+  "year": 1411,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_giraffe",
+  "year": 1414,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_tang_saier",
+  "year": 1420,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_capital_1421",
+  "year": 1421,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_yongle_dies",
+  "year": 1424,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_vietnam_1427",
+  "year": 1427,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_seventh_voyage",
+  "year": 1431,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_voyages_end",
+  "year": 1433,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zhengtong",
+  "year": 1435,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_deng_maoqi",
+  "year": 1448,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_tumu",
+  "year": 1449,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "beijing"
+  ]
+ },
+ {
+  "id": "n_chn_emperor_returns",
+  "year": 1450,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_constantinople",
+  "year": 1453,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_duomen",
+  "year": 1457,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_cao_qin",
+  "year": 1461,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_jingxiang",
+  "year": 1465,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_ordos_wall",
+  "year": 1474,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_western_depot",
+  "year": 1477,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_hongzhi",
+  "year": 1487,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_liu_daxia",
+  "year": 1494,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_gama",
+  "year": 1498,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_chn_zhengde",
+  "year": 1505,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_liu_jin",
+  "year": 1510,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_malacca",
+  "year": 1511,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_tunmen",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_prince_ning",
+  "year": 1519,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_great_rites",
+  "year": 1521,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_ningbo",
+  "year": 1523,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_wang_yangming",
+  "year": 1529,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_renyin",
+  "year": 1542,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_shuangyu",
+  "year": 1548,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_altan",
+  "year": 1550,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "beijing"
+  ]
+ },
+ {
+  "id": "n_chn_outer_wall",
+  "year": 1553,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_shaanxi_quake",
+  "year": 1556,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_macau",
+  "year": 1557,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_wang_zhi",
+  "year": 1559,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_hai_rui",
+  "year": 1566,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_yuegang",
+  "year": 1567,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_manila",
+  "year": 1571,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_wanli",
+  "year": 1572,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_bencao",
+  "year": 1578,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_zhang_dies",
+  "year": 1582,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_hai_rui_dies",
+  "year": 1587,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_imjin",
+  "year": 1592,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_imjin_2",
+  "year": 1597,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_hideyoshi",
+  "year": 1598,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_ricci",
+  "year": 1601,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_manila_1603",
+  "year": 1603,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_euclid",
+  "year": 1607,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_ricci_dies",
+  "year": 1610,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_nurhaci",
+  "year": 1616,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_sarhu",
+  "year": 1619,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_wei_zhongxian",
+  "year": 1624,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_ningyuan",
+  "year": 1626,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_chongzhen",
+  "year": 1627,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_shaanxi_revolt",
+  "year": 1628,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_yuan_chonghuan",
+  "year": 1630,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_fengyang",
+  "year": 1635,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_qing",
+  "year": 1636,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_tiangong",
+  "year": 1637,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_luoyang",
+  "year": 1641,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_kaifeng_flood",
+  "year": 1642,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_chn_ming_falls",
+  "year": 1644,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "beijing"
+  ]
+ },
+ {
+  "id": "n_chn_qing_beijing",
+  "year": 1644,
+  "confidence": "confirmed"
+ }
+]

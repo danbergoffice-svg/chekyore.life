@@ -260,6 +260,9 @@
    120
   ],
   "id": "eth_h_kebra_nagast",
+  "others": [
+   "child"
+  ],
   "regions": [
    "aksum"
   ],
@@ -682,7 +685,7 @@
    1414,
    1429
   ],
-  "global_chance": 0.2,
+  "global_chance": 0.4,
   "sensitive": true,
   "icon": "war",
   "scene": {
@@ -720,6 +723,9 @@
    120
   ],
   "id": "eth_h_covilha",
+  "others": [
+   "spouse"
+  ],
   "regions": [
    "shewa"
   ],
@@ -1472,6 +1478,9 @@
    120
   ],
   "id": "eth_h_gama_arrives",
+  "others": [
+   "mother"
+  ],
   "regions": [
    "aksum"
   ],

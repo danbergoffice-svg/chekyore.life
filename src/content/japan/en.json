@@ -134,12 +134,5 @@
   "ev.a_inheritance.title.JPN": "Father's field",
   "ev.a_inheritance.text.JPN": "The inheritance isn't even divided yet, and {npc} already wants the best rice field whole: \"I'm the one who looked after the old man while you were off who knows where.\" And {g=npc_sex:he|she} has a point.",
   "ev.a_inheritance.yield.JPN": "Give up the field",
-  "ev.a_inheritance.court.success.JPN": "The court gave you more than half. You got the field and lost your family.",
-  "ev.v_wine_fall.poppy.JPN": "Ask the physician for a sleeping draught against the pain",
-  "ev.v_wine_fall.poppy.ok.JPN": "The bitter sleeping draught eased the pain within the hour. The pain went; the sweet lightness stayed — and you remembered it.",
-  "ev.v_glut_gout.poppy.JPN": "Dull the pain with a sleeping draught",
-  "ev.v_glut_gout.poppy.ok.JPN": "The draught takes the pain away within the hour. It doesn't cure the gout — but you'd rather not think about that.",
-  "ev.v_poppy_more.text.JPN": "One cup of the sleeping draught stopped working long ago — you take three now, and without them you can't sleep and snap at everyone. The pain is long gone, yet you need the draught more and more.",
-  "ev.v_poppy_quit.title.JPN": "Giving up the draught",
-  "ev.v_poppy_quit.text.JPN": "A physician trained on Chinese books offers to wean you off the sleeping draught: a weaker cup every week, hot baths, barley tea, walks. And he warns you honestly: it will hurt, more than once."
+  "ev.a_inheritance.court.success.JPN": "The court gave you more than half. You got the field and lost your family."
 }

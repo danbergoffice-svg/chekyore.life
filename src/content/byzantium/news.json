@@ -1,0 +1,1116 @@
+[
+ {
+  "id": "n_byz_858",
+  "year": 858,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_860",
+  "year": 860,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_864",
+  "year": 864,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_867",
+  "year": 867,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_869",
+  "year": 869,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_872",
+  "year": 872,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_byz_876",
+  "year": 876,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_880",
+  "year": 880,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_883",
+  "year": 883,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_886",
+  "year": 886,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_889",
+  "year": 889,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_892",
+  "year": 892,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_896",
+  "year": 896,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_899",
+  "year": 899,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_902",
+  "year": 902,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_904",
+  "year": 904,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_907",
+  "year": 907,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_byz_911",
+  "year": 911,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_913",
+  "year": 913,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_917",
+  "year": 917,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_920",
+  "year": 920,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_923",
+  "year": 923,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_927",
+  "year": 927,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_931",
+  "year": 931,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_934",
+  "year": 934,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_938",
+  "year": 938,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_941",
+  "year": 941,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "nicaea"
+  ]
+ },
+ {
+  "id": "n_byz_944",
+  "year": 944,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_945",
+  "year": 945,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_949",
+  "year": 949,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_953",
+  "year": 953,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_957",
+  "year": 957,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_byz_961",
+  "year": 961,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_963",
+  "year": 963,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_965",
+  "year": 965,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_969",
+  "year": 969,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_972",
+  "year": 972,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_975",
+  "year": 975,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_979",
+  "year": 979,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_982",
+  "year": 982,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_986",
+  "year": 986,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_988",
+  "year": 988,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_989",
+  "year": 989,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_992",
+  "year": 992,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_995",
+  "year": 995,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_997",
+  "year": 997,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1001",
+  "year": 1001,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1005",
+  "year": 1005,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1009",
+  "year": 1009,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1011",
+  "year": 1011,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1014",
+  "year": 1014,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1018",
+  "year": 1018,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1022",
+  "year": 1022,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "trebizond"
+  ]
+ },
+ {
+  "id": "n_byz_1025",
+  "year": 1025,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1028",
+  "year": 1028,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1030",
+  "year": 1030,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1034",
+  "year": 1034,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1038",
+  "year": 1038,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1042",
+  "year": 1042,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_1045",
+  "year": 1045,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1048",
+  "year": 1048,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1050",
+  "year": 1050,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1054",
+  "year": 1054,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_1055",
+  "year": 1055,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1059",
+  "year": 1059,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1061",
+  "year": 1061,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1064",
+  "year": 1064,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1068",
+  "year": 1068,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1071",
+  "year": 1071,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "nicaea",
+   "trebizond"
+  ]
+ },
+ {
+  "id": "n_byz_1074",
+  "year": 1074,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1078",
+  "year": 1078,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1081",
+  "year": 1081,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1085",
+  "year": 1085,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1087",
+  "year": 1087,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1091",
+  "year": 1091,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1092",
+  "year": 1092,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1095",
+  "year": 1095,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1097",
+  "year": 1097,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "nicaea"
+  ]
+ },
+ {
+  "id": "n_byz_1099",
+  "year": 1099,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1101",
+  "year": 1101,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1104",
+  "year": 1104,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1108",
+  "year": 1108,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1111",
+  "year": 1111,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1113",
+  "year": 1113,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1116",
+  "year": 1116,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1118",
+  "year": 1118,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1122",
+  "year": 1122,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1126",
+  "year": 1126,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1130",
+  "year": 1130,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1133",
+  "year": 1133,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1136",
+  "year": 1136,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1140",
+  "year": 1140,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1143",
+  "year": 1143,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1147",
+  "year": 1147,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1149",
+  "year": 1149,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1153",
+  "year": 1153,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1155",
+  "year": 1155,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1159",
+  "year": 1159,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1162",
+  "year": 1162,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1165",
+  "year": 1165,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1169",
+  "year": 1169,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1171",
+  "year": 1171,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1175",
+  "year": 1175,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1176",
+  "year": 1176,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1180",
+  "year": 1180,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1182",
+  "year": 1182,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_1185",
+  "year": 1185,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1189",
+  "year": 1189,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1191",
+  "year": 1191,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1195",
+  "year": 1195,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1197",
+  "year": 1197,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1200",
+  "year": 1200,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1204",
+  "year": 1204,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "trebizond"
+  ]
+ },
+ {
+  "id": "n_byz_1208",
+  "year": 1208,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "nicaea"
+  ]
+ },
+ {
+  "id": "n_byz_1211",
+  "year": 1211,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1214",
+  "year": 1214,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1217",
+  "year": 1217,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1219",
+  "year": 1219,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1222",
+  "year": 1222,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1224",
+  "year": 1224,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1225",
+  "year": 1225,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1229",
+  "year": 1229,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1232",
+  "year": 1232,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1235",
+  "year": 1235,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1238",
+  "year": 1238,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1241",
+  "year": 1241,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1243",
+  "year": 1243,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "trebizond"
+  ]
+ },
+ {
+  "id": "n_byz_1246",
+  "year": 1246,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1250",
+  "year": 1250,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1254",
+  "year": 1254,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1258",
+  "year": 1258,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1261",
+  "year": 1261,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "nicaea"
+  ]
+ },
+ {
+  "id": "n_byz_1262",
+  "year": 1262,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1266",
+  "year": 1266,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1270",
+  "year": 1270,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1274",
+  "year": 1274,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_1277",
+  "year": 1277,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1281",
+  "year": 1281,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1285",
+  "year": 1285,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1287",
+  "year": 1287,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1291",
+  "year": 1291,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1295",
+  "year": 1295,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1299",
+  "year": 1299,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1303",
+  "year": 1303,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1305",
+  "year": 1305,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1309",
+  "year": 1309,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1311",
+  "year": 1311,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1315",
+  "year": 1315,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1317",
+  "year": 1317,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_byz_1321",
+  "year": 1321,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1325",
+  "year": 1325,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1329",
+  "year": 1329,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "nicaea"
+  ]
+ },
+ {
+  "id": "n_byz_1331",
+  "year": 1331,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "nicaea"
+  ]
+ },
+ {
+  "id": "n_byz_1334",
+  "year": 1334,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_byz_1337",
+  "year": 1337,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1341",
+  "year": 1341,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1345",
+  "year": 1345,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1347",
+  "year": 1347,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "thessalonica",
+   "trebizond"
+  ]
+ },
+ {
+  "id": "n_byz_1349",
+  "year": 1349,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1352",
+  "year": 1352,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1354",
+  "year": 1354,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople",
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1357",
+  "year": 1357,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1359",
+  "year": 1359,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1362",
+  "year": 1362,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1366",
+  "year": 1366,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1369",
+  "year": 1369,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1373",
+  "year": 1373,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1376",
+  "year": 1376,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1379",
+  "year": 1379,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1383",
+  "year": 1383,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1387",
+  "year": 1387,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1391",
+  "year": 1391,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1394",
+  "year": 1394,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_1396",
+  "year": 1396,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1400",
+  "year": 1400,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_1402",
+  "year": 1402,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1403",
+  "year": 1403,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1407",
+  "year": 1407,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1411",
+  "year": 1411,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1415",
+  "year": 1415,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1419",
+  "year": 1419,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_byz_1421",
+  "year": 1421,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1425",
+  "year": 1425,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1428",
+  "year": 1428,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1430",
+  "year": 1430,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thessalonica"
+  ]
+ },
+ {
+  "id": "n_byz_1434",
+  "year": 1434,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_byz_1437",
+  "year": 1437,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1439",
+  "year": 1439,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_1443",
+  "year": 1443,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1446",
+  "year": 1446,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1449",
+  "year": 1449,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1452",
+  "year": 1452,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1453",
+  "year": 1453,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "constantinople"
+  ]
+ },
+ {
+  "id": "n_byz_1456",
+  "year": 1456,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1458",
+  "year": 1458,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1460",
+  "year": 1460,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1461",
+  "year": 1461,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "trebizond"
+  ]
+ },
+ {
+  "id": "n_byz_1470",
+  "year": 1470,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1475",
+  "year": 1475,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_byz_1481",
+  "year": 1481,
+  "confidence": "confirmed"
+ }
+]

@@ -5199,18 +5199,19 @@
   },
   {
     "type": "personal",
-    "base_weight": 6,
+    "base_weight": 9,
     "once": true,
     "topic": "work",
     "id": "waf_j_boat_cargo",
     "age_range": [
-      16,
+      14,
       60
     ],
     "conditions": [
       {
         "profession": [
-          "sailor"
+          "sailor",
+          "shipowner"
         ]
       }
     ],
@@ -5918,6 +5919,80 @@
         "pattern": {
           "home_road": 6,
           "memory_future": 4
+        }
+      },
+      {
+        "id": "stay",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      }
+    ]
+  },
+  {
+    "type": "personal",
+    "base_weight": 5,
+    "once": true,
+    "topic": "work",
+    "id": "waf_d_boatman",
+    "sex": "m",
+    "age_range": [
+      12,
+      30
+    ],
+    "regions": [
+      "djenne",
+      "gao",
+      "timbuktu"
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader"
+    ],
+    "conditions": [
+      {
+        "profession": [
+          "farmer",
+          "laborer",
+          "artisan"
+        ]
+      }
+    ],
+    "scene": {
+      "place": "river",
+      "time": "dawn",
+      "people": 3,
+      "props": [
+        "boat"
+      ]
+    },
+    "icon": "move",
+    "choices": [
+      {
+        "id": "go",
+        "effects": [
+          {
+            "set_profession": "sailor"
+          },
+          {
+            "skill": "seafaring",
+            "delta": 6
+          },
+          {
+            "param": "strength",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "home_road": 4,
+          "memory_future": 3
         }
       },
       {

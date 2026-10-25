@@ -3,7 +3,7 @@
     "type": "global_historical",
     "base_weight": 1,
     "age_range": [
-      5,
+      0,
       120
     ],
     "topic": "history",
@@ -100,13 +100,13 @@
     "type": "global_historical",
     "base_weight": 1,
     "age_range": [
-      5,
+      0,
       120
     ],
     "topic": "history",
     "historian_note": true,
     "confidence": "disputed",
-    "global_chance": 0.25,
+    "global_chance": 0.3,
     "id": "waf_h_kouroukan_fouga",
     "regions": [
       "niani"
@@ -2178,13 +2178,13 @@
     "type": "global_historical",
     "base_weight": 1,
     "age_range": [
-      5,
+      0,
       120
     ],
     "topic": "history",
     "historian_note": true,
     "confidence": "confirmed",
-    "global_chance": 0.5,
+    "global_chance": 0.6,
     "id": "waf_h_battle_djenne",
     "regions": [
       "djenne",

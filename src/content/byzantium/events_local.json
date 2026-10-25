@@ -1317,7 +1317,7 @@
    "landowner"
   ],
   "sex": "m",
-  "base_weight": 1.5,
+  "base_weight": 2.5,
   "once": true,
   "sensitive": true,
   "topic": "family",
@@ -1438,9 +1438,6 @@
   "age_range": [
    8,
    90
-  ],
-  "religions": [
-   "islam"
   ],
   "base_weight": 4,
   "once": true,
@@ -1809,9 +1806,10 @@
    75
   ],
   "classes": [
-   "landowner"
+   "landowner",
+   "noble"
   ],
-  "base_weight": 3,
+  "base_weight": 5,
   "once": true,
   "topic": "money",
   "scene": {
@@ -4675,11 +4673,12 @@
    19
   ],
   "classes": [
+   "trader",
    "landowner",
    "noble"
   ],
   "sex": "f",
-  "base_weight": 8,
+  "base_weight": 10,
   "once": true,
   "topic": "life",
   "scene": {
@@ -5693,7 +5692,7 @@
      {
       "skill": "military",
       "op": ">=",
-      "value": 35
+      "value": 25
      }
     ]
    }
@@ -5838,7 +5837,7 @@
     ]
    }
   ],
-  "base_weight": 3,
+  "base_weight": 5,
   "once": true,
   "topic": "work",
   "scene": {
@@ -6007,7 +6006,16 @@
     ]
    },
    {
-    "flag": "byz_fire_hero"
+    "any": [
+     {
+      "flag": "byz_fire_hero"
+     },
+     {
+      "skill": "military",
+      "op": ">=",
+      "value": 25
+     }
+    ]
    }
   ],
   "base_weight": 4,

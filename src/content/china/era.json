@@ -3252,7 +3252,7 @@
    ]
   ],
   "childbirth": 0.015,
-  "calibration": 0.75,
+  "calibration": 0.84,
   "causes": [
    {
     "id": "infant_illness",
@@ -3707,8 +3707,5 @@
    ]
   }
  ],
- "exclude_events": [
-  "c_broken_amphora",
-  "a_goat_vineyard"
- ]
+ "exclude_events": []
 }

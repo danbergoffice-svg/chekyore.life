@@ -1861,7 +1861,7 @@
         "craftsman",
         "slave"
       ],
-      "minAge": 16,
+      "minAge": 12,
       "income": [
         140,
         250
@@ -1874,7 +1874,7 @@
         "trader",
         "craftsman"
       ],
-      "minAge": 14,
+      "minAge": 12,
       "income": [
         150,
         650
@@ -1890,7 +1890,7 @@
         "craftsman",
         "landowner"
       ],
-      "minAge": 16,
+      "minAge": 12,
       "income": [
         150,
         270
@@ -1901,7 +1901,7 @@
     },
     {
       "id": "scribe",
-      "minAge": 14,
+      "minAge": 12,
       "classes": [
         "craftsman",
         "trader",
@@ -1951,7 +1951,7 @@
     {
       "id": "priest",
       "sex": "m",
-      "minAge": 16,
+      "minAge": 12,
       "classes": [
         "peasant",
         "craftsman",
@@ -1971,7 +1971,7 @@
         "landowner",
         "noble"
       ],
-      "minAge": 16,
+      "minAge": 12,
       "income": [
         550,
         950
@@ -2000,7 +2000,7 @@
         "landowner",
         "noble"
       ],
-      "minAge": 14,
+      "minAge": 12,
       "income": [
         500,
         1500
@@ -2041,7 +2041,7 @@
         "craftsman",
         "landowner"
       ],
-      "minAge": 15,
+      "minAge": 12,
       "requirements": [
         {
           "skill": "literacy",
@@ -2065,7 +2065,7 @@
         "landowner",
         "noble"
       ],
-      "minAge": 15,
+      "minAge": 12,
       "income": [
         60,
         160
@@ -2081,7 +2081,7 @@
         "peasant",
         "landowner"
       ],
-      "minAge": 14,
+      "minAge": 12,
       "income": [
         190,
         380
@@ -2099,7 +2099,7 @@
         "craftsman",
         "peasant"
       ],
-      "minAge": 15,
+      "minAge": 12,
       "income": [
         170,
         600
@@ -2115,7 +2115,7 @@
         "craftsman",
         "trader"
       ],
-      "minAge": 15,
+      "minAge": 12,
       "income": [
         170,
         300
@@ -2134,7 +2134,7 @@
         "craftsman",
         "peasant"
       ],
-      "minAge": 14,
+      "minAge": 12,
       "income": [
         170,
         300
@@ -3099,56 +3099,13 @@
   ],
   "exclude_events": [
     "a_stolen_tunic",
-    "a_goat_vineyard",
     "a_harbor_wages",
     "a_voyage",
-    "a_inheritance",
-    "a_good_harvest",
-    "d_friend_sudden",
-    "d_sp_drowned",
     "d_t_sib_captive",
-    "d_m_grave",
-    "c_broken_amphora",
-    "c_honest_later",
-    "c_h_gym_invite",
     "c_h_back",
-    "c_child_fall",
-    "c_far_away",
-    "c_h_plague",
-    "c_h_quack",
-    "c_h_family_doctor",
-    "v_wine_symposium",
-    "v_wine_fall",
-    "v_glut_gout",
-    "v_poppy_pain",
-    "v_poppy_more",
-    "v_poppy_dreams",
-    "v_poppy_cost",
-    "v_poppy_overdose",
-    "v_poppy_quit",
-    "v_poppy_relapse",
-    "v_rel_mother_poppy",
-    "v_rel_mother_poppy_end",
     "j_land_vines",
     "j_land_vines_harvest",
-    "j_fs_vines",
     "j_own_contract",
-    "j_scr_papyrus",
-    "j_farm_buyout",
-    "j_mag_games",
-    "j_merch_hoard",
-    "j_hs_secret",
-    "j_ovs_will",
-    "t_shipwreck_vow",
-    "t_child_kidnapped",
-    "t_grain_hoard",
-    "t_poems_live_on",
-    "w_old_sun_bench",
-    "w_old_lares",
-    "w_tomb_visit",
-    "y_sibling_quarrel",
-    "y_sibling_remembers",
-    "y_goat_kid",
-    "y_cheat_school"
+    "t_child_kidnapped"
   ]
 }

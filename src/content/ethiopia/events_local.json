@@ -2068,7 +2068,7 @@
  {
   "type": "personal",
   "once": true,
-  "base_weight": 2,
+  "base_weight": 1,
   "topic": "life",
   "id": "eth_monastery_call",
   "regions": [
@@ -3841,7 +3841,7 @@
  {
   "type": "personal",
   "once": true,
-  "base_weight": 5,
+  "base_weight": 9,
   "topic": "life",
   "id": "eth_f_land_baptism",
   "regions": [
@@ -3857,7 +3857,7 @@
    1650
   ],
   "age_range": [
-   16,
+   13,
    70
   ],
   "scene": {

@@ -2,7 +2,7 @@
  {
   "type": "global_historical",
   "age_range": [
-   5,
+   0,
    120
   ],
   "base_weight": 1,
@@ -42,7 +42,7 @@
  {
   "type": "global_historical",
   "age_range": [
-   5,
+   0,
    120
   ],
   "base_weight": 1,
@@ -1184,8 +1184,8 @@
  {
   "type": "global_historical",
   "age_range": [
-   14,
-   60
+   0,
+   120
   ],
   "base_weight": 1,
   "topic": "history",
@@ -1196,15 +1196,10 @@
    "beijing"
   ],
   "years": [
-   1270,
-   1276
+   1272,
+   1285
   ],
-  "global_chance": 0.25,
-  "classes": [
-   "peasant",
-   "craftsman",
-   "slave"
-  ],
+  "global_chance": 0.15,
   "scene": {
    "place": "landmark",
    "time": "day",
@@ -1214,35 +1209,14 @@
     "banner"
    ]
   },
-  "choices": [
+  "effects": [
    {
-    "id": "work",
-    "effects": [
-     {
-      "param": "money",
-      "delta": 40
-     },
-     {
-      "param": "health",
-      "delta": -4
-     },
-     {
-      "skill": "craft",
-      "delta": 2
-     }
-    ],
-    "pattern": {
-     "craft_power": -2
-    }
+    "param": "intellect",
+    "delta": 1
    },
    {
-    "id": "avoid",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 1
-     }
-    ]
+    "param": "happiness",
+    "delta": 1
    }
   ]
  },

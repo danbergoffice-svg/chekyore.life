@@ -22,16 +22,13 @@
  "exclude_events": [
   "j_land_vines",
   "j_land_vines_harvest",
-  "j_fs_vines",
   "a_temple_omen",
   "j_pri_omen",
   "j_pri_omen_echo",
-  "j_mag_election",
-  "j_mag_ambitus_trial",
   "t_victor_honors",
-  "t_honorary_decree",
-  "c_h_gym_invite",
-  "c_h_gym_later"
+  "f_pilgrimage_hajj",
+  "f_min_tax",
+  "f_astrology"
  ],
  "stages": {
   "youth": 12,

@@ -1606,7 +1606,7 @@
   "icon": "disaster",
   "scene": {
    "place": "river",
-   "time": "rain",
+   "time": "overcast",
    "people": 5,
    "props": [
     "rain"
@@ -2494,7 +2494,7 @@
   "icon": "war",
   "scene": {
    "place": "battle",
-   "time": "rain",
+   "time": "overcast",
    "people": 6,
    "props": [
     "banner",
