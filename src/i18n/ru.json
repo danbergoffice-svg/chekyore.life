@@ -427,5 +427,14 @@
   "hero.vices": "Пороки",
   "vice.drinker": "пьёт",
   "vice.gambler": "играет в кости на деньги",
-  "vice.opium": "пьёт маковый отвар"
+  "vice.opium": "пьёт маковый отвар",
+  "npctag.drinker": "пьёт",
+  "npctag.gambler": "играет на деньги",
+  "npctag.opium": "пьёт маковый отвар",
+  "npctag.arrested": "{g=sex:арестован|арестована}",
+  "npctag.unfaithful": "{g=sex:неверен|неверна}",
+  "npctag.violent": "бывает жесток{g=sex:|а}",
+  "npctag.sick": "{g=sex:болен|больна}",
+  "npctag.in_debt": "в долгах",
+  "npctag.criminal": "не в ладах с законом"
 }

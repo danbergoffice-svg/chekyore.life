@@ -427,5 +427,14 @@
   "hero.vices": "Vices",
   "vice.drinker": "drinks",
   "vice.gambler": "gambles at dice",
-  "vice.opium": "takes poppy juice"
+  "vice.opium": "takes poppy juice",
+  "npctag.drinker": "drinks",
+  "npctag.gambler": "gambles",
+  "npctag.opium": "takes poppy juice",
+  "npctag.arrested": "under arrest",
+  "npctag.unfaithful": "unfaithful",
+  "npctag.violent": "can be violent",
+  "npctag.sick": "ill",
+  "npctag.in_debt": "in debt",
+  "npctag.criminal": "in trouble with the law"
 }

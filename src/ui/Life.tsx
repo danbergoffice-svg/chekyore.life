@@ -372,6 +372,7 @@ function People({ state }: { state: GameState }) {
               attitudeText(t, n),
               n.profession ? t(`prof.${n.profession}`, {}, { sex: n.sex }).toLowerCase() : '',
               n.married ? t('people.married', { sex: n.sex }) : '',
+              ...(n.tags ?? []).filter((tag) => hasKey(lang, `npctag.${tag}`)).map((tag) => t(`npctag.${tag}`, { sex: n.sex })),
             ]
               .filter(Boolean)
               .join(' · ')

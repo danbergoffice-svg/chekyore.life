@@ -255,6 +255,21 @@ function npcMortality(state: GameState, era: EraDef, npc: Npc): number {
   return q
 }
 
+function healthFactor(h: number): number {
+  return h >= 80 ? 0.6 : h >= 60 ? 0.85 : h >= 40 ? 1 : h >= 20 ? 1.6 : 3
+}
+
+/** Сколько здоровья в год прибавляют или отнимают образ жизни и пороки. */
+function yearlyHealthTrend(state: GameState, era: EraDef): number {
+  const sum = (effects: { param?: string; delta?: number }[] | undefined) =>
+    (effects ?? []).reduce((s, e) => s + ('param' in e && e.param === 'health' ? (e.delta ?? 0) : 0), 0)
+  let trend = 0
+  for (const def of lifestyleDefs(state, era)) trend += sum(lifestyleOption(state, def).effects as never)
+  for (const vice of era.vices) if (state.hero.tags.includes(vice.tag)) trend += sum(vice.effects as never)
+  if (state.hero.tags.includes('in_debt')) trend -= 1.5
+  return trend
+}
+
 /** Вероятность смерти героя в этом году. */
 export function heroMortality(state: GameState, era: EraDef): number {
   const hero = state.hero
@@ -264,7 +279,7 @@ export function heroMortality(state: GameState, era: EraDef): number {
   const prof = era.professions.find((p) => p.id === hero.profession)
   if (prof && hero.age >= era.stages.youth) q *= prof.mortality ?? 1
   const h = hero.attrs.health
-  q *= h >= 80 ? 0.6 : h >= 60 ? 0.85 : h >= 40 ? 1 : h >= 20 ? 1.6 : 3
+  q *= healthFactor(h)
   if (hero.money > 1000) q *= 0.85
   if (hero.tags.includes('in_debt')) q *= 1.15
   if (hero.tags.includes('epidemic')) q *= 2
@@ -280,14 +295,21 @@ export function heroMortality(state: GameState, era: EraDef): number {
  * на всё, что сейчас влияет на его смертность (здоровье, образ жизни, пороки, долги, профессия).
  */
 export function expectedAge(state: GameState, era: EraDef): number {
-  const age = state.hero.age
-  const base = qx(era, age) * (era.mortality.calibration ?? 1)
-  const m = base > 0 ? heroMortality(state, era) / base : 1
+  const hero = state.hero
+  const age = hero.age
+  const cal = era.mortality.calibration ?? 1
+  const base = qx(era, age) * cal
+  // Всё, кроме здоровья, считаем неизменным; здоровье прогнозируем год за годом.
+  const other = base > 0 ? heroMortality(state, era) / base / healthFactor(hero.attrs.health) : 1
+  const trend = yearlyHealthTrend(state, era)
+  let health = hero.attrs.health
   let alive = 1
   let years = 0
   for (let x = age; x < 110; x++) {
-    alive *= 1 - Math.min(1, qx(era, x) * (era.mortality.calibration ?? 1) * m)
+    alive *= 1 - Math.min(1, qx(era, x) * cal * other * healthFactor(health))
     years += alive
+    health += trend - (x >= 35 ? 0.5 : 0) - (x >= 50 ? 1 : 0) - (x >= 65 ? 1.5 : 0) + (x < 25 && health < 70 ? 1 : 0)
+    health = Math.max(0, Math.min(100, health))
   }
   return Math.round(age + years + 0.5)
 }
