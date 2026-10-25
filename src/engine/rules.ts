@@ -1,6 +1,7 @@
-import { chance, int, pick } from './rng'
+import { ERA_META, RELIGION_BY_ID } from '../content'
+import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
-import type { AttrId, Condition, DiaryEntry, EraDef, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, Sex } from './types'
+import type { AttrId, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
 
 // ---------- Годы ----------
 // Года хранятся исторически: -44 — это 44 г. до н.э., нулевого года нет.
@@ -98,6 +99,10 @@ export function check(state: GameState, c: Condition): boolean {
   if ('no_npc' in c) return aliveNpcs(hero, c.no_npc).length === 0
   if ('classes' in c) return c.classes.includes(hero.cls)
   if ('age' in c) return hero.age >= c.age[0] && hero.age <= c.age[1]
+  if ('religion' in c) return faithMatches(hero.religion, c.religion)
+  if ('religion_absent' in c) return !faithMatches(hero.religion, c.religion_absent)
+  if ('minority' in c) return isMinority(state) === c.minority
+  if ('region' in c) return c.region.includes(hero.region)
   if ('any' in c) return c.any.some((x) => check(state, x))
   return false
 }
@@ -106,9 +111,101 @@ export function checkAll(state: GameState, conditions: Condition[] | undefined):
   return (conditions ?? []).every((c) => check(state, c))
 }
 
+// ---------- Вера ----------
+
+/** Вера героя подходит под список: id религии, её семья (christian, islamic…) или признак (monks, fasting…). */
+export function faithMatches(religion: string, list: string[]): boolean {
+  if (list.includes(religion)) return true
+  const def = RELIGION_BY_ID.get(religion)
+  return !!def && (list.includes(def.group) || (def.tags ?? []).some((t) => list.includes(t)))
+}
+
+/** Вера жителей края в этот год (и для этого сословия, если оно верит иначе). */
+export function religionWeights(region: RegionDef, year: number, cls?: string): Record<string, number> {
+  if (cls && region.classReligions?.[cls]) return region.classReligions[cls]
+  let w = region.religions
+  for (const e of region.religionEras ?? []) if (year >= e.from) w = e.religions
+  return w
+}
+
+function regionMeta(hero: Hero): RegionDef | undefined {
+  return ERA_META[hero.era]?.regions.find((r) => r.id === hero.region)
+}
+
+/** Веры края по убыванию распространённости. */
+export function localFaiths(state: GameState): string[] {
+  const region = regionMeta(state.hero)
+  if (!region) return []
+  const w = religionWeights(region, state.year)
+  return Object.keys(w).filter((k) => w[k] > 0).sort((a, b) => w[b] - w[a])
+}
+
+/** Вера меньшинства: меньше четверти жителей края. */
+export function isMinority(state: GameState): boolean {
+  const region = regionMeta(state.hero)
+  if (!region) return false
+  const w = religionWeights(region, state.year)
+  const total = Object.values(w).reduce((a, b) => a + b, 0)
+  return total > 0 && (w[state.hero.religion] ?? 0) / total < 0.25
+}
+
+/** Во что обратиться: 'majority' — главная вера края, 'other' — самая распространённая из чужих. */
+export function resolveFaith(state: GameState, target: string): string | undefined {
+  if (target !== 'other' && target !== 'majority') return target
+  const faiths = localFaiths(state)
+  if (target === 'majority') return faiths[0]
+  return faiths.find((f) => f !== state.hero.religion)
+}
+
+export function rollReligion(state: GameState, region: RegionDef, year: number, cls: string): string {
+  const w = religionWeights(region, year, cls)
+  const ids = Object.keys(w).filter((k) => w[k] > 0)
+  return weighted(state, ids, (id) => w[id]) ?? ids[0] ?? 'roman_gods'
+}
+
+/**
+ * Общие параметры текстов, которые зависят от края, веры и года: {faith} — вера героя, {other_faith} — самая
+ * распространённая чужая вера края, {capital} — столица страны. Не хранятся в дневнике, а считаются при показе.
+ */
+export function contextParams(region: string, religion: string, year: number): Record<string, { key: string }> {
+  const p: Record<string, { key: string }> = {}
+  if (religion) p.faith = { key: `religion.${religion}` }
+  const era = Object.values(ERA_META).find((e) => e.regions.some((r) => r.id === region))
+  const def = era?.regions.find((r) => r.id === region)
+  if (!era || !def) return p
+  const w = religionWeights(def, year)
+  const other = Object.keys(w).filter((k) => k !== religion && w[k] > 0).sort((a, b) => w[b] - w[a])[0]
+  if (other) p.other_faith = { key: `religion.${other}` }
+  const capital = capitalFor(era, def, year)
+  if (capital) p.capital = { key: `region.${capital.id}` }
+  return p
+}
+
+/** Столица страны в этот год; если столиц несколько (ацтеки и инки), — та, что в той же культуре, что и край. */
+export function capitalFor(era: EraMeta, here: RegionDef, year: number): RegionDef | undefined {
+  const isCapital = (r: RegionDef) => (r.capital ? year >= r.capital[0] && year <= r.capital[1] : !!r.tags?.includes('capital') && year >= r.years[0] && year <= r.years[1])
+  const all = era.regions.filter(isCapital)
+  return all.find((r) => r.scene?.style === here.scene?.style) ?? all[0]
+}
+
+/** Куда переехать: id региона или '@capital', '@port', '@other' (первый подходящий регион, кроме текущего). */
+export function resolveRegion(state: GameState, era: EraMeta, target: string): string | undefined {
+  const here = state.hero.region
+  const open = era.regions.filter((r) => r.id !== here && state.year >= r.years[0] && state.year <= r.years[1])
+  if (!target.startsWith('@')) return open.some((r) => r.id === target) ? target : undefined
+  const tag = target.slice(1)
+  if (tag === 'other') return [...open].sort((a, b) => b.weight - a.weight)[0]?.id
+  if (tag === 'capital') {
+    const home = era.regions.find((r) => r.id === here)
+    const capital = home && capitalFor(era, home, state.year)
+    return capital && capital.id !== here ? capital.id : undefined
+  }
+  return open.find((r) => r.tags?.includes(tag))?.id
+}
+
 // ---------- Персонажи ----------
 
-export function regionOf(era: EraDef, id: string) {
+export function regionOf(era: EraDef | EraMeta, id: string) {
   const r = era.regions.find((x) => x.id === id)
   if (!r) throw new Error(`Unknown region ${id}`)
   return r
@@ -124,7 +221,7 @@ export function freshName(state: GameState, names: { id: string }[]): string {
   return pick(state, names).id
 }
 
-export function makeNpc(state: GameState, era: EraDef, role: NpcRole, sex?: Sex, birthYear?: number, attitude = 30): Npc {
+export function makeNpc(state: GameState, era: EraDef | EraMeta, role: NpcRole, sex?: Sex, birthYear?: number, attitude = 30): Npc {
   const hero = state.hero
   const s: Sex =
     sex ?? (role === 'father' ? 'm' : role === 'mother' ? 'f' : role === 'spouse' ? (hero.sex === 'm' ? 'f' : 'm') : chance(state, 0.5) ? 'm' : 'f')
@@ -162,7 +259,7 @@ export function makeNpc(state: GameState, era: EraDef, role: NpcRole, sex?: Sex,
 /** Добавить запись в дневник и вернуть её номер. */
 export function note(state: GameState, entry: Omit<DiaryEntry, 'year' | 'age'>): number {
   const hero = state.hero
-  hero.diary.push({ year: state.year, age: hero.age, ...entry })
+  hero.diary.push({ year: state.year, age: hero.age, reg: hero.region, rel: hero.religion, ...entry })
   return hero.diary.length - 1
 }
 
@@ -244,6 +341,21 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
         hero.deathCause = e.kill
         hero.deathYear = state.year
       }
+    } else if ('set_religion' in e) {
+      const faith = resolveFaith(state, e.set_religion)
+      if (faith && faith !== hero.religion) {
+        const from = hero.religion
+        hero.religion = faith
+        note(state, { key: 'diary.converted', params: { from: { key: `religion.${from}` }, faith: { key: `religion.${faith}` } }, major: true, topic: 'life', icon: 'find', score: 40 })
+      }
+    } else if ('migrate' in e) {
+      const target = resolveRegion(state, era, e.migrate)
+      if (target) {
+        hero.region = target
+        if (hero.places[hero.places.length - 1] !== target) hero.places.push(target)
+        addPattern(hero, era.patternWeights.actions.move)
+        note(state, { key: 'diary.migrated', params: { place: { key: `region.${target}` } }, major: true, topic: 'life', icon: 'move', score: 35 })
+      }
     } else if ('chance' in e) {
       if (chance(state, e.chance)) applyEffects(state, era, e.effects, ctx)
     }
@@ -274,7 +386,7 @@ export function killNpc(state: GameState, npc: Npc): void {
 }
 
 /** Положение в обществе эпохи, 0–100: сословие, достаток относительно расходов и репутация. */
-export function statusOf(hero: Hero, era: EraDef): number {
+export function statusOf(hero: Hero, era: EraDef | EraMeta): number {
   const cls = era.classes.find((c) => c.id === hero.cls)
   const base = cls?.status ?? 30
   const upkeep = Math.max(cls?.upkeep ?? 100, 100)

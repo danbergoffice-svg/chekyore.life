@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { ERAS } from '../src/content'
+import { loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
 import { newLife } from '../src/engine/life'
 import { buildReport, survivalTable } from '../src/engine/report'
 import { AXES } from '../src/engine/types'
 
+const ERAS = await loadAllEras()
 const era = ERAS.E03
 const settings = { mode: 'full' as const, mortality: 'soft' as const, softenHeavy: false }
 

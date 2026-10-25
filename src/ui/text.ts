@@ -1,6 +1,7 @@
 import { createContext } from 'preact'
 import { useContext } from 'preact/hooks'
 import type { T } from '../i18n'
+import { contextParams } from '../engine/rules'
 import type { AttrId, DiaryEntry, GameState, Hero, Lang, Npc } from '../engine/types'
 import { ATTRIBUTES } from '../engine/types'
 
@@ -12,18 +13,19 @@ export interface Ui {
 export const UiContext = createContext<Ui>(null as unknown as Ui)
 export const useUi = () => useContext(UiContext)
 
-/** Строка дневника: события показываются как «заголовок — выбор». */
-export function diaryText(t: T, e: DiaryEntry, sex: Hero['sex'], region: string): string {
-  const opts = { sex, region }
+/** Строка дневника: события показываются как «заголовок — выбор». Край и вера — те, что были в момент записи. */
+export function diaryText(t: T, e: DiaryEntry, sex: Hero['sex'], region: string, religion = ''): string {
+  const opts = { sex, region: e.reg ?? region, religion: e.rel ?? religion }
+  const params = { ...contextParams(opts.region, opts.religion, e.year), ...e.params }
   if (e.key.startsWith('ev.')) {
-    let s = t(e.key, e.params, opts)
+    let s = t(e.key, params, opts)
     const choice = e.params?.choice
     if (choice && typeof choice === 'object' && 'key' in choice && choice.key !== 'ui.ok') s += ` — ${t(choice.key, {}, opts)}`
     if (e.params?.result === 'success') s += ` (${t('diary.success')})`
     if (e.params?.result === 'failure') s += ` (${t('diary.failure')})`
     return s
   }
-  return t(e.key, e.params, opts)
+  return t(e.key, params, opts)
 }
 
 const band = (v: number, edges: number[]) => edges.filter((e) => v >= e).length

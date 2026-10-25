@@ -1,0 +1,22 @@
+[
+  { "id": "roman_gods", "group": "polytheist", "tags": ["sacrifice", "oracles", "idols"] },
+  { "id": "egyptian_gods", "group": "polytheist", "tags": ["sacrifice", "afterlife", "idols"] },
+  { "id": "mesopotamian_gods", "group": "polytheist", "tags": ["sacrifice", "oracles", "idols"] },
+  { "id": "slavic_pagan", "group": "polytheist", "tags": ["sacrifice", "idols", "spirits"] },
+  { "id": "judaism", "group": "jewish", "tags": ["monotheist", "scripture", "fasting", "pilgrimage"] },
+  { "id": "christian", "group": "christian", "tags": ["monotheist", "scripture", "fasting", "clergy"] },
+  { "id": "catholic", "group": "christian", "tags": ["monotheist", "scripture", "fasting", "clergy", "monks", "pilgrimage"] },
+  { "id": "orthodox", "group": "christian", "tags": ["monotheist", "scripture", "fasting", "clergy", "monks", "pilgrimage", "icons"] },
+  { "id": "tewahedo", "group": "christian", "tags": ["monotheist", "scripture", "fasting", "clergy", "monks", "pilgrimage"] },
+  { "id": "islam", "group": "islamic", "tags": ["monotheist", "scripture", "fasting", "pilgrimage"] },
+  { "id": "zoroastrian", "group": "iranian", "tags": ["fire", "scripture"] },
+  { "id": "hindu", "group": "dharmic", "tags": ["idols", "pilgrimage", "caste", "sacrifice"] },
+  { "id": "buddhist", "group": "dharmic", "tags": ["monks", "scripture", "pilgrimage"] },
+  { "id": "jain", "group": "dharmic", "tags": ["monks", "fasting", "scripture"] },
+  { "id": "chinese_folk", "group": "east_asian", "tags": ["ancestors", "scripture", "spirits"] },
+  { "id": "shinto", "group": "east_asian", "tags": ["ancestors", "spirits", "shrines"] },
+  { "id": "maya_gods", "group": "mesoamerican", "tags": ["sacrifice", "calendar", "idols"] },
+  { "id": "aztec_gods", "group": "mesoamerican", "tags": ["sacrifice", "calendar", "idols"] },
+  { "id": "andean", "group": "andean", "tags": ["sacrifice", "ancestors", "spirits"] },
+  { "id": "african_traditional", "group": "african", "tags": ["ancestors", "spirits", "sacrifice"] }
+]

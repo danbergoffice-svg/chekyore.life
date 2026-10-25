@@ -1,0 +1,190 @@
+// Проверка контента страны: тексты на обоих языках, ссылки, сцены, вера, регионы.
+// Используется в тестах (tests/content.test.ts) и в инструменте npm run check -- <ID> для авторов контента.
+import { allKeys, createT, hasKey, LANGS } from '../i18n'
+import { SCENE_PLACES, SCENE_PROPS, SCENE_TIMES, TOPICS } from '../engine/types'
+import type { Condition, Effect, EraDef, EventDef } from '../engine/types'
+import { ERA_META, RELIGION_BY_ID, RELIGIONS } from '.'
+
+export const STYLES = ['roman', 'greek', 'egyptian', 'chinese', 'japanese', 'indian', 'islamic', 'gothic', 'byzantine', 'russian', 'mesopotamian', 'maya', 'aztec', 'andean', 'sahel', 'ethiopian']
+export const FEATURES = ['sea', 'horses', 'coins', 'wine', 'writing', 'iron', 'baths', 'olive', 'camels', 'slavery', 'paper', 'printing', 'gunpowder', 'tea', 'rice', 'llamas', 'elephants', 'monsoon', 'snow', 'river']
+const religionWords = new Set(RELIGIONS.flatMap((r) => [r.id, r.group, ...(r.tags ?? [])]))
+
+/** Слова про родных в русском тексте: событие должно быть о таком человеке (npc), проверять has_npc или пометить others. */
+const ROLE: Record<string, RegExp> = {
+  father: /(^|[^а-яё])(отец|отца|отцу|отцом|отце|папа|папы|папе)([^а-яё]|$)/,
+  mother: /(^|[^а-яё])(мать|матери|матерью|мама|мамы|маме|маму|мамой)([^а-яё]|$)/,
+  spouse: /(^|[^а-яё])(твой муж|твоя жена|мужа|жену|жены|супруг[а-яё]*)([^а-яё]|$)/,
+  sibling: /(^|[^а-яё])(брат|брата|брату|сестра|сестры|сестру|сестре)([^а-яё]|$)/,
+  child: /(^|[^а-яё])(твой сын|твоя дочь|твоего сына|твою дочь|твоему сыну|сына|дочери|дочь)([^а-яё]|$)/,
+  grandchild: /(^|[^а-яё])(внук[а-яё]*|внучк[а-яё]*)([^а-яё]|$)/,
+}
+
+let keysByEvent: Map<string, string[]> | null = null
+function eventKeys(id: string): string[] {
+  if (!keysByEvent) {
+    keysByEvent = new Map()
+    for (const k of allKeys('ru')) {
+      if (!k.startsWith('ev.') || k.endsWith('.note')) continue
+      const ev = k.split('.')[1]
+      keysByEvent.set(ev, [...(keysByEvent.get(ev) ?? []), k])
+    }
+  }
+  return keysByEvent.get(id) ?? []
+}
+
+/** Сбросить кэш ключей (после загрузки новых текстов). */
+export function resetValidateCache(): void {
+  keysByEvent = null
+}
+
+function requiredKeys(era: EraDef): string[] {
+  const required: string[] = [`era.${era.id}`, `era.${era.id}.years`, `era.${era.id}.short`]
+  for (const r of era.regions) {
+    required.push(`region.${r.id}`, `region.${r.id}.intro`, `region.${r.id}.in`, `coin.${r.coin}`)
+    for (const w of [r.religions, ...(r.religionEras ?? []).map((x) => x.religions), ...Object.values(r.classReligions ?? {})]) {
+      for (const id of Object.keys(w)) required.push(`religion.${id}`, `religion.${id}.desc`)
+    }
+  }
+  for (const c of era.classes) required.push(`class.${c.id}`, `class.${c.id}.short`, `class.${c.id}.family`)
+  for (const p of era.professions) required.push(`prof.${p.id}`, `prof.${p.id}.desc`, `prof.${p.id}.as`)
+  for (const f of era.focuses) required.push(`focus.${f.id}`, `focus.${f.id}.desc`)
+  for (const tr of era.traits) required.push(`trait.${tr}`)
+  for (const s of era.skills) required.push(`skill.${s}`)
+  for (const c of era.mortality.causes) required.push(`cause.${c.id}`)
+  required.push('cause.childbirth', 'cause.epidemic')
+  for (const l of era.lifestyle) {
+    required.push(`lifestyle.${l.id}`)
+    for (const o of l.options) required.push(`lifestyle.${l.id}.${o.id}`, `lifestyle.${l.id}.${o.id}.desc`)
+  }
+  for (const n of era.news) required.push(`news.${n.id}`)
+  for (const ev of era.events) {
+    if (!ev.moment) required.push(`ev.${ev.id}.title`)
+    if (ev.variants) for (let i = 1; i <= ev.variants; i++) required.push(`ev.${ev.id}.text.${i}`)
+    else required.push(`ev.${ev.id}.text`)
+    if (ev.historian_note) required.push(`ev.${ev.id}.note`)
+    for (const c of ev.choices ?? []) {
+      required.push(`ev.${ev.id}.${c.id}`)
+      if (c.risk_roll) required.push(`ev.${ev.id}.${c.id}.success`, `ev.${ev.id}.${c.id}.failure`)
+    }
+    for (const m of JSON.stringify(ev).match(/"move":"(\w+)"/g) ?? []) required.push(`place.${m.split('"')[3]}`)
+  }
+  return required
+}
+
+function checkScenes(ev: EventDef, bad: string[]) {
+  if (!ev.scene) bad.push(`${ev.id}: нет scene`)
+  if (ev.scene?.place && !(SCENE_PLACES as readonly string[]).includes(ev.scene.place)) bad.push(`${ev.id}: place ${ev.scene.place}`)
+  if (ev.scene?.time && !(SCENE_TIMES as readonly string[]).includes(ev.scene.time)) bad.push(`${ev.id}: time ${ev.scene.time}`)
+  for (const p of ev.scene?.props ?? []) if (!(SCENE_PROPS as readonly string[]).includes(p)) bad.push(`${ev.id}: prop ${p}`)
+  if (ev.topic && !(TOPICS as readonly string[]).includes(ev.topic)) bad.push(`${ev.id}: topic ${ev.topic}`)
+  if (ev.moment && ev.choices?.length) bad.push(`${ev.id}: у момента не должно быть выборов`)
+  if (ev.choices && (ev.choices.length === 1 || ev.choices.length > 4)) bad.push(`${ev.id}: выборов должно быть 2–4`)
+  if (ev.choices && ev.choices.length > 0 && ev.choices.every((c) => (c.requirements ?? []).length > 0)) bad.push(`${ev.id}: нет выбора без условий`)
+}
+
+function checkRefs(era: EraDef, ev: EventDef, bad: string[]) {
+  const profIds = new Set(era.professions.map((p) => p.id))
+  const eventIds = new Set(era.events.map((e) => e.id))
+  const classIds = new Set(era.classes.map((c) => c.id))
+  const walkCond = (c: Condition) => {
+    if ('profession' in c) for (const p of c.profession) if (!profIds.has(p) && !ERA_PROFESSION_OK.has(p)) bad.push(`${ev.id}: profession ${p}`)
+    if ('classes' in c) for (const x of c.classes) if (!classIds.has(x)) bad.push(`${ev.id}: class ${x}`)
+    if ('religion' in c || 'religion_absent' in c) for (const r of 'religion' in c ? c.religion : c.religion_absent) if (!religionWords.has(r)) bad.push(`${ev.id}: religion ${r}`)
+    if ('region' in c) for (const r of c.region) if (!era.regions.some((x) => x.id === r)) bad.push(`${ev.id}: region ${r}`)
+    if ('any' in c) c.any.forEach(walkCond)
+  }
+  const walkEff = (e: Effect) => {
+    if ('set_profession' in e && e.set_profession && !profIds.has(e.set_profession)) bad.push(`${ev.id}: set_profession ${e.set_profession}`)
+    if ('set_class' in e && !classIds.has(e.set_class)) bad.push(`${ev.id}: set_class ${e.set_class}`)
+    if ('set_religion' in e && !['other', 'majority'].includes(e.set_religion) && !RELIGION_BY_ID.has(e.set_religion)) bad.push(`${ev.id}: set_religion ${e.set_religion}`)
+    if ('migrate' in e && !e.migrate.startsWith('@') && !era.regions.some((x) => x.id === e.migrate)) bad.push(`${ev.id}: migrate ${e.migrate}`)
+    if ('chance' in e) e.effects.forEach(walkEff)
+  }
+  ev.conditions?.forEach(walkCond)
+  ev.effects?.forEach(walkEff)
+  for (const m of ev.weight_modifiers ?? []) walkCond(m.if)
+  for (const c of ev.choices ?? []) {
+    c.requirements?.forEach(walkCond)
+    c.effects?.forEach(walkEff)
+    c.risk_roll?.on_success?.forEach(walkEff)
+    c.risk_roll?.on_failure.forEach(walkEff)
+    for (const d of c.delayed_effects ?? []) if (!eventIds.has(d.trigger_event)) bad.push(`${ev.id}: trigger ${d.trigger_event}`)
+  }
+  for (const f of ev.needs ?? []) if (!FEATURES.includes(f)) bad.push(`${ev.id}: needs ${f}`)
+  for (const r of ev.religions ?? []) if (!religionWords.has(r)) bad.push(`${ev.id}: religions ${r}`)
+  for (const r of ev.regions ?? []) if (!era.regions.some((x) => x.id === r)) bad.push(`${ev.id}: регион ${r}`)
+  for (const c of ev.classes ?? []) if (!classIds.has(c)) bad.push(`${ev.id}: classes ${c}`)
+  if (ev.years && (ev.years[0] > ev.years[1] || ev.years[1] < era.years[0] - 1 || ev.years[0] > era.years[1] + 120)) bad.push(`${ev.id}: years ${ev.years}`)
+}
+
+/** Профессии других стран в условиях общего слоя: условие просто не выполнится. */
+const ERA_PROFESSION_OK = new Set(Object.values(ERA_META).flatMap((m) => m.professions.map((p) => p.id)))
+
+function checkRoles(ev: EventDef, bad: string[]) {
+  const t = createT('ru')
+  const text = eventKeys(ev.id)
+    .map((k) => t(k, {}, { sex: 'm' }) + ' ' + t(k, {}, { sex: 'f' }))
+    .join(' ')
+    .toLowerCase()
+  const conds = JSON.stringify(ev.conditions ?? [])
+  for (const [role, re] of Object.entries(ROLE)) {
+    if (!re.test(text)) continue
+    if (ev.npc === role || conds.includes(`"has_npc":"${role}"`) || ev.others?.includes(role as never)) continue
+    bad.push(`${ev.id}: упомянут ${role}, но событие его не проверяет (npc/has_npc/others)`)
+  }
+}
+
+function checkCountry(era: EraDef, bad: string[]) {
+  if (!(era.population > 0)) bad.push('population')
+  for (const f of era.features ?? []) if (!FEATURES.includes(f)) bad.push(`feature ${f}`)
+  const classIds = era.classes.map((c) => c.id).sort().join(',')
+  if (classIds !== 'craftsman,landowner,noble,peasant,slave,trader') bad.push(`сословия должны быть ровно slave, peasant, craftsman, trader, landowner, noble: ${classIds}`)
+  if (era.professions.length < 8) bad.push('меньше 8 профессий')
+  for (const r of era.regions) {
+    if (!r.scene || !STYLES.includes(r.scene.style)) bad.push(`${r.id}: scene.style`)
+    if (r.names.m.length < 25 || r.names.f.length < 25) bad.push(`${r.id}: мало имён (нужно ≥25 на пол)`)
+    if (r.years[0] < era.years[0] - 1 || r.years[1] > era.years[1] + 1) bad.push(`${r.id}: годы региона вне страны`)
+    if (!r.religions || Object.keys(r.religions).length === 0) bad.push(`${r.id}: нет religions`)
+    for (const w of [r.religions ?? {}, ...(r.religionEras ?? []).map((x) => x.religions), ...Object.values(r.classReligions ?? {})]) {
+      for (const id of Object.keys(w)) if (!RELIGION_BY_ID.has(id)) bad.push(`${r.id}: вера ${id}`)
+    }
+    for (const c of Object.keys(r.classWeights)) if (!era.classes.some((x) => x.id === c)) bad.push(`${r.id}: сословие ${c}`)
+  }
+  for (const p of era.professions) if (!era.skills.includes(p.skill)) bad.push(`prof ${p.id}: skill ${p.skill}`)
+  const news = era.news.filter((n) => !Number.isInteger(n.year) || n.year === 0 || n.year < era.years[0] - 50 || n.year > era.years[1] + 120 || !['confirmed', 'reconstructed', 'disputed'].includes(n.confidence))
+  for (const n of news) bad.push(`news ${n.id}: год или confidence`)
+  const ids = era.news.map((n) => n.id)
+  if (ids.length !== new Set(ids).size) bad.push('повторяются id вестей')
+}
+
+/** Все проблемы страны; пустой список — всё в порядке. */
+export function validateEra(era: EraDef): string[] {
+  const bad: string[] = []
+  for (const lang of LANGS) for (const k of requiredKeys(era)) if (!hasKey(lang, k)) bad.push(`нет текста ${k} (${lang})`)
+  checkCountry(era, bad)
+  for (const ev of era.events) {
+    checkScenes(ev, bad)
+    checkRefs(era, ev, bad)
+    checkRoles(ev, bad)
+  }
+  return bad
+}
+
+/** Параметры для проверки, что после подстановки не остаётся {скобок}. */
+export const SAMPLE_PARAMS = {
+  n: 3, npc: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
+  grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x',
+}
+
+/** Ключи, в которых после подстановки остались фигурные скобки. */
+export function leftoverBraces(keys?: string[]): string[] {
+  const out: string[] = []
+  for (const lang of LANGS) {
+    for (const sex of ['m', 'f'] as const) {
+      const t = createT(lang, { sex })
+      const params = { ...SAMPLE_PARAMS, sex, psex: sex, npc_sex: sex }
+      for (const k of keys ?? allKeys(lang)) if (hasKey(lang, k) && /[{}]/.test(t(k, params))) out.push(`${lang}:${k}`)
+    }
+  }
+  return [...new Set(out)]
+}

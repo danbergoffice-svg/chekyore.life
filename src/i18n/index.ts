@@ -1,4 +1,4 @@
-import { ERAS } from '../content'
+import { ERA_FOLDER, ERA_META, REGION_ERA } from '../content'
 import type { Lang, Sex, TextParam } from '../engine/types'
 import en from './en.json'
 import ru from './ru.json'
@@ -6,18 +6,49 @@ import ru from './ru.json'
 // Новый язык добавляется файлами перевода и строкой здесь, без правок остального кода.
 export const LANGS: Lang[] = ['ru', 'en']
 
-// Тексты контента: все файлы ru*.json / en*.json в папках эпох.
-const merge = (files: Record<string, Record<string, string>>) => Object.assign({}, ...Object.values(files)) as Record<string, string>
-const contentRu = merge(import.meta.glob('../content/*/ru*.json', { eager: true, import: 'default' }))
-const contentEn = merge(import.meta.glob('../content/*/en*.json', { eager: true, import: 'default' }))
+// Тексты стран. ui_ru.json / ui_en.json — названия стран и регионов, нужны сразу (меню, мемориал).
+// Остальные ru*.json / en*.json грузятся вместе со страной и только на нужном языке.
+type Dict = Record<string, string>
+const merge = (files: Record<string, Dict>) => Object.assign({}, ...Object.values(files)) as Dict
+const uiRu = merge(import.meta.glob<Dict>('../content/*/ui_ru.json', { eager: true, import: 'default' }))
+const uiEn = merge(import.meta.glob<Dict>('../content/*/ui_en.json', { eager: true, import: 'default' }))
+const lazy = import.meta.glob<Dict>(['../content/*/ru*.json', '../content/*/en*.json'], { import: 'default' })
 
-const dicts: Record<Lang, Record<string, string>> = {
-  ru: { ...ru, ...contentRu },
-  en: { ...en, ...contentEn },
+const dicts: Record<Lang, Dict> = {
+  ru: { ...ru, ...uiRu },
+  en: { ...en, ...uiEn },
+}
+
+const loadedTexts = new Map<string, Promise<void>>()
+
+/** Загрузить тексты папки контента (common, e03, china…) на языке. */
+export function loadTexts(lang: Lang, folder: string): Promise<void> {
+  const id = `${lang}/${folder}`
+  let p = loadedTexts.get(id)
+  if (!p) {
+    const files = Object.entries(lazy)
+      .filter(([path]) => path.startsWith(`../content/${folder}/${lang}`))
+      .sort(([a], [b]) => a.localeCompare(b))
+    p = Promise.all(files.map(([, load]) => load())).then((parts) => {
+      for (const part of parts) Object.assign(dicts[lang], part)
+    })
+    loadedTexts.set(id, p)
+  }
+  return p
+}
+
+/** Тексты страны вместе с общим слоем. */
+export function loadEraTexts(lang: Lang, eraId: string): Promise<void> {
+  return Promise.all([loadTexts(lang, 'common'), loadTexts(lang, ERA_FOLDER[eraId])]).then(() => undefined)
+}
+
+/** Все тексты (для тестов и инструментов). */
+export async function loadAllTexts(): Promise<void> {
+  await Promise.all(LANGS.flatMap((lang) => ['common', ...Object.values(ERA_FOLDER)].map((f) => loadTexts(lang, f))))
 }
 
 const names: Record<string, { ru: string; en: string }> = {}
-for (const era of Object.values(ERAS)) {
+for (const era of Object.values(ERA_META)) {
   for (const region of era.regions) for (const n of [...region.names.m, ...region.names.f]) names[n.id] = n
 }
 
@@ -32,8 +63,10 @@ export function allKeys(lang: Lang): string[] {
 export interface TextOptions {
   /** Пол героя для форм {g:он|она}. */
   sex?: Sex
-  /** Регион: если есть ключ «key.region», он используется вместо общего. */
+  /** Регион: если есть ключ «key.region», он используется вместо общего; затем «key.вера» и «key.СТРАНА». */
   region?: string
+  /** Вера героя: ключ «key.islam» и т.п. */
+  religion?: string
 }
 
 export type T = (key: string, params?: Record<string, TextParam>, opts?: TextOptions) => string
@@ -52,7 +85,8 @@ export function createT(lang: Lang, defaults: TextOptions = {}): T {
   const t: T = (key, params = {}, opts = {}) => {
     const o = { ...defaults, ...opts }
     const dict = dicts[lang]
-    let s = (o.region && dict[`${key}.${o.region}`]) || dict[key]
+    const era = o.region ? REGION_ERA[o.region] : undefined
+    let s = (o.region && dict[`${key}.${o.region}`]) || (o.religion && dict[`${key}.${o.religion}`]) || (era && dict[`${key}.${era}`]) || dict[key]
     if (s === undefined) {
       if (import.meta.env.DEV) console.warn(`[i18n] ${lang}: no key ${key}`)
       return key

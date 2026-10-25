@@ -185,3 +185,48 @@ household_slave, field_slave). Повышение — `{"set_profession": "centu
 ### Деньги и настроение
 Долг сам по себе каждый год даёт стресс, грусть и бьёт по здоровью; достаток радует.
 Тег `in_debt` — герой в долгах.
+
+## Новое (версия 5): страны, вера, общий слой
+
+### Как устроен контент
+- `src/content/common/` — **общий слой**: события, которые могут случиться в любой стране
+  (детство, семья, работа, пороки, драмы, вера). Тексты общего слоя пишутся так, чтобы
+  подходить и Риму, и Китаю, и инкам: без денариев, тог, Юпитера, вина «по умолчанию».
+- `src/content/<страна>/` — **пакет страны**: `era.json` (сословия, профессии, имена, вера,
+  смертность, образ жизни), `ui_ru.json`/`ui_en.json` (названия страны и регионов — грузятся
+  сразу для меню), `ru*.json`/`en*.json` (остальные тексты), `events*.json` (местные события),
+  `news*.json` (вести).
+- В стране работают все общие события + её местные. Местное событие с тем же `id` заменяет общее.
+- Общее событие само выпадает из страны, если: `eras`/`not_eras` не пускают, нет нужного из
+  `needs`, оно ставит профессию, которой в стране нет (`set_profession`), его `religions` не
+  встречаются в стране, или его id в `exclude_events` страны.
+
+### Тексты под страну, край и веру
+Движок ищет ключ по цепочке: `ключ.<регион>` → `ключ.<вера>` → `ключ.<ID страны>` → `ключ`.
+Так общий текст получает местный вариант без нового события:
+`class.landowner.JPN` = «из самурайского рода», `prof.soldier.JPN` = «асигару»,
+`lifestyle.baths.RUS` = «Баня», `ev.y_school.text.CHN` = …, `religion.roman_gods.athens` = «боги Олимпа».
+
+В любом тексте доступны: `{faith}` — вера героя («ислам»), `{other_faith}` — самая
+распространённая чужая вера края, `{capital}` — столица страны (регион с тегом `capital`).
+
+### Новые поля и условия
+- Событие: `"eras": ["CHN"]`, `"not_eras": ["AMR"]`, `"needs": ["horses", "coins"]`,
+  `"religions": ["islam"]` (id веры, семья — `christian`, `islamic`, `dharmic`, `polytheist`,
+  `east_asian`, `mesoamerican`… — или признак: `monks`, `fasting`, `pilgrimage`, `sacrifice`,
+  `ancestors`, `idols`, `scripture`, `clergy`, `monotheist`, `spirits`).
+- Признаки страны (`features`): sea, horses, coins, wine, writing, iron, baths, olive, camels,
+  slavery, paper, printing, gunpowder, tea, rice, llamas, elephants, monsoon, snow, river.
+- Условия: `{"religion": ["islam", "christian"]}`, `{"religion_absent": [...]}`,
+  `{"minority": true}` (вера героя — вера меньшинства в его краю, < 25%), `{"region": ["kyoto"]}`.
+- Эффекты: `{"set_religion": "buddhist" | "other" | "majority"}` — смена веры (движок сам пишет
+  запись в дневник), `{"migrate": "hangzhou" | "@capital" | "@port" | "@other"}` — переезд в
+  другой регион страны (меняет край героя: местные события, имена, вид сцен).
+- Веры: roman_gods, egyptian_gods, mesopotamian_gods, slavic_pagan, judaism, christian,
+  catholic, orthodox, tewahedo, islam, zoroastrian, hindu, buddhist, jain, chinese_folk, shinto,
+  maya_gods, aztec_gods, andean, african_traditional (`src/content/religions.json`).
+
+### Проверка страны
+`npm run check -- <ID>` — тексты на обоих языках, ссылки, сцены, вера, затем симуляция
+400 жизней: средний возраст (должен быть в пределах ±3 от `lifeExpectancy`, подстраивается
+`mortality.calibration`), причины смерти, вера героев, какие местные события ни разу не выпали.

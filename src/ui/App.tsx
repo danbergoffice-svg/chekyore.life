@@ -1,20 +1,22 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { track } from '../analytics'
-import { DEFAULT_ERA, ERAS, eraById } from '../content'
+import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, dismiss, finishYear, startYear } from '../engine/game'
-import { continueWithHeir, heirs, newLife } from '../engine/life'
+import { continueWithHeir, heirs, newLife, rollBirth } from '../engine/life'
+import type { Birth } from '../engine/life'
 import { newSeed } from '../engine/rng'
 import type { GameState, LifeSummary } from '../engine/types'
-import { createT, detectLang } from '../i18n'
+import { createT, detectLang, loadEraTexts } from '../i18n'
 import { clearAll, loadPrefs, loadSave, parseSaveFile, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
 import { About, Heirs, Memorial, Menu, Reveal, Settings, Setup } from './Screens'
+import { Slots } from './Slots'
 import { Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
-type Screen = 'loading' | 'menu' | 'setup' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about'
+type Screen = 'loading' | 'menu' | 'setup' | 'spin' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about'
 
 const defaultPrefs: Prefs = {
   lang: detectLang(),
@@ -24,6 +26,7 @@ const defaultPrefs: Prefs = {
   mode: 'quick',
   mortality: 'soft',
   softenHeavy: false,
+  lottery: 'equal',
 }
 
 export function App() {
@@ -37,18 +40,36 @@ export function App() {
   const [yearChanges, setYearChanges] = useState<Change[]>([])
   const [choiceChanges, setChoiceChanges] = useState<Change[]>([])
   const [, rerender] = useReducer((x: number) => x + 1, 0)
+  // Лотерея рождения, пока барабаны крутятся: что выпало и загружена ли страна.
+  const [pending, setPending] = useState<{ seed: number; birth: Birth } | null>(null)
+  const [loadedVersion, setLoadedVersion] = useState(0)
 
-  const ui = useMemo(() => ({ t: createT(prefs.lang), lang: prefs.lang }), [prefs.lang])
   const state = game.current
-  const era = state ? eraById(state.hero.era) : eraById(DEFAULT_ERA)
+  const hero = state?.hero
+  const ui = useMemo(
+    () => ({ t: createT(prefs.lang, hero ? { region: hero.region, religion: hero.religion } : {}), lang: prefs.lang }),
+    [prefs.lang, hero?.region, hero?.religion, loadedVersion],
+  )
+  const era = state && isEraLoaded(state.hero.era) ? eraById(state.hero.era) : null
+
+  /** Загрузить страну и её тексты на текущем языке. */
+  const ensure = (eraId: string, lang = prefs.lang) =>
+    Promise.all([loadEra(eraId), loadEraTexts(lang, eraId)]).then(() => setLoadedVersion((v) => v + 1))
 
   useEffect(() => {
-    loadSave().then((save) => {
-      game.current = save.game
-      setMemorial(save.memorial)
+    loadSave().then(async (save) => {
+      game.current = save.game && ERA_META[save.game.hero.era] ? save.game : null
+      setMemorial(save.memorial.filter((l) => ERA_META[l.era]))
+      if (game.current) await ensure(game.current.hero.era)
       setScreen('menu')
     })
   }, [])
+
+  // При смене языка подгружаем тексты уже открытых стран.
+  useEffect(() => {
+    const ids = ERA_IDS.filter(isEraLoaded)
+    if (ids.length) Promise.all(ids.map((id) => loadEraTexts(prefs.lang, id))).then(() => setLoadedVersion((v) => v + 1))
+  }, [prefs.lang])
 
   useEffect(() => {
     const root = document.documentElement
@@ -88,31 +109,50 @@ export function App() {
     persist()
   }
 
+  /** «Родиться»: тянем жребий и показываем барабаны, страна тем временем загружается. */
   const startNew = () => {
+    const seed = newSeed()
+    const birth = rollBirth(seed, prefs.lottery, ERA_IDS.map((id) => ERA_META[id]))
+    setPending({ seed, birth })
+    setScreen('spin')
+    ensure(birth.era)
+  }
+
+  const bornAfterSpin = () => {
+    if (!pending) return
     const settings = { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy }
-    game.current = newLife(eraById(DEFAULT_ERA), settings, newSeed())
+    game.current = newLife(ERA_META[pending.birth.era], settings, pending.seed, undefined, pending.birth)
     const h = game.current.hero
-    track('life_start', { era: h.era, region: h.region, cls: h.cls, sex: h.sex, mode: prefs.mode })
+    track('life_start', { era: h.era, region: h.region, cls: h.cls, sex: h.sex, mode: prefs.mode, lottery: prefs.lottery })
+    setPending(null)
     setYearChanges([])
     setScreen('reveal')
     persist()
   }
 
+  const openPast = (id: string) => {
+    const life = memorial.find((l) => l.heroId === id)
+    if (!life) return
+    setOpened(id)
+    ensure(life.era).then(() => setScreen('past'))
+  }
+
   const onStart = (focus: string | null) => {
-    if (game.current?.phase !== 'year') return
+    if (!era || game.current?.phase !== 'year') return
     yearStart.current = snapshot(game.current)
     startYear(game.current, era, focus)
     afterTurn()
   }
 
   const onFinish = () => {
-    if (game.current?.phase !== 'running') return
+    if (!era || game.current?.phase !== 'running') return
     finishYear(game.current, era)
     if (yearStart.current) setYearChanges(changes(yearStart.current, game.current))
     afterTurn()
   }
 
   const onChoose = (choiceId: string | null) => {
+    if (!era) return
     const before = snapshot(game.current!)
     choose(game.current!, era, choiceId)
     setChoiceChanges(changes(before, game.current!))
@@ -120,6 +160,7 @@ export function App() {
   }
 
   const onDismiss = () => {
+    if (!era) return
     setChoiceChanges([])
     dismiss(game.current!, era)
     afterTurn()
@@ -132,6 +173,7 @@ export function App() {
   }
 
   const onHeir = (childId: string) => {
+    if (!era) return
     game.current = continueWithHeir(game.current!, era, childId)
     track('heir_chosen', { generation: game.current.hero.generation })
     setYearChanges([])
@@ -140,7 +182,7 @@ export function App() {
   }
 
   const onExport = () => {
-    const blob = new Blob([JSON.stringify({ version: 3, game: game.current, memorial })], { type: 'application/json' })
+    const blob = new Blob([JSON.stringify({ version: 4, game: game.current, memorial })], { type: 'application/json' })
     const a = document.createElement('a')
     a.href = URL.createObjectURL(blob)
     a.download = 'thousands-of-lives-save.json'
@@ -151,8 +193,9 @@ export function App() {
   const onImport = async (file: File) => {
     const save = parseSaveFile(await file.text())
     if (!save) return false
-    game.current = save.game
+    game.current = save.game && ERA_META[save.game.hero.era] ? save.game : null
     setMemorial(save.memorial)
+    if (game.current) await ensure(game.current.hero.era)
     await Promise.all([saveGame(save.game), saveMemorial(save.memorial)])
     rerender(0)
     return true
@@ -181,6 +224,7 @@ export function App() {
   }
   const lastLife = state?.phase === 'dead' ? memorial.find((l) => l.heroId === state.hero.id) ?? state.family.lives[state.family.lives.length - 1] : null
   const openedLife = memorial.find((l) => l.heroId === opened)
+  const openedEra = openedLife && isEraLoaded(openedLife.era) ? eraById(openedLife.era) : null
 
   return (
     <UiContext.Provider value={ui}>
@@ -190,19 +234,18 @@ export function App() {
           <Menu
             current={state}
             memorial={memorial}
-            eras={ERAS}
             onNew={() => setScreen('setup')}
             onContinue={() => setScreen(state?.phase === 'dead' ? 'death' : 'life')}
-            onOpenLife={(id) => {
-              setOpened(id)
-              setScreen('past')
-            }}
+            onOpenLife={openPast}
             go={setScreen}
           />
         )}
         {screen === 'setup' && <Setup prefs={prefs} onPrefs={setPrefs} onStart={startNew} onBack={toMenu} />}
-        {screen === 'reveal' && state && <Reveal state={state} era={era} onStart={() => setScreen('life')} />}
-        {screen === 'life' && state && state.phase !== 'dead' && (
+        {screen === 'spin' && pending && (
+          <Slots birth={pending.birth} seed={pending.seed} ready={isEraLoaded(pending.birth.era) && loadedVersion > 0} onDone={bornAfterSpin} onBack={() => setScreen('setup')} />
+        )}
+        {screen === 'reveal' && state && era && <Reveal state={state} era={era} onStart={() => setScreen('life')} />}
+        {screen === 'life' && state && era && state.phase !== 'dead' && (
           <Life
             state={state}
             era={era}
@@ -216,7 +259,7 @@ export function App() {
             yearChanges={yearChanges}
           />
         )}
-        {screen === 'death' && state && lastLife && (
+        {screen === 'death' && state && era && lastLife && (
           <Summary
             life={lastLife}
             era={era}
@@ -228,10 +271,10 @@ export function App() {
             onUpdate={onUpdateLife}
           />
         )}
-        {screen === 'past' && openedLife && (
+        {screen === 'past' && openedLife && openedEra && (
           <Summary
             life={openedLife}
-            era={eraById(openedLife.era)}
+            era={openedEra}
             canContinue={false}
             onAgain={() => setScreen('setup')}
             onMemorial={() => setScreen('memorial')}
@@ -239,14 +282,11 @@ export function App() {
             onUpdate={onUpdateLife}
           />
         )}
-        {screen === 'heirs' && state && <Heirs state={state} era={era} onChoose={onHeir} onBack={() => setScreen('death')} />}
+        {screen === 'heirs' && state && era && <Heirs state={state} era={era} onChoose={onHeir} onBack={() => setScreen('death')} />}
         {screen === 'memorial' && (
           <Memorial
             memorial={memorial}
-            onOpen={(id) => {
-              setOpened(id)
-              setScreen('past')
-            }}
+            onOpen={openPast}
             onBack={toMenu}
           />
         )}

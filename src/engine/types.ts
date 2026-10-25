@@ -65,6 +65,35 @@ export interface RegionDef {
   tags?: string[]
   /** Как делится наследство; по умолчанию — как задано для эпохи. */
   inheritance?: 'equal' | 'sons_first'
+  /** Вера жителей: id религии → вес. */
+  religions: Record<string, number>
+  /** С какого года вера жителей меняется (крещение, исламизация…): берётся последняя подходящая запись. */
+  religionEras?: { from: number; religions: Record<string, number> }[]
+  /** Вера по сословиям, если она отличается от общей (знать-мусульмане среди индусов). */
+  classReligions?: Record<string, Record<string, number>>
+  /** Стиль пиксельных сцен: архитектура, одежда, пейзаж. */
+  scene?: RegionScene
+  /** Годы, когда регион был столицей (иначе — тег capital на всё время). */
+  capital?: [number, number]
+}
+
+/** Как рисовать регион: палитра и набор построек. */
+export interface RegionScene {
+  /** Архитектурный стиль: roman, greek, egyptian, chinese, japanese, indian, islamic, gothic, byzantine, russian,
+   *  mesopotamian, maya, aztec, andean, sahel, ethiopian. */
+  style: string
+  /** Пейзаж за городом: green, dry, desert, snow, jungle, mountains, steppe. */
+  land?: string
+  /** Подпись для промпта настоящей иллюстрации, по-английски. */
+  prompt?: string
+}
+
+/** Религия. Названия и описание — в текстах: religion.<id>, religion.<id>.desc. */
+export interface ReligionDef {
+  id: string
+  /** Семья вер: christian, islamic, dharmic, polytheist… События могут ссылаться на семью вместо id. */
+  group: string
+  tags?: string[]
 }
 
 export interface ClassDef {
@@ -152,9 +181,18 @@ export interface CauseDef {
   conditions?: Condition[]
 }
 
-export interface EraDef {
+/** Описание страны и времени (era.json): загружается сразу для всех стран. */
+export interface EraMeta {
   id: string
+  /** Годы рождения героев. */
   years: [number, number]
+  /** Население в миллионах: вес в лотерее «как в жизни». */
+  population: number
+  /** Что есть в этой стране и времени: sea, horses, coins, wine, writing, iron… События общего слоя с needs
+   *  выпадают только там, где всё нужное есть. */
+  features: string[]
+  /** События общего слоя, которые здесь не подходят. */
+  exclude_events?: string[]
   regions: RegionDef[]
   classes: ClassDef[]
   professions: ProfessionDef[]
@@ -169,6 +207,10 @@ export interface EraDef {
   inheritance: 'equal' | 'sons_first'
   lifestyle: LifestyleDef[]
   vices: ViceDef[]
+}
+
+/** Страна со всем контентом: общий слой + местные события и вести. Загружается, когда нужна. */
+export interface EraDef extends EraMeta {
   events: EventDef[]
   news: NewsDef[]
   patternWeights: PatternWeights
@@ -211,6 +253,11 @@ export type Condition =
   | { no_npc: NpcRole }
   | { classes: string[] }
   | { age: [number, number] }
+  | { religion: string[] }
+  | { religion_absent: string[] }
+  /** Вера героя в его краю — вера меньшинства (меньше четверти жителей). */
+  | { minority: boolean }
+  | { region: string[] }
   | { any: Condition[] }
 
 export type Effect =
@@ -235,6 +282,10 @@ export type Effect =
   | { npc_untag: string }
   | { set_lifestyle: string; option: string }
   | { kill: string }
+  /** Сменить веру: id религии, 'other' — вторая по распространённости вера края, 'majority' — главная. */
+  | { set_religion: string }
+  /** Переехать в другой регион страны: id региона или '@capital', '@port', '@other'. */
+  | { migrate: string }
   | { chance: number; effects: Effect[] }
 
 export interface WeightModifier {
@@ -273,6 +324,13 @@ export interface EventDef {
   id: string
   type: EventType
   regions?: string[]
+  /** Только для этих стран / кроме этих стран (для событий общего слоя). */
+  eras?: string[]
+  not_eras?: string[]
+  /** Что должно быть в стране (см. EraMeta.features). */
+  needs?: string[]
+  /** Только для этих вер: id религии или семья (christian, islamic…). */
+  religions?: string[]
   years?: [number, number]
   age_range?: [number, number]
   classes?: string[]
@@ -368,6 +426,9 @@ export interface DiaryEntry {
   eventId?: string
   /** Весть из мира. */
   news?: string
+  /** Где жил герой и какой веры был, когда это случилось: тексты зависят от края и веры. */
+  reg?: string
+  rel?: string
 }
 
 export interface YearRecord {
@@ -399,6 +460,7 @@ export interface Hero {
   era: string
   region: string
   cls: string
+  religion: string
   age: number
   alive: boolean
   generation: number
@@ -439,6 +501,7 @@ export interface LifeSummary {
   era: string
   region: string
   cls: string
+  religion?: string
   profession: string | null
   birthYear: number
   deathYear: number

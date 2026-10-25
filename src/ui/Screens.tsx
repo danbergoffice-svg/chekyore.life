@@ -1,37 +1,36 @@
 import { useEffect, useState } from 'preact/hooks'
 import { heirs, inheritanceShare } from '../engine/life'
 import { regionOf, yearsBetween } from '../engine/rules'
+import { ERA_IDS, ERA_META } from '../content'
+import STATS from '../content/stats.json'
 import type { EraDef, GameState, LifeSummary, SceneDef } from '../engine/types'
 import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
 import { Scene } from '../pixel/Scene'
 import { useUi } from './text'
 
-const ERA_LIST = ['E01', 'E02', 'E03', 'E04', 'E05', 'E06', 'E07', 'E08', 'E09', 'E10', 'E11', 'E12']
-
-/** Виды для заставки: меняются каждые несколько секунд. */
-const SHOWCASE: { region: string; scene: SceneDef }[] = [
-  { region: 'rome', scene: { place: 'landmark', time: 'sunset', people: 4, props: ['sun'] } },
-  { region: 'egypt', scene: { place: 'river', time: 'day', people: 2, props: ['palm', 'grain'] } },
-  { region: 'athens', scene: { place: 'landmark', time: 'dawn', people: 3, props: ['olive'] } },
-  { region: 'rome', scene: { place: 'market', time: 'day', people: 5, props: ['amphora', 'cart'] } },
-  { region: 'egypt', scene: { place: 'harbor', time: 'sunset', people: 3, props: ['boat', 'sun'] } },
-  { region: 'athens', scene: { place: 'street', time: 'night', people: 2, props: ['moon', 'lamp'] } },
-]
+/** Виды для заставки: по региону каждой страны, меняются каждые несколько секунд. */
+const TIMES = ['sunset', 'day', 'dawn', 'day', 'night', 'overcast'] as const
+const SHOWCASE: { region: string; era: string; scene: SceneDef }[] = ERA_IDS.flatMap((id, i) =>
+  ERA_META[id].regions.slice(0, 2).map((r, j) => ({
+    region: r.id,
+    era: id,
+    scene: { place: j === 0 ? 'landmark' : 'street', time: TIMES[(i + j) % TIMES.length], people: 3 + j, props: [TIMES[(i + j) % TIMES.length] === 'night' ? 'moon' : 'sun'] } as SceneDef,
+  })),
+)
 
 interface MenuProps {
   current: GameState | null
   memorial: LifeSummary[]
-  eras: Record<string, EraDef>
   onNew: () => void
   onContinue: () => void
   onOpenLife: (heroId: string) => void
   go: (s: 'memorial' | 'settings' | 'about') => void
 }
 
-export function Menu({ current, memorial, eras, onNew, onContinue, onOpenLife, go }: MenuProps) {
+export function Menu({ current, memorial, onNew, onContinue, onOpenLife, go }: MenuProps) {
   const { t, lang } = useUi()
-  const [shot, setShot] = useState(0)
+  const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
     const id = setInterval(() => setShot((x) => (x + 1) % SHOWCASE.length), 5000)
     return () => clearInterval(id)
@@ -39,18 +38,11 @@ export function Menu({ current, memorial, eras, onNew, onContinue, onOpenLife, g
   const view = SHOWCASE[shot]
   const hero = current?.hero
   const playing = !!current && current.phase !== 'dead' && !!hero
-  const allEvents = Object.values(eras).flatMap((e) => e.events)
-  const stats = {
-    events: allEvents.length,
-    history: allEvents.filter((e) => e.type === 'global_historical').length,
-    news: Object.values(eras).reduce((n, e) => n + e.news.length, 0),
-    jobs: Object.values(eras).reduce((n, e) => n + e.professions.length, 0),
-  }
   return (
     <div class="screen menu">
       <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={t(`region.${view.region}`)} />
       <p class="small muted center">
-        {t(`region.${view.region}`)} · {t('era.E03')}
+        {t(`region.${view.region}`)} · {t(`era.${view.era}`)}
       </p>
       <div class="title-block">
         <span class="badge">{t('beta.badge')}</span>
@@ -86,12 +78,14 @@ export function Menu({ current, memorial, eras, onNew, onContinue, onOpenLife, g
 
       <section class="block">
         <h2 class="section-title">{t('menu.eras')}</h2>
+        <p class="muted small">{t('menu.eras.lead')}</p>
         <ol class="eras">
-          {ERA_LIST.map((id) => (
-            <li class={eras[id] ? 'open' : 'soon'}>
-              <span class="era-name">{t(`eras.${id}`)}</span>
-              <span class="muted small">{t(`eras.${id}.years`)}</span>
-              <span class="era-state small">{eras[id] ? t('menu.era_open') : t('menu.era_soon')}</span>
+          {ERA_IDS.map((id) => (
+            <li class="open">
+              <span class="era-name">{t(`era.${id}`)}</span>
+              <span class="muted small">
+                {t(`era.${id}.years`)} · {ERA_META[id].regions.map((r) => t(`region.${r.id}`)).join(', ')}
+              </span>
             </li>
           ))}
         </ol>
@@ -101,16 +95,16 @@ export function Menu({ current, memorial, eras, onNew, onContinue, onOpenLife, g
         <h2 class="section-title">{t('menu.inside')}</h2>
         <ul class="stats">
           <li>
-            <strong>{stats.events}</strong> {t('menu.stat.events')}
+            <strong>{STATS.events}</strong> {t('menu.stat.events')}
           </li>
           <li>
-            <strong>{stats.history}</strong> {t('menu.stat.history')}
+            <strong>{STATS.history}</strong> {t('menu.stat.history')}
           </li>
           <li>
-            <strong>{stats.news}</strong> {t('menu.stat.news')}
+            <strong>{STATS.news}</strong> {t('menu.stat.news')}
           </li>
           <li>
-            <strong>{stats.jobs}</strong> {t('menu.stat.jobs')}
+            <strong>{STATS.religions}</strong> {t('menu.stat.religions')}
           </li>
         </ul>
       </section>
@@ -173,6 +167,16 @@ function Choice<V extends string>(props: { title: string; value: V; options: { i
   )
 }
 
+/** Три самые многолюдные страны: подсказка к режиму «как в жизни». */
+function topByPopulation(t: (k: string) => string): string {
+  const total = ERA_IDS.reduce((n, id) => n + ERA_META[id].population, 0)
+  return [...ERA_IDS]
+    .sort((a, b) => ERA_META[b].population - ERA_META[a].population)
+    .slice(0, 3)
+    .map((id) => `${t(`era.${id}.short`)} ${Math.round((ERA_META[id].population / total) * 100)}%`)
+    .join(', ')
+}
+
 export function Setup(props: { prefs: Prefs; onPrefs: (p: Prefs) => void; onStart: () => void; onBack: () => void }) {
   const { t } = useUi()
   const p = props.prefs
@@ -181,6 +185,15 @@ export function Setup(props: { prefs: Prefs; onPrefs: (p: Prefs) => void; onStar
       <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
       <h1>{t('setup.title')}</h1>
       <p class="lead">{t('setup.lead')}</p>
+      <Choice
+        title={t('setup.lottery')}
+        value={p.lottery}
+        onChange={(lottery) => props.onPrefs({ ...p, lottery })}
+        options={[
+          { id: 'equal', label: t('setup.lottery.equal'), desc: t('setup.lottery.equal.desc', { n: ERA_IDS.length }) },
+          { id: 'population', label: t('setup.lottery.population'), desc: t('setup.lottery.population.desc', { top: topByPopulation(t) }) },
+        ]}
+      />
       <Choice
         title={t('setup.mode')}
         value={p.mode}
@@ -215,7 +228,7 @@ export function Setup(props: { prefs: Prefs; onPrefs: (p: Prefs) => void; onStar
 export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void }) {
   const { t, lang } = useUi()
   const hero = props.state.hero
-  const o = { sex: hero.sex }
+  const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
   const father = hero.npcs.find((n) => n.role === 'father')
   const mother = hero.npcs.find((n) => n.role === 'mother')
   const siblings = hero.npcs.filter((n) => n.role === 'sibling' && n.alive).length
@@ -239,6 +252,11 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
         <dd>{formatYear(hero.birthYear, lang)}{isHeir ? ` · ${t('life.age', { n: hero.age })}` : ''}</dd>
         <dt>{t('reveal.class')}</dt>
         <dd>{t(`class.${hero.cls}`, {}, o)}</dd>
+        <dt>{t('reveal.faith')}</dt>
+        <dd>
+          <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
+          <span class="muted small"> — {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+        </dd>
         <dt>{t('reveal.family')}</dt>
         <dd>
           {father && `${t('reveal.father')}: ${nameOf(father.name, lang)}${father.alive ? '' : ' †'}`}

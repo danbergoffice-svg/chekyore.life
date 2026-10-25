@@ -1,10 +1,39 @@
 import { bell, chance, int, pick, weighted } from './rng'
-import { addYears, aliveNpcs, clamp, makeNpc, regionOf, yearsBetween } from './rules'
+import { addYears, aliveNpcs, clamp, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
-import type { AttrId, DiaryEntry, EraDef, Family, GameSettings, GameState, Hero, LifeSummary, Npc } from './types'
+import type { AttrId, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
 
-export const SAVE_VERSION = 3
+export const SAVE_VERSION = 4
+
+/** Где, когда и кем родиться: результат лотереи рождения. */
+export interface Birth {
+  era: string
+  region: string
+  year: number
+  cls: string
+  sex: Sex
+}
+
+/** equal — все страны поровну; population — по числу жителей, как в жизни. */
+export type Lottery = 'equal' | 'population'
+
+/** Регионы, где можно родиться в этой стране (успеть прожить хотя бы 40 лет до конца окна). */
+function birthRegions(era: EraMeta): RegionDef[] {
+  return era.regions.filter((r) => r.years[1] - r.years[0] >= 40)
+}
+
+/** Лотерея рождения. Отдельный поток случайных чисел, чтобы жизнь от того же seed не менялась. */
+export function rollBirth(seed: number, lottery: Lottery, eras: EraMeta[]): Birth {
+  const h = { rng: (seed ^ 0x5bd1e995) >>> 0 }
+  const era = lottery === 'population' ? weighted(h, eras, (e) => e.population)! : pick(h, eras)
+  const region = weighted(h, birthRegions(era), (r) => r.weight)!
+  let year = int(h, region.years[0], region.years[1] - 40)
+  if (year === 0) year = 1
+  const classes = era.classes.filter((c) => (region.classWeights[c.id] ?? 0) > 0)
+  const cls = weighted(h, classes, (c) => region.classWeights[c.id])!.id
+  return { era: era.id, region: region.id, year, cls, sex: chance(h, 0.5) ? 'm' : 'f' }
+}
 
 function emptyHero(seed: number): Hero {
   return {
@@ -15,6 +44,7 @@ function emptyHero(seed: number): Hero {
     era: '',
     region: '',
     cls: '',
+    religion: '',
     age: 0,
     alive: true,
     generation: 1,
@@ -39,7 +69,7 @@ function emptyHero(seed: number): Hero {
   }
 }
 
-function rollTraits(state: GameState, era: EraDef, inherited: string[] = []): string[] {
+function rollTraits(state: GameState, era: EraDef | EraMeta, inherited: string[] = []): string[] {
   const traits = inherited.filter(() => chance(state, 0.4))
   const want = int(state, 2, 3)
   let guard = 0
@@ -58,8 +88,8 @@ function rollAttrs(state: GameState, hero: Hero, parent?: Hero): void {
   }
 }
 
-/** Новая случайная жизнь. */
-export function newLife(era: EraDef, settings: GameSettings, seed: number, family?: Family): GameState {
+/** Новая жизнь. Без birth место, время и сословие выбираются случайно внутри страны. */
+export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: number, family?: Family, birth?: Birth): GameState {
   const hero = emptyHero(seed)
   const state: GameState = {
     version: SAVE_VERSION,
@@ -78,17 +108,18 @@ export function newLife(era: EraDef, settings: GameSettings, seed: number, famil
   hero.id = `h${seed.toString(36)}`
   hero.era = era.id
 
-  const region = weighted(state, era.regions, (r) => r.weight)!
+  const region = birth ? regionOf(era, birth.region) : weighted(state, birthRegions(era), (r) => r.weight)!
   hero.region = region.id
   hero.places = [region.id]
-  hero.birthYear = int(state, region.years[0], region.years[1] - 40)
+  hero.birthYear = birth?.year ?? int(state, region.years[0], region.years[1] - 40)
   if (hero.birthYear === 0) hero.birthYear = 1
   state.year = hero.birthYear
 
   const classes = era.classes.filter((c) => (region.classWeights[c.id] ?? 0) > 0)
-  const cls = weighted(state, classes, (c) => region.classWeights[c.id])!
+  const cls = (birth && era.classes.find((c) => c.id === birth.cls)) || weighted(state, classes, (c) => region.classWeights[c.id])!
   hero.cls = cls.id
-  hero.sex = chance(state, 0.5) ? 'm' : 'f'
+  hero.sex = birth?.sex ?? (chance(state, 0.5) ? 'm' : 'f')
+  hero.religion = rollReligion(state, region, hero.birthYear, cls.id)
   hero.name = pick(state, region.names[hero.sex]).id
   hero.money = int(state, cls.money[0], cls.money[1])
   hero.tags = [...(region.tags ?? []), ...(cls.tags ?? [])]
@@ -103,7 +134,7 @@ export function newLife(era: EraDef, settings: GameSettings, seed: number, famil
   for (let i = 0; i < siblings; i++) {
     makeNpc(state, era, 'sibling', undefined, addYears(hero.birthYear, -int(state, 1, 10)), int(state, 10, 60))
   }
-  hero.diary.push({ year: state.year, age: 0, key: 'diary.born', params: { region: { key: `region.${hero.region}` }, cls: { key: `class.${hero.cls}` } }, major: true, topic: 'family', icon: 'birth', score: 100 })
+  hero.diary.push({ year: state.year, age: 0, key: 'diary.born', params: { region: { key: `region.${hero.region}` }, cls: { key: `class.${hero.cls}` } }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
   return state
 }
 
@@ -125,6 +156,7 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     era: h.era,
     region: h.region,
     cls: h.cls,
+    religion: h.religion,
     profession: h.profession,
     birthYear: h.birthYear,
     deathYear: h.deathYear ?? state.year,
@@ -183,6 +215,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.region = parent.region
   hero.places = [parent.places[parent.places.length - 1] ?? parent.region]
   hero.cls = parent.cls
+  hero.religion = parent.religion
   hero.generation = parent.generation + 1
   hero.name = child.name
   hero.sex = child.sex
@@ -221,6 +254,6 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     if (n.role === 'spouse') hero.npcs.push({ ...n, role: n.sex === 'm' ? 'father' : 'mother', attitude: 50 })
     if (n.role === 'child' && n.id !== child.id && n.alive) hero.npcs.push({ ...n, role: 'sibling', attitude: 30 })
   }
-  hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, major: true, topic: 'family', icon: 'birth', score: 100 })
+  hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
   return state
 }

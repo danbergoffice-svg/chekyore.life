@@ -55,13 +55,13 @@ interface SummaryProps {
 export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate }: SummaryProps) {
   const { t, lang } = useUi()
   const r = life.report
-  const o = { sex: life.sex, region: life.region }
+  const o = { sex: life.sex, region: life.region, religion: life.religion }
   const name = nameOf(life.name, lang)
   const coin = regionOf(era, life.region).coin
   const [sharing, setSharing] = useState(false)
   const starred = life.starred ?? []
   const toggleStar = (i: number) => onUpdate({ ...life, starred: starred.includes(i) ? starred.filter((x) => x !== i) : [...starred, i] })
-  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region)
+  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion)
   const archetype = t(`archetype.${r.pattern.code}`)
 
   const bio = r.biography.map((s) => {
@@ -301,7 +301,7 @@ function FullRecord({ life, era, starred, onStar }: { life: LifeSummary; era: Er
   const { t } = useUi()
   const [filter, setFilter] = useState<Filter>('all')
   const [notes, setNotes] = useState<number[]>([])
-  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region)
+  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion)
   const visible = life.diary
     .map((e, i) => [e, i] as const)
     .filter(([e]) => !e.key.startsWith('diary.stage_'))
@@ -413,13 +413,13 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
   const [copied, setCopied] = useState(false)
   const canvas = useRef<HTMLCanvasElement>(null)
   const clean = cleanLine(draft)
-  const o = { sex: life.sex, region: life.region }
+  const o = { sex: life.sex, region: life.region, religion: life.religion }
   const name = nameOf(life.name, lang)
   const years = `${formatYear(life.birthYear, lang)} — ${formatYear(life.deathYear, lang)}`
   const r = life.report
   const starred = (life.starred ?? []).map((i) => life.diary[i]).filter(Boolean)
   const facts = useMemo(() => {
-    if (starred.length) return starred.slice(0, 3).map((e) => diaryText(t, e, life.sex, life.region))
+    if (starred.length) return starred.slice(0, 3).map((e) => diaryText(t, e, life.sex, life.region, life.religion))
     const out = [life.profession ? t(`prof.${life.profession}`, {}, o) : t(`class.${life.cls}`, {}, o)]
     out.push(t('facts.children_value', { n: r.facts.children, grand: r.facts.grandchildren }))
     out.push(`${t('summary.cause')}: ${t(`cause.${life.cause}`)}`)

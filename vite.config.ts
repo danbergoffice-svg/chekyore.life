@@ -5,6 +5,19 @@ export default defineConfig({
   // Относительные пути: сайт работает и на своём домене, и на временном адресе github.io/chekyore.life/
   base: './',
   esbuild: { jsx: 'automatic', jsxImportSource: 'preact' },
+  build: {
+    rollupOptions: {
+      output: {
+        // Контент страны склеивается в несколько файлов: события и вести, тексты на каждом языке.
+        manualChunks(id) {
+          const m = id.match(/src\/content\/(\w+)\/(events|news|ru|en)[^/]*\.json$/)
+          if (!m) return undefined
+          const kind = m[2] === 'news' ? 'events' : m[2]
+          return `c-${m[1]}-${kind}`
+        },
+      },
+    },
+  },
   // Симуляционные прогоны тысяч жизней идут дольше обычных тестов.
   test: { testTimeout: 60000 },
 })

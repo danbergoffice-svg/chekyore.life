@@ -4,6 +4,19 @@
     -500,
     200
   ],
+  "population": 50,
+  "features": [
+    "sea",
+    "horses",
+    "coins",
+    "wine",
+    "writing",
+    "iron",
+    "baths",
+    "olive",
+    "camels",
+    "slavery"
+  ],
   "stages": {
     "youth": 12,
     "adult": 18,
@@ -466,7 +479,35 @@
             "en": "Lucilla"
           }
         ]
-      }
+      },
+      "religions": {
+        "roman_gods": 95,
+        "judaism": 4
+      },
+      "religionEras": [
+        {
+          "from": 60,
+          "religions": {
+            "roman_gods": 92,
+            "judaism": 4,
+            "christian": 3
+          }
+        },
+        {
+          "from": 150,
+          "religions": {
+            "roman_gods": 88,
+            "judaism": 4,
+            "christian": 7
+          }
+        }
+      ],
+      "scene": {
+        "style": "roman"
+      },
+      "tags": [
+        "capital"
+      ]
     },
     {
       "id": "athens",
@@ -890,7 +931,27 @@
             "en": "Agariste"
           }
         ]
-      }
+      },
+      "religions": {
+        "roman_gods": 97,
+        "judaism": 2
+      },
+      "religionEras": [
+        {
+          "from": 100,
+          "religions": {
+            "roman_gods": 93,
+            "judaism": 2,
+            "christian": 4
+          }
+        }
+      ],
+      "scene": {
+        "style": "greek"
+      },
+      "tags": [
+        "port"
+      ]
     },
     {
       "id": "egypt",
@@ -1313,7 +1374,29 @@
             "en": "Helene"
           }
         ]
-      }
+      },
+      "religions": {
+        "egyptian_gods": 70,
+        "roman_gods": 18,
+        "judaism": 10
+      },
+      "religionEras": [
+        {
+          "from": 100,
+          "religions": {
+            "egyptian_gods": 64,
+            "roman_gods": 18,
+            "judaism": 10,
+            "christian": 6
+          }
+        }
+      ],
+      "scene": {
+        "style": "egyptian"
+      },
+      "tags": [
+        "port"
+      ]
     }
   ],
   "classes": [

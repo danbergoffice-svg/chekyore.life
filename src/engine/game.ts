@@ -8,6 +8,7 @@ import {
   changeSkill,
   check,
   checkAll,
+  faithMatches,
   getParam,
   killNpc,
   note,
@@ -342,6 +343,7 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   if (ev.regions && !ev.regions.includes(hero.region)) return false
   if (ev.classes && !ev.classes.includes(hero.cls)) return false
   if (ev.sex && ev.sex !== hero.sex) return false
+  if (ev.religions && !faithMatches(hero.religion, ev.religions)) return false
   if (!ignoreTiming) {
     if (ev.years && (state.year < ev.years[0] || state.year > ev.years[1])) return false
     if (ev.age_range && (hero.age < ev.age_range[0] || hero.age > ev.age_range[1])) return false
@@ -427,7 +429,8 @@ function quickFit(state: GameState, ev: EventDef): boolean {
     (!ev.years || (state.year >= ev.years[0] && state.year <= ev.years[1])) &&
     (!ev.regions || ev.regions.includes(hero.region)) &&
     (!ev.classes || ev.classes.includes(hero.cls)) &&
-    (!ev.sex || ev.sex === hero.sex)
+    (!ev.sex || ev.sex === hero.sex) &&
+    (!ev.religions || faithMatches(hero.religion, ev.religions))
   )
 }
 

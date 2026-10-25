@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { ERAS } from '../src/content'
+import { loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
 import { continueWithHeir, heirs, newLife } from '../src/engine/life'
 import type { GameSettings } from '../src/engine/types'
 
+const ERAS = await loadAllEras()
 const era = ERAS.E03
 const historical: GameSettings = { mode: 'full', mortality: 'historical', softenHeavy: false }
 const soft: GameSettings = { mode: 'full', mortality: 'soft', softenHeavy: false }

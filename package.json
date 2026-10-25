@@ -6,7 +6,9 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "prompts": "vite-node tools/export-prompts.ts"
+    "prompts": "vite-node tools/export-prompts.ts",
+    "stats": "vite-node tools/stats.ts",
+    "check": "vite-node tools/check.ts"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

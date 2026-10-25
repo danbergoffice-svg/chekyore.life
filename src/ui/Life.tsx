@@ -12,7 +12,7 @@ import {
   riskChance,
   stageOf,
 } from '../engine/game'
-import { checkAll, npcAge, regionOf } from '../engine/rules'
+import { checkAll, contextParams, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Npc } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
@@ -52,7 +52,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
 export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onMenu, choiceChanges, yearChanges }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
-  const o = { sex: hero.sex, region: hero.region }
+  const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
   const coin = regionOf(era, hero.region).coin
   const [tab, setTab] = useState<Tab>('life')
   const focuses = availableFocuses(state, era)
@@ -160,7 +160,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
               {feed.map(([d]) => (
                 <li class={`${d.news ? 'news' : ''} ${d.major ? 'major' : ''} ${d.year === state.year ? 'now' : ''}`}>
                   <span class="diary-age">{d.news ? t('life.news') : t('diary.age', { n: d.age })}</span>
-                  <span>{diaryText(t, d, hero.sex, hero.region)}</span>
+                  <span>{diaryText(t, d, hero.sex, hero.region, hero.religion)}</span>
                 </li>
               ))}
             </ul>
@@ -256,7 +256,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
               {[...entries].reverse().map(([d]) => (
                 <li class={`${d.major ? 'major' : ''} ${d.news ? 'news' : ''}`}>
                   <span class="diary-age">{t('diary.age', { n: d.age })}</span>
-                  <span>{diaryText(t, d, hero.sex, hero.region)}</span>
+                  <span>{diaryText(t, d, hero.sex, hero.region, hero.religion)}</span>
                 </li>
               ))}
             </ol>
@@ -413,11 +413,11 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   const [noteOpen, setNoteOpen] = useState(false)
   if (!ev) return null
   const hero = state.hero
-  const o = { sex: hero.sex, region: hero.region }
+  const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
   const coin = regionOf(era, hero.region).coin
   const active = state.queue[0]
   const outcome = active?.outcome
-  const params = active ? eventParams(state, active) : {}
+  const params = { ...contextParams(hero.region, hero.religion, state.year), ...(active ? eventParams(state, active) : {}) }
   const choices = eventChoices(state, era, ev)
   const isProfession = ev.dynamic === 'profession'
   const isName = ev.dynamic === 'name'

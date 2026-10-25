@@ -1,5 +1,6 @@
 // Сохранения: IndexedDB, а если он недоступен (приватный режим и т.п.) — localStorage.
 import { SAVE_VERSION } from './engine/life'
+import type { Lottery } from './engine/life'
 import type { GameState, Lang, LifeSummary } from './engine/types'
 
 export interface Prefs {
@@ -10,6 +11,8 @@ export interface Prefs {
   mode: 'quick' | 'full'
   mortality: 'soft' | 'historical'
   softenHeavy: boolean
+  /** Лотерея рождения: все страны поровну или по числу жителей. */
+  lottery: Lottery
 }
 
 export interface SaveFile {
@@ -65,9 +68,15 @@ async function put(key: string, value: unknown): Promise<void> {
   }
 }
 
-/** Миграции сохранений между версиями. Пока версия одна. */
+const OLD_FAITH: Record<string, string> = { rome: 'roman_gods', athens: 'roman_gods', egypt: 'egyptian_gods' }
+
+/** Миграции сохранений между версиями. 3 → 4: у героя появилась вера. */
 function migrate(game: GameState | undefined): GameState | null {
   if (!game || typeof game !== 'object') return null
+  if (game.version === 3) {
+    game.hero.religion ??= OLD_FAITH[game.hero.region] ?? 'roman_gods'
+    game.version = 4
+  }
   if (game.version !== SAVE_VERSION) return null
   return game
 }
