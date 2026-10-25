@@ -1,0 +1,6887 @@
+[
+ {
+  "id": "may_m_tamales",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   3,
+   10
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_m_cacao_foam",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   8,
+   70
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "table",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "may_m_milpa_burn",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   7,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "may_m_planting_stick",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   8,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 2
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_turkey_dog",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   3,
+   9
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_m_howlers",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   4,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "tree",
+    "palm"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "may_m_jaguar_tracks",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   8,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "slave",
+   "craftsman"
+  ],
+  "conditions": [
+   {
+    "tag": "rural"
+   }
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "risk_tolerance",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_cross_eyed_bead",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   3,
+   6
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "cradle"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_jade_teeth",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   16,
+   40
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -2
+   },
+   {
+    "param": "reputation",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_m_tikal_temples",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "tikal"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "sun",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_reservoir",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "tikal",
+   "calakmul"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_bajo",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "calakmul"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "rain",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_sacbe",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "calakmul",
+   "tikal"
+  ],
+  "age_range": [
+   8,
+   80
+  ],
+  "scene": {
+   "place": "road",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_m_palenque_water",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "palenque"
+  ],
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_usumacinta",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "palenque"
+  ],
+  "age_range": [
+   8,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_copan_stelae",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "copan"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "statue",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_copan_macaws",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "copan"
+  ],
+  "age_range": [
+   4,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_m_market",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   6,
+   80
+  ],
+  "conditions": [
+   {
+    "tag": "lives_in_city"
+   }
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "trade",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_obsidian_cut",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   10,
+   60
+  ],
+  "classes": [
+   "craftsman",
+   "peasant"
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -1
+   },
+   {
+    "skill": "craft",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_ballgame_watch",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_m_painted_vase",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   8,
+   60
+  ],
+  "classes": [
+   "craftsman",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 1
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_first_rain",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   5,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "slave",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_m_sweatbath",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   10,
+   80
+  ],
+  "scene": {
+   "place": "bath",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_m_cotton_spindle",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "sex": "f",
+  "age_range": [
+   6,
+   14
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "loom"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "craft",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_m_backstrap",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "sex": "f",
+  "age_range": [
+   13,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "slave"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "loom",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "craft",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "may_m_chultun",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "tikal",
+   "calakmul"
+  ],
+  "age_range": [
+   6,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_venus",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   6,
+   14
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_house_floor",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   8,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "may_m_stucco_mask",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   6,
+   80
+  ],
+  "conditions": [
+   {
+    "tag": "lives_in_city"
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "statue",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_feather_dance",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 6,
+   "props": [
+    "banner",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "may_m_captive_water",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "classes": [
+   "slave"
+  ],
+  "age_range": [
+   8,
+   60
+  ],
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -1
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "may_m_captive_language",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "classes": [
+   "slave"
+  ],
+  "age_range": [
+   10,
+   70
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -4
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_m_drought_dust",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3.5,
+  "topic": "life",
+  "years": [
+   790,
+   930
+  ],
+  "age_range": [
+   8,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "slave",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -3
+   },
+   {
+    "param": "health",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_m_empty_houses",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3.5,
+  "topic": "life",
+  "years": [
+   810,
+   950
+  ],
+  "age_range": [
+   8,
+   90
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 1,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": 3
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_m_mosquitoes",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "rain",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 1
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "may_m_tapir",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "river",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_m_scribe_numbers",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   6,
+   12
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "may_m_copal",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "smoke",
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "may_d_tribute",
+  "type": "personal",
+  "once": false,
+  "base_weight": 2,
+  "topic": "money",
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -80
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "plead",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": -15
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -50
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_corvee",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "work",
+  "age_range": [
+   16,
+   50
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "sun",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "substitute",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "flee",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.4,
+      "trigger_event": "may_d_corvee_remembered"
+     }
+    ],
+    "pattern": {
+     "home_road": 4,
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_corvee_remembered",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": []
+  },
+  "choices": [
+   {
+    "id": "gifts",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": -4
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_d_ball_bet",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "money",
+  "age_range": [
+   16,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "big",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "happiness",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -3
+      }
+     ]
+    },
+    "effects": [
+     {
+      "chance": 0.2,
+      "effects": [
+       {
+        "add_tag": "gambler"
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "small",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 30
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 1
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_first_blood",
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "age_range": [
+   13,
+   18
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "religions": [
+   "maya_gods"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "smoke",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "endure",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "faith",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "param": "self_esteem",
+       "delta": 4
+      },
+      {
+       "param": "health",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -4
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      },
+      {
+       "param": "self_esteem",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "delay",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": -3
+     },
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_bride_service",
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "family",
+  "sex": "m",
+  "age_range": [
+   16,
+   23
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "conditions": [
+   {
+    "tag_absent": "married"
+   },
+   {
+    "no_npc": "spouse"
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "add_npc": "spouse",
+      "attitude": 35
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "skill": "farming",
+      "delta": 3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       7
+      ],
+      "chance": 0.6,
+      "trigger_event": "may_d_bride_service_end"
+     }
+    ],
+    "icon": "wedding",
+    "pattern": {
+     "home_road": -3,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "gifts",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 120
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     },
+     {
+      "add_npc": "spouse",
+      "attitude": 20
+     }
+    ],
+    "icon": "wedding",
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_bride_service_end",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "conditions": [
+   {
+    "has_npc": "spouse"
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 5
+   },
+   {
+    "param": "money",
+    "delta": 60
+   },
+   {
+    "npc_attitude": "spouse",
+    "delta": 10
+   },
+   {
+    "param": "happiness",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "id": "may_d_scribe_lessons",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3.5,
+  "topic": "life",
+  "age_range": [
+   8,
+   14
+  ],
+  "classes": [
+   "craftsman",
+   "landowner",
+   "noble"
+  ],
+  "weight_modifiers": [
+   {
+    "if": {
+     "trait": "curious"
+    },
+    "multiply": 2
+   }
+  ],
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "study",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "skill": "literacy",
+      "delta": 12
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "add_tag": "schooled"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       8
+      ],
+      "chance": 0.7,
+      "trigger_event": "may_d_scribe_offer"
+     }
+    ],
+    "icon": "study",
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_scribe_offer",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "work",
+  "conditions": [
+   {
+    "age": [
+     14,
+     40
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 15
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "scribe"
+     },
+     {
+      "skill": "literacy",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_d_tired_milpa",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "work",
+  "age_range": [
+   18,
+   65
+  ],
+  "classes": [
+   "peasant"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "grain",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "clear_new",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "money",
+      "delta": 30
+     },
+     {
+      "skill": "farming",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "terraces",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "skill": "farming",
+      "delta": 5
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       12
+      ],
+      "chance": 0.6,
+      "trigger_event": "may_d_terraces_pay"
+     }
+    ],
+    "pattern": {
+     "home_road": -3,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "keep",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -1
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      },
+      {
+       "param": "health",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_terraces_pay",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "work",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 90
+   },
+   {
+    "param": "self_esteem",
+    "delta": 4
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "may_d_salt_trip",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "money",
+  "sex": "m",
+  "age_range": [
+   16,
+   50
+  ],
+  "classes": [
+   "peasant",
+   "trader",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 90
+      },
+      {
+       "skill": "trade",
+       "delta": 4
+      },
+      {
+       "param": "happiness",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -8
+      },
+      {
+       "param": "money",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_dayname",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3.5,
+  "topic": "life",
+  "age_range": [
+   12,
+   15
+  ],
+  "classes": [
+   "slave",
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "religions": [
+   "maya_gods"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "altar",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "cleanse",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "shrug",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_buy_captive",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2,
+  "topic": "money",
+  "age_range": [
+   20,
+   65
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "sensitive": true,
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 150
+   }
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "skill": "management",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.5,
+      "trigger_event": "may_d_captive_loyal"
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "free",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "add_trait": "generous"
+     }
+    ],
+    "pattern": {
+     "craft_power": -3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": []
+   }
+  ]
+ },
+ {
+  "id": "may_d_captive_loyal",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 80
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "may_d_war_levy",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "work",
+  "sex": "m",
+  "age_range": [
+   17,
+   40
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "skill": "military",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      },
+      {
+       "skill": "military",
+       "delta": 3
+      }
+     ]
+    },
+    "icon": "war",
+    "pattern": {
+     "craft_power": 3,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "money",
+       "delta": -30
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "gifts",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ],
+    "pattern": {
+     "craft_power": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_feast_host",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "money",
+  "age_range": [
+   25,
+   70
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 200
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "table",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lavish",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -300
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.5,
+      "trigger_event": "may_d_feast_returned"
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": -1
+    }
+   },
+   {
+    "id": "modest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "none",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -4
+     },
+     {
+      "param": "money",
+      "delta": 20
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_feast_returned",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 220
+   },
+   {
+    "param": "reputation",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "id": "may_d_name_vase",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2,
+  "topic": "money",
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "commission",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 120
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "skip",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 10
+     }
+    ],
+    "pattern": {
+     "memory_future": 1
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_reservoir_work",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "tikal",
+   "calakmul"
+  ],
+  "age_range": [
+   14,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -1
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -2,
+     "memory_future": -1
+    }
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     }
+    ]
+   },
+   {
+    "id": "skip",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": 1
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_green_obsidian",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "money",
+  "years": [
+   550,
+   650
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "trader",
+   "craftsman",
+   "landowner"
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 140
+      },
+      {
+       "skill": "trade",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "skip",
+    "effects": [],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_deer_hunt",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "sex": "m",
+  "age_range": [
+   14,
+   50
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 20
+      },
+      {
+       "param": "happiness",
+       "delta": 3
+      },
+      {
+       "skill": "military",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_d_snakebite",
+  "type": "personal",
+  "once": true,
+  "base_weight": 1.5,
+  "topic": "health",
+  "age_range": [
+   8,
+   60
+  ],
+  "classes": [
+   "slave",
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "tag": "rural"
+   }
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "healer",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.8,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "add_tag": "ill"
+      }
+     ]
+    }
+   },
+   {
+    "id": "herbs",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      },
+      {
+       "add_tag": "ill"
+      }
+     ]
+    }
+   },
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "add_tag": "ill"
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_captive_ransom",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   12,
+   50
+  ],
+  "classes": [
+   "slave"
+  ],
+  "sensitive": true,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hope",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.5,
+      "trigger_event": "may_d_ransom_freed"
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "plead",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "set_class": "peasant"
+      },
+      {
+       "remove_tag": "enslaved"
+      },
+      {
+       "set_profession": "farmer"
+      },
+      {
+       "param": "happiness",
+       "delta": 15
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -5
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "icon": "freedom",
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": -2
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_d_ransom_freed",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "classes": [
+   "slave"
+  ],
+  "icon": "freedom",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "set_class": "peasant"
+   },
+   {
+    "remove_tag": "enslaved"
+   },
+   {
+    "set_profession": "farmer"
+   },
+   {
+    "param": "happiness",
+    "delta": 15
+   },
+   {
+    "param": "self_esteem",
+    "delta": 8
+   }
+  ]
+ },
+ {
+  "id": "may_d_court_guest",
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "age_range": [
+   12,
+   20
+  ],
+  "classes": [
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "skill": "management",
+      "delta": 4
+     },
+     {
+      "skill": "oratory",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       8
+      ],
+      "chance": 0.7,
+      "trigger_event": "may_d_court_guest_return"
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_court_guest_return",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 8
+   },
+   {
+    "add_npc": "patron",
+    "attitude": 30
+   },
+   {
+    "param": "loneliness",
+    "delta": -4
+   }
+  ]
+ },
+ {
+  "id": "may_d_drought_store",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "money",
+  "years": [
+   790,
+   920
+  ],
+  "age_range": [
+   18,
+   75
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "store",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "param": "health",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_d_cacao_grove",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "money",
+  "regions": [
+   "palenque",
+   "copan"
+  ],
+  "age_range": [
+   20,
+   55
+  ],
+  "classes": [
+   "peasant",
+   "trader",
+   "landowner"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree",
+    "palm"
+   ]
+  },
+  "choices": [
+   {
+    "id": "plant",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "skill": "farming",
+      "delta": 3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       7
+      ],
+      "chance": 0.75,
+      "trigger_event": "may_d_cacao_harvest"
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "skip",
+    "effects": []
+   }
+  ]
+ },
+ {
+  "id": "may_d_cacao_harvest",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 250
+   },
+   {
+    "param": "happiness",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "id": "may_d_apprentice_jade",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "work",
+  "age_range": [
+   14,
+   20
+  ],
+  "classes": [
+   "craftsman",
+   "peasant"
+  ],
+  "conditions": [
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "laborer",
+       "artisan",
+       "farmer"
+      ]
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "apprentice",
+    "effects": [
+     {
+      "set_profession": "jade_carver"
+     },
+     {
+      "set_class": "craftsman"
+     },
+     {
+      "skill": "craft",
+      "delta": 6
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": []
+   }
+  ]
+ },
+ {
+  "id": "may_t_captured",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   16,
+   50
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "fire",
+    "smoke",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "add_trait": "brave"
+      },
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -12
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "flee",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -12
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 4
+    }
+   },
+   {
+    "id": "surrender",
+    "effects": [
+     {
+      "set_class": "slave"
+     },
+     {
+      "set_profession": "field_slave"
+     },
+     {
+      "add_tag": "enslaved"
+     },
+     {
+      "remove_tag": "lives_in_city"
+     },
+     {
+      "remove_tag": "wealthy"
+     },
+     {
+      "money_pct": -100
+     },
+     {
+      "param": "happiness",
+      "delta": -25
+     },
+     {
+      "param": "self_esteem",
+      "delta": -12
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.4,
+      "trigger_event": "may_d_ransom_freed"
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_noble_captured",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "sex": "m",
+  "age_range": [
+   18,
+   50
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "sensitive": true,
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ransom",
+    "risk_roll": {
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "money_pct": -60
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -12
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "escape",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "add_trait": "brave"
+      },
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ],
+     "on_failure": [
+      {
+       "chance": 0.5,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      },
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -12
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "param": "reputation",
+      "delta": -10
+     },
+     {
+      "param": "loneliness",
+      "delta": 10
+     },
+     {
+      "money_pct": -50
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_jade_cache",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   12,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 400
+     },
+     {
+      "param": "faith",
+      "delta": -4
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.4,
+      "trigger_event": "may_t_cache_curse"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "money",
+      "delta": 50
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "rebury",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_cache_curse",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "add_tag": "ill"
+   },
+   {
+    "param": "health",
+    "delta": -8
+   },
+   {
+    "param": "stress",
+    "delta": 6
+   },
+   {
+    "param": "faith",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "may_t_lord_notice",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   16,
+   40
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_class": "landowner"
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "reputation",
+      "delta": 10
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.45,
+      "trigger_event": "may_t_court_intrigue"
+     }
+    ],
+    "pattern": {
+     "craft_power": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": -4,
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_court_intrigue",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "loyal",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "money",
+       "delta": 150
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "set_class": "craftsman"
+      }
+     ]
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "set_class": "craftsman"
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     },
+     {
+      "money_pct": -20
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_t_sorcery",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   25,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "sensitive": true,
+  "icon": "loss",
+  "others": [
+   "child",
+   "mother"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 5,
+   "props": []
+  },
+  "choices": [
+   {
+    "id": "judgment",
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -15
+      },
+      {
+       "param": "money",
+       "delta": -100
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 120
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_hurricane",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   10,
+   80
+  ],
+  "classes": [
+   "slave",
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "icon": "disaster",
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "rain",
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "rebuild",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "diligence",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "move",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -25
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "ask_lord",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 100
+      },
+      {
+       "money_pct": -20
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "reputation",
+       "delta": -2
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_house_fire",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   12,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "icon": "disaster",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "goods",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -15
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -45
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "people",
+    "effects": [
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "add_trait": "brave"
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_robbed",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   16,
+   65
+  ],
+  "classes": [
+   "trader"
+  ],
+  "icon": "loss",
+  "scene": {
+   "place": "road",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "money",
+       "delta": 50
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -60
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "give",
+    "effects": [
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ]
+   },
+   {
+    "id": "bargain",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -15
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -60
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 1
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_adopted",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   10,
+   20
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_class": "landowner"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 50
+     },
+     {
+      "add_tag": "wealthy"
+     }
+    ],
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_master_dies",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   18,
+   60
+  ],
+  "classes": [
+   "slave"
+  ],
+  "sensitive": true,
+  "icon": "freedom",
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "plead",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "set_class": "peasant"
+      },
+      {
+       "remove_tag": "enslaved"
+      },
+      {
+       "set_profession": "farmer"
+      },
+      {
+       "param": "happiness",
+       "delta": 15
+      },
+      {
+       "param": "self_esteem",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "migrate": "@other"
+      },
+      {
+       "param": "loneliness",
+       "delta": 10
+      },
+      {
+       "param": "happiness",
+       "delta": -6
+      }
+     ]
+    },
+    "icon": "freedom",
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "run",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "set_class": "peasant"
+      },
+      {
+       "remove_tag": "enslaved"
+      },
+      {
+       "set_profession": "farmer"
+      },
+      {
+       "param": "happiness",
+       "delta": 15
+      },
+      {
+       "param": "self_esteem",
+       "delta": 8
+      },
+      {
+       "add_tag": "fugitive"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_t_inherit",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   20,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "claim",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 600
+      },
+      {
+       "set_class": "landowner"
+      },
+      {
+       "set_profession": "landholder"
+      },
+      {
+       "add_tag": "wealthy"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -100
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      },
+      {
+       "add_npc": "rival",
+       "attitude": -40
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 250
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 1
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_j_scribe_vase",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   16,
+   70
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "careful",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "fast",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 140
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": 40
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "scribe",
+     "official"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_scribe_promote",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   24,
+   65
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "scribe"
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 30
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_j_ball_big",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   16,
+   40
+  ],
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "all_in",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "happiness",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "reputation",
+       "delta": -2
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "safe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "ballplayer"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_ball_patron",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   18,
+   40
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "add_npc": "patron",
+      "attitude": 35
+     },
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "ballplayer"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_jade_mask",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   20,
+   70
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "craft",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "jade_carver",
+     "workshop_owner"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_own_workshop",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   25,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "jade_carver",
+     "artisan",
+     "stone_carver",
+     "feather_worker",
+     "weaver"
+    ]
+   },
+   {
+    "skill": "craft",
+    "op": ">=",
+    "value": 25
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp",
+    "loom"
+   ]
+  },
+  "choices": [
+   {
+    "id": "open",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "effects": [
+     {
+      "set_profession": "workshop_owner"
+     },
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_j_salt_canoe",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   18,
+   60
+  ],
+  "scene": {
+   "place": "river",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "boat",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 220
+      },
+      {
+       "skill": "trade",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -100
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "overland",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "health",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": 2
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "salt_trader",
+     "merchant"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_warrior_captive",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   17,
+   45
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "seize",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "skill": "military",
+       "delta": 5
+      },
+      {
+       "param": "money",
+       "delta": 80
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "cover",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 50
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "soldier",
+     "officer"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_officer_promote",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   22,
+   45
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "soldier"
+    ]
+   },
+   {
+    "skill": "military",
+    "op": ">=",
+    "value": 25
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "officer"
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_j_priest_katun",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   20,
+   75
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "truth",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "faith",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 2,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "soften",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "priest"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_healer_noble",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   20,
+   70
+  ],
+  "others": [
+   "child"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "bed"
+   ]
+  },
+  "choices": [
+   {
+    "id": "treat",
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "skill": "medicine",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "physician",
+     "midwife"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_stone_stela",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   18,
+   65
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "statue",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "carve",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "skill": "craft",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -20
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -3,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "assist",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "skill": "craft",
+      "delta": 2
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "stone_carver",
+     "workshop_owner"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_feather_quetzal",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   18,
+   65
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "param": "reputation",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -100
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "skip",
+    "effects": []
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "feather_worker",
+     "merchant"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_overseer",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   20,
+   55
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "overseer"
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "household_slave",
+     "field_slave"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_rapids",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   15,
+   55
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "run",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "skill": "seafaring",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      },
+      {
+       "param": "money",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "portage",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "param": "money",
+      "delta": 20
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "sailor"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_j_first_ears",
+  "type": "personal",
+  "once": true,
+  "base_weight": 7,
+  "topic": "work",
+  "age_range": [
+   14,
+   70
+  ],
+  "religions": [
+   "maya_gods"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "grain",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "offer",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 15
+     },
+     {
+      "param": "faith",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "farmer",
+     "field_slave"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_mv_to_tikal",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "calakmul",
+   "palenque",
+   "copan"
+  ],
+  "years": [
+   550,
+   840
+  ],
+  "age_range": [
+   16,
+   35
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "tikal"
+     },
+     {
+      "add_tag": "lives_in_city"
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_mv_to_calakmul",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "tikal",
+   "palenque",
+   "copan"
+  ],
+  "years": [
+   600,
+   760
+  ],
+  "age_range": [
+   16,
+   40
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "calakmul"
+     },
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_mv_copan_school",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "tikal",
+   "calakmul",
+   "palenque"
+  ],
+  "years": [
+   600,
+   800
+  ],
+  "age_range": [
+   14,
+   35
+  ],
+  "classes": [
+   "craftsman",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "any": [
+     {
+      "profession": [
+       "stone_carver",
+       "scribe",
+       "artisan",
+       "jade_carver"
+      ]
+     },
+     {
+      "skill": "craft",
+      "op": ">=",
+      "value": 20
+     },
+     {
+      "skill": "literacy",
+      "op": ">=",
+      "value": 20
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "copan"
+     },
+     {
+      "skill": "craft",
+      "delta": 5
+     },
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_mv_to_palenque",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "regions": [
+   "tikal",
+   "calakmul",
+   "copan"
+  ],
+  "years": [
+   615,
+   790
+  ],
+  "age_range": [
+   16,
+   40
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "palenque"
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     },
+     {
+      "skill": "trade",
+      "delta": 2
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_mv_leave_city",
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "years": [
+   810,
+   940
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hamlet",
+    "effects": [
+     {
+      "move": "may_forest_hamlet"
+     },
+     {
+      "add_tag": "rural"
+     },
+     {
+      "remove_tag": "lives_in_city"
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 3,
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "north",
+    "effects": [
+     {
+      "move": "may_puuc"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 7,
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "other",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -20
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_mv_noble_bride",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "sex": "f",
+  "age_range": [
+   14,
+   22
+  ],
+  "classes": [
+   "noble",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "tag_absent": "married"
+   },
+   {
+    "no_npc": "spouse"
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "add_npc": "spouse",
+      "attitude": 20
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "wedding",
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "plead",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "migrate": "@other"
+      },
+      {
+       "add_npc": "spouse",
+       "attitude": 0
+      },
+      {
+       "param": "happiness",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4,
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_f_chaak",
+  "type": "personal",
+  "religions": [
+   "maya_gods"
+  ],
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   14,
+   80
+  ],
+  "classes": [
+   "slave",
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "altar",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "turkey",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 15
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "blood",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "nothing",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_f_vision",
+  "type": "personal",
+  "religions": [
+   "maya_gods"
+  ],
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "look",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_f_cave",
+  "type": "personal",
+  "religions": [
+   "maya_gods"
+  ],
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   16,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "tomb",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 20
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_f_period_ending",
+  "type": "personal",
+  "religions": [
+   "maya_gods"
+  ],
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   10,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "tag": "lives_in_city"
+   }
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "statue",
+    "smoke",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "give",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 30
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_f_way",
+  "type": "personal",
+  "religions": [
+   "maya_gods"
+  ],
+  "once": true,
+  "base_weight": 2.5,
+  "topic": "life",
+  "age_range": [
+   12,
+   60
+  ],
+  "classes": [
+   "slave",
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "daykeeper",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "ignore",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_f_bury_elder",
+  "type": "personal",
+  "religions": [
+   "maya_gods"
+  ],
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   16,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "sensitive": true,
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "jade",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "simple",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     },
+     {
+      "param": "happiness",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "may_f_doubt",
+  "type": "personal",
+  "religions": [
+   "maya_gods"
+  ],
+  "once": true,
+  "base_weight": 3.5,
+  "topic": "life",
+  "years": [
+   810,
+   950
+  ],
+  "age_range": [
+   16,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "sensitive": true,
+  "scene": {
+   "place": "temple",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "doubt",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -8
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "village",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2,
+     "craft_power": -3
+    }
+   }
+  ]
+ }
+]

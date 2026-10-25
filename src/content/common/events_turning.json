@@ -42,8 +42,8 @@
       "time": "sunset",
       "people": 4,
       "props": [
-        "cart",
-        "horse"
+        "tree",
+        "sun"
       ]
     },
     "choices": [
@@ -423,6 +423,9 @@
     "sensitive": true,
     "topic": "life",
     "icon": "freedom",
+    "needs": [
+      "sea"
+    ],
     "scene": {
       "place": "market",
       "time": "day",
@@ -559,6 +562,9 @@
           }
         ]
       }
+    ],
+    "needs": [
+      "sea"
     ],
     "scene": {
       "place": "sea",
@@ -703,6 +709,9 @@
     "base_weight": 1,
     "id": "t_shipwreck_vow",
     "topic": "life",
+    "needs": [
+      "sea"
+    ],
     "scene": {
       "place": "temple",
       "time": "day",
@@ -822,7 +831,7 @@
       "time": "dawn",
       "people": 1,
       "props": [
-        "amphora",
+        "grain",
         "coins"
       ]
     },
@@ -937,7 +946,7 @@
       "time": "day",
       "people": 4,
       "props": [
-        "scroll",
+        "shield",
         "coins"
       ]
     },
@@ -1009,7 +1018,7 @@
       "time": "day",
       "people": 2,
       "props": [
-        "scroll",
+        "lamp",
         "coins"
       ]
     },
@@ -1105,7 +1114,7 @@
       "time": "overcast",
       "people": 4,
       "props": [
-        "scroll"
+        "coins"
       ]
     },
     "choices": [
@@ -1259,7 +1268,7 @@
       "time": "day",
       "people": 6,
       "props": [
-        "statue"
+        "banner"
       ]
     },
     "choices": [
@@ -1381,7 +1390,7 @@
       "time": "overcast",
       "people": 5,
       "props": [
-        "scroll"
+        "banner"
       ]
     },
     "effects": [
@@ -1464,7 +1473,7 @@
       "people": 3,
       "props": [
         "coins",
-        "scroll"
+        "table"
       ]
     },
     "choices": [
@@ -1651,7 +1660,7 @@
       "people": 2,
       "props": [
         "lamp",
-        "scroll"
+        "grain"
       ]
     },
     "choices": [
@@ -1883,6 +1892,9 @@
     "sensitive": true,
     "topic": "family",
     "icon": "loss",
+    "needs": [
+      "sea"
+    ],
     "scene": {
       "place": "harbor",
       "time": "sunset",
@@ -2062,6 +2074,9 @@
     "sensitive": true,
     "topic": "family",
     "icon": "find",
+    "needs": [
+      "sea"
+    ],
     "scene": {
       "place": "home",
       "time": "day",
@@ -2847,7 +2862,7 @@
       "time": "overcast",
       "people": 4,
       "props": [
-        "scroll"
+        "lamp"
       ]
     },
     "choices": [
@@ -3362,11 +3377,11 @@
     "id": "t_poems_live_on",
     "topic": "life",
     "scene": {
-      "place": "harbor",
+      "place": "road",
       "time": "sunset",
       "people": 4,
       "props": [
-        "boat",
+        "fire",
         "lamp"
       ]
     },
@@ -3987,7 +4002,7 @@
       "time": "day",
       "people": 6,
       "props": [
-        "statue"
+        "banner"
       ]
     },
     "effects": [
@@ -4037,7 +4052,7 @@
       "people": 4,
       "props": [
         "anvil",
-        "statue"
+        "fire"
       ]
     },
     "choices": [
@@ -4147,7 +4162,7 @@
       "time": "day",
       "people": 4,
       "props": [
-        "statue"
+        "altar"
       ]
     },
     "effects": [
@@ -4194,7 +4209,7 @@
       "people": 3,
       "props": [
         "scroll",
-        "statue"
+        "banner"
       ]
     },
     "choices": [
@@ -4376,6 +4391,9 @@
     ],
     "topic": "life",
     "icon": "find",
+    "eras": [
+      "E03"
+    ],
     "scene": {
       "place": "landmark",
       "time": "day",

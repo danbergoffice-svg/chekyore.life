@@ -2800,7 +2800,7 @@
    "classes": [
     "trader"
    ],
-   "minAge": 14,
+   "minAge": 12,
    "income": [
     250,
     900
@@ -2822,7 +2822,7 @@
     "craftsman",
     "trader"
    ],
-   "minAge": 14,
+   "minAge": 12,
    "income": [
     160,
     270

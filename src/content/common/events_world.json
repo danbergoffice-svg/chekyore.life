@@ -275,7 +275,7 @@
       "time": "day",
       "people": 3,
       "props": [
-        "statue"
+        "cart"
       ]
     },
     "pattern": {
@@ -386,7 +386,7 @@
       "people": 1,
       "props": [
         "sun",
-        "amphora"
+        "tree"
       ]
     },
     "effects": [
@@ -477,7 +477,7 @@
       "people": 3,
       "props": [
         "anvil",
-        "amphora"
+        "table"
       ]
     },
     "choices": [
@@ -577,7 +577,7 @@
       "people": 4,
       "props": [
         "coins",
-        "amphora"
+        "table"
       ]
     },
     "effects": [
@@ -786,7 +786,7 @@
       "time": "day",
       "people": 2,
       "props": [
-        "amphora"
+        "grain"
       ]
     },
     "effects": [
@@ -1088,7 +1088,7 @@
       "time": "day",
       "people": 2,
       "props": [
-        "statue",
+        "lamp",
         "altar"
       ]
     },

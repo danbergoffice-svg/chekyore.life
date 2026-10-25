@@ -1,0 +1,7080 @@
+[
+ {
+  "id": "amr_m_tonalli",
+  "type": "family",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   0,
+   1
+  ],
+  "base_weight": 5,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "cradle",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "once": true
+ },
+ {
+  "id": "amr_m_comal",
+  "type": "family",
+  "moment": true,
+  "npc": "mother",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   3,
+   9
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "fire",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "npc_attitude": "npc",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "once": true
+ },
+ {
+  "id": "amr_m_chinampa_mud",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "age_range": [
+   5,
+   11
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 2
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_tlatelolco",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   5,
+   13
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "grain",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_chili_smoke",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   6,
+   11
+  ],
+  "base_weight": 3,
+  "others": [
+   "child"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_telpochcalli",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   12,
+   16
+  ],
+  "base_weight": 5,
+  "scene": {
+   "place": "school",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "shield",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "military",
+    "delta": 3
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_calmecac",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   12,
+   17
+  ],
+  "base_weight": 5,
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 4
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_cuicacalli",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   12,
+   18
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "school",
+   "time": "sunset",
+   "people": 6,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": -3
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_chocolate",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "landowner",
+   "noble",
+   "trader"
+  ],
+  "age_range": [
+   10,
+   70
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "palace",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "table",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_popocatepetl",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   4,
+   80
+  ],
+  "base_weight": 2,
+  "scene": {
+   "place": "landmark",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "smoke",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_algae",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "slave",
+   "craftsman"
+  ],
+  "age_range": [
+   4,
+   60
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_ballgame",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   8,
+   50
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_canoe_dawn",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   9,
+   20
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "river",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "boat",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "seafaring",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_texcoco_gardens",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "texcoco"
+  ],
+  "years": [
+   1431,
+   1521
+  ],
+  "age_range": [
+   8,
+   70
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree",
+    "palm"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_poet",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "texcoco"
+  ],
+  "age_range": [
+   10,
+   80
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_octli_elders",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   10,
+   40
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_turkey_dog",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   4,
+   10
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_huehuetlatolli",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   12,
+   15
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_obsidian",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "craftsman",
+   "peasant"
+  ],
+  "age_range": [
+   5,
+   12
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -1
+   },
+   {
+    "skill": "craft",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_tlacotli_family",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "slave"
+  ],
+  "age_range": [
+   14,
+   60
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "bed",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_rutuchikuy",
+  "type": "family",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   1,
+   3
+  ],
+  "base_weight": 5,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ],
+  "once": true
+ },
+ {
+  "id": "amr_m_chuno",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "slave",
+   "craftsman"
+  ],
+  "age_range": [
+   5,
+   14
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "grain",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 2
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_llama_spit",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "age_range": [
+   6,
+   14
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 1,
+   "props": [
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_khipu_count",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   6,
+   14
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "skill": "literacy",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_chasqui_pass",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   5,
+   70
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_terrace_song",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "age_range": [
+   10,
+   55
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_chicha_brew",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   8,
+   60
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "fire",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_inti_raymi",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco"
+  ],
+  "age_range": [
+   5,
+   80
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "landmark",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "sun",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_royal_road",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   10,
+   60
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_warachikuy",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "sex": "m",
+  "classes": [
+   "noble",
+   "landowner"
+  ],
+  "age_range": [
+   13,
+   17
+  ],
+  "base_weight": 6,
+  "scene": {
+   "place": "landmark",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "sun",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "strength",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "skill": "military",
+    "delta": 2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_cuy",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   3,
+   9
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_storehouse",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "years": [
+   1440,
+   1530
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "age_range": [
+   5,
+   70
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_apu",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco"
+  ],
+  "age_range": [
+   10,
+   80
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "landmark",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "sun",
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_pichincha",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "quito"
+  ],
+  "age_range": [
+   4,
+   80
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "landmark",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "rain",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_mitmaq_neighbours",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "quito"
+  ],
+  "years": [
+   1470,
+   1533
+  ],
+  "age_range": [
+   6,
+   40
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_yana_home",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "slave"
+  ],
+  "age_range": [
+   14,
+   60
+  ],
+  "base_weight": 4,
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "moon"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": 4
+   },
+   {
+    "param": "happiness",
+    "delta": -2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_m_coca_leaf",
+  "type": "personal",
+  "moment": true,
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "years": [
+   1438,
+   1532
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "field",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ],
+  "once": true,
+  "topic": "life"
+ },
+ {
+  "id": "amr_d_school_vow",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   7,
+   11
+  ],
+  "once": true,
+  "base_weight": 6,
+  "topic": "family",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "altar",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "telpochcalli",
+    "effects": [
+     {
+      "skill": "military",
+      "delta": 4
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "calmecac",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "skill": "literacy",
+       "delta": 10
+      },
+      {
+       "param": "faith",
+       "delta": 5
+      },
+      {
+       "add_tag": "schooled"
+      },
+      {
+       "set_flag": "amr_calmecac"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "self_esteem",
+       "delta": -3
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       9
+      ],
+      "chance": 0.7,
+      "trigger_event": "amr_d_calmecac_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_calmecac_later",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "trigger_only": true,
+  "conditions": [
+   {
+    "flag": "amr_calmecac"
+   }
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "altar",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "priest",
+    "effects": [
+     {
+      "set_profession": "priest"
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "scribe",
+    "effects": [
+     {
+      "set_profession": "scribe"
+     },
+     {
+      "skill": "literacy",
+      "delta": 5
+     },
+     {
+      "param": "money",
+      "delta": 40
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ],
+  "base_weight": 3
+ },
+ {
+  "id": "amr_d_patolli",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "base_weight": 3,
+  "topic": "money",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "play",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "chance": 0.4,
+       "effects": [
+        {
+         "add_tag": "gambler"
+        }
+       ]
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -25
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      },
+      {
+       "chance": 0.5,
+       "effects": [
+        {
+         "add_tag": "gambler"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {}
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "param": "diligence",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_octli",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "base_weight": 3,
+  "topic": "life",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "moon",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "drink",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 4
+      },
+      {
+       "param": "loneliness",
+       "delta": -3
+      },
+      {
+       "chance": 0.3,
+       "effects": [
+        {
+         "add_tag": "drinker"
+        }
+       ]
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "self_esteem",
+       "delta": -5
+      },
+      {
+       "chance": 0.2,
+       "effects": [
+        {
+         "add_tag": "drinker"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_sell_self",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "age_range": [
+   16,
+   50
+  ],
+  "base_weight": 2,
+  "sensitive": true,
+  "topic": "money",
+  "once": true,
+  "conditions": [
+   {
+    "any": [
+     {
+      "tag": "in_debt"
+     },
+     {
+      "param": "money",
+      "op": "<",
+      "value": 40
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "market",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "set_class": "slave"
+     },
+     {
+      "set_profession": "household_slave"
+     },
+     {
+      "add_tag": "enslaved"
+     },
+     {
+      "remove_tag": "in_debt"
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "self_esteem",
+      "delta": -10
+     },
+     {
+      "param": "happiness",
+      "delta": -8
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       9
+      ],
+      "chance": 0.75,
+      "trigger_event": "amr_d_buy_freedom"
+     }
+    ],
+    "icon": "loss",
+    "pattern": {
+     "memory_future": -4,
+     "craft_power": -4
+    }
+   },
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -8
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "borrow",
+    "risk_roll": {
+     "param": "reputation",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "param": "loneliness",
+       "delta": -3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_buy_freedom",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "enslaved"
+   }
+  ],
+  "topic": "life",
+  "icon": "freedom",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "set_class": "peasant"
+     },
+     {
+      "set_profession": "farmer"
+     },
+     {
+      "remove_tag": "enslaved"
+     },
+     {
+      "add_tag": "freedman"
+     },
+     {
+      "money_pct": -60
+     },
+     {
+      "param": "happiness",
+      "delta": 12
+     },
+     {
+      "param": "self_esteem",
+      "delta": 10
+     }
+    ],
+    "icon": "freedom",
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "param": "self_esteem",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ],
+  "base_weight": 3
+ },
+ {
+  "id": "amr_d_market_judge",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "base_weight": 3,
+  "topic": "money",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "grain",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "complain",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 30
+      },
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -30
+      },
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "let_go",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_porter",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "age_range": [
+   16,
+   40
+  ],
+  "base_weight": 2,
+  "topic": "work",
+  "once": true,
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 180
+      },
+      {
+       "skill": "trade",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.4,
+      "trigger_event": "amr_d_porter_later"
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_porter_later",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "trigger_only": true,
+  "topic": "work",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "merchant"
+     },
+     {
+      "skill": "trade",
+      "delta": 6
+     },
+     {
+      "param": "money",
+      "delta": 80
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "base_weight": 3
+ },
+ {
+  "id": "amr_d_matchmaker",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "sex": "f",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   15,
+   20
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "once": true,
+  "conditions": [
+   {
+    "no_npc": "spouse"
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "custom",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "add_npc": "spouse",
+      "attitude": 25
+     },
+     {
+      "add_tag": "married"
+     }
+    ],
+    "icon": "wedding",
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "refuse",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "add_npc": "spouse",
+       "attitude": 5
+      },
+      {
+       "add_tag": "married"
+      },
+      {
+       "param": "happiness",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_name_day",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "npc": "child",
+  "npc_age": [
+   0,
+   1
+  ],
+  "base_weight": 4,
+  "topic": "family",
+  "once": true,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "cradle",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_coatequitl",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "age_range": [
+   17,
+   55
+  ],
+  "base_weight": 3,
+  "topic": "work",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "reputation",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_mita_turn",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant"
+  ],
+  "age_range": [
+   18,
+   50
+  ],
+  "base_weight": 4,
+  "topic": "work",
+  "years": [
+   1438,
+   1535
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "skill": "craft",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.5,
+      "trigger_event": "amr_d_mita_later"
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "plead",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -8
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_mita_later",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "trigger_only": true,
+  "topic": "work",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "sun",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lead",
+    "effects": [
+     {
+      "set_profession": "mita_builder"
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "skill": "management",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ],
+  "base_weight": 3
+ },
+ {
+  "id": "amr_d_aclla_choice",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "sex": "f",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "age_range": [
+   9,
+   13
+  ],
+  "base_weight": 3,
+  "topic": "life",
+  "once": true,
+  "years": [
+   1440,
+   1532
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "aclla"
+     },
+     {
+      "skill": "craft",
+      "delta": 8
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     },
+     {
+      "set_flag": "amr_aclla"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       9
+      ],
+      "chance": 0.7,
+      "trigger_event": "amr_d_aclla_later"
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "faith_reason": -4,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "set_profession": "aclla"
+      },
+      {
+       "set_flag": "amr_aclla"
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      },
+      {
+       "param": "happiness",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_aclla_later",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "trigger_only": true,
+  "sex": "f",
+  "conditions": [
+   {
+    "flag": "amr_aclla"
+   }
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "loom",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "marry",
+    "effects": [
+     {
+      "set_class": "landowner"
+     },
+     {
+      "set_profession": "matron"
+     },
+     {
+      "add_npc": "spouse",
+      "attitude": 15
+     },
+     {
+      "add_tag": "married"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     }
+    ],
+    "icon": "wedding",
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "set_profession": "priest"
+     },
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "faith_reason": -6
+    }
+   }
+  ],
+  "base_weight": 3
+ },
+ {
+  "id": "amr_d_ayni",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "age_range": [
+   14,
+   65
+  ],
+  "base_weight": 3,
+  "topic": "life",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "help",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     },
+     {
+      "param": "money",
+      "delta": -15
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "own",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 20
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_huaca_drought",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "base_weight": 3,
+  "topic": "life",
+  "religions": [
+   "andean"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "altar",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "llama",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "small",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "nothing",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -5
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_khipu_error",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "age_range": [
+   18,
+   60
+  ],
+  "base_weight": 2,
+  "topic": "work",
+  "years": [
+   1440,
+   1535
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "argue",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "add_npc": "rival",
+       "attitude": -30
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_qollqa",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant"
+  ],
+  "age_range": [
+   16,
+   55
+  ],
+  "base_weight": 2,
+  "topic": "life",
+  "years": [
+   1440,
+   1532
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "give",
+    "risk_roll": {
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 4
+      },
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "reputation",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "curaca",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_sirvinakuy",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   16,
+   24
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "once": true,
+  "conditions": [
+   {
+    "no_npc": "spouse"
+   }
+  ],
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "try",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "add_npc": "spouse",
+       "attitude": 40
+      },
+      {
+       "add_tag": "married"
+      },
+      {
+       "param": "happiness",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "loneliness",
+       "delta": 4
+      },
+      {
+       "param": "self_esteem",
+       "delta": -2
+      }
+     ]
+    },
+    "icon": "love",
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_curaca_water",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   22,
+   70
+  ],
+  "base_weight": 3,
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "landholder",
+     "magistrate"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fair",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "skill": "management",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 2,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "gifts",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     },
+     {
+      "add_npc": "rival",
+      "attitude": -30
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_chicha_feast",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "base_weight": 3,
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "drink",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     },
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "add_tag": "drinker"
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "polite",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_pichca",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "base_weight": 2,
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "play",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 90
+      },
+      {
+       "chance": 0.3,
+       "effects": [
+        {
+         "add_tag": "gambler"
+        }
+       ]
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -50
+      },
+      {
+       "chance": 0.4,
+       "effects": [
+        {
+         "add_tag": "gambler"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "param": "diligence",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_inca_wedding",
+  "type": "personal",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant"
+  ],
+  "age_range": [
+   18,
+   25
+  ],
+  "base_weight": 3,
+  "topic": "family",
+  "once": true,
+  "years": [
+   1440,
+   1532
+  ],
+  "conditions": [
+   {
+    "no_npc": "spouse"
+   }
+  ],
+  "historian_note": true,
+  "confidence": "disputed",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "add_npc": "spouse",
+      "attitude": 15
+     },
+     {
+      "add_tag": "married"
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "icon": "wedding",
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "ask",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "add_npc": "spouse",
+       "attitude": 45
+      },
+      {
+       "add_tag": "married"
+      },
+      {
+       "param": "happiness",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "add_npc": "spouse",
+       "attitude": 5
+      },
+      {
+       "add_tag": "married"
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "icon": "wedding",
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_captured",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "sex": "m",
+  "age_range": [
+   17,
+   40
+  ],
+  "years": [
+   1450,
+   1519
+  ],
+  "sensitive": true,
+  "icon": "war",
+  "conditions": [
+   {
+    "profession": [
+     "soldier",
+     "officer",
+     "eagle_warrior"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "escape",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 12
+      },
+      {
+       "add_trait": "brave"
+      },
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ],
+     "on_failure": [
+      {
+       "kill": "war"
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "wait",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 10
+      },
+      {
+       "param": "faith",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "kill": "war"
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_spy_merchant",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "sex": "m",
+  "classes": [
+   "trader"
+  ],
+  "age_range": [
+   22,
+   50
+  ],
+  "icon": "move",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "set_class": "landowner"
+      },
+      {
+       "param": "money",
+       "delta": 600
+      },
+      {
+       "param": "reputation",
+       "delta": 12
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -6
+     },
+     {
+      "add_npc": "rival",
+      "attitude": -25
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_flood",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "tenochtitlan"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "icon": "disaster",
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "rain",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "move",
+    "effects": [
+     {
+      "migrate": "texcoco"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "rebuild",
+    "effects": [
+     {
+      "money_pct": -45
+     },
+     {
+      "param": "health",
+      "delta": -5
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -5,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_jade",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "slave"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 500
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 8
+      },
+      {
+       "add_npc": "rival",
+       "attitude": -30
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "money",
+      "delta": 60
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 250
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_gambling_debt",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "tenochtitlan"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   17,
+   55
+  ],
+  "sensitive": true,
+  "icon": "loss",
+  "conditions": [
+   {
+    "tag": "gambler"
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "set_class": "slave"
+     },
+     {
+      "add_tag": "enslaved"
+     },
+     {
+      "remove_tag": "wealthy"
+     },
+     {
+      "param": "happiness",
+      "delta": -20
+     },
+     {
+      "param": "self_esteem",
+      "delta": -12
+     },
+     {
+      "set_profession": "household_slave"
+     },
+     {
+      "remove_tag": "gambler"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       7
+      ],
+      "chance": 0.8,
+      "trigger_event": "amr_d_buy_freedom"
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "flee",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "migrate": "texcoco"
+      },
+      {
+       "money_pct": -80
+      },
+      {
+       "param": "loneliness",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "param": "happiness",
+       "delta": -20
+      },
+      {
+       "param": "self_esteem",
+       "delta": -12
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 6
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_palace_call",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "classes": [
+   "craftsman"
+  ],
+  "age_range": [
+   20,
+   55
+  ],
+  "icon": "find",
+  "conditions": [
+   {
+    "profession": [
+     "artisan",
+     "amanteca",
+     "weaver",
+     "workshop_owner"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "banner",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "craft",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "set_class": "landowner"
+      },
+      {
+       "param": "money",
+       "delta": 400
+      },
+      {
+       "param": "reputation",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "self_esteem",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "skill": "craft",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_yana_taken",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant"
+  ],
+  "age_range": [
+   14,
+   35
+  ],
+  "years": [
+   1440,
+   1532
+  ],
+  "sensitive": true,
+  "icon": "loss",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_class": "slave"
+     },
+     {
+      "add_tag": "enslaved"
+     },
+     {
+      "remove_tag": "wealthy"
+     },
+     {
+      "param": "happiness",
+      "delta": -20
+     },
+     {
+      "param": "self_esteem",
+      "delta": -12
+     },
+     {
+      "set_profession": "household_slave"
+     },
+     {
+      "param": "money",
+      "delta": 40
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "curaca",
+    "risk_roll": {
+     "param": "reputation",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "param": "happiness",
+       "delta": -20
+      },
+      {
+       "param": "self_esteem",
+       "delta": -12
+      },
+      {
+       "set_profession": "field_slave"
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_curaca_chosen",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "sex": "m",
+  "age_range": [
+   28,
+   60
+  ],
+  "conditions": [
+   {
+    "param": "reputation",
+    "op": ">=",
+    "value": 15
+   }
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_class": "landowner"
+     },
+     {
+      "set_profession": "landholder"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_earthquake",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   12,
+   75
+  ],
+  "icon": "disaster",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "smoke",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "dig",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "money_pct": -15
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "money_pct": -40
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "help",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "loneliness",
+      "delta": -5
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 40
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_t_inca_reward",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "sex": "m",
+  "age_range": [
+   20,
+   50
+  ],
+  "years": [
+   1438,
+   1532
+  ],
+  "icon": "war",
+  "conditions": [
+   {
+    "profession": [
+     "soldier",
+     "officer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "goods",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 500
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   },
+   {
+    "id": "post",
+    "effects": [
+     {
+      "set_profession": "officer"
+     },
+     {
+      "set_class": "landowner"
+     },
+     {
+      "migrate": "quito"
+     },
+     {
+      "param": "reputation",
+      "delta": 10
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_mv_mitmaq",
+  "type": "personal",
+  "regions": [
+   "cusco"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "years": [
+   1465,
+   1525
+  ],
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "quito"
+     },
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     },
+     {
+      "skill": "farming",
+      "delta": 3
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -5,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_mv_hostage_son",
+  "type": "personal",
+  "regions": [
+   "quito"
+  ],
+  "sex": "m",
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   10,
+   16
+  ],
+  "years": [
+   1465,
+   1530
+  ],
+  "once": true,
+  "base_weight": 6,
+  "topic": "life",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "cusco"
+     },
+     {
+      "skill": "literacy",
+      "delta": 6
+     },
+     {
+      "skill": "management",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "delay",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "migrate": "cusco"
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_mv_to_capital",
+  "type": "personal",
+  "regions": [
+   "texcoco"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   16,
+   40
+  ],
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "scene": {
+   "place": "river",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "boat",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "tenochtitlan"
+     },
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     },
+     {
+      "add_tag": "lives_in_city"
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_mv_texcoco_scholars",
+  "type": "personal",
+  "regions": [
+   "tenochtitlan"
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   14,
+   30
+  ],
+  "years": [
+   1431,
+   1515
+  ],
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "weight_modifiers": [
+   {
+    "if": {
+     "trait": "curious"
+    },
+    "multiply": 2
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "texcoco"
+     },
+     {
+      "skill": "literacy",
+      "delta": 8
+     },
+     {
+      "param": "intellect",
+      "delta": 3
+     },
+     {
+      "param": "money",
+      "delta": -50
+     }
+    ],
+    "icon": "study",
+    "pattern": {
+     "faith_reason": 4,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_mv_quito_return",
+  "type": "personal",
+  "regions": [
+   "quito"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   18,
+   50
+  ],
+  "years": [
+   1470,
+   1528
+  ],
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "conditions": [
+   {
+    "param": "loneliness",
+    "op": ">=",
+    "value": 30
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "cusco"
+     },
+     {
+      "param": "loneliness",
+      "delta": -6
+     },
+     {
+      "param": "health",
+      "delta": -3
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -3
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_first_captive",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "sex": "m",
+  "age_range": [
+   17,
+   35
+  ],
+  "once": true,
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "soldier"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "skill": "military",
+       "delta": 8
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "set_flag": "amr_captive1"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "skill": "military",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 40
+     },
+     {
+      "set_flag": "amr_captive1"
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_eagle",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "sex": "m",
+  "age_range": [
+   20,
+   40
+  ],
+  "once": true,
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "soldier",
+     "officer"
+    ]
+   },
+   {
+    "flag": "amr_captive1"
+   },
+   {
+    "skill": "military",
+    "op": ">=",
+    "value": 30
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "eagle_warrior"
+     },
+     {
+      "set_class": "landowner"
+     },
+     {
+      "param": "reputation",
+      "delta": 12
+     },
+     {
+      "param": "self_esteem",
+      "delta": 8
+     }
+    ],
+    "icon": "war",
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "set_profession": "farmer"
+     },
+     {
+      "param": "stress",
+      "delta": -6
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -4,
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_quetzal",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   16,
+   65
+  ],
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "amanteca",
+     "workshop_owner"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "careful",
+    "risk_roll": {
+     "param": "craft",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "craft",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -4
+    }
+   },
+   {
+    "id": "parrot",
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 250
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -12
+      },
+      {
+       "param": "money",
+       "delta": -80
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_own_workshop",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   22,
+   55
+  ],
+  "once": true,
+  "base_weight": 5,
+  "conditions": [
+   {
+    "profession": [
+     "amanteca",
+     "artisan"
+    ]
+   },
+   {
+    "skill": "craft",
+    "op": ">=",
+    "value": 30
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "set_profession": "workshop_owner"
+     },
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_pochteca_return",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   18,
+   60
+  ],
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "pochteca"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "moon",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "humble",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 250
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "feast",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     }
+    ],
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "happiness",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "add_npc": "rival",
+       "attitude": -40
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_pochteca_road",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   18,
+   60
+  ],
+  "base_weight": 5,
+  "conditions": [
+   {
+    "profession": [
+     "pochteca"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "military",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "skill": "military",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "detour",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_chinampa_new",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "once": true,
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "chinampa_farmer",
+     "farmer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "tree",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "build",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "skill": "farming",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.7,
+      "trigger_event": "amr_j_chinampa_rich"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "skip",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_chinampa_rich",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "trigger_only": true,
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 220
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "base_weight": 3
+ },
+ {
+  "id": "amr_j_canoe_storm",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   14,
+   60
+  ],
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "sailor"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 1,
+   "props": [
+    "boat",
+    "rain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "dump",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "push",
+    "risk_roll": {
+     "param": "seafaring",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 80
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      },
+      {
+       "param": "money",
+       "delta": -60
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_tlacuilo",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   18,
+   65
+  ],
+  "base_weight": 5,
+  "conditions": [
+   {
+    "profession": [
+     "scribe",
+     "official"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "do",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 180
+      },
+      {
+       "add_npc": "patron",
+       "attitude": 30
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -12
+      },
+      {
+       "param": "money",
+       "delta": -50
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4,
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_calpixqui",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "age_range": [
+   22,
+   55
+  ],
+  "once": true,
+  "base_weight": 5,
+  "conditions": [
+   {
+    "profession": [
+     "scribe"
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 30
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "effects": [
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_chasqui_night",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   16,
+   40
+  ],
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "chasqui"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "run",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 4
+    }
+   },
+   {
+    "id": "hand",
+    "effects": [
+     {
+      "param": "health",
+      "delta": 2
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 30
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_chasqui_khipu",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   18,
+   40
+  ],
+  "once": true,
+  "base_weight": 4,
+  "conditions": [
+   {
+    "profession": [
+     "chasqui"
+    ]
+   },
+   {
+    "param": "intellect",
+    "op": ">=",
+    "value": 50
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "learn",
+    "effects": [
+     {
+      "set_profession": "scribe"
+     },
+     {
+      "skill": "literacy",
+      "delta": 15
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "icon": "study",
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "strength",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_khipu_audit",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   18,
+   65
+  ],
+  "base_weight": 5,
+  "conditions": [
+   {
+    "profession": [
+     "scribe",
+     "official"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "retie",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "add_npc": "patron",
+       "attitude": 25
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "reputation",
+       "delta": -12
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "report",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "add_npc": "rival",
+      "attitude": -40
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_khipu_chief",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   25,
+   60
+  ],
+  "once": true,
+  "base_weight": 5,
+  "conditions": [
+   {
+    "profession": [
+     "scribe"
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 35
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_rope_bridge",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   16,
+   50
+  ],
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "mita_builder",
+     "farmer"
+    ]
+   }
+  ],
+  "sex": "m",
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "climb",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "skill": "craft",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -14
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "twist",
+    "effects": [
+     {
+      "skill": "craft",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_cumbi",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "age_range": [
+   12,
+   40
+  ],
+  "base_weight": 6,
+  "conditions": [
+   {
+    "profession": [
+     "aclla",
+     "weaver"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "loom"
+   ]
+  },
+  "choices": [
+   {
+    "id": "perfect",
+    "risk_roll": {
+     "param": "craft",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "skill": "craft",
+       "delta": 6
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "param": "health",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -5
+    }
+   },
+   {
+    "id": "fast",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_pachaka",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "sex": "m",
+  "age_range": [
+   22,
+   45
+  ],
+  "once": true,
+  "base_weight": 6,
+  "years": [
+   1438,
+   1532
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "soldier"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lead",
+    "risk_roll": {
+     "param": "military",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "set_profession": "officer"
+      },
+      {
+       "param": "reputation",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "follow",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_ticitl",
+  "type": "personal",
+  "topic": "work",
+  "age_range": [
+   20,
+   70
+  ],
+  "base_weight": 5,
+  "conditions": [
+   {
+    "profession": [
+     "physician",
+     "midwife"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "strong",
+    "risk_roll": {
+     "param": "medicine",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "add_npc": "patron",
+       "attitude": 35
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "add_npc": "rival",
+       "attitude": -40
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "mild",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 40
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_f_nemontemi",
+  "type": "personal",
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "religions": [
+   "aztec_gods"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "rest",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "money",
+      "delta": -20
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "work",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_f_blood_vow",
+  "type": "personal",
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "religions": [
+   "aztec_gods"
+  ],
+  "age_range": [
+   14,
+   70
+  ],
+  "base_weight": 2,
+  "once": true,
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "altar",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "faith_reason": -6
+    }
+   },
+   {
+    "id": "gift",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "forget",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 5
+     },
+     {
+      "param": "faith",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "faith_reason": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_f_cholula",
+  "type": "personal",
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "religions": [
+   "aztec_gods"
+  ],
+  "age_range": [
+   16,
+   65
+  ],
+  "base_weight": 2,
+  "once": true,
+  "years": [
+   1400,
+   1519
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "altar",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "health",
+      "delta": 2
+     },
+     {
+      "remove_tag": "ill"
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5,
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_f_mallki",
+  "type": "personal",
+  "topic": "life",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "religions": [
+   "andean"
+  ],
+  "age_range": [
+   10,
+   80
+  ],
+  "base_weight": 3,
+  "scene": {
+   "place": "tomb",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "fire",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "rich",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "modest",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "money",
+      "delta": -10
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_f_pachacamac",
+  "type": "personal",
+  "topic": "life",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "religions": [
+   "andean"
+  ],
+  "age_range": [
+   18,
+   60
+  ],
+  "base_weight": 2,
+  "once": true,
+  "years": [
+   1470,
+   1532
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "altar",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -70
+     },
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": -6
+     },
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5,
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -5
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_f_friars",
+  "type": "personal",
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "religions": [
+   "aztec_gods"
+  ],
+  "years": [
+   1524,
+   1600
+  ],
+  "age_range": [
+   10,
+   80
+  ],
+  "base_weight": 4,
+  "once": true,
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "baptize",
+    "effects": [
+     {
+      "set_religion": "catholic"
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "icon": "find",
+    "pattern": {
+     "memory_future": 5,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "listen",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     },
+     {
+      "param": "faith",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_f_hidden_idols",
+  "type": "personal",
+  "topic": "life",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "religions": [
+   "catholic"
+  ],
+  "years": [
+   1525,
+   1600
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "base_weight": 4,
+  "once": true,
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "statue",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "silent",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "tell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": -8
+     },
+     {
+      "add_npc": "rival",
+      "attitude": -40
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_f_andes_priest",
+  "type": "personal",
+  "topic": "life",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "religions": [
+   "andean"
+  ],
+  "years": [
+   1534,
+   1600
+  ],
+  "age_range": [
+   10,
+   80
+  ],
+  "base_weight": 4,
+  "once": true,
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "baptize",
+    "effects": [
+     {
+      "set_religion": "catholic"
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "secret",
+    "effects": [
+     {
+      "set_religion": "catholic"
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "money_pct": -30
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "home_road": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_war_levy",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "tenochtitlan",
+   "texcoco"
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "age_range": [
+   17,
+   35
+  ],
+  "base_weight": 5,
+  "years": [
+   1400,
+   1521
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "farmer",
+     "chinampa_farmer",
+     "laborer",
+     "artisan",
+     "landholder",
+     "sailor"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "icon": "war",
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_inca_levy",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "age_range": [
+   17,
+   35
+  ],
+  "base_weight": 5,
+  "years": [
+   1438,
+   1532
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "farmer",
+     "mita_builder",
+     "artisan",
+     "landholder"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": 3
+     }
+    ],
+    "icon": "war",
+    "pattern": {
+     "craft_power": 3,
+     "home_road": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_j_chasqui_pick",
+  "type": "personal",
+  "topic": "work",
+  "regions": [
+   "cusco",
+   "quito"
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant"
+  ],
+  "age_range": [
+   15,
+   24
+  ],
+  "once": true,
+  "base_weight": 5,
+  "years": [
+   1440,
+   1533
+  ],
+  "conditions": [
+   {
+    "param": "strength",
+    "op": ">=",
+    "value": 40
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "chasqui"
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "amr_d_healer",
+  "type": "personal",
+  "topic": "work",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   14,
+   30
+  ],
+  "once": true,
+  "base_weight": 3,
+  "conditions": [
+   {
+    "param": "intellect",
+    "op": ">=",
+    "value": 45
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "fire",
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "learn",
+    "effects": [
+     {
+      "set_profession": "physician"
+     },
+     {
+      "skill": "medicine",
+      "delta": 12
+     },
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "icon": "study",
+    "pattern": {
+     "faith_reason": 3,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "midwife",
+    "requirements": [
+     {
+      "sex": "f"
+     }
+    ],
+    "effects": [
+     {
+      "set_profession": "midwife"
+     },
+     {
+      "skill": "medicine",
+      "delta": 10
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": -1
+    }
+   }
+  ]
+ }
+]

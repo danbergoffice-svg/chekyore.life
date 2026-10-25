@@ -28,7 +28,7 @@
       "time": "sunset",
       "people": 3,
       "props": [
-        "amphora",
+        "tree",
         "lamp"
       ]
     },
@@ -736,7 +736,7 @@
       "people": 2,
       "props": [
         "lamp",
-        "scroll"
+        "bed"
       ]
     },
     "choices": [
@@ -891,7 +891,7 @@
       "people": 2,
       "props": [
         "table",
-        "amphora"
+        "lamp"
       ]
     },
     "choices": [
@@ -1005,7 +1005,7 @@
       "time": "day",
       "people": 4,
       "props": [
-        "amphora"
+        "cart"
       ]
     },
     "choices": [
@@ -1298,7 +1298,7 @@
       "people": 3,
       "props": [
         "coins",
-        "scroll"
+        "lamp"
       ]
     },
     "choices": [
@@ -2138,7 +2138,7 @@
       "time": "day",
       "people": 2,
       "props": [
-        "amphora"
+        "grain"
       ]
     },
     "choices": [
@@ -2412,7 +2412,7 @@
       "people": 4,
       "props": [
         "table",
-        "amphora"
+        "fire"
       ]
     },
     "choices": [
@@ -3763,7 +3763,7 @@
       "time": "day",
       "people": 2,
       "props": [
-        "amphora"
+        "cart"
       ]
     },
     "effects": [
@@ -3799,7 +3799,7 @@
     "icon": "death",
     "topic": "life",
     "scene": {
-      "place": "bath",
+      "place": "street",
       "time": "day",
       "people": 2
     },
@@ -4024,7 +4024,7 @@
       "time": "overcast",
       "people": 2,
       "props": [
-        "scroll"
+        "lamp"
       ]
     },
     "choices": [
@@ -4354,7 +4354,7 @@
       "time": "dawn",
       "people": 2,
       "props": [
-        "olive"
+        "tree"
       ]
     },
     "effects": [
@@ -4386,13 +4386,16 @@
     "sensitive": true,
     "icon": "loss",
     "topic": "family",
+    "needs": [
+      "sea"
+    ],
     "scene": {
       "place": "harbor",
       "time": "day",
       "people": 3,
       "props": [
         "boat",
-        "scroll"
+        "coins"
       ]
     },
     "choices": [
@@ -4535,6 +4538,9 @@
     ],
     "base_weight": 1,
     "topic": "family",
+    "needs": [
+      "sea"
+    ],
     "scene": {
       "place": "harbor",
       "time": "day",
@@ -4663,7 +4669,7 @@
       "time": "day",
       "people": 3,
       "props": [
-        "amphora"
+        "cart"
       ]
     },
     "choices": [
@@ -4784,7 +4790,7 @@
       "time": "overcast",
       "people": 3,
       "props": [
-        "scroll"
+        "lamp"
       ]
     },
     "effects": [
@@ -5680,6 +5686,9 @@
     "base_weight": 1,
     "once": true,
     "topic": "money",
+    "needs": [
+      "writing"
+    ],
     "scene": {
       "place": "home",
       "time": "day",

@@ -95,7 +95,12 @@ export function loadEra(id: string): Promise<EraDef> {
       const byId = new Map<string, EventDef>()
       for (const ev of shared) if (fitsEra(ev, meta)) byId.set(ev.id, ev)
       for (const ev of local) byId.set(ev.id, ev)
-      const era: EraDef = { ...meta, events: [...byId.values()], news, patternWeights: patternWeights as EraDef['patternWeights'] }
+      // Последствия, ведущие к событиям, которых в этой стране нет, просто не наступают.
+      const events = [...byId.values()].map((ev) => {
+        if (!ev.choices?.some((c) => c.delayed_effects?.some((d) => !byId.has(d.trigger_event)))) return ev
+        return { ...ev, choices: ev.choices.map((c) => ({ ...c, delayed_effects: c.delayed_effects?.filter((d) => byId.has(d.trigger_event)) })) }
+      })
+      const era: EraDef = { ...meta, events, news, patternWeights: patternWeights as EraDef['patternWeights'] }
       loaded[id] = era
       return era
     },

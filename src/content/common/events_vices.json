@@ -26,7 +26,7 @@
       "time": "night",
       "people": 5,
       "props": [
-        "amphora",
+        "fire",
         "lamp",
         "table"
       ]
@@ -148,7 +148,7 @@
       "people": 2,
       "props": [
         "lamp",
-        "amphora"
+        "table"
       ]
     },
     "choices": [
@@ -272,7 +272,7 @@
       "people": 3,
       "props": [
         "lamp",
-        "amphora"
+        "moon"
       ]
     },
     "effects": [
@@ -321,7 +321,7 @@
       "people": 5,
       "props": [
         "table",
-        "amphora",
+        "fire",
         "lamp"
       ]
     },
@@ -474,7 +474,7 @@
       "people": 2,
       "props": [
         "sun",
-        "amphora"
+        "bed"
       ]
     },
     "choices": [
@@ -689,8 +689,8 @@
       "time": "dawn",
       "people": 2,
       "props": [
-        "amphora",
-        "scroll"
+        "lamp",
+        "table"
       ]
     },
     "choices": [
@@ -903,7 +903,7 @@
       "time": "night",
       "people": 5,
       "props": [
-        "amphora",
+        "fire",
         "table",
         "lamp"
       ]
@@ -1144,7 +1144,7 @@
       "people": 2,
       "props": [
         "lamp",
-        "amphora"
+        "table"
       ]
     },
     "choices": [
@@ -2788,7 +2788,7 @@
       "people": 2,
       "props": [
         "bed",
-        "scroll"
+        "lamp"
       ]
     },
     "choices": [
@@ -2994,7 +2994,7 @@
       "people": 5,
       "props": [
         "table",
-        "amphora",
+        "fire",
         "lamp"
       ]
     },
@@ -3673,7 +3673,7 @@
       "time": "day",
       "people": 3,
       "props": [
-        "scroll",
+        "table",
         "coins"
       ]
     },
@@ -3801,7 +3801,7 @@
       "people": 4,
       "props": [
         "coins",
-        "amphora"
+        "grain"
       ]
     },
     "choices": [
@@ -4530,7 +4530,7 @@
       "time": "sunset",
       "people": 2,
       "props": [
-        "amphora",
+        "table",
         "lamp"
       ]
     },
@@ -4646,7 +4646,7 @@
       "time": "night",
       "people": 2,
       "props": [
-        "amphora",
+        "table",
         "lamp"
       ]
     },
@@ -4814,7 +4814,7 @@
       "time": "night",
       "people": 2,
       "props": [
-        "amphora",
+        "moon",
         "lamp"
       ]
     },
@@ -5499,7 +5499,7 @@
       "people": 3,
       "props": [
         "lamp",
-        "amphora"
+        "moon"
       ]
     },
     "choices": [
@@ -5603,7 +5603,7 @@
       "people": 2,
       "props": [
         "lamp",
-        "amphora"
+        "moon"
       ]
     },
     "effects": [
@@ -5846,7 +5846,7 @@
       "people": 2,
       "props": [
         "lamp",
-        "amphora"
+        "table"
       ]
     },
     "effects": [
@@ -6271,7 +6271,7 @@
       "people": 2,
       "props": [
         "coins",
-        "scroll"
+        "table"
       ]
     },
     "effects": [

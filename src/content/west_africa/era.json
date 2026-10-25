@@ -2006,7 +2006,7 @@
         "craftsman",
         "landowner"
       ],
-      "minAge": 17,
+      "minAge": 14,
       "income": [
         160,
         270
@@ -2039,7 +2039,7 @@
     },
     {
       "id": "physician",
-      "minAge": 16,
+      "minAge": 14,
       "classes": [
         "craftsman",
         "trader",
@@ -2066,7 +2066,7 @@
     {
       "id": "priest",
       "sex": "m",
-      "minAge": 20,
+      "minAge": 14,
       "classes": [
         "craftsman",
         "trader",
@@ -2082,7 +2082,7 @@
         {
           "skill": "literacy",
           "op": ">=",
-          "value": 20
+          "value": 25
         }
       ],
       "income": [
@@ -2199,7 +2199,7 @@
         "djenne",
         "gao"
       ],
-      "minAge": 14,
+      "minAge": 12,
       "income": [
         140,
         260
@@ -2220,7 +2220,7 @@
         "gao",
         "djenne"
       ],
-      "minAge": 16,
+      "minAge": 12,
       "income": [
         200,
         700
@@ -2250,7 +2250,7 @@
     {
       "id": "marabout",
       "sex": "m",
-      "minAge": 18,
+      "minAge": 12,
       "classes": [
         "peasant",
         "craftsman",
@@ -2266,7 +2266,7 @@
         {
           "skill": "literacy",
           "op": ">=",
-          "value": 25
+          "value": 20
         }
       ],
       "income": [
@@ -2278,7 +2278,7 @@
     },
     {
       "id": "healer",
-      "minAge": 16,
+      "minAge": 12,
       "classes": [
         "peasant",
         "craftsman"

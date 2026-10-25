@@ -1,0 +1,20 @@
+{
+ "era.EUR": "Medieval Europe",
+ "era.EUR.years": "AD 1000 — 1500",
+ "era.EUR.short": "Europe",
+ "region.paris": "Paris",
+ "region.london": "London",
+ "region.florence": "Florence",
+ "region.cologne": "Cologne",
+ "region.toledo": "Toledo",
+ "region.paris.intro": "Paris is the capital of the Capetian kings of France. A cathedral rises on the Île de la Cité, students argue on the Left Bank, and around the city stretch fields and vineyards worked by peasants for their lords.",
+ "region.london.intro": "London is England's great port on the Thames. After 1066 Norman kings rule here, three languages are spoken, and the city is proud of its liberties and its merchant guilds.",
+ "region.florence.intro": "Florence is a city republic on the Arno. Its wealth is woollen cloth and banking, its curse the feuds of great families. Guilds and merchants govern here, not kings.",
+ "region.cologne.intro": "Cologne is the largest city of the Holy Roman Empire, on the Rhine. It keeps the relics of the Three Kings, its merchants trade from London to Novgorod, and its burghers argue with the archbishop over who rules the city.",
+ "region.toledo.intro": "Castile took Toledo from the Muslims in 1085. In its streets church bells ring, synagogues sing and the call to prayer still sounds, while scholars of three faiths translate Arabic books into Latin together.",
+ "region.paris.in": "in Paris",
+ "region.london.in": "in London",
+ "region.florence.in": "in Florence",
+ "region.cologne.in": "in Cologne",
+ "region.toledo.in": "in Toledo"
+}

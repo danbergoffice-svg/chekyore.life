@@ -1,1 +1,7324 @@
-[]
+[
+ {
+  "id": "ane_m_flood",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   4,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat",
+    "palm"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_opet",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "regions": [
+   "thebes"
+  ],
+  "age_range": [
+   5,
+   75
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_valley_feast",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes"
+  ],
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "tomb",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "lamp",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -3
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_child_beer",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   5,
+   10
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "amphora",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_sidelock",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   3,
+   9
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": []
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_cat",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   4,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_kohl",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_senet",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   8,
+   85
+  ],
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_apis",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "memphis"
+  ],
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_harbor_ships",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "memphis"
+  ],
+  "age_range": [
+   7,
+   70
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "amphora"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_pyramids",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "memphis"
+  ],
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_hippo",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   6,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "slave",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "river",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "ane_m_sand_bread",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   20,
+   85
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_khamsin",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   5,
+   85
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 1,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_love_song",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   14,
+   26
+  ],
+  "others": [
+   "sibling"
+  ],
+  "scene": {
+   "place": "river",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "palm"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_wine_label",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   16,
+   85
+  ],
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "amphora",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_mourners",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 1
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_ostracon",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "regions": [
+   "thebes"
+  ],
+  "age_range": [
+   14,
+   80
+  ],
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 15
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   },
+   {
+    "skill": "literacy",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_akitu",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "regions": [
+   "babylon"
+  ],
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_dates",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "palm"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_straw_beer",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "age_range": [
+   14,
+   85
+  ],
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "amphora"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -3
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_envelope",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "age_range": [
+   14,
+   80
+  ],
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 15
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 1
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_seal",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble",
+   "craftsman"
+  ],
+  "age_range": [
+   16,
+   50
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": []
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "param": "money",
+    "delta": -10
+   }
+  ]
+ },
+ {
+  "id": "ane_m_kudurru",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "babylon"
+  ],
+  "age_range": [
+   10,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_kassite_horses",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "babylon"
+  ],
+  "age_range": [
+   6,
+   60
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_assur_cliff",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "assur"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_spring_flood",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "ane_m_gilgamesh",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "age_range": [
+   8,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_onions",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   14,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_reed_boat",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   6,
+   13
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_school_stick",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   7,
+   13
+  ],
+  "conditions": [
+   {
+    "tag": "schooled"
+   }
+  ],
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_bes_amulet",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "sex": "f",
+  "age_range": [
+   15,
+   40
+  ],
+  "conditions": [
+   {
+    "tag": "married"
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "lamp",
+    "cradle"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "ane_m_nubian_gold",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 2,
+  "topic": "life",
+  "regions": [
+   "thebes"
+  ],
+  "age_range": [
+   8,
+   80
+  ],
+  "years": [
+   -1500,
+   -1150
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_m_captive_song",
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "classes": [
+   "slave"
+  ],
+  "age_range": [
+   8,
+   70
+  ],
+  "sensitive": true,
+  "scene": {
+   "place": "field",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ane_d_corvee",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "sex": "m",
+  "age_range": [
+   16,
+   50
+  ],
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "cart",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "skill": "craft",
+      "delta": 2
+     },
+     {
+      "param": "money",
+      "delta": 20
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "home_road": 2
+    }
+   },
+   {
+    "id": "substitute",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "reputation",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      },
+      {
+       "money_pct": -30
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      },
+      {
+       "add_tag": "fugitive"
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3,
+     "home_road": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_scribe_school",
+  "type": "personal",
+  "base_weight": 2,
+  "age_range": [
+   6,
+   11
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "sex": "m",
+  "once": true,
+  "topic": "life",
+  "icon": "study",
+  "conditions": [
+   {
+    "tag_absent": "schooled"
+   }
+  ],
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "study",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "skill": "literacy",
+      "delta": 12
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "add_tag": "schooled"
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 0.7,
+      "trigger_event": "ane_d_scribe_school_later"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "skill": "farming",
+      "delta": 3
+     },
+     {
+      "skill": "craft",
+      "delta": 2
+     },
+     {
+      "param": "diligence",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_scribe_school_later",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "tag": "schooled"
+   },
+   {
+    "age": [
+     13,
+     30
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "effects": [
+     {
+      "set_profession": "scribe"
+     },
+     {
+      "skill": "literacy",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "self_esteem",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_harvest_tax",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "peasant"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "grain",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "gift",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 20
+     }
+    ],
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": -15
+      },
+      {
+       "param": "stress",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -15
+      },
+      {
+       "money_pct": -25
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "protest",
+    "risk_roll": {
+     "param": "oratory",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "money_pct": -10
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      },
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -25
+      },
+      {
+       "param": "health",
+       "delta": -4
+      },
+      {
+       "param": "reputation",
+       "delta": -2
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3,
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_oracle",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes"
+  ],
+  "age_range": [
+   16,
+   80
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "boat",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ask",
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 40
+      },
+      {
+       "param": "faith",
+       "delta": 3
+      },
+      {
+       "param": "reputation",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -4
+      },
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       9
+      ],
+      "chance": 0.5,
+      "trigger_event": "ane_d_oracle_grudge"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "talk",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 30
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2,
+     "home_road": -2
+    }
+   },
+   {
+    "id": "forget",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ane_d_oracle_grudge",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "reconcile",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "kenbet",
+    "risk_roll": {
+     "param": "oratory",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -4
+      },
+      {
+       "param": "money",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_donkey",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   18,
+   70
+  ],
+  "once": true,
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "goat",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "court",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 50
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -10
+      },
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "settle",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 15
+     },
+     {
+      "param": "loneliness",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "heal",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "stress",
+      "delta": -1
+     },
+     {
+      "chance": 0.6,
+      "effects": [
+       {
+        "param": "happiness",
+        "delta": 2
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ane_d_ordeal",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "once": true,
+  "sensitive": true,
+  "topic": "life",
+  "scene": {
+   "place": "river",
+   "time": "dawn",
+   "people": 5,
+   "props": []
+  },
+  "choices": [
+   {
+    "id": "plunge",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      },
+      {
+       "param": "faith",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "money_pct": -30
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "oath",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": -3
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_pledge",
+  "type": "personal",
+  "base_weight": 8,
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "age_range": [
+   18,
+   60
+  ],
+  "once": true,
+  "sensitive": true,
+  "topic": "money",
+  "conditions": [
+   {
+    "tag": "in_debt"
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "self",
+    "effects": [
+     {
+      "remove_tag": "in_debt"
+     },
+     {
+      "param": "health",
+      "delta": -5
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       6
+      ],
+      "chance": 0.8,
+      "trigger_event": "ane_d_pledge_free"
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "flee",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "remove_tag": "in_debt"
+      },
+      {
+       "add_tag": "fugitive"
+      },
+      {
+       "param": "loneliness",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -8
+      },
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "money_pct": -50
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_pledge_free",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 10
+     },
+     {
+      "param": "stress",
+      "delta": -8
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_temple_barley",
+  "type": "personal",
+  "base_weight": 4,
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "topic": "money",
+  "conditions": [
+   {
+    "param": "money",
+    "op": "<",
+    "value": 200
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "borrow",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "ane_d_temple_barley_due"
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "tighten",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "happiness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_temple_barley_due",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "topic": "money",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "repay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -105
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "delay",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": -50
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -120
+      },
+      {
+       "add_tag": "in_debt"
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_extispicy",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble",
+   "craftsman"
+  ],
+  "age_range": [
+   18,
+   70
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "altar",
+    "goat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "consult",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     },
+     {
+      "chance": 0.55,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 120
+       }
+      ]
+     },
+     {
+      "chance": 0.2,
+      "effects": [
+       {
+        "param": "money",
+        "delta": -60
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "own",
+    "effects": [
+     {
+      "chance": 0.45,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 100
+       }
+      ]
+     },
+     {
+      "chance": 0.35,
+      "effects": [
+       {
+        "param": "money",
+        "delta": -70
+       }
+      ]
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "skip",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_caravan",
+  "type": "personal",
+  "base_weight": 2,
+  "classes": [
+   "trader",
+   "craftsman"
+  ],
+  "age_range": [
+   18,
+   55
+  ],
+  "topic": "money",
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 100
+   }
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "boat",
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "invest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       3
+      ],
+      "chance": 1,
+      "trigger_event": "ane_d_caravan_back"
+     }
+    ],
+    "pattern": {
+     "home_road": 3,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "go",
+    "requirements": [
+     {
+      "sex": "m"
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "skill": "trade",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       2
+      ],
+      "chance": 1,
+      "trigger_event": "ane_d_caravan_back"
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "no",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -3,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_caravan_back",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "topic": "money",
+  "scene": {
+   "place": "harbor",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "boat",
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "see",
+    "risk_roll": {
+     "param": "trade",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 260
+      },
+      {
+       "param": "happiness",
+       "delta": 5
+      },
+      {
+       "skill": "trade",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      },
+      {
+       "param": "happiness",
+       "delta": -4
+      }
+     ]
+    }
+   },
+   {
+    "id": "pray",
+    "risk_roll": {
+     "param": "faith",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 220
+      },
+      {
+       "param": "faith",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "faith",
+       "delta": -3
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_tomb_prep",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   30,
+   75
+  ],
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "full",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 250
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -250
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "set_flag": "ane_tomb_rich"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       14
+      ],
+      "chance": 0.35,
+      "trigger_event": "ane_d_tomb_robbed"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "cheap",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 50
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "maat",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 2
+     },
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_tomb_robbed",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "topic": "life",
+  "sensitive": true,
+  "conditions": [
+   {
+    "flag": "ane_tomb_rich"
+   }
+  ],
+  "scene": {
+   "place": "tomb",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "restore",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "hunt",
+    "risk_roll": {
+     "param": "reputation",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      },
+      {
+       "param": "money",
+       "delta": -20
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_beer_house",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "sex": "m",
+  "age_range": [
+   14,
+   24
+  ],
+  "once": true,
+  "topic": "life",
+  "conditions": [
+   {
+    "tag": "schooled"
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "amphora",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     },
+     {
+      "skill": "literacy",
+      "delta": -2
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "add_tag": "drinker"
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": 3,
+     "faith_reason": -1
+    }
+   },
+   {
+    "id": "study",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_runaway",
+  "type": "personal",
+  "base_weight": 2,
+  "classes": [
+   "slave"
+  ],
+  "age_range": [
+   15,
+   45
+  ],
+  "once": true,
+  "sensitive": true,
+  "topic": "life",
+  "icon": "freedom",
+  "scene": {
+   "place": "road",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "run",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "set_class": "peasant"
+      },
+      {
+       "set_profession": "farmer"
+      },
+      {
+       "remove_tag": "enslaved"
+      },
+      {
+       "add_tag": "freedman"
+      },
+      {
+       "add_tag": "fugitive"
+      },
+      {
+       "param": "happiness",
+       "delta": 15
+      },
+      {
+       "param": "loneliness",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      },
+      {
+       "param": "self_esteem",
+       "delta": -5
+      }
+     ]
+    },
+    "icon": "freedom",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     },
+     {
+      "chance": 0.4,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": 3
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "home_road": -3,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_adoption",
+  "type": "personal",
+  "base_weight": 1.5,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "slave"
+  ],
+  "sex": "f",
+  "age_range": [
+   12,
+   30
+  ],
+  "once": true,
+  "topic": "family",
+  "icon": "freedom",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_class": "peasant"
+     },
+     {
+      "set_profession": "farmer"
+     },
+     {
+      "remove_tag": "enslaved"
+     },
+     {
+      "add_tag": "freedman"
+     },
+     {
+      "param": "happiness",
+      "delta": 15
+     },
+     {
+      "param": "self_esteem",
+      "delta": 8
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 50
+     }
+    ],
+    "icon": "freedom",
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "set_class": "peasant"
+     },
+     {
+      "set_profession": "farmer"
+     },
+     {
+      "remove_tag": "enslaved"
+     },
+     {
+      "add_tag": "freedman"
+     },
+     {
+      "param": "happiness",
+      "delta": 10
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_recruit",
+  "type": "personal",
+  "base_weight": 5,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "sex": "m",
+  "age_range": [
+   17,
+   26
+  ],
+  "once": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "farmer",
+       "laborer",
+       "potter",
+       "artisan"
+      ]
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 5
+    }
+   },
+   {
+    "id": "bribe",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 50
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "self_esteem",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "set_profession": "soldier"
+      },
+      {
+       "param": "reputation",
+       "delta": -4
+      },
+      {
+       "param": "health",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2,
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_horses",
+  "type": "personal",
+  "base_weight": 2,
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "sex": "m",
+  "age_range": [
+   17,
+   50
+  ],
+  "once": true,
+  "topic": "money",
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 300
+   }
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -300
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "self_esteem",
+      "delta": 4
+     },
+     {
+      "set_flag": "ane_horses"
+     }
+    ],
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "no",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_shaduf",
+  "type": "personal",
+  "base_weight": 2,
+  "classes": [
+   "peasant"
+  ],
+  "age_range": [
+   18,
+   60
+  ],
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "tree",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "build",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 30
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "skill": "farming",
+      "delta": 4
+     },
+     {
+      "param": "diligence",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.8,
+      "trigger_event": "ane_d_shaduf_harvest"
+     }
+    ],
+    "pattern": {
+     "memory_future": 3,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "no",
+    "effects": [],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_shaduf_harvest",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "topic": "money",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "grain",
+    "palm"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "skill": "trade",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 50
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_inheritance_court",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "sex": "f",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "age_range": [
+   18,
+   70
+  ],
+  "once": true,
+  "topic": "money",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "court",
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_veil",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "assur"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "once": true,
+  "sensitive": true,
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": []
+  },
+  "choices": [
+   {
+    "id": "report",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "self_esteem",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "look_away",
+    "risk_roll": {
+     "success_chance_base": 0.8,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      },
+      {
+       "money_pct": -20
+      },
+      {
+       "param": "reputation",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 2,
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_will",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   50,
+   95
+  ],
+  "once": true,
+  "topic": "family",
+  "conditions": [
+   {
+    "has_npc": "child",
+    "age_min": 16,
+    "age_max": 80
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "equal",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "happiness",
+        "delta": 3
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "home_road": -2
+    }
+   },
+   {
+    "id": "reward",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     },
+     {
+      "npc_attitude": "child",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_low_nile",
+  "type": "local",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   16,
+   80
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "slave"
+  ],
+  "topic": "money",
+  "icon": "disaster",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "store",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "hope",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -8
+      },
+      {
+       "param": "happiness",
+       "delta": -4
+      }
+     ]
+    }
+   },
+   {
+    "id": "canal",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "skill": "farming",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 30
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_d_wet_nurse",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "sex": "f",
+  "age_range": [
+   17,
+   35
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "once": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "tag": "married"
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "cradle"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "home_road": 2
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_tomb_robbers",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "regions": [
+   "thebes"
+  ],
+  "classes": [
+   "craftsman",
+   "peasant"
+  ],
+  "sex": "m",
+  "age_range": [
+   18,
+   60
+  ],
+  "sensitive": true,
+  "topic": "life",
+  "icon": "find",
+  "scene": {
+   "place": "tomb",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 600
+     },
+     {
+      "param": "stress",
+      "delta": 10
+     },
+     {
+      "param": "faith",
+      "delta": -6
+     },
+     {
+      "set_flag": "ane_tomb_robber"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       5
+      ],
+      "chance": 0.6,
+      "trigger_event": "ane_t_robbery_trial"
+     }
+    ],
+    "pattern": {
+     "memory_future": 6,
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "silent",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "report",
+    "risk_roll": {
+     "param": "reputation",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "add_npc": "patron",
+       "attitude": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "add_npc": "rival",
+       "attitude": -50
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3,
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_robbery_trial",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "sensitive": true,
+  "topic": "life",
+  "icon": "loss",
+  "conditions": [
+   {
+    "flag": "ane_tomb_robber"
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "deny",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "param": "reputation",
+       "delta": -20
+      }
+     ]
+    }
+   },
+   {
+    "id": "bribe",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 300
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -300
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_captured",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   17,
+   50
+  ],
+  "topic": "life",
+  "icon": "war",
+  "conditions": [
+   {
+    "profession": [
+     "soldier",
+     "maryannu",
+     "officer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ransom",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "escape",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -5
+      },
+      {
+       "add_trait": "brave"
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "field_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_gold_valor",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   20,
+   50
+  ],
+  "topic": "work",
+  "icon": "find",
+  "conditions": [
+   {
+    "profession": [
+     "soldier",
+     "maryannu",
+     "officer"
+    ]
+   },
+   {
+    "skill": "military",
+    "op": ">=",
+    "value": 25
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 200
+   },
+   {
+    "param": "reputation",
+    "delta": 10
+   },
+   {
+    "param": "self_esteem",
+    "delta": 8
+   }
+  ],
+  "choices": [
+   {
+    "id": "land",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "set_class": "landowner"
+     },
+     {
+      "add_tag": "wealthy"
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "command",
+    "effects": [
+     {
+      "set_profession": "officer"
+     },
+     {
+      "skill": "military",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "set_profession": null
+     },
+     {
+      "param": "happiness",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": -10
+     }
+    ],
+    "pattern": {
+     "home_road": -5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "life",
+  "icon": "loss",
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "id": "ane_t_accused_eg",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "choices": [
+   {
+    "id": "defend",
+    "risk_roll": {
+     "param": "oratory",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      },
+      {
+       "add_npc": "rival",
+       "attitude": -40
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "patron",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "flee_thebes",
+    "requirements": [
+     {
+      "region": [
+       "thebes"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "memphis"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "add_tag": "fugitive"
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "flee_memphis",
+    "requirements": [
+     {
+      "region": [
+       "memphis"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "thebes"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "add_tag": "fugitive"
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "life",
+  "icon": "loss",
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "id": "ane_t_accused_mes",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "choices": [
+   {
+    "id": "defend",
+    "risk_roll": {
+     "param": "oratory",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      },
+      {
+       "add_npc": "rival",
+       "attitude": -40
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "patron",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "flee_babylon",
+    "requirements": [
+     {
+      "region": [
+       "babylon"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "assur"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "add_tag": "fugitive"
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "flee_assur",
+    "requirements": [
+     {
+      "region": [
+       "assur"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "babylon"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "add_tag": "fugitive"
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_handwriting",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   18,
+   45
+  ],
+  "topic": "work",
+  "icon": "study",
+  "conditions": [
+   {
+    "profession": [
+     "scribe",
+     "priest",
+     "baru"
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 30
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "@capital"
+     },
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 50
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -3
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -5,
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "topic": "life",
+  "icon": "disaster",
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "rain",
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "money_pct": -40
+   },
+   {
+    "param": "stress",
+    "delta": 8
+   }
+  ],
+  "id": "ane_t_great_flood_eg",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "choices": [
+   {
+    "id": "rebuild",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -5
+     },
+     {
+      "skill": "craft",
+      "delta": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -5,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "move_thebes",
+    "requirements": [
+     {
+      "region": [
+       "thebes"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "memphis"
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "move_memphis",
+    "requirements": [
+     {
+      "region": [
+       "memphis"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "thebes"
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "chance": 0.4,
+      "effects": [
+       {
+        "param": "self_esteem",
+        "delta": -3
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "topic": "life",
+  "icon": "disaster",
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "rain",
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "money_pct": -40
+   },
+   {
+    "param": "stress",
+    "delta": 8
+   }
+  ],
+  "id": "ane_t_great_flood_mes",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "choices": [
+   {
+    "id": "rebuild",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -5
+     },
+     {
+      "skill": "craft",
+      "delta": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -5,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "move_babylon",
+    "requirements": [
+     {
+      "region": [
+       "babylon"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "assur"
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "move_assur",
+    "requirements": [
+     {
+      "region": [
+       "assur"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "babylon"
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "chance": 0.4,
+      "effects": [
+       {
+        "param": "self_esteem",
+        "delta": -3
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   20,
+   60
+  ],
+  "topic": "money",
+  "icon": "find",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "cart"
+   ]
+  },
+  "id": "ane_t_far_field_eg",
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "choices": [
+   {
+    "id": "move_thebes",
+    "requirements": [
+     {
+      "region": [
+       "thebes"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "memphis"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "move_memphis",
+    "requirements": [
+     {
+      "region": [
+       "memphis"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "thebes"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   20,
+   60
+  ],
+  "topic": "money",
+  "icon": "find",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "cart"
+   ]
+  },
+  "id": "ane_t_far_field_mes",
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "choices": [
+   {
+    "id": "move_babylon",
+    "requirements": [
+     {
+      "region": [
+       "babylon"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "assur"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "move_assur",
+    "requirements": [
+     {
+      "region": [
+       "assur"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "migrate": "babylon"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_harem",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "sex": "f",
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "age_range": [
+   14,
+   24
+  ],
+  "topic": "life",
+  "icon": "move",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "loom"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "weaver"
+     },
+     {
+      "skill": "craft",
+      "delta": 6
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       10
+      ],
+      "chance": 0.3,
+      "trigger_event": "ane_t_harem_plot"
+     }
+    ],
+    "pattern": {
+     "home_road": 5,
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -5
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_harem_plot",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "sex": "f",
+  "sensitive": true,
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "risk_roll": {
+     "success_chance_base": 0.2,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 500
+      },
+      {
+       "param": "reputation",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "reputation",
+       "delta": -20
+      },
+      {
+       "param": "stress",
+       "delta": 15
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 6,
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_embassy",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 8,
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   20,
+   50
+  ],
+  "years": [
+   -1410,
+   -1320
+  ],
+  "topic": "life",
+  "icon": "move",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "horse",
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go_return",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "param": "health",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "go_stay",
+    "effects": [
+     {
+      "migrate": "thebes"
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "loneliness",
+      "delta": 10
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 8,
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_t_envoy_egypt",
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 8,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "age_range": [
+   20,
+   50
+  ],
+  "years": [
+   -1410,
+   -1250
+  ],
+  "topic": "life",
+  "icon": "move",
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 10
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "boat",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go_return",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 250
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "param": "health",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "go_stay",
+    "effects": [
+     {
+      "migrate": "babylon"
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "loneliness",
+      "delta": 10
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 8,
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_maryannu_officer",
+  "type": "personal",
+  "base_weight": 10,
+  "age_range": [
+   25,
+   50
+  ],
+  "once": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "maryannu"
+    ]
+   },
+   {
+    "skill": "military",
+    "op": ">=",
+    "value": 35
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "officer"
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_maryannu_horse",
+  "type": "personal",
+  "base_weight": 6,
+  "age_range": [
+   17,
+   50
+  ],
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "maryannu",
+     "officer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "heal",
+    "risk_roll": {
+     "param": "medicine",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -5
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_tomb_rations",
+  "type": "personal",
+  "base_weight": 6,
+  "age_range": [
+   16,
+   65
+  ],
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "tomb_builder"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "tomb",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "grain",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "side",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 50
+     },
+     {
+      "skill": "craft",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "complain",
+    "risk_roll": {
+     "param": "oratory",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 40
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -3
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_tomb_chief",
+  "type": "personal",
+  "base_weight": 10,
+  "age_range": [
+   30,
+   60
+  ],
+  "once": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "tomb_builder"
+    ]
+   },
+   {
+    "skill": "craft",
+    "op": ">=",
+    "value": 35
+   }
+  ],
+  "scene": {
+   "place": "tomb",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "skill": "management",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "skill": "craft",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_embalmer",
+  "type": "personal",
+  "base_weight": 6,
+  "age_range": [
+   16,
+   65
+  ],
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "embalmer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "table",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "proper",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "cheap",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 20
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_brewer_house",
+  "type": "personal",
+  "base_weight": 10,
+  "age_range": [
+   20,
+   55
+  ],
+  "once": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "brewer"
+    ]
+   },
+   {
+    "skill": "craft",
+    "op": ">=",
+    "value": 25
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "amphora",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "open",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "set_profession": "workshop_owner"
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_baru_omen",
+  "type": "personal",
+  "base_weight": 6,
+  "age_range": [
+   18,
+   70
+  ],
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "baru"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "altar",
+    "goat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "truth",
+    "risk_roll": {
+     "param": "reputation",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "faith",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -5
+      },
+      {
+       "param": "money",
+       "delta": -50
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "repeat",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     },
+     {
+      "skill": "literacy",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "flatter",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "faith",
+      "delta": -4
+     },
+     {
+      "chance": 0.4,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": -8
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_baru_court",
+  "type": "personal",
+  "base_weight": 10,
+  "age_range": [
+   28,
+   65
+  ],
+  "once": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "baru"
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 40
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "craft_power": 6,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_potter_shop",
+  "type": "personal",
+  "base_weight": 10,
+  "age_range": [
+   22,
+   55
+  ],
+  "once": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "potter"
+    ]
+   },
+   {
+    "skill": "craft",
+    "op": ">=",
+    "value": 30
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "fire",
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "build",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "set_profession": "workshop_owner"
+     },
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "no",
+    "effects": [
+     {
+      "skill": "craft",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_chantress",
+  "type": "personal",
+  "base_weight": 5,
+  "age_range": [
+   14,
+   50
+  ],
+  "topic": "work",
+  "others": [
+   "spouse"
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "chantress"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "statue",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "modest",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_w_boatman_obelisk",
+  "type": "personal",
+  "base_weight": 5,
+  "age_range": [
+   16,
+   55
+  ],
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "sailor"
+    ]
+   }
+  ],
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "boat",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "seafaring",
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "skill": "seafaring",
+       "delta": 4
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ]
+    }
+   },
+   {
+    "id": "no",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 20
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ane_w_boat_owner",
+  "type": "personal",
+  "base_weight": 10,
+  "age_range": [
+   25,
+   55
+  ],
+  "once": true,
+  "topic": "work",
+  "conditions": [
+   {
+    "profession": [
+     "sailor",
+     "merchant"
+    ]
+   },
+   {
+    "skill": "trade",
+    "op": ">=",
+    "value": 15
+   },
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 200
+   }
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -200
+     },
+     {
+      "set_profession": "shipowner"
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "no",
+    "effects": [],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_mv_to_thebes",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "memphis"
+  ],
+  "classes": [
+   "craftsman",
+   "peasant"
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "once": true,
+  "topic": "work",
+  "icon": "move",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "thebes"
+     },
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "skill": "craft",
+      "delta": 2
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_mv_to_memphis",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes"
+  ],
+  "classes": [
+   "trader",
+   "craftsman",
+   "peasant"
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "once": true,
+  "topic": "money",
+  "icon": "move",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat",
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "memphis"
+     },
+     {
+      "skill": "trade",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": 3
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_mv_to_kar_tukulti",
+  "type": "personal",
+  "base_weight": 6,
+  "regions": [
+   "babylon"
+  ],
+  "classes": [
+   "craftsman",
+   "peasant"
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "once": true,
+  "years": [
+   -1225,
+   -1207
+  ],
+  "topic": "work",
+  "icon": "move",
+  "sensitive": true,
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "assur"
+     },
+     {
+      "param": "money",
+      "delta": 30
+     },
+     {
+      "skill": "craft",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "migrate": "assur"
+      },
+      {
+       "param": "health",
+       "delta": -6
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_mv_to_babylon",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "assur"
+  ],
+  "age_range": [
+   14,
+   40
+  ],
+  "once": true,
+  "topic": "life",
+  "icon": "study",
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 15
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "babylon"
+     },
+     {
+      "skill": "literacy",
+      "delta": 6
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "icon": "move",
+    "pattern": {
+     "home_road": 5,
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_mv_akhetaten",
+  "type": "personal",
+  "base_weight": 8,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "classes": [
+   "craftsman",
+   "landowner",
+   "trader"
+  ],
+  "age_range": [
+   16,
+   50
+  ],
+  "once": true,
+  "years": [
+   -1346,
+   -1338
+  ],
+  "topic": "life",
+  "icon": "move",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "sun",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "move": "akhetaten"
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "set_flag": "ane_amarna"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       10,
+       14
+      ],
+      "chance": 0.9,
+      "trigger_event": "ane_mv_akhetaten_end"
+     }
+    ],
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_mv_akhetaten_end",
+  "type": "personal",
+  "base_weight": 2,
+  "trigger_only": true,
+  "topic": "life",
+  "icon": "move",
+  "conditions": [
+   {
+    "flag": "ane_amarna"
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "thebes",
+    "effects": [
+     {
+      "migrate": "thebes"
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 3,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "memphis",
+    "effects": [
+     {
+      "migrate": "memphis"
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 3,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_f_aten",
+  "type": "personal",
+  "base_weight": 4,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "once": true,
+  "years": [
+   -1344,
+   -1336
+  ],
+  "religions": [
+   "egyptian_gods"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "sun",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "aten",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "faith",
+      "delta": -2
+     },
+     {
+      "set_flag": "ane_atenist"
+     }
+    ],
+    "pattern": {
+     "memory_future": 5,
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "secret",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "both",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {}
+   }
+  ]
+ },
+ {
+  "id": "ane_f_stela",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes"
+  ],
+  "age_range": [
+   18,
+   80
+  ],
+  "once": true,
+  "religions": [
+   "egyptian_gods"
+  ],
+  "topic": "health",
+  "conditions": [
+   {
+    "param": "health",
+    "op": "<",
+    "value": 60
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stela",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 30
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "health",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "prayer",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_f_akitu_king",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "babylon"
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "once": true,
+  "religions": [
+   "mesopotamian_gods"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "statue",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "offer",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 15
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_f_shamash_oath",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "age_range": [
+   18,
+   70
+  ],
+  "religions": [
+   "mesopotamian_gods"
+  ],
+  "classes": [
+   "trader",
+   "craftsman",
+   "landowner"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "sun",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "swear",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "chance": 0.6,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 50
+       }
+      ]
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "param": "stress",
+        "delta": 4
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "pay_half",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_f_foreign_in_egypt",
+  "type": "personal",
+  "base_weight": 8,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "once": true,
+  "religions": [
+   "mesopotamian_gods"
+  ],
+  "topic": "life",
+  "conditions": [
+   {
+    "minority": true
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "statue",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "majority"
+     },
+     {
+      "param": "loneliness",
+      "delta": -5
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_f_egyptian_abroad",
+  "type": "personal",
+  "base_weight": 8,
+  "regions": [
+   "babylon",
+   "assur"
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "once": true,
+  "religions": [
+   "egyptian_gods"
+  ],
+  "topic": "life",
+  "conditions": [
+   {
+    "minority": true
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "majority"
+     },
+     {
+      "param": "loneliness",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ane_f_maat",
+  "type": "personal",
+  "base_weight": 2,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   40,
+   95
+  ],
+  "once": true,
+  "religions": [
+   "egyptian_gods"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "charity",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "home_road": -2
+    }
+   },
+   {
+    "id": "amend",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -4
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "enough",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ane_f_ishtar_statue",
+  "type": "personal",
+  "base_weight": 4,
+  "regions": [
+   "thebes",
+   "memphis"
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "once": true,
+  "years": [
+   -1355,
+   -1352
+  ],
+  "religions": [
+   "egyptian_gods",
+   "mesopotamian_gods"
+  ],
+  "topic": "health",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "statue",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "scoff",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ }
+]
