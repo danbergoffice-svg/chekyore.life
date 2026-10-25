@@ -199,11 +199,6 @@ function pyramid(px: Px, cx: number, base: number, levels: number, c: string, st
   for (let i = 0; i < levels; i++) px(cx - base / 2 + i * step, GROUND - (i + 1) * 3, base - i * step * 2, 3, c)
 }
 
-function house(px: Px, x: number, w: number, h: number, wall: string, roof: string, win: string, r: () => number, lit: boolean) {
-  px(x, GROUND - h, w, h, wall)
-  px(x - 1, GROUND - h - 2, w + 2, 2, roof)
-  for (let y = GROUND - h + 3; y < GROUND - 4; y += 5) for (let wx = x + 2; wx < x + w - 3; wx += 5) px(wx, y, 2, 3, lit && r() > 0.5 ? '#e8c96a' : win)
-}
 
 // ---------- Постройки разных стилей ----------
 
@@ -326,83 +321,141 @@ function tree(px: Px, look: Look, x: number, k: number, r: () => number) {
   }
 }
 
-/** Жилой дом в стиле края. */
+/** Дверь: прямоугольник, по желанию с аркой. */
+function door(px: Px, cx: number, h: number, c: string, arch = false) {
+  px(cx - 2, GROUND - h, 4, h, c)
+  if (arch) px(cx - 1, GROUND - h - 1, 2, 1, c)
+}
+
+/**
+ * Жилой дом в стиле края: низкий, в один (редко два) этажа, с дверью и одним-двумя окнами —
+ * никаких рядов одинаковых окон, как у многоэтажек.
+ */
 function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () => number, lit: boolean) {
   const p = look.p
-  const win = shade('#4a3a30', k)
-  const light = () => (lit && r() > 0.5 ? '#e8c96a' : win)
+  const dark = shade('#3a2a20', k)
+  const glow = () => (lit && r() > 0.4 ? '#e8c96a' : dark)
   const wall = shade(p.wall, k)
   const roof = shade(p.roof, k)
+  const cx = Math.round(x + w / 2)
+  const window = (wx: number, wy: number, ww = 3, wh = 3) => px(wx, wy, ww, wh, glow())
   switch (look.style) {
+    case 'roman':
+    case 'greek':
+    case 'byzantine': {
+      // Домус: глухие стены, черепичная крыша, дверь и маленькое окошко.
+      const h = 10 + Math.floor(r() * 4)
+      const body = look.style === 'greek' ? shade(r() > 0.3 ? '#efe9da' : p.wall, k) : shade(r() > 0.5 ? p.wall : '#e6d6b8', k)
+      px(x, GROUND - h, w, h, body)
+      if (look.style === 'byzantine') px(x, GROUND - h + 4, w, 1, shade(p.wall, k - 0.15))
+      gable(px, x - 2, w + 4, GROUND - h - 1, roof, 0.28)
+      door(px, x + 6, 7, dark, look.style === 'byzantine')
+      window(x + w - 8, GROUND - h + 3, 3, 3)
+      if (r() > 0.6) {
+        // Лавка-таберна с навесом.
+        px(x + w - 12, GROUND - 6, 8, 6, dark)
+        px(x + w - 13, GROUND - 7, 10, 1, shade('#a83a2f', k))
+      }
+      return
+    }
+    case 'egyptian':
+    case 'mesopotamian': {
+      // Дом из сырцового кирпича: плоская крыша, иногда навес на крыше.
+      const h = 9 + Math.floor(r() * 4)
+      px(x, GROUND - h, w, h, wall)
+      px(x - 1, GROUND - h - 1, w + 2, 1, shade(p.stoneDark, k))
+      door(px, x + 5, 7, dark)
+      window(x + w - 7, GROUND - h + 2, 3, 2)
+      if (r() > 0.5) {
+        px(x + w - 10, GROUND - h - 6, 1, 5, shade('#6a4a2a', k))
+        px(x + w - 3, GROUND - h - 6, 1, 5, shade('#6a4a2a', k))
+        px(x + w - 11, GROUND - h - 7, 10, 1, shade('#c9b48a', k))
+      }
+      return
+    }
+    case 'islamic':
+    case 'indian': {
+      if (look.style === 'indian' && r() > 0.65) {
+        // Деревенская хижина под соломой.
+        const h = 8
+        px(x + 2, GROUND - h, w - 4, h, shade('#c8a070', k))
+        door(px, cx, 6, dark)
+        gable(px, x, w, GROUND - h - 1, shade('#b89a5a', k), 0.45)
+        return
+      }
+      const h = 10 + Math.floor(r() * 5)
+      px(x, GROUND - h, w, h, wall)
+      px(x - 1, GROUND - h - 1, w + 2, 1, shade(p.stoneDark, k))
+      px(x - 1, GROUND - h - 2, 1, 1, shade(p.stoneDark, k))
+      px(x + w, GROUND - h - 2, 1, 1, shade(p.stoneDark, k))
+      door(px, x + 6, 7, dark, true)
+      if (look.style === 'islamic' && r() > 0.4) {
+        // Деревянный решётчатый эркер-машрабия.
+        px(x + w - 10, GROUND - h + 2, 7, 5, shade('#7a5232', k))
+        for (let i = 0; i < 3; i++) px(x + w - 9 + i * 2, GROUND - h + 3, 1, 3, shade('#4a3020', k))
+      } else window(x + w - 8, GROUND - h + 3, 3, 3)
+      if (r() > 0.85) dome(px, cx, GROUND - h - 1, Math.min(5, Math.floor(w / 4)), shade(look.style === 'islamic' ? p.accent : p.stone, k), shade('#d8b040', k))
+      return
+    }
     case 'chinese':
     case 'japanese': {
-      const h = 12 + Math.floor(r() * 7)
-      const body = look.style === 'japanese' ? (r() > 0.5 ? wall : shade('#6a4a30', k)) : r() > 0.7 ? shade('#a8402e', k) : wall
-      px(x, GROUND - h, w, h, body)
-      for (let wx = x + 3; wx < x + w - 3; wx += 6) px(wx, GROUND - h + 4, 3, 4, light())
+      const h = 10 + Math.floor(r() * 3)
+      if (look.style === 'japanese') {
+        // Деревянный каркас с белыми панелями и раздвижной дверью.
+        px(x, GROUND - h, w, h, shade('#6a4a30', k))
+        for (let px0 = x + 2; px0 < x + w - 4; px0 += 6) px(px0, GROUND - h + 2, 4, h - 4, shade('#efe6d2', k))
+        px(cx - 2, GROUND - 7, 4, 7, glow())
+      } else {
+        px(x, GROUND - h, w, h, shade(r() > 0.75 ? '#a8402e' : p.wall, k))
+        door(px, cx, 7, shade('#7a2a20', k))
+        // Решётчатое окно.
+        window(x + 4, GROUND - h + 3, 4, 4)
+        px(x + 6, GROUND - h + 3, 1, 4, shade('#5a4030', k))
+      }
       curvedRoof(px, x, w, GROUND - h - 1, roof, look.style === 'japanese')
       return
     }
     case 'gothic': {
-      const h = 14 + Math.floor(r() * 8)
+      // Фахверк: одна-две «клетки» балок, крутая крыша, дверь и пара окон.
+      const two = r() > 0.5
+      const h = two ? 18 : 11
       px(x, GROUND - h, w, h, wall)
       const beam = shade('#5a3a24', k)
       px(x, GROUND - h, w, 1, beam)
-      px(x, GROUND - Math.floor(h / 2), w, 1, beam)
-      for (let bx = x; bx < x + w; bx += 6) px(bx, GROUND - h, 1, h, beam)
-      for (let wx = x + 2; wx < x + w - 3; wx += 6) px(wx + 1, GROUND - h + 3, 2, 3, light())
-      gable(px, x - 1, w + 2, GROUND - h - 1, roof, 1.1)
+      px(x, GROUND - 1, w, 1, beam)
+      if (two) px(x, GROUND - 9, w, 1, beam)
+      px(x, GROUND - h, 1, h, beam)
+      px(x + w - 1, GROUND - h, 1, h, beam)
+      door(px, x + w - 6, 6, dark)
+      window(x + 4, GROUND - 7, 3, 3)
+      if (two) window(x + w / 2 - 1, GROUND - 15, 3, 3)
+      gable(px, x - 1, w + 2, GROUND - h - 1, roof, 1)
       return
     }
     case 'russian': {
-      const h = 11 + Math.floor(r() * 5)
+      const h = 11 + Math.floor(r() * 3)
       const log = shade(p.wall, k)
       px(x, GROUND - h, w, h, log)
       for (let y = GROUND - h + 1; y < GROUND; y += 2) px(x, y, w, 1, shade(p.wall, k - 0.12))
-      px(x + w / 2 - 3, GROUND - h + 3, 6, 5, shade('#e8dcc0', k))
-      px(x + w / 2 - 2, GROUND - h + 4, 4, 3, light())
+      px(cx - 3, GROUND - h + 3, 6, 5, shade('#e8dcc0', k))
+      px(cx - 2, GROUND - h + 4, 4, 3, glow())
       gable(px, x - 2, w + 4, GROUND - h - 1, roof, 0.9)
       return
     }
-    case 'byzantine': {
-      const h = 13 + Math.floor(r() * 8)
-      px(x, GROUND - h, w, h, wall)
-      for (let y = GROUND - h + 3; y < GROUND; y += 4) px(x, y, w, 1, shade(p.wall, k - 0.1))
-      for (let wx = x + 2; wx < x + w - 3; wx += 6) px(wx, GROUND - h + 4, 2, 4, light())
-      px(x - 1, GROUND - h - 2, w + 2, 2, roof)
-      px(x + 2, GROUND - h - 3, w - 4, 1, roof)
-      return
-    }
-    case 'islamic':
-    case 'mesopotamian':
-    case 'egyptian':
-    case 'indian':
-    case 'greek': {
-      const h = 10 + Math.floor(r() * 10)
-      px(x, GROUND - h, w, h, wall)
-      for (let wx = x + 3; wx < x + w - 4; wx += 7) {
-        px(wx, GROUND - h + 4, 3, 4, light())
-        if (look.style === 'islamic' || look.style === 'indian') px(wx + 1, GROUND - h + 3, 1, 1, light())
-      }
-      px(x - 1, GROUND - h - 1, w + 2, 1, shade(p.stoneDark, k))
-      if ((look.style === 'islamic' || look.style === 'indian') && r() > 0.7) dome(px, x + w / 2, GROUND - h - 1, Math.min(6, w / 3), shade(look.style === 'islamic' ? p.accent : p.stone, k), shade('#d8b040', k))
-      return
-    }
     case 'sahel': {
-      const h = 10 + Math.floor(r() * 8)
+      const h = 9 + Math.floor(r() * 4)
       px(x, GROUND - h, w, h, wall)
       px(x, GROUND - h - 2, 2, 2, wall)
       px(x + w - 2, GROUND - h - 2, 2, 2, wall)
-      for (let tx = x + 2; tx < x + w - 1; tx += 4) px(tx, GROUND - h + 2, 1, 1, shade('#5a3a20', k))
-      px(x + w / 2 - 2, GROUND - 7, 4, 7, win)
+      for (let tx = x + 3; tx < x + w - 2; tx += 5) px(tx, GROUND - h + 2, 1, 1, shade('#5a3a20', k))
+      door(px, cx, 7, dark)
       return
     }
     case 'ethiopian': {
       // Круглая хижина-тукуль с конической соломенной крышей.
       const h = 8
-      const cx = x + w / 2
       px(cx - 8, GROUND - h, 16, h, wall)
-      px(cx - 2, GROUND - 6, 4, 6, win)
+      door(px, cx, 6, dark)
       for (let i = 0; i < 9; i++) px(cx - 10 + i, GROUND - h - 1 - i, 20 - i * 2, 1, shade(p.roof, k - (i % 2) * 0.05))
       px(cx, GROUND - h - 12, 1, 3, shade('#5a4030', k))
       return
@@ -415,14 +468,10 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
       px(x, GROUND - h, w, h, stoneWall ? shade(p.stone, k) : wall)
       if (look.style === 'andean') for (let y = GROUND - h + 2; y < GROUND; y += 3) for (let sx = x + (y % 2) * 2; sx < x + w; sx += 5) px(sx, y, 1, 1, shade(p.stoneDark, k))
       // Трапециевидный вход.
-      px(x + w / 2 - 2, GROUND - 7, 4, 7, win)
-      px(x + w / 2 - 1, GROUND - 8, 2, 1, win)
+      px(cx - 2, GROUND - 7, 4, 7, dark)
+      px(cx - 1, GROUND - 8, 2, 1, dark)
       gable(px, x - 2, w + 4, GROUND - h - 1, roof, look.style === 'andean' ? 0.7 : 0.55)
       return
-    }
-    default: {
-      const h = 22 + Math.floor(r() * 12)
-      house(px, x, w, h, shade(r() > 0.5 ? p.wall : '#b9784e', k), roof, win, r, lit)
     }
   }
 }
@@ -803,11 +852,16 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
       return palace(px, look, region, k, r)
     case 'street':
     case 'market': {
-      let x = -4
-      while (x < W) {
-        const w = 22 + Math.floor(r() * 16)
-        styledHouse(px, look, x, look.style === 'maya' || look.style === 'aztec' || look.style === 'andean' ? Math.min(w, 26) : w, k, r, lit)
-        x += w + (look.style === 'ethiopian' || look.style === 'maya' || look.style === 'aztec' || look.style === 'andean' ? 6 : 2)
+      // Дома стоят по одному, с промежутками; между ними иногда дерево.
+      let x = 2 + Math.floor(r() * 6)
+      while (x < W - 8) {
+        const w = 20 + Math.floor(r() * 10)
+        styledHouse(px, look, x, w, k, r, lit)
+        x += w + 4 + Math.floor(r() * 6)
+        if (r() > 0.6 && x < W - 12) {
+          tree(px, look, x, k, r)
+          x += 12
+        }
       }
       if (place === 'market') {
         for (let sx = 14; sx < W - 20; sx += 44) {
@@ -904,7 +958,7 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
         px(161, GROUND - 40, 6, 6, shade(p.stone, k))
         px(162, GROUND - 43, 4, 3, '#f2c94c')
       }
-      styledHouse(px, look, 4, 40, k, r, lit)
+      styledHouse(px, look, 6, 26, k, r, lit)
       px(44, GROUND - 2, 60, 2, shade('#6a4a30', k))
       return
     case 'camp':
