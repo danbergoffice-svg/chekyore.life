@@ -21,15 +21,7 @@
     "gunpowder"
   ],
   "exclude_events": [
-    "a_goat_vineyard",
-    "a_stolen_tunic",
-    "c_broken_amphora",
-    "c_h_gym_invite",
-    "c_h_back",
-    "d_m_grave",
-    "j_land_vines",
-    "j_fs_vines",
-    "j_mag_election"
+    "j_land_vines"
   ],
   "stages": {
     "youth": 12,

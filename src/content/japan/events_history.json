@@ -57,9 +57,9 @@
   ],
   "years": [
    1181,
-   1186
+   1190
   ],
-  "global_chance": 0.5,
+  "global_chance": 0.6,
   "icon": "disaster",
   "sensitive": true,
   "scene": {

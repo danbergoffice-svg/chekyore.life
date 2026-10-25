@@ -1,0 +1,999 @@
+[
+ {
+  "id": "n_ind_nalanda",
+  "year": 1200,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ind_constantinople_1204",
+  "year": 1204,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_aibak_sultan",
+  "year": 1206,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_aibak_polo",
+  "year": 1210,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_iltutmish",
+  "year": 1211,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_tarain",
+  "year": 1216,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_bukhara",
+  "year": 1220,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_indus",
+  "year": 1221,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_bengal_subdued",
+  "year": 1227,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_caliph_robe",
+  "year": 1229,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_gwalior",
+  "year": 1232,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ujjain",
+  "year": 1234,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_razia",
+  "year": 1236,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_razia_death",
+  "year": 1240,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_lahore_mongols",
+  "year": 1241,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_nasiruddin",
+  "year": 1246,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_konark",
+  "year": 1250,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_jagadu",
+  "year": 1257,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "gujarat"
+  ]
+ },
+ {
+  "id": "n_ind_baghdad",
+  "year": 1258,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ain_jalut",
+  "year": 1260,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_balban",
+  "year": 1266,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_yuan",
+  "year": 1271,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_song_fall",
+  "year": 1279,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_tughril",
+  "year": 1281,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_prince_muhammad",
+  "year": 1285,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_balban_death",
+  "year": 1287,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_khalji",
+  "year": 1290,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ghazan",
+  "year": 1295,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_alauddin",
+  "year": 1296,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_gujarat_conquest",
+  "year": 1299,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "gujarat"
+  ]
+ },
+ {
+  "id": "n_ind_ranthambore",
+  "year": 1301,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_chittor",
+  "year": 1303,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_shah_jalal",
+  "year": 1303,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_amroha",
+  "year": 1305,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_warangal",
+  "year": 1310,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_madurai_raid",
+  "year": 1311,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_alauddin_death",
+  "year": 1316,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_tughluq",
+  "year": 1320,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_warangal_fall",
+  "year": 1323,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_tughluq_death",
+  "year": 1325,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_nizamuddin",
+  "year": 1325,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_daulatabad",
+  "year": 1327,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_ibn_battuta",
+  "year": 1334,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_madurai_sultanate",
+  "year": 1335,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_vijaya",
+  "year": 1336,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vijayanagara"
+  ]
+ },
+ {
+  "id": "n_ind_sonargaon",
+  "year": 1338,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ilyas_rise",
+  "year": 1342,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "bengal"
+  ]
+ },
+ {
+  "id": "n_ind_battuta_bengal",
+  "year": 1346,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_bahmani",
+  "year": 1347,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_black_death",
+  "year": 1348,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_muhammad_death",
+  "year": 1351,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ekdala",
+  "year": 1353,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "bengal"
+  ]
+ },
+ {
+  "id": "n_ind_bengal_second",
+  "year": 1359,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_jajnagar",
+  "year": 1360,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_mudgal",
+  "year": 1367,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "vijayanagara"
+  ]
+ },
+ {
+  "id": "n_ind_ming",
+  "year": 1368,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_timur_samarkand",
+  "year": 1370,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_madurai_conquest",
+  "year": 1371,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_bukka_death",
+  "year": 1377,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_herat",
+  "year": 1381,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_firuz_death",
+  "year": 1388,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_zafar_khan",
+  "year": 1391,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_jaunpur",
+  "year": 1394,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_timur_delhi",
+  "year": 1398,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_timur_leaves",
+  "year": 1399,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_timur_death",
+  "year": 1405,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_zheng_he",
+  "year": 1405,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "bengal"
+  ]
+ },
+ {
+  "id": "n_ind_muzaffar",
+  "year": 1407,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ahmedabad",
+  "year": 1411,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "gujarat"
+  ]
+ },
+ {
+  "id": "n_ind_sayyids",
+  "year": 1414,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_raja_ganesha",
+  "year": 1414,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_conti",
+  "year": 1420,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_devaraya",
+  "year": 1424,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_bidar",
+  "year": 1429,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_kumbha",
+  "year": 1437,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_razzaq",
+  "year": 1443,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_victory_tower",
+  "year": 1448,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_lodi",
+  "year": 1451,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_constantinople",
+  "year": 1453,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_begada",
+  "year": 1458,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_gawan_regent",
+  "year": 1461,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_nikitin",
+  "year": 1471,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_girnar",
+  "year": 1472,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_jaunpur_fall",
+  "year": 1479,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_gawan_death",
+  "year": 1481,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_champaner",
+  "year": 1484,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_habshi",
+  "year": 1487,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_bijapur",
+  "year": 1490,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_granada",
+  "year": 1492,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_hussain_shah",
+  "year": 1494,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_gama",
+  "year": 1498,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_nanak_vision",
+  "year": 1499,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_cabral",
+  "year": 1500,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_safavid",
+  "year": 1501,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_kabul",
+  "year": 1504,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_agra",
+  "year": 1505,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ceylon",
+  "year": 1505,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_chaul",
+  "year": 1508,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "gujarat"
+  ]
+ },
+ {
+  "id": "n_ind_diu",
+  "year": 1509,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "gujarat"
+  ]
+ },
+ {
+  "id": "n_ind_krishnadevaraya",
+  "year": 1509,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_goa",
+  "year": 1510,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vijayanagara"
+  ]
+ },
+ {
+  "id": "n_ind_malacca",
+  "year": 1511,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_chaldiran",
+  "year": 1514,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ottoman_egypt",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ibrahim_lodi",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_kabir_death",
+  "year": 1518,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ind_raichur",
+  "year": 1520,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vijayanagara"
+  ]
+ },
+ {
+  "id": "n_ind_gama_death",
+  "year": 1524,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_panipat",
+  "year": 1526,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_khanwa",
+  "year": 1527,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_vienna",
+  "year": 1529,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_kd_death",
+  "year": 1529,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_babur_death",
+  "year": 1530,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_chaitanya_death",
+  "year": 1534,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_bassein",
+  "year": 1534,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_bahadur",
+  "year": 1537,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "gujarat"
+  ]
+ },
+ {
+  "id": "n_ind_nanak_death",
+  "year": 1539,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_kannauj",
+  "year": 1540,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_akbar_born",
+  "year": 1542,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_xavier",
+  "year": 1542,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_sher_death",
+  "year": 1545,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_mirabai_death",
+  "year": 1547,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ind_islam_shah",
+  "year": 1553,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_humayun_return",
+  "year": 1555,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_humayun_death",
+  "year": 1556,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_panipat2",
+  "year": 1556,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_bairam",
+  "year": 1560,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_amber",
+  "year": 1562,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_pilgrim_tax",
+  "year": 1563,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_durgavati",
+  "year": 1564,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_talikota",
+  "year": 1565,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vijayanagara"
+  ]
+ },
+ {
+  "id": "n_ind_chittor2",
+  "year": 1568,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_salim",
+  "year": 1569,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_fatehpur",
+  "year": 1571,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_tulsidas",
+  "year": 1574,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_ibadat",
+  "year": 1575,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_haldighati",
+  "year": 1576,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_amritsar",
+  "year": 1577,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_jesuits",
+  "year": 1580,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_din_ilahi",
+  "year": 1582,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_ilahi_era",
+  "year": 1584,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_lahore",
+  "year": 1585,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_kashmir",
+  "year": 1586,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_fitch",
+  "year": 1586,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_armada",
+  "year": 1588,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_hyderabad",
+  "year": 1591,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_chand_bibi",
+  "year": 1595,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_ain",
+  "year": 1598,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_ahmadnagar",
+  "year": 1600,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_voc",
+  "year": 1602,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_adi_granth",
+  "year": 1604,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_akbar_death",
+  "year": 1605,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_guru_arjan",
+  "year": 1606,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_hawkins",
+  "year": 1609,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_mysore",
+  "year": 1610,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "vijayanagara"
+  ]
+ },
+ {
+  "id": "n_ind_nur_jahan",
+  "year": 1611,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_swally",
+  "year": 1612,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_roe",
+  "year": 1615,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_plague_1616",
+  "year": 1616,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_kangra",
+  "year": 1620,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_hormuz",
+  "year": 1622,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_khurram",
+  "year": 1622,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_jahangir_death",
+  "year": 1627,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_famine_1630",
+  "year": 1630,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "gujarat"
+  ]
+ },
+ {
+  "id": "n_ind_mumtaz",
+  "year": 1631,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_hooghly",
+  "year": 1632,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_peacock",
+  "year": 1635,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_madras",
+  "year": 1639,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_malacca_dutch",
+  "year": 1641,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_shahjahanabad",
+  "year": 1648,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "delhi"
+  ]
+ },
+ {
+  "id": "n_ind_kandahar",
+  "year": 1649,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_taj",
+  "year": 1653,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ind_samugarh",
+  "year": 1658,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_dara",
+  "year": 1659,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_surat",
+  "year": 1664,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_chittagong",
+  "year": 1666,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "bengal"
+  ]
+ },
+ {
+  "id": "n_ind_shahjahan_death",
+  "year": 1666,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_vishwanath",
+  "year": 1669,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_shivaji_crowned",
+  "year": 1674,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_tegh_bahadur",
+  "year": 1675,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_jizya_1679",
+  "year": 1679,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ind_shivaji_death",
+  "year": 1680,
+  "confidence": "confirmed"
+ }
+]

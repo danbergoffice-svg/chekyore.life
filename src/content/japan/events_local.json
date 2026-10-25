@@ -3827,7 +3827,7 @@
   "type": "personal",
   "turning": true,
   "once": true,
-  "base_weight": 3,
+  "base_weight": 7,
   "topic": "life",
   "classes": [
    "landowner"
@@ -4568,7 +4568,7 @@
   "type": "personal",
   "turning": true,
   "once": true,
-  "base_weight": 3,
+  "base_weight": 8,
   "topic": "work",
   "sex": "m",
   "years": [
@@ -5443,7 +5443,7 @@
   "id": "jpn_j_smith_ming",
   "type": "personal",
   "once": true,
-  "base_weight": 6,
+  "base_weight": 8,
   "topic": "work",
   "conditions": [
    {
@@ -5457,7 +5457,7 @@
    1547
   ],
   "age_range": [
-   18,
+   16,
    60
   ],
   "scene": {
@@ -5672,7 +5672,7 @@
   "id": "jpn_j_sake_lender",
   "type": "personal",
   "once": true,
-  "base_weight": 4,
+  "base_weight": 7,
   "topic": "work",
   "conditions": [
    {
@@ -5683,11 +5683,11 @@
    {
     "param": "money",
     "op": ">=",
-    "value": 200
+    "value": 100
    }
   ],
   "age_range": [
-   25,
+   22,
    60
   ],
   "scene": {
@@ -5743,7 +5743,7 @@
   "id": "jpn_j_noh_patron",
   "type": "personal",
   "once": true,
-  "base_weight": 6,
+  "base_weight": 8,
   "topic": "work",
   "conditions": [
    {
@@ -5757,8 +5757,8 @@
    1600
   ],
   "age_range": [
-   16,
-   50
+   14,
+   55
   ],
   "scene": {
    "place": "palace",

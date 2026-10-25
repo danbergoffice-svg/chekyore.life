@@ -1,0 +1,7229 @@
+[
+ {
+  "id": "ind_m_first_rain",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "rain",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "stress",
+    "delta": -3
+   }
+  ]
+ },
+ {
+  "id": "ind_m_holi",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   40
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "param": "loneliness",
+    "delta": -4
+   }
+  ]
+ },
+ {
+  "id": "ind_m_diwali",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   3,
+   70
+  ],
+  "religions": [
+   "hindu",
+   "jain"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_eid",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   70
+  ],
+  "religions": [
+   "islam"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "sun",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "loneliness",
+    "delta": -3
+   }
+  ]
+ },
+ {
+  "id": "ind_m_mango",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   70
+  ],
+  "regions": [
+   "delhi",
+   "bengal"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "tree",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_paan",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   16,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_storyteller",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   14
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "ind_m_sand_letters",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   10
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "school",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 3
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_loo_roof",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   70
+  ],
+  "regions": [
+   "delhi"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "moon",
+    "bed"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_qutb_minar",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "regions": [
+   "delhi"
+  ],
+  "years": [
+   1230,
+   1600
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_qawwali",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   70
+  ],
+  "regions": [
+   "delhi"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "stress",
+    "delta": -4
+   }
+  ]
+ },
+ {
+  "id": "ind_m_hampi_bazaar",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "regions": [
+   "vijayanagara"
+  ],
+  "years": [
+   1336,
+   1565
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "coins",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_mahanavami",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   60
+  ],
+  "regions": [
+   "vijayanagara"
+  ],
+  "years": [
+   1336,
+   1565
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "banner",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 5
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_hampi_ruins",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   80
+  ],
+  "regions": [
+   "vijayanagara"
+  ],
+  "years": [
+   1566,
+   1600
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "statue",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_chilli",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   80
+  ],
+  "regions": [
+   "vijayanagara",
+   "gujarat"
+  ],
+  "years": [
+   1540,
+   1600
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_kolam",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   50
+  ],
+  "sex": "f",
+  "regions": [
+   "vijayanagara"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "grain",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_muslin_ring",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "regions": [
+   "bengal"
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "loom"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_hilsa",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   80
+  ],
+  "regions": [
+   "bengal"
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_boat_song",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "regions": [
+   "bengal"
+  ],
+  "scene": {
+   "place": "river",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "boat",
+    "palm"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_stepwell",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "regions": [
+   "gujarat"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "statue",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -3
+   },
+   {
+    "param": "loneliness",
+    "delta": -3
+   }
+  ]
+ },
+ {
+  "id": "ind_m_jain_monk",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "regions": [
+   "gujarat"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_dhow_harbor",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "regions": [
+   "gujarat"
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "risk_tolerance",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_wrestling",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   30
+  ],
+  "sex": "m",
+  "scene": {
+   "place": "arena",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "strength",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_chaupar",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   70
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_dung_floor",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   60
+  ],
+  "sex": "f",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_jasmine",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   45
+  ],
+  "sex": "f",
+  "scene": {
+   "place": "market",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_henna",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   12,
+   30
+  ],
+  "sex": "f",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "loneliness",
+    "delta": -4
+   }
+  ]
+ },
+ {
+  "id": "ind_m_elephants_bath",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   60
+  ],
+  "regions": [
+   "delhi",
+   "vijayanagara",
+   "bengal"
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "sun",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "ind_m_caravan",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   60
+  ],
+  "regions": [
+   "delhi",
+   "gujarat"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "cart",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "risk_tolerance",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_sacred_thread",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   12
+  ],
+  "sex": "m",
+  "religions": [
+   "hindu"
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "fire",
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 4
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_ramadan_heat",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   12,
+   70
+  ],
+  "religions": [
+   "islam"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "lamp",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 3
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_first_tanka",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   7,
+   14
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "skill": "trade",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_firangi",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   70
+  ],
+  "regions": [
+   "gujarat",
+   "bengal"
+  ],
+  "years": [
+   1500,
+   1600
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "ind_m_mughal_garden",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   70
+  ],
+  "regions": [
+   "delhi"
+  ],
+  "years": [
+   1530,
+   1600
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": -4
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "ind_m_spice_smell",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   70
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "coins",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_m_cotton_harvest",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   60
+  ],
+  "regions": [
+   "gujarat",
+   "delhi"
+  ],
+  "classes": [
+   "peasant",
+   "slave"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "sun",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 1
+   },
+   {
+    "skill": "farming",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_d_moneylender",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   18,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "coins",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "borrow",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "add_tag": "in_debt"
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.7,
+      "trigger_event": "ind_t_debt_due"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "bangles",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "happiness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "manage",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "skill": "farming",
+      "delta": 2
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_debt_due",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "money",
+  "icon": "loss",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 250
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -250
+     },
+     {
+      "remove_tag": "in_debt"
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     }
+    ]
+   },
+   {
+    "id": "work_off",
+    "effects": [
+     {
+      "remove_tag": "in_debt"
+     },
+     {
+      "param": "health",
+      "delta": -6
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     },
+     {
+      "param": "self_esteem",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "give_land",
+    "effects": [
+     {
+      "remove_tag": "in_debt"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "happiness",
+      "delta": -8
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_jati_council",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 6,
+   "props": [
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "penance",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "argue",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 3
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "loneliness",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "ignore",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_pilgrimage",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   18,
+   65
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "topic": "life",
+  "icon": "move",
+  "scene": {
+   "place": "river",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "sun",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 80
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "faith",
+      "delta": 10
+     },
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "stress",
+      "delta": -6
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": 5,
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "offering",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "diligence",
+      "delta": 1
+     },
+     {
+      "param": "faith",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_hajj",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   25,
+   60
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "religions": [
+   "islam"
+  ],
+  "regions": [
+   "delhi",
+   "bengal",
+   "gujarat"
+  ],
+  "topic": "life",
+  "icon": "move",
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 300
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -300
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.8,
+     "on_success": [
+      {
+       "param": "faith",
+       "delta": 15
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "add_tag": "hajji"
+      },
+      {
+       "param": "happiness",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "faith",
+       "delta": 5
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 6,
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "alms",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_iqta",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   20,
+   50
+  ],
+  "sex": "m",
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "delhi",
+   "bengal",
+   "gujarat"
+  ],
+  "years": [
+   1206,
+   1555
+  ],
+  "topic": "work",
+  "icon": "find",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "set_flag": "iqta_holder"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "ind_t_iqta_recall"
+     }
+    ],
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3,
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_iqta_recall",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "work",
+  "icon": "move",
+  "conditions": [
+   {
+    "flag": "iqta_holder"
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "obey",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "migrate": "@other"
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "bribe",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": -200
+      },
+      {
+       "param": "reputation",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -200
+      },
+      {
+       "clear_flag": "iqta_holder"
+      },
+      {
+       "param": "reputation",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "resign",
+    "effects": [
+     {
+      "clear_flag": "iqta_holder"
+     },
+     {
+      "param": "reputation",
+      "delta": -4
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "craft_power": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_jizya",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "religions": [
+   "hindu",
+   "jain",
+   "buddhist"
+  ],
+  "regions": [
+   "delhi",
+   "bengal",
+   "gujarat"
+  ],
+  "years": [
+   1210,
+   1563
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins",
+    "scroll"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "plead",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": -15
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    }
+   },
+   {
+    "id": "bribe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -25
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "param": "money",
+        "delta": -40
+       },
+       {
+        "param": "reputation",
+        "delta": -2
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_horse_trade",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   20,
+   60
+  ],
+  "classes": [
+   "trader",
+   "landowner"
+  ],
+  "regions": [
+   "vijayanagara"
+  ],
+  "years": [
+   1400,
+   1565
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "boat"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "invest",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 250
+     }
+    ],
+    "risk_roll": {
+     "param": "trade",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 450
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -250
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_dargah_vow",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   17,
+   38
+  ],
+  "religions": [
+   "hindu",
+   "islam"
+  ],
+  "conditions": [
+   {
+    "tag": "married"
+   },
+   {
+    "no_npc": "child"
+   }
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "set_flag": "dargah_vow"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       3
+      ],
+      "chance": 0.55,
+      "trigger_event": "ind_t_vow_child"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_vow_child",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "family",
+  "icon": "birth",
+  "conditions": [
+   {
+    "tag": "married"
+   },
+   {
+    "age": [
+     16,
+     45
+    ]
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "cradle",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "add_npc": "child",
+    "attitude": 60
+   },
+   {
+    "param": "happiness",
+    "delta": 10
+   },
+   {
+    "param": "faith",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "id": "ind_d_sati",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2,
+  "age_range": [
+   14,
+   70
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "regions": [
+   "delhi",
+   "vijayanagara",
+   "gujarat"
+  ],
+  "sensitive": true,
+  "topic": "life",
+  "scene": {
+   "place": "river",
+   "time": "sunset",
+   "people": 6,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "farewell",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "dissuade",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 5,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_widow",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   16,
+   60
+  ],
+  "sex": "f",
+  "religions": [
+   "hindu"
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "sensitive": true,
+  "topic": "family",
+  "conditions": [
+   {
+    "tag_absent": "married"
+   },
+   {
+    "no_npc": "spouse"
+   },
+   {
+    "has_npc": "child"
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "happiness",
+      "delta": -5
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "return",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -4
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     },
+     {
+      "param": "money",
+      "delta": -30
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "devotion",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_well_gift",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   28,
+   70
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "sun",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "build",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 400
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -400
+     },
+     {
+      "param": "reputation",
+      "delta": 10
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       12
+      ],
+      "chance": 0.7,
+      "trigger_event": "ind_t_well_blessing"
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "small",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_well_blessing",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "life",
+  "icon": "find",
+  "scene": {
+   "place": "road",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "statue",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 6
+   },
+   {
+    "param": "happiness",
+    "delta": 6
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "ind_d_perpetual_lamp",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   20,
+   70
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "regions": [
+   "vijayanagara"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "lamp",
+    "goat"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "sheep",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "coins",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_betrothal",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   22,
+   55
+  ],
+  "npc": "child",
+  "npc_age": [
+   4,
+   10
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "table",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "agree",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 0.8,
+      "trigger_event": "ind_t_betrothal_wedding"
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_betrothal_wedding",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "npc": "child",
+  "topic": "family",
+  "icon": "wedding",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": -150
+   },
+   {
+    "param": "happiness",
+    "delta": 6
+   },
+   {
+    "npc_attitude": "npc",
+    "delta": 10
+   },
+   {
+    "param": "reputation",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "ind_d_persian",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   12,
+   18
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "regions": [
+   "delhi",
+   "bengal",
+   "gujarat"
+  ],
+  "years": [
+   1250,
+   1600
+  ],
+  "topic": "work",
+  "icon": "study",
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "persian",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 8
+     },
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "set_flag": "persian"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.65,
+      "trigger_event": "ind_t_munshi_offer"
+     }
+    ],
+    "pattern": {
+     "memory_future": 5,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "sanskrit",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -20
+     }
+    ],
+    "pattern": {
+     "memory_future": -4,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "trade",
+    "effects": [
+     {
+      "skill": "trade",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_munshi_offer",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "sex": "m",
+  "topic": "work",
+  "icon": "study",
+  "conditions": [
+   {
+    "flag": "persian"
+   },
+   {
+    "age": [
+     17,
+     50
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_sitala",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   18,
+   55
+  ],
+  "npc": "child",
+  "npc_age": [
+   1,
+   10
+  ],
+  "sensitive": true,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp",
+    "bed"
+   ]
+  },
+  "choices": [
+   {
+    "id": "vaidya",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.75,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 10
+      },
+      {
+       "param": "stress",
+       "delta": -3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "happiness",
+       "delta": -6
+      },
+      {
+       "chance": 0.35,
+       "effects": [
+        {
+         "kill_npc": "npc"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "goddess",
+    "requirements": [
+     {
+      "religion": [
+       "hindu"
+      ]
+     }
+    ],
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "money",
+      "delta": -10
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "happiness",
+       "delta": -6
+      },
+      {
+       "chance": 0.35,
+       "effects": [
+        {
+         "kill_npc": "npc"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "care",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 12
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "happiness",
+       "delta": -6
+      },
+      {
+       "chance": 0.35,
+       "effects": [
+        {
+         "kill_npc": "npc"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_fever_cure",
+  "type": "personal",
+  "once": false,
+  "base_weight": 3,
+  "age_range": [
+   12,
+   80
+  ],
+  "conditions": [
+   {
+    "tag": "ill"
+   }
+  ],
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "vaidya",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 50
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.75,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      },
+      {
+       "param": "health",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "shrine",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": -10
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "remove_tag": "ill"
+      },
+      {
+       "param": "health",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 20
+     },
+     {
+      "param": "health",
+      "delta": -8
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ind_d_afim",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   22,
+   70
+  ],
+  "regions": [
+   "gujarat",
+   "delhi"
+  ],
+  "years": [
+   1450,
+   1600
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble",
+   "peasant"
+  ],
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "habit",
+    "effects": [
+     {
+      "add_tag": "opium"
+     },
+     {
+      "param": "stress",
+      "delta": -6
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "once",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ]
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_toddy",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   18,
+   60
+  ],
+  "regions": [
+   "bengal",
+   "vijayanagara"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "topic": "health",
+  "scene": {
+   "place": "field",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "palm",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "daily",
+    "effects": [
+     {
+      "add_tag": "drinker"
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ]
+   },
+   {
+    "id": "sometimes",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "money",
+      "delta": -3
+     }
+    ]
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     },
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ind_d_diwali_dice",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   16,
+   60
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "big",
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 100
+      },
+      {
+       "param": "happiness",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -80
+      },
+      {
+       "chance": 0.4,
+       "effects": [
+        {
+         "add_tag": "gambler"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "small",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -5
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_boundary",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   20,
+   65
+  ],
+  "classes": [
+   "peasant",
+   "landowner"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "tree",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "panchayat",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 3
+      },
+      {
+       "param": "money",
+       "delta": 20
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -30
+      },
+      {
+       "param": "self_esteem",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "court",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "risk_roll": {
+     "param": "literacy",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "param": "reputation",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": -2
+      },
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "reputation",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_monsoon_fail",
+  "type": "personal",
+  "once": true,
+  "base_weight": 2,
+  "age_range": [
+   14,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "conditions": [
+   {
+    "tag": "rural"
+   }
+  ],
+  "topic": "money",
+  "icon": "disaster",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "param": "happiness",
+      "delta": -5
+     },
+     {
+      "skill": "trade",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "city",
+    "effects": [
+     {
+      "migrate": "@capital"
+     },
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "remove_tag": "rural"
+     },
+     {
+      "add_tag": "lives_in_city"
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "wait",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      },
+      {
+       "param": "happiness",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_temple_car",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   12,
+   60
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "regions": [
+   "vijayanagara",
+   "bengal",
+   "gujarat"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pull",
+    "risk_roll": {
+     "success_chance_base": 0.85,
+     "on_success": [
+      {
+       "param": "faith",
+       "delta": 6
+      },
+      {
+       "param": "happiness",
+       "delta": 5
+      },
+      {
+       "param": "loneliness",
+       "delta": -4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "faith",
+       "delta": 3
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ind_d_apprentice",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   25,
+   60
+  ],
+  "npc": "child",
+  "npc_age": [
+   8,
+   13
+  ],
+  "classes": [
+   "craftsman"
+  ],
+  "topic": "family",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "anvil",
+    "loom"
+   ]
+  },
+  "choices": [
+   {
+    "id": "family",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     },
+     {
+      "npc_profession": "artisan"
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "master",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "npc_profession": "artisan"
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "school",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 60
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "npc_profession": "scribe"
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": 5,
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_d_purdah",
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "age_range": [
+   14,
+   60
+  ],
+  "sex": "f",
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "delhi",
+   "bengal",
+   "gujarat"
+  ],
+  "years": [
+   1250,
+   1600
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "palanquin",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "servants",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "openly",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -5
+     },
+     {
+      "param": "self_esteem",
+      "delta": 5
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_robbers",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "topic": "life",
+  "icon": "loss",
+  "scene": {
+   "place": "road",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      },
+      {
+       "add_trait": "brave"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -22
+      },
+      {
+       "money_pct": -60
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "bargain",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -15
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_captive",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   12,
+   45
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "sensitive": true,
+  "topic": "life",
+  "icon": "war",
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "smoke",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "money_pct": -30
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -20
+      },
+      {
+       "param": "self_esteem",
+       "delta": -12
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.45,
+      "trigger_event": "ind_t_ransom"
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "add_trait": "brave"
+      },
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "remove_tag": "lives_in_city"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -20
+      },
+      {
+       "param": "self_esteem",
+       "delta": -12
+      },
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.45,
+      "trigger_event": "ind_t_ransom"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "run",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -70
+     },
+     {
+      "param": "stress",
+      "delta": 10
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_ransom",
+  "type": "personal",
+  "base_weight": 1,
+  "trigger_only": true,
+  "topic": "life",
+  "icon": "freedom",
+  "classes": [
+   "slave"
+  ],
+  "conditions": [
+   {
+    "tag": "enslaved"
+   }
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go_home",
+    "effects": [
+     {
+      "set_class": "peasant"
+     },
+     {
+      "set_profession": "farmer"
+     },
+     {
+      "remove_tag": "enslaved"
+     },
+     {
+      "add_tag": "freedman"
+     },
+     {
+      "param": "happiness",
+      "delta": 15
+     },
+     {
+      "param": "self_esteem",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   },
+   {
+    "id": "repay",
+    "effects": [
+     {
+      "set_class": "craftsman"
+     },
+     {
+      "set_profession": "laborer"
+     },
+     {
+      "remove_tag": "enslaved"
+     },
+     {
+      "add_tag": "freedman"
+     },
+     {
+      "add_tag": "in_debt"
+     },
+     {
+      "param": "happiness",
+      "delta": 10
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_ghulam",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   14,
+   35
+  ],
+  "sex": "m",
+  "classes": [
+   "slave"
+  ],
+  "regions": [
+   "delhi",
+   "bengal",
+   "gujarat"
+  ],
+  "topic": "work",
+  "icon": "find",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "shield"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "train",
+    "effects": [
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "skill": "military",
+      "delta": 10
+     },
+     {
+      "skill": "literacy",
+      "delta": 4
+     },
+     {
+      "param": "strength",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "ind_t_ghulam_freed"
+     }
+    ],
+    "pattern": {
+     "craft_power": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_ghulam_freed",
+  "type": "personal",
+  "base_weight": 1,
+  "trigger_only": true,
+  "topic": "work",
+  "icon": "freedom",
+  "conditions": [
+   {
+    "tag": "enslaved"
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "set_class": "craftsman"
+   },
+   {
+    "set_profession": "officer"
+   },
+   {
+    "remove_tag": "enslaved"
+   },
+   {
+    "add_tag": "freedman"
+   },
+   {
+    "param": "money",
+    "delta": 200
+   },
+   {
+    "param": "happiness",
+    "delta": 12
+   },
+   {
+    "param": "reputation",
+    "delta": 8
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_royal_favor",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   20,
+   55
+  ],
+  "sex": "m",
+  "classes": [
+   "landowner",
+   "noble",
+   "trader"
+  ],
+  "topic": "work",
+  "icon": "find",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_class": "noble"
+     },
+     {
+      "set_profession": "magistrate"
+     },
+     {
+      "param": "money",
+      "delta": 500
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     },
+     {
+      "param": "reputation",
+      "delta": 10
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       9
+      ],
+      "chance": 0.5,
+      "trigger_event": "ind_t_court_intrigue"
+     }
+    ],
+    "pattern": {
+     "craft_power": 8,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": -4,
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_court_intrigue",
+  "type": "personal",
+  "base_weight": 1,
+  "trigger_only": true,
+  "topic": "work",
+  "icon": "loss",
+  "classes": [
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "defend",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "set_profession": "landholder"
+      },
+      {
+       "set_class": "landowner"
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 400
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -400
+     },
+     {
+      "param": "self_esteem",
+      "delta": -4
+     }
+    ]
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -40
+     },
+     {
+      "set_profession": "landholder"
+     },
+     {
+      "set_class": "landowner"
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_treasure",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   12,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "slave",
+   "craftsman"
+  ],
+  "conditions": [
+   {
+    "tag": "rural"
+   }
+  ],
+  "topic": "money",
+  "icon": "find",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "coins",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "report",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       6
+      ],
+      "chance": 0.35,
+      "trigger_event": "ind_t_treasure_informer"
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_t_treasure_informer",
+  "type": "personal",
+  "base_weight": 1,
+  "trigger_only": true,
+  "topic": "money",
+  "icon": "loss",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "money_pct": -40
+   },
+   {
+    "param": "reputation",
+    "delta": -5
+   },
+   {
+    "param": "stress",
+    "delta": 6
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_cargo",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   20,
+   60
+  ],
+  "classes": [
+   "trader"
+  ],
+  "regions": [
+   "gujarat",
+   "bengal"
+  ],
+  "topic": "money",
+  "icon": "move",
+  "scene": {
+   "place": "harbor",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "wait",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 700
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "chance": 0.5,
+       "effects": [
+        {
+         "set_profession": "shipowner"
+        }
+       ]
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -300
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "sell_share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_false_theft",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "topic": "life",
+  "icon": "loss",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "witnesses",
+    "risk_roll": {
+     "param": "reputation",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 4
+      },
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -150
+      },
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     },
+     {
+      "param": "self_esteem",
+      "delta": -5
+     }
+    ]
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "loneliness",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_elephant_rampage",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   14,
+   60
+  ],
+  "regions": [
+   "delhi",
+   "vijayanagara",
+   "bengal"
+  ],
+  "topic": "life",
+  "icon": "find",
+  "others": [
+   "child"
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "save",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 12
+      },
+      {
+       "add_npc": "patron",
+       "attitude": 60
+      },
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "add_trait": "brave"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": -4
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_river_course",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   16,
+   65
+  ],
+  "regions": [
+   "bengal"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "topic": "life",
+  "icon": "disaster",
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "rain",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "char",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "skill": "farming",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "param": "happiness",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "boat",
+    "requirements": [
+     {
+      "sex": "m"
+     }
+    ],
+    "effects": [
+     {
+      "set_profession": "sailor"
+     },
+     {
+      "skill": "seafaring",
+      "delta": 6
+     },
+     {
+      "money_pct": -30
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "kin",
+    "effects": [
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     },
+     {
+      "param": "self_esteem",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_tr_renounce",
+  "type": "personal",
+  "base_weight": 3,
+  "turning": true,
+  "once": true,
+  "age_range": [
+   35,
+   65
+  ],
+  "sex": "m",
+  "religions": [
+   "hindu",
+   "islam"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "topic": "life",
+  "icon": "move",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "sun",
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "faqir"
+     },
+     {
+      "money_pct": -80
+     },
+     {
+      "param": "faith",
+      "delta": 20
+     },
+     {
+      "param": "stress",
+      "delta": -10
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -8,
+     "home_road": 8
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_musth",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   16,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "mahout"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "calm",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "military",
+       "delta": 4
+      },
+      {
+       "param": "money",
+       "delta": 60
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -22
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "chain",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_devadasi_festival",
+  "type": "personal",
+  "base_weight": 7,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   13,
+   45
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "devadasi"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "dance",
+    "risk_roll": {
+     "param": "oratory",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "self_esteem",
+       "delta": -6
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "yield",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_devadasi_patron",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   16,
+   45
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "devadasi"
+    ]
+   },
+   {
+    "no_npc": "patron"
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "temple",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_muslin_court",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   18,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "muslin_weaver"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "loom",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "set_profession": "workshop_owner"
+      },
+      {
+       "param": "money",
+       "delta": 300
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      },
+      {
+       "param": "money",
+       "delta": 50
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_cartaz",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   16,
+   65
+  ],
+  "regions": [
+   "gujarat",
+   "bengal"
+  ],
+  "years": [
+   1502,
+   1600
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "spice_trader",
+     "merchant",
+     "sailor",
+     "shipowner"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat",
+    "scroll"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "buy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "self_esteem",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "risk",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -300
+      },
+      {
+       "param": "health",
+       "delta": -6
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_spice_ship",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   25,
+   60
+  ],
+  "regions": [
+   "gujarat",
+   "bengal"
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "spice_trader"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "buy",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 600
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -600
+     },
+     {
+      "set_profession": "shipowner"
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "memory_future": 6,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "partner",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "skill": "trade",
+      "delta": 4
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 350
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -100
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "pass",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_faqir_hermitage",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   25,
+   80
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "faqir"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "tree",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "loneliness",
+      "delta": -6
+     },
+     {
+      "param": "money",
+      "delta": 40
+     }
+    ],
+    "pattern": {
+     "home_road": -6,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "wander",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "loneliness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "craft_power": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_kavi_contest",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   16,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "kavi"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "compete",
+    "risk_roll": {
+     "param": "oratory",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 250
+      },
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -5
+      },
+      {
+       "param": "self_esteem",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "listen",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_kavi_praise",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   18,
+   75
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "kavi"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "praise",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "faith",
+      "delta": -3
+     },
+     {
+      "param": "self_esteem",
+      "delta": -5
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "veiled",
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -100
+      },
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "self_esteem",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -5,
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_qazi_case",
+  "type": "personal",
+  "base_weight": 7,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   22,
+   75
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "qazi"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "just",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "faith",
+       "delta": 4
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "set_profession": "scribe"
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      },
+      {
+       "money_pct": -20
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 3,
+     "craft_power": -4
+    }
+   },
+   {
+    "id": "yield",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "faith",
+      "delta": -6
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_land_survey",
+  "type": "personal",
+  "base_weight": 7,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   18,
+   60
+  ],
+  "regions": [
+   "delhi",
+   "bengal",
+   "gujarat"
+  ],
+  "years": [
+   1540,
+   1600
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "scribe"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "grain"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "diligent",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "set_profession": "official"
+      },
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "bribes",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 180
+     },
+     {
+      "param": "faith",
+      "delta": -4
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "param": "money",
+        "delta": -250
+       },
+       {
+        "param": "reputation",
+        "delta": -8
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_sardar",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   18,
+   50
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "soldier"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "charge",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "set_profession": "officer"
+      },
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "chance": 0.2,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5,
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "hold",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "skill": "military",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_temple_carving",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   18,
+   60
+  ],
+  "regions": [
+   "vijayanagara",
+   "gujarat"
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "artisan"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "statue",
+    "anvil"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "set_profession": "workshop_owner"
+      },
+      {
+       "param": "money",
+       "delta": 250
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "param": "health",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -4,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "helper",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "skill": "craft",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_j_vaidya_court",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "age_range": [
+   22,
+   75
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "physician"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "treat",
+    "risk_roll": {
+     "param": "medicine",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 400
+      },
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "add_npc": "patron",
+       "attitude": 50
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "money_pct": -20
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 5,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_mv_to_port",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "icon": "move",
+  "topic": "life",
+  "age_range": [
+   18,
+   45
+  ],
+  "regions": [
+   "delhi"
+  ],
+  "classes": [
+   "trader",
+   "craftsman"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "cart",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "@port"
+     },
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "skill": "trade",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_mv_builders_south",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "icon": "move",
+  "topic": "life",
+  "age_range": [
+   16,
+   45
+  ],
+  "regions": [
+   "delhi",
+   "bengal",
+   "gujarat"
+  ],
+  "years": [
+   1400,
+   1560
+  ],
+  "religions": [
+   "hindu",
+   "jain"
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "artisan",
+     "laborer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "cart",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "vijayanagara"
+     },
+     {
+      "param": "money",
+      "delta": 60
+     },
+     {
+      "skill": "craft",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": 7,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_mv_sufi_east",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "icon": "move",
+  "topic": "life",
+  "age_range": [
+   16,
+   50
+  ],
+  "regions": [
+   "delhi"
+  ],
+  "religions": [
+   "islam"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "sun",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "bengal"
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "add_npc": "mentor",
+      "attitude": 50
+     }
+    ],
+    "pattern": {
+     "home_road": 7,
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_mv_court_service",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "icon": "move",
+  "topic": "life",
+  "age_range": [
+   17,
+   40
+  ],
+  "sex": "m",
+  "regions": [
+   "bengal",
+   "gujarat"
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "@capital"
+     },
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "skill": "management",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_f_kabir",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "age_range": [
+   12,
+   70
+  ],
+  "regions": [
+   "delhi",
+   "bengal"
+  ],
+  "years": [
+   1460,
+   1600
+  ],
+  "religions": [
+   "hindu",
+   "islam"
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "loom"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "heart",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     },
+     {
+      "set_flag": "kabir"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "tradition",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_f_chaitanya",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "age_range": [
+   10,
+   70
+  ],
+  "regions": [
+   "bengal"
+  ],
+  "years": [
+   1505,
+   1600
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 6,
+   "props": [
+    "lamp",
+    "banner"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "happiness",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": -6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -6,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_f_nanak",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "age_range": [
+   12,
+   70
+  ],
+  "regions": [
+   "delhi"
+  ],
+  "years": [
+   1500,
+   1600
+  ],
+  "religions": [
+   "hindu",
+   "islam"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "table",
+    "fire"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "follow",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "loneliness",
+      "delta": -5
+     },
+     {
+      "set_flag": "sikh_follower"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "meal",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ]
+   },
+   {
+    "id": "away",
+    "effects": [],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_f_pir",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "age_range": [
+   14,
+   60
+  ],
+  "regions": [
+   "bengal",
+   "delhi"
+  ],
+  "years": [
+   1250,
+   1600
+  ],
+  "religions": [
+   "hindu",
+   "buddhist"
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "tree",
+    "grain"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "honor",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "away",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_f_last_monastery",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "age_range": [
+   12,
+   70
+  ],
+  "regions": [
+   "bengal"
+  ],
+  "years": [
+   1200,
+   1400
+  ],
+  "religions": [
+   "buddhist"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "statue",
+    "lamp"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "memory_future": -6
+    }
+   },
+   {
+    "id": "join",
+    "effects": [
+     {
+      "set_religion": "hindu"
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_f_paryushan",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "age_range": [
+   12,
+   75
+  ],
+  "religions": [
+   "jain"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "lamp",
+    "statue"
+   ]
+  },
+  "choices": [
+   {
+    "id": "long",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "faith",
+      "delta": 10
+     },
+     {
+      "param": "self_esteem",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -6
+    }
+   },
+   {
+    "id": "short",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     }
+    ]
+   },
+   {
+    "id": "forgive",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "ind_f_mirabai",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "others": [
+   "spouse"
+  ],
+  "age_range": [
+   12,
+   70
+  ],
+  "regions": [
+   "delhi",
+   "gujarat"
+  ],
+  "years": [
+   1530,
+   1600
+  ],
+  "religions": [
+   "hindu"
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "choices": [
+   {
+    "id": "sing",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "listen",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ind_f_raya_muslims",
+  "type": "personal",
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "age_range": [
+   16,
+   60
+  ],
+  "regions": [
+   "vijayanagara"
+  ],
+  "years": [
+   1420,
+   1565
+  ],
+  "religions": [
+   "islam"
+  ],
+  "sex": "m",
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "serve",
+    "effects": [
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "skill": "military",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ }
+]
