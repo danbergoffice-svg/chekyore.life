@@ -90,7 +90,6 @@
   "prof.chantress.desc": "You sing in the temple and shake the sistrum at festivals. An honoured title for women of good families.",
   "place.akhetaten": "Akhetaten, city of the Aten",
   "cause.scorpion": "a scorpion or snake bite",
-  "cause.drowning": "drowned in the river",
   "cause.cave_in": "a rockfall in a tomb",
   "skill.literacy.ANE": "Writing",
   "skill.seafaring.ANE": "Boatcraft",
@@ -117,5 +116,6 @@
   "ev.c_h_family_doctor.text.ANE": "A physician who has treated your neighbours makes an offer: for a regular fee he'll look after the whole family — give remedies, recite spells against illness and come at the first call.",
   "ev.c_trade_high.text.ANE": "Your {g=npc_sex:son|daughter} {npc} has grown up. Friends advise: serving the gods brings honour, the scribal school brings respect and a post at the treasury, the family estate brings security. The choice is yours — but {npc} already has opinions.",
   "ev.j_sol_recruiter.text.ANE": "A royal herald has come to town: the army is gathering for a campaign, and those who come back are promised land and a share of the plunder. They say veterans of the last campaign now live in houses of their own.",
-  "ev.school_offer.text.ANE": "Your family wonders whether to send you to scribal school. The teachers use the stick, but a scribe never hauls stone. It costs money, and they need your help at home now."
+  "ev.school_offer.text.ANE": "Your family wonders whether to send you to scribal school. The teachers use the stick, but a scribe never hauls stone. It costs money, and they need your help at home now.",
+  "cause.drowning.ANE": "drowned in the river"
 }

@@ -292,7 +292,11 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     else if ('clear_flag' in e) hero.flags = hero.flags.filter((t) => t !== e.clear_flag)
     else if ('add_trait' in e) { if (!hero.traits.includes(e.add_trait)) hero.traits.push(e.add_trait) }
     else if ('set_class' in e) hero.cls = e.set_class
-    else if ('set_profession' in e) hero.profession = e.set_profession
+    else if ('set_profession' in e) {
+      hero.profession = e.set_profession
+      // Монахи и монахини дают обет безбрачия: свадебные события их обходят.
+      if (e.set_profession === 'monk' && !hero.tags.includes('vowed')) hero.tags.push('vowed')
+    }
     else if ('move' in e) {
       if (hero.places[hero.places.length - 1] !== e.move) hero.places.push(e.move)
       addPattern(hero, era.patternWeights.actions.move)

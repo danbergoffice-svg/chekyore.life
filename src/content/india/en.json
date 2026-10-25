@@ -111,8 +111,6 @@
   "prof.qazi": "Qazi (judge)",
   "prof.qazi.as": "a qazi, a judge",
   "prof.qazi.desc": "Judging by the sharia, witnessing marriages and deeds, interpreting the law. Great respect, but no way to please everyone.",
-  "cause.smallpox": "smallpox",
-  "cause.snakebite": "snakebite",
   "cause.famine": "famine after a failed harvest",
   "lifestyle.food.plain.desc.IND": "Rice or roti, dal, vegetables, curds",
   "lifestyle.food.varied.desc.IND": "Ghee, fruit, fish, sweets, spices. Good for health",
@@ -134,5 +132,7 @@
   "focus.religion.IND": "Faith",
   "focus.religion.desc.IND": "Temple or mosque, fasts, vows, pilgrimages",
   "focus.rest.desc.IND": "Festivals, music, the bazaar, conversation",
-  "focus.service.desc.IND": "Bow, horse, sword and campaigns"
+  "focus.service.desc.IND": "Bow, horse, sword and campaigns",
+  "cause.smallpox.IND": "smallpox",
+  "cause.snakebite.IND": "snakebite"
 }

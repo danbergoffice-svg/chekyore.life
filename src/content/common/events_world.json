@@ -680,6 +680,9 @@
       },
       {
         "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "vowed"
       }
     ],
     "base_weight": 2,

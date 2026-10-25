@@ -325,5 +325,21 @@
   "class.craftsman.short": "Craftsmen",
   "class.trader.short": "Merchants",
   "class.landowner.short": "Landowners",
-  "class.noble.short": "Nobility"
+  "class.noble.short": "Nobility",
+  "coin.cacao": "{p=n:handful of cacao|handfuls of cacao}",
+  "cause.drowning": "drowned",
+  "prof.monk": "{g:Monk|Nun}",
+  "prof.monk.as": "a {g:monk|nun}",
+  "prof.monk.desc": "Life in a monastery: prayer, work and obedience.",
+  "prof.icon_painter": "Icon painter",
+  "prof.icon_painter.as": "an icon painter",
+  "prof.icon_painter.desc": "Wooden panels, paints and the strict canon of holy images.",
+  "cause.smallpox": "smallpox",
+  "prof.translator": "Translator",
+  "prof.translator.as": "a translator",
+  "prof.translator.desc": "You turn books and speeches from foreign tongues for merchants, scholars and rulers.",
+  "cause.snakebite": "snakebite",
+  "prof.salt_trader": "Salt trader",
+  "prof.salt_trader.as": "a salt trader",
+  "prof.salt_trader.desc": "Every household needs salt. Long roads, heavy loads and good money."
 }

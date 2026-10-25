@@ -19,15 +19,9 @@
   "class.noble.family.RUS": "into a boyar family",
   "coin.rus_kuna": "{p=n:kuna|kunas}",
   "coin.rus_denga": "{p=n:denga|dengas}",
-  "prof.monk": "{g:Monk|Nun}",
-  "prof.monk.as": "{g:a monk|a nun}",
-  "prof.monk.desc": "The monastery: prayer, obedience, fasting. Worldly life is behind you, but the brotherhood will not let you starve.",
   "prof.monk.RUS": "{g:Monk|Nun}",
   "prof.monk.as.RUS": "{g:a monk|a nun}",
   "prof.monk.desc.RUS": "Vows in a monastery: prayer, obedience, copying books and labour on the monastery's land.",
-  "prof.icon_painter": "Icon painter",
-  "prof.icon_painter.as": "an icon painter",
-  "prof.icon_painter.desc": "Boards, gesso, egg paints and a fast before the work. A good master is called even to the prince's cathedral.",
   "prof.bortnik": "Wild beekeeper",
   "prof.bortnik.as": "a wild beekeeper",
   "prof.bortnik.desc": "You climb pines to wild bee nests in hollowed trunks. Honey and wax sell well, but it is a long way down.",
@@ -162,5 +156,8 @@
   "ev.t_honorary_decree.text.RUS": "People remember that hungry year. The elders came to bow before you with bread and salt, the church holds a prayer service for you, and at feasts you are seated in the place of honour. People already speak of you the way the old songs speak of the righteous.",
   "place.rus_lithuania": "Lithuania",
   "place.rus_kama": "the Stroganov lands on the Kama",
-  "place.rus_don": "the Don"
+  "place.rus_don": "the Don",
+  "prof.icon_painter.RUS": "Icon painter",
+  "prof.icon_painter.as.RUS": "an icon painter",
+  "prof.icon_painter.desc.RUS": "Boards, gesso, egg paints and a fast before the work. A good master is called even to the prince's cathedral."
 }

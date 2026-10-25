@@ -648,6 +648,9 @@
       },
       {
         "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "vowed"
       }
     ],
     "choices": [
@@ -743,6 +746,9 @@
       },
       {
         "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "vowed"
       }
     ],
     "choices": [
@@ -861,6 +867,9 @@
           14,
           50
         ]
+      },
+      {
+        "tag_absent": "vowed"
       }
     ],
     "choices": [

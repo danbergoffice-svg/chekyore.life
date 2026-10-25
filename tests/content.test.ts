@@ -76,3 +76,16 @@ describe('Контент', () => {
     expect(saved).toEqual(actual)
   })
 })
+
+describe('Тексты стран', () => {
+  it('страны не задают общие ключи без суффикса страны (иначе перетирают друг друга)', () => {
+    const dir = path.join(__dirname, '../src/content')
+    const owners = new Map<string, string[]>()
+    for (const folder of fs.readdirSync(dir).filter((d) => fs.statSync(path.join(dir, d)).isDirectory())) {
+      for (const f of fs.readdirSync(path.join(dir, folder)).filter((x) => /^(ui_)?ru.*\.json$/.test(x))) {
+        for (const k of Object.keys(JSON.parse(fs.readFileSync(path.join(dir, folder, f), 'utf8')))) owners.set(k, [...(owners.get(k) ?? []), folder])
+      }
+    }
+    expect([...owners].filter(([, v]) => new Set(v).size > 1).map(([k, v]) => `${k}: ${v.join(', ')}`)).toEqual([])
+  })
+})

@@ -84,9 +84,6 @@
   "prof.exam_scholar": "Examination candidate",
   "prof.exam_scholar.as": "an examination candidate",
   "prof.exam_scholar.desc": "Years over the classics for the examinations. Pass, and you become an official; fail, and you teach other people’s children.",
-  "prof.monk": "Buddhist {g:monk|nun}",
-  "prof.monk.as": "a {g:monk|nun}",
-  "prof.monk.desc": "A shaven head, sutras, alms and the quiet of the monastery. The family loses a worker but gains merit.",
   "prof.tea_grower": "Tea grower",
   "prof.tea_grower.as": "a tea grower",
   "prof.tea_grower.desc": "Tea bushes on mountain terraces, the spring picking before dawn and a state monopoly on sales.",
@@ -99,7 +96,6 @@
   "prof.storyteller": "Storyteller",
   "prof.storyteller.as": "a storyteller",
   "prof.storyteller.desc": "You tell tales of the Three Kingdoms and noble outlaws in pleasure grounds and teahouses. Paid in coppers and laughter.",
-  "cause.smallpox": "smallpox",
   "cause.kiln_lung": "lung disease from kiln dust",
   "lifestyle.food.plain.desc.CHN": "Rice or millet, vegetables, bean curd",
   "lifestyle.food.varied.desc.CHN": "Fish, pork, fruit, good tea. Good for your health",
@@ -127,5 +123,9 @@
   "ev.c_child_fall.text.CHN": "Your {g=npc_sex:son|daughter} {npc} climbed the old mulberry tree by the road and fell. The arm is swollen and hangs wrong. {g=npc_sex:He|She} is trying very hard not to cry.",
   "ev.a_inheritance.text.CHN": "The inheritance isn’t divided yet, and {npc} already claims the best rice fields: “I looked after the old man while you were off who knows where.” And {g=npc_sex:he|she} is not entirely wrong.",
   "ev.c_trade_high.estates.ok.CHN": "{npc} rides round the estates, measuring fields and arguing with tenants. The stewards already miss the old days.",
-  "ev.c_teacher.home_teach.ok.CHN": "In the evenings the two of you sit over the copybook. You’ve discovered you’d long forgotten half the characters yourself."
+  "ev.c_teacher.home_teach.ok.CHN": "In the evenings the two of you sit over the copybook. You’ve discovered you’d long forgotten half the characters yourself.",
+  "prof.monk.CHN": "Buddhist {g:monk|nun}",
+  "prof.monk.as.CHN": "a {g:monk|nun}",
+  "prof.monk.desc.CHN": "A shaven head, sutras, alms and the quiet of the monastery. The family loses a worker but gains merit.",
+  "cause.smallpox.CHN": "smallpox"
 }

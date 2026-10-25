@@ -1,6 +1,5 @@
 {
   "coin.amole": "{p=n:salt bar|salt bars}",
-
   "class.slave.ETH": "a bonded servant",
   "class.peasant.ETH": "a peasant with an ancestral plot",
   "class.craftsman.ETH": "a craftsman's child",
@@ -24,7 +23,6 @@
   "class.noble.harar": "a family of the emir's circle",
   "class.noble.family.harar": "into a family close to the sultan and the emir",
   "class.noble.short.harar": "Adal nobility",
-
   "prof.farmer.ETH": "Ploughman",
   "prof.farmer.as.ETH": "a ploughman on ancestral land",
   "prof.farmer.desc.ETH": "Teff, barley, beans, a pair of oxen and a maresha plough. Part of the harvest goes to the lord and the church.",
@@ -97,16 +95,9 @@
   "prof.overseer.ETH": "Steward",
   "prof.overseer.as.ETH": "a steward",
   "prof.overseer.desc.ETH": "Your master has trusted you with the house and the other servants. You are still not free, but your word carries weight.",
-
   "prof.debtera": "Debtera",
   "prof.debtera.as": "a debtera",
   "prof.debtera.desc": "A church scholar: you sing in the choir with sistrum and prayer staff, copy books, compose qene verses and write healing scrolls.",
-  "prof.monk": "{g:Monk|Nun}",
-  "prof.monk.as": "{g:a monk|a nun}",
-  "prof.monk.desc": "A monastery on a mountain or an island, fasting, prayer and work. You live on alms and respect.",
-  "prof.icon_painter": "Icon painter",
-  "prof.icon_painter.as": "an icon painter",
-  "prof.icon_painter.desc": "You paint the Virgin Mary, Saint George and the angels on panels and church walls, grinding your own pigments.",
   "prof.coffee_merchant": "Coffee merchant",
   "prof.coffee_merchant.as": "a coffee merchant",
   "prof.coffee_merchant.desc": "You buy beans from the gardens around Harar and send them with caravans to the sea at Zeila.",
@@ -119,9 +110,7 @@
   "prof.beta_israel_smith": "Beta Israel smith or potter",
   "prof.beta_israel_smith.as": "a smith or potter of the Beta Israel",
   "prof.beta_israel_smith.desc": "Your community has almost no land, but skilled hands. Christians buy your ploughshares and pots, yet keep their distance.",
-
   "cause.eth_road": "died on the road with a caravan",
-
   "lifestyle.food.plain.desc.ETH": "Teff injera and a stew of beans and lentils. No meat or milk during fasts",
   "lifestyle.food.varied.desc.ETH": "Meat after the fasts, butter, honey, milk and cheese",
   "lifestyle.food.feasts.ETH": "Feasts",
@@ -135,7 +124,6 @@
   "lifestyle.baths.rarely.desc.ETH": "A stream and a jar of water",
   "lifestyle.baths.sometimes.desc.ETH": "On feast days and after a fast",
   "lifestyle.baths.daily.desc.ETH": "Every day, as custom and faith ask. You need water nearby and means",
-
   "focus.learn.desc.ETH": "Church school: the fidel alphabet and the Psalter by heart. The teacher is paid in grain and honey",
   "focus.study.desc.ETH": "Ge'ez books, church chant, qene verse and commentary. Costs money",
   "focus.health.desc.ETH": "Holy water, herbs, rest",
@@ -146,13 +134,17 @@
   "focus.religion.desc.harar": "Mosque, prayer, the Ramadan fast, alms",
   "focus.learn.desc.harar": "Qur'an school: Arabic letters and suras by heart",
   "focus.service.desc.ETH": "Spear, shield, horse and campaigns with the army",
-
   "skill.literacy.ETH": "Letters",
   "vice.drinker.ETH": "drinks tej and tella",
   "vice.opium.ETH": "takes a stupefying potion",
-
   "religion.judaism.ETH": "the faith of the Beta Israel",
   "religion.judaism.desc.ETH": "The Beta Israel community: the Torah in Ge'ez, the Sabbath, strict purity, their own monks and prayer houses.",
   "religion.african_traditional.shewa": "the ancestral faith",
-  "religion.african_traditional.desc.shewa": "The sky god, spirits of the ancestors and the land, elders and the rites of the clan."
+  "religion.african_traditional.desc.shewa": "The sky god, spirits of the ancestors and the land, elders and the rites of the clan.",
+  "prof.monk.ETH": "{g:Monk|Nun}",
+  "prof.monk.as.ETH": "{g:a monk|a nun}",
+  "prof.monk.desc.ETH": "A monastery on a mountain or an island, fasting, prayer and work. You live on alms and respect.",
+  "prof.icon_painter.ETH": "Icon painter",
+  "prof.icon_painter.as.ETH": "an icon painter",
+  "prof.icon_painter.desc.ETH": "You paint the Virgin Mary, Saint George and the angels on panels and church walls, grinding your own pigments."
 }

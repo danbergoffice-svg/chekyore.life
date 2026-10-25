@@ -325,5 +325,21 @@
   "class.craftsman.short": "Ремесленники",
   "class.trader.short": "Торговцы",
   "class.landowner.short": "Землевладельцы",
-  "class.noble.short": "Знать"
+  "class.noble.short": "Знать",
+  "coin.cacao": "{p=n:горсть какао|горсти какао|горстей какао}",
+  "cause.drowning": "утонул{g:|а}",
+  "prof.monk": "Мон{g:ах|ахиня}",
+  "prof.monk.as": "{g:монахом|монахиней}",
+  "prof.monk.desc": "Жизнь в монастыре: молитва, труд и послушание.",
+  "prof.icon_painter": "Иконописец",
+  "prof.icon_painter.as": "иконописцем",
+  "prof.icon_painter.desc": "Доски, краски и строгий канон святых образов.",
+  "cause.smallpox": "оспа",
+  "prof.translator": "Перевод{g:чик|чица}",
+  "prof.translator.as": "{g:переводчиком|переводчицей}",
+  "prof.translator.desc": "Переводишь книги и речи с чужих языков — для купцов, учёных и правителей.",
+  "cause.snakebite": "укус змеи",
+  "prof.salt_trader": "Торгов{g:ец|ка} солью",
+  "prof.salt_trader.as": "{g:торговцем|торговкой} солью",
+  "prof.salt_trader.desc": "Соль нужна каждому дому. Долгие дороги, тяжёлая ноша и хороший доход."
 }

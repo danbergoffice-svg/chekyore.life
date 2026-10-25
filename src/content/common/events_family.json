@@ -541,6 +541,10 @@
           "memory_future": -2
         }
       }
+    ],
+    "not_eras": [
+      "AMR",
+      "MAY"
     ]
   },
   {

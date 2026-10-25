@@ -90,9 +90,6 @@
   "prof.hunter": "Donso hunter",
   "prof.hunter.as": "a donso hunter",
   "prof.hunter.desc": "The hunters' brotherhood, amulets, the bush and its beasts. Hunters know herbs and hidden paths.",
-  "prof.salt_trader": "Salt caravaneer",
-  "prof.salt_trader.as": "a salt caravaneer",
-  "prof.salt_trader.desc": "Slabs of salt from Taghaza across the desert by camel. Riches, or death by thirst.",
   "prof.gold_miner": "Gold miner",
   "prof.gold_miner.as": "a gold miner",
   "prof.gold_miner.desc": "The mines of Bure: in the dry season you dig shafts and wash the earth in calabashes.",
@@ -102,7 +99,6 @@
   "prof.healer": "Healer and diviner",
   "prof.healer.as": "a healer and diviner",
   "prof.healer.desc": "Herbs, divining with cowries and talking with spirits. People come to you when nothing else has helped.",
-  "cause.drowning": "drowned in the Niger",
   "cause.desert": "died in the desert",
   "cause.mine_collapse": "a gold-mine collapse",
   "cause.hunt": "killed on a hunt",
@@ -133,5 +129,9 @@
   "vice.drinker.WAF": "drinks millet beer",
   "vice.gambler.WAF": "gambles for cowries",
   "vice.opium.WAF": "drinks a stupefying brew",
-  "religion.african_traditional.niani": "the faith of the ancestors and the spirits of the land"
+  "religion.african_traditional.niani": "the faith of the ancestors and the spirits of the land",
+  "prof.salt_trader.WAF": "Salt caravaneer",
+  "prof.salt_trader.as.WAF": "a salt caravaneer",
+  "prof.salt_trader.desc.WAF": "Slabs of salt from Taghaza across the desert by camel. Riches, or death by thirst.",
+  "cause.drowning.WAF": "drowned in the Niger"
 }

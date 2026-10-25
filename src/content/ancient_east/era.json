@@ -2520,7 +2520,7 @@
       ]
     ],
     "childbirth": 0.018,
-    "calibration": 0.85,
+    "calibration": 0.9,
     "causes": [
       {
         "id": "infant_illness",

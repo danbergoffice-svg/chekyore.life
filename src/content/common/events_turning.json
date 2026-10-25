@@ -3050,6 +3050,9 @@
     "conditions": [
       {
         "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "vowed"
       }
     ],
     "topic": "family",

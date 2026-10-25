@@ -1421,7 +1421,7 @@
         160
       ],
       "upkeep": 140,
-      "mortality": 1.0,
+      "mortality": 1,
       "tags": [
         "rural",
         "raised_farming"
@@ -1435,7 +1435,7 @@
         220
       ],
       "upkeep": 190,
-      "mortality": 1.0,
+      "mortality": 1,
       "tags": [
         "lives_in_city",
         "raised_craft"
@@ -2339,7 +2339,7 @@
       ]
     ],
     "childbirth": 0.015,
-    "calibration": 0.82,
+    "calibration": 0.96,
     "causes": [
       {
         "id": "infant_illness",

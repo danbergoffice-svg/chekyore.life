@@ -1,3052 +1,3010 @@
 {
- "id": "MAY",
- "years": [
-  550,
-  900
- ],
- "population": 5,
- "features": [
-  "writing",
-  "slavery",
-  "river"
- ],
- "stages": {
-  "youth": 12,
-  "adult": 18,
-  "old": 50
- },
- "marriageAge": {
-  "m": [
-   17,
-   26
+  "id": "MAY",
+  "years": [
+    550,
+    900
   ],
-  "f": [
-   14,
-   20
-  ]
- },
- "lifeExpectancy": 26,
- "inheritance": "sons_first",
- "traits": [
-  "cautious",
-  "ambitious",
-  "kind",
-  "hot_tempered",
-  "curious",
-  "reserved",
-  "generous",
-  "pious",
-  "cunning",
-  "brave"
- ],
- "skills": [
-  "literacy",
-  "trade",
-  "craft",
-  "farming",
-  "military",
-  "medicine",
-  "management",
-  "oratory",
-  "seafaring"
- ],
- "exclude_events": [
-  "venture",
-  "a_sailor_dolphins",
-  "a_scribe_blot",
-  "a_goat_vineyard",
-  "a_harbor_wages",
-  "a_steward_accounts",
-  "a_father_story",
-  "a_neighbor_noise",
-  "a_friend_tavern",
-  "a_voyage",
-  "a_inheritance",
-  "a_sibling_reconcile",
-  "a_bakery",
-  "d_t_sib_captive",
-  "d_sib_lost_news",
-  "c_far_away",
-  "c_far_return",
-  "c_grand_spoil",
-  "c_grand_craft_later",
-  "c_h_plague",
-  "c_h_diet",
-  "c_h_gout_later",
-  "c_h_family_doctor",
-  "c_h_gym_invite",
-  "c_h_wound",
-  "c_broken_amphora",
-  "t_shipwreck",
-  "t_shipwreck_vow",
-  "t_child_kidnapped",
-  "t_grain_hoard",
-  "j_farm_new_way",
-  "j_lab_crane",
-  "j_weave_pattern",
-  "j_merch_hoard",
-  "j_merch_branch_later",
-  "j_land_vines",
-  "j_land_vines_harvest",
-  "j_fs_vines",
-  "j_up_ship",
-  "j_ship_pirates",
-  "j_ship_state",
-  "j_sail_late",
-  "j_any_payday",
-  "j_sol_grain",
-  "y_full_sack",
-  "y_procession_run",
-  "y_wooden_toy",
-  "d_m_toy",
-  "c_toys",
-  "v_wine_symposium",
-  "v_wine_scandal",
-  "v_wine_fall",
-  "v_glut_feast",
-  "w_old_lares",
-  "w_old_sun_bench",
-  "w_tomb_visit",
-  "d_m_grave",
-  "y_bad_influence",
-  "j_mag_games",
-  "j_hs_secret"
- ],
- "regions": [
-  {
-   "id": "tikal",
-   "weight": 4,
-   "years": [
-    550,
-    900
-   ],
-   "coin": "cacao",
-   "classWeights": {
-    "slave": 6,
-    "peasant": 58,
-    "craftsman": 16,
-    "trader": 7,
-    "landowner": 10,
-    "noble": 3
-   },
-   "names": {
-    "m": [
-     {
-      "id": "may_kinich",
-      "ru": "Кинич",
-      "en": "K'inich"
-     },
-     {
-      "id": "may_balam",
-      "ru": "Балам",
-      "en": "Bahlam"
-     },
-     {
-      "id": "may_chak",
-      "ru": "Чак",
-      "en": "Chak"
-     },
-     {
-      "id": "may_kawiil",
-      "ru": "Кавиль",
-      "en": "K'awiil"
-     },
-     {
-      "id": "may_yax",
-      "ru": "Яш",
-      "en": "Yax"
-     },
-     {
-      "id": "may_ahk",
-      "ru": "Ак",
-      "en": "Ahk"
-     },
-     {
-      "id": "may_chan",
-      "ru": "Чан",
-      "en": "Chan"
-     },
-     {
-      "id": "may_muwaan",
-      "ru": "Мувахн",
-      "en": "Muwaan"
-     },
-     {
-      "id": "may_hix",
-      "ru": "Хиш",
-      "en": "Hix"
-     },
-     {
-      "id": "may_tzunun",
-      "ru": "Цунун",
-      "en": "Tz'unun"
-     },
-     {
-      "id": "may_mo",
-      "ru": "Мо",
-      "en": "Mo'"
-     },
-     {
-      "id": "may_kuy",
-      "ru": "Куй",
-      "en": "Kuy"
-     },
-     {
-      "id": "may_tok",
-      "ru": "Ток",
-      "en": "Tok'"
-     },
-     {
-      "id": "may_kan",
-      "ru": "Кан",
-      "en": "K'an"
-     },
-     {
-      "id": "may_ek",
-      "ru": "Эк",
-      "en": "Ek'"
-     },
-     {
-      "id": "may_uh",
-      "ru": "Ух",
-      "en": "Uh"
-     },
-     {
-      "id": "may_chok",
-      "ru": "Чок",
-      "en": "Ch'ok"
-     },
-     {
-      "id": "may_sak",
-      "ru": "Сак",
-      "en": "Sak"
-     },
-     {
-      "id": "may_nuun",
-      "ru": "Нуун",
-      "en": "Nuun"
-     },
-     {
-      "id": "may_kak",
-      "ru": "Как",
-      "en": "K'ak'"
-     },
-     {
-      "id": "may_tuun",
-      "ru": "Туун",
-      "en": "Tuun"
-     },
-     {
-      "id": "may_lakam",
-      "ru": "Лакам",
-      "en": "Lakam"
-     },
-     {
-      "id": "may_chitam",
-      "ru": "Читам",
-      "en": "Chitam"
-     },
-     {
-      "id": "may_kelem",
-      "ru": "Келем",
-      "en": "Kelem"
-     },
-     {
-      "id": "may_wak",
-      "ru": "Вак",
-      "en": "Wak"
-     },
-     {
-      "id": "may_chen",
-      "ru": "Чен",
-      "en": "Ch'en"
-     },
-     {
-      "id": "may_ukit",
-      "ru": "Укит",
-      "en": "Ukit"
-     },
-     {
-      "id": "may_itzam",
-      "ru": "Ицам",
-      "en": "Itzam"
-     },
-     {
-      "id": "may_pasaj",
-      "ru": "Пасах",
-      "en": "Pasaj"
-     },
-     {
-      "id": "may_took",
-      "ru": "Тоок",
-      "en": "Took'"
-     },
-     {
-      "id": "may_witz",
-      "ru": "Виц",
-      "en": "Witz"
-     },
-     {
-      "id": "may_tzul",
-      "ru": "Цуль",
-      "en": "Tz'ul"
-     },
-     {
-      "id": "may_bolon",
-      "ru": "Болон",
-      "en": "Bolon"
-     },
-     {
-      "id": "may_chuwen",
-      "ru": "Чувен",
-      "en": "Chuwen"
-     },
-     {
-      "id": "may_siyaj",
-      "ru": "Сиях",
-      "en": "Siyaj"
-     },
-     {
-      "id": "may_jasaw",
-      "ru": "Хасав",
-      "en": "Jasaw"
-     }
-    ],
-    "f": [
-     {
-      "id": "may_ix_kak",
-      "ru": "Иш-Как",
-      "en": "Ix K'ak'"
-     },
-     {
-      "id": "may_ix_ik",
-      "ru": "Иш-Ик",
-      "en": "Ix Ik'"
-     },
-     {
-      "id": "may_ix_sak",
-      "ru": "Иш-Сак",
-      "en": "Ix Sak"
-     },
-     {
-      "id": "may_ix_uh",
-      "ru": "Иш-Ух",
-      "en": "Ix Uh"
-     },
-     {
-      "id": "may_ix_naah",
-      "ru": "Иш-Наах",
-      "en": "Ix Naah"
-     },
-     {
-      "id": "may_ix_yohl",
-      "ru": "Иш-Йоль",
-      "en": "Ix Yohl"
-     },
-     {
-      "id": "may_ix_kan",
-      "ru": "Иш-Кан",
-      "en": "Ix K'an"
-     },
-     {
-      "id": "may_ix_yax",
-      "ru": "Иш-Яш",
-      "en": "Ix Yax"
-     },
-     {
-      "id": "may_ix_itz",
-      "ru": "Иш-Иц",
-      "en": "Ix Itz"
-     },
-     {
-      "id": "may_ix_muwaan",
-      "ru": "Иш-Мувахн",
-      "en": "Ix Muwaan"
-     },
-     {
-      "id": "may_ix_tuun",
-      "ru": "Иш-Туун",
-      "en": "Ix Tuun"
-     },
-     {
-      "id": "may_ix_ixim",
-      "ru": "Иш-Ишим",
-      "en": "Ix Ixim"
-     },
-     {
-      "id": "may_ix_nikte",
-      "ru": "Иш-Никте",
-      "en": "Ix Nikte'"
-     },
-     {
-      "id": "may_ix_kab",
-      "ru": "Иш-Каб",
-      "en": "Ix Kab"
-     },
-     {
-      "id": "may_ix_ek",
-      "ru": "Иш-Эк",
-      "en": "Ix Ek'"
-     },
-     {
-      "id": "may_ix_chak",
-      "ru": "Иш-Чак",
-      "en": "Ix Chak"
-     },
-     {
-      "id": "may_ix_mo",
-      "ru": "Иш-Мо",
-      "en": "Ix Mo'"
-     },
-     {
-      "id": "may_ix_tzunun",
-      "ru": "Иш-Цунун",
-      "en": "Ix Tz'unun"
-     },
-     {
-      "id": "may_ix_balam",
-      "ru": "Иш-Балам",
-      "en": "Ix Bahlam"
-     },
-     {
-      "id": "may_ix_juun",
-      "ru": "Иш-Хуун",
-      "en": "Ix Juun"
-     },
-     {
-      "id": "may_ix_chan",
-      "ru": "Иш-Чан",
-      "en": "Ix Chan"
-     },
-     {
-      "id": "may_ix_ha",
-      "ru": "Иш-Ха",
-      "en": "Ix Ha'"
-     },
-     {
-      "id": "may_ix_kin",
-      "ru": "Иш-Кин",
-      "en": "Ix K'in"
-     },
-     {
-      "id": "may_ix_lem",
-      "ru": "Иш-Лем",
-      "en": "Ix Lem"
-     },
-     {
-      "id": "may_ix_bolon",
-      "ru": "Иш-Болон",
-      "en": "Ix Bolon"
-     },
-     {
-      "id": "may_ix_chel",
-      "ru": "Иш-Чель",
-      "en": "Ix Chel"
-     },
-     {
-      "id": "may_ix_kuk",
-      "ru": "Иш-Кук",
-      "en": "Ix K'uk'"
-     },
-     {
-      "id": "may_ix_wayaab",
-      "ru": "Иш-Ваяб",
-      "en": "Ix Wayaab"
-     },
-     {
-      "id": "may_ix_unen",
-      "ru": "Иш-Унен",
-      "en": "Ix Unen"
-     },
-     {
-      "id": "may_ix_tzak",
-      "ru": "Иш-Цак",
-      "en": "Ix Tz'ak"
-     },
-     {
-      "id": "may_ix_kayom",
-      "ru": "Иш-Каём",
-      "en": "Ix Kayom"
-     },
-     {
-      "id": "may_ix_tzib",
-      "ru": "Иш-Циб",
-      "en": "Ix Tz'ib"
-     },
-     {
-      "id": "may_ix_pik",
-      "ru": "Иш-Пик",
-      "en": "Ix Pik"
-     },
-     {
-      "id": "may_ix_unen_bahlam",
-      "ru": "Иш-Унен-Балам",
-      "en": "Ix Unen Bahlam"
-     },
-     {
-      "id": "may_ix_lachan",
-      "ru": "Иш-Лачан",
-      "en": "Ix Lachan"
-     }
-    ]
-   },
-   "religions": {
-    "maya_gods": 100
-   },
-   "scene": {
-    "style": "maya",
-    "land": "jungle",
-    "prompt": "Tikal, a great Maya city of steep limestone temple-pyramids rising above the rainforest canopy, plastered plazas, reservoirs"
-   },
-   "tags": [
-    "capital"
-   ]
-  },
-  {
-   "id": "calakmul",
-   "weight": 3,
-   "years": [
-    550,
-    900
-   ],
-   "coin": "cacao",
-   "classWeights": {
-    "slave": 7,
-    "peasant": 58,
-    "craftsman": 15,
-    "trader": 7,
-    "landowner": 10,
-    "noble": 3
-   },
-   "names": {
-    "m": [
-     {
-      "id": "may_kinich",
-      "ru": "Кинич",
-      "en": "K'inich"
-     },
-     {
-      "id": "may_balam",
-      "ru": "Балам",
-      "en": "Bahlam"
-     },
-     {
-      "id": "may_chak",
-      "ru": "Чак",
-      "en": "Chak"
-     },
-     {
-      "id": "may_kawiil",
-      "ru": "Кавиль",
-      "en": "K'awiil"
-     },
-     {
-      "id": "may_yax",
-      "ru": "Яш",
-      "en": "Yax"
-     },
-     {
-      "id": "may_ahk",
-      "ru": "Ак",
-      "en": "Ahk"
-     },
-     {
-      "id": "may_chan",
-      "ru": "Чан",
-      "en": "Chan"
-     },
-     {
-      "id": "may_muwaan",
-      "ru": "Мувахн",
-      "en": "Muwaan"
-     },
-     {
-      "id": "may_hix",
-      "ru": "Хиш",
-      "en": "Hix"
-     },
-     {
-      "id": "may_tzunun",
-      "ru": "Цунун",
-      "en": "Tz'unun"
-     },
-     {
-      "id": "may_mo",
-      "ru": "Мо",
-      "en": "Mo'"
-     },
-     {
-      "id": "may_kuy",
-      "ru": "Куй",
-      "en": "Kuy"
-     },
-     {
-      "id": "may_tok",
-      "ru": "Ток",
-      "en": "Tok'"
-     },
-     {
-      "id": "may_kan",
-      "ru": "Кан",
-      "en": "K'an"
-     },
-     {
-      "id": "may_ek",
-      "ru": "Эк",
-      "en": "Ek'"
-     },
-     {
-      "id": "may_uh",
-      "ru": "Ух",
-      "en": "Uh"
-     },
-     {
-      "id": "may_chok",
-      "ru": "Чок",
-      "en": "Ch'ok"
-     },
-     {
-      "id": "may_sak",
-      "ru": "Сак",
-      "en": "Sak"
-     },
-     {
-      "id": "may_nuun",
-      "ru": "Нуун",
-      "en": "Nuun"
-     },
-     {
-      "id": "may_kak",
-      "ru": "Как",
-      "en": "K'ak'"
-     },
-     {
-      "id": "may_tuun",
-      "ru": "Туун",
-      "en": "Tuun"
-     },
-     {
-      "id": "may_lakam",
-      "ru": "Лакам",
-      "en": "Lakam"
-     },
-     {
-      "id": "may_chitam",
-      "ru": "Читам",
-      "en": "Chitam"
-     },
-     {
-      "id": "may_kelem",
-      "ru": "Келем",
-      "en": "Kelem"
-     },
-     {
-      "id": "may_wak",
-      "ru": "Вак",
-      "en": "Wak"
-     },
-     {
-      "id": "may_chen",
-      "ru": "Чен",
-      "en": "Ch'en"
-     },
-     {
-      "id": "may_ukit",
-      "ru": "Укит",
-      "en": "Ukit"
-     },
-     {
-      "id": "may_itzam",
-      "ru": "Ицам",
-      "en": "Itzam"
-     },
-     {
-      "id": "may_pasaj",
-      "ru": "Пасах",
-      "en": "Pasaj"
-     },
-     {
-      "id": "may_took",
-      "ru": "Тоок",
-      "en": "Took'"
-     },
-     {
-      "id": "may_witz",
-      "ru": "Виц",
-      "en": "Witz"
-     },
-     {
-      "id": "may_tzul",
-      "ru": "Цуль",
-      "en": "Tz'ul"
-     },
-     {
-      "id": "may_bolon",
-      "ru": "Болон",
-      "en": "Bolon"
-     },
-     {
-      "id": "may_chuwen",
-      "ru": "Чувен",
-      "en": "Chuwen"
-     },
-     {
-      "id": "may_yuknoom",
-      "ru": "Юкном",
-      "en": "Yuknoom"
-     },
-     {
-      "id": "may_yichaak",
-      "ru": "Йичак",
-      "en": "Yich'aak"
-     }
-    ],
-    "f": [
-     {
-      "id": "may_ix_kak",
-      "ru": "Иш-Как",
-      "en": "Ix K'ak'"
-     },
-     {
-      "id": "may_ix_ik",
-      "ru": "Иш-Ик",
-      "en": "Ix Ik'"
-     },
-     {
-      "id": "may_ix_sak",
-      "ru": "Иш-Сак",
-      "en": "Ix Sak"
-     },
-     {
-      "id": "may_ix_uh",
-      "ru": "Иш-Ух",
-      "en": "Ix Uh"
-     },
-     {
-      "id": "may_ix_naah",
-      "ru": "Иш-Наах",
-      "en": "Ix Naah"
-     },
-     {
-      "id": "may_ix_yohl",
-      "ru": "Иш-Йоль",
-      "en": "Ix Yohl"
-     },
-     {
-      "id": "may_ix_kan",
-      "ru": "Иш-Кан",
-      "en": "Ix K'an"
-     },
-     {
-      "id": "may_ix_yax",
-      "ru": "Иш-Яш",
-      "en": "Ix Yax"
-     },
-     {
-      "id": "may_ix_itz",
-      "ru": "Иш-Иц",
-      "en": "Ix Itz"
-     },
-     {
-      "id": "may_ix_muwaan",
-      "ru": "Иш-Мувахн",
-      "en": "Ix Muwaan"
-     },
-     {
-      "id": "may_ix_tuun",
-      "ru": "Иш-Туун",
-      "en": "Ix Tuun"
-     },
-     {
-      "id": "may_ix_ixim",
-      "ru": "Иш-Ишим",
-      "en": "Ix Ixim"
-     },
-     {
-      "id": "may_ix_nikte",
-      "ru": "Иш-Никте",
-      "en": "Ix Nikte'"
-     },
-     {
-      "id": "may_ix_kab",
-      "ru": "Иш-Каб",
-      "en": "Ix Kab"
-     },
-     {
-      "id": "may_ix_ek",
-      "ru": "Иш-Эк",
-      "en": "Ix Ek'"
-     },
-     {
-      "id": "may_ix_chak",
-      "ru": "Иш-Чак",
-      "en": "Ix Chak"
-     },
-     {
-      "id": "may_ix_mo",
-      "ru": "Иш-Мо",
-      "en": "Ix Mo'"
-     },
-     {
-      "id": "may_ix_tzunun",
-      "ru": "Иш-Цунун",
-      "en": "Ix Tz'unun"
-     },
-     {
-      "id": "may_ix_balam",
-      "ru": "Иш-Балам",
-      "en": "Ix Bahlam"
-     },
-     {
-      "id": "may_ix_juun",
-      "ru": "Иш-Хуун",
-      "en": "Ix Juun"
-     },
-     {
-      "id": "may_ix_chan",
-      "ru": "Иш-Чан",
-      "en": "Ix Chan"
-     },
-     {
-      "id": "may_ix_ha",
-      "ru": "Иш-Ха",
-      "en": "Ix Ha'"
-     },
-     {
-      "id": "may_ix_kin",
-      "ru": "Иш-Кин",
-      "en": "Ix K'in"
-     },
-     {
-      "id": "may_ix_lem",
-      "ru": "Иш-Лем",
-      "en": "Ix Lem"
-     },
-     {
-      "id": "may_ix_bolon",
-      "ru": "Иш-Болон",
-      "en": "Ix Bolon"
-     },
-     {
-      "id": "may_ix_chel",
-      "ru": "Иш-Чель",
-      "en": "Ix Chel"
-     },
-     {
-      "id": "may_ix_kuk",
-      "ru": "Иш-Кук",
-      "en": "Ix K'uk'"
-     },
-     {
-      "id": "may_ix_wayaab",
-      "ru": "Иш-Ваяб",
-      "en": "Ix Wayaab"
-     },
-     {
-      "id": "may_ix_unen",
-      "ru": "Иш-Унен",
-      "en": "Ix Unen"
-     },
-     {
-      "id": "may_ix_tzak",
-      "ru": "Иш-Цак",
-      "en": "Ix Tz'ak"
-     },
-     {
-      "id": "may_ix_kayom",
-      "ru": "Иш-Каём",
-      "en": "Ix Kayom"
-     },
-     {
-      "id": "may_ix_tzib",
-      "ru": "Иш-Циб",
-      "en": "Ix Tz'ib"
-     },
-     {
-      "id": "may_ix_pik",
-      "ru": "Иш-Пик",
-      "en": "Ix Pik"
-     },
-     {
-      "id": "may_ix_kabel",
-      "ru": "Иш-Кабель",
-      "en": "Ix K'abel"
-     },
-     {
-      "id": "may_ix_samaat",
-      "ru": "Иш-Самаат",
-      "en": "Ix Samaat"
-     }
-    ]
-   },
-   "religions": {
-    "maya_gods": 100
-   },
-   "scene": {
-    "style": "maya",
-    "land": "jungle",
-    "prompt": "Calakmul, seat of the Snake kingdom: massive pyramid amid seasonal swamps, rows of carved stelae, white causeways through the forest"
-   }
-  },
-  {
-   "id": "palenque",
-   "weight": 2,
-   "years": [
-    550,
-    850
-   ],
-   "coin": "cacao",
-   "classWeights": {
-    "slave": 6,
-    "peasant": 60,
-    "craftsman": 15,
-    "trader": 6,
-    "landowner": 10,
-    "noble": 3
-   },
-   "names": {
-    "m": [
-     {
-      "id": "may_kinich",
-      "ru": "Кинич",
-      "en": "K'inich"
-     },
-     {
-      "id": "may_balam",
-      "ru": "Балам",
-      "en": "Bahlam"
-     },
-     {
-      "id": "may_chak",
-      "ru": "Чак",
-      "en": "Chak"
-     },
-     {
-      "id": "may_kawiil",
-      "ru": "Кавиль",
-      "en": "K'awiil"
-     },
-     {
-      "id": "may_yax",
-      "ru": "Яш",
-      "en": "Yax"
-     },
-     {
-      "id": "may_ahk",
-      "ru": "Ак",
-      "en": "Ahk"
-     },
-     {
-      "id": "may_chan",
-      "ru": "Чан",
-      "en": "Chan"
-     },
-     {
-      "id": "may_muwaan",
-      "ru": "Мувахн",
-      "en": "Muwaan"
-     },
-     {
-      "id": "may_hix",
-      "ru": "Хиш",
-      "en": "Hix"
-     },
-     {
-      "id": "may_tzunun",
-      "ru": "Цунун",
-      "en": "Tz'unun"
-     },
-     {
-      "id": "may_mo",
-      "ru": "Мо",
-      "en": "Mo'"
-     },
-     {
-      "id": "may_kuy",
-      "ru": "Куй",
-      "en": "Kuy"
-     },
-     {
-      "id": "may_tok",
-      "ru": "Ток",
-      "en": "Tok'"
-     },
-     {
-      "id": "may_kan",
-      "ru": "Кан",
-      "en": "K'an"
-     },
-     {
-      "id": "may_ek",
-      "ru": "Эк",
-      "en": "Ek'"
-     },
-     {
-      "id": "may_uh",
-      "ru": "Ух",
-      "en": "Uh"
-     },
-     {
-      "id": "may_chok",
-      "ru": "Чок",
-      "en": "Ch'ok"
-     },
-     {
-      "id": "may_sak",
-      "ru": "Сак",
-      "en": "Sak"
-     },
-     {
-      "id": "may_nuun",
-      "ru": "Нуун",
-      "en": "Nuun"
-     },
-     {
-      "id": "may_kak",
-      "ru": "Как",
-      "en": "K'ak'"
-     },
-     {
-      "id": "may_tuun",
-      "ru": "Туун",
-      "en": "Tuun"
-     },
-     {
-      "id": "may_lakam",
-      "ru": "Лакам",
-      "en": "Lakam"
-     },
-     {
-      "id": "may_chitam",
-      "ru": "Читам",
-      "en": "Chitam"
-     },
-     {
-      "id": "may_kelem",
-      "ru": "Келем",
-      "en": "Kelem"
-     },
-     {
-      "id": "may_wak",
-      "ru": "Вак",
-      "en": "Wak"
-     },
-     {
-      "id": "may_chen",
-      "ru": "Чен",
-      "en": "Ch'en"
-     },
-     {
-      "id": "may_ukit",
-      "ru": "Укит",
-      "en": "Ukit"
-     },
-     {
-      "id": "may_itzam",
-      "ru": "Ицам",
-      "en": "Itzam"
-     },
-     {
-      "id": "may_pasaj",
-      "ru": "Пасах",
-      "en": "Pasaj"
-     },
-     {
-      "id": "may_took",
-      "ru": "Тоок",
-      "en": "Took'"
-     },
-     {
-      "id": "may_witz",
-      "ru": "Виц",
-      "en": "Witz"
-     },
-     {
-      "id": "may_tzul",
-      "ru": "Цуль",
-      "en": "Tz'ul"
-     },
-     {
-      "id": "may_bolon",
-      "ru": "Болон",
-      "en": "Bolon"
-     },
-     {
-      "id": "may_chuwen",
-      "ru": "Чувен",
-      "en": "Chuwen"
-     },
-     {
-      "id": "may_pakal",
-      "ru": "Пакаль",
-      "en": "Pakal"
-     },
-     {
-      "id": "may_ahkal",
-      "ru": "Акаль",
-      "en": "Ahkal"
-     }
-    ],
-    "f": [
-     {
-      "id": "may_ix_kak",
-      "ru": "Иш-Как",
-      "en": "Ix K'ak'"
-     },
-     {
-      "id": "may_ix_ik",
-      "ru": "Иш-Ик",
-      "en": "Ix Ik'"
-     },
-     {
-      "id": "may_ix_sak",
-      "ru": "Иш-Сак",
-      "en": "Ix Sak"
-     },
-     {
-      "id": "may_ix_uh",
-      "ru": "Иш-Ух",
-      "en": "Ix Uh"
-     },
-     {
-      "id": "may_ix_naah",
-      "ru": "Иш-Наах",
-      "en": "Ix Naah"
-     },
-     {
-      "id": "may_ix_yohl",
-      "ru": "Иш-Йоль",
-      "en": "Ix Yohl"
-     },
-     {
-      "id": "may_ix_kan",
-      "ru": "Иш-Кан",
-      "en": "Ix K'an"
-     },
-     {
-      "id": "may_ix_yax",
-      "ru": "Иш-Яш",
-      "en": "Ix Yax"
-     },
-     {
-      "id": "may_ix_itz",
-      "ru": "Иш-Иц",
-      "en": "Ix Itz"
-     },
-     {
-      "id": "may_ix_muwaan",
-      "ru": "Иш-Мувахн",
-      "en": "Ix Muwaan"
-     },
-     {
-      "id": "may_ix_tuun",
-      "ru": "Иш-Туун",
-      "en": "Ix Tuun"
-     },
-     {
-      "id": "may_ix_ixim",
-      "ru": "Иш-Ишим",
-      "en": "Ix Ixim"
-     },
-     {
-      "id": "may_ix_nikte",
-      "ru": "Иш-Никте",
-      "en": "Ix Nikte'"
-     },
-     {
-      "id": "may_ix_kab",
-      "ru": "Иш-Каб",
-      "en": "Ix Kab"
-     },
-     {
-      "id": "may_ix_ek",
-      "ru": "Иш-Эк",
-      "en": "Ix Ek'"
-     },
-     {
-      "id": "may_ix_chak",
-      "ru": "Иш-Чак",
-      "en": "Ix Chak"
-     },
-     {
-      "id": "may_ix_mo",
-      "ru": "Иш-Мо",
-      "en": "Ix Mo'"
-     },
-     {
-      "id": "may_ix_tzunun",
-      "ru": "Иш-Цунун",
-      "en": "Ix Tz'unun"
-     },
-     {
-      "id": "may_ix_balam",
-      "ru": "Иш-Балам",
-      "en": "Ix Bahlam"
-     },
-     {
-      "id": "may_ix_juun",
-      "ru": "Иш-Хуун",
-      "en": "Ix Juun"
-     },
-     {
-      "id": "may_ix_chan",
-      "ru": "Иш-Чан",
-      "en": "Ix Chan"
-     },
-     {
-      "id": "may_ix_ha",
-      "ru": "Иш-Ха",
-      "en": "Ix Ha'"
-     },
-     {
-      "id": "may_ix_kin",
-      "ru": "Иш-Кин",
-      "en": "Ix K'in"
-     },
-     {
-      "id": "may_ix_lem",
-      "ru": "Иш-Лем",
-      "en": "Ix Lem"
-     },
-     {
-      "id": "may_ix_bolon",
-      "ru": "Иш-Болон",
-      "en": "Ix Bolon"
-     },
-     {
-      "id": "may_ix_chel",
-      "ru": "Иш-Чель",
-      "en": "Ix Chel"
-     },
-     {
-      "id": "may_ix_kuk",
-      "ru": "Иш-Кук",
-      "en": "Ix K'uk'"
-     },
-     {
-      "id": "may_ix_wayaab",
-      "ru": "Иш-Ваяб",
-      "en": "Ix Wayaab"
-     },
-     {
-      "id": "may_ix_unen",
-      "ru": "Иш-Унен",
-      "en": "Ix Unen"
-     },
-     {
-      "id": "may_ix_tzak",
-      "ru": "Иш-Цак",
-      "en": "Ix Tz'ak"
-     },
-     {
-      "id": "may_ix_kayom",
-      "ru": "Иш-Каём",
-      "en": "Ix Kayom"
-     },
-     {
-      "id": "may_ix_tzib",
-      "ru": "Иш-Циб",
-      "en": "Ix Tz'ib"
-     },
-     {
-      "id": "may_ix_pik",
-      "ru": "Иш-Пик",
-      "en": "Ix Pik"
-     },
-     {
-      "id": "may_ix_tzakbu",
-      "ru": "Иш-Цакбу",
-      "en": "Ix Tz'akbu"
-     },
-     {
-      "id": "may_ix_sak_kuk",
-      "ru": "Иш-Сак-Кук",
-      "en": "Ix Sak K'uk'"
-     }
-    ]
-   },
-   "religions": {
-    "maya_gods": 100
-   },
-   "scene": {
-    "style": "maya",
-    "land": "jungle",
-    "prompt": "Palenque, a Maya city on forested hills above the plain, palace with a tower, Temple of the Inscriptions, streams and waterfalls"
-   }
-  },
-  {
-   "id": "copan",
-   "weight": 2,
-   "years": [
-    550,
-    850
-   ],
-   "coin": "cacao",
-   "classWeights": {
-    "slave": 5,
-    "peasant": 60,
-    "craftsman": 17,
-    "trader": 6,
-    "landowner": 9,
-    "noble": 3
-   },
-   "names": {
-    "m": [
-     {
-      "id": "may_kinich",
-      "ru": "Кинич",
-      "en": "K'inich"
-     },
-     {
-      "id": "may_balam",
-      "ru": "Балам",
-      "en": "Bahlam"
-     },
-     {
-      "id": "may_chak",
-      "ru": "Чак",
-      "en": "Chak"
-     },
-     {
-      "id": "may_kawiil",
-      "ru": "Кавиль",
-      "en": "K'awiil"
-     },
-     {
-      "id": "may_yax",
-      "ru": "Яш",
-      "en": "Yax"
-     },
-     {
-      "id": "may_ahk",
-      "ru": "Ак",
-      "en": "Ahk"
-     },
-     {
-      "id": "may_chan",
-      "ru": "Чан",
-      "en": "Chan"
-     },
-     {
-      "id": "may_muwaan",
-      "ru": "Мувахн",
-      "en": "Muwaan"
-     },
-     {
-      "id": "may_hix",
-      "ru": "Хиш",
-      "en": "Hix"
-     },
-     {
-      "id": "may_tzunun",
-      "ru": "Цунун",
-      "en": "Tz'unun"
-     },
-     {
-      "id": "may_mo",
-      "ru": "Мо",
-      "en": "Mo'"
-     },
-     {
-      "id": "may_kuy",
-      "ru": "Куй",
-      "en": "Kuy"
-     },
-     {
-      "id": "may_tok",
-      "ru": "Ток",
-      "en": "Tok'"
-     },
-     {
-      "id": "may_kan",
-      "ru": "Кан",
-      "en": "K'an"
-     },
-     {
-      "id": "may_ek",
-      "ru": "Эк",
-      "en": "Ek'"
-     },
-     {
-      "id": "may_uh",
-      "ru": "Ух",
-      "en": "Uh"
-     },
-     {
-      "id": "may_chok",
-      "ru": "Чок",
-      "en": "Ch'ok"
-     },
-     {
-      "id": "may_sak",
-      "ru": "Сак",
-      "en": "Sak"
-     },
-     {
-      "id": "may_nuun",
-      "ru": "Нуун",
-      "en": "Nuun"
-     },
-     {
-      "id": "may_kak",
-      "ru": "Как",
-      "en": "K'ak'"
-     },
-     {
-      "id": "may_tuun",
-      "ru": "Туун",
-      "en": "Tuun"
-     },
-     {
-      "id": "may_lakam",
-      "ru": "Лакам",
-      "en": "Lakam"
-     },
-     {
-      "id": "may_chitam",
-      "ru": "Читам",
-      "en": "Chitam"
-     },
-     {
-      "id": "may_kelem",
-      "ru": "Келем",
-      "en": "Kelem"
-     },
-     {
-      "id": "may_wak",
-      "ru": "Вак",
-      "en": "Wak"
-     },
-     {
-      "id": "may_chen",
-      "ru": "Чен",
-      "en": "Ch'en"
-     },
-     {
-      "id": "may_ukit",
-      "ru": "Укит",
-      "en": "Ukit"
-     },
-     {
-      "id": "may_itzam",
-      "ru": "Ицам",
-      "en": "Itzam"
-     },
-     {
-      "id": "may_pasaj",
-      "ru": "Пасах",
-      "en": "Pasaj"
-     },
-     {
-      "id": "may_took",
-      "ru": "Тоок",
-      "en": "Took'"
-     },
-     {
-      "id": "may_witz",
-      "ru": "Виц",
-      "en": "Witz"
-     },
-     {
-      "id": "may_tzul",
-      "ru": "Цуль",
-      "en": "Tz'ul"
-     },
-     {
-      "id": "may_bolon",
-      "ru": "Болон",
-      "en": "Bolon"
-     },
-     {
-      "id": "may_chuwen",
-      "ru": "Чувен",
-      "en": "Chuwen"
-     },
-     {
-      "id": "may_yopaat",
-      "ru": "Йопаат",
-      "en": "Yopaat"
-     },
-     {
-      "id": "may_joplaj",
-      "ru": "Хоплах",
-      "en": "Joplaj"
-     }
-    ],
-    "f": [
-     {
-      "id": "may_ix_kak",
-      "ru": "Иш-Как",
-      "en": "Ix K'ak'"
-     },
-     {
-      "id": "may_ix_ik",
-      "ru": "Иш-Ик",
-      "en": "Ix Ik'"
-     },
-     {
-      "id": "may_ix_sak",
-      "ru": "Иш-Сак",
-      "en": "Ix Sak"
-     },
-     {
-      "id": "may_ix_uh",
-      "ru": "Иш-Ух",
-      "en": "Ix Uh"
-     },
-     {
-      "id": "may_ix_naah",
-      "ru": "Иш-Наах",
-      "en": "Ix Naah"
-     },
-     {
-      "id": "may_ix_yohl",
-      "ru": "Иш-Йоль",
-      "en": "Ix Yohl"
-     },
-     {
-      "id": "may_ix_kan",
-      "ru": "Иш-Кан",
-      "en": "Ix K'an"
-     },
-     {
-      "id": "may_ix_yax",
-      "ru": "Иш-Яш",
-      "en": "Ix Yax"
-     },
-     {
-      "id": "may_ix_itz",
-      "ru": "Иш-Иц",
-      "en": "Ix Itz"
-     },
-     {
-      "id": "may_ix_muwaan",
-      "ru": "Иш-Мувахн",
-      "en": "Ix Muwaan"
-     },
-     {
-      "id": "may_ix_tuun",
-      "ru": "Иш-Туун",
-      "en": "Ix Tuun"
-     },
-     {
-      "id": "may_ix_ixim",
-      "ru": "Иш-Ишим",
-      "en": "Ix Ixim"
-     },
-     {
-      "id": "may_ix_nikte",
-      "ru": "Иш-Никте",
-      "en": "Ix Nikte'"
-     },
-     {
-      "id": "may_ix_kab",
-      "ru": "Иш-Каб",
-      "en": "Ix Kab"
-     },
-     {
-      "id": "may_ix_ek",
-      "ru": "Иш-Эк",
-      "en": "Ix Ek'"
-     },
-     {
-      "id": "may_ix_chak",
-      "ru": "Иш-Чак",
-      "en": "Ix Chak"
-     },
-     {
-      "id": "may_ix_mo",
-      "ru": "Иш-Мо",
-      "en": "Ix Mo'"
-     },
-     {
-      "id": "may_ix_tzunun",
-      "ru": "Иш-Цунун",
-      "en": "Ix Tz'unun"
-     },
-     {
-      "id": "may_ix_balam",
-      "ru": "Иш-Балам",
-      "en": "Ix Bahlam"
-     },
-     {
-      "id": "may_ix_juun",
-      "ru": "Иш-Хуун",
-      "en": "Ix Juun"
-     },
-     {
-      "id": "may_ix_chan",
-      "ru": "Иш-Чан",
-      "en": "Ix Chan"
-     },
-     {
-      "id": "may_ix_ha",
-      "ru": "Иш-Ха",
-      "en": "Ix Ha'"
-     },
-     {
-      "id": "may_ix_kin",
-      "ru": "Иш-Кин",
-      "en": "Ix K'in"
-     },
-     {
-      "id": "may_ix_lem",
-      "ru": "Иш-Лем",
-      "en": "Ix Lem"
-     },
-     {
-      "id": "may_ix_bolon",
-      "ru": "Иш-Болон",
-      "en": "Ix Bolon"
-     },
-     {
-      "id": "may_ix_chel",
-      "ru": "Иш-Чель",
-      "en": "Ix Chel"
-     },
-     {
-      "id": "may_ix_kuk",
-      "ru": "Иш-Кук",
-      "en": "Ix K'uk'"
-     },
-     {
-      "id": "may_ix_wayaab",
-      "ru": "Иш-Ваяб",
-      "en": "Ix Wayaab"
-     },
-     {
-      "id": "may_ix_unen",
-      "ru": "Иш-Унен",
-      "en": "Ix Unen"
-     },
-     {
-      "id": "may_ix_tzak",
-      "ru": "Иш-Цак",
-      "en": "Ix Tz'ak"
-     },
-     {
-      "id": "may_ix_kayom",
-      "ru": "Иш-Каём",
-      "en": "Ix Kayom"
-     },
-     {
-      "id": "may_ix_tzib",
-      "ru": "Иш-Циб",
-      "en": "Ix Tz'ib"
-     },
-     {
-      "id": "may_ix_pik",
-      "ru": "Иш-Пик",
-      "en": "Ix Pik"
-     },
-     {
-      "id": "may_ix_yaxun",
-      "ru": "Иш-Яшун",
-      "en": "Ix Yaxun"
-     },
-     {
-      "id": "may_ix_ajaw",
-      "ru": "Иш-Пасах",
-      "en": "Ix Pasaj"
-     }
-    ]
-   },
-   "religions": {
-    "maya_gods": 100
-   },
-   "scene": {
-    "style": "maya",
-    "land": "jungle",
-    "prompt": "Copan, a Maya city in a green river valley, plaza of deeply carved stelae, ballcourt, scarlet macaws, hieroglyphic stairway"
-   }
-  }
- ],
- "classes": [
-  {
-   "id": "slave",
-   "status": 5,
-   "money": [
-    0,
-    5
-   ],
-   "upkeep": 0,
-   "mortality": 1.15,
-   "tags": [
-    "enslaved"
-   ]
-  },
-  {
-   "id": "peasant",
-   "status": 25,
-   "money": [
-    40,
-    160
-   ],
-   "upkeep": 140,
-   "mortality": 1,
-   "tags": [
-    "rural",
-    "raised_farming"
-   ]
-  },
-  {
-   "id": "craftsman",
-   "status": 38,
-   "money": [
-    60,
-    220
-   ],
-   "upkeep": 190,
-   "mortality": 1,
-   "tags": [
-    "lives_in_city",
-    "raised_craft"
-   ]
-  },
-  {
-   "id": "trader",
-   "status": 48,
-   "money": [
-    150,
-    500
-   ],
-   "upkeep": 250,
-   "mortality": 0.95,
-   "tags": [
-    "lives_in_city",
-    "raised_trade"
-   ]
-  },
-  {
-   "id": "landowner",
-   "status": 72,
-   "money": [
-    500,
-    1500
-   ],
-   "upkeep": 450,
-   "mortality": 0.85,
-   "tags": [
-    "raised_management",
-    "wealthy"
-   ]
-  },
-  {
-   "id": "noble",
-   "status": 92,
-   "money": [
-    3000,
-    9000
-   ],
-   "upkeep": 1200,
-   "mortality": 0.8,
-   "tags": [
-    "lives_in_city",
-    "raised_management",
-    "wealthy"
-   ]
-  }
- ],
- "professions": [
-  {
-   "id": "farmer",
-   "classes": [
-    "peasant"
-   ],
-   "minAge": 12,
-   "income": [
-    150,
-    250
-   ],
-   "skill": "farming"
-  },
-  {
-   "id": "laborer",
-   "classes": [
-    "peasant",
-    "craftsman"
-   ],
-   "minAge": 12,
-   "income": [
-    130,
-    210
-   ],
-   "skill": "craft",
-   "mortality": 1.1
-  },
-  {
-   "id": "artisan",
-   "classes": [
-    "craftsman",
-    "peasant"
-   ],
-   "minAge": 12,
-   "income": [
-    180,
-    320
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "weaver",
-   "sex": "f",
-   "classes": [
-    "craftsman",
-    "peasant",
-    "trader"
-   ],
-   "minAge": 12,
-   "income": [
-    140,
-    240
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "midwife",
-   "sex": "f",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "slave"
-   ],
-   "minAge": 16,
-   "income": [
-    150,
-    260
-   ],
-   "skill": "medicine"
-  },
-  {
-   "id": "merchant",
-   "classes": [
-    "trader",
-    "craftsman"
-   ],
-   "minAge": 14,
-   "income": [
-    150,
-    650
-   ],
-   "skill": "trade",
-   "stress": 2
-  },
-  {
-   "id": "sailor",
-   "sex": "m",
-   "regions": [
-    "palenque"
-   ],
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader"
-   ],
-   "minAge": 12,
-   "income": [
-    160,
-    270
-   ],
-   "skill": "seafaring",
-   "mortality": 1.3
-  },
-  {
-   "id": "soldier",
-   "sex": "m",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "landowner"
-   ],
-   "minAge": 16,
-   "income": [
-    160,
-    280
-   ],
-   "skill": "military",
-   "mortality": 1.5,
-   "stress": 3
-  },
-  {
-   "id": "scribe",
-   "minAge": 14,
-   "classes": [
-    "craftsman",
-    "landowner",
-    "noble"
-   ],
-   "requirements": [
-    {
-     "skill": "literacy",
-     "op": ">=",
-     "value": 20
-    }
-   ],
-   "income": [
-    220,
-    420
-   ],
-   "skill": "literacy",
-   "reputation": 1
-  },
-  {
-   "id": "physician",
-   "minAge": 16,
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader",
-    "landowner"
-   ],
-   "requirements": [
-    {
-     "param": "intellect",
-     "op": ">=",
-     "value": 50
-    }
-   ],
-   "income": [
-    200,
-    500
-   ],
-   "skill": "medicine"
-  },
-  {
-   "id": "priest",
-   "minAge": 16,
-   "classes": [
-    "craftsman",
-    "landowner",
-    "noble"
-   ],
-   "income": [
-    220,
-    450
-   ],
-   "skill": "literacy",
-   "reputation": 1
-  },
-  {
-   "id": "landholder",
-   "classes": [
-    "landowner",
-    "noble"
-   ],
-   "minAge": 16,
-   "income": [
-    550,
-    950
-   ],
-   "skill": "management"
-  },
-  {
-   "id": "magistrate",
-   "sex": "m",
-   "classes": [
-    "noble",
-    "landowner"
-   ],
-   "requirements": [
-    {
-     "param": "reputation",
-     "op": ">=",
-     "value": 10
-    }
-   ],
-   "minAge": 20,
-   "income": [
-    1500,
-    3500
-   ],
-   "skill": "management",
-   "reputation": 2,
-   "stress": 3
-  },
-  {
-   "id": "matron",
-   "sex": "f",
-   "classes": [
-    "landowner",
-    "noble"
-   ],
-   "minAge": 14,
-   "income": [
-    500,
-    1500
-   ],
-   "skill": "management"
-  },
-  {
-   "id": "household_slave",
-   "classes": [
-    "slave"
-   ],
-   "minAge": 10,
-   "income": [
-    5,
-    25
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "field_slave",
-   "classes": [
-    "slave"
-   ],
-   "minAge": 10,
-   "income": [
-    0,
-    10
-   ],
-   "skill": "farming",
-   "mortality": 1.3,
-   "stress": 3
-  },
-  {
-   "id": "ballplayer",
-   "sex": "m",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "landowner",
-    "noble"
-   ],
-   "minAge": 16,
-   "requirements": [
-    {
-     "param": "strength",
-     "op": ">=",
-     "value": 55
-    }
-   ],
-   "income": [
-    150,
-    520
-   ],
-   "skill": "military",
-   "mortality": 1.25,
-   "stress": 2,
-   "reputation": 1
-  },
-  {
-   "id": "jade_carver",
-   "classes": [
-    "craftsman"
-   ],
-   "minAge": 12,
-   "income": [
-    240,
-    480
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "stone_carver",
-   "classes": [
-    "craftsman",
-    "peasant"
-   ],
-   "minAge": 12,
-   "income": [
-    200,
-    400
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "feather_worker",
-   "classes": [
-    "craftsman",
-    "trader"
-   ],
-   "minAge": 12,
-   "income": [
-    200,
-    420
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "salt_trader",
-   "classes": [
-    "trader",
-    "peasant"
-   ],
-   "minAge": 12,
-   "income": [
-    180,
-    480
-   ],
-   "skill": "trade",
-   "stress": 2,
-   "mortality": 1.1
-  },
-  {
-   "id": "officer",
-   "promotion_only": true,
-   "sex": "m",
-   "minAge": 22,
-   "income": [
-    500,
-    900
-   ],
-   "skill": "military",
-   "mortality": 1.4,
-   "stress": 3,
-   "reputation": 2
-  },
-  {
-   "id": "workshop_owner",
-   "promotion_only": true,
-   "minAge": 20,
-   "income": [
-    450,
-    900
-   ],
-   "skill": "craft",
-   "stress": 2,
-   "reputation": 1
-  },
-  {
-   "id": "official",
-   "promotion_only": true,
-   "minAge": 22,
-   "income": [
-    450,
-    950
-   ],
-   "skill": "literacy",
-   "stress": 2,
-   "reputation": 2
-  },
-  {
-   "id": "overseer",
-   "promotion_only": true,
-   "classes": [
-    "slave"
-   ],
-   "minAge": 20,
-   "income": [
-    20,
-    60
-   ],
-   "skill": "management",
-   "stress": 2
-  }
- ],
- "focuses": [
-  {
-   "id": "play",
-   "ages": [
-    5,
-    11
-   ],
-   "effects": [
-    {
-     "param": "happiness",
-     "delta": 4
-    },
-    {
-     "param": "strength",
-     "delta": 1
-    },
-    {
-     "param": "loneliness",
-     "delta": -4
-    }
-   ]
-  },
-  {
-   "id": "learn",
-   "ages": [
-    5,
-    11
-   ],
-   "conditions": [
-    {
-     "classes": [
-      "craftsman",
-      "trader",
-      "landowner",
-      "noble"
-     ]
-    }
-   ],
-   "effects": [
-    {
-     "param": "intellect",
-     "delta": 2
-    },
-    {
-     "skill": "literacy",
-     "delta": 5
-    },
-    {
-     "param": "money",
-     "delta": -20
-    }
-   ]
-  },
-  {
-   "id": "help_family",
-   "ages": [
-    5,
-    11
-   ],
-   "effects": [
-    {
-     "param": "diligence",
-     "delta": 2
-    },
-    {
-     "skill": "craft",
-     "delta": 2
-    },
-    {
-     "skill": "farming",
-     "delta": 2
-    },
-    {
-     "param": "money",
-     "delta": 10
-    }
-   ]
-  },
-  {
-   "id": "work",
-   "ages": [
-    12,
-    120
-   ],
-   "incomeMultiplier": 1.5,
-   "effects": [
-    {
-     "param": "diligence",
-     "delta": 1
-    },
-    {
-     "param": "stress",
-     "delta": 3
-    }
-   ]
-  },
-  {
-   "id": "study",
-   "ages": [
-    12,
-    60
-   ],
-   "conditions": [
-    {
-     "classes": [
-      "craftsman",
-      "trader",
-      "landowner",
-      "noble",
-      "peasant"
-     ]
-    },
-    {
-     "param": "money",
-     "op": ">=",
-     "value": 60
-    }
-   ],
-   "effects": [
-    {
-     "param": "intellect",
-     "delta": 2
-    },
-    {
-     "skill": "literacy",
-     "delta": 5
-    },
-    {
-     "skill": "oratory",
-     "delta": 2
-    },
-    {
-     "param": "money",
-     "delta": -60
-    }
-   ]
-  },
-  {
-   "id": "family",
-   "ages": [
-    14,
-    120
-   ],
-   "effects": [
-    {
-     "param": "loneliness",
-     "delta": -6
-    },
-    {
-     "param": "happiness",
-     "delta": 3
-    },
-    {
-     "npc_attitude": "spouse",
-     "delta": 6
-    },
-    {
-     "npc_attitude": "child",
-     "delta": 6
-    },
-    {
-     "npc_attitude": "mother",
-     "delta": 4
-    },
-    {
-     "npc_attitude": "father",
-     "delta": 4
-    }
-   ]
-  },
-  {
-   "id": "health",
-   "ages": [
-    12,
-    120
-   ],
-   "effects": [
-    {
-     "param": "health",
-     "delta": 3
-    },
-    {
-     "param": "stress",
-     "delta": -4
-    }
-   ]
-  },
-  {
-   "id": "trade",
-   "ages": [
-    16,
-    70
-   ],
-   "conditions": [
-    {
-     "classes": [
-      "peasant",
-      "craftsman",
-      "trader",
-      "landowner",
-      "noble"
-     ]
-    }
-   ],
-   "effects": [
-    {
-     "skill": "trade",
-     "delta": 4
-    },
-    {
-     "param": "stress",
-     "delta": 3
-    },
-    {
-     "chance": 0.5,
-     "effects": [
-      {
-       "param": "money",
-       "delta": 120
-      }
-     ]
-    },
-    {
-     "chance": 0.35,
-     "effects": [
-      {
-       "param": "money",
-       "delta": -70
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "service",
-   "ages": [
-    17,
-    45
-   ],
-   "conditions": [
-    {
-     "sex": "m"
-    },
-    {
-     "classes": [
-      "peasant",
-      "craftsman",
-      "landowner",
-      "noble"
-     ]
-    }
-   ],
-   "effects": [
-    {
-     "skill": "military",
-     "delta": 4
-    },
-    {
-     "param": "strength",
-     "delta": 2
-    },
-    {
-     "param": "reputation",
-     "delta": 2
-    },
-    {
-     "param": "stress",
-     "delta": 3
-    },
-    {
-     "chance": 0.06,
-     "effects": [
-      {
-       "param": "health",
-       "delta": -15
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "rest",
-   "ages": [
-    12,
-    120
-   ],
-   "effects": [
-    {
-     "param": "happiness",
-     "delta": 5
-    },
-    {
-     "param": "stress",
-     "delta": -6
-    },
-    {
-     "param": "loneliness",
-     "delta": -3
-    },
-    {
-     "param": "money",
-     "delta": -15
-    }
-   ]
-  },
-  {
-   "id": "religion",
-   "ages": [
-    12,
-    120
-   ],
-   "effects": [
-    {
-     "param": "faith",
-     "delta": 5
-    },
-    {
-     "param": "stress",
-     "delta": -4
-    },
-    {
-     "param": "happiness",
-     "delta": 2
-    },
-    {
-     "param": "reputation",
-     "delta": 1
-    }
-   ]
-  },
-  {
-   "id": "savings",
-   "ages": [
-    16,
-    120
-   ],
-   "conditions": [
-    {
-     "classes": [
-      "peasant",
-      "craftsman",
-      "trader",
-      "landowner",
-      "noble"
-     ]
-    }
-   ],
-   "effects": [
-    {
-     "param": "money",
-     "delta": 60
-    },
-    {
-     "param": "happiness",
-     "delta": -2
-    },
-    {
-     "param": "stress",
-     "delta": 1
-    }
-   ]
-  }
- ],
- "mortality": {
-  "qx": [
-   [
-    0,
-    0.27
-   ],
-   [
-    1,
-    0.05
-   ],
-   [
-    5,
-    0.013
-   ],
-   [
-    10,
-    0.01
-   ],
-   [
-    15,
-    0.013
-   ],
-   [
-    20,
-    0.017
-   ],
-   [
-    25,
-    0.019
-   ],
-   [
-    30,
-    0.021
-   ],
-   [
-    35,
-    0.023
-   ],
-   [
-    40,
-    0.026
-   ],
-   [
-    45,
-    0.03
-   ],
-   [
-    50,
-    0.037
-   ],
-   [
-    55,
-    0.046
-   ],
-   [
-    60,
-    0.066
-   ],
-   [
-    65,
-    0.092
-   ],
-   [
-    70,
-    0.13
-   ],
-   [
-    75,
-    0.19
-   ],
-   [
-    80,
-    0.28
-   ],
-   [
-    85,
-    0.35
-   ],
-   [
-    90,
-    0.45
-   ]
+  "population": 5,
+  "features": [
+    "writing",
+    "slavery",
+    "river"
   ],
-  "childbirth": 0.016,
-  "calibration": 0.82,
-  "causes": [
-   {
-    "id": "infant_illness",
-    "ages": [
-     0,
-     4
+  "stages": {
+    "youth": 12,
+    "adult": 18,
+    "old": 50
+  },
+  "marriageAge": {
+    "m": [
+      17,
+      26
     ],
-    "weight": 10
-   },
-   {
-    "id": "fever",
-    "ages": [
-     0,
-     120
-    ],
-    "weight": 6
-   },
-   {
-    "id": "illness",
-    "ages": [
-     5,
-     120
-    ],
-    "weight": 8
-   },
-   {
-    "id": "accident",
-    "ages": [
-     5,
-     70
-    ],
-    "weight": 2
-   },
-   {
-    "id": "snakebite",
-    "ages": [
-     5,
-     70
-    ],
-    "weight": 1
-   },
-   {
-    "id": "war",
-    "ages": [
-     16,
-     50
-    ],
-    "weight": 6,
-    "conditions": [
-     {
-      "profession": [
-       "soldier",
-       "officer"
-      ]
-     }
+    "f": [
+      14,
+      20
     ]
-   },
-   {
-    "id": "ballcourt",
-    "ages": [
-     16,
-     50
-    ],
-    "weight": 3,
-    "conditions": [
-     {
-      "profession": [
-       "ballplayer"
-      ]
-     }
-    ]
-   },
-   {
-    "id": "drowning",
-    "ages": [
-     14,
-     70
-    ],
-    "weight": 4,
-    "conditions": [
-     {
-      "profession": [
-       "sailor"
-      ]
-     }
-    ]
-   },
-   {
-    "id": "hunger",
-    "ages": [
-     0,
-     120
-    ],
-    "weight": 2,
-    "conditions": [
-     {
-      "tag": "in_debt"
-     }
-    ]
-   },
-   {
-    "id": "drought_hunger",
-    "ages": [
-     0,
-     120
-    ],
-    "weight": 3,
-    "conditions": [
-     {
-      "tag": "drought_years"
-     }
-    ]
-   },
-   {
-    "id": "old_age",
-    "ages": [
-     55,
-     120
-    ],
-    "weight": 12
-   }
-  ]
- },
- "lifestyle": [
-  {
-   "id": "food",
-   "minAge": 12,
-   "default": "plain",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader",
-    "landowner",
-    "noble"
-   ],
-   "options": [
+  },
+  "lifeExpectancy": 26,
+  "inheritance": "sons_first",
+  "traits": [
+    "cautious",
+    "ambitious",
+    "kind",
+    "hot_tempered",
+    "curious",
+    "reserved",
+    "generous",
+    "pious",
+    "cunning",
+    "brave"
+  ],
+  "skills": [
+    "literacy",
+    "trade",
+    "craft",
+    "farming",
+    "military",
+    "medicine",
+    "management",
+    "oratory",
+    "seafaring"
+  ],
+  "exclude_events": [
+    "a_goat_vineyard",
+    "a_harbor_wages",
+    "a_steward_accounts",
+    "a_father_story",
+    "a_friend_tavern",
+    "a_voyage",
+    "a_bakery",
+    "c_grand_spoil",
+    "c_broken_amphora",
+    "j_lab_crane",
+    "j_fs_vines",
+    "j_up_ship",
+    "j_ship_state",
+    "j_any_payday",
+    "v_wine_symposium",
+    "v_wine_scandal",
+    "v_wine_fall",
+    "y_bad_influence"
+  ],
+  "regions": [
     {
-     "id": "meager",
-     "cost": -40,
-     "effects": [
-      {
-       "param": "health",
-       "delta": -2
+      "id": "tikal",
+      "weight": 4,
+      "years": [
+        550,
+        900
+      ],
+      "coin": "cacao",
+      "classWeights": {
+        "slave": 6,
+        "peasant": 58,
+        "craftsman": 16,
+        "trader": 7,
+        "landowner": 10,
+        "noble": 3
       },
-      {
-       "param": "happiness",
-       "delta": -1
-      }
-     ],
-     "mortality": 1.12
+      "names": {
+        "m": [
+          {
+            "id": "may_kinich",
+            "ru": "Кинич",
+            "en": "K'inich"
+          },
+          {
+            "id": "may_balam",
+            "ru": "Балам",
+            "en": "Bahlam"
+          },
+          {
+            "id": "may_chak",
+            "ru": "Чак",
+            "en": "Chak"
+          },
+          {
+            "id": "may_kawiil",
+            "ru": "Кавиль",
+            "en": "K'awiil"
+          },
+          {
+            "id": "may_yax",
+            "ru": "Яш",
+            "en": "Yax"
+          },
+          {
+            "id": "may_ahk",
+            "ru": "Ак",
+            "en": "Ahk"
+          },
+          {
+            "id": "may_chan",
+            "ru": "Чан",
+            "en": "Chan"
+          },
+          {
+            "id": "may_muwaan",
+            "ru": "Мувахн",
+            "en": "Muwaan"
+          },
+          {
+            "id": "may_hix",
+            "ru": "Хиш",
+            "en": "Hix"
+          },
+          {
+            "id": "may_tzunun",
+            "ru": "Цунун",
+            "en": "Tz'unun"
+          },
+          {
+            "id": "may_mo",
+            "ru": "Мо",
+            "en": "Mo'"
+          },
+          {
+            "id": "may_kuy",
+            "ru": "Куй",
+            "en": "Kuy"
+          },
+          {
+            "id": "may_tok",
+            "ru": "Ток",
+            "en": "Tok'"
+          },
+          {
+            "id": "may_kan",
+            "ru": "Кан",
+            "en": "K'an"
+          },
+          {
+            "id": "may_ek",
+            "ru": "Эк",
+            "en": "Ek'"
+          },
+          {
+            "id": "may_uh",
+            "ru": "Ух",
+            "en": "Uh"
+          },
+          {
+            "id": "may_chok",
+            "ru": "Чок",
+            "en": "Ch'ok"
+          },
+          {
+            "id": "may_sak",
+            "ru": "Сак",
+            "en": "Sak"
+          },
+          {
+            "id": "may_nuun",
+            "ru": "Нуун",
+            "en": "Nuun"
+          },
+          {
+            "id": "may_kak",
+            "ru": "Как",
+            "en": "K'ak'"
+          },
+          {
+            "id": "may_tuun",
+            "ru": "Туун",
+            "en": "Tuun"
+          },
+          {
+            "id": "may_lakam",
+            "ru": "Лакам",
+            "en": "Lakam"
+          },
+          {
+            "id": "may_chitam",
+            "ru": "Читам",
+            "en": "Chitam"
+          },
+          {
+            "id": "may_kelem",
+            "ru": "Келем",
+            "en": "Kelem"
+          },
+          {
+            "id": "may_wak",
+            "ru": "Вак",
+            "en": "Wak"
+          },
+          {
+            "id": "may_chen",
+            "ru": "Чен",
+            "en": "Ch'en"
+          },
+          {
+            "id": "may_ukit",
+            "ru": "Укит",
+            "en": "Ukit"
+          },
+          {
+            "id": "may_itzam",
+            "ru": "Ицам",
+            "en": "Itzam"
+          },
+          {
+            "id": "may_pasaj",
+            "ru": "Пасах",
+            "en": "Pasaj"
+          },
+          {
+            "id": "may_took",
+            "ru": "Тоок",
+            "en": "Took'"
+          },
+          {
+            "id": "may_witz",
+            "ru": "Виц",
+            "en": "Witz"
+          },
+          {
+            "id": "may_tzul",
+            "ru": "Цуль",
+            "en": "Tz'ul"
+          },
+          {
+            "id": "may_bolon",
+            "ru": "Болон",
+            "en": "Bolon"
+          },
+          {
+            "id": "may_chuwen",
+            "ru": "Чувен",
+            "en": "Chuwen"
+          },
+          {
+            "id": "may_siyaj",
+            "ru": "Сиях",
+            "en": "Siyaj"
+          },
+          {
+            "id": "may_jasaw",
+            "ru": "Хасав",
+            "en": "Jasaw"
+          }
+        ],
+        "f": [
+          {
+            "id": "may_ix_kak",
+            "ru": "Иш-Как",
+            "en": "Ix K'ak'"
+          },
+          {
+            "id": "may_ix_ik",
+            "ru": "Иш-Ик",
+            "en": "Ix Ik'"
+          },
+          {
+            "id": "may_ix_sak",
+            "ru": "Иш-Сак",
+            "en": "Ix Sak"
+          },
+          {
+            "id": "may_ix_uh",
+            "ru": "Иш-Ух",
+            "en": "Ix Uh"
+          },
+          {
+            "id": "may_ix_naah",
+            "ru": "Иш-Наах",
+            "en": "Ix Naah"
+          },
+          {
+            "id": "may_ix_yohl",
+            "ru": "Иш-Йоль",
+            "en": "Ix Yohl"
+          },
+          {
+            "id": "may_ix_kan",
+            "ru": "Иш-Кан",
+            "en": "Ix K'an"
+          },
+          {
+            "id": "may_ix_yax",
+            "ru": "Иш-Яш",
+            "en": "Ix Yax"
+          },
+          {
+            "id": "may_ix_itz",
+            "ru": "Иш-Иц",
+            "en": "Ix Itz"
+          },
+          {
+            "id": "may_ix_muwaan",
+            "ru": "Иш-Мувахн",
+            "en": "Ix Muwaan"
+          },
+          {
+            "id": "may_ix_tuun",
+            "ru": "Иш-Туун",
+            "en": "Ix Tuun"
+          },
+          {
+            "id": "may_ix_ixim",
+            "ru": "Иш-Ишим",
+            "en": "Ix Ixim"
+          },
+          {
+            "id": "may_ix_nikte",
+            "ru": "Иш-Никте",
+            "en": "Ix Nikte'"
+          },
+          {
+            "id": "may_ix_kab",
+            "ru": "Иш-Каб",
+            "en": "Ix Kab"
+          },
+          {
+            "id": "may_ix_ek",
+            "ru": "Иш-Эк",
+            "en": "Ix Ek'"
+          },
+          {
+            "id": "may_ix_chak",
+            "ru": "Иш-Чак",
+            "en": "Ix Chak"
+          },
+          {
+            "id": "may_ix_mo",
+            "ru": "Иш-Мо",
+            "en": "Ix Mo'"
+          },
+          {
+            "id": "may_ix_tzunun",
+            "ru": "Иш-Цунун",
+            "en": "Ix Tz'unun"
+          },
+          {
+            "id": "may_ix_balam",
+            "ru": "Иш-Балам",
+            "en": "Ix Bahlam"
+          },
+          {
+            "id": "may_ix_juun",
+            "ru": "Иш-Хуун",
+            "en": "Ix Juun"
+          },
+          {
+            "id": "may_ix_chan",
+            "ru": "Иш-Чан",
+            "en": "Ix Chan"
+          },
+          {
+            "id": "may_ix_ha",
+            "ru": "Иш-Ха",
+            "en": "Ix Ha'"
+          },
+          {
+            "id": "may_ix_kin",
+            "ru": "Иш-Кин",
+            "en": "Ix K'in"
+          },
+          {
+            "id": "may_ix_lem",
+            "ru": "Иш-Лем",
+            "en": "Ix Lem"
+          },
+          {
+            "id": "may_ix_bolon",
+            "ru": "Иш-Болон",
+            "en": "Ix Bolon"
+          },
+          {
+            "id": "may_ix_chel",
+            "ru": "Иш-Чель",
+            "en": "Ix Chel"
+          },
+          {
+            "id": "may_ix_kuk",
+            "ru": "Иш-Кук",
+            "en": "Ix K'uk'"
+          },
+          {
+            "id": "may_ix_wayaab",
+            "ru": "Иш-Ваяб",
+            "en": "Ix Wayaab"
+          },
+          {
+            "id": "may_ix_unen",
+            "ru": "Иш-Унен",
+            "en": "Ix Unen"
+          },
+          {
+            "id": "may_ix_tzak",
+            "ru": "Иш-Цак",
+            "en": "Ix Tz'ak"
+          },
+          {
+            "id": "may_ix_kayom",
+            "ru": "Иш-Каём",
+            "en": "Ix Kayom"
+          },
+          {
+            "id": "may_ix_tzib",
+            "ru": "Иш-Циб",
+            "en": "Ix Tz'ib"
+          },
+          {
+            "id": "may_ix_pik",
+            "ru": "Иш-Пик",
+            "en": "Ix Pik"
+          },
+          {
+            "id": "may_ix_unen_bahlam",
+            "ru": "Иш-Унен-Балам",
+            "en": "Ix Unen Bahlam"
+          },
+          {
+            "id": "may_ix_lachan",
+            "ru": "Иш-Лачан",
+            "en": "Ix Lachan"
+          }
+        ]
+      },
+      "religions": {
+        "maya_gods": 100
+      },
+      "scene": {
+        "style": "maya",
+        "land": "jungle",
+        "prompt": "Tikal, a great Maya city of steep limestone temple-pyramids rising above the rainforest canopy, plastered plazas, reservoirs"
+      },
+      "tags": [
+        "capital"
+      ]
     },
     {
-     "id": "plain",
-     "cost": 0
+      "id": "calakmul",
+      "weight": 3,
+      "years": [
+        550,
+        900
+      ],
+      "coin": "cacao",
+      "classWeights": {
+        "slave": 7,
+        "peasant": 58,
+        "craftsman": 15,
+        "trader": 7,
+        "landowner": 10,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "may_kinich",
+            "ru": "Кинич",
+            "en": "K'inich"
+          },
+          {
+            "id": "may_balam",
+            "ru": "Балам",
+            "en": "Bahlam"
+          },
+          {
+            "id": "may_chak",
+            "ru": "Чак",
+            "en": "Chak"
+          },
+          {
+            "id": "may_kawiil",
+            "ru": "Кавиль",
+            "en": "K'awiil"
+          },
+          {
+            "id": "may_yax",
+            "ru": "Яш",
+            "en": "Yax"
+          },
+          {
+            "id": "may_ahk",
+            "ru": "Ак",
+            "en": "Ahk"
+          },
+          {
+            "id": "may_chan",
+            "ru": "Чан",
+            "en": "Chan"
+          },
+          {
+            "id": "may_muwaan",
+            "ru": "Мувахн",
+            "en": "Muwaan"
+          },
+          {
+            "id": "may_hix",
+            "ru": "Хиш",
+            "en": "Hix"
+          },
+          {
+            "id": "may_tzunun",
+            "ru": "Цунун",
+            "en": "Tz'unun"
+          },
+          {
+            "id": "may_mo",
+            "ru": "Мо",
+            "en": "Mo'"
+          },
+          {
+            "id": "may_kuy",
+            "ru": "Куй",
+            "en": "Kuy"
+          },
+          {
+            "id": "may_tok",
+            "ru": "Ток",
+            "en": "Tok'"
+          },
+          {
+            "id": "may_kan",
+            "ru": "Кан",
+            "en": "K'an"
+          },
+          {
+            "id": "may_ek",
+            "ru": "Эк",
+            "en": "Ek'"
+          },
+          {
+            "id": "may_uh",
+            "ru": "Ух",
+            "en": "Uh"
+          },
+          {
+            "id": "may_chok",
+            "ru": "Чок",
+            "en": "Ch'ok"
+          },
+          {
+            "id": "may_sak",
+            "ru": "Сак",
+            "en": "Sak"
+          },
+          {
+            "id": "may_nuun",
+            "ru": "Нуун",
+            "en": "Nuun"
+          },
+          {
+            "id": "may_kak",
+            "ru": "Как",
+            "en": "K'ak'"
+          },
+          {
+            "id": "may_tuun",
+            "ru": "Туун",
+            "en": "Tuun"
+          },
+          {
+            "id": "may_lakam",
+            "ru": "Лакам",
+            "en": "Lakam"
+          },
+          {
+            "id": "may_chitam",
+            "ru": "Читам",
+            "en": "Chitam"
+          },
+          {
+            "id": "may_kelem",
+            "ru": "Келем",
+            "en": "Kelem"
+          },
+          {
+            "id": "may_wak",
+            "ru": "Вак",
+            "en": "Wak"
+          },
+          {
+            "id": "may_chen",
+            "ru": "Чен",
+            "en": "Ch'en"
+          },
+          {
+            "id": "may_ukit",
+            "ru": "Укит",
+            "en": "Ukit"
+          },
+          {
+            "id": "may_itzam",
+            "ru": "Ицам",
+            "en": "Itzam"
+          },
+          {
+            "id": "may_pasaj",
+            "ru": "Пасах",
+            "en": "Pasaj"
+          },
+          {
+            "id": "may_took",
+            "ru": "Тоок",
+            "en": "Took'"
+          },
+          {
+            "id": "may_witz",
+            "ru": "Виц",
+            "en": "Witz"
+          },
+          {
+            "id": "may_tzul",
+            "ru": "Цуль",
+            "en": "Tz'ul"
+          },
+          {
+            "id": "may_bolon",
+            "ru": "Болон",
+            "en": "Bolon"
+          },
+          {
+            "id": "may_chuwen",
+            "ru": "Чувен",
+            "en": "Chuwen"
+          },
+          {
+            "id": "may_yuknoom",
+            "ru": "Юкном",
+            "en": "Yuknoom"
+          },
+          {
+            "id": "may_yichaak",
+            "ru": "Йичак",
+            "en": "Yich'aak"
+          }
+        ],
+        "f": [
+          {
+            "id": "may_ix_kak",
+            "ru": "Иш-Как",
+            "en": "Ix K'ak'"
+          },
+          {
+            "id": "may_ix_ik",
+            "ru": "Иш-Ик",
+            "en": "Ix Ik'"
+          },
+          {
+            "id": "may_ix_sak",
+            "ru": "Иш-Сак",
+            "en": "Ix Sak"
+          },
+          {
+            "id": "may_ix_uh",
+            "ru": "Иш-Ух",
+            "en": "Ix Uh"
+          },
+          {
+            "id": "may_ix_naah",
+            "ru": "Иш-Наах",
+            "en": "Ix Naah"
+          },
+          {
+            "id": "may_ix_yohl",
+            "ru": "Иш-Йоль",
+            "en": "Ix Yohl"
+          },
+          {
+            "id": "may_ix_kan",
+            "ru": "Иш-Кан",
+            "en": "Ix K'an"
+          },
+          {
+            "id": "may_ix_yax",
+            "ru": "Иш-Яш",
+            "en": "Ix Yax"
+          },
+          {
+            "id": "may_ix_itz",
+            "ru": "Иш-Иц",
+            "en": "Ix Itz"
+          },
+          {
+            "id": "may_ix_muwaan",
+            "ru": "Иш-Мувахн",
+            "en": "Ix Muwaan"
+          },
+          {
+            "id": "may_ix_tuun",
+            "ru": "Иш-Туун",
+            "en": "Ix Tuun"
+          },
+          {
+            "id": "may_ix_ixim",
+            "ru": "Иш-Ишим",
+            "en": "Ix Ixim"
+          },
+          {
+            "id": "may_ix_nikte",
+            "ru": "Иш-Никте",
+            "en": "Ix Nikte'"
+          },
+          {
+            "id": "may_ix_kab",
+            "ru": "Иш-Каб",
+            "en": "Ix Kab"
+          },
+          {
+            "id": "may_ix_ek",
+            "ru": "Иш-Эк",
+            "en": "Ix Ek'"
+          },
+          {
+            "id": "may_ix_chak",
+            "ru": "Иш-Чак",
+            "en": "Ix Chak"
+          },
+          {
+            "id": "may_ix_mo",
+            "ru": "Иш-Мо",
+            "en": "Ix Mo'"
+          },
+          {
+            "id": "may_ix_tzunun",
+            "ru": "Иш-Цунун",
+            "en": "Ix Tz'unun"
+          },
+          {
+            "id": "may_ix_balam",
+            "ru": "Иш-Балам",
+            "en": "Ix Bahlam"
+          },
+          {
+            "id": "may_ix_juun",
+            "ru": "Иш-Хуун",
+            "en": "Ix Juun"
+          },
+          {
+            "id": "may_ix_chan",
+            "ru": "Иш-Чан",
+            "en": "Ix Chan"
+          },
+          {
+            "id": "may_ix_ha",
+            "ru": "Иш-Ха",
+            "en": "Ix Ha'"
+          },
+          {
+            "id": "may_ix_kin",
+            "ru": "Иш-Кин",
+            "en": "Ix K'in"
+          },
+          {
+            "id": "may_ix_lem",
+            "ru": "Иш-Лем",
+            "en": "Ix Lem"
+          },
+          {
+            "id": "may_ix_bolon",
+            "ru": "Иш-Болон",
+            "en": "Ix Bolon"
+          },
+          {
+            "id": "may_ix_chel",
+            "ru": "Иш-Чель",
+            "en": "Ix Chel"
+          },
+          {
+            "id": "may_ix_kuk",
+            "ru": "Иш-Кук",
+            "en": "Ix K'uk'"
+          },
+          {
+            "id": "may_ix_wayaab",
+            "ru": "Иш-Ваяб",
+            "en": "Ix Wayaab"
+          },
+          {
+            "id": "may_ix_unen",
+            "ru": "Иш-Унен",
+            "en": "Ix Unen"
+          },
+          {
+            "id": "may_ix_tzak",
+            "ru": "Иш-Цак",
+            "en": "Ix Tz'ak"
+          },
+          {
+            "id": "may_ix_kayom",
+            "ru": "Иш-Каём",
+            "en": "Ix Kayom"
+          },
+          {
+            "id": "may_ix_tzib",
+            "ru": "Иш-Циб",
+            "en": "Ix Tz'ib"
+          },
+          {
+            "id": "may_ix_pik",
+            "ru": "Иш-Пик",
+            "en": "Ix Pik"
+          },
+          {
+            "id": "may_ix_kabel",
+            "ru": "Иш-Кабель",
+            "en": "Ix K'abel"
+          },
+          {
+            "id": "may_ix_samaat",
+            "ru": "Иш-Самаат",
+            "en": "Ix Samaat"
+          }
+        ]
+      },
+      "religions": {
+        "maya_gods": 100
+      },
+      "scene": {
+        "style": "maya",
+        "land": "jungle",
+        "prompt": "Calakmul, seat of the Snake kingdom: massive pyramid amid seasonal swamps, rows of carved stelae, white causeways through the forest"
+      }
     },
     {
-     "id": "varied",
-     "cost": 70,
-     "effects": [
-      {
-       "param": "health",
-       "delta": 1.5
+      "id": "palenque",
+      "weight": 2,
+      "years": [
+        550,
+        850
+      ],
+      "coin": "cacao",
+      "classWeights": {
+        "slave": 6,
+        "peasant": 60,
+        "craftsman": 15,
+        "trader": 6,
+        "landowner": 10,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "may_kinich",
+            "ru": "Кинич",
+            "en": "K'inich"
+          },
+          {
+            "id": "may_balam",
+            "ru": "Балам",
+            "en": "Bahlam"
+          },
+          {
+            "id": "may_chak",
+            "ru": "Чак",
+            "en": "Chak"
+          },
+          {
+            "id": "may_kawiil",
+            "ru": "Кавиль",
+            "en": "K'awiil"
+          },
+          {
+            "id": "may_yax",
+            "ru": "Яш",
+            "en": "Yax"
+          },
+          {
+            "id": "may_ahk",
+            "ru": "Ак",
+            "en": "Ahk"
+          },
+          {
+            "id": "may_chan",
+            "ru": "Чан",
+            "en": "Chan"
+          },
+          {
+            "id": "may_muwaan",
+            "ru": "Мувахн",
+            "en": "Muwaan"
+          },
+          {
+            "id": "may_hix",
+            "ru": "Хиш",
+            "en": "Hix"
+          },
+          {
+            "id": "may_tzunun",
+            "ru": "Цунун",
+            "en": "Tz'unun"
+          },
+          {
+            "id": "may_mo",
+            "ru": "Мо",
+            "en": "Mo'"
+          },
+          {
+            "id": "may_kuy",
+            "ru": "Куй",
+            "en": "Kuy"
+          },
+          {
+            "id": "may_tok",
+            "ru": "Ток",
+            "en": "Tok'"
+          },
+          {
+            "id": "may_kan",
+            "ru": "Кан",
+            "en": "K'an"
+          },
+          {
+            "id": "may_ek",
+            "ru": "Эк",
+            "en": "Ek'"
+          },
+          {
+            "id": "may_uh",
+            "ru": "Ух",
+            "en": "Uh"
+          },
+          {
+            "id": "may_chok",
+            "ru": "Чок",
+            "en": "Ch'ok"
+          },
+          {
+            "id": "may_sak",
+            "ru": "Сак",
+            "en": "Sak"
+          },
+          {
+            "id": "may_nuun",
+            "ru": "Нуун",
+            "en": "Nuun"
+          },
+          {
+            "id": "may_kak",
+            "ru": "Как",
+            "en": "K'ak'"
+          },
+          {
+            "id": "may_tuun",
+            "ru": "Туун",
+            "en": "Tuun"
+          },
+          {
+            "id": "may_lakam",
+            "ru": "Лакам",
+            "en": "Lakam"
+          },
+          {
+            "id": "may_chitam",
+            "ru": "Читам",
+            "en": "Chitam"
+          },
+          {
+            "id": "may_kelem",
+            "ru": "Келем",
+            "en": "Kelem"
+          },
+          {
+            "id": "may_wak",
+            "ru": "Вак",
+            "en": "Wak"
+          },
+          {
+            "id": "may_chen",
+            "ru": "Чен",
+            "en": "Ch'en"
+          },
+          {
+            "id": "may_ukit",
+            "ru": "Укит",
+            "en": "Ukit"
+          },
+          {
+            "id": "may_itzam",
+            "ru": "Ицам",
+            "en": "Itzam"
+          },
+          {
+            "id": "may_pasaj",
+            "ru": "Пасах",
+            "en": "Pasaj"
+          },
+          {
+            "id": "may_took",
+            "ru": "Тоок",
+            "en": "Took'"
+          },
+          {
+            "id": "may_witz",
+            "ru": "Виц",
+            "en": "Witz"
+          },
+          {
+            "id": "may_tzul",
+            "ru": "Цуль",
+            "en": "Tz'ul"
+          },
+          {
+            "id": "may_bolon",
+            "ru": "Болон",
+            "en": "Bolon"
+          },
+          {
+            "id": "may_chuwen",
+            "ru": "Чувен",
+            "en": "Chuwen"
+          },
+          {
+            "id": "may_pakal",
+            "ru": "Пакаль",
+            "en": "Pakal"
+          },
+          {
+            "id": "may_ahkal",
+            "ru": "Акаль",
+            "en": "Ahkal"
+          }
+        ],
+        "f": [
+          {
+            "id": "may_ix_kak",
+            "ru": "Иш-Как",
+            "en": "Ix K'ak'"
+          },
+          {
+            "id": "may_ix_ik",
+            "ru": "Иш-Ик",
+            "en": "Ix Ik'"
+          },
+          {
+            "id": "may_ix_sak",
+            "ru": "Иш-Сак",
+            "en": "Ix Sak"
+          },
+          {
+            "id": "may_ix_uh",
+            "ru": "Иш-Ух",
+            "en": "Ix Uh"
+          },
+          {
+            "id": "may_ix_naah",
+            "ru": "Иш-Наах",
+            "en": "Ix Naah"
+          },
+          {
+            "id": "may_ix_yohl",
+            "ru": "Иш-Йоль",
+            "en": "Ix Yohl"
+          },
+          {
+            "id": "may_ix_kan",
+            "ru": "Иш-Кан",
+            "en": "Ix K'an"
+          },
+          {
+            "id": "may_ix_yax",
+            "ru": "Иш-Яш",
+            "en": "Ix Yax"
+          },
+          {
+            "id": "may_ix_itz",
+            "ru": "Иш-Иц",
+            "en": "Ix Itz"
+          },
+          {
+            "id": "may_ix_muwaan",
+            "ru": "Иш-Мувахн",
+            "en": "Ix Muwaan"
+          },
+          {
+            "id": "may_ix_tuun",
+            "ru": "Иш-Туун",
+            "en": "Ix Tuun"
+          },
+          {
+            "id": "may_ix_ixim",
+            "ru": "Иш-Ишим",
+            "en": "Ix Ixim"
+          },
+          {
+            "id": "may_ix_nikte",
+            "ru": "Иш-Никте",
+            "en": "Ix Nikte'"
+          },
+          {
+            "id": "may_ix_kab",
+            "ru": "Иш-Каб",
+            "en": "Ix Kab"
+          },
+          {
+            "id": "may_ix_ek",
+            "ru": "Иш-Эк",
+            "en": "Ix Ek'"
+          },
+          {
+            "id": "may_ix_chak",
+            "ru": "Иш-Чак",
+            "en": "Ix Chak"
+          },
+          {
+            "id": "may_ix_mo",
+            "ru": "Иш-Мо",
+            "en": "Ix Mo'"
+          },
+          {
+            "id": "may_ix_tzunun",
+            "ru": "Иш-Цунун",
+            "en": "Ix Tz'unun"
+          },
+          {
+            "id": "may_ix_balam",
+            "ru": "Иш-Балам",
+            "en": "Ix Bahlam"
+          },
+          {
+            "id": "may_ix_juun",
+            "ru": "Иш-Хуун",
+            "en": "Ix Juun"
+          },
+          {
+            "id": "may_ix_chan",
+            "ru": "Иш-Чан",
+            "en": "Ix Chan"
+          },
+          {
+            "id": "may_ix_ha",
+            "ru": "Иш-Ха",
+            "en": "Ix Ha'"
+          },
+          {
+            "id": "may_ix_kin",
+            "ru": "Иш-Кин",
+            "en": "Ix K'in"
+          },
+          {
+            "id": "may_ix_lem",
+            "ru": "Иш-Лем",
+            "en": "Ix Lem"
+          },
+          {
+            "id": "may_ix_bolon",
+            "ru": "Иш-Болон",
+            "en": "Ix Bolon"
+          },
+          {
+            "id": "may_ix_chel",
+            "ru": "Иш-Чель",
+            "en": "Ix Chel"
+          },
+          {
+            "id": "may_ix_kuk",
+            "ru": "Иш-Кук",
+            "en": "Ix K'uk'"
+          },
+          {
+            "id": "may_ix_wayaab",
+            "ru": "Иш-Ваяб",
+            "en": "Ix Wayaab"
+          },
+          {
+            "id": "may_ix_unen",
+            "ru": "Иш-Унен",
+            "en": "Ix Unen"
+          },
+          {
+            "id": "may_ix_tzak",
+            "ru": "Иш-Цак",
+            "en": "Ix Tz'ak"
+          },
+          {
+            "id": "may_ix_kayom",
+            "ru": "Иш-Каём",
+            "en": "Ix Kayom"
+          },
+          {
+            "id": "may_ix_tzib",
+            "ru": "Иш-Циб",
+            "en": "Ix Tz'ib"
+          },
+          {
+            "id": "may_ix_pik",
+            "ru": "Иш-Пик",
+            "en": "Ix Pik"
+          },
+          {
+            "id": "may_ix_tzakbu",
+            "ru": "Иш-Цакбу",
+            "en": "Ix Tz'akbu"
+          },
+          {
+            "id": "may_ix_sak_kuk",
+            "ru": "Иш-Сак-Кук",
+            "en": "Ix Sak K'uk'"
+          }
+        ]
+      },
+      "religions": {
+        "maya_gods": 100
+      },
+      "scene": {
+        "style": "maya",
+        "land": "jungle",
+        "prompt": "Palenque, a Maya city on forested hills above the plain, palace with a tower, Temple of the Inscriptions, streams and waterfalls"
       }
-     ],
-     "mortality": 0.92,
-     "requirements": [
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 70
-      }
-     ]
     },
     {
-     "id": "feasts",
-     "cost": 300,
-     "effects": [
-      {
-       "param": "happiness",
-       "delta": 2
+      "id": "copan",
+      "weight": 2,
+      "years": [
+        550,
+        850
+      ],
+      "coin": "cacao",
+      "classWeights": {
+        "slave": 5,
+        "peasant": 60,
+        "craftsman": 17,
+        "trader": 6,
+        "landowner": 9,
+        "noble": 3
       },
-      {
-       "param": "reputation",
-       "delta": 1
+      "names": {
+        "m": [
+          {
+            "id": "may_kinich",
+            "ru": "Кинич",
+            "en": "K'inich"
+          },
+          {
+            "id": "may_balam",
+            "ru": "Балам",
+            "en": "Bahlam"
+          },
+          {
+            "id": "may_chak",
+            "ru": "Чак",
+            "en": "Chak"
+          },
+          {
+            "id": "may_kawiil",
+            "ru": "Кавиль",
+            "en": "K'awiil"
+          },
+          {
+            "id": "may_yax",
+            "ru": "Яш",
+            "en": "Yax"
+          },
+          {
+            "id": "may_ahk",
+            "ru": "Ак",
+            "en": "Ahk"
+          },
+          {
+            "id": "may_chan",
+            "ru": "Чан",
+            "en": "Chan"
+          },
+          {
+            "id": "may_muwaan",
+            "ru": "Мувахн",
+            "en": "Muwaan"
+          },
+          {
+            "id": "may_hix",
+            "ru": "Хиш",
+            "en": "Hix"
+          },
+          {
+            "id": "may_tzunun",
+            "ru": "Цунун",
+            "en": "Tz'unun"
+          },
+          {
+            "id": "may_mo",
+            "ru": "Мо",
+            "en": "Mo'"
+          },
+          {
+            "id": "may_kuy",
+            "ru": "Куй",
+            "en": "Kuy"
+          },
+          {
+            "id": "may_tok",
+            "ru": "Ток",
+            "en": "Tok'"
+          },
+          {
+            "id": "may_kan",
+            "ru": "Кан",
+            "en": "K'an"
+          },
+          {
+            "id": "may_ek",
+            "ru": "Эк",
+            "en": "Ek'"
+          },
+          {
+            "id": "may_uh",
+            "ru": "Ух",
+            "en": "Uh"
+          },
+          {
+            "id": "may_chok",
+            "ru": "Чок",
+            "en": "Ch'ok"
+          },
+          {
+            "id": "may_sak",
+            "ru": "Сак",
+            "en": "Sak"
+          },
+          {
+            "id": "may_nuun",
+            "ru": "Нуун",
+            "en": "Nuun"
+          },
+          {
+            "id": "may_kak",
+            "ru": "Как",
+            "en": "K'ak'"
+          },
+          {
+            "id": "may_tuun",
+            "ru": "Туун",
+            "en": "Tuun"
+          },
+          {
+            "id": "may_lakam",
+            "ru": "Лакам",
+            "en": "Lakam"
+          },
+          {
+            "id": "may_chitam",
+            "ru": "Читам",
+            "en": "Chitam"
+          },
+          {
+            "id": "may_kelem",
+            "ru": "Келем",
+            "en": "Kelem"
+          },
+          {
+            "id": "may_wak",
+            "ru": "Вак",
+            "en": "Wak"
+          },
+          {
+            "id": "may_chen",
+            "ru": "Чен",
+            "en": "Ch'en"
+          },
+          {
+            "id": "may_ukit",
+            "ru": "Укит",
+            "en": "Ukit"
+          },
+          {
+            "id": "may_itzam",
+            "ru": "Ицам",
+            "en": "Itzam"
+          },
+          {
+            "id": "may_pasaj",
+            "ru": "Пасах",
+            "en": "Pasaj"
+          },
+          {
+            "id": "may_took",
+            "ru": "Тоок",
+            "en": "Took'"
+          },
+          {
+            "id": "may_witz",
+            "ru": "Виц",
+            "en": "Witz"
+          },
+          {
+            "id": "may_tzul",
+            "ru": "Цуль",
+            "en": "Tz'ul"
+          },
+          {
+            "id": "may_bolon",
+            "ru": "Болон",
+            "en": "Bolon"
+          },
+          {
+            "id": "may_chuwen",
+            "ru": "Чувен",
+            "en": "Chuwen"
+          },
+          {
+            "id": "may_yopaat",
+            "ru": "Йопаат",
+            "en": "Yopaat"
+          },
+          {
+            "id": "may_joplaj",
+            "ru": "Хоплах",
+            "en": "Joplaj"
+          }
+        ],
+        "f": [
+          {
+            "id": "may_ix_kak",
+            "ru": "Иш-Как",
+            "en": "Ix K'ak'"
+          },
+          {
+            "id": "may_ix_ik",
+            "ru": "Иш-Ик",
+            "en": "Ix Ik'"
+          },
+          {
+            "id": "may_ix_sak",
+            "ru": "Иш-Сак",
+            "en": "Ix Sak"
+          },
+          {
+            "id": "may_ix_uh",
+            "ru": "Иш-Ух",
+            "en": "Ix Uh"
+          },
+          {
+            "id": "may_ix_naah",
+            "ru": "Иш-Наах",
+            "en": "Ix Naah"
+          },
+          {
+            "id": "may_ix_yohl",
+            "ru": "Иш-Йоль",
+            "en": "Ix Yohl"
+          },
+          {
+            "id": "may_ix_kan",
+            "ru": "Иш-Кан",
+            "en": "Ix K'an"
+          },
+          {
+            "id": "may_ix_yax",
+            "ru": "Иш-Яш",
+            "en": "Ix Yax"
+          },
+          {
+            "id": "may_ix_itz",
+            "ru": "Иш-Иц",
+            "en": "Ix Itz"
+          },
+          {
+            "id": "may_ix_muwaan",
+            "ru": "Иш-Мувахн",
+            "en": "Ix Muwaan"
+          },
+          {
+            "id": "may_ix_tuun",
+            "ru": "Иш-Туун",
+            "en": "Ix Tuun"
+          },
+          {
+            "id": "may_ix_ixim",
+            "ru": "Иш-Ишим",
+            "en": "Ix Ixim"
+          },
+          {
+            "id": "may_ix_nikte",
+            "ru": "Иш-Никте",
+            "en": "Ix Nikte'"
+          },
+          {
+            "id": "may_ix_kab",
+            "ru": "Иш-Каб",
+            "en": "Ix Kab"
+          },
+          {
+            "id": "may_ix_ek",
+            "ru": "Иш-Эк",
+            "en": "Ix Ek'"
+          },
+          {
+            "id": "may_ix_chak",
+            "ru": "Иш-Чак",
+            "en": "Ix Chak"
+          },
+          {
+            "id": "may_ix_mo",
+            "ru": "Иш-Мо",
+            "en": "Ix Mo'"
+          },
+          {
+            "id": "may_ix_tzunun",
+            "ru": "Иш-Цунун",
+            "en": "Ix Tz'unun"
+          },
+          {
+            "id": "may_ix_balam",
+            "ru": "Иш-Балам",
+            "en": "Ix Bahlam"
+          },
+          {
+            "id": "may_ix_juun",
+            "ru": "Иш-Хуун",
+            "en": "Ix Juun"
+          },
+          {
+            "id": "may_ix_chan",
+            "ru": "Иш-Чан",
+            "en": "Ix Chan"
+          },
+          {
+            "id": "may_ix_ha",
+            "ru": "Иш-Ха",
+            "en": "Ix Ha'"
+          },
+          {
+            "id": "may_ix_kin",
+            "ru": "Иш-Кин",
+            "en": "Ix K'in"
+          },
+          {
+            "id": "may_ix_lem",
+            "ru": "Иш-Лем",
+            "en": "Ix Lem"
+          },
+          {
+            "id": "may_ix_bolon",
+            "ru": "Иш-Болон",
+            "en": "Ix Bolon"
+          },
+          {
+            "id": "may_ix_chel",
+            "ru": "Иш-Чель",
+            "en": "Ix Chel"
+          },
+          {
+            "id": "may_ix_kuk",
+            "ru": "Иш-Кук",
+            "en": "Ix K'uk'"
+          },
+          {
+            "id": "may_ix_wayaab",
+            "ru": "Иш-Ваяб",
+            "en": "Ix Wayaab"
+          },
+          {
+            "id": "may_ix_unen",
+            "ru": "Иш-Унен",
+            "en": "Ix Unen"
+          },
+          {
+            "id": "may_ix_tzak",
+            "ru": "Иш-Цак",
+            "en": "Ix Tz'ak"
+          },
+          {
+            "id": "may_ix_kayom",
+            "ru": "Иш-Каём",
+            "en": "Ix Kayom"
+          },
+          {
+            "id": "may_ix_tzib",
+            "ru": "Иш-Циб",
+            "en": "Ix Tz'ib"
+          },
+          {
+            "id": "may_ix_pik",
+            "ru": "Иш-Пик",
+            "en": "Ix Pik"
+          },
+          {
+            "id": "may_ix_yaxun",
+            "ru": "Иш-Яшун",
+            "en": "Ix Yaxun"
+          },
+          {
+            "id": "may_ix_ajaw",
+            "ru": "Иш-Пасах",
+            "en": "Ix Pasaj"
+          }
+        ]
       },
-      {
-       "chance": 0.3,
-       "effects": [
+      "religions": {
+        "maya_gods": 100
+      },
+      "scene": {
+        "style": "maya",
+        "land": "jungle",
+        "prompt": "Copan, a Maya city in a green river valley, plaza of deeply carved stelae, ballcourt, scarlet macaws, hieroglyphic stairway"
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "slave",
+      "status": 5,
+      "money": [
+        0,
+        5
+      ],
+      "upkeep": 0,
+      "mortality": 1.15,
+      "tags": [
+        "enslaved"
+      ]
+    },
+    {
+      "id": "peasant",
+      "status": 25,
+      "money": [
+        40,
+        160
+      ],
+      "upkeep": 140,
+      "mortality": 1,
+      "tags": [
+        "rural",
+        "raised_farming"
+      ]
+    },
+    {
+      "id": "craftsman",
+      "status": 38,
+      "money": [
+        60,
+        220
+      ],
+      "upkeep": 190,
+      "mortality": 1,
+      "tags": [
+        "lives_in_city",
+        "raised_craft"
+      ]
+    },
+    {
+      "id": "trader",
+      "status": 48,
+      "money": [
+        150,
+        500
+      ],
+      "upkeep": 250,
+      "mortality": 0.95,
+      "tags": [
+        "lives_in_city",
+        "raised_trade"
+      ]
+    },
+    {
+      "id": "landowner",
+      "status": 72,
+      "money": [
+        500,
+        1500
+      ],
+      "upkeep": 450,
+      "mortality": 0.85,
+      "tags": [
+        "raised_management",
+        "wealthy"
+      ]
+    },
+    {
+      "id": "noble",
+      "status": 92,
+      "money": [
+        3000,
+        9000
+      ],
+      "upkeep": 1200,
+      "mortality": 0.8,
+      "tags": [
+        "lives_in_city",
+        "raised_management",
+        "wealthy"
+      ]
+    }
+  ],
+  "professions": [
+    {
+      "id": "farmer",
+      "classes": [
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        150,
+        250
+      ],
+      "skill": "farming"
+    },
+    {
+      "id": "laborer",
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 12,
+      "income": [
+        130,
+        210
+      ],
+      "skill": "craft",
+      "mortality": 1.1
+    },
+    {
+      "id": "artisan",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        180,
+        320
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "weaver",
+      "sex": "f",
+      "classes": [
+        "craftsman",
+        "peasant",
+        "trader"
+      ],
+      "minAge": 12,
+      "income": [
+        140,
+        240
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "midwife",
+      "sex": "f",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "slave"
+      ],
+      "minAge": 16,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "merchant",
+      "classes": [
+        "trader",
+        "craftsman"
+      ],
+      "minAge": 14,
+      "income": [
+        150,
+        650
+      ],
+      "skill": "trade",
+      "stress": 2
+    },
+    {
+      "id": "sailor",
+      "sex": "m",
+      "regions": [
+        "palenque"
+      ],
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 12,
+      "income": [
+        160,
+        270
+      ],
+      "skill": "seafaring",
+      "mortality": 1.3
+    },
+    {
+      "id": "soldier",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner"
+      ],
+      "minAge": 16,
+      "income": [
+        160,
+        280
+      ],
+      "skill": "military",
+      "mortality": 1.5,
+      "stress": 3
+    },
+    {
+      "id": "scribe",
+      "minAge": 14,
+      "classes": [
+        "craftsman",
+        "landowner",
+        "noble"
+      ],
+      "requirements": [
         {
-         "param": "health",
-         "delta": -1
+          "skill": "literacy",
+          "op": ">=",
+          "value": 20
         }
-       ]
-      }
-     ],
-     "mortality": 1.02,
-     "requirements": [
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 300
-      }
-     ]
+      ],
+      "income": [
+        220,
+        420
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "physician",
+      "minAge": 16,
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "requirements": [
+        {
+          "param": "intellect",
+          "op": ">=",
+          "value": 50
+        }
+      ],
+      "income": [
+        200,
+        500
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "priest",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "landowner",
+        "noble"
+      ],
+      "income": [
+        220,
+        450
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "landholder",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 16,
+      "income": [
+        550,
+        950
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "magistrate",
+      "sex": "m",
+      "classes": [
+        "noble",
+        "landowner"
+      ],
+      "requirements": [
+        {
+          "param": "reputation",
+          "op": ">=",
+          "value": 10
+        }
+      ],
+      "minAge": 20,
+      "income": [
+        1500,
+        3500
+      ],
+      "skill": "management",
+      "reputation": 2,
+      "stress": 3
+    },
+    {
+      "id": "matron",
+      "sex": "f",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "income": [
+        500,
+        1500
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "household_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        5,
+        25
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "field_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        0,
+        10
+      ],
+      "skill": "farming",
+      "mortality": 1.3,
+      "stress": 3
+    },
+    {
+      "id": "ballplayer",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner",
+        "noble"
+      ],
+      "minAge": 16,
+      "requirements": [
+        {
+          "param": "strength",
+          "op": ">=",
+          "value": 55
+        }
+      ],
+      "income": [
+        150,
+        520
+      ],
+      "skill": "military",
+      "mortality": 1.25,
+      "stress": 2,
+      "reputation": 1
+    },
+    {
+      "id": "jade_carver",
+      "classes": [
+        "craftsman"
+      ],
+      "minAge": 12,
+      "income": [
+        240,
+        480
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "stone_carver",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        200,
+        400
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "feather_worker",
+      "classes": [
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 12,
+      "income": [
+        200,
+        420
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "salt_trader",
+      "classes": [
+        "trader",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        180,
+        480
+      ],
+      "skill": "trade",
+      "stress": 2,
+      "mortality": 1.1
+    },
+    {
+      "id": "officer",
+      "promotion_only": true,
+      "sex": "m",
+      "minAge": 22,
+      "income": [
+        500,
+        900
+      ],
+      "skill": "military",
+      "mortality": 1.4,
+      "stress": 3,
+      "reputation": 2
+    },
+    {
+      "id": "workshop_owner",
+      "promotion_only": true,
+      "minAge": 20,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "craft",
+      "stress": 2,
+      "reputation": 1
+    },
+    {
+      "id": "official",
+      "promotion_only": true,
+      "minAge": 22,
+      "income": [
+        450,
+        950
+      ],
+      "skill": "literacy",
+      "stress": 2,
+      "reputation": 2
+    },
+    {
+      "id": "overseer",
+      "promotion_only": true,
+      "classes": [
+        "slave"
+      ],
+      "minAge": 20,
+      "income": [
+        20,
+        60
+      ],
+      "skill": "management",
+      "stress": 2
     }
-   ]
+  ],
+  "focuses": [
+    {
+      "id": "play",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 1
+        },
+        {
+          "param": "loneliness",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "ages": [
+        5,
+        11
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "param": "money",
+          "delta": -20
+        }
+      ]
+    },
+    {
+      "id": "help_family",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 2
+        },
+        {
+          "skill": "craft",
+          "delta": 2
+        },
+        {
+          "skill": "farming",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": 10
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "ages": [
+        12,
+        120
+      ],
+      "incomeMultiplier": 1.5,
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        }
+      ]
+    },
+    {
+      "id": "study",
+      "ages": [
+        12,
+        60
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble",
+            "peasant"
+          ]
+        },
+        {
+          "param": "money",
+          "op": ">=",
+          "value": 60
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "skill": "oratory",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": -60
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "ages": [
+        14,
+        120
+      ],
+      "effects": [
+        {
+          "param": "loneliness",
+          "delta": -6
+        },
+        {
+          "param": "happiness",
+          "delta": 3
+        },
+        {
+          "npc_attitude": "spouse",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "child",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "mother",
+          "delta": 4
+        },
+        {
+          "npc_attitude": "father",
+          "delta": 4
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "health",
+          "delta": 3
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "ages": [
+        16,
+        70
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "trade",
+          "delta": 4
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.5,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        },
+        {
+          "chance": 0.35,
+          "effects": [
+            {
+              "param": "money",
+              "delta": -70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "ages": [
+        17,
+        45
+      ],
+      "conditions": [
+        {
+          "sex": "m"
+        },
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "military",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 2
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.06,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -6
+        },
+        {
+          "param": "loneliness",
+          "delta": -3
+        },
+        {
+          "param": "money",
+          "delta": -15
+        }
+      ]
+    },
+    {
+      "id": "religion",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "faith",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 1
+        }
+      ]
+    },
+    {
+      "id": "savings",
+      "ages": [
+        16,
+        120
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "money",
+          "delta": 60
+        },
+        {
+          "param": "happiness",
+          "delta": -2
+        },
+        {
+          "param": "stress",
+          "delta": 1
+        }
+      ]
+    }
+  ],
+  "mortality": {
+    "qx": [
+      [
+        0,
+        0.27
+      ],
+      [
+        1,
+        0.05
+      ],
+      [
+        5,
+        0.013
+      ],
+      [
+        10,
+        0.01
+      ],
+      [
+        15,
+        0.013
+      ],
+      [
+        20,
+        0.017
+      ],
+      [
+        25,
+        0.019
+      ],
+      [
+        30,
+        0.021
+      ],
+      [
+        35,
+        0.023
+      ],
+      [
+        40,
+        0.026
+      ],
+      [
+        45,
+        0.03
+      ],
+      [
+        50,
+        0.037
+      ],
+      [
+        55,
+        0.046
+      ],
+      [
+        60,
+        0.066
+      ],
+      [
+        65,
+        0.092
+      ],
+      [
+        70,
+        0.13
+      ],
+      [
+        75,
+        0.19
+      ],
+      [
+        80,
+        0.28
+      ],
+      [
+        85,
+        0.35
+      ],
+      [
+        90,
+        0.45
+      ]
+    ],
+    "childbirth": 0.016,
+    "calibration": 0.86,
+    "causes": [
+      {
+        "id": "infant_illness",
+        "ages": [
+          0,
+          4
+        ],
+        "weight": 10
+      },
+      {
+        "id": "fever",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 6
+      },
+      {
+        "id": "illness",
+        "ages": [
+          5,
+          120
+        ],
+        "weight": 8
+      },
+      {
+        "id": "accident",
+        "ages": [
+          5,
+          70
+        ],
+        "weight": 2
+      },
+      {
+        "id": "snakebite",
+        "ages": [
+          5,
+          70
+        ],
+        "weight": 1
+      },
+      {
+        "id": "war",
+        "ages": [
+          16,
+          50
+        ],
+        "weight": 6,
+        "conditions": [
+          {
+            "profession": [
+              "soldier",
+              "officer"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ballcourt",
+        "ages": [
+          16,
+          50
+        ],
+        "weight": 3,
+        "conditions": [
+          {
+            "profession": [
+              "ballplayer"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "drowning",
+        "ages": [
+          14,
+          70
+        ],
+        "weight": 4,
+        "conditions": [
+          {
+            "profession": [
+              "sailor"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hunger",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 2,
+        "conditions": [
+          {
+            "tag": "in_debt"
+          }
+        ]
+      },
+      {
+        "id": "drought_hunger",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 3,
+        "conditions": [
+          {
+            "tag": "drought_years"
+          }
+        ]
+      },
+      {
+        "id": "old_age",
+        "ages": [
+          55,
+          120
+        ],
+        "weight": 12
+      }
+    ]
   },
-  {
-   "id": "exercise",
-   "minAge": 8,
-   "default": "chores",
-   "options": [
+  "lifestyle": [
     {
-     "id": "rest",
-     "cost": 0,
-     "effects": [
-      {
-       "param": "stress",
-       "delta": -2
-      },
-      {
-       "param": "health",
-       "delta": -1
-      }
-     ],
-     "mortality": 1.05
-    },
-    {
-     "id": "chores",
-     "cost": 0
-    },
-    {
-     "id": "walks",
-     "cost": 0,
-     "effects": [
-      {
-       "param": "health",
-       "delta": 1
-      },
-      {
-       "param": "stress",
-       "delta": -1
-      }
-     ],
-     "mortality": 0.96
-    },
-    {
-     "id": "gymnasium",
-     "cost": 40,
-     "effects": [
-      {
-       "param": "health",
-       "delta": 2
-      },
-      {
-       "param": "strength",
-       "delta": 1
-      }
-     ],
-     "mortality": 0.9,
-     "requirements": [
-      {
-       "classes": [
+      "id": "food",
+      "minAge": 12,
+      "default": "plain",
+      "classes": [
+        "peasant",
         "craftsman",
         "trader",
         "landowner",
         "noble"
-       ]
-      },
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 40
-      }
-     ]
+      ],
+      "options": [
+        {
+          "id": "meager",
+          "cost": -40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -2
+            },
+            {
+              "param": "happiness",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.12
+        },
+        {
+          "id": "plain",
+          "cost": 0
+        },
+        {
+          "id": "varied",
+          "cost": 70,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            }
+          ],
+          "mortality": 0.92,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 70
+            }
+          ]
+        },
+        {
+          "id": "feasts",
+          "cost": 300,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 2
+            },
+            {
+              "param": "reputation",
+              "delta": 1
+            },
+            {
+              "chance": 0.3,
+              "effects": [
+                {
+                  "param": "health",
+                  "delta": -1
+                }
+              ]
+            }
+          ],
+          "mortality": 1.02,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exercise",
+      "minAge": 8,
+      "default": "chores",
+      "options": [
+        {
+          "id": "rest",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "stress",
+              "delta": -2
+            },
+            {
+              "param": "health",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.05
+        },
+        {
+          "id": "chores",
+          "cost": 0
+        },
+        {
+          "id": "walks",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.96
+        },
+        {
+          "id": "gymnasium",
+          "cost": 40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 2
+            },
+            {
+              "param": "strength",
+              "delta": 1
+            }
+          ],
+          "mortality": 0.9,
+          "requirements": [
+            {
+              "classes": [
+                "craftsman",
+                "trader",
+                "landowner",
+                "noble"
+              ]
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medicine",
+      "minAge": 12,
+      "default": "home",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "home",
+          "cost": 0
+        },
+        {
+          "id": "temple",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "faith",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "id": "physician",
+          "cost": 150,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            },
+            {
+              "remove_tag": "ill"
+            }
+          ],
+          "mortality": 0.85,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baths",
+      "minAge": 10,
+      "default": "sometimes",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "rarely",
+          "cost": 0,
+          "mortality": 1.04
+        },
+        {
+          "id": "sometimes",
+          "cost": 5
+        },
+        {
+          "id": "daily",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 1
+            },
+            {
+              "param": "loneliness",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "tag": "lives_in_city"
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": "medicine",
-   "minAge": 12,
-   "default": "home",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader",
-    "landowner",
-    "noble"
-   ],
-   "options": [
+  ],
+  "vices": [
     {
-     "id": "home",
-     "cost": 0
+      "tag": "drinker",
+      "cost": 40,
+      "mortality": 1.18,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2
+        },
+        {
+          "param": "happiness",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": -2
+        },
+        {
+          "param": "diligence",
+          "delta": -1
+        },
+        {
+          "param": "reputation",
+          "delta": -1
+        }
+      ]
     },
     {
-     "id": "temple",
-     "cost": 25,
-     "effects": [
-      {
-       "param": "faith",
-       "delta": 1
-      },
-      {
-       "param": "stress",
-       "delta": -1
-      }
-     ],
-     "mortality": 0.95,
-     "requirements": [
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 25
-      }
-     ]
+      "tag": "gambler",
+      "cost": 0,
+      "mortality": 1.03,
+      "effects": [
+        {
+          "param": "stress",
+          "delta": 4
+        },
+        {
+          "chance": 0.4,
+          "effects": [
+            {
+              "money_pct": -25
+            }
+          ]
+        },
+        {
+          "chance": 0.2,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        }
+      ]
     },
     {
-     "id": "physician",
-     "cost": 150,
-     "effects": [
-      {
-       "param": "health",
-       "delta": 1.5
-      },
-      {
-       "remove_tag": "ill"
-      }
-     ],
-     "mortality": 0.85,
-     "requirements": [
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 150
-      }
-     ]
+      "tag": "opium",
+      "cost": 60,
+      "mortality": 1.22,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2.5
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "diligence",
+          "delta": -2
+        },
+        {
+          "param": "intellect",
+          "delta": -1
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": "baths",
-   "minAge": 10,
-   "default": "sometimes",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader",
-    "landowner",
-    "noble"
-   ],
-   "options": [
-    {
-     "id": "rarely",
-     "cost": 0,
-     "mortality": 1.04
-    },
-    {
-     "id": "sometimes",
-     "cost": 5
-    },
-    {
-     "id": "daily",
-     "cost": 25,
-     "effects": [
-      {
-       "param": "happiness",
-       "delta": 1
-      },
-      {
-       "param": "loneliness",
-       "delta": -1
-      }
-     ],
-     "mortality": 0.95,
-     "requirements": [
-      {
-       "tag": "lives_in_city"
-      },
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 25
-      }
-     ]
-    }
-   ]
-  }
- ],
- "vices": [
-  {
-   "tag": "drinker",
-   "cost": 40,
-   "mortality": 1.18,
-   "effects": [
-    {
-     "param": "health",
-     "delta": -2
-    },
-    {
-     "param": "happiness",
-     "delta": 1
-    },
-    {
-     "param": "stress",
-     "delta": -2
-    },
-    {
-     "param": "diligence",
-     "delta": -1
-    },
-    {
-     "param": "reputation",
-     "delta": -1
-    }
-   ]
-  },
-  {
-   "tag": "gambler",
-   "cost": 0,
-   "mortality": 1.03,
-   "effects": [
-    {
-     "param": "stress",
-     "delta": 4
-    },
-    {
-     "chance": 0.4,
-     "effects": [
-      {
-       "money_pct": -25
-      }
-     ]
-    },
-    {
-     "chance": 0.2,
-     "effects": [
-      {
-       "param": "money",
-       "delta": 120
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "tag": "opium",
-   "cost": 60,
-   "mortality": 1.22,
-   "effects": [
-    {
-     "param": "health",
-     "delta": -2.5
-    },
-    {
-     "param": "happiness",
-     "delta": 2
-    },
-    {
-     "param": "diligence",
-     "delta": -2
-    },
-    {
-     "param": "intellect",
-     "delta": -1
-    }
-   ]
-  }
- ]
+  ]
 }

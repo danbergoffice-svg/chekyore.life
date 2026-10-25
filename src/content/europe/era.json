@@ -1,3410 +1,3410 @@
 {
- "id": "EUR",
- "years": [
-  1000,
-  1500
- ],
- "population": 60,
- "features": [
-  "sea",
-  "horses",
-  "coins",
-  "wine",
-  "writing",
-  "iron",
-  "baths",
-  "olive",
-  "slavery",
-  "paper",
-  "printing",
-  "gunpowder",
-  "river",
-  "snow"
- ],
- "stages": {
-  "youth": 12,
-  "adult": 18,
-  "old": 55
- },
- "marriageAge": {
-  "m": [
-   19,
-   32
+  "id": "EUR",
+  "years": [
+    1000,
+    1500
   ],
-  "f": [
-   14,
-   24
-  ]
- },
- "lifeExpectancy": 30,
- "inheritance": "sons_first",
- "traits": [
-  "cautious",
-  "ambitious",
-  "kind",
-  "hot_tempered",
-  "curious",
-  "reserved",
-  "generous",
-  "pious",
-  "cunning",
-  "brave"
- ],
- "skills": [
-  "literacy",
-  "trade",
-  "craft",
-  "farming",
-  "military",
-  "medicine",
-  "management",
-  "oratory",
-  "seafaring"
- ],
- "regions": [
-  {
-   "id": "paris",
-   "weight": 4,
-   "years": [
-    1000,
-    1500
-   ],
-   "coin": "eur_denier",
-   "classWeights": {
-    "slave": 14,
-    "peasant": 50,
-    "craftsman": 17,
-    "trader": 8,
-    "landowner": 8,
-    "noble": 3
-   },
-   "names": {
-    "m": [
-     {
-      "id": "eur_frm_jean",
-      "ru": "Жан",
-      "en": "Jean"
-     },
-     {
-      "id": "eur_frm_pierre",
-      "ru": "Пьер",
-      "en": "Pierre"
-     },
-     {
-      "id": "eur_frm_guillaume",
-      "ru": "Гийом",
-      "en": "Guillaume"
-     },
-     {
-      "id": "eur_frm_robert",
-      "ru": "Робер",
-      "en": "Robert"
-     },
-     {
-      "id": "eur_frm_hugues",
-      "ru": "Гуго",
-      "en": "Hugues"
-     },
-     {
-      "id": "eur_frm_raoul",
-      "ru": "Рауль",
-      "en": "Raoul"
-     },
-     {
-      "id": "eur_frm_gautier",
-      "ru": "Готье",
-      "en": "Gautier"
-     },
-     {
-      "id": "eur_frm_thibaut",
-      "ru": "Тибо",
-      "en": "Thibaut"
-     },
-     {
-      "id": "eur_frm_etienne",
-      "ru": "Этьен",
-      "en": "Étienne"
-     },
-     {
-      "id": "eur_frm_renaud",
-      "ru": "Рено",
-      "en": "Renaud"
-     },
-     {
-      "id": "eur_frm_philippe",
-      "ru": "Филипп",
-      "en": "Philippe"
-     },
-     {
-      "id": "eur_frm_louis",
-      "ru": "Людовик",
-      "en": "Louis"
-     },
-     {
-      "id": "eur_frm_simon",
-      "ru": "Симон",
-      "en": "Simon"
-     },
-     {
-      "id": "eur_frm_geoffroy",
-      "ru": "Жоффруа",
-      "en": "Geoffroy"
-     },
-     {
-      "id": "eur_frm_bernard",
-      "ru": "Бернар",
-      "en": "Bernard"
-     },
-     {
-      "id": "eur_frm_gerard",
-      "ru": "Жерар",
-      "en": "Gérard"
-     },
-     {
-      "id": "eur_frm_eudes",
-      "ru": "Эд",
-      "en": "Eudes"
-     },
-     {
-      "id": "eur_frm_herbert",
-      "ru": "Эрбер",
-      "en": "Herbert"
-     },
-     {
-      "id": "eur_frm_adam",
-      "ru": "Адам",
-      "en": "Adam"
-     },
-     {
-      "id": "eur_frm_nicolas",
-      "ru": "Николя",
-      "en": "Nicolas"
-     },
-     {
-      "id": "eur_frm_jacques",
-      "ru": "Жак",
-      "en": "Jacques"
-     },
-     {
-      "id": "eur_frm_martin",
-      "ru": "Мартен",
-      "en": "Martin"
-     },
-     {
-      "id": "eur_frm_thomas",
-      "ru": "Тома",
-      "en": "Thomas"
-     },
-     {
-      "id": "eur_frm_colin",
-      "ru": "Колен",
-      "en": "Colin"
-     },
-     {
-      "id": "eur_frm_henri",
-      "ru": "Анри",
-      "en": "Henri"
-     },
-     {
-      "id": "eur_frm_mathieu",
-      "ru": "Матье",
-      "en": "Mathieu"
-     },
-     {
-      "id": "eur_frm_gilles",
-      "ru": "Жиль",
-      "en": "Gilles"
-     },
-     {
-      "id": "eur_frm_arnaud",
-      "ru": "Арно",
-      "en": "Arnaud"
-     },
-     {
-      "id": "eur_frm_baudouin",
-      "ru": "Бодуэн",
-      "en": "Baudouin"
-     },
-     {
-      "id": "eur_frm_enguerrand",
-      "ru": "Энгерран",
-      "en": "Enguerrand"
-     },
-     {
-      "id": "eur_frm_foulques",
-      "ru": "Фульк",
-      "en": "Foulques"
-     },
-     {
-      "id": "eur_frm_yves",
-      "ru": "Ив",
-      "en": "Yves"
-     }
-    ],
-    "f": [
-     {
-      "id": "eur_frf_jeanne",
-      "ru": "Жанна",
-      "en": "Jeanne"
-     },
-     {
-      "id": "eur_frf_marie",
-      "ru": "Мари",
-      "en": "Marie"
-     },
-     {
-      "id": "eur_frf_marguerite",
-      "ru": "Маргарита",
-      "en": "Marguerite"
-     },
-     {
-      "id": "eur_frf_isabelle",
-      "ru": "Изабелла",
-      "en": "Isabelle"
-     },
-     {
-      "id": "eur_frf_agnes",
-      "ru": "Агнесса",
-      "en": "Agnès"
-     },
-     {
-      "id": "eur_frf_alix",
-      "ru": "Аликс",
-      "en": "Alix"
-     },
-     {
-      "id": "eur_frf_beatrice",
-      "ru": "Беатриса",
-      "en": "Béatrice"
-     },
-     {
-      "id": "eur_frf_blanche",
-      "ru": "Бланка",
-      "en": "Blanche"
-     },
-     {
-      "id": "eur_frf_petronille",
-      "ru": "Петронилла",
-      "en": "Pétronille"
-     },
-     {
-      "id": "eur_frf_perrette",
-      "ru": "Перретта",
-      "en": "Perrette"
-     },
-     {
-      "id": "eur_frf_guillemette",
-      "ru": "Гийеметта",
-      "en": "Guillemette"
-     },
-     {
-      "id": "eur_frf_jacquette",
-      "ru": "Жакетта",
-      "en": "Jacquette"
-     },
-     {
-      "id": "eur_frf_mahaut",
-      "ru": "Матильда",
-      "en": "Mahaut"
-     },
-     {
-      "id": "eur_frf_adele",
-      "ru": "Адель",
-      "en": "Adèle"
-     },
-     {
-      "id": "eur_frf_ermengarde",
-      "ru": "Эрменгарда",
-      "en": "Ermengarde"
-     },
-     {
-      "id": "eur_frf_heloise",
-      "ru": "Элоиза",
-      "en": "Héloïse"
-     },
-     {
-      "id": "eur_frf_aude",
-      "ru": "Од",
-      "en": "Aude"
-     },
-     {
-      "id": "eur_frf_emmeline",
-      "ru": "Эммелина",
-      "en": "Emmeline"
-     },
-     {
-      "id": "eur_frf_colette",
-      "ru": "Колетта",
-      "en": "Colette"
-     },
-     {
-      "id": "eur_frf_perrine",
-      "ru": "Перрина",
-      "en": "Perrine"
-     },
-     {
-      "id": "eur_frf_catherine",
-      "ru": "Катрин",
-      "en": "Catherine"
-     },
-     {
-      "id": "eur_frf_philippa",
-      "ru": "Филиппа",
-      "en": "Philippa"
-     },
-     {
-      "id": "eur_frf_constance",
-      "ru": "Констанция",
-      "en": "Constance"
-     },
-     {
-      "id": "eur_frf_alienor",
-      "ru": "Алиенора",
-      "en": "Aliénor"
-     },
-     {
-      "id": "eur_frf_sibylle",
-      "ru": "Сибилла",
-      "en": "Sibylle"
-     },
-     {
-      "id": "eur_frf_clemence",
-      "ru": "Клеманс",
-      "en": "Clémence"
-     },
-     {
-      "id": "eur_frf_gisele",
-      "ru": "Жизель",
-      "en": "Gisèle"
-     },
-     {
-      "id": "eur_frf_ysabeau",
-      "ru": "Изабо",
-      "en": "Ysabeau"
-     },
-     {
-      "id": "eur_frf_oudine",
-      "ru": "Удина",
-      "en": "Oudine"
-     },
-     {
-      "id": "eur_frf_denise",
-      "ru": "Дениза",
-      "en": "Denise"
-     },
-     {
-      "id": "eur_frf_gilette",
-      "ru": "Жилетта",
-      "en": "Gilette"
-     },
-     {
-      "id": "eur_frf_tiphaine",
-      "ru": "Тифена",
-      "en": "Tiphaine"
-     }
-    ]
-   },
-   "tags": [
-    "capital"
-   ],
-   "religions": {
-    "catholic": 96,
-    "judaism": 4
-   },
-   "religionEras": [
-    {
-     "from": 1306,
-     "religions": {
-      "catholic": 100,
-      "judaism": 0
-     }
-    },
-    {
-     "from": 1315,
-     "religions": {
-      "catholic": 98.5,
-      "judaism": 1.5
-     }
-    },
-    {
-     "from": 1322,
-     "religions": {
-      "catholic": 100,
-      "judaism": 0
-     }
-    },
-    {
-     "from": 1359,
-     "religions": {
-      "catholic": 99,
-      "judaism": 1
-     }
-    },
-    {
-     "from": 1394,
-     "religions": {
-      "catholic": 100,
-      "judaism": 0
-     }
-    }
-   ],
-   "scene": {
-    "style": "gothic",
-    "land": "green",
-    "prompt": "Medieval Paris on the Seine: Île de la Cité with Notre-Dame, timber-framed houses on the bridges, wheat fields and vineyards around"
-   }
-  },
-  {
-   "id": "london",
-   "weight": 3,
-   "years": [
-    1000,
-    1500
-   ],
-   "coin": "eur_penny",
-   "classWeights": {
-    "slave": 12,
-    "peasant": 48,
-    "craftsman": 18,
-    "trader": 12,
-    "landowner": 8,
-    "noble": 2
-   },
-   "names": {
-    "m": [
-     {
-      "id": "eur_enm_william",
-      "ru": "Уильям",
-      "en": "William"
-     },
-     {
-      "id": "eur_enm_john",
-      "ru": "Джон",
-      "en": "John"
-     },
-     {
-      "id": "eur_enm_richard",
-      "ru": "Ричард",
-      "en": "Richard"
-     },
-     {
-      "id": "eur_enm_robert",
-      "ru": "Роберт",
-      "en": "Robert"
-     },
-     {
-      "id": "eur_enm_thomas",
-      "ru": "Томас",
-      "en": "Thomas"
-     },
-     {
-      "id": "eur_enm_walter",
-      "ru": "Уолтер",
-      "en": "Walter"
-     },
-     {
-      "id": "eur_enm_hugh",
-      "ru": "Хью",
-      "en": "Hugh"
-     },
-     {
-      "id": "eur_enm_roger",
-      "ru": "Роджер",
-      "en": "Roger"
-     },
-     {
-      "id": "eur_enm_henry",
-      "ru": "Генри",
-      "en": "Henry"
-     },
-     {
-      "id": "eur_enm_ralph",
-      "ru": "Ральф",
-      "en": "Ralph"
-     },
-     {
-      "id": "eur_enm_geoffrey",
-      "ru": "Джеффри",
-      "en": "Geoffrey"
-     },
-     {
-      "id": "eur_enm_simon",
-      "ru": "Саймон",
-      "en": "Simon"
-     },
-     {
-      "id": "eur_enm_stephen",
-      "ru": "Стивен",
-      "en": "Stephen"
-     },
-     {
-      "id": "eur_enm_nicholas",
-      "ru": "Николас",
-      "en": "Nicholas"
-     },
-     {
-      "id": "eur_enm_adam",
-      "ru": "Адам",
-      "en": "Adam"
-     },
-     {
-      "id": "eur_enm_gilbert",
-      "ru": "Гилберт",
-      "en": "Gilbert"
-     },
-     {
-      "id": "eur_enm_peter",
-      "ru": "Питер",
-      "en": "Peter"
-     },
-     {
-      "id": "eur_enm_alan",
-      "ru": "Алан",
-      "en": "Alan"
-     },
-     {
-      "id": "eur_enm_edmund",
-      "ru": "Эдмунд",
-      "en": "Edmund"
-     },
-     {
-      "id": "eur_enm_edward",
-      "ru": "Эдуард",
-      "en": "Edward"
-     },
-     {
-      "id": "eur_enm_osbert",
-      "ru": "Осберт",
-      "en": "Osbert"
-     },
-     {
-      "id": "eur_enm_godwin",
-      "ru": "Годвин",
-      "en": "Godwin"
-     },
-     {
-      "id": "eur_enm_alfred",
-      "ru": "Альфред",
-      "en": "Alfred"
-     },
-     {
-      "id": "eur_enm_wulfstan",
-      "ru": "Вульфстан",
-      "en": "Wulfstan"
-     },
-     {
-      "id": "eur_enm_hamo",
-      "ru": "Хеймо",
-      "en": "Hamo"
-     },
-     {
-      "id": "eur_enm_reginald",
-      "ru": "Реджинальд",
-      "en": "Reginald"
-     },
-     {
-      "id": "eur_enm_laurence",
-      "ru": "Лоуренс",
-      "en": "Laurence"
-     },
-     {
-      "id": "eur_enm_bartholomew",
-      "ru": "Бартоломью",
-      "en": "Bartholomew"
-     },
-     {
-      "id": "eur_enm_matthew",
-      "ru": "Мэтью",
-      "en": "Matthew"
-     },
-     {
-      "id": "eur_enm_philip",
-      "ru": "Филип",
-      "en": "Philip"
-     },
-     {
-      "id": "eur_enm_jordan",
-      "ru": "Джордан",
-      "en": "Jordan"
-     },
-     {
-      "id": "eur_enm_elias",
-      "ru": "Элайас",
-      "en": "Elias"
-     }
-    ],
-    "f": [
-     {
-      "id": "eur_enf_alice",
-      "ru": "Элис",
-      "en": "Alice"
-     },
-     {
-      "id": "eur_enf_agnes",
-      "ru": "Агнес",
-      "en": "Agnes"
-     },
-     {
-      "id": "eur_enf_matilda",
-      "ru": "Матильда",
-      "en": "Matilda"
-     },
-     {
-      "id": "eur_enf_joan",
-      "ru": "Джоан",
-      "en": "Joan"
-     },
-     {
-      "id": "eur_enf_margery",
-      "ru": "Марджери",
-      "en": "Margery"
-     },
-     {
-      "id": "eur_enf_emma",
-      "ru": "Эмма",
-      "en": "Emma"
-     },
-     {
-      "id": "eur_enf_isabel",
-      "ru": "Изабел",
-      "en": "Isabel"
-     },
-     {
-      "id": "eur_enf_edith",
-      "ru": "Эдит",
-      "en": "Edith"
-     },
-     {
-      "id": "eur_enf_cecily",
-      "ru": "Сесили",
-      "en": "Cecily"
-     },
-     {
-      "id": "eur_enf_juliana",
-      "ru": "Джулиана",
-      "en": "Juliana"
-     },
-     {
-      "id": "eur_enf_avice",
-      "ru": "Эвис",
-      "en": "Avice"
-     },
-     {
-      "id": "eur_enf_maud",
-      "ru": "Мод",
-      "en": "Maud"
-     },
-     {
-      "id": "eur_enf_margaret",
-      "ru": "Маргарет",
-      "en": "Margaret"
-     },
-     {
-      "id": "eur_enf_eleanor",
-      "ru": "Элеонора",
-      "en": "Eleanor"
-     },
-     {
-      "id": "eur_enf_beatrice",
-      "ru": "Беатрис",
-      "en": "Beatrice"
-     },
-     {
-      "id": "eur_enf_christina",
-      "ru": "Кристина",
-      "en": "Christina"
-     },
-     {
-      "id": "eur_enf_rose",
-      "ru": "Роза",
-      "en": "Rose"
-     },
-     {
-      "id": "eur_enf_lettice",
-      "ru": "Леттис",
-      "en": "Lettice"
-     },
-     {
-      "id": "eur_enf_amice",
-      "ru": "Эмис",
-      "en": "Amice"
-     },
-     {
-      "id": "eur_enf_parnel",
-      "ru": "Парнел",
-      "en": "Parnel"
-     },
-     {
-      "id": "eur_enf_sybil",
-      "ru": "Сибил",
-      "en": "Sybil"
-     },
-     {
-      "id": "eur_enf_elena",
-      "ru": "Элена",
-      "en": "Elena"
-     },
-     {
-      "id": "eur_enf_godgifu",
-      "ru": "Годгифу",
-      "en": "Godgifu"
-     },
-     {
-      "id": "eur_enf_elfgiva",
-      "ru": "Эльфгива",
-      "en": "Elfgiva"
-     },
-     {
-      "id": "eur_enf_hawise",
-      "ru": "Хейвиз",
-      "en": "Hawise"
-     },
-     {
-      "id": "eur_enf_muriel",
-      "ru": "Мюриэл",
-      "en": "Muriel"
-     },
-     {
-      "id": "eur_enf_mabel",
-      "ru": "Мейбл",
-      "en": "Mabel"
-     },
-     {
-      "id": "eur_enf_katherine",
-      "ru": "Кэтрин",
-      "en": "Katherine"
-     },
-     {
-      "id": "eur_enf_elizabeth",
-      "ru": "Элизабет",
-      "en": "Elizabeth"
-     },
-     {
-      "id": "eur_enf_idonea",
-      "ru": "Идония",
-      "en": "Idonea"
-     },
-     {
-      "id": "eur_enf_denise",
-      "ru": "Дениз",
-      "en": "Denise"
-     },
-     {
-      "id": "eur_enf_felicia",
-      "ru": "Фелиция",
-      "en": "Felicia"
-     }
-    ]
-   },
-   "tags": [
-    "port"
-   ],
-   "religions": {
-    "catholic": 100,
-    "judaism": 0
-   },
-   "religionEras": [
-    {
-     "from": 1070,
-     "religions": {
-      "catholic": 97,
-      "judaism": 3
-     }
-    },
-    {
-     "from": 1290,
-     "religions": {
-      "catholic": 100,
-      "judaism": 0
-     }
-    }
-   ],
-   "scene": {
-    "style": "gothic",
-    "land": "green",
-    "prompt": "Medieval London on the Thames: the Tower, old St Paul's spire, London Bridge lined with houses, ships at the wharves"
-   }
-  },
-  {
-   "id": "florence",
-   "weight": 3,
-   "years": [
-    1000,
-    1500
-   ],
-   "coin": "eur_soldo",
-   "classWeights": {
-    "slave": 3,
-    "peasant": 44,
-    "craftsman": 28,
-    "trader": 15,
-    "landowner": 7,
-    "noble": 3
-   },
-   "names": {
-    "m": [
-     {
-      "id": "eur_itm_giovanni",
-      "ru": "Джованни",
-      "en": "Giovanni"
-     },
-     {
-      "id": "eur_itm_francesco",
-      "ru": "Франческо",
-      "en": "Francesco"
-     },
-     {
-      "id": "eur_itm_lorenzo",
-      "ru": "Лоренцо",
-      "en": "Lorenzo"
-     },
-     {
-      "id": "eur_itm_cosimo",
-      "ru": "Козимо",
-      "en": "Cosimo"
-     },
-     {
-      "id": "eur_itm_piero",
-      "ru": "Пьеро",
-      "en": "Piero"
-     },
-     {
-      "id": "eur_itm_giuliano",
-      "ru": "Джулиано",
-      "en": "Giuliano"
-     },
-     {
-      "id": "eur_itm_bernardo",
-      "ru": "Бернардо",
-      "en": "Bernardo"
-     },
-     {
-      "id": "eur_itm_niccolo",
-      "ru": "Никколо",
-      "en": "Niccolò"
-     },
-     {
-      "id": "eur_itm_iacopo",
-      "ru": "Якопо",
-      "en": "Iacopo"
-     },
-     {
-      "id": "eur_itm_lapo",
-      "ru": "Лапо",
-      "en": "Lapo"
-     },
-     {
-      "id": "eur_itm_bindo",
-      "ru": "Биндо",
-      "en": "Bindo"
-     },
-     {
-      "id": "eur_itm_guido",
-      "ru": "Гвидо",
-      "en": "Guido"
-     },
-     {
-      "id": "eur_itm_dante",
-      "ru": "Данте",
-      "en": "Dante"
-     },
-     {
-      "id": "eur_itm_cino",
-      "ru": "Чино",
-      "en": "Cino"
-     },
-     {
-      "id": "eur_itm_giotto",
-      "ru": "Джотто",
-      "en": "Giotto"
-     },
-     {
-      "id": "eur_itm_filippo",
-      "ru": "Филиппо",
-      "en": "Filippo"
-     },
-     {
-      "id": "eur_itm_matteo",
-      "ru": "Маттео",
-      "en": "Matteo"
-     },
-     {
-      "id": "eur_itm_andrea",
-      "ru": "Андреа",
-      "en": "Andrea"
-     },
-     {
-      "id": "eur_itm_antonio",
-      "ru": "Антонио",
-      "en": "Antonio"
-     },
-     {
-      "id": "eur_itm_tommaso",
-      "ru": "Томмазо",
-      "en": "Tommaso"
-     },
-     {
-      "id": "eur_itm_salvestro",
-      "ru": "Сальвестро",
-      "en": "Salvestro"
-     },
-     {
-      "id": "eur_itm_neri",
-      "ru": "Нери",
-      "en": "Neri"
-     },
-     {
-      "id": "eur_itm_duccio",
-      "ru": "Дуччо",
-      "en": "Duccio"
-     },
-     {
-      "id": "eur_itm_taddeo",
-      "ru": "Таддео",
-      "en": "Taddeo"
-     },
-     {
-      "id": "eur_itm_vieri",
-      "ru": "Вьери",
-      "en": "Vieri"
-     },
-     {
-      "id": "eur_itm_rinaldo",
-      "ru": "Ринальдо",
-      "en": "Rinaldo"
-     },
-     {
-      "id": "eur_itm_luca",
-      "ru": "Лука",
-      "en": "Luca"
-     },
-     {
-      "id": "eur_itm_leonardo",
-      "ru": "Леонардо",
-      "en": "Leonardo"
-     },
-     {
-      "id": "eur_itm_marco",
-      "ru": "Марко",
-      "en": "Marco"
-     },
-     {
-      "id": "eur_itm_simone",
-      "ru": "Симоне",
-      "en": "Simone"
-     },
-     {
-      "id": "eur_itm_agnolo",
-      "ru": "Аньоло",
-      "en": "Agnolo"
-     },
-     {
-      "id": "eur_itm_bartolomeo",
-      "ru": "Бартоломео",
-      "en": "Bartolomeo"
-     }
-    ],
-    "f": [
-     {
-      "id": "eur_itf_beatrice",
-      "ru": "Беатриче",
-      "en": "Beatrice"
-     },
-     {
-      "id": "eur_itf_lucrezia",
-      "ru": "Лукреция",
-      "en": "Lucrezia"
-     },
-     {
-      "id": "eur_itf_contessina",
-      "ru": "Контессина",
-      "en": "Contessina"
-     },
-     {
-      "id": "eur_itf_caterina",
-      "ru": "Катерина",
-      "en": "Caterina"
-     },
-     {
-      "id": "eur_itf_margherita",
-      "ru": "Маргерита",
-      "en": "Margherita"
-     },
-     {
-      "id": "eur_itf_lisa",
-      "ru": "Лиза",
-      "en": "Lisa"
-     },
-     {
-      "id": "eur_itf_ginevra",
-      "ru": "Джиневра",
-      "en": "Ginevra"
-     },
-     {
-      "id": "eur_itf_bianca",
-      "ru": "Бьянка",
-      "en": "Bianca"
-     },
-     {
-      "id": "eur_itf_lapa",
-      "ru": "Лапа",
-      "en": "Lapa"
-     },
-     {
-      "id": "eur_itf_tessa",
-      "ru": "Тесса",
-      "en": "Tessa"
-     },
-     {
-      "id": "eur_itf_fiora",
-      "ru": "Фьора",
-      "en": "Fiora"
-     },
-     {
-      "id": "eur_itf_piccarda",
-      "ru": "Пиккарда",
-      "en": "Piccarda"
-     },
-     {
-      "id": "eur_itf_gemma",
-      "ru": "Джемма",
-      "en": "Gemma"
-     },
-     {
-      "id": "eur_itf_costanza",
-      "ru": "Костанца",
-      "en": "Costanza"
-     },
-     {
-      "id": "eur_itf_giovanna",
-      "ru": "Джованна",
-      "en": "Giovanna"
-     },
-     {
-      "id": "eur_itf_francesca",
-      "ru": "Франческа",
-      "en": "Francesca"
-     },
-     {
-      "id": "eur_itf_simonetta",
-      "ru": "Симонетта",
-      "en": "Simonetta"
-     },
-     {
-      "id": "eur_itf_alessandra",
-      "ru": "Алессандра",
-      "en": "Alessandra"
-     },
-     {
-      "id": "eur_itf_nannina",
-      "ru": "Наннина",
-      "en": "Nannina"
-     },
-     {
-      "id": "eur_itf_laudomia",
-      "ru": "Лаудомия",
-      "en": "Laudomia"
-     },
-     {
-      "id": "eur_itf_bice",
-      "ru": "Биче",
-      "en": "Bice"
-     },
-     {
-      "id": "eur_itf_dianora",
-      "ru": "Дианора",
-      "en": "Dianora"
-     },
-     {
-      "id": "eur_itf_maddalena",
-      "ru": "Маддалена",
-      "en": "Maddalena"
-     },
-     {
-      "id": "eur_itf_ghita",
-      "ru": "Гита",
-      "en": "Ghita"
-     },
-     {
-      "id": "eur_itf_vaggia",
-      "ru": "Ваджа",
-      "en": "Vaggia"
-     },
-     {
-      "id": "eur_itf_mea",
-      "ru": "Меа",
-      "en": "Mea"
-     },
-     {
-      "id": "eur_itf_nera",
-      "ru": "Нера",
-      "en": "Nera"
-     },
-     {
-      "id": "eur_itf_cilia",
-      "ru": "Чилия",
-      "en": "Cilia"
-     },
-     {
-      "id": "eur_itf_lucia",
-      "ru": "Лючия",
-      "en": "Lucia"
-     },
-     {
-      "id": "eur_itf_agnola",
-      "ru": "Аньола",
-      "en": "Agnola"
-     },
-     {
-      "id": "eur_itf_tancia",
-      "ru": "Танча",
-      "en": "Tancia"
-     },
-     {
-      "id": "eur_itf_brigida",
-      "ru": "Бриджида",
-      "en": "Brigida"
-     }
-    ]
-   },
-   "religions": {
-    "catholic": 98,
-    "judaism": 2
-   },
-   "scene": {
-    "style": "gothic",
-    "land": "green",
-    "prompt": "Medieval Florence on the Arno: stone family towers, the cathedral and its great dome, Tuscan hills with olive groves and cypresses"
-   }
-  },
-  {
-   "id": "cologne",
-   "weight": 3,
-   "years": [
-    1000,
-    1500
-   ],
-   "coin": "eur_pfennig",
-   "classWeights": {
-    "slave": 10,
-    "peasant": 42,
-    "craftsman": 24,
-    "trader": 14,
-    "landowner": 7,
-    "noble": 3
-   },
-   "names": {
-    "m": [
-     {
-      "id": "eur_dem_heinrich",
-      "ru": "Генрих",
-      "en": "Heinrich"
-     },
-     {
-      "id": "eur_dem_konrad",
-      "ru": "Конрад",
-      "en": "Konrad"
-     },
-     {
-      "id": "eur_dem_hermann",
-      "ru": "Герман",
-      "en": "Hermann"
-     },
-     {
-      "id": "eur_dem_otto",
-      "ru": "Оттон",
-      "en": "Otto"
-     },
-     {
-      "id": "eur_dem_friedrich",
-      "ru": "Фридрих",
-      "en": "Friedrich"
-     },
-     {
-      "id": "eur_dem_albrecht",
-      "ru": "Альбрехт",
-      "en": "Albrecht"
-     },
-     {
-      "id": "eur_dem_gerhard",
-      "ru": "Герхард",
-      "en": "Gerhard"
-     },
-     {
-      "id": "eur_dem_dietrich",
-      "ru": "Дитрих",
-      "en": "Dietrich"
-     },
-     {
-      "id": "eur_dem_johann",
-      "ru": "Иоганн",
-      "en": "Johann"
-     },
-     {
-      "id": "eur_dem_arnold",
-      "ru": "Арнольд",
-      "en": "Arnold"
-     },
-     {
-      "id": "eur_dem_bruno",
-      "ru": "Бруно",
-      "en": "Bruno"
-     },
-     {
-      "id": "eur_dem_rainald",
-      "ru": "Райнальд",
-      "en": "Rainald"
-     },
-     {
-      "id": "eur_dem_werner",
-      "ru": "Вернер",
-      "en": "Werner"
-     },
-     {
-      "id": "eur_dem_ludwig",
-      "ru": "Людвиг",
-      "en": "Ludwig"
-     },
-     {
-      "id": "eur_dem_siegfried",
-      "ru": "Зигфрид",
-      "en": "Siegfried"
-     },
-     {
-      "id": "eur_dem_gottfried",
-      "ru": "Готфрид",
-      "en": "Gottfried"
-     },
-     {
-      "id": "eur_dem_hartmann",
-      "ru": "Хартман",
-      "en": "Hartmann"
-     },
-     {
-      "id": "eur_dem_wolfram",
-      "ru": "Вольфрам",
-      "en": "Wolfram"
-     },
-     {
-      "id": "eur_dem_ulrich",
-      "ru": "Ульрих",
-      "en": "Ulrich"
-     },
-     {
-      "id": "eur_dem_walther",
-      "ru": "Вальтер",
-      "en": "Walther"
-     },
-     {
-      "id": "eur_dem_rudolf",
-      "ru": "Рудольф",
-      "en": "Rudolf"
-     },
-     {
-      "id": "eur_dem_engelbert",
-      "ru": "Энгельберт",
-      "en": "Engelbert"
-     },
-     {
-      "id": "eur_dem_hildebrand",
-      "ru": "Хильдебранд",
-      "en": "Hildebrand"
-     },
-     {
-      "id": "eur_dem_peter",
-      "ru": "Петер",
-      "en": "Peter"
-     },
-     {
-      "id": "eur_dem_nikolaus",
-      "ru": "Николаус",
-      "en": "Nikolaus"
-     },
-     {
-      "id": "eur_dem_matthias",
-      "ru": "Маттиас",
-      "en": "Matthias"
-     },
-     {
-      "id": "eur_dem_tilman",
-      "ru": "Тильман",
-      "en": "Tilman"
-     },
-     {
-      "id": "eur_dem_bertolf",
-      "ru": "Бертольф",
-      "en": "Bertolf"
-     },
-     {
-      "id": "eur_dem_hans",
-      "ru": "Ганс",
-      "en": "Hans"
-     },
-     {
-      "id": "eur_dem_lambert",
-      "ru": "Ламберт",
-      "en": "Lambert"
-     },
-     {
-      "id": "eur_dem_eberhard",
-      "ru": "Эберхард",
-      "en": "Eberhard"
-     },
-     {
-      "id": "eur_dem_anno",
-      "ru": "Анно",
-      "en": "Anno"
-     }
-    ],
-    "f": [
-     {
-      "id": "eur_def_gertrud",
-      "ru": "Гертруда",
-      "en": "Gertrud"
-     },
-     {
-      "id": "eur_def_hildegard",
-      "ru": "Хильдегарда",
-      "en": "Hildegard"
-     },
-     {
-      "id": "eur_def_mechthild",
-      "ru": "Мехтильда",
-      "en": "Mechthild"
-     },
-     {
-      "id": "eur_def_kunigunde",
-      "ru": "Кунигунда",
-      "en": "Kunigunde"
-     },
-     {
-      "id": "eur_def_adelheid",
-      "ru": "Адельгейда",
-      "en": "Adelheid"
-     },
-     {
-      "id": "eur_def_elisabeth",
-      "ru": "Элизабет",
-      "en": "Elisabeth"
-     },
-     {
-      "id": "eur_def_margarethe",
-      "ru": "Маргарета",
-      "en": "Margarethe"
-     },
-     {
-      "id": "eur_def_agnes",
-      "ru": "Агнес",
-      "en": "Agnes"
-     },
-     {
-      "id": "eur_def_irmgard",
-      "ru": "Ирмгард",
-      "en": "Irmgard"
-     },
-     {
-      "id": "eur_def_gisela",
-      "ru": "Гизела",
-      "en": "Gisela"
-     },
-     {
-      "id": "eur_def_richenza",
-      "ru": "Рихенца",
-      "en": "Richenza"
-     },
-     {
-      "id": "eur_def_hedwig",
-      "ru": "Хедвига",
-      "en": "Hedwig"
-     },
-     {
-      "id": "eur_def_sophia",
-      "ru": "София",
-      "en": "Sophia"
-     },
-     {
-      "id": "eur_def_ida",
-      "ru": "Ида",
-      "en": "Ida"
-     },
-     {
-      "id": "eur_def_jutta",
-      "ru": "Ютта",
-      "en": "Jutta"
-     },
-     {
-      "id": "eur_def_bertha",
-      "ru": "Берта",
-      "en": "Bertha"
-     },
-     {
-      "id": "eur_def_christina",
-      "ru": "Кристина",
-      "en": "Christina"
-     },
-     {
-      "id": "eur_def_katharina",
-      "ru": "Катарина",
-      "en": "Katharina"
-     },
-     {
-      "id": "eur_def_grete",
-      "ru": "Грета",
-      "en": "Grete"
-     },
-     {
-      "id": "eur_def_liese",
-      "ru": "Лизе",
-      "en": "Liese"
-     },
-     {
-      "id": "eur_def_else",
-      "ru": "Эльза",
-      "en": "Else"
-     },
-     {
-      "id": "eur_def_engel",
-      "ru": "Энгель",
-      "en": "Engel"
-     },
-     {
-      "id": "eur_def_gudula",
-      "ru": "Гудула",
-      "en": "Gudula"
-     },
-     {
-      "id": "eur_def_petronella",
-      "ru": "Петронелла",
-      "en": "Petronella"
-     },
-     {
-      "id": "eur_def_ursula",
-      "ru": "Урсула",
-      "en": "Ursula"
-     },
-     {
-      "id": "eur_def_walburga",
-      "ru": "Вальбурга",
-      "en": "Walburga"
-     },
-     {
-      "id": "eur_def_odilia",
-      "ru": "Одилия",
-      "en": "Odilia"
-     },
-     {
-      "id": "eur_def_fygen",
-      "ru": "Фиген",
-      "en": "Fygen"
-     },
-     {
-      "id": "eur_def_tryngen",
-      "ru": "Трюнген",
-      "en": "Tryngen"
-     },
-     {
-      "id": "eur_def_bela",
-      "ru": "Бела",
-      "en": "Bela"
-     },
-     {
-      "id": "eur_def_nesa",
-      "ru": "Неза",
-      "en": "Nesa"
-     },
-     {
-      "id": "eur_def_aleid",
-      "ru": "Алейд",
-      "en": "Aleid"
-     }
-    ]
-   },
-   "religions": {
-    "catholic": 96,
-    "judaism": 4
-   },
-   "religionEras": [
-    {
-     "from": 1350,
-     "religions": {
-      "catholic": 100,
-      "judaism": 0
-     }
-    },
-    {
-     "from": 1372,
-     "religions": {
-      "catholic": 98,
-      "judaism": 2
-     }
-    },
-    {
-     "from": 1424,
-     "religions": {
-      "catholic": 100,
-      "judaism": 0
-     }
-    }
-   ],
-   "scene": {
-    "style": "gothic",
-    "land": "green",
-    "prompt": "Medieval Cologne on the Rhine: the unfinished cathedral with a wooden crane on its tower, many church spires, river barges and city walls"
-   }
-  },
-  {
-   "id": "toledo",
-   "weight": 2,
-   "years": [
-    1085,
-    1500
-   ],
-   "coin": "eur_maravedi",
-   "inheritance": "equal",
-   "classWeights": {
-    "slave": 5,
-    "peasant": 48,
-    "craftsman": 22,
-    "trader": 12,
-    "landowner": 9,
-    "noble": 4
-   },
-   "names": {
-    "m": [
-     {
-      "id": "eur_esm_alfonso",
-      "ru": "Альфонсо",
-      "en": "Alfonso"
-     },
-     {
-      "id": "eur_esm_fernando",
-      "ru": "Фернандо",
-      "en": "Fernando"
-     },
-     {
-      "id": "eur_esm_sancho",
-      "ru": "Санчо",
-      "en": "Sancho"
-     },
-     {
-      "id": "eur_esm_rodrigo",
-      "ru": "Родриго",
-      "en": "Rodrigo"
-     },
-     {
-      "id": "eur_esm_diego",
-      "ru": "Диего",
-      "en": "Diego"
-     },
-     {
-      "id": "eur_esm_pedro",
-      "ru": "Педро",
-      "en": "Pedro"
-     },
-     {
-      "id": "eur_esm_juan",
-      "ru": "Хуан",
-      "en": "Juan"
-     },
-     {
-      "id": "eur_esm_garcia",
-      "ru": "Гарсия",
-      "en": "García"
-     },
-     {
-      "id": "eur_esm_gonzalo",
-      "ru": "Гонсало",
-      "en": "Gonzalo"
-     },
-     {
-      "id": "eur_esm_alvaro",
-      "ru": "Альваро",
-      "en": "Álvaro"
-     },
-     {
-      "id": "eur_esm_martin",
-      "ru": "Мартин",
-      "en": "Martín"
-     },
-     {
-      "id": "eur_esm_pelayo",
-      "ru": "Пелайо",
-      "en": "Pelayo"
-     },
-     {
-      "id": "eur_esm_nuno",
-      "ru": "Нуньо",
-      "en": "Nuño"
-     },
-     {
-      "id": "eur_esm_gutierre",
-      "ru": "Гутьерре",
-      "en": "Gutierre"
-     },
-     {
-      "id": "eur_esm_lope",
-      "ru": "Лопе",
-      "en": "Lope"
-     },
-     {
-      "id": "eur_esm_inigo",
-      "ru": "Иньиго",
-      "en": "Íñigo"
-     },
-     {
-      "id": "eur_esm_ramiro",
-      "ru": "Рамиро",
-      "en": "Ramiro"
-     },
-     {
-      "id": "eur_esm_enrique",
-      "ru": "Энрике",
-      "en": "Enrique"
-     },
-     {
-      "id": "eur_esm_fadrique",
-      "ru": "Фадрике",
-      "en": "Fadrique"
-     },
-     {
-      "id": "eur_esm_esteban",
-      "ru": "Эстебан",
-      "en": "Esteban"
-     },
-     {
-      "id": "eur_esm_domingo",
-      "ru": "Доминго",
-      "en": "Domingo"
-     },
-     {
-      "id": "eur_esm_gil",
-      "ru": "Хиль",
-      "en": "Gil"
-     },
-     {
-      "id": "eur_esm_pascual",
-      "ru": "Паскуаль",
-      "en": "Pascual"
-     },
-     {
-      "id": "eur_esm_andres",
-      "ru": "Андрес",
-      "en": "Andrés"
-     },
-     {
-      "id": "eur_esm_bernardo",
-      "ru": "Бернардо",
-      "en": "Bernardo"
-     },
-     {
-      "id": "eur_esm_suero",
-      "ru": "Суэро",
-      "en": "Suero"
-     },
-     {
-      "id": "eur_esm_vela",
-      "ru": "Вела",
-      "en": "Vela"
-     },
-     {
-      "id": "eur_esm_munio",
-      "ru": "Мунио",
-      "en": "Munio"
-     },
-     {
-      "id": "eur_esm_tello",
-      "ru": "Тельо",
-      "en": "Tello"
-     },
-     {
-      "id": "eur_esm_fernan",
-      "ru": "Фернан",
-      "en": "Fernán"
-     },
-     {
-      "id": "eur_esm_alonso",
-      "ru": "Алонсо",
-      "en": "Alonso"
-     },
-     {
-      "id": "eur_esm_benito",
-      "ru": "Бенито",
-      "en": "Benito"
-     }
-    ],
-    "f": [
-     {
-      "id": "eur_esf_urraca",
-      "ru": "Уррака",
-      "en": "Urraca"
-     },
-     {
-      "id": "eur_esf_sancha",
-      "ru": "Санча",
-      "en": "Sancha"
-     },
-     {
-      "id": "eur_esf_jimena",
-      "ru": "Химена",
-      "en": "Jimena"
-     },
-     {
-      "id": "eur_esf_elvira",
-      "ru": "Эльвира",
-      "en": "Elvira"
-     },
-     {
-      "id": "eur_esf_teresa",
-      "ru": "Тереса",
-      "en": "Teresa"
-     },
-     {
-      "id": "eur_esf_berenguela",
-      "ru": "Беренгела",
-      "en": "Berenguela"
-     },
-     {
-      "id": "eur_esf_leonor",
-      "ru": "Леонор",
-      "en": "Leonor"
-     },
-     {
-      "id": "eur_esf_constanza",
-      "ru": "Констанса",
-      "en": "Constanza"
-     },
-     {
-      "id": "eur_esf_maria",
-      "ru": "Мария",
-      "en": "María"
-     },
-     {
-      "id": "eur_esf_juana",
-      "ru": "Хуана",
-      "en": "Juana"
-     },
-     {
-      "id": "eur_esf_isabel",
-      "ru": "Исабель",
-      "en": "Isabel"
-     },
-     {
-      "id": "eur_esf_mencia",
-      "ru": "Менсия",
-      "en": "Mencía"
-     },
-     {
-      "id": "eur_esf_ines",
-      "ru": "Инес",
-      "en": "Inés"
-     },
-     {
-      "id": "eur_esf_aldonza",
-      "ru": "Альдонса",
-      "en": "Aldonza"
-     },
-     {
-      "id": "eur_esf_toda",
-      "ru": "Тода",
-      "en": "Toda"
-     },
-     {
-      "id": "eur_esf_mayor",
-      "ru": "Майор",
-      "en": "Mayor"
-     },
-     {
-      "id": "eur_esf_catalina",
-      "ru": "Каталина",
-      "en": "Catalina"
-     },
-     {
-      "id": "eur_esf_beatriz",
-      "ru": "Беатрис",
-      "en": "Beatriz"
-     },
-     {
-      "id": "eur_esf_blanca",
-      "ru": "Бланка",
-      "en": "Blanca"
-     },
-     {
-      "id": "eur_esf_estefania",
-      "ru": "Эстефания",
-      "en": "Estefanía"
-     },
-     {
-      "id": "eur_esf_marina",
-      "ru": "Марина",
-      "en": "Marina"
-     },
-     {
-      "id": "eur_esf_oro",
-      "ru": "Оро",
-      "en": "Oro"
-     },
-     {
-      "id": "eur_esf_sol",
-      "ru": "Соль",
-      "en": "Sol"
-     },
-     {
-      "id": "eur_esf_guiomar",
-      "ru": "Гиомар",
-      "en": "Guiomar"
-     },
-     {
-      "id": "eur_esf_violante",
-      "ru": "Виоланте",
-      "en": "Violante"
-     },
-     {
-      "id": "eur_esf_francisca",
-      "ru": "Франсиска",
-      "en": "Francisca"
-     },
-     {
-      "id": "eur_esf_gontrodo",
-      "ru": "Гонтродо",
-      "en": "Gontrodo"
-     },
-     {
-      "id": "eur_esf_elo",
-      "ru": "Эло",
-      "en": "Elo"
-     },
-     {
-      "id": "eur_esf_lucia",
-      "ru": "Лусия",
-      "en": "Lucía"
-     },
-     {
-      "id": "eur_esf_mafalda",
-      "ru": "Мафальда",
-      "en": "Mafalda"
-     },
-     {
-      "id": "eur_esf_juliana",
-      "ru": "Хулиана",
-      "en": "Juliana"
-     },
-     {
-      "id": "eur_esf_eva",
-      "ru": "Ева",
-      "en": "Eva"
-     }
-    ]
-   },
-   "religions": {
-    "catholic": 78,
-    "judaism": 14,
-    "islam": 8
-   },
-   "religionEras": [
-    {
-     "from": 1391,
-     "religions": {
-      "catholic": 88,
-      "judaism": 6,
-      "islam": 6
-     }
-    },
-    {
-     "from": 1492,
-     "religions": {
-      "catholic": 96,
-      "judaism": 0,
-      "islam": 4
-     }
-    }
-   ],
-   "scene": {
-    "style": "gothic",
-    "land": "dry",
-    "prompt": "Medieval Toledo on a rocky hill above the Tagus gorge: the cathedral, synagogues and mudéjar brick towers, dry hills with olive trees"
-   }
-  }
- ],
- "classes": [
-  {
-   "id": "slave",
-   "status": 6,
-   "money": [
-    0,
-    10
-   ],
-   "upkeep": 0,
-   "mortality": 1.12,
-   "tags": [
-    "enslaved",
-    "rural",
-    "raised_farming"
-   ]
-  },
-  {
-   "id": "peasant",
-   "status": 25,
-   "money": [
-    40,
-    160
-   ],
-   "upkeep": 140,
-   "mortality": 1,
-   "tags": [
-    "rural",
-    "raised_farming"
-   ]
-  },
-  {
-   "id": "craftsman",
-   "status": 38,
-   "money": [
-    60,
-    220
-   ],
-   "upkeep": 190,
-   "mortality": 1,
-   "tags": [
-    "lives_in_city",
-    "raised_craft"
-   ]
-  },
-  {
-   "id": "trader",
-   "status": 50,
-   "money": [
-    150,
-    500
-   ],
-   "upkeep": 250,
-   "mortality": 0.95,
-   "tags": [
-    "lives_in_city",
-    "raised_trade"
-   ]
-  },
-  {
-   "id": "landowner",
-   "status": 70,
-   "money": [
-    500,
-    1500
-   ],
-   "upkeep": 450,
-   "mortality": 0.88,
-   "tags": [
-    "rural",
-    "raised_management",
-    "wealthy"
-   ]
-  },
-  {
-   "id": "noble",
-   "status": 92,
-   "money": [
-    3000,
-    9000
-   ],
-   "upkeep": 1200,
-   "mortality": 0.82,
-   "tags": [
-    "raised_management",
-    "wealthy"
-   ]
-  }
- ],
- "professions": [
-  {
-   "id": "farmer",
-   "classes": [
-    "peasant"
-   ],
-   "minAge": 12,
-   "income": [
-    150,
-    260
-   ],
-   "skill": "farming"
-  },
-  {
-   "id": "laborer",
-   "classes": [
-    "peasant",
-    "craftsman"
-   ],
-   "minAge": 12,
-   "income": [
-    130,
-    210
-   ],
-   "skill": "craft",
-   "mortality": 1.1
-  },
-  {
-   "id": "artisan",
-   "classes": [
-    "craftsman",
-    "peasant"
-   ],
-   "minAge": 12,
-   "income": [
-    180,
-    330
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "weaver",
-   "sex": "f",
-   "classes": [
-    "craftsman",
-    "peasant",
-    "trader"
-   ],
-   "minAge": 12,
-   "income": [
-    140,
-    240
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "midwife",
-   "sex": "f",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "slave"
-   ],
-   "minAge": 16,
-   "income": [
-    150,
-    260
-   ],
-   "skill": "medicine"
-  },
-  {
-   "id": "merchant",
-   "classes": [
-    "trader",
-    "craftsman"
-   ],
-   "minAge": 14,
-   "income": [
-    150,
-    650
-   ],
-   "skill": "trade",
-   "stress": 2
-  },
-  {
-   "id": "sailor",
-   "sex": "m",
-   "regions": [
-    "london",
-    "cologne",
-    "paris"
-   ],
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader"
-   ],
-   "minAge": 14,
-   "income": [
-    170,
-    290
-   ],
-   "skill": "seafaring",
-   "mortality": 1.35
-  },
-  {
-   "id": "soldier",
-   "sex": "m",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "landowner"
-   ],
-   "minAge": 14,
-   "income": [
-    160,
-    280
-   ],
-   "skill": "military",
-   "mortality": 1.5,
-   "stress": 3
-  },
-  {
-   "id": "scribe",
-   "minAge": 14,
-   "classes": [
-    "craftsman",
-    "trader",
-    "landowner"
-   ],
-   "requirements": [
-    {
-     "skill": "literacy",
-     "op": ">=",
-     "value": 20
-    }
-   ],
-   "income": [
-    200,
-    360
-   ],
-   "skill": "literacy"
-  },
-  {
-   "id": "physician",
-   "minAge": 16,
-   "classes": [
-    "craftsman",
-    "trader",
-    "landowner"
-   ],
-   "requirements": [
-    {
-     "skill": "literacy",
-     "op": ">=",
-     "value": 25
-    },
-    {
-     "param": "intellect",
-     "op": ">=",
-     "value": 55
-    }
-   ],
-   "income": [
-    260,
-    650
-   ],
-   "skill": "medicine"
-  },
-  {
-   "id": "priest",
-   "sex": "m",
-   "minAge": 14,
-   "classes": [
-    "peasant",
-    "craftsman",
-    "landowner",
-    "noble"
-   ],
-   "requirements": [
-    {
-     "religion": [
-      "catholic"
-     ]
-    },
-    {
-     "skill": "literacy",
-     "op": ">=",
-     "value": 10
-    }
-   ],
-   "income": [
-    200,
-    420
-   ],
-   "skill": "literacy",
-   "reputation": 1
-  },
-  {
-   "id": "landholder",
-   "classes": [
-    "landowner",
-    "noble"
-   ],
-   "minAge": 14,
-   "income": [
-    550,
-    950
-   ],
-   "skill": "management"
-  },
-  {
-   "id": "magistrate",
-   "sex": "m",
-   "classes": [
-    "noble"
-   ],
-   "minAge": 18,
-   "income": [
-    1800,
-    4000
-   ],
-   "skill": "management",
-   "reputation": 2,
-   "stress": 3
-  },
-  {
-   "id": "matron",
-   "sex": "f",
-   "classes": [
-    "landowner",
-    "noble"
-   ],
-   "minAge": 14,
-   "income": [
-    500,
-    1500
-   ],
-   "skill": "management"
-  },
-  {
-   "id": "household_slave",
-   "classes": [
-    "slave"
-   ],
-   "minAge": 10,
-   "income": [
-    5,
-    25
-   ],
-   "skill": "craft"
-  },
-  {
-   "id": "field_slave",
-   "classes": [
-    "slave"
-   ],
-   "minAge": 10,
-   "income": [
-    0,
-    15
-   ],
-   "skill": "farming",
-   "mortality": 1.2,
-   "stress": 3
-  },
-  {
-   "id": "monk",
-   "minAge": 15,
-   "classes": [
-    "craftsman",
-    "trader",
-    "landowner",
-    "noble"
-   ],
-   "requirements": [
-    {
-     "religion": [
-      "catholic"
-     ]
-    }
-   ],
-   "income": [
-    60,
-    160
-   ],
-   "skill": "literacy",
-   "reputation": 1
-  },
-  {
-   "id": "wool_merchant",
-   "regions": [
-    "florence",
-    "london"
-   ],
-   "classes": [
-    "trader",
-    "craftsman"
-   ],
-   "minAge": 14,
-   "income": [
-    200,
-    800
-   ],
-   "skill": "trade",
-   "stress": 2
-  },
-  {
-   "id": "banker",
-   "regions": [
-    "florence"
-   ],
-   "classes": [
-    "trader",
-    "landowner",
-    "noble"
-   ],
-   "minAge": 14,
-   "requirements": [
-    {
-     "skill": "literacy",
-     "op": ">=",
-     "value": 15
-    }
-   ],
-   "income": [
-    400,
-    1500
-   ],
-   "skill": "trade",
-   "stress": 3
-  },
-  {
-   "id": "cathedral_mason",
-   "sex": "m",
-   "classes": [
-    "craftsman",
-    "peasant"
-   ],
-   "minAge": 14,
-   "income": [
-    200,
-    360
-   ],
-   "skill": "craft",
-   "mortality": 1.15
-  },
-  {
-   "id": "alewife",
-   "sex": "f",
-   "classes": [
-    "peasant",
-    "craftsman"
-   ],
-   "minAge": 14,
-   "income": [
-    140,
-    260
-   ],
-   "skill": "trade"
-  },
-  {
-   "id": "minstrel",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader"
-   ],
-   "minAge": 14,
-   "income": [
-    100,
-    300
-   ],
-   "skill": "oratory",
-   "stress": 1
-  },
-  {
-   "id": "translator",
-   "regions": [
-    "toledo"
-   ],
-   "classes": [
-    "craftsman",
-    "trader",
-    "landowner"
-   ],
-   "minAge": 14,
-   "requirements": [
-    {
-     "skill": "literacy",
-     "op": ">=",
-     "value": 20
-    }
-   ],
-   "income": [
-    250,
-    500
-   ],
-   "skill": "literacy",
-   "reputation": 1
-  },
-  {
-   "id": "knight",
-   "promotion_only": true,
-   "sex": "m",
-   "minAge": 16,
-   "income": [
-    700,
-    1300
-   ],
-   "skill": "military",
-   "mortality": 1.4,
-   "stress": 2,
-   "reputation": 2
-  },
-  {
-   "id": "officer",
-   "promotion_only": true,
-   "sex": "m",
-   "minAge": 25,
-   "income": [
-    500,
-    900
-   ],
-   "skill": "military",
-   "mortality": 1.4,
-   "stress": 3,
-   "reputation": 2
-  },
-  {
-   "id": "workshop_owner",
-   "promotion_only": true,
-   "minAge": 20,
-   "income": [
-    450,
-    900
-   ],
-   "skill": "craft",
-   "stress": 2,
-   "reputation": 1
-  },
-  {
-   "id": "shipowner",
-   "promotion_only": true,
-   "minAge": 25,
-   "income": [
-    700,
-    2000
-   ],
-   "skill": "trade",
-   "stress": 3,
-   "reputation": 1
-  },
-  {
-   "id": "official",
-   "promotion_only": true,
-   "minAge": 22,
-   "income": [
-    450,
-    900
-   ],
-   "skill": "literacy",
-   "stress": 2,
-   "reputation": 2
-  },
-  {
-   "id": "overseer",
-   "promotion_only": true,
-   "classes": [
-    "slave"
-   ],
-   "minAge": 20,
-   "income": [
-    20,
-    60
-   ],
-   "skill": "management",
-   "stress": 2
-  }
- ],
- "focuses": [
-  {
-   "id": "play",
-   "ages": [
-    5,
-    11
-   ],
-   "effects": [
-    {
-     "param": "happiness",
-     "delta": 4
-    },
-    {
-     "param": "strength",
-     "delta": 1
-    },
-    {
-     "param": "loneliness",
-     "delta": -4
-    }
-   ]
-  },
-  {
-   "id": "learn",
-   "ages": [
-    5,
-    11
-   ],
-   "conditions": [
-    {
-     "classes": [
-      "craftsman",
-      "trader",
-      "landowner",
-      "noble"
-     ]
-    }
-   ],
-   "effects": [
-    {
-     "param": "intellect",
-     "delta": 2
-    },
-    {
-     "skill": "literacy",
-     "delta": 5
-    },
-    {
-     "param": "money",
-     "delta": -20
-    }
-   ]
-  },
-  {
-   "id": "help_family",
-   "ages": [
-    5,
-    11
-   ],
-   "effects": [
-    {
-     "param": "diligence",
-     "delta": 2
-    },
-    {
-     "skill": "craft",
-     "delta": 2
-    },
-    {
-     "skill": "farming",
-     "delta": 2
-    },
-    {
-     "param": "money",
-     "delta": 10
-    }
-   ]
-  },
-  {
-   "id": "work",
-   "ages": [
-    12,
-    120
-   ],
-   "incomeMultiplier": 1.5,
-   "effects": [
-    {
-     "param": "diligence",
-     "delta": 1
-    },
-    {
-     "param": "stress",
-     "delta": 3
-    }
-   ]
-  },
-  {
-   "id": "study",
-   "ages": [
-    12,
-    60
-   ],
-   "conditions": [
-    {
-     "classes": [
-      "craftsman",
-      "trader",
-      "landowner",
-      "noble",
-      "peasant"
-     ]
-    },
-    {
-     "param": "money",
-     "op": ">=",
-     "value": 60
-    }
-   ],
-   "effects": [
-    {
-     "param": "intellect",
-     "delta": 2
-    },
-    {
-     "skill": "literacy",
-     "delta": 5
-    },
-    {
-     "skill": "oratory",
-     "delta": 2
-    },
-    {
-     "param": "money",
-     "delta": -60
-    }
-   ]
-  },
-  {
-   "id": "family",
-   "ages": [
-    14,
-    120
-   ],
-   "effects": [
-    {
-     "param": "loneliness",
-     "delta": -6
-    },
-    {
-     "param": "happiness",
-     "delta": 3
-    },
-    {
-     "npc_attitude": "spouse",
-     "delta": 6
-    },
-    {
-     "npc_attitude": "child",
-     "delta": 6
-    },
-    {
-     "npc_attitude": "mother",
-     "delta": 4
-    },
-    {
-     "npc_attitude": "father",
-     "delta": 4
-    }
-   ]
-  },
-  {
-   "id": "health",
-   "ages": [
-    12,
-    120
-   ],
-   "effects": [
-    {
-     "param": "health",
-     "delta": 3
-    },
-    {
-     "param": "stress",
-     "delta": -4
-    }
-   ]
-  },
-  {
-   "id": "trade",
-   "ages": [
-    16,
-    70
-   ],
-   "conditions": [
-    {
-     "classes": [
-      "peasant",
-      "craftsman",
-      "trader",
-      "landowner",
-      "noble"
-     ]
-    }
-   ],
-   "effects": [
-    {
-     "skill": "trade",
-     "delta": 4
-    },
-    {
-     "param": "stress",
-     "delta": 3
-    },
-    {
-     "chance": 0.5,
-     "effects": [
-      {
-       "param": "money",
-       "delta": 120
-      }
-     ]
-    },
-    {
-     "chance": 0.35,
-     "effects": [
-      {
-       "param": "money",
-       "delta": -70
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "service",
-   "ages": [
-    17,
-    45
-   ],
-   "conditions": [
-    {
-     "sex": "m"
-    },
-    {
-     "classes": [
-      "peasant",
-      "craftsman",
-      "landowner",
-      "noble"
-     ]
-    }
-   ],
-   "effects": [
-    {
-     "skill": "military",
-     "delta": 4
-    },
-    {
-     "param": "strength",
-     "delta": 2
-    },
-    {
-     "param": "reputation",
-     "delta": 2
-    },
-    {
-     "param": "stress",
-     "delta": 3
-    },
-    {
-     "chance": 0.06,
-     "effects": [
-      {
-       "param": "health",
-       "delta": -15
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "rest",
-   "ages": [
-    12,
-    120
-   ],
-   "effects": [
-    {
-     "param": "happiness",
-     "delta": 5
-    },
-    {
-     "param": "stress",
-     "delta": -6
-    },
-    {
-     "param": "loneliness",
-     "delta": -3
-    },
-    {
-     "param": "money",
-     "delta": -15
-    }
-   ]
-  },
-  {
-   "id": "religion",
-   "ages": [
-    12,
-    120
-   ],
-   "effects": [
-    {
-     "param": "faith",
-     "delta": 5
-    },
-    {
-     "param": "stress",
-     "delta": -4
-    },
-    {
-     "param": "happiness",
-     "delta": 2
-    },
-    {
-     "param": "reputation",
-     "delta": 1
-    }
-   ]
-  },
-  {
-   "id": "savings",
-   "ages": [
-    16,
-    120
-   ],
-   "conditions": [
-    {
-     "classes": [
-      "peasant",
-      "craftsman",
-      "trader",
-      "landowner",
-      "noble"
-     ]
-    }
-   ],
-   "effects": [
-    {
-     "param": "money",
-     "delta": 60
-    },
-    {
-     "param": "happiness",
-     "delta": -2
-    },
-    {
-     "param": "stress",
-     "delta": 1
-    }
-   ]
-  }
- ],
- "mortality": {
-  "qx": [
-   [
-    0,
-    0.27
-   ],
-   [
-    1,
-    0.05
-   ],
-   [
-    5,
-    0.013
-   ],
-   [
-    10,
-    0.01
-   ],
-   [
-    15,
-    0.013
-   ],
-   [
-    20,
-    0.017
-   ],
-   [
-    25,
-    0.019
-   ],
-   [
-    30,
-    0.021
-   ],
-   [
-    35,
-    0.023
-   ],
-   [
-    40,
-    0.026
-   ],
-   [
-    45,
-    0.03
-   ],
-   [
-    50,
-    0.037
-   ],
-   [
-    55,
-    0.046
-   ],
-   [
-    60,
-    0.066
-   ],
-   [
-    65,
-    0.092
-   ],
-   [
-    70,
-    0.13
-   ],
-   [
-    75,
-    0.19
-   ],
-   [
-    80,
-    0.28
-   ],
-   [
-    85,
-    0.35
-   ],
-   [
-    90,
-    0.45
-   ]
+  "population": 60,
+  "features": [
+    "sea",
+    "horses",
+    "coins",
+    "wine",
+    "writing",
+    "iron",
+    "baths",
+    "olive",
+    "slavery",
+    "paper",
+    "printing",
+    "gunpowder",
+    "river",
+    "snow"
   ],
-  "childbirth": 0.015,
-  "calibration": 0.8,
-  "causes": [
-   {
-    "id": "infant_illness",
-    "ages": [
-     0,
-     4
+  "stages": {
+    "youth": 12,
+    "adult": 18,
+    "old": 55
+  },
+  "marriageAge": {
+    "m": [
+      19,
+      32
     ],
-    "weight": 10
-   },
-   {
-    "id": "fever",
-    "ages": [
-     0,
-     120
-    ],
-    "weight": 5
-   },
-   {
-    "id": "illness",
-    "ages": [
-     5,
-     120
-    ],
-    "weight": 8
-   },
-   {
-    "id": "accident",
-    "ages": [
-     5,
-     70
-    ],
-    "weight": 2
-   },
-   {
-    "id": "war",
-    "ages": [
-     16,
-     55
-    ],
-    "weight": 6,
-    "conditions": [
-     {
-      "profession": [
-       "soldier",
-       "officer",
-       "knight"
-      ]
-     }
+    "f": [
+      14,
+      24
     ]
-   },
-   {
-    "id": "tournament",
-    "ages": [
-     16,
-     50
-    ],
-    "weight": 1,
-    "conditions": [
-     {
-      "profession": [
-       "knight"
-      ]
-     }
-    ]
-   },
-   {
-    "id": "shipwreck",
-    "ages": [
-     14,
-     70
-    ],
-    "weight": 4,
-    "conditions": [
-     {
-      "profession": [
-       "sailor",
-       "shipowner"
-      ]
-     }
-    ]
-   },
-   {
-    "id": "st_anthony_fire",
-    "ages": [
-     5,
-     120
-    ],
-    "weight": 1,
-    "conditions": [
-     {
-      "tag": "rural"
-     }
-    ]
-   },
-   {
-    "id": "hunger",
-    "ages": [
-     0,
-     120
-    ],
-    "weight": 2,
-    "conditions": [
-     {
-      "tag": "in_debt"
-     }
-    ]
-   },
-   {
-    "id": "old_age",
-    "ages": [
-     55,
-     120
-    ],
-    "weight": 12
-   }
-  ]
- },
- "lifestyle": [
-  {
-   "id": "food",
-   "minAge": 12,
-   "default": "plain",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader",
-    "landowner",
-    "noble"
-   ],
-   "options": [
+  },
+  "lifeExpectancy": 30,
+  "inheritance": "sons_first",
+  "traits": [
+    "cautious",
+    "ambitious",
+    "kind",
+    "hot_tempered",
+    "curious",
+    "reserved",
+    "generous",
+    "pious",
+    "cunning",
+    "brave"
+  ],
+  "skills": [
+    "literacy",
+    "trade",
+    "craft",
+    "farming",
+    "military",
+    "medicine",
+    "management",
+    "oratory",
+    "seafaring"
+  ],
+  "regions": [
     {
-     "id": "meager",
-     "cost": -40,
-     "effects": [
-      {
-       "param": "health",
-       "delta": -2
+      "id": "paris",
+      "weight": 4,
+      "years": [
+        1000,
+        1500
+      ],
+      "coin": "eur_denier",
+      "classWeights": {
+        "slave": 14,
+        "peasant": 50,
+        "craftsman": 17,
+        "trader": 8,
+        "landowner": 8,
+        "noble": 3
       },
-      {
-       "param": "happiness",
-       "delta": -1
-      }
-     ],
-     "mortality": 1.12
-    },
-    {
-     "id": "plain",
-     "cost": 0
-    },
-    {
-     "id": "varied",
-     "cost": 70,
-     "effects": [
-      {
-       "param": "health",
-       "delta": 1.5
-      }
-     ],
-     "mortality": 0.92,
-     "requirements": [
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 70
-      }
-     ]
-    },
-    {
-     "id": "feasts",
-     "cost": 300,
-     "effects": [
-      {
-       "param": "happiness",
-       "delta": 2
+      "names": {
+        "m": [
+          {
+            "id": "eur_frm_jean",
+            "ru": "Жан",
+            "en": "Jean"
+          },
+          {
+            "id": "eur_frm_pierre",
+            "ru": "Пьер",
+            "en": "Pierre"
+          },
+          {
+            "id": "eur_frm_guillaume",
+            "ru": "Гийом",
+            "en": "Guillaume"
+          },
+          {
+            "id": "eur_frm_robert",
+            "ru": "Робер",
+            "en": "Robert"
+          },
+          {
+            "id": "eur_frm_hugues",
+            "ru": "Гуго",
+            "en": "Hugues"
+          },
+          {
+            "id": "eur_frm_raoul",
+            "ru": "Рауль",
+            "en": "Raoul"
+          },
+          {
+            "id": "eur_frm_gautier",
+            "ru": "Готье",
+            "en": "Gautier"
+          },
+          {
+            "id": "eur_frm_thibaut",
+            "ru": "Тибо",
+            "en": "Thibaut"
+          },
+          {
+            "id": "eur_frm_etienne",
+            "ru": "Этьен",
+            "en": "Étienne"
+          },
+          {
+            "id": "eur_frm_renaud",
+            "ru": "Рено",
+            "en": "Renaud"
+          },
+          {
+            "id": "eur_frm_philippe",
+            "ru": "Филипп",
+            "en": "Philippe"
+          },
+          {
+            "id": "eur_frm_louis",
+            "ru": "Людовик",
+            "en": "Louis"
+          },
+          {
+            "id": "eur_frm_simon",
+            "ru": "Симон",
+            "en": "Simon"
+          },
+          {
+            "id": "eur_frm_geoffroy",
+            "ru": "Жоффруа",
+            "en": "Geoffroy"
+          },
+          {
+            "id": "eur_frm_bernard",
+            "ru": "Бернар",
+            "en": "Bernard"
+          },
+          {
+            "id": "eur_frm_gerard",
+            "ru": "Жерар",
+            "en": "Gérard"
+          },
+          {
+            "id": "eur_frm_eudes",
+            "ru": "Эд",
+            "en": "Eudes"
+          },
+          {
+            "id": "eur_frm_herbert",
+            "ru": "Эрбер",
+            "en": "Herbert"
+          },
+          {
+            "id": "eur_frm_adam",
+            "ru": "Адам",
+            "en": "Adam"
+          },
+          {
+            "id": "eur_frm_nicolas",
+            "ru": "Николя",
+            "en": "Nicolas"
+          },
+          {
+            "id": "eur_frm_jacques",
+            "ru": "Жак",
+            "en": "Jacques"
+          },
+          {
+            "id": "eur_frm_martin",
+            "ru": "Мартен",
+            "en": "Martin"
+          },
+          {
+            "id": "eur_frm_thomas",
+            "ru": "Тома",
+            "en": "Thomas"
+          },
+          {
+            "id": "eur_frm_colin",
+            "ru": "Колен",
+            "en": "Colin"
+          },
+          {
+            "id": "eur_frm_henri",
+            "ru": "Анри",
+            "en": "Henri"
+          },
+          {
+            "id": "eur_frm_mathieu",
+            "ru": "Матье",
+            "en": "Mathieu"
+          },
+          {
+            "id": "eur_frm_gilles",
+            "ru": "Жиль",
+            "en": "Gilles"
+          },
+          {
+            "id": "eur_frm_arnaud",
+            "ru": "Арно",
+            "en": "Arnaud"
+          },
+          {
+            "id": "eur_frm_baudouin",
+            "ru": "Бодуэн",
+            "en": "Baudouin"
+          },
+          {
+            "id": "eur_frm_enguerrand",
+            "ru": "Энгерран",
+            "en": "Enguerrand"
+          },
+          {
+            "id": "eur_frm_foulques",
+            "ru": "Фульк",
+            "en": "Foulques"
+          },
+          {
+            "id": "eur_frm_yves",
+            "ru": "Ив",
+            "en": "Yves"
+          }
+        ],
+        "f": [
+          {
+            "id": "eur_frf_jeanne",
+            "ru": "Жанна",
+            "en": "Jeanne"
+          },
+          {
+            "id": "eur_frf_marie",
+            "ru": "Мари",
+            "en": "Marie"
+          },
+          {
+            "id": "eur_frf_marguerite",
+            "ru": "Маргарита",
+            "en": "Marguerite"
+          },
+          {
+            "id": "eur_frf_isabelle",
+            "ru": "Изабелла",
+            "en": "Isabelle"
+          },
+          {
+            "id": "eur_frf_agnes",
+            "ru": "Агнесса",
+            "en": "Agnès"
+          },
+          {
+            "id": "eur_frf_alix",
+            "ru": "Аликс",
+            "en": "Alix"
+          },
+          {
+            "id": "eur_frf_beatrice",
+            "ru": "Беатриса",
+            "en": "Béatrice"
+          },
+          {
+            "id": "eur_frf_blanche",
+            "ru": "Бланка",
+            "en": "Blanche"
+          },
+          {
+            "id": "eur_frf_petronille",
+            "ru": "Петронилла",
+            "en": "Pétronille"
+          },
+          {
+            "id": "eur_frf_perrette",
+            "ru": "Перретта",
+            "en": "Perrette"
+          },
+          {
+            "id": "eur_frf_guillemette",
+            "ru": "Гийеметта",
+            "en": "Guillemette"
+          },
+          {
+            "id": "eur_frf_jacquette",
+            "ru": "Жакетта",
+            "en": "Jacquette"
+          },
+          {
+            "id": "eur_frf_mahaut",
+            "ru": "Матильда",
+            "en": "Mahaut"
+          },
+          {
+            "id": "eur_frf_adele",
+            "ru": "Адель",
+            "en": "Adèle"
+          },
+          {
+            "id": "eur_frf_ermengarde",
+            "ru": "Эрменгарда",
+            "en": "Ermengarde"
+          },
+          {
+            "id": "eur_frf_heloise",
+            "ru": "Элоиза",
+            "en": "Héloïse"
+          },
+          {
+            "id": "eur_frf_aude",
+            "ru": "Од",
+            "en": "Aude"
+          },
+          {
+            "id": "eur_frf_emmeline",
+            "ru": "Эммелина",
+            "en": "Emmeline"
+          },
+          {
+            "id": "eur_frf_colette",
+            "ru": "Колетта",
+            "en": "Colette"
+          },
+          {
+            "id": "eur_frf_perrine",
+            "ru": "Перрина",
+            "en": "Perrine"
+          },
+          {
+            "id": "eur_frf_catherine",
+            "ru": "Катрин",
+            "en": "Catherine"
+          },
+          {
+            "id": "eur_frf_philippa",
+            "ru": "Филиппа",
+            "en": "Philippa"
+          },
+          {
+            "id": "eur_frf_constance",
+            "ru": "Констанция",
+            "en": "Constance"
+          },
+          {
+            "id": "eur_frf_alienor",
+            "ru": "Алиенора",
+            "en": "Aliénor"
+          },
+          {
+            "id": "eur_frf_sibylle",
+            "ru": "Сибилла",
+            "en": "Sibylle"
+          },
+          {
+            "id": "eur_frf_clemence",
+            "ru": "Клеманс",
+            "en": "Clémence"
+          },
+          {
+            "id": "eur_frf_gisele",
+            "ru": "Жизель",
+            "en": "Gisèle"
+          },
+          {
+            "id": "eur_frf_ysabeau",
+            "ru": "Изабо",
+            "en": "Ysabeau"
+          },
+          {
+            "id": "eur_frf_oudine",
+            "ru": "Удина",
+            "en": "Oudine"
+          },
+          {
+            "id": "eur_frf_denise",
+            "ru": "Дениза",
+            "en": "Denise"
+          },
+          {
+            "id": "eur_frf_gilette",
+            "ru": "Жилетта",
+            "en": "Gilette"
+          },
+          {
+            "id": "eur_frf_tiphaine",
+            "ru": "Тифена",
+            "en": "Tiphaine"
+          }
+        ]
       },
-      {
-       "param": "reputation",
-       "delta": 1
+      "tags": [
+        "capital"
+      ],
+      "religions": {
+        "catholic": 96,
+        "judaism": 4
       },
-      {
-       "chance": 0.3,
-       "effects": [
+      "religionEras": [
         {
-         "param": "health",
-         "delta": -1
+          "from": 1306,
+          "religions": {
+            "catholic": 100,
+            "judaism": 0
+          }
+        },
+        {
+          "from": 1315,
+          "religions": {
+            "catholic": 98.5,
+            "judaism": 1.5
+          }
+        },
+        {
+          "from": 1322,
+          "religions": {
+            "catholic": 100,
+            "judaism": 0
+          }
+        },
+        {
+          "from": 1359,
+          "religions": {
+            "catholic": 99,
+            "judaism": 1
+          }
+        },
+        {
+          "from": 1394,
+          "religions": {
+            "catholic": 100,
+            "judaism": 0
+          }
         }
-       ]
+      ],
+      "scene": {
+        "style": "gothic",
+        "land": "green",
+        "prompt": "Medieval Paris on the Seine: Île de la Cité with Notre-Dame, timber-framed houses on the bridges, wheat fields and vineyards around"
       }
-     ],
-     "mortality": 1.02,
-     "requirements": [
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 300
+    },
+    {
+      "id": "london",
+      "weight": 3,
+      "years": [
+        1000,
+        1500
+      ],
+      "coin": "eur_penny",
+      "classWeights": {
+        "slave": 12,
+        "peasant": 48,
+        "craftsman": 18,
+        "trader": 12,
+        "landowner": 8,
+        "noble": 2
+      },
+      "names": {
+        "m": [
+          {
+            "id": "eur_enm_william",
+            "ru": "Уильям",
+            "en": "William"
+          },
+          {
+            "id": "eur_enm_john",
+            "ru": "Джон",
+            "en": "John"
+          },
+          {
+            "id": "eur_enm_richard",
+            "ru": "Ричард",
+            "en": "Richard"
+          },
+          {
+            "id": "eur_enm_robert",
+            "ru": "Роберт",
+            "en": "Robert"
+          },
+          {
+            "id": "eur_enm_thomas",
+            "ru": "Томас",
+            "en": "Thomas"
+          },
+          {
+            "id": "eur_enm_walter",
+            "ru": "Уолтер",
+            "en": "Walter"
+          },
+          {
+            "id": "eur_enm_hugh",
+            "ru": "Хью",
+            "en": "Hugh"
+          },
+          {
+            "id": "eur_enm_roger",
+            "ru": "Роджер",
+            "en": "Roger"
+          },
+          {
+            "id": "eur_enm_henry",
+            "ru": "Генри",
+            "en": "Henry"
+          },
+          {
+            "id": "eur_enm_ralph",
+            "ru": "Ральф",
+            "en": "Ralph"
+          },
+          {
+            "id": "eur_enm_geoffrey",
+            "ru": "Джеффри",
+            "en": "Geoffrey"
+          },
+          {
+            "id": "eur_enm_simon",
+            "ru": "Саймон",
+            "en": "Simon"
+          },
+          {
+            "id": "eur_enm_stephen",
+            "ru": "Стивен",
+            "en": "Stephen"
+          },
+          {
+            "id": "eur_enm_nicholas",
+            "ru": "Николас",
+            "en": "Nicholas"
+          },
+          {
+            "id": "eur_enm_adam",
+            "ru": "Адам",
+            "en": "Adam"
+          },
+          {
+            "id": "eur_enm_gilbert",
+            "ru": "Гилберт",
+            "en": "Gilbert"
+          },
+          {
+            "id": "eur_enm_peter",
+            "ru": "Питер",
+            "en": "Peter"
+          },
+          {
+            "id": "eur_enm_alan",
+            "ru": "Алан",
+            "en": "Alan"
+          },
+          {
+            "id": "eur_enm_edmund",
+            "ru": "Эдмунд",
+            "en": "Edmund"
+          },
+          {
+            "id": "eur_enm_edward",
+            "ru": "Эдуард",
+            "en": "Edward"
+          },
+          {
+            "id": "eur_enm_osbert",
+            "ru": "Осберт",
+            "en": "Osbert"
+          },
+          {
+            "id": "eur_enm_godwin",
+            "ru": "Годвин",
+            "en": "Godwin"
+          },
+          {
+            "id": "eur_enm_alfred",
+            "ru": "Альфред",
+            "en": "Alfred"
+          },
+          {
+            "id": "eur_enm_wulfstan",
+            "ru": "Вульфстан",
+            "en": "Wulfstan"
+          },
+          {
+            "id": "eur_enm_hamo",
+            "ru": "Хеймо",
+            "en": "Hamo"
+          },
+          {
+            "id": "eur_enm_reginald",
+            "ru": "Реджинальд",
+            "en": "Reginald"
+          },
+          {
+            "id": "eur_enm_laurence",
+            "ru": "Лоуренс",
+            "en": "Laurence"
+          },
+          {
+            "id": "eur_enm_bartholomew",
+            "ru": "Бартоломью",
+            "en": "Bartholomew"
+          },
+          {
+            "id": "eur_enm_matthew",
+            "ru": "Мэтью",
+            "en": "Matthew"
+          },
+          {
+            "id": "eur_enm_philip",
+            "ru": "Филип",
+            "en": "Philip"
+          },
+          {
+            "id": "eur_enm_jordan",
+            "ru": "Джордан",
+            "en": "Jordan"
+          },
+          {
+            "id": "eur_enm_elias",
+            "ru": "Элайас",
+            "en": "Elias"
+          }
+        ],
+        "f": [
+          {
+            "id": "eur_enf_alice",
+            "ru": "Элис",
+            "en": "Alice"
+          },
+          {
+            "id": "eur_enf_agnes",
+            "ru": "Агнес",
+            "en": "Agnes"
+          },
+          {
+            "id": "eur_enf_matilda",
+            "ru": "Матильда",
+            "en": "Matilda"
+          },
+          {
+            "id": "eur_enf_joan",
+            "ru": "Джоан",
+            "en": "Joan"
+          },
+          {
+            "id": "eur_enf_margery",
+            "ru": "Марджери",
+            "en": "Margery"
+          },
+          {
+            "id": "eur_enf_emma",
+            "ru": "Эмма",
+            "en": "Emma"
+          },
+          {
+            "id": "eur_enf_isabel",
+            "ru": "Изабел",
+            "en": "Isabel"
+          },
+          {
+            "id": "eur_enf_edith",
+            "ru": "Эдит",
+            "en": "Edith"
+          },
+          {
+            "id": "eur_enf_cecily",
+            "ru": "Сесили",
+            "en": "Cecily"
+          },
+          {
+            "id": "eur_enf_juliana",
+            "ru": "Джулиана",
+            "en": "Juliana"
+          },
+          {
+            "id": "eur_enf_avice",
+            "ru": "Эвис",
+            "en": "Avice"
+          },
+          {
+            "id": "eur_enf_maud",
+            "ru": "Мод",
+            "en": "Maud"
+          },
+          {
+            "id": "eur_enf_margaret",
+            "ru": "Маргарет",
+            "en": "Margaret"
+          },
+          {
+            "id": "eur_enf_eleanor",
+            "ru": "Элеонора",
+            "en": "Eleanor"
+          },
+          {
+            "id": "eur_enf_beatrice",
+            "ru": "Беатрис",
+            "en": "Beatrice"
+          },
+          {
+            "id": "eur_enf_christina",
+            "ru": "Кристина",
+            "en": "Christina"
+          },
+          {
+            "id": "eur_enf_rose",
+            "ru": "Роза",
+            "en": "Rose"
+          },
+          {
+            "id": "eur_enf_lettice",
+            "ru": "Леттис",
+            "en": "Lettice"
+          },
+          {
+            "id": "eur_enf_amice",
+            "ru": "Эмис",
+            "en": "Amice"
+          },
+          {
+            "id": "eur_enf_parnel",
+            "ru": "Парнел",
+            "en": "Parnel"
+          },
+          {
+            "id": "eur_enf_sybil",
+            "ru": "Сибил",
+            "en": "Sybil"
+          },
+          {
+            "id": "eur_enf_elena",
+            "ru": "Элена",
+            "en": "Elena"
+          },
+          {
+            "id": "eur_enf_godgifu",
+            "ru": "Годгифу",
+            "en": "Godgifu"
+          },
+          {
+            "id": "eur_enf_elfgiva",
+            "ru": "Эльфгива",
+            "en": "Elfgiva"
+          },
+          {
+            "id": "eur_enf_hawise",
+            "ru": "Хейвиз",
+            "en": "Hawise"
+          },
+          {
+            "id": "eur_enf_muriel",
+            "ru": "Мюриэл",
+            "en": "Muriel"
+          },
+          {
+            "id": "eur_enf_mabel",
+            "ru": "Мейбл",
+            "en": "Mabel"
+          },
+          {
+            "id": "eur_enf_katherine",
+            "ru": "Кэтрин",
+            "en": "Katherine"
+          },
+          {
+            "id": "eur_enf_elizabeth",
+            "ru": "Элизабет",
+            "en": "Elizabeth"
+          },
+          {
+            "id": "eur_enf_idonea",
+            "ru": "Идония",
+            "en": "Idonea"
+          },
+          {
+            "id": "eur_enf_denise",
+            "ru": "Дениз",
+            "en": "Denise"
+          },
+          {
+            "id": "eur_enf_felicia",
+            "ru": "Фелиция",
+            "en": "Felicia"
+          }
+        ]
+      },
+      "tags": [
+        "port"
+      ],
+      "religions": {
+        "catholic": 100,
+        "judaism": 0
+      },
+      "religionEras": [
+        {
+          "from": 1070,
+          "religions": {
+            "catholic": 97,
+            "judaism": 3
+          }
+        },
+        {
+          "from": 1290,
+          "religions": {
+            "catholic": 100,
+            "judaism": 0
+          }
+        }
+      ],
+      "scene": {
+        "style": "gothic",
+        "land": "green",
+        "prompt": "Medieval London on the Thames: the Tower, old St Paul's spire, London Bridge lined with houses, ships at the wharves"
       }
-     ]
+    },
+    {
+      "id": "florence",
+      "weight": 3,
+      "years": [
+        1000,
+        1500
+      ],
+      "coin": "eur_soldo",
+      "classWeights": {
+        "slave": 3,
+        "peasant": 44,
+        "craftsman": 28,
+        "trader": 15,
+        "landowner": 7,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "eur_itm_giovanni",
+            "ru": "Джованни",
+            "en": "Giovanni"
+          },
+          {
+            "id": "eur_itm_francesco",
+            "ru": "Франческо",
+            "en": "Francesco"
+          },
+          {
+            "id": "eur_itm_lorenzo",
+            "ru": "Лоренцо",
+            "en": "Lorenzo"
+          },
+          {
+            "id": "eur_itm_cosimo",
+            "ru": "Козимо",
+            "en": "Cosimo"
+          },
+          {
+            "id": "eur_itm_piero",
+            "ru": "Пьеро",
+            "en": "Piero"
+          },
+          {
+            "id": "eur_itm_giuliano",
+            "ru": "Джулиано",
+            "en": "Giuliano"
+          },
+          {
+            "id": "eur_itm_bernardo",
+            "ru": "Бернардо",
+            "en": "Bernardo"
+          },
+          {
+            "id": "eur_itm_niccolo",
+            "ru": "Никколо",
+            "en": "Niccolò"
+          },
+          {
+            "id": "eur_itm_iacopo",
+            "ru": "Якопо",
+            "en": "Iacopo"
+          },
+          {
+            "id": "eur_itm_lapo",
+            "ru": "Лапо",
+            "en": "Lapo"
+          },
+          {
+            "id": "eur_itm_bindo",
+            "ru": "Биндо",
+            "en": "Bindo"
+          },
+          {
+            "id": "eur_itm_guido",
+            "ru": "Гвидо",
+            "en": "Guido"
+          },
+          {
+            "id": "eur_itm_dante",
+            "ru": "Данте",
+            "en": "Dante"
+          },
+          {
+            "id": "eur_itm_cino",
+            "ru": "Чино",
+            "en": "Cino"
+          },
+          {
+            "id": "eur_itm_giotto",
+            "ru": "Джотто",
+            "en": "Giotto"
+          },
+          {
+            "id": "eur_itm_filippo",
+            "ru": "Филиппо",
+            "en": "Filippo"
+          },
+          {
+            "id": "eur_itm_matteo",
+            "ru": "Маттео",
+            "en": "Matteo"
+          },
+          {
+            "id": "eur_itm_andrea",
+            "ru": "Андреа",
+            "en": "Andrea"
+          },
+          {
+            "id": "eur_itm_antonio",
+            "ru": "Антонио",
+            "en": "Antonio"
+          },
+          {
+            "id": "eur_itm_tommaso",
+            "ru": "Томмазо",
+            "en": "Tommaso"
+          },
+          {
+            "id": "eur_itm_salvestro",
+            "ru": "Сальвестро",
+            "en": "Salvestro"
+          },
+          {
+            "id": "eur_itm_neri",
+            "ru": "Нери",
+            "en": "Neri"
+          },
+          {
+            "id": "eur_itm_duccio",
+            "ru": "Дуччо",
+            "en": "Duccio"
+          },
+          {
+            "id": "eur_itm_taddeo",
+            "ru": "Таддео",
+            "en": "Taddeo"
+          },
+          {
+            "id": "eur_itm_vieri",
+            "ru": "Вьери",
+            "en": "Vieri"
+          },
+          {
+            "id": "eur_itm_rinaldo",
+            "ru": "Ринальдо",
+            "en": "Rinaldo"
+          },
+          {
+            "id": "eur_itm_luca",
+            "ru": "Лука",
+            "en": "Luca"
+          },
+          {
+            "id": "eur_itm_leonardo",
+            "ru": "Леонардо",
+            "en": "Leonardo"
+          },
+          {
+            "id": "eur_itm_marco",
+            "ru": "Марко",
+            "en": "Marco"
+          },
+          {
+            "id": "eur_itm_simone",
+            "ru": "Симоне",
+            "en": "Simone"
+          },
+          {
+            "id": "eur_itm_agnolo",
+            "ru": "Аньоло",
+            "en": "Agnolo"
+          },
+          {
+            "id": "eur_itm_bartolomeo",
+            "ru": "Бартоломео",
+            "en": "Bartolomeo"
+          }
+        ],
+        "f": [
+          {
+            "id": "eur_itf_beatrice",
+            "ru": "Беатриче",
+            "en": "Beatrice"
+          },
+          {
+            "id": "eur_itf_lucrezia",
+            "ru": "Лукреция",
+            "en": "Lucrezia"
+          },
+          {
+            "id": "eur_itf_contessina",
+            "ru": "Контессина",
+            "en": "Contessina"
+          },
+          {
+            "id": "eur_itf_caterina",
+            "ru": "Катерина",
+            "en": "Caterina"
+          },
+          {
+            "id": "eur_itf_margherita",
+            "ru": "Маргерита",
+            "en": "Margherita"
+          },
+          {
+            "id": "eur_itf_lisa",
+            "ru": "Лиза",
+            "en": "Lisa"
+          },
+          {
+            "id": "eur_itf_ginevra",
+            "ru": "Джиневра",
+            "en": "Ginevra"
+          },
+          {
+            "id": "eur_itf_bianca",
+            "ru": "Бьянка",
+            "en": "Bianca"
+          },
+          {
+            "id": "eur_itf_lapa",
+            "ru": "Лапа",
+            "en": "Lapa"
+          },
+          {
+            "id": "eur_itf_tessa",
+            "ru": "Тесса",
+            "en": "Tessa"
+          },
+          {
+            "id": "eur_itf_fiora",
+            "ru": "Фьора",
+            "en": "Fiora"
+          },
+          {
+            "id": "eur_itf_piccarda",
+            "ru": "Пиккарда",
+            "en": "Piccarda"
+          },
+          {
+            "id": "eur_itf_gemma",
+            "ru": "Джемма",
+            "en": "Gemma"
+          },
+          {
+            "id": "eur_itf_costanza",
+            "ru": "Костанца",
+            "en": "Costanza"
+          },
+          {
+            "id": "eur_itf_giovanna",
+            "ru": "Джованна",
+            "en": "Giovanna"
+          },
+          {
+            "id": "eur_itf_francesca",
+            "ru": "Франческа",
+            "en": "Francesca"
+          },
+          {
+            "id": "eur_itf_simonetta",
+            "ru": "Симонетта",
+            "en": "Simonetta"
+          },
+          {
+            "id": "eur_itf_alessandra",
+            "ru": "Алессандра",
+            "en": "Alessandra"
+          },
+          {
+            "id": "eur_itf_nannina",
+            "ru": "Наннина",
+            "en": "Nannina"
+          },
+          {
+            "id": "eur_itf_laudomia",
+            "ru": "Лаудомия",
+            "en": "Laudomia"
+          },
+          {
+            "id": "eur_itf_bice",
+            "ru": "Биче",
+            "en": "Bice"
+          },
+          {
+            "id": "eur_itf_dianora",
+            "ru": "Дианора",
+            "en": "Dianora"
+          },
+          {
+            "id": "eur_itf_maddalena",
+            "ru": "Маддалена",
+            "en": "Maddalena"
+          },
+          {
+            "id": "eur_itf_ghita",
+            "ru": "Гита",
+            "en": "Ghita"
+          },
+          {
+            "id": "eur_itf_vaggia",
+            "ru": "Ваджа",
+            "en": "Vaggia"
+          },
+          {
+            "id": "eur_itf_mea",
+            "ru": "Меа",
+            "en": "Mea"
+          },
+          {
+            "id": "eur_itf_nera",
+            "ru": "Нера",
+            "en": "Nera"
+          },
+          {
+            "id": "eur_itf_cilia",
+            "ru": "Чилия",
+            "en": "Cilia"
+          },
+          {
+            "id": "eur_itf_lucia",
+            "ru": "Лючия",
+            "en": "Lucia"
+          },
+          {
+            "id": "eur_itf_agnola",
+            "ru": "Аньола",
+            "en": "Agnola"
+          },
+          {
+            "id": "eur_itf_tancia",
+            "ru": "Танча",
+            "en": "Tancia"
+          },
+          {
+            "id": "eur_itf_brigida",
+            "ru": "Бриджида",
+            "en": "Brigida"
+          }
+        ]
+      },
+      "religions": {
+        "catholic": 98,
+        "judaism": 2
+      },
+      "scene": {
+        "style": "gothic",
+        "land": "green",
+        "prompt": "Medieval Florence on the Arno: stone family towers, the cathedral and its great dome, Tuscan hills with olive groves and cypresses"
+      }
+    },
+    {
+      "id": "cologne",
+      "weight": 3,
+      "years": [
+        1000,
+        1500
+      ],
+      "coin": "eur_pfennig",
+      "classWeights": {
+        "slave": 10,
+        "peasant": 42,
+        "craftsman": 24,
+        "trader": 14,
+        "landowner": 7,
+        "noble": 3
+      },
+      "names": {
+        "m": [
+          {
+            "id": "eur_dem_heinrich",
+            "ru": "Генрих",
+            "en": "Heinrich"
+          },
+          {
+            "id": "eur_dem_konrad",
+            "ru": "Конрад",
+            "en": "Konrad"
+          },
+          {
+            "id": "eur_dem_hermann",
+            "ru": "Герман",
+            "en": "Hermann"
+          },
+          {
+            "id": "eur_dem_otto",
+            "ru": "Оттон",
+            "en": "Otto"
+          },
+          {
+            "id": "eur_dem_friedrich",
+            "ru": "Фридрих",
+            "en": "Friedrich"
+          },
+          {
+            "id": "eur_dem_albrecht",
+            "ru": "Альбрехт",
+            "en": "Albrecht"
+          },
+          {
+            "id": "eur_dem_gerhard",
+            "ru": "Герхард",
+            "en": "Gerhard"
+          },
+          {
+            "id": "eur_dem_dietrich",
+            "ru": "Дитрих",
+            "en": "Dietrich"
+          },
+          {
+            "id": "eur_dem_johann",
+            "ru": "Иоганн",
+            "en": "Johann"
+          },
+          {
+            "id": "eur_dem_arnold",
+            "ru": "Арнольд",
+            "en": "Arnold"
+          },
+          {
+            "id": "eur_dem_bruno",
+            "ru": "Бруно",
+            "en": "Bruno"
+          },
+          {
+            "id": "eur_dem_rainald",
+            "ru": "Райнальд",
+            "en": "Rainald"
+          },
+          {
+            "id": "eur_dem_werner",
+            "ru": "Вернер",
+            "en": "Werner"
+          },
+          {
+            "id": "eur_dem_ludwig",
+            "ru": "Людвиг",
+            "en": "Ludwig"
+          },
+          {
+            "id": "eur_dem_siegfried",
+            "ru": "Зигфрид",
+            "en": "Siegfried"
+          },
+          {
+            "id": "eur_dem_gottfried",
+            "ru": "Готфрид",
+            "en": "Gottfried"
+          },
+          {
+            "id": "eur_dem_hartmann",
+            "ru": "Хартман",
+            "en": "Hartmann"
+          },
+          {
+            "id": "eur_dem_wolfram",
+            "ru": "Вольфрам",
+            "en": "Wolfram"
+          },
+          {
+            "id": "eur_dem_ulrich",
+            "ru": "Ульрих",
+            "en": "Ulrich"
+          },
+          {
+            "id": "eur_dem_walther",
+            "ru": "Вальтер",
+            "en": "Walther"
+          },
+          {
+            "id": "eur_dem_rudolf",
+            "ru": "Рудольф",
+            "en": "Rudolf"
+          },
+          {
+            "id": "eur_dem_engelbert",
+            "ru": "Энгельберт",
+            "en": "Engelbert"
+          },
+          {
+            "id": "eur_dem_hildebrand",
+            "ru": "Хильдебранд",
+            "en": "Hildebrand"
+          },
+          {
+            "id": "eur_dem_peter",
+            "ru": "Петер",
+            "en": "Peter"
+          },
+          {
+            "id": "eur_dem_nikolaus",
+            "ru": "Николаус",
+            "en": "Nikolaus"
+          },
+          {
+            "id": "eur_dem_matthias",
+            "ru": "Маттиас",
+            "en": "Matthias"
+          },
+          {
+            "id": "eur_dem_tilman",
+            "ru": "Тильман",
+            "en": "Tilman"
+          },
+          {
+            "id": "eur_dem_bertolf",
+            "ru": "Бертольф",
+            "en": "Bertolf"
+          },
+          {
+            "id": "eur_dem_hans",
+            "ru": "Ганс",
+            "en": "Hans"
+          },
+          {
+            "id": "eur_dem_lambert",
+            "ru": "Ламберт",
+            "en": "Lambert"
+          },
+          {
+            "id": "eur_dem_eberhard",
+            "ru": "Эберхард",
+            "en": "Eberhard"
+          },
+          {
+            "id": "eur_dem_anno",
+            "ru": "Анно",
+            "en": "Anno"
+          }
+        ],
+        "f": [
+          {
+            "id": "eur_def_gertrud",
+            "ru": "Гертруда",
+            "en": "Gertrud"
+          },
+          {
+            "id": "eur_def_hildegard",
+            "ru": "Хильдегарда",
+            "en": "Hildegard"
+          },
+          {
+            "id": "eur_def_mechthild",
+            "ru": "Мехтильда",
+            "en": "Mechthild"
+          },
+          {
+            "id": "eur_def_kunigunde",
+            "ru": "Кунигунда",
+            "en": "Kunigunde"
+          },
+          {
+            "id": "eur_def_adelheid",
+            "ru": "Адельгейда",
+            "en": "Adelheid"
+          },
+          {
+            "id": "eur_def_elisabeth",
+            "ru": "Элизабет",
+            "en": "Elisabeth"
+          },
+          {
+            "id": "eur_def_margarethe",
+            "ru": "Маргарета",
+            "en": "Margarethe"
+          },
+          {
+            "id": "eur_def_agnes",
+            "ru": "Агнес",
+            "en": "Agnes"
+          },
+          {
+            "id": "eur_def_irmgard",
+            "ru": "Ирмгард",
+            "en": "Irmgard"
+          },
+          {
+            "id": "eur_def_gisela",
+            "ru": "Гизела",
+            "en": "Gisela"
+          },
+          {
+            "id": "eur_def_richenza",
+            "ru": "Рихенца",
+            "en": "Richenza"
+          },
+          {
+            "id": "eur_def_hedwig",
+            "ru": "Хедвига",
+            "en": "Hedwig"
+          },
+          {
+            "id": "eur_def_sophia",
+            "ru": "София",
+            "en": "Sophia"
+          },
+          {
+            "id": "eur_def_ida",
+            "ru": "Ида",
+            "en": "Ida"
+          },
+          {
+            "id": "eur_def_jutta",
+            "ru": "Ютта",
+            "en": "Jutta"
+          },
+          {
+            "id": "eur_def_bertha",
+            "ru": "Берта",
+            "en": "Bertha"
+          },
+          {
+            "id": "eur_def_christina",
+            "ru": "Кристина",
+            "en": "Christina"
+          },
+          {
+            "id": "eur_def_katharina",
+            "ru": "Катарина",
+            "en": "Katharina"
+          },
+          {
+            "id": "eur_def_grete",
+            "ru": "Грета",
+            "en": "Grete"
+          },
+          {
+            "id": "eur_def_liese",
+            "ru": "Лизе",
+            "en": "Liese"
+          },
+          {
+            "id": "eur_def_else",
+            "ru": "Эльза",
+            "en": "Else"
+          },
+          {
+            "id": "eur_def_engel",
+            "ru": "Энгель",
+            "en": "Engel"
+          },
+          {
+            "id": "eur_def_gudula",
+            "ru": "Гудула",
+            "en": "Gudula"
+          },
+          {
+            "id": "eur_def_petronella",
+            "ru": "Петронелла",
+            "en": "Petronella"
+          },
+          {
+            "id": "eur_def_ursula",
+            "ru": "Урсула",
+            "en": "Ursula"
+          },
+          {
+            "id": "eur_def_walburga",
+            "ru": "Вальбурга",
+            "en": "Walburga"
+          },
+          {
+            "id": "eur_def_odilia",
+            "ru": "Одилия",
+            "en": "Odilia"
+          },
+          {
+            "id": "eur_def_fygen",
+            "ru": "Фиген",
+            "en": "Fygen"
+          },
+          {
+            "id": "eur_def_tryngen",
+            "ru": "Трюнген",
+            "en": "Tryngen"
+          },
+          {
+            "id": "eur_def_bela",
+            "ru": "Бела",
+            "en": "Bela"
+          },
+          {
+            "id": "eur_def_nesa",
+            "ru": "Неза",
+            "en": "Nesa"
+          },
+          {
+            "id": "eur_def_aleid",
+            "ru": "Алейд",
+            "en": "Aleid"
+          }
+        ]
+      },
+      "religions": {
+        "catholic": 96,
+        "judaism": 4
+      },
+      "religionEras": [
+        {
+          "from": 1350,
+          "religions": {
+            "catholic": 100,
+            "judaism": 0
+          }
+        },
+        {
+          "from": 1372,
+          "religions": {
+            "catholic": 98,
+            "judaism": 2
+          }
+        },
+        {
+          "from": 1424,
+          "religions": {
+            "catholic": 100,
+            "judaism": 0
+          }
+        }
+      ],
+      "scene": {
+        "style": "gothic",
+        "land": "green",
+        "prompt": "Medieval Cologne on the Rhine: the unfinished cathedral with a wooden crane on its tower, many church spires, river barges and city walls"
+      }
+    },
+    {
+      "id": "toledo",
+      "weight": 2,
+      "years": [
+        1085,
+        1500
+      ],
+      "coin": "eur_maravedi",
+      "inheritance": "equal",
+      "classWeights": {
+        "slave": 5,
+        "peasant": 48,
+        "craftsman": 22,
+        "trader": 12,
+        "landowner": 9,
+        "noble": 4
+      },
+      "names": {
+        "m": [
+          {
+            "id": "eur_esm_alfonso",
+            "ru": "Альфонсо",
+            "en": "Alfonso"
+          },
+          {
+            "id": "eur_esm_fernando",
+            "ru": "Фернандо",
+            "en": "Fernando"
+          },
+          {
+            "id": "eur_esm_sancho",
+            "ru": "Санчо",
+            "en": "Sancho"
+          },
+          {
+            "id": "eur_esm_rodrigo",
+            "ru": "Родриго",
+            "en": "Rodrigo"
+          },
+          {
+            "id": "eur_esm_diego",
+            "ru": "Диего",
+            "en": "Diego"
+          },
+          {
+            "id": "eur_esm_pedro",
+            "ru": "Педро",
+            "en": "Pedro"
+          },
+          {
+            "id": "eur_esm_juan",
+            "ru": "Хуан",
+            "en": "Juan"
+          },
+          {
+            "id": "eur_esm_garcia",
+            "ru": "Гарсия",
+            "en": "García"
+          },
+          {
+            "id": "eur_esm_gonzalo",
+            "ru": "Гонсало",
+            "en": "Gonzalo"
+          },
+          {
+            "id": "eur_esm_alvaro",
+            "ru": "Альваро",
+            "en": "Álvaro"
+          },
+          {
+            "id": "eur_esm_martin",
+            "ru": "Мартин",
+            "en": "Martín"
+          },
+          {
+            "id": "eur_esm_pelayo",
+            "ru": "Пелайо",
+            "en": "Pelayo"
+          },
+          {
+            "id": "eur_esm_nuno",
+            "ru": "Нуньо",
+            "en": "Nuño"
+          },
+          {
+            "id": "eur_esm_gutierre",
+            "ru": "Гутьерре",
+            "en": "Gutierre"
+          },
+          {
+            "id": "eur_esm_lope",
+            "ru": "Лопе",
+            "en": "Lope"
+          },
+          {
+            "id": "eur_esm_inigo",
+            "ru": "Иньиго",
+            "en": "Íñigo"
+          },
+          {
+            "id": "eur_esm_ramiro",
+            "ru": "Рамиро",
+            "en": "Ramiro"
+          },
+          {
+            "id": "eur_esm_enrique",
+            "ru": "Энрике",
+            "en": "Enrique"
+          },
+          {
+            "id": "eur_esm_fadrique",
+            "ru": "Фадрике",
+            "en": "Fadrique"
+          },
+          {
+            "id": "eur_esm_esteban",
+            "ru": "Эстебан",
+            "en": "Esteban"
+          },
+          {
+            "id": "eur_esm_domingo",
+            "ru": "Доминго",
+            "en": "Domingo"
+          },
+          {
+            "id": "eur_esm_gil",
+            "ru": "Хиль",
+            "en": "Gil"
+          },
+          {
+            "id": "eur_esm_pascual",
+            "ru": "Паскуаль",
+            "en": "Pascual"
+          },
+          {
+            "id": "eur_esm_andres",
+            "ru": "Андрес",
+            "en": "Andrés"
+          },
+          {
+            "id": "eur_esm_bernardo",
+            "ru": "Бернардо",
+            "en": "Bernardo"
+          },
+          {
+            "id": "eur_esm_suero",
+            "ru": "Суэро",
+            "en": "Suero"
+          },
+          {
+            "id": "eur_esm_vela",
+            "ru": "Вела",
+            "en": "Vela"
+          },
+          {
+            "id": "eur_esm_munio",
+            "ru": "Мунио",
+            "en": "Munio"
+          },
+          {
+            "id": "eur_esm_tello",
+            "ru": "Тельо",
+            "en": "Tello"
+          },
+          {
+            "id": "eur_esm_fernan",
+            "ru": "Фернан",
+            "en": "Fernán"
+          },
+          {
+            "id": "eur_esm_alonso",
+            "ru": "Алонсо",
+            "en": "Alonso"
+          },
+          {
+            "id": "eur_esm_benito",
+            "ru": "Бенито",
+            "en": "Benito"
+          }
+        ],
+        "f": [
+          {
+            "id": "eur_esf_urraca",
+            "ru": "Уррака",
+            "en": "Urraca"
+          },
+          {
+            "id": "eur_esf_sancha",
+            "ru": "Санча",
+            "en": "Sancha"
+          },
+          {
+            "id": "eur_esf_jimena",
+            "ru": "Химена",
+            "en": "Jimena"
+          },
+          {
+            "id": "eur_esf_elvira",
+            "ru": "Эльвира",
+            "en": "Elvira"
+          },
+          {
+            "id": "eur_esf_teresa",
+            "ru": "Тереса",
+            "en": "Teresa"
+          },
+          {
+            "id": "eur_esf_berenguela",
+            "ru": "Беренгела",
+            "en": "Berenguela"
+          },
+          {
+            "id": "eur_esf_leonor",
+            "ru": "Леонор",
+            "en": "Leonor"
+          },
+          {
+            "id": "eur_esf_constanza",
+            "ru": "Констанса",
+            "en": "Constanza"
+          },
+          {
+            "id": "eur_esf_maria",
+            "ru": "Мария",
+            "en": "María"
+          },
+          {
+            "id": "eur_esf_juana",
+            "ru": "Хуана",
+            "en": "Juana"
+          },
+          {
+            "id": "eur_esf_isabel",
+            "ru": "Исабель",
+            "en": "Isabel"
+          },
+          {
+            "id": "eur_esf_mencia",
+            "ru": "Менсия",
+            "en": "Mencía"
+          },
+          {
+            "id": "eur_esf_ines",
+            "ru": "Инес",
+            "en": "Inés"
+          },
+          {
+            "id": "eur_esf_aldonza",
+            "ru": "Альдонса",
+            "en": "Aldonza"
+          },
+          {
+            "id": "eur_esf_toda",
+            "ru": "Тода",
+            "en": "Toda"
+          },
+          {
+            "id": "eur_esf_mayor",
+            "ru": "Майор",
+            "en": "Mayor"
+          },
+          {
+            "id": "eur_esf_catalina",
+            "ru": "Каталина",
+            "en": "Catalina"
+          },
+          {
+            "id": "eur_esf_beatriz",
+            "ru": "Беатрис",
+            "en": "Beatriz"
+          },
+          {
+            "id": "eur_esf_blanca",
+            "ru": "Бланка",
+            "en": "Blanca"
+          },
+          {
+            "id": "eur_esf_estefania",
+            "ru": "Эстефания",
+            "en": "Estefanía"
+          },
+          {
+            "id": "eur_esf_marina",
+            "ru": "Марина",
+            "en": "Marina"
+          },
+          {
+            "id": "eur_esf_oro",
+            "ru": "Оро",
+            "en": "Oro"
+          },
+          {
+            "id": "eur_esf_sol",
+            "ru": "Соль",
+            "en": "Sol"
+          },
+          {
+            "id": "eur_esf_guiomar",
+            "ru": "Гиомар",
+            "en": "Guiomar"
+          },
+          {
+            "id": "eur_esf_violante",
+            "ru": "Виоланте",
+            "en": "Violante"
+          },
+          {
+            "id": "eur_esf_francisca",
+            "ru": "Франсиска",
+            "en": "Francisca"
+          },
+          {
+            "id": "eur_esf_gontrodo",
+            "ru": "Гонтродо",
+            "en": "Gontrodo"
+          },
+          {
+            "id": "eur_esf_elo",
+            "ru": "Эло",
+            "en": "Elo"
+          },
+          {
+            "id": "eur_esf_lucia",
+            "ru": "Лусия",
+            "en": "Lucía"
+          },
+          {
+            "id": "eur_esf_mafalda",
+            "ru": "Мафальда",
+            "en": "Mafalda"
+          },
+          {
+            "id": "eur_esf_juliana",
+            "ru": "Хулиана",
+            "en": "Juliana"
+          },
+          {
+            "id": "eur_esf_eva",
+            "ru": "Ева",
+            "en": "Eva"
+          }
+        ]
+      },
+      "religions": {
+        "catholic": 78,
+        "judaism": 14,
+        "islam": 8
+      },
+      "religionEras": [
+        {
+          "from": 1391,
+          "religions": {
+            "catholic": 88,
+            "judaism": 6,
+            "islam": 6
+          }
+        },
+        {
+          "from": 1492,
+          "religions": {
+            "catholic": 96,
+            "judaism": 0,
+            "islam": 4
+          }
+        }
+      ],
+      "scene": {
+        "style": "gothic",
+        "land": "dry",
+        "prompt": "Medieval Toledo on a rocky hill above the Tagus gorge: the cathedral, synagogues and mudéjar brick towers, dry hills with olive trees"
+      }
     }
-   ]
-  },
-  {
-   "id": "exercise",
-   "minAge": 8,
-   "default": "chores",
-   "options": [
+  ],
+  "classes": [
     {
-     "id": "rest",
-     "cost": 0,
-     "effects": [
-      {
-       "param": "stress",
-       "delta": -2
-      },
-      {
-       "param": "health",
-       "delta": -1
-      }
-     ],
-     "mortality": 1.05
+      "id": "slave",
+      "status": 6,
+      "money": [
+        0,
+        10
+      ],
+      "upkeep": 0,
+      "mortality": 1.12,
+      "tags": [
+        "enslaved",
+        "rural",
+        "raised_farming"
+      ]
     },
     {
-     "id": "chores",
-     "cost": 0
+      "id": "peasant",
+      "status": 25,
+      "money": [
+        40,
+        160
+      ],
+      "upkeep": 140,
+      "mortality": 1,
+      "tags": [
+        "rural",
+        "raised_farming"
+      ]
     },
     {
-     "id": "walks",
-     "cost": 0,
-     "effects": [
-      {
-       "param": "health",
-       "delta": 1
-      },
-      {
-       "param": "stress",
-       "delta": -1
-      }
-     ],
-     "mortality": 0.96
+      "id": "craftsman",
+      "status": 38,
+      "money": [
+        60,
+        220
+      ],
+      "upkeep": 190,
+      "mortality": 1,
+      "tags": [
+        "lives_in_city",
+        "raised_craft"
+      ]
     },
     {
-     "id": "gymnasium",
-     "cost": 40,
-     "effects": [
-      {
-       "param": "health",
-       "delta": 2
-      },
-      {
-       "param": "strength",
-       "delta": 1
-      }
-     ],
-     "mortality": 0.9,
-     "requirements": [
-      {
-       "classes": [
+      "id": "trader",
+      "status": 50,
+      "money": [
+        150,
+        500
+      ],
+      "upkeep": 250,
+      "mortality": 0.95,
+      "tags": [
+        "lives_in_city",
+        "raised_trade"
+      ]
+    },
+    {
+      "id": "landowner",
+      "status": 70,
+      "money": [
+        500,
+        1500
+      ],
+      "upkeep": 450,
+      "mortality": 0.88,
+      "tags": [
+        "rural",
+        "raised_management",
+        "wealthy"
+      ]
+    },
+    {
+      "id": "noble",
+      "status": 92,
+      "money": [
+        3000,
+        9000
+      ],
+      "upkeep": 1200,
+      "mortality": 0.82,
+      "tags": [
+        "raised_management",
+        "wealthy"
+      ]
+    }
+  ],
+  "professions": [
+    {
+      "id": "farmer",
+      "classes": [
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "farming"
+    },
+    {
+      "id": "laborer",
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 12,
+      "income": [
+        130,
+        210
+      ],
+      "skill": "craft",
+      "mortality": 1.1
+    },
+    {
+      "id": "artisan",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 12,
+      "income": [
+        180,
+        330
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "weaver",
+      "sex": "f",
+      "classes": [
+        "craftsman",
+        "peasant",
+        "trader"
+      ],
+      "minAge": 12,
+      "income": [
+        140,
+        240
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "midwife",
+      "sex": "f",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "slave"
+      ],
+      "minAge": 16,
+      "income": [
+        150,
+        260
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "merchant",
+      "classes": [
+        "trader",
+        "craftsman"
+      ],
+      "minAge": 14,
+      "income": [
+        150,
+        650
+      ],
+      "skill": "trade",
+      "stress": 2
+    },
+    {
+      "id": "sailor",
+      "sex": "m",
+      "regions": [
+        "london",
+        "cologne",
+        "paris"
+      ],
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 14,
+      "income": [
+        170,
+        290
+      ],
+      "skill": "seafaring",
+      "mortality": 1.35
+    },
+    {
+      "id": "soldier",
+      "sex": "m",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner"
+      ],
+      "minAge": 14,
+      "income": [
+        160,
+        280
+      ],
+      "skill": "military",
+      "mortality": 1.5,
+      "stress": 3
+    },
+    {
+      "id": "scribe",
+      "minAge": 14,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 20
+        }
+      ],
+      "income": [
+        200,
+        360
+      ],
+      "skill": "literacy"
+    },
+    {
+      "id": "physician",
+      "minAge": 16,
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 25
+        },
+        {
+          "param": "intellect",
+          "op": ">=",
+          "value": 55
+        }
+      ],
+      "income": [
+        260,
+        650
+      ],
+      "skill": "medicine"
+    },
+    {
+      "id": "priest",
+      "sex": "m",
+      "minAge": 14,
+      "classes": [
+        "peasant",
+        "craftsman",
+        "landowner",
+        "noble"
+      ],
+      "requirements": [
+        {
+          "religion": [
+            "catholic"
+          ]
+        },
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 10
+        }
+      ],
+      "income": [
+        200,
+        420
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "landholder",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "income": [
+        550,
+        950
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "magistrate",
+      "sex": "m",
+      "classes": [
+        "noble"
+      ],
+      "minAge": 18,
+      "income": [
+        1800,
+        4000
+      ],
+      "skill": "management",
+      "reputation": 2,
+      "stress": 3
+    },
+    {
+      "id": "matron",
+      "sex": "f",
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "income": [
+        500,
+        1500
+      ],
+      "skill": "management"
+    },
+    {
+      "id": "household_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        5,
+        25
+      ],
+      "skill": "craft"
+    },
+    {
+      "id": "field_slave",
+      "classes": [
+        "slave"
+      ],
+      "minAge": 10,
+      "income": [
+        0,
+        15
+      ],
+      "skill": "farming",
+      "mortality": 1.2,
+      "stress": 3
+    },
+    {
+      "id": "monk",
+      "minAge": 15,
+      "classes": [
         "craftsman",
         "trader",
         "landowner",
         "noble"
-       ]
+      ],
+      "requirements": [
+        {
+          "religion": [
+            "catholic"
+          ]
+        }
+      ],
+      "income": [
+        60,
+        160
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "wool_merchant",
+      "regions": [
+        "florence",
+        "london"
+      ],
+      "classes": [
+        "trader",
+        "craftsman"
+      ],
+      "minAge": 14,
+      "income": [
+        200,
+        800
+      ],
+      "skill": "trade",
+      "stress": 2
+    },
+    {
+      "id": "banker",
+      "regions": [
+        "florence"
+      ],
+      "classes": [
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "minAge": 14,
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 15
+        }
+      ],
+      "income": [
+        400,
+        1500
+      ],
+      "skill": "trade",
+      "stress": 3
+    },
+    {
+      "id": "cathedral_mason",
+      "sex": "m",
+      "classes": [
+        "craftsman",
+        "peasant"
+      ],
+      "minAge": 14,
+      "income": [
+        200,
+        360
+      ],
+      "skill": "craft",
+      "mortality": 1.15
+    },
+    {
+      "id": "alewife",
+      "sex": "f",
+      "classes": [
+        "peasant",
+        "craftsman"
+      ],
+      "minAge": 14,
+      "income": [
+        140,
+        260
+      ],
+      "skill": "trade"
+    },
+    {
+      "id": "minstrel",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader"
+      ],
+      "minAge": 14,
+      "income": [
+        100,
+        300
+      ],
+      "skill": "oratory",
+      "stress": 1
+    },
+    {
+      "id": "translator",
+      "regions": [
+        "toledo"
+      ],
+      "classes": [
+        "craftsman",
+        "trader",
+        "landowner"
+      ],
+      "minAge": 14,
+      "requirements": [
+        {
+          "skill": "literacy",
+          "op": ">=",
+          "value": 20
+        }
+      ],
+      "income": [
+        250,
+        500
+      ],
+      "skill": "literacy",
+      "reputation": 1
+    },
+    {
+      "id": "knight",
+      "promotion_only": true,
+      "sex": "m",
+      "minAge": 16,
+      "income": [
+        700,
+        1300
+      ],
+      "skill": "military",
+      "mortality": 1.4,
+      "stress": 2,
+      "reputation": 2
+    },
+    {
+      "id": "officer",
+      "promotion_only": true,
+      "sex": "m",
+      "minAge": 25,
+      "income": [
+        500,
+        900
+      ],
+      "skill": "military",
+      "mortality": 1.4,
+      "stress": 3,
+      "reputation": 2
+    },
+    {
+      "id": "workshop_owner",
+      "promotion_only": true,
+      "minAge": 20,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "craft",
+      "stress": 2,
+      "reputation": 1
+    },
+    {
+      "id": "shipowner",
+      "promotion_only": true,
+      "minAge": 25,
+      "income": [
+        700,
+        2000
+      ],
+      "skill": "trade",
+      "stress": 3,
+      "reputation": 1
+    },
+    {
+      "id": "official",
+      "promotion_only": true,
+      "minAge": 22,
+      "income": [
+        450,
+        900
+      ],
+      "skill": "literacy",
+      "stress": 2,
+      "reputation": 2
+    },
+    {
+      "id": "overseer",
+      "promotion_only": true,
+      "classes": [
+        "slave"
+      ],
+      "minAge": 20,
+      "income": [
+        20,
+        60
+      ],
+      "skill": "management",
+      "stress": 2
+    }
+  ],
+  "focuses": [
+    {
+      "id": "play",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 1
+        },
+        {
+          "param": "loneliness",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "ages": [
+        5,
+        11
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "param": "money",
+          "delta": -20
+        }
+      ]
+    },
+    {
+      "id": "help_family",
+      "ages": [
+        5,
+        11
+      ],
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 2
+        },
+        {
+          "skill": "craft",
+          "delta": 2
+        },
+        {
+          "skill": "farming",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": 10
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "ages": [
+        12,
+        120
+      ],
+      "incomeMultiplier": 1.5,
+      "effects": [
+        {
+          "param": "diligence",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        }
+      ]
+    },
+    {
+      "id": "study",
+      "ages": [
+        12,
+        60
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble",
+            "peasant"
+          ]
+        },
+        {
+          "param": "money",
+          "op": ">=",
+          "value": 60
+        }
+      ],
+      "effects": [
+        {
+          "param": "intellect",
+          "delta": 2
+        },
+        {
+          "skill": "literacy",
+          "delta": 5
+        },
+        {
+          "skill": "oratory",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": -60
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "ages": [
+        14,
+        120
+      ],
+      "effects": [
+        {
+          "param": "loneliness",
+          "delta": -6
+        },
+        {
+          "param": "happiness",
+          "delta": 3
+        },
+        {
+          "npc_attitude": "spouse",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "child",
+          "delta": 6
+        },
+        {
+          "npc_attitude": "mother",
+          "delta": 4
+        },
+        {
+          "npc_attitude": "father",
+          "delta": 4
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "health",
+          "delta": 3
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "ages": [
+        16,
+        70
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "trade",
+          "delta": 4
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.5,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        },
+        {
+          "chance": 0.35,
+          "effects": [
+            {
+              "param": "money",
+              "delta": -70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "ages": [
+        17,
+        45
+      ],
+      "conditions": [
+        {
+          "sex": "m"
+        },
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "skill": "military",
+          "delta": 4
+        },
+        {
+          "param": "strength",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 2
+        },
+        {
+          "param": "stress",
+          "delta": 3
+        },
+        {
+          "chance": 0.06,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -6
+        },
+        {
+          "param": "loneliness",
+          "delta": -3
+        },
+        {
+          "param": "money",
+          "delta": -15
+        }
+      ]
+    },
+    {
+      "id": "religion",
+      "ages": [
+        12,
+        120
+      ],
+      "effects": [
+        {
+          "param": "faith",
+          "delta": 5
+        },
+        {
+          "param": "stress",
+          "delta": -4
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "reputation",
+          "delta": 1
+        }
+      ]
+    },
+    {
+      "id": "savings",
+      "ages": [
+        16,
+        120
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "money",
+          "delta": 60
+        },
+        {
+          "param": "happiness",
+          "delta": -2
+        },
+        {
+          "param": "stress",
+          "delta": 1
+        }
+      ]
+    }
+  ],
+  "mortality": {
+    "qx": [
+      [
+        0,
+        0.27
+      ],
+      [
+        1,
+        0.05
+      ],
+      [
+        5,
+        0.013
+      ],
+      [
+        10,
+        0.01
+      ],
+      [
+        15,
+        0.013
+      ],
+      [
+        20,
+        0.017
+      ],
+      [
+        25,
+        0.019
+      ],
+      [
+        30,
+        0.021
+      ],
+      [
+        35,
+        0.023
+      ],
+      [
+        40,
+        0.026
+      ],
+      [
+        45,
+        0.03
+      ],
+      [
+        50,
+        0.037
+      ],
+      [
+        55,
+        0.046
+      ],
+      [
+        60,
+        0.066
+      ],
+      [
+        65,
+        0.092
+      ],
+      [
+        70,
+        0.13
+      ],
+      [
+        75,
+        0.19
+      ],
+      [
+        80,
+        0.28
+      ],
+      [
+        85,
+        0.35
+      ],
+      [
+        90,
+        0.45
+      ]
+    ],
+    "childbirth": 0.015,
+    "calibration": 0.76,
+    "causes": [
+      {
+        "id": "infant_illness",
+        "ages": [
+          0,
+          4
+        ],
+        "weight": 10
       },
       {
-       "param": "money",
-       "op": ">=",
-       "value": 40
+        "id": "fever",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 5
+      },
+      {
+        "id": "illness",
+        "ages": [
+          5,
+          120
+        ],
+        "weight": 8
+      },
+      {
+        "id": "accident",
+        "ages": [
+          5,
+          70
+        ],
+        "weight": 2
+      },
+      {
+        "id": "war",
+        "ages": [
+          16,
+          55
+        ],
+        "weight": 6,
+        "conditions": [
+          {
+            "profession": [
+              "soldier",
+              "officer",
+              "knight"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tournament",
+        "ages": [
+          16,
+          50
+        ],
+        "weight": 1,
+        "conditions": [
+          {
+            "profession": [
+              "knight"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shipwreck",
+        "ages": [
+          14,
+          70
+        ],
+        "weight": 4,
+        "conditions": [
+          {
+            "profession": [
+              "sailor",
+              "shipowner"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "st_anthony_fire",
+        "ages": [
+          5,
+          120
+        ],
+        "weight": 1,
+        "conditions": [
+          {
+            "tag": "rural"
+          }
+        ]
+      },
+      {
+        "id": "hunger",
+        "ages": [
+          0,
+          120
+        ],
+        "weight": 2,
+        "conditions": [
+          {
+            "tag": "in_debt"
+          }
+        ]
+      },
+      {
+        "id": "old_age",
+        "ages": [
+          55,
+          120
+        ],
+        "weight": 12
       }
-     ]
-    }
-   ]
+    ]
   },
-  {
-   "id": "medicine",
-   "minAge": 12,
-   "default": "home",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader",
-    "landowner",
-    "noble"
-   ],
-   "options": [
+  "lifestyle": [
     {
-     "id": "home",
-     "cost": 0
+      "id": "food",
+      "minAge": 12,
+      "default": "plain",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "meager",
+          "cost": -40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": -2
+            },
+            {
+              "param": "happiness",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.12
+        },
+        {
+          "id": "plain",
+          "cost": 0
+        },
+        {
+          "id": "varied",
+          "cost": 70,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            }
+          ],
+          "mortality": 0.92,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 70
+            }
+          ]
+        },
+        {
+          "id": "feasts",
+          "cost": 300,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 2
+            },
+            {
+              "param": "reputation",
+              "delta": 1
+            },
+            {
+              "chance": 0.3,
+              "effects": [
+                {
+                  "param": "health",
+                  "delta": -1
+                }
+              ]
+            }
+          ],
+          "mortality": 1.02,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 300
+            }
+          ]
+        }
+      ]
     },
     {
-     "id": "temple",
-     "cost": 25,
-     "effects": [
-      {
-       "param": "faith",
-       "delta": 1
-      },
-      {
-       "param": "stress",
-       "delta": -1
-      }
-     ],
-     "mortality": 0.95,
-     "requirements": [
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 25
-      }
-     ]
+      "id": "exercise",
+      "minAge": 8,
+      "default": "chores",
+      "options": [
+        {
+          "id": "rest",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "stress",
+              "delta": -2
+            },
+            {
+              "param": "health",
+              "delta": -1
+            }
+          ],
+          "mortality": 1.05
+        },
+        {
+          "id": "chores",
+          "cost": 0
+        },
+        {
+          "id": "walks",
+          "cost": 0,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.96
+        },
+        {
+          "id": "gymnasium",
+          "cost": 40,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 2
+            },
+            {
+              "param": "strength",
+              "delta": 1
+            }
+          ],
+          "mortality": 0.9,
+          "requirements": [
+            {
+              "classes": [
+                "craftsman",
+                "trader",
+                "landowner",
+                "noble"
+              ]
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 40
+            }
+          ]
+        }
+      ]
     },
     {
-     "id": "physician",
-     "cost": 150,
-     "effects": [
-      {
-       "param": "health",
-       "delta": 1.5
-      },
-      {
-       "remove_tag": "ill"
-      }
-     ],
-     "mortality": 0.85,
-     "requirements": [
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 150
-      }
-     ]
+      "id": "medicine",
+      "minAge": 12,
+      "default": "home",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "home",
+          "cost": 0
+        },
+        {
+          "id": "temple",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "faith",
+              "delta": 1
+            },
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "id": "physician",
+          "cost": 150,
+          "effects": [
+            {
+              "param": "health",
+              "delta": 1.5
+            },
+            {
+              "remove_tag": "ill"
+            }
+          ],
+          "mortality": 0.85,
+          "requirements": [
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baths",
+      "minAge": 10,
+      "default": "sometimes",
+      "classes": [
+        "peasant",
+        "craftsman",
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "options": [
+        {
+          "id": "rarely",
+          "cost": 0,
+          "mortality": 1.04
+        },
+        {
+          "id": "sometimes",
+          "cost": 5
+        },
+        {
+          "id": "daily",
+          "cost": 25,
+          "effects": [
+            {
+              "param": "happiness",
+              "delta": 1
+            },
+            {
+              "param": "loneliness",
+              "delta": -1
+            }
+          ],
+          "mortality": 0.95,
+          "requirements": [
+            {
+              "tag": "lives_in_city"
+            },
+            {
+              "param": "money",
+              "op": ">=",
+              "value": 25
+            }
+          ]
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": "baths",
-   "minAge": 10,
-   "default": "sometimes",
-   "classes": [
-    "peasant",
-    "craftsman",
-    "trader",
-    "landowner",
-    "noble"
-   ],
-   "options": [
+  ],
+  "vices": [
     {
-     "id": "rarely",
-     "cost": 0,
-     "mortality": 1.04
+      "tag": "drinker",
+      "cost": 40,
+      "mortality": 1.18,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2
+        },
+        {
+          "param": "happiness",
+          "delta": 1
+        },
+        {
+          "param": "stress",
+          "delta": -2
+        },
+        {
+          "param": "diligence",
+          "delta": -1
+        },
+        {
+          "param": "reputation",
+          "delta": -1
+        }
+      ]
     },
     {
-     "id": "sometimes",
-     "cost": 5
+      "tag": "gambler",
+      "cost": 0,
+      "mortality": 1.03,
+      "effects": [
+        {
+          "param": "stress",
+          "delta": 4
+        },
+        {
+          "chance": 0.4,
+          "effects": [
+            {
+              "money_pct": -25
+            }
+          ]
+        },
+        {
+          "chance": 0.2,
+          "effects": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ]
+        }
+      ]
     },
     {
-     "id": "daily",
-     "cost": 25,
-     "effects": [
-      {
-       "param": "happiness",
-       "delta": 1
-      },
-      {
-       "param": "loneliness",
-       "delta": -1
-      }
-     ],
-     "mortality": 0.95,
-     "requirements": [
-      {
-       "tag": "lives_in_city"
-      },
-      {
-       "param": "money",
-       "op": ">=",
-       "value": 25
-      }
-     ]
+      "tag": "opium",
+      "cost": 60,
+      "mortality": 1.22,
+      "effects": [
+        {
+          "param": "health",
+          "delta": -2.5
+        },
+        {
+          "param": "happiness",
+          "delta": 2
+        },
+        {
+          "param": "diligence",
+          "delta": -2
+        },
+        {
+          "param": "intellect",
+          "delta": -1
+        }
+      ]
     }
-   ]
-  }
- ],
- "vices": [
-  {
-   "tag": "drinker",
-   "cost": 40,
-   "mortality": 1.18,
-   "effects": [
-    {
-     "param": "health",
-     "delta": -2
-    },
-    {
-     "param": "happiness",
-     "delta": 1
-    },
-    {
-     "param": "stress",
-     "delta": -2
-    },
-    {
-     "param": "diligence",
-     "delta": -1
-    },
-    {
-     "param": "reputation",
-     "delta": -1
-    }
-   ]
-  },
-  {
-   "tag": "gambler",
-   "cost": 0,
-   "mortality": 1.03,
-   "effects": [
-    {
-     "param": "stress",
-     "delta": 4
-    },
-    {
-     "chance": 0.4,
-     "effects": [
-      {
-       "money_pct": -25
-      }
-     ]
-    },
-    {
-     "chance": 0.2,
-     "effects": [
-      {
-       "param": "money",
-       "delta": 120
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "tag": "opium",
-   "cost": 60,
-   "mortality": 1.22,
-   "effects": [
-    {
-     "param": "health",
-     "delta": -2.5
-    },
-    {
-     "param": "happiness",
-     "delta": 2
-    },
-    {
-     "param": "diligence",
-     "delta": -2
-    },
-    {
-     "param": "intellect",
-     "delta": -1
-    }
-   ]
-  }
- ],
- "exclude_events": [
-  "j_pri_omen",
-  "j_own_workers",
-  "t_slave_born_free"
- ]
+  ],
+  "exclude_events": [
+    "j_pri_omen",
+    "j_own_workers",
+    "t_slave_born_free"
+  ]
 }

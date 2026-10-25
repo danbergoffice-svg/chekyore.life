@@ -111,8 +111,6 @@
   "prof.qazi": "Кази, судья",
   "prof.qazi.as": "кази, судьёй",
   "prof.qazi.desc": "Судишь по шариату, заверяешь браки и купчие, толкуешь закон. Уважение велико, но угодить всем невозможно.",
-  "cause.smallpox": "оспа",
-  "cause.snakebite": "укус змеи",
   "cause.famine": "голод после неурожая",
   "lifestyle.food.plain.desc.IND": "Рис или лепёшки-роти, дал, овощи, простокваша",
   "lifestyle.food.varied.desc.IND": "Гхи, фрукты, рыба, сладости, пряности. Здоровью на пользу",
@@ -134,5 +132,7 @@
   "focus.religion.IND": "Вера",
   "focus.religion.desc.IND": "Храм или мечеть, посты, обеты, паломничества",
   "focus.rest.desc.IND": "Праздники, музыка, базар, разговоры",
-  "focus.service.desc.IND": "Лук, конь, сабля и походы"
+  "focus.service.desc.IND": "Лук, конь, сабля и походы",
+  "cause.smallpox.IND": "оспа",
+  "cause.snakebite.IND": "укус змеи"
 }

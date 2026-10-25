@@ -4316,6 +4316,9 @@
       },
       {
         "tag_absent": "married"
+      },
+      {
+        "tag_absent": "vowed"
       }
     ],
     "base_weight": 1,
