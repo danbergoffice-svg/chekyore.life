@@ -1,0 +1,245 @@
+[
+  {
+    "id": "byz_p_world",
+    "topic": "world"
+  },
+  {
+    "id": "byz_p_world_amorian",
+    "topic": "world",
+    "years": [
+      850,
+      866
+    ]
+  },
+  {
+    "id": "byz_p_world_macedon",
+    "topic": "world",
+    "years": [
+      867,
+      1056
+    ]
+  },
+  {
+    "id": "byz_p_world_crisis",
+    "topic": "world",
+    "years": [
+      1057,
+      1080
+    ]
+  },
+  {
+    "id": "byz_p_world_komnenoi",
+    "topic": "world",
+    "years": [
+      1081,
+      1203
+    ]
+  },
+  {
+    "id": "byz_p_world_latin",
+    "topic": "world",
+    "years": [
+      1204,
+      1260
+    ]
+  },
+  {
+    "id": "byz_p_world_nicaea_exile",
+    "topic": "world",
+    "regions": [
+      "nicaea"
+    ],
+    "years": [
+      1204,
+      1260
+    ]
+  },
+  {
+    "id": "byz_p_world_trebizond",
+    "topic": "world",
+    "regions": [
+      "trebizond"
+    ],
+    "years": [
+      1204,
+      1461
+    ]
+  },
+  {
+    "id": "byz_p_world_palaiologoi",
+    "topic": "world",
+    "years": [
+      1261,
+      1340
+    ]
+  },
+  {
+    "id": "byz_p_world_decline",
+    "topic": "world",
+    "years": [
+      1341,
+      1390
+    ]
+  },
+  {
+    "id": "byz_p_world_last",
+    "topic": "world",
+    "years": [
+      1391,
+      1452
+    ]
+  },
+  {
+    "id": "byz_p_world_fall",
+    "topic": "world",
+    "years": [
+      1453,
+      1461
+    ]
+  },
+  {
+    "id": "byz_p_society",
+    "topic": "society"
+  },
+  {
+    "id": "byz_p_society_slave",
+    "topic": "society",
+    "classes": [
+      "slave"
+    ]
+  },
+  {
+    "id": "byz_p_society_peasant",
+    "topic": "society",
+    "classes": [
+      "peasant"
+    ]
+  },
+  {
+    "id": "byz_p_society_noble",
+    "topic": "society",
+    "classes": [
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "byz_p_birth",
+    "topic": "birth"
+  },
+  {
+    "id": "byz_p_childhood",
+    "topic": "childhood"
+  },
+  {
+    "id": "byz_p_home",
+    "topic": "home"
+  },
+  {
+    "id": "byz_p_food",
+    "topic": "food"
+  },
+  {
+    "id": "byz_p_clothes",
+    "topic": "clothes"
+  },
+  {
+    "id": "byz_p_faith",
+    "topic": "faith"
+  },
+  {
+    "id": "byz_p_faith_jewish",
+    "topic": "faith",
+    "religions": [
+      "judaism"
+    ]
+  },
+  {
+    "id": "byz_p_faith_catholic",
+    "topic": "faith",
+    "religions": [
+      "catholic"
+    ]
+  },
+  {
+    "id": "byz_p_faith_muslim",
+    "topic": "faith",
+    "religions": [
+      "islam"
+    ]
+  },
+  {
+    "id": "byz_p_work",
+    "topic": "work"
+  },
+  {
+    "id": "byz_p_place",
+    "topic": "place"
+  },
+  {
+    "id": "byz_p_place_constantinople",
+    "topic": "place",
+    "regions": [
+      "constantinople"
+    ]
+  },
+  {
+    "id": "byz_p_place_thessalonica",
+    "topic": "place",
+    "regions": [
+      "thessalonica"
+    ]
+  },
+  {
+    "id": "byz_p_place_nicaea",
+    "topic": "place",
+    "regions": [
+      "nicaea"
+    ]
+  },
+  {
+    "id": "byz_p_place_trebizond",
+    "topic": "place",
+    "regions": [
+      "trebizond"
+    ]
+  },
+  {
+    "id": "byz_p_law",
+    "topic": "law"
+  },
+  {
+    "id": "byz_p_health",
+    "topic": "health"
+  },
+  {
+    "id": "byz_p_women",
+    "topic": "women"
+  },
+  {
+    "id": "byz_p_women_noble",
+    "topic": "women",
+    "classes": [
+      "noble"
+    ]
+  },
+  {
+    "id": "byz_p_leisure",
+    "topic": "leisure"
+  },
+  {
+    "id": "byz_p_leisure_constantinople",
+    "topic": "leisure",
+    "regions": [
+      "constantinople"
+    ]
+  },
+  {
+    "id": "byz_p_knowledge",
+    "topic": "knowledge"
+  },
+  {
+    "id": "byz_p_war",
+    "topic": "war"
+  }
+]
