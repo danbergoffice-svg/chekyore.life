@@ -7721,6 +7721,11 @@
   "choices": [
    {
     "id": "join",
+    "requirements": [
+     {
+      "no_npc": "spouse"
+     }
+    ],
     "effects": [
      {
       "set_profession": "monk"

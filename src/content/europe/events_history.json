@@ -2769,14 +2769,14 @@
   ],
   "years": [
    1367,
-   1368
+   1370
   ],
   "age_range": [
    6,
    120
   ],
   "base_weight": 1,
-  "global_chance": 0.5,
+  "global_chance": 0.35,
   "topic": "history",
   "scene": {
    "place": "palace",

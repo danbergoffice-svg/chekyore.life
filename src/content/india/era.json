@@ -2093,7 +2093,7 @@
     {
       "id": "qazi",
       "sex": "m",
-      "minAge": 20,
+      "minAge": 18,
       "classes": [
         "craftsman",
         "trader",
@@ -2109,7 +2109,7 @@
         {
           "skill": "literacy",
           "op": ">=",
-          "value": 30
+          "value": 20
         }
       ],
       "income": [

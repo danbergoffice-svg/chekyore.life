@@ -5319,7 +5319,7 @@
  {
   "id": "ind_j_devadasi_patron",
   "type": "personal",
-  "base_weight": 3,
+  "base_weight": 7,
   "once": true,
   "topic": "work",
   "age_range": [
@@ -6026,7 +6026,7 @@
   ],
   "years": [
    1540,
-   1600
+   1650
   ],
   "conditions": [
    {
