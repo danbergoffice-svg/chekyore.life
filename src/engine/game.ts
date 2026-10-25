@@ -18,6 +18,7 @@ import {
   resolveFaith,
   statusOf,
 } from './rules'
+import { householdYear } from './household'
 import { summarize } from './life'
 import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, TextParam, Topic } from './types'
 
@@ -61,6 +62,7 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   if (hero.profession && hero.age >= era.stages.youth) addPattern(hero, era.patternWeights.profession[hero.profession])
   applyLifestyle(state, era)
   const births = background(state, era, focus)
+  householdYear(state, era)
   if (!hero.alive) return die(state, era)
   rollEvents(state, era, births)
   if (!hero.alive) return die(state, era)

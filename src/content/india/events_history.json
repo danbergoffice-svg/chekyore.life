@@ -1,2527 +1,2528 @@
 [
- {
-  "id": "ind_g_bakhtiyar",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "bengal"
-  ],
-  "years": [
-   1204,
-   1206
-  ],
-  "global_chance": 0.5,
-  "icon": "war",
-  "scene": {
-   "place": "palace",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "horse",
-    "smoke"
-   ]
-  },
-  "choices": [
-   {
-    "id": "stay",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 6
-     },
-     {
-      "money_pct": -10
-     }
-    ]
-   },
-   {
-    "id": "east",
-    "effects": [
-     {
-      "money_pct": -30
-     },
-     {
-      "param": "stress",
-      "delta": 8
-     },
-     {
-      "param": "loneliness",
-      "delta": 4
-     }
+  {
+    "id": "ind_g_bakhtiyar",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
     ],
-    "pattern": {
-     "home_road": 4,
-     "memory_future": -3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_sultanate",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1206,
-   1210
-  ],
-  "global_chance": 0.5,
-  "icon": "war",
-  "scene": {
-   "place": "palace",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "banner"
-   ]
-  },
-  "effects": [
-   {
-    "param": "stress",
-    "delta": 2
-   }
-  ]
- },
- {
-  "id": "ind_g_qutb",
-  "type": "global_historical",
-  "age_range": [
-   14,
-   60
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1200,
-   1230
-  ],
-  "global_chance": 0.15,
-  "classes": [
-   "peasant",
-   "craftsman",
-   "slave"
-  ],
-  "scene": {
-   "place": "landmark",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "sun",
-    "cart"
-   ]
-  },
-  "choices": [
-   {
-    "id": "work",
-    "effects": [
-     {
-      "param": "money",
-      "delta": 60
-     },
-     {
-      "param": "health",
-      "delta": -4
-     },
-     {
-      "skill": "craft",
-      "delta": 4
-     }
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "bengal"
     ],
-    "pattern": {
-     "craft_power": -3
-    }
-   },
-   {
-    "id": "no",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": -1
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "ind_g_genghis",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1221,
-   1222
-  ],
-  "global_chance": 0.5,
-  "icon": "war",
-  "scene": {
-   "place": "street",
-   "time": "overcast",
-   "people": 4,
-   "props": [
-    "horse"
-   ]
-  },
-  "effects": [
-   {
-    "param": "stress",
-    "delta": 5
-   }
-  ]
- },
- {
-  "id": "ind_g_razia",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1236,
-   1240
-  ],
-  "global_chance": 0.4,
-  "others": [
-   "child"
-  ],
-  "scene": {
-   "place": "palace",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "horse",
-    "banner"
-   ]
-  },
-  "choices": [
-   {
-    "id": "admire",
-    "effects": [
-     {
-      "param": "happiness",
-      "delta": 2
-     },
-     {
-      "param": "self_esteem",
-      "delta": 1
-     }
+    "years": [
+      1204,
+      1206
     ],
-    "pattern": {
-     "memory_future": 3
-    }
-   },
-   {
-    "id": "disapprove",
-    "effects": [
-     {
-      "param": "faith",
-      "delta": 1
-     }
-    ],
-    "pattern": {
-     "memory_future": -3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_jagadu",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "reconstructed",
-  "regions": [
-   "gujarat"
-  ],
-  "years": [
-   1256,
-   1258
-  ],
-  "global_chance": 0.4,
-  "icon": "disaster",
-  "scene": {
-   "place": "market",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "grain",
-    "coins"
-   ]
-  },
-  "choices": [
-   {
-    "id": "queue",
-    "effects": [
-     {
-      "param": "health",
-      "delta": -3
-     },
-     {
-      "param": "faith",
-      "delta": 2
-     }
-    ]
-   },
-   {
-    "id": "help",
-    "effects": [
-     {
-      "param": "money",
-      "delta": -30
-     },
-     {
-      "param": "reputation",
-      "delta": 4
-     },
-     {
-      "param": "happiness",
-      "delta": 3
-     }
-    ],
-    "pattern": {
-     "craft_power": -2
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_mongol_siege",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1299,
-   1303
-  ],
-  "global_chance": 0.35,
-  "icon": "war",
-  "scene": {
-   "place": "battle",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "horse",
-    "smoke"
-   ]
-  },
-  "choices": [
-   {
-    "id": "city",
-    "effects": [
-     {
-      "param": "money",
-      "delta": -40
-     },
-     {
-      "param": "stress",
-      "delta": 8
-     },
-     {
-      "param": "health",
-      "delta": -3
-     }
-    ]
-   },
-   {
-    "id": "fields",
-    "risk_roll": {
-     "success_chance_base": 0.6,
-     "on_success": [
+    "global_chance": 0.5,
+    "icon": "war",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "horse",
+        "smoke"
+      ]
+    },
+    "choices": [
       {
-       "param": "stress",
-       "delta": 4
-      }
-     ],
-     "on_failure": [
-      {
-       "money_pct": -40
+        "id": "stay",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 6
+          },
+          {
+            "money_pct": -10
+          }
+        ]
       },
       {
-       "param": "health",
-       "delta": -10
+        "id": "east",
+        "effects": [
+          {
+            "money_pct": -30
+          },
+          {
+            "param": "stress",
+            "delta": 8
+          },
+          {
+            "param": "loneliness",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "home_road": 4,
+          "memory_future": -3
+        }
       }
-     ]
-    },
-    "pattern": {
-     "home_road": 3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_khalji_gujarat",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "gujarat"
-  ],
-  "years": [
-   1299,
-   1300
-  ],
-  "global_chance": 0.55,
-  "icon": "war",
-  "sensitive": true,
-  "scene": {
-   "place": "harbor",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "smoke",
-    "boat"
-   ]
-  },
-  "choices": [
-   {
-    "id": "hide",
-    "effects": [
-     {
-      "money_pct": -25
-     },
-     {
-      "param": "stress",
-      "delta": 8
-     }
     ]
-   },
-   {
-    "id": "flee",
-    "effects": [
-     {
-      "money_pct": -40
-     },
-     {
-      "param": "stress",
-      "delta": 6
-     }
-    ],
-    "pattern": {
-     "home_road": 4
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_markets",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1303,
-   1315
-  ],
-  "global_chance": 0.35,
-  "scene": {
-   "place": "market",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "coins",
-    "grain"
-   ]
   },
-  "choices": [
-   {
-    "id": "obey",
+  {
+    "id": "ind_g_sultanate",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1206,
+      1210
+    ],
+    "global_chance": 0.5,
+    "icon": "war",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "banner"
+      ]
+    },
     "effects": [
-     {
-      "param": "stress",
-      "delta": 2
-     },
-     {
-      "chance": 0.5,
-      "effects": [
-       {
+      {
+        "param": "stress",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "ind_g_qutb",
+    "type": "global_historical",
+    "age_range": [
+      14,
+      60
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1200,
+      1230
+    ],
+    "global_chance": 0.15,
+    "classes": [
+      "peasant",
+      "craftsman",
+      "slave"
+    ],
+    "scene": {
+      "place": "landmark",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "sun",
+        "cart"
+      ]
+    },
+    "choices": [
+      {
+        "id": "work",
+        "effects": [
+          {
+            "param": "money",
+            "delta": 60
+          },
+          {
+            "param": "health",
+            "delta": -4
+          },
+          {
+            "skill": "craft",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      },
+      {
+        "id": "no",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ind_g_genghis",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1221,
+      1222
+    ],
+    "global_chance": 0.5,
+    "icon": "war",
+    "scene": {
+      "place": "street",
+      "time": "overcast",
+      "people": 4,
+      "props": [
+        "horse"
+      ]
+    },
+    "effects": [
+      {
+        "param": "stress",
+        "delta": 5
+      }
+    ]
+  },
+  {
+    "id": "ind_g_razia",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1236,
+      1240
+    ],
+    "global_chance": 0.4,
+    "others": [
+      "child"
+    ],
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "horse",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "admire",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": 2
+          },
+          {
+            "param": "self_esteem",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": 3
+        }
+      },
+      {
+        "id": "disapprove",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_jagadu",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "reconstructed",
+    "regions": [
+      "gujarat"
+    ],
+    "years": [
+      1256,
+      1258
+    ],
+    "global_chance": 0.4,
+    "icon": "disaster",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "grain",
+        "coins"
+      ]
+    },
+    "choices": [
+      {
+        "id": "queue",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -3
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "help",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -30
+          },
+          {
+            "param": "reputation",
+            "delta": 4
+          },
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "craft_power": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_mongol_siege",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1299,
+      1303
+    ],
+    "global_chance": 0.35,
+    "icon": "war",
+    "scene": {
+      "place": "battle",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "horse",
+        "smoke"
+      ]
+    },
+    "choices": [
+      {
+        "id": "city",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -40
+          },
+          {
+            "param": "stress",
+            "delta": 8
+          },
+          {
+            "param": "health",
+            "delta": -3
+          }
+        ]
+      },
+      {
+        "id": "fields",
+        "risk_roll": {
+          "success_chance_base": 0.6,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": 4
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -40
+            },
+            {
+              "param": "health",
+              "delta": -10
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_khalji_gujarat",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "gujarat"
+    ],
+    "years": [
+      1299,
+      1300
+    ],
+    "global_chance": 0.55,
+    "icon": "war",
+    "sensitive": true,
+    "scene": {
+      "place": "harbor",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "smoke",
+        "boat"
+      ]
+    },
+    "choices": [
+      {
+        "id": "hide",
+        "effects": [
+          {
+            "money_pct": -25
+          },
+          {
+            "param": "stress",
+            "delta": 8
+          }
+        ]
+      },
+      {
+        "id": "flee",
+        "effects": [
+          {
+            "money_pct": -40
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ],
+        "pattern": {
+          "home_road": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_markets",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1303,
+      1315
+    ],
+    "global_chance": 0.35,
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "coins",
+        "grain"
+      ]
+    },
+    "choices": [
+      {
+        "id": "obey",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 2
+          },
+          {
+            "chance": 0.5,
+            "effects": [
+              {
+                "param": "money",
+                "delta": 20
+              }
+            ]
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "cheat",
+        "risk_roll": {
+          "success_chance_base": 0.55,
+          "on_success": [
+            {
+              "param": "money",
+              "delta": 80
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "money",
+              "delta": -80
+            },
+            {
+              "param": "health",
+              "delta": -10
+            },
+            {
+              "param": "reputation",
+              "delta": -6
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_daulatabad",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1327,
+      1328
+    ],
+    "global_chance": 0.6,
+    "icon": "move",
+    "classes": [
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "scene": {
+      "place": "road",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "cart",
+        "sun"
+      ]
+    },
+    "choices": [
+      {
+        "id": "go",
+        "effects": [
+          {
+            "money_pct": -30
+          },
+          {
+            "param": "health",
+            "delta": -8
+          },
+          {
+            "param": "stress",
+            "delta": 10
+          },
+          {
+            "param": "loneliness",
+            "delta": 6
+          }
+        ],
+        "pattern": {
+          "home_road": 6
+        }
+      },
+      {
+        "id": "hide",
+        "risk_roll": {
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": 6
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -50
+            },
+            {
+              "param": "health",
+              "delta": -6
+            },
+            {
+              "param": "reputation",
+              "delta": -5
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_token",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi",
+      "bengal",
+      "gujarat"
+    ],
+    "years": [
+      1330,
+      1333
+    ],
+    "global_chance": 0.45,
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "coins",
+        "anvil"
+      ]
+    },
+    "choices": [
+      {
+        "id": "tokens",
+        "effects": [
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "id": "silver",
+        "effects": [
+          {
+            "money_pct": -5
+          },
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "forge",
+        "risk_roll": {
+          "success_chance_base": 0.6,
+          "on_success": [
+            {
+              "param": "money",
+              "delta": 120
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -40
+            },
+            {
+              "param": "reputation",
+              "delta": -8
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": 5
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_famine_1335",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1335,
+      1341
+    ],
+    "global_chance": 0.3,
+    "icon": "disaster",
+    "classes": [
+      "peasant",
+      "craftsman",
+      "slave",
+      "trader"
+    ],
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "sun",
+        "grain"
+      ]
+    },
+    "choices": [
+      {
+        "id": "loan",
+        "effects": [
+          {
+            "param": "money",
+            "delta": 60
+          },
+          {
+            "add_tag": "in_debt"
+          },
+          {
+            "param": "health",
+            "delta": -4
+          }
+        ]
+      },
+      {
+        "id": "east",
+        "effects": [
+          {
+            "money_pct": -30
+          },
+          {
+            "param": "health",
+            "delta": -3
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ],
+        "pattern": {
+          "home_road": 5
+        }
+      },
+      {
+        "id": "endure",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -12
+          },
+          {
+            "param": "happiness",
+            "delta": -6
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_vijaya_found",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "vijayanagara"
+    ],
+    "years": [
+      1336,
+      1346
+    ],
+    "global_chance": 0.45,
+    "scene": {
+      "place": "landmark",
+      "time": "dawn",
+      "people": 5,
+      "props": [
+        "banner",
+        "statue"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "ind_g_ilyas",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "bengal"
+    ],
+    "years": [
+      1352,
+      1355
+    ],
+    "global_chance": 0.4,
+    "icon": "war",
+    "scene": {
+      "place": "river",
+      "time": "overcast",
+      "people": 5,
+      "props": [
+        "boat",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "ekdala",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 6
+          },
+          {
+            "param": "money",
+            "delta": -20
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "away",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ind_g_bahmani_war",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "vijayanagara"
+    ],
+    "years": [
+      1350,
+      1520
+    ],
+    "global_chance": 0.15,
+    "icon": "war",
+    "scene": {
+      "place": "battle",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "horse",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "serve",
+        "requirements": [
+          {
+            "sex": "m"
+          },
+          {
+            "age": [
+              16,
+              50
+            ]
+          }
+        ],
+        "risk_roll": {
+          "param": "strength",
+          "success_chance_base": 0.6,
+          "on_success": [
+            {
+              "param": "money",
+              "delta": 100
+            },
+            {
+              "skill": "military",
+              "delta": 6
+            },
+            {
+              "param": "reputation",
+              "delta": 5
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "health",
+              "delta": -18
+            },
+            {
+              "chance": 0.15,
+              "effects": [
+                {
+                  "kill": "war"
+                }
+              ]
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": 4,
+          "craft_power": 3
+        }
+      },
+      {
+        "id": "shelter",
+        "effects": [
+          {
+            "money_pct": -15
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ind_g_firuz",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1355,
+      1388
+    ],
+    "global_chance": 0.15,
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "tree",
+        "grain"
+      ]
+    },
+    "choices": [
+      {
+        "id": "canal",
+        "effects": [
+          {
+            "param": "money",
+            "delta": 40
+          },
+          {
+            "skill": "farming",
+            "delta": 4
+          },
+          {
+            "param": "health",
+            "delta": -2
+          }
+        ]
+      },
+      {
+        "id": "city",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -30
+          },
+          {
+            "add_tag": "lives_in_city"
+          },
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "home_road": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_durga_devi",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "disputed",
+    "regions": [
+      "vijayanagara"
+    ],
+    "years": [
+      1396,
+      1407
+    ],
+    "global_chance": 0.2,
+    "icon": "disaster",
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "sun",
+        "grain"
+      ]
+    },
+    "choices": [
+      {
+        "id": "temple",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -4
+          },
+          {
+            "param": "faith",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "id": "roots",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -8
+          },
+          {
+            "skill": "farming",
+            "delta": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ind_g_timur",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1398,
+      1399
+    ],
+    "global_chance": 0.7,
+    "icon": "war",
+    "sensitive": true,
+    "scene": {
+      "place": "street",
+      "time": "night",
+      "people": 6,
+      "props": [
+        "fire",
+        "smoke"
+      ],
+      "disaster": "fire"
+    },
+    "choices": [
+      {
+        "id": "flee",
+        "effects": [
+          {
+            "money_pct": -50
+          },
+          {
+            "param": "stress",
+            "delta": 10
+          }
+        ],
+        "pattern": {
+          "home_road": 4
+        }
+      },
+      {
+        "id": "hide",
+        "risk_roll": {
+          "success_chance_base": 0.45,
+          "on_success": [
+            {
+              "money_pct": -30
+            },
+            {
+              "param": "stress",
+              "delta": 12
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -80
+            },
+            {
+              "param": "health",
+              "delta": -20
+            },
+            {
+              "chance": 0.2,
+              "effects": [
+                {
+                  "kill": "war"
+                }
+              ]
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_china_fleet",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "bengal"
+    ],
+    "years": [
+      1405,
+      1433
+    ],
+    "global_chance": 0.15,
+    "scene": {
+      "place": "harbor",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "boat",
+        "banner"
+      ]
+    },
+    "effects": [
+      {
+        "param": "intellect",
+        "delta": 2
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "ind_g_ahmedabad",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "gujarat"
+    ],
+    "years": [
+      1411,
+      1420
+    ],
+    "global_chance": 0.3,
+    "scene": {
+      "place": "landmark",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "banner",
+        "cart"
+      ]
+    },
+    "choices": [
+      {
+        "id": "move",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -40
+          },
+          {
+            "add_tag": "lives_in_city"
+          },
+          {
+            "skill": "trade",
+            "delta": 4
+          },
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "home_road": 4,
+          "memory_future": 4
+        }
+      },
+      {
+        "id": "stay",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_bengali_epic",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "bengal"
+    ],
+    "years": [
+      1494,
+      1530
+    ],
+    "global_chance": 0.2,
+    "scene": {
+      "place": "palace",
+      "time": "night",
+      "people": 6,
+      "props": [
+        "lamp",
+        "scroll"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "intellect",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "ind_g_diu",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "gujarat"
+    ],
+    "years": [
+      1508,
+      1509
+    ],
+    "global_chance": 0.5,
+    "icon": "war",
+    "scene": {
+      "place": "sea",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "boat",
+        "smoke"
+      ]
+    },
+    "choices": [
+      {
+        "id": "row",
+        "requirements": [
+          {
+            "sex": "m"
+          },
+          {
+            "age": [
+              16,
+              50
+            ]
+          }
+        ],
+        "risk_roll": {
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "money",
+              "delta": 80
+            },
+            {
+              "skill": "seafaring",
+              "delta": 5
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "health",
+              "delta": -20
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": 4
+        }
+      },
+      {
+        "id": "watch",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ind_g_goa",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "vijayanagara"
+    ],
+    "years": [
+      1510,
+      1516
+    ],
+    "global_chance": 0.25,
+    "classes": [
+      "trader",
+      "landowner",
+      "noble",
+      "craftsman"
+    ],
+    "scene": {
+      "place": "harbor",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "horse",
+        "boat"
+      ]
+    },
+    "choices": [
+      {
+        "id": "trade",
+        "risk_roll": {
+          "param": "trade",
+          "success_chance_base": 0.55,
+          "on_success": [
+            {
+              "param": "money",
+              "delta": 200
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "money",
+              "delta": -100
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": 4
+        }
+      },
+      {
+        "id": "wary",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_raichur",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "vijayanagara"
+    ],
+    "years": [
+      1520,
+      1520
+    ],
+    "global_chance": 0.6,
+    "icon": "war",
+    "scene": {
+      "place": "battle",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "banner",
+        "horse"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 4
+      },
+      {
+        "param": "reputation",
+        "delta": 1
+      }
+    ]
+  },
+  {
+    "id": "ind_g_panipat",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1526,
+      1526
+    ],
+    "global_chance": 0.6,
+    "icon": "war",
+    "scene": {
+      "place": "battle",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "smoke",
+        "horse"
+      ]
+    },
+    "choices": [
+      {
+        "id": "welcome",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "memory_future": 4
+        }
+      },
+      {
+        "id": "grieve",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 4
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_humayun_gujarat",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "gujarat"
+    ],
+    "years": [
+      1535,
+      1537
+    ],
+    "global_chance": 0.4,
+    "icon": "war",
+    "scene": {
+      "place": "harbor",
+      "time": "overcast",
+      "people": 5,
+      "props": [
+        "boat",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "hide",
+        "effects": [
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ]
+      },
+      {
+        "id": "trade",
+        "effects": [
+          {
+            "param": "money",
+            "delta": 40
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "memory_future": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_sher_shah_bengal",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "bengal"
+    ],
+    "years": [
+      1537,
+      1539
+    ],
+    "global_chance": 0.4,
+    "icon": "war",
+    "scene": {
+      "place": "river",
+      "time": "overcast",
+      "people": 6,
+      "props": [
+        "boat",
+        "smoke"
+      ]
+    },
+    "choices": [
+      {
+        "id": "hide",
+        "effects": [
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ]
+      },
+      {
+        "id": "flee",
+        "effects": [
+          {
+            "money_pct": -30
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "home_road": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_sher_shah_road",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi",
+      "bengal"
+    ],
+    "years": [
+      1540,
+      1545
+    ],
+    "global_chance": 0.35,
+    "scene": {
+      "place": "road",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "cart",
+        "coins"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 30
+      },
+      {
+        "param": "stress",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "ind_g_panipat2",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1555,
+      1556
+    ],
+    "global_chance": 0.6,
+    "icon": "disaster",
+    "scene": {
+      "place": "field",
+      "time": "overcast",
+      "people": 4,
+      "props": [
+        "smoke",
+        "grain"
+      ]
+    },
+    "choices": [
+      {
+        "id": "endure",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -10
+          },
+          {
+            "param": "happiness",
+            "delta": -5
+          }
+        ]
+      },
+      {
+        "id": "sell",
+        "effects": [
+          {
+            "money_pct": -40
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ind_g_jizya_end",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1564,
+      1566
+    ],
+    "global_chance": 0.45,
+    "religions": [
+      "hindu",
+      "jain"
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "effects": [
+      {
         "param": "money",
         "delta": 20
-       }
+      },
+      {
+        "param": "happiness",
+        "delta": 4
+      },
+      {
+        "param": "self_esteem",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "ind_g_talikota",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "vijayanagara"
+    ],
+    "years": [
+      1565,
+      1565
+    ],
+    "global_chance": 0.9,
+    "icon": "disaster",
+    "sensitive": true,
+    "scene": {
+      "place": "landmark",
+      "time": "night",
+      "people": 6,
+      "props": [
+        "fire",
+        "smoke"
       ]
-     }
-    ],
-    "pattern": {
-     "memory_future": -2
-    }
-   },
-   {
-    "id": "cheat",
-    "risk_roll": {
-     "success_chance_base": 0.55,
-     "on_success": [
-      {
-       "param": "money",
-       "delta": 80
-      }
-     ],
-     "on_failure": [
-      {
-       "param": "money",
-       "delta": -80
-      },
-      {
-       "param": "health",
-       "delta": -10
-      },
-      {
-       "param": "reputation",
-       "delta": -6
-      }
-     ]
     },
-    "pattern": {
-     "memory_future": 4
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_daulatabad",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1327,
-   1328
-  ],
-  "global_chance": 0.6,
-  "icon": "move",
-  "classes": [
-   "craftsman",
-   "trader",
-   "landowner",
-   "noble"
-  ],
-  "scene": {
-   "place": "road",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "cart",
-    "sun"
-   ]
-  },
-  "choices": [
-   {
-    "id": "go",
-    "effects": [
-     {
-      "money_pct": -30
-     },
-     {
-      "param": "health",
-      "delta": -8
-     },
-     {
-      "param": "stress",
-      "delta": 10
-     },
-     {
-      "param": "loneliness",
-      "delta": 6
-     }
-    ],
-    "pattern": {
-     "home_road": 6
-    }
-   },
-   {
-    "id": "hide",
-    "risk_roll": {
-     "success_chance_base": 0.5,
-     "on_success": [
+    "choices": [
       {
-       "param": "stress",
-       "delta": 6
-      }
-     ],
-     "on_failure": [
-      {
-       "money_pct": -50
-      },
-      {
-       "param": "health",
-       "delta": -6
-      },
-      {
-       "param": "reputation",
-       "delta": -5
-      }
-     ]
-    },
-    "pattern": {
-     "home_road": -5
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_token",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi",
-   "bengal",
-   "gujarat"
-  ],
-  "years": [
-   1330,
-   1333
-  ],
-  "global_chance": 0.45,
-  "classes": [
-   "peasant",
-   "craftsman",
-   "trader",
-   "landowner",
-   "noble"
-  ],
-  "scene": {
-   "place": "market",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "coins",
-    "anvil"
-   ]
-  },
-  "choices": [
-   {
-    "id": "tokens",
-    "effects": [
-     {
-      "money_pct": -20
-     },
-     {
-      "param": "stress",
-      "delta": 3
-     }
-    ]
-   },
-   {
-    "id": "silver",
-    "effects": [
-     {
-      "money_pct": -5
-     },
-     {
-      "param": "stress",
-      "delta": 2
-     }
-    ],
-    "pattern": {
-     "memory_future": -3
-    }
-   },
-   {
-    "id": "forge",
-    "risk_roll": {
-     "success_chance_base": 0.6,
-     "on_success": [
-      {
-       "param": "money",
-       "delta": 120
-      }
-     ],
-     "on_failure": [
-      {
-       "money_pct": -40
-      },
-      {
-       "param": "reputation",
-       "delta": -8
-      }
-     ]
-    },
-    "pattern": {
-     "memory_future": 5
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_famine_1335",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1335,
-   1341
-  ],
-  "global_chance": 0.3,
-  "icon": "disaster",
-  "classes": [
-   "peasant",
-   "craftsman",
-   "slave",
-   "trader"
-  ],
-  "scene": {
-   "place": "field",
-   "time": "day",
-   "people": 4,
-   "props": [
-    "sun",
-    "grain"
-   ]
-  },
-  "choices": [
-   {
-    "id": "loan",
-    "effects": [
-     {
-      "param": "money",
-      "delta": 60
-     },
-     {
-      "add_tag": "in_debt"
-     },
-     {
-      "param": "health",
-      "delta": -4
-     }
-    ]
-   },
-   {
-    "id": "east",
-    "effects": [
-     {
-      "money_pct": -30
-     },
-     {
-      "param": "health",
-      "delta": -3
-     },
-     {
-      "param": "stress",
-      "delta": 6
-     }
-    ],
-    "pattern": {
-     "home_road": 5
-    }
-   },
-   {
-    "id": "endure",
-    "effects": [
-     {
-      "param": "health",
-      "delta": -12
-     },
-     {
-      "param": "happiness",
-      "delta": -6
-     }
-    ],
-    "pattern": {
-     "home_road": -3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_vijaya_found",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "vijayanagara"
-  ],
-  "years": [
-   1336,
-   1346
-  ],
-  "global_chance": 0.45,
-  "scene": {
-   "place": "landmark",
-   "time": "dawn",
-   "people": 5,
-   "props": [
-    "banner",
-    "statue"
-   ]
-  },
-  "effects": [
-   {
-    "param": "happiness",
-    "delta": 3
-   },
-   {
-    "param": "faith",
-    "delta": 2
-   }
-  ]
- },
- {
-  "id": "ind_g_ilyas",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "bengal"
-  ],
-  "years": [
-   1352,
-   1355
-  ],
-  "global_chance": 0.4,
-  "icon": "war",
-  "scene": {
-   "place": "river",
-   "time": "overcast",
-   "people": 5,
-   "props": [
-    "boat",
-    "banner"
-   ]
-  },
-  "choices": [
-   {
-    "id": "ekdala",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 6
-     },
-     {
-      "param": "money",
-      "delta": -20
-     },
-     {
-      "param": "reputation",
-      "delta": 2
-     }
-    ]
-   },
-   {
-    "id": "away",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 2
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "ind_g_bahmani_war",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "vijayanagara"
-  ],
-  "years": [
-   1350,
-   1520
-  ],
-  "global_chance": 0.15,
-  "icon": "war",
-  "scene": {
-   "place": "battle",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "horse",
-    "banner"
-   ]
-  },
-  "choices": [
-   {
-    "id": "serve",
-    "requirements": [
-     {
-      "sex": "m"
-     },
-     {
-      "age": [
-       16,
-       50
-      ]
-     }
-    ],
-    "risk_roll": {
-     "param": "strength",
-     "success_chance_base": 0.6,
-     "on_success": [
-      {
-       "param": "money",
-       "delta": 100
-      },
-      {
-       "skill": "military",
-       "delta": 6
-      },
-      {
-       "param": "reputation",
-       "delta": 5
-      }
-     ],
-     "on_failure": [
-      {
-       "param": "health",
-       "delta": -18
-      },
-      {
-       "chance": 0.15,
-       "effects": [
-        {
-         "kill": "war"
+        "id": "village",
+        "effects": [
+          {
+            "money_pct": -50
+          },
+          {
+            "remove_tag": "lives_in_city"
+          },
+          {
+            "add_tag": "rural"
+          },
+          {
+            "param": "stress",
+            "delta": 10
+          }
+        ],
+        "pattern": {
+          "home_road": 4
         }
-       ]
-      }
-     ]
-    },
-    "pattern": {
-     "home_road": 4,
-     "craft_power": 3
-    }
-   },
-   {
-    "id": "shelter",
-    "effects": [
-     {
-      "money_pct": -15
-     },
-     {
-      "param": "stress",
-      "delta": 6
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "ind_g_firuz",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1355,
-   1388
-  ],
-  "global_chance": 0.15,
-  "scene": {
-   "place": "field",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "tree",
-    "grain"
-   ]
-  },
-  "choices": [
-   {
-    "id": "canal",
-    "effects": [
-     {
-      "param": "money",
-      "delta": 40
-     },
-     {
-      "skill": "farming",
-      "delta": 4
-     },
-     {
-      "param": "health",
-      "delta": -2
-     }
-    ]
-   },
-   {
-    "id": "city",
-    "effects": [
-     {
-      "param": "money",
-      "delta": -30
-     },
-     {
-      "add_tag": "lives_in_city"
-     },
-     {
-      "param": "happiness",
-      "delta": 3
-     }
-    ],
-    "pattern": {
-     "home_road": 3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_durga_devi",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "disputed",
-  "regions": [
-   "vijayanagara"
-  ],
-  "years": [
-   1396,
-   1407
-  ],
-  "global_chance": 0.2,
-  "icon": "disaster",
-  "scene": {
-   "place": "field",
-   "time": "day",
-   "people": 3,
-   "props": [
-    "sun",
-    "grain"
-   ]
-  },
-  "choices": [
-   {
-    "id": "temple",
-    "effects": [
-     {
-      "param": "health",
-      "delta": -4
-     },
-     {
-      "param": "faith",
-      "delta": 3
-     }
-    ]
-   },
-   {
-    "id": "roots",
-    "effects": [
-     {
-      "param": "health",
-      "delta": -8
-     },
-     {
-      "skill": "farming",
-      "delta": 2
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "ind_g_timur",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1398,
-   1399
-  ],
-  "global_chance": 0.7,
-  "icon": "war",
-  "sensitive": true,
-  "scene": {
-   "place": "street",
-   "time": "night",
-   "people": 6,
-   "props": [
-    "fire",
-    "smoke"
-   ]
-  },
-  "choices": [
-   {
-    "id": "flee",
-    "effects": [
-     {
-      "money_pct": -50
-     },
-     {
-      "param": "stress",
-      "delta": 10
-     }
-    ],
-    "pattern": {
-     "home_road": 4
-    }
-   },
-   {
-    "id": "hide",
-    "risk_roll": {
-     "success_chance_base": 0.45,
-     "on_success": [
-      {
-       "money_pct": -30
       },
       {
-       "param": "stress",
-       "delta": 12
-      }
-     ],
-     "on_failure": [
-      {
-       "money_pct": -80
-      },
-      {
-       "param": "health",
-       "delta": -20
-      },
-      {
-       "chance": 0.2,
-       "effects": [
-        {
-         "kill": "war"
+        "id": "court",
+        "effects": [
+          {
+            "money_pct": -40
+          },
+          {
+            "param": "stress",
+            "delta": 8
+          },
+          {
+            "param": "loneliness",
+            "delta": 6
+          }
+        ],
+        "pattern": {
+          "home_road": 6,
+          "memory_future": -3
         }
-       ]
-      }
-     ]
-    },
-    "pattern": {
-     "home_road": -4
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_china_fleet",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "bengal"
-  ],
-  "years": [
-   1405,
-   1433
-  ],
-  "global_chance": 0.15,
-  "scene": {
-   "place": "harbor",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "boat",
-    "banner"
-   ]
-  },
-  "effects": [
-   {
-    "param": "intellect",
-    "delta": 2
-   },
-   {
-    "param": "happiness",
-    "delta": 2
-   }
-  ]
- },
- {
-  "id": "ind_g_ahmedabad",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "gujarat"
-  ],
-  "years": [
-   1411,
-   1420
-  ],
-  "global_chance": 0.3,
-  "scene": {
-   "place": "landmark",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "banner",
-    "cart"
-   ]
-  },
-  "choices": [
-   {
-    "id": "move",
-    "effects": [
-     {
-      "param": "money",
-      "delta": -40
-     },
-     {
-      "add_tag": "lives_in_city"
-     },
-     {
-      "skill": "trade",
-      "delta": 4
-     },
-     {
-      "param": "happiness",
-      "delta": 3
-     }
-    ],
-    "pattern": {
-     "home_road": 4,
-     "memory_future": 4
-    }
-   },
-   {
-    "id": "stay",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": -1
-     }
-    ],
-    "pattern": {
-     "home_road": -3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_bengali_epic",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "bengal"
-  ],
-  "years": [
-   1494,
-   1530
-  ],
-  "global_chance": 0.2,
-  "scene": {
-   "place": "palace",
-   "time": "night",
-   "people": 6,
-   "props": [
-    "lamp",
-    "scroll"
-   ]
-  },
-  "effects": [
-   {
-    "param": "happiness",
-    "delta": 3
-   },
-   {
-    "param": "intellect",
-    "delta": 2
-   }
-  ]
- },
- {
-  "id": "ind_g_diu",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "gujarat"
-  ],
-  "years": [
-   1508,
-   1509
-  ],
-  "global_chance": 0.5,
-  "icon": "war",
-  "scene": {
-   "place": "sea",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "boat",
-    "smoke"
-   ]
-  },
-  "choices": [
-   {
-    "id": "row",
-    "requirements": [
-     {
-      "sex": "m"
-     },
-     {
-      "age": [
-       16,
-       50
-      ]
-     }
-    ],
-    "risk_roll": {
-     "success_chance_base": 0.5,
-     "on_success": [
-      {
-       "param": "money",
-       "delta": 80
       },
       {
-       "skill": "seafaring",
-       "delta": 5
-      }
-     ],
-     "on_failure": [
-      {
-       "param": "health",
-       "delta": -20
-      }
-     ]
-    },
-    "pattern": {
-     "home_road": 4
-    }
-   },
-   {
-    "id": "watch",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 4
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "ind_g_goa",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "vijayanagara"
-  ],
-  "years": [
-   1510,
-   1516
-  ],
-  "global_chance": 0.25,
-  "classes": [
-   "trader",
-   "landowner",
-   "noble",
-   "craftsman"
-  ],
-  "scene": {
-   "place": "harbor",
-   "time": "day",
-   "people": 4,
-   "props": [
-    "horse",
-    "boat"
-   ]
-  },
-  "choices": [
-   {
-    "id": "trade",
-    "risk_roll": {
-     "param": "trade",
-     "success_chance_base": 0.55,
-     "on_success": [
-      {
-       "param": "money",
-       "delta": 200
-      }
-     ],
-     "on_failure": [
-      {
-       "param": "money",
-       "delta": -100
-      }
-     ]
-    },
-    "pattern": {
-     "memory_future": 4
-    }
-   },
-   {
-    "id": "wary",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": -1
-     }
-    ],
-    "pattern": {
-     "memory_future": -2
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_raichur",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "vijayanagara"
-  ],
-  "years": [
-   1520,
-   1520
-  ],
-  "global_chance": 0.6,
-  "icon": "war",
-  "scene": {
-   "place": "battle",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "banner",
-    "horse"
-   ]
-  },
-  "effects": [
-   {
-    "param": "happiness",
-    "delta": 4
-   },
-   {
-    "param": "reputation",
-    "delta": 1
-   }
-  ]
- },
- {
-  "id": "ind_g_panipat",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1526,
-   1526
-  ],
-  "global_chance": 0.6,
-  "icon": "war",
-  "scene": {
-   "place": "battle",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "smoke",
-    "horse"
-   ]
-  },
-  "choices": [
-   {
-    "id": "welcome",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 3
-     }
-    ],
-    "pattern": {
-     "memory_future": 4
-    }
-   },
-   {
-    "id": "grieve",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 4
-     },
-     {
-      "param": "faith",
-      "delta": 1
-     }
-    ],
-    "pattern": {
-     "memory_future": -4
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_humayun_gujarat",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "gujarat"
-  ],
-  "years": [
-   1535,
-   1537
-  ],
-  "global_chance": 0.4,
-  "icon": "war",
-  "scene": {
-   "place": "harbor",
-   "time": "overcast",
-   "people": 5,
-   "props": [
-    "boat",
-    "banner"
-   ]
-  },
-  "choices": [
-   {
-    "id": "hide",
-    "effects": [
-     {
-      "money_pct": -20
-     },
-     {
-      "param": "stress",
-      "delta": 6
-     }
-    ]
-   },
-   {
-    "id": "trade",
-    "effects": [
-     {
-      "param": "money",
-      "delta": 40
-     },
-     {
-      "param": "stress",
-      "delta": 4
-     }
-    ],
-    "pattern": {
-     "memory_future": 3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_sher_shah_bengal",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "bengal"
-  ],
-  "years": [
-   1537,
-   1539
-  ],
-  "global_chance": 0.4,
-  "icon": "war",
-  "scene": {
-   "place": "river",
-   "time": "overcast",
-   "people": 6,
-   "props": [
-    "boat",
-    "smoke"
-   ]
-  },
-  "choices": [
-   {
-    "id": "hide",
-    "effects": [
-     {
-      "money_pct": -20
-     },
-     {
-      "param": "stress",
-      "delta": 6
-     }
-    ]
-   },
-   {
-    "id": "flee",
-    "effects": [
-     {
-      "money_pct": -30
-     },
-     {
-      "param": "stress",
-      "delta": 4
-     }
-    ],
-    "pattern": {
-     "home_road": 4
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_sher_shah_road",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi",
-   "bengal"
-  ],
-  "years": [
-   1540,
-   1545
-  ],
-  "global_chance": 0.35,
-  "scene": {
-   "place": "road",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "cart",
-    "coins"
-   ]
-  },
-  "effects": [
-   {
-    "param": "money",
-    "delta": 30
-   },
-   {
-    "param": "stress",
-    "delta": -2
-   }
-  ]
- },
- {
-  "id": "ind_g_panipat2",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1555,
-   1556
-  ],
-  "global_chance": 0.6,
-  "icon": "disaster",
-  "scene": {
-   "place": "field",
-   "time": "overcast",
-   "people": 4,
-   "props": [
-    "smoke",
-    "grain"
-   ]
-  },
-  "choices": [
-   {
-    "id": "endure",
-    "effects": [
-     {
-      "param": "health",
-      "delta": -10
-     },
-     {
-      "param": "happiness",
-      "delta": -5
-     }
-    ]
-   },
-   {
-    "id": "sell",
-    "effects": [
-     {
-      "money_pct": -40
-     },
-     {
-      "param": "stress",
-      "delta": 6
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "ind_g_jizya_end",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1564,
-   1566
-  ],
-  "global_chance": 0.45,
-  "religions": [
-   "hindu",
-   "jain"
-  ],
-  "scene": {
-   "place": "market",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "coins",
-    "scroll"
-   ]
-  },
-  "effects": [
-   {
-    "param": "money",
-    "delta": 20
-   },
-   {
-    "param": "happiness",
-    "delta": 4
-   },
-   {
-    "param": "self_esteem",
-    "delta": 2
-   }
-  ]
- },
- {
-  "id": "ind_g_talikota",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "vijayanagara"
-  ],
-  "years": [
-   1565,
-   1565
-  ],
-  "global_chance": 0.9,
-  "icon": "disaster",
-  "sensitive": true,
-  "scene": {
-   "place": "landmark",
-   "time": "night",
-   "people": 6,
-   "props": [
-    "fire",
-    "smoke"
-   ]
-  },
-  "choices": [
-   {
-    "id": "village",
-    "effects": [
-     {
-      "money_pct": -50
-     },
-     {
-      "remove_tag": "lives_in_city"
-     },
-     {
-      "add_tag": "rural"
-     },
-     {
-      "param": "stress",
-      "delta": 10
-     }
-    ],
-    "pattern": {
-     "home_road": 4
-    }
-   },
-   {
-    "id": "court",
-    "effects": [
-     {
-      "money_pct": -40
-     },
-     {
-      "param": "stress",
-      "delta": 8
-     },
-     {
-      "param": "loneliness",
-      "delta": 6
-     }
-    ],
-    "pattern": {
-     "home_road": 6,
-     "memory_future": -3
-    }
-   },
-   {
-    "id": "stay",
-    "risk_roll": {
-     "success_chance_base": 0.35,
-     "on_success": [
-      {
-       "money_pct": -60
-      },
-      {
-       "param": "stress",
-       "delta": 12
-      }
-     ],
-     "on_failure": [
-      {
-       "money_pct": -90
-      },
-      {
-       "param": "health",
-       "delta": -20
-      },
-      {
-       "chance": 0.25,
-       "effects": [
-        {
-         "kill": "war"
+        "id": "stay",
+        "risk_roll": {
+          "success_chance_base": 0.35,
+          "on_success": [
+            {
+              "money_pct": -60
+            },
+            {
+              "param": "stress",
+              "delta": 12
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -90
+            },
+            {
+              "param": "health",
+              "delta": -20
+            },
+            {
+              "chance": 0.25,
+              "effects": [
+                {
+                  "kill": "war"
+                }
+              ]
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": -6
         }
-       ]
       }
-     ]
-    },
-    "pattern": {
-     "home_road": -6
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_fatehpur",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1571,
-   1585
-  ],
-  "global_chance": 0.2,
-  "scene": {
-   "place": "palace",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "statue",
-    "cart"
-   ]
+    ]
   },
-  "choices": [
-   {
-    "id": "work",
-    "requirements": [
-     {
-      "classes": [
-       "craftsman",
-       "peasant",
-       "slave"
+  {
+    "id": "ind_g_fatehpur",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1571,
+      1585
+    ],
+    "global_chance": 0.2,
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "statue",
+        "cart"
       ]
-     }
-    ],
-    "effects": [
-     {
-      "param": "money",
-      "delta": 80
-     },
-     {
-      "skill": "craft",
-      "delta": 4
-     },
-     {
-      "param": "health",
-      "delta": -3
-     }
-    ],
-    "pattern": {
-     "craft_power": -3
-    }
-   },
-   {
-    "id": "look",
-    "effects": [
-     {
-      "param": "happiness",
-      "delta": 2
-     },
-     {
-      "param": "intellect",
-      "delta": 1
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "ind_g_akbar_gujarat",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "gujarat"
-  ],
-  "years": [
-   1572,
-   1573
-  ],
-  "global_chance": 0.5,
-  "icon": "war",
-  "scene": {
-   "place": "road",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "horse",
-    "banner"
-   ]
-  },
-  "choices": [
-   {
-    "id": "submit",
-    "effects": [
-     {
-      "param": "stress",
-      "delta": 3
-     }
-    ],
-    "pattern": {
-     "memory_future": 3
-    }
-   },
-   {
-    "id": "hide",
-    "effects": [
-     {
-      "money_pct": -15
-     },
-     {
-      "param": "stress",
-      "delta": 5
-     }
-    ],
-    "pattern": {
-     "memory_future": -3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_gaur_plague",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "bengal"
-  ],
-  "years": [
-   1575,
-   1575
-  ],
-  "global_chance": 0.6,
-  "icon": "disaster",
-  "sensitive": true,
-  "scene": {
-   "place": "landmark",
-   "time": "overcast",
-   "people": 3,
-   "props": [
-    "smoke",
-    "boat"
-   ]
-  },
-  "choices": [
-   {
-    "id": "flee",
-    "effects": [
-     {
-      "money_pct": -30
-     },
-     {
-      "param": "stress",
-      "delta": 6
-     }
-    ],
-    "pattern": {
-     "home_road": 4
-    }
-   },
-   {
-    "id": "stay",
-    "risk_roll": {
-     "success_chance_base": 0.6,
-     "on_success": [
-      {
-       "param": "stress",
-       "delta": 8
-      }
-     ],
-     "on_failure": [
-      {
-       "param": "health",
-       "delta": -25
-      },
-      {
-       "add_tag": "ill"
-      }
-     ]
     },
-    "pattern": {
-     "home_road": -4
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_mughal_bengal",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "bengal"
-  ],
-  "years": [
-   1576,
-   1582
-  ],
-  "global_chance": 0.3,
-  "scene": {
-   "place": "river",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "boat",
-    "banner"
-   ]
-  },
-  "effects": [
-   {
-    "param": "stress",
-    "delta": 3
-   }
-  ]
- },
- {
-  "id": "ind_g_din_ilahi",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1580,
-   1595
-  ],
-  "global_chance": 0.25,
-  "scene": {
-   "place": "palace",
-   "time": "day",
-   "people": 5,
-   "props": [
-    "sun",
-    "fire"
-   ]
-  },
-  "choices": [
-   {
-    "id": "approve",
-    "effects": [
-     {
-      "param": "happiness",
-      "delta": 2
-     }
-    ],
-    "pattern": {
-     "faith_reason": 4,
-     "memory_future": 4
-    }
-   },
-   {
-    "id": "doubt",
-    "effects": [
-     {
-      "param": "faith",
-      "delta": 2
-     }
-    ],
-    "pattern": {
-     "faith_reason": -3,
-     "memory_future": -3
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_nayakas",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "vijayanagara"
-  ],
-  "years": [
-   1570,
-   1620
-  ],
-  "global_chance": 0.15,
-  "scene": {
-   "place": "palace",
-   "time": "day",
-   "people": 4,
-   "props": [
-    "banner",
-    "coins"
-   ]
-  },
-  "effects": [
-   {
-    "param": "stress",
-    "delta": 2
-   },
-   {
-    "param": "money",
-    "delta": -20
-   }
-  ]
- },
- {
-  "id": "ind_g_arakan_raids",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "bengal"
-  ],
-  "years": [
-   1600,
-   1665
-  ],
-  "global_chance": 0.15,
-  "icon": "war",
-  "sensitive": true,
-  "scene": {
-   "place": "river",
-   "time": "night",
-   "people": 5,
-   "props": [
-    "boat",
-    "fire"
-   ]
-  },
-  "choices": [
-   {
-    "id": "hide",
-    "risk_roll": {
-     "success_chance_base": 0.6,
-     "on_success": [
+    "choices": [
       {
-       "param": "stress",
-       "delta": 6
-      }
-     ],
-     "on_failure": [
-      {
-       "money_pct": -40
+        "id": "work",
+        "requirements": [
+          {
+            "classes": [
+              "craftsman",
+              "peasant",
+              "slave"
+            ]
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": 80
+          },
+          {
+            "skill": "craft",
+            "delta": 4
+          },
+          {
+            "param": "health",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
       },
       {
-       "param": "health",
-       "delta": -10
+        "id": "look",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": 2
+          },
+          {
+            "param": "intellect",
+            "delta": 1
+          }
+        ]
       }
-     ]
-    }
-   },
-   {
-    "id": "inland",
-    "effects": [
-     {
-      "money_pct": -25
-     },
-     {
-      "param": "stress",
-      "delta": 4
-     }
-    ],
-    "pattern": {
-     "home_road": 4
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_famine_1630",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "gujarat"
-  ],
-  "years": [
-   1630,
-   1632
-  ],
-  "global_chance": 0.5,
-  "icon": "disaster",
-  "sensitive": true,
-  "scene": {
-   "place": "field",
-   "time": "day",
-   "people": 3,
-   "props": [
-    "sun",
-    "grain"
-   ]
+    ]
   },
-  "choices": [
-   {
-    "id": "kitchen",
-    "effects": [
-     {
-      "param": "health",
-      "delta": -8
-     },
-     {
-      "param": "self_esteem",
-      "delta": -3
-     }
+  {
+    "id": "ind_g_akbar_gujarat",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "gujarat"
+    ],
+    "years": [
+      1572,
+      1573
+    ],
+    "global_chance": 0.5,
+    "icon": "war",
+    "scene": {
+      "place": "road",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "horse",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "submit",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "memory_future": 3
+        }
+      },
+      {
+        "id": "hide",
+        "effects": [
+          {
+            "money_pct": -15
+          },
+          {
+            "param": "stress",
+            "delta": 5
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      }
     ]
-   },
-   {
-    "id": "give",
-    "requirements": [
-     {
-      "param": "money",
-      "op": ">=",
-      "value": 150
-     }
-    ],
-    "effects": [
-     {
-      "param": "money",
-      "delta": -150
-     },
-     {
-      "param": "reputation",
-      "delta": 8
-     },
-     {
-      "param": "faith",
-      "delta": 4
-     }
-    ],
-    "pattern": {
-     "craft_power": -3
-    }
-   },
-   {
-    "id": "leave",
-    "effects": [
-     {
-      "migrate": "@other"
-     },
-     {
-      "money_pct": -40
-     },
-     {
-      "param": "stress",
-      "delta": 8
-     }
-    ],
-    "pattern": {
-     "home_road": 6
-    }
-   }
-  ]
- },
- {
-  "id": "ind_g_shahjahanabad",
-  "type": "global_historical",
-  "age_range": [
-   0,
-   120
-  ],
-  "base_weight": 1,
-  "topic": "history",
-  "historian_note": true,
-  "confidence": "confirmed",
-  "regions": [
-   "delhi"
-  ],
-  "years": [
-   1639,
-   1648
-  ],
-  "global_chance": 0.25,
-  "scene": {
-   "place": "landmark",
-   "time": "day",
-   "people": 6,
-   "props": [
-    "banner",
-    "cart"
-   ]
   },
-  "choices": [
-   {
-    "id": "work",
-    "effects": [
-     {
-      "param": "money",
-      "delta": 70
-     },
-     {
-      "skill": "craft",
-      "delta": 3
-     },
-     {
-      "param": "health",
-      "delta": -2
-     }
+  {
+    "id": "ind_g_gaur_plague",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "bengal"
+    ],
+    "years": [
+      1575,
+      1575
+    ],
+    "global_chance": 0.6,
+    "icon": "disaster",
+    "sensitive": true,
+    "scene": {
+      "place": "landmark",
+      "time": "overcast",
+      "people": 3,
+      "props": [
+        "smoke",
+        "boat"
+      ]
+    },
+    "choices": [
+      {
+        "id": "flee",
+        "effects": [
+          {
+            "money_pct": -30
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ],
+        "pattern": {
+          "home_road": 4
+        }
+      },
+      {
+        "id": "stay",
+        "risk_roll": {
+          "success_chance_base": 0.6,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": 8
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "health",
+              "delta": -25
+            },
+            {
+              "add_tag": "ill"
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": -4
+        }
+      }
     ]
-   },
-   {
-    "id": "look",
+  },
+  {
+    "id": "ind_g_mughal_bengal",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "bengal"
+    ],
+    "years": [
+      1576,
+      1582
+    ],
+    "global_chance": 0.3,
+    "scene": {
+      "place": "river",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "boat",
+        "banner"
+      ]
+    },
     "effects": [
-     {
-      "param": "happiness",
-      "delta": 3
-     }
+      {
+        "param": "stress",
+        "delta": 3
+      }
     ]
-   }
-  ]
- }
+  },
+  {
+    "id": "ind_g_din_ilahi",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1580,
+      1595
+    ],
+    "global_chance": 0.25,
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "sun",
+        "fire"
+      ]
+    },
+    "choices": [
+      {
+        "id": "approve",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "faith_reason": 4,
+          "memory_future": 4
+        }
+      },
+      {
+        "id": "doubt",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3,
+          "memory_future": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_nayakas",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "vijayanagara"
+    ],
+    "years": [
+      1570,
+      1620
+    ],
+    "global_chance": 0.15,
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "banner",
+        "coins"
+      ]
+    },
+    "effects": [
+      {
+        "param": "stress",
+        "delta": 2
+      },
+      {
+        "param": "money",
+        "delta": -20
+      }
+    ]
+  },
+  {
+    "id": "ind_g_arakan_raids",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "bengal"
+    ],
+    "years": [
+      1600,
+      1665
+    ],
+    "global_chance": 0.15,
+    "icon": "war",
+    "sensitive": true,
+    "scene": {
+      "place": "river",
+      "time": "night",
+      "people": 5,
+      "props": [
+        "boat",
+        "fire"
+      ]
+    },
+    "choices": [
+      {
+        "id": "hide",
+        "risk_roll": {
+          "success_chance_base": 0.6,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": 6
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -40
+            },
+            {
+              "param": "health",
+              "delta": -10
+            }
+          ]
+        }
+      },
+      {
+        "id": "inland",
+        "effects": [
+          {
+            "money_pct": -25
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "home_road": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_famine_1630",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "gujarat"
+    ],
+    "years": [
+      1630,
+      1632
+    ],
+    "global_chance": 0.5,
+    "icon": "disaster",
+    "sensitive": true,
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "sun",
+        "grain"
+      ]
+    },
+    "choices": [
+      {
+        "id": "kitchen",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -8
+          },
+          {
+            "param": "self_esteem",
+            "delta": -3
+          }
+        ]
+      },
+      {
+        "id": "give",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 150
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -150
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "param": "faith",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      },
+      {
+        "id": "leave",
+        "effects": [
+          {
+            "migrate": "@other"
+          },
+          {
+            "money_pct": -40
+          },
+          {
+            "param": "stress",
+            "delta": 8
+          }
+        ],
+        "pattern": {
+          "home_road": 6
+        }
+      }
+    ]
+  },
+  {
+    "id": "ind_g_shahjahanabad",
+    "type": "global_historical",
+    "age_range": [
+      0,
+      120
+    ],
+    "base_weight": 1,
+    "topic": "history",
+    "historian_note": true,
+    "confidence": "confirmed",
+    "regions": [
+      "delhi"
+    ],
+    "years": [
+      1639,
+      1648
+    ],
+    "global_chance": 0.25,
+    "scene": {
+      "place": "landmark",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "banner",
+        "cart"
+      ]
+    },
+    "choices": [
+      {
+        "id": "work",
+        "effects": [
+          {
+            "param": "money",
+            "delta": 70
+          },
+          {
+            "skill": "craft",
+            "delta": 3
+          },
+          {
+            "param": "health",
+            "delta": -2
+          }
+        ]
+      },
+      {
+        "id": "look",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ]
+      }
+    ]
+  }
 ]

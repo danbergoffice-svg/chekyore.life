@@ -397,7 +397,8 @@
       "props": [
         "smoke",
         "fire"
-      ]
+      ],
+      "disaster": "ruin"
     },
     "effects": [
       {

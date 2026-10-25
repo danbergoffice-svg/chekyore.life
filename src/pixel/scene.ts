@@ -321,6 +321,9 @@ function tree(px: Px, look: Look, x: number, k: number, r: () => number) {
   }
 }
 
+/** Постройки, нарисованные в этом кадре: на них ложатся огонь, разрушения и вода. */
+let built: { x: number; w: number; top: number }[] = []
+
 /** Дверь: прямоугольник, по желанию с аркой. */
 function door(px: Px, cx: number, h: number, c: string, arch = false) {
   px(cx - 2, GROUND - h, 4, h, c)
@@ -332,6 +335,7 @@ function door(px: Px, cx: number, h: number, c: string, arch = false) {
  * никаких рядов одинаковых окон, как у многоэтажек.
  */
 function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () => number, lit: boolean) {
+  built.push({ x, w, top: GROUND - 14 })
   const p = look.p
   const dark = shade('#3a2a20', k)
   const glow = () => (lit && r() > 0.4 ? '#e8c96a' : dark)
@@ -837,18 +841,56 @@ function palace(px: Px, look: Look, region: string, k: number, r: () => number) 
   }
 }
 
-function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, look: Look, r: () => number) {
+/** Дом семьи героя по размеру: 0 — лачуга, 1 — хижина, 2 — дом, 3 — большой дом с пристройкой, 4 — усадьба за оградой. */
+function familyHome(px: Px, look: Look, tier: number, k: number, r: () => number, lit: boolean) {
+  const fence = shade('#7a5a3a', k)
+  if (tier <= 0) {
+    // Лачуга: жерди и низкий навес.
+    built.push({ x: 20, w: 20, top: GROUND - 10 })
+    px(22, GROUND - 8, 1, 8, fence)
+    px(38, GROUND - 6, 1, 6, fence)
+    for (let i = 0; i < 20; i++) px(20 + i, GROUND - 9 + Math.floor(i / 7), 1, 2, shade('#9a8050', k))
+    px(24, GROUND - 5, 10, 5, shade('#3a2a20', k))
+    return
+  }
+  if (tier === 1) return styledHouse(px, look, 18, 22, k, r, lit)
+  if (tier === 2) return styledHouse(px, look, 14, 32, k, r, lit)
+  if (tier === 3) {
+    styledHouse(px, look, 8, 34, k, r, lit)
+    styledHouse(px, look, 44, 22, k, r, lit)
+    for (let x = 68; x < 84; x += 3) px(x, GROUND - 5, 1, 5, fence)
+    px(68, GROUND - 4, 16, 1, fence)
+    return
+  }
+  // Усадьба: ограда, главный дом, флигель и деревья.
+  const wall = shade(look.p.stone, k)
+  px(4, GROUND - 8, 92, 8, wall)
+  px(4, GROUND - 9, 92, 1, shade(look.p.stoneDark, k))
+  tree(px, look, 6, k, r)
+  styledHouse(px, look, 18, 42, k, r, lit)
+  styledHouse(px, look, 64, 24, k, r, lit)
+  px(46, GROUND - 7, 6, 7, shade('#4a3020', k))
+}
+
+function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, look: Look, r: () => number, home = 2) {
   const p = look.p
   const k = SHADE[time]
   const lit = time === 'night' || time === 'sunset'
   const outdoor = !['home', 'workshop', 'school', 'bath'].includes(place)
   if (outdoor && (look.land === 'mountains' || look.land === 'snow') && place !== 'sea') farHills(px, look, k, r, true)
   switch (place) {
+    case 'yard':
+      if (look.land !== 'mountains' && look.land !== 'snow') farHills(px, look, k, r)
+      tree(px, look, 176, k, r)
+      return familyHome(px, look, home, k, r, lit)
     case 'landmark':
+      built.push({ x: 40, w: 112, top: GROUND - 30 })
       return landmark(px, look, region, k, r)
     case 'temple':
+      built.push({ x: 50, w: 92, top: GROUND - 24 })
       return sanctuary(px, look, k, r)
     case 'palace':
+      built.push({ x: 30, w: 132, top: GROUND - 24 })
       return palace(px, look, region, k, r)
     case 'street':
     case 'market': {
@@ -1029,15 +1071,48 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
 
 // ---------- Человечки и предметы ----------
 
-function person(px: Px, x: number, look: Look, r: () => number, k: number, small = false, base = GROUND) {
+/** Кто стоит на картинке: герой, его близкие. Внешность героя одна и та же во всех сценах. */
+export interface CastMember {
+  role: 'hero' | 'spouse' | 'child' | 'parent' | 'sibling' | 'npc'
+  sex: 'm' | 'f'
+  age: number
+  seed: string
+}
+
+export interface Cast {
+  members: CastMember[]
+  animals: string[]
+  /** Дом семьи 0–4 (для сцены 'yard'). */
+  home?: number
+}
+
+/** Рост фигурки по возрасту. */
+function heightFor(age: number): number {
+  return age < 4 ? 6 : age < 10 ? 8 : age < 15 ? 10 : 12
+}
+
+function person(px: Px, x: number, look: Look, r: () => number, k: number, small = false, base = GROUND, m?: CastMember) {
   const p = look.p
-  const h = small ? 8 : 12
+  const own = m ? rand(`person:${m.seed}`) : r
+  const h = m ? heightFor(m.age) : small ? 8 : 12
+  const tiny = h <= 8
   const top = base + 1 - h
-  const skin = p.skin[Math.floor(r() * p.skin.length)]
-  const cloth = p.clothes[Math.floor(r() * p.clothes.length)]
+  const skin = p.skin[Math.floor(own() * p.skin.length)]
+  const cloth = p.clothes[Math.floor(own() * p.clothes.length)]
   const hats = HATS[look.style] ?? [null]
-  const hat = small ? null : hats[Math.floor(r() * hats.length)]
-  px(x + 1, top, 3, 1, shade('#2a2018', k * 0.5)) // волосы
+  const hat = tiny ? null : hats[Math.floor(own() * hats.length)]
+  const hair = m && m.age >= 55 ? '#c8c4bc' : '#2a2018'
+  px(x + 1, top, 3, 1, shade(hair, k * 0.5)) // волосы
+  if (m?.sex === 'f' && !hat) {
+    px(x, top, 1, Math.min(4, h - 4), shade(hair, k * 0.5))
+    px(x + 4, top, 1, Math.min(4, h - 4), shade(hair, k * 0.5))
+  }
+  if (m?.role === 'hero') {
+    // Отметка героя: золотой треугольник над головой.
+    px(x, top - 6, 5, 1, '#f2c94c')
+    px(x + 1, top - 5, 3, 1, '#f2c94c')
+    px(x + 2, top - 4, 1, 1, '#f2c94c')
+  }
   if (hat === 'turban') px(x, top - 1, 5, 2, shade('#f2eee2', k * 0.5))
   if (hat === 'veil') px(x, top - 1, 5, 4, shade(p.clothes[0], k * 0.5))
   if (hat === 'conical') {
@@ -1045,11 +1120,11 @@ function person(px: Px, x: number, look: Look, r: () => number, k: number, small
     px(x + 1, top - 1, 3, 1, shade('#c9a860', k * 0.5))
     px(x + 2, top - 2, 1, 1, shade('#c9a860', k * 0.5))
   }
-  if (hat === 'feather') px(x + 2, top - 3, 1, 3, shade(['#2a8a5a', '#c0303a', '#e0b030'][Math.floor(r() * 3)], k * 0.5))
+  if (hat === 'feather') px(x + 2, top - 3, 1, 3, shade(['#2a8a5a', '#c0303a', '#e0b030'][Math.floor(own() * 3)], k * 0.5))
   if (hat === 'cap') px(x, top - 1, 5, 2, shade(look.style === 'andean' ? '#b83a3a' : '#5a3a2a', k * 0.5))
-  px(x + 1, top + 1, 3, small ? 1 : 2, shade(skin, k * 0.5)) // лицо
-  const bodyTop = top + (small ? 2 : 3)
-  const bodyH = small ? 4 : 6
+  px(x + 1, top + 1, 3, tiny ? 1 : 2, shade(skin, k * 0.5)) // лицо
+  const bodyTop = top + (tiny ? 2 : 3)
+  const bodyH = h <= 6 ? 3 : tiny ? 4 : h <= 10 ? 5 : 6
   px(x, bodyTop, 5, bodyH, shade(cloth, k * 0.5))
   px(x + 1, bodyTop + bodyH, 1, h - (bodyTop - top) - bodyH, shade('#3a2a20', k * 0.5))
   px(x + 3, bodyTop + bodyH, 1, h - (bodyTop - top) - bodyH, shade('#3a2a20', k * 0.5))
@@ -1168,11 +1243,133 @@ export interface SceneInput {
   region: string
   /** Ключ разнообразия: id события, чтобы разные события с одной сценой отличались. */
   seed: string
+  /** Герой, его близкие и животные: они стоят на картинке вместо случайных прохожих. */
+  cast?: Cast
+}
+
+/** Животное хозяйства: маленький силуэт, стоит на земле в точке x. */
+function animal(px: Px, kind: string, x: number, k: number) {
+  const g = GROUND
+  const c = (h: string) => shade(h, k * 0.6)
+  const legs = (xs: number[], col: string, h = 2) => xs.forEach((lx) => px(x + lx, g - h, 1, h, c(col)))
+  switch (kind) {
+    case 'chickens':
+    case 'turkey':
+      for (const [dx, col] of [[0, kind === 'turkey' ? '#4a3a2a' : '#f2ead8'], [5, kind === 'turkey' ? '#5a4030' : '#c9a060']] as const) {
+        px(x + dx, g - 3, 3, 2, c(col))
+        px(x + dx + 2, g - 4, 1, 1, c(col))
+        px(x + dx + 3, g - 4, 1, 1, c('#c0303a'))
+        px(x + dx + 1, g - 1, 1, 1, c('#d8a040'))
+      }
+      return
+    case 'goat':
+    case 'sheep': {
+      const col = kind === 'sheep' ? '#efe9dc' : '#d8ccb4'
+      px(x, g - 5, 7, 3, c(col))
+      px(x + 6, g - 7, 2, 3, c(kind === 'sheep' ? '#3a3028' : col))
+      if (kind === 'goat') px(x + 7, g - 8, 1, 1, c('#6a5a4a'))
+      legs([1, 5], '#4a3a2a')
+      return
+    }
+    case 'pig':
+      px(x, g - 5, 7, 3, c('#e0a8a0'))
+      px(x + 7, g - 4, 1, 2, c('#d09088'))
+      legs([1, 5], '#a87870')
+      return
+    case 'cow':
+    case 'ox': {
+      const col = kind === 'cow' ? '#f2ead8' : '#8a5a3a'
+      px(x, g - 8, 11, 5, c(col))
+      if (kind === 'cow') {
+        px(x + 2, g - 7, 3, 2, c('#3a2a20'))
+        px(x + 7, g - 6, 2, 2, c('#3a2a20'))
+      }
+      px(x + 10, g - 9, 3, 3, c(col))
+      px(x + 10, g - 10, 1, 1, c('#e8dcc0'))
+      px(x + 12, g - 10, 1, 1, c('#e8dcc0'))
+      legs([1, 3, 7, 9], '#3a2a20', 3)
+      return
+    }
+    case 'donkey':
+      px(x, g - 7, 9, 4, c('#8a8680'))
+      px(x + 8, g - 10, 3, 4, c('#8a8680'))
+      px(x + 9, g - 12, 1, 2, c('#6a6660'))
+      legs([1, 3, 6, 8], '#4a4640', 3)
+      return
+    case 'horse':
+      px(x, g - 9, 12, 5, c('#7a4a2a'))
+      px(x + 11, g - 12, 3, 5, c('#7a4a2a'))
+      px(x - 1, g - 9, 1, 4, c('#3a2418'))
+      legs([1, 3, 8, 10], '#4a2a1a', 4)
+      return
+    case 'camel':
+      px(x, g - 9, 12, 4, c('#c8a068'))
+      px(x + 3, g - 12, 5, 3, c('#c8a068'))
+      px(x + 11, g - 13, 2, 6, c('#c8a068'))
+      px(x + 12, g - 14, 3, 2, c('#c8a068'))
+      legs([1, 3, 8, 10], '#8a6a40', 5)
+      return
+    case 'llama':
+      px(x, g - 7, 8, 4, c('#efe2c8'))
+      px(x + 7, g - 13, 2, 7, c('#efe2c8'))
+      px(x + 8, g - 14, 2, 2, c('#efe2c8'))
+      legs([1, 3, 5, 7], '#8a7a60', 3)
+      return
+    case 'dog':
+      px(x, g - 4, 6, 2, c('#9a6a3a'))
+      px(x + 5, g - 6, 3, 3, c('#9a6a3a'))
+      px(x - 1, g - 5, 1, 2, c('#9a6a3a'))
+      legs([0, 4], '#6a4a2a')
+      return
+    case 'cat':
+      px(x, g - 3, 5, 2, c('#5a5a5a'))
+      px(x + 4, g - 5, 3, 2, c('#5a5a5a'))
+      px(x + 4, g - 6, 1, 1, c('#5a5a5a'))
+      px(x + 6, g - 6, 1, 1, c('#5a5a5a'))
+      px(x - 1, g - 6, 1, 4, c('#5a5a5a'))
+      legs([0, 3], '#4a4a4a', 1)
+      return
+  }
+}
+
+/** Бедствие поверх построек: пожар, разрушение, наводнение. */
+function disasterOverlay(ctx: CanvasRenderingContext2D, px: Px, kind: 'fire' | 'ruin' | 'flood', sky: string, r: () => number) {
+  const targets = built.length ? built : [{ x: 40, w: 112, top: GROUND - 24 }]
+  if (kind === 'fire') {
+    ctx.globalAlpha = 0.18
+    px(0, 0, W, GROUND, '#ff7a2a')
+    ctx.globalAlpha = 1
+    for (const b of targets) {
+      if (r() < 0.25 && targets.length > 2) continue
+      for (let fx = b.x + 2; fx < b.x + b.w - 3; fx += 5 + Math.floor(r() * 3)) {
+        const fh = 5 + Math.floor(r() * 7)
+        px(fx, b.top - fh + 6, 4, fh, '#e0602a')
+        px(fx + 1, b.top - fh + 3, 2, fh - 2, '#f2a03a')
+        px(fx + 1, b.top - fh + 2, 1, 2, '#f8d48a')
+      }
+      for (let i = 0; i < 3; i++) disc(px, b.x + b.w / 2 + i * 4, b.top - 12 - i * 7, 3 + i, i % 2 ? '#6a6460' : '#857e78')
+    }
+  } else if (kind === 'ruin') {
+    for (const b of targets) {
+      // Пролом в стене и крыше: «вырезаем» цветом неба, внизу — груда камней и балок.
+      const cx = b.x + Math.floor(b.w * (0.3 + r() * 0.4))
+      for (let i = 0; i < 9; i++) px(cx - i, b.top - 6 + i, 2 + i * 2, 1, sky)
+      for (let i = 0; i < 6; i++) disc(px, b.x + 3 + Math.floor(r() * (b.w - 6)), GROUND - 1, 2 + Math.floor(r() * 2), r() > 0.5 ? '#8a7a68' : '#a8987e')
+      px(b.x + 2, GROUND - 4, b.w / 2, 1, '#5a3a24')
+    }
+    ctx.globalAlpha = 0.22
+    px(0, GROUND - 16, W, 16, '#c8b89a')
+    ctx.globalAlpha = 1
+  } else {
+    px(0, GROUND - 6, W, H - GROUND + 6, '#4f7fa8')
+    for (let y = GROUND - 5; y < H; y += 3) for (let x = Math.floor(r() * 8); x < W; x += 10 + Math.floor(r() * 6)) px(x, y, 4, 1, '#8ab4d8')
+  }
 }
 
 export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): void {
-  const { scene, region, seed } = input
+  const { scene, region, seed, cast } = input
   const place = scene.place ?? 'landmark'
+  built = []
   const time = scene.time ?? 'day'
   const look = lookOf(region)
   const p = look.p
@@ -1186,9 +1383,10 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
   const props = scene.props ?? []
   if (props.includes('sun') && place !== 'home' && place !== 'workshop' && place !== 'school' && place !== 'bath') prop(px, 'sun', 0, time, p, 0, r)
   if (props.includes('moon')) prop(px, 'moon', 0, time, p, 0, r)
-  backdrop(px, place, region, time, look, r)
+  backdrop(px, place, region, time, look, r, cast?.home ?? 2)
   ground(px, place, p, time, r, look.style)
   const k = SHADE[time]
+  if (scene.disaster) disasterOverlay(ctx, px, scene.disaster, SKY[time][3], r)
   const placed = props.filter((x) => x !== 'sun' && x !== 'moon' && x !== 'rain')
   // На воде люди стоят в лодке, в гавани — на причале.
   const water = place === 'sea'
@@ -1199,9 +1397,26 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
     xs.push(boatX)
   }
   placed.forEach((kind, i) => prop(px, kind, xs[i], time, p, k, r))
-  let n = Math.max(0, Math.min(6, scene.people ?? 2))
-  let span = n > 1 ? Math.min(96, n * 16) : 0
-  let start = 96 - span / 2
+  // Близкие героя стоят первыми; остальные места — прохожие. Во дворе и дома чужих нет.
+  const members = cast?.members.slice(0, 7) ?? []
+  const private_ = place === 'yard' || place === 'home'
+  const extras = private_ && cast ? 0 : Math.max(0, (scene.people ?? 2) - members.length)
+  let n = Math.min(water ? 2 : 8, members.length + extras)
+  let span = n > 1 ? Math.min(place === 'yard' ? 70 : 110, n * 13) : 0
+  let start = (place === 'yard' ? 108 : 96) - span / 2
+  if (place === 'yard' && cast) {
+    // Животные во дворе — справа от семьи.
+    let ax = start + span + 12
+    for (const kind of cast.animals.slice(0, 6)) {
+      if (ax > W - 14) break
+      animal(px, kind, ax, k)
+      ax += kind === 'chickens' || kind === 'turkey' || kind === 'dog' || kind === 'cat' ? 10 : 15
+    }
+  } else if (cast?.animals.length && !water && place !== 'home' && place !== 'school' && place !== 'bath' && place !== 'workshop') {
+    // На улице и в поле за героем идёт пёс, если он есть.
+    const pet = cast.animals.find((a) => a === 'dog')
+    if (pet) animal(px, pet, 96 - span / 2 - 12, k)
+  }
   let base = GROUND
   if (water) {
     n = Math.min(n, 2)
@@ -1215,7 +1430,8 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
   }
   for (let i = 0; i < n; i++) {
     const x = start + (n > 1 ? (i * span) / (n - 1) : 0) + (water ? 0 : Math.floor(r() * 4) - 2)
-    person(px, x, look, r, k, place === 'home' && i === n - 1 && n > 2, base)
+    const m = members[i]
+    person(px, x, look, r, k, !m && place === 'home' && i === n - 1 && n > 2, base, m)
   }
   if (props.includes('rain')) prop(px, 'rain', 0, time, p, k, r)
 }
@@ -1241,6 +1457,7 @@ const PLACE_EN: Record<ScenePlace, string> = {
   tomb: 'a quiet tomb by the road',
   palace: 'a grand villa with columns',
   bath: 'public baths',
+  yard: 'a family home with its yard',
 }
 
 const REGION_EN: Record<string, string> = {
@@ -1274,7 +1491,7 @@ export function scenePrompt(scene: SceneDef, region: string, eraName: string): s
 /** Портрет 16×20 точек: волосы, лицо, одежда эпохи. Рисуется в точке (x, y) с размером точки s. */
 export function drawPortrait(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, region: string, sex: 'm' | 'f', seed: string): void {
   const p = lookOf(region).p
-  const r = rand(`portrait:${seed}`)
+  const r = rand(`person:${seed}`)
   const skin = p.skin[Math.floor(r() * p.skin.length)]
   const cloth = p.clothes[Math.floor(r() * p.clothes.length)]
   const hair = ['#2a2018', '#3a2a1a', '#5a3a22', '#1a1410'][Math.floor(r() * 4)]

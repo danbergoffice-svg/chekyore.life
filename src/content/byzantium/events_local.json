@@ -392,7 +392,8 @@
       "people": 3,
       "props": [
         "smoke"
-      ]
+      ],
+      "disaster": "ruin"
     },
     "effects": [
       {
@@ -4872,7 +4873,8 @@
       "props": [
         "fire",
         "smoke"
-      ]
+      ],
+      "disaster": "fire"
     },
     "choices": [
       {

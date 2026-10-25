@@ -31,7 +31,8 @@
       "props": [
         "fire",
         "smoke"
-      ]
+      ],
+      "disaster": "fire"
     },
     "choices": [
       {

@@ -99,7 +99,8 @@
       "props": [
         "fire",
         "smoke"
-      ]
+      ],
+      "disaster": "fire"
     },
     "conditions": [
       {
@@ -1793,7 +1794,8 @@
       "props": [
         "fire",
         "smoke"
-      ]
+      ],
+      "disaster": "fire"
     },
     "global_chance": 1,
     "conditions": [

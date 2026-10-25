@@ -1,5 +1,6 @@
 import { bell, chance, int, pick, weighted } from './rng'
 import { addYears, aliveNpcs, clamp, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
+import { initHousehold } from './household'
 import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
 import type { AttrId, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
@@ -78,6 +79,8 @@ function emptyHero(seed: number): Hero {
     pattern: { craft_power: 0, home_road: 0, faith_reason: 0, memory_future: 0 },
     places: [],
     lifestyle: {},
+    home: 1,
+    animals: [],
     lastTurning: 0,
     seed,
   }
@@ -141,6 +144,7 @@ export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: num
   if (cls.id === 'slave') hero.hidden.reputation = -10
   rollAttrs(state, hero)
   hero.traits = rollTraits(state, era)
+  initHousehold(state)
 
   makeNpc(state, era, 'father', 'm', undefined, int(state, 20, 60))
   makeNpc(state, era, 'mother', 'f', undefined, int(state, 40, 80))
@@ -230,6 +234,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.places = [parent.places[parent.places.length - 1] ?? parent.region]
   hero.cls = parent.cls
   hero.religion = parent.religion
+  // Наследник остаётся в родительском доме и с тем же хозяйством.
+  hero.home = parent.home ?? 1
+  hero.animals = (parent.animals ?? []).map((a) => ({ ...a }))
   hero.generation = parent.generation + 1
   hero.name = child.name
   hero.sex = child.sex

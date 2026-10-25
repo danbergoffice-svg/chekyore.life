@@ -76,6 +76,7 @@ function checkScenes(ev: EventDef, bad: string[]) {
   if (ev.scene?.place && !(SCENE_PLACES as readonly string[]).includes(ev.scene.place)) bad.push(`${ev.id}: place ${ev.scene.place}`)
   if (ev.scene?.time && !(SCENE_TIMES as readonly string[]).includes(ev.scene.time)) bad.push(`${ev.id}: time ${ev.scene.time}`)
   for (const p of ev.scene?.props ?? []) if (!(SCENE_PROPS as readonly string[]).includes(p)) bad.push(`${ev.id}: prop ${p}`)
+  if (ev.scene?.disaster && !['fire', 'ruin', 'flood'].includes(ev.scene.disaster)) bad.push(`${ev.id}: disaster ${ev.scene.disaster}`)
   if (ev.topic && !(TOPICS as readonly string[]).includes(ev.topic)) bad.push(`${ev.id}: topic ${ev.topic}`)
   if (ev.moment && ev.choices?.length) bad.push(`${ev.id}: у момента не должно быть выборов`)
   if (ev.choices && (ev.choices.length === 1 || ev.choices.length > 4)) bad.push(`${ev.id}: выборов должно быть 2–4`)
@@ -173,7 +174,7 @@ export function validateEra(era: EraDef): string[] {
 /** Параметры для проверки, что после подстановки не остаётся {скобок}. */
 export const SAMPLE_PARAMS = {
   n: 3, npc: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
-  grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x',
+  grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x',
 }
 
 /** Ключи, в которых после подстановки остались фигурные скобки. */

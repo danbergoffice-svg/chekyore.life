@@ -25,7 +25,7 @@ export const TOPICS = ['family', 'work', 'health', 'money', 'history', 'life'] a
 export type Topic = (typeof TOPICS)[number]
 
 /** Описание пиксельной сцены. Из него же собирается промпт для настоящей иллюстрации. */
-export const SCENE_PLACES = ['landmark', 'home', 'street', 'market', 'temple', 'field', 'river', 'sea', 'harbor', 'workshop', 'school', 'camp', 'battle', 'arena', 'road', 'tomb', 'palace', 'bath'] as const
+export const SCENE_PLACES = ['landmark', 'home', 'street', 'market', 'temple', 'field', 'river', 'sea', 'harbor', 'workshop', 'school', 'camp', 'battle', 'arena', 'road', 'tomb', 'palace', 'bath', 'yard'] as const
 export type ScenePlace = (typeof SCENE_PLACES)[number]
 export const SCENE_TIMES = ['day', 'dawn', 'sunset', 'night', 'overcast'] as const
 export type SceneTime = (typeof SCENE_TIMES)[number]
@@ -36,6 +36,8 @@ export const SCENE_PROPS = [
 export type SceneProp = (typeof SCENE_PROPS)[number]
 
 export interface SceneDef {
+  /** Бедствие на картинке: дом горит, разрушен землетрясением или затоплен. */
+  disaster?: 'fire' | 'ruin' | 'flood'
   place?: ScenePlace
   time?: SceneTime
   /** Сколько человечков в кадре, 0–6. */
@@ -485,11 +487,22 @@ export interface Hero {
   places: string[]
   /** Выбранный образ жизни: категория → вариант. */
   lifestyle: Record<string, string>
+  /** Дом семьи: 0 — лачуга, 1 — хижина, 2 — дом, 3 — большой дом, 4 — усадьба. */
+  home: number
+  /** Животные хозяйства и домашние любимцы. */
+  animals: Animal[]
   /** Возраст последнего поворотного момента. */
   lastTurning: number
   deathYear?: number
   deathCause?: string
   seed: number
+}
+
+export interface Animal {
+  /** chickens, goat, sheep, pig, cow, ox, donkey, horse, camel, llama, turkey, dog, cat… */
+  kind: string
+  /** С какого года в хозяйстве. */
+  since: number
 }
 
 export interface LifeSummary {

@@ -14,9 +14,10 @@ import {
 } from '../engine/game'
 import { checkAll, contextParams, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
-import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Npc } from '../engine/types'
+import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Npc, SceneTime } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
 import { Scene } from '../pixel/Scene'
+import { eventCast, familyCast } from './cast'
 import { entryScene } from './Summary'
 import { attitudeText, diaryText, feelings, useUi } from './text'
 import type { Change } from './text'
@@ -100,12 +101,15 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const stage = stageOf(state, era)
   const entries = hero.diary.map((d, i) => [d, i] as const).filter(([d, i]) => visible(state, i, d, progress) && !d.key.startsWith('diary.stage_'))
   const feed = entries.slice(-14).reverse()
-  const lastScene = [...entries].reverse().find(([d]) => d.eventId && d.year === state.year)
-  const yearScene = lastScene
-    ? entryScene(lastScene[0], era)
-    : stage === 'infancy' || stage === 'childhood'
-      ? { place: 'home' as const, time: 'day' as const, people: 3, props: ['cradle' as const] }
-      : { place: 'landmark' as const, time: 'day' as const, people: 3, props: ['sun' as const] }
+  // Вверху — дом героя: семья, животные и дом нужного размера; если в этом году случилось бедствие, оно видно на доме.
+  const disaster = [...entries]
+    .reverse()
+    .map(([d]) => (d.year === state.year && d.eventId ? entryScene(d, era).disaster : undefined))
+    .find(Boolean)
+  const TIMES = ['day', 'dawn', 'day', 'sunset', 'overcast'] as const
+  const yearTime: SceneTime = disaster === 'fire' ? 'night' : TIMES[Math.abs(state.year) % TIMES.length]
+  const yearScene = { place: 'yard' as const, time: yearTime, props: [yearTime === 'night' ? ('moon' as const) : ('sun' as const)], disaster }
+  void stage
   const kids = hero.npcs.filter((n) => n.role === 'child' && n.alive)
 
   return (
@@ -137,7 +141,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'life' && (
         <section class="panel">
-          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:${state.year}`} />
+          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} />
           <div class="year-clock" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-label={t('life.year_progress')}>
             <span class="year-label">{formatYear(state.year, lang)}</span>
             <span class="year-track">
@@ -222,6 +226,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <p class="small">
             <strong>{t('reveal.faith')}:</strong> <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
             <span class="muted"> — {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+          </p>
+          <p class="small">
+            <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)} · <strong>{t('hero.animals')}:</strong>{' '}
+            {hero.animals?.length ? hero.animals.map((a) => t(`animal.${a.kind}`, {}, o)).join(', ') : t('hero.no_animals')}
           </p>
           <div class="bars">
             {ATTRIBUTES.map((id) => <Bar label={t(`attr.${id}`)} value={hero.attrs[id]} />)}
@@ -436,7 +444,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   return (
     <div class="modal-backdrop">
       <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="ev-title">
-        <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} label={t(`ev.${ev.id}.title`, params, o)} />
+        <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place)} label={t(`ev.${ev.id}.title`, params, o)} />
         <div class="modal-body">
           {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
           <h2 id="ev-title">{t(`ev.${ev.id}.title`, params, o)}</h2>
