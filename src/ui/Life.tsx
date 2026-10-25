@@ -219,6 +219,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         <section class="panel">
           <h2 class="section-title">{t('hero.feelings')}</h2>
           <ul class="plain">{feelings(t, hero).map((f) => <li>{f}</li>)}</ul>
+          <p class="small">
+            <strong>{t('reveal.faith')}:</strong> <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
+            <span class="muted"> — {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+          </p>
           <div class="bars">
             {ATTRIBUTES.map((id) => <Bar label={t(`attr.${id}`)} value={hero.attrs[id]} />)}
           </div>
