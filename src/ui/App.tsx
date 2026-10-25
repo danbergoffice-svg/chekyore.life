@@ -11,12 +11,15 @@ import { clearAll, loadPrefs, loadSave, parseSaveFile, saveGame, saveMemorial, s
 import type { Prefs } from '../storage'
 import { Life } from './Life'
 import { About, Heirs, Memorial, Menu, Reveal, Settings, Setup } from './Screens'
+import { sendFeedback } from '../feedback'
+import type { FeedbackData } from '../feedback'
+import { Feedback, FeedbackPrompt } from './Feedback'
 import { Slots } from './Slots'
 import { Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
-type Screen = 'loading' | 'menu' | 'setup' | 'spin' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about'
+type Screen = 'loading' | 'menu' | 'setup' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about'
 
 const defaultPrefs: Prefs = {
   lang: detectLang(),
@@ -43,6 +46,9 @@ export function App() {
   // Лотерея рождения, пока барабаны крутятся: что выпало и загружена ли страна.
   const [pending, setPending] = useState<{ seed: number; birth: Birth } | null>(null)
   const [loadedVersion, setLoadedVersion] = useState(0)
+  // С какого экрана открыли отзыв — туда и вернуться; благодарность после отправки.
+  const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
+  const [thanks, setThanks] = useState(false)
 
   const state = game.current
   const hero = state?.hero
@@ -210,6 +216,26 @@ export function App() {
 
   const toMenu = () => setScreen('menu')
 
+  const openFeedback = (from: Screen) => {
+    setFeedbackFrom(from)
+    setScreen('feedback')
+  }
+  const onSendFeedback = (data: FeedbackData) => {
+    sendFeedback(data)
+    setPrefs({ ...prefs, feedback: { state: 'sent', lives: memorial.length } })
+    setThanks(true)
+    setTimeout(() => setThanks(false), 4000)
+    setScreen(feedbackFrom)
+  }
+  // Просим отзыв после первой жизни; если отложили — ещё раз через две жизни; после отправки — больше нет.
+  const askFeedback =
+    memorial.length >= 1 && (!prefs.feedback || (prefs.feedback.state === 'later' && memorial.length >= prefs.feedback.lives + 2))
+  const feedbackContext = (life?: LifeSummary): FeedbackData['context'] => ({
+    lang: prefs.lang,
+    lives: memorial.length,
+    ...(life ? { era: life.era, region: life.region, age: life.age, cls: life.cls } : {}),
+  })
+
   // Звёздочки и строка игрока сохраняются и в мемориале, и в текущей игре.
   const onUpdateLife = (life: LifeSummary) => {
     const next = memorial.map((l) => (l.heroId === life.heroId ? life : l))
@@ -237,6 +263,7 @@ export function App() {
             onNew={() => setScreen('setup')}
             onContinue={() => setScreen(state?.phase === 'dead' ? 'death' : 'life')}
             onOpenLife={openPast}
+            onFeedback={() => openFeedback('menu')}
             go={setScreen}
           />
         )}
@@ -269,7 +296,15 @@ export function App() {
             onMemorial={() => setScreen('memorial')}
             onMenu={toMenu}
             onUpdate={onUpdateLife}
+            feedback={
+              askFeedback ? (
+                <FeedbackPrompt onOpen={() => openFeedback('death')} onLater={() => setPrefs({ ...prefs, feedback: { state: 'later', lives: memorial.length } })} />
+              ) : undefined
+            }
           />
+        )}
+        {screen === 'feedback' && (
+          <Feedback context={feedbackContext(lastLife ?? memorial[memorial.length - 1])} onSend={onSendFeedback} onBack={() => setScreen(feedbackFrom)} />
         )}
         {screen === 'past' && openedLife && openedEra && (
           <Summary
@@ -292,6 +327,11 @@ export function App() {
         )}
         {screen === 'settings' && <Settings prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={toMenu} />}
         {screen === 'about' && <About onBack={toMenu} />}
+        {thanks && (
+          <p class="toast" role="status">
+            {ui.t('feedback.thanks')}
+          </p>
+        )}
       </main>
     </UiContext.Provider>
   )

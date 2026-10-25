@@ -13,6 +13,8 @@ export interface Prefs {
   softenHeavy: boolean
   /** Лотерея рождения: все страны поровну или по числу жителей. */
   lottery: Lottery
+  /** Отзыв: ещё не просили, отложили (на какой по счёту жизни), отправлен. */
+  feedback?: { state: 'later' | 'sent'; lives: number }
 }
 
 export interface SaveFile {

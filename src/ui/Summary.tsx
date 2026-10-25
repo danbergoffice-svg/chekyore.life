@@ -45,6 +45,8 @@ interface SummaryProps {
   era: EraDef
   /** Есть ли живые наследники в текущей игре. */
   canContinue: boolean
+  /** Приглашение оставить отзыв (показывается после первой жизни). */
+  feedback?: preact.ComponentChildren
   onContinue?: () => void
   onAgain: () => void
   onMemorial: () => void
@@ -52,7 +54,7 @@ interface SummaryProps {
   onUpdate: (life: LifeSummary) => void
 }
 
-export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate }: SummaryProps) {
+export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback }: SummaryProps) {
   const { t, lang } = useUi()
   const r = life.report
   const o = { sex: life.sex, region: life.region, religion: life.religion }
@@ -274,6 +276,8 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
 
       {/* 8. Связь с родом */}
       <FamilyLink life={life} />
+
+      {feedback}
 
       {/* 9. Действия */}
       <section class="block stack">

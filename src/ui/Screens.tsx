@@ -25,10 +25,11 @@ interface MenuProps {
   onNew: () => void
   onContinue: () => void
   onOpenLife: (heroId: string) => void
+  onFeedback: () => void
   go: (s: 'memorial' | 'settings' | 'about') => void
 }
 
-export function Menu({ current, memorial, onNew, onContinue, onOpenLife, go }: MenuProps) {
+export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedback, go }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -146,6 +147,9 @@ export function Menu({ current, memorial, onNew, onContinue, onOpenLife, go }: M
         </button>
         <button class="link" onClick={() => go('about')}>
           {t('menu.about')}
+        </button>
+        <button class="link" onClick={onFeedback}>
+          {t('menu.feedback')}
         </button>
       </div>
       <p class="small muted">{t('beta.notice')}</p>
