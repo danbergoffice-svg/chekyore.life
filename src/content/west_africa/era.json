@@ -2278,7 +2278,7 @@
     },
     {
       "id": "healer",
-      "minAge": 12,
+      "minAge": 16,
       "classes": [
         "peasant",
         "craftsman"

@@ -1,0 +1,7708 @@
+[
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_adhan",
+  "age_range": [
+   3,
+   90
+  ],
+  "variants": 2,
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "moon",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_iftar",
+  "age_range": [
+   7,
+   90
+  ],
+  "religions": [
+   "islam"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "table",
+    "lamp",
+    "palm"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_eid_fitr",
+  "age_range": [
+   4,
+   12
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_eid_adha",
+  "age_range": [
+   6,
+   90
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "goat",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "reputation",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_hammam_child",
+  "age_range": [
+   4,
+   9
+  ],
+  "conditions": [
+   {
+    "tag_absent": "enslaved"
+   }
+  ],
+  "scene": {
+   "place": "bath",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_hammam_news",
+  "sex": "f",
+  "age_range": [
+   14,
+   80
+  ],
+  "scene": {
+   "place": "bath",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -3
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_spice_suq",
+  "age_range": [
+   5,
+   12
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "coins",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_paper",
+  "regions": [
+   "baghdad",
+   "damascus",
+   "cairo",
+   "cordoba"
+  ],
+  "years": [
+   800,
+   1600
+  ],
+  "age_range": [
+   8,
+   70
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_boat_bridge",
+  "regions": [
+   "baghdad"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat",
+    "palm"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_nilometer",
+  "regions": [
+   "cairo"
+  ],
+  "age_range": [
+   6,
+   90
+  ],
+  "scene": {
+   "place": "river",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "boat",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_umayyad_mosque",
+  "regions": [
+   "damascus"
+  ],
+  "age_range": [
+   5,
+   90
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "sun",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_damascus_blade",
+  "regions": [
+   "damascus"
+  ],
+  "age_range": [
+   8,
+   60
+  ],
+  "sex": "m",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "anvil",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "craft",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_rosewater",
+  "regions": [
+   "damascus"
+  ],
+  "sex": "f",
+  "age_range": [
+   8,
+   70
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "fire",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "skill": "craft",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_mezquita",
+  "regions": [
+   "cordoba"
+  ],
+  "age_range": [
+   5,
+   90
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "lamp",
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_cordoba_library",
+  "regions": [
+   "cordoba"
+  ],
+  "years": [
+   950,
+   1010
+  ],
+  "age_range": [
+   10,
+   70
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   },
+   {
+    "skill": "literacy",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_noria",
+  "regions": [
+   "cordoba",
+   "damascus"
+  ],
+  "age_range": [
+   5,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_bosphorus",
+  "regions": [
+   "istanbul"
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "sea",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_grand_bazaar",
+  "regions": [
+   "istanbul"
+  ],
+  "years": [
+   1461,
+   1600
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "trade",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_tulips",
+  "regions": [
+   "istanbul"
+  ],
+  "years": [
+   1520,
+   1600
+  ],
+  "age_range": [
+   8,
+   80
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_coffee_first",
+  "regions": [
+   "istanbul",
+   "cairo",
+   "damascus"
+  ],
+  "years": [
+   1540,
+   1600
+  ],
+  "age_range": [
+   14,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 1
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_shadow_play",
+  "regions": [
+   "cairo",
+   "damascus"
+  ],
+  "years": [
+   1250,
+   1600
+  ],
+  "age_range": [
+   5,
+   14
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_storyteller",
+  "age_range": [
+   6,
+   15
+  ],
+  "scene": {
+   "place": "market",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_kuttab",
+  "age_range": [
+   5,
+   9
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_calligrapher",
+  "age_range": [
+   8,
+   60
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "skill": "literacy",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_caravan_arrives",
+  "age_range": [
+   5,
+   70
+  ],
+  "scene": {
+   "place": "road",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "horse",
+    "palm",
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_henna_night",
+  "sex": "f",
+  "age_range": [
+   10,
+   40
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": -3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_mawlid",
+  "regions": [
+   "cairo"
+  ],
+  "years": [
+   1000,
+   1600
+  ],
+  "age_range": [
+   5,
+   80
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_snow_sherbet",
+  "regions": [
+   "cairo"
+  ],
+  "years": [
+   1260,
+   1517
+  ],
+  "age_range": [
+   10,
+   80
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "table",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_sabil",
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "sun",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 1
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_dhimmi_dress",
+  "age_range": [
+   12,
+   80
+  ],
+  "conditions": [
+   {
+    "religion_absent": [
+     "islam"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": []
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": -2
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_ghitas",
+  "regions": [
+   "cairo"
+  ],
+  "years": [
+   969,
+   1400
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp",
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_baghdad_ruins",
+  "regions": [
+   "baghdad"
+  ],
+  "years": [
+   1259,
+   1345
+  ],
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_oud",
+  "regions": [
+   "cordoba",
+   "baghdad"
+  ],
+  "age_range": [
+   10,
+   60
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp",
+    "moon"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_bimaristan",
+  "regions": [
+   "damascus",
+   "cairo"
+  ],
+  "years": [
+   1160,
+   1600
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "bed",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 3,
+  "id": "isl_m_istanbul_1453",
+  "regions": [
+   "istanbul"
+  ],
+  "years": [
+   1460,
+   1530
+  ],
+  "age_range": [
+   6,
+   16
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "type": "local",
+  "moment": true,
+  "once": true,
+  "topic": "life",
+  "base_weight": 2,
+  "id": "isl_m_simit",
+  "regions": [
+   "istanbul"
+  ],
+  "years": [
+   1520,
+   1600
+  ],
+  "age_range": [
+   5,
+   14
+  ],
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_hajj",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "religions": [
+   "islam"
+  ],
+  "age_range": [
+   20,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   },
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 120
+   }
+  ],
+  "topic": "life",
+  "icon": "move",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner",
+    "palm"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     }
+    ],
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.75,
+     "on_success": [
+      {
+       "param": "faith",
+       "delta": 15
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "happiness",
+       "delta": 6
+      },
+      {
+       "add_tag": "hajji"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "add_tag": "ill"
+      },
+      {
+       "param": "faith",
+       "delta": 10
+      },
+      {
+       "add_tag": "hajji"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "isl_d_hajj_later"
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "faith_reason": -5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "donate",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -3,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "later",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -1
+     },
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_hajj_later",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "hajji"
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "judge",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 40
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_fast_heat",
+  "religions": [
+   "islam"
+  ],
+  "age_range": [
+   14,
+   60
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   },
+   {
+    "profession": [
+     "farmer",
+     "laborer",
+     "artisan",
+     "caravaneer"
+    ]
+   }
+  ],
+  "topic": "health",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun",
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "diligence",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "rest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -25
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -1,
+     "craft_power": -1
+    }
+   },
+   {
+    "id": "break",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -4
+     },
+     {
+      "param": "health",
+      "delta": 1
+     },
+     {
+      "param": "self_esteem",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": false,
+  "base_weight": 2,
+  "id": "isl_d_zakat",
+  "religions": [
+   "islam"
+  ],
+  "age_range": [
+   20,
+   80
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   },
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 250
+   }
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "money_pct": -3
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2,
+     "memory_future": -1
+    }
+   },
+   {
+    "id": "direct",
+    "effects": [
+     {
+      "money_pct": -4
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2,
+     "craft_power": -1
+    }
+   },
+   {
+    "id": "skimp",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -3
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": -6
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_sufi",
+  "religions": [
+   "islam"
+  ],
+  "years": [
+   900,
+   1600
+  ],
+  "age_range": [
+   16,
+   70
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 10
+     },
+     {
+      "param": "stress",
+      "delta": -5
+     },
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "add_tag": "sufi"
+     },
+     {
+      "add_npc": "mentor",
+      "attitude": 50
+     }
+    ],
+    "pattern": {
+     "faith_reason": -6,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "visit",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "doubt",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     },
+     {
+      "param": "faith",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 2,
+  "id": "isl_f_laylat_qadr",
+  "religions": [
+   "islam"
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "vigil",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "health",
+      "delta": -1
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   },
+   {
+    "id": "sleep",
+    "effects": [
+     {
+      "param": "health",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 1
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": false,
+  "base_weight": 3,
+  "id": "isl_d_jizya",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   70
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "religion_absent": [
+     "islam"
+    ]
+   }
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "self_esteem",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "petition",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": -15
+      },
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "loneliness",
+      "delta": 6
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "isl_d_convert_kin"
+     }
+    ],
+    "pattern": {
+     "memory_future": 6,
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_convert_kin",
+  "trigger_only": true,
+  "topic": "family",
+  "conditions": [
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 3,
+   "props": []
+  },
+  "choices": [
+   {
+    "id": "reconcile",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -6
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "apart",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 4
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_minority_office",
+  "age_range": [
+   18,
+   60
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "religion_absent": [
+     "islam"
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 15
+   }
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "serve",
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "set_profession": "official"
+      },
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "param": "self_esteem",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.6,
+      "trigger_event": "isl_d_convert_kin"
+     }
+    ],
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -3,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_f_coptic_fast",
+  "regions": [
+   "cairo"
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "religions": [
+   "christian"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "christian"
+    ]
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "strict",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "health",
+      "delta": -2
+     },
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "monastery",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "mild",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 1
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "id": "isl_f_fire_temple",
+  "regions": [
+   "baghdad"
+  ],
+  "age_range": [
+   14,
+   80
+  ],
+  "religions": [
+   "zoroastrian"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "zoroastrian"
+    ]
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     },
+     {
+      "param": "money",
+      "delta": -20
+     }
+    ],
+    "pattern": {
+     "memory_future": -6,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     },
+     {
+      "param": "faith",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": 6
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 10,
+  "id": "isl_f_india_partner",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "cairo"
+  ],
+  "years": [
+   1000,
+   1250
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "religions": [
+   "judaism"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "judaism"
+    ]
+   }
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "boat",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "partner",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.7,
+      "trigger_event": "isl_f_india_letter"
+     }
+    ],
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_f_india_letter",
+  "trigger_only": true,
+  "topic": "money",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "cash",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 320
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "again",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 700
+      },
+      {
+       "skill": "trade",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": 80
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4,
+     "home_road": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 12,
+  "id": "isl_f_mozarab",
+  "regions": [
+   "cordoba"
+  ],
+  "years": [
+   850,
+   859
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "religions": [
+   "catholic"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "catholic"
+    ]
+   }
+  ],
+  "sensitive": true,
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "speak",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "faith",
+       "delta": 10
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -100
+      },
+      {
+       "param": "stress",
+       "delta": 15
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -6,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "quiet",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -1
+    }
+   },
+   {
+    "id": "adapt",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "param": "faith",
+      "delta": -2
+     },
+     {
+      "skill": "literacy",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 4,
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_f_church_mosque",
+  "regions": [
+   "istanbul"
+  ],
+  "age_range": [
+   12,
+   80
+  ],
+  "religions": [
+   "orthodox"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "orthodox"
+    ]
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "walk",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "icons",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "money",
+      "delta": -20
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": 40
+     }
+    ],
+    "pattern": {
+     "memory_future": 6
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_waqf",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   35,
+   85
+  ],
+  "classes": [
+   "landowner",
+   "noble",
+   "trader"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 600
+   }
+  ],
+  "topic": "money",
+  "icon": "find",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "endow",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -500
+     },
+     {
+      "param": "reputation",
+      "delta": 10
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "set_flag": "family_waqf"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       14
+      ],
+      "chance": 0.7,
+      "trigger_event": "isl_d_waqf_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "small",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_waqf_later",
+  "trigger_only": true,
+  "topic": "money",
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "court",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -80
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "let",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": false,
+  "base_weight": 3,
+  "id": "isl_d_muhtasib",
+  "age_range": [
+   16,
+   75
+  ],
+  "classes": [
+   "craftsman",
+   "trader"
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "honest",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "money",
+      "delta": -10
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "bribe",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": -30
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -70
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "param": "health",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "argue",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_qadi_court",
+  "age_range": [
+   18,
+   75
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "qadi",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 70
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -40
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "sulh",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 10
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     },
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "memory_future": -1
+    }
+   },
+   {
+    "id": "yield",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_madrasa",
+  "age_range": [
+   13,
+   22
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 8
+   }
+  ],
+  "topic": "work",
+  "icon": "study",
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "study",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "skill": "literacy",
+      "delta": 10
+     },
+     {
+      "param": "intellect",
+      "delta": 3
+     },
+     {
+      "add_tag": "schooled"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       12
+      ],
+      "chance": 0.5,
+      "trigger_event": "isl_w_qadi_offer"
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": 2
+    },
+    "icon": "study"
+   },
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 40
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_iqta",
+  "years": [
+   945,
+   1600
+  ],
+  "age_range": [
+   20,
+   55
+  ],
+  "sex": "m",
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "tag_absent": "iqta"
+   }
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "add_tag": "iqta"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.7,
+      "trigger_event": "isl_d_iqta_campaign"
+     }
+    ],
+    "pattern": {
+     "craft_power": 5,
+     "home_road": 2
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -3
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3,
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_iqta_campaign",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "iqta"
+   }
+  ],
+  "topic": "work",
+  "icon": "war",
+  "scene": {
+   "place": "camp",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 250
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "military",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "param": "money",
+       "delta": -100
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "craft_power": 3
+    },
+    "icon": "war"
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -250
+     },
+     {
+      "param": "reputation",
+      "delta": -6
+     },
+     {
+      "remove_tag": "iqta"
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_mukataba",
+  "age_range": [
+   18,
+   50
+  ],
+  "classes": [
+   "slave"
+  ],
+  "topic": "life",
+  "icon": "freedom",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ask",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 6
+      },
+      {
+       "add_tag": "mukataba"
+      },
+      {
+       "param": "diligence",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "param": "self_esteem",
+       "delta": -3
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       8
+      ],
+      "chance": 0.8,
+      "trigger_event": "isl_d_mukataba_paid"
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_mukataba_paid",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "mukataba"
+   },
+   {
+    "tag": "enslaved"
+   }
+  ],
+  "topic": "life",
+  "icon": "freedom",
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "scroll",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "remove_tag": "enslaved"
+   },
+   {
+    "remove_tag": "mukataba"
+   },
+   {
+    "add_tag": "freedman"
+   },
+   {
+    "param": "happiness",
+    "delta": 15
+   },
+   {
+    "param": "self_esteem",
+    "delta": 10
+   }
+  ],
+  "choices": [
+   {
+    "id": "craft",
+    "effects": [
+     {
+      "set_class": "craftsman"
+     },
+     {
+      "set_profession": "artisan"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    },
+    "icon": "freedom"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "set_class": "craftsman"
+     },
+     {
+      "set_profession": "laborer"
+     },
+     {
+      "param": "money",
+      "delta": 50
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_water",
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "peasant",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "farmer",
+     "landholder"
+    ]
+   }
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain",
+    "palm"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sheikh",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "skill": "farming",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2,
+     "craft_power": -1
+    }
+   },
+   {
+    "id": "dig",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 60
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -8
+      },
+      {
+       "add_npc": "rival",
+       "attitude": -40
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -25
+     },
+     {
+      "add_npc": "friend",
+      "attitude": 30
+     },
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_guild",
+  "regions": [
+   "istanbul",
+   "cairo",
+   "damascus"
+  ],
+  "years": [
+   1300,
+   1600
+  ],
+  "age_range": [
+   16,
+   35
+  ],
+  "classes": [
+   "craftsman"
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "laborer",
+     "artisan",
+     "weaver"
+    ]
+   }
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "anvil",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "test",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ],
+    "risk_roll": {
+     "param": "craft",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "set_profession": "workshop_owner"
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "craft",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "self_esteem",
+       "delta": -5
+      },
+      {
+       "skill": "craft",
+       "delta": 2
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 30
+     },
+     {
+      "skill": "craft",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_astrologer",
+  "age_range": [
+   18,
+   75
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "consult",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 3
+      },
+      {
+       "param": "stress",
+       "delta": -3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 1
+    }
+   },
+   {
+    "id": "trust",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "reason",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_book_copy",
+  "age_range": [
+   18,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "scribe",
+     "official",
+     "translator"
+    ]
+   }
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "workshop",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "copy",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": -10
+       },
+       {
+        "param": "stress",
+        "delta": 6
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": 5
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "money",
+      "delta": -10
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_trade_venture",
+  "age_range": [
+   20,
+   65
+  ],
+  "classes": [
+   "trader",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 200
+   }
+  ],
+  "topic": "money",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "far",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -200
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       7
+      ],
+      "chance": 0.85,
+      "trigger_event": "isl_d_venture_news"
+     }
+    ],
+    "pattern": {
+     "home_road": 4,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "near",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "chance": 0.6,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 110
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": 1
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_venture_news",
+  "trigger_only": true,
+  "topic": "money",
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 260
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "hold",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 600
+      },
+      {
+       "skill": "trade",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": 90
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": false,
+  "base_weight": 2,
+  "id": "isl_d_canal",
+  "regions": [
+   "cairo"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant"
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "grain",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "skill": "farming",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     }
+    ],
+    "pattern": {
+     "craft_power": 1
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -80
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_poetry",
+  "regions": [
+   "cordoba",
+   "baghdad"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 10
+   }
+  ],
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "lamp",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "compete",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "param": "money",
+       "delta": 80
+      },
+      {
+       "param": "happiness",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "self_esteem",
+       "delta": -5
+      },
+      {
+       "param": "happiness",
+       "delta": -2
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "listen",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "id": "isl_d_devshirme",
+  "regions": [
+   "istanbul"
+  ],
+  "age_range": [
+   8,
+   14
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant"
+  ],
+  "religions": [
+   "orthodox"
+  ],
+  "conditions": [
+   {
+    "religion": [
+     "orthodox"
+    ]
+   }
+  ],
+  "sensitive": true,
+  "topic": "life",
+  "icon": "move",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "add_tag": "devshirme"
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": -10
+     },
+     {
+      "param": "loneliness",
+      "delta": 10
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.95,
+      "trigger_event": "isl_d_devshirme_later"
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "set_religion": "islam"
+      },
+      {
+       "add_tag": "devshirme"
+      },
+      {
+       "param": "happiness",
+       "delta": -12
+      },
+      {
+       "param": "loneliness",
+       "delta": 12
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       8
+      ],
+      "chance": 0.95,
+      "trigger_event": "isl_d_devshirme_later"
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_devshirme_later",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "devshirme"
+   }
+  ],
+  "topic": "work",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "janissary",
+    "effects": [
+     {
+      "set_profession": "janissary"
+     },
+     {
+      "set_class": "slave"
+     },
+     {
+      "skill": "military",
+      "delta": 8
+     },
+     {
+      "param": "strength",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "palace",
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "set_profession": "official"
+      },
+      {
+       "set_class": "landowner"
+      },
+      {
+       "skill": "literacy",
+       "delta": 15
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "set_profession": "janissary"
+      },
+      {
+       "set_class": "slave"
+      },
+      {
+       "skill": "military",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5,
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_palace_girl",
+  "regions": [
+   "istanbul"
+  ],
+  "age_range": [
+   12,
+   20
+  ],
+  "sex": "f",
+  "classes": [
+   "slave"
+  ],
+  "sensitive": true,
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp",
+    "loom"
+   ]
+  },
+  "choices": [
+   {
+    "id": "learn",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 6
+     },
+     {
+      "param": "diligence",
+      "delta": 3
+     },
+     {
+      "add_tag": "palace"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 0.7,
+      "trigger_event": "isl_d_palace_freed"
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "quiet",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "add_tag": "palace"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       7,
+       12
+      ],
+      "chance": 0.5,
+      "trigger_event": "isl_d_palace_freed"
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "id": "isl_d_palace_freed",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "palace"
+   },
+   {
+    "tag": "enslaved"
+   }
+  ],
+  "topic": "life",
+  "icon": "freedom",
+  "scene": {
+   "place": "palace",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "coins",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "remove_tag": "enslaved"
+   },
+   {
+    "add_tag": "freedman"
+   },
+   {
+    "set_class": "trader"
+   },
+   {
+    "set_profession": null
+   },
+   {
+    "param": "money",
+    "delta": 300
+   },
+   {
+    "param": "happiness",
+    "delta": 12
+   }
+  ],
+  "choices": [
+   {
+    "id": "marry",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -3,
+     "memory_future": -2
+    },
+    "icon": "freedom"
+   },
+   {
+    "id": "own",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 6
+     },
+     {
+      "param": "money",
+      "delta": 50
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_vizier",
+  "age_range": [
+   18,
+   50
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 15
+   }
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 400
+     },
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "reputation",
+      "delta": 10
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 50
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       10
+      ],
+      "chance": 0.5,
+      "trigger_event": "isl_t_vizier_fall"
+     }
+    ],
+    "pattern": {
+     "craft_power": 6,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -4,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": false,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_vizier_fall",
+  "trigger_only": true,
+  "icon": "loss",
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -50
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "deny",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -70
+      },
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "set_profession": "scribe"
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "betray",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -10
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     },
+     {
+      "remove_npc": "patron"
+     }
+    ],
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_sea_voyage",
+  "regions": [
+   "baghdad",
+   "cairo"
+  ],
+  "years": [
+   800,
+   1500
+  ],
+  "age_range": [
+   18,
+   50
+  ],
+  "sex": "m",
+  "classes": [
+   "craftsman",
+   "trader"
+  ],
+  "icon": "move",
+  "scene": {
+   "place": "sea",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "boat",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sail",
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 800
+      },
+      {
+       "skill": "seafaring",
+       "delta": 10
+      },
+      {
+       "skill": "trade",
+       "delta": 8
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -60
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 8,
+     "memory_future": 6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "share",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 320
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "home_road": -2,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_bedouin",
+  "age_range": [
+   15,
+   65
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "icon": "loss",
+  "scene": {
+   "place": "road",
+   "time": "sunset",
+   "people": 6,
+   "props": [
+    "horse",
+    "palm"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "add_trait": "brave"
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "money_pct": -50
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -60
+     },
+     {
+      "param": "stress",
+      "delta": 10
+     },
+     {
+      "param": "health",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_heresy",
+  "age_range": [
+   20,
+   70
+  ],
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 15
+   },
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "sensitive": true,
+  "icon": "loss",
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "defend",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "reputation",
+       "delta": -15
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "recant",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "self_esteem",
+      "delta": -8
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_corsairs",
+  "regions": [
+   "cordoba",
+   "cairo",
+   "istanbul"
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "sensitive": true,
+  "icon": "loss",
+  "scene": {
+   "place": "sea",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ransom",
+    "effects": [
+     {
+      "money_pct": -60
+     },
+     {
+      "param": "stress",
+      "delta": 10
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "oar",
+    "effects": [
+     {
+      "set_class": "slave"
+     },
+     {
+      "set_profession": "field_slave"
+     },
+     {
+      "add_tag": "enslaved"
+     },
+     {
+      "add_tag": "captive"
+     },
+     {
+      "remove_tag": "wealthy"
+     },
+     {
+      "money_pct": -100
+     },
+     {
+      "param": "happiness",
+      "delta": -20
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.6,
+      "trigger_event": "isl_t_captive_freed"
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "escape",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 10
+      },
+      {
+       "add_trait": "brave"
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -70
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 4,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": false,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_captive_freed",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "captive"
+   },
+   {
+    "tag": "enslaved"
+   }
+  ],
+  "icon": "freedom",
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "boat",
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "remove_tag": "enslaved"
+   },
+   {
+    "remove_tag": "captive"
+   },
+   {
+    "add_tag": "freedman"
+   },
+   {
+    "set_class": "peasant"
+   },
+   {
+    "set_profession": "laborer"
+   },
+   {
+    "param": "happiness",
+    "delta": 15
+   }
+  ],
+  "choices": [
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -8
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": -5
+    },
+    "icon": "freedom"
+   },
+   {
+    "id": "sea",
+    "effects": [
+     {
+      "set_profession": "sailor"
+     },
+     {
+      "skill": "seafaring",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_treasure",
+  "age_range": [
+   14,
+   70
+  ],
+  "icon": "find",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "coins",
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "declare",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 320
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -1
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 500
+      },
+      {
+       "param": "stress",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -100
+      },
+      {
+       "param": "reputation",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "mosque",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "faith",
+      "delta": 8
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_amir",
+  "age_range": [
+   16,
+   32
+  ],
+  "sex": "m",
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "conditions": [
+   {
+    "param": "strength",
+    "op": ">=",
+    "value": 52
+   }
+  ],
+  "icon": "war",
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "skill": "military",
+      "delta": 10
+     },
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.6,
+      "trigger_event": "isl_t_amir_revolt"
+     }
+    ],
+    "pattern": {
+     "craft_power": 5,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": false,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_amir_revolt",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "profession": [
+     "soldier",
+     "officer"
+    ]
+   }
+  ],
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "loyal",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "set_profession": "officer"
+      },
+      {
+       "set_class": "landowner"
+      },
+      {
+       "param": "money",
+       "delta": 400
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "money_pct": -50
+      },
+      {
+       "set_profession": "laborer"
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 6,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "desert",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -6
+     },
+     {
+      "set_profession": "laborer"
+     },
+     {
+      "param": "stress",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "craft_power": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_bazaar_fire",
+  "age_range": [
+   18,
+   70
+  ],
+  "classes": [
+   "craftsman",
+   "trader"
+  ],
+  "icon": "disaster",
+  "scene": {
+   "place": "market",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "loan",
+    "effects": [
+     {
+      "add_tag": "in_debt"
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "home_road": -3
+    }
+   },
+   {
+    "id": "move",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    },
+    "icon": "move"
+   },
+   {
+    "id": "hire",
+    "effects": [
+     {
+      "set_profession": "laborer"
+     },
+     {
+      "money_pct": -60
+     },
+     {
+      "param": "self_esteem",
+      "delta": -6
+     }
+    ],
+    "pattern": {
+     "craft_power": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_rihla",
+  "age_range": [
+   16,
+   35
+  ],
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 25
+   }
+  ],
+  "icon": "study",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "scroll",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -100
+     },
+     {
+      "skill": "literacy",
+      "delta": 15
+     },
+     {
+      "param": "intellect",
+      "delta": 5
+     },
+     {
+      "add_npc": "mentor",
+      "attitude": 60
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       5,
+       10
+      ],
+      "chance": 0.7,
+      "trigger_event": "isl_t_rihla_later"
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "faith_reason": 3
+    },
+    "icon": "study"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": false,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "id": "isl_t_rihla_later",
+  "trigger_only": true,
+  "icon": "study",
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "teach",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "court",
+    "effects": [
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "turning": true,
+  "once": true,
+  "base_weight": 8,
+  "topic": "life",
+  "id": "isl_t_plague_heir",
+  "regions": [
+   "cairo",
+   "damascus",
+   "baghdad"
+  ],
+  "years": [
+   1348,
+   1352
+  ],
+  "age_range": [
+   14,
+   70
+  ],
+  "icon": "find",
+  "sensitive": true,
+  "scene": {
+   "place": "home",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "scroll",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "take",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 600
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     },
+     {
+      "param": "happiness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "orphans",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 250
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "add_npc": "child",
+      "attitude": 50,
+      "adopted": true
+     }
+    ],
+    "pattern": {
+     "craft_power": -4,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "isl_w_muezzin",
+  "age_range": [
+   18,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "muezzin"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "moon",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "compete",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "param": "reputation",
+       "delta": 8
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "self_esteem",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": false,
+  "base_weight": 4,
+  "topic": "work",
+  "id": "isl_w_caravan_route",
+  "age_range": [
+   18,
+   65
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "caravaneer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "horse",
+    "palm",
+    "sun"
+   ]
+  },
+  "choices": [
+   {
+    "id": "short",
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 250
+      },
+      {
+       "skill": "trade",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "money",
+       "delta": -100
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "long",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 2,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 12,
+  "topic": "work",
+  "id": "isl_w_caravan_up",
+  "age_range": [
+   25,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "caravaneer"
+    ]
+   },
+   {
+    "skill": "trade",
+    "op": ">=",
+    "value": 20
+   }
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "own",
+    "effects": [
+     {
+      "set_profession": "shipowner"
+     },
+     {
+      "param": "money",
+      "delta": -200
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "craft_power": 5,
+     "home_road": -3
+    }
+   },
+   {
+    "id": "road",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 14,
+  "topic": "work",
+  "id": "isl_w_mamluk_freed",
+  "age_range": [
+   15,
+   35
+  ],
+  "classes": [
+   "slave"
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "mamluk"
+    ]
+   }
+  ],
+  "icon": "freedom",
+  "scene": {
+   "place": "camp",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner",
+    "shield"
+   ]
+  },
+  "effects": [
+   {
+    "remove_tag": "enslaved"
+   },
+   {
+    "add_tag": "freedman"
+   },
+   {
+    "set_class": "craftsman"
+   },
+   {
+    "param": "self_esteem",
+    "delta": 10
+   },
+   {
+    "param": "happiness",
+    "delta": 8
+   }
+  ],
+  "choices": [
+   {
+    "id": "loyal",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 60
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "craft_power": 3
+    },
+    "icon": "freedom"
+   },
+   {
+    "id": "richer",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      },
+      {
+       "skill": "military",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 12,
+  "topic": "work",
+  "id": "isl_w_amir",
+  "regions": [
+   "cairo",
+   "damascus"
+  ],
+  "years": [
+   1250,
+   1517
+  ],
+  "age_range": [
+   24,
+   50
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "mamluk",
+     "soldier"
+    ]
+   },
+   {
+    "skill": "military",
+    "op": ">=",
+    "value": 20
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "officer"
+     },
+     {
+      "set_class": "landowner"
+     },
+     {
+      "remove_tag": "enslaved"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "isl_w_cauldron",
+  "regions": [
+   "istanbul"
+  ],
+  "age_range": [
+   18,
+   50
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "janissary"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 100
+      },
+      {
+       "param": "loneliness",
+       "delta": -4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "param": "health",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "aside",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "report",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "param": "reputation",
+      "delta": -8
+     },
+     {
+      "add_npc": "rival",
+      "attitude": -50
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 12,
+  "topic": "work",
+  "id": "isl_w_janissary_up",
+  "regions": [
+   "istanbul"
+  ],
+  "age_range": [
+   23,
+   50
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "janissary"
+    ]
+   },
+   {
+    "skill": "military",
+    "op": ">=",
+    "value": 20
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "officer"
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "money",
+      "delta": 150
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "add_npc": "friend",
+      "attitude": 50
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 12,
+  "topic": "work",
+  "id": "isl_w_janissary_wed",
+  "regions": [
+   "istanbul"
+  ],
+  "age_range": [
+   18,
+   45
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "janissary"
+    ]
+   },
+   {
+    "no_npc": "spouse"
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp",
+    "moon"
+   ]
+  },
+  "choices": [
+   {
+    "id": "marry",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "add_npc": "spouse",
+       "attitude": 50
+      },
+      {
+       "param": "happiness",
+       "delta": 8
+      },
+      {
+       "param": "loneliness",
+       "delta": -10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "money",
+       "delta": -50
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -5,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 4
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 12,
+  "topic": "work",
+  "id": "isl_w_zij",
+  "age_range": [
+   18,
+   75
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "astronomer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "moon",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "truth",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "chance": 0.35,
+      "effects": [
+       {
+        "param": "money",
+        "delta": -100
+       },
+       {
+        "param": "stress",
+        "delta": 5
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": 5
+    }
+   },
+   {
+    "id": "flatter",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "faith_reason": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 12,
+  "topic": "work",
+  "id": "isl_w_comet",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "regions": [
+   "istanbul"
+  ],
+  "years": [
+   1577,
+   1578
+  ],
+  "age_range": [
+   16,
+   80
+  ],
+  "conditions": [
+   {
+    "any": [
+     {
+      "profession": [
+       "astronomer",
+       "scribe",
+       "official",
+       "physician"
+      ]
+     },
+     {
+      "skill": "literacy",
+      "op": ">=",
+      "value": 20
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "moon",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "victory",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": -10
+       },
+       {
+        "param": "stress",
+        "delta": 6
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "measure",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 4
+     },
+     {
+      "skill": "literacy",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "isl_w_perfume",
+  "age_range": [
+   16,
+   70
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "perfumer"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "real",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 180
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "skill": "craft",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "fake",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -12
+      },
+      {
+       "param": "money",
+       "delta": -50
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "isl_w_perfume_up",
+  "age_range": [
+   25,
+   60
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "perfumer"
+    ]
+   },
+   {
+    "skill": "craft",
+    "op": ">=",
+    "value": 35
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "fire",
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "open",
+    "effects": [
+     {
+      "set_profession": "workshop_owner"
+     },
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 8,
+  "topic": "work",
+  "id": "isl_w_translator_up",
+  "regions": [
+   "baghdad"
+  ],
+  "years": [
+   800,
+   1000
+  ],
+  "age_range": [
+   20,
+   55
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "scribe",
+     "physician",
+     "official"
+    ]
+   },
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 30
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "translator"
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "intellect",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 6,
+     "memory_future": 3
+    },
+    "icon": "study"
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 12,
+  "topic": "work",
+  "id": "isl_w_translate",
+  "age_range": [
+   20,
+   75
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "translator"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "meaning",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "literal",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 8,
+  "topic": "work",
+  "id": "isl_w_coffee_open",
+  "regions": [
+   "istanbul",
+   "cairo",
+   "damascus"
+  ],
+  "years": [
+   1555,
+   1600
+  ],
+  "age_range": [
+   18,
+   60
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "peasant"
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "merchant",
+     "artisan",
+     "laborer"
+    ]
+   },
+   {
+    "param": "money",
+    "op": ">=",
+    "value": 150
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "fire",
+    "table",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "open",
+    "effects": [
+     {
+      "set_profession": "coffee_keeper"
+     },
+     {
+      "param": "money",
+      "delta": -150
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "memory_future": 6,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "no",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "isl_w_coffee_trouble",
+  "age_range": [
+   18,
+   80
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "coffee_keeper"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "bribe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "close",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "fatwa",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "money",
+       "delta": 60
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -150
+      },
+      {
+       "param": "reputation",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 1,
+  "topic": "work",
+  "id": "isl_w_qadi_offer",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "sex": "m"
+   },
+   {
+    "religion": [
+     "islam"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "magistrate"
+     },
+     {
+      "set_class": "landowner"
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": -5,
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "isl_w_qadi_case",
+  "age_range": [
+   25,
+   80
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "magistrate"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "just",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "faith",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "param": "money",
+       "delta": -200
+      },
+      {
+       "set_profession": "priest"
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -3,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "amir",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "faith",
+      "delta": -5
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     },
+     {
+      "param": "self_esteem",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 6,
+  "topic": "work",
+  "id": "isl_w_quran_copy",
+  "age_range": [
+   18,
+   75
+  ],
+  "conditions": [
+   {
+    "profession": [
+     "scribe",
+     "official"
+    ]
+   }
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "skill": "literacy",
+      "delta": 4
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {}
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "icon": "move",
+  "id": "isl_mv_baghdad",
+  "regions": [
+   "damascus",
+   "cordoba"
+  ],
+  "years": [
+   770,
+   1050
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "horse",
+    "palm"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "baghdad"
+     },
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "icon": "move",
+  "id": "isl_mv_cairo",
+  "regions": [
+   "baghdad",
+   "damascus"
+  ],
+  "years": [
+   975,
+   1250
+  ],
+  "age_range": [
+   16,
+   45
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader"
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "palm"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "cairo"
+     },
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "icon": "move",
+  "id": "isl_mv_andalus",
+  "regions": [
+   "cordoba"
+  ],
+  "years": [
+   1013,
+   1236
+  ],
+  "age_range": [
+   16,
+   60
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "cairo",
+    "effects": [
+     {
+      "migrate": "cairo"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "happiness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": 7,
+     "memory_future": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "damascus",
+    "effects": [
+     {
+      "migrate": "damascus"
+     },
+     {
+      "money_pct": -35
+     },
+     {
+      "param": "happiness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "home_road": 7,
+     "memory_future": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -5,
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "icon": "move",
+  "id": "isl_mv_mongols",
+  "regions": [
+   "baghdad"
+  ],
+  "years": [
+   1259,
+   1300
+  ],
+  "age_range": [
+   14,
+   60
+  ],
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "cart",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "cairo",
+    "effects": [
+     {
+      "migrate": "cairo"
+     },
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": 7,
+     "memory_future": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "damascus",
+    "effects": [
+     {
+      "migrate": "damascus"
+     },
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -5,
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "type": "personal",
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "icon": "move",
+  "id": "isl_mv_istanbul",
+  "regions": [
+   "cairo",
+   "damascus"
+  ],
+  "years": [
+   1517,
+   1600
+  ],
+  "age_range": [
+   16,
+   50
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "istanbul"
+     },
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "loneliness",
+      "delta": 5
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 7,
+     "memory_future": 6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -3
+    }
+   }
+  ]
+ }
+]

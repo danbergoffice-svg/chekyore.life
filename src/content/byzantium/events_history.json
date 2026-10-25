@@ -1,0 +1,2794 @@
+[
+ {
+  "id": "byz_x_ransom",
+  "type": "personal",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "flag": "byz_captive"
+   },
+   {
+    "tag": "enslaved"
+   }
+  ],
+  "base_weight": 2,
+  "sensitive": true,
+  "topic": "life",
+  "icon": "freedom",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "cart"
+   ]
+  },
+  "effects": [
+   {
+    "set_class": "peasant"
+   },
+   {
+    "remove_tag": "enslaved"
+   },
+   {
+    "set_profession": "laborer"
+   },
+   {
+    "param": "happiness",
+    "delta": 18
+   },
+   {
+    "clear_flag": "byz_captive"
+   }
+  ]
+ },
+ {
+  "id": "byz_h_photios",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   858,
+   867
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.2,
+  "topic": "history",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "photios",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": 2,
+     "faith_reason": 1
+    }
+   },
+   {
+    "id": "ignatios",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "none",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_rus_860",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   860,
+   860
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "sea",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "save",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "walls",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_slavic_mission",
+  "type": "global_historical",
+  "regions": [
+   "thessalonica"
+  ],
+  "years": [
+   862,
+   863
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.4,
+  "topic": "history",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "faith",
+    "delta": 1
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_thessalonica_904",
+  "type": "global_historical",
+  "regions": [
+   "thessalonica"
+  ],
+  "years": [
+   904,
+   904
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "sensitive": true,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "boat"
+   ]
+  },
+  "choices": [
+   {
+    "id": "wall",
+    "requirements": [
+     {
+      "sex": "m"
+     }
+    ],
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "add_trait": "brave"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -10
+      },
+      {
+       "set_flag": "byz_captive"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       6
+      ],
+      "chance": 0.5,
+      "trigger_event": "byz_x_ransom"
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -40
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -10
+      },
+      {
+       "set_flag": "byz_captive"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       6
+      ],
+      "chance": 0.5,
+      "trigger_event": "byz_x_ransom"
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_symeon",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "thessalonica"
+  ],
+  "years": [
+   913,
+   924
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.2,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "militia",
+    "requirements": [
+     {
+      "sex": "m"
+     }
+    ],
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "skill": "military",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "pray",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "grain",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_winter_927",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "thessalonica",
+   "nicaea",
+   "trebizond"
+  ],
+  "years": [
+   927,
+   928
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "icon": "disaster",
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "health",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -8
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "share",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 100
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_igor_941",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "nicaea"
+  ],
+  "years": [
+   941,
+   941
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "sea",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_crete_961",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "thessalonica"
+  ],
+  "years": [
+   961,
+   961
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "topic": "history",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "stress",
+    "delta": -3
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_vladimir_988",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   988,
+   989
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.4,
+  "topic": "history",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "historian_note": true,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "byz_h_kleidion_1014",
+  "type": "global_historical",
+  "regions": [
+   "thessalonica",
+   "constantinople"
+  ],
+  "years": [
+   1014,
+   1014
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "sensitive": true,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": 1
+   }
+  ],
+  "historian_note": true,
+  "confidence": "disputed"
+ },
+ {
+  "id": "byz_h_basil_winter_1021",
+  "type": "global_historical",
+  "regions": [
+   "trebizond"
+  ],
+  "years": [
+   1021,
+   1022
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.4,
+  "topic": "history",
+  "scene": {
+   "place": "camp",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "risk_roll": {
+     "param": "trade",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -30
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "hide",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_zoe_1042",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1042,
+   1042
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "topic": "history",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "storm",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 4
+      },
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_schism_1054",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1054,
+   1054
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "patriarch",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2,
+     "faith_reason": -1
+    }
+   },
+   {
+    "id": "shrug",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 1
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_manzikert",
+  "type": "global_historical",
+  "regions": [
+   "nicaea",
+   "trebizond"
+  ],
+  "years": [
+   1071,
+   1072
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "battle",
+   "time": "sunset",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "fortify",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "migrate": "@capital"
+     },
+     {
+      "money_pct": -25
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    },
+    "icon": "move"
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_nicaea_seljuk",
+  "type": "global_historical",
+  "regions": [
+   "nicaea"
+  ],
+  "years": [
+   1078,
+   1084
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.25,
+  "topic": "history",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "migrate": "constantinople"
+     },
+     {
+      "money_pct": -40
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    },
+    "icon": "move"
+   }
+  ],
+  "historian_note": true,
+  "confidence": "disputed"
+ },
+ {
+  "id": "byz_h_first_crusade",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "nicaea"
+  ],
+  "years": [
+   1096,
+   1097
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "trade",
+    "risk_roll": {
+     "param": "trade",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -60
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "avoid",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_latin_massacre",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1182,
+   1182
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "sensitive": true,
+  "topic": "history",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "shelter",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "faith",
+       "delta": 5
+      },
+      {
+       "param": "self_esteem",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "money_pct": -20
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -2,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_thessalonica_1185",
+  "type": "global_historical",
+  "regions": [
+   "thessalonica"
+  ],
+  "years": [
+   1185,
+   1185
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "sensitive": true,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -30
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -60
+      },
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "eustathios",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "health",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_sack_1204",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1204,
+   1204
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "sensitive": true,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "landmark",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -40
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -70
+      },
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -60
+     },
+     {
+      "migrate": "@other"
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "bribe",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -50
+      },
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_trebizond_1204",
+  "type": "global_historical",
+  "regions": [
+   "trebizond"
+  ],
+  "years": [
+   1204,
+   1205
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_laskaris",
+  "type": "global_historical",
+  "regions": [
+   "nicaea"
+  ],
+  "years": [
+   1205,
+   1208
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.4,
+  "topic": "history",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_thessalonica_1224",
+  "type": "global_historical",
+  "regions": [
+   "thessalonica"
+  ],
+  "years": [
+   1224,
+   1224
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_vatatzes",
+  "type": "global_historical",
+  "regions": [
+   "nicaea"
+  ],
+  "years": [
+   1225,
+   1254
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.12,
+  "topic": "history",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "goat",
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "money",
+    "delta": 20
+   }
+  ],
+  "historian_note": true,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "byz_h_kose_dag",
+  "type": "global_historical",
+  "regions": [
+   "trebizond"
+  ],
+  "years": [
+   1243,
+   1244
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner",
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "trade",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_recovery_1261",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "nicaea"
+  ],
+  "years": [
+   1261,
+   1261
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "topic": "history",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 6
+   },
+   {
+    "param": "self_esteem",
+    "delta": 3
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_lyon_1274",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1274,
+   1275
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.4,
+  "topic": "history",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "union",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": 3,
+     "faith_reason": 1
+    }
+   },
+   {
+    "id": "against",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "silent",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ]
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_catalans",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "thessalonica"
+  ],
+  "years": [
+   1305,
+   1309
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.25,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "fire",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "walls",
+    "effects": [
+     {
+      "money_pct": -20
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "defend",
+    "requirements": [
+     {
+      "sex": "m"
+     }
+    ],
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      },
+      {
+       "money_pct": -30
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_nicaea_1331",
+  "type": "global_historical",
+  "regions": [
+   "nicaea"
+  ],
+  "years": [
+   1329,
+   1331
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "landmark",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "migrate": "constantinople"
+     },
+     {
+      "money_pct": -40
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    },
+    "icon": "move"
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_civil_war",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "thessalonica"
+  ],
+  "years": [
+   1341,
+   1347
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.15,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "palace",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "money_pct": -10
+   }
+  ],
+  "choices": [
+   {
+    "id": "regency",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "kantakouzenos",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": 2,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "aside",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_zealots",
+  "type": "global_historical",
+  "regions": [
+   "thessalonica"
+  ],
+  "years": [
+   1342,
+   1349
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.25,
+  "topic": "history",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "zealots",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 50
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": 5,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "archons",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -40
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "quiet",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_black_death",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "thessalonica",
+   "trebizond"
+  ],
+  "years": [
+   1347,
+   1348
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "sensitive": true,
+  "topic": "history",
+  "icon": "disaster",
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -15
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.7,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "add_tag": "epidemic"
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "nurse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "add_tag": "epidemic"
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -3,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "lock",
+    "risk_roll": {
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "add_tag": "epidemic"
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_gallipoli",
+  "type": "global_historical",
+  "regions": [
+   "constantinople",
+   "thessalonica"
+  ],
+  "years": [
+   1354,
+   1355
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "icon": "disaster",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "smoke"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 4
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_trebizond_strife",
+  "type": "global_historical",
+  "regions": [
+   "trebizond"
+  ],
+  "years": [
+   1340,
+   1349
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.15,
+  "topic": "history",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "side",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 4
+      },
+      {
+       "param": "money",
+       "delta": 80
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -30
+      },
+      {
+       "param": "health",
+       "delta": -8
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "aside",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "byz_h_thessalonica_1387",
+  "type": "global_historical",
+  "regions": [
+   "thessalonica"
+  ],
+  "years": [
+   1387,
+   1387
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "topic": "history",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 4
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_bayezid_siege",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1394,
+   1402
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.15,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "landmark",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -6
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -40
+     },
+     {
+      "migrate": "@other"
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "trade",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_thessalonica_1430",
+  "type": "global_historical",
+  "regions": [
+   "thessalonica"
+  ],
+  "years": [
+   1430,
+   1430
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "sensitive": true,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -50
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -10
+      },
+      {
+       "set_flag": "byz_captive"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       6
+      ],
+      "chance": 0.5,
+      "trigger_event": "byz_x_ransom"
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   },
+   {
+    "id": "ships",
+    "risk_roll": {
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "money_pct": -60
+      },
+      {
+       "migrate": "@other"
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -10
+      },
+      {
+       "set_flag": "byz_captive"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       6
+      ],
+      "chance": 0.5,
+      "trigger_event": "byz_x_ransom"
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    },
+    "icon": "move"
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_florence",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1439,
+   1440
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.5,
+  "topic": "history",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "choices": [
+   {
+    "id": "union",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "memory_future": 3,
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "against",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ]
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_fall_1453",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1453,
+   1453
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "sensitive": true,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "landmark",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ships",
+    "risk_roll": {
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "money_pct": -60
+      },
+      {
+       "migrate": "@other"
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -10
+      },
+      {
+       "set_flag": "byz_captive"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       6
+      ],
+      "chance": 0.5,
+      "trigger_event": "byz_x_ransom"
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "sophia",
+    "risk_roll": {
+     "success_chance_base": 0.3,
+     "on_success": [
+      {
+       "money_pct": -50
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -10
+      },
+      {
+       "set_flag": "byz_captive"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       6
+      ],
+      "chance": 0.5,
+      "trigger_event": "byz_x_ransom"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -5
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "money_pct": -60
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "set_profession": "household_slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "remove_tag": "wealthy"
+      },
+      {
+       "money_pct": -100
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "self_esteem",
+       "delta": -10
+      },
+      {
+       "set_flag": "byz_captive"
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       2,
+       6
+      ],
+      "chance": 0.5,
+      "trigger_event": "byz_x_ransom"
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_gennadios",
+  "type": "global_historical",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   1454,
+   1460
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "religions": [
+   "orthodox"
+  ],
+  "base_weight": 1,
+  "global_chance": 0.3,
+  "topic": "history",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "byz_h_trebizond_1461",
+  "type": "global_historical",
+  "regions": [
+   "trebizond"
+  ],
+  "years": [
+   1461,
+   1461
+  ],
+  "age_range": [
+   6,
+   120
+  ],
+  "base_weight": 1,
+  "global_chance": 0.6,
+  "topic": "history",
+  "icon": "war",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 5
+   }
+  ],
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   },
+   {
+    "id": "mountains",
+    "effects": [
+     {
+      "money_pct": -30
+     }
+    ],
+    "pattern": {
+     "home_road": 3,
+     "memory_future": -2
+    }
+   }
+  ],
+  "historian_note": true,
+  "confidence": "confirmed"
+ }
+]

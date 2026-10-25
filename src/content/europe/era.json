@@ -2126,7 +2126,7 @@
     "craftsman",
     "landowner"
    ],
-   "minAge": 16,
+   "minAge": 14,
    "income": [
     160,
     280
@@ -2185,7 +2185,7 @@
   {
    "id": "priest",
    "sex": "m",
-   "minAge": 16,
+   "minAge": 14,
    "classes": [
     "peasant",
     "craftsman",
@@ -2217,7 +2217,7 @@
     "landowner",
     "noble"
    ],
-   "minAge": 16,
+   "minAge": 14,
    "income": [
     550,
     950
@@ -2281,9 +2281,8 @@
   },
   {
    "id": "monk",
-   "minAge": 14,
+   "minAge": 15,
    "classes": [
-    "peasant",
     "craftsman",
     "trader",
     "landowner",
@@ -2313,7 +2312,7 @@
     "trader",
     "craftsman"
    ],
-   "minAge": 16,
+   "minAge": 14,
    "income": [
     200,
     800
@@ -2331,12 +2330,12 @@
     "landowner",
     "noble"
    ],
-   "minAge": 18,
+   "minAge": 14,
    "requirements": [
     {
      "skill": "literacy",
      "op": ">=",
-     "value": 20
+     "value": 15
     }
    ],
    "income": [
@@ -2368,7 +2367,7 @@
     "peasant",
     "craftsman"
    ],
-   "minAge": 16,
+   "minAge": 14,
    "income": [
     140,
     260
@@ -2400,12 +2399,12 @@
     "trader",
     "landowner"
    ],
-   "minAge": 18,
+   "minAge": 14,
    "requirements": [
     {
      "skill": "literacy",
      "op": ">=",
-     "value": 30
+     "value": 20
     }
    ],
    "income": [
@@ -2941,7 +2940,7 @@
    ]
   ],
   "childbirth": 0.015,
-  "calibration": 0.7,
+  "calibration": 0.8,
   "causes": [
    {
     "id": "infant_illness",

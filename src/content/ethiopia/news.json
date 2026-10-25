@@ -1,0 +1,1082 @@
+[
+ {
+  "id": "n_eth_ascalon",
+  "year": 1153,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_idrisi",
+  "year": 1154,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_sanjar",
+  "year": 1157,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_mahdia",
+  "year": 1160,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_notre_dame",
+  "year": 1163,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_prester_letter",
+  "year": 1165,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_fustat",
+  "year": 1168,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_saladin_vizier",
+  "year": 1169,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_fatimids_end",
+  "year": 1171,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_yemen_ayyubid",
+  "year": 1174,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_pope_letter",
+  "year": 1177,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_lalibela_king",
+  "year": 1181,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "lalibela"
+  ]
+ },
+ {
+  "id": "n_eth_ibn_jubayr",
+  "year": 1183,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_angkor",
+  "year": 1186,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_third_crusade",
+  "year": 1189,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_acre",
+  "year": 1191,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_jaffa_treaty",
+  "year": 1192,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_saladin_dies",
+  "year": 1193,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_innocent",
+  "year": 1198,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_fourth_crusade",
+  "year": 1202,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_constantinople_sack",
+  "year": 1204,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_genghis",
+  "year": 1206,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_albigensian",
+  "year": 1209,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_las_navas",
+  "year": 1212,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_lateran",
+  "year": 1215,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_damietta_siege",
+  "year": 1218,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_francis",
+  "year": 1219,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_damietta_lost",
+  "year": 1221,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_lalibela_dies",
+  "year": 1222,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "lalibela"
+  ]
+ },
+ {
+  "id": "n_eth_genghis_dies",
+  "year": 1227,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_frederick",
+  "year": 1229,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_mongols_persia",
+  "year": 1233,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_mali",
+  "year": 1235,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_kiev",
+  "year": 1240,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_jerusalem_sacked",
+  "year": 1244,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_carpini",
+  "year": 1247,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_mamluks",
+  "year": 1250,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_louis_home",
+  "year": 1254,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_baghdad",
+  "year": 1258,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_ain_jalut",
+  "year": 1260,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_baybars",
+  "year": 1265,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_antioch",
+  "year": 1268,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_louis_tunis",
+  "year": 1270,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_marco_polo",
+  "year": 1271,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_hangzhou",
+  "year": 1276,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_song_end",
+  "year": 1279,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_kamikaze",
+  "year": 1281,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_yekuno_dies",
+  "year": 1285,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_ifat_shewa",
+  "year": 1286,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_tripoli",
+  "year": 1289,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_acre_falls",
+  "year": 1291,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_yagbeu_dies",
+  "year": 1294,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_kublai_dies",
+  "year": 1297,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_wedem_arad",
+  "year": 1299,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_jubilee",
+  "year": 1300,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_osman",
+  "year": 1303,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_france_jews",
+  "year": 1306,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_avignon",
+  "year": 1309,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_mansa_musa_king",
+  "year": 1312,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_amda_seyon_king",
+  "year": 1314,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_great_famine",
+  "year": 1318,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_copts_cairo",
+  "year": 1321,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_mansa_musa",
+  "year": 1324,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_ibn_battuta",
+  "year": 1325,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_envoy_seized",
+  "year": 1328,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_battuta_zeila",
+  "year": 1331,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_amda_victory",
+  "year": 1332,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_hundred_years",
+  "year": 1337,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_ewostatewos_abroad",
+  "year": 1340,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_amda_dies",
+  "year": 1344,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_plague_alexandria",
+  "year": 1347,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_plague_cairo",
+  "year": 1348,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_ewostatewos_dies",
+  "year": 1352,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_ming_rising",
+  "year": 1355,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_poitiers",
+  "year": 1356,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_sultan_hasan",
+  "year": 1361,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_alexandria_sack",
+  "year": 1365,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_ming",
+  "year": 1368,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_timur",
+  "year": 1370,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_newaya_maryam",
+  "year": 1372,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_papacy_rome",
+  "year": 1377,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_kulikovo",
+  "year": 1380,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_dawit_king",
+  "year": 1382,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_timur_georgia",
+  "year": 1386,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_kosovo",
+  "year": 1389,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_tarnovo",
+  "year": 1393,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_nicopolis",
+  "year": 1396,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_delhi",
+  "year": 1398,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_damascus",
+  "year": 1401,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_venice_envoys",
+  "year": 1402,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_ankara",
+  "year": 1402,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_zheng_he",
+  "year": 1405,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_grunwald",
+  "year": 1410,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_dawit_dies",
+  "year": 1413,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_yeshaq_king",
+  "year": 1414,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_sad_addin",
+  "year": 1415,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_eth_chinese_fleet",
+  "year": 1418,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_constantinople_siege",
+  "year": 1422,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_aragon_embassy",
+  "year": 1428,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_joan",
+  "year": 1429,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_zara_yaqob_king",
+  "year": 1434,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_zy_crowned_news",
+  "year": 1436,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "aksum"
+  ]
+ },
+ {
+  "id": "n_eth_florence",
+  "year": 1441,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_varna",
+  "year": 1444,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_gomit_news",
+  "year": 1445,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "shewa",
+   "harar"
+  ]
+ },
+ {
+  "id": "n_eth_maghtas",
+  "year": 1448,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_constantinople_falls",
+  "year": 1453,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_printing",
+  "year": 1455,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_comet",
+  "year": 1456,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_zy_berhan",
+  "year": 1460,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_zy_harsh",
+  "year": 1464,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_zy_dies",
+  "year": 1468,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_portuguese_gold",
+  "year": 1471,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_baeda_wars",
+  "year": 1474,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_eskender_king",
+  "year": 1478,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_mehmed_dies",
+  "year": 1481,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_kongo",
+  "year": 1483,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_covilha_sets_out",
+  "year": 1487,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_cape",
+  "year": 1488,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_granada",
+  "year": 1492,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_eskender_dies",
+  "year": 1494,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_vasco",
+  "year": 1498,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_vasco_again",
+  "year": 1502,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_kilwa",
+  "year": 1505,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_socotra",
+  "year": 1507,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_naod_dies",
+  "year": 1508,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_goa",
+  "year": 1510,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_potken",
+  "year": 1513,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_cairo_ottoman",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_luther",
+  "year": 1518,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_embassy_news",
+  "year": 1520,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_tenochtitlan",
+  "year": 1521,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_eleni_dies",
+  "year": 1522,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_mohacs",
+  "year": 1526,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_saga_zaab",
+  "year": 1526,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_shimbra_news",
+  "year": 1529,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_libanos_burned",
+  "year": 1531,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_atahualpa",
+  "year": 1533,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_aksum_news",
+  "year": 1535,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "aksum"
+  ]
+ },
+ {
+  "id": "n_eth_aden_ottoman",
+  "year": 1538,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_lebna_dies",
+  "year": 1540,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_gama_news",
+  "year": 1541,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "aksum"
+  ]
+ },
+ {
+  "id": "n_eth_gama_dies_news",
+  "year": 1542,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "aksum",
+   "lalibela"
+  ]
+ },
+ {
+  "id": "n_eth_trent",
+  "year": 1545,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_tasfa_seyon",
+  "year": 1548,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_galawdewos_rebuilds",
+  "year": 1550,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_mesle",
+  "year": 1554,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_confessio",
+  "year": 1555,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_massawa_news",
+  "year": 1557,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "aksum"
+  ]
+ },
+ {
+  "id": "n_eth_oviedo",
+  "year": 1557,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "aksum"
+  ]
+ },
+ {
+  "id": "n_eth_galawdewos_news",
+  "year": 1559,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "shewa",
+   "harar"
+  ]
+ },
+ {
+  "id": "n_eth_sarsa_king",
+  "year": 1563,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_malta",
+  "year": 1565,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_nur_dies",
+  "year": 1567,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_lepanto",
+  "year": 1571,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_tunis",
+  "year": 1574,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_aussa",
+  "year": 1577,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "harar"
+  ]
+ },
+ {
+  "id": "n_eth_sarsa_victory",
+  "year": 1578,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "aksum"
+  ]
+ },
+ {
+  "id": "n_eth_iberian",
+  "year": 1580,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_calendar",
+  "year": 1582,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_semien_war",
+  "year": 1585,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_armada",
+  "year": 1588,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_paez_captive",
+  "year": 1589,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_jesuit_seminary",
+  "year": 1592,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_sarsa_dies",
+  "year": 1597,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_east_india",
+  "year": 1600,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_paez_arrives",
+  "year": 1603,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_za_dengel",
+  "year": 1604,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_susenyos_king",
+  "year": 1607,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_oromo_raids",
+  "year": 1610,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_gorgora",
+  "year": 1613,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_nile_source",
+  "year": 1618,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_thirty_years",
+  "year": 1620,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_susenyos_news",
+  "year": 1622,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_paez_dies",
+  "year": 1622,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_mendes",
+  "year": 1625,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_rebellions",
+  "year": 1628,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_susenyos_dies",
+  "year": 1632,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_jesuits_out",
+  "year": 1633,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_gondar_news",
+  "year": 1636,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "lalibela",
+   "aksum",
+   "shewa"
+  ]
+ },
+ {
+  "id": "n_eth_capuchins",
+  "year": 1638,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_dutch_malacca",
+  "year": 1641,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_ming_falls",
+  "year": 1644,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_harar_emir_news",
+  "year": 1647,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "harar"
+  ]
+ },
+ {
+  "id": "n_eth_yemen_embassy",
+  "year": 1648,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_cape_town",
+  "year": 1652,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_fasil_castle",
+  "year": 1655,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_oman_rising",
+  "year": 1659,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_council_gondar",
+  "year": 1662,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_plague_london",
+  "year": 1665,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_fasilides_dies",
+  "year": 1667,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_crete",
+  "year": 1669,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_yohannes_laws",
+  "year": 1674,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_mombasa",
+  "year": 1678,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_iyasu",
+  "year": 1682,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_vienna",
+  "year": 1683,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_eth_iyasu_campaign",
+  "year": 1687,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_bombay",
+  "year": 1691,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_iyasu_church",
+  "year": 1695,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_eth_poncet",
+  "year": 1699,
+  "confidence": "confirmed"
+ }
+]

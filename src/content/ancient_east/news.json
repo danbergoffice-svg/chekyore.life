@@ -1,1 +1,968 @@
-[]
+[
+ {
+  "id": "n_ane_avaris",
+  "year": -1545,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_ahmose_nefertari",
+  "year": -1542,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_sharuhen",
+  "year": -1540,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_nubia_revolt",
+  "year": -1538,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ahhotep",
+  "year": -1535,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tura",
+  "year": -1528,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_telipinu",
+  "year": -1525,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_ahmose_dies",
+  "year": -1525,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_alabaster_chapel",
+  "year": -1520,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_mitanni_rise",
+  "year": -1515,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_water_clock",
+  "year": -1510,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_thutmose1",
+  "year": -1504,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_kerma",
+  "year": -1502,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_euphrates_stela",
+  "year": -1500,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_mycenae_gold",
+  "year": -1500,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_ineni",
+  "year": -1495,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes"
+  ]
+ },
+ {
+  "id": "n_ane_thutmose2",
+  "year": -1492,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_kush_revolt2",
+  "year": -1490,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_thutmose3_child",
+  "year": -1479,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_hatshepsut_king",
+  "year": -1473,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_punt",
+  "year": -1470,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_sealand",
+  "year": -1468,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon"
+  ]
+ },
+ {
+  "id": "n_ane_senenmut",
+  "year": -1466,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_obelisks",
+  "year": -1463,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_hatshepsut_dies",
+  "year": -1458,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_megiddo",
+  "year": -1457,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_assur_tribute",
+  "year": -1456,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_botanical",
+  "year": -1455,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_knossos",
+  "year": -1450,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_babylon_gifts",
+  "year": -1447,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_euphrates_boats",
+  "year": -1447,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_elephants",
+  "year": -1446,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_mitanni_assur",
+  "year": -1440,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "assur"
+  ]
+ },
+ {
+  "id": "n_ane_keftiu_envoys",
+  "year": -1440,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_thutmose_last",
+  "year": -1438,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_rekhmire",
+  "year": -1435,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_thutmose3_dies",
+  "year": -1425,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_amenhotep2_archer",
+  "year": -1424,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_amenhotep2_captives",
+  "year": -1418,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_karaindash",
+  "year": -1413,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_kikkuli",
+  "year": -1400,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_assur_gold",
+  "year": -1400,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_sphinx_dream",
+  "year": -1399,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_mitanni_bride",
+  "year": -1398,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_amenhotep3_king",
+  "year": -1390,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tiye",
+  "year": -1389,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_dur_kurigalzu",
+  "year": -1385,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon"
+  ]
+ },
+ {
+  "id": "n_ane_lion_hunts",
+  "year": -1380,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_gilukhepa",
+  "year": -1380,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tiye_lake",
+  "year": -1379,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_malkata",
+  "year": -1375,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_kadashman_sister",
+  "year": -1370,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_colossi",
+  "year": -1370,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_soleb",
+  "year": -1365,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ashur_uballit",
+  "year": -1363,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "assur"
+  ]
+ },
+ {
+  "id": "n_ane_jubilee",
+  "year": -1360,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_burnaburiash_king",
+  "year": -1359,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tadukhipa",
+  "year": -1355,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ishtar_statue",
+  "year": -1354,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_amenhotep3_dies",
+  "year": -1352,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_suppiluliuma",
+  "year": -1350,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tushratta_gold",
+  "year": -1348,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_akhenaten_name",
+  "year": -1348,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_akhetaten_founded",
+  "year": -1346,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_burnaburiash_daughter",
+  "year": -1345,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_nefertiti",
+  "year": -1345,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_amun_erased",
+  "year": -1343,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_tribute_feast",
+  "year": -1341,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_mitanni_falls",
+  "year": -1340,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_rib_hadda",
+  "year": -1339,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_akhenaten_dies",
+  "year": -1336,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_two_rulers",
+  "year": -1335,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_kara_hardash",
+  "year": -1333,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon",
+   "assur"
+  ]
+ },
+ {
+  "id": "n_ane_restoration",
+  "year": -1332,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_ashur_uballit_dies",
+  "year": -1328,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tut_dies",
+  "year": -1327,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_zannanza",
+  "year": -1324,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_horemheb_king",
+  "year": -1323,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_hittite_plague",
+  "year": -1322,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_sugagu",
+  "year": -1320,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_kurigalzu_elam",
+  "year": -1316,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "babylon"
+  ]
+ },
+ {
+  "id": "n_ane_eclipse",
+  "year": -1312,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_horemheb_edict",
+  "year": -1310,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_nazi_maruttash",
+  "year": -1307,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_adad_nirari",
+  "year": -1305,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_shang_anyang",
+  "year": -1300,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_ramesses1",
+  "year": -1295,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_seti1",
+  "year": -1294,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_hypostyle",
+  "year": -1290,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_seti_campaign",
+  "year": -1289,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_abydos",
+  "year": -1285,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_nazi_maruttash_war",
+  "year": -1283,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ramesses2_king",
+  "year": -1279,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_pi_ramesses",
+  "year": -1275,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_kadesh",
+  "year": -1274,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_shalmaneser",
+  "year": -1273,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_urhi_teshub",
+  "year": -1267,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ramesseum",
+  "year": -1265,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thebes"
+  ]
+ },
+ {
+  "id": "n_ane_abu_simbel",
+  "year": -1264,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_ane_hanigalbat",
+  "year": -1263,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "assur"
+  ]
+ },
+ {
+  "id": "n_ane_hittite_babylon_letter",
+  "year": -1260,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_treaty",
+  "year": -1259,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_nefertari",
+  "year": -1255,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_kalhu",
+  "year": -1250,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_khaemwaset",
+  "year": -1250,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_hittite_bride",
+  "year": -1245,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tukulti_king",
+  "year": -1243,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_wilusa",
+  "year": -1240,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_nihriya",
+  "year": -1237,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_kar_tukulti",
+  "year": -1233,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ramesses_jubilees",
+  "year": -1230,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_assyria_babylon_war",
+  "year": -1228,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_babylon_sacked",
+  "year": -1225,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon",
+   "assur"
+  ]
+ },
+ {
+  "id": "n_ane_adad_shuma_usur",
+  "year": -1216,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon"
+  ]
+ },
+ {
+  "id": "n_ane_ramesses_dies",
+  "year": -1213,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_hatti_grain",
+  "year": -1210,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_israel_stela",
+  "year": -1208,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_tukulti_dies",
+  "year": -1207,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon",
+   "assur"
+  ]
+ },
+ {
+  "id": "n_ane_amenmesse",
+  "year": -1203,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_wu_ding",
+  "year": -1200,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_bay",
+  "year": -1192,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_mycenae_fires",
+  "year": -1190,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_tausret",
+  "year": -1188,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_alashiya",
+  "year": -1187,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_setnakht",
+  "year": -1186,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ugarit",
+  "year": -1185,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_melishipak",
+  "year": -1182,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_hattusa",
+  "year": -1180,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ashur_dan",
+  "year": -1178,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_sea_peoples",
+  "year": -1177,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_libyans_r3",
+  "year": -1173,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_punt_r3",
+  "year": -1170,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_medinet_habu",
+  "year": -1166,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_elam_raid",
+  "year": -1158,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon"
+  ]
+ },
+ {
+  "id": "n_ane_strike",
+  "year": -1157,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes"
+  ]
+ },
+ {
+  "id": "n_ane_kassite_end",
+  "year": -1155,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon"
+  ]
+ },
+ {
+  "id": "n_ane_harem_plot",
+  "year": -1154,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "thebes",
+   "memphis"
+  ]
+ },
+ {
+  "id": "n_ane_ramesses4",
+  "year": -1153,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_isin2",
+  "year": -1150,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_hammamat",
+  "year": -1150,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ramesses5",
+  "year": -1143,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_canaan_left",
+  "year": -1140,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ashur_dan_dies",
+  "year": -1133,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ramesses9",
+  "year": -1126,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_nebuchadnezzar_king",
+  "year": -1125,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_desert_raiders",
+  "year": -1120,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_amenhotep_hpa",
+  "year": -1116,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tiglath_king",
+  "year": -1114,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tomb_trials",
+  "year": -1110,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "thebes"
+  ]
+ },
+ {
+  "id": "n_ane_nebuchadnezzar_marduk",
+  "year": -1105,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "babylon"
+  ]
+ },
+ {
+  "id": "n_ane_tiglath_sea",
+  "year": -1100,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_ramesses11",
+  "year": -1099,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_tiglath_babylon",
+  "year": -1097,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_hyenas",
+  "year": -1092,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "thebes"
+  ]
+ },
+ {
+  "id": "n_ane_hpa_siege",
+  "year": -1090,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_panehsy",
+  "year": -1085,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_famine_mes",
+  "year": -1082,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "babylon",
+   "assur"
+  ]
+ },
+ {
+  "id": "n_ane_renaissance",
+  "year": -1080,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "thebes"
+  ]
+ },
+ {
+  "id": "n_ane_tiglath_dies",
+  "year": -1076,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_wenamun",
+  "year": -1075,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_ashur_bel_kala",
+  "year": -1073,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_crocodile",
+  "year": -1072,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_ramesses11_dies",
+  "year": -1069,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_adad_apla_iddina",
+  "year": -1068,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_esagil_kin_apli",
+  "year": -1060,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_pinedjem",
+  "year": -1054,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_ane_zhou",
+  "year": -1046,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_ane_arameans_babylon",
+  "year": -1040,
+  "confidence": "reconstructed"
+ }
+]

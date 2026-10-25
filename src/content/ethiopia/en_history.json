@@ -171,7 +171,7 @@
  "ev.eth_h_lasta_revolt.join.success": "You survived a terrible battle and made it home.",
  "ev.eth_h_lasta_revolt.join.failure": "The rebels were crushed and you were badly wounded.",
  "ev.eth_h_lasta_revolt.hide": "Hide in the mountains",
- "ev.eth_h_lasta_revolt.note": "In 1632 Susenyos's army crushed the rebel peasants of Lasta near Wayna Daga; thousands died. Shaken by the bloodshed, the king soon allowed a return to the old faith and handed power to his son Fasilides.",
+ "ev.eth_h_lasta_revolt.note": "In 1632 Susenyos's army crushed the rebel peasants of Lasta; thousands died. Shaken by the bloodshed, the king soon allowed a return to the old faith and handed power to his son Fasilides.",
  "ev.eth_h_fasilides.title": "The old faith returns",
  "ev.eth_h_fasilides.text": "\"Hear ye, hear ye! The faith of our fathers has returned!\" cry the heralds. The new king Fasilides has expelled the Jesuits, and the churches are holding the old services again. People sing and dance in the streets.",
  "ev.eth_h_fasilides.return": "Return to the old church",

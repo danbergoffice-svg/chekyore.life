@@ -2355,7 +2355,7 @@
     "craftsman",
     "peasant"
    ],
-   "minAge": 14,
+   "minAge": 12,
    "income": [
     180,
     340

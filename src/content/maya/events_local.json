@@ -4731,6 +4731,328 @@
   ]
  },
  {
+  "id": "may_j_join_warriors",
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "work",
+  "sex": "m",
+  "age_range": [
+   16,
+   26
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "farmer",
+       "laborer",
+       "artisan",
+       "merchant",
+       "landholder",
+       "salt_trader",
+       "stone_carver"
+      ]
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "shield",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "set_profession": "soldier"
+     },
+     {
+      "skill": "military",
+      "delta": 8
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_j_ball_trial",
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "work",
+  "sex": "m",
+  "age_range": [
+   16,
+   24
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner",
+   "noble"
+  ],
+  "conditions": [
+   {
+    "param": "strength",
+    "op": ">=",
+    "value": 50
+   },
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "farmer",
+       "laborer",
+       "artisan",
+       "merchant",
+       "landholder",
+       "salt_trader",
+       "stone_carver"
+      ]
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "play",
+    "effects": [
+     {
+      "set_profession": "ballplayer"
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_j_daykeeper_call",
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   30
+  ],
+  "classes": [
+   "craftsman",
+   "landowner",
+   "noble"
+  ],
+  "religions": [
+   "maya_gods"
+  ],
+  "conditions": [
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "farmer",
+       "laborer",
+       "artisan",
+       "merchant",
+       "landholder",
+       "salt_trader",
+       "stone_carver",
+       "weaver",
+       "matron",
+       "scribe"
+      ]
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "altar",
+    "smoke"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "priest"
+     },
+     {
+      "skill": "literacy",
+      "delta": 5
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "may_j_healer_pupil",
+  "type": "personal",
+  "once": true,
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   30
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "conditions": [
+   {
+    "param": "intellect",
+    "op": ">=",
+    "value": 45
+   },
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "farmer",
+       "laborer",
+       "artisan",
+       "merchant",
+       "landholder",
+       "salt_trader",
+       "stone_carver",
+       "weaver",
+       "midwife"
+      ]
+     }
+    ]
+   }
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "fire",
+    "tree"
+   ]
+  },
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "physician"
+     },
+     {
+      "skill": "medicine",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": []
+   }
+  ]
+ },
+ {
   "id": "may_j_scribe_vase",
   "type": "personal",
   "once": true,

@@ -2089,7 +2089,17 @@
   "sex": "m",
   "conditions": [
    {
-    "no_profession": true
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "farmer",
+       "laborer"
+      ]
+     }
+    ]
    }
   ],
   "base_weight": 3,
@@ -4669,7 +4679,7 @@
    "noble"
   ],
   "sex": "f",
-  "base_weight": 4,
+  "base_weight": 8,
   "once": true,
   "topic": "life",
   "scene": {
@@ -6446,6 +6456,459 @@
     ],
     "pattern": {
      "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "byz_j_icon_apprentice",
+  "type": "personal",
+  "age_range": [
+   12,
+   22
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "sex": "m",
+  "conditions": [
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "laborer",
+       "artisan",
+       "farmer"
+      ]
+     }
+    ]
+   }
+  ],
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "lamp",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "icon_painter"
+     },
+     {
+      "skill": "craft",
+      "delta": 5
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -3,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "byz_j_akritai",
+  "type": "personal",
+  "regions": [
+   "nicaea",
+   "trebizond"
+  ],
+  "years": [
+   850,
+   1330
+  ],
+  "age_range": [
+   17,
+   30
+  ],
+  "classes": [
+   "peasant",
+   "landowner"
+  ],
+  "sex": "m",
+  "conditions": [
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "farmer",
+       "laborer",
+       "soldier"
+      ]
+     }
+    ]
+   }
+  ],
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "road",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "horse",
+    "shield"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "akrites"
+     },
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "risk_tolerance",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 5,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "byz_j_fleet",
+  "type": "personal",
+  "regions": [
+   "constantinople",
+   "thessalonica"
+  ],
+  "age_range": [
+   17,
+   32
+  ],
+  "classes": [
+   "peasant",
+   "craftsman"
+  ],
+  "sex": "m",
+  "conditions": [
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "laborer",
+       "sailor",
+       "farmer",
+       "artisan"
+      ]
+     }
+    ]
+   }
+  ],
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "siphonarios"
+     },
+     {
+      "skill": "military",
+      "delta": 4
+     },
+     {
+      "skill": "seafaring",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 4,
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "byz_j_charioteer",
+  "type": "personal",
+  "regions": [
+   "constantinople"
+  ],
+  "years": [
+   850,
+   1204
+  ],
+  "age_range": [
+   16,
+   28
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "slave"
+  ],
+  "sex": "m",
+  "conditions": [
+   {
+    "param": "strength",
+    "op": ">=",
+    "value": 45
+   }
+  ],
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "arena",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "charioteer"
+     },
+     {
+      "skill": "military",
+      "delta": 3
+     },
+     {
+      "param": "risk_tolerance",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "byz_j_palace",
+  "type": "personal",
+  "regions": [
+   "constantinople"
+  ],
+  "age_range": [
+   14,
+   30
+  ],
+  "sex": "m",
+  "conditions": [
+   {
+    "tag": "byz_eunuch"
+   },
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "laborer",
+       "artisan",
+       "farmer",
+       "scribe"
+      ]
+     }
+    ]
+   }
+  ],
+  "base_weight": 6,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "court_eunuch"
+     },
+     {
+      "skill": "management",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "church",
+    "effects": [
+     {
+      "set_profession": "monk"
+     },
+     {
+      "add_tag": "byz_vowed"
+     },
+     {
+      "remove_tag": "wealthy"
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "byz_j_ordination",
+  "type": "personal",
+  "age_range": [
+   18,
+   40
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "sex": "m",
+  "religions": [
+   "orthodox"
+  ],
+  "conditions": [
+   {
+    "skill": "literacy",
+    "op": ">=",
+    "value": 10
+   },
+   {
+    "any": [
+     {
+      "no_profession": true
+     },
+     {
+      "profession": [
+       "farmer",
+       "laborer",
+       "artisan",
+       "scribe"
+      ]
+     }
+    ]
+   },
+   {
+    "tag_absent": "byz_vowed"
+   }
+  ],
+  "base_weight": 3,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "lamp",
+    "altar"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "priest"
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "home_road": -2
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "memory_future": -1
     }
    }
   ]

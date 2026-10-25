@@ -1,0 +1,914 @@
+[
+ {
+  "id": "n_may_teotihuacan_burns",
+  "year": 550,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_may_caracol_installed",
+  "year": 553,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_copan_moon_jaguar",
+  "year": 553,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_katun_9_6",
+  "year": 554,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_tikal_axes_caracol",
+  "year": 556,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_lahuntun_559",
+  "year": 559,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_sky_witness",
+  "year": 561,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_may_star_war",
+  "year": 562,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_lahuntun_564",
+  "year": 564,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_caracol_rises",
+  "year": 568,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_copan_rosalila",
+  "year": 571,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_palenque_kan_bahlam",
+  "year": 572,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_katun_9_7",
+  "year": 573,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_chocolate_trade",
+  "year": 576,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_copan_butz_chan",
+  "year": 578,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_jade_motagua",
+  "year": 580,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_yohl_iknal",
+  "year": 583,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_stones_587",
+  "year": 587,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_obsidian_highlands",
+  "year": 590,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_katun_9_8",
+  "year": 593,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_caracol_kan",
+  "year": 596,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_palenque_sacked_599",
+  "year": 599,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque",
+   "calakmul"
+  ]
+ },
+ {
+  "id": "n_may_ceren_ash",
+  "year": 600,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_pakal_born",
+  "year": 603,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque"
+  ]
+ },
+ {
+  "id": "n_may_yohl_iknal_dies",
+  "year": 604,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_halley_607",
+  "year": 607,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_palenque_sacked_611",
+  "year": 611,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque",
+   "calakmul"
+  ]
+ },
+ {
+  "id": "n_may_sak_kuk",
+  "year": 612,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_katun_9_9",
+  "year": 613,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_pakal_king",
+  "year": 615,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque"
+  ]
+ },
+ {
+  "id": "n_may_caracol_kan_ii",
+  "year": 618,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_salt_coast",
+  "year": 621,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_lahuntun_623",
+  "year": 623,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_pakal_marries",
+  "year": 626,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_caracol_naranjo",
+  "year": 626,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_copan_smoke_imix",
+  "year": 628,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_naranjo_falls",
+  "year": 631,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_katun_9_10",
+  "year": 633,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_yuknoom_accedes",
+  "year": 636,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_sak_kuk_dies",
+  "year": 640,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_kan_mo_hix_dies",
+  "year": 642,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_cacao_pods",
+  "year": 645,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_dos_pilas",
+  "year": 648,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_teotihuacan_empty",
+  "year": 650,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_may_katun_9_11",
+  "year": 652,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_palenque_house_e",
+  "year": 654,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque"
+  ]
+ },
+ {
+  "id": "n_may_cancuen_installed",
+  "year": 656,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_tikal_flight",
+  "year": 657,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_nuun_ujol_palenque",
+  "year": 659,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_lahuntun_662",
+  "year": 662,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_salt_war",
+  "year": 665,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_feathers",
+  "year": 668,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_katun_9_12",
+  "year": 672,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_tzakbu_dies",
+  "year": 672,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_balaj_exile",
+  "year": 674,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_copan_crowded",
+  "year": 787,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "copan"
+  ]
+ },
+ {
+  "id": "n_may_stela_rumor",
+  "year": 908,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_canoes_coast",
+  "year": 915,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_temples_trees",
+  "year": 921,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_offerings_ruins",
+  "year": 930,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_new_songs",
+  "year": 942,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_dos_pilas_returns",
+  "year": 677,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_dos_pilas_victory",
+  "year": 679,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_naranjo_strikes",
+  "year": 680,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_shield_jaguar",
+  "year": 681,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_jasaw_accedes",
+  "year": 682,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_six_sky",
+  "year": 682,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_pakal_dies",
+  "year": 683,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque"
+  ]
+ },
+ {
+  "id": "n_may_halley_684",
+  "year": 684,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_kan_bahlam_ii",
+  "year": 684,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque"
+  ]
+ },
+ {
+  "id": "n_may_yichaak",
+  "year": 686,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_cross_group",
+  "year": 690,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque"
+  ]
+ },
+ {
+  "id": "n_may_tikal_stela",
+  "year": 692,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_naranjo_child",
+  "year": 693,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_tikal_victory",
+  "year": 695,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal",
+   "calakmul"
+  ]
+ },
+ {
+  "id": "n_may_copan_18rabbit",
+  "year": 695,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_dos_pilas_itzamnaaj",
+  "year": 698,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_xochicalco",
+  "year": 700,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_kan_joy",
+  "year": 702,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_yuknoom_took",
+  "year": 702,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_comalcalco",
+  "year": 706,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_kabal_xook",
+  "year": 709,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_tonina_captures",
+  "year": 711,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque"
+  ]
+ },
+ {
+  "id": "n_may_katun_9_14",
+  "year": 711,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_copan_temple22",
+  "year": 715,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_canoe_route",
+  "year": 718,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_ahkal_mo_naab",
+  "year": 721,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_quirigua_king",
+  "year": 724,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_yaxchilan_temple23",
+  "year": 726,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_piedras_negras",
+  "year": 729,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_katun_9_15",
+  "year": 731,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_four_capitals",
+  "year": 731,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_jasaw_dies",
+  "year": 734,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_wamaaw",
+  "year": 736,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "calakmul"
+  ]
+ },
+ {
+  "id": "n_may_ballcourt_copan",
+  "year": 738,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "copan"
+  ]
+ },
+ {
+  "id": "n_may_rabbit_falls",
+  "year": 738,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "copan"
+  ]
+ },
+ {
+  "id": "n_may_dos_pilas_kawiil",
+  "year": 741,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_shield_jaguar_dies",
+  "year": 742,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_tikal_naranjo",
+  "year": 744,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_motul_vases",
+  "year": 746,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_copan_smoke_shell",
+  "year": 749,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_katun_9_16",
+  "year": 751,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_bird_jaguar",
+  "year": 752,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_stairway",
+  "year": 755,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "copan"
+  ]
+ },
+ {
+  "id": "n_may_cancuen_taj",
+  "year": 757,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_halley_760",
+  "year": 760,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_dos_pilas_falls",
+  "year": 761,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_yax_pasaj",
+  "year": 763,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_kuk_bahlam",
+  "year": 764,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_tikal_temple_vi",
+  "year": 766,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_yax_nuun_ayiin",
+  "year": 768,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_ek_balam",
+  "year": 770,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_katun_9_17",
+  "year": 771,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_deforest",
+  "year": 774,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_altar_q",
+  "year": 776,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "copan"
+  ]
+ },
+ {
+  "id": "n_may_lahuntun_780",
+  "year": 780,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_palenque_96",
+  "year": 783,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_quirigua_kak_dies",
+  "year": 785,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_pn_throne",
+  "year": 785,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_katun_9_18",
+  "year": 790,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_bonampak",
+  "year": 791,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_pn_stela12",
+  "year": 795,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_palenque_last",
+  "year": 799,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "palenque"
+  ]
+ },
+ {
+  "id": "n_may_cancuen_end",
+  "year": 800,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_drought_rumor",
+  "year": 803,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_may_walls",
+  "year": 806,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_yaxchilan_pn",
+  "year": 808,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_katun_9_19",
+  "year": 810,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_aguateca_burns",
+  "year": 810,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_puuc_north",
+  "year": 814,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_migrants",
+  "year": 817,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_lahuntun_820",
+  "year": 820,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_copan_end",
+  "year": 822,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "copan"
+  ]
+ },
+ {
+  "id": "n_may_salt_dear",
+  "year": 826,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_katun_10_0",
+  "year": 830,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_seibal_watul",
+  "year": 830,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_chichen_rise",
+  "year": 833,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_may_halley_837",
+  "year": 837,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_lahuntun_840",
+  "year": 840,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_empty_courts",
+  "year": 843,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_ramon",
+  "year": 846,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_seibal_four",
+  "year": 849,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_katun_10_1",
+  "year": 849,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_north_trade",
+  "year": 853,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_abandoned_fields",
+  "year": 856,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_drought_860",
+  "year": 860,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_may_last_scribes",
+  "year": 863,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_pilgrims",
+  "year": 866,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_tikal_last",
+  "year": 869,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tikal"
+  ]
+ },
+ {
+  "id": "n_may_chichen_house",
+  "year": 869,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_uxmal_builds",
+  "year": 873,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_hamlets",
+  "year": 876,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_jimbal",
+  "year": 879,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_cacao_north",
+  "year": 882,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_seibal_quiet",
+  "year": 885,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_katun_10_3",
+  "year": 889,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_lamanai",
+  "year": 893,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_roads_overgrown",
+  "year": 896,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_uxmal_lord",
+  "year": 900,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_chichen_market",
+  "year": 904,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_halley_912",
+  "year": 912,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_may_forest_returns",
+  "year": 918,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_chichen_feathered",
+  "year": 925,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_old_tales",
+  "year": 935,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_may_tula",
+  "year": 950,
+  "confidence": "disputed"
+ }
+]

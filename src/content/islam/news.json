@@ -1,0 +1,1300 @@
+[
+ {
+  "id": "n_isl_zab",
+  "year": 750,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "damascus"
+  ]
+ },
+ {
+  "id": "n_isl_talas",
+  "year": 751,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mansur",
+  "year": 754,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_emirate",
+  "year": 756,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_narbonne",
+  "year": 759,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_baghdad",
+  "year": 762,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_ala",
+  "year": 763,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_jafar_sadiq",
+  "year": 765,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_abu_hanifa",
+  "year": 767,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_charlemagne",
+  "year": 768,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_saxons",
+  "year": 772,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_mahdi",
+  "year": 775,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_roncesvalles",
+  "year": 778,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_harun_bosphorus",
+  "year": 782,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mezquita",
+  "year": 785,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_harun",
+  "year": 786,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_idris",
+  "year": 788,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_vikings",
+  "year": 793,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_paper_mill",
+  "year": 795,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_irene",
+  "year": 797,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_emperor",
+  "year": 800,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_elephant",
+  "year": 802,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_barmakids",
+  "year": 803,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_heraclea",
+  "year": 806,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_harun_dies",
+  "year": 809,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mamun",
+  "year": 813,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_rida",
+  "year": 817,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_algebra",
+  "year": 820,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_ziryab",
+  "year": 822,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_sicily",
+  "year": 827,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_shammasiyya",
+  "year": 829,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_mamun_dies",
+  "year": 833,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_amorium",
+  "year": 838,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_afshin",
+  "year": 841,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_seville_vikings",
+  "year": 844,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_rome_raid",
+  "year": 846,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mihna_end",
+  "year": 848,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_dhimmi_decree",
+  "year": 850,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_malwiya",
+  "year": 852,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_qarawiyyin",
+  "year": 859,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mutawakkil",
+  "year": 861,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_rus",
+  "year": 862,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_isl_tulun",
+  "year": 868,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_bukhari",
+  "year": 870,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_basra",
+  "year": 871,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_ibn_tulun_mosque",
+  "year": 876,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_syracuse",
+  "year": 878,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_zanj_end",
+  "year": 883,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_court_returns",
+  "year": 892,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_qarmatians",
+  "year": 899,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_tulunids_end",
+  "year": 905,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_fatimids",
+  "year": 909,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_abd_rahman_3",
+  "year": 912,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ibn_fadlan",
+  "year": 922,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_razi",
+  "year": 925,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_caliph_cordoba",
+  "year": 929,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_black_stone",
+  "year": 930,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_zahra",
+  "year": 936,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_buyids",
+  "year": 945,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_stone_back",
+  "year": 951,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_lechfeld",
+  "year": 955,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_song",
+  "year": 960,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_hakam_library",
+  "year": 961,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_khazars",
+  "year": 965,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_fatimid_egypt",
+  "year": 969,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_azhar",
+  "year": 972,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_antioch_byz",
+  "year": 975,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_almanzor",
+  "year": 978,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_rus_baptism",
+  "year": 988,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_santiago",
+  "year": 997,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mahmud",
+  "year": 998,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_almanzor_dies",
+  "year": 1002,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_sepulchre",
+  "year": 1009,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_shahnameh",
+  "year": 1010,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_cordoba_sacked",
+  "year": 1013,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_druze",
+  "year": 1017,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_hakim_gone",
+  "year": 1021,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_canon",
+  "year": 1025,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_taifa",
+  "year": 1031,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ibn_sina",
+  "year": 1037,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_dandanqan",
+  "year": 1040,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_biruni",
+  "year": 1048,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_schism",
+  "year": 1054,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_tughril",
+  "year": 1055,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_normans_sicily",
+  "year": 1061,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_granada",
+  "year": 1066,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_fatimid_treasury",
+  "year": 1068,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_manzikert",
+  "year": 1071,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_palermo",
+  "year": 1072,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_badr",
+  "year": 1074,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_toledo",
+  "year": 1085,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_zallaqa",
+  "year": 1086,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_nizam",
+  "year": 1092,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_cid",
+  "year": 1094,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_clermont",
+  "year": 1095,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_antioch",
+  "year": 1098,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_jerusalem",
+  "year": 1099,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "damascus",
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_acre",
+  "year": 1104,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_tripoli",
+  "year": 1109,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ghazali",
+  "year": 1111,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_zaragoza",
+  "year": 1118,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_tyre",
+  "year": 1124,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_zengi",
+  "year": 1127,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_khayyam",
+  "year": 1131,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_edessa",
+  "year": 1144,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_lisbon",
+  "year": 1147,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_damascus_siege",
+  "year": 1148,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "damascus"
+  ]
+ },
+ {
+  "id": "n_isl_almohads",
+  "year": 1150,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_idrisi",
+  "year": 1154,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_amalric",
+  "year": 1163,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_saladin_vizier",
+  "year": 1169,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_fatimids_end",
+  "year": 1171,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_saladin_damascus",
+  "year": 1174,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_myriokephalon",
+  "year": 1176,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_nasir",
+  "year": 1180,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_hattin",
+  "year": 1187,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "damascus",
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_acre_lost",
+  "year": 1191,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_saladin_dies",
+  "year": 1193,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_alarcos",
+  "year": 1195,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_averroes",
+  "year": 1198,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_nile_famine",
+  "year": 1200,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_constantinople_sacked",
+  "year": 1204,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_genghis",
+  "year": 1206,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_navas",
+  "year": 1212,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_damietta",
+  "year": 1218,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_khwarazm",
+  "year": 1220,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_damietta_back",
+  "year": 1221,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_genghis_dies",
+  "year": 1227,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_frederick",
+  "year": 1229,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_cordoba_falls",
+  "year": 1236,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cordoba"
+  ]
+ },
+ {
+  "id": "n_isl_granada_nasrids",
+  "year": 1238,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_kyiv",
+  "year": 1240,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_jerusalem_retaken",
+  "year": 1244,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_seville",
+  "year": 1248,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_louis",
+  "year": 1250,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_baghdad_falls",
+  "year": 1258,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "baghdad"
+  ]
+ },
+ {
+  "id": "n_isl_ain_jalut",
+  "year": 1260,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "damascus",
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_cairo_caliph",
+  "year": 1261,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_antioch_baybars",
+  "year": 1268,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_polo",
+  "year": 1271,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_rumi",
+  "year": 1273,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_baybars_dies",
+  "year": 1277,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_homs",
+  "year": 1281,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_acre_falls",
+  "year": 1291,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ghazan",
+  "year": 1295,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_osman",
+  "year": 1299,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_isl_marj_saffar",
+  "year": 1303,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_nasir_muhammad",
+  "year": 1310,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mansa_musa",
+  "year": 1324,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ibn_battuta",
+  "year": 1325,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_bursa",
+  "year": 1326,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ibn_taymiyya",
+  "year": 1328,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ilkhans_end",
+  "year": 1335,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_salado",
+  "year": 1340,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_plague_alex",
+  "year": 1347,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_gallipoli",
+  "year": 1354,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_sultan_hasan",
+  "year": 1356,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_alexandria_sack",
+  "year": 1365,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ming",
+  "year": 1368,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_timur_rise",
+  "year": 1370,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_muqaddimah",
+  "year": 1377,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_barquq",
+  "year": 1382,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_kosovo",
+  "year": 1389,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_nicopolis",
+  "year": 1396,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_aleppo_timur",
+  "year": 1400,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "damascus"
+  ]
+ },
+ {
+  "id": "n_isl_baghdad_timur",
+  "year": 1401,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ankara",
+  "year": 1402,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_timur_dies",
+  "year": 1405,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ibn_khaldun",
+  "year": 1406,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ceuta",
+  "year": 1415,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_murad_siege",
+  "year": 1422,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_cyprus",
+  "year": 1426,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_thessalonica",
+  "year": 1430,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_varna",
+  "year": 1444,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_ulugh_beg",
+  "year": 1449,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mehmed",
+  "year": 1451,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_constantinople",
+  "year": 1453,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_belgrade",
+  "year": 1456,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_trebizond",
+  "year": 1461,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_fatih",
+  "year": 1463,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_qaitbay",
+  "year": 1468,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_otlukbeli",
+  "year": 1473,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_caffa",
+  "year": 1475,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_qaitbay_fort",
+  "year": 1477,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_otranto",
+  "year": 1480,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mehmed_dies",
+  "year": 1481,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_cape",
+  "year": 1488,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_granada_falls",
+  "year": 1492,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_gama",
+  "year": 1498,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_safavids",
+  "year": 1501,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_castile_moors",
+  "year": 1502,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_diu",
+  "year": 1509,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mecca_coffee",
+  "year": 1511,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_selim",
+  "year": 1512,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_chaldiran",
+  "year": 1514,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_marj_dabiq",
+  "year": 1516,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "damascus"
+  ]
+ },
+ {
+  "id": "n_isl_cairo_falls",
+  "year": 1517,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "cairo"
+  ]
+ },
+ {
+  "id": "n_isl_suleiman",
+  "year": 1520,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "istanbul"
+  ]
+ },
+ {
+  "id": "n_isl_belgrade_taken",
+  "year": 1521,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_rhodes",
+  "year": 1522,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mohacs",
+  "year": 1526,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "istanbul"
+  ]
+ },
+ {
+  "id": "n_isl_vienna",
+  "year": 1529,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "istanbul"
+  ]
+ },
+ {
+  "id": "n_isl_barbarossa",
+  "year": 1533,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_baghdad_ottoman",
+  "year": 1534,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_preveza",
+  "year": 1538,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_buda",
+  "year": 1541,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_nice",
+  "year": 1543,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_tripoli_libya",
+  "year": 1551,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mustafa",
+  "year": 1553,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_amasya",
+  "year": 1555,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_hurrem",
+  "year": 1558,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_malta",
+  "year": 1565,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_suleiman_dies",
+  "year": 1566,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "istanbul"
+  ]
+ },
+ {
+  "id": "n_isl_don_volga",
+  "year": 1569,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_cyprus_lepanto",
+  "year": 1571,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "istanbul"
+  ]
+ },
+ {
+  "id": "n_isl_tunis",
+  "year": 1574,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_comet",
+  "year": 1577,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_three_kings",
+  "year": 1578,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_observatory",
+  "year": 1580,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "istanbul"
+  ]
+ },
+ {
+  "id": "n_isl_debasement",
+  "year": 1585,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_sinan",
+  "year": 1588,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_safavid_peace",
+  "year": 1590,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_long_war",
+  "year": 1593,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_mehmed_3",
+  "year": 1595,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_kerestes",
+  "year": 1596,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_east_india",
+  "year": 1600,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_isl_celali",
+  "year": 1603,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_zsitvatorok",
+  "year": 1606,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_moriscos",
+  "year": 1609,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_blue_mosque",
+  "year": 1617,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_osman_2",
+  "year": 1622,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_baghdad_safavid",
+  "year": 1623,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_coffee_ban",
+  "year": 1633,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_baghdad_back",
+  "year": 1638,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_isl_crete",
+  "year": 1645,
+  "confidence": "confirmed"
+ }
+]

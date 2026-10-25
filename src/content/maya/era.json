@@ -1842,7 +1842,7 @@
     "craftsman",
     "trader"
    ],
-   "minAge": 14,
+   "minAge": 12,
    "income": [
     160,
     270
@@ -2033,7 +2033,7 @@
    "classes": [
     "craftsman"
    ],
-   "minAge": 14,
+   "minAge": 12,
    "income": [
     240,
     480
@@ -2046,7 +2046,7 @@
     "craftsman",
     "peasant"
    ],
-   "minAge": 14,
+   "minAge": 12,
    "income": [
     200,
     400
@@ -2059,7 +2059,7 @@
     "craftsman",
     "trader"
    ],
-   "minAge": 14,
+   "minAge": 12,
    "income": [
     200,
     420
@@ -2072,7 +2072,7 @@
     "trader",
     "peasant"
    ],
-   "minAge": 15,
+   "minAge": 12,
    "income": [
     180,
     480
@@ -2581,7 +2581,7 @@
    ]
   ],
   "childbirth": 0.016,
-  "calibration": 0.86,
+  "calibration": 0.82,
   "causes": [
    {
     "id": "infant_illness",

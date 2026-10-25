@@ -1,0 +1,20 @@
+{
+ "era.ISL": "The Islamic world: from Baghdad to Istanbul",
+ "era.ISL.years": "AD 750 — 1600",
+ "era.ISL.short": "Islamic world",
+ "region.baghdad": "Baghdad",
+ "region.damascus": "Damascus",
+ "region.cairo": "Cairo",
+ "region.cordoba": "Córdoba",
+ "region.istanbul": "Istanbul",
+ "region.baghdad.intro": "The Round City of the caliphs on the Tigris is one of the largest cities on earth. Paper, silk and books flow in from every corner of the world, and the House of Wisdom translates the Greeks and the Indians. Yet here people also riot, go hungry, and one day will face the Mongols.",
+ "region.damascus.intro": "An ancient city in the green oasis of the Ghouta, beneath Mount Qasiyun. The former Umayyad capital lives on trade, orchards and famous crafts, while armies pass through again and again: Crusaders, Mongols, Timur, the Ottomans.",
+ "region.cairo.intro": "Founded by the Fatimids beside the Nile, Cairo grows into the capital of sultans and the most crowded city of the Islamic world. Life follows the river's floods, students flock to al-Azhar, and the Copts pray in their ancient churches.",
+ "region.cordoba.intro": "The capital of al-Andalus on the Guadalquivir: a mosque with a forest of red-and-white arches, paved streets, libraries and orange gardens. Muslims, Mozarabic Christians and Jews live side by side while Christian kings press down from the north.",
+ "region.istanbul.intro": "Once Constantinople, now the capital of the Ottoman sultans. Janissaries, the Grand Bazaar, ships on the Golden Horn, Sinan's mosques on the hills. Muslims, Greeks, Armenians and Jews together make it one of the richest cities in the world.",
+ "region.baghdad.in": "in Baghdad",
+ "region.damascus.in": "in Damascus",
+ "region.cairo.in": "in Cairo",
+ "region.cordoba.in": "in Córdoba",
+ "region.istanbul.in": "in Istanbul"
+}

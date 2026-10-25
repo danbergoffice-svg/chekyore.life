@@ -1432,11 +1432,7 @@
     "effects": [
      {
       "param": "money",
-      "delta": -80
-     },
-     {
-      "param": "money",
-      "delta": 150
+      "delta": 70
      },
      {
       "param": "faith",
