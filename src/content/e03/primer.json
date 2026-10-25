@@ -241,6 +241,10 @@
     ],
     "religions": [
       "roman_gods"
+    ],
+    "years": [
+      -320,
+      200
     ]
   },
   {
@@ -255,6 +259,17 @@
     "topic": "faith",
     "religions": [
       "judaism"
+    ]
+  },
+  {
+    "id": "e03_p_faith_judaism_late",
+    "topic": "faith",
+    "religions": [
+      "judaism"
+    ],
+    "years": [
+      70,
+      200
     ]
   },
   {
