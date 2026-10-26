@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { ERA_META, loadAllEras } from '../src/content'
 import { computeStats } from '../src/content/stats'
 import { leftoverBraces, validateEra } from '../src/content/validate'
-import { allKeys, loadAllTexts } from '../src/i18n'
+import { allKeys, createT, loadAllTexts, rawText } from '../src/i18n'
 
 const ERAS = await loadAllEras()
 await loadAllTexts()
@@ -87,5 +87,12 @@ describe('Тексты стран', () => {
       }
     }
     expect([...owners].filter(([, v]) => new Set(v).size > 1).map(([k, v]) => `${k}: ${v.join(', ')}`)).toEqual([])
+  })
+})
+
+describe('Русские формы', () => {
+  it('женский род глаголов на -шёл/-вёл пишется целиком: {g:пришёл|пришла}, а не пришёл{g:|ла}', () => {
+    const bad = allKeys('ru').filter((k) => /ёл\{g(=\w+)?:\|/.test(rawText('ru', k)))
+    expect(bad).toEqual([])
   })
 })

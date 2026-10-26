@@ -67,6 +67,11 @@ export function variantKey(lang: Lang, key: string, variant: unknown): string {
   return typeof variant === 'number' && variant > 0 && hasKey(lang, `${key}.${variant}`) ? `${key}.${variant}` : key
 }
 
+/** Текст ключа без подстановок (для проверок). */
+export function rawText(lang: Lang, key: string): string {
+  return dicts[lang][key] ?? ''
+}
+
 export function allKeys(lang: Lang): string[] {
   return Object.keys(dicts[lang])
 }
