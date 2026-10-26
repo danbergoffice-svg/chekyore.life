@@ -592,6 +592,7 @@
   "sound.on": "Turn music on",
   "sound.off": "Turn music off",
   "sound.volume": "Volume",
+  "sound.ios_hint": "Can't hear the music? Check your phone's silent switch and volume.",
   "settings.music": "Music",
   "settings.music.on": "Play music",
   "settings.music.desc": "A calm melody of your country and era"

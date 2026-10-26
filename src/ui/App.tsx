@@ -17,7 +17,7 @@ import type { FeedbackData } from '../feedback'
 import { Feedback, FeedbackPrompt } from './Feedback'
 import { Slots } from './Slots'
 import { SoundControl } from './Sound'
-import { initAudio, setMusic, setSound } from '../audio'
+import { initAudio, onIosHint, setMusic, setSound } from '../audio'
 import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
@@ -64,6 +64,7 @@ export function App() {
   // С какого экрана открыли отзыв — туда и вернуться; благодарность после отправки.
   const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
   const [thanks, setThanks] = useState(false)
+  const [soundHint, setSoundHint] = useState(false)
   const [setupOpen, setSetupOpen] = useState(false)
   // Ранняя смерть (до 15 лет, со второй жизни) сначала показывает короткий итог.
   const [fullSummary, setFullSummary] = useState(false)
@@ -142,8 +143,17 @@ export function App() {
 
   // Музыка: у меню своя мелодия, в жизни героя — мелодия его страны и эпохи.
   const soundOn = prefs.sound ?? true
-  const volume = prefs.volume ?? 0.5
-  useEffect(() => initAudio(soundOn, volume), [])
+  const volume = prefs.volume ?? 0.6
+  useEffect(() => {
+    // Один раз за всё время на iPhone: музыку глушит переключатель беззвучного режима.
+    onIosHint(() => {
+      if (platform.kvGet('thousands.sound_hint')) return
+      platform.kvSet('thousands.sound_hint', '1')
+      setSoundHint(true)
+      setTimeout(() => setSoundHint(false), 7000)
+    })
+    initAudio(soundOn, volume)
+  }, [])
   useEffect(() => setSound(soundOn, volume), [soundOn, volume])
   const heroEra = state?.hero.era
   useEffect(() => {
@@ -462,6 +472,11 @@ export function App() {
         )}
         {screen === 'settings' && <Settings prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={toMenu} />}
         {screen === 'about' && <About onBack={toMenu} />}
+        {soundHint && (
+          <p class="toast" role="status" onClick={() => setSoundHint(false)}>
+            {ui.t('sound.ios_hint')}
+          </p>
+        )}
         {thanks && (
           <p class="toast" role="status">
             {ui.t('feedback.thanks')}

@@ -18,19 +18,23 @@ const buffers = new Map<string, Promise<AudioBuffer | null>>()
 
 const FADE = 2
 /** Номер версии музыки: увеличить после npm run music, чтобы офлайн-кэш сайта взял новые файлы. */
-const MUSIC_VERSION = 1
+const MUSIC_VERSION = 2
 
-/** Громкость на слух: ползунок 0–1 → квадрат (тихие значения различимы). */
-const level = () => (enabled && blocked.size === 0 ? volume * volume : 0)
+/** Громкость: ползунок 0–1 линейно (в квадрате на телефоне было почти не слышно). */
+const level = () => (enabled && blocked.size === 0 ? volume : 0)
+
+/** Контекст спит (пауза, блокировка телефона, звонок на iOS — 'interrupted'). */
+const asleep = () => !!ctx && ctx.state !== 'running' && ctx.state !== 'closed'
 
 function apply(): void {
   if (!ctx || !master) return
   const l = level()
   master.gain.setTargetAtTime(l, ctx.currentTime, 0.2)
   if (l > 0) {
-    if (ctx.state === 'suspended') ctx.resume().catch(() => {})
+    if (asleep()) ctx.resume().catch(() => {})
     switchTrack()
   } else {
+    silent?.pause()
     // Через секунду после затухания — пауза контекста: не тратим батарею.
     setTimeout(() => {
       if (ctx && level() === 0 && ctx.state === 'running') ctx.suspend().catch(() => {})
@@ -61,7 +65,7 @@ async function switchTrack(): Promise<void> {
   if (current?.id === id) return
   if (!id) return fadeOut()
   const buffer = await load(id)
-  if (!buffer || wanted !== id || current?.id === id || !ctx || !master) return
+  if (!buffer || wanted !== id || current?.id === id || !ctx || !master || level() === 0) return
   const gain = ctx.createGain()
   gain.gain.setValueAtTime(0, ctx.currentTime)
   gain.gain.linearRampToValueAtTime(1, ctx.currentTime + FADE)
@@ -91,9 +95,70 @@ function fadeOut(): void {
   }, FADE * 1000 + 100)
 }
 
-/** Первое касание: создать звуковой контекст (раньше браузер не разрешает). */
+/** iPhone и iPad (в том числе iPad, который называет себя Mac). */
+const IOS = typeof navigator !== 'undefined' && (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
+
+/**
+ * Беззвучный режим iPhone глушит Web Audio, но не «воспроизведение» (как у видео).
+ * iOS 17+: audioSession.type = 'playback'; раньше — зацикленный беззвучный <audio>, который переключает сессию.
+ */
+let silent: HTMLAudioElement | null = null
+function playbackSession(): void {
+  const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession
+  if (session) {
+    try {
+      session.type = 'playback'
+      return
+    } catch {
+      // не поддерживается — запасной путь ниже
+    }
+  }
+  if (!IOS) return
+  if (!silent) {
+    silent = document.createElement('audio')
+    silent.src = silentWav()
+    silent.loop = true
+    silent.setAttribute('playsinline', '')
+    silent.setAttribute('x-webkit-airplay', 'deny')
+  }
+  if (silent.paused) silent.play().catch(() => {})
+}
+
+/** Полсекунды тишины в WAV (data: URL), чтобы не возить файл. */
+function silentWav(): string {
+  const n = 4000
+  const b = new DataView(new ArrayBuffer(44 + n))
+  const str = (o: number, t: string) => [...t].forEach((c, i) => b.setUint8(o + i, c.charCodeAt(0)))
+  str(0, 'RIFF')
+  b.setUint32(4, 36 + n, true)
+  str(8, 'WAVEfmt ')
+  b.setUint32(16, 16, true)
+  b.setUint16(20, 1, true)
+  b.setUint16(22, 1, true)
+  b.setUint32(24, 8000, true)
+  b.setUint32(28, 8000, true)
+  b.setUint16(32, 1, true)
+  b.setUint16(34, 8, true)
+  str(36, 'data')
+  b.setUint32(40, n, true)
+  for (let i = 0; i < n; i++) b.setUint8(44 + i, 128)
+  let bin = ''
+  for (let i = 0; i < b.byteLength; i++) bin += String.fromCharCode(b.getUint8(i))
+  return `data:audio/wav;base64,${btoa(bin)}`
+}
+
+/**
+ * Каждое касание: создать звуковой контекст (раньше браузер не разрешает) или разбудить его.
+ * На iOS проснуться после блокировки, звонка или рекламы контекст может только внутри касания.
+ */
 function unlock(): void {
-  if (ctx) return
+  if (level() > 0) playbackSession()
+  if (ctx) {
+    if (level() > 0 && asleep()) {
+      ctx.resume().then(() => switchTrack()).catch(() => {})
+    }
+    return
+  }
   const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
   if (!AC) return
   try {
@@ -104,7 +169,34 @@ function unlock(): void {
   master = ctx.createGain()
   master.gain.value = 0
   master.connect(ctx.destination)
+  ctx.onstatechange = () => debug()
   apply()
+  if (IOS && level() > 0) iosHint?.()
+}
+
+/** Подсказка про беззвучный режим (показывает интерфейс один раз за всё время). */
+let iosHint: (() => void) | null = null
+export function onIosHint(cb: () => void): void {
+  iosHint = cb
+}
+
+/** ?audiodebug=1 — состояние звука в углу экрана, чтобы проверить телефон. */
+let debugBox: HTMLElement | null = null
+function debug(): void {
+  if (typeof location === 'undefined' || !/[?&]audiodebug=1/.test(location.search)) return
+  if (!debugBox) {
+    debugBox = document.createElement('pre')
+    debugBox.style.cssText = 'position:fixed;left:4px;bottom:4px;z-index:9999;margin:0;padding:4px 6px;font:11px monospace;background:rgba(0,0,0,.75);color:#9f9;pointer-events:none;white-space:pre'
+    document.body.appendChild(debugBox)
+  }
+  const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession
+  debugBox.textContent = [
+    `ctx: ${ctx ? ctx.state : 'нет'} ${ctx ? ctx.sampleRate + ' Гц' : ''}`,
+    `трек: ${current?.id ?? '—'} (нужен ${wanted ?? '—'})`,
+    `громкость: ${enabled ? 'вкл' : 'выкл'} ${volume.toFixed(2)} → ${level().toFixed(2)}`,
+    `блок: ${[...blocked].join(', ') || 'нет'}`,
+    `iOS: ${IOS} session: ${session?.type ?? '—'} silent: ${silent ? (silent.paused ? 'пауза' : 'играет') : '—'}`,
+  ].join('\n')
 }
 
 let started = false
@@ -114,7 +206,8 @@ export function initAudio(on: boolean, vol: number): void {
   volume = vol
   if (started || typeof window === 'undefined') return
   started = true
-  for (const ev of ['pointerdown', 'keydown', 'touchend'] as const) window.addEventListener(ev, unlock, { capture: true, passive: true })
+  for (const ev of ['pointerdown', 'keydown', 'touchend', 'click'] as const) window.addEventListener(ev, unlock, { capture: true, passive: true })
+  if (/[?&]audiodebug=1/.test(location.search)) setInterval(debug, 500)
   platform.onPause((paused) => setBlocked('pause', paused))
   platform.onAudio?.((allowed) => setBlocked('platform', !allowed))
 }

@@ -194,26 +194,48 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       </header>
 
       {hintFor('hero', hero.age >= 12) && tab === 'life' && <Hint text={t('hint.hero')} onClose={() => closeHint('hero')} />}
-      <nav class="tabs" role="tablist">
-        {(['life', 'hero', 'people', 'diary'] as Tab[]).map((id) => (
-          <button role="tab" aria-selected={tab === id} class={tab === id ? 'tab active' : 'tab'} onClick={() => {
-              setTab(id)
-              platform.track('tab_open', { tab: id })
-            }}>
-            {t(`tab.${id}`)}
-          </button>
-        ))}
-      </nav>
+      {/* Вкладки и скорость — вверху и прилипают при прокрутке: скорость рядом с картинкой, а не под лентой. */}
+      <div class="life-top">
+        <nav class="tabs" role="tablist">
+          {(['life', 'hero', 'people', 'diary'] as Tab[]).map((id) => (
+            <button role="tab" aria-selected={tab === id} class={tab === id ? 'tab active' : 'tab'} onClick={() => {
+                setTab(id)
+                platform.track('tab_open', { tab: id })
+              }}>
+              {t(`tab.${id}`)}
+            </button>
+          ))}
+        </nav>
+        {tab === 'life' && (
+          <div class="speed-bar">
+            <div class="speed" role="group" aria-label={t('life.speed')}>
+              {SPEEDS.map((s) => (
+                <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => {
+                  setSpeed(s)
+                  platform.track('speed_change', { speed: s })
+                }}>
+                  {s === 0 ? '❚❚' : `×${s}`}
+                </button>
+              ))}
+              <button class="chip" onClick={skip} aria-label={t('life.skip')} title={t('life.skip')}>
+                ⏭
+              </button>
+            </div>
+            <div class="year-clock" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-label={t('life.year_progress')}>
+              <span class="year-label">{formatYear(state.year, lang)}</span>
+              <span class="year-track">
+                <span class="year-fill" style={{ width: `${Math.round((state.phase === 'running' ? progress : 0) * 100)}%` }} />
+              </span>
+            </div>
+            {speed === 0 && <p class="small muted center paused-note">{t('life.paused')}</p>}
+          </div>
+        )}
+      </div>
+      {tab === 'life' && hintFor('speed', lifeSec >= 3) && <Hint text={t('hint.speed')} onClose={() => closeHint('speed')} />}
 
       {tab === 'life' && (
         <section class="panel">
           <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} />
-          <div class="year-clock" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-label={t('life.year_progress')}>
-            <span class="year-label">{formatYear(state.year, lang)}</span>
-            <span class="year-track">
-              <span class="year-fill" style={{ width: `${Math.round((state.phase === 'running' ? progress : 0) * 100)}%` }} />
-            </span>
-          </div>
 
           {stage === 'infancy' || focuses.length === 0 ? (
             <p class="muted">{t('life.infancy', {}, o)}</p>
@@ -269,23 +291,6 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </>
           )}
 
-          <div class="actions sticky">
-            {hintFor('speed', lifeSec >= 3) && <Hint text={t('hint.speed')} onClose={() => closeHint('speed')} />}
-            <div class="speed" role="group" aria-label={t('life.speed')}>
-              {SPEEDS.map((s) => (
-                <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => {
-                  setSpeed(s)
-                  platform.track('speed_change', { speed: s })
-                }}>
-                  {s === 0 ? '❚❚' : `×${s}`}
-                </button>
-              ))}
-              <button class="chip" onClick={skip} aria-label={t('life.skip')} title={t('life.skip')}>
-                ⏭
-              </button>
-            </div>
-            {speed === 0 && <p class="small muted center">{t('life.paused')}</p>}
-          </div>
         </section>
       )}
 

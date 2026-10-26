@@ -395,7 +395,12 @@ function render(id, p) {
     if (p.drone[0] === 'tanpura') {
       // Танпура: Па-Са-Са-Са на каждые полтакта.
       for (let b = 0; b < bars; b++) for (let k = 0; k < 4; k++) add(voiceOf(p.drone, midiHz(p.root - 12 + (k === 0 ? -5 : k === 3 ? -12 : 0)), beat * 2), (b * p.beats + k) * beat, 0.12)
-    } else for (const n of tracks.drone) add(voiceOf(p.drone, midiHz(n.m), n.len * beat), n.t * beat, p.drone[0] === 'voice' ? 0.11 : 0.055)
+    } else
+      for (const n of tracks.drone) {
+        add(voiceOf(p.drone, midiHz(n.m), n.len * beat), n.t * beat, p.drone[0] === 'voice' ? 0.11 : 0.055)
+        // Октава выше: бас динамик телефона почти не играет, а бурдон должен быть слышен.
+        if (p.drone[0] !== 'voice') add(voiceOf(p.drone, midiHz(n.m + 12), n.len * beat), n.t * beat, 0.03)
+      }
   }
   for (const n of tracks.perc) add(drum(n.kind, 1), n.t * beat + (human() - 0.5) * 0.01, n.vel * 0.5)
   for (const n of tracks.bell) add(bell(midiHz(n.m), 3), n.t * beat, 0.08)
@@ -403,9 +408,9 @@ function render(id, p) {
   const wet = reverb(mix, p.lead[0][0] === 'voice' ? 0.55 : 0.32, p.lead[0][0] === 'voice' ? 1.3 : 1)
   const out = new Float32Array(total)
   for (let i = 0; i < wet.length; i++) out[i % total] += wet[i]
-  // Мягкие верха (фильтр ~5 кГц, два прохода), без постоянной составляющей.
-  lowpass(out, 0.62)
-  lowpass(out, 0.62)
+  // Мягкие верха (фильтр ~8,5 кГц, два прохода), без постоянной составляющей.
+  lowpass(out, 0.81)
+  lowpass(out, 0.81)
   let dc = 0
   let prevX = 0
   for (let i = 0; i < out.length; i++) {
@@ -414,15 +419,12 @@ function render(id, p) {
     prevX = x
     out[i] = dc
   }
-  // Одинаковая средняя громкость у всех треков (−22 дБ), пик не выше −3 дБ.
-  let peak = 0
+  // Одинаковая средняя громкость у всех треков (−16 дБ — слышно и в динамике телефона).
+  // Редкие пики мягко скругляются (tanh), чтобы громкость не упиралась в самый громкий удар.
   let sq = 0
-  for (const v of out) {
-    peak = Math.max(peak, Math.abs(v))
-    sq += v * v
-  }
-  const gain = Math.min(0.7 / peak, 10 ** (-22 / 20) / Math.sqrt(sq / out.length))
-  for (let i = 0; i < out.length; i++) out[i] *= gain
+  for (const v of out) sq += v * v
+  const gain = 10 ** (-16 / 20) / Math.sqrt(sq / out.length)
+  for (let i = 0; i < out.length; i++) out[i] = 0.9 * Math.tanh((out[i] * gain) / 0.9)
   return { audio: out, tracks, bars, beat }
 }
 
