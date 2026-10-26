@@ -20,6 +20,7 @@ import {
   ancestorRule,
   isProtected,
   ancestorNamesOf,
+  descentOf,
 } from './rules'
 import { householdYear } from './household'
 import { summarize } from './life'
@@ -248,6 +249,21 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
       g.parentId = child.id
       note(state, { key: `diary.grandchild_born_${g.sex}`, params: { child: { name: g.name }, parent: { name: child.name } }, major: true, topic: 'family', icon: 'child', score: 30, mood: 6 })
       changeParam(hero, 'happiness', 5)
+    }
+  }
+
+  // Взрослые внуки тоже женятся, и у них рождаются правнуки героя.
+  for (const g of hero.npcs.filter((n) => n.role === 'grandchild' && n.alive && !n.away && descentOf(hero.npcs, n) === 2)) {
+    const a = npcAge(g, state.year)
+    const [m0, m1] = era.marriageAge[g.sex]
+    if (!g.married && a >= m0 && a <= m1 + 6 && chance(state, 0.25)) g.married = true
+    if (g.married && a >= 18 && a <= 42 && chance(state, 0.12)) {
+      const before = hero.npcs.length
+      applyEffects(state, era, [{ add_npc: 'grandchild', attitude: 50 }])
+      const gg = hero.npcs[before]
+      gg.parentId = g.id
+      note(state, { key: `diary.great_grandchild_born_${gg.sex}`, params: { child: { name: gg.name }, parent: { name: g.name } }, major: true, topic: 'family', icon: 'child', score: 30, mood: 6 })
+      changeParam(hero, 'happiness', 4)
     }
   }
 

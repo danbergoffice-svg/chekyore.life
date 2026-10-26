@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { axisLabel, survivalTable } from '../engine/report'
 import { EXTERNAL, platform } from '../platform'
-import { npcAge, regionOf } from '../engine/rules'
+import { npcAge, regionOf, roleKey } from '../engine/rules'
 import { AXES } from '../engine/types'
 import type { DiaryEntry, EraDef, Icon, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
@@ -137,7 +137,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
               ? r.facts.farewell
                   .map((id) => life.npcs.find((n) => n.id === id))
                   .filter((n): n is Npc => !!n)
-                  .map((n) => `${nameOf(n.name, lang)} (${t(`npc.${n.role}`, { sex: n.sex }).toLowerCase()})`)
+                  .map((n) => `${nameOf(n.name, lang)} (${t(`npc.${roleKey(life.npcs, n)}`, { sex: n.sex }).toLowerCase()})`)
                   .join(', ')
               : t('facts.farewell_none')}
           </dd>
@@ -427,7 +427,7 @@ function FamilyLink({ life }: { life: LifeSummary }) {
   const year = life.deathYear
   const person = (n: Npc) => (
     <li class={n.alive ? '' : 'gone'}>
-      {nameOf(n.name, lang)} <span class="muted">· {t(`npc.${n.role}`, { sex: n.sex })}{n.alive ? `, ${t('life.age', { n: Math.max(0, npcAge(n, year)) })}` : ' †'}</span>
+      {nameOf(n.name, lang)} <span class="muted">· {t(`npc.${roleKey(life.npcs, n)}`, { sex: n.sex })}{n.alive ? `, ${t('life.age', { n: Math.max(0, npcAge(n, year)) })}` : ' †'}</span>
     </li>
   )
   const parents = life.npcs.filter((n) => n.role === 'father' || n.role === 'mother')

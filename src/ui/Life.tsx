@@ -12,7 +12,7 @@ import {
   riskChance,
   stageOf,
 } from '../engine/game'
-import { checkAll, contextParams, npcAge, regionOf } from '../engine/rules'
+import { checkAll, contextParams, npcAge, regionOf, roleKey } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Npc, SceneTime } from '../engine/types'
 import type { AvatarInput } from '../pixel/avatar'
@@ -636,7 +636,7 @@ function People({ state }: { state: GameState }) {
   const dead = hero.npcs.filter((n) => !n.alive)
   const row = (n: Npc) => (
     <li class="person">
-      <span class="person-role">{t(`npc.${n.role}`, { sex: n.sex })}</span>
+      <span class="person-role">{t(`npc.${roleKey(hero.npcs, n)}`, { sex: n.sex })}</span>
       <span class="person-name">{nameOf(n.name, lang)}</span>
       <span class="muted">
         {n.alive

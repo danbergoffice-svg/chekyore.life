@@ -1,5 +1,5 @@
 import { bell, chance, int, pick, weighted } from './rng'
-import { addYears, aliveNpcs, clamp, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
+import { addYears, clamp, descentOf, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
 import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
@@ -193,8 +193,17 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
   }
 }
 
+/**
+ * Кто может продолжить род: живые дети, которые рядом (не уехали); если детей нет — внуки,
+ * если и внуков нет — правнуки. Внутри колена — по старшинству.
+ */
 export function heirs(state: GameState): Npc[] {
-  return aliveNpcs(state.hero, 'child')
+  const npcs = state.hero.npcs
+  for (const gen of [1, 2, 3]) {
+    const list = npcs.filter((n) => n.alive && !n.away && descentOf(npcs, n) === gen).sort((a, b) => a.birthYear - b.birthYear)
+    if (list.length) return list
+  }
+  return []
 }
 
 /** Доля наследства, которую получит этот ребёнок. */
@@ -214,11 +223,33 @@ export function inheritanceShare(state: GameState, era: EraDef, child: Npc): num
   return Math.round(money / Math.max(1, kids.length))
 }
 
+/**
+ * Семья внука или правнука, ставшего героем: родители — умерший ребёнок (внук) героя и второй родитель
+ * (если жив — опекун), братья и сёстры — дети того же родителя.
+ */
+function familyOfDescendant(state: GameState, era: EraDef, prevHero: Hero, heir: Npc): void {
+  const hero = state.hero
+  const via = prevHero.npcs.find((n) => n.id === heir.parentId)
+  if (via) {
+    hero.npcs.push({ ...via, role: via.sex === 'm' ? 'father' : 'mother', attitude: 60, alive: false, deathYear: via.deathYear ?? state.year, parentId: undefined })
+    // Второй родитель: жив примерно в половине случаев — он и растит сироту.
+    const age = yearsBetween(via.birthYear, state.year)
+    if (age < 70 && chance(state, 0.55)) {
+      const other = makeNpc(state, era, via.sex === 'm' ? 'mother' : 'father', via.sex === 'm' ? 'f' : 'm', addYears(via.birthYear, int(state, -4, 6)), 55)
+      other.married = true
+    }
+  }
+  for (const n of prevHero.npcs) {
+    if (n.role === 'grandchild' && n.parentId === heir.parentId && n.id !== heir.id && n.alive && !n.away) hero.npcs.push({ ...n, role: 'sibling', attitude: 30, parentId: undefined })
+  }
+}
+
 /** Продолжение рода: наследник становится новым героем, время идёт дальше. */
 export function continueWithHeir(prev: GameState, era: EraDef, childId: string): GameState {
   const parent = prev.hero
-  const child = parent.npcs.find((n) => n.id === childId && n.role === 'child' && n.alive)
+  const child = heirs(prev).find((n) => n.id === childId)
   if (!child) throw new Error('Heir not found')
+  const gen = descentOf(parent.npcs, child)
 
   const hero = emptyHero(parent.seed)
   const state: GameState = {
@@ -237,8 +268,10 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.places = [parent.places[parent.places.length - 1] ?? parent.region]
   hero.cls = parent.cls
   hero.birthCls = parent.cls
-  // Деды наследника — родители умершего героя (для детей наследника это прадеды).
-  hero.ancestors = parent.npcs.filter((n) => n.role === 'father' || n.role === 'mother').map((n) => n.name)
+  // Деды наследника — родители умершего героя (для детей наследника это прадеды);
+  // у внука деды — сам умерший герой и его супруг.
+  hero.ancestors =
+    gen === 1 ? parent.npcs.filter((n) => n.role === 'father' || n.role === 'mother').map((n) => n.name) : [parent.name, ...parent.npcs.filter((n) => n.role === 'spouse').map((n) => n.name)]
   hero.religion = parent.religion
   // Наследник остаётся в родительском доме и с тем же хозяйством.
   hero.home = parent.home ?? 1
@@ -263,6 +296,13 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // Навыки, которые ребёнок успел получить в семье.
   for (const skill of era.skills) hero.skills[skill] = 0
   if (prof && hero.age >= 8) hero.skills[prof.skill] = Math.min(30, hero.age * 1.5)
+
+  if (gen > 1) {
+    familyOfDescendant(state, era, parent, child)
+    const via = parent.npcs.find((n) => n.id === child.parentId)
+    hero.diary.push({ year: prev.year, age: hero.age, key: gen === 2 ? 'diary.heir_grand' : 'diary.heir_great', params: { parent: { name: parent.name }, psex: parent.sex, via: { name: via?.name ?? '' }, vsex: via?.sex ?? 'm', money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
+    return state
+  }
 
   // Родители: умерший герой и второй родитель, если он есть; братья и сёстры — остальные дети.
   const parentNpc: Npc = {

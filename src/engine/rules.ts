@@ -73,6 +73,19 @@ function compare(a: number, op: Op, b: number): boolean {
   }
 }
 
+/** Потомок в каком колене: 1 — ребёнок, 2 — внук, 3 — правнук (по цепочке parentId). */
+export function descentOf(npcs: Npc[], npc: Npc): number {
+  if (npc.role === 'child') return 1
+  if (npc.role !== 'grandchild') return 0
+  const parent = npcs.find((n) => n.id === npc.parentId)
+  return parent?.role === 'grandchild' ? 3 : 2
+}
+
+/** Ключ роли для подписи: правнуки хранятся как внуки, но подписываются отдельно. */
+export function roleKey(npcs: Npc[], npc: Npc): string {
+  return npc.role === 'grandchild' && descentOf(npcs, npc) === 3 ? 'great_grandchild' : npc.role
+}
+
 export function aliveNpcs(hero: Hero, role: NpcRole): Npc[] {
   return hero.npcs.filter((n) => n.role === role && n.alive)
 }

@@ -437,7 +437,16 @@ export interface Npc {
   married?: boolean
   /** Метки человека: пороки, болезни, судьба (drinker, gambler, opium, arrested…). */
   tags?: string[]
+  /** Уехал или ушёл из семьи (в другой край, в монастырь, на службу, продан): в событиях и дома его нет. */
+  away?: NpcAway
 }
+
+export interface NpcAway {
+  since: number
+  reason: AwayReason
+}
+
+export type AwayReason = 'abroad' | 'monastery' | 'service' | 'sold' | 'exile' | 'married_far' | 'left'
 
 export type TextParam = string | number | { name: string } | { key: string; sex?: Sex }
 

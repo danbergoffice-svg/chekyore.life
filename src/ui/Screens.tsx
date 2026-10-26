@@ -1,7 +1,7 @@
 import type { ComponentChildren } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { heirs, inheritanceShare } from '../engine/life'
-import { regionOf, yearsBetween } from '../engine/rules'
+import { descentOf, regionOf, roleKey, yearsBetween } from '../engine/rules'
 import { ERA_IDS, ERA_META } from '../content'
 import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
@@ -308,19 +308,29 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
 export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: string) => void; onBack: () => void }) {
   const { t, lang } = useUi()
   const coin = regionOf(props.era, props.state.hero.region).coin
+  const npcs = props.state.hero.npcs
+  const list = heirs(props.state)
+  const gen = list.length ? descentOf(npcs, list[0]) : 1
   return (
     <div class="screen">
       <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
       <h1>{t('heirs.title')}</h1>
-      <p class="lead">{t('heirs.lead')}</p>
+      <p class="lead">{t(gen === 3 ? 'heirs.lead_great' : gen === 2 ? 'heirs.lead_grand' : 'heirs.lead')}</p>
       <ul class="cards">
-        {heirs(props.state).map((k) => {
+        {list.map((k) => {
           const age = yearsBetween(k.birthYear, props.state.year)
+          // У внука — чей он: «сын Таро (†1240)».
+          const via = gen > 1 ? npcs.find((n) => n.id === k.parentId) : undefined
           return (
             <li class="card">
               <h2>
-                {nameOf(k.name, lang)} <span class="muted">· {t(`npc.child`, { sex: k.sex })}</span>
+                {nameOf(k.name, lang)} <span class="muted">· {t(`npc.${roleKey(npcs, k)}`, { sex: k.sex })}</span>
               </h2>
+              {via && (
+                <p class="muted small">
+                  {t('heirs.via', { sex: k.sex, who: `${nameOf(via.name, lang)}${via.alive ? '' : ` †${formatYear(via.deathYear ?? props.state.year, lang)}`}` })}
+                </p>
+              )}
               <p class="muted">
                 {t('heirs.age', { n: age })} · {k.traits.map((tr) => t(`trait.${tr}`)).join(', ')}
               </p>
