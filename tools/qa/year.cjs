@@ -1,0 +1,24 @@
+const { chromium } = require('playwright');
+(async () => {
+  const b = await chromium.launch();
+  const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, locale: 'ru-RU', reducedMotion: 'reduce', deviceScaleFactor: 2 });
+  await ctx.route(/fonts\.(googleapis|gstatic)|mc\.yandex/, r => r.abort());
+  const p = await ctx.newPage();
+  const errs = []; p.on('pageerror', e => errs.push(e.message));
+  await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu');
+  await p.click('text=Настройки');
+  const group = await p.$('fieldset:has(legend:text("Длительность года"))');
+  console.log(await group.innerText());
+  await group.screenshot({ path: 'shots/year-settings.png' });
+  await p.click('text=1 минута');
+  await p.click('.back');
+  await p.click('.menu .stack .primary');
+  await p.waitForSelector('.lever:not([disabled])', { timeout: 15000 });
+  await p.click('.lever'); await p.waitForSelector('.spin-result'); await p.click('.spin-result .primary');
+  await p.click('.reveal .primary');
+  await p.waitForSelector('.modal .choices'); await p.click('.choices .choice'); await p.click('.outcome .primary');
+  const w = () => p.$eval('.year-fill', e => parseFloat(e.style.width));
+  const a = await w(); await p.waitForTimeout(4000); const c = await w();
+  console.log('progress over 4s (child year, 1 min setting → 48 s/yr, expect ~8%):', a, '→', c, errs);
+  await b.close();
+})();

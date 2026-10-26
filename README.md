@@ -28,5 +28,6 @@ npm run build    # сборка в dist/
 
 ## Публикация
 
-Каждый push в `main` проходит тесты, собирается и публикуется на GitHub Pages
-(`.github/workflows/deploy.yml`). Домен задаётся в настройках Pages и файлом `public/CNAME`.
+Сайт на Cloudflare Pages: `npm run build`, затем содержимое `dist/` (вместе с `_worker.js` — приёмником
+аналитики и отзывов) загружается через «Create deployment». Подробности — `docs/BACKEND.md`,
+состояние работ — `CLAUDE.md`.
