@@ -3,31 +3,23 @@
 //   POST /api/events    — пачка событий (до 50), пишется в D1, таблица events;
 //   POST /api/feedback  — отзыв: таблица feedback + копия в Telegram (если заданы TELEGRAM_TOKEN и TELEGRAM_CHAT_ID);
 //   HEAD|GET /api/time  — время сервера (заголовок Date и {now});
-//   GET /admin          — отзывы и 5 отчётов, пароль ADMIN_PASSWORD (логин любой).
+//   POST /api/telegram  — webhook бота: команды /stats /week /funnel /exits /digest /help (worker/telegram.ts);
+//   GET /admin          — отзывы и отчёты, пароль ADMIN_PASSWORD (логин любой) (worker/admin.ts);
+//   GET /admin/export   — CSV для Excel/Google Таблиц (?table=events|feedback&days=N).
+// Цифры для админки, бота и ежедневной сводки (worker/digest/) считает один модуль — worker/stats.ts.
 // IP-адреса не сохраняются: используются только для ограничения частоты запросов в памяти.
 
-interface D1Result<T> {
-  results: T[]
-}
-interface D1Prepared {
-  bind(...values: unknown[]): D1Prepared
-  run(): Promise<unknown>
-  all<T = Record<string, unknown>>(): Promise<D1Result<T>>
-}
-interface D1Database {
-  prepare(sql: string): D1Prepared
-  batch(statements: D1Prepared[]): Promise<unknown>
-  exec(sql: string): Promise<unknown>
-}
+import { admin, authorized, exportCsv, unauthorized } from './admin'
+import type { D1Database } from './stats'
+import { sendMessage, telegramWebhook, type Ctx } from './telegram'
+
 interface Env {
   ASSETS: { fetch(req: Request): Promise<Response> }
   DB?: D1Database
   ADMIN_PASSWORD?: string
   TELEGRAM_TOKEN?: string
   TELEGRAM_CHAT_ID?: string
-}
-interface Ctx {
-  waitUntil(p: Promise<unknown>): void
+  TELEGRAM_WEBHOOK_SECRET?: string
 }
 
 const ORIGINS = [/^https:\/\/(www\.)?thousands\.life$/, /^https:\/\/[a-z0-9-]+\.thousands-life\.pages\.dev$/, /^https:\/\/([a-z0-9-]+\.)*yandex\.(ru|net|com|by|kz|uz|com\.tr)$/, /^http:\/\/localhost(:\d+)?$/]
@@ -36,6 +28,7 @@ const SCHEMA = `
 CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, session_id TEXT, name TEXT NOT NULL, params_json TEXT, platform TEXT, build TEXT);
 CREATE INDEX IF NOT EXISTS events_name_ts ON events(name, ts);
 CREATE INDEX IF NOT EXISTS events_player ON events(player_id);
+CREATE INDEX IF NOT EXISTS events_ts ON events(ts);
 CREATE TABLE IF NOT EXISTS feedback (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, rating INTEGER, answers_json TEXT, contact TEXT, context_json TEXT);
 `
 
@@ -104,107 +97,34 @@ async function feedback(req: Request, env: Env, ctx: Ctx): Promise<Response> {
   if (env.TELEGRAM_TOKEN && env.TELEGRAM_CHAT_ID) {
     const a = (f.answers ?? {}) as Record<string, string>
     const text = [`⭐ ${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}`, ...Object.entries(a).map(([k, v]) => `• ${k}: ${v}`), contact ? `✉ ${contact}` : '', `ℹ ${context}`].filter(Boolean).join('\n')
-    ctx.waitUntil(
-      fetch(`https://api.telegram.org/bot${env.TELEGRAM_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text: text.slice(0, 4000) }),
-      }).catch(() => null),
-    )
+    // В фоне и без исключений: отзыв уже записан, сбой Telegram на ответ не влияет.
+    ctx.waitUntil(sendMessage(env, text, false))
   }
   return json({ ok: true })
-}
-
-// ---------- /admin ----------
-
-const DAY = 864e5
-const REPORTS: { title: string; days: number; sql: string }[] = [
-  {
-    title: 'Воронка за 7 дней (уникальные игроки)',
-    days: 7,
-    sql: `SELECT
-  COUNT(DISTINCT CASE WHEN name='app_open' THEN player_id END) AS app_open,
-  COUNT(DISTINCT CASE WHEN name='life_start' THEN player_id END) AS life_start,
-  COUNT(DISTINCT CASE WHEN name='first_choice' THEN player_id END) AS first_choice,
-  COUNT(DISTINCT CASE WHEN name='age_milestone' AND json_extract(params_json,'$.age')=20 THEN player_id END) AS age_20,
-  COUNT(DISTINCT CASE WHEN name='life_end' THEN player_id END) AS life_end,
-  COUNT(DISTINCT CASE WHEN name='life_start' AND json_extract(params_json,'$.life_index')>=2 THEN player_id END) AS second_life
-FROM events WHERE ts > ?1`,
-  },
-  {
-    title: 'Игроки и жизни по дням (14 дней)',
-    days: 14,
-    sql: `SELECT date(ts/1000,'unixepoch') AS day, COUNT(DISTINCT player_id) AS players,
-  SUM(name='life_start') AS lives, SUM(name='life_end') AS deaths, SUM(name='feedback_sent') AS feedback
-FROM events WHERE ts > ?1 GROUP BY day ORDER BY day DESC`,
-  },
-  {
-    title: 'Длительность жизни: минуты и возраст по режимам (7 дней)',
-    days: 7,
-    sql: `SELECT json_extract(params_json,'$.mode') AS mode, COUNT(*) AS lives,
-  ROUND(AVG(json_extract(params_json,'$.sec_in_life'))/60.0,1) AS avg_min,
-  ROUND(AVG(json_extract(params_json,'$.age')),1) AS avg_age,
-  ROUND(AVG(json_extract(params_json,'$.choices')),1) AS avg_choices
-FROM events WHERE name='life_end' AND ts > ?1 GROUP BY mode`,
-  },
-  {
-    title: 'Где уходят: последний экран и возраст при закрытии (7 дней)',
-    days: 7,
-    sql: `SELECT json_extract(params_json,'$.screen') AS screen, COUNT(*) AS n,
-  ROUND(AVG(json_extract(params_json,'$.age')),1) AS avg_age,
-  ROUND(AVG(json_extract(params_json,'$.sec_in_session'))/60.0,1) AS avg_session_min
-FROM events WHERE name='session_end' AND ts > ?1 GROUP BY screen ORDER BY n DESC`,
-  },
-  {
-    title: 'События: частота и доля успеха выбора (топ-30, 7 дней)',
-    days: 7,
-    sql: `SELECT json_extract(params_json,'$.event_id') AS event, COUNT(*) AS shown,
-  ROUND(100.0*SUM(json_extract(params_json,'$.success'))/COUNT(*)) AS success_pct
-FROM events WHERE name='choice_made' AND ts > ?1 GROUP BY event ORDER BY shown DESC LIMIT 30`,
-  },
-]
-
-const esc = (v: unknown) => String(v ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!)
-
-function table(rows: Record<string, unknown>[]): string {
-  if (!rows.length) return '<p class="muted">Пока пусто.</p>'
-  const cols = Object.keys(rows[0])
-  return `<div class="scroll"><table><tr>${cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr>${rows.map((r) => `<tr>${cols.map((c) => `<td>${esc(r[c])}</td>`).join('')}</tr>`).join('')}</table></div>`
-}
-
-async function admin(req: Request, env: Env): Promise<Response> {
-  const auth = req.headers.get('authorization') ?? ''
-  const pass = auth.startsWith('Basic ') ? atob(auth.slice(6)).split(':').slice(1).join(':') : ''
-  if (!env.ADMIN_PASSWORD || pass !== env.ADMIN_PASSWORD) {
-    return new Response('Нужен пароль', { status: 401, headers: { 'www-authenticate': 'Basic realm="thousands admin", charset="UTF-8"' } })
-  }
-  const db = env.DB!
-  await ensureSchema(db)
-  const now = Date.now()
-  const fb = await db.prepare("SELECT datetime(ts/1000,'unixepoch') AS time, rating, answers_json, contact, context_json FROM feedback ORDER BY ts DESC LIMIT 100").all()
-  const reports = await Promise.all(REPORTS.map(async (r) => ({ title: r.title, rows: (await db.prepare(r.sql).bind(now - r.days * DAY).all()).results })))
-  const feedbackHtml = fb.results.length
-    ? fb.results
-        .map((f) => {
-          const answers = Object.entries(JSON.parse(String(f.answers_json || '{}')) as Record<string, string>)
-          return `<article><p class="muted">${esc(f.time)} · ${'★'.repeat(Number(f.rating))} · ${esc(f.context_json)}</p>${answers.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}${f.contact ? `<p>✉ ${esc(f.contact)}</p>` : ''}</article>`
-        })
-        .join('')
-    : '<p class="muted">Отзывов пока нет.</p>'
-  const html = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Тысячи жизней — админка</title>
-<style>body{font:15px/1.45 system-ui,sans-serif;margin:16px;max-width:1100px;color:#2b2119;background:#f6efe2}h1{font-size:22px}h2{font-size:17px;margin-top:28px}
-table{border-collapse:collapse;font-size:13px}td,th{border:1px solid #d6c6aa;padding:4px 8px;text-align:left}th{background:#ebdfc8}.scroll{overflow-x:auto}
-article{background:#fbf6ec;border:1px solid #d6c6aa;border-radius:8px;padding:8px 12px;margin:8px 0}article p{margin:4px 0}.muted{color:#7d6b58;font-size:13px}</style></head>
-<body><h1>Тысячи жизней — отзывы и отчёты</h1>${reports.map((r) => `<h2>${esc(r.title)}</h2>${table(r.rows)}`).join('')}<h2>Отзывы (последние 100)</h2>${feedbackHtml}</body></html>`
-  return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
 }
 
 export default {
   async fetch(req: Request, env: Env, ctx: Ctx): Promise<Response> {
     const url = new URL(req.url)
     const path = url.pathname
-    if (!path.startsWith('/api/') && path !== '/admin') return env.ASSETS.fetch(req)
-    if (path === '/admin') return env.DB ? admin(req, env) : new Response('База D1 не подключена (привязка DB)', { status: 503 })
+    if (!path.startsWith('/api/') && path !== '/admin' && !path.startsWith('/admin/')) return env.ASSETS.fetch(req)
+    if (path === '/admin' || path === '/admin/export') {
+      if (!(await authorized(req, env))) return unauthorized()
+      if (!env.DB) return new Response('База D1 не подключена (привязка DB)', { status: 503 })
+      try {
+        await ensureSchema(env.DB)
+        return path === '/admin' ? await admin(req, env) : await exportCsv(req, env)
+      } catch (e) {
+        return new Response('Ошибка базы: ' + String(e).slice(0, 300), { status: 500, headers: { 'content-type': 'text/plain; charset=utf-8' } })
+      }
+    }
+    if (path.startsWith('/admin/')) return new Response('Не найдено', { status: 404 })
+    // Webhook бота: свой секрет, без CORS и без общего ограничения частоты (все запросы идут с адресов Telegram).
+    if (path === '/api/telegram') {
+      if (req.method !== 'POST') return new Response(null, { status: 405 })
+      if (env.DB) await ensureSchema(env.DB).catch(() => null)
+      return telegramWebhook(req, env, ctx)
+    }
     const headers = cors(req)
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers })
     if (path === '/api/time') return req.method === 'HEAD' ? new Response(null, { headers: { ...headers, 'cache-control': 'no-store' } }) : json({ now: Date.now() }, 200, headers)

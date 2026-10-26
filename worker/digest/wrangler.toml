@@ -1,0 +1,23 @@
+# Worker thousands-digest — утренняя сводка «Тысяч жизней» в Telegram.
+# Деплой из этой папки:  npx wrangler login  (один раз), затем  npx wrangler deploy
+# Секреты (не в этот файл!):  npx wrangler secret put TELEGRAM_TOKEN
+#                             npx wrangler secret put TELEGRAM_CHAT_ID
+#                             npx wrangler secret put TELEGRAM_WEBHOOK_SECRET   (для ручного запуска POST /run)
+# Подробно — docs/BACKEND.md, раздел «Telegram: бот и утренняя сводка».
+name = "thousands-digest"
+main = "index.ts"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+# Каждый день в 06:00 UTC = 09:00 по Стамбулу.
+[triggers]
+crons = ["0 6 * * *"]
+
+# Та же база, что у сайта (проект Pages thousands-life).
+[[d1_databases]]
+binding = "DB"
+database_name = "thousands"
+database_id = "4ad2783a-125d-4c26-b8e3-55cf7b6884f1"
+
+[observability]
+enabled = true
