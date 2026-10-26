@@ -296,11 +296,19 @@ function words(s: string, x: number, y: number, t: number, t0: number, o: TextOp
   })
 }
 
-/** Подпись сцены: номер и заглавные буквы золотом, с полосой. */
+/**
+ * Зона логотипа площадки: CrazyGames кладёт свой логотип в левый верхний угол превью
+ * (≈ 40% ширины и 19% высоты горизонтального ролика, 40% и 10% портретного) — там нет ничего важного.
+ * ?safe=1 показывает её рамкой для проверки.
+ */
+const LOGO_ZONE = { w: WIDTH * 0.42, h: HEIGHT * (V ? 0.11 : 0.2) }
+
+/** Подпись сцены: номер и заглавные буквы золотом, с полосой. Стоит справа сверху — слева логотип площадки. */
 function caption(n: string, s: string, t: number, t0: number, dark = false) {
   const k = outCubic(seg(t, t0, t0 + 0.45))
-  const x = V ? 60 : 120
-  const y = V ? 150 : 112
+  const width = 86 + measure(s, { size: 30, weight: 700, spacing: 5 })
+  const x = WIDTH - (V ? 60 : 120) - width
+  const y = P ? 225 : V ? 150 : 112
   ctx.save()
   ctx.globalAlpha = k
   ctx.fillStyle = C.accent
@@ -487,7 +495,7 @@ function lottery(t: number) {
   if (V) words(TEXT.whereBorn, WIDTH / 2, P ? 430 : 520, t, 2.15, { size: 76, weight: 700, color: C.ink, align: 'center' })
   const mx = 230
   const mw = 1460
-  const target = V ? (P ? 790 : 940) - 320 : 200
+  const target = V ? (P ? 790 : 940) - 320 : 225
   const my = lerp(HEIGHT + 200, target, enter) - lift * 40
   const mh = 640
   const scale = (1 - lift * 0.08) * (V ? 0.7 : 1)
@@ -550,7 +558,7 @@ function lottery(t: number) {
   const res = outBack(seg(t, 4.85, 5.25), 1.4)
   if (res > 0) {
     const bw = V ? 960 : 1100
-    const by = lerp(HEIGHT + 20, V ? (P ? 1100 : 1300) : 870, res)
+    const by = lerp(HEIGHT + 20, V ? (P ? 1100 : 1300) : 890, res)
     ctx.save()
     ctx.shadowColor = 'rgba(43,33,25,0.3)'
     ctx.shadowBlur = 30
@@ -710,7 +718,7 @@ function life(t: number) {
   // Портрет героини.
   const enter = outBack(seg(t, 5.55, 6.0), 1.3)
   const px = lerp(-500, V ? 60 : 140, enter)
-  const py = P ? 520 : V ? 560 : 190
+  const py = P ? 580 : V ? 560 : 235
   ctx.save()
   ctx.shadowColor = 'rgba(43,33,25,0.3)'
   ctx.shadowBlur = 40
@@ -754,7 +762,7 @@ function life(t: number) {
   }
   const sEnter = outCubic(seg(t, 5.65, 6.15))
   const sx = lerp(WIDTH + 80, V ? 60 : 640, sEnter)
-  const [sy, swd, sht] = P ? [190, 960, 300] : V ? [210, 960, 300] : [190, 1152, 360]
+  const [sy, swd, sht] = P ? [255, 960, 300] : V ? [210, 960, 300] : [235, 1152, 360]
   ctx.save()
   roundRect(sx, sy, swd, sht, 28)
   ctx.clip()
@@ -768,7 +776,7 @@ function life(t: number) {
     const tA = ageTime(a)
     const k = outBack(seg(t, tA, tA + 0.35), 1.4)
     if (V) return feedCardV(a, s, i, k)
-    const cy = 590 + i * 112
+    const cy = 630 + i * 112
     const cx = lerp(1900, 640, k)
     ctx.save()
     ctx.globalAlpha = i === 0 ? 1 : 0.85 - i * 0.2
@@ -792,7 +800,7 @@ const ageLabel = (a: number) => (lang === 'ru' ? `${a} ${a % 10 === 1 && a !== 1
 /** Вертикальный кадр: запись ленты — карточка справа от портрета, текст в несколько строк. */
 function feedCardV(a: number, s: string, i: number, k: number) {
   const cx = lerp(WIDTH + 40, 520, k)
-  const cy = (P ? 520 : 560) + i * (P ? 240 : 245)
+  const cy = (P ? 580 : 560) + i * (P ? 240 : 245)
   ctx.save()
   ctx.globalAlpha = i === 0 ? 1 : 0.85 - i * 0.2
   ctx.fillStyle = i === 0 ? C.card : C.paper
@@ -814,7 +822,7 @@ function lifeline(t: number, age: number) {
   if (k <= 0) return
   const x0 = 100
   const x1 = WIDTH - 100
-  const y = P ? 1440 : 1560
+  const y = P ? 1480 : 1560
   ctx.save()
   ctx.globalAlpha = k
   ctx.strokeStyle = C.line
@@ -877,7 +885,7 @@ function choice(t: number) {
   const cw = 1000
   const ch = 780
   const cx = WIDTH / 2 - cw / 2
-  const cy = lerp(HEIGHT + 120, V ? (HEIGHT - 780) / 2 - 10 : 190, enter)
+  const cy = lerp(HEIGHT + 120, V ? (HEIGHT - 780) / 2 - 10 : 225, enter)
   // Переворот карточки на итог.
   const flip = seg(t, 11.15, 11.45)
   const sy = flip < 0.5 ? 1 - flip * 2 : (flip - 0.5) * 2
@@ -1025,11 +1033,11 @@ function worlds(t: number) {
   // Заголовок.
   const k = outBack(seg(t, 12.55, 12.95), 1.6)
   ctx.save()
-  ctx.translate(WIDTH / 2, P ? 250 : V ? 300 : 190)
+  ctx.translate(WIDTH / 2, P ? 275 : V ? 300 : 290)
   ctx.scale(k, k)
   text(TEXT.c4, 0, 30, { size: 130, weight: 700, color: C.card, align: 'center', spacing: 8, shadow: 'rgba(214,166,73,0.45)' })
   ctx.restore()
-  words(TEXT.c4b, WIDTH / 2, P ? 355 : V ? 410 : 290, t, 12.8, { size: 46, italic: true, color: C.cream, align: 'center' })
+  words(TEXT.c4b, WIDTH / 2, P ? 375 : V ? 410 : 385, t, 12.8, { size: 46, italic: true, color: C.cream, align: 'center' })
   // Две ленты сцен навстречу друг другу.
   const local = t - 12.5
   const tileW = 576
@@ -1063,13 +1071,13 @@ function worlds(t: number) {
   }
   if (V) {
     // Вертикальный кадр: три ленты по 5, 4 и 4 города.
-    const [r0, step] = P ? [440, 260] : [520, 280]
+    const [r0, step] = P ? [455, 255] : [520, 280]
     drawRow(WORLDS.slice(0, 5), r0, -1, 0)
     drawRow(WORLDS.slice(5, 9), r0 + step, 1, 0.1)
     drawRow(WORLDS.slice(9), r0 + step * 2, -1, 0.2)
   } else {
-    drawRow(rowA, 380, -1, 0)
-    drawRow(rowB, 650, 1, 0.15)
+    drawRow(rowA, 430, -1, 0)
+    drawRow(rowB, 680, 1, 0.15)
   }
   // Люди тринадцати миров: портреты в местной одежде (в вертикальном кадре — два ряда).
   const aw = 96
@@ -1083,7 +1091,7 @@ function worlds(t: number) {
     const ax0 = WIDTH / 2 - (inRow * aw + (inRow - 1) * ag) / 2
     const x = ax0 + (i % perRow) * (aw + ag)
     ctx.save()
-    ctx.translate(x + aw / 2, P ? 1370 + r * 170 : V ? 1530 + r * 190 : 1030)
+    ctx.translate(x + aw / 2, P ? 1380 + r * 165 : V ? 1530 + r * 190 : 1065)
     ctx.scale(kk, kk)
     blit(avatar({ region, sex, age: 32, seed: `world${region}`, cls: i % 3 ? 'craftsman' : 'noble', married: true, happiness: 70 }), -aw / 2, -120, aw, 120)
     ctx.restore()
@@ -1303,6 +1311,12 @@ export function renderFrame(t: number): void {
       ctx.fillStyle = `rgba(255, 238, 200, ${flash})`
       ctx.fillRect(0, 0, WIDTH, HEIGHT)
     }
+  }
+  if (params.has('safe')) {
+    ctx.fillStyle = 'rgba(90, 60, 220, 0.75)'
+    ctx.beginPath()
+    ctx.roundRect(0, 0, LOGO_ZONE.w, LOGO_ZONE.h, [0, 0, 16, 0])
+    ctx.fill()
   }
   // Короткое затемнение в начале; в конце — только у русской версии (английская заканчивается артом).
   const fadeIn = 1 - seg(t, 0, 0.25)

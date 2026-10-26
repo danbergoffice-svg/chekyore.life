@@ -26,7 +26,7 @@ const [, , dir, lang = 'en', mode = '60', list = ''] = process.argv
       const p = await ctx.newPage()
       p.on('pageerror', (e) => errs.push(e.message))
       p.on('console', (m) => m.type() === 'error' && errs.push(m.text()))
-      await p.goto(`http://localhost:5174/tools/video/promo.html?lang=${lang}${vertical ? `&o=${process.env.O}` : ''}`)
+      await p.goto(`http://localhost:5174/tools/video/promo.html?lang=${lang}${vertical ? `&o=${process.env.O}` : ''}${process.env.SAFE ? '&safe=1' : ''}`)
       await p.waitForFunction(() => window.promoReady !== undefined)
       await p.evaluate(() => window.promoReady)
       const canvas = await p.$('canvas')
