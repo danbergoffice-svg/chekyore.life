@@ -201,3 +201,23 @@ describe('Близкие на картинке (п. 7)', () => {
     expect(hero.look).toEqual(figureLook({ region: son.hero.region, sex: 'm', age: 22, seed: son.hero.id, cls: son.hero.cls, body: son.hero.body ?? 0, ill: false, married: true, widow: false, enslaved: son.hero.tags.includes('enslaved') }))
   })
 })
+
+describe('Дом: пожар и отстройка (п. 13)', () => {
+  it('сгорел → на ступень меньше, во дворе сгоревший дом; отстроились через год', async () => {
+    const { applyEffects } = await import('../src/engine/rules')
+    const { householdYear } = await import('../src/engine/household')
+    const { familyCast } = await import('../src/ui/cast')
+    const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 818)
+    s.hero.home = 3
+    applyEffects(s, era, [{ home: 'burn' }])
+    applyEffects(s, era, [{ home: 'burn' }])
+    expect(s.hero.home).toBe(2)
+    expect(familyCast(s).homeState).toBe('burned')
+    applyEffects(s, era, [{ home: 'rebuild' }])
+    expect(familyCast(s).homeState).toBe('rebuilding')
+    s.year += 1
+    householdYear(s, era)
+    expect(familyCast(s).homeState).toBeUndefined()
+    expect(s.hero.diary.some((d) => d.key === 'diary.home_rebuilt')).toBe(true)
+  })
+})

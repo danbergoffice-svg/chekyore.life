@@ -474,11 +474,15 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     } else if ('migrate' in e) {
       const target = resolveRegion(state, era, e.migrate)
       if (target) {
+        // На новом месте — новое жильё: сгоревший дом остаётся позади.
+        hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t))
         hero.region = target
         if (hero.places[hero.places.length - 1] !== target) hero.places.push(target)
         addPattern(hero, era.patternWeights.actions.move)
         note(state, { key: 'diary.migrated', params: { place: { key: `region.${target}` } }, major: true, topic: 'life', icon: 'move', score: 35 })
       }
+    } else if ('home' in e) {
+      homeEffect(state, e.home)
     } else if ('chance' in e) {
       if (chance(state, e.chance)) applyEffects(state, era, e.effects, ctx)
     }
@@ -486,6 +490,30 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
 }
 
 const CLOSE: NpcRole[] = ['father', 'mother', 'spouse', 'child', 'grandchild', 'sibling', 'friend']
+
+/** Метки состояния дома: повреждён (общая метка для событий), сгорел, разрушен, отстраивается. */
+export const HOME_TAGS = ['home_damaged', 'home_burned', 'home_ruined', 'home_rebuilding']
+
+/** Дом сгорел или разрушен: на ступень меньше и стоит повреждённым, пока не отстроятся; или начали отстраиваться. */
+function homeEffect(state: GameState, kind: 'burn' | 'ruin' | 'rebuild'): void {
+  const hero = state.hero
+  const tags = new Set(hero.tags)
+  if (kind === 'rebuild') {
+    if (!tags.has('home_damaged')) return
+    hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t)).concat('home_rebuilding')
+    hero.homeSince = state.year
+    note(state, { key: 'diary.home_rebuilding', topic: 'money', icon: 'move', score: 18, mood: 3 })
+    return
+  }
+  // Второй пожар в тот же год (огонь из соседнего события) дом второй раз не уменьшает.
+  if (tags.has('home_damaged') && hero.homeSince === state.year) return
+  hero.home = Math.max(0, (hero.home ?? 1) - 1)
+  hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t)).concat('home_damaged', kind === 'burn' ? 'home_burned' : 'home_ruined')
+  hero.homeSince = state.year
+  changeParam(hero, 'happiness', -6)
+  changeParam(hero, 'stress', 6)
+  note(state, { key: kind === 'burn' ? 'diary.home_burned' : 'diary.home_ruined', topic: 'money', icon: 'disaster', score: 32, mood: -8, major: true })
+}
 
 export function killNpc(state: GameState, npc: Npc): void {
   const hero = state.hero

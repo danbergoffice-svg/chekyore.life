@@ -159,6 +159,18 @@ function checkAway(ev: EventDef, bad: string[]) {
   }
 }
 
+/** «Дом сгорел» в тексте — у события должен быть эффект {"home":"burn"}: иначе на картинке дом целый. */
+const HOUSE_BURNED = /(дом|сруб|изба|жилище|имущество)[^.,]{0,16}сгорел|сгорел[аои]? дотла/
+
+function checkHomeBurn(ev: EventDef, bad: string[]) {
+  const t = createT('ru')
+  const text = eventKeys(ev.id)
+    .map((k) => t(k, {}, { sex: 'm' }))
+    .join(' ')
+    .toLowerCase()
+  if (HOUSE_BURNED.test(text) && !JSON.stringify(ev).includes('"home":"burn"')) bad.push(`${ev.id}: в тексте дом сгорел, но нет эффекта {"home":"burn"}`)
+}
+
 function checkCountry(era: EraDef, bad: string[]) {
   if (!(era.population > 0)) bad.push('population')
   for (const f of era.features ?? []) if (!FEATURES.includes(f)) bad.push(`feature ${f}`)
@@ -209,6 +221,7 @@ export function validateEra(era: EraDef): string[] {
     checkRefs(era, ev, bad)
     checkRoles(ev, bad)
     checkAway(ev, bad)
+    checkHomeBurn(ev, bad)
   }
   return bad
 }

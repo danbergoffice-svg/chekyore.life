@@ -2476,11 +2476,19 @@
           {
             "param": "stress",
             "delta": 6
+          },
+          {
+            "home": "rebuild"
           }
         ],
         "pattern": {
           "memory_future": -3
         }
+      }
+    ],
+    "effects": [
+      {
+        "home": "burn"
       }
     ]
   },
@@ -2982,6 +2990,11 @@
         "pattern": {
           "home_road": 7
         }
+      }
+    ],
+    "effects": [
+      {
+        "home": "burn"
       }
     ]
   },

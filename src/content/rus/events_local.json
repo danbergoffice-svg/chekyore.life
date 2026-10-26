@@ -3527,6 +3527,9 @@
             },
             {
               "money_pct": -30
+            },
+            {
+              "home": "burn"
             }
           ],
           "on_failure": [
@@ -4108,13 +4111,21 @@
         },
         "pattern": {
           "craft_power": 3
-        }
+        },
+        "effects": [
+          {
+            "home": "burn"
+          }
+        ]
       },
       {
         "id": "neighbors",
         "effects": [
           {
             "money_pct": -55
+          },
+          {
+            "home": "burn"
           }
         ],
         "risk_roll": {
@@ -4159,6 +4170,14 @@
           {
             "param": "intellect",
             "delta": 1
+          },
+          {
+            "chance": 0.4,
+            "effects": [
+              {
+                "home": "burn"
+              }
+            ]
           }
         ],
         "pattern": {

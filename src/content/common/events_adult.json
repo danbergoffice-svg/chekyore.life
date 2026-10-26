@@ -4495,5 +4495,121 @@
         }
       }
     ]
+  },
+  {
+    "id": "h_rebuild",
+    "type": "personal",
+    "base_weight": 6,
+    "topic": "money",
+    "icon": "move",
+    "age_range": [
+      16,
+      95
+    ],
+    "conditions": [
+      {
+        "tag": "home_damaged"
+      },
+      {
+        "tag_absent": "enslaved"
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "self",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 60
+          }
+        ],
+        "effects": [
+          {
+            "money_pct": -35
+          },
+          {
+            "home": "rebuild"
+          },
+          {
+            "param": "self_esteem",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "neighbors",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.55,
+          "on_success": [
+            {
+              "param": "money",
+              "delta": -20
+            },
+            {
+              "home": "rebuild"
+            },
+            {
+              "param": "reputation",
+              "delta": 4
+            },
+            {
+              "param": "loneliness",
+              "delta": -4
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "stress",
+              "delta": 4
+            },
+            {
+              "param": "self_esteem",
+              "delta": -3
+            }
+          ]
+        }
+      },
+      {
+        "id": "borrow",
+        "effects": [
+          {
+            "add_tag": "in_debt"
+          },
+          {
+            "home": "rebuild"
+          },
+          {
+            "param": "stress",
+            "delta": 5
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "wait",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 3
+          },
+          {
+            "param": "happiness",
+            "delta": -2
+          }
+        ]
+      }
+    ]
   }
 ]

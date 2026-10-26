@@ -4896,13 +4896,21 @@
               "delta": -12
             }
           ]
-        }
+        },
+        "effects": [
+          {
+            "home": "burn"
+          }
+        ]
       },
       {
         "id": "flee",
         "effects": [
           {
             "money_pct": -40
+          },
+          {
+            "home": "burn"
           }
         ],
         "pattern": {
@@ -4922,6 +4930,14 @@
           },
           {
             "money_pct": -35
+          },
+          {
+            "chance": 0.4,
+            "effects": [
+              {
+                "home": "burn"
+              }
+            ]
           }
         ],
         "pattern": {

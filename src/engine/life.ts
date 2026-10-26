@@ -1,5 +1,5 @@
 import { bell, chance, int, pick, weighted } from './rng'
-import { addYears, clamp, descentOf, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
+import { addYears, clamp, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
 import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
@@ -292,6 +292,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   const prof = era.professions.find((p) => p.id === parent.profession)
   if (prof) hero.tags.push(`raised_${prof.skill}`)
   if (parent.tags.includes('freedman') || parent.tags.includes('freeborn_heir')) hero.tags.push('freeborn_heir')
+  // Сгоревший или отстраивающийся дом достаётся наследнику таким, какой есть.
+  hero.tags.push(...parent.tags.filter((t) => HOME_TAGS.includes(t)))
+  hero.homeSince = parent.homeSince
   hero.flags = parent.flags.filter((f) => f.startsWith('family_'))
   // Навыки, которые ребёнок успел получить в семье.
   for (const skill of era.skills) hero.skills[skill] = 0

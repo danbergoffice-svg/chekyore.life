@@ -335,8 +335,22 @@ function door(px: Px, cx: number, h: number, c: string, arch = false) {
  * Жилой дом в стиле края: низкий, в один (редко два) этажа, с дверью и одним-двумя окнами —
  * никаких рядов одинаковых окон, как у многоэтажек.
  */
+/** Дом героя сгорел: вместо дома во дворе — обугленный остов (ставится на время рисования двора). */
+let burnt = false
+
 function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () => number, lit: boolean) {
   built.push({ x, w, top: GROUND - 14 })
+  if (burnt) {
+    // Остов без крыши: неровные чёрные стены, торчащие обгорелые балки.
+    for (let i = 0; i < w; i++) {
+      const top = GROUND - 6 - Math.floor(r() * 7) - (i % 6 === 0 ? 5 : 0)
+      px(x + i, top, 1, GROUND - top, shade(i % 6 === 0 ? '#3a2e26' : '#2b2420', k * 0.5))
+    }
+    px(x - 2, GROUND - 15, w + 4, 1, shade('#3a2e26', k * 0.5))
+    px(x + 3, GROUND - 19, 1, 6, shade('#3a2e26', k * 0.5))
+    px(x + w - 4, GROUND - 17, 1, 4, shade('#3a2e26', k * 0.5))
+    return
+  }
   const p = look.p
   const dark = shade('#3a2a20', k)
   const glow = () => (lit && r() > 0.4 ? '#e8c96a' : dark)
@@ -846,6 +860,7 @@ function palace(px: Px, look: Look, region: string, k: number, r: () => number) 
 function familyHome(px: Px, look: Look, tier: number, k: number, r: () => number, lit: boolean) {
   const fence = shade('#7a5a3a', k)
   if (tier <= 0) {
+    if (burnt) return styledHouse(px, look, 20, 20, k, r, lit)
     // Лачуга: жерди и низкий навес.
     built.push({ x: 20, w: 20, top: GROUND - 10 })
     px(22, GROUND - 8, 1, 8, fence)
@@ -873,7 +888,116 @@ function familyHome(px: Px, look: Look, tier: number, k: number, r: () => number
   px(46, GROUND - 7, 6, 7, shade('#4a3020', k))
 }
 
-function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, look: Look, r: () => number, home = 2) {
+/** Обстановка жилья по достатку: 0 — лачуга с соломой, 1 — лавка у стены, 2 — сундук и полка с посудой,
+ *  3 — ковёр на стене, светильники, 4 — расписной пояс, колонны и ткань на стене. */
+function interior(px: Px, look: Look, tier: number, k: number, r: () => number) {
+  const c = (hex: string, d = 0) => shade(hex, k * 0.6 + d)
+  const wood = '#7a5a3a'
+  const p = look.p
+  if (tier === 0) {
+    // Солома на полу и очаг из камней.
+    for (let x = 4; x < W; x += 5 + Math.floor(r() * 4)) px(x, GROUND - 3, 3, 1, c('#c9a860'))
+    px(90, GROUND - 4, 12, 2, c('#6a6460'))
+    return
+  }
+  // Лавка вдоль стены.
+  px(60, GROUND - 7, 26, 2, c(wood))
+  px(61, GROUND - 5, 1, 5, c(wood, -0.1))
+  px(84, GROUND - 5, 1, 5, c(wood, -0.1))
+  if (tier >= 2) {
+    // Полка с горшками и сундук.
+    px(100, 12, 28, 1, c(wood))
+    for (let i = 0; i < 4; i++) px(102 + i * 7, 8, 4, 4, c(p.clothes[i % p.clothes.length], -0.05))
+    px(112, GROUND - 8, 14, 8, c('#6a4428'))
+    px(112, GROUND - 8, 14, 1, c('#8a6438'))
+    px(118, GROUND - 6, 2, 2, c('#c9a860'))
+  }
+  if (tier >= 3) {
+    // Ковёр на стене и светильники.
+    px(58, 6, 30, 20, c(p.accent, -0.05))
+    px(60, 8, 26, 16, c(p.clothes[0]))
+    for (let y = 10; y < 24; y += 4) px(62, y, 22, 1, c(p.accent))
+    for (const lx of [40, 140]) {
+      px(lx, 0, 1, 6, c('#4a3a2a'))
+      px(lx - 1, 6, 3, 2, c('#e8c96a', 0.1))
+    }
+  }
+  if (tier >= 4) {
+    // Расписной пояс под потолком и две колонны.
+    for (let x = 0; x < W; x += 6) px(x, 2, 4, 2, c(x % 12 ? p.accent : p.clothes[1 % p.clothes.length]))
+    for (const cx of [8, 176]) {
+      px(cx, 4, 6, GROUND - 6, c(p.stone, 0.05))
+      px(cx - 1, 4, 8, 2, c(p.stoneDark))
+    }
+  }
+}
+
+/** Сгоревший, разрушенный или отстраивающийся дом во дворе — поверх нарисованного дома. */
+function homeDamage(ctx: CanvasRenderingContext2D, px: Px, state: NonNullable<Cast['homeState']>, k: number, r: () => number) {
+  for (const b of built) {
+    if (state === 'burned') {
+      // Остов уже нарисован вместо дома (burnt); сверху — тлеющие угли и дымок.
+      for (let i = 0; i < 5; i++) px(b.x + 2 + Math.floor(r() * (b.w - 4)), GROUND - 1 - Math.floor(r() * 3), 1, 1, '#e0602a')
+      ctx.globalAlpha = 0.45
+      for (let i = 0; i < 3; i++) disc(px, b.x + b.w / 2 + i * 3, b.top - 8 - i * 6, 2 + i, '#8a847e')
+      ctx.globalAlpha = 1
+    } else if (state === 'ruined') {
+      const cx = b.x + Math.floor(b.w / 2)
+      for (let i = 0; i < 8; i++) px(cx - i, b.top + i, 2 + i * 2, 1, shade('#5a4a3a', k * 0.5))
+      for (let i = 0; i < 6; i++) disc(px, b.x + 3 + Math.floor(r() * (b.w - 6)), GROUND - 1, 2 + Math.floor(r() * 2), r() > 0.5 ? '#8a7a68' : '#a8987e')
+    } else {
+      // Леса: свежие жерди, настил и лестница, светлое дерево на крыше.
+      const pole = shade('#c9a26a', k)
+      for (const x of [b.x - 2, b.x + b.w + 1, b.x + Math.floor(b.w / 2)]) px(x, b.top - 8, 1, GROUND - b.top + 8, pole)
+      px(b.x - 2, b.top - 2, b.w + 4, 1, pole)
+      px(b.x - 2, b.top + 6, b.w + 4, 1, pole)
+      for (let y = b.top - 6; y < GROUND; y += 3) px(b.x + b.w + 3, y, 3, 1, pole)
+      px(b.x + 2, b.top - 4, Math.floor(b.w / 2), 3, shade('#e0c08a', k))
+    }
+  }
+}
+
+/** Что продают на рынке в краю: цвета товара на прилавке. */
+const GOODS: Record<string, string[]> = {
+  russian: ['#6a4a2a', '#8a6a4a', '#d8b060', '#c8a050'], // меха, хлеб, мёд
+  islamic: ['#a83a2f', '#2f4f8a', '#e0a030', '#c0602a'], // ковры, пряности
+  chinese: ['#c0303a', '#e0c040', '#f2eee2', '#3f6fa8'], // шёлк, фарфор
+  japanese: ['#9ab0c0', '#c0503a', '#e8dcc0', '#5a6a4a'], // рыба, посуда, рис
+  indian: ['#e0a030', '#c0302a', '#2a8a6a', '#f2c94c'], // пряности, ткани
+  gothic: ['#c8a050', '#f0d890', '#6a4a8a', '#a83a2f'], // хлеб, сыр, сукно
+  byzantine: ['#8a3a6a', '#d8b060', '#6a8a3a', '#c8783a'], // шёлк, масло, фрукты
+  roman: ['#c8783a', '#6a8a3a', '#e0c070', '#a8502a'], // амфоры, фрукты
+  greek: ['#c8783a', '#6a8a3a', '#e0c070', '#a8502a'],
+  egyptian: ['#e0c070', '#f2eee2', '#c8783a', '#3a7a6a'], // зерно, лён, горшки
+  mesopotamian: ['#e0c070', '#c8783a', '#6a5a4a', '#a8502a'],
+  maya: ['#6a3a20', '#2a8a5a', '#c0303a', '#e0b030'], // какао, перья, маис
+  aztec: ['#6a3a20', '#2a8a5a', '#c0303a', '#e0b030'],
+  andean: ['#8a6a4a', '#b83a3a', '#e0b030', '#efe2c8'], // картофель, ткани
+  sahel: ['#f2eee2', '#e0b030', '#c0503a', '#3a5a9a'], // соль, золото, ткани
+  ethiopian: ['#d8b060', '#c0503a', '#f2eee2', '#5a6a3a'],
+}
+
+/** Крупный прилавок на переднем плане: столбы, полосатый навес, прилавок с товаром. Продавца рисуют до прилавка. */
+function stall(px: Px, look: Look, x: number, k: number, r: () => number, front: boolean) {
+  const w = 26
+  const c = (hex: string) => shade(hex, k * 0.85)
+  if (!front) {
+    const awning = ['#a83a2f', '#3f6f8a', '#c9a34a', '#4a7a3a'][Math.floor(r() * 4)]
+    px(x + 1, GROUND - 22, 1, 22, c('#5a4030'))
+    px(x + w - 2, GROUND - 22, 1, 22, c('#5a4030'))
+    for (let i = 0; i < w; i += 4) {
+      px(x + i, GROUND - 24, 2, 4, c(awning))
+      px(x + i + 2, GROUND - 24, 2, 4, c('#efe8d8'))
+    }
+    return
+  }
+  px(x, GROUND - 8, w, 8, c('#7a5a3a'))
+  px(x, GROUND - 8, w, 1, c('#9a7a52'))
+  const goods = GOODS[look.style] ?? GOODS.gothic
+  for (let gx = x + 1; gx < x + w - 3; gx += 4) px(gx, GROUND - 11, 3, 3, c(goods[Math.floor(r() * goods.length)]))
+}
+
+function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, look: Look, r: () => number, home = 2, burned = false) {
   const p = look.p
   const k = SHADE[time]
   const lit = time === 'night' || time === 'sunset'
@@ -883,7 +1007,10 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
     case 'yard':
       if (look.land !== 'mountains' && look.land !== 'snow') farHills(px, look, k, r)
       tree(px, look, 176, k, r)
-      return familyHome(px, look, home, k, r, lit)
+      burnt = burned
+      familyHome(px, look, home, k, r, lit)
+      burnt = false
+      return
     case 'landmark':
       built.push({ x: 40, w: 112, top: GROUND - 30 })
       return landmark(px, look, region, k, r)
@@ -906,16 +1033,7 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
           x += 12
         }
       }
-      if (place === 'market') {
-        for (let sx = 14; sx < W - 20; sx += 44) {
-          const awning = ['#a83a2f', '#3f6f8a', '#c9a34a'][Math.floor(r() * 3)]
-          for (let i = 0; i < 24; i += 4) px(sx + i, GROUND - 12, 2, 3, shade(awning, k))
-          px(sx, GROUND - 9, 24, 1, shade('#5a4030', k))
-          px(sx + 1, GROUND - 9, 1, 9, shade('#5a4030', k))
-          px(sx + 22, GROUND - 9, 1, 9, shade('#5a4030', k))
-          px(sx + 2, GROUND - 5, 20, 2, shade('#7a5a3a', k))
-        }
-      }
+      // Лотки рынка рисуются поверх, на переднем плане (stall).
       return
     }
     case 'home':
@@ -926,10 +1044,13 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
       const s = look.style
       const wallByStyle: Record<string, string> = { russian: '#9a6a44', japanese: '#e8dcc0', chinese: '#e2d4b8', sahel: '#c49a6a', ethiopian: '#c49a6a', andean: '#a8a090', maya: '#e0d4b0', aztec: '#e6dcc4', gothic: '#d8ccb0', islamic: '#ece0c6' }
       const wall = place === 'bath' ? '#c9d6d8' : place === 'workshop' ? '#b98d64' : wallByStyle[s] ?? '#e7d3ad'
-      px(0, 0, W, GROUND, shade(wall, k * 0.6))
+      // Дом по достатку: лачуга темнее и без окна, палаты светлее.
+      const tier = place === 'home' ? home : 2
+      const wk = k * 0.6 + (tier === 0 ? -0.18 : tier >= 4 ? 0.06 : 0)
+      px(0, 0, W, GROUND, shade(wall, wk))
       if (s === 'russian') for (let y = 2; y < GROUND; y += 3) px(0, y, W, 1, shade(wall, k * 0.6 - 0.12))
       px(0, GROUND - 2, W, 2, shade('#8a6a4a', k * 0.6))
-      if (place !== 'bath') {
+      if (place !== 'bath' && tier > 0) {
         const glass = time === 'night' ? '#1f294c' : time === 'sunset' ? '#e8a070' : '#8ec0e6'
         if (s === 'japanese' || s === 'chinese') {
           // Решётчатое окно с бумагой.
@@ -958,7 +1079,7 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
           px(150, 12, 30, GROUND - 14, shade('#e8e0d0', k * 0.6))
           px(158, 26, 12, 8, shade('#3a2a20', k * 0.6))
         }
-      } else {
+      } else if (place === 'bath') {
         for (let x = 20; x < W; x += 40) px(x, 6, 4, GROUND - 6, shade('#e9e1cc', k * 0.6))
       }
       if (place === 'school') {
@@ -966,6 +1087,7 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
         for (let x = 124; x < 156; x += 6) px(x, 12, 3, 10, shade('#e9dcc0', k * 0.6))
       }
       if (place === 'workshop') for (let x = 110; x < 170; x += 12) px(x, 16, 8, 2, shade('#6a4a30', k * 0.6))
+      if (place === 'home') interior(px, look, tier, k, r)
       return
     }
     case 'field': {
@@ -1089,6 +1211,10 @@ export interface Cast {
   home?: number
   /** Сколько близких не поместилось на картинку («+3»). */
   more?: number
+  /** Дом сгорел, разрушен или отстраивается: так он и выглядит во дворе. */
+  homeState?: 'burned' | 'ruined' | 'rebuilding'
+  /** Герой торгует сам: на рынке он за своим прилавком. */
+  ownStall?: boolean
 }
 
 /** Рост фигурки по возрасту: близкие героя чуть крупнее прохожих (взрослый — 14 точек, прохожий — 12). */
@@ -1418,6 +1544,10 @@ function disasterOverlay(ctx: CanvasRenderingContext2D, px: Px, kind: 'fire' | '
         px(fx + 1, b.top - fh + 2, 1, 2, '#f8d48a')
       }
       for (let i = 0; i < 3; i++) disc(px, b.x + b.w / 2 + i * 4, b.top - 12 - i * 7, 3 + i, i % 2 ? '#6a6460' : '#857e78')
+      // Отблеск огня на земле перед домом.
+      ctx.globalAlpha = 0.35
+      px(b.x - 2, GROUND, b.w + 4, 3, '#ff8c3c')
+      ctx.globalAlpha = 1
     }
   } else if (kind === 'ruin') {
     for (const b of targets) {
@@ -1438,7 +1568,10 @@ function disasterOverlay(ctx: CanvasRenderingContext2D, px: Px, kind: 'fire' | '
 
 export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): void {
   const { scene, region, seed, cast } = input
-  const place = scene.place ?? 'landmark'
+  // Пожар дома видно снаружи: горит сам дом героя, семья перед ним. Пожар мастерской — с улицы.
+  let place = scene.place ?? 'landmark'
+  if (scene.disaster === 'fire' && place === 'home') place = 'yard'
+  if (scene.disaster === 'fire' && (place === 'workshop' || place === 'school' || place === 'bath')) place = 'street'
   built = []
   const time = scene.time ?? 'day'
   const look = lookOf(region)
@@ -1453,11 +1586,13 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
   const props = scene.props ?? []
   if (props.includes('sun') && place !== 'home' && place !== 'workshop' && place !== 'school' && place !== 'bath') prop(px, 'sun', 0, time, p, 0, r)
   if (props.includes('moon')) prop(px, 'moon', 0, time, p, 0, r)
-  backdrop(px, place, region, time, look, r, cast?.home ?? 2)
+  backdrop(px, place, region, time, look, r, cast?.home ?? 2, !scene.disaster && cast?.homeState === 'burned')
   ground(px, place, p, time, r, look.style)
   const k = SHADE[time]
   if (scene.disaster) disasterOverlay(ctx, px, scene.disaster, SKY[time][3], r)
-  const placed = props.filter((x) => x !== 'sun' && x !== 'moon' && x !== 'rain')
+  else if (place === 'yard' && cast?.homeState) homeDamage(ctx, px, cast.homeState, k, r)
+  // При пожаре огонь и дым — на домах (disasterOverlay), а не отдельным костром рядом.
+  const placed = props.filter((x) => x !== 'sun' && x !== 'moon' && x !== 'rain' && !(scene.disaster === 'fire' && (x === 'fire' || x === 'smoke')))
   // На воде люди стоят в лодке, в гавани — на причале.
   const water = place === 'sea'
   const boatX = water ? 84 : 0
@@ -1468,11 +1603,40 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
   }
   placed.forEach((kind, i) => prop(px, kind, xs[i], time, p, k, r))
   // Близкие героя стоят первыми; остальные места — прохожие. Во дворе и дома чужих нет.
-  const members = cast?.members.slice(0, 8) ?? []
+  let members = cast?.members.slice(0, 8) ?? []
   const private_ = place === 'yard' || place === 'home'
-  const extras = private_ && cast ? 0 : Math.max(0, (scene.people ?? 2) - members.length)
+  let extras = private_ && cast ? (place === 'home' && cast.home === 4 ? 1 : 0) : Math.max(0, (scene.people ?? 2) - members.length)
+  if (place === 'market') {
+    // Рынок: крупные лотки по краям, за ними продавцы, прохожие — в глубине, мельче; семья героя — в середине.
+    const own = !!cast?.ownStall && members.length > 0
+    const stalls = own ? [4, 32, 83] : [4, 32, 136, 164]
+    for (let i = 0; i < Math.min(extras, 4); i++) person(px, 14 + Math.floor(r() * 164), look, r, k * 0.85, true, GROUND - 4)
+    for (const sx of stalls) {
+      stall(px, look, sx, k, r, false)
+      if (own && sx === 83) person(px, sx + 10, look, r, k, false, GROUND, members[0])
+      else person(px, sx + 10, look, r, k, false, GROUND)
+      stall(px, look, sx, k, r, true)
+      if (scene.disaster === 'fire') {
+        // Пожар на рынке: горят навесы и товар.
+        for (let fx = sx + 1; fx < sx + 24; fx += 5) {
+          const fh = 5 + Math.floor(r() * 6)
+          px(fx, GROUND - 24 - fh + 4, 4, fh, '#e0602a')
+          px(fx + 1, GROUND - 24 - fh + 2, 2, fh - 2, '#f2a03a')
+        }
+        disc(px, sx + 13, GROUND - 34, 4, '#6a6460')
+      }
+    }
+    extras = 0
+    if (own) {
+      // Семья — рядом с прилавком героя, справа.
+      members = members.slice(1)
+      const m = members.length
+      for (let i = 0; i < m; i++) person(px, 116 + i * 10, look, r, k, false, GROUND, members[i])
+      members = []
+    }
+  }
   let n = Math.min(water ? 2 : 8, members.length + extras)
-  let span = n > 1 ? Math.min(place === 'yard' ? 70 : 110, n * 13) : 0
+  let span = n > 1 ? Math.min(place === 'yard' || place === 'market' ? 70 : 110, n * 13) : 0
   let start = (place === 'yard' ? 108 : 96) - span / 2
   if (place === 'yard' && cast) {
     // Животные во дворе — справа от семьи.

@@ -3554,6 +3554,9 @@
             },
             {
               "money_pct": -20
+            },
+            {
+              "home": "burn"
             }
           ],
           "param": "strength"
@@ -3571,6 +3574,9 @@
           {
             "param": "stress",
             "delta": 3
+          },
+          {
+            "home": "burn"
           }
         ],
         "pattern": {
@@ -3586,6 +3592,9 @@
           {
             "param": "stress",
             "delta": 5
+          },
+          {
+            "home": "burn"
           }
         ],
         "pattern": {
@@ -4401,6 +4410,9 @@
       {
         "param": "stress",
         "delta": 10
+      },
+      {
+        "home": "burn"
       }
     ],
     "choices": [
@@ -4418,6 +4430,9 @@
           {
             "param": "reputation",
             "delta": 2
+          },
+          {
+            "home": "rebuild"
           }
         ],
         "pattern": {
@@ -4451,6 +4466,9 @@
           },
           {
             "add_tag": "in_debt"
+          },
+          {
+            "home": "rebuild"
           }
         ],
         "pattern": {

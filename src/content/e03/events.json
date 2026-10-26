@@ -147,6 +147,11 @@
           }
         ]
       }
+    ],
+    "effects": [
+      {
+        "home": "burn"
+      }
     ]
   },
   {
@@ -1076,6 +1081,9 @@
                   "kill": "war"
                 }
               ]
+            },
+            {
+              "home": "burn"
             }
           ]
         }
@@ -1812,6 +1820,14 @@
       {
         "param": "stress",
         "delta": 10
+      },
+      {
+        "chance": 0.5,
+        "effects": [
+          {
+            "home": "burn"
+          }
+        ]
       }
     ],
     "choices": [

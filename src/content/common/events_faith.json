@@ -6719,6 +6719,9 @@
             {
               "param": "stress",
               "delta": 12
+            },
+            {
+              "home": "burn"
             }
           ]
         },
@@ -6854,6 +6857,9 @@
             {
               "param": "stress",
               "delta": 12
+            },
+            {
+              "home": "burn"
             }
           ]
         },
@@ -6990,6 +6996,9 @@
             {
               "param": "stress",
               "delta": 12
+            },
+            {
+              "home": "burn"
             }
           ]
         },

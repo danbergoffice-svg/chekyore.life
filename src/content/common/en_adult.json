@@ -245,5 +245,16 @@
   "ev.a_collegium.text": "People of your trade are forming a brotherhood: a shared feast once a month, dues into a common chest, and when you die, a decent funeral at the common expense.",
   "ev.a_collegium.join": "Join",
   "ev.a_collegium.run_for": "Join and aim to lead it",
-  "ev.a_collegium.decline": "Keep to yourself"
+  "ev.a_collegium.decline": "Keep to yourself",
+  "ev.h_rebuild.title": "Rebuilding",
+  "ev.h_rebuild.text": "Where the house stood there are only black beams and ash. The family huddles under a lean-to of salvaged boards, and the nights are cold. Time to decide how to rebuild.",
+  "ev.h_rebuild.self": "Build with your own money",
+  "ev.h_rebuild.self.ok": "You gave the builders almost everything you had saved. But by autumn new walls stand over the ashes.",
+  "ev.h_rebuild.neighbors": "Call the neighbors to help",
+  "ev.h_rebuild.neighbors.success": "The whole street came — with axes, with clay, with pies. In a week the frame was up, and you set a table for everyone.",
+  "ev.h_rebuild.neighbors.failure": "Two people came, and even they left by noon. It seems you're not as loved as you thought.",
+  "ev.h_rebuild.borrow": "Borrow and build now",
+  "ev.h_rebuild.borrow.ok": "The moneylender lent at a heavy rate. There will be a house — and a debt that never leaves your side.",
+  "ev.h_rebuild.wait": "Get by as you are for now",
+  "ev.h_rebuild.wait.ok": "Another winter under the lean-to. The children cough, you don't sleep enough, but there's no money for building."
 }

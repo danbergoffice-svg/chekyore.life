@@ -2,7 +2,7 @@
 // задолжал и продал; к дому прибился пёс. Всё это видно на картинке и записывается в дневник.
 import { ERA_META } from '../content'
 import { chance, pick } from './rng'
-import { changeParam, note } from './rules'
+import { changeParam, HOME_TAGS, note } from './rules'
 import type { EraDef, EraMeta, GameState } from './types'
 
 /** Сколько стоит перебраться в дом этого размера. */
@@ -60,8 +60,18 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
   const adult = hero.age >= era.stages.adult
   const free = hero.cls !== 'slave'
 
-  // Дом побольше — когда денег заметно больше, чем он стоит.
-  if (adult && free && hero.home < 4) {
+  // Сгоревший дом: отстраиваются за год; если так и не взялись — через четыре года кое-как латают сами.
+  const since = hero.homeSince ?? state.year
+  if (hero.tags.includes('home_rebuilding') && state.year - since >= 1) {
+    hero.tags = hero.tags.filter((t) => t !== 'home_rebuilding')
+    changeParam(hero, 'happiness', 5)
+    note(state, { key: 'diary.home_rebuilt', params: { home: { key: `home.${hero.home}` } }, major: true, topic: 'money', icon: 'move', score: 26, mood: 5 })
+  } else if (hero.tags.includes('home_damaged') && state.year - since >= 4) {
+    hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t))
+    note(state, { key: 'diary.home_patched', topic: 'money', score: 14 })
+  }
+  // Дом побольше — когда денег заметно больше, чем он стоит (не пока живут на пепелище).
+  if (adult && free && hero.home < 4 && !hero.tags.includes('home_damaged')) {
     const cost = HOME_COST[hero.home + 1]
     if (hero.money > cost * 1.6 && chance(state, 0.25)) {
       hero.money -= cost

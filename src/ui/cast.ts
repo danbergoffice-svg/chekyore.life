@@ -83,7 +83,13 @@ export function familyCast(state: GameState): Cast {
     const sons = new Set(kids.filter((c) => c.married).map((c) => c.id))
     for (const g of h.npcs.filter((n) => n.role === 'grandchild' && here(n) && sons.has(n.parentId ?? '') && descentOf(h.npcs, n) === 2)) members.push(member(state, g, 'child'))
   }
-  return { members: members.slice(0, MAX_PEOPLE), more: Math.max(0, members.length - MAX_PEOPLE), animals: (h.animals ?? []).map((a) => a.kind), home: h.home ?? 2 }
+  return { members: members.slice(0, MAX_PEOPLE), more: Math.max(0, members.length - MAX_PEOPLE), animals: (h.animals ?? []).map((a) => a.kind), home: h.home ?? 2, homeState: homeState(state) }
+}
+
+/** Состояние дома для картинки двора. */
+export function homeState(state: GameState): Cast['homeState'] {
+  const t = state.hero.tags
+  return t.includes('home_burned') ? 'burned' : t.includes('home_ruined') ? 'ruined' : t.includes('home_rebuilding') ? 'rebuilding' : undefined
 }
 
 /** Роли людей, о которых событие: человек события и те, кого проверяют условия (упомянутые в тексте). */
@@ -98,9 +104,10 @@ export function eventRoles(ev: EventDef | undefined): NpcRole[] {
  * Картинка события: дома, во дворе и на рынке — вся семья; в остальных местах — герой, человек события
  * и все, кто упомянут в тексте события (по одному человеку на роль).
  */
-export function eventCast(state: GameState, npcId: string | undefined, place: string | undefined, roles: NpcRole[] = []): Cast {
+export function eventCast(state: GameState, npcId: string | undefined, place: string | undefined, roles: NpcRole[] = [], ownStall = false): Cast {
   if (place && FAMILY_PLACES.includes(place)) {
     const cast = familyCast(state)
+    cast.ownStall = ownStall
     // Человек события, если он не из домашних (друг, наставник), тоже на картинке.
     const npc = state.hero.npcs.find((n) => n.id === npcId && n.alive)
     if (npc && !cast.members.some((m) => m.seed === npc.id)) cast.members.splice(1, 0, member(state, npc, 'npc'))
@@ -116,5 +123,5 @@ export function eventCast(state: GameState, npcId: string | undefined, place: st
     const other = h.npcs.find((n) => n.role === role && n.alive && !n.away)
     if (other) members.push(member(state, other, role === 'father' || role === 'mother' ? 'parent' : role === 'spouse' || role === 'child' || role === 'sibling' ? role : 'npc'))
   }
-  return { members, animals: (h.animals ?? []).map((a) => a.kind), home: h.home }
+  return { members, animals: (h.animals ?? []).map((a) => a.kind), home: h.home, homeState: homeState(state) }
 }

@@ -3564,6 +3564,9 @@
             {
               "param": "stress",
               "delta": 8
+            },
+            {
+              "home": "burn"
             }
           ],
           "on_failure": [
@@ -4347,6 +4350,11 @@
           "craft_power": -2,
           "memory_future": -2
         }
+      }
+    ],
+    "effects": [
+      {
+        "home": "burn"
       }
     ]
   },

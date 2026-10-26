@@ -328,6 +328,8 @@ export type Effect =
   | { set_religion: string }
   /** Переехать в другой регион страны: id региона или '@capital', '@port', '@other'. */
   | { migrate: string }
+  /** Дом героя: сгорел, разрушен (на ступень меньше, стоит повреждённым) или отстраивается. */
+  | { home: 'burn' | 'ruin' | 'rebuild' }
   | { chance: number; effects: Effect[] }
 
 export interface WeightModifier {
@@ -568,6 +570,8 @@ export interface Hero {
   lifestyle: Record<string, string>
   /** Дом семьи: 0 — лачуга, 1 — хижина, 2 — дом, 3 — большой дом, 4 — усадьба. */
   home: number
+  /** Год, когда дом сгорел/разрушен или начали отстраиваться (метки home_burned, home_ruined, home_rebuilding). */
+  homeSince?: number
   /** Телосложение −3…3 (худоба … полнота): меняется от еды, достатка и болезней; только для портрета. */
   body?: number
   /** Животные хозяйства и домашние любимцы. */

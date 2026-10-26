@@ -4704,7 +4704,12 @@
         },
         "pattern": {
           "memory_future": -3
-        }
+        },
+        "effects": [
+          {
+            "home": "burn"
+          }
+        ]
       },
       {
         "id": "people",
@@ -4719,6 +4724,14 @@
           {
             "param": "self_esteem",
             "delta": 5
+          },
+          {
+            "chance": 0.4,
+            "effects": [
+              {
+                "home": "burn"
+              }
+            ]
           }
         ],
         "pattern": {
@@ -4734,6 +4747,9 @@
           {
             "param": "stress",
             "delta": 6
+          },
+          {
+            "home": "burn"
           }
         ]
       }

@@ -5699,7 +5699,12 @@
         },
         "pattern": {
           "craft_power": 2
-        }
+        },
+        "effects": [
+          {
+            "home": "burn"
+          }
+        ]
       },
       {
         "id": "help",
@@ -5714,6 +5719,14 @@
           {
             "add_npc": "friend",
             "attitude": 50
+          },
+          {
+            "chance": 0.4,
+            "effects": [
+              {
+                "home": "burn"
+              }
+            ]
           }
         ],
         "pattern": {
@@ -5729,6 +5742,9 @@
           {
             "param": "stress",
             "delta": 6
+          },
+          {
+            "home": "burn"
           }
         ]
       }
