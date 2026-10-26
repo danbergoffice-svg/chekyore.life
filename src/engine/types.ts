@@ -307,6 +307,10 @@ export type Effect =
   | { add_npc: NpcRole; attitude?: number; newborn?: boolean; adopted?: boolean; age_offset?: [number, number] }
   | { npc_attitude: NpcTarget; delta: number }
   | { remove_npc: NpcTarget }
+  /** Человек уезжает или уходит из семьи: жив, но вдали — в событиях и дома его нет (родственник по умолчанию — человек события). */
+  | { npc_away: AwayReason; who?: NpcTarget }
+  /** Уехавший возвращается в семью. */
+  | { npc_return: true; who?: NpcTarget }
   | { kill_npc: NpcTarget; cause?: string }
   | { move: string }
   | { npc_profession: string }
@@ -395,6 +399,8 @@ export interface EventDef {
   /** Отбор человека события по метке (например, пьёт) и по её отсутствию. */
   npc_tag?: string
   npc_no_tag?: string
+  /** Событие про того, кто вдали (уехал, на службе, в монастыре): весть от него или его возвращение. */
+  npc_away?: boolean | AwayReason[]
   /** Родственники, которые упомянуты в тексте, но это чужие люди (не нужна проверка, что они есть у героя). */
   others?: NpcRole[]
   /** Сколько вариантов текста: ev.id.text.1 … ev.id.text.N. */
@@ -446,7 +452,7 @@ export interface NpcAway {
   reason: AwayReason
 }
 
-export type AwayReason = 'abroad' | 'monastery' | 'service' | 'sold' | 'exile' | 'married_far' | 'left'
+export type AwayReason = 'abroad' | 'monastery' | 'service' | 'sold' | 'exile' | 'married_far' | 'left' | 'divorced'
 
 export type TextParam = string | number | { name: string } | { key: string; sex?: Sex }
 

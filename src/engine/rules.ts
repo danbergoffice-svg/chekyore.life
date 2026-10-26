@@ -1,7 +1,7 @@
 import { ERA_META, RELIGION_BY_ID } from '../content'
 import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
-import type { AncestorNames, AttrId, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
+import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
 
 // ---------- Годы ----------
 // Года хранятся исторически: -44 — это 44 г. до н.э., нулевого года нет.
@@ -86,8 +86,27 @@ export function roleKey(npcs: Npc[], npc: Npc): string {
   return npc.role === 'grandchild' && descentOf(npcs, npc) === 3 ? 'great_grandchild' : npc.role
 }
 
+/** Живые и рядом: уехавшие (`away`) в событиях, дома и в наследстве не участвуют. */
 export function aliveNpcs(hero: Hero, role: NpcRole): Npc[] {
-  return hero.npcs.filter((n) => n.role === role && n.alive)
+  return hero.npcs.filter((n) => n.role === role && n.alive && !n.away)
+}
+
+/** Живые, но вдали — по ролям или все. */
+export function awayNpcs(hero: Hero, role?: NpcRole): Npc[] {
+  return hero.npcs.filter((n) => n.alive && n.away && (!role || n.role === role))
+}
+
+/** Родные, которых нельзя просто «удалить»: они уходят вдаль, а не исчезают из родословной. */
+const KIN: NpcRole[] = ['father', 'mother', 'spouse', 'child', 'grandchild', 'sibling']
+
+/** Отправить человека вдаль: супруг — развод, остальные — уехал/ушёл. */
+export function sendAway(state: GameState, npc: Npc, reason: AwayReason): void {
+  const hero = state.hero
+  if (!npc.alive || npc.away) return
+  npc.away = { since: state.year, reason: npc.role === 'spouse' && reason === 'left' ? 'divorced' : reason }
+  if (npc.role === 'spouse') hero.tags = hero.tags.filter((t) => t !== 'married')
+  const key = npc.away.reason === 'divorced' ? 'diary.divorced' : `diary.away_${npc.away.reason}`
+  note(state, { key, params: { who: { name: npc.name }, sex: npc.sex }, topic: 'family', icon: 'move', score: 20, major: npc.role === 'spouse' || npc.role === 'child' })
 }
 
 export function check(state: GameState, c: Condition): boolean {
@@ -394,9 +413,22 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     } else if ('npc_attitude' in e) {
       for (const n of targets(state, e.npc_attitude, ctx)) n.attitude = clamp(n.attitude + e.delta, -100, 100)
     } else if ('remove_npc' in e) {
-      const gone = new Set(targets(state, e.remove_npc, ctx).map((n) => n.id))
-      if (hero.npcs.some((n) => gone.has(n.id) && n.role === 'spouse')) hero.tags = hero.tags.filter((t) => t !== 'married')
+      // Родные не исчезают из родословной: развод или «ушёл из семьи». Чужие (друг, покровитель) — уходят совсем.
+      const list = targets(state, e.remove_npc, ctx)
+      for (const n of list.filter((n) => KIN.includes(n.role))) sendAway(state, n, 'left')
+      const gone = new Set(list.filter((n) => !KIN.includes(n.role)).map((n) => n.id))
       hero.npcs = hero.npcs.filter((n) => !gone.has(n.id))
+    } else if ('npc_away' in e) {
+      for (const n of targets(state, e.who ?? 'npc', ctx)) sendAway(state, n, e.npc_away)
+    } else if ('npc_return' in e) {
+      const who = e.who ?? 'npc'
+      const list = who === 'npc' ? hero.npcs.filter((n) => n.id === ctx.npcId && n.alive) : awayNpcs(hero, who)
+      for (const n of list.filter((n) => n.away)) {
+        const wasSpouse = n.role === 'spouse'
+        n.away = undefined
+        if (wasSpouse && !hero.tags.includes('married')) hero.tags.push('married')
+        note(state, { key: 'diary.returned', params: { who: { name: n.name }, sex: n.sex }, topic: 'family', icon: 'move', score: 24, mood: 6, major: true })
+      }
     } else if ('kill_npc' in e) {
       const npc = targets(state, e.kill_npc, ctx)[0]
       if (npc) killNpc(state, npc)
@@ -434,7 +466,15 @@ export function killNpc(state: GameState, npc: Npc): void {
   const hero = state.hero
   npc.alive = false
   npc.deathYear = state.year
-  if (npc.role === 'spouse') hero.tags = hero.tags.filter((t) => t !== 'married')
+  if (npc.role === 'spouse' && !npc.away) hero.tags = hero.tags.filter((t) => t !== 'married')
+  if (npc.away) {
+    // Умер вдали: только весть, горе тише.
+    if (KIN.includes(npc.role) && npc.away.reason !== 'divorced') {
+      note(state, { key: 'diary.death_far', params: { who: { name: npc.name }, sex: npc.sex, role: { key: `rel.${npc.role}`, sex: npc.sex } }, topic: 'family', icon: 'death', score: 18, mood: -6, major: npc.role === 'child' })
+      changeParam(hero, 'happiness', -6)
+    }
+    return
+  }
   if (CLOSE.includes(npc.role)) {
     const close = ['father', 'mother', 'spouse', 'child'].includes(npc.role)
     note(state, {

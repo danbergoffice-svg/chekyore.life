@@ -1343,6 +1343,9 @@
           {
             "npc_attitude": "npc",
             "delta": 10
+          },
+          {
+            "npc_away": "abroad"
           }
         ],
         "pattern": {

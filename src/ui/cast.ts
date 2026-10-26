@@ -15,7 +15,7 @@ function heroMember(state: GameState): CastMember {
 /** Семья, которая живёт с героем: супруг и дети, пока не выросли и не завели свою семью; у ребёнка — родители, братья и сёстры. */
 export function familyCast(state: GameState): Cast {
   const h = state.hero
-  const alive = (role: Npc['role']) => h.npcs.filter((n) => n.role === role && n.alive)
+  const alive = (role: Npc['role']) => h.npcs.filter((n) => n.role === role && n.alive && !n.away)
   const members: CastMember[] = [heroMember(state)]
   for (const s of alive('spouse')) members.push(member(state, s, 'spouse'))
   if (h.age < 16) {

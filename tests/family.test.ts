@@ -76,3 +76,34 @@ describe('Наследники через внуков (п. 3)', () => {
     expect(found).toBeGreaterThan(0)
   })
 })
+
+describe('Уехавшие родственники (п. 4)', () => {
+  it('600 жизней: у уехавших нет новых детей и свадеб «дома», события про них — только вести и возвращения', async () => {
+    const { loadAllEras } = await import('../src/content')
+    const eras = await loadAllEras()
+    let away = 0
+    let i = 0
+    for (const era of Object.values(eras)) {
+      for (let k = 0; k < 46; k++, i++) {
+        const s = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 11000 + i), era)
+        for (const n of s.hero.npcs.filter((n) => n.away)) {
+          away++
+          const kids = s.hero.npcs.filter((g) => g.parentId === n.id && g.birthYear > n.away!.since)
+          expect(kids, `${era.id} ${11000 + i}`).toEqual([])
+        }
+      }
+    }
+    expect(away).toBeGreaterThan(0)
+  }, 300000)
+
+  it('уехавший не стоит на картинке дома и не наследует', async () => {
+    const { familyCast } = await import('../src/ui/cast')
+    const s = deadGrandfather()
+    s.hero.alive = true
+    const kid = npc(s, 'child', 'm', s.year - 15, true)
+    expect(familyCast(s).members.some((m) => m.seed === kid.id)).toBe(true)
+    kid.away = { since: s.year, reason: 'abroad' }
+    expect(familyCast(s).members.some((m) => m.seed === kid.id)).toBe(false)
+    expect(heirs(s).some((n) => n.id === kid.id)).toBe(false)
+  })
+})

@@ -21,6 +21,7 @@ import {
   isProtected,
   ancestorNamesOf,
   descentOf,
+  awayNpcs,
 } from './rules'
 import { householdYear } from './household'
 import { summarize } from './life'
@@ -353,7 +354,12 @@ function eventWeight(state: GameState, ev: EventDef): number {
 /** Персонажи, о которых может быть событие. */
 function npcCandidates(state: GameState, ev: EventDef): Npc[] {
   if (!ev.npc) return []
-  return aliveNpcs(state.hero, ev.npc).filter((n) => {
+  // Весть издалека или возвращение — про того, кто вдали; все остальные события — про тех, кто рядом.
+  // Вести и возвращения — не раньше чем через два года разлуки.
+  const pool = ev.npc_away
+    ? awayNpcs(state.hero, ev.npc).filter((n) => state.year - n.away!.since >= 2 && (ev.npc_away === true || (ev.npc_away as string[]).includes(n.away!.reason)))
+    : aliveNpcs(state.hero, ev.npc)
+  return pool.filter((n) => {
     if (ev.npc_married !== undefined && !!n.married !== ev.npc_married) return false
     if (ev.npc_tag && !n.tags?.includes(ev.npc_tag)) return false
     if (ev.npc_no_tag && n.tags?.includes(ev.npc_no_tag)) return false

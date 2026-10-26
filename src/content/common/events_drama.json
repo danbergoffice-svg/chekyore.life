@@ -4475,7 +4475,7 @@
           ],
           "on_failure": [
             {
-              "remove_npc": "npc"
+              "npc_away": "sold"
             },
             {
               "param": "happiness",
@@ -4506,7 +4506,7 @@
         "id": "cannot",
         "effects": [
           {
-            "remove_npc": "npc"
+            "npc_away": "sold"
           },
           {
             "param": "happiness",

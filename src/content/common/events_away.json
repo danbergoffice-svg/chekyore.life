@@ -1,0 +1,368 @@
+[
+  {
+    "id": "aw_letter_child",
+    "type": "family",
+    "moment": true,
+    "npc": "child",
+    "npc_away": [
+      "abroad",
+      "service",
+      "married_far",
+      "exile"
+    ],
+    "base_weight": 2,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "dawn",
+      "people": 1,
+      "props": [
+        "scroll",
+        "lamp"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 4
+      },
+      {
+        "param": "loneliness",
+        "delta": -3
+      },
+      {
+        "npc_attitude": "npc",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "aw_letter_sibling",
+    "type": "family",
+    "moment": true,
+    "npc": "sibling",
+    "npc_away": [
+      "abroad",
+      "service",
+      "married_far",
+      "exile"
+    ],
+    "base_weight": 2,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 1,
+      "props": [
+        "scroll"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "loneliness",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "aw_monastery_visit",
+    "type": "family",
+    "moment": true,
+    "npc": "child",
+    "npc_away": [
+      "monastery"
+    ],
+    "base_weight": 2,
+    "topic": "family",
+    "scene": {
+      "place": "temple",
+      "time": "day",
+      "people": 2
+    },
+    "effects": [
+      {
+        "param": "faith",
+        "delta": 3
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "aw_return_child",
+    "type": "family",
+    "npc": "child",
+    "npc_away": [
+      "abroad",
+      "service",
+      "married_far",
+      "exile",
+      "left"
+    ],
+    "base_weight": 1.2,
+    "topic": "family",
+    "icon": "move",
+    "scene": {
+      "place": "yard",
+      "time": "sunset",
+      "people": 3,
+      "props": [
+        "sun"
+      ]
+    },
+    "choices": [
+      {
+        "id": "embrace",
+        "effects": [
+          {
+            "npc_return": true
+          },
+          {
+            "param": "happiness",
+            "delta": 10
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 15
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      },
+      {
+        "id": "cold",
+        "effects": [
+          {
+            "npc_return": true
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": -10
+          }
+        ]
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": -4
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": -25
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "aw_return_sibling",
+    "type": "family",
+    "npc": "sibling",
+    "npc_away": [
+      "abroad",
+      "service",
+      "married_far",
+      "exile",
+      "left"
+    ],
+    "base_weight": 1,
+    "topic": "family",
+    "icon": "move",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "take_in",
+        "effects": [
+          {
+            "npc_return": true
+          },
+          {
+            "param": "happiness",
+            "delta": 6
+          },
+          {
+            "param": "money",
+            "delta": -20
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 12
+          }
+        ]
+      },
+      {
+        "id": "help_little",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -10
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "aw_ransom_child",
+    "type": "family",
+    "npc": "child",
+    "npc_away": [
+      "sold"
+    ],
+    "base_weight": 1.5,
+    "topic": "family",
+    "icon": "freedom",
+    "sensitive": true,
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "coins"
+      ]
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 150
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -150
+          },
+          {
+            "npc_return": true
+          },
+          {
+            "param": "happiness",
+            "delta": 12
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 20
+          }
+        ]
+      },
+      {
+        "id": "borrow",
+        "effects": [
+          {
+            "add_tag": "in_debt"
+          },
+          {
+            "npc_return": true
+          },
+          {
+            "param": "happiness",
+            "delta": 8
+          },
+          {
+            "param": "stress",
+            "delta": 8
+          }
+        ]
+      },
+      {
+        "id": "cannot",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": -8
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "aw_ransom_sibling",
+    "type": "family",
+    "npc": "sibling",
+    "npc_away": [
+      "sold"
+    ],
+    "base_weight": 1,
+    "topic": "family",
+    "icon": "freedom",
+    "sensitive": true,
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "coins"
+      ]
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 150
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -150
+          },
+          {
+            "npc_return": true
+          },
+          {
+            "param": "happiness",
+            "delta": 8
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 25
+          }
+        ]
+      },
+      {
+        "id": "cannot",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": -5
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ]
+      }
+    ]
+  }
+]

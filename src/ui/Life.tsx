@@ -632,14 +632,17 @@ function Lifestyle({ state, era, coin, onChange }: { state: GameState; era: EraD
 function People({ state }: { state: GameState }) {
   const { t, lang } = useUi()
   const hero = state.hero
-  const alive = hero.npcs.filter((n) => n.alive)
+  const alive = hero.npcs.filter((n) => n.alive && !n.away)
+  const far = hero.npcs.filter((n) => n.alive && n.away)
   const dead = hero.npcs.filter((n) => !n.alive)
   const row = (n: Npc) => (
     <li class="person">
       <span class="person-role">{t(`npc.${roleKey(hero.npcs, n)}`, { sex: n.sex })}</span>
       <span class="person-name">{nameOf(n.name, lang)}</span>
       <span class="muted">
-        {n.alive
+        {n.alive && n.away
+          ? t(`people.away.${n.away.reason}`, { sex: n.sex, year: formatYear(n.away.since, lang) })
+          : n.alive
           ? [
               t('life.age', { n: Math.max(0, npcAge(n, state.year)) }),
               attitudeText(t, n),
@@ -660,6 +663,12 @@ function People({ state }: { state: GameState }) {
         <>
           <h2 class="section-title">{t('people.alive')}</h2>
           <ul class="people">{alive.map(row)}</ul>
+        </>
+      )}
+      {far.length > 0 && (
+        <>
+          <h2 class="section-title">{t('people.far')}</h2>
+          <ul class="people far">{far.map(row)}</ul>
         </>
       )}
       {dead.length > 0 && (

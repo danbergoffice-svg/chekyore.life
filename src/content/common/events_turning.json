@@ -1943,7 +1943,7 @@
           ],
           "on_failure": [
             {
-              "remove_npc": "npc"
+              "npc_away": "sold"
             },
             {
               "set_flag": "lost_child"
@@ -2002,7 +2002,7 @@
           ],
           "on_failure": [
             {
-              "remove_npc": "npc"
+              "npc_away": "sold"
             },
             {
               "set_flag": "lost_child"
@@ -2047,7 +2047,7 @@
           ],
           "on_failure": [
             {
-              "remove_npc": "npc"
+              "npc_away": "sold"
             },
             {
               "set_flag": "lost_child"

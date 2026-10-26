@@ -136,6 +136,29 @@ function checkRoles(ev: EventDef, bad: string[]) {
   }
 }
 
+/** Родные, которые по тексту уезжают: у такого исхода должен быть эффект npc_away (или смерть, развод). */
+const KIN_ROLES = ['father', 'mother', 'spouse', 'child', 'grandchild', 'sibling']
+const LEAVES = /(отправ[а-яё]* (его|её|сына|дочь|искать)|уехал|уехала|уплыл|уплыла|уходит в монастырь|ушёл в монастырь|ушла в обитель|постриг|продал[аи]? (его|её))/
+const AWAY_REASONS = ['abroad', 'monastery', 'service', 'sold', 'exile', 'married_far', 'left', 'divorced']
+
+function checkAway(ev: EventDef, bad: string[]) {
+  const s = JSON.stringify(ev)
+  for (const m of s.matchAll(/"npc_away":"([a-z_]+)"/g)) if (!AWAY_REASONS.includes(m[1])) bad.push(`${ev.id}: npc_away ${m[1]}`)
+  // Событие про того, кто и так вдали (весть, возвращение): «снова уехал» — не новый отъезд.
+  if (!ev.npc || !KIN_ROLES.includes(ev.npc) || ev.npc_away) return
+  const t = createT('ru')
+  for (const c of ev.choices ?? []) {
+    const text = eventKeys(ev.id)
+      .filter((k) => k.startsWith(`ev.${ev.id}.${c.id}`))
+      .map((k) => t(k, {}, { sex: 'm' }))
+      .join(' ')
+      .toLowerCase()
+    if (!LEAVES.test(text)) continue
+    if (/"(npc_away|kill_npc|remove_npc)"/.test(JSON.stringify(c))) continue
+    bad.push(`${ev.id}.${c.id}: по тексту ${ev.npc} уезжает или уходит, но нет эффекта npc_away`)
+  }
+}
+
 function checkCountry(era: EraDef, bad: string[]) {
   if (!(era.population > 0)) bad.push('population')
   for (const f of era.features ?? []) if (!FEATURES.includes(f)) bad.push(`feature ${f}`)
@@ -185,6 +208,7 @@ export function validateEra(era: EraDef): string[] {
     checkScenes(ev, bad)
     checkRefs(era, ev, bad)
     checkRoles(ev, bad)
+    checkAway(ev, bad)
   }
   return bad
 }
@@ -192,7 +216,7 @@ export function validateEra(era: EraDef): string[] {
 /** Параметры для проверки, что после подстановки не остаётся {скобок}. */
 export const SAMPLE_PARAMS = {
   n: 3, npc: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
-  grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x', born: 'x', died: 'x', focus: 'x',
+  grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x', born: 'x', died: 'x', focus: 'x', via: 'x', role: 'x',
 }
 
 /** Ключи, в которых после подстановки остались фигурные скобки. */
@@ -201,7 +225,7 @@ export function leftoverBraces(keys?: string[]): string[] {
   for (const lang of LANGS) {
     for (const sex of ['m', 'f'] as const) {
       const t = createT(lang, { sex })
-      const params = { ...SAMPLE_PARAMS, sex, psex: sex, npc_sex: sex }
+      const params = { ...SAMPLE_PARAMS, sex, psex: sex, vsex: sex, npc_sex: sex }
       for (const k of keys ?? allKeys(lang)) if (hasKey(lang, k) && /[{}]/.test(t(k, params))) out.push(`${lang}:${k}`)
     }
   }
