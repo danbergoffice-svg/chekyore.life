@@ -6,7 +6,7 @@ import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
 import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
-import { platform } from '../platform'
+import { EXTERNAL, platform } from '../platform'
 import { Scene } from '../pixel/Scene'
 import { useUi } from './text'
 
@@ -157,9 +157,11 @@ export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedb
         <button class="link" onClick={() => go('about')}>
           {t('menu.about')}
         </button>
-        <button class="link" onClick={onFeedback}>
-          {t('menu.feedback')}
-        </button>
+        {EXTERNAL && (
+          <button class="link" onClick={onFeedback}>
+            {t('menu.feedback')}
+          </button>
+        )}
       </div>
       <p class="small muted">{t('beta.notice')}</p>
     </div>
@@ -463,12 +465,12 @@ export function About(props: { onBack: () => void }) {
       <p>{t('about.body1')}</p>
       <p>{t('about.body2')}</p>
       <p>{t('about.body3')}</p>
-      <p class="note-box">{t('about.beta')}</p>
+      <p class="note-box">{t(EXTERNAL ? 'about.beta' : 'about.beta_portal')}</p>
       <h2 class="section-title">{t('about.sources')}</h2>
       <ul>
         {[1, 2, 3, 4, 5].map((i) => <li>{t(`about.source.${i}`)}</li>)}
       </ul>
-      <p class="small muted">{t('about.privacy')}</p>
+      <p class="small muted">{t(EXTERNAL ? 'about.privacy' : 'about.privacy_portal')}</p>
     </div>
   )
 }

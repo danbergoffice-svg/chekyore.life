@@ -6,7 +6,7 @@ import type { Birth } from '../engine/life'
 import { newSeed } from '../engine/rng'
 import type { GameState, LifeSummary } from '../engine/types'
 import { createT, loadEraTexts } from '../i18n'
-import { initPlatform, platform } from '../platform'
+import { EXTERNAL, initPlatform, platform } from '../platform'
 import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
 import { clearAll, loadPrefs, loadSave, parseSaveFile, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
@@ -107,6 +107,7 @@ export function App() {
       trackUserParams(lives)
       if (game.current) await ensure(game.current.hero.era)
       setScreen('menu')
+      platform.ready()
     })
   }, [])
 
@@ -296,6 +297,7 @@ export function App() {
   }
   // Просим отзыв после первой жизни; если отложили — ещё раз через две жизни; после отправки — больше нет.
   const askFeedback =
+    EXTERNAL &&
     memorial.length >= 1 && (!prefs.feedback || (prefs.feedback.state === 'later' && memorial.length >= prefs.feedback.lives + 2))
   const feedbackContext = (life?: LifeSummary): FeedbackData['context'] => ({
     lang: prefs.lang,

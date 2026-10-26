@@ -3,3 +3,5 @@ dist
 .DS_Store
 shots/
 dist-yandex/
+dist-crazygames/
+crazygames.zip

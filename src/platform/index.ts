@@ -1,9 +1,14 @@
-// Единая точка доступа к платформе. Сборка выбирает реализацию переменной VITE_PLATFORM=web|yandex.
+// Единая точка доступа к платформе. Сборка выбирает реализацию переменной VITE_PLATFORM=web|yandex|crazygames;
+// выбор известен при сборке, поэтому код других платформ (Метрика, свой приёмник) в сборку не попадает.
+import { crazyPlatform } from './crazygames'
 import { webPlatform } from './web'
 import { yandexPlatform } from './yandex'
 import type { Platform } from './types'
 
-export const platform: Platform = import.meta.env.VITE_PLATFORM === 'yandex' ? yandexPlatform : webPlatform
+const PLATFORM = import.meta.env.VITE_PLATFORM as string | undefined
+export const platform: Platform = PLATFORM === 'crazygames' ? crazyPlatform : PLATFORM === 'yandex' ? yandexPlatform : webPlatform
+/** Ссылки и данные за пределы платформы (сайт, соцсети, отзывы). Константа сборки: лишний код вырезается. */
+export const EXTERNAL = PLATFORM !== 'crazygames'
 export type { Flags, Platform, ShareResult } from './types'
 export { DEFAULT_FLAGS } from './types'
 

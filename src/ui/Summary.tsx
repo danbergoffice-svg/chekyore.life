@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { axisLabel, survivalTable } from '../engine/report'
-import { platform } from '../platform'
+import { EXTERNAL, platform } from '../platform'
 import { npcAge, regionOf } from '../engine/rules'
 import { AXES } from '../engine/types'
 import type { DiaryEntry, EraDef, Icon, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
@@ -10,6 +10,10 @@ import { BarList, LineChart, Numbers } from './charts'
 import { CARD_SIZES, cleanLine, drawCard } from './shareCard'
 import type { CardFormat } from './shareCard'
 import { diaryText, useUi } from './text'
+
+/** Адрес сайта — только в сборке для сайта; на порталах ссылок наружу нет. */
+const SITE_NAME = 'thousands.life'
+const SITE = `https://${SITE_NAME}`
 
 const ICON_GLYPH: Record<Icon, string> = {
   birth: '●',
@@ -480,7 +484,8 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
   }, [life, lang])
   const patternLine = AXES.map((a) => t(`pattern.axis.${a}.${r.pattern.scores[a] > 0 ? 'right' : 'left'}`)).join(' · ')
   const dark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)
-  const shareText = `${t('share.text', { name, years, archetype })} https://thousands.life`
+  // На порталах — без ссылки на сайт: платформа сама добавит ссылку на страницу игры у себя.
+  const shareText = EXTERNAL ? `${t('share.text', { name, years, archetype })} ${SITE}` : t('share.text', { name, years, archetype })
 
   useEffect(() => {
     if (!canvas.current) return
@@ -492,7 +497,7 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
       patternLine,
       facts,
       playerLine: clean.text,
-      cta: t('share.card.cta'),
+      cta: EXTERNAL ? `${t('share.card.cta')} · ${SITE_NAME}` : t('share.card.cta_portal'),
       region: life.region,
       sex: life.sex,
       seed: life.heroId,
@@ -518,13 +523,14 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
     save()
     const b = await blob()
     const file = b ? new File([b], 'thousands-of-lives.png', { type: 'image/png' }) : null
-    const result = await platform.share({ text: shareText, url: 'https://thousands.life', file: file ?? undefined })
+    const result = await platform.share({ text: shareText, url: EXTERNAL ? SITE : undefined, file: file ?? undefined })
     if (result === 'copied') setCopied(true)
     if (result !== 'failed') platform.track('share_done', { what: 'life', format, method: result === 'shared' ? 'system' : 'copy' })
   }
   const copy = async () => {
     save()
-    const ok = (await platform.share({ text: shareText, copyOnly: true })) === 'copied'
+    // На портале к тексту добавляется ссылка-приглашение на страницу игры у платформы.
+    const ok = (await platform.share({ text: shareText, copyOnly: EXTERNAL })) === 'copied'
     setCopied(ok)
     if (ok) platform.track('share_done', { what: 'life', format: 'text', method: 'copy' })
   }
@@ -550,8 +556,9 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
           <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={`${name}, ${years}. ${archetype}. ${facts.join('. ')}`} />
           <p class="small muted">{t('share.privacy')}</p>
           <div class="stack">
-            {'share' in navigator && <button class="primary" onClick={systemShare}>{t('share.system')}</button>}
+            {EXTERNAL && 'share' in navigator && <button class="primary" onClick={systemShare}>{t('share.system')}</button>}
             <button class="secondary" onClick={download}>{t('share.download')}</button>
+            {EXTERNAL && (
             <div class="share-row">
               <a class="secondary" href={`https://x.com/intent/post?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noopener" onClick={save}>
                 X
@@ -560,6 +567,7 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
                 Threads
               </a>
             </div>
+            )}
             <button class="secondary" onClick={copy}>{copied ? t('share.copied') : t('share.copy')}</button>
             <button class="link" onClick={() => { save(); onClose() }}>{t('share.close')}</button>
           </div>

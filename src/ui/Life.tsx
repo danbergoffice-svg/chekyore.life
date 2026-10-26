@@ -92,14 +92,28 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const next = state.queue[0]
   // Экран-глава в 16, 30, 45, 60 лет (флаг chapter_ages): год не начинается, пока игрок не нажмёт «Дальше».
   const [, bump] = useState(0)
+  // Пока показывается реклама после главы, время стоит.
+  const [adOpen, setAdOpen] = useState(false)
   const chapterDue = state.phase === 'year' && platform.flags.chapter_ages.includes(hero.age) && !(lifeStats(state).chapters ?? []).includes(hero.age)
   const closeChapter = () => {
     const s = lifeStats(state)
     s.chapters = [...(s.chapters ?? []), hero.age]
     platform.track('chapter_seen', { age: hero.age })
-    platform.showInterstitial('F2').finally(() => bump((x) => x + 1))
+    setAdOpen(true)
+    platform.showInterstitial('F2').finally(() => {
+      setAdOpen(false)
+      bump((x) => x + 1)
+    })
   }
-  const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue
+  const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue || adOpen
+  // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
+  // пауза без решения и уход с экрана жизни — остановка.
+  const playing = (speed > 0 || modalOpen) && !chapterDue && !adOpen && state.phase !== 'dead'
+  useEffect(() => {
+    if (playing) platform.gameplayStart()
+    else platform.gameplayStop()
+  }, [playing])
+  useEffect(() => () => platform.gameplayStop(), [])
 
   // Часы года. Ссылки на свежие значения, чтобы таймер не держал устаревшие.
   const live = useRef({ state, progress, speed, modalOpen, selected, onStart, onFinish, yearSec })
@@ -332,7 +346,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       )}
 
       {chapterDue && <Chapter state={state} era={era} onNext={closeChapter} />}
-      {modalOpen && !chapterDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />}
+      {modalOpen && !chapterDue && !adOpen && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />}
     </div>
   )
 }

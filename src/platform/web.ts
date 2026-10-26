@@ -1,6 +1,7 @@
 // Платформа «сайт»: IndexedDB с запасным localStorage, Яндекс Метрика + свой приёмник событий (Cloudflare Worker),
 // системное меню «Поделиться», флаги из /flags.json. Рекламы на сайте нет.
 import type { Lang } from '../engine/types'
+import { fetchFlags, kvGet, kvSet, loadLocal, saveLocal, sessionFlag, setSessionFlag, uuid } from './local'
 import { DEFAULT_FLAGS } from './types'
 import type { Flags, Platform, SharePayload, ShareResult } from './types'
 
@@ -18,51 +19,7 @@ declare global {
   const __BUILD__: string
 }
 
-// ---------- Хранилище ----------
-
-const DB = 'thousands'
-const STORE = 'kv'
-
-function openDb(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB, 1)
-    req.onupgradeneeded = () => req.result.createObjectStore(STORE)
-    req.onsuccess = () => resolve(req.result)
-    req.onerror = () => reject(req.error)
-  })
-}
-
-async function idb<T>(mode: IDBTransactionMode, run: (s: IDBObjectStore) => IDBRequest): Promise<T> {
-  const db = await openDb()
-  return new Promise((resolve, reject) => {
-    const req = run(db.transaction(STORE, mode).objectStore(STORE))
-    req.onsuccess = () => resolve(req.result as T)
-    req.onerror = () => reject(req.error)
-  })
-}
-
-function kvGet(key: string): string | null {
-  try {
-    return localStorage.getItem(key)
-  } catch {
-    return null
-  }
-}
-
-function kvSet(key: string, value: string): void {
-  try {
-    localStorage.setItem(key, value)
-  } catch {
-    // Хранилище недоступно (приватный режим) — живём без него.
-  }
-}
-
 // ---------- Игрок, сессия, A/B ----------
-
-function uuid(): string {
-  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) return crypto.randomUUID()
-  return 'p' + Math.random().toString(36).slice(2) + Date.now().toString(36)
-}
 
 let player = ''
 const session = uuid()
@@ -156,6 +113,7 @@ let pauseHandlers: ((paused: boolean) => void)[] = []
 
 export const webPlatform: Platform = {
   name: 'web',
+  external: true,
 
   async init() {
     player = kvGet('thousands.player_id') ?? ''
@@ -164,16 +122,7 @@ export const webPlatform: Platform = {
       kvSet('thousands.player_id', player)
     }
     initMetrika()
-    // Флаги: не ждём дольше полутора секунд — иначе играем с настройками по умолчанию.
-    try {
-      const ctrl = new AbortController()
-      const timer = setTimeout(() => ctrl.abort(), 1500)
-      const res = await fetch('./flags.json', { cache: 'no-cache', signal: ctrl.signal })
-      clearTimeout(timer)
-      if (res.ok) flags = { ...DEFAULT_FLAGS, ...(await res.json()) }
-    } catch {
-      // Нет сети или файла — значения по умолчанию.
-    }
+    flags = await fetchFlags({ ...DEFAULT_FLAGS })
     webPlatform.flags = flags
     setInterval(() => flush(), 10000)
     document.addEventListener('visibilitychange', () => {
@@ -191,44 +140,12 @@ export const webPlatform: Platform = {
     pauseHandlers.push(cb)
   },
 
-  async save(key, value) {
-    try {
-      await idb('readwrite', (s) => s.put(JSON.parse(JSON.stringify(value)), key))
-    } catch {
-      kvSet(`thousands.${key}`, JSON.stringify(value))
-    }
-  },
-
-  async load<T>(key: string) {
-    try {
-      return await idb<T | undefined>('readonly', (s) => s.get(key))
-    } catch {
-      const raw = kvGet(`thousands.${key}`)
-      try {
-        return raw ? (JSON.parse(raw) as T) : undefined
-      } catch {
-        return undefined
-      }
-    }
-  },
-
+  save: saveLocal,
+  load: loadLocal,
   kvGet,
   kvSet,
-
-  sessionFlag(key) {
-    try {
-      return sessionStorage.getItem(key) === '1'
-    } catch {
-      return true
-    }
-  },
-  setSessionFlag(key) {
-    try {
-      sessionStorage.setItem(key, '1')
-    } catch {
-      // ignore
-    }
-  },
+  sessionFlag,
+  setSessionFlag,
 
   track(event, params = {}) {
     const full = { ...common(), ...params }
