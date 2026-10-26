@@ -89,7 +89,10 @@ export function loadEra(id: string): Promise<EraDef> {
   const meta = ERA_META[id]
   if (!meta) return Promise.reject(new Error(`Unknown era ${id}`))
   if (id in loading) return loading[id]
-  common ??= loadFiles<EventDef>('common', 'events')
+  common ??= loadFiles<EventDef>('common', 'events').catch((e) => {
+    common = null
+    throw e
+  })
   loading[id] = Promise.all([common, loadFiles<EventDef>(ERA_FOLDER[id], 'events'), loadFiles<NewsDef>(ERA_FOLDER[id], 'news'), loadFiles<PrimerDef>(ERA_FOLDER[id], 'primer')]).then(
     ([shared, local, news, primers]) => {
       const byId = new Map<string, EventDef>()
@@ -104,7 +107,11 @@ export function loadEra(id: string): Promise<EraDef> {
       loaded[id] = era
       return era
     },
-  )
+  ).catch((e) => {
+    // Не запоминаем неудачу: следующая попытка загрузит заново (например, после обрыва сети).
+    delete loading[id]
+    throw e
+  })
   return loading[id]
 }
 

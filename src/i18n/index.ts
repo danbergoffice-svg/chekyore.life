@@ -29,9 +29,15 @@ export function loadTexts(lang: Lang, folder: string): Promise<void> {
     const files = Object.entries(lazy)
       .filter(([path]) => path.startsWith(`../content/${folder}/${lang}`))
       .sort(([a], [b]) => a.localeCompare(b))
-    p = Promise.all(files.map(([, load]) => load())).then((parts) => {
-      for (const part of parts) Object.assign(dicts[lang], part)
-    })
+    p = Promise.all(files.map(([, load]) => load())).then(
+      (parts) => {
+        for (const part of parts) Object.assign(dicts[lang], part)
+      },
+      (e) => {
+        loadedTexts.delete(id)
+        throw e
+      },
+    )
     loadedTexts.set(id, p)
   }
   return p

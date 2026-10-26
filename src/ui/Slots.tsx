@@ -79,12 +79,19 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
   )
 }
 
-export function Slots(props: { birth: Birth; seed: number; ready: boolean; onDone: () => void; onBack: () => void }) {
+export function Slots(props: { birth: Birth; seed: number; ready: boolean; error?: boolean; onRetry?: () => void; onDone: () => void; onBack: () => void }) {
   const { t, lang } = useUi()
   const { birth } = props
   const [phase, setPhase] = useState<'idle' | 'pull' | 'spin' | 'done'>('idle')
   const [stopped, setStopped] = useState([false, false, false])
   const fast = useMemo(reducedMotion, [])
+  // Если мир грузится дольше 12 секунд — подсказать, что делать.
+  const [slow, setSlow] = useState(false)
+  useEffect(() => {
+    if (props.ready) return
+    const id = setTimeout(() => setSlow(true), 12000)
+    return () => clearTimeout(id)
+  }, [props.ready])
   const o = { sex: birth.sex, region: birth.region }
 
   const reels = useMemo(() => {
@@ -151,10 +158,26 @@ export function Slots(props: { birth: Birth; seed: number; ready: boolean; onDon
         </div>
       </div>
 
-      {phase === 'idle' && (
+      {phase === 'idle' && !props.error && (
         <button class="primary" onClick={pull} disabled={!props.ready}>
           {props.ready ? t('spin.pull') : t('spin.loading')}
         </button>
+      )}
+      {phase === 'idle' && !props.ready && (props.error || slow) && (
+        <div class="load-problem" role="alert">
+          <p>{props.error ? t('spin.error') : t('spin.slow')}</p>
+          <div class="row">
+            {/* Неудачную загрузку браузер запоминает, поэтому после ошибки помогает только обновление страницы. */}
+            {props.error ? (
+              <button class="primary" onClick={() => location.reload()}>{t('spin.reload')}</button>
+            ) : (
+              <>
+                <button class="secondary" onClick={props.onRetry}>{t('spin.retry')}</button>
+                <button class="link" onClick={() => location.reload()}>{t('spin.reload')}</button>
+              </>
+            )}
+          </div>
+        </div>
       )}
       {phase === 'done' && (
         <div class="spin-result">

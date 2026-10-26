@@ -32,6 +32,21 @@ const defaultPrefs: Prefs = {
   lottery: 'equal',
 }
 
+/** Перезагрузить страницу один раз за сессию (новая версия сайта); false — уже перезагружали. */
+function reloadOnceForUpdate(): boolean {
+  try {
+    if (sessionStorage.getItem('thousands.reloaded')) return false
+    sessionStorage.setItem('thousands.reloaded', '1')
+  } catch {
+    return false
+  }
+  location.reload()
+  return true
+}
+
+// Vite сообщает, что не смог подгрузить часть сборки (обычно после обновления сайта).
+if (typeof window !== 'undefined') window.addEventListener('vite:preloadError', () => reloadOnceForUpdate())
+
 export function App() {
   const [prefs, setPrefsState] = useState<Prefs>(() => loadPrefs(defaultPrefs))
   const [screen, setScreen] = useState<Screen>('loading')
@@ -59,8 +74,17 @@ export function App() {
   const era = state && isEraLoaded(state.hero.era) ? eraById(state.hero.era) : null
 
   /** Загрузить страну и её тексты на текущем языке. */
-  const ensure = (eraId: string, lang = prefs.lang) =>
-    Promise.all([loadEra(eraId), loadEraTexts(lang, eraId)]).then(() => setLoadedVersion((v) => v + 1))
+  const [loadError, setLoadError] = useState(false)
+  const ensure = (eraId: string, lang = prefs.lang) => {
+    setLoadError(false)
+    return Promise.all([loadEra(eraId), loadEraTexts(lang, eraId)])
+      .then(() => setLoadedVersion((v) => v + 1))
+      .catch(() => {
+        // Чаще всего это файлы прошлой версии сайта: один раз перезагружаем страницу, потом предлагаем повторить.
+        if (reloadOnceForUpdate()) return
+        setLoadError(true)
+      })
+  }
 
   useEffect(() => {
     loadSave().then(async (save) => {
@@ -140,7 +164,7 @@ export function App() {
     const life = memorial.find((l) => l.heroId === id)
     if (!life) return
     setOpened(id)
-    ensure(life.era).then(() => setScreen('past'))
+    ensure(life.era).then(() => isEraLoaded(life.era) && setScreen('past'))
   }
 
   const onStart = (focus: string | null) => {
@@ -261,7 +285,12 @@ export function App() {
             current={state}
             memorial={memorial}
             onNew={() => setScreen('setup')}
-            onContinue={() => setScreen(state?.phase === 'dead' ? 'death' : 'life')}
+            onContinue={() => {
+              if (!state) return
+              const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
+              if (isEraLoaded(state.hero.era)) go()
+              else ensure(state.hero.era).then(() => isEraLoaded(state.hero.era) && go())
+            }}
             onOpenLife={openPast}
             onFeedback={() => openFeedback('menu')}
             onLang={(lang) => setPrefs({ ...prefs, lang })}
@@ -270,7 +299,15 @@ export function App() {
         )}
         {screen === 'setup' && <Setup prefs={prefs} onPrefs={setPrefs} onStart={startNew} onBack={toMenu} />}
         {screen === 'spin' && pending && (
-          <Slots birth={pending.birth} seed={pending.seed} ready={isEraLoaded(pending.birth.era) && loadedVersion > 0} onDone={bornAfterSpin} onBack={() => setScreen('setup')} />
+          <Slots
+            birth={pending.birth}
+            seed={pending.seed}
+            ready={isEraLoaded(pending.birth.era) && loadedVersion > 0}
+            error={loadError}
+            onRetry={() => ensure(pending.birth.era)}
+            onDone={bornAfterSpin}
+            onBack={() => setScreen('setup')}
+          />
         )}
         {screen === 'reveal' && state && era && <Reveal state={state} era={era} onStart={() => setScreen('life')} />}
         {screen === 'life' && state && era && state.phase !== 'dead' && (

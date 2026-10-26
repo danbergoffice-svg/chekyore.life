@@ -526,5 +526,9 @@
   "feedback.prompt.text": "This is a beta, and the game changes based on players' feedback. Tell us in a couple of sentences what you liked and what to fix.",
   "feedback.prompt.go": "Leave feedback",
   "feedback.prompt.later": "Not now",
-  "menu.feedback": "Leave feedback"
+  "menu.feedback": "Leave feedback",
+  "spin.error": "Couldn't load the world: the connection may have dropped or the site was just updated.",
+  "spin.slow": "The world is taking longer than usual to load. Check your connection or try again.",
+  "spin.retry": "Try again",
+  "spin.reload": "Reload the page"
 }

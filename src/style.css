@@ -553,3 +553,5 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .lang-switch { display: flex; justify-content: flex-end; gap: 4px; margin-bottom: 8px; }
 .lang-switch button { font: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--muted); cursor: pointer; }
 .lang-switch button.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.load-problem { margin-top: 10px; padding: 12px 14px; border-radius: 10px; background: var(--paper-2); border-left: 3px solid var(--down); }
+.load-problem .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
