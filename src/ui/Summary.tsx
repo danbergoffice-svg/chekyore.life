@@ -63,7 +63,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
   const [sharing, setSharing] = useState(false)
   const starred = life.starred ?? []
   const toggleStar = (i: number) => onUpdate({ ...life, starred: starred.includes(i) ? starred.filter((x) => x !== i) : [...starred, i] })
-  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion)
+  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion, lang)
   const archetype = t(`archetype.${r.pattern.code}`)
 
   const bio = r.biography.map((s) => {
@@ -302,10 +302,10 @@ function periodOf(age: number, era: EraDef): number {
 }
 
 function FullRecord({ life, era, starred, onStar }: { life: LifeSummary; era: EraDef; starred: number[]; onStar: (i: number) => void }) {
-  const { t } = useUi()
+  const { t, lang } = useUi()
   const [filter, setFilter] = useState<Filter>('all')
   const [notes, setNotes] = useState<number[]>([])
-  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion)
+  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion, lang)
   const visible = life.diary
     .map((e, i) => [e, i] as const)
     .filter(([e]) => !e.key.startsWith('diary.stage_'))
@@ -423,7 +423,7 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
   const r = life.report
   const starred = (life.starred ?? []).map((i) => life.diary[i]).filter(Boolean)
   const facts = useMemo(() => {
-    if (starred.length) return starred.slice(0, 3).map((e) => diaryText(t, e, life.sex, life.region, life.religion))
+    if (starred.length) return starred.slice(0, 3).map((e) => diaryText(t, e, life.sex, life.region, life.religion, lang))
     const out = [life.profession ? t(`prof.${life.profession}`, {}, o) : t(`class.${life.cls}`, {}, o)]
     out.push(t('facts.children_value', { n: r.facts.children, grand: r.facts.grandchildren }))
     out.push(`${t('summary.cause')}: ${t(`cause.${life.cause}`)}`)

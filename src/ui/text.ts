@@ -1,5 +1,6 @@
 import { createContext } from 'preact'
 import { useContext } from 'preact/hooks'
+import { variantKey } from '../i18n'
 import type { T } from '../i18n'
 import { contextParams } from '../engine/rules'
 import type { AttrId, DiaryEntry, GameState, Hero, Lang, Npc } from '../engine/types'
@@ -14,13 +15,15 @@ export const UiContext = createContext<Ui>(null as unknown as Ui)
 export const useUi = () => useContext(UiContext)
 
 /** Строка дневника: события показываются как «заголовок — выбор». Край и вера — те, что были в момент записи. */
-export function diaryText(t: T, e: DiaryEntry, sex: Hero['sex'], region: string, religion = ''): string {
+export function diaryText(t: T, e: DiaryEntry, sex: Hero['sex'], region: string, religion = '', lang: Lang = 'ru'): string {
   const opts = { sex, region: e.reg ?? region, religion: e.rel ?? religion }
   const params = { ...contextParams(opts.region, opts.religion, e.year), ...e.params }
   if (e.key.startsWith('ev.')) {
-    let s = t(e.key, params, opts)
+    // У частых событий много вариантов: заголовок и выбор берутся из того же варианта, что был показан.
+    const v = e.params?.v
+    let s = t(variantKey(lang, e.key, v), params, opts)
     const choice = e.params?.choice
-    if (choice && typeof choice === 'object' && 'key' in choice && choice.key !== 'ui.ok') s += ` — ${t(choice.key, {}, opts)}`
+    if (choice && typeof choice === 'object' && 'key' in choice && choice.key !== 'ui.ok') s += ` — ${t(variantKey(lang, choice.key, v), {}, opts)}`
     if (e.params?.result === 'success') s += ` (${t('diary.success')})`
     if (e.params?.result === 'failure') s += ` (${t('diary.failure')})`
     return s

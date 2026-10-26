@@ -15,7 +15,7 @@ import {
 import { checkAll, contextParams, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Hero, Npc, SceneTime } from '../engine/types'
-import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
+import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
 import { Scene } from '../pixel/Scene'
 import { eventCast, familyCast } from './cast'
 import { entryScene } from './Summary'
@@ -167,7 +167,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
                 ) : (
                 <li class={`${d.news ? 'news' : ''} ${d.major ? 'major' : ''} ${d.year === state.year ? 'now' : ''}`}>
                   <span class="diary-age">{d.news ? t('life.news') : t('diary.age', { n: d.age })}</span>
-                  <span>{diaryText(t, d, hero.sex, hero.region, hero.religion)}</span>
+                  <span>{diaryText(t, d, hero.sex, hero.region, hero.religion, lang)}</span>
                 </li>
                 ),
               )}
@@ -275,7 +275,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
                 ) : (
                 <li class={`${d.major ? 'major' : ''} ${d.news ? 'news' : ''}`}>
                   <span class="diary-age">{t('diary.age', { n: d.age })}</span>
-                  <span>{diaryText(t, d, hero.sex, hero.region, hero.religion)}</span>
+                  <span>{diaryText(t, d, hero.sex, hero.region, hero.religion, lang)}</span>
                 </li>
                 ),
               )}
@@ -453,21 +453,22 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   const choices = eventChoices(state, era, ev)
   const isProfession = ev.dynamic === 'profession'
   const isName = ev.dynamic === 'name'
-  const label = (c: ChoiceDef) => (isName ? nameOf(c.id, lang) : isProfession ? t(`prof.${c.id}`, {}, o) : t(`ev.${ev.id}.${c.id}`, params, o))
+  const v = active?.variant
+  const label = (c: ChoiceDef) => (isName ? nameOf(c.id, lang) : isProfession ? t(`prof.${c.id}`, {}, o) : t(variantKey(lang, `ev.${ev.id}.${c.id}`, v), params, o))
   const cost = (c: ChoiceDef) => {
     const m = (c.effects ?? []).reduce((sum, e) => sum + ('param' in e && e.param === 'money' && e.delta < 0 ? e.delta : 0), 0)
     return m < 0 ? formatMoney(t, -m, coin) : null
   }
-  const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession && !isName ? `ev.${ev.id}.${outcome.choiceId}.${outcome.result}` : null
+  const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession && !isName ? variantKey(lang, `ev.${ev.id}.${outcome.choiceId}.${outcome.result}`, v) : null
   const resultText = resultKey && hasKey(lang, resultKey) ? t(resultKey, params, o) : null
 
   return (
     <div class="modal-backdrop">
       <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="ev-title">
-        <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place)} label={t(`ev.${ev.id}.title`, params, o)} />
+        <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place)} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
         <div class="modal-body">
           {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
-          <h2 id="ev-title">{t(`ev.${ev.id}.title`, params, o)}</h2>
+          <h2 id="ev-title">{t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)}</h2>
           <p class="event-text">{t(eventTextKey(ev, active?.variant), params, o)}</p>
 
           {ev.historian_note && (

@@ -62,6 +62,11 @@ export function hasKey(lang: Lang, key: string): boolean {
   return key in dicts[lang]
 }
 
+/** Ключ варианта события: «ev.x.title.3», если такой текст есть, иначе общий «ev.x.title». */
+export function variantKey(lang: Lang, key: string, variant: unknown): string {
+  return typeof variant === 'number' && variant > 0 && hasKey(lang, `${key}.${variant}`) ? `${key}.${variant}` : key
+}
+
 export function allKeys(lang: Lang): string[] {
   return Object.keys(dicts[lang])
 }

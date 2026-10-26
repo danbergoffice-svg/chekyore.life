@@ -686,6 +686,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     key: `ev.${ev.id}.title`,
     params: {
       ...params,
+      ...(active.variant ? { v: active.variant } : {}),
       choice: choice && ev.dynamic === 'name' ? { name: choice.id } : { key: choice ? (ev.dynamic === 'profession' ? `prof.${choice.id}` : `ev.${ev.id}.${choice.id}`) : 'ui.ok' },
       result,
     },
