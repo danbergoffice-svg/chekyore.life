@@ -376,6 +376,7 @@ export function App() {
             onMenu={toMenu}
             choiceChanges={choiceChanges}
             yearChanges={yearChanges}
+            yearSec={prefs.yearSec}
           />
         )}
         {screen === 'death' && state && era && lastLife && !fullSummary && lastLife.age < 15 && memorial.length > 1 && (

@@ -378,7 +378,7 @@
   "menu.how.1.title": "Birth is a lottery",
   "menu.how.1.text": "Three reels decide where, when and who you are born: a samurai's son in Kyoto, a weaver's daughter in Florence or a slave in Baghdad. Faith, station and family are drawn by lot too.",
   "menu.how.2.title": "Time flows by itself",
-  "menu.how.2.text": "A year lasts a few seconds, early childhood even less. Life flows as a feed: childhood, work, weddings, news from the world. You can speed it up or pause it.",
+  "menu.how.2.text": "A year lasts a few seconds, early childhood even less; in Settings you can stretch it to a minute. Life flows as a feed: childhood, work, weddings, news from the world. You can speed it up or pause it.",
   "menu.how.3.title": "Choices shape fate",
   "menu.how.3.text": "Learning, trade, marriage, health, risk — and turning points: pirates, buried treasure, a false accusation. Consequences catch up years later.",
   "menu.how.4.title": "The family goes on",
@@ -563,5 +563,10 @@
   "hint.focus": "Now you decide what each year is about. Pick a focus — it shapes skills, money and events.",
   "hint.hero": "The Hero tab shows character, skills, faith and way of life. Take a look.",
   "early.fact": "It happened to many: {region} in those years only {n} children in a hundred lived to fifteen.",
-  "early.full": "Full summary"
+  "early.full": "Full summary",
+  "settings.year": "Length of a year",
+  "settings.year.auto": "Standard",
+  "settings.year.auto.desc": "About {n} seconds a year, early childhood faster",
+  "settings.year.sec": "{n} seconds",
+  "settings.year.min": "1 minute"
 }

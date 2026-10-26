@@ -6,6 +6,7 @@ import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
 import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
+import { platform } from '../platform'
 import { Scene } from '../pixel/Scene'
 import { useUi } from './text'
 
@@ -360,6 +361,9 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
   )
 }
 
+/** Варианты длительности года в настройках: 0 — стандартная, остальное — секунды, до минуты. */
+const YEAR_SECS = [0, 20, 30, 45, 60]
+
 export function Settings(props: {
   prefs: Prefs
   onPrefs: (p: Prefs) => void
@@ -388,6 +392,16 @@ export function Settings(props: {
         value={p.theme}
         onChange={(theme) => props.onPrefs({ ...p, theme })}
         options={(['auto', 'light', 'dark'] as const).map((f) => ({ id: f, label: t(`settings.theme.${f}`) }))}
+      />
+      <Choice
+        title={t('settings.year')}
+        value={String(p.yearSec ?? 0)}
+        onChange={(v) => props.onPrefs({ ...p, yearSec: Number(v) || undefined })}
+        options={YEAR_SECS.map((n) =>
+          n === 0
+            ? { id: '0', label: t('settings.year.auto'), desc: t('settings.year.auto.desc', { n: platform.flags.year_sec }) }
+            : { id: String(n), label: n === 60 ? t('settings.year.min') : t('settings.year.sec', { n }) },
+        )}
       />
       <label class="toggle">
         <input type="checkbox" checked={p.contrast} onChange={(e) => props.onPrefs({ ...p, contrast: e.currentTarget.checked })} />

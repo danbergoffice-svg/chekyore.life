@@ -26,9 +26,14 @@ import type { Change } from './text'
 
 type Tab = 'life' | 'hero' | 'people' | 'diary'
 
-/** Длительность года на скорости ×1 — из флагов: в раннем детстве (0–5 лет) короче. */
-function yearMs(age: number): number {
-  return (age <= 5 ? platform.flags.year_sec_child : platform.flags.year_sec) * 1000
+/**
+ * Длительность года на скорости ×1. Стандартная — из флагов (в раннем детстве короче).
+ * Если игрок выбрал свою (до минуты), детство удлиняется в той же пропорции.
+ */
+function yearMs(age: number, custom?: number): number {
+  const f = platform.flags
+  const adult = custom ?? f.year_sec
+  return (age <= 5 ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
 }
 const TICK_MS = 100
 export const SPEEDS = [0, 1, 2, 4, 10] as const
@@ -45,6 +50,8 @@ interface LifeProps {
   onMenu: () => void
   choiceChanges: Change[]
   yearChanges: Change[]
+  /** Своя длительность года из настроек (секунды); не задана — стандартная. */
+  yearSec?: number
 }
 
 /** Видна ли запись дневника: записи текущего года появляются по ходу года. */
@@ -54,7 +61,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onMenu, choiceChanges, yearChanges }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onMenu, choiceChanges, yearChanges, yearSec }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -93,8 +100,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue
 
   // Часы года. Ссылки на свежие значения, чтобы таймер не держал устаревшие.
-  const live = useRef({ state, progress, speed, modalOpen, selected, onStart, onFinish })
-  live.current = { state, progress, speed, modalOpen, selected, onStart, onFinish }
+  const live = useRef({ state, progress, speed, modalOpen, selected, onStart, onFinish, yearSec })
+  live.current = { state, progress, speed, modalOpen, selected, onStart, onFinish, yearSec }
   useEffect(() => {
     const id = setInterval(() => {
       const c = live.current
@@ -104,7 +111,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         c.onStart(c.selected)
         return
       }
-      const np = c.progress + (TICK_MS * c.speed) / yearMs(c.state.hero.age)
+      const np = c.progress + (TICK_MS * c.speed) / yearMs(c.state.hero.age, c.yearSec)
       const ev = c.state.queue[0]
       if (ev && np >= ev.at) setProgress(ev.at)
       else if (np >= 1 && !ev) {
