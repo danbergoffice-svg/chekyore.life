@@ -1,7 +1,8 @@
-// Обратная связь от игроков. Своего сервера у сайта нет, поэтому отзыв уходит:
-//  1) в Яндекс Метрику — целью «feedback» с параметрами (Метрика → Отчёты → Параметры визитов);
-//  2) в Google-форму, если она настроена ниже (ответы копятся в Google-таблице).
-import { track } from './analytics'
+// Обратная связь от игроков. Отзыв уходит:
+//  1) в свой приёмник (Cloudflare Worker → база D1 и Telegram); без сети — копится и уходит при следующем запуске;
+//  2) в Яндекс Метрику — целью feedback_sent с оценкой;
+//  3) в Google-форму, если она настроена ниже (необязательно).
+import { platform } from './platform'
 
 /** Вопросы формы: короткие открытые ответы. Тексты — feedback.<id> и feedback.<id>.hint. */
 export const FEEDBACK_QUESTIONS = ['liked', 'boring', 'change', 'missing', 'again'] as const
@@ -29,10 +30,10 @@ const MAX = 600
 
 export async function sendFeedback(data: FeedbackData): Promise<void> {
   const clip = (s: string | undefined) => (s ?? '').trim().slice(0, MAX)
-  const params: Record<string, string | number> = { rating: data.rating, ...data.context }
-  for (const q of FEEDBACK_QUESTIONS) if (clip(data.answers[q])) params[q] = clip(data.answers[q])
-  if (clip(data.contact)) params.contact = clip(data.contact)
-  track('feedback', params)
+  const answers: Record<string, string> = {}
+  for (const q of FEEDBACK_QUESTIONS) if (clip(data.answers[q])) answers[q] = clip(data.answers[q])
+  platform.track('feedback_sent', { rating: data.rating })
+  await platform.sendFeedback({ rating: data.rating, answers, contact: clip(data.contact), context: data.context })
 
   if (!GOOGLE_FORM.url) return
   const body = new URLSearchParams()
@@ -47,6 +48,6 @@ export async function sendFeedback(data: FeedbackData): Promise<void> {
     // Google не отдаёт CORS-заголовки, поэтому ответ не читаем — запрос просто уходит.
     await fetch(GOOGLE_FORM.url, { method: 'POST', mode: 'no-cors', body })
   } catch {
-    // Нет сети — отзыв всё равно ушёл в Метрику, если она загружена.
+    // Нет сети — отзыв уже лежит в очереди своего приёмника.
   }
 }

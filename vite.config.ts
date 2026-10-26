@@ -5,6 +5,8 @@ export default defineConfig({
   // Относительные пути: сайт работает и на своём домене, и на временном адресе github.io/chekyore.life/
   base: './',
   esbuild: { jsx: 'automatic', jsxImportSource: 'preact' },
+  // Номер сборки в аналитике: дата и время сборки.
+  define: { __BUILD__: JSON.stringify(new Date().toISOString().slice(0, 16)) },
   build: {
     rollupOptions: {
       output: {

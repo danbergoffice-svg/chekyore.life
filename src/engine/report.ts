@@ -36,6 +36,8 @@ export interface Partner {
 export interface Facts {
   education: Sentence[]
   profession: string | null
+  /** Сословие при рождении (то же, что в жизнеописании) и в конце жизни. */
+  birthCls: string
   cls: string
   status: number
   /** Положение в обществе: выше, чем у такой доли жителей региона (0–100). */
@@ -217,20 +219,22 @@ function education(hero: Hero): Sentence[] {
   return out
 }
 
+/**
+ * Положение в обществе к концу жизни: доля жителей региона с положением ниже.
+ * Жители каждого сословия равномерно распределены по полосе сословия на графике, а положение героя
+ * (statusOf) уже учитывает последнее занятие, достаток и репутацию — поэтому процент не спорит с графиком.
+ */
 function percentileOf(hero: Hero, era: EraDef, status: number): number {
-  const region = regionOf(era, hero.region)
-  const classes = era.classes.filter((c) => (region.classWeights[c.id] ?? 0) > 0).sort((a, b) => a.status - b.status)
-  const total = classes.reduce((s, c) => s + region.classWeights[c.id], 0)
   let below = 0
-  for (const c of classes) {
-    const share = region.classWeights[c.id] / total
-    if (c.id === hero.cls) {
-      const within = Math.max(0, Math.min(1, (status - c.status + 10) / 20))
-      return Math.round((below + share * within) * 100)
-    }
-    below += share
-  }
-  return Math.round(below * 100)
+  for (const b of statusBands(hero, era)) below += (b.share / 100) * Math.max(0, Math.min(1, (status - b.from) / Math.max(1, b.to - b.from)))
+  return Math.max(0, Math.min(99, Math.round(below * 100)))
+}
+
+/** Сословие при рождении — из записи о рождении в дневнике. */
+export function birthClassOf(hero: Hero): string {
+  if (hero.birthCls) return hero.birthCls
+  const born = hero.diary.find((d) => d.key === 'diary.born')?.params?.cls
+  return born && typeof born === 'object' && 'key' in born ? born.key.replace('class.', '').replace('.family', '') : hero.cls
 }
 
 function statusBands(hero: Hero, era: EraDef): StatusBand[] {
@@ -284,6 +288,7 @@ function facts(state: GameState, era: EraDef): Facts {
   return {
     education: education(hero),
     profession: hero.profession,
+    birthCls: birthClassOf(hero),
     cls: hero.cls,
     status,
     percentile: percentileOf(hero, era, status),
@@ -307,9 +312,7 @@ function biography(state: GameState, f: Facts, cmp: EraComparison): Sentence[] {
   const hero = state.hero
   const out: Sentence[] = []
   // Сословие при рождении: оно могло измениться (например, раб получил свободу).
-  const born = hero.diary.find((d) => d.key === 'diary.born')?.params?.cls
-  const birthCls = born && typeof born === 'object' && 'key' in born ? born.key.replace('class.', '') : hero.cls
-  out.push({ key: hero.generation > 1 ? 'bio.born_heir' : 'bio.born', params: { region: { key: `region.${hero.region}.in` }, cls: { key: `class.${birthCls}.family` } } })
+  out.push({ key: hero.generation > 1 ? 'bio.born_heir' : 'bio.born', params: { region: { key: `region.${hero.region}.in` }, cls: { key: `class.${f.birthCls}.family` } } })
   out.push(f.education[0])
   if (f.profession) out.push({ key: 'bio.work', params: { prof: { key: `prof.${f.profession}.as` } } })
   const p = f.partners[0]

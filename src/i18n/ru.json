@@ -536,5 +536,6 @@
   "class.craftsman.short": "Ремесленники",
   "class.trader.short": "Торговцы",
   "class.landowner.short": "Землевладельцы",
-  "class.noble.short": "Знать"
+  "class.noble.short": "Знать",
+  "summary.cls_line": "Родил{g:ся|ась} — {born}, умер{g:|ла} — {died}"
 }

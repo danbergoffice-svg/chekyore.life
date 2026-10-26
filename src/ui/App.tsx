@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
-import { track } from '../analytics'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, dismiss, finishYear, startYear } from '../engine/game'
 import { continueWithHeir, heirs, newLife, rollBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed } from '../engine/rng'
 import type { GameState, LifeSummary } from '../engine/types'
-import { createT, detectLang, loadEraTexts } from '../i18n'
+import { createT, loadEraTexts } from '../i18n'
+import { initPlatform, platform } from '../platform'
 import { clearAll, loadPrefs, loadSave, parseSaveFile, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
@@ -22,7 +22,7 @@ import type { Change, Snapshot } from './text'
 type Screen = 'loading' | 'menu' | 'setup' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about'
 
 const defaultPrefs: Prefs = {
-  lang: detectLang(),
+  lang: platform.lang(),
   font: 'm',
   contrast: false,
   theme: 'auto',
@@ -34,12 +34,8 @@ const defaultPrefs: Prefs = {
 
 /** Перезагрузить страницу один раз за сессию (новая версия сайта); false — уже перезагружали. */
 function reloadOnceForUpdate(): boolean {
-  try {
-    if (sessionStorage.getItem('thousands.reloaded')) return false
-    sessionStorage.setItem('thousands.reloaded', '1')
-  } catch {
-    return false
-  }
+  if (platform.sessionFlag('thousands.reloaded')) return false
+  platform.setSessionFlag('thousands.reloaded')
   location.reload()
   return true
 }
@@ -87,7 +83,7 @@ export function App() {
   }
 
   useEffect(() => {
-    loadSave().then(async (save) => {
+    initPlatform().then(loadSave).then(async (save) => {
       game.current = save.game && ERA_META[save.game.hero.era] ? save.game : null
       setMemorial(save.memorial.filter((l) => ERA_META[l.era]))
       if (game.current) await ensure(game.current.hero.era)
@@ -133,7 +129,7 @@ export function App() {
       const next = [...memorial, life]
       setMemorial(next)
       saveMemorial(next)
-      track('life_end', { era: life.era, region: life.region, age: life.age, cause: life.cause, generation: life.generation })
+      platform.track('life_end', { era: life.era, region: life.region, age: life.age, cause: life.cause, generation: life.generation })
       setScreen('death')
     }
     persist()
@@ -153,7 +149,7 @@ export function App() {
     const settings = { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy }
     game.current = newLife(ERA_META[pending.birth.era], settings, pending.seed, undefined, pending.birth)
     const h = game.current.hero
-    track('life_start', { era: h.era, region: h.region, cls: h.cls, sex: h.sex, mode: prefs.mode, lottery: prefs.lottery })
+    platform.track('life_start', { era: h.era, region: h.region, cls: h.cls, sex: h.sex, mode: prefs.mode, lottery: prefs.lottery })
     setPending(null)
     setYearChanges([])
     setScreen('reveal')
@@ -205,7 +201,7 @@ export function App() {
   const onHeir = (childId: string) => {
     if (!era) return
     game.current = continueWithHeir(game.current!, era, childId)
-    track('heir_chosen', { generation: game.current.hero.generation })
+    platform.track('heir_chosen', { generation: game.current.hero.generation })
     setYearChanges([])
     setScreen('reveal')
     persist()

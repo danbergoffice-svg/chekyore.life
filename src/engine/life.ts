@@ -152,6 +152,7 @@ export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: num
   for (let i = 0; i < siblings; i++) {
     makeNpc(state, era, 'sibling', undefined, addYears(hero.birthYear, -int(state, 1, 10)), int(state, 10, 60))
   }
+  hero.birthCls = hero.cls
   hero.diary.push({ year: state.year, age: 0, key: 'diary.born', params: { region: { key: `region.${hero.region}` }, cls: { key: `class.${hero.cls}` } }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
   return state
 }
@@ -233,6 +234,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.region = parent.region
   hero.places = [parent.places[parent.places.length - 1] ?? parent.region]
   hero.cls = parent.cls
+  hero.birthCls = parent.cls
   hero.religion = parent.religion
   // Наследник остаётся в родительском доме и с тем же хозяйством.
   hero.home = parent.home ?? 1

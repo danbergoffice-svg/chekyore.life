@@ -139,6 +139,3 @@ export function formatMoney(t: T, amount: number, coin: string): string {
   return `${amount.toLocaleString()} ${t(`coin.${coin}`, { n: Math.abs(amount) })}`
 }
 
-export function detectLang(): Lang {
-  return typeof navigator !== 'undefined' && navigator.language?.toLowerCase().startsWith('ru') ? 'ru' : 'en'
-}

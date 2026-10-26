@@ -536,5 +536,6 @@
   "class.craftsman.short": "Craftsmen",
   "class.trader.short": "Merchants",
   "class.landowner.short": "Landowners",
-  "class.noble.short": "Nobility"
+  "class.noble.short": "Nobility",
+  "summary.cls_line": "Born — {born}, died — {died}"
 }

@@ -389,10 +389,13 @@ export function killNpc(state: GameState, npc: Npc): void {
   }
 }
 
-/** Положение в обществе эпохи, 0–100: сословие, достаток относительно расходов и репутация. */
+/** Положение в обществе эпохи, 0–100: сословие или занятие (что выше), достаток относительно расходов и репутация. */
 export function statusOf(hero: Hero, era: EraDef | EraMeta): number {
   const cls = era.classes.find((c) => c.id === hero.cls)
-  const base = cls?.status ?? 30
+  // Занятие поднимает положение до самого низкого сословия, которому оно доступно: крестьянин-судья — уже не крестьянин.
+  const prof = hero.profession ? era.professions.find((p) => p.id === hero.profession) : undefined
+  const profBase = prof?.classes?.length ? Math.min(...prof.classes.map((id) => era.classes.find((c) => c.id === id)?.status ?? 0)) : 0
+  const base = Math.max(cls?.status ?? 30, profBase)
   const upkeep = Math.max(cls?.upkeep ?? 100, 100)
   const wealth = hero.money <= 0 ? -6 : Math.max(-6, Math.min(10, 6 * Math.log10(hero.money / upkeep)))
   return Math.round(clamp(base + wealth + hero.hidden.reputation * 0.1))

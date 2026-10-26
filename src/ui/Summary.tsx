@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { axisLabel } from '../engine/report'
+import { platform } from '../platform'
 import { npcAge, regionOf } from '../engine/rules'
 import { AXES } from '../engine/types'
 import type { DiaryEntry, EraDef, Icon, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
@@ -58,6 +59,8 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
   const { t, lang } = useUi()
   const r = life.report
   const o = { sex: life.sex, region: life.region, religion: life.religion }
+  // Старые записи мемориала без сословия при рождении показывают итоговое.
+  const birthCls = r.facts.birthCls ?? life.cls
   const name = nameOf(life.name, lang)
   const coin = regionOf(era, life.region).coin
   const [sharing, setSharing] = useState(false)
@@ -83,8 +86,9 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
           {formatYear(life.birthYear, lang)} — {formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}
         </p>
         <p class="muted">
-          {t(`era.${life.era}`)} · {t(`region.${life.region}`)} · {t(`summary.sex.${life.sex}`)} · {t(`class.${life.cls}`, {}, o)}
+          {t(`era.${life.era}`)} · {t(`region.${life.region}`)} · {t(`summary.sex.${life.sex}`)} · {t(`class.${birthCls}`, {}, o)}
         </p>
+        <p class="muted small">{t('summary.cls_line', { born: { key: `class.${birthCls}` }, died: { key: `class.${life.cls}` } }, o)}</p>
         <p class="bio-text">{bio.join(' ')}</p>
         <p>
           <strong>{t('summary.cause')}:</strong> {t(`cause.${life.cause}`)}
@@ -468,21 +472,12 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
     save()
     const b = await blob()
     const file = b ? new File([b], 'thousands-of-lives.png', { type: 'image/png' }) : null
-    try {
-      if (file && navigator.canShare?.({ files: [file] })) await navigator.share({ files: [file], text: shareText })
-      else await navigator.share?.({ text: shareText, url: 'https://thousands.life' })
-    } catch {
-      // Пользователь закрыл меню «поделиться».
-    }
+    const result = await platform.share({ text: shareText, url: 'https://thousands.life', file: file ?? undefined })
+    if (result === 'copied') setCopied(true)
   }
   const copy = async () => {
     save()
-    try {
-      await navigator.clipboard.writeText(shareText)
-      setCopied(true)
-    } catch {
-      setCopied(false)
-    }
+    setCopied((await platform.share({ text: shareText, copyOnly: true })) === 'copied')
   }
   const [w, h] = CARD_SIZES[format]
 

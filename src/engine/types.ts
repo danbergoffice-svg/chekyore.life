@@ -487,6 +487,8 @@ export interface Hero {
   era: string
   region: string
   cls: string
+  /** Сословие при рождении (для наследника — сословие семьи, в которую он вошёл героем). */
+  birthCls?: string
   religion: string
   age: number
   alive: boolean

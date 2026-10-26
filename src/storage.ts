@@ -1,7 +1,8 @@
-// Сохранения: IndexedDB, а если он недоступен (приватный режим и т.п.) — localStorage.
+// Сохранения игры и настройки поверх модуля platform. Схема версионируется (SAVE_VERSION), старые сохранения мигрируют.
 import { SAVE_VERSION } from './engine/life'
 import type { Lottery } from './engine/life'
 import type { GameState, Lang, LifeSummary } from './engine/types'
+import { platform } from './platform'
 
 export interface Prefs {
   lang: Lang
@@ -23,52 +24,11 @@ export interface SaveFile {
   memorial: LifeSummary[]
 }
 
-const DB = 'thousands'
-const STORE = 'kv'
 const PREFS_KEY = 'thousands.prefs'
 
-function openDb(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB, 1)
-    req.onupgradeneeded = () => req.result.createObjectStore(STORE)
-    req.onsuccess = () => resolve(req.result)
-    req.onerror = () => reject(req.error)
-  })
-}
-
-async function idb<T>(mode: IDBTransactionMode, run: (s: IDBObjectStore) => IDBRequest): Promise<T> {
-  const db = await openDb()
-  return new Promise((resolve, reject) => {
-    const req = run(db.transaction(STORE, mode).objectStore(STORE))
-    req.onsuccess = () => resolve(req.result as T)
-    req.onerror = () => reject(req.error)
-  })
-}
-
-async function get<T>(key: string): Promise<T | undefined> {
-  try {
-    return await idb<T | undefined>('readonly', (s) => s.get(key))
-  } catch {
-    try {
-      const raw = localStorage.getItem(`thousands.${key}`)
-      return raw ? (JSON.parse(raw) as T) : undefined
-    } catch {
-      return undefined
-    }
-  }
-}
-
-async function put(key: string, value: unknown): Promise<void> {
-  try {
-    await idb('readwrite', (s) => s.put(JSON.parse(JSON.stringify(value)), key))
-  } catch {
-    try {
-      localStorage.setItem(`thousands.${key}`, JSON.stringify(value))
-    } catch {
-      // Сохранить негде — игра продолжится без сохранения.
-    }
-  }
-}
+// Хранение целиком в модуле platform: на сайте IndexedDB, в Яндекс Играх — облачные сохранения.
+const get = <T,>(key: string) => platform.load<T>(key)
+const put = (key: string, value: unknown) => platform.save(key, value)
 
 const OLD_FAITH: Record<string, string> = { rome: 'roman_gods', athens: 'roman_gods', egypt: 'egyptian_gods' }
 
@@ -107,7 +67,7 @@ export async function clearAll(): Promise<void> {
 
 export function loadPrefs(defaults: Prefs): Prefs {
   try {
-    const raw = localStorage.getItem(PREFS_KEY)
+    const raw = platform.kvGet(PREFS_KEY)
     return raw ? { ...defaults, ...(JSON.parse(raw) as Partial<Prefs>) } : defaults
   } catch {
     return defaults
@@ -115,11 +75,7 @@ export function loadPrefs(defaults: Prefs): Prefs {
 }
 
 export function savePrefs(prefs: Prefs): void {
-  try {
-    localStorage.setItem(PREFS_KEY, JSON.stringify(prefs))
-  } catch {
-    // Настройки не сохранятся, но игра работает.
-  }
+  platform.kvSet(PREFS_KEY, JSON.stringify(prefs))
 }
 
 export function parseSaveFile(text: string): SaveFile | null {
