@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Портреты героя</title>
+    <style>
+      body { background: #15171a; color: #ccc; font: 12px sans-serif; margin: 12px; }
+      .row { display: flex; gap: 6px; align-items: flex-end; margin-bottom: 8px; }
+      .row > b { width: 110px; flex: none; }
+      canvas { width: calc(32px * var(--z, 2)); height: calc(40px * var(--z, 2)); image-rendering: pixelated; display: block; }
+      .cell p { margin: 2px 0 0; text-align: center; font-size: 10px; }
+    </style>
+  </head>
+  <body>
+    <div id="grid"></div>
+    <script type="module">
+      // Галерея портретов: ?regions=rome,kyoto&ages=0,3,8,14,25,45,70&sex=m,f&body=0&cls=peasant
+      import { drawAvatar, AW, AH } from '../src/pixel/avatar.ts'
+      const q = new URLSearchParams(location.search)
+      const list = (k, d) => (q.get(k) || d).split(',')
+      const regions = list('regions', 'rome,athens,egypt,babylon,kaifeng,kyoto,delhi,baghdad,paris,constantinople,moscow,tikal,tenochtitlan,cusco,timbuktu,lalibela')
+      const ages = list('ages', '0,3,8,14,25,45,70').map(Number)
+      const sexes = list('sex', 'm,f')
+      const bodies = list('body', '0').map(Number)
+      const classes = list('cls', 'peasant')
+      const grid = document.getElementById('grid')
+      document.body.style.setProperty('--z', q.get('zoom') || '2')
+      for (const region of regions) for (const sex of sexes) for (const cls of classes) for (const body of bodies) {
+        const row = document.createElement('div'); row.className = 'row'
+        const b = document.createElement('b'); b.textContent = `${region} ${sex} ${cls} ${body}`; row.append(b)
+        for (const age of ages) {
+          const cell = document.createElement('div'); cell.className = 'cell'
+          const c = document.createElement('canvas'); c.width = AW; c.height = AH
+          drawAvatar(c.getContext('2d'), { region, sex, age, seed: `${region}${sex}${q.get('seed') || ''}`, cls, body, married: age >= 16, happiness: Number(q.get('happy') || 55), ill: q.has('ill'), dead: q.has('dead') })
+          const p = document.createElement('p'); p.textContent = age
+          cell.append(c, p); row.append(cell)
+        }
+        grid.append(row)
+      }
+      document.body.dataset.ready = '1'
+    </script>
+  </body>
+</html>

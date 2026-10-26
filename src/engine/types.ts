@@ -303,7 +303,8 @@ export type Effect =
   | { add_trait: string }
   | { set_class: string }
   | { set_profession: string | null }
-  | { add_npc: NpcRole; attitude?: number; newborn?: boolean; adopted?: boolean }
+  /** age_offset — возраст нового человека относительно героя [от, до] (у ранних браков супруги ровесники). */
+  | { add_npc: NpcRole; attitude?: number; newborn?: boolean; adopted?: boolean; age_offset?: [number, number] }
   | { npc_attitude: NpcTarget; delta: number }
   | { remove_npc: NpcTarget }
   | { kill_npc: NpcTarget; cause?: string }
@@ -527,6 +528,8 @@ export interface Hero {
   lifestyle: Record<string, string>
   /** Дом семьи: 0 — лачуга, 1 — хижина, 2 — дом, 3 — большой дом, 4 — усадьба. */
   home: number
+  /** Телосложение −3…3 (худоба … полнота): меняется от еды, достатка и болезней; только для портрета. */
+  body?: number
   /** Животные хозяйства и домашние любимцы. */
   animals: Animal[]
   /** Возраст последнего поворотного момента. */

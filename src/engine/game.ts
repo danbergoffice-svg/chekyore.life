@@ -775,6 +775,7 @@ function endYear(state: GameState, era: EraDef): void {
     return die(state, era)
   }
   recordYear(state, era)
+  bodyYear(state, era)
   hero.tags = hero.tags.filter((t) => t !== 'epidemic')
   state.year = addYears(state.year, 1)
   hero.age += 1
@@ -782,6 +783,30 @@ function endYear(state: GameState, era: EraDef): void {
   if (hero.age === era.stages.adult) note(state, { key: 'diary.stage_adult', topic: 'life' })
   if (hero.age === era.stages.old) note(state, { key: 'diary.stage_old', topic: 'life' })
   state.phase = 'year'
+}
+
+/** Сытость по сословию, пока герой сам не выбирает еду (дети, рабы). */
+const CLASS_BODY: Record<string, number> = { slave: -1.5, peasant: -0.5, craftsman: 0, trader: 0.5, landowner: 0.5, noble: 1 }
+const FOOD_BODY: Record<string, number> = { meager: -2.5, plain: 0, varied: 1, feasts: 2.5 }
+
+/**
+ * Телосложение за год: шаг к тому, что дают еда, достаток и здоровье. Скудная еда, долги, болезнь
+ * и неурожай худят, пиры полнят. Случайности нет — на ход жизни не влияет, только на портрет.
+ */
+function bodyYear(state: GameState, era: EraDef): void {
+  const hero = state.hero
+  const food = lifestyleDefs(state, era).find((d) => d.id === 'food')
+  let target = food ? (FOOD_BODY[lifestyleOption(state, food).id] ?? 0) : (CLASS_BODY[hero.cls] ?? 0)
+  if (hero.tags.includes('enslaved')) target = Math.min(target, -1.5)
+  if (hero.money < 0) target -= 1
+  if (hero.tags.includes('drought_years')) target -= 1
+  if (hero.tags.includes('ill')) target -= 1.5
+  if (hero.attrs.health < 35) target -= 1
+  if (hero.age >= 70) target -= 0.5
+  target = Math.max(-3, Math.min(3, target))
+  const now = hero.body ?? 0
+  const step = hero.tags.includes('ill') ? 1.5 : 1
+  hero.body = Math.round(Math.max(-3, Math.min(3, now + Math.max(-step, Math.min(step, target - now)))) * 2) / 2
 }
 
 function pickCause(state: GameState, era: EraDef): string {

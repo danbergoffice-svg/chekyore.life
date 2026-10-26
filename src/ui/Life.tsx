@@ -14,11 +14,13 @@ import {
 } from '../engine/game'
 import { checkAll, contextParams, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
-import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Hero, Npc, SceneTime } from '../engine/types'
+import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Npc, SceneTime } from '../engine/types'
+import type { AvatarInput } from '../pixel/avatar'
 import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
 import { platform } from '../platform'
 import { lifeStats } from '../telemetry'
 import { Scene } from '../pixel/Scene'
+import { Avatar } from '../pixel/Avatar'
 import { eventCast, familyCast } from './cast'
 import { entryScene } from './Summary'
 import { attitudeText, diaryText, feelings, useUi } from './text'
@@ -71,7 +73,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const [focus, setFocus] = useState<string | null>(state.lastFocus)
   const selected = focuses.find((f) => f.id === focus)?.id ?? focuses.find((f) => f.id === 'work')?.id ?? focuses[0]?.id ?? null
   const [speed, setSpeed] = useState<Speed>(1)
-  const [focusHelp, setFocusHelp] = useState(false)
+  const [focusOpen, setFocusOpen] = useState(false)
   // Одноразовые подсказки (ТЗ P3): не ставят игру на паузу, закрываются касанием.
   const [hints, setHints] = useState<string[]>(() => (platform.kvGet('thousands.hints') ?? '').split(',').filter(Boolean))
   const [lifeSec, setLifeSec] = useState(0)
@@ -151,20 +153,25 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   return (
     <div class="life">
       <header class="hero-bar">
-        <div class="hero-bar-top">
-          <h1 class="hero-name">{nameOf(hero.name, lang)}</h1>
-          <button class="link" onClick={onMenu}>{t('life.menu')}</button>
+        <div class="hero-bar-row">
+          <Avatar input={heroLook(hero)} label={t('life.portrait', { n: hero.age }, o)} />
+          <div class="hero-bar-info">
+            <div class="hero-bar-top">
+              <h1 class="hero-name">{nameOf(hero.name, lang)}</h1>
+              <button class="link" onClick={onMenu}>{t('life.menu')}</button>
+            </div>
+            <p class="hero-meta">
+              {t('life.age', { n: hero.age })} · {formatYear(state.year, lang)} · {t(`region.${hero.region}`)}
+            </p>
+            <p class="hero-meta">
+              {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')} · {formatMoney(t, hero.money, coin)}
+              {hero.money < 0 && <span class="warn"> · {t('life.debt')}</span>}
+              {hero.tags.includes('ill') && <span class="warn"> · {t('life.ill', {}, o)}</span>}
+            </p>
+            <Bar label={t('attr.health')} value={hero.attrs.health} />
+            {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
+          </div>
         </div>
-        <p class="hero-meta">
-          {t('life.age', { n: hero.age })} · {formatYear(state.year, lang)} · {t(`region.${hero.region}`)}
-        </p>
-        <p class="hero-meta">
-          {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')} · {formatMoney(t, hero.money, coin)}
-          {hero.money < 0 && <span class="warn"> · {t('life.debt')}</span>}
-          {hero.tags.includes('ill') && <span class="warn"> · {t('life.ill', {}, o)}</span>}
-        </p>
-        <Bar label={t('attr.health')} value={hero.attrs.health} />
-        {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
       </header>
 
       {hintFor('hero', hero.age >= 12) && tab === 'life' && <Hint text={t('hint.hero')} onClose={() => closeHint('hero')} />}
@@ -188,6 +195,24 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
               <span class="year-fill" style={{ width: `${Math.round((state.phase === 'running' ? progress : 0) * 100)}%` }} />
             </span>
           </div>
+
+          {stage === 'infancy' || focuses.length === 0 ? (
+            <p class="muted">{t('life.infancy', {}, o)}</p>
+          ) : (
+            <FocusPanel
+              focuses={focuses}
+              selected={selected}
+              open={focusOpen}
+              onToggle={() => {
+                setFocusOpen(!focusOpen)
+                if (!focusOpen) platform.track('tab_open', { tab: 'focus' })
+              }}
+              onPick={setFocus}
+              o={o}
+              hint={hintFor('focus', hero.age >= 5) ? <Hint text={t('hint.focus', {}, o)} onClose={() => closeHint('focus')} /> : null}
+              lifestyle={lifestyleDefs(state, era).length > 0 ? () => setTab('hero') : null}
+            />
+          )}
 
           {yearChanges.length > 0 && (
             <>
@@ -223,38 +248,6 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
                 ))}
               </ul>
             </>
-          )}
-
-          {stage === 'infancy' || focuses.length === 0 ? (
-            <p class="muted">{t('life.infancy', {}, o)}</p>
-          ) : (
-            <section class="focus-panel" aria-labelledby="focus-title">
-              {hintFor('focus', hero.age >= 5) && <Hint text={t('hint.focus', {}, o)} onClose={() => closeHint('focus')} />}
-              <div class="focus-head">
-                <h2 id="focus-title" class="section-title">{t('life.focus_title')}</h2>
-                <button class="help" aria-expanded={focusHelp} aria-label={t('life.focus_help')} onClick={() => setFocusHelp(!focusHelp)}>
-                  ?
-                </button>
-              </div>
-              {focusHelp && <p class="small focus-explain">{t('life.focus_explain')}</p>}
-              <p class="small muted">{t('life.focus_now', { focus: { key: `focus.${selected}` } })}</p>
-              <div class="focus-grid">
-                {focuses.map((f) => (
-                  <button class={f.id === selected ? 'focus active' : 'focus'} aria-pressed={f.id === selected} onClick={() => setFocus(f.id)}>
-                    <span class="focus-name">
-                      {f.id === selected && <span aria-hidden="true">✓ </span>}
-                      {t(`focus.${f.id}`)}
-                    </span>
-                    <span class="focus-desc">{t(`focus.${f.id}.desc`)}</span>
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
-          {lifestyleDefs(state, era).length > 0 && (
-            <button class="link" onClick={() => setTab('hero')}>
-              {t('life.lifestyle_link')} →
-            </button>
           )}
 
           <div class="actions sticky">
@@ -341,6 +334,97 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       {chapterDue && <Chapter state={state} era={era} onNext={closeChapter} />}
       {modalOpen && !chapterDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />}
     </div>
+  )
+}
+
+/** Как выглядит герой на портрете сейчас. */
+function heroLook(hero: Hero): AvatarInput {
+  return {
+    region: hero.region,
+    sex: hero.sex,
+    age: hero.age,
+    seed: hero.id,
+    cls: hero.cls,
+    body: hero.body ?? 0,
+    happiness: hero.hidden.happiness,
+    ill: hero.tags.includes('ill'),
+    married: hero.npcs.some((n) => n.role === 'spouse'),
+    dead: !hero.alive,
+    enslaved: hero.tags.includes('enslaved'),
+  }
+}
+
+/** Порядок кнопок фокуса: самые частые — первыми. */
+const FOCUS_ORDER = ['play', 'learn', 'help_family', 'work', 'study', 'family', 'health', 'rest', 'religion', 'trade', 'savings', 'service']
+const FOCUS_CHIPS = 6
+
+/**
+ * Фокус года над лентой событий. Свёрнуто — до шести коротких кнопок и строка о выбранном;
+ * «Подробнее» раскрывает пояснение и все варианты с описаниями.
+ */
+function FocusPanel({ focuses, selected, open, onToggle, onPick, o, hint, lifestyle }: {
+  focuses: FocusDef[]
+  selected: string | null
+  open: boolean
+  onToggle: () => void
+  onPick: (id: string) => void
+  o: { sex: Hero['sex']; region: string; religion: string }
+  hint: preact.ComponentChildren
+  lifestyle: (() => void) | null
+}) {
+  const { t } = useUi()
+  const sorted = [...focuses].sort((a, b) => FOCUS_ORDER.indexOf(a.id) - FOCUS_ORDER.indexOf(b.id))
+  const more = sorted.length > FOCUS_CHIPS
+  let chips = more ? sorted.slice(0, FOCUS_CHIPS - 1) : sorted
+  if (selected && !chips.some((f) => f.id === selected)) chips = [...chips.slice(0, chips.length - 1), sorted.find((f) => f.id === selected)!]
+  return (
+    <section class={open ? 'focus-panel open' : 'focus-panel'} aria-labelledby="focus-title">
+      {hint}
+      <div class="focus-head">
+        <h2 id="focus-title" class="section-title">{t('life.focus_title')}</h2>
+        <button class="link small" aria-expanded={open} onClick={onToggle}>
+          {open ? t('life.focus_less') : t('life.focus_more')} {open ? '▴' : '▾'}
+        </button>
+      </div>
+      {open ? (
+        <>
+          <p class="small focus-explain">{t('life.focus_explain')}</p>
+          <div class="focus-grid">
+            {sorted.map((f) => (
+              <button class={f.id === selected ? 'focus active' : 'focus'} aria-pressed={f.id === selected} onClick={() => onPick(f.id)}>
+                <span class="focus-name">
+                  {f.id === selected && <span aria-hidden="true">✓ </span>}
+                  {t(`focus.${f.id}`, {}, o)}
+                </span>
+                <span class="focus-desc">{t(`focus.${f.id}.desc`, {}, o)}</span>
+              </button>
+            ))}
+          </div>
+          <p class="small muted">{t('life.focus_hint')}</p>
+          {lifestyle && (
+            <button class="link small" onClick={lifestyle}>
+              {t('life.lifestyle_link')} →
+            </button>
+          )}
+        </>
+      ) : (
+        <>
+          <div class="focus-chips" role="group" aria-label={t('life.focus_title')}>
+            {chips.map((f) => (
+              <button class={f.id === selected ? 'focus-chip active' : 'focus-chip'} aria-pressed={f.id === selected} title={t(`focus.${f.id}.desc`, {}, o)} onClick={() => onPick(f.id)}>
+                {t(`focus_short.${f.id}`, {}, o)}
+              </button>
+            ))}
+            {more && (
+              <button class="focus-chip more" aria-expanded={false} onClick={onToggle}>
+                {t('life.focus_others')}
+              </button>
+            )}
+          </div>
+          {selected && <p class="small muted focus-now">{t(`focus.${selected}.desc`, {}, o)}</p>}
+        </>
+      )}
+    </section>
   )
 }
 

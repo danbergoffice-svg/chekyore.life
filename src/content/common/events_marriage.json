@@ -1,0 +1,953 @@
+[
+  {
+    "id": "mar_betrothal",
+    "type": "family",
+    "age_range": [
+      6,
+      11
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "once": true,
+    "base_weight": 4,
+    "topic": "family",
+    "not_eras": [
+      "AMR",
+      "MAY"
+    ],
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "married"
+      },
+      {
+        "tag_absent": "vowed"
+      },
+      {
+        "tag_absent": "enslaved"
+      },
+      {
+        "flag_absent": "betrothed"
+      },
+      {
+        "any": [
+          {
+            "has_npc": "father"
+          },
+          {
+            "has_npc": "mother"
+          }
+        ]
+      }
+    ],
+    "weight_modifiers": [
+      {
+        "if": {
+          "religion": [
+            "catholic"
+          ]
+        },
+        "multiply": 0.35
+      },
+      {
+        "if": {
+          "classes": [
+            "landowner",
+            "noble"
+          ]
+        },
+        "multiply": 1.8
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 4,
+      "props": [
+        "table",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "obey",
+        "effects": [
+          {
+            "set_flag": "betrothed"
+          },
+          {
+            "param": "self_esteem",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              6
+            ],
+            "chance": 1,
+            "trigger_event": "mar_wedding_f"
+          }
+        ]
+      },
+      {
+        "id": "hide",
+        "effects": [
+          {
+            "set_flag": "betrothed"
+          },
+          {
+            "param": "happiness",
+            "delta": -3
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "home_road": 2
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              6
+            ],
+            "chance": 1,
+            "trigger_event": "mar_wedding_f"
+          }
+        ]
+      },
+      {
+        "id": "ask",
+        "effects": [
+          {
+            "set_flag": "betrothed"
+          },
+          {
+            "param": "loneliness",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "memory_future": -1
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              6
+            ],
+            "chance": 1,
+            "trigger_event": "mar_wedding_f"
+          }
+        ]
+      }
+    ],
+    "sex": "f"
+  },
+  {
+    "id": "mar_betrothal_m",
+    "type": "family",
+    "age_range": [
+      7,
+      11
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "once": true,
+    "base_weight": 2.5,
+    "topic": "family",
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "married"
+      },
+      {
+        "tag_absent": "vowed"
+      },
+      {
+        "tag_absent": "enslaved"
+      },
+      {
+        "flag_absent": "betrothed"
+      },
+      {
+        "any": [
+          {
+            "has_npc": "father"
+          },
+          {
+            "has_npc": "mother"
+          }
+        ]
+      }
+    ],
+    "weight_modifiers": [
+      {
+        "if": {
+          "religion": [
+            "catholic"
+          ]
+        },
+        "multiply": 0.35
+      },
+      {
+        "if": {
+          "classes": [
+            "landowner",
+            "noble"
+          ]
+        },
+        "multiply": 1.8
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 4,
+      "props": [
+        "table",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "obey",
+        "effects": [
+          {
+            "set_flag": "betrothed"
+          },
+          {
+            "param": "self_esteem",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              4,
+              7
+            ],
+            "chance": 1,
+            "trigger_event": "mar_wedding_m"
+          }
+        ]
+      },
+      {
+        "id": "hide",
+        "effects": [
+          {
+            "set_flag": "betrothed"
+          },
+          {
+            "param": "happiness",
+            "delta": -3
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "home_road": 2
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              4,
+              7
+            ],
+            "chance": 1,
+            "trigger_event": "mar_wedding_m"
+          }
+        ]
+      },
+      {
+        "id": "ask",
+        "effects": [
+          {
+            "set_flag": "betrothed"
+          },
+          {
+            "param": "loneliness",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "memory_future": -1
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              4,
+              7
+            ],
+            "chance": 1,
+            "trigger_event": "mar_wedding_m"
+          }
+        ]
+      }
+    ],
+    "sex": "m",
+    "eras": [
+      "IND",
+      "CHN",
+      "RUS",
+      "BYZ",
+      "JPN",
+      "ETH",
+      "ANE",
+      "ISL",
+      "WAF",
+      "EUR"
+    ]
+  },
+  {
+    "id": "mar_wedding_f",
+    "type": "family",
+    "trigger_only": true,
+    "sex": "f",
+    "base_weight": 1,
+    "topic": "family",
+    "icon": "wedding",
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "married"
+      },
+      {
+        "tag_absent": "vowed"
+      },
+      {
+        "tag_absent": "enslaved"
+      },
+      {
+        "age": [
+          10,
+          17
+        ]
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "table",
+        "lamp",
+        "fire"
+      ]
+    },
+    "choices": [
+      {
+        "id": "obey",
+        "effects": [
+          {
+            "add_npc": "spouse",
+            "attitude": 20,
+            "age_offset": [
+              3,
+              14
+            ]
+          },
+          {
+            "clear_flag": "betrothed"
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          },
+          {
+            "param": "loneliness",
+            "delta": 4
+          },
+          {
+            "param": "happiness",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "memory_future": -3,
+          "home_road": -2
+        }
+      },
+      {
+        "id": "plead",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.3,
+          "on_success": [
+            {
+              "param": "self_esteem",
+              "delta": 4
+            },
+            {
+              "npc_attitude": "mother",
+              "delta": -4
+            },
+            {
+              "npc_attitude": "father",
+              "delta": -6
+            }
+          ],
+          "on_failure": [
+            {
+              "add_npc": "spouse",
+              "attitude": 10,
+              "age_offset": [
+                3,
+                14
+              ]
+            },
+            {
+              "clear_flag": "betrothed"
+            },
+            {
+              "param": "happiness",
+              "delta": -8
+            },
+            {
+              "param": "stress",
+              "delta": 8
+            }
+          ]
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              1,
+              3
+            ],
+            "chance": 1,
+            "trigger_event": "mar_wedding_f"
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "mar_wedding_m",
+    "type": "family",
+    "trigger_only": true,
+    "sex": "m",
+    "base_weight": 1,
+    "topic": "family",
+    "icon": "wedding",
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "married"
+      },
+      {
+        "tag_absent": "vowed"
+      },
+      {
+        "tag_absent": "enslaved"
+      },
+      {
+        "age": [
+          12,
+          18
+        ]
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "table",
+        "lamp",
+        "fire"
+      ]
+    },
+    "choices": [
+      {
+        "id": "obey",
+        "effects": [
+          {
+            "add_npc": "spouse",
+            "attitude": 25,
+            "age_offset": [
+              -3,
+              1
+            ]
+          },
+          {
+            "clear_flag": "betrothed"
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "plead",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.4,
+          "on_success": [
+            {
+              "param": "self_esteem",
+              "delta": 3
+            },
+            {
+              "npc_attitude": "father",
+              "delta": -5
+            }
+          ],
+          "on_failure": [
+            {
+              "add_npc": "spouse",
+              "attitude": 15,
+              "age_offset": [
+                -3,
+                1
+              ]
+            },
+            {
+              "clear_flag": "betrothed"
+            },
+            {
+              "param": "happiness",
+              "delta": -5
+            },
+            {
+              "param": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              1,
+              3
+            ],
+            "chance": 1,
+            "trigger_event": "mar_wedding_m"
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "mar_bride_chosen",
+    "type": "family",
+    "sex": "m",
+    "age_range": [
+      15,
+      19
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "once": true,
+    "base_weight": 4,
+    "topic": "family",
+    "not_eras": [
+      "E03"
+    ],
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "married"
+      },
+      {
+        "tag_absent": "vowed"
+      },
+      {
+        "tag_absent": "enslaved"
+      },
+      {
+        "flag_absent": "betrothed"
+      },
+      {
+        "any": [
+          {
+            "has_npc": "father"
+          },
+          {
+            "has_npc": "mother"
+          }
+        ]
+      }
+    ],
+    "weight_modifiers": [
+      {
+        "if": {
+          "religion": [
+            "catholic"
+          ]
+        },
+        "multiply": 0.4
+      },
+      {
+        "if": {
+          "classes": [
+            "landowner",
+            "noble"
+          ]
+        },
+        "multiply": 1.5
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 4,
+      "props": [
+        "table",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "obey",
+        "icon": "wedding",
+        "effects": [
+          {
+            "add_npc": "spouse",
+            "attitude": 20,
+            "age_offset": [
+              -5,
+              -1
+            ]
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          },
+          {
+            "param": "loneliness",
+            "delta": -6
+          }
+        ],
+        "pattern": {
+          "memory_future": -3,
+          "craft_power": 1
+        }
+      },
+      {
+        "id": "see",
+        "icon": "wedding",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "add_npc": "spouse",
+              "attitude": 35,
+              "age_offset": [
+                -5,
+                -1
+              ]
+            },
+            {
+              "param": "happiness",
+              "delta": 4
+            },
+            {
+              "param": "loneliness",
+              "delta": -8
+            }
+          ],
+          "on_failure": [
+            {
+              "add_npc": "spouse",
+              "attitude": 10,
+              "age_offset": [
+                -5,
+                -1
+              ]
+            },
+            {
+              "npc_attitude": "father",
+              "delta": -4
+            },
+            {
+              "npc_attitude": "mother",
+              "delta": -3
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": -1
+        }
+      },
+      {
+        "id": "refuse",
+        "risk_roll": {
+          "param": "risk_tolerance",
+          "success_chance_base": 0.3,
+          "on_success": [
+            {
+              "npc_attitude": "father",
+              "delta": -12
+            },
+            {
+              "npc_attitude": "mother",
+              "delta": -8
+            },
+            {
+              "param": "self_esteem",
+              "delta": 5
+            },
+            {
+              "param": "reputation",
+              "delta": -3
+            }
+          ],
+          "on_failure": [
+            {
+              "add_npc": "spouse",
+              "attitude": 5,
+              "age_offset": [
+                -5,
+                -1
+              ]
+            },
+            {
+              "param": "happiness",
+              "delta": -6
+            },
+            {
+              "param": "stress",
+              "delta": 6
+            }
+          ]
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              6
+            ],
+            "chance": 0.8,
+            "trigger_event": "marriage_later"
+          }
+        ],
+        "pattern": {
+          "memory_future": 4,
+          "home_road": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "mar_m_matchmakers",
+    "type": "family",
+    "moment": true,
+    "once": true,
+    "age_range": [
+      5,
+      11
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "base_weight": 2,
+    "topic": "family",
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "married"
+      },
+      {
+        "any": [
+          {
+            "has_npc": "father"
+          },
+          {
+            "has_npc": "mother"
+          }
+        ]
+      }
+    ],
+    "effects": [
+      {
+        "param": "stress",
+        "delta": 1
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 4,
+      "props": [
+        "lamp",
+        "table"
+      ]
+    }
+  },
+  {
+    "id": "mar_m_new_home",
+    "type": "family",
+    "moment": true,
+    "once": true,
+    "sex": "f",
+    "age_range": [
+      9,
+      17
+    ],
+    "base_weight": 8,
+    "topic": "family",
+    "conditions": [
+      {
+        "tag": "married"
+      },
+      {
+        "has_npc": "spouse"
+      }
+    ],
+    "effects": [
+      {
+        "param": "loneliness",
+        "delta": 5
+      },
+      {
+        "param": "diligence",
+        "delta": 1
+      },
+      {
+        "param": "happiness",
+        "delta": -2
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "dawn",
+      "people": 3,
+      "props": [
+        "amphora"
+      ]
+    }
+  },
+  {
+    "id": "mar_m_child_bride",
+    "type": "family",
+    "moment": true,
+    "once": true,
+    "sex": "f",
+    "age_range": [
+      9,
+      14
+    ],
+    "base_weight": 6,
+    "topic": "family",
+    "conditions": [
+      {
+        "tag": "married"
+      },
+      {
+        "has_npc": "spouse"
+      }
+    ],
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "loom"
+      ]
+    }
+  },
+  {
+    "id": "mar_m_boy_husband",
+    "type": "family",
+    "moment": true,
+    "once": true,
+    "sex": "m",
+    "age_range": [
+      12,
+      17
+    ],
+    "base_weight": 6,
+    "topic": "family",
+    "conditions": [
+      {
+        "tag": "married"
+      },
+      {
+        "has_npc": "spouse"
+      }
+    ],
+    "effects": [
+      {
+        "npc_attitude": "spouse",
+        "delta": 3
+      },
+      {
+        "param": "loneliness",
+        "delta": -2
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "sunset",
+      "people": 2,
+      "props": [
+        "tree"
+      ]
+    }
+  }
+]

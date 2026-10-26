@@ -12,7 +12,7 @@ const GROUND = 44
 type Px = (x: number, y: number, w: number, h: number, c: string) => void
 
 /** Детерминированный генератор: одна и та же сцена всегда выглядит одинаково. */
-function rand(seed: string): () => number {
+export function rand(seed: string): () => number {
   let h = 2166136261
   for (let i = 0; i < seed.length; i++) h = Math.imul(h ^ seed.charCodeAt(i), 16777619)
   return () => {
@@ -33,13 +33,13 @@ const SKY: Record<SceneTime, string[]> = {
 /** Как тонируются постройки в разное время суток. */
 const SHADE: Record<SceneTime, number> = { day: 0, dawn: -0.08, sunset: -0.15, night: -0.55, overcast: -0.12 }
 
-function shade(hex: string, k: number): string {
+export function shade(hex: string, k: number): string {
   const n = parseInt(hex.slice(1), 16)
   const f = (v: number) => Math.max(0, Math.min(255, Math.round(k < 0 ? v * (1 + k) : v + (255 - v) * k)))
   return `#${[(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => f(v).toString(16).padStart(2, '0')).join('')}`
 }
 
-interface Palette {
+export interface Palette {
   stone: string
   stoneDark: string
   wall: string
@@ -104,14 +104,14 @@ const HATS: Record<string, Hat[]> = {
   ethiopian: ['veil', null, null],
 }
 
-interface Look {
+export interface Look {
   style: string
   land: string
   p: Palette
 }
 
 /** Как выглядит регион: стиль из era.json; неизвестное имя региона, совпадающее со стилем, — этот стиль (для галереи). */
-function lookOf(region: string): Look {
+export function lookOf(region: string): Look {
   const def = REGION_DEF.get(region)
   const style = def?.scene?.style ?? (STYLE_PALETTE[region] ? region : 'roman')
   const land = def?.scene?.land ?? (style === 'egyptian' || style === 'mesopotamian' || style === 'sahel' || style === 'islamic' ? 'desert' : 'green')

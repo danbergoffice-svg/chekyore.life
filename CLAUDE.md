@@ -29,15 +29,22 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
 - `src/platform/` — **единственное** место для localStorage/IndexedDB, Метрики, «Поделиться», флагов, языка,
   рекламы и лидербордов (`web.ts`, `yandex.ts` — заглушка до этапа 4). В остальном коде прямых вызовов нет.
 - `src/telemetry.ts` — события аналитики игры; список — `docs/ANALYTICS.md`.
-- `src/ui/` — экраны Preact; `src/pixel/` — пиксельные сцены.
-- `worker/index.ts` — свой приёмник (`/api/events`, `/api/feedback`, `/api/time`, `/admin`), собирается в
-  `dist/_worker.js` (Pages advanced mode). Подключение — `docs/BACKEND.md`.
+- `src/ui/` — экраны Preact; `src/pixel/` — пиксельные сцены и портрет героя (`avatar.ts`: 32×40, возраст, пол,
+  телосложение `hero.body` −3…3 от еды/болезней/бедности — считается в `bodyYear` в `game.ts`, причёски, уборы
+  и одежда по стилю края и сословию; галерея — `tools/avatars.html?regions=…&ages=…&body=…&zoom=4`).
+- `worker/index.ts` — свой приёмник (`/api/events`, `/api/feedback`, `/api/time`, `/api/telegram`, `/admin`,
+  `/admin/export`), собирается в `dist/_worker.js` (Pages advanced mode). Расчёты отчётов — `worker/stats.ts`
+  (общие для /admin, бота и утренней сводки), бот — `worker/telegram.ts`, отдельный Worker со сводкой по cron —
+  `worker/digest/` (`npx wrangler deploy` из папки). Проверка — `npm run test:worker`. Подключение — `docs/BACKEND.md`.
 - `public/flags.json` — удалённые настройки (темп года, главы, первая жизнь, A/B); значения по умолчанию —
   `src/platform/types.ts`.
 - `tools/` — `check.ts`, `stats.ts` (`npm run stats` после правок контента — иначе падает тест),
   `calibrate.ts` (смертность), `deadly.ts` (CSV смертельных исходов), `og.html` (картинка для соцсетей),
   `gen/first_choice.py` (генератор пула первых выборов), `qa/*.cjs` (проверки в браузере Playwright:
   `npx vite --port 5174` или `npx vite preview --port 4173`, затем `node tools/qa/u.cjs`; снимки в `shots/`).
+- Ранние браки по сговору — `common/events_marriage.json` (обручение в детстве, свадьба девочки/мальчика,
+  невесту выбирают родители, быт молодой жены); эффект `add_npc` принимает `age_offset`. Доли по странам —
+  `npm run marriage -- 300`.
 - `docs/TZ.md` (+ `TZ_dorabotka.docx`) — текущее ТЗ; `docs/DECISIONS.md` — принятые решения и отступления.
 
 ## Состояние ТЗ (docs/TZ.md)

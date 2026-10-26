@@ -366,7 +366,8 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       hero.lifestyle[e.set_lifestyle] = e.option
     } else if ('add_npc' in e) {
       const newborn = e.add_npc === 'child' || e.add_npc === 'grandchild' || e.newborn
-      const npc = makeNpc(state, era, e.add_npc, undefined, newborn ? state.year : undefined, e.attitude ?? 30)
+      const born = newborn ? state.year : e.age_offset ? addYears(hero.birthYear, -int(state, e.age_offset[0], e.age_offset[1])) : undefined
+      const npc = makeNpc(state, era, e.add_npc, undefined, born, e.attitude ?? 30)
       if (e.add_npc === 'spouse') {
         if (!hero.tags.includes('married')) hero.tags.push('married')
         addPattern(hero, era.patternWeights.actions.marriage)
