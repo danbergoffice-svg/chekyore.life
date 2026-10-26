@@ -52,7 +52,8 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   рекламе и «без звука» платформы — `platform.onAudio`), значок и громкость — `src/ui/Sound.tsx`, настройки
   `prefs.sound`/`prefs.volume`. Треки сочиняет и синтезирует `npm run music` (`tools/gen/music.mjs`, нужен ffmpeg):
   `public/music/<id>.mp3` и MIDI в `tools/gen/music/`. После перегенерации — увеличить `MUSIC_VERSION`.
-- `docs/TZ.md` (+ `TZ_dorabotka.docx`) — текущее ТЗ; `docs/DECISIONS.md` — принятые решения и отступления.
+- `docs/TZ.md` (+ `TZ_dorabotka.docx`) — исходное ТЗ, `docs/TZ_v3.md` — правки владельца после тестов (звук, наследники-внуки,
+  уехавшие родственники, последствия, вдовство, картинки, конец эпохи, награды); `docs/DECISIONS.md` — принятые решения и отступления.
 
 ## Состояние ТЗ (docs/TZ.md)
 
