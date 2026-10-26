@@ -131,7 +131,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "d_unfaithful",
@@ -4130,7 +4131,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "d_sib_repays",

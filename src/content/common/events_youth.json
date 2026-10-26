@@ -14,7 +14,7 @@
     ],
     "base_weight": 4,
     "once": true,
-    "variants": 3,
+    "variants": 18,
     "topic": "family",
     "scene": {
       "place": "home",
@@ -66,7 +66,8 @@
         "param": "loneliness",
         "delta": -2
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_grandma_tales",
@@ -100,7 +101,8 @@
         "param": "intellect",
         "delta": 1
       }
-    ]
+    ],
+    "variants": 17
   },
   {
     "id": "y_scolding",
@@ -113,7 +115,7 @@
     "npc": "mother",
     "base_weight": 3,
     "once": true,
-    "variants": 2,
+    "variants": 16,
     "topic": "family",
     "scene": {
       "place": "home",
@@ -164,7 +166,8 @@
         "param": "loneliness",
         "delta": -3
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_goat_kid",
@@ -206,7 +209,8 @@
         "param": "loneliness",
         "delta": -2
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_master_son_nuts",
@@ -283,7 +287,8 @@
         "param": "diligence",
         "delta": 1
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_knucklebones",
@@ -310,7 +315,8 @@
         "param": "risk_tolerance",
         "delta": 1
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_hoop",
@@ -383,7 +389,8 @@
         "param": "diligence",
         "delta": 1
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_fly_whisk",
@@ -483,7 +490,8 @@
         "param": "self_esteem",
         "delta": 1
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_swim",
@@ -517,7 +525,8 @@
         "param": "happiness",
         "delta": 2
       }
-    ]
+    ],
+    "variants": 17
   },
   {
     "id": "y_nickname",
@@ -529,7 +538,7 @@
     ],
     "base_weight": 3,
     "once": true,
-    "variants": 3,
+    "variants": 17,
     "topic": "life",
     "scene": {
       "place": "street",
@@ -618,7 +627,8 @@
         "npc_attitude": "npc",
         "delta": 3
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_spindle",
@@ -763,7 +773,8 @@
         "param": "self_esteem",
         "delta": 1
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_wax_tablet",
@@ -842,7 +853,8 @@
         "param": "self_esteem",
         "delta": 2
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_full_sack",
@@ -877,7 +889,8 @@
         "param": "self_esteem",
         "delta": 2
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_roof_stars",
@@ -911,7 +924,8 @@
         "param": "stress",
         "delta": -2
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_stray_dog",
@@ -1019,7 +1033,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_dog_saves",
@@ -1109,7 +1124,8 @@
           "memory_future": -1
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_friend_caught",
@@ -1239,7 +1255,8 @@
           "home_road": 1
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_friend_repays",
@@ -1519,7 +1536,8 @@
           "memory_future": -3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_runaway_thanks",
@@ -1747,7 +1765,8 @@
           ]
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_procession_run",
@@ -1856,7 +1875,8 @@
           "home_road": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_first_job",
@@ -1948,7 +1968,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_sibling_quarrel",
@@ -2053,7 +2074,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_sibling_remembers",
@@ -2242,7 +2264,8 @@
           "faith_reason": 1
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "y_old_crony",
@@ -2804,6 +2827,7 @@
           "faith_reason": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   }
 ]

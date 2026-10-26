@@ -27,7 +27,8 @@
       "props": [
         "cradle"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_teething",
@@ -58,7 +59,8 @@
         "lamp",
         "cradle"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_amulet",
@@ -94,7 +96,8 @@
         "cradle",
         "lamp"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_infant_fever",
@@ -236,7 +239,8 @@
           "memory_future": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_vow_later",
@@ -545,7 +549,8 @@
     "not_eras": [
       "AMR",
       "MAY"
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_honest_later",
@@ -610,7 +615,8 @@
         "lamp",
         "bed"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_pet",
@@ -637,7 +643,8 @@
       "place": "home",
       "time": "day",
       "people": 2
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_toys",
@@ -670,7 +677,8 @@
       "props": [
         "horse"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_mischief",
@@ -698,7 +706,7 @@
       "time": "day",
       "people": 2
     },
-    "variants": 3
+    "variants": 16
   },
   {
     "id": "c_question",
@@ -729,7 +737,7 @@
         "lamp"
       ]
     },
-    "variants": 2
+    "variants": 16
   },
   {
     "id": "c_river",
@@ -811,7 +819,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_swim_later",
@@ -953,7 +962,8 @@
           "faith_reason": -3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_lost",
@@ -980,7 +990,8 @@
       "place": "market",
       "time": "day",
       "people": 5
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_knucklebones",
@@ -1010,7 +1021,8 @@
       "props": [
         "table"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_teacher",
@@ -1107,7 +1119,8 @@
           "home_road": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_bully",
@@ -1209,7 +1222,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_bully_later",
@@ -1450,7 +1464,8 @@
           ]
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_help_work",
@@ -1477,7 +1492,8 @@
       "place": "workshop",
       "time": "day",
       "people": 2
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_rebellion",
@@ -1598,7 +1614,8 @@
       "place": "street",
       "time": "day",
       "people": 2
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_teen_wrestle",
@@ -1632,7 +1649,8 @@
       "props": [
         "table"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_coming_of_age",
@@ -1662,7 +1680,8 @@
       "props": [
         "altar"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_trade",
@@ -2211,7 +2230,8 @@
           "memory_future": -3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_far_return",
@@ -2756,7 +2776,8 @@
           "craft_power": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_lesson_later",
@@ -2819,7 +2840,7 @@
       "time": "day",
       "people": 4
     },
-    "variants": 3
+    "variants": 16
   },
   {
     "id": "c_new_faith",
@@ -2906,7 +2927,8 @@
           "memory_future": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_faith_reconcile",
@@ -2997,7 +3019,7 @@
         "table"
       ]
     },
-    "variants": 2
+    "variants": 16
   },
   {
     "id": "c_grand_first_hold",
@@ -3027,7 +3049,8 @@
       "props": [
         "cradle"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_grand_spoil",
@@ -3165,7 +3188,8 @@
       "props": [
         "fire"
       ]
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_grand_mischief",
@@ -3192,7 +3216,8 @@
       "place": "home",
       "time": "day",
       "people": 2
-    }
+    },
+    "variants": 16
   },
   {
     "id": "c_h_eyes_later",
@@ -3349,7 +3374,8 @@
           "faith_reason": -4
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_h_stomach",
@@ -3489,7 +3515,8 @@
           "faith_reason": -3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_h_cough",
@@ -3623,7 +3650,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_h_tooth",
@@ -3726,7 +3754,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_h_bone",
@@ -3857,7 +3886,8 @@
           "memory_future": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_h_limp_later",
@@ -4350,7 +4380,8 @@
           "memory_future": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_h_doctor_saves",
@@ -4464,7 +4495,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_h_gym_later",
@@ -4586,7 +4618,8 @@
           "memory_future": 1
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "c_h_gout_later",
@@ -4715,7 +4748,7 @@
       "time": "day",
       "people": 1
     },
-    "variants": 3
+    "variants": 16
   },
   {
     "id": "c_h_back",
@@ -4821,6 +4854,7 @@
       "props": [
         "table"
       ]
-    }
+    },
+    "variants": 16
   }
 ]

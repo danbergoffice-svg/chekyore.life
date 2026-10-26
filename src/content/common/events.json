@@ -50,7 +50,8 @@
         "delta": 10
       }
     ],
-    "once": true
+    "once": true,
+    "variants": 16
   },
   {
     "id": "sibling_born",
@@ -86,7 +87,8 @@
         "param": "loneliness",
         "delta": -3
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "childhood_friend",
@@ -141,7 +143,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "found_coin",
@@ -204,7 +207,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "school_offer",
@@ -278,7 +282,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "slave_letters",
@@ -422,7 +427,8 @@
           ]
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "profession_choice",
@@ -547,7 +553,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "first_love",
@@ -614,7 +621,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "marriage_f",
@@ -712,7 +720,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "marriage_m",
@@ -833,7 +842,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "marriage_later",
@@ -904,7 +914,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "contubernium",
@@ -1052,7 +1063,8 @@
           ]
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "work_injury",
@@ -1181,7 +1193,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "loan_returned",
@@ -1649,7 +1662,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "neighbor_asks_help",

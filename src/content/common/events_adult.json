@@ -82,7 +82,8 @@
         "npc_attitude": "npc",
         "delta": -3
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_first_word",
@@ -120,7 +121,8 @@
         "npc_attitude": "npc",
         "delta": 5
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_friend_wedding",
@@ -160,7 +162,8 @@
         "npc_attitude": "npc",
         "delta": 5
       }
-    ]
+    ],
+    "variants": 17
   },
   {
     "id": "a_bad_cough",
@@ -171,7 +174,7 @@
       65
     ],
     "base_weight": 3,
-    "variants": 2,
+    "variants": 18,
     "topic": "health",
     "scene": {
       "place": "home",
@@ -235,7 +238,8 @@
         "param": "happiness",
         "delta": 3
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_stolen_tunic",
@@ -318,7 +322,8 @@
         "param": "loneliness",
         "delta": -4
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_eclipse",
@@ -348,7 +353,8 @@
         "param": "stress",
         "delta": 2
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_letter_relative",
@@ -387,7 +393,8 @@
         "npc_attitude": "npc",
         "delta": 3
       }
-    ]
+    ],
+    "variants": 17
   },
   {
     "id": "a_sailor_dolphins",
@@ -1059,7 +1066,8 @@
         "npc_attitude": "npc",
         "delta": 4
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_mother_visit",
@@ -1102,7 +1110,8 @@
         "npc_attitude": "npc",
         "delta": 4
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_father_story",
@@ -1140,7 +1149,8 @@
         "npc_attitude": "npc",
         "delta": 3
       }
-    ]
+    ],
+    "variants": 17
   },
   {
     "id": "a_sibling_baby",
@@ -1182,7 +1192,8 @@
         "npc_attitude": "npc",
         "delta": 4
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_spouse_stars",
@@ -1217,7 +1228,8 @@
         "npc_attitude": "npc",
         "delta": 4
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_friend_tavern",
@@ -1267,7 +1279,8 @@
         "npc_attitude": "npc",
         "delta": 3
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_neighbor_noise",
@@ -1283,7 +1296,7 @@
       }
     ],
     "base_weight": 2,
-    "variants": 3,
+    "variants": 16,
     "topic": "life",
     "scene": {
       "place": "street",
@@ -1329,7 +1342,8 @@
         "param": "self_esteem",
         "delta": -1
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_child_better",
@@ -1368,7 +1382,8 @@
         "npc_attitude": "npc",
         "delta": 5
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_partner_cheat",
@@ -1479,7 +1494,8 @@
           "faith_reason": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_rival_revenge",
@@ -2029,7 +2045,8 @@
           "memory_future": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_foundling_grown",
@@ -2653,7 +2670,8 @@
           "memory_future": -1
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_inheritance",
@@ -2775,7 +2793,8 @@
           "memory_future": 3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_sibling_reconcile",
@@ -2954,7 +2973,8 @@
           "memory_future": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_promotion",
@@ -3079,7 +3099,8 @@
           "memory_future": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_informer_past",
@@ -3646,7 +3667,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_neighbor_helps",
@@ -3803,7 +3825,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_career_change",
@@ -4320,7 +4343,8 @@
           "memory_future": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "a_debtor_saves",

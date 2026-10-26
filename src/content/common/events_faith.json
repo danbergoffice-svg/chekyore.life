@@ -11,7 +11,7 @@
       90
     ],
     "base_weight": 2,
-    "variants": 3,
+    "variants": 16,
     "topic": "life",
     "scene": {
       "place": "temple",
@@ -49,7 +49,7 @@
       90
     ],
     "base_weight": 2,
-    "variants": 2,
+    "variants": 16,
     "topic": "life",
     "scene": {
       "place": "temple",
@@ -87,7 +87,7 @@
       90
     ],
     "base_weight": 1,
-    "variants": 2,
+    "variants": 16,
     "topic": "life",
     "scene": {
       "place": "street",
@@ -125,7 +125,7 @@
       90
     ],
     "base_weight": 1,
-    "variants": 2,
+    "variants": 16,
     "topic": "life",
     "scene": {
       "place": "home",
@@ -3967,7 +3967,8 @@
           "faith_reason": 5
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_charity",
@@ -4065,7 +4066,8 @@
           "craft_power": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_fasting",
@@ -4149,7 +4151,8 @@
           "faith_reason": 3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_preacher",
@@ -4294,7 +4297,8 @@
           "memory_future": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_mixed_love",
@@ -4542,7 +4546,8 @@
           "faith_reason": -6
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_omen_sky",
@@ -4622,7 +4627,8 @@
           "home_road": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_miracle",
@@ -4714,7 +4720,8 @@
           "faith_reason": 4
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_relic",
@@ -5219,7 +5226,8 @@
           "faith_reason": 3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_divination",
@@ -5480,7 +5488,8 @@
           "faith_reason": 3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_temple_build",
@@ -5589,7 +5598,8 @@
           "faith_reason": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_holy_day_work",
@@ -5674,7 +5684,8 @@
           "craft_power": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_heresy",
@@ -5770,7 +5781,8 @@
           "memory_future": -2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_sacrifice",
@@ -5859,7 +5871,8 @@
           "faith_reason": 4
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_healing_shrine",
@@ -6040,7 +6053,8 @@
           "craft_power": -1
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "f_debate",

@@ -117,7 +117,8 @@
           "memory_future": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "j_any_fire_gratitude",
@@ -257,7 +258,8 @@
           "craft_power": 3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "j_any_payday",
@@ -392,7 +394,8 @@
           "craft_power": 2
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "j_farm_measure",

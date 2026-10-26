@@ -177,7 +177,8 @@
           "param": "health"
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "type": "personal",
@@ -375,7 +376,8 @@
           "memory_future": -3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "type": "personal",
@@ -933,7 +935,8 @@
           }
         ]
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "type": "personal",
@@ -1098,7 +1101,8 @@
           "memory_future": -4
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "type": "personal",
@@ -1809,7 +1813,8 @@
           "memory_future": -3
         }
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "type": "personal",

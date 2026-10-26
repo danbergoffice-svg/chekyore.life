@@ -174,7 +174,7 @@
       110
     ],
     "base_weight": 2,
-    "variants": 2,
+    "variants": 16,
     "topic": "health",
     "scene": {
       "place": "street",
@@ -257,7 +257,8 @@
         "param": "reputation",
         "delta": 1
       }
-    ]
+    ],
+    "variants": 17
   },
   {
     "id": "w_old_city_changed",
@@ -324,7 +325,8 @@
         "param": "faith",
         "delta": 1
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "w_old_lares",
@@ -398,7 +400,8 @@
         "param": "happiness",
         "delta": 3
       }
-    ]
+    ],
+    "variants": 16
   },
   {
     "id": "w_tomb_visit",
