@@ -131,6 +131,15 @@ export function App() {
 
   useEffect(() => window.scrollTo(0, 0), [screen])
 
+  // Сигналы платформе об игре: игра начинается с нажатия «Новая жизнь» (лотерея рождения, знакомство с семьёй),
+  // на экране жизни старт и паузу решает сам экран (пауза, глава, реклама); меню, настройки, мемориал,
+  // смерть и итоги — остановка.
+  useEffect(() => {
+    if (screen === 'life') return
+    if ((screen === 'spin' && !setupOpen) || screen === 'reveal') platform.gameplayStart()
+    else platform.gameplayStop()
+  }, [screen, setupOpen])
+
   // Музыка: у меню своя мелодия, в жизни героя — мелодия его страны и эпохи.
   const soundOn = prefs.sound ?? true
   const volume = prefs.volume ?? 0.5

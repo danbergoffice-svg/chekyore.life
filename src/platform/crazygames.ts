@@ -51,13 +51,19 @@ let playing = false
 let loading = false
 let pauseHandlers: ((paused: boolean) => void)[] = []
 
-/** Вызов SDK, который не роняет игру: вне CrazyGames или при ошибке SDK просто ничего не происходит. */
-function call(run: (s: CrazySdk) => void): void {
+/**
+ * Вызов SDK, который не роняет игру: вне CrazyGames или при ошибке SDK просто ничего не происходит.
+ * label — имя сигнала для консоли (видно в QA Tool CrazyGames): «[CrazyGames SDK] gameplayStart».
+ */
+function call(run: (s: CrazySdk) => unknown, label?: string): void {
   if (!sdk) return
   try {
-    run(sdk)
-  } catch {
+    const res = run(sdk)
+    if (label) console.info('[CrazyGames SDK]', label)
+    if (res && typeof (res as Promise<unknown>).catch === 'function') (res as Promise<unknown>).catch((e) => console.warn('[CrazyGames SDK]', label ?? '', e))
+  } catch (e) {
     // SDK недоступен или модуль отключён при публикации.
+    if (label) console.warn('[CrazyGames SDK]', label, e)
   }
 }
 
@@ -137,7 +143,7 @@ export const crazyPlatform: Platform = {
     }
     if (sdk) {
       loading = true
-      call((s) => s.game.loadingStart())
+      call((s) => s.game.loadingStart(), 'loadingStart')
     }
     player = crazyPlatform.kvGet('thousands.player_id') ?? ''
     if (!player) {
@@ -154,19 +160,19 @@ export const crazyPlatform: Platform = {
   ready() {
     if (!loading) return
     loading = false
-    call((s) => s.game.loadingStop())
+    call((s) => s.game.loadingStop(), 'loadingStop')
   },
 
   gameplayStart() {
     if (playing) return
     playing = true
-    call((s) => s.game.gameplayStart())
+    call((s) => s.game.gameplayStart(), 'gameplayStart')
   },
 
   gameplayStop() {
     if (!playing) return
     playing = false
-    call((s) => s.game.gameplayStop())
+    call((s) => s.game.gameplayStop(), 'gameplayStop')
   },
 
   onPause(cb) {
@@ -213,8 +219,8 @@ export const crazyPlatform: Platform = {
 
   // Свою аналитику не ведём: только сигналы SDK.
   track(event, params = {}) {
-    if (event === 'life_end' && Number(params.age) >= 60) call((s) => s.game.happytime())
-    if (event === 'heir_chosen') call((s) => s.game.happytime())
+    if (event === 'life_end' && Number(params.age) >= 60) call((s) => s.game.happytime(), 'happytime')
+    if (event === 'heir_chosen') call((s) => s.game.happytime(), 'happytime')
   },
   userParams() {},
   setContext() {},
