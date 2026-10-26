@@ -2,6 +2,7 @@
 //   node tools/video/render.cjs <папка-кадров> [lang] [fps]            — все кадры 20 с;
 //   node tools/video/render.cjs <папка> [lang] stills 1,3.4,6,...      — отдельные кадры для проверки.
 // Каждый кадр рисует window.renderFrame(t) — время задаётся точно, без рывков.
+// Вертикальная версия 1080×1920: переменная окружения O=v (O=v node tools/video/render.cjs …).
 const { chromium } = require('playwright')
 const fs = require('fs')
 const path = require('path')
@@ -9,6 +10,8 @@ const [, , dir, lang = 'en', mode = '60', list = ''] = process.argv
 ;(async () => {
   fs.mkdirSync(dir, { recursive: true })
   const b = await chromium.launch()
+  const vertical = process.env.O === 'v'
+  const viewport = vertical ? { width: 1080, height: 1920 } : { width: 1920, height: 1080 }
   const fps = Number(mode)
   const times = mode === 'stills' ? list.split(',').map(Number) : Array.from({ length: 20 * fps }, (_, i) => i / fps)
   // Параллельно в нескольких вкладках (по числу ядер): каждая снимает каждый N-й кадр.
@@ -18,11 +21,11 @@ const [, , dir, lang = 'en', mode = '60', list = ''] = process.argv
   let done = 0
   await Promise.all(
     Array.from({ length: workers }, async (_, w) => {
-      const ctx = await b.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 })
+      const ctx = await b.newContext({ viewport, deviceScaleFactor: 1 })
       const p = await ctx.newPage()
       p.on('pageerror', (e) => errs.push(e.message))
       p.on('console', (m) => m.type() === 'error' && errs.push(m.text()))
-      await p.goto(`http://localhost:5174/tools/video/promo.html?lang=${lang}`)
+      await p.goto(`http://localhost:5174/tools/video/promo.html?lang=${lang}${vertical ? '&o=v' : ''}`)
       await p.waitForFunction(() => window.promoReady !== undefined)
       await p.evaluate(() => window.promoReady)
       const canvas = await p.$('canvas')

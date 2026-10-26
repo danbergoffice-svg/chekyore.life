@@ -12,9 +12,14 @@ import type { AvatarInput } from '../../src/pixel/avatar'
 import { drawScene, H as SH, W as SW } from '../../src/pixel/scene'
 import type { Cast } from '../../src/pixel/scene'
 import type { SceneDef } from '../../src/engine/types'
+import keyartH from './keyart-horizontal.webp'
+import keyartV from './keyart-vertical.webp'
 
-export const WIDTH = 1920
-export const HEIGHT = 1080
+const params = new URLSearchParams(location.search)
+/** Вертикальный формат 1080×1920 (?o=v) — для Shorts, Reels и TikTok; у каждой сцены своя раскладка. */
+const V = params.get('o') === 'v'
+export const WIDTH = V ? 1080 : 1920
+export const HEIGHT = V ? 1920 : 1080
 export const DURATION = 20
 
 const canvas = document.getElementById('c') as HTMLCanvasElement
@@ -22,12 +27,15 @@ canvas.width = WIDTH
 canvas.height = HEIGHT
 const ctx = canvas.getContext('2d')!
 
-const lang = new URLSearchParams(location.search).get('lang') === 'ru' ? 'ru' : 'en'
+const lang = params.get('lang') === 'ru' ? 'ru' : 'en'
+/** Финал английской версии — ключевой арт игры (горизонтальный или вертикальный). */
+const KEYART = lang === 'en'
 
 const TEXT = {
   en: {
     one: 'ONE LIFE.',
     anywhere: 'Born anywhere in history.',
+    whereBorn: 'Where will you be born?',
     c1: 'BIRTH IS A LOTTERY',
     reelWhere: 'WHERE & WHEN',
     reelFamily: 'FAMILY',
@@ -78,6 +86,7 @@ const TEXT = {
   ru: {
     one: 'ОДНА ЖИЗНЬ.',
     anywhere: 'Где угодно в истории.',
+    whereBorn: 'Где ты родишься?',
     c1: 'РОЖДЕНИЕ — ЛОТЕРЕЯ',
     reelWhere: 'ГДЕ И КОГДА',
     reelFamily: 'СЕМЬЯ',
@@ -286,8 +295,8 @@ function words(s: string, x: number, y: number, t: number, t0: number, o: TextOp
 /** Подпись сцены: номер и заглавные буквы золотом, с полосой. */
 function caption(n: string, s: string, t: number, t0: number, dark = false) {
   const k = outCubic(seg(t, t0, t0 + 0.45))
-  const x = 120
-  const y = 112
+  const x = V ? 60 : 120
+  const y = V ? 150 : 112
   ctx.save()
   ctx.globalAlpha = k
   ctx.fillStyle = C.accent
@@ -392,7 +401,8 @@ function intro(t: number) {
   ctx.translate(-WIDTH / 2, -HEIGHT / 2)
   // Пиксельное солнце восходит за надписью.
   const sunK = outCubic(seg(t, 0, 1.2))
-  const sy = lerp(760, 440, sunK)
+  const cy = V ? HEIGHT / 2 - 40 : 440
+  const sy = lerp(cy + 320, cy, sunK)
   ctx.fillStyle = 'rgba(214, 166, 73, 0.18)'
   for (let r = 260; r > 120; r -= 28) {
     ctx.globalAlpha = 0.35 * sunK
@@ -403,14 +413,15 @@ function intro(t: number) {
   ctx.globalAlpha = 1
   // Горизонт из сцены игры: силуэт города.
   const city = scene('kyoto', { place: 'landmark', time: 'night' }, 'intro')
-  blit(city, 0, 1080 - 360 * 1.0 + (1 - sunK) * 80, 1920, 600, 0.55 * sunK)
-  const fade = ctx.createLinearGradient(0, 600, 0, 1080)
+  const ground = V ? HEIGHT - 520 : 720
+  blit(city, (WIDTH - 1920) / 2, ground + (1 - sunK) * 80, 1920, 600, 0.55 * sunK)
+  const fade = ctx.createLinearGradient(0, ground - 120, 0, HEIGHT)
   fade.addColorStop(0, 'rgba(31,25,20,0)')
   fade.addColorStop(1, 'rgba(31,25,20,0.95)')
   ctx.fillStyle = fade
-  ctx.fillRect(0, 600, WIDTH, 480)
-  letters(TEXT.one, WIDTH / 2, 520, t, 0.25, { size: 190, weight: 700, color: C.card, spacing: 14, shadow: 'rgba(0,0,0,0.5)' }, 0.05)
-  words(TEXT.anywhere, WIDTH / 2, 640, t, 0.95, { size: 64, italic: true, color: C.cream, align: 'center' })
+  ctx.fillRect(0, ground - 120, WIDTH, HEIGHT - ground + 120)
+  letters(TEXT.one, WIDTH / 2, cy + 80, t, 0.25, { size: V ? 150 : 190, weight: 700, color: C.card, spacing: V ? 10 : 14, shadow: 'rgba(0,0,0,0.5)' }, 0.05)
+  words(TEXT.anywhere, WIDTH / 2, cy + 200, t, 0.95, { size: V ? 58 : 64, italic: true, color: C.cream, align: 'center' })
   ctx.restore()
 }
 
@@ -468,15 +479,18 @@ function lottery(t: number) {
   // Автомат въезжает снизу, после выигрыша приподнимается, освобождая место итогу.
   const enter = outBack(seg(t, 2.0, 2.45), 1.2)
   const lift = inOutCubic(seg(t, 4.75, 5.1))
+  // В вертикальном кадре — над автоматом крупный вопрос.
+  if (V) words(TEXT.whereBorn, WIDTH / 2, 520, t, 2.15, { size: 76, weight: 700, color: C.ink, align: 'center' })
   const mx = 230
   const mw = 1460
-  const my = lerp(1200, 200, enter) - lift * 40
+  const target = V ? 940 - 320 : 200
+  const my = lerp(HEIGHT + 200, target, enter) - lift * 40
   const mh = 640
-  const scale = 1 - lift * 0.08
+  const scale = (1 - lift * 0.08) * (V ? 0.7 : 1)
   ctx.save()
   ctx.translate(WIDTH / 2, my + mh / 2)
   ctx.scale(scale, scale)
-  ctx.translate(-WIDTH / 2, -(my + mh / 2))
+  ctx.translate(-960, -(my + mh / 2))
   // Корпус: дерево и латунь, как в игре.
   ctx.save()
   ctx.shadowColor = 'rgba(43,33,25,0.45)'
@@ -531,8 +545,8 @@ function lottery(t: number) {
   // Итог лотереи.
   const res = outBack(seg(t, 4.85, 5.25), 1.4)
   if (res > 0) {
-    const bw = 1100
-    const by = lerp(1100, 870, res)
+    const bw = V ? 960 : 1100
+    const by = lerp(HEIGHT + 20, V ? 1300 : 870, res)
     ctx.save()
     ctx.shadowColor = 'rgba(43,33,25,0.3)'
     ctx.shadowBlur = 30
@@ -691,8 +705,8 @@ function life(t: number) {
   ctx.translate(-WIDTH / 2, -HEIGHT / 2)
   // Портрет героини.
   const enter = outBack(seg(t, 5.55, 6.0), 1.3)
-  const px = lerp(-500, 140, enter)
-  const py = 190
+  const px = lerp(-500, V ? 60 : 140, enter)
+  const py = V ? 560 : 190
   ctx.save()
   ctx.shadowColor = 'rgba(43,33,25,0.3)'
   ctx.shadowBlur = 40
@@ -735,18 +749,21 @@ function life(t: number) {
     home: 3,
   }
   const sEnter = outCubic(seg(t, 5.65, 6.15))
-  const sx = lerp(2000, 640, sEnter)
+  const sx = lerp(WIDTH + 80, V ? 60 : 640, sEnter)
+  const [sy, swd, sht] = V ? [210, 960, 300] : [190, 1152, 360]
   ctx.save()
-  roundRect(sx, 190, 1152, 360, 28)
+  roundRect(sx, sy, swd, sht, 28)
   ctx.clip()
-  blit(scene('kyoto', { place: 'yard', time: times[ti], props: [times[ti] === 'night' ? 'moon' : 'sun'], disaster: age >= 40 && age <= 46 ? undefined : undefined }, 'home', cast), sx, 190, 1152, 360)
+  blit(scene('kyoto', { place: 'yard', time: times[ti], props: [times[ti] === 'night' ? 'moon' : 'sun'] }, 'home', cast), sx, sy, swd, sht)
   ctx.restore()
+  if (V) lifeline(t, age)
   // Лента жизни: записи появляются по возрасту, новые сверху.
   const shown = TEXT.feed.filter(([a]) => a <= age)
   const visible = shown.slice(-3).reverse()
   visible.forEach(([a, s], i) => {
     const tA = ageTime(a)
     const k = outBack(seg(t, tA, tA + 0.35), 1.4)
+    if (V) return feedCardV(a, s, i, k)
     const cy = 590 + i * 112
     const cx = lerp(1900, 640, k)
     ctx.save()
@@ -759,10 +776,75 @@ function life(t: number) {
     ctx.shadowBlur = 0
     ctx.fillStyle = i === 0 ? C.accent : C.line
     ctx.fillRect(cx, cy + 14, 8, 64)
-    text(lang === 'ru' ? `${a} ${a % 10 === 1 && a !== 11 ? 'год' : a % 10 >= 2 && a % 10 <= 4 && (a < 12 || a > 14) ? 'года' : 'лет'}` : `Age ${a}`, cx + 40, cy + 58, { size: 30, weight: 700, color: C.brass })
+    text(ageLabel(a), cx + 40, cy + 58, { size: 30, weight: 700, color: C.brass })
     text(s, cx + 200, cy + 58, { size: 36, color: C.ink })
     ctx.restore()
   })
+  ctx.restore()
+}
+
+const ageLabel = (a: number) => (lang === 'ru' ? `${a} ${a % 10 === 1 && a !== 11 ? 'год' : a % 10 >= 2 && a % 10 <= 4 && (a < 12 || a > 14) ? 'года' : 'лет'}` : `Age ${a}`)
+
+/** Вертикальный кадр: запись ленты — карточка справа от портрета, текст в несколько строк. */
+function feedCardV(a: number, s: string, i: number, k: number) {
+  const cx = lerp(WIDTH + 40, 520, k)
+  const cy = 560 + i * 245
+  ctx.save()
+  ctx.globalAlpha = i === 0 ? 1 : 0.85 - i * 0.2
+  ctx.fillStyle = i === 0 ? C.card : C.paper
+  ctx.shadowColor = 'rgba(43,33,25,0.18)'
+  ctx.shadowBlur = i === 0 ? 24 : 0
+  roundRect(cx, cy, 500, 220, 18)
+  ctx.fill()
+  ctx.shadowBlur = 0
+  ctx.fillStyle = i === 0 ? C.accent : C.line
+  ctx.fillRect(cx, cy + 18, 8, 184)
+  text(ageLabel(a), cx + 36, cy + 54, { size: 30, weight: 700, color: C.brass })
+  wrapText(s, cx + 36, cy + 102, 430, 34, C.ink, 44)
+  ctx.restore()
+}
+
+/** Вертикальный кадр: шкала жизни 1185 → 1257 с отметками событий и бегущим годом. */
+function lifeline(t: number, age: number) {
+  const k = outCubic(seg(t, 5.8, 6.3))
+  if (k <= 0) return
+  const x0 = 100
+  const x1 = WIDTH - 100
+  const y = 1560
+  ctx.save()
+  ctx.globalAlpha = k
+  ctx.strokeStyle = C.line
+  ctx.lineWidth = 10
+  ctx.lineCap = 'round'
+  ctx.beginPath()
+  ctx.moveTo(x0, y)
+  ctx.lineTo(x1, y)
+  ctx.stroke()
+  const at = (a: number) => lerp(x0, x1, a / LIFE_AGE)
+  ctx.strokeStyle = C.gold
+  ctx.beginPath()
+  ctx.moveTo(x0, y)
+  ctx.lineTo(at(age), y)
+  ctx.stroke()
+  for (const [a] of TEXT.feed) {
+    const on = a <= age
+    ctx.fillStyle = on ? C.accent : C.line
+    ctx.beginPath()
+    ctx.arc(at(a), y, on ? 16 : 11, 0, Math.PI * 2)
+    ctx.fill()
+  }
+  // Бегунок с текущим годом.
+  const mx = at(age)
+  ctx.fillStyle = C.card
+  ctx.strokeStyle = C.accent
+  ctx.lineWidth = 6
+  ctx.beginPath()
+  ctx.arc(mx, y, 26, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.stroke()
+  text(String(1185 + age), mx, y - 60, { size: 64, weight: 700, color: C.accent, align: 'center' })
+  text('1185', x0, y + 80, { size: 40, color: C.muted, align: 'left' })
+  text('1257', x1, y + 80, { size: 40, color: C.muted, align: 'right' })
   ctx.restore()
 }
 
@@ -791,7 +873,7 @@ function choice(t: number) {
   const cw = 1000
   const ch = 780
   const cx = WIDTH / 2 - cw / 2
-  const cy = lerp(1200, 190, enter)
+  const cy = lerp(HEIGHT + 120, V ? 560 : 190, enter)
   // Переворот карточки на итог.
   const flip = seg(t, 11.15, 11.45)
   const sy = flip < 0.5 ? 1 - flip * 2 : (flip - 0.5) * 2
@@ -848,8 +930,8 @@ function choice(t: number) {
   const mv = inOutCubic(seg(t, 10.15, 10.8))
   const tx = cx + cw - 220
   const ty = cy + 700
-  const curX = lerp(1700, tx, mv)
-  const curY = lerp(1000, ty, mv)
+  const curX = lerp(WIDTH - 220, tx, mv)
+  const curY = lerp(HEIGHT - 80, ty, mv)
   const click = t > 10.85 && t < 11.05 ? 0.85 : 1
   if (t > 10.0 && t < 11.3) cursor(curX, curY, click)
   if (t > 10.85) ripple(tx, ty, t, 10.85)
@@ -939,11 +1021,11 @@ function worlds(t: number) {
   // Заголовок.
   const k = outBack(seg(t, 12.55, 12.95), 1.6)
   ctx.save()
-  ctx.translate(WIDTH / 2, 190)
+  ctx.translate(WIDTH / 2, V ? 300 : 190)
   ctx.scale(k, k)
   text(TEXT.c4, 0, 30, { size: 130, weight: 700, color: C.card, align: 'center', spacing: 8, shadow: 'rgba(214,166,73,0.45)' })
   ctx.restore()
-  words(TEXT.c4b, WIDTH / 2, 290, t, 12.8, { size: 46, italic: true, color: C.cream, align: 'center' })
+  words(TEXT.c4b, WIDTH / 2, V ? 410 : 290, t, 12.8, { size: 46, italic: true, color: C.cream, align: 'center' })
   // Две ленты сцен навстречу друг другу.
   const local = t - 12.5
   const tileW = 576
@@ -954,7 +1036,7 @@ function worlds(t: number) {
   const drawRow = (list: typeof WORLDS, y: number, dir: number, delay: number) => {
     const total = list.length * (tileW + gap)
     const speed = 520
-    const start = dir < 0 ? 200 : WIDTH - total - 200
+    const start = dir < 0 ? (V ? 60 : 200) : WIDTH - total - (V ? 60 : 200)
     const x0 = start + dir * speed * local
     list.forEach(([region], i) => {
       const x = x0 + i * (tileW + gap)
@@ -975,19 +1057,28 @@ function worlds(t: number) {
       ctx.restore()
     })
   }
-  drawRow(rowA, 380, -1, 0)
-  drawRow(rowB, 650, 1, 0.15)
-  // Люди тринадцати миров: портреты в местной одежде.
-  const n = WORLDS.length
+  if (V) {
+    // Вертикальный кадр: три ленты по 5, 4 и 4 города.
+    drawRow(WORLDS.slice(0, 5), 520, -1, 0)
+    drawRow(WORLDS.slice(5, 9), 800, 1, 0.1)
+    drawRow(WORLDS.slice(9), 1080, -1, 0.2)
+  } else {
+    drawRow(rowA, 380, -1, 0)
+    drawRow(rowB, 650, 1, 0.15)
+  }
+  // Люди тринадцати миров: портреты в местной одежде (в вертикальном кадре — два ряда).
   const aw = 96
-  const ag = 34
-  const ax0 = WIDTH / 2 - (n * aw + (n - 1) * ag) / 2
+  const ag = V ? 44 : 34
+  const perRow = V ? 7 : WORLDS.length
   WORLDS.forEach(([region, , sex], i) => {
     const kk = outBack(seg(t, 13.5 + i * 0.07, 13.85 + i * 0.07), 2)
     if (kk <= 0) return
-    const x = ax0 + i * (aw + ag)
+    const r = Math.floor(i / perRow)
+    const inRow = Math.min(perRow, WORLDS.length - r * perRow)
+    const ax0 = WIDTH / 2 - (inRow * aw + (inRow - 1) * ag) / 2
+    const x = ax0 + (i % perRow) * (aw + ag)
     ctx.save()
-    ctx.translate(x + aw / 2, 1030)
+    ctx.translate(x + aw / 2, V ? 1530 + r * 190 : 1030)
     ctx.scale(kk, kk)
     blit(avatar({ region, sex, age: 32, seed: `world${region}`, cls: i % 3 ? 'craftsman' : 'noble', married: true, happiness: 70 }), -aw / 2, -120, aw, 120)
     ctx.restore()
@@ -1007,8 +1098,14 @@ function lineage(t: number) {
   ctx.lineWidth = 8
   ctx.lineCap = 'round'
   ctx.beginPath()
-  ctx.moveTo(x0, ly)
-  ctx.lineTo(lerp(x0, x1, lineK), ly)
+  // Вертикальный кадр: линия рода идёт сверху вниз, поколения — по очереди слева и справа.
+  if (V) {
+    ctx.moveTo(WIDTH / 2, 330)
+    ctx.lineTo(WIDTH / 2, lerp(330, 1640, lineK))
+  } else {
+    ctx.moveTo(x0, ly)
+    ctx.lineTo(lerp(x0, x1, lineK), ly)
+  }
   ctx.stroke()
   const xs = [330, 750, 1170, 1590]
   const appear = [15.75, 16.15, 16.55, 16.95]
@@ -1023,6 +1120,7 @@ function lineage(t: number) {
     if (k <= 0) return
     // Ушедшие поколения седеют, когда появляется следующее.
     const dead = i < 3 && t > appear[i + 1] + 0.1
+    if (V) return heirV(i, k, dead, people[i])
     ctx.save()
     ctx.translate(x, ly)
     ctx.scale(k, k)
@@ -1048,7 +1146,52 @@ function lineage(t: number) {
     text(TEXT.heirs[i][1], 0, 128, { size: 32, color: C.muted, align: 'center' })
     ctx.restore()
   })
-  words(TEXT.family, WIDTH / 2, 1000, t, 17.15, { size: 54, italic: true, color: C.ink, align: 'center' })
+  words(TEXT.family, WIDTH / 2, V ? 1800 : 1000, t, 17.15, { size: V ? 50 : 54, italic: true, color: C.ink, align: 'center' })
+}
+
+/** Вертикальный кадр: поколение i — карточка с портретом сбоку от линии рода, имя и годы — с другой стороны. */
+function heirV(i: number, k: number, dead: boolean, look: AvatarInput) {
+  const y = 470 + i * 330
+  const left = i % 2 === 0
+  const cardX = left ? 290 : WIDTH - 290
+  ctx.save()
+  ctx.globalAlpha = clamp(k * 1.5)
+  ctx.strokeStyle = dead ? C.line : C.gold
+  ctx.lineWidth = 6
+  ctx.beginPath()
+  ctx.moveTo(WIDTH / 2, y)
+  ctx.lineTo(left ? cardX + 120 : cardX - 120, y)
+  ctx.stroke()
+  ctx.restore()
+  ctx.save()
+  ctx.translate(cardX, y)
+  ctx.scale(k, k)
+  ctx.save()
+  if (!dead) {
+    ctx.shadowColor = 'rgba(214,166,73,0.7)'
+    ctx.shadowBlur = 30
+  }
+  ctx.fillStyle = dead ? C.paper2 : C.card
+  roundRect(-120, -150, 240, 300, 24)
+  ctx.fill()
+  ctx.restore()
+  ctx.strokeStyle = dead ? C.line : C.accent
+  ctx.lineWidth = 5
+  roundRect(-120, -150, 240, 300, 24)
+  ctx.stroke()
+  blit(avatar({ ...look, dead }), -96, -130, 192, 240)
+  ctx.restore()
+  ctx.save()
+  ctx.globalAlpha = clamp(k)
+  ctx.fillStyle = dead ? C.muted : C.accent
+  ctx.beginPath()
+  ctx.arc(WIDTH / 2, y, 20, 0, Math.PI * 2)
+  ctx.fill()
+  const tx = left ? WIDTH / 2 + 50 : WIDTH / 2 - 50
+  const align = left ? 'left' : 'right'
+  text(TEXT.heirs[i][0], tx, y - 6, { size: 52, weight: 700, color: dead ? C.muted : C.ink, align })
+  text(TEXT.heirs[i][1], tx, y + 46, { size: 36, color: C.muted, align })
+  ctx.restore()
 }
 
 // ---------- 7. Финал (18–20) ----------
@@ -1089,6 +1232,36 @@ function finale(t: number) {
   }
 }
 
+const keyart = new Image()
+keyart.src = V ? keyartV : keyartH
+
+/** Финал английской версии: ключевой арт — вспышка света, медленный наезд, блик по логотипу. */
+function keyartFinale(t: number) {
+  ctx.fillStyle = C.dark
+  ctx.fillRect(0, 0, WIDTH, HEIGHT)
+  const zoom = 1.1 - 0.1 * outCubic(seg(t, 18, 20))
+  // Заполнить кадр целиком: вертикальный арт 2:3 чуть обрезается по бокам.
+  const s = Math.max(WIDTH / keyart.width, HEIGHT / keyart.height) * zoom
+  const w = keyart.width * s
+  const h = keyart.height * s
+  ctx.save()
+  ctx.imageSmoothingEnabled = true
+  ctx.imageSmoothingQuality = 'high'
+  ctx.drawImage(keyart, (WIDTH - w) / 2, (HEIGHT - h) / 2, w, h)
+  const sk = seg(t, 18.7, 19.5)
+  if (sk > 0 && sk < 1) {
+    ctx.globalCompositeOperation = 'lighter'
+    const bx = lerp(-WIDTH * 0.6, WIDTH * 1.4, inOutCubic(sk))
+    const g = ctx.createLinearGradient(bx - 300, 0, bx + 300, HEIGHT * 0.35)
+    g.addColorStop(0, 'rgba(255,226,150,0)')
+    g.addColorStop(0.5, 'rgba(255,226,150,0.32)')
+    g.addColorStop(1, 'rgba(255,226,150,0)')
+    ctx.fillStyle = g
+    ctx.fillRect(0, 0, WIDTH, HEIGHT)
+  }
+  ctx.restore()
+}
+
 // ---------- Кадр ----------
 
 const CUTS: [number, (t: number) => void][] = [
@@ -1098,7 +1271,7 @@ const CUTS: [number, (t: number) => void][] = [
   [9.5, choice],
   [12.5, worlds],
   [15.5, lineage],
-  [18, finale],
+  [18, KEYART ? keyartFinale : finale],
 ]
 const WIPES: [number, string][] = [
   [2, C.accent],
@@ -1106,7 +1279,7 @@ const WIPES: [number, string][] = [
   [9.5, C.accent],
   [12.5, C.dark],
   [15.5, C.gold],
-  [18, C.accent],
+  ...(KEYART ? [] : ([[18, C.accent]] as [number, string][])),
 ]
 
 export function renderFrame(t: number): void {
@@ -1117,9 +1290,17 @@ export function renderFrame(t: number): void {
   for (const [at, fn] of CUTS) if (t >= at) draw = fn
   draw(t)
   for (const [at, color] of WIPES) blockWipe(t, at, color)
-  // Короткое затемнение в самом начале и в самом конце.
+  // К ключевому арту — вспышка света: нарастает в конце сцены рода и гаснет на арте.
+  if (KEYART) {
+    const flash = t < 18 ? seg(t, 17.8, 18) ** 2 : 1 - outCubic(seg(t, 18, 18.5))
+    if (flash > 0) {
+      ctx.fillStyle = `rgba(255, 238, 200, ${flash})`
+      ctx.fillRect(0, 0, WIDTH, HEIGHT)
+    }
+  }
+  // Короткое затемнение в начале; в конце — только у русской версии (английская заканчивается артом).
   const fadeIn = 1 - seg(t, 0, 0.25)
-  const fadeOut = seg(t, 19.75, 20)
+  const fadeOut = KEYART ? 0 : seg(t, 19.75, 20)
   const a = Math.max(fadeIn, fadeOut)
   if (a > 0) {
     ctx.fillStyle = `rgba(0,0,0,${a})`
@@ -1135,7 +1316,7 @@ declare global {
 }
 window.renderFrame = renderFrame
 // Готово, когда загружены шрифты: иначе первые кадры нарисуются запасным шрифтом.
-window.promoReady = Promise.all([document.fonts.load(`700 40px ${SERIF}`), document.fonts.load(`400 40px ${SERIF}`), document.fonts.load(`italic 400 40px ${SERIF}`)]).then(() => {
+window.promoReady = Promise.all([document.fonts.load(`700 40px ${SERIF}`), document.fonts.load(`400 40px ${SERIF}`), document.fonts.load(`italic 400 40px ${SERIF}`), keyart.decode()]).then(() => {
   REELS = reelItems()
-  renderFrame(Number(new URLSearchParams(location.search).get('t') ?? 0))
+  renderFrame(Number(params.get('t') ?? 0))
 })
