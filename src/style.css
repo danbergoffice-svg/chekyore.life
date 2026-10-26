@@ -548,3 +548,8 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .star { font-size: 34px; line-height: 1; background: none; border: 0; padding: 2px; color: var(--line); cursor: pointer; }
 .star.on { color: var(--gold); }
 .toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 10px; box-shadow: var(--shadow); z-index: 50; max-width: 90vw; }
+
+/* Переключатель языка на главном экране */
+.lang-switch { display: flex; justify-content: flex-end; gap: 4px; margin-bottom: 8px; }
+.lang-switch button { font: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--muted); cursor: pointer; }
+.lang-switch button.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }

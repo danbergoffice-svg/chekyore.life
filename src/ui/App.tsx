@@ -264,6 +264,7 @@ export function App() {
             onContinue={() => setScreen(state?.phase === 'dead' ? 'death' : 'life')}
             onOpenLife={openPast}
             onFeedback={() => openFeedback('menu')}
+            onLang={(lang) => setPrefs({ ...prefs, lang })}
             go={setScreen}
           />
         )}

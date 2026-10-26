@@ -3,7 +3,7 @@ import { heirs, inheritanceShare } from '../engine/life'
 import { regionOf, yearsBetween } from '../engine/rules'
 import { ERA_IDS, ERA_META } from '../content'
 import STATS from '../content/stats.json'
-import type { EraDef, GameState, LifeSummary, SceneDef } from '../engine/types'
+import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
 import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
 import { Scene } from '../pixel/Scene'
@@ -26,10 +26,11 @@ interface MenuProps {
   onContinue: () => void
   onOpenLife: (heroId: string) => void
   onFeedback: () => void
+  onLang: (lang: Lang) => void
   go: (s: 'memorial' | 'settings' | 'about') => void
 }
 
-export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedback, go }: MenuProps) {
+export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedback, onLang, go }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -41,6 +42,13 @@ export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedb
   const playing = !!current && current.phase !== 'dead' && !!hero
   return (
     <div class="screen menu">
+      <div class="lang-switch" role="group" aria-label={t('settings.language')}>
+        {LANGS.map((l) => (
+          <button type="button" class={l === lang ? 'active' : ''} aria-pressed={l === lang} onClick={() => onLang(l)}>
+            {l.toUpperCase()}
+          </button>
+        ))}
+      </div>
       <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={t(`region.${view.region}`)} />
       <p class="small muted center">
         {t(`region.${view.region}`)} · {t(`era.${view.era}`)}
