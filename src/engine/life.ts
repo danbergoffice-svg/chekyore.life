@@ -235,6 +235,8 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.places = [parent.places[parent.places.length - 1] ?? parent.region]
   hero.cls = parent.cls
   hero.birthCls = parent.cls
+  // Деды наследника — родители умершего героя (для детей наследника это прадеды).
+  hero.ancestors = parent.npcs.filter((n) => n.role === 'father' || n.role === 'mother').map((n) => n.name)
   hero.religion = parent.religion
   // Наследник остаётся в родительском доме и с тем же хозяйством.
   hero.home = parent.home ?? 1

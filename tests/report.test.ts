@@ -3,6 +3,7 @@ import { loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
 import { newLife } from '../src/engine/life'
 import { buildReport, survivalTable } from '../src/engine/report'
+import { statusOf } from '../src/engine/rules'
 import { AXES } from '../src/engine/types'
 
 const ERAS = await loadAllEras()
@@ -51,5 +52,41 @@ describe('Итоги жизни', () => {
     const t = performance.now()
     for (const s of lives.slice(0, 50)) buildReport(s, era)
     expect((performance.now() - t) / 50).toBeLessThan(20)
+  })
+})
+
+describe('Сословие в итогах (B1)', () => {
+  const ids = Object.keys(ERAS)
+  const lives = Array.from({ length: 50 }, (_, i) => {
+    const e = ERAS[ids[i % ids.length]]
+    return { e, s: autoplay(newLife(e, settings, 9000 + i), e) }
+  })
+
+  it('шапка и жизнеописание берут сословие при рождении из одного поля', () => {
+    for (const { s } of lives) {
+      const f = s.family.lives[s.family.lives.length - 1].report.facts
+      const born = s.hero.diary.find((d) => d.key === 'diary.born')!.params!.cls as { key: string }
+      expect(born.key).toBe(`class.${f.birthCls}`)
+      expect(f.cls).toBe(s.hero.cls)
+    }
+  })
+
+  it('положение в обществе растёт вместе с итоговым положением героя', () => {
+    for (const { e, s } of lives) {
+      const f = s.family.lives[s.family.lives.length - 1].report.facts
+      expect(f.status).toBe(statusOf(s.hero, e))
+      expect(f.percentile).toBeGreaterThanOrEqual(0)
+      expect(f.percentile).toBeLessThanOrEqual(99)
+    }
+    // Внутри одного региона процент монотонен по положению.
+    const byRegion = new Map<string, { status: number; p: number }[]>()
+    for (const { s } of lives) {
+      const f = s.family.lives[s.family.lives.length - 1].report.facts
+      byRegion.set(s.hero.region, [...(byRegion.get(s.hero.region) ?? []), { status: f.status, p: f.percentile }])
+    }
+    for (const rows of byRegion.values()) {
+      rows.sort((a, b) => a.status - b.status)
+      for (let i = 1; i < rows.length; i++) expect(rows[i].p).toBeGreaterThanOrEqual(rows[i - 1].p)
+    }
   })
 })

@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "build:yandex": "tsc --noEmit && VITE_PLATFORM=yandex vite build --outDir dist-yandex",
     "preview": "vite preview",
     "test": "vitest run",
     "prompts": "vite-node tools/export-prompts.ts",

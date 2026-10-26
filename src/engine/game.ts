@@ -17,6 +17,8 @@ import {
   regionOf,
   resolveFaith,
   statusOf,
+  ancestorRule,
+  ancestorNamesOf,
 } from './rules'
 import { householdYear } from './household'
 import { summarize } from './life'
@@ -608,10 +610,18 @@ export function nameChoices(state: GameState, era: EraDef): ChoiceDef[] {
   const npc = state.hero.npcs.find((n) => n.id === state.queue[0]?.npcId)
   if (!npc) return []
   const names = regionOf(era, state.hero.region).names[npc.sex]
+  const rule = ancestorRule(era, state.hero.region)
+  const ancestors = new Set(ancestorNamesOf(state.hero))
   const used = new Set([state.hero.name, ...state.hero.npcs.filter((n) => n.alive && n.id !== npc.id).map((n) => n.name)])
+  // Где имя предка запрещено (Китай), его не предлагаем; где принято — одно из трёх имён в честь деда или бабки.
+  if (rule === 'forbid') for (const a of ancestors) used.add(a)
   let h = 0
   for (const ch of npc.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
   const ids = new Set<string>([npc.name])
+  if (rule === 'prefer') {
+    const own = names.filter((n) => ancestors.has(n.id) && n.id !== state.hero.name)
+    if (own.length) ids.add(own[h % own.length].id)
+  }
   for (let i = 0; ids.size < 3 && i < names.length * 2; i++) {
     const id = names[(h + i * 13) % names.length].id
     if (!used.has(id)) ids.add(id)

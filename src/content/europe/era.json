@@ -1,5 +1,6 @@
 {
   "id": "EUR",
+  "ancestorNames": "prefer",
   "years": [
     1000,
     1500

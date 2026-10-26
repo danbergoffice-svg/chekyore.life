@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OG-картинка</title>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=block" rel="stylesheet" />
+    <style>
+      body { margin: 0; background: #000; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <!-- Картинка для соцсетей 1200×630: npm run dev, открыть /tools/og.html?lang=ru (или en), снимок холста → public/og-ru.png -->
+    <canvas id="c" width="1200" height="630"></canvas>
+    <script type="module">
+      import { drawScene, W, H } from '../src/pixel/scene.ts'
+      const lang = new URLSearchParams(location.search).get('lang') || 'ru'
+      const T = {
+        ru: { title: 'Тысячи жизней', sub: 'Родись в случайном месте истории — от Рима до империи инков.', tag: 'Одна жизнь · 13 стран · ваши решения' },
+        en: { title: 'Thousands of Lives', sub: 'Be born somewhere random in history — from Rome to the Inca empire.', tag: 'One life · 13 countries · your choices' },
+      }[lang]
+      await document.fonts.load('700 80px "PT Serif"').catch(() => {})
+      const c = document.getElementById('c')
+      const ctx = c.getContext('2d')
+      ctx.fillStyle = '#2a211a'
+      ctx.fillRect(0, 0, 1200, 630)
+      // Четыре сцены из разных стран — сеткой 2×2 сверху.
+      const scenes = [
+        { region: 'rome', scene: { place: 'landmark', time: 'sunset', people: 3, props: ['sun'] } },
+        { region: 'kyoto', scene: { place: 'landmark', time: 'dawn', people: 3, props: ['sun'] } },
+        { region: 'novgorod', scene: { place: 'landmark', time: 'day', people: 3, props: [] } },
+        { region: 'tenochtitlan', scene: { place: 'landmark', time: 'day', people: 3, props: ['sun'] } },
+      ]
+      const off = document.createElement('canvas')
+      off.width = W
+      off.height = H
+      const pw = 600
+      const rowH = Math.round((pw * H) / W)
+      const ph = rowH * 2
+      ctx.imageSmoothingEnabled = false
+      scenes.forEach((s, i) => {
+        const o = off.getContext('2d')
+        o.clearRect(0, 0, W, H)
+        drawScene(o, { ...s, seed: `og:${i}` })
+        ctx.drawImage(off, (i % 2) * pw, Math.floor(i / 2) * rowH, pw, rowH)
+      })
+      const grad = ctx.createLinearGradient(0, ph - 120, 0, ph + 10)
+      grad.addColorStop(0, 'rgba(42,33,26,0)')
+      grad.addColorStop(1, 'rgba(42,33,26,1)')
+      ctx.fillStyle = grad
+      ctx.fillRect(0, ph - 120, 1200, 130)
+      ctx.fillStyle = '#f6ecd8'
+      ctx.textAlign = 'center'
+      ctx.font = '700 76px "PT Serif", Georgia, serif'
+      ctx.fillText(T.title, 600, ph + 82)
+      ctx.font = '400 30px "PT Serif", Georgia, serif'
+      ctx.fillStyle = '#e3cfa8'
+      ctx.fillText(T.sub, 600, ph + 135)
+      ctx.font = '400 24px "PT Serif", Georgia, serif'
+      ctx.fillStyle = '#d6a649'
+      ctx.fillText(T.tag + '  ·  thousands.life', 600, 608)
+      document.body.dataset.ready = '1'
+    </script>
+  </body>
+</html>

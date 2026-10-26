@@ -1,7 +1,7 @@
 import { ERA_META, RELIGION_BY_ID } from '../content'
 import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
-import type { AttrId, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
+import type { AncestorNames, AttrId, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
 
 // ---------- Годы ----------
 // Года хранятся исторически: -44 — это 44 г. до н.э., нулевого года нет.
@@ -221,6 +221,31 @@ export function freshName(state: GameState, names: { id: string }[]): string {
   return pick(state, names).id
 }
 
+/** Правило имён предков в регионе героя. */
+export function ancestorRule(era: EraDef | EraMeta, region: string): AncestorNames {
+  return era.regions.find((r) => r.id === region)?.ancestorNames ?? era.ancestorNames ?? 'allow'
+}
+
+/** Имена предков ребёнка героя: родители (герой и супруги), деды (родители героя), прадеды (деды героя). */
+export function ancestorNamesOf(hero: Hero): string[] {
+  const roles = new Set(['spouse', 'father', 'mother'])
+  return [hero.name, ...hero.npcs.filter((n) => roles.has(n.role)).map((n) => n.name), ...(hero.ancestors ?? [])]
+}
+
+/** Имя новорождённого с учётом обычаев: в Китае нельзя имя предка, в Европе и Византии часто называют в честь деда. */
+export function childName(state: GameState, era: EraDef | EraMeta, sex: Sex): string {
+  const names = regionOf(era, state.hero.region).names[sex]
+  const rule = ancestorRule(era, state.hero.region)
+  const ancestors = new Set(ancestorNamesOf(state.hero))
+  if (rule === 'prefer' && chance(state, 0.45)) {
+    const own = names.filter((n) => ancestors.has(n.id))
+    if (own.length) return pick(state, own).id
+  }
+  if (rule !== 'forbid') return freshName(state, names)
+  const allowed = names.filter((n) => !ancestors.has(n.id))
+  return freshName(state, allowed.length ? allowed : names)
+}
+
 export function makeNpc(state: GameState, era: EraDef | EraMeta, role: NpcRole, sex?: Sex, birthYear?: number, attitude = 30): Npc {
   const hero = state.hero
   const s: Sex =
@@ -242,7 +267,7 @@ export function makeNpc(state: GameState, era: EraDef | EraMeta, role: NpcRole, 
   const npc: Npc = {
     id: `n${state.nextId++}`,
     role,
-    name: freshName(state, region.names[s]),
+    name: role === 'child' ? childName(state, era, s) : freshName(state, region.names[s]),
     sex: s,
     birthYear: birthYear ?? addYears(hero.birthYear, -int(state, a, b)),
     traits: [pick(state, era.traits)],

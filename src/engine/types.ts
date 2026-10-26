@@ -56,9 +56,14 @@ export interface Name {
   en: string
 }
 
+/** Можно ли называть ребёнка именем родителя, деда или прадеда: запрещено (Китай), можно, принято. */
+export type AncestorNames = 'forbid' | 'allow' | 'prefer'
+
 export interface RegionDef {
   id: string
   weight: number
+  /** Правило имён предков; если не задано — правило страны, по умолчанию 'allow'. */
+  ancestorNames?: AncestorNames
   years: [number, number]
   /** Ключ валюты в текстах: денарии, драхмы. */
   coin: string
@@ -186,6 +191,8 @@ export interface CauseDef {
 /** Описание страны и времени (era.json): загружается сразу для всех стран. */
 export interface EraMeta {
   id: string
+  /** Правило имён предков для всех регионов страны. */
+  ancestorNames?: AncestorNames
   /** Годы рождения героев. */
   years: [number, number]
   /** Население в миллионах: вес в лотерее «как в жизни». */
@@ -489,6 +496,8 @@ export interface Hero {
   cls: string
   /** Сословие при рождении (для наследника — сословие семьи, в которую он вошёл героем). */
   birthCls?: string
+  /** Имена дедов и бабок героя (для правил имён предков у его детей). */
+  ancestors?: string[]
   religion: string
   age: number
   alive: boolean
