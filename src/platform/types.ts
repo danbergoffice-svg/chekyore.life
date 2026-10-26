@@ -24,7 +24,7 @@ export interface Flags {
 export const DEFAULT_FLAGS: Flags = {
   first_life_min_age: 20,
   year_sec_child: 8,
-  year_sec: 15,
+  year_sec: 10,
   chapter_ages: [16, 30, 45, 60],
   fullscreen_gap_sec: 180,
   ab_buckets: { a: 1 },

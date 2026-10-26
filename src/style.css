@@ -596,3 +596,9 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
   box-shadow: 0 -6px 16px rgba(43, 33, 25, 0.08);
 }
 .sticky-actions button { margin: 0; padding-left: 8px; padding-right: 8px; }
+
+/* Одноразовые подсказки */
+.hint { display: flex; align-items: flex-start; gap: 10px; width: 100%; margin: 8px 0; padding: 10px 12px; border: 0; border-radius: 10px; background: var(--ink); color: var(--paper); font: inherit; font-size: 0.9rem; line-height: 1.35; text-align: left; cursor: pointer; box-shadow: var(--shadow); }
+.hint-x { margin-left: auto; opacity: 0.7; }
+.tabs + .hint, .hint + .tabs { margin-top: 0; }
+@media (prefers-reduced-motion: no-preference) { .hint { animation: rise 0.3s ease-out; } }

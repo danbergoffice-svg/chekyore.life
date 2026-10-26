@@ -372,6 +372,8 @@ export interface EventDef {
   weight_modifiers?: WeightModifier[]
   /** Событие срабатывает только как отложенное последствие. */
   trigger_only?: boolean
+  /** Первый выбор жизни: в первый год первой жизни такое событие гарантированно появляется в первые секунды. */
+  first_choice?: boolean
   /** Не больше одного раза за жизнь. */
   once?: boolean
   /** Тяжёлая тема: не показывается в режиме «убрать тяжёлые сцены». */
@@ -592,7 +594,8 @@ export interface ActiveEvent {
   /** Номер записи-решения, если это отложенное последствие. */
   from?: number
   /** Выбранный вариант и итог; пока null — игрок ещё не выбрал. */
-  outcome: { choiceId: string; result: 'ok' | 'success' | 'failure' } | null
+  /** rescued — номер записи «выжил чудом», если исход был бы смертельным в защищённой жизни. */
+  outcome: { choiceId: string; result: 'ok' | 'success' | 'failure'; rescued?: number } | null
 }
 
 /** year — год ещё не начался; running — год идёт (события ждут своего момента); dead — жизнь окончена. */
@@ -602,6 +605,8 @@ export interface GameSettings {
   mode: 'quick' | 'full'
   mortality: 'soft' | 'historical'
   softenHeavy: boolean
+  /** Защищённая первая жизнь: до этого возраста герой не умирает (смертельный исход → «выжил чудом»). Игроку не показывается. */
+  protectedUntil?: number
 }
 
 export interface GameState {
@@ -630,4 +635,6 @@ export interface LifeStats {
   rescued: number
   /** Отправленные отметки возраста. */
   milestones: number[]
+  /** Показанные экраны-главы (возрасты). */
+  chapters?: number[]
 }

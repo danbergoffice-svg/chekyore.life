@@ -227,6 +227,8 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     queue: [],
     phase: 'year',
     lastFocus: null,
+    // Защита действует только в самой первой жизни, наследника она не касается.
+    settings: { ...prev.settings, protectedUntil: undefined },
   }
   hero.id = `h${prev.nextId++}`
   state.nextId = prev.nextId

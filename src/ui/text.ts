@@ -28,7 +28,7 @@ export function diaryText(t: T, e: DiaryEntry, sex: Hero['sex'], region: string,
     if (e.params?.result === 'failure') s += ` (${t('diary.failure')})`
     return s
   }
-  return t(e.key, params, opts)
+  return t(variantKey(lang, e.key, e.params?.v), params, opts)
 }
 
 const band = (v: number, edges: number[]) => edges.filter((e) => v >= e).length

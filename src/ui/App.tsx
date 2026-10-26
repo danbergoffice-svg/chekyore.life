@@ -16,7 +16,7 @@ import { sendFeedback } from '../feedback'
 import type { FeedbackData } from '../feedback'
 import { Feedback, FeedbackPrompt } from './Feedback'
 import { Slots } from './Slots'
-import { Summary } from './Summary'
+import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
@@ -63,6 +63,11 @@ export function App() {
   const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
   const [thanks, setThanks] = useState(false)
   const [setupOpen, setSetupOpen] = useState(false)
+  // Ранняя смерть (до 15 лет, со второй жизни) сначала показывает короткий итог.
+  const [fullSummary, setFullSummary] = useState(false)
+  useEffect(() => {
+    if (screen !== 'death') setFullSummary(false)
+  }, [screen])
 
   const state = game.current
   const hero = state?.hero
@@ -181,7 +186,9 @@ export function App() {
 
   const bornAfterSpin = () => {
     if (!pending) return
-    const settings = { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy }
+    // Первая жизнь защищена до first_life_min_age лет (флаг): герой не погибает, а «выживает чудом».
+    const protectedUntil = memorial.length === 0 ? platform.flags.first_life_min_age : undefined
+    const settings = { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy, protectedUntil }
     game.current = newLife(ERA_META[pending.birth.era], settings, pending.seed, undefined, pending.birth)
     const h = game.current.hero
     void h
@@ -371,7 +378,21 @@ export function App() {
             yearChanges={yearChanges}
           />
         )}
-        {screen === 'death' && state && era && lastLife && (
+        {screen === 'death' && state && era && lastLife && !fullSummary && lastLife.age < 15 && memorial.length > 1 && (
+          <EarlyDeath
+            life={lastLife}
+            era={era}
+            onAgain={() => {
+              platform.track('summary_action', { action: 'reborn', early: true })
+              startNew()
+            }}
+            onFull={() => {
+              platform.track('summary_action', { action: 'full', early: true })
+              setFullSummary(true)
+            }}
+          />
+        )}
+        {screen === 'death' && state && era && lastLife && (fullSummary || lastLife.age >= 15 || memorial.length <= 1) && (
           <Summary
             life={lastLife}
             era={era}

@@ -17,6 +17,7 @@ import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Hero, Npc, SceneTime } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
 import { platform } from '../platform'
+import { lifeStats } from '../telemetry'
 import { Scene } from '../pixel/Scene'
 import { eventCast, familyCast } from './cast'
 import { entryScene } from './Summary'
@@ -25,8 +26,10 @@ import type { Change } from './text'
 
 type Tab = 'life' | 'hero' | 'people' | 'diary'
 
-/** Год длится 30 секунд на обычной скорости. */
-const YEAR_MS = 30000
+/** Длительность года на скорости ×1 — из флагов: в раннем детстве (0–5 лет) короче. */
+function yearMs(age: number): number {
+  return (age <= 5 ? platform.flags.year_sec_child : platform.flags.year_sec) * 1000
+}
 const TICK_MS = 100
 export const SPEEDS = [0, 1, 2, 4, 10] as const
 export type Speed = (typeof SPEEDS)[number]
@@ -62,10 +65,32 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const selected = focuses.find((f) => f.id === focus)?.id ?? focuses.find((f) => f.id === 'work')?.id ?? focuses[0]?.id ?? null
   const [speed, setSpeed] = useState<Speed>(1)
   const [focusHelp, setFocusHelp] = useState(false)
+  // Одноразовые подсказки (ТЗ P3): не ставят игру на паузу, закрываются касанием.
+  const [hints, setHints] = useState<string[]>(() => (platform.kvGet('thousands.hints') ?? '').split(',').filter(Boolean))
+  const [lifeSec, setLifeSec] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setLifeSec((x) => x + 1), 1000)
+    return () => clearInterval(id)
+  }, [])
+  const hintFor = (id: string, when: boolean) => when && !hints.includes(id)
+  const closeHint = (id: string) => {
+    const next = [...hints, id]
+    setHints(next)
+    platform.kvSet('thousands.hints', next.join(','))
+  }
   const [progress, setProgress] = useState(0)
 
   const next = state.queue[0]
-  const modalOpen = state.phase === 'running' && !!next && progress >= next.at
+  // Экран-глава в 16, 30, 45, 60 лет (флаг chapter_ages): год не начинается, пока игрок не нажмёт «Дальше».
+  const [, bump] = useState(0)
+  const chapterDue = state.phase === 'year' && platform.flags.chapter_ages.includes(hero.age) && !(lifeStats(state).chapters ?? []).includes(hero.age)
+  const closeChapter = () => {
+    const s = lifeStats(state)
+    s.chapters = [...(s.chapters ?? []), hero.age]
+    platform.track('chapter_seen', { age: hero.age })
+    platform.showInterstitial('F2').finally(() => bump((x) => x + 1))
+  }
+  const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue
 
   // Часы года. Ссылки на свежие значения, чтобы таймер не держал устаревшие.
   const live = useRef({ state, progress, speed, modalOpen, selected, onStart, onFinish })
@@ -79,7 +104,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         c.onStart(c.selected)
         return
       }
-      const np = c.progress + (TICK_MS * c.speed) / YEAR_MS
+      const np = c.progress + (TICK_MS * c.speed) / yearMs(c.state.hero.age)
       const ev = c.state.queue[0]
       if (ev && np >= ev.at) setProgress(ev.at)
       else if (np >= 1 && !ev) {
@@ -135,6 +160,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
       </header>
 
+      {hintFor('hero', hero.age >= 12) && tab === 'life' && <Hint text={t('hint.hero')} onClose={() => closeHint('hero')} />}
       <nav class="tabs" role="tablist">
         {(['life', 'hero', 'people', 'diary'] as Tab[]).map((id) => (
           <button role="tab" aria-selected={tab === id} class={tab === id ? 'tab active' : 'tab'} onClick={() => {
@@ -196,6 +222,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <p class="muted">{t('life.infancy', {}, o)}</p>
           ) : (
             <section class="focus-panel" aria-labelledby="focus-title">
+              {hintFor('focus', hero.age >= 5) && <Hint text={t('hint.focus', {}, o)} onClose={() => closeHint('focus')} />}
               <div class="focus-head">
                 <h2 id="focus-title" class="section-title">{t('life.focus_title')}</h2>
                 <button class="help" aria-expanded={focusHelp} aria-label={t('life.focus_help')} onClick={() => setFocusHelp(!focusHelp)}>
@@ -224,6 +251,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           )}
 
           <div class="actions sticky">
+            {hintFor('speed', lifeSec >= 3) && <Hint text={t('hint.speed')} onClose={() => closeHint('speed')} />}
             <div class="speed" role="group" aria-label={t('life.speed')}>
               {SPEEDS.map((s) => (
                 <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => {
@@ -303,7 +331,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         </section>
       )}
 
-      {modalOpen && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />}
+      {chapterDue && <Chapter state={state} era={era} onNext={closeChapter} />}
+      {modalOpen && !chapterDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />}
     </div>
   )
 }
@@ -332,6 +361,55 @@ function ChangeList({ changes, coin }: { changes: Change[]; coin: string }) {
         </li>
       ))}
     </ul>
+  )
+}
+
+/** Подсказка: пузырь с текстом, исчезает по касанию. */
+function Hint({ text, onClose }: { text: string; onClose: () => void }) {
+  return (
+    <button class="hint" onClick={onClose}>
+      <span>{text}</span>
+      <span class="hint-x" aria-hidden="true">✕</span>
+    </button>
+  )
+}
+
+/** Экран-глава: итог прожитого отрезка в 2–3 строках и «Дальше». */
+function Chapter({ state, era, onNext }: { state: GameState; era: EraDef; onNext: () => void }) {
+  const { t, lang } = useUi()
+  const hero = state.hero
+  const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
+  const ages = platform.flags.chapter_ages
+  const from = Math.max(0, ...ages.filter((a) => a < hero.age))
+  const spouse = hero.npcs.find((n) => n.role === 'spouse' && n.alive)
+  const kids = hero.npcs.filter((n) => n.role === 'child' && n.alive).length
+  const best = hero.diary
+    .filter((d) => d.age >= from && d.age < hero.age && !d.primer && !d.news && d.key !== 'diary.born' && !d.key.startsWith('diary.stage_') && !(spouse && d.key === 'diary.married'))
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))[0]
+  const title = hasKey(lang, `chapter.${hero.age}`) ? t(`chapter.${hero.age}`, {}, o) : t('chapter.other', { n: hero.age }, o)
+  return (
+    <div class="modal-backdrop">
+      <div class="modal chapter" role="dialog" aria-modal="true" aria-labelledby="chapter-title">
+        <Scene scene={{ place: 'landmark', time: 'sunset', people: 3, props: ['sun'] }} region={hero.region} seed={`${hero.id}:ch${hero.age}`} cast={familyCast(state)} />
+        <div class="modal-body">
+          <p class="eyebrow">{t('chapter.eyebrow', { n: hero.age, year: formatYear(state.year, lang) })}</p>
+          <h2 id="chapter-title">{title}</h2>
+          <p>
+            {hero.profession ? t('chapter.work', { prof: t(`prof.${hero.profession}`, {}, o).toLowerCase() }, o) : t('chapter.no_work', {}, o)}{' '}
+            {spouse ? t('chapter.married', { who: { name: spouse.name } }, o) : t('chapter.single', {}, o)}{' '}
+            {kids > 0 && t('chapter.kids', { n: kids })}
+          </p>
+          {best && (
+            <p class="muted">
+              {t('chapter.best')} {diaryText(t, best, hero.sex, hero.region, hero.religion, lang)}
+            </p>
+          )}
+          <button class="primary" onClick={onNext} autoFocus>
+            {t('chapter.next')}
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -561,6 +639,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
             <div class="outcome">
               {outcome.result !== 'ok' && <p class={`result ${outcome.result}`}>{t(`event.${outcome.result}`)}</p>}
               {resultText && <p>{resultText}</p>}
+              {outcome.rescued !== undefined && hero.diary[outcome.rescued] && <p>{diaryText(t, hero.diary[outcome.rescued], hero.sex, hero.region, hero.religion, lang)}</p>}
               {changes.length > 0 && <ChangeList changes={changes} coin={coin} />}
               <button class="primary" onClick={onDismiss} autoFocus>{t('event.next')}</button>
             </div>

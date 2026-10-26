@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
-import { axisLabel } from '../engine/report'
+import { axisLabel, survivalTable } from '../engine/report'
 import { platform } from '../platform'
 import { npcAge, regionOf } from '../engine/rules'
 import { AXES } from '../engine/types'
@@ -309,6 +309,37 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
       </div>
 
       {sharing && <ShareDialog life={life} era={era} archetype={archetype} onClose={() => setSharing(false)} onUpdate={onUpdate} />}
+    </div>
+  )
+}
+
+/** Короткий итог ранней смерти: имя, годы, причина, исторический факт и две кнопки. */
+export function EarlyDeath({ life, era, onAgain, onFull }: { life: LifeSummary; era: EraDef; onAgain: () => void; onFull: () => void }) {
+  const { t, lang } = useUi()
+  const o = { sex: life.sex, region: life.region, religion: life.religion }
+  const name = nameOf(life.name, lang)
+  // Сколько детей здесь доживало до 15 лет — по таблице дожития страны.
+  const survived = Math.round(survivalTable(era, 16)[15] * 100)
+  return (
+    <div class="screen summary early-death">
+      <section class="block record-card" aria-labelledby="early-name">
+        <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} />
+        <h1 id="early-name" class="hero-name big">{name}</h1>
+        <p class="muted">
+          {formatYear(life.birthYear, lang)} — {formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}
+        </p>
+        <p>
+          <strong>{t('summary.cause')}:</strong> {t(`cause.${life.cause}`)}
+        </p>
+        <div class="note-box small">
+          <p>{t('early.fact', { n: survived, region: { key: `region.${life.region}.in` } }, o)}</p>
+          <p class="confidence">{t('summary.source')}</p>
+        </div>
+      </section>
+      <div class="sticky-actions">
+        <button class="primary" onClick={onAgain}>{t('actions.again')}</button>
+        <button class="secondary" onClick={onFull}>{t('early.full')}</button>
+      </div>
     </div>
   )
 }

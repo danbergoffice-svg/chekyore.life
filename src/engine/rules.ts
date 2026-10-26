@@ -221,6 +221,28 @@ export function freshName(state: GameState, names: { id: string }[]): string {
   return pick(state, names).id
 }
 
+/** Защищена ли первая жизнь сейчас (до возраста из флага first_life_min_age). */
+export function isProtected(state: GameState): boolean {
+  return (state.settings.protectedUntil ?? 0) > state.hero.age
+}
+
+/** Группы причин для текстов «выжил чудом». */
+export const RESCUE_GROUP: Record<string, string> = {
+  war: 'war', rus_raid: 'war', epidemic: 'epidemic', childbirth: 'childbirth',
+  shipwreck: 'accident', rus_fire: 'accident', rus_frost: 'accident', mine_collapse: 'accident', hunt: 'accident', desert: 'accident', hunger: 'accident',
+}
+export const RESCUE_VARIANTS = 5
+
+/** Смертельный исход в защищённой жизни: герой выживает с последствиями — здоровье −15 (не ниже 10) и черта «выжил чудом». */
+export function rescue(state: GameState, cause: string): void {
+  const hero = state.hero
+  hero.attrs.health = Math.max(10, hero.attrs.health - 15)
+  if (!hero.traits.includes('survivor')) hero.traits.push('survivor')
+  if (state.stats) state.stats.rescued++
+  const group = RESCUE_GROUP[cause] ?? 'other'
+  note(state, { key: `diary.rescued.${group}`, params: { v: int(state, 1, RESCUE_VARIANTS), cause: { key: `cause.${cause}` } }, major: true, topic: 'health', icon: 'find', score: 60 })
+}
+
 /** Правило имён предков в регионе героя. */
 export function ancestorRule(era: EraDef | EraMeta, region: string): AncestorNames {
   return era.regions.find((r) => r.id === region)?.ancestorNames ?? era.ancestorNames ?? 'allow'
@@ -365,7 +387,8 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       const npc = targets(state, e.kill_npc, ctx)[0]
       if (npc) killNpc(state, npc)
     } else if ('kill' in e) {
-      if (hero.alive) {
+      if (hero.alive && isProtected(state)) rescue(state, e.kill)
+      else if (hero.alive) {
         hero.alive = false
         hero.deathCause = e.kill
         hero.deathYear = state.year

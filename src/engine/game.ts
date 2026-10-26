@@ -18,6 +18,7 @@ import {
   resolveFaith,
   statusOf,
   ancestorRule,
+  isProtected,
   ancestorNamesOf,
 } from './rules'
 import { householdYear } from './household'
@@ -420,6 +421,7 @@ interface Buckets {
   milestones: EventDef[]
   turning: EventDef[]
   regular: EventDef[]
+  firstChoice: EventDef[]
   moments: EventDef[]
 }
 
@@ -435,7 +437,8 @@ function buckets(era: EraDef): Buckets {
       globals: ev.filter((e) => !e.moment && e.global_chance !== undefined),
       milestones: ev.filter((e) => !e.moment && e.milestone),
       turning: ev.filter((e) => !e.moment && e.turning && !e.trigger_only),
-      regular: ev.filter((e) => !e.moment && !e.trigger_only && !e.milestone && !e.turning && !e.dynamic && e.global_chance === undefined),
+      regular: ev.filter((e) => !e.moment && !e.trigger_only && !e.milestone && !e.turning && !e.dynamic && !e.first_choice && e.global_chance === undefined),
+      firstChoice: ev.filter((e) => e.first_choice),
       moments: ev.filter((e) => e.moment && !e.trigger_only && !e.turning),
     }
     bucketCache.set(era, b)
@@ -492,6 +495,12 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
       add(turning)
       hero.lastTurning = hero.age
     }
+  }
+
+  // 3б. Первый выбор: в первый год первой жизни игрок решает за родителей в первые секунды (ТЗ P2).
+  if (hero.generation === 1 && hero.age === 0 && !picked.some((p) => (byId(p.eventId)?.choices?.length ?? 0) > 1)) {
+    const first = weighted(state, b.firstChoice.filter(fits), (e) => eventWeight(state, e))
+    if (first) picked.push({ ...activate(state, first), at: 0.3 })
   }
 
   // 4. Обычные события по весам.
@@ -661,6 +670,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   const ctx = { npcId: active.npcId }
   const params = eventParams(state, active)
   const moodBefore = hero.hidden.happiness
+  const diaryBefore = hero.diary.length
   let result: 'ok' | 'success' | 'failure' = 'ok'
   applyEffects(state, era, ev.effects, ctx)
   addPattern(hero, ev.pattern)
@@ -678,6 +688,8 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     }
   }
   active.outcome = { choiceId: choice?.id ?? 'ok', result }
+  const rescued = hero.diary.findIndex((d, i) => i >= diaryBefore && d.key.startsWith('diary.rescued.'))
+  if (rescued >= 0) active.outcome.rescued = rescued
   if (ev.dynamic === 'name' && choice) {
     const npc = hero.npcs.find((n) => n.id === active.npcId)
     if (npc) {
@@ -754,7 +766,9 @@ function recordYear(state: GameState, era: EraDef): void {
 
 function endYear(state: GameState, era: EraDef): void {
   const hero = state.hero
-  if (chance(state, heroMortality(state, era))) {
+  // Защищённая первая жизнь: фоновой смертности нет, здоровье не падает ниже 10.
+  if (isProtected(state)) hero.attrs.health = Math.max(10, hero.attrs.health)
+  else if (chance(state, heroMortality(state, era))) {
     hero.alive = false
     hero.deathYear = state.year
     hero.deathCause = pickCause(state, era)

@@ -1,0 +1,1124 @@
+[
+ {
+  "id": "fc_amulet",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "cradle",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "grandma",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_amulet_kept",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "priest",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -5
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_amulet_blessed",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "nothing",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "father"
+   },
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_amulet_kept",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 4
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "fc_amulet_blessed",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "altar",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 4
+   },
+   {
+    "param": "faith",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "fc_wetnurse",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "health",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "cradle",
+    "bed"
+   ]
+  },
+  "choices": [
+   {
+    "id": "nurse",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 30
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "health",
+      "delta": 3
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_milk_brother",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "neighbor",
+    "effects": [
+     {
+      "param": "health",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_neighbor_favor",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "goat",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -2
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_milk_brother",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "add_npc": "friend",
+    "attitude": 60
+   },
+   {
+    "param": "loneliness",
+    "delta": -6
+   }
+  ]
+ },
+ {
+  "id": "fc_neighbor_favor",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "yard",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "grain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 5
+   },
+   {
+    "param": "money",
+    "delta": -10
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "fc_gift",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "cradle",
+    "table"
+   ]
+  },
+  "choices": [
+   {
+    "id": "horse",
+    "effects": [
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "risk_tolerance",
+      "delta": 1
+     }
+    ]
+   },
+   {
+    "id": "knife",
+    "effects": [
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_gift_hands",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "beads",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_gift_count",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "father"
+   }
+  ]
+ },
+ {
+  "id": "fc_gift_hands",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "anvil"
+   ]
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 4
+   },
+   {
+    "param": "self_esteem",
+    "delta": 3
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_gift_count",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "money",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 3
+   },
+   {
+    "param": "money",
+    "delta": 15
+   }
+  ]
+ },
+ {
+  "id": "fc_fortune",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "yard",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "listen",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_prophecy",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "pay",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 10
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_prophecy_paid",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "chase",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "father"
+   },
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_prophecy",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "boat",
+    "rain"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 4
+   },
+   {
+    "param": "stress",
+    "delta": -3
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_prophecy_paid",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": 2
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_patron",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "altar",
+    "cradle"
+   ]
+  },
+  "choices": [
+   {
+    "id": "rich",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_patron_rich",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "elder",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_patron_elder",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "uncle",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_patron_rich",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "money",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "money",
+    "delta": 40
+   },
+   {
+    "param": "reputation",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "fc_patron_elder",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 4
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "fc_betrothal",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "yard",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "table",
+    "amphora"
+   ]
+  },
+  "choices": [
+   {
+    "id": "agree",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_betrothal_due",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_betrothal_grudge",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "later",
+    "effects": []
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "father"
+   },
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_betrothal_due",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "table",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 5
+   },
+   {
+    "param": "reputation",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "fc_betrothal_grudge",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": -3
+   },
+   {
+    "param": "stress",
+    "delta": 3
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_winter",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "cradle"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "health",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_winter_story",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "relatives",
+    "effects": [
+     {
+      "param": "health",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_winter_cousins",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -3
+     }
+    ]
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "father"
+   },
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_winter_story",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "father"
+   }
+  ]
+ },
+ {
+  "id": "fc_winter_cousins",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "family",
+  "scene": {
+   "place": "yard",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "tree"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -6
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "add_npc": "friend",
+    "attitude": 55
+   }
+  ]
+ },
+ {
+  "id": "fc_vow",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "altar",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "pilgrimage",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_vow_due",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "donate",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 20
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "trigger_event": "fc_vow_temple",
+      "after_years": [
+       15,
+       20
+      ],
+      "chance": 1
+     }
+    ]
+   },
+   {
+    "id": "none",
+    "effects": []
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_vow_due",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "cart"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 5
+   },
+   {
+    "param": "money",
+    "delta": -20
+   },
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "stress",
+    "delta": -3
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "mother"
+   }
+  ]
+ },
+ {
+  "id": "fc_vow_temple",
+  "type": "family",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "altar"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 4
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ }
+]
