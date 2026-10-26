@@ -134,3 +134,44 @@ describe('Отложенные последствия (п. 5)', () => {
     expect(bigamy).toBe(0)
   })
 })
+
+describe('Семейное положение (п. 6)', () => {
+  it('вдова → снова замужем → дважды вдова; в жизнеописании оба брака', async () => {
+    const { maritalStatus, applyEffects, killNpc } = await import('../src/engine/rules')
+    const { buildReport } = await import('../src/engine/report')
+    const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 616)
+    s.hero.sex = 'f'
+    s.hero.npcs = s.hero.npcs.filter((n) => n.role !== 'spouse')
+    s.hero.tags = s.hero.tags.filter((t) => t !== 'married' && t !== 'vowed')
+    expect(maritalStatus(s.hero).kind).toBe('never')
+    s.year += 18; s.hero.age = 18
+    applyEffects(s, era, [{ add_npc: 'spouse', attitude: 50 }])
+    expect(maritalStatus(s.hero).kind).toBe('married')
+    s.year += 16; s.hero.age += 16
+    killNpc(s, s.hero.npcs.find((n) => n.role === 'spouse' && n.alive)!)
+    expect(maritalStatus(s.hero)).toMatchObject({ kind: 'widowed', widowed: 1 })
+    s.year += 2; s.hero.age += 2
+    applyEffects(s, era, [{ add_npc: 'spouse', attitude: 50 }])
+    expect(maritalStatus(s.hero).kind).toBe('remarried')
+    s.year += 10; s.hero.age += 10
+    killNpc(s, s.hero.npcs.find((n) => n.role === 'spouse' && n.alive)!)
+    expect(maritalStatus(s.hero)).toMatchObject({ kind: 'widowed', widowed: 2 })
+    s.hero.alive = false; s.hero.deathYear = s.year + 5; s.hero.age += 5; s.hero.deathCause = 'old_age'
+    const bio = buildReport(s, era).biography.map((b) => b.key)
+    expect(bio.filter((k) => k === 'bio.widowed')).toHaveLength(2)
+    expect(bio).toContain('bio.married_again')
+    expect(bio[bio.length - 1]).toBe('bio.death')
+  })
+
+  it('развод — не удаление: супруг в разводе, статус divorced', async () => {
+    const { maritalStatus, applyEffects } = await import('../src/engine/rules')
+    const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 617)
+    s.hero.npcs = s.hero.npcs.filter((n) => n.role !== 'spouse')
+    applyEffects(s, era, [{ add_npc: 'spouse', attitude: 50 }])
+    const sp = s.hero.npcs.find((n) => n.role === 'spouse')!
+    applyEffects(s, era, [{ remove_npc: 'npc' }], { npcId: sp.id })
+    expect(s.hero.npcs.includes(sp)).toBe(true)
+    expect(maritalStatus(s.hero).kind).toBe('divorced')
+    expect(s.hero.tags).not.toContain('married')
+  })
+})

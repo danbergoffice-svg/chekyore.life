@@ -86,6 +86,31 @@ export function roleKey(npcs: Npc[], npc: Npc): string {
   return npc.role === 'grandchild' && descentOf(npcs, npc) === 3 ? 'great_grandchild' : npc.role
 }
 
+export type MaritalKind = 'never' | 'married' | 'remarried' | 'widowed' | 'divorced' | 'vowed'
+
+export interface Marital {
+  kind: MaritalKind
+  /** Супруг сейчас (married, remarried) или последний (widowed, divorced). */
+  spouse?: Npc
+  /** Год, когда брак закончился (вдовство, развод). */
+  since?: number
+  /** Сколько всего было браков и сколько раз овдовел(а). */
+  count: number
+  widowed: number
+}
+
+/** Семейное положение героя: не был в браке, в браке, снова в браке, вдовец/вдова, в разводе, обет. */
+export function maritalStatus(hero: Hero): Marital {
+  const all = hero.npcs.filter((n) => n.role === 'spouse').sort((a, b) => (a.since ?? 0) - (b.since ?? 0))
+  const widowed = all.filter((n) => !n.alive && !n.away).length
+  const now = all.find((n) => n.alive && !n.away)
+  if (now) return { kind: all.length > 1 ? 'remarried' : 'married', spouse: now, count: all.length, widowed }
+  const last = all[all.length - 1]
+  if (!last) return { kind: hero.tags.includes('vowed') ? 'vowed' : 'never', count: 0, widowed: 0 }
+  if (last.away) return { kind: 'divorced', spouse: last, since: last.away.since, count: all.length, widowed }
+  return { kind: 'widowed', spouse: last, since: last.deathYear, count: all.length, widowed }
+}
+
 /** Живые и рядом: уехавшие (`away`) в событиях, дома и в наследстве не участвуют. */
 export function aliveNpcs(hero: Hero, role: NpcRole): Npc[] {
   return hero.npcs.filter((n) => n.role === role && n.alive && !n.away)

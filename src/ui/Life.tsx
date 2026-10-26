@@ -12,11 +12,12 @@ import {
   riskChance,
   stageOf,
 } from '../engine/game'
-import { checkAll, contextParams, npcAge, regionOf, roleKey } from '../engine/rules'
+import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
-import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Npc, SceneTime } from '../engine/types'
+import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Lang, Npc, SceneTime } from '../engine/types'
 import type { AvatarInput } from '../pixel/avatar'
 import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
+import type { T } from '../i18n'
 import { platform } from '../platform'
 import { lifeStats } from '../telemetry'
 import { Scene } from '../pixel/Scene'
@@ -303,6 +304,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <span class="muted"> — {t(`religion.${hero.religion}.desc`, {}, o)}</span>
           </p>
           <p class="small">
+            <strong>{t('hero.family')}:</strong> {maritalText(t, hero, lang, 'marital')}
+          </p>
+          <p class="small">
             <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)} · <strong>{t('hero.animals')}:</strong>{' '}
             {hero.animals?.length ? hero.animals.map((a) => t(`animal.${a.kind}`, {}, o)).join(', ') : t('hero.no_animals')}
           </p>
@@ -373,6 +377,7 @@ function heroLook(hero: Hero): AvatarInput {
     happiness: hero.hidden.happiness,
     ill: hero.tags.includes('ill'),
     married: hero.npcs.some((n) => n.role === 'spouse'),
+    widow: maritalStatus(hero).kind === 'widowed',
     dead: !hero.alive,
     enslaved: hero.tags.includes('enslaved'),
   }
@@ -511,7 +516,7 @@ function Chapter({ state, era, onNext }: { state: GameState; era: EraDef; onNext
           <h2 id="chapter-title">{title}</h2>
           <p>
             {hero.profession ? t('chapter.work', { prof: t(`prof.${hero.profession}`, {}, o).toLowerCase() }, o) : t('chapter.no_work', {}, o)}{' '}
-            {spouse ? t('chapter.married', { who: { name: spouse.name } }, o) : t('chapter.single', {}, o)}{' '}
+            {maritalText(t, hero, lang, 'chapter')}{' '}
             {kids > 0 && t('chapter.kids', { n: kids })}
           </p>
           {best && (
@@ -627,6 +632,19 @@ function Lifestyle({ state, era, coin, onChange }: { state: GameState; era: EraD
       })}
     </>
   )
+}
+
+/**
+ * Семейное положение словами: для экрана-главы (`chapter.*`, целая фраза) или строки «Семья» во вкладке «Герой» (`marital.*`).
+ * Тот, кто был в браке, никогда не «семьи не завёл»: вдовец, вдова, в разводе, снова в браке.
+ */
+function maritalText(t: T, hero: Hero, lang: Lang, prefix: 'chapter' | 'marital'): string {
+  const m = maritalStatus(hero)
+  const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
+  const params = { who: { name: m.spouse?.name ?? '' }, psex: m.spouse?.sex ?? 'm', year: m.since !== undefined ? formatYear(m.since, lang) : '' }
+  const key =
+    m.kind === 'never' ? (prefix === 'chapter' ? 'chapter.single' : 'marital.never') : m.kind === 'widowed' && m.widowed > 1 ? `${prefix}.widowed_again` : `${prefix}.${m.kind}`
+  return t(key, params, o)
 }
 
 function People({ state }: { state: GameState }) {

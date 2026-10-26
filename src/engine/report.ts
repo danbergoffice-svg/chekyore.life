@@ -31,6 +31,10 @@ export interface Partner {
   sex: Sex
   years: number
   alive: boolean
+  /** Как закончился брак: смерть супруга, развод или длился до конца жизни героя. */
+  end: 'death' | 'divorce' | 'life'
+  /** Возраст героя, когда брак закончился. */
+  endAge: number
 }
 
 export interface Facts {
@@ -264,7 +268,13 @@ function timeUse(hero: Hero, era: EraDef): Record<string, number> {
 function partners(hero: Hero, deathYear: number): Partner[] {
   return hero.npcs
     .filter((n) => n.role === 'spouse')
-    .map((n) => ({ name: n.name, sex: n.sex, years: Math.max(0, yearsBetween(n.since ?? deathYear, n.deathYear ?? deathYear)), alive: n.alive }))
+    .sort((a, b) => (a.since ?? 0) - (b.since ?? 0))
+    .map((n) => {
+      // Брак кончается разводом (away), смертью супруга до смерти героя или длится до конца.
+      const endYear = n.away ? n.away.since : !n.alive && (n.deathYear ?? deathYear) < deathYear ? n.deathYear! : deathYear
+      const end = n.away ? 'divorce' : endYear < deathYear ? 'death' : 'life'
+      return { name: n.name, sex: n.sex, years: Math.max(0, yearsBetween(n.since ?? deathYear, endYear)), alive: n.alive, end, endAge: Math.max(0, yearsBetween(hero.birthYear, endYear)) }
+    })
 }
 
 function happiest(hero: Hero): { age: number | null; reason: number | null } {
@@ -315,14 +325,18 @@ function biography(state: GameState, f: Facts, cmp: EraComparison): Sentence[] {
   out.push({ key: hero.generation > 1 ? 'bio.born_heir' : 'bio.born', params: { region: { key: `region.${hero.region}.in` }, cls: { key: `class.${f.birthCls}.family` } } })
   out.push(f.education[0])
   if (f.profession) out.push({ key: 'bio.work', params: { prof: { key: `prof.${f.profession}.as` } } })
-  const p = f.partners[0]
-  if (p) out.push({ key: 'bio.married', params: { who: { name: p.name }, psex: p.sex, n: p.years } })
+  // Все браки по порядку: «Овдовела в 34, через два года вышла замуж снова…» (не больше трёх).
+  f.partners.slice(0, 3).forEach((p, i) => {
+    out.push({ key: i === 0 ? 'bio.married' : 'bio.married_again', params: { who: { name: p.name }, psex: p.sex, n: p.years } })
+    if (p.end === 'death') out.push({ key: 'bio.widowed', params: { n: p.endAge, psex: p.sex } })
+    if (p.end === 'divorce') out.push({ key: 'bio.divorced', params: { n: p.endAge } })
+  })
   if (f.children > 0) out.push({ key: f.grandchildren > 0 ? 'bio.children_grand' : 'bio.children', params: { n: f.children, alive: f.childrenAlive, grand: f.grandchildren } })
   else out.push({ key: 'bio.no_children' })
   const history = hero.diary.filter((d) => d.topic === 'history' && d.key.startsWith('ev.')).slice(0, 3)
   if (history.length) out.push({ key: 'bio.history', params: { list: history.map((d) => d.key).join('|') } })
-  out.push({ key: 'bio.death', params: { n: hero.age, cause: { key: `cause.${hero.deathCause ?? 'unknown'}` }, diff: cmp.difference } })
-  return out.slice(0, 7)
+  const death: Sentence = { key: 'bio.death', params: { n: hero.age, cause: { key: `cause.${hero.deathCause ?? 'unknown'}` }, diff: cmp.difference } }
+  return [...out.slice(0, 9), death]
 }
 
 // ---------- Сборка ----------

@@ -23,6 +23,8 @@ export interface AvatarInput {
   happiness?: number
   ill?: boolean
   married?: boolean
+  /** Вдова: тёмное покрывало (Русь, Византия, Европа), белое — в Индии. */
+  widow?: boolean
   dead?: boolean
   enslaved?: boolean
 }
@@ -378,6 +380,15 @@ function lookFor(style: string, input: AvatarInput, st: Stage, p: Palette, r: ()
     L.collar = null
     L.earrings = null
     L.earSpools = false
+  }
+  // Вдовий наряд там, где он был заметен: тёмный плат, в Индии — белое сари без украшений.
+  if (f && input.widow && grown && (style === 'russian' || style === 'byzantine' || style === 'gothic' || style === 'greek' || style === 'roman')) {
+    L.hat = style === 'russian' ? 'kerchief' : 'veil'
+    L.hatColor = '#2a2628'
+  } else if (f && input.widow && grown && style === 'indian') {
+    L.hat = 'veil'
+    L.hatColor = '#efe9dc'
+    L.earrings = null
   }
   return L
 }
