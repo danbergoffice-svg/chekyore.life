@@ -537,5 +537,13 @@
   "class.trader.short": "Merchants",
   "class.landowner.short": "Landowners",
   "class.noble.short": "Nobility",
-  "summary.cls_line": "Born — {born}, died — {died}"
+  "summary.cls_line": "Born — {born}, died — {died}",
+  "setup.custom": "Customize life",
+  "setup.done": "Done",
+  "primer.read": "Read",
+  "life.focus_title": "Focus of the year",
+  "life.focus_help": "What is the focus of the year",
+  "life.focus_now": "Now: {focus}. You can change it any time; it applies from the next year.",
+  "life.focus_explain": "The focus is what your hero gives this year to: work, study, family, faith or rest. It shapes skills, money, ties and health, and which events are more likely to happen.",
+  "actions.share_short": "Share"
 }

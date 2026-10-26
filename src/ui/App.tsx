@@ -10,7 +10,7 @@ import { initPlatform, platform } from '../platform'
 import { clearAll, loadPrefs, loadSave, parseSaveFile, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
-import { About, Heirs, Memorial, Menu, Reveal, Settings, Setup } from './Screens'
+import { About, Heirs, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { sendFeedback } from '../feedback'
 import type { FeedbackData } from '../feedback'
 import { Feedback, FeedbackPrompt } from './Feedback'
@@ -19,17 +19,18 @@ import { Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
-type Screen = 'loading' | 'menu' | 'setup' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about'
+type Screen = 'loading' | 'menu' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about'
 
 const defaultPrefs: Prefs = {
   lang: platform.lang(),
   font: 'm',
   contrast: false,
   theme: 'auto',
+  // Первая жизнь — с настройками по умолчанию: быстрая, мягкая смертность, «как в жизни», без тяжёлых сцен.
   mode: 'quick',
   mortality: 'soft',
-  softenHeavy: false,
-  lottery: 'equal',
+  softenHeavy: true,
+  lottery: 'population',
 }
 
 /** Перезагрузить страницу один раз за сессию (новая версия сайта); false — уже перезагружали. */
@@ -60,6 +61,7 @@ export function App() {
   // С какого экрана открыли отзыв — туда и вернуться; благодарность после отправки.
   const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
   const [thanks, setThanks] = useState(false)
+  const [setupOpen, setSetupOpen] = useState(false)
 
   const state = game.current
   const hero = state?.hero
@@ -136,9 +138,9 @@ export function App() {
   }
 
   /** «Родиться»: тянем жребий и показываем барабаны, страна тем временем загружается. */
-  const startNew = () => {
+  const startNew = (lottery = prefs.lottery) => {
     const seed = newSeed()
-    const birth = rollBirth(seed, prefs.lottery, ERA_IDS.map((id) => ERA_META[id]))
+    const birth = rollBirth(seed, lottery, ERA_IDS.map((id) => ERA_META[id]))
     setPending({ seed, birth })
     setScreen('spin')
     ensure(birth.era)
@@ -280,7 +282,7 @@ export function App() {
           <Menu
             current={state}
             memorial={memorial}
-            onNew={() => setScreen('setup')}
+            onNew={() => startNew()}
             onContinue={() => {
               if (!state) return
               const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
@@ -293,7 +295,6 @@ export function App() {
             go={setScreen}
           />
         )}
-        {screen === 'setup' && <Setup prefs={prefs} onPrefs={setPrefs} onStart={startNew} onBack={toMenu} />}
         {screen === 'spin' && pending && (
           <Slots
             birth={pending.birth}
@@ -302,7 +303,19 @@ export function App() {
             error={loadError}
             onRetry={() => ensure(pending.birth.era)}
             onDone={bornAfterSpin}
-            onBack={() => setScreen('setup')}
+            onBack={toMenu}
+            onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
+          />
+        )}
+        {setupOpen && (
+          <SetupModal
+            prefs={prefs}
+            onPrefs={(next) => {
+              setPrefs(next)
+              // Лотерея поменялась до рывка рычага — тянем жребий заново по новому правилу.
+              if (next.lottery !== prefs.lottery) startNew(next.lottery)
+            }}
+            onClose={() => setSetupOpen(false)}
           />
         )}
         {screen === 'reveal' && state && era && <Reveal state={state} era={era} onStart={() => setScreen('life')} />}
@@ -326,7 +339,7 @@ export function App() {
             era={era}
             canContinue={heirs(state).length > 0}
             onContinue={() => setScreen('heirs')}
-            onAgain={() => setScreen('setup')}
+            onAgain={() => startNew()}
             onMemorial={() => setScreen('memorial')}
             onMenu={toMenu}
             onUpdate={onUpdateLife}
@@ -345,7 +358,7 @@ export function App() {
             life={openedLife}
             era={openedEra}
             canContinue={false}
-            onAgain={() => setScreen('setup')}
+            onAgain={() => startNew()}
             onMemorial={() => setScreen('memorial')}
             onMenu={toMenu}
             onUpdate={onUpdateLife}

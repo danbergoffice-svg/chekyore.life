@@ -189,50 +189,53 @@ function topByPopulation(t: (k: string) => string): string {
     .join(', ')
 }
 
-export function Setup(props: { prefs: Prefs; onPrefs: (p: Prefs) => void; onStart: () => void; onBack: () => void }) {
+/** Настройки жизни: лотерея, длина, смертность, тяжёлые сцены. Открываются окном с экрана барабанов. */
+export function SetupModal(props: { prefs: Prefs; onPrefs: (p: Prefs) => void; onClose: () => void }) {
   const { t } = useUi()
   const p = props.prefs
   return (
-    <div class="screen">
-      <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
-      <h1>{t('setup.title')}</h1>
-      <p class="lead">{t('setup.lead')}</p>
-      <Choice
-        title={t('setup.lottery')}
-        value={p.lottery}
-        onChange={(lottery) => props.onPrefs({ ...p, lottery })}
-        options={[
-          { id: 'equal', label: t('setup.lottery.equal'), desc: t('setup.lottery.equal.desc', { n: ERA_IDS.length }) },
-          { id: 'population', label: t('setup.lottery.population'), desc: t('setup.lottery.population.desc', { top: topByPopulation(t) }) },
-        ]}
-      />
-      <Choice
-        title={t('setup.mode')}
-        value={p.mode}
-        onChange={(mode) => props.onPrefs({ ...p, mode })}
-        options={[
-          { id: 'quick', label: t('setup.mode.quick'), desc: t('setup.mode.quick.desc') },
-          { id: 'full', label: t('setup.mode.full'), desc: t('setup.mode.full.desc') },
-        ]}
-      />
-      <Choice
-        title={t('setup.mortality')}
-        value={p.mortality}
-        onChange={(mortality) => props.onPrefs({ ...p, mortality })}
-        options={[
-          { id: 'soft', label: t('setup.mortality.soft'), desc: t('setup.mortality.soft.desc') },
-          { id: 'historical', label: t('setup.mortality.historical'), desc: t('setup.mortality.historical.desc') },
-        ]}
-      />
-      <label class="toggle">
-        <input type="checkbox" checked={p.softenHeavy} onChange={(e) => props.onPrefs({ ...p, softenHeavy: e.currentTarget.checked })} />
-        <span>
-          <span class="option-label">{t('setup.soften')}</span>
-          <span class="option-desc">{t('setup.soften.desc')}</span>
-        </span>
-      </label>
-      <p class="small muted">{t('setup.warning')}</p>
-      <button class="primary" onClick={props.onStart}>{t('setup.start')}</button>
+    <div class="modal-backdrop" onClick={(e) => e.target === e.currentTarget && props.onClose()}>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
+        <div class="modal-body">
+          <h2 id="setup-title">{t('setup.custom')}</h2>
+          <Choice
+            title={t('setup.lottery')}
+            value={p.lottery}
+            onChange={(lottery) => props.onPrefs({ ...p, lottery })}
+            options={[
+              { id: 'population', label: t('setup.lottery.population'), desc: t('setup.lottery.population.desc', { top: topByPopulation(t) }) },
+              { id: 'equal', label: t('setup.lottery.equal'), desc: t('setup.lottery.equal.desc', { n: ERA_IDS.length }) },
+            ]}
+          />
+          <Choice
+            title={t('setup.mode')}
+            value={p.mode}
+            onChange={(mode) => props.onPrefs({ ...p, mode })}
+            options={[
+              { id: 'quick', label: t('setup.mode.quick'), desc: t('setup.mode.quick.desc') },
+              { id: 'full', label: t('setup.mode.full'), desc: t('setup.mode.full.desc') },
+            ]}
+          />
+          <Choice
+            title={t('setup.mortality')}
+            value={p.mortality}
+            onChange={(mortality) => props.onPrefs({ ...p, mortality })}
+            options={[
+              { id: 'soft', label: t('setup.mortality.soft'), desc: t('setup.mortality.soft.desc') },
+              { id: 'historical', label: t('setup.mortality.historical'), desc: t('setup.mortality.historical.desc') },
+            ]}
+          />
+          <label class="toggle">
+            <input type="checkbox" checked={p.softenHeavy} onChange={(e) => props.onPrefs({ ...p, softenHeavy: e.currentTarget.checked })} />
+            <span>
+              <span class="option-label">{t('setup.soften')}</span>
+              <span class="option-desc">{t('setup.soften.desc')}</span>
+            </span>
+          </label>
+          <p class="small muted">{t('setup.warning')}</p>
+          <button class="primary" onClick={props.onClose}>{t('setup.done')}</button>
+        </div>
+      </div>
     </div>
   )
 }

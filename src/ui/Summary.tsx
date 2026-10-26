@@ -68,6 +68,11 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
   const toggleStar = (i: number) => onUpdate({ ...life, starred: starred.includes(i) ? starred.filter((x) => x !== i) : [...starred, i] })
   const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion, lang)
   const archetype = t(`archetype.${r.pattern.code}`)
+  const act = (action: string, run: () => void) => () => {
+    platform.track('summary_action', { action })
+    if (action === 'share') platform.track('share_open', { what: 'life' })
+    run()
+  }
 
   const bio = r.biography.map((s) => {
     const params: Record<string, string | number | { key: string } | { name: string }> = { ...(s.params ?? {}), name, year: formatYear(life.birthYear, lang) }
@@ -243,9 +248,11 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
       {/* 6. Полная запись жизни */}
       <FullRecord life={life} era={era} starred={starred} onStar={toggleStar} />
 
-      {/* 7. Графики */}
-      <section class="block">
-        <h2 class="section-title">{t('charts.title')}</h2>
+      {/* 7. Графики — свёрнуты, чтобы итог читался быстро */}
+      <details class="block fold" onToggle={(e) => e.currentTarget.open && platform.track('tab_open', { tab: 'charts' })}>
+        <summary>
+          <h2 class="section-title">{t('charts.title')}</h2>
+        </summary>
         <h3>{t('charts.status')}</h3>
         <p class="small muted">{t('charts.status_desc')}</p>
         <LineChart
@@ -276,25 +283,30 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
             .sort((a, b) => b[1] - a[1])
             .map(([k, v]) => ({ label: t(`timeuse.${k}`), value: v }))}
         />
-      </section>
+      </details>
 
       {/* 8. Связь с родом */}
       <FamilyLink life={life} />
 
       {feedback}
 
-      {/* 9. Действия */}
+      {/* 9. Остальные действия */}
       <section class="block stack">
-        {canContinue && onContinue ? (
-          <button class="primary" onClick={onContinue}>{t('actions.continue')}</button>
-        ) : (
-          <p class="muted">{t('actions.no_heirs')}</p>
-        )}
-        <button class={canContinue ? 'secondary' : 'primary'} onClick={onAgain}>{t('actions.again')}</button>
-        <button class="secondary" onClick={() => setSharing(true)}>{t('actions.share')}</button>
-        <button class="secondary" onClick={onMemorial}>{t('actions.memorial')}</button>
-        <button class="link" onClick={onMenu}>{t('actions.menu')}</button>
+        {!(canContinue && onContinue) && <p class="muted">{t('actions.no_heirs')}</p>}
+        {canContinue && onContinue && <button class="secondary" onClick={act('reborn', onAgain)}>{t('actions.again')}</button>}
+        <button class="secondary" onClick={act('memorial', onMemorial)}>{t('actions.memorial')}</button>
+        <button class="link" onClick={act('menu', onMenu)}>{t('actions.menu')}</button>
       </section>
+
+      {/* Главное действие всегда под рукой: панель прилипает к низу экрана. */}
+      <div class="sticky-actions">
+        {canContinue && onContinue ? (
+          <button class="primary" onClick={act('heir', onContinue)}>{t('actions.continue')}</button>
+        ) : (
+          <button class="primary" onClick={act('reborn', onAgain)}>{t('actions.again')}</button>
+        )}
+        <button class="secondary" onClick={act('share', () => setSharing(true))}>{t('actions.share_short')}</button>
+      </div>
 
       {sharing && <ShareDialog life={life} era={era} archetype={archetype} onClose={() => setSharing(false)} onUpdate={onUpdate} />}
     </div>
@@ -317,8 +329,10 @@ function FullRecord({ life, era, starred, onStar }: { life: LifeSummary; era: Er
   const consequences = (i: number) => life.diary.map((e, j) => [e, j] as const).filter(([e]) => e.causedBy === i)
   const groups = [0, 1, 2, 3].map((p) => visible.filter(([e]) => periodOf(e.age, era) === p)).filter((g) => g.length)
   return (
-    <section class="block">
-      <h2 class="section-title">{t('record.title')}</h2>
+    <details class="block fold" onToggle={(e) => e.currentTarget.open && platform.track('tab_open', { tab: 'record' })}>
+      <summary>
+        <h2 class="section-title">{t('record.title')}</h2>
+      </summary>
       <div class="filters" role="group">
         {FILTERS.map((f) => (
           <button class={filter === f ? 'chip active' : 'chip'} aria-pressed={filter === f} onClick={() => setFilter(f)}>
@@ -369,7 +383,7 @@ function FullRecord({ life, era, starred, onStar }: { life: LifeSummary; era: Er
           </ol>
         </details>
       ))}
-    </section>
+    </details>
   )
 }
 

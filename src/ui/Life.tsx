@@ -16,6 +16,7 @@ import { checkAll, contextParams, npcAge, regionOf } from '../engine/rules'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, GameState, Hero, Npc, SceneTime } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
+import { platform } from '../platform'
 import { Scene } from '../pixel/Scene'
 import { eventCast, familyCast } from './cast'
 import { entryScene } from './Summary'
@@ -60,6 +61,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const [focus, setFocus] = useState<string | null>(state.lastFocus)
   const selected = focuses.find((f) => f.id === focus)?.id ?? focuses.find((f) => f.id === 'work')?.id ?? focuses[0]?.id ?? null
   const [speed, setSpeed] = useState<Speed>(1)
+  const [focusHelp, setFocusHelp] = useState(false)
   const [progress, setProgress] = useState(0)
 
   const next = state.queue[0]
@@ -100,7 +102,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
   const stage = stageOf(state, era)
   const entries = hero.diary.map((d, i) => [d, i] as const).filter(([d, i]) => visible(state, i, d, progress) && !d.key.startsWith('diary.stage_'))
-  const feed = entries.slice(-14).reverse()
+  // В ленте — справки только последнего года с ними, прошлые остаются во вкладке «Дневник».
+  const primerYear = Math.max(-Infinity, ...entries.filter(([d]) => d.primer).map(([d]) => d.year))
+  const feed = entries.filter(([d]) => !d.primer || d.year === primerYear).slice(-14).reverse()
   // Вверху — дом героя: семья, животные и дом нужного размера; если в этом году случилось бедствие, оно видно на доме.
   const disaster = [...entries]
     .reverse()
@@ -161,16 +165,16 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <p class="muted">{t('life.nothing')}</p>
           ) : (
             <ul class="feed">
-              {feed.map(([d]) =>
-                d.primer ? (
-                  <PrimerCard id={d.primer} o={o} />
-                ) : (
-                <li class={`${d.news ? 'news' : ''} ${d.major ? 'major' : ''} ${d.year === state.year ? 'now' : ''}`}>
+              {groupPrimers(feed).map((item) => {
+                if ('primers' in item) return <PrimerGroup key={item.key} ids={item.primers} o={o} />
+                const [d, i] = item
+                return (
+                <li key={i} class={`${d.news ? 'news' : ''} ${d.major ? 'major' : ''} ${d.year === state.year ? 'now' : ''}`}>
                   <span class="diary-age">{d.news ? t('life.news') : t('diary.age', { n: d.age })}</span>
                   <span>{diaryText(t, d, hero.sex, hero.region, hero.religion, lang)}</span>
                 </li>
-                ),
-              )}
+                )
+              })}
             </ul>
           )}
 
@@ -188,18 +192,27 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           {stage === 'infancy' || focuses.length === 0 ? (
             <p class="muted">{t('life.infancy', {}, o)}</p>
           ) : (
-            <>
-              <h2 class="section-title">{t('life.focus')}</h2>
-              <p class="small muted">{t('life.focus_hint')}</p>
+            <section class="focus-panel" aria-labelledby="focus-title">
+              <div class="focus-head">
+                <h2 id="focus-title" class="section-title">{t('life.focus_title')}</h2>
+                <button class="help" aria-expanded={focusHelp} aria-label={t('life.focus_help')} onClick={() => setFocusHelp(!focusHelp)}>
+                  ?
+                </button>
+              </div>
+              {focusHelp && <p class="small focus-explain">{t('life.focus_explain')}</p>}
+              <p class="small muted">{t('life.focus_now', { focus: { key: `focus.${selected}` } })}</p>
               <div class="focus-grid">
                 {focuses.map((f) => (
                   <button class={f.id === selected ? 'focus active' : 'focus'} aria-pressed={f.id === selected} onClick={() => setFocus(f.id)}>
-                    <span class="focus-name">{t(`focus.${f.id}`)}</span>
+                    <span class="focus-name">
+                      {f.id === selected && <span aria-hidden="true">✓ </span>}
+                      {t(`focus.${f.id}`)}
+                    </span>
                     <span class="focus-desc">{t(`focus.${f.id}.desc`)}</span>
                   </button>
                 ))}
               </div>
-            </>
+            </section>
           )}
           {lifestyleDefs(state, era).length > 0 && (
             <button class="link" onClick={() => setTab('hero')}>
@@ -269,16 +282,16 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <p class="muted">{t('diary.empty')}</p>
           ) : (
             <ol class="diary">
-              {[...entries].reverse().map(([d]) =>
-                d.primer ? (
-                  <PrimerCard id={d.primer} o={o} />
-                ) : (
-                <li class={`${d.major ? 'major' : ''} ${d.news ? 'news' : ''}`}>
+              {groupPrimers([...entries].reverse()).map((item) => {
+                if ('primers' in item) return <PrimerGroup key={item.key} ids={item.primers} o={o} />
+                const [d, i] = item
+                return (
+                <li key={i} class={`${d.major ? 'major' : ''} ${d.news ? 'news' : ''}`}>
                   <span class="diary-age">{t('diary.age', { n: d.age })}</span>
                   <span>{diaryText(t, d, hero.sex, hero.region, hero.religion, lang)}</span>
                 </li>
-                ),
-              )}
+                )
+              })}
             </ol>
           )}
         </section>
@@ -316,16 +329,45 @@ function ChangeList({ changes, coin }: { changes: Change[]; coin: string }) {
   )
 }
 
-/** Карточка исторической справки «О твоём мире». */
-function PrimerCard({ id, o }: { id: string; o: { sex: Hero['sex']; region: string; religion: string } }) {
+/** Справки «О твоём мире» подряд — одна компактная карточка: заголовок и начало текста в строку, «Читать» раскрывает. Год не останавливается. */
+function PrimerGroup({ ids, o }: { ids: string[]; o: { sex: Hero['sex']; region: string; religion: string } }) {
   const { t } = useUi()
+  const [open, setOpen] = useState<string | null>(null)
+  const read = (id: string) => {
+    setOpen(open === id ? null : id)
+    if (open !== id) platform.track('tab_open', { tab: 'primer' })
+  }
   return (
     <li class="primer">
       <span class="eyebrow">{t('primer.label')}</span>
-      <strong class="primer-title">{t(`primer.${id}.title`, {}, o)}</strong>
-      <span class="primer-text">{t(`primer.${id}.text`, {}, o)}</span>
+      <div class="primer-list">
+        {ids.map((id) => (
+          <div key={id} class={open === id ? 'primer-item open' : 'primer-item'}>
+            <button class="primer-row" aria-expanded={open === id} onClick={() => read(id)}>
+              <span class="primer-line">
+                <strong class="primer-title">{t(`primer.${id}.title`, {}, o)}</strong>
+                {open !== id && <span class="primer-peek"> — {t(`primer.${id}.text`, {}, o)}</span>}
+              </span>
+              <span class="primer-more">{open === id ? '−' : t('primer.read')}</span>
+            </button>
+            {open === id && <p class="primer-text">{t(`primer.${id}.text`, {}, o)}</p>}
+          </div>
+        ))}
+      </div>
     </li>
   )
+}
+
+/** Подряд идущие справки склеиваются в одну группу. */
+function groupPrimers(list: (readonly [DiaryEntry, number])[]): (readonly [DiaryEntry, number] | { primers: string[]; key: number })[] {
+  const out: (readonly [DiaryEntry, number] | { primers: string[]; key: number })[] = []
+  for (const item of list) {
+    const last = out[out.length - 1]
+    if (item[0].primer && last && 'primers' in last) last.primers.push(item[0].primer)
+    else if (item[0].primer) out.push({ primers: [item[0].primer], key: item[1] })
+    else out.push(item)
+  }
+  return out
 }
 
 function ChildRow({ child, year, all }: { child: Npc; year: number; all: Npc[] }) {
