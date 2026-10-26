@@ -45,6 +45,9 @@ const CLOUD_LIMIT = 900_000
 const GAME_LIMIT = 500_000
 
 let sdk: CrazySdk | null = null
+/** Запуск SDK закончен (удачно или нет): подписки, сделанные раньше, ждут его. */
+let sdkReady: () => void = () => {}
+const sdkStarted = new Promise<void>((resolve) => (sdkReady = resolve))
 let flags: Flags = { ...DEFAULT_FLAGS }
 let player = ''
 let playing = false
@@ -141,6 +144,7 @@ export const crazyPlatform: Platform = {
         sdk = null
       }
     }
+    sdkReady()
     if (sdk) {
       loading = true
       call((s) => s.game.loadingStart(), 'loadingStart')
@@ -163,14 +167,15 @@ export const crazyPlatform: Platform = {
     call((s) => s.game.loadingStop(), 'loadingStop')
   },
 
+  // Отметка «игра идёт» меняется только после настоящего вызова SDK: потерянный вызов не сбивает пару старт/стоп.
   gameplayStart() {
-    if (playing) return
+    if (playing || !sdk) return
     playing = true
     call((s) => s.game.gameplayStart(), 'gameplayStart')
   },
 
   gameplayStop() {
-    if (!playing) return
+    if (!playing || !sdk) return
     playing = false
     call((s) => s.game.gameplayStop(), 'gameplayStop')
   },
@@ -179,13 +184,19 @@ export const crazyPlatform: Platform = {
     pauseHandlers.push(cb)
   },
 
-  // Настройка портала «без звука»: сразу и при каждом изменении.
+  // Настройка портала «без звука» (settings.muteAudio): после запуска SDK — сразу и при каждом изменении.
+  // Подписка может прийти раньше, чем SDK запустится (он грузит данные игрока), поэтому ждём запуска.
   onAudio(cb) {
-    if (!sdk) return
-    call((s) => {
-      cb(!s.game.settings?.muteAudio)
-      s.game.addSettingsChangeListener?.((settings) => cb(!settings?.muteAudio))
-    })
+    sdkStarted.then(() =>
+      call((s) => {
+        cb(!s.game.settings?.muteAudio)
+        s.game.addSettingsChangeListener?.((settings) => {
+          const muted = settings?.muteAudio ?? s.game.settings?.muteAudio
+          console.info('[CrazyGames SDK] muteAudio', !!muted)
+          cb(!muted)
+        })
+      }),
+    )
   },
 
   async save(key, value) {
