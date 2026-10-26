@@ -327,6 +327,7 @@
   },
   {
     "id": "mar_wedding_f",
+    "storyline": "marriage",
     "type": "family",
     "trigger_only": true,
     "sex": "f",
@@ -455,6 +456,7 @@
   },
   {
     "id": "mar_wedding_m",
+    "storyline": "marriage",
     "type": "family",
     "trigger_only": true,
     "sex": "m",

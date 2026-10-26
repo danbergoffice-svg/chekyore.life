@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { ERA_FOLDER, ERA_META, loadEra } from '../src/content'
 import { leftoverBraces, validateEra } from '../src/content/validate'
-import { autoplay } from '../src/engine/game'
+import { autoplay, triggerStats } from '../src/engine/game'
 import { continueWithHeir, heirs, newLife } from '../src/engine/life'
 import { allKeys, loadTexts, LANGS } from '../src/i18n'
 
@@ -80,6 +80,7 @@ async function main() {
   console.log('Вера героев:', religions)
   console.log(`Разных событий за жизнь в среднем: ${(distinct / Math.max(1, ages.length)).toFixed(1)}`)
   console.log(`Местные события, которые ни разу не выпали за ${lives} жизней (${never.length}):`, never.slice(0, 60).join(', '))
+  console.log('Отложенные последствия: отменены по причинам', triggerStats.cancelled, ', перенесены на год:', triggerStats.postponed)
   if (Math.abs(mean - era.lifeExpectancy) > 5) problems.push(`средний возраст ${mean.toFixed(1)} далёк от lifeExpectancy ${era.lifeExpectancy}: поправьте mortality.calibration`)
 
   if (problems.length) {

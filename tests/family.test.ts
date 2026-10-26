@@ -107,3 +107,30 @@ describe('Уехавшие родственники (п. 4)', () => {
     expect(heirs(s).some((n) => n.id === kid.id)).toBe(false)
   })
 })
+
+describe('Отложенные последствия (п. 5)', () => {
+  it('последствие про умершего человека не приходит про другого; переезд отменяет местное', async () => {
+    const { startYear, triggerStats } = await import('../src/engine/game')
+    const s = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 515), era)
+    s.hero.alive = true
+    s.phase = 'year'
+    const kids = [npc(s, 'child', 'm', s.year - 8, true), npc(s, 'child', 'f', s.year - 9, true)]
+    const ev = era.events.find((e) => e.trigger_only && e.npc === 'child' && !e.npc_age && !e.npc_tag && !e.npc_married)!
+    expect(ev).toBeTruthy()
+    kids[0].alive = false
+    const before = triggerStats.cancelled.npc_dead ?? 0
+    s.hero.triggers = [{ eventId: ev.id, year: s.year, chance: 1, npcId: kids[0].id }]
+    startYear(s, era, null)
+    expect(s.queue.some((q) => q.eventId === ev.id)).toBe(false)
+    expect(triggerStats.cancelled.npc_dead).toBe(before + 1)
+  })
+
+  it('2000 жизней: никто не живёт с двумя супругами сразу', () => {
+    let bigamy = 0
+    for (let i = 0; i < 2000; i += 13) {
+      const s = autoplay(newLife(era, { mode: 'full', mortality: 'soft', softenHeavy: false }, 40000 + i), era)
+      if (s.hero.npcs.filter((x) => x.role === 'spouse' && x.alive && !x.away).length > 1) bigamy++
+    }
+    expect(bigamy).toBe(0)
+  })
+})

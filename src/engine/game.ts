@@ -27,7 +27,7 @@ import { householdYear } from './household'
 import { summarize } from './life'
 import { PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
-import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, TextParam, Topic } from './types'
+import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
 
 /** Через сколько лет одно и то же событие может повториться. */
 const COOLDOWN = 8
@@ -352,6 +352,62 @@ function eventWeight(state: GameState, ev: EventDef): number {
 }
 
 /** Персонажи, о которых может быть событие. */
+/** Счётчики для отчётов симуляции: сколько последствий отменено и по какой причине. */
+export const triggerStats = { cancelled: {} as Record<string, number>, postponed: 0 }
+
+/** Обстоятельства, от которых зависит последствие. */
+export function snapshot(state: GameState): TriggerSnapshot {
+  const h = state.hero
+  return {
+    region: h.region,
+    cls: h.cls,
+    profession: h.profession ?? undefined,
+    spouseId: aliveNpcs(h, 'spouse')[0]?.id,
+    married: h.tags.includes('married'),
+    free: !h.tags.includes('enslaved') && h.cls !== 'slave',
+  }
+}
+
+/** От чего зависит последствие: явно (depends) или по самому событию. */
+export function dependsOf(ev: EventDef): TriggerDepend[] {
+  if (ev.depends) return ev.depends
+  const d: TriggerDepend[] = []
+  if (ev.npc) d.push('npc')
+  if (ev.npc === 'spouse') d.push('spouse')
+  if (ev.regions || ev.type === 'local') d.push('region')
+  if (ev.topic === 'work') d.push('profession')
+  return d
+}
+
+/** Почему последствие уже не к месту (или undefined, если всё в силе). */
+function triggerBroken(state: GameState, ev: EventDef, t: PendingTrigger): string | undefined {
+  const deps = dependsOf(ev)
+  // Того человека нет (умер, уехал, вырос из возраста события): последствие про другого — нельзя.
+  if (ev.npc && t.npcId && !npcCandidates(state, ev).some((n) => n.id === t.npcId)) {
+    const n = state.hero.npcs.find((x) => x.id === t.npcId)
+    // Причина — для отчёта: умер, уехал, исчез, не подходит больше (бросил пить, вырос из возраста события).
+    return !n ? 'npc_removed' : !n.alive ? 'npc_dead' : n.away ? 'npc_away' : 'npc_changed'
+  }
+  if (!t.snap) return undefined
+  const now = snapshot(state)
+  if (deps.includes('region') && now.region !== t.snap.region) return 'region'
+  if (deps.includes('class') && now.cls !== t.snap.cls) return 'class'
+  if (deps.includes('profession') && now.profession !== t.snap.profession) return 'profession'
+  if (deps.includes('spouse') && now.spouseId !== t.snap.spouseId) return 'spouse'
+  if (deps.includes('married') && now.married !== t.snap.married) return 'married'
+  if (deps.includes('freedom') && now.free !== t.snap.free) return 'freedom'
+  return undefined
+}
+
+/**
+ * Ключ сюжетной линии последствия (поле storyline события; 'child' — своя линия у каждого ребёнка).
+ * Разные истории про одного человека не мешают друг другу: противоречия про людей ловит правило «тот же человек».
+ */
+function lineOf(ev: EventDef | undefined, npcId: string | undefined): string | undefined {
+  if (!ev?.storyline) return undefined
+  return ev.storyline === 'child' && npcId ? `child:${npcId}` : ev.storyline
+}
+
 function npcCandidates(state: GameState, ev: EventDef): Npc[] {
   if (!ev.npc) return []
   // Весть издалека или возвращение — про того, кто вдали; все остальные события — про тех, кто рядом.
@@ -396,6 +452,7 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   if (last !== undefined && (ev.once || ev.milestone || ev.global_chance !== undefined)) return false
   if (last !== undefined && !ignoreTiming && state.year - last < COOLDOWN) return false
   if (ev.npc && npcCandidates(state, ev).length === 0) return false
+  if (ev.effects && addsSpouse({ id: '', effects: ev.effects }) && aliveNpcs(hero, 'spouse').length > 0) return false
   if (convertsToOther(ev) && !resolveFaith(state, 'other')) return false
   if (ev.dynamic === 'profession' && professionChoices(state, era).length === 0) return false
   return checkAll(state, ev.conditions)
@@ -494,12 +551,30 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const byId = (id: string) => b.byId.get(id)
   const fits = (ev: EventDef) => quickFit(state, ev) && eligible(state, era, ev)
 
-  // 1. Отложенные последствия прошлых решений.
+  // 1. Отложенные последствия прошлых решений: только если обстоятельства решения не изменились,
+  // только про того же человека; не больше одного в год на сюжетную линию и двух всего — остальные ждут год.
   const due = hero.triggers.filter((t) => t.year <= state.year)
   hero.triggers = hero.triggers.filter((t) => t.year > state.year)
+  const lines = new Set<string>()
+  let fired = 0
   for (const t of due) {
     const ev = byId(t.eventId)
-    if (ev && chance(state, t.chance) && eligible(state, era, ev, true)) add(ev, t.from, t.npcId)
+    if (!ev) continue
+    const why = triggerBroken(state, ev, t)
+    if (why) {
+      triggerStats.cancelled[why] = (triggerStats.cancelled[why] ?? 0) + 1
+      continue
+    }
+    if (fired >= 2 || (t.line && lines.has(t.line))) {
+      hero.triggers.push({ ...t, year: addYears(state.year, 1) })
+      triggerStats.postponed++
+      continue
+    }
+    if (chance(state, t.chance) && eligible(state, era, ev, true)) {
+      add(ev, t.from, t.npcId)
+      fired++
+      if (t.line) lines.add(t.line)
+    }
   }
 
   // 2. Исторические события в этом регионе и году.
@@ -667,7 +742,22 @@ export function eventChoices(state: GameState, era: EraDef, ev: EventDef): Choic
   return ev.choices ?? []
 }
 
+const weds = new WeakMap<ChoiceDef, boolean>()
+/** Выбор заводит нового супруга, а прежнего не отпускает (развод в том же выборе — можно). */
+function addsSpouse(choice: ChoiceDef): boolean {
+  let v = weds.get(choice)
+  if (v === undefined) {
+    // Вместе с исходами риска и случайными эффектами.
+    const s = JSON.stringify([choice.effects ?? [], choice.risk_roll ?? {}])
+    v = s.includes('"add_npc":"spouse"') && !s.includes('"remove_npc":"spouse"') && !s.includes('"remove_npc":"npc"')
+    weds.set(choice, v)
+  }
+  return v
+}
+
 export function choiceAvailable(state: GameState, choice: ChoiceDef): boolean {
+  // Второй брак при живом супруге рядом — нет (в игре нет многожёнства).
+  if (addsSpouse(choice) && aliveNpcs(state.hero, 'spouse').length > 0) return false
   return checkAll(state, choice.requirements)
 }
 
@@ -754,7 +844,16 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   }
   const index = note(state, entry)
   state.reveal[index] = active.at
-  for (const t of triggers) hero.triggers.push({ ...t, from: index, npcId: active.npcId })
+  // Последствие запоминает обстоятельства решения; в одной сюжетной линии новая цепочка не начинается, пока ждёт старая.
+  const snap = snapshot(state)
+  for (const t of triggers) {
+    const line = lineOf(buckets(era).byId.get(t.eventId), active.npcId)
+    if (line && hero.triggers.some((p) => p.line === line && p.from !== index)) {
+      triggerStats.cancelled.storyline = (triggerStats.cancelled.storyline ?? 0) + 1
+      continue
+    }
+    hero.triggers.push({ ...t, from: index, npcId: active.npcId, snap, line })
+  }
 }
 
 /** Закрыть показанный итог события и перейти к следующему. */

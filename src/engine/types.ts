@@ -377,6 +377,10 @@ export interface EventDef {
   weight_modifiers?: WeightModifier[]
   /** Событие срабатывает только как отложенное последствие. */
   trigger_only?: boolean
+  /** Последствие отменяется, если с момента решения изменилось это (по умолчанию: человек события, край, дело). */
+  depends?: TriggerDepend[]
+  /** Сюжетная линия цепочки (marriage, career, debt, feud, faith…): одновременно ждёт одно последствие линии. */
+  storyline?: string
   /** Первый выбор жизни: в первый год первой жизни такое событие гарантированно появляется в первые секунды. */
   first_choice?: boolean
   /** Не больше одного раза за жизнь. */
@@ -502,7 +506,23 @@ export interface PendingTrigger {
   from?: number
   /** Человек, о котором было исходное событие: последствие придёт про него же. */
   npcId?: string
+  /** Обстоятельства на момент решения: если они изменились, последствие отменяется. */
+  snap?: TriggerSnapshot
+  /** Сюжетная линия: в одной линии одновременно ждёт одно последствие. */
+  line?: string
 }
+
+export interface TriggerSnapshot {
+  region: string
+  cls: string
+  profession?: string
+  spouseId?: string
+  married: boolean
+  free: boolean
+}
+
+/** От чего зависит последствие (поле depends события; по умолчанию выводится движком). */
+export type TriggerDepend = 'region' | 'class' | 'profession' | 'spouse' | 'npc' | 'freedom' | 'married'
 
 export interface Hero {
   id: string

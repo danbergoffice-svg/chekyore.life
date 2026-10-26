@@ -847,6 +847,7 @@
   },
   {
     "id": "marriage_later",
+    "storyline": "marriage",
     "type": "family",
     "trigger_only": true,
     "base_weight": 1,

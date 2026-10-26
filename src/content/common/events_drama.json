@@ -2202,6 +2202,7 @@
   },
   {
     "id": "d_remarry",
+    "storyline": "marriage",
     "type": "family",
     "trigger_only": true,
     "conditions": [

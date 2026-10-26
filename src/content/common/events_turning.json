@@ -3051,6 +3051,7 @@
     "trigger_only": true,
     "base_weight": 1,
     "id": "t_second_marriage",
+    "storyline": "marriage",
     "sex": "f",
     "conditions": [
       {
