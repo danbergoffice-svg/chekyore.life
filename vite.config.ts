@@ -17,6 +17,9 @@ function portalHtml(platform: string | undefined): Plugin {
         .replace(/\s*<!--[^>]*соцсетях[\s\S]*?-->/g, '')
         .replace(/\s*<meta (property="og:|name="twitter:)[^>]*>/g, '')
         .replace(/\s*<link rel="(canonical|manifest)"[^>]*>/g, '')
+        .replace('<html lang="ru">', '<html lang="en">')
+        .replace(/<title>[^<]*<\/title>/, '<title>Thousands of Lives</title>')
+        .replace(/<meta name="description" content="[^"]*"/, '<meta name="description" content="A life simulator set in a random era of history."')
         .replace('<title>', '<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>\n    <title>')
     },
   }

@@ -14,7 +14,8 @@
     "stats": "vite-node tools/stats.ts",
     "check": "vite-node tools/check.ts",
     "deadly": "vite-node tools/deadly.ts",
-    "marriage": "vite-node tools/marriage-stats.ts"
+    "marriage": "vite-node tools/marriage-stats.ts",
+    "music": "node tools/gen/music.mjs"
   },
   "devDependencies": {
     "@fontsource/pt-serif": "^5.3.0",

@@ -16,6 +16,9 @@ export interface Prefs {
   lottery: Lottery
   /** Длительность взрослого года в секундах на скорости ×1; не задано — стандартная (флаг year_sec). */
   yearSec?: number
+  /** Музыка: включена ли и громкость 0–1 (по умолчанию включена, 0.5). */
+  sound?: boolean
+  volume?: number
   /** Отзыв: ещё не просили, отложили (на какой по счёту жизни), отправлен. */
   feedback?: { state: 'later' | 'sent'; lives: number }
 }

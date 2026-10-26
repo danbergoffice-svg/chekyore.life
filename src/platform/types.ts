@@ -55,6 +55,8 @@ export interface Platform {
   gameplayStop(): void
   /** Платформа просит поставить игру на паузу или снять с неё. */
   onPause(cb: (paused: boolean) => void): void
+  /** Платформа разрешает или запрещает звук (настройка портала «без звука»). Нет метода — звук всегда разрешён. */
+  onAudio?(cb: (allowed: boolean) => void): void
   /** Долговременное хранилище (сохранение игры, мемориал, достижения). */
   save(key: string, value: unknown): Promise<void>
   load<T>(key: string): Promise<T | undefined>

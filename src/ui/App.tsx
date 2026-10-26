@@ -16,6 +16,8 @@ import { sendFeedback } from '../feedback'
 import type { FeedbackData } from '../feedback'
 import { Feedback, FeedbackPrompt } from './Feedback'
 import { Slots } from './Slots'
+import { SoundControl } from './Sound'
+import { initAudio, setMusic, setSound } from '../audio'
 import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
@@ -129,6 +131,17 @@ export function App() {
 
   useEffect(() => window.scrollTo(0, 0), [screen])
 
+  // Музыка: у меню своя мелодия, в жизни героя — мелодия его страны и эпохи.
+  const soundOn = prefs.sound ?? true
+  const volume = prefs.volume ?? 0.5
+  useEffect(() => initAudio(soundOn, volume), [])
+  useEffect(() => setSound(soundOn, volume), [soundOn, volume])
+  const heroEra = state?.hero.era
+  useEffect(() => {
+    const inLife = screen === 'reveal' || screen === 'life' || screen === 'death' || screen === 'heirs'
+    if (screen !== 'loading') setMusic(inLife && heroEra ? heroEra.toLowerCase() : 'menu')
+  }, [screen, heroEra])
+
   // Время в жизни идёт, только пока открыт экран жизни и вкладка видна.
   useEffect(() => {
     if (screen !== 'life') return
@@ -146,6 +159,8 @@ export function App() {
       if (paused) platform.track('session_end', { screen: where.current.screen, age: where.current.age, sec_in_session: Math.round(performance.now() / 1000) })
     })
   }, [])
+
+  const soundButton = <SoundControl on={soundOn} volume={volume} onChange={(sound, v) => setPrefs({ ...prefs, sound, volume: v })} />
 
   const setPrefs = (p: Prefs) => {
     setPrefsState(p)
@@ -340,6 +355,7 @@ export function App() {
             onFeedback={() => openFeedback('menu')}
             onLang={(lang) => setPrefs({ ...prefs, lang })}
             go={setScreen}
+            sound={soundButton}
           />
         )}
         {screen === 'spin' && pending && (
@@ -379,6 +395,7 @@ export function App() {
             choiceChanges={choiceChanges}
             yearChanges={yearChanges}
             yearSec={prefs.yearSec}
+            sound={soundButton}
           />
         )}
         {screen === 'death' && state && era && lastLife && !fullSummary && lastLife.age < 15 && memorial.length > 1 && (

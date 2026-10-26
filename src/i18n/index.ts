@@ -4,7 +4,7 @@ import en from './en.json'
 import ru from './ru.json'
 
 // Новый язык добавляется файлами перевода и строкой здесь, без правок остального кода.
-export const LANGS: Lang[] = ['ru', 'en']
+export const LANGS: Lang[] = ['en', 'ru']
 
 // Тексты стран. ui_ru.json / ui_en.json — названия стран и регионов, нужны сразу (меню, мемориал).
 // Остальные ru*.json / en*.json грузятся вместе со страной и только на нужном языке.

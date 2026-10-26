@@ -54,6 +54,8 @@ interface LifeProps {
   yearChanges: Change[]
   /** Своя длительность года из настроек (секунды); не задана — стандартная. */
   yearSec?: number
+  /** Кнопка музыки. */
+  sound?: preact.ComponentChildren
 }
 
 /** Видна ли запись дневника: записи текущего года появляются по ходу года. */
@@ -63,7 +65,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onMenu, choiceChanges, yearChanges, yearSec }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onMenu, choiceChanges, yearChanges, yearSec, sound }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -172,7 +174,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <div class="hero-bar-info">
             <div class="hero-bar-top">
               <h1 class="hero-name">{nameOf(hero.name, lang)}</h1>
-              <button class="link" onClick={onMenu}>{t('life.menu')}</button>
+              <div class="hero-bar-actions">
+                {sound}
+                <button class="link" onClick={onMenu}>{t('life.menu')}</button>
+              </div>
             </div>
             <p class="hero-meta">
               {t('life.age', { n: hero.age })} · {formatYear(state.year, lang)} · {t(`region.${hero.region}`)}

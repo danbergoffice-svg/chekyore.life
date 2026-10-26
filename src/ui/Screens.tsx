@@ -1,3 +1,4 @@
+import type { ComponentChildren } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { heirs, inheritanceShare } from '../engine/life'
 import { regionOf, yearsBetween } from '../engine/rules'
@@ -8,6 +9,7 @@ import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
 import { EXTERNAL, platform } from '../platform'
 import { Scene } from '../pixel/Scene'
+import { VolumeSlider } from './Sound'
 import { useUi } from './text'
 
 /** Виды для заставки: по региону каждой страны, меняются каждые несколько секунд. */
@@ -29,9 +31,11 @@ interface MenuProps {
   onFeedback: () => void
   onLang: (lang: Lang) => void
   go: (s: 'memorial' | 'settings' | 'about') => void
+  /** Кнопка музыки. */
+  sound: ComponentChildren
 }
 
-export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedback, onLang, go }: MenuProps) {
+export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedback, onLang, go, sound }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -43,12 +47,15 @@ export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedb
   const playing = !!current && current.phase !== 'dead' && !!hero
   return (
     <div class="screen menu">
-      <div class="lang-switch" role="group" aria-label={t('settings.language')}>
-        {LANGS.map((l) => (
-          <button type="button" class={l === lang ? 'active' : ''} aria-pressed={l === lang} onClick={() => onLang(l)}>
-            {l.toUpperCase()}
-          </button>
-        ))}
+      <div class="menu-top">
+        {sound}
+        <div class="lang-switch" role="group" aria-label={t('settings.language')}>
+          {LANGS.map((l) => (
+            <button type="button" class={l === lang ? 'active' : ''} aria-pressed={l === lang} onClick={() => onLang(l)}>
+              {l.toUpperCase()}
+            </button>
+          ))}
+        </div>
       </div>
       <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={t(`region.${view.region}`)} />
       <p class="small muted center">
@@ -383,6 +390,15 @@ export function Settings(props: {
       <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
       <h1>{t('settings.title')}</h1>
       <Choice title={t('settings.language')} value={p.lang} onChange={(lang) => props.onPrefs({ ...p, lang })} options={LANGS.map((l) => ({ id: l, label: l === 'ru' ? 'Русский' : 'English' }))} />
+      <fieldset class="choice-group">
+        <legend>{t('settings.music')}</legend>
+        <label class="toggle">
+          <input type="checkbox" checked={p.sound ?? true} onChange={(e) => props.onPrefs({ ...p, sound: e.currentTarget.checked })} />
+          <span class="option-label">{t('settings.music.on')}</span>
+          <span class="option-desc">{t('settings.music.desc')}</span>
+        </label>
+        <VolumeSlider on={p.sound ?? true} volume={p.volume ?? 0.5} onChange={(sound, volume) => props.onPrefs({ ...p, sound, volume })} />
+      </fieldset>
       <Choice
         title={t('settings.font')}
         value={p.font}

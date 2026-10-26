@@ -21,6 +21,8 @@ interface CrazySdk {
     gameplayStop(): void
     happytime(): void
     inviteLink(params: Record<string, string>): string | Promise<string>
+    settings?: { muteAudio?: boolean }
+    addSettingsChangeListener?(cb: (settings: { muteAudio?: boolean }) => void): void
   }
   ad: {
     requestAd(type: 'midgame' | 'rewarded', callbacks: { adStarted(): void; adFinished(): void; adError(error: unknown): void }): void
@@ -30,7 +32,6 @@ interface CrazySdk {
     setItem(key: string, value: string): void
     removeItem(key: string): void
   }
-  user?: { systemInfo?: { countryCode?: string; locale?: string } }
 }
 
 declare global {
@@ -172,6 +173,15 @@ export const crazyPlatform: Platform = {
     pauseHandlers.push(cb)
   },
 
+  // Настройка портала «без звука»: сразу и при каждом изменении.
+  onAudio(cb) {
+    if (!sdk) return
+    call((s) => {
+      cb(!s.game.settings?.muteAudio)
+      s.game.addSettingsChangeListener?.((settings) => cb(!settings?.muteAudio))
+    })
+  },
+
   async save(key, value) {
     await saveLocal(key, value)
     mirror(key, value)
@@ -243,10 +253,9 @@ export const crazyPlatform: Platform = {
 
   flags,
 
+  // На CrazyGames игра всегда начинается на английском; русский игрок выбирает сам (RU в меню или настройках).
   lang(): Lang {
-    const country = sdk?.user?.systemInfo?.countryCode?.toUpperCase() ?? ''
-    const nav = typeof navigator !== 'undefined' ? navigator.language?.toLowerCase() ?? '' : ''
-    return nav.startsWith('ru') || ['RU', 'BY', 'KZ', 'KG'].includes(country) ? 'ru' : 'en'
+    return 'en'
   },
 
   ab: () => 'a',

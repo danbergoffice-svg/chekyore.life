@@ -48,6 +48,10 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
 - Ранние браки по сговору — `common/events_marriage.json` (обручение в детстве, свадьба девочки/мальчика,
   невесту выбирают родители, быт молодой жены); эффект `add_npc` принимает `age_offset`. Доли по странам —
   `npm run marriage -- 300`.
+- Музыка: `src/audio.ts` (Web Audio, трек меню и по треку на страну, плавные переходы, пауза при скрытой вкладке,
+  рекламе и «без звука» платформы — `platform.onAudio`), значок и громкость — `src/ui/Sound.tsx`, настройки
+  `prefs.sound`/`prefs.volume`. Треки сочиняет и синтезирует `npm run music` (`tools/gen/music.mjs`, нужен ffmpeg):
+  `public/music/<id>.mp3` и MIDI в `tools/gen/music/`. После перегенерации — увеличить `MUSIC_VERSION`.
 - `docs/TZ.md` (+ `TZ_dorabotka.docx`) — текущее ТЗ; `docs/DECISIONS.md` — принятые решения и отступления.
 
 ## Состояние ТЗ (docs/TZ.md)

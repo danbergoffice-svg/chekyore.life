@@ -11,9 +11,12 @@ const OUT = 'crazygames.zip'
 const DROP = ['CNAME', 'sw.js', 'manifest.webmanifest', 'og-ru.png', 'og-en.png', '_worker.js']
 /** Разрешённые адреса: SDK портала и пространства имён SVG/XML (это не запросы в сеть). */
 const ALLOWED = [/^https:\/\/sdk\.crazygames\.com\//, /^http:\/\/www\.w3\.org\//]
-/** Лимиты CrazyGames: файлов ≤ 1500, первая загрузка ≤ 20 МБ (для мобильной главной). */
+/**
+ * Лимиты CrazyGames: файлов ≤ 1500; первая загрузка (до первого gameplayStart) ≤ 20 МБ для мобильной главной,
+ * всё вместе без учёта ленивой загрузки — ≤ 50 МБ. Музыка и страны грузятся по мере надобности.
+ */
 const MAX_FILES = 1500
-const MAX_MB = 20
+const MAX_MB = 50
 
 if (!fs.existsSync(path.join(DIR, 'index.html'))) {
   console.error(`Нет ${DIR}/index.html — сначала vite build`)

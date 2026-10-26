@@ -587,5 +587,12 @@
   "settings.year.auto": "Стандартная",
   "settings.year.auto.desc": "Около {n} секунд на год, раннее детство — быстрее",
   "settings.year.sec": "{n} секунд",
-  "settings.year.min": "1 минута"
+  "settings.year.min": "1 минута",
+  "sound.title": "Музыка",
+  "sound.on": "Включить музыку",
+  "sound.off": "Выключить музыку",
+  "sound.volume": "Громкость",
+  "settings.music": "Музыка",
+  "settings.music.on": "Играть музыку",
+  "settings.music.desc": "Спокойная мелодия своей страны и эпохи"
 }

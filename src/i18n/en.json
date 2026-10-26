@@ -587,5 +587,12 @@
   "settings.year.auto": "Standard",
   "settings.year.auto.desc": "About {n} seconds a year, early childhood faster",
   "settings.year.sec": "{n} seconds",
-  "settings.year.min": "1 minute"
+  "settings.year.min": "1 minute",
+  "sound.title": "Music",
+  "sound.on": "Turn music on",
+  "sound.off": "Turn music off",
+  "sound.volume": "Volume",
+  "settings.music": "Music",
+  "settings.music.on": "Play music",
+  "settings.music.desc": "A calm melody of your country and era"
 }
