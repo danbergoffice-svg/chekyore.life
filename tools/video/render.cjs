@@ -10,8 +10,9 @@ const [, , dir, lang = 'en', mode = '60', list = ''] = process.argv
 ;(async () => {
   fs.mkdirSync(dir, { recursive: true })
   const b = await chromium.launch()
-  const vertical = process.env.O === 'v'
-  const viewport = vertical ? { width: 1080, height: 1920 } : { width: 1920, height: 1080 }
+  // O=v — вертикальный 1080×1920, O=p — портретный 2:3 1080×1620.
+  const vertical = process.env.O === 'v' || process.env.O === 'p'
+  const viewport = process.env.O === 'p' ? { width: 1080, height: 1620 } : vertical ? { width: 1080, height: 1920 } : { width: 1920, height: 1080 }
   const fps = Number(mode)
   const times = mode === 'stills' ? list.split(',').map(Number) : Array.from({ length: 20 * fps }, (_, i) => i / fps)
   // Параллельно в нескольких вкладках (по числу ядер): каждая снимает каждый N-й кадр.
@@ -25,7 +26,7 @@ const [, , dir, lang = 'en', mode = '60', list = ''] = process.argv
       const p = await ctx.newPage()
       p.on('pageerror', (e) => errs.push(e.message))
       p.on('console', (m) => m.type() === 'error' && errs.push(m.text()))
-      await p.goto(`http://localhost:5174/tools/video/promo.html?lang=${lang}${vertical ? '&o=v' : ''}`)
+      await p.goto(`http://localhost:5174/tools/video/promo.html?lang=${lang}${vertical ? `&o=${process.env.O}` : ''}`)
       await p.waitForFunction(() => window.promoReady !== undefined)
       await p.evaluate(() => window.promoReady)
       const canvas = await p.$('canvas')

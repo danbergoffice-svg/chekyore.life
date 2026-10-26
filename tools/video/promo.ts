@@ -16,10 +16,14 @@ import keyartH from './keyart-horizontal.webp'
 import keyartV from './keyart-vertical.webp'
 
 const params = new URLSearchParams(location.search)
-/** Вертикальный формат 1080×1920 (?o=v) — для Shorts, Reels и TikTok; у каждой сцены своя раскладка. */
-const V = params.get('o') === 'v'
+/**
+ * Вертикальный формат 1080×1920 (?o=v) — для Shorts, Reels и TikTok; портретный 2:3 1080×1620 (?o=p) —
+ * для площадок, которые просят 2:3 (CrazyGames). У вертикальных форматов своя раскладка сцен.
+ */
+const P = params.get('o') === 'p'
+const V = params.get('o') === 'v' || P
 export const WIDTH = V ? 1080 : 1920
-export const HEIGHT = V ? 1920 : 1080
+export const HEIGHT = P ? 1620 : V ? 1920 : 1080
 export const DURATION = 20
 
 const canvas = document.getElementById('c') as HTMLCanvasElement
@@ -480,10 +484,10 @@ function lottery(t: number) {
   const enter = outBack(seg(t, 2.0, 2.45), 1.2)
   const lift = inOutCubic(seg(t, 4.75, 5.1))
   // В вертикальном кадре — над автоматом крупный вопрос.
-  if (V) words(TEXT.whereBorn, WIDTH / 2, 520, t, 2.15, { size: 76, weight: 700, color: C.ink, align: 'center' })
+  if (V) words(TEXT.whereBorn, WIDTH / 2, P ? 430 : 520, t, 2.15, { size: 76, weight: 700, color: C.ink, align: 'center' })
   const mx = 230
   const mw = 1460
-  const target = V ? 940 - 320 : 200
+  const target = V ? (P ? 790 : 940) - 320 : 200
   const my = lerp(HEIGHT + 200, target, enter) - lift * 40
   const mh = 640
   const scale = (1 - lift * 0.08) * (V ? 0.7 : 1)
@@ -546,7 +550,7 @@ function lottery(t: number) {
   const res = outBack(seg(t, 4.85, 5.25), 1.4)
   if (res > 0) {
     const bw = V ? 960 : 1100
-    const by = lerp(HEIGHT + 20, V ? 1300 : 870, res)
+    const by = lerp(HEIGHT + 20, V ? (P ? 1100 : 1300) : 870, res)
     ctx.save()
     ctx.shadowColor = 'rgba(43,33,25,0.3)'
     ctx.shadowBlur = 30
@@ -706,7 +710,7 @@ function life(t: number) {
   // Портрет героини.
   const enter = outBack(seg(t, 5.55, 6.0), 1.3)
   const px = lerp(-500, V ? 60 : 140, enter)
-  const py = V ? 560 : 190
+  const py = P ? 520 : V ? 560 : 190
   ctx.save()
   ctx.shadowColor = 'rgba(43,33,25,0.3)'
   ctx.shadowBlur = 40
@@ -750,7 +754,7 @@ function life(t: number) {
   }
   const sEnter = outCubic(seg(t, 5.65, 6.15))
   const sx = lerp(WIDTH + 80, V ? 60 : 640, sEnter)
-  const [sy, swd, sht] = V ? [210, 960, 300] : [190, 1152, 360]
+  const [sy, swd, sht] = P ? [190, 960, 300] : V ? [210, 960, 300] : [190, 1152, 360]
   ctx.save()
   roundRect(sx, sy, swd, sht, 28)
   ctx.clip()
@@ -788,7 +792,7 @@ const ageLabel = (a: number) => (lang === 'ru' ? `${a} ${a % 10 === 1 && a !== 1
 /** Вертикальный кадр: запись ленты — карточка справа от портрета, текст в несколько строк. */
 function feedCardV(a: number, s: string, i: number, k: number) {
   const cx = lerp(WIDTH + 40, 520, k)
-  const cy = 560 + i * 245
+  const cy = (P ? 520 : 560) + i * (P ? 240 : 245)
   ctx.save()
   ctx.globalAlpha = i === 0 ? 1 : 0.85 - i * 0.2
   ctx.fillStyle = i === 0 ? C.card : C.paper
@@ -810,7 +814,7 @@ function lifeline(t: number, age: number) {
   if (k <= 0) return
   const x0 = 100
   const x1 = WIDTH - 100
-  const y = 1560
+  const y = P ? 1440 : 1560
   ctx.save()
   ctx.globalAlpha = k
   ctx.strokeStyle = C.line
@@ -873,7 +877,7 @@ function choice(t: number) {
   const cw = 1000
   const ch = 780
   const cx = WIDTH / 2 - cw / 2
-  const cy = lerp(HEIGHT + 120, V ? 560 : 190, enter)
+  const cy = lerp(HEIGHT + 120, V ? (HEIGHT - 780) / 2 - 10 : 190, enter)
   // Переворот карточки на итог.
   const flip = seg(t, 11.15, 11.45)
   const sy = flip < 0.5 ? 1 - flip * 2 : (flip - 0.5) * 2
@@ -1021,11 +1025,11 @@ function worlds(t: number) {
   // Заголовок.
   const k = outBack(seg(t, 12.55, 12.95), 1.6)
   ctx.save()
-  ctx.translate(WIDTH / 2, V ? 300 : 190)
+  ctx.translate(WIDTH / 2, P ? 250 : V ? 300 : 190)
   ctx.scale(k, k)
   text(TEXT.c4, 0, 30, { size: 130, weight: 700, color: C.card, align: 'center', spacing: 8, shadow: 'rgba(214,166,73,0.45)' })
   ctx.restore()
-  words(TEXT.c4b, WIDTH / 2, V ? 410 : 290, t, 12.8, { size: 46, italic: true, color: C.cream, align: 'center' })
+  words(TEXT.c4b, WIDTH / 2, P ? 355 : V ? 410 : 290, t, 12.8, { size: 46, italic: true, color: C.cream, align: 'center' })
   // Две ленты сцен навстречу друг другу.
   const local = t - 12.5
   const tileW = 576
@@ -1059,9 +1063,10 @@ function worlds(t: number) {
   }
   if (V) {
     // Вертикальный кадр: три ленты по 5, 4 и 4 города.
-    drawRow(WORLDS.slice(0, 5), 520, -1, 0)
-    drawRow(WORLDS.slice(5, 9), 800, 1, 0.1)
-    drawRow(WORLDS.slice(9), 1080, -1, 0.2)
+    const [r0, step] = P ? [440, 260] : [520, 280]
+    drawRow(WORLDS.slice(0, 5), r0, -1, 0)
+    drawRow(WORLDS.slice(5, 9), r0 + step, 1, 0.1)
+    drawRow(WORLDS.slice(9), r0 + step * 2, -1, 0.2)
   } else {
     drawRow(rowA, 380, -1, 0)
     drawRow(rowB, 650, 1, 0.15)
@@ -1078,7 +1083,7 @@ function worlds(t: number) {
     const ax0 = WIDTH / 2 - (inRow * aw + (inRow - 1) * ag) / 2
     const x = ax0 + (i % perRow) * (aw + ag)
     ctx.save()
-    ctx.translate(x + aw / 2, V ? 1530 + r * 190 : 1030)
+    ctx.translate(x + aw / 2, P ? 1370 + r * 170 : V ? 1530 + r * 190 : 1030)
     ctx.scale(kk, kk)
     blit(avatar({ region, sex, age: 32, seed: `world${region}`, cls: i % 3 ? 'craftsman' : 'noble', married: true, happiness: 70 }), -aw / 2, -120, aw, 120)
     ctx.restore()
@@ -1100,8 +1105,9 @@ function lineage(t: number) {
   ctx.beginPath()
   // Вертикальный кадр: линия рода идёт сверху вниз, поколения — по очереди слева и справа.
   if (V) {
-    ctx.moveTo(WIDTH / 2, 330)
-    ctx.lineTo(WIDTH / 2, lerp(330, 1640, lineK))
+    const [top, bottom] = P ? [260, 1400] : [330, 1640]
+    ctx.moveTo(WIDTH / 2, top)
+    ctx.lineTo(WIDTH / 2, lerp(top, bottom, lineK))
   } else {
     ctx.moveTo(x0, ly)
     ctx.lineTo(lerp(x0, x1, lineK), ly)
@@ -1146,12 +1152,12 @@ function lineage(t: number) {
     text(TEXT.heirs[i][1], 0, 128, { size: 32, color: C.muted, align: 'center' })
     ctx.restore()
   })
-  words(TEXT.family, WIDTH / 2, V ? 1800 : 1000, t, 17.15, { size: V ? 50 : 54, italic: true, color: C.ink, align: 'center' })
+  words(TEXT.family, WIDTH / 2, P ? 1530 : V ? 1800 : 1000, t, 17.15, { size: V ? 50 : 54, italic: true, color: C.ink, align: 'center' })
 }
 
 /** Вертикальный кадр: поколение i — карточка с портретом сбоку от линии рода, имя и годы — с другой стороны. */
 function heirV(i: number, k: number, dead: boolean, look: AvatarInput) {
-  const y = 470 + i * 330
+  const y = P ? 400 + i * 290 : 470 + i * 330
   const left = i % 2 === 0
   const cardX = left ? 290 : WIDTH - 290
   ctx.save()
