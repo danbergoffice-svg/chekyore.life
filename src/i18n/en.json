@@ -530,5 +530,11 @@
   "spin.error": "Couldn't load the world: the connection may have dropped or the site was just updated.",
   "spin.slow": "The world is taking longer than usual to load. Check your connection or try again.",
   "spin.retry": "Try again",
-  "spin.reload": "Reload the page"
+  "spin.reload": "Reload the page",
+  "class.slave.short": "Slaves",
+  "class.peasant.short": "Peasants",
+  "class.craftsman.short": "Craftsmen",
+  "class.trader.short": "Merchants",
+  "class.landowner.short": "Landowners",
+  "class.noble.short": "Nobility"
 }
