@@ -480,6 +480,7 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
     a.href = URL.createObjectURL(b)
     a.download = `thousands-of-lives-${format}.png`
     a.click()
+    platform.track('share_done', { what: 'life', format, method: 'download' })
     setTimeout(() => URL.revokeObjectURL(a.href), 1000)
   }
   const systemShare = async () => {
@@ -488,10 +489,13 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
     const file = b ? new File([b], 'thousands-of-lives.png', { type: 'image/png' }) : null
     const result = await platform.share({ text: shareText, url: 'https://thousands.life', file: file ?? undefined })
     if (result === 'copied') setCopied(true)
+    if (result !== 'failed') platform.track('share_done', { what: 'life', format, method: result === 'shared' ? 'system' : 'copy' })
   }
   const copy = async () => {
     save()
-    setCopied((await platform.share({ text: shareText, copyOnly: true })) === 'copied')
+    const ok = (await platform.share({ text: shareText, copyOnly: true })) === 'copied'
+    setCopied(ok)
+    if (ok) platform.track('share_done', { what: 'life', format: 'text', method: 'copy' })
   }
   const [w, h] = CARD_SIZES[format]
 

@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "build:yandex": "tsc --noEmit && VITE_PLATFORM=yandex vite build --outDir dist-yandex",
+    "build": "tsc --noEmit && vite build && npm run build:worker",
+    "build:worker": "esbuild worker/index.ts --bundle --format=esm --target=es2022 --outfile=dist/_worker.js --log-level=warning",
+    "build:yandex": "tsc --noEmit && VITE_PLATFORM=yandex VITE_API_BASE=https://thousands.life/api vite build --outDir dist-yandex",
     "preview": "vite preview",
     "test": "vitest run",
     "prompts": "vite-node tools/export-prompts.ts",

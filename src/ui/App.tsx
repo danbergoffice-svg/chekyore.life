@@ -7,6 +7,7 @@ import { newSeed } from '../engine/rng'
 import type { GameState, LifeSummary } from '../engine/types'
 import { createT, loadEraTexts } from '../i18n'
 import { initPlatform, platform } from '../platform'
+import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
 import { clearAll, loadPrefs, loadSave, parseSaveFile, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
@@ -87,7 +88,18 @@ export function App() {
   useEffect(() => {
     initPlatform().then(loadSave).then(async (save) => {
       game.current = save.game && ERA_META[save.game.hero.era] ? save.game : null
-      setMemorial(save.memorial.filter((l) => ERA_META[l.era]))
+      const lives = save.memorial.filter((l) => ERA_META[l.era])
+      setMemorial(lives)
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode })
+      const params = new URLSearchParams(location.search)
+      let referrer = ''
+      try {
+        referrer = document.referrer ? new URL(document.referrer).hostname : ''
+      } catch {
+        referrer = ''
+      }
+      platform.track('app_open', { referrer, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()) })
+      trackUserParams(lives)
       if (game.current) await ensure(game.current.hero.era)
       setScreen('menu')
     })
@@ -111,9 +123,28 @@ export function App() {
 
   useEffect(() => window.scrollTo(0, 0), [screen])
 
+  // Время в жизни идёт, только пока открыт экран жизни и вкладка видна.
+  useEffect(() => {
+    if (screen !== 'life') return
+    const id = setInterval(() => {
+      if (game.current && document.visibilityState === 'visible') tickLife(game.current, 1)
+    }, 1000)
+    return () => clearInterval(id)
+  }, [screen])
+
+  // Уход со страницы: какой экран, возраст героя, сколько длилась сессия.
+  const where = useRef({ screen, age: 0 })
+  where.current = { screen, age: game.current?.hero.age ?? 0 }
+  useEffect(() => {
+    platform.onPause((paused) => {
+      if (paused) platform.track('session_end', { screen: where.current.screen, age: where.current.age, sec_in_session: Math.round(performance.now() / 1000) })
+    })
+  }, [])
+
   const setPrefs = (p: Prefs) => {
     setPrefsState(p)
     savePrefs(p)
+    platform.setContext({ lang: p.lang, mode: p.mode })
     // Режим «убрать тяжёлые сцены» действует и на текущую жизнь.
     if (game.current) game.current.settings.softenHeavy = p.softenHeavy
   }
@@ -131,7 +162,9 @@ export function App() {
       const next = [...memorial, life]
       setMemorial(next)
       saveMemorial(next)
-      platform.track('life_end', { era: life.era, region: life.region, age: life.age, cause: life.cause, generation: life.generation })
+      trackLifeEnd(s, life)
+      platform.setContext({ life_index: next.length + 1 })
+      trackUserParams(next)
       setScreen('death')
     }
     persist()
@@ -151,7 +184,9 @@ export function App() {
     const settings = { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy }
     game.current = newLife(ERA_META[pending.birth.era], settings, pending.seed, undefined, pending.birth)
     const h = game.current.hero
-    platform.track('life_start', { era: h.era, region: h.region, cls: h.cls, sex: h.sex, mode: prefs.mode, lottery: prefs.lottery })
+    void h
+    platform.setContext({ mode: prefs.mode })
+    trackLifeStart(game.current, prefs.lottery, memorial.length === 0)
     setPending(null)
     setYearChanges([])
     setScreen('reveal')
@@ -175,6 +210,7 @@ export function App() {
   const onFinish = () => {
     if (!era || game.current?.phase !== 'running') return
     finishYear(game.current, era)
+    trackYear(game.current)
     if (yearStart.current) setYearChanges(changes(yearStart.current, game.current))
     afterTurn()
   }
@@ -183,6 +219,7 @@ export function App() {
     if (!era) return
     const before = snapshot(game.current!)
     choose(game.current!, era, choiceId)
+    trackChoice(game.current!)
     setChoiceChanges(changes(before, game.current!))
     afterTurn()
   }
@@ -204,6 +241,7 @@ export function App() {
     if (!era) return
     game.current = continueWithHeir(game.current!, era, childId)
     platform.track('heir_chosen', { generation: game.current.hero.generation })
+    trackLifeStart(game.current, 'heir', false)
     setYearChanges([])
     setScreen('reveal')
     persist()

@@ -177,8 +177,9 @@ export const webPlatform: Platform = {
     webPlatform.flags = flags
     setInterval(() => flush(), 10000)
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') flush(true)
+      // Сначала игра записывает session_end, затем очередь уходит через sendBeacon.
       for (const h of pauseHandlers) h(document.visibilityState === 'hidden')
+      if (document.visibilityState === 'hidden') flush(true)
     })
     retryFeedback()
   },

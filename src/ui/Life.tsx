@@ -137,7 +137,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       <nav class="tabs" role="tablist">
         {(['life', 'hero', 'people', 'diary'] as Tab[]).map((id) => (
-          <button role="tab" aria-selected={tab === id} class={tab === id ? 'tab active' : 'tab'} onClick={() => setTab(id)}>
+          <button role="tab" aria-selected={tab === id} class={tab === id ? 'tab active' : 'tab'} onClick={() => {
+              setTab(id)
+              platform.track('tab_open', { tab: id })
+            }}>
             {t(`tab.${id}`)}
           </button>
         ))}
@@ -223,7 +226,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <div class="actions sticky">
             <div class="speed" role="group" aria-label={t('life.speed')}>
               {SPEEDS.map((s) => (
-                <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => setSpeed(s)}>
+                <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => {
+                  setSpeed(s)
+                  platform.track('speed_change', { speed: s })
+                }}>
                   {s === 0 ? '❚❚' : `×${s}`}
                 </button>
               ))}

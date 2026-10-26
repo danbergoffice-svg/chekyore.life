@@ -617,4 +617,17 @@ export interface GameState {
   nextId: number
   /** Когда в течение текущего года появляются записи дневника: номер записи → доля года. */
   reveal: Record<number, number>
+  /** Счётчики для аналитики текущей жизни (не влияют на игру). */
+  stats?: LifeStats
+}
+
+export interface LifeStats {
+  heroId: string
+  /** Секунд игры в этой жизни (только пока открыт экран жизни). */
+  sec: number
+  choices: number
+  /** Сколько раз защита первой жизни спасла героя. */
+  rescued: number
+  /** Отправленные отметки возраста. */
+  milestones: number[]
 }
