@@ -175,3 +175,29 @@ describe('Семейное положение (п. 6)', () => {
     expect(s.hero.tags).not.toContain('married')
   })
 })
+
+describe('Близкие на картинке (п. 7)', () => {
+  it('после свадьбы родители — по обычаю края; внешность фигурки героя — как на портрете', async () => {
+    const { familyCast, householdRule } = await import('../src/ui/cast')
+    const { applyEffects } = await import('../src/engine/rules')
+    const { figureLook } = await import('../src/pixel/avatar')
+    const make = (sex: Sex) => {
+      const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 700 + (sex === 'm' ? 1 : 2))
+      s.hero.sex = sex
+      s.hero.npcs = s.hero.npcs.filter((n) => n.role !== 'spouse')
+      s.year += 22; s.hero.age = 22
+      for (const p of s.hero.npcs) if (p.role === 'father' || p.role === 'mother') { p.alive = true; p.birthYear = s.year - 50 }
+      return s
+    }
+    const son = make('m')
+    expect(householdRule(son)).toBe('patrilocal')
+    expect(familyCast(son).members.filter((m) => m.role === 'parent').length).toBe(2)
+    applyEffects(son, era, [{ add_npc: 'spouse', attitude: 50 }])
+    expect(familyCast(son).members.filter((m) => m.role === 'parent').length).toBe(2)
+    const daughter = make('f')
+    applyEffects(daughter, era, [{ add_npc: 'spouse', attitude: 50 }])
+    expect(familyCast(daughter).members.filter((m) => m.role === 'parent').length).toBe(0)
+    const hero = familyCast(son).members[0]
+    expect(hero.look).toEqual(figureLook({ region: son.hero.region, sex: 'm', age: 22, seed: son.hero.id, cls: son.hero.cls, body: son.hero.body ?? 0, ill: false, married: true, widow: false, enslaved: son.hero.tags.includes('enslaved') }))
+  })
+})

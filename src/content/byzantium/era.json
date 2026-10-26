@@ -36,6 +36,7 @@
   },
   "lifeExpectancy": 30,
   "inheritance": "equal",
+  "household": "neolocal",
   "traits": [
     "cautious",
     "ambitious",

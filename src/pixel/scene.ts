@@ -3,6 +3,7 @@
 // Описание сцены (SceneDef) одно и то же для рисования и для промпта настоящей иллюстрации.
 
 import { ERA_META } from '../content'
+import type { FigureLook } from './avatar'
 import type { SceneDef, SceneProp, ScenePlace, SceneTime } from '../engine/types'
 
 export const W = 192
@@ -1077,6 +1078,8 @@ export interface CastMember {
   sex: 'm' | 'f'
   age: number
   seed: string
+  /** Внешность как на портрете (src/pixel/avatar.ts → figureLook): кожа, седина, одежда, убор, борода. */
+  look?: FigureLook
 }
 
 export interface Cast {
@@ -1084,14 +1087,81 @@ export interface Cast {
   animals: string[]
   /** Дом семьи 0–4 (для сцены 'yard'). */
   home?: number
+  /** Сколько близких не поместилось на картинку («+3»). */
+  more?: number
 }
 
-/** Рост фигурки по возрасту. */
+/** Рост фигурки по возрасту: близкие героя чуть крупнее прохожих (взрослый — 14 точек, прохожий — 12). */
 function heightFor(age: number): number {
-  return age < 4 ? 6 : age < 10 ? 8 : age < 15 ? 10 : 12
+  return age < 4 ? 6 : age < 10 ? 9 : age < 15 ? 11 : 14
+}
+
+/** Близкий человек героя: те же цвета, убор и борода, что на портрете. */
+function figure(px: Px, x: number, k: number, base: number, m: CastMember, f: FigureLook) {
+  const h = heightFor(m.age)
+  const top = base + 1 - h
+  const c = (hex: string) => shade(hex, k * 0.5)
+  const tiny = h <= 6
+  const faceH = tiny ? 2 : 3
+  if (m.role === 'hero') {
+    // Отметка героя: золотой треугольник над головой.
+    px(x, top - 6, 5, 1, '#f2c94c')
+    px(x + 1, top - 5, 3, 1, '#f2c94c')
+    px(x + 2, top - 4, 1, 1, '#f2c94c')
+  }
+  // Волосы (у лысых — кожа), длинные волосы у женщин по бокам лица.
+  px(x + 1, top, 3, 1, c(f.bald ? f.skin : f.hair))
+  const covered = f.hat === 'cover'
+  if (f.longHair && !covered) {
+    px(x, top, 1, Math.min(5, h - 6), c(f.hair))
+    px(x + 4, top, 1, Math.min(5, h - 6), c(f.hair))
+  }
+  px(x + 1, top + 1, 3, faceH, c(f.skin))
+  if (f.beard && !tiny) px(x + 1, top + faceH, 3, 1, c(f.hair))
+  if (!tiny) {
+    switch (f.hat) {
+      case 'cover':
+        px(x, top - 1, 5, 2, c(f.hatColor))
+        px(x, top + 1, 1, 4, c(f.hatColor))
+        px(x + 4, top + 1, 1, 4, c(f.hatColor))
+        break
+      case 'turban':
+        px(x, top - 1, 5, 2, c(f.hatColor))
+        break
+      case 'tall':
+        px(x - 1, top, 7, 1, c(f.hatColor))
+        px(x + 1, top - 1, 3, 1, c(f.hatColor))
+        px(x + 2, top - 2, 1, 1, c(f.hatColor))
+        break
+      case 'feather':
+        px(x + 1, top - 1, 3, 1, c(f.hatColor))
+        px(x + 2, top - 4, 1, 3, c(f.hatColor))
+        break
+      case 'cap':
+        px(x, top - 1, 5, 1, c(f.hatColor))
+        px(x + 1, top - 2, 3, 1, c(f.hatColor))
+        break
+      case 'band':
+        px(x, top, 5, 1, c(f.hatColor))
+        break
+    }
+  }
+  const bodyTop = top + faceH + 1
+  const legs = tiny ? 1 : h <= 9 ? 2 : 3
+  const bodyH = h - (bodyTop - top) - legs
+  px(x, bodyTop, 5, bodyH, c(f.cloth))
+  if (f.trim && bodyH > 3) px(x, bodyTop + bodyH - 2, 5, 1, c(f.trim))
+  if (m.sex === 'f' && h >= 11) {
+    // Платье до земли: ноги почти не видны.
+    px(x - 1, bodyTop + bodyH - 1, 7, legs, c(f.cloth))
+    return
+  }
+  px(x + 1, bodyTop + bodyH, 1, legs, c('#3a2a20'))
+  px(x + 3, bodyTop + bodyH, 1, legs, c('#3a2a20'))
 }
 
 function person(px: Px, x: number, look: Look, r: () => number, k: number, small = false, base = GROUND, m?: CastMember) {
+  if (m?.look) return figure(px, x, k, base, m, m.look)
   const p = look.p
   const own = m ? rand(`person:${m.seed}`) : r
   const h = m ? heightFor(m.age) : small ? 8 : 12
@@ -1398,7 +1468,7 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
   }
   placed.forEach((kind, i) => prop(px, kind, xs[i], time, p, k, r))
   // Близкие героя стоят первыми; остальные места — прохожие. Во дворе и дома чужих нет.
-  const members = cast?.members.slice(0, 7) ?? []
+  const members = cast?.members.slice(0, 8) ?? []
   const private_ = place === 'yard' || place === 'home'
   const extras = private_ && cast ? 0 : Math.max(0, (scene.people ?? 2) - members.length)
   let n = Math.min(water ? 2 : 8, members.length + extras)
@@ -1432,6 +1502,15 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
     const x = start + (n > 1 ? (i * span) / (n - 1) : 0) + (water ? 0 : Math.floor(r() * 4) - 2)
     const m = members[i]
     person(px, x, look, r, k, !m && place === 'home' && i === n - 1 && n > 2, base, m)
+  }
+  // Не поместившиеся близкие — подписью «+N» справа от семьи.
+  if (cast?.more) {
+    // Над правым краем семьи, выше голов: не заслоняет ни людей, ни животных.
+    const x = Math.min(W - 14, start + span)
+    px(x - 1, base - 25, 12, 8, 'rgba(20,16,12,0.7)')
+    ctx.fillStyle = '#f2ead8'
+    ctx.font = 'bold 7px sans-serif'
+    ctx.fillText(`+${cast.more}`, x, base - 19)
   }
   if (props.includes('rain')) prop(px, 'rain', 0, time, p, k, r)
 }

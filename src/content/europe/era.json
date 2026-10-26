@@ -39,6 +39,7 @@
   },
   "lifeExpectancy": 30,
   "inheritance": "sons_first",
+  "household": "neolocal",
   "traits": [
     "cautious",
     "ambitious",

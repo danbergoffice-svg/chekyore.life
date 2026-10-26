@@ -22,7 +22,7 @@ import { platform } from '../platform'
 import { lifeStats } from '../telemetry'
 import { Scene } from '../pixel/Scene'
 import { Avatar } from '../pixel/Avatar'
-import { eventCast, familyCast } from './cast'
+import { eventCast, eventRoles, familyCast } from './cast'
 import { entryScene } from './Summary'
 import { attitudeText, diaryText, feelings, useUi } from './text'
 import type { Change } from './text'
@@ -733,7 +733,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   return (
     <div class="modal-backdrop">
       <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="ev-title">
-        <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place)} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
+        <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev))} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
         <div class="modal-body">
           {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
           <h2 id="ev-title">{t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)}</h2>

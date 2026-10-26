@@ -405,6 +405,52 @@ function hairWithAge(base: string, age: number, r: () => number): string[] {
   return [white, mix(grey, white, 0.6)]
 }
 
+// ---------- Фигурка в сцене ----------
+
+/** Цвета и убор человечка в сцене — те же, что на портрете (кожа, волосы с сединой, одежда, головной убор, борода). */
+export interface FigureLook {
+  skin: string
+  hair: string
+  cloth: string
+  trim: string | null
+  /** Как рисовать убор в 5 точек ширины: покрывало, тюрбан, высокая шапка, перо, шапка, обруч. */
+  hat: 'cover' | 'turban' | 'tall' | 'feather' | 'cap' | 'band' | null
+  hatColor: string
+  beard: boolean
+  longHair: boolean
+  bald: boolean
+}
+
+const HAT_KIND: Record<Hat, FigureLook['hat']> = {
+  veil: 'cover', hijab: 'cover', wimple: 'cover', kerchief: 'cover', netela: 'cover', wrap: 'cover', hood: 'cover', coif: 'cover', bonnet: 'cover', nemes: 'cover',
+  turban: 'turban', pagri: 'turban', kufi: 'cap', fez: 'cap', fur: 'cap', felt: 'cap',
+  conical: 'tall', futou: 'tall', eboshi: 'tall', feathers: 'feather', kokoshnik: 'band', circlet: 'band', laurel: 'band', band: 'band', llautu: 'band',
+}
+
+export function figureLook(input: AvatarInput): FigureLook {
+  const look = lookOf(input.region)
+  const p = look.p
+  const st = avatarStage(input.age)
+  // Тот же порядок случайных чисел, что в drawAvatar: кожа → наряд → седина → лысина.
+  const r = rand(`avatar:${input.seed}`)
+  let skin = p.skin[Math.floor(r() * p.skin.length)]
+  if (input.ill) skin = mix(skin, '#b4b896', 0.3)
+  const L = lookFor(look.style, input, st, p, r)
+  const hair = hairWithAge(L.hairColor, input.age, r)[0]
+  const bald = input.sex === 'm' && input.age >= 45 && r() < 0.35 && L.hair !== 'chonmage'
+  return {
+    skin,
+    hair,
+    cloth: L.cloth,
+    trim: L.trim,
+    hat: L.hat ? HAT_KIND[L.hat] : null,
+    hatColor: L.hatColor,
+    beard: L.beard !== 'none' && L.beard !== 'fuzz',
+    longHair: input.sex === 'f' && st !== 'infant' && st !== 'toddler',
+    bald,
+  }
+}
+
 // ---------- Рисование ----------
 
 export function drawAvatar(ctx: CanvasRenderingContext2D, input: AvatarInput, x = 0, y = 0, s = 1): void {

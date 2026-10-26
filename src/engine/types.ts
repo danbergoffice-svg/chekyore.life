@@ -59,6 +59,8 @@ export interface Name {
 /** Можно ли называть ребёнка именем родителя, деда или прадеда: запрещено (Китай), можно, принято. */
 export type AncestorNames = 'forbid' | 'allow' | 'prefer'
 
+export type Household = 'patrilocal' | 'neolocal' | 'matrilocal'
+
 export interface RegionDef {
   id: string
   weight: number
@@ -72,6 +74,8 @@ export interface RegionDef {
   tags?: string[]
   /** Как делится наследство; по умолчанию — как задано для эпохи. */
   inheritance?: 'equal' | 'sons_first'
+  /** Где живёт семья после свадьбы: у родителей мужа (по умолчанию), отдельно, у родителей жены. */
+  household?: Household
   /** Вера жителей: id религии → вес. */
   religions: Record<string, number>
   /** С какого года вера жителей меняется (крещение, исламизация…): берётся последняя подходящая запись. */
@@ -214,6 +218,7 @@ export interface EraMeta {
   /** Средняя продолжительность жизни для сравнения на итоговой карточке. */
   lifeExpectancy: number
   inheritance: 'equal' | 'sons_first'
+  household?: Household
   lifestyle: LifestyleDef[]
   vices: ViceDef[]
 }
