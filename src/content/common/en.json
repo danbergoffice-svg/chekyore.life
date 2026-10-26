@@ -341,5 +341,8 @@
   "cause.snakebite": "snakebite",
   "prof.salt_trader": "Salt trader",
   "prof.salt_trader.as": "a salt trader",
-  "prof.salt_trader.desc": "Every household needs salt. Long roads, heavy loads and good money."
+  "prof.salt_trader.desc": "Every household needs salt. Long roads, heavy loads and good money.",
+  "cause.infant_diarrhea": "summer diarrhoea",
+  "cause.whooping_cough": "whooping cough",
+  "cause.measles": "measles"
 }

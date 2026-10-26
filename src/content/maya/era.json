@@ -2547,7 +2547,7 @@
           0,
           4
         ],
-        "weight": 10
+        "weight": 5
       },
       {
         "id": "fever",
@@ -2660,6 +2660,22 @@
           120
         ],
         "weight": 12
+      },
+      {
+        "id": "infant_diarrhea",
+        "ages": [
+          0,
+          4
+        ],
+        "weight": 4
+      },
+      {
+        "id": "whooping_cough",
+        "ages": [
+          0,
+          6
+        ],
+        "weight": 2
       }
     ]
   },

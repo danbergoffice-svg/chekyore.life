@@ -341,5 +341,8 @@
   "cause.snakebite": "укус змеи",
   "prof.salt_trader": "Торгов{g:ец|ка} солью",
   "prof.salt_trader.as": "{g:торговцем|торговкой} солью",
-  "prof.salt_trader.desc": "Соль нужна каждому дому. Долгие дороги, тяжёлая ноша и хороший доход."
+  "prof.salt_trader.desc": "Соль нужна каждому дому. Долгие дороги, тяжёлая ноша и хороший доход.",
+  "cause.infant_diarrhea": "летний понос",
+  "cause.whooping_cough": "коклюш",
+  "cause.measles": "корь"
 }
