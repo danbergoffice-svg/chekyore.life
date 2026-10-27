@@ -249,7 +249,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'life' && (
         <section class="panel">
-          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} />
+          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} ambient />
 
           {stage === 'infancy' || focuses.length === 0 ? (
             <p class="muted">{t('life.infancy', {}, o)}</p>
@@ -786,7 +786,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   return (
     <div class="modal-backdrop">
       <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="ev-title">
-        <Scene scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
+        <Scene ambient scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
         <div class="modal-body">
           {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
           <h2 id="ev-title">{t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)}</h2>

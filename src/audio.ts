@@ -1,4 +1,6 @@
 // Фоновая музыка: свой трек у меню и у каждой страны (public/music/<id>.mp3, сочиняет tools/gen/music.mjs).
+// Под музыкой — звуки места (setAmbience): дождь, ветер, огонь, волны, ручей, гомон рынка, птицы, сверчки, цикады.
+// Они синтезируются здесь же из шума и коротких тонов — ни одного файла.
 // Играет по кругу через Web Audio (так громкость работает и на iPhone), между треками — плавный переход.
 // Начинает после первого касания или клавиши (раньше браузеры звук не пускают), молчит, пока вкладка скрыта,
 // идёт реклама или платформа просит выключить звук. Грузится только тот трек, который нужен сейчас.
@@ -171,6 +173,7 @@ function unlock(): void {
   master.connect(ctx.destination)
   ctx.onstatechange = () => debug()
   apply()
+  applyAmbience()
   if (IOS && level() > 0) iosHint?.()
 }
 
@@ -230,3 +233,255 @@ export function setSound(on: boolean, vol: number): void {
   volume = Math.max(0, Math.min(1, vol))
   apply()
 }
+
+// ---------- Звуки места ----------
+
+export type AmbienceLayer = 'rain' | 'storm' | 'wind' | 'fire' | 'waves' | 'stream' | 'crowd' | 'murmur' | 'birds' | 'crickets' | 'cicadas'
+
+/** Насколько звуки места тише музыки. */
+const AMB_LEVEL = 0.45
+let ambWanted = new Set<AmbienceLayer>()
+let ambOut: GainNode | null = null
+const ambLive = new Map<AmbienceLayer, { gain: GainNode; stop: () => void }>()
+let noiseBuf: AudioBuffer | null = null
+let crackleBuf: AudioBuffer | null = null
+
+/** Белый шум на 2 секунды (зациклен). */
+function noise(): AudioBuffer {
+  if (noiseBuf) return noiseBuf
+  const b = ctx!.createBuffer(1, ctx!.sampleRate * 2, ctx!.sampleRate)
+  const d = b.getChannelData(0)
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1
+  return (noiseBuf = b)
+}
+
+/** Треск костра: редкие щелчки с затуханием поверх тихого гула. */
+function crackle(): AudioBuffer {
+  if (crackleBuf) return crackleBuf
+  const sr = ctx!.sampleRate
+  const b = ctx!.createBuffer(1, sr * 3, sr)
+  const d = b.getChannelData(0)
+  let low = 0
+  for (let i = 0; i < d.length; i++) {
+    low = low * 0.995 + (Math.random() * 2 - 1) * 0.005
+    d[i] = low * 6
+  }
+  for (let k = 0; k < 60; k++) {
+    const at = Math.floor(Math.random() * (d.length - sr * 0.05))
+    const amp = 0.2 + Math.random() * 0.6
+    const len = Math.floor(sr * (0.004 + Math.random() * 0.02))
+    for (let i = 0; i < len; i++) d[at + i] += (Math.random() * 2 - 1) * amp * Math.exp(-i / (len / 4))
+  }
+  return (crackleBuf = b)
+}
+
+function noiseSource(): AudioBufferSourceNode {
+  const src = ctx!.createBufferSource()
+  src.buffer = noise()
+  src.loop = true
+  src.loopStart = Math.random()
+  return src
+}
+
+function lfo(freq: number, depth: number, target: AudioParam): OscillatorNode {
+  const o = ctx!.createOscillator()
+  o.frequency.value = freq
+  const g = ctx!.createGain()
+  g.gain.value = depth
+  o.connect(g).connect(target)
+  o.start()
+  return o
+}
+
+/** Повторять звук через случайные промежутки (птицы, раскаты грома). */
+function every(min: number, max: number, play: (at: number) => void): () => void {
+  let stopped = false
+  let timer = 0
+  const next = () => {
+    if (stopped || !ctx) return
+    if (ctx.state === 'running') play(ctx.currentTime + 0.05)
+    timer = window.setTimeout(next, (min + Math.random() * (max - min)) * 1000)
+  }
+  timer = window.setTimeout(next, Math.random() * max * 1000)
+  return () => {
+    stopped = true
+    clearTimeout(timer)
+  }
+}
+
+function chirp(out: AudioNode, at: number, f0: number, f1: number, dur: number, vol: number) {
+  const o = ctx!.createOscillator()
+  const g = ctx!.createGain()
+  o.type = 'sine'
+  o.frequency.setValueAtTime(f0, at)
+  o.frequency.exponentialRampToValueAtTime(f1, at + dur)
+  g.gain.setValueAtTime(0, at)
+  g.gain.linearRampToValueAtTime(vol, at + dur * 0.2)
+  g.gain.exponentialRampToValueAtTime(0.0001, at + dur)
+  o.connect(g).connect(out)
+  o.start(at)
+  o.stop(at + dur + 0.05)
+}
+
+/** Собрать слой: источник → фильтры → своя громкость (плавно появляется). */
+function startLayer(layer: AmbienceLayer): { gain: GainNode; stop: () => void } {
+  const c = ctx!
+  const gain = c.createGain()
+  gain.gain.value = 0
+  gain.connect(ambOut!)
+  const nodes: (AudioScheduledSourceNode)[] = []
+  let cancel: (() => void) | null = null
+  let level = 0.2
+  const filter = (type: BiquadFilterType, f: number, q = 0.7) => {
+    const b = c.createBiquadFilter()
+    b.type = type
+    b.frequency.value = f
+    b.Q.value = q
+    return b
+  }
+  switch (layer) {
+    case 'rain':
+    case 'storm': {
+      const src = noiseSource()
+      src.connect(filter('highpass', 900)).connect(filter('lowpass', 6000)).connect(gain)
+      src.start()
+      nodes.push(src)
+      level = layer === 'storm' ? 0.32 : 0.22
+      if (layer === 'storm') {
+        // Раскаты грома: низкий шум с долгим затуханием.
+        const thunder = c.createGain()
+        thunder.gain.value = 0
+        const low = noiseSource()
+        low.connect(filter('lowpass', 120)).connect(thunder).connect(gain)
+        low.start()
+        nodes.push(low)
+        cancel = every(6, 14, (at) => {
+          thunder.gain.setValueAtTime(0, at)
+          thunder.gain.linearRampToValueAtTime(2.5, at + 0.15)
+          thunder.gain.exponentialRampToValueAtTime(0.001, at + 3)
+        })
+      }
+      break
+    }
+    case 'wind': {
+      const src = noiseSource()
+      const f = filter('bandpass', 500, 0.8)
+      src.connect(f).connect(gain)
+      src.start()
+      nodes.push(src, lfo(0.13, 300, f.frequency))
+      level = 0.25
+      break
+    }
+    case 'fire': {
+      const src = c.createBufferSource()
+      src.buffer = crackle()
+      src.loop = true
+      src.connect(filter('highpass', 200)).connect(gain)
+      src.start()
+      nodes.push(src)
+      level = 0.35
+      break
+    }
+    case 'waves': {
+      // Прибой: низкий шум, громкость дышит раз в 6–7 секунд.
+      const src = noiseSource()
+      const swell = c.createGain()
+      swell.gain.value = 0.6
+      src.connect(filter('lowpass', 700)).connect(swell).connect(gain)
+      src.start()
+      nodes.push(src, lfo(0.15, 0.45, swell.gain))
+      level = 0.35
+      break
+    }
+    case 'stream': {
+      const src = noiseSource()
+      src.connect(filter('bandpass', 1400, 0.6)).connect(gain)
+      src.start()
+      nodes.push(src)
+      level = 0.12
+      break
+    }
+    case 'crowd':
+    case 'murmur': {
+      // Гомон: шум в полосе голоса, громкость гуляет, как разговор многих людей.
+      for (const f0 of [450, 1100, 2300]) {
+        const src = noiseSource()
+        const g = c.createGain()
+        g.gain.value = 0.5
+        src.connect(filter('bandpass', f0, 4)).connect(g).connect(gain)
+        src.start()
+        nodes.push(src, lfo(2 + Math.random() * 3, 0.35, g.gain))
+      }
+      level = layer === 'crowd' ? 0.4 : 0.18
+      break
+    }
+    case 'birds':
+      level = 0.5
+      cancel = every(1.2, 4.5, (at) => {
+        const f = 2400 + Math.random() * 2400
+        const n = 1 + Math.floor(Math.random() * 3)
+        for (let i = 0; i < n; i++) chirp(gain, at + i * 0.13, f, f * (0.75 + Math.random() * 0.6), 0.09, 0.05)
+      })
+      break
+    case 'crickets':
+      level = 0.5
+      cancel = every(0.5, 1.4, (at) => {
+        for (let i = 0; i < 3; i++) chirp(gain, at + i * 0.06, 4300, 4200, 0.035, 0.02)
+      })
+      break
+    case 'cicadas': {
+      const o = c.createOscillator()
+      o.frequency.value = 5800
+      const am = c.createGain()
+      am.gain.value = 0.3
+      o.connect(am).connect(gain)
+      o.start()
+      nodes.push(o, lfo(38, 0.3, am.gain))
+      level = 0.05
+      break
+    }
+  }
+  gain.gain.setTargetAtTime(level, c.currentTime, 0.8)
+  return {
+    gain,
+    stop: () => {
+      cancel?.()
+      gain.gain.setTargetAtTime(0, c.currentTime, 0.5)
+      setTimeout(() => {
+        for (const n of nodes) {
+          try {
+            n.stop()
+          } catch {
+            // уже остановлен
+          }
+        }
+        gain.disconnect()
+      }, 2500)
+    },
+  }
+}
+
+function applyAmbience(): void {
+  if (!ctx || !master) return
+  if (!ambOut) {
+    ambOut = ctx.createGain()
+    ambOut.gain.value = AMB_LEVEL
+    ambOut.connect(master)
+  }
+  for (const [layer, l] of ambLive) {
+    if (!ambWanted.has(layer)) {
+      l.stop()
+      ambLive.delete(layer)
+    }
+  }
+  for (const layer of ambWanted) if (!ambLive.has(layer)) ambLive.set(layer, startLayer(layer))
+}
+
+/** Какие звуки места слышны сейчас (пустой список — тишина). Включаются плавно, лишние гаснут. */
+export function setAmbience(layers: AmbienceLayer[]): void {
+  const next = new Set(layers)
+  if (next.size === ambWanted.size && [...next].every((l) => ambWanted.has(l))) return
+  ambWanted = next
+  applyAmbience()
+}
+

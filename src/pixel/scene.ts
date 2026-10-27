@@ -1891,6 +1891,10 @@ export interface BuiltScene {
   actors: Actor[]
   fx: Fx
   badge?: { x: number; y: number; text: string }
+  /** Для звуков места. */
+  place: ScenePlace
+  time: SceneTime
+  mood?: SceneMood
 }
 
 const CACHE = new Map<string, BuiltScene>()
@@ -1989,7 +1993,8 @@ function build(input: SceneInput): BuiltScene {
   const frontPx = scaledPx(frontX)
   sky(skyPx, time, r)
   const props = scene.props ?? []
-  if (props.includes('sun') && outdoor) prop(skyPx, 'sun', 0, time, p, 0, r)
+  // В ненастье солнца не видно.
+  if (props.includes('sun') && outdoor && !(input.weather && ['rain', 'snow', 'storm', 'fog'].includes(input.weather))) prop(skyPx, 'sun', 0, time, p, 0, r)
   if (props.includes('moon')) prop(skyPx, 'moon', 0, time, p, 0, r)
   if (outdoor) {
     fx.clouds = { ...CLOUDS[time] }
@@ -2143,7 +2148,7 @@ function build(input: SceneInput): BuiltScene {
   }
   // Не поместившиеся близкие — подписью «+N» справа от семьи, выше голов.
   const badge = cast?.more ? { x: Math.round(Math.min(LW - 14, start + span + 4) * S), y: Math.round((base - 15) * S), text: `+${cast.more}` } : undefined
-  return { sky: skyC, far: farC, main: mainC, front: frontC, actors: cur.actors, fx, badge }
+  return { sky: skyC, far: farC, main: mainC, front: frontC, actors: cur.actors, fx, badge, place, time, mood }
 }
 
 // ---------- Промпт для настоящей иллюстрации ----------

@@ -169,14 +169,19 @@ export function drawFxTop(ctx: Ctx, fx: Fx, t: number): void {
       fill(ctx, x, y, noise(fx.seed, i, 17) > 0.8 ? 2 : 1, 1, '#f4f8fc')
     }
   } else if (w === 'fog') {
-    for (let i = 0; i < 4; i++) {
-      const y = fx.horizon - 26 + i * 9
-      const x = ((t * (3 + i) + i * 70) % 200) - 120
-      ctx.globalAlpha = 0.22
-      fill(ctx, x, y, 260, 6, '#e8ecef')
-      fill(ctx, x + 240, y + 2, 200, 5, '#e8ecef')
-      ctx.globalAlpha = 1
+    // Туман: рваные полупрозрачные пряди у земли, медленно ползут.
+    ctx.globalAlpha = 0.16
+    for (let row = 0; row < 9; row++) {
+      const y = fx.horizon - 30 + row * 4
+      const speed = 2 + (row % 3)
+      for (let k = 0; k < 6; k++) {
+        const len = 30 + noise(fx.seed, row, k) * 60
+        const x = ((noise(fx.seed, row, k + 9) * (W + 120) + t * speed) % (W + 120)) - 60
+        fill(ctx, x, y, len, 2, '#eef1f3')
+        fill(ctx, x + 6, y - 1, len - 12, 1, '#eef1f3')
+      }
     }
+    ctx.globalAlpha = 1
   } else if (w === 'wind') {
     for (let i = 0; i < 14; i++) {
       const speed = 70 + noise(fx.seed, i, 18) * 50
