@@ -14,6 +14,7 @@ import type { Fx, Weather } from './fx'
 import { climateOf, seasonLook, seasonName } from './season'
 import { artFor, artStrength, drawBackground, paletteMapper, stylize } from './art'
 import { detailHouses } from './detail'
+import { drawAnimal, NATIVE_ANIMALS } from './animals'
 import type { ArtStyle } from './art'
 import type { SeasonLook, SeasonName } from './season'
 import type { SceneDef, SceneProp, ScenePlace, SceneTime } from '../engine/types'
@@ -1359,11 +1360,16 @@ function scaledPx(ctx: Ctx, ox = 0, oy = 0): Px {
 /** Цвета стиля искусства края (палитра вполсилы); null — без изменений. */
 let colorMap: ((c: string) => string) | null = null
 
-/** Кисть в точках холста. */
+/** Кисть в точках холста (цвет ставится, только когда меняется). */
 function nativePx(ctx: Ctx): Px {
+  let last = ''
   return (x, y, w, h, c) => {
     if (w <= 0 || h <= 0) return
-    ctx.fillStyle = colorMap ? colorMap(c) : c
+    const col = colorMap ? colorMap(c) : c
+    if (col !== last) {
+      ctx.fillStyle = col
+      last = col
+    }
     ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h))
   }
 }
@@ -1480,6 +1486,8 @@ function actorAnimal(kind: string, x: number, k: number, base?: number) {
   cur.actors.push({
     draw: (ctx, t) => {
       const step = Math.floor(t * 0.7 + phase * 5) % 4 === 0 ? 1 : 0
+      // Животные двора — в полном разрешении (animals.ts), питомцы — прежним рисунком.
+      if (base === undefined && NATIVE_ANIMALS.includes(kind)) return drawAnimal(nativePx(ctx), kind, Math.round(x * S), Math.round((GROUND + 1) * S) - 1, k, step)
       const px = scaledPx(ctx, step, 0)
       if (base === undefined) animal(px, kind, x, k)
       else pet(px, kind, x, base, k)

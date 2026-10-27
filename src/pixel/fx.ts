@@ -36,8 +36,13 @@ export function noise(a: number, b = 0, c = 0): number {
   return ((h ^ (h >>> 16)) >>> 0) / 4294967296
 }
 
+/** Последний цвет кисти: менять fillStyle дорого, ставим только когда цвет другой (сброс в начале каждого слоя). */
+let lastColor = ''
 const fill = (ctx: Ctx, x: number, y: number, w: number, h: number, c: string) => {
-  ctx.fillStyle = c
+  if (c !== lastColor) {
+    ctx.fillStyle = c
+    lastColor = c
+  }
   ctx.fillRect(Math.round(x), Math.round(y), Math.max(0, Math.round(w)), Math.max(0, Math.round(h)))
 }
 
@@ -45,6 +50,7 @@ const W = 320
 
 /** За постройками: облака, мерцание звёзд, птицы. */
 export function drawFxBack(ctx: Ctx, fx: Fx, t: number): void {
+  lastColor = ''
   // Звёзды: треть мигает.
   for (let i = 0; i < fx.stars.length; i++) {
     if (i % 3) continue
@@ -79,6 +85,7 @@ export function drawFxBack(ctx: Ctx, fx: Fx, t: number): void {
 
 /** Поверх построек, под людьми: рябь воды, огни в окнах, пламя, пыль, флаги. */
 export function drawFxMid(ctx: Ctx, fx: Fx, t: number): void {
+  lastColor = ''
   for (const [wi, w] of fx.water.entries()) {
     for (let y = w.y + 1, row = 0; y < w.y + w.h; y += 3, row++) {
       const dir = row % 2 ? 1 : -1
@@ -130,6 +137,7 @@ export function drawFxMid(ctx: Ctx, fx: Fx, t: number): void {
 
 /** Над людьми: дым и погода. */
 export function drawFxTop(ctx: Ctx, fx: Fx, t: number): void {
+  lastColor = ''
   for (const [i, s] of fx.smoke.entries()) {
     for (let k = 0; k < 5; k++) {
       const age = (t * (0.18 + s.size * 0.02) + k / 5 + noise(fx.seed, i, 9)) % 1
