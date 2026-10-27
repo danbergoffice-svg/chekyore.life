@@ -9,7 +9,7 @@ export const HIDDEN = ['happiness', 'stress', 'loneliness', 'reputation', 'self_
 export type AttrId = (typeof ATTRIBUTES)[number]
 export type HiddenId = (typeof HIDDEN)[number]
 /** Всё, что можно читать и менять числом: атрибуты, скрытые параметры и достаток. */
-export type ParamId = AttrId | HiddenId | 'money'
+export type ParamId = AttrId | HiddenId | 'money' | 'integration' | 'acceptance' | 'homesick'
 
 export type NpcRole = 'father' | 'mother' | 'sibling' | 'friend' | 'spouse' | 'child' | 'grandchild' | 'mentor' | 'rival' | 'patron'
 /** Роль в эффектах: 'npc' — персонаж, к которому привязано текущее событие. */
@@ -292,6 +292,11 @@ export type Condition =
   | { has_pet: string }
   | { pet_possible: string }
   | { pets_below: number }
+  /** На чужбине / стал здешним / можно уехать (маршрут открыт) / родина героя. */
+  | { abroad: boolean }
+  | { naturalized: boolean }
+  | { can_emigrate: string }
+  | { homeland: string[] }
   | { classes: string[] }
   | { age: [number, number] }
   | { religion: string[] }
@@ -335,6 +340,12 @@ export type Effect =
   /** Новый питомец: вид, '@any' — любой возможный здесь, '@stray' — пёс или кошка; owner child — питомец ребёнка героя. */
   | { add_pet: string; owner?: 'child' | 'npc' }
   | { remove_pet: string }
+  /** Уехать в другую страну: '@neighbor', '@far', '@any' или id страны; кто едет — вся семья, один, с сыновьями. */
+  | { emigrate: string; reason: EmigrationReason; family?: 'all' | 'alone' | 'sons' }
+  | { return_home: true }
+  /** Решение о возвращении: остаться (ещё один отказ) или подумать (спросить через год); стать здешним. */
+  | { abroad_choice: 'stay' | 'later' }
+  | { naturalize: true }
   /** Дом героя: сгорел, разрушен (на ступень меньше, стоит повреждённым) или отстраивается. */
   | { home: 'burn' | 'ruin' | 'rebuild' }
   | { chance: number; effects: Effect[] }
@@ -472,7 +483,30 @@ export interface NpcAway {
   reason: AwayReason
 }
 
-export type AwayReason = 'abroad' | 'monastery' | 'service' | 'sold' | 'exile' | 'married_far' | 'left' | 'divorced'
+export type AwayReason = 'abroad' | 'monastery' | 'service' | 'sold' | 'exile' | 'married_far' | 'left' | 'divorced' | 'homeland'
+
+/** Зачем уехал из страны: торговля, служба, беженец, пленник, брак, вера, изгнание, приглашение. */
+export type EmigrationReason = 'trade' | 'service' | 'refugee' | 'captive' | 'marriage' | 'faith' | 'exile' | 'invited'
+
+/** Жизнь на чужбине (п. 11 ТЗ v3). */
+export interface Abroad {
+  homeland: { era: string; region: string }
+  since: number
+  reason: EmigrationReason
+  /** Далёкий переезд («через полмира»). */
+  far: boolean
+  /** 0–100: вживание (язык, обычаи), принятие обществом, тоска по дому. */
+  integration: number
+  acceptance: number
+  homesick: number
+  /** Сколько раз отказался вернуться; год следующего вопроса «вернуться?». */
+  refusals: number
+  nextAsk: number
+  /** Год, когда стал жителем страны. */
+  naturalized?: number
+  /** Игрок задумал вернуться (кнопка во вкладке «Герой»): вопрос придёт в следующем году. */
+  planned?: boolean
+}
 
 export type TextParam = string | number | { name: string } | { key: string; sex?: Sex }
 
@@ -579,6 +613,12 @@ export interface Hero {
   lifestyle: Record<string, string>
   /** Дом семьи: 0 — лачуга, 1 — хижина, 2 — дом, 3 — большой дом, 4 — усадьба. */
   home: number
+  /** На чужбине: откуда, с какого года, вживание, принятие, тоска. */
+  abroad?: Abroad
+  /** Страны, где жил герой (для текстов дневника и пути рода). */
+  erasLived?: string[]
+  /** Вернулся домой: год и сколько лет прожил на чужбине. */
+  returned?: { year: number; years: number }
   /** Год, когда дом сгорел/разрушен или начали отстраиваться (метки home_burned, home_ruined, home_rebuilding). */
   homeSince?: number
   /** Телосложение −3…3 (худоба … полнота): меняется от еды, достатка и болезней; только для портрета. */
@@ -634,6 +674,10 @@ export interface LifeSummary {
   /** Отмеченные звёздочкой записи и строка игрока для карточки. */
   starred?: number[]
   playerLine?: string
+  /** Страны жизни по порядку и годы переездов (путь рода). */
+  erasLived?: string[]
+  abroad?: Abroad
+  returned?: { year: number; years: number }
   /** Жизнь прожита вне хроники (после конца эпохи страны) — с этого года. */
   offChronicle?: number
   /** Для наград: режим смертности, была ли защита первой жизни, метки, навыки, животные на момент смерти. */

@@ -25,6 +25,10 @@ export interface AvatarInput {
   married?: boolean
   /** Вдова: тёмное покрывало (Русь, Византия, Европа), белое — в Индии. */
   widow?: boolean
+  /** Иноземец: родной край (кожа и волосы — оттуда; одежда — тоже, пока не вжился). */
+  homeRegion?: string
+  /** Вжился на чужбине: одевается по-здешнему. */
+  integrated?: boolean
   dead?: boolean
   enslaved?: boolean
 }
@@ -427,13 +431,19 @@ const HAT_KIND: Record<Hat, FigureLook['hat']> = {
   conical: 'tall', futou: 'tall', eboshi: 'tall', feathers: 'feather', kokoshnik: 'band', circlet: 'band', laurel: 'band', band: 'band', llautu: 'band',
 }
 
+/** В чьей одежде: здешней — местные и вжившиеся, родной — иноземцы первых лет. */
+function dressRegion(input: AvatarInput): string {
+  return input.homeRegion && !input.integrated ? input.homeRegion : input.region
+}
+
 export function figureLook(input: AvatarInput): FigureLook {
-  const look = lookOf(input.region)
+  const look = lookOf(dressRegion(input))
   const p = look.p
+  const native = lookOf(input.homeRegion ?? input.region).p
   const st = avatarStage(input.age)
   // Тот же порядок случайных чисел, что в drawAvatar: кожа → наряд → седина → лысина.
   const r = rand(`avatar:${input.seed}`)
-  let skin = p.skin[Math.floor(r() * p.skin.length)]
+  let skin = native.skin[Math.floor(r() * native.skin.length)]
   if (input.ill) skin = mix(skin, '#b4b896', 0.3)
   const L = lookFor(look.style, input, st, p, r)
   const hair = hairWithAge(L.hairColor, input.age, r)[0]
@@ -459,12 +469,14 @@ export function drawAvatar(ctx: CanvasRenderingContext2D, input: AvatarInput, x 
     ctx.fillStyle = c
     ctx.fillRect(x + gx * s, y + gy * s, w * s, h * s)
   }
-  const look = lookOf(input.region)
+  // Иноземец: кожа и волосы — родного края, одежда — родная, пока не вжился, потом здешняя.
+  const look = lookOf(dressRegion(input))
   const p = look.p
+  const native = lookOf(input.homeRegion ?? input.region).p
   const st = avatarStage(input.age)
   const r = rand(`avatar:${input.seed}`)
   // Цвет кожи и черты лица постоянны для героя, остальное — по возрасту.
-  let skin = p.skin[Math.floor(r() * p.skin.length)]
+  let skin = native.skin[Math.floor(r() * native.skin.length)]
   if (input.ill) skin = mix(skin, '#b4b896', 0.3)
   const body = Math.max(-3, Math.min(3, input.body ?? 0))
   const L = lookFor(look.style, input, st, p, r)

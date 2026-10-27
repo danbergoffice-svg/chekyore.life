@@ -25,6 +25,8 @@ import {
 } from './rules'
 import { householdYear } from './household'
 import { pets } from './pets'
+import { abroadYear, homesickDue, naturalizeDue } from './abroad'
+import { eraById, isEraLoaded } from '../content'
 import { eraEnding, summarize } from './life'
 import { PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
@@ -57,6 +59,7 @@ export function stageOf(state: GameState, era: EraDef): 'infancy' | 'childhood' 
  * Когда часы года дойдут до конца и все события будут разобраны, вызывается finishYear.
  */
 export function startYear(state: GameState, era: EraDef, focusId: string | null): void {
+  era = eraNow(state, era)
   if (state.phase !== 'year') throw new Error(`startYear in phase ${state.phase}`)
   const hero = state.hero
   state.reveal = {}
@@ -93,6 +96,7 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
 
 /** Закончить год: проверка смертности, возраст +1. Вызывается, когда все события года разобраны. */
 export function finishYear(state: GameState, era: EraDef): void {
+  era = eraNow(state, era)
   if (state.phase !== 'running') throw new Error(`finishYear in phase ${state.phase}`)
   if (state.queue.length > 0) throw new Error('Events are still waiting')
   endYear(state, era)
@@ -127,6 +131,8 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   const hero = state.hero
   const age = hero.age
   const births: Npc[] = []
+  // Чужбина: вживание, принятие, тоска; доход первых лет ниже, потом — по вживанию.
+  const abroadIncome = abroadYear(state, focus)
 
   // Работа и расходы взрослого.
   if (age >= era.stages.youth) {
@@ -135,7 +141,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
     let income = 0
     if (prof) {
       income = int(state, prof.income[0], prof.income[1]) * (0.75 + (hero.skills[prof.skill] ?? 0) / 100)
-      income *= focus?.incomeMultiplier ?? 1
+      income *= (focus?.incomeMultiplier ?? 1) * abroadIncome
       if (age >= era.stages.old) income *= 0.5
       if (focus?.id === 'work') changeSkill(hero, prof.skill, 3)
       changeParam(hero, 'stress', prof.stress ?? 0)
@@ -353,6 +359,14 @@ function eventWeight(state: GameState, ev: EventDef): number {
 }
 
 /** Персонажи, о которых может быть событие. */
+/**
+ * Страна, где герой сейчас: после переезда в другую страну дальше считаются её правила и события
+ * (если её контент уже загружен; иначе — пока прежняя).
+ */
+export function eraNow(state: GameState, era: EraDef): EraDef {
+  return state.hero.era === era.id || !isEraLoaded(state.hero.era) ? era : eraById(state.hero.era)
+}
+
 /** Счётчики для отчётов симуляции: сколько последствий отменено и по какой причине. */
 export const triggerStats = { cancelled: {} as Record<string, number>, postponed: 0 }
 
@@ -481,6 +495,9 @@ function activate(state: GameState, ev: EventDef, from?: number, npcId?: string)
 export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName'>): Record<string, TextParam> {
   // Питомец: по кличке, а если клички нет — «попугай», «черепаха».
   const pet: Record<string, TextParam> = active.petKind ? { pet: active.petName ? { name: active.petName } : { key: `pet.${active.petKind}` } } : {}
+  // На чужбине: {homeland} — родная страна, {homeplace} — родной край.
+  const a = state.hero.abroad
+  if (a) Object.assign(pet, { homeland: { key: `era.${a.homeland.era}` }, homeplace: { key: `region.${a.homeland.region}` } })
   const npc = state.hero.npcs.find((n) => n.id === active.npcId)
   if (npc) return { npc: { name: npc.name }, npc_sex: npc.sex, ...pet }
   return active.npcName ? { npc: { name: active.npcName }, npc_sex: active.npcSex ?? 'm', ...pet } : pet
@@ -580,6 +597,13 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
       fired++
       if (t.line) lines.add(t.line)
     }
+  }
+
+  // 1а. Чужбина: раз в три года — «вернуться домой?»; после трёх отказов и вживания — «Ты здешний».
+  if (naturalizeDue(state)) add(byId('ab_naturalized'))
+  else if (homesickDue(state)) {
+    add(byId('ab_homesick'))
+    hero.abroad!.nextAsk = state.year + 3
   }
 
   // 2. Исторические события в этом регионе и году (вне хроники их нет).
@@ -795,6 +819,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   if (choice) {
     applyEffects(state, era, choice.effects, ctx)
     addPattern(hero, choice.pattern)
+    era = eraNow(state, era)
     if (choice.risk_roll) {
       const success = chance(state, riskChance(state, choice)!)
       result = success ? 'success' : 'failure'
@@ -863,6 +888,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
 
 /** Закрыть показанный итог события и перейти к следующему. */
 export function dismiss(state: GameState, era: EraDef): void {
+  era = eraNow(state, era)
   const active = state.queue[0]
   if (!active?.outcome) throw new Error('Event not resolved yet')
   state.queue.shift()
@@ -943,6 +969,7 @@ function pickCause(state: GameState, era: EraDef): string {
 }
 
 function die(state: GameState, era: EraDef): void {
+  era = eraNow(state, era)
   const hero = state.hero
   hero.alive = false
   hero.deathYear ??= state.year
@@ -959,6 +986,8 @@ function die(state: GameState, era: EraDef): void {
 /** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов). */
 export function autoplay(state: GameState, era: EraDef, maxYears = 130): GameState {
   for (let i = 0; i < maxYears * 6 && state.phase !== 'dead'; i++) {
+    // Переехал в другую страну — дальше её события (страна уже загружена: переезд открыт только в загруженные).
+    if (state.hero.era !== era.id && isEraLoaded(state.hero.era)) era = eraById(state.hero.era)
     if (state.phase === 'year') {
       const focuses = availableFocuses(state, era)
       const f = focuses.length ? focuses[Math.floor(next(state) * focuses.length)].id : null

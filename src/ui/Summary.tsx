@@ -106,6 +106,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         <p class="muted small">{t('summary.cls_line', { born: { key: `class.${birthCls}` }, died: { key: `class.${life.cls}` } }, o)}</p>
         <p class="bio-text">{bio.join(' ')}</p>
         {life.offChronicle !== undefined && <p class="small muted">{t('summary.off_chronicle', { year: formatYear(life.offChronicle, lang) })}</p>}
+        {(life.erasLived?.length ?? 0) > 1 && <p class="small muted">{t('summary.path', { list: life.erasLived!.map((id) => t(`era.${id}`)).join(' → ') })}</p>}
         <p>
           <strong>{t('summary.cause')}:</strong> {t(`cause.${life.cause}`)}
         </p>

@@ -1,4 +1,4 @@
-import { ERA_META } from '../content'
+import { ERA_META, eraById, isEraLoaded } from '../content'
 import { bell, chance, int, pick, weighted } from './rng'
 import { addYears, clamp, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
@@ -193,6 +193,9 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     traits: h.traits,
     report: buildReport(state, era),
     offChronicle: state.offChronicle,
+    erasLived: h.erasLived,
+    abroad: h.abroad,
+    returned: h.returned,
     mortality: state.settings.mortality,
     protectedLife: state.settings.protectedUntil !== undefined,
     tags: h.tags,
@@ -274,6 +277,8 @@ function inheritPets(hero: Hero, year: number): void {
 /** Продолжение рода: наследник становится новым героем, время идёт дальше. */
 export function continueWithHeir(prev: GameState, era: EraDef, childId: string): GameState {
   const parent = prev.hero
+  // Род мог переехать в другую страну: наследник живёт по её правилам.
+  if (parent.era !== era.id && isEraLoaded(parent.era)) era = eraById(parent.era)
   const child = heirs(prev).find((n) => n.id === childId)
   if (!child) throw new Error('Heir not found')
   const gen = descentOf(parent.npcs, child)
@@ -319,6 +324,12 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   const prof = era.professions.find((p) => p.id === parent.profession)
   if (prof) hero.tags.push(`raised_${prof.skill}`)
   if (parent.tags.includes('freedman') || parent.tags.includes('freeborn_heir')) hero.tags.push('freeborn_heir')
+  // Чужбина: ребёнок, привезённый из родной страны, — ещё немного чужой; рождённый здесь — здешний.
+  const pa = parent.abroad
+  if (pa && !pa.naturalized && child.birthYear < pa.since) {
+    hero.abroad = { ...pa, integration: Math.max(pa.integration, 55), homesick: 20, refusals: 0, nextAsk: prev.year + 3, planned: false }
+  }
+  hero.erasLived = [hero.era]
   // Сгоревший или отстраивающийся дом достаётся наследнику таким, какой есть.
   hero.tags.push(...parent.tags.filter((t) => HOME_TAGS.includes(t)))
   hero.homeSince = parent.homeSince

@@ -8,7 +8,8 @@
       "abroad",
       "service",
       "married_far",
-      "exile"
+      "exile",
+      "homeland"
     ],
     "base_weight": 2,
     "topic": "family",
@@ -45,7 +46,8 @@
       "abroad",
       "service",
       "married_far",
-      "exile"
+      "exile",
+      "homeland"
     ],
     "base_weight": 2,
     "topic": "family",

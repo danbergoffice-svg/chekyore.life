@@ -42,6 +42,8 @@ function heroMember(state: GameState): CastMember {
       married: h.npcs.some((n) => n.role === 'spouse'),
       widow: maritalStatus(h).kind === 'widowed',
       enslaved: h.tags.includes('enslaved'),
+      homeRegion: h.abroad?.homeland.region,
+      integrated: !!h.abroad && (!!h.abroad.naturalized || h.abroad.integration >= 60),
     }),
   }
 }

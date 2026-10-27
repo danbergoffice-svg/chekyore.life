@@ -1,0 +1,1721 @@
+[
+  {
+    "id": "ab_go_trade",
+    "type": "personal",
+    "base_weight": 0.5,
+    "topic": "work",
+    "age_range": [
+      18,
+      50
+    ],
+    "classes": [
+      "trader",
+      "craftsman"
+    ],
+    "conditions": [
+      {
+        "can_emigrate": "@any"
+      },
+      {
+        "tag_absent": "enslaved"
+      }
+    ],
+    "scene": {
+      "place": "harbor",
+      "time": "dawn",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "all",
+        "effects": [
+          {
+            "emigrate": "@any",
+            "reason": "trade",
+            "family": "all"
+          }
+        ]
+      },
+      {
+        "id": "alone",
+        "effects": [
+          {
+            "emigrate": "@any",
+            "reason": "trade",
+            "family": "alone"
+          }
+        ]
+      },
+      {
+        "id": "stay"
+      }
+    ]
+  },
+  {
+    "id": "ab_go_service",
+    "type": "personal",
+    "base_weight": 0.5,
+    "topic": "work",
+    "sex": "m",
+    "age_range": [
+      18,
+      38
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "landowner",
+      "noble"
+    ],
+    "conditions": [
+      {
+        "can_emigrate": "@neighbor"
+      }
+    ],
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "go",
+        "effects": [
+          {
+            "emigrate": "@neighbor",
+            "reason": "service",
+            "family": "alone"
+          },
+          {
+            "param": "money",
+            "delta": 60
+          }
+        ]
+      },
+      {
+        "id": "go_all",
+        "effects": [
+          {
+            "emigrate": "@neighbor",
+            "reason": "service",
+            "family": "all"
+          },
+          {
+            "param": "money",
+            "delta": 40
+          }
+        ]
+      },
+      {
+        "id": "stay"
+      }
+    ]
+  },
+  {
+    "id": "ab_flee_ruin",
+    "type": "personal",
+    "base_weight": 0.8,
+    "topic": "life",
+    "age_range": [
+      16,
+      60
+    ],
+    "conditions": [
+      {
+        "tag": "home_damaged"
+      },
+      {
+        "can_emigrate": "@neighbor"
+      },
+      {
+        "tag_absent": "enslaved"
+      }
+    ],
+    "scene": {
+      "place": "road",
+      "time": "overcast",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "flee",
+        "effects": [
+          {
+            "emigrate": "@neighbor",
+            "reason": "refugee",
+            "family": "all"
+          }
+        ]
+      },
+      {
+        "id": "stay",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_flee_debt",
+    "type": "personal",
+    "base_weight": 0.6,
+    "topic": "life",
+    "age_range": [
+      18,
+      60
+    ],
+    "conditions": [
+      {
+        "tag": "in_debt"
+      },
+      {
+        "param": "money",
+        "op": "<",
+        "value": -150
+      },
+      {
+        "can_emigrate": "@neighbor"
+      },
+      {
+        "tag_absent": "enslaved"
+      }
+    ],
+    "scene": {
+      "place": "road",
+      "time": "night",
+      "people": 2,
+      "props": [
+        "moon"
+      ]
+    },
+    "choices": [
+      {
+        "id": "flee",
+        "effects": [
+          {
+            "emigrate": "@neighbor",
+            "reason": "refugee",
+            "family": "all"
+          },
+          {
+            "param": "money",
+            "delta": 200
+          },
+          {
+            "remove_tag": "in_debt"
+          },
+          {
+            "param": "reputation",
+            "delta": -8
+          }
+        ]
+      },
+      {
+        "id": "stay",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_go_invited",
+    "type": "personal",
+    "base_weight": 0.7,
+    "topic": "work",
+    "age_range": [
+      22,
+      60
+    ],
+    "classes": [
+      "craftsman",
+      "trader"
+    ],
+    "conditions": [
+      {
+        "param": "craft",
+        "op": ">=",
+        "value": 35
+      },
+      {
+        "can_emigrate": "@neighbor"
+      }
+    ],
+    "scene": {
+      "place": "workshop",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "all",
+        "effects": [
+          {
+            "emigrate": "@neighbor",
+            "reason": "invited",
+            "family": "all"
+          },
+          {
+            "param": "money",
+            "delta": 150
+          },
+          {
+            "param": "reputation",
+            "delta": 5
+          }
+        ]
+      },
+      {
+        "id": "alone",
+        "effects": [
+          {
+            "emigrate": "@neighbor",
+            "reason": "invited",
+            "family": "alone"
+          },
+          {
+            "param": "money",
+            "delta": 120
+          }
+        ]
+      },
+      {
+        "id": "decline"
+      }
+    ]
+  },
+  {
+    "id": "ab_go_marriage",
+    "type": "family",
+    "base_weight": 0.5,
+    "topic": "life",
+    "sex": "f",
+    "age_range": [
+      14,
+      26
+    ],
+    "classes": [
+      "trader",
+      "landowner",
+      "noble",
+      "craftsman"
+    ],
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "married"
+      },
+      {
+        "tag_absent": "vowed"
+      },
+      {
+        "can_emigrate": "@neighbor"
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "accept",
+        "effects": [
+          {
+            "emigrate": "@neighbor",
+            "reason": "marriage",
+            "family": "alone"
+          },
+          {
+            "add_npc": "spouse",
+            "attitude": 30
+          },
+          {
+            "param": "money",
+            "delta": 80
+          }
+        ],
+        "icon": "wedding"
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 2
+          }
+        ]
+      }
+    ],
+    "others": [
+      "spouse"
+    ]
+  },
+  {
+    "id": "ab_go_faith",
+    "type": "personal",
+    "base_weight": 0.15,
+    "topic": "life",
+    "age_range": [
+      25,
+      75
+    ],
+    "conditions": [
+      {
+        "param": "faith",
+        "op": ">=",
+        "value": 70
+      },
+      {
+        "can_emigrate": "@any"
+      },
+      {
+        "tag_absent": "enslaved"
+      }
+    ],
+    "scene": {
+      "place": "temple",
+      "time": "dawn",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "stay_there",
+        "effects": [
+          {
+            "emigrate": "@any",
+            "reason": "faith",
+            "family": "alone"
+          },
+          {
+            "param": "faith",
+            "delta": 8
+          }
+        ]
+      },
+      {
+        "id": "home",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_captive",
+    "type": "personal",
+    "base_weight": 0.25,
+    "topic": "life",
+    "eras": [
+      "RUS"
+    ],
+    "years": [
+      1450,
+      1600
+    ],
+    "age_range": [
+      10,
+      45
+    ],
+    "sensitive": true,
+    "conditions": [
+      {
+        "can_emigrate": "@far"
+      },
+      {
+        "tag_absent": "enslaved"
+      }
+    ],
+    "scene": {
+      "place": "road",
+      "time": "dawn",
+      "people": 5
+    },
+    "choices": [
+      {
+        "id": "endure",
+        "effects": [
+          {
+            "emigrate": "@far",
+            "reason": "captive",
+            "family": "alone"
+          },
+          {
+            "param": "happiness",
+            "delta": -15
+          },
+          {
+            "param": "health",
+            "delta": -8
+          }
+        ]
+      },
+      {
+        "id": "escape",
+        "risk_roll": {
+          "param": "strength",
+          "success_chance_base": 0.3,
+          "on_success": [
+            {
+              "param": "health",
+              "delta": -6
+            },
+            {
+              "param": "self_esteem",
+              "delta": 6
+            }
+          ],
+          "on_failure": [
+            {
+              "emigrate": "@far",
+              "reason": "captive",
+              "family": "alone"
+            },
+            {
+              "param": "health",
+              "delta": -12
+            },
+            {
+              "param": "happiness",
+              "delta": -15
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ab_go_exile",
+    "type": "personal",
+    "base_weight": 0.6,
+    "topic": "life",
+    "age_range": [
+      20,
+      70
+    ],
+    "classes": [
+      "noble",
+      "landowner"
+    ],
+    "conditions": [
+      {
+        "param": "reputation",
+        "op": "<",
+        "value": -10
+      },
+      {
+        "can_emigrate": "@neighbor"
+      }
+    ],
+    "scene": {
+      "place": "palace",
+      "time": "sunset",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "exile",
+        "effects": [
+          {
+            "emigrate": "@neighbor",
+            "reason": "exile",
+            "family": "all"
+          }
+        ]
+      },
+      {
+        "id": "endure",
+        "risk_roll": {
+          "param": "reputation",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 5
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -40
+            },
+            {
+              "param": "reputation",
+              "delta": -5
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ab_culture_shock",
+    "type": "personal",
+    "base_weight": 2,
+    "topic": "life",
+    "moment": true,
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      },
+      {
+        "param": "integration",
+        "op": "<",
+        "value": 35
+      }
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 4
+    },
+    "effects": [
+      {
+        "param": "homesick",
+        "delta": 5
+      },
+      {
+        "param": "stress",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "ab_language",
+    "type": "personal",
+    "base_weight": 1.5,
+    "topic": "life",
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      },
+      {
+        "param": "integration",
+        "op": "<",
+        "value": 50
+      }
+    ],
+    "age_range": [
+      10,
+      90
+    ],
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "learn",
+        "effects": [
+          {
+            "param": "integration",
+            "delta": 12
+          },
+          {
+            "param": "stress",
+            "delta": 2
+          },
+          {
+            "skill": "oratory",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "own",
+        "effects": [
+          {
+            "param": "integration",
+            "delta": -3
+          },
+          {
+            "param": "homesick",
+            "delta": -6
+          },
+          {
+            "param": "loneliness",
+            "delta": -4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_neighbors_help",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "moment": true,
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "param": "acceptance",
+        "op": ">=",
+        "value": 40
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 2
+    },
+    "effects": [
+      {
+        "param": "acceptance",
+        "delta": 5
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "loneliness",
+        "delta": -3
+      }
+    ]
+  },
+  {
+    "id": "ab_neighbors_hostile",
+    "type": "personal",
+    "base_weight": 1.2,
+    "topic": "life",
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      },
+      {
+        "param": "acceptance",
+        "op": "<",
+        "value": 40
+      }
+    ],
+    "age_range": [
+      14,
+      90
+    ],
+    "scene": {
+      "place": "street",
+      "time": "dawn",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "endure",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 4
+          },
+          {
+            "param": "homesick",
+            "delta": 4
+          }
+        ]
+      },
+      {
+        "id": "answer",
+        "risk_roll": {
+          "param": "acceptance",
+          "success_chance_base": 0.45,
+          "on_success": [
+            {
+              "param": "acceptance",
+              "delta": 6
+            },
+            {
+              "param": "reputation",
+              "delta": 3
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "acceptance",
+              "delta": -5
+            },
+            {
+              "param": "stress",
+              "delta": 5
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ab_guild",
+    "type": "personal",
+    "base_weight": 1.2,
+    "topic": "work",
+    "classes": [
+      "craftsman",
+      "trader"
+    ],
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      }
+    ],
+    "age_range": [
+      16,
+      70
+    ],
+    "scene": {
+      "place": "workshop",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "apply",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -40
+          }
+        ],
+        "risk_roll": {
+          "param": "acceptance",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "integration",
+              "delta": 8
+            },
+            {
+              "param": "acceptance",
+              "delta": 8
+            },
+            {
+              "param": "money",
+              "delta": 60
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "stress",
+              "delta": 5
+            },
+            {
+              "param": "acceptance",
+              "delta": -3
+            }
+          ]
+        }
+      },
+      {
+        "id": "aside",
+        "effects": [
+          {
+            "param": "integration",
+            "delta": -2
+          },
+          {
+            "param": "homesick",
+            "delta": -3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_blamed",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      }
+    ],
+    "age_range": [
+      16,
+      90
+    ],
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -25
+          },
+          {
+            "param": "self_esteem",
+            "delta": -3
+          }
+        ]
+      },
+      {
+        "id": "court",
+        "risk_roll": {
+          "param": "acceptance",
+          "success_chance_base": 0.4,
+          "on_success": [
+            {
+              "param": "acceptance",
+              "delta": 8
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "money",
+              "delta": -50
+            },
+            {
+              "param": "acceptance",
+              "delta": -4
+            },
+            {
+              "param": "homesick",
+              "delta": 5
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ab_pogrom",
+    "type": "personal",
+    "base_weight": 0.6,
+    "topic": "life",
+    "sensitive": true,
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      },
+      {
+        "param": "acceptance",
+        "op": "<",
+        "value": 30
+      }
+    ],
+    "age_range": [
+      14,
+      90
+    ],
+    "scene": {
+      "place": "street",
+      "time": "night",
+      "people": 5,
+      "props": [
+        "fire",
+        "smoke"
+      ],
+      "disaster": "fire"
+    },
+    "choices": [
+      {
+        "id": "hide",
+        "risk_roll": {
+          "param": "acceptance",
+          "success_chance_base": 0.55,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": 8
+            },
+            {
+              "param": "acceptance",
+              "delta": 4
+            }
+          ],
+          "on_failure": [
+            {
+              "home": "burn"
+            },
+            {
+              "money_pct": -50
+            },
+            {
+              "param": "stress",
+              "delta": 12
+            }
+          ]
+        }
+      },
+      {
+        "id": "go_home",
+        "effects": [
+          {
+            "return_home": true
+          },
+          {
+            "money_pct": -60
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_letter_home",
+    "type": "personal",
+    "base_weight": 1.5,
+    "topic": "life",
+    "moment": true,
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 1,
+      "props": [
+        "scroll",
+        "lamp"
+      ]
+    },
+    "effects": [
+      {
+        "param": "homesick",
+        "delta": 8
+      },
+      {
+        "param": "loneliness",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "ab_letter_money",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "param": "money",
+        "op": ">=",
+        "value": 60
+      }
+    ],
+    "age_range": [
+      20,
+      90
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 1,
+      "props": [
+        "scroll",
+        "coins"
+      ]
+    },
+    "choices": [
+      {
+        "id": "send",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -50
+          },
+          {
+            "param": "homesick",
+            "delta": -4
+          },
+          {
+            "param": "happiness",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "homesick",
+            "delta": 5
+          },
+          {
+            "param": "self_esteem",
+            "delta": -2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_parent_dying",
+    "type": "family",
+    "base_weight": 1.2,
+    "topic": "life",
+    "npc": "mother",
+    "npc_away": [
+      "homeland"
+    ],
+    "conditions": [
+      {
+        "abroad": true
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 1,
+      "props": [
+        "scroll",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "go",
+        "effects": [
+          {
+            "return_home": true
+          }
+        ]
+      },
+      {
+        "id": "money",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -40
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 10
+          }
+        ]
+      },
+      {
+        "id": "stay",
+        "effects": [
+          {
+            "param": "homesick",
+            "delta": 8
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_child_forgets",
+    "type": "family",
+    "base_weight": 1.2,
+    "topic": "life",
+    "moment": true,
+    "npc": "child",
+    "npc_age": [
+      3,
+      11
+    ],
+    "conditions": [
+      {
+        "abroad": true
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 3
+    },
+    "effects": [
+      {
+        "param": "integration",
+        "delta": 2
+      },
+      {
+        "param": "homesick",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "ab_teen_home",
+    "type": "family",
+    "base_weight": 1.2,
+    "topic": "life",
+    "npc": "child",
+    "npc_age": [
+      12,
+      17
+    ],
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "send",
+        "effects": [
+          {
+            "npc_away": "homeland"
+          },
+          {
+            "param": "happiness",
+            "delta": -4
+          }
+        ]
+      },
+      {
+        "id": "insist",
+        "effects": [
+          {
+            "npc_attitude": "npc",
+            "delta": -12
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "id": "all_home",
+        "effects": [
+          {
+            "return_home": true
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 15
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_community",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "naturalized": false
+      }
+    ],
+    "age_range": [
+      16,
+      90
+    ],
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "join",
+        "effects": [
+          {
+            "param": "homesick",
+            "delta": -10
+          },
+          {
+            "param": "integration",
+            "delta": -4
+          },
+          {
+            "param": "loneliness",
+            "delta": -6
+          }
+        ]
+      },
+      {
+        "id": "apart",
+        "effects": [
+          {
+            "param": "integration",
+            "delta": 5
+          },
+          {
+            "param": "loneliness",
+            "delta": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_local_marriage",
+    "type": "family",
+    "base_weight": 1.5,
+    "topic": "life",
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "tag_absent": "married"
+      },
+      {
+        "tag_absent": "vowed"
+      },
+      {
+        "tag_absent": "enslaved"
+      }
+    ],
+    "age_range": [
+      17,
+      45
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "marry",
+        "effects": [
+          {
+            "add_npc": "spouse",
+            "attitude": 50
+          },
+          {
+            "param": "integration",
+            "delta": 15
+          },
+          {
+            "param": "acceptance",
+            "delta": 8
+          },
+          {
+            "param": "homesick",
+            "delta": -10
+          }
+        ],
+        "icon": "wedding"
+      },
+      {
+        "id": "no",
+        "effects": [
+          {
+            "param": "loneliness",
+            "delta": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_success",
+    "type": "personal",
+    "base_weight": 1.2,
+    "topic": "money",
+    "moment": true,
+    "classes": [
+      "trader",
+      "craftsman"
+    ],
+    "conditions": [
+      {
+        "abroad": true
+      },
+      {
+        "param": "integration",
+        "op": ">=",
+        "value": 50
+      }
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 4
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 70
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "ab_homesick",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "trigger_only": true,
+    "conditions": [
+      {
+        "abroad": true
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 2,
+      "props": [
+        "moon"
+      ]
+    },
+    "choices": [
+      {
+        "id": "return",
+        "effects": [
+          {
+            "return_home": true
+          }
+        ],
+        "requirements": [
+          {
+            "param": "homesick",
+            "op": ">=",
+            "value": 40
+          }
+        ]
+      },
+      {
+        "id": "stay",
+        "effects": [
+          {
+            "abroad_choice": "stay"
+          }
+        ]
+      },
+      {
+        "id": "later",
+        "effects": [
+          {
+            "abroad_choice": "later"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ab_naturalized",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "trigger_only": true,
+    "conditions": [
+      {
+        "abroad": true
+      }
+    ],
+    "scene": {
+      "place": "street",
+      "time": "sunset",
+      "people": 4,
+      "props": [
+        "sun"
+      ]
+    },
+    "effects": [
+      {
+        "naturalize": true
+      },
+      {
+        "param": "happiness",
+        "delta": 6
+      },
+      {
+        "param": "stress",
+        "delta": -5
+      }
+    ],
+    "icon": "freedom"
+  },
+  {
+    "id": "ab_return_shock",
+    "type": "personal",
+    "base_weight": 6,
+    "topic": "life",
+    "moment": true,
+    "conditions": [
+      {
+        "tag": "just_returned"
+      }
+    ],
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4
+    },
+    "effects": [
+      {
+        "remove_tag": "just_returned"
+      },
+      {
+        "param": "stress",
+        "delta": 5
+      },
+      {
+        "param": "happiness",
+        "delta": -2
+      },
+      {
+        "param": "reputation",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "ab_varangian",
+    "type": "personal",
+    "base_weight": 1.5,
+    "topic": "life",
+    "eras": [
+      "BYZ"
+    ],
+    "sex": "m",
+    "age_range": [
+      18,
+      45
+    ],
+    "conditions": [
+      {
+        "homeland": [
+          "RUS",
+          "EUR"
+        ]
+      }
+    ],
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "join",
+        "effects": [
+          {
+            "set_profession": "soldier"
+          },
+          {
+            "param": "money",
+            "delta": 100
+          },
+          {
+            "param": "reputation",
+            "delta": 5
+          },
+          {
+            "param": "acceptance",
+            "delta": 6
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "ab_frank_quarter",
+    "type": "personal",
+    "base_weight": 1.5,
+    "topic": "life",
+    "moment": true,
+    "eras": [
+      "ISL"
+    ],
+    "conditions": [
+      {
+        "homeland": [
+          "EUR",
+          "BYZ"
+        ]
+      }
+    ],
+    "scene": {
+      "place": "market",
+      "time": "sunset",
+      "people": 4
+    },
+    "effects": [
+      {
+        "param": "homesick",
+        "delta": -3
+      },
+      {
+        "param": "acceptance",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "ab_greek_teacher",
+    "type": "personal",
+    "base_weight": 1.5,
+    "topic": "life",
+    "eras": [
+      "EUR"
+    ],
+    "years": [
+      1390,
+      1500
+    ],
+    "age_range": [
+      20,
+      80
+    ],
+    "conditions": [
+      {
+        "homeland": [
+          "BYZ"
+        ]
+      },
+      {
+        "param": "literacy",
+        "op": ">=",
+        "value": 20
+      }
+    ],
+    "scene": {
+      "place": "school",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "teach",
+        "effects": [
+          {
+            "param": "money",
+            "delta": 90
+          },
+          {
+            "param": "integration",
+            "delta": 6
+          },
+          {
+            "param": "acceptance",
+            "delta": 6
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "ab_hansa_court",
+    "type": "personal",
+    "base_weight": 1.5,
+    "topic": "life",
+    "moment": true,
+    "eras": [
+      "RUS"
+    ],
+    "conditions": [
+      {
+        "homeland": [
+          "EUR"
+        ]
+      }
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 4
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 30
+      },
+      {
+        "param": "homesick",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "ab_rus_monastery",
+    "type": "personal",
+    "base_weight": 1.5,
+    "topic": "life",
+    "moment": true,
+    "eras": [
+      "BYZ"
+    ],
+    "conditions": [
+      {
+        "homeland": [
+          "RUS"
+        ]
+      }
+    ],
+    "scene": {
+      "place": "temple",
+      "time": "dawn",
+      "people": 3
+    },
+    "effects": [
+      {
+        "param": "homesick",
+        "delta": -5
+      },
+      {
+        "param": "faith",
+        "delta": 3
+      }
+    ],
+    "others": [
+      "mother"
+    ]
+  }
+]

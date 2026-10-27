@@ -1,0 +1,182 @@
+{
+  "routes": [
+    {
+      "from": "RUS",
+      "to": "BYZ",
+      "kind": "neighbor",
+      "years": [
+        980,
+        1453
+      ],
+      "regions": [
+        "constantinople",
+        "trebizond"
+      ],
+      "note": "Путь из варяг в греки, варяжская стража, русские монахи и купцы в Царьграде"
+    },
+    {
+      "from": "RUS",
+      "to": "EUR",
+      "kind": "neighbor",
+      "years": [
+        1000,
+        1500
+      ],
+      "regions": [
+        "cologne",
+        "florence",
+        "paris",
+        "london"
+      ],
+      "note": "Новгород и Ганза, Польша и Литва — ближе всего немецкие города"
+    },
+    {
+      "from": "RUS",
+      "to": "ISL",
+      "kind": "far",
+      "years": [
+        1240,
+        1600
+      ],
+      "regions": [
+        "istanbul",
+        "cairo",
+        "damascus"
+      ],
+      "note": "Через Орду и Крым: купцы, паломники и пленники (Кафа, Стамбул, мамлюкский Каир)"
+    },
+    {
+      "from": "EUR",
+      "to": "BYZ",
+      "kind": "neighbor",
+      "years": [
+        1000,
+        1453
+      ],
+      "regions": [
+        "constantinople",
+        "thessalonica"
+      ],
+      "note": "Венецианцы и генуэзцы в Константинополе, наёмники, крестоносцы"
+    },
+    {
+      "from": "EUR",
+      "to": "ISL",
+      "kind": "neighbor",
+      "years": [
+        1000,
+        1500
+      ],
+      "regions": [
+        "cordoba",
+        "cairo",
+        "damascus",
+        "istanbul"
+      ],
+      "note": "Аль-Андалус, франкские кварталы Леванта и Египта; изгнанники 1492 года — в Стамбул"
+    },
+    {
+      "from": "EUR",
+      "to": "RUS",
+      "kind": "neighbor",
+      "years": [
+        1000,
+        1500
+      ],
+      "regions": [
+        "novgorod",
+        "moscow"
+      ],
+      "note": "Ганзейский двор в Новгороде; итальянские мастера в Москве 1470-х"
+    },
+    {
+      "from": "BYZ",
+      "to": "RUS",
+      "kind": "neighbor",
+      "years": [
+        988,
+        1453
+      ],
+      "regions": [
+        "kiev",
+        "novgorod",
+        "vladimir",
+        "moscow"
+      ],
+      "note": "Греческие священники, иконописцы и мастера на Руси"
+    },
+    {
+      "from": "BYZ",
+      "to": "EUR",
+      "kind": "neighbor",
+      "years": [
+        1000,
+        1453
+      ],
+      "regions": [
+        "florence",
+        "paris",
+        "cologne"
+      ],
+      "note": "Греческие учёные в Италии (особенно после 1400), купцы, беглецы"
+    },
+    {
+      "from": "BYZ",
+      "to": "ISL",
+      "kind": "neighbor",
+      "years": [
+        850,
+        1453
+      ],
+      "regions": [
+        "damascus",
+        "cairo",
+        "baghdad",
+        "istanbul"
+      ],
+      "note": "Пленники, ремесленники и врачи при дворах халифов"
+    },
+    {
+      "from": "ISL",
+      "to": "BYZ",
+      "kind": "neighbor",
+      "years": [
+        850,
+        1453
+      ],
+      "regions": [
+        "constantinople",
+        "trebizond"
+      ],
+      "note": "Мусульманские купцы и их мечеть в Константинополе"
+    },
+    {
+      "from": "ISL",
+      "to": "EUR",
+      "kind": "neighbor",
+      "years": [
+        1000,
+        1500
+      ],
+      "regions": [
+        "toledo",
+        "florence"
+      ],
+      "note": "Толедо после 1085: переводчики, мудехары; купцы в Италии"
+    },
+    {
+      "from": "ISL",
+      "to": "RUS",
+      "kind": "far",
+      "years": [
+        1240,
+        1500
+      ],
+      "regions": [
+        "moscow",
+        "novgorod"
+      ],
+      "note": "По Волге через Орду: купцы-мусульмане в русских городах"
+    }
+  ]
+}

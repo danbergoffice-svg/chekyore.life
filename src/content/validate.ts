@@ -140,7 +140,7 @@ function checkRoles(ev: EventDef, bad: string[]) {
 /** Родные, которые по тексту уезжают: у такого исхода должен быть эффект npc_away (или смерть, развод). */
 const KIN_ROLES = ['father', 'mother', 'spouse', 'child', 'grandchild', 'sibling']
 const LEAVES = /(отправ[а-яё]* (его|её|сына|дочь|искать)|уехал|уехала|уплыл|уплыла|уходит в монастырь|ушёл в монастырь|ушла в обитель|постриг|продал[аи]? (его|её))/
-const AWAY_REASONS = ['abroad', 'monastery', 'service', 'sold', 'exile', 'married_far', 'left', 'divorced']
+const AWAY_REASONS = ['abroad', 'monastery', 'service', 'sold', 'exile', 'married_far', 'left', 'divorced', 'homeland']
 
 function checkAway(ev: EventDef, bad: string[]) {
   const s = JSON.stringify(ev)
@@ -236,7 +236,7 @@ export function validateEra(era: EraDef): string[] {
 
 /** Параметры для проверки, что после подстановки не остаётся {скобок}. */
 export const SAMPLE_PARAMS = {
-  n: 3, npc: 'x', pet: 'x', kid: 'x', total: 9, place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
+  n: 3, npc: 'x', pet: 'x', kid: 'x', total: 9, homeland: 'x', homeplace: 'x', country: 'x', i: 1, h: 1, a: 1, place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
   grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x', born: 'x', died: 'x', focus: 'x', via: 'x', role: 'x',
 }
 

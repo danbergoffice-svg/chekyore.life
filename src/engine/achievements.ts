@@ -194,6 +194,23 @@ export const ACHIEVEMENTS: AchDef[] = [
   { id: 'faithful_friend', group: 'heart', test: (l) => l.diary.some((d) => (d.key === 'diary.pet_died_named' || d.key === 'diary.pet_gone') && (d.params?.animal as { key?: string } | undefined)?.key === 'pet.dog' && Number(d.params?.n) >= 15) },
   { id: 'old_tortoise', group: 'blood', test: (l) => l.diary.some((d) => d.key.startsWith('diary.pet_inherited') && Number(d.params?.n) >= 40) },
 
+  // Чужбина (п. 11).
+  {
+    id: 'stranger_20',
+    group: 'wanderer',
+    test: (l) => (!!l.abroad && l.deathYear - l.abroad.since >= 20) || (l.returned?.years ?? 0) >= 20,
+    progress: (l) => (l.abroad ? Math.min(1, (l.deathYear - l.abroad.since) / 20) : 0),
+  },
+  { id: 'naturalized', group: 'wanderer', test: (l) => !!l.abroad?.naturalized, live: (s) => !!s.hero.abroad?.naturalized },
+  { id: 'half_world', group: 'wanderer', test: (l) => !!l.abroad?.far || l.diary.some((d) => d.key.startsWith('diary.emigrated_') && d.params?.far === 1) },
+  { id: 'prodigal', group: 'wanderer', test: (l) => (l.returned?.years ?? 0) >= 20 },
+  {
+    id: 'three_lands',
+    group: 'blood',
+    test: (l, all) => new Set(familyOf(l, all).flatMap((x) => x.erasLived ?? [x.era])).size >= 3,
+    progress: (l, all) => Math.min(1, new Set(familyOf(l, all).flatMap((x) => x.erasLived ?? [x.era])).size / 3),
+  },
+
   // Вызов — только историческая смертность.
   {
     id: 'iron_health',

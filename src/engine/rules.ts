@@ -1,5 +1,7 @@
-import { ERA_META, RELIGION_BY_ID } from '../content'
+import { ERA_META, eraById, isEraLoaded, RELIGION_BY_ID } from '../content'
 import { MAX_PETS, makePet, petPossible, pets, randomPet } from './pets'
+import { ABROAD_PARAMS, abroadChoice, canEmigrate, emigrate, naturalize, returnHome } from './abroad'
+import type { AbroadParam } from './abroad'
 import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
 import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
@@ -38,13 +40,16 @@ export const clamp = (v: number, min = 0, max = 100) => Math.max(min, Math.min(m
 
 export function getParam(hero: Hero, id: ParamId | string): number {
   if (id === 'money') return hero.money
+  if ((ABROAD_PARAMS as readonly string[]).includes(id)) return hero.abroad?.[id as AbroadParam] ?? 0
   if ((ATTRIBUTES as readonly string[]).includes(id)) return hero.attrs[id as AttrId]
   if ((HIDDEN as readonly string[]).includes(id)) return hero.hidden[id as HiddenId]
   return hero.skills[id] ?? 0
 }
 
 export function changeParam(hero: Hero, id: ParamId, delta: number): void {
-  if (id === 'money') {
+  if ((ABROAD_PARAMS as readonly string[]).includes(id)) {
+    if (hero.abroad) hero.abroad[id as AbroadParam] = clamp(hero.abroad[id as AbroadParam] + delta)
+  } else if (id === 'money') {
     hero.money = Math.round(hero.money + delta)
   } else if ((ATTRIBUTES as readonly string[]).includes(id)) {
     hero.attrs[id as AttrId] = clamp(hero.attrs[id as AttrId] + delta)
@@ -126,11 +131,12 @@ export function awayNpcs(hero: Hero, role?: NpcRole): Npc[] {
 const KIN: NpcRole[] = ['father', 'mother', 'spouse', 'child', 'grandchild', 'sibling']
 
 /** Отправить человека вдаль: супруг — развод, остальные — уехал/ушёл. */
-export function sendAway(state: GameState, npc: Npc, reason: AwayReason): void {
+export function sendAway(state: GameState, npc: Npc, reason: AwayReason, silent = false): void {
   const hero = state.hero
   if (!npc.alive || npc.away) return
   npc.away = { since: state.year, reason: npc.role === 'spouse' && reason === 'left' ? 'divorced' : reason }
   if (npc.role === 'spouse') hero.tags = hero.tags.filter((t) => t !== 'married')
+  if (silent) return
   const key = npc.away.reason === 'divorced' ? 'diary.divorced' : `diary.away_${npc.away.reason}`
   note(state, { key, params: { who: { name: npc.name }, sex: npc.sex }, topic: 'family', icon: 'move', score: 20, major: npc.role === 'spouse' || npc.role === 'child' })
 }
@@ -158,6 +164,10 @@ export function check(state: GameState, c: Condition): boolean {
   if ('has_pet' in c) return pets(state).some((p) => p.kind === c.has_pet)
   if ('pet_possible' in c) return pets(state).length < MAX_PETS && !pets(state).some((p) => p.kind === c.pet_possible) && petPossible(state, c.pet_possible)
   if ('pets_below' in c) return pets(state).length < c.pets_below
+  if ('abroad' in c) return !!hero.abroad === c.abroad
+  if ('naturalized' in c) return !!hero.abroad?.naturalized === c.naturalized
+  if ('can_emigrate' in c) return canEmigrate(state, c.can_emigrate)
+  if ('homeland' in c) return !!hero.abroad && c.homeland.includes(hero.abroad.homeland.era)
   if ('classes' in c) return c.classes.includes(hero.cls)
   if ('age' in c) return hero.age >= c.age[0] && hero.age <= c.age[1]
   if ('religion' in c) return faithMatches(hero.religion, c.religion)
@@ -497,6 +507,15 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
         changeParam(hero, 'happiness', 4)
         changeParam(hero, 'loneliness', -4)
       }
+    } else if ('emigrate' in e) {
+      // Дальше в том же списке эффектов — уже правила новой страны (имена, края, сословия).
+      if (emigrate(state, e.emigrate, e.reason, e.family) && isEraLoaded(hero.era)) era = eraById(hero.era)
+    } else if ('return_home' in e) {
+      if (returnHome(state) && isEraLoaded(hero.era)) era = eraById(hero.era)
+    } else if ('abroad_choice' in e) {
+      abroadChoice(state, e.abroad_choice)
+    } else if ('naturalize' in e) {
+      naturalize(state)
     } else if ('remove_pet' in e) {
       const pet = pets(state).find((p) => p.kind === e.remove_pet)
       if (pet) hero.animals = hero.animals.filter((a) => a !== pet)

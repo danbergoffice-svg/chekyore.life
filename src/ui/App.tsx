@@ -19,6 +19,7 @@ import { Feedback, FeedbackPrompt } from './Feedback'
 import { Slots } from './Slots'
 import { SoundControl } from './Sound'
 import { initAudio, onIosHint, setMusic, setSound } from '../audio'
+import { planReturn, routeTargets } from '../engine/abroad'
 import { ACH_BY_ID, checkLife, checkLive, checkMemorial, nearMisses, nextGoals } from '../engine/achievements'
 import type { Earned } from '../engine/achievements'
 import { EarlyDeath, Summary } from './Summary'
@@ -90,9 +91,10 @@ export function App() {
 
   /** Загрузить страну и её тексты на текущем языке. */
   const [loadError, setLoadError] = useState(false)
-  const ensure = (eraId: string, lang = prefs.lang) => {
+  /** Загрузить страну и тексты; extra — страны, где герой (или жизнь из мемориала) жил раньше, — их тексты для дневника. */
+  const ensure = (eraId: string, lang = prefs.lang, extra: string[] = []) => {
     setLoadError(false)
-    return Promise.all([loadEra(eraId), loadEraTexts(lang, eraId)])
+    return Promise.all([loadEra(eraId), loadEraTexts(lang, eraId), ...extra.filter((id) => id !== eraId).map((id) => loadEraTexts(lang, id))])
       .then(() => setLoadedVersion((v) => v + 1))
       .catch(() => {
         // Чаще всего это файлы прошлой версии сайта: один раз перезагружаем страницу, потом предлагаем повторить.
@@ -122,7 +124,7 @@ export function App() {
       }
       platform.track('app_open', { referrer, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()) })
       trackUserParams(lives)
-      if (game.current) await ensure(game.current.hero.era)
+      if (game.current) await ensure(game.current.hero.era, prefs.lang, game.current.hero.erasLived)
       setScreen('menu')
       platform.ready()
     })
@@ -174,6 +176,24 @@ export function App() {
     const inLife = screen === 'reveal' || screen === 'life' || screen === 'death' || screen === 'heirs'
     if (screen !== 'loading') setMusic(inLife && heroEra ? heroEra.toLowerCase() : 'menu')
   }, [screen, heroEra])
+
+  // Переезд в другую страну: её события и тексты. Соседние страны (куда можно уехать) подгружаются заранее,
+  // пока герой подрастает, — переезд предлагается только в уже загруженные.
+  const heroAdult = !!state && state.hero.age >= 14
+  useEffect(() => {
+    if (!heroEra) return
+    if (!isEraLoaded(heroEra)) ensure(heroEra, prefs.lang, state?.hero.erasLived)
+    else loadEraTexts(prefs.lang, heroEra).then(() => setLoadedVersion((v) => v + 1))
+    if (!heroAdult) return
+    for (const id of routeTargets(heroEra)) Promise.all([loadEra(id), loadEraTexts(prefs.lang, id)]).catch(() => {})
+  }, [heroEra, heroAdult])
+  const lastEra = useRef<string | undefined>(undefined)
+  const lastHero = useRef<string | undefined>(undefined)
+  useEffect(() => {
+    if (lastEra.current && heroEra && lastEra.current !== heroEra && state?.hero.id === lastHero.current) platform.track('emigrated', { from: lastEra.current, to: heroEra })
+    lastEra.current = heroEra
+    lastHero.current = state?.hero.id
+  }, [heroEra])
 
   // Время в жизни идёт, только пока открыт экран жизни и вкладка видна.
   useEffect(() => {
@@ -274,7 +294,7 @@ export function App() {
     const life = memorial.find((l) => l.heroId === id)
     if (!life) return
     setOpened(id)
-    ensure(life.era).then(() => isEraLoaded(life.era) && setScreen('past'))
+    ensure(life.era, prefs.lang, life.erasLived).then(() => isEraLoaded(life.era) && setScreen('past'))
   }
 
   const onStart = (focus: string | null) => {
@@ -409,7 +429,7 @@ export function App() {
               if (!state) return
               const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
               if (isEraLoaded(state.hero.era)) go()
-              else ensure(state.hero.era).then(() => isEraLoaded(state.hero.era) && go())
+              else ensure(state.hero.era, prefs.lang, state.hero.erasLived).then(() => isEraLoaded(state.hero.era) && go())
             }}
             onOpenLife={openPast}
             onFeedback={() => openFeedback('menu')}
@@ -452,6 +472,11 @@ export function App() {
             onChoose={onChoose}
             onDismiss={onDismiss}
             onLifestyle={onLifestyle}
+            onPlanReturn={() => {
+              if (!game.current) return
+              planReturn(game.current)
+              persist()
+            }}
             onMenu={toMenu}
             choiceChanges={choiceChanges}
             yearChanges={yearChanges}

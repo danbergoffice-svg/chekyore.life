@@ -52,6 +52,8 @@ interface LifeProps {
   onChoose: (choiceId: string | null) => void
   onDismiss: () => void
   onLifestyle: (category: string, option: string) => void
+  /** На чужбине: «Задумать возвращение». */
+  onPlanReturn?: () => void
   onMenu: () => void
   choiceChanges: Change[]
   yearChanges: Change[]
@@ -68,7 +70,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onMenu, choiceChanges, yearChanges, yearSec, sound }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, choiceChanges, yearChanges, yearSec, sound }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -193,6 +195,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <Bar label={t('attr.health')} value={hero.attrs.health} />
             {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
             {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
+            {hero.abroad && !hero.abroad.naturalized && <p class="hero-meta small muted">{t(hero.sex === 'f' ? 'life.foreigner_f' : 'life.foreigner', { year: formatYear(hero.abroad.since, lang) })}</p>}
           </div>
         </div>
       </header>
@@ -309,6 +312,25 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <p class="small">
             <strong>{t('hero.family')}:</strong> {maritalText(t, hero, lang, 'marital')}
           </p>
+          {hero.abroad && (
+            // Чужбина: откуда родом, как вжился, и кнопка «Задумать возвращение».
+            <div class="note-box small abroad-box">
+              <p>
+                {t(hero.abroad.naturalized ? 'abroad.naturalized' : 'abroad.status', {
+                  homeland: { key: `era.${hero.abroad.homeland.era}` },
+                  year: formatYear(hero.abroad.since, lang),
+                  n: state.year - hero.abroad.since,
+                }, o)}
+              </p>
+              <p class="muted">{t('abroad.feel', { i: hero.abroad.integration, h: hero.abroad.homesick, a: hero.abroad.acceptance })}</p>
+              {onPlanReturn && !hero.abroad.planned && (
+                <button class="secondary" onClick={onPlanReturn}>
+                  {t('abroad.plan_return')}
+                </button>
+              )}
+              {hero.abroad.planned && <p>{t('abroad.planned')}</p>}
+            </div>
+          )}
           <p class="small">
             <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)} · <strong>{t('hero.animals')}:</strong>{' '}
             {hero.animals?.length
@@ -390,6 +412,8 @@ function heroLook(hero: Hero): AvatarInput {
     ill: hero.tags.includes('ill'),
     married: hero.npcs.some((n) => n.role === 'spouse'),
     widow: maritalStatus(hero).kind === 'widowed',
+    homeRegion: hero.abroad?.homeland.region,
+    integrated: !!hero.abroad && (!!hero.abroad.naturalized || hero.abroad.integration >= 60),
     dead: !hero.alive,
     enslaved: hero.tags.includes('enslaved'),
   }
