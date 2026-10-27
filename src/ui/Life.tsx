@@ -25,6 +25,8 @@ import { lifeStats } from '../telemetry'
 import { Scene } from '../pixel/Scene'
 import { Avatar } from '../pixel/Avatar'
 import { eventCast, eventRoles, familyCast } from './cast'
+import { DreamModal } from './Dream'
+import type { DreamResult } from './Dream'
 import { entryScene } from './Summary'
 import { attitudeText, diaryText, feelings, useUi } from './text'
 import type { Change } from './text'
@@ -61,6 +63,8 @@ interface LifeProps {
   yearSec?: number
   /** Кнопка музыки. */
   sound?: preact.ComponentChildren
+  /** Сон о будущем: ответы, подсказка, «Проснуться», закрыть итог. */
+  dream?: { result: DreamResult | null; onAnswer: (value: unknown) => void; onHint: () => void; onWake: () => void; onClose: () => void }
 }
 
 /** Видна ли запись дневника: записи текущего года появляются по ходу года. */
@@ -70,7 +74,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, choiceChanges, yearChanges, yearSec, sound }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, choiceChanges, yearChanges, yearSec, sound, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -394,7 +398,11 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       )}
 
       {chapterDue && <Chapter state={state} era={era} onNext={closeChapter} />}
-      {modalOpen && !chapterDue && !adOpen && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />}
+      {modalOpen && !chapterDue && !adOpen && dream && (state.dream || dream.result) ? (
+        <DreamModal state={state} result={dream.result} onAnswer={dream.onAnswer} onHint={dream.onHint} onWake={dream.onWake} onClose={dream.onClose} />
+      ) : (
+        modalOpen && !chapterDue && !adOpen && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />
+      )}
     </div>
   )
 }
@@ -749,6 +757,10 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   const { t, lang } = useUi()
   const ev = currentEvent(state, era)
   const [noteOpen, setNoteOpen] = useState(false)
+  const offered = state.queue[0]?.dream
+  useEffect(() => {
+    if (offered && ev?.id === 'dream_intro' && !state.queue[0]?.outcome) platform.track('dream_offer', { dream: offered, era: state.hero.era, age: state.hero.age })
+  }, [offered])
   if (!ev) return null
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }

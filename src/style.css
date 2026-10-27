@@ -636,3 +636,31 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .era-chips li.lived { border-style: solid; border-color: var(--gold); color: var(--ink); background: var(--card); }
 .era-end h2 { margin-top: 0; font-size: 1.1rem; }
 .era-badge { color: var(--gold); font-weight: 700; }
+
+/* Сон о будущем: ночная палитра, чтобы отличался от обычных событий */
+.dream-backdrop { background: rgba(8, 10, 24, 0.82); }
+.dream-modal { background: #171a2e; color: #e8e6f4; border: 1px solid #3a3f6a; box-shadow: 0 0 0 3px #2a2f55, 0 10px 40px rgba(0, 0, 0, 0.6); }
+.dream-modal .eyebrow { color: #a9b0ff; }
+.dream-modal h2, .dream-modal h3 { color: #f4f2ff; }
+.dream-modal .muted, .dream-modal .small.muted { color: #a3a6c4; }
+.dream-intro, .dream-sage { font-style: italic; color: #c9cbe8; }
+.dream-sage { font-weight: 700; font-style: normal; color: #ffd27a; }
+.dream-mood { color: #9fa6d8; font-size: 0.9rem; }
+.dream-question { font-weight: 700; }
+.dream-input { display: grid; gap: 10px; margin: 8px 0; }
+.dream-pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 8px; }
+.dream-card { text-align: left; background: #232745; color: #e8e6f4; border: 1px solid #3a3f6a; border-radius: 10px; padding: 8px 10px; min-height: 48px; cursor: pointer; font: inherit; font-size: 0.92rem; overflow-wrap: anywhere; }
+.dream-card.active { border-color: #ffd27a; box-shadow: inset 0 0 0 1px #ffd27a; background: #2f3358; }
+.dream-ratio { display: grid; grid-template-columns: 1fr 5rem auto; gap: 8px; align-items: center; }
+.dream-ratio input, .dream-number input { background: #232745; color: #fff; border: 1px solid #3a3f6a; border-radius: 8px; padding: 8px; font: inherit; min-height: 44px; width: 100%; box-sizing: border-box; }
+.dream-number { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; max-width: 18rem; }
+.dream-order { list-style: decimal; padding-left: 22px; margin: 0; display: grid; gap: 6px; }
+.dream-order li { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: center; background: #232745; border: 1px solid #3a3f6a; border-radius: 8px; padding: 6px 8px; }
+.dream-order li.off { opacity: 0.45; text-decoration: line-through; }
+.dream-order-btns { display: flex; gap: 4px; }
+.dream-order-btns .chip { min-width: 36px; min-height: 36px; padding: 2px 8px; background: #2f3358; color: #e8e6f4; border-color: #3a3f6a; }
+.dream-modal .warn { color: #ff9a8a; }
+.dream-modal .link { color: #a9b0ff; }
+.dream-truth { background: #1f2340; border: 1px solid #3a3f6a; border-radius: 10px; padding: 10px 12px; margin: 12px 0; }
+.dream-answers { padding-left: 20px; margin: 6px 0 10px; display: grid; gap: 4px; }
+.dream-result strong { color: #ffd27a; }

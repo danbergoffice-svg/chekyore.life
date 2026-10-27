@@ -628,7 +628,7 @@ export interface Hero {
   /** Вернулся домой: год и сколько лет прожил на чужбине. */
   returned?: { year: number; years: number }
   /** Сон о будущем в этой жизни: какой и чем кончился. */
-  dreamSeen?: { id: string; year: number; score: number; outcome: DreamOutcome; known?: boolean; hint?: boolean; params: Record<string, number> }
+  dreamSeen?: { id: string; year: number; score: number; outcome: DreamOutcome; known?: boolean; hint?: boolean; skipped?: boolean; params: Record<string, number> }
   /** Год, когда дом сгорел/разрушен или начали отстраиваться (метки home_burned, home_ruined, home_rebuilding). */
   homeSince?: number
   /** Телосложение −3…3 (худоба … полнота): меняется от еды, достатка и болезней; только для портрета. */

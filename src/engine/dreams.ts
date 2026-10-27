@@ -17,7 +17,7 @@ export function dreamDef(id: string): DreamDef | undefined {
 }
 
 /** Шанс сна в год, если флаг не задан. */
-export const DREAM_CHANCE = 0.05
+export const DREAM_CHANCE = DEFAULT_FLAGS.dream_chance
 
 // ---------- Свой поток случайности ----------
 
@@ -157,8 +157,7 @@ export function startDream(state: GameState, id: string): void {
 
 /** Отказ («это просто сон»): ничего не происходит, но второго сна в этой жизни не будет. */
 export function skipDream(state: GameState, id: string): void {
-  state.hero.dreamSeen = { id, year: state.year, score: 0, outcome: 'failure', params: {}, hint: false }
-  state.hero.flags.push('dream_skipped')
+  state.hero.dreamSeen = { id, year: state.year, score: 0, outcome: 'failure', params: {}, hint: false, skipped: true }
 }
 
 /** Текущий ввод сна. */

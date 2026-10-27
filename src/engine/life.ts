@@ -194,6 +194,7 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     report: buildReport(state, era),
     offChronicle: state.offChronicle,
     erasLived: h.erasLived,
+    dreamSeen: h.dreamSeen,
     abroad: h.abroad,
     returned: h.returned,
     mortality: state.settings.mortality,

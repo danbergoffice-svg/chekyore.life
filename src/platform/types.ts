@@ -15,6 +15,8 @@ export interface Flags {
   fullscreen_gap_sec: number
   /** Варианты A/B: имя → доля (сумма 1). */
   ab_buckets: Record<string, number>
+  /** Шанс сна о будущем в год (со второй жизни, 15–40 лет). */
+  dream_chance: number
   /** Редкость достижений: id → доля игроков. */
   ach_rarity: Record<string, number>
   /** Стиль портрета героя. */
@@ -28,6 +30,7 @@ export const DEFAULT_FLAGS: Flags = {
   chapter_ages: [16, 30, 45, 60],
   fullscreen_gap_sec: 180,
   ab_buckets: { a: 1 },
+  dream_chance: 0.05,
   ach_rarity: {},
   portrait_style: 'painting',
 }

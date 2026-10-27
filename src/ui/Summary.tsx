@@ -190,6 +190,17 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         )}
       </section>
 
+      {/* 2б. Сон о будущем: что приснилось, чем кончилось и как было на самом деле */}
+      {life.dreamSeen && !life.dreamSeen.skipped && (
+        <section class="block dream-block">
+          <h2 class="section-title">{t('dream.title_block')}</h2>
+          <p>
+            <strong>{t(`dream.${life.dreamSeen.id}.title`)}</strong> — {t(`dream.result.${life.dreamSeen.outcome}`)} · {t('dream.score', { n: life.dreamSeen.score })}
+          </p>
+          <p class="small">{t(`dream.${life.dreamSeen.id}.truth`)}</p>
+        </section>
+      )}
+
       {/* 2а. Награды этой жизни, почти полученные и цели на следующую */}
       {awards && (awards.got.length > 0 || awards.near.length > 0 || awards.goals.length > 0) && (
         <section class="block awards-block">

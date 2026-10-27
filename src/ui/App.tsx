@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
-import { choose, dismiss, finishYear, startYear } from '../engine/game'
+import { choose, currentEvent, dismiss, finishYear, startYear } from '../engine/game'
 import { continueWithHeir, heirs, newLife, rollBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed } from '../engine/rng'
@@ -20,6 +20,8 @@ import { Slots } from './Slots'
 import { SoundControl } from './Sound'
 import { initAudio, onIosHint, setMusic, setSound } from '../audio'
 import { planReturn, routeTargets } from '../engine/abroad'
+import { answerDream, dreamDef, resolveDream } from '../engine/dreams'
+import type { DreamResult } from './Dream'
 import { ACH_BY_ID, checkLife, checkLive, checkMemorial, nearMisses, nextGoals } from '../engine/achievements'
 import type { Earned } from '../engine/achievements'
 import { EarlyDeath, Summary } from './Summary'
@@ -278,7 +280,8 @@ export function App() {
     if (!pending) return
     // Первая жизнь защищена до first_life_min_age лет (флаг): герой не погибает, а «выживает чудом».
     const protectedUntil = memorial.length === 0 ? platform.flags.first_life_min_age : undefined
-    const settings = { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy, protectedUntil }
+    // Сны о будущем — со второй жизни; шанс в год — флаг dream_chance.
+    const settings = { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy, protectedUntil, livesBefore: memorial.length, dreamChance: platform.flags.dream_chance }
     game.current = newLife(ERA_META[pending.birth.era], settings, pending.seed, undefined, pending.birth)
     const h = game.current.hero
     void h
@@ -312,8 +315,52 @@ export function App() {
     afterTurn()
   }
 
+  // Сон о будущем: ответы по шагам, подсказка, итог (итог показывается после того, как сон закрыт в игре).
+  const [dreamResult, setDreamResult] = useState<DreamResult | null>(null)
+  const dreamStart = useRef(0)
+  const dreamProps = {
+    result: dreamResult,
+    onAnswer: (value: unknown) => {
+      const s = game.current
+      if (!s?.dream) return
+      const d = s.dream
+      const step = d.step
+      const kind = dreamDef(d.id)?.steps[step].items[d.item].kind ?? ''
+      const correct = answerDream(s, value)
+      platform.track('dream_step', { dream: d.id, step: step + 1, kind, correct: correct ? 1 : 0, value: JSON.stringify(value).slice(0, 80), sec: Math.round((Date.now() - dreamStart.current) / 1000) })
+      dreamStart.current = Date.now()
+      persist()
+    },
+    onHint: async () => {
+      const s = game.current
+      if (!s?.dream || s.dream.hint) return
+      // В Яндекс Играх подсказка — за рекламу с вознаграждением, на сайте и в CrazyGames — бесплатно.
+      if (platform.name === 'yandex' && !(await platform.showRewarded('dream_hint'))) return
+      s.dream.hint = true
+      persist()
+    },
+    onWake: () => {
+      const s = game.current
+      if (!s?.dream || !era) return
+      const snap = { ...s.dream }
+      const outcome = resolveDream(s, era)
+      platform.track('dream_end', { dream: snap.id, score: snap.score ?? 0, outcome, hint_used: snap.hint ? 1 : 0, known: s.hero.dreamSeen?.known ? 1 : 0 })
+      setDreamResult({ dream: { ...snap, outcome, known: s.hero.dreamSeen?.known }, outcome, era: s.hero.era })
+      persist()
+    },
+    onClose: () => {
+      setDreamResult(null)
+      onDismiss()
+    },
+  }
+
   const onChoose = (choiceId: string | null) => {
     if (!era) return
+    const intro = game.current?.queue[0]
+    if (intro?.dream && currentEvent(game.current!, era)?.id === 'dream_intro') {
+      platform.track(choiceId === 'try' ? 'dream_start' : 'dream_skip', { dream: intro.dream })
+      dreamStart.current = Date.now()
+    }
     const before = snapshot(game.current!)
     choose(game.current!, era, choiceId)
     trackChoice(game.current!)
@@ -482,6 +529,7 @@ export function App() {
             yearChanges={yearChanges}
             yearSec={prefs.yearSec}
             sound={soundButton}
+            dream={dreamProps}
           />
         )}
         {screen === 'death' && state && era && lastLife && !fullSummary && lastLife.age < 15 && memorial.length > 1 && (
