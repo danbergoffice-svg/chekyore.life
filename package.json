@@ -17,6 +17,7 @@
     "marriage": "vite-node tools/marriage-stats.ts",
     "music": "node tools/gen/music.mjs",
     "achievements": "vite-node tools/achievements.ts --",
+    "dream-review": "vite-node tools/dream-review.ts",
     "longevity": "vite-node tools/longevity.ts --"
   },
   "devDependencies": {
