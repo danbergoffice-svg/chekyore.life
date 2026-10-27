@@ -99,7 +99,7 @@ FROM events WHERE name='choice_made' AND ts >= ?1 AND ts < ?2 GROUP BY event ORD
   dreamSteps: `WITH d AS (
   SELECT json_extract(params_json,'$.dream') AS dream, json_extract(params_json,'$.step') AS step,
     json_extract(params_json,'$.correct') AS ok, json_extract(params_json,'$.value') AS value
-  FROM events WHERE name='dream_step' AND ts >= ?1 AND ts < ?2
+  FROM events WHERE name='dream_step' AND ts >= ?1 AND ts < ?2 AND json_extract(params_json,'$.training') IS NULL
 ), w AS (
   SELECT dream, step, value, COUNT(*) AS n, ROW_NUMBER() OVER (PARTITION BY dream, step ORDER BY COUNT(*) DESC) AS r
   FROM d WHERE ok = 0 GROUP BY dream, step, value

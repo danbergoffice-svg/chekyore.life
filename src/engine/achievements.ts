@@ -265,17 +265,25 @@ export const ACH_BY_ID = new Map(ACHIEVEMENTS.map((a) => [a.id, a]))
 export const ACH_GROUPS: AchGroup[] = ['age', 'blood', 'fate', 'heart', 'wanderer', 'dream', 'challenge', 'land']
 
 /** «Школьная программа»: какие сны решены верно (все три шага) хотя бы в одной жизни, по предметам. */
-export function schoolProgram(memorial: LifeSummary[]): { solved: Set<string>; seen: Set<string>; subjects: { subject: string; ids: string[] }[] } {
+export function schoolProgram(memorial: LifeSummary[]): {
+  solved: Set<string>
+  seen: Set<string>
+  /** Где и когда сон приснился в последний раз — там же идёт тренировка. */
+  where: Map<string, { era: string; year: number }>
+  subjects: { subject: string; ids: string[] }[]
+} {
   const solved = new Set<string>()
   const seen = new Set<string>()
+  const where = new Map<string, { era: string; year: number }>()
   for (const l of memorial) {
     const d = dreamOf(l)
     if (!d) continue
     seen.add(d.id)
+    where.set(d.id, { era: d.era ?? l.era, year: d.year })
     if (d.score >= 3) solved.add(d.id)
   }
   const subjects = ['biology', 'physics', 'math', 'chemistry'].map((subject) => ({ subject, ids: DREAM_DEFS.filter((d) => d.subject === subject).map((d) => d.id) }))
-  return { solved, seen, subjects: subjects.filter((x) => x.ids.length) }
+  return { solved, seen, where, subjects: subjects.filter((x) => x.ids.length) }
 }
 
 /** Засчитывается ли награда в этой жизни (трудные — только при исторической смертности). */

@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { ERA_META, loadAllEras } from '../src/content'
 import { validateDreams } from '../src/content/validate'
-import { DREAM_DEFS, answerDream, checkInput, dreamDef, dreamThemes, expectedAnswer, pickDream, resolveDream, startDream } from '../src/engine/dreams'
+import { DREAM_DEFS, answerDream, checkInput, dreamDef, dreamThemes, expectedAnswer, pickDream, resolveDream, startDream, trainingOutcome, trainingState } from '../src/engine/dreams'
 import { evaluate } from '../src/engine/formula'
 import { autoplay, choose, choiceAvailable, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../src/engine/game'
 import { newLife } from '../src/engine/life'
@@ -137,5 +137,16 @@ describe('Сон о будущем', () => {
     const a = live(newLife(eras.EUR, soft(1, 0), 4242))
     const b = live(newLife(eras.EUR, soft(1, 1), 4242))
     expect(b).toEqual(a)
+  })
+
+  it('тренировка: тот же сон в той же стране, новые числа, итог только по очкам', () => {
+    const a = trainingState(ERA_META.EUR, 'thales', 1300, 11)
+    const b = trainingState(ERA_META.EUR, 'thales', 1300, 12)
+    expect(a.dream?.id).toBe('thales')
+    expect(a.hero.era).toBe('EUR')
+    expect(a.year).toBe(1300)
+    const differ = [13, 14, 15, 16, 17].some((seed) => JSON.stringify(trainingState(ERA_META.EUR, 'thales', 1300, seed).dream?.params) !== JSON.stringify(a.dream?.params))
+    expect(differ || JSON.stringify(a.dream?.params) !== JSON.stringify(b.dream?.params)).toBe(true)
+    expect([trainingOutcome(3), trainingOutcome(2), trainingOutcome(1), trainingOutcome(0)]).toEqual(['breakthrough', 'partial', 'failure', 'failure'])
   })
 })

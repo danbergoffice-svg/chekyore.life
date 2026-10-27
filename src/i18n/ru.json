@@ -897,6 +897,8 @@
   "ach.secret_dream_boom.title": "Плохо учился в школе",
   "ach.secret_dream_boom.desc": "Погибнуть от провала сна о будущем.",
   "ach.secret_dream_boom.hint": "Отвечай во сне наугад — и узнаешь.",
+  "school.train": "Нажми на приснившийся сон — он повторится с новыми числами, без последствий для жизни.",
+  "school.train_aria": "Тренировка: {title}",
   "school.title": "Школьная программа",
   "school.lead": "Сны о будущем: закрашены решённые верно. Ещё не приснившиеся — «???».",
   "school.count": "{subject} {n} из {total}",

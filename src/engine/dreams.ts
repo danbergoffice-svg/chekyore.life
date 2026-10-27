@@ -5,9 +5,10 @@
 import { ERA_META } from '../content'
 import DREAMS from '../content/dreams.json'
 import { evaluate } from './formula'
+import { newLife } from './life'
 import { applyEffects, changeParam, note } from './rules'
 import { DEFAULT_FLAGS } from '../platform/types'
-import type { DreamDef, DreamInput, DreamOutcome, DreamState, DreamTheme, EraDef, GameState } from './types'
+import type { DreamDef, DreamInput, DreamOutcome, DreamState, DreamTheme, EraDef, EraMeta, GameState } from './types'
 
 export const DREAM_DEFS = DREAMS.dreams as unknown as DreamDef[]
 const BY_ID = new Map(DREAM_DEFS.map((d) => [d.id, d]))
@@ -279,4 +280,20 @@ export function autoDream(state: GameState): void {
     }
     answerDream(state, value)
   }
+}
+
+// ---------- Тренировка из меню ----------
+
+/** Тренировка: уже приснившийся сон с новыми числами в той стране и том году, где он приснился.
+ *  Состояние одноразовое — жизнь, мемориал и награды не меняются. */
+export function trainingState(meta: EraMeta, id: string, year: number, seed: number): GameState {
+  const state = newLife(meta, { mode: 'quick', mortality: 'soft', softenHeavy: false }, seed)
+  state.year = year
+  startDream(state, id)
+  return state
+}
+
+/** Итог тренировки — только по очкам: без гибели и без «уже знали». */
+export function trainingOutcome(score: number): DreamOutcome {
+  return score >= 3 ? 'breakthrough' : score === 2 ? 'partial' : 'failure'
 }

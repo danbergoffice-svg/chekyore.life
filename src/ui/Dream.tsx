@@ -20,6 +20,8 @@ interface Props {
   onHint: () => void
   onWake: () => void
   onClose: () => void
+  /** Тренировка из меню: итог без последствий для жизни. */
+  training?: boolean
 }
 
 /** Перемешать варианты одинаково для этого сна (порядок не подсказывает ответ и не прыгает при перерисовке). */
@@ -40,7 +42,7 @@ function fmt(n: number, lang: string): string {
   return (Math.round(n * 100) / 100).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US')
 }
 
-export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose }: Props) {
+export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose, training }: Props) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -68,12 +70,12 @@ export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose }:
       <div class="modal-backdrop dream-backdrop">
         <div class="modal dream-modal" role="dialog" aria-modal="true" aria-labelledby="dream-title">
           <div class="modal-body">
-            <p class="eyebrow">{t('dream.title_block')}</p>
+            <p class="eyebrow">{t(training ? 'dream.training' : 'dream.title_block')}</p>
             <h2 id="dream-title">{t(`dream.${d.id}.title`)}</h2>
             <p class="dream-result">
               {t('dream.score', { n: d.score ?? 0 })} · <strong>{t(`dream.result.${result.outcome}`)}</strong>
             </p>
-            <p>{t(text, params, o)}</p>
+            <p>{training ? t('dream.training.result', { n: d.score ?? 0 }) : t(text, params, o)}</p>
             <div class="dream-truth">
               <h3>{t('dream.truth_title')}</h3>
               <ol class="dream-answers">
@@ -108,6 +110,7 @@ export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose }:
       <div class="modal dream-modal" role="dialog" aria-modal="true" aria-labelledby="dream-title">
         <div class="modal-body">
           <p class="eyebrow">
+            {training && `${t('dream.training')} · `}
             {d.done ? t('dream.title_block') : `${t('dream.step_of', { n: d.step + 1 })} · ${t(debate ? 'dream.step.debate' : `dream.step.${d.step + 1}`)}`}
           </p>
           <h2 id="dream-title">{t(`dream.${d.id}.title`)}</h2>

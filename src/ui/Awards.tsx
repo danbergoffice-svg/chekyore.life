@@ -7,7 +7,7 @@ import type { LifeSummary } from '../engine/types'
 import { platform } from '../platform'
 import { useUi } from './text'
 
-export function Awards({ earned, memorial, onBack }: { earned: Earned[]; memorial: LifeSummary[]; onBack: () => void }) {
+export function Awards({ earned, memorial, onBack, onTrain }: { earned: Earned[]; memorial: LifeSummary[]; onBack: () => void; onTrain?: (id: string) => void }) {
   const { t } = useUi()
   const got = new Map(earned.map((e) => [e.id, e]))
   const lived = new Set(memorial.map((l) => l.era))
@@ -60,12 +60,23 @@ export function Awards({ earned, memorial, onBack }: { earned: Earned[]; memoria
       <section class="block">
         <h2 class="section-title">{t('school.title')}</h2>
         <p class="small muted">{t('school.lead')}</p>
+        {school.seen.size > 0 && <p class="small">{t('school.train')}</p>}
         {school.subjects.map((x) => (
           <>
             <h3 class="school-subject">{t('school.count', { subject: t(`school.subject.${x.subject}`), n: x.ids.filter((id) => school.solved.has(id)).length, total: x.ids.length })}</h3>
             <ul class="school-grid" aria-label={t(`school.subject.${x.subject}`)}>
               {x.ids.map((id) => (
-                <li class={school.solved.has(id) ? 'solved' : school.seen.has(id) ? 'seen' : ''}>{school.seen.has(id) ? t(`school.${id}`) : '???'}</li>
+                <li class={school.solved.has(id) ? 'solved' : school.seen.has(id) ? 'seen' : ''}>
+                  {school.seen.has(id) && onTrain ? (
+                    <button type="button" class="school-train" onClick={() => onTrain(id)} aria-label={t('school.train_aria', { title: t(`school.${id}`) })}>
+                      {t(`school.${id}`)} <span aria-hidden="true">↻</span>
+                    </button>
+                  ) : school.seen.has(id) ? (
+                    t(`school.${id}`)
+                  ) : (
+                    '???'
+                  )}
+                </li>
               ))}
             </ul>
           </>

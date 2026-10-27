@@ -897,6 +897,8 @@
   "ach.secret_dream_boom.title": "Should Have Studied",
   "ach.secret_dream_boom.desc": "Die because a dream of the future went wrong.",
   "ach.secret_dream_boom.hint": "Guess at random in a dream and you will find out.",
+  "school.train": "Tap a dream you have had to replay it with new numbers, with no effect on any life.",
+  "school.train_aria": "Practice: {title}",
   "school.title": "School curriculum",
   "school.lead": "Dreams of the future: the ones solved correctly are filled in. Dreams you haven't had yet show as “???”.",
   "school.count": "{subject} {n} of {total}",

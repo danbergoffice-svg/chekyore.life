@@ -26,6 +26,7 @@
 | dream_start / dream_skip | dream | «Попробовать вспомнить» / «Это просто сон» |
 | dream_step | dream, step, kind, correct (0/1), value (до 80 знаков), sec | ответ на шаге сна (только свой приёмник; отчёт «Сны о будущем» в `/admin`) |
 | dream_end | dream, score, outcome (breakthrough/partial/failure/death), hint_used, known | сон кончился |
+| dream_training / dream_training_end | dream / dream, score, hint_used | тренировка сна из «Школьной программы»; её `dream_step` идут с `training: 1` и в отчёт `/admin` не попадают |
 | achievement_unlocked | id, rare (1 — секретная, трудная или у <5% игроков) | получена награда (ТЗ v3, п. 10) |
 
 Позже (этапы 2–4): ad_request/ad_shown/ad_rewarded, challenge_end, portrait_request/portrait_done.

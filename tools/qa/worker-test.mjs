@@ -113,6 +113,8 @@ function seed(db) {
   ev(at(Y, 0, 30), 'p1', 'choice_made', { event_id: 'market_fight', option: 'a', age: 20, success: true })
   // сон о будущем: два неверных ответа «3», один верный
   for (const [sec, ok, value] of [[1, 0, '3'], [2, 0, '3'], [3, 1, '8']]) ev(at(Y, 0, 29, sec), 'p1', 'dream_step', { dream: 'eratosthenes', step: 3, kind: 'number', correct: ok, value })
+  // тренировка — не считается
+  ev(at(Y, 0, 29, 4), 'p1', 'dream_step', { dream: 'eratosthenes', step: 3, kind: 'number', correct: 1, value: '8', training: 1 })
   ev(at(Y, 0, 30), 'p1', 'life_end', { age: 54, cause: 'old', sec_in_life: 1740, choices: 30 })
   ev(at(Y, 0, 31), 'p1', 'life_start', {}, { life_index: 2 })
   ev(at(Y, 0, 40), 'p1', 'session_end', { screen: 'life', age: 3, sec_in_session: 2400 }, { life_index: 2 })

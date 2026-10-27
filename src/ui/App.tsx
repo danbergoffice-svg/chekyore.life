@@ -20,9 +20,10 @@ import { Slots } from './Slots'
 import { SoundControl } from './Sound'
 import { initAudio, onIosHint, setMusic, setSound } from '../audio'
 import { planReturn, routeTargets } from '../engine/abroad'
-import { answerDream, dreamDef, resolveDream } from '../engine/dreams'
+import { answerDream, dreamDef, resolveDream, trainingOutcome, trainingState } from '../engine/dreams'
+import { DreamModal } from './Dream'
 import type { DreamResult } from './Dream'
-import { ACH_BY_ID, checkLife, checkLive, checkMemorial, nearMisses, nextGoals } from '../engine/achievements'
+import { ACH_BY_ID, checkLife, checkLive, checkMemorial, nearMisses, nextGoals, schoolProgram } from '../engine/achievements'
 import type { Earned } from '../engine/achievements'
 import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
@@ -318,6 +319,46 @@ export function App() {
   // Сон о будущем: ответы по шагам, подсказка, итог (итог показывается после того, как сон закрыт в игре).
   const [dreamResult, setDreamResult] = useState<DreamResult | null>(null)
   const dreamStart = useRef(0)
+  // Тренировка сна из «Школьной программы»: одноразовое состояние, жизнь и награды не меняются.
+  const [training, setTraining] = useState<{ state: GameState; result: DreamResult | null } | null>(null)
+  const startTraining = (id: string) => {
+    const where = schoolProgram(memorial).where.get(id)
+    if (!where || !ERA_META[where.era]) return
+    ensure(where.era).then(() => {
+      setTraining({ state: trainingState(ERA_META[where.era], id, where.year, (Date.now() % 2147483646) + 1), result: null })
+      dreamStart.current = Date.now()
+      platform.track('dream_training', { dream: id })
+    })
+  }
+  const trainingProps = training && {
+    state: training.state,
+    result: training.result,
+    training: true,
+    onAnswer: (value: unknown) => {
+      const s = training.state
+      const d = s.dream
+      if (!d) return
+      const step = d.step
+      const kind = dreamDef(d.id)?.steps[step].items[d.item].kind ?? ''
+      const correct = answerDream(s, value)
+      platform.track('dream_step', { dream: d.id, step: step + 1, kind, correct: correct ? 1 : 0, value: JSON.stringify(value).slice(0, 80), sec: Math.round((Date.now() - dreamStart.current) / 1000), training: 1 })
+      dreamStart.current = Date.now()
+      setTraining({ ...training })
+    },
+    // В тренировке подсказка бесплатна везде.
+    onHint: () => {
+      if (training.state.dream) training.state.dream.hint = true
+      setTraining({ ...training })
+    },
+    onWake: () => {
+      const d = training.state.dream
+      if (!d) return
+      const outcome = trainingOutcome(d.score ?? 0)
+      platform.track('dream_training_end', { dream: d.id, score: d.score ?? 0, hint_used: d.hint ? 1 : 0 })
+      setTraining({ ...training, result: { dream: { ...d, outcome }, outcome, era: training.state.hero.era } })
+    },
+    onClose: () => setTraining(null),
+  }
   const dreamProps = {
     result: dreamResult,
     onAnswer: (value: unknown) => {
@@ -604,7 +645,8 @@ export function App() {
             <span aria-hidden="true">🏅</span> {ui.t('ach.toast')} <strong>{ui.t(`ach.${achToast}.title`)}</strong>
           </p>
         )}
-        {screen === 'awards' && <Awards earned={earned} memorial={memorial} onBack={toMenu} />}
+        {screen === 'awards' && <Awards earned={earned} memorial={memorial} onBack={toMenu} onTrain={startTraining} />}
+        {screen === 'awards' && trainingProps && <DreamModal {...trainingProps} />}
         {soundHint && (
           <p class="toast" role="status" onClick={() => setSoundHint(false)}>
             {ui.t('sound.ios_hint')}

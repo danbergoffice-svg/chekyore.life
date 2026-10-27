@@ -413,6 +413,8 @@
   "dream.score": "Correct steps: {n} of 3",
   "dream.truth_title": "How it really was",
   "dream.answers": "Correct answers",
+  "dream.training": "Practice",
+  "dream.training.result": "This was practice: the hero's life does not change. The numbers are new every time, so you can try again.",
   "dream.wake": "Wake up",
   "dream.title_block": "A dream of the future",
   "diary.dream": "A dream of the future: \"{dream}\" — {result} ({n} of 3 steps correct).",
