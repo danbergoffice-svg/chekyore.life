@@ -1,7 +1,8 @@
 /* «Тёплая гравюра»: бумага, чернила, сепия. */
 
-/* Шрифт игры — «Летопись» (Thousands Letopis 0.2, src/fonts): глифическая антиква широкого пера,
-   прописные и капитель; один вариативный файл, веса 300–700. Других шрифтов в игре нет. */
+/* Шрифты: основной текст — Alegreya (OFL, @fontsource-variable/alegreya, подключается в main.tsx);
+   крупные надписи — «Летопись» (Thousands Letopis 0.2, src/fonts): глифическая антиква широкого пера,
+   прописные и капитель, от 18 px — заголовки, название игры, имя героя, крупные цифры, подписи разделов. */
 @font-face {
   font-family: 'Thousands Letopis';
   src: url('./fonts/ThousandsLetopis-VF.woff2') format('woff2');
@@ -26,7 +27,8 @@
   --art-1: #d9c39b;
   --art-2: #b9955f;
   --shadow: 0 1px 0 rgba(43, 33, 25, 0.06), 0 6px 18px rgba(43, 33, 25, 0.08);
-  --font: 'Thousands Letopis', serif;
+  --font: 'Alegreya Variable', 'Alegreya', Georgia, serif;
+  --font-display: 'Thousands Letopis', 'Alegreya Variable', serif;
   --size: 17px;
   color-scheme: light;
 }
@@ -95,6 +97,8 @@ body {
 button, input { font: inherit; color: inherit; }
 
 h1, h2, h3 { line-height: 1.2; margin: 0 0 0.5rem; }
+/* Крупные надписи — «Летопись». */
+h1, h2, h3, .game-title, .hero-name, .section-title, .archetype, .stats strong, .chapter-title { font-family: var(--font-display); font-weight: 500; }
 h1 { font-size: 1.7rem; }
 h2 { font-size: 1.25rem; }
 h3 { font-size: 1.05rem; margin-top: 1rem; }
@@ -206,6 +210,10 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 /* Портрет героя: 32×40 точек, растянут без сглаживания. */
 .avatar { flex: none; width: 72px; height: 90px; image-rendering: pixelated; border-radius: 10px; border: 1px solid var(--line); background: var(--card); }
 .hero-name { font-size: 1.6rem; margin: 0; }
+/* Длинное имя переносится, а не выталкивает «Меню» за край (шрифт «Летопись» шире прежнего). */
+.hero-bar-top .hero-name { flex: 1 1 auto; min-width: 0; overflow-wrap: break-word; font-size: clamp(1.25rem, 6vw, 1.6rem); line-height: 1.15; }
+.hero-bar-top .hero-name.long { font-size: clamp(1.05rem, 4.6vw, 1.3rem); }
+.hero-bar-top .hero-name.longer { font-size: clamp(0.95rem, 3.9vw, 1.1rem); }
 .hero-meta { margin: 2px 0; color: var(--ink-2); font-size: 0.95rem; }
 .tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 2; }
 /* На экране жизни вкладки и панель скорости прилипают вместе. */
@@ -639,6 +647,8 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 /* Одноразовые подсказки */
 .hint { display: flex; align-items: flex-start; gap: 10px; width: 100%; margin: 8px 0; padding: 10px 12px; border: 0; border-radius: 10px; background: var(--ink); color: var(--paper); font: inherit; font-size: 0.9rem; line-height: 1.35; text-align: left; cursor: pointer; box-shadow: var(--shadow); }
 .hint-x { margin-left: auto; opacity: 0.7; }
+div.hint .hint-x { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; padding: 0 2px; min-width: 28px; min-height: 28px; }
+.hint-action { background: none; border: 0; padding: 0; color: inherit; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
 .tabs + .hint, .hint + .tabs { margin-top: 0; }
 @media (prefers-reduced-motion: no-preference) { .hint { animation: rise 0.3s ease-out; } }
 

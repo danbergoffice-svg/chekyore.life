@@ -621,7 +621,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
       dark,
     })
     draw()
-    document.fonts?.load("700 40px 'Thousands Letopis'").then(draw, () => {})
+    if (document.fonts) Promise.all([document.fonts.load("600 40px 'Thousands Letopis'"), document.fonts.load("400 30px 'Alegreya Variable'")]).then(draw, () => {})
   }, [format, clean.text, lang])
 
   const save = () => onUpdate({ ...life, playerLine: clean.text })

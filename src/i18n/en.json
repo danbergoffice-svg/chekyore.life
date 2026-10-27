@@ -668,6 +668,8 @@
   "chapter.best": "The main thing of these years:",
   "chapter.next": "Next",
   "hint.speed": "This is the speed of time: ❚❚ pauses, ×2…×10 go faster, ⏭ jumps to the next event.",
+  "hint.year_len": "Do years pass too fast or too slow? You can change how long a year lasts in Settings — up to a minute per year.",
+  "hint.year_len.open": "Open settings",
   "hint.focus": "Now you decide what each year is about. Pick a focus — it shapes skills, money and events.",
   "hint.hero": "The Hero tab shows character, skills, faith and way of life. Take a look.",
   "early.fact": "It happened to many: {region} in those years only {n} children in a hundred lived to fifteen.",

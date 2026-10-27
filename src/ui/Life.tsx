@@ -61,6 +61,8 @@ interface LifeProps {
   /** На чужбине: «Задумать возвращение». */
   onPlanReturn?: () => void
   onMenu: () => void
+  /** Открыть настройки из жизни («Назад» вернёт в жизнь). */
+  onSettings?: () => void
   choiceChanges: Change[]
   yearChanges: Change[]
   /** Своя длительность года из настроек (секунды); не задана — стандартная. */
@@ -78,7 +80,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, choiceChanges, yearChanges, yearSec, sound, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, onSettings, choiceChanges, yearChanges, yearSec, sound, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -180,6 +182,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   // Время года на картинке двора идёт вместе с полоской года.
   const season = state.phase === 'running' ? progress : 0
   const kids = hero.npcs.filter((n) => n.role === 'child' && n.alive)
+  const heroName = nameOf(hero.name, lang)
 
   return (
     <div class="life">
@@ -188,7 +191,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <Avatar input={heroLook(hero)} label={t('life.portrait', { n: hero.age }, o)} />
           <div class="hero-bar-info">
             <div class="hero-bar-top">
-              <h1 class="hero-name">{nameOf(hero.name, lang)}</h1>
+              {/* Длинное имя мельче: «Летопись» широкая, а «Меню» должно оставаться на месте. */}
+              <h1 class={`hero-name ${heroName.length > 13 ? 'longer' : heroName.length > 8 ? 'long' : ''}`}>{heroName}</h1>
               <div class="hero-bar-actions">
                 {sound}
                 <button class="link" onClick={onMenu}>{t('life.menu')}</button>
@@ -248,7 +252,23 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           </div>
         )}
       </div>
-      {tab === 'life' && hintFor('speed', lifeSec >= 3) && <Hint text={t('hint.speed')} onClose={() => closeHint('speed')} />}
+      {tab === 'life' && hintFor('speed', lifeSec >= 3 && hero.age < 2) && <Hint text={t('hint.speed')} onClose={() => closeHint('speed')} />}
+      {/* Первые годы жизни: длительность года меняется в настройках. */}
+      {tab === 'life' && hintFor('year_len', hero.age >= 2 && hero.age <= 6) && (
+        <Hint
+          text={t('hint.year_len')}
+          onClose={() => closeHint('year_len')}
+          action={
+            onSettings && {
+              label: t('hint.year_len.open'),
+              run: () => {
+                platform.track('tab_open', { tab: 'settings_from_hint' })
+                onSettings()
+              },
+            }
+          }
+        />
+      )}
 
       {tab === 'life' && (
         <section class="panel">
@@ -536,13 +556,34 @@ function ChangeList({ changes, coin }: { changes: Change[]; coin: string }) {
   )
 }
 
-/** Подсказка: пузырь с текстом, исчезает по касанию. */
-function Hint({ text, onClose }: { text: string; onClose: () => void }) {
+/** Подсказка: пузырь с текстом, исчезает по касанию; action — кнопка-действие внутри (например, «Открыть настройки»). */
+function Hint({ text, onClose, action }: { text: string; onClose: () => void; action?: { label: string; run: () => void } }) {
+  if (!action) {
+    return (
+      <button class="hint" onClick={onClose}>
+        <span>{text}</span>
+        <span class="hint-x" aria-hidden="true">✕</span>
+      </button>
+    )
+  }
   return (
-    <button class="hint" onClick={onClose}>
-      <span>{text}</span>
-      <span class="hint-x" aria-hidden="true">✕</span>
-    </button>
+    <div class="hint" role="note">
+      <span>
+        {text}{' '}
+        <button
+          class="hint-action"
+          onClick={() => {
+            onClose()
+            action.run()
+          }}
+        >
+          {action.label}
+        </button>
+      </span>
+      <button class="hint-x" onClick={onClose} aria-label="✕">
+        ✕
+      </button>
+    </div>
   )
 }
 

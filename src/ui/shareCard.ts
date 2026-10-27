@@ -52,7 +52,9 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
   const muted = d.dark ? '#a8977f' : '#7d6b58'
   const accent = d.dark ? '#d07a52' : '#8e3b22'
   const gold = d.dark ? '#d1a35a' : '#a87a2e'
-  const serif = "'Thousands Letopis', serif"
+  // Имя, архетип и подпись игры — «Летопись», остальной текст — Alegreya.
+  const serif = "'Alegreya Variable', 'Alegreya', Georgia, serif"
+  const display = "'Thousands Letopis', serif"
   ctx.fillStyle = paper
   ctx.fillRect(0, 0, cw, ch)
 
@@ -88,8 +90,8 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
 
   // Нижняя граница текста: под ней строка с названием игры.
   const limit = ch - pad - Math.round(60 * unit)
-  const text = (s: string, size: number, color: string, weight = 400, italic = false, maxWidth = textW) => {
-    ctx.font = `${italic ? 'italic ' : ''}${weight} ${Math.round(size * unit)}px ${serif}`
+  const text = (s: string, size: number, color: string, weight = 400, italic = false, maxWidth = textW, font = serif) => {
+    ctx.font = `${italic ? 'italic ' : ''}${weight} ${Math.round(size * unit)}px ${font}`
     ctx.fillStyle = color
     for (const line of wrap(ctx, s, maxWidth)) {
       const step = Math.round(size * unit * 1.25)
@@ -104,26 +106,26 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
     x = sceneW + pad
     y = pad - 10
     const w = cw - x - pad
-    text(d.name, 64, ink, 700, false, w)
+    text(d.name, 64, ink, 600, false, w, display)
     text(d.years, 30, muted, 400, false, w)
     text(d.place, 30, muted, 400, false, w)
     y += 16
-    text(d.archetype, 40, accent, 700, false, w)
+    text(d.archetype, 40, accent, 600, false, w, display)
     text(d.patternLine, 24, muted, 400, false, w)
     y += 10
     for (const f of d.facts.slice(0, 2)) text(`• ${f}`, 26, ink, 400, false, w)
     if (d.playerLine) text(`«${d.playerLine}»`, 26, ink, 400, true, w)
-    ctx.font = `700 ${Math.round(26 * unit)}px ${serif}`
+    ctx.font = `600 ${Math.round(26 * unit)}px ${display}`
     ctx.fillStyle = gold
     ctx.fillText(d.cta, x, ch - pad + 10)
     return
   }
 
-  text(d.name, 76, ink, 700)
+  text(d.name, 76, ink, 600, false, textW, display)
   text(d.years, 36, muted)
   text(d.place, 36, muted)
   y += 24
-  text(d.archetype, 52, accent, 700)
+  text(d.archetype, 52, accent, 600, false, textW, display)
   text(d.patternLine, 30, muted)
   y += 20
   for (const f of d.facts.slice(0, 3)) text(`• ${f}`, 34, ink)
@@ -131,7 +133,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
     y += 16
     text(`«${d.playerLine}»`, 36, ink, 400, true)
   }
-  ctx.font = `700 ${Math.round(34 * unit)}px ${serif}`
+  ctx.font = `600 ${Math.round(34 * unit)}px ${display}`
   ctx.fillStyle = gold
   ctx.fillText(d.cta, pad, ch - pad)
 }

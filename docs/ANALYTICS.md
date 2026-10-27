@@ -15,7 +15,7 @@
 | age_milestone | age, sec_in_life | 5, 10, 15, 20, 30, 40, 50, 60, 70 лет |
 | choice_made | event_id, option, age, success | любой выбор (только свой приёмник) |
 | speed_change | speed | смена скорости |
-| tab_open | tab | вкладки жизни, «Читать» справку, графики и запись в итогах |
+| tab_open | tab | вкладки жизни, «Читать» справку, графики и запись в итогах; `settings_from_hint` — открыл настройки из подсказки о длительности года |
 | session_end | screen, age, sec_in_session | вкладку скрыли/закрыли (sendBeacon) |
 | life_end | age, cause, region, era, sec_in_life, choices, rescued, generation | смерть героя |
 | summary_action | action: heir/reborn/share/memorial/menu | кнопки итогов |

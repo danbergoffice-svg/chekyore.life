@@ -467,6 +467,8 @@ export function App() {
   }
 
   const toMenu = () => setScreen('menu')
+  /** Откуда открыты настройки: из жизни «Назад» возвращает в жизнь. */
+  const [settingsFrom, setSettingsFrom] = useState<'menu' | 'life'>('menu')
 
   const openFeedback = (from: Screen) => {
     setFeedbackFrom(from)
@@ -567,6 +569,10 @@ export function App() {
               persist()
             }}
             onMenu={toMenu}
+            onSettings={() => {
+              setSettingsFrom('life')
+              setScreen('settings')
+            }}
             choiceChanges={choiceChanges}
             yearChanges={yearChanges}
             yearSec={prefs.yearSec}
@@ -639,7 +645,12 @@ export function App() {
             onBack={toMenu}
           />
         )}
-        {screen === 'settings' && <Settings prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={toMenu} />}
+        {screen === 'settings' && <Settings prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
+          const back = settingsFrom
+          setSettingsFrom('menu')
+          if (back === 'life' && game.current && game.current.phase !== 'dead') setScreen('life')
+          else toMenu()
+        }} />}
         {screen === 'about' && <About onBack={toMenu} />}
         {achToast && (
           <p class="toast ach-toast" role="status" onClick={() => setAchToast(null)}>
