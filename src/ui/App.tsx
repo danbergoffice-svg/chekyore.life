@@ -11,12 +11,12 @@ import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, t
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
-import { About, Heirs, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
+import { About, CountryModal, CountryPrompt, Heirs, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { Awards } from './Awards'
 import { sendFeedback } from '../feedback'
 import type { FeedbackData } from '../feedback'
 import { Feedback, FeedbackPrompt } from './Feedback'
-import { Slots } from './Slots'
+import { SlotMachine } from './Slots'
 import { SoundControl } from './Sound'
 import { initAudio, onIosHint, setMusic, setSound } from '../audio'
 import { planReturn, routeTargets } from '../engine/abroad'
@@ -30,7 +30,7 @@ import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
-type Screen = 'loading' | 'menu' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about' | 'awards'
+type Screen = 'loading' | 'menu' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about' | 'awards'
 
 const defaultPrefs: Prefs = {
   lang: platform.lang(),
@@ -45,6 +45,17 @@ const defaultPrefs: Prefs = {
 }
 
 /** Перезагрузить страницу один раз за сессию (новая версия сайта); false — уже перезагружали. */
+/** До какого возраста защищена жизнь, если до неё прожито lives жизней: первые protected_lives — до first_life_min_age. */
+function protectedAge(lives: number): number | undefined {
+  return lives < (platform.flags.protected_lives ?? 1) ? platform.flags.first_life_min_age : undefined
+}
+
+/** Страна, выбранная игроком: только в пробный период и только после отзыва. */
+function pickedCountry(prefs: Prefs): string | undefined {
+  if (!platform.flags.trial_country_pick || prefs.feedback?.state !== 'sent') return undefined
+  return prefs.country && ERA_META[prefs.country] ? prefs.country : undefined
+}
+
 function reloadOnceForUpdate(): boolean {
   if (platform.sessionFlag('thousands.reloaded')) return false
   platform.setSessionFlag('thousands.reloaded')
@@ -79,6 +90,8 @@ export function App() {
   const [thanks, setThanks] = useState(false)
   const [soundHint, setSoundHint] = useState(false)
   const [setupOpen, setSetupOpen] = useState(false)
+  // Выбор страны следующей жизни (пробный период, награда за отзыв).
+  const [countryOpen, setCountryOpen] = useState(false)
   // Ранняя смерть (до 15 лет, со второй жизни) сначала показывает короткий итог.
   const [fullSummary, setFullSummary] = useState(false)
   useEffect(() => {
@@ -152,13 +165,12 @@ export function App() {
 
   useEffect(() => window.scrollTo(0, 0), [screen])
 
-  // Сигналы платформе об игре: игра начинается с нажатия «Новая жизнь» (лотерея рождения); знакомство с семьёй —
+  // Сигналы платформе об игре: игра начинается с рывка рычага лотереи рождения (onPull); знакомство с семьёй —
   // перерыв, как заставка уровня; с «Начать жизнь» на экране жизни старт и паузу решает сам экран (пауза, глава,
   // реклама); меню, настройки, мемориал, смерть и итоги — остановка.
   useEffect(() => {
     if (screen === 'life') return
-    if (screen === 'spin' && !setupOpen) platform.gameplayStart()
-    else platform.gameplayStop()
+    platform.gameplayStop()
   }, [screen, setupOpen])
 
   // Музыка: у меню своя мелодия, в жизни героя — мелодия его страны и эпохи.
@@ -269,26 +281,49 @@ export function App() {
     persist()
   }
 
-  /** «Родиться»: тянем жребий и показываем барабаны, страна тем временем загружается. */
-  const startNew = (lottery = prefs.lottery) => {
+  /** Жребий для барабана в меню: что выпадет при рывке рычага. Страну игрок может выбрать сам — в пробный период,
+   *  после отзыва; год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
+  const rollPending = (lottery = prefs.lottery, country = pickedCountry(prefs)) => {
     const seed = newSeed()
-    const birth = rollBirth(seed, lottery, ERA_IDS.map((id) => ERA_META[id]))
+    const birth = rollBirth(seed, lottery, (country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
     setPending({ seed, birth })
-    setScreen('spin')
-    ensure(birth.era)
+  }
+  // В меню барабан всегда заряжен.
+  useEffect(() => {
+    if (screen === 'menu' && !pending) rollPending()
+  }, [screen, pending])
+  /** «Новая жизнь» с итогов: в меню к барабану (жребий новый). */
+  const [drumFocus, setDrumFocus] = useState(0)
+  const startNew = (lottery = prefs.lottery, country = pickedCountry(prefs)) => {
+    rollPending(lottery, country)
+    setScreen('menu')
+    setDrumFocus((n) => n + 1)
+  }
+  const onPull = () => {
+    if (!pending) return
+    ensure(pending.birth.era)
+    platform.gameplayStart()
   }
 
   const bornAfterSpin = () => {
     if (!pending) return
-    // Первая жизнь защищена до first_life_min_age лет (флаг): герой не погибает, а «выживает чудом».
-    const protectedUntil = memorial.length === 0 ? platform.flags.first_life_min_age : undefined
-    // Сны о будущем — со второй жизни; шанс в год — флаг dream_chance.
-    const settings = { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy, protectedUntil, livesBefore: memorial.length, dreamChance: platform.flags.dream_chance }
+    // Первые protected_lives жизней защищены до first_life_min_age лет (флаги): герой не погибает, а «выживает чудом».
+    const protectedUntil = protectedAge(memorial.length)
+    // Сон о будущем: в первой жизни — наверняка к dream_first_by годам, дальше — шанс dream_chance в год.
+    const settings = {
+      mode: prefs.mode,
+      mortality: prefs.mortality,
+      softenHeavy: prefs.softenHeavy,
+      protectedUntil,
+      livesBefore: memorial.length,
+      dreamChance: platform.flags.dream_chance,
+      dreamFirstBy: platform.flags.dream_first_by,
+    }
     game.current = newLife(ERA_META[pending.birth.era], settings, pending.seed, undefined, pending.birth)
     const h = game.current.hero
     void h
     platform.setContext({ mode: prefs.mode })
-    trackLifeStart(game.current, prefs.lottery, memorial.length === 0)
+    trackLifeStart(game.current, pickedCountry(prefs) ? 'country' : prefs.lottery, protectedUntil !== undefined)
     setPending(null)
     setYearChanges([])
     setScreen('reveal')
@@ -427,11 +462,13 @@ export function App() {
     if (!era) return
     const prevYear = game.current!.year
     game.current = continueWithHeir(game.current!, era, childId)
+    // Наследник — тоже одна из первых защищённых жизней (обычно вторая): до 20 лет не погибает.
+    game.current.settings.protectedUntil = protectedAge(memorial.length)
     // Продолжение после конца хроники страны: с этого года — без исторических событий, вестей и справок.
     if (offChronicle.current && game.current.offChronicle === undefined) game.current.offChronicle = prevYear
     offChronicle.current = false
     platform.track('heir_chosen', { generation: game.current.hero.generation })
-    trackLifeStart(game.current, 'heir', false)
+    trackLifeStart(game.current, 'heir', game.current.settings.protectedUntil !== undefined)
     setYearChanges([])
     setScreen('reveal')
     persist()
@@ -477,9 +514,21 @@ export function App() {
   const onSendFeedback = (data: FeedbackData) => {
     sendFeedback(data)
     setPrefs({ ...prefs, feedback: { state: 'sent', lives: memorial.length } })
-    setThanks(true)
-    setTimeout(() => setThanks(false), 4000)
     setScreen(feedbackFrom)
+    // Пробный период: награда за отзыв — выбор страны; сразу предлагаем выбрать.
+    if (platform.flags.trial_country_pick) setCountryOpen(true)
+    else {
+      setThanks(true)
+      setTimeout(() => setThanks(false), 4000)
+    }
+  }
+  /** Страна выбрана: запоминаем и сразу к лотерее (с экрана лотереи — тянем жребий заново). */
+  const onCountry = (country: string | undefined) => {
+    const next = { ...prefs, country }
+    setPrefs(next)
+    setCountryOpen(false)
+    if (country) platform.track('country_pick', { era: country })
+    if (screen === 'death' || screen === 'menu') startNew(next.lottery, pickedCountry(next))
   }
   // Просим отзыв после первой жизни; если отложили — ещё раз через две жизни; после отправки — больше нет.
   const askFeedback =
@@ -515,7 +564,23 @@ export function App() {
           <Menu
             current={state}
             memorial={memorial}
-            onNew={() => startNew()}
+            slot={
+              pending ? (
+                <SlotMachine
+                  key={pending.seed}
+                  birth={pending.birth}
+                  seed={pending.seed}
+                  ready={isEraLoaded(pending.birth.era) && loadedVersion > 0}
+                  error={loadError}
+                  onRetry={() => ensure(pending.birth.era)}
+                  onPull={onPull}
+                  onDone={bornAfterSpin}
+                  onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
+                  country={pickedCountry(prefs)}
+                  focus={drumFocus}
+                />
+              ) : null
+            }
             onContinue={() => {
               if (!state) return
               const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
@@ -530,29 +595,31 @@ export function App() {
             sound={soundButton}
           />
         )}
-        {screen === 'spin' && pending && (
-          <Slots
-            birth={pending.birth}
-            seed={pending.seed}
-            ready={isEraLoaded(pending.birth.era) && loadedVersion > 0}
-            error={loadError}
-            onRetry={() => ensure(pending.birth.era)}
-            onDone={bornAfterSpin}
-            onBack={toMenu}
-            onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
-          />
-        )}
         {setupOpen && (
           <SetupModal
             prefs={prefs}
             onPrefs={(next) => {
               setPrefs(next)
-              // Лотерея поменялась до рывка рычага — тянем жребий заново по новому правилу.
-              if (next.lottery !== prefs.lottery) startNew(next.lottery)
+              // Лотерея или страна поменялись до рывка рычага — тянем жребий заново по новому правилу.
+              if (next.lottery !== prefs.lottery || next.country !== prefs.country) startNew(next.lottery, pickedCountry(next))
             }}
             onClose={() => setSetupOpen(false)}
+            country={
+              platform.flags.trial_country_pick
+                ? {
+                    unlocked: prefs.feedback?.state === 'sent',
+                    onFeedback: EXTERNAL
+                      ? () => {
+                          setSetupOpen(false)
+                          openFeedback('menu')
+                        }
+                      : undefined,
+                  }
+                : undefined
+            }
           />
         )}
+        {countryOpen && <CountryModal current={prefs.country} onPick={onCountry} onClose={() => setCountryOpen(false)} />}
         {screen === 'reveal' && state && era && <Reveal state={state} era={era} onStart={() => setScreen('life')} />}
         {screen === 'life' && state && era && state.phase !== 'dead' && (
           <Life
@@ -618,7 +685,13 @@ export function App() {
             }}
             feedback={
               askFeedback ? (
-                <FeedbackPrompt onOpen={() => openFeedback('death')} onLater={() => setPrefs({ ...prefs, feedback: { state: 'later', lives: memorial.length } })} />
+                <FeedbackPrompt
+                  reward={!!platform.flags.trial_country_pick}
+                  onOpen={() => openFeedback('death')}
+                  onLater={() => setPrefs({ ...prefs, feedback: { state: 'later', lives: memorial.length } })}
+                />
+              ) : platform.flags.trial_country_pick && prefs.feedback?.state === 'sent' ? (
+                <CountryPrompt country={prefs.country} onOpen={() => setCountryOpen(true)} />
               ) : undefined
             }
           />

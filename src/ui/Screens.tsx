@@ -26,7 +26,8 @@ const SHOWCASE: { region: string; era: string; scene: SceneDef }[] = ERA_IDS.fla
 interface MenuProps {
   current: GameState | null
   memorial: LifeSummary[]
-  onNew: () => void
+  /** Барабан лотереи рождения — сразу под названием игры. */
+  slot: ComponentChildren
   onContinue: () => void
   onOpenLife: (heroId: string) => void
   onFeedback: () => void
@@ -38,7 +39,7 @@ interface MenuProps {
   sound: ComponentChildren
 }
 
-export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
+export function Menu({ current, memorial, slot, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -70,19 +71,18 @@ export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedb
         <p class="lead">{t('app.tagline')}</p>
       </div>
 
-      <div class="stack">
-        {playing && hero && (
-          <button class="primary continue" onClick={onContinue}>
+      {slot}
+
+      {playing && hero && (
+        <div class="stack">
+          <button class="secondary continue" onClick={onContinue}>
             <span>{t('menu.continue')}</span>
             <span class="option-desc">
               {nameOf(hero.name, lang)} · {t('life.age', { n: hero.age })} · {t(`region.${hero.region}`)} · {formatYear(current!.year, lang)}
             </span>
           </button>
-        )}
-        <button class={playing ? 'secondary' : 'primary'} onClick={onNew}>
-          {t('menu.new')}
-        </button>
-      </div>
+        </div>
+      )}
 
       <section class="block">
         <h2 class="section-title">{t('menu.how')}</h2>
@@ -206,7 +206,21 @@ function topByPopulation(t: (k: string) => string): string {
 }
 
 /** Настройки жизни: лотерея, длина, смертность, тяжёлые сцены. Открываются окном с экрана барабанов. */
-export function SetupModal(props: { prefs: Prefs; onPrefs: (p: Prefs) => void; onClose: () => void }) {
+/** Варианты страны: жребий или любая из стран игры. */
+function countryOptions(t: (k: string) => string) {
+  return [
+    { id: '', label: t('country.random'), desc: t('country.random.desc') },
+    ...ERA_IDS.map((id) => ({ id, label: t(`era.${id}`), desc: t(`era.${id}.years`) })),
+  ]
+}
+
+export function SetupModal(props: {
+  prefs: Prefs
+  onPrefs: (p: Prefs) => void
+  onClose: () => void
+  /** Пробный период: выбор страны (открыт после отзыва; до него — приглашение оставить отзыв). */
+  country?: { unlocked: boolean; onFeedback?: () => void }
+}) {
   const { t } = useUi()
   const p = props.prefs
   return (
@@ -214,6 +228,21 @@ export function SetupModal(props: { prefs: Prefs; onPrefs: (p: Prefs) => void; o
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
         <div class="modal-body">
           <h2 id="setup-title">{t('setup.custom')}</h2>
+          {props.country?.unlocked && (
+            <Choice title={t('setup.country')} value={p.country ?? ''} onChange={(v) => props.onPrefs({ ...p, country: v || undefined })} options={countryOptions(t)} />
+          )}
+          {props.country && !props.country.unlocked && (
+            <div class="choice-group locked-country">
+              <p class="small">
+                <strong>{t('setup.country')}.</strong> {t('setup.country.locked')}
+              </p>
+              {props.country.onFeedback && (
+                <button class="secondary" onClick={props.country.onFeedback}>
+                  {t('setup.country.feedback')}
+                </button>
+              )}
+            </div>
+          )}
           <Choice
             title={t('setup.lottery')}
             value={p.lottery}
@@ -253,6 +282,37 @@ export function SetupModal(props: { prefs: Prefs; onPrefs: (p: Prefs) => void; o
         </div>
       </div>
     </div>
+  )
+}
+
+/** Пробный период, после отзыва: где родиться в следующей жизни. */
+export function CountryModal(props: { current?: string; onPick: (era: string | undefined) => void; onClose: () => void }) {
+  const { t } = useUi()
+  return (
+    <div class="modal-backdrop" onClick={(e) => e.target === e.currentTarget && props.onClose()}>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="country-title">
+        <div class="modal-body">
+          <h2 id="country-title">{t('country.title')}</h2>
+          <p class="small muted">{t('country.lead')}</p>
+          <Choice title={t('setup.country')} value={props.current ?? ''} onChange={(v) => props.onPick(v || undefined)} options={countryOptions(t)} />
+          <p class="center">
+            <button class="link" onClick={props.onClose}>{t('common.close')}</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/** На итогах жизни, когда отзыв уже оставлен (пробный период): страна следующей жизни и кнопка выбора. */
+export function CountryPrompt(props: { country?: string; onOpen: () => void }) {
+  const { t } = useUi()
+  return (
+    <section class="block feedback-prompt">
+      <h2 class="section-title">{t('country.prompt.title')}</h2>
+      <p>{props.country ? t('country.prompt.chosen', { era: { key: `era.${props.country}.short` } }) : t('country.prompt.random')}</p>
+      <button class="secondary" onClick={props.onOpen}>{t('country.prompt.go')}</button>
+    </section>
   )
 }
 

@@ -4,8 +4,10 @@ import type { Lang } from '../engine/types'
 
 /** Удалённые настройки: на сайте — /flags.json, в Яндекс Играх — ysdk.getFlags(). */
 export interface Flags {
-  /** До какого возраста первая жизнь защищена от смерти. */
+  /** До какого возраста защищены первые жизни от смерти. */
   first_life_min_age: number
+  /** Сколько первых жизней защищены (вместе с наследником, если он — одна из них). */
+  protected_lives: number
   /** Секунд на год на скорости ×1: детство (0–5) и дальше. */
   year_sec_child: number
   year_sec: number
@@ -17,6 +19,10 @@ export interface Flags {
   ab_buckets: Record<string, number>
   /** Шанс сна о будущем в год (со второй жизни, 15–40 лет). */
   dream_chance: number
+  /** В первой жизни сон приходит наверняка — в 15 лет … к этому возрасту; 0 — в первой жизни снов нет. */
+  dream_first_by: number
+  /** Пробный период: за отзыв после смерти игрок сам выбирает страну следующих жизней. */
+  trial_country_pick: boolean
   /** Редкость достижений: id → доля игроков. */
   ach_rarity: Record<string, number>
   /** Стиль портрета героя. */
@@ -27,12 +33,15 @@ export interface Flags {
 
 export const DEFAULT_FLAGS: Flags = {
   first_life_min_age: 20,
+  protected_lives: 2,
   year_sec_child: 8,
   year_sec: 10,
   chapter_ages: [16, 30, 45, 60],
   fullscreen_gap_sec: 180,
   ab_buckets: { a: 1 },
   dream_chance: 0.05,
+  dream_first_by: 25,
+  trial_country_pick: true,
   ach_rarity: {},
   portrait_style: 'painting',
   art_strength: 0.5,

@@ -51,16 +51,19 @@ export function dreamsAvailable(state: GameState): DreamDef[] {
 }
 
 /**
- * Пора ли сну: со второй жизни (или у наследника), 15–40 лет, раз за жизнь, не в год экрана-главы
- * и не вместе с историческим событием.
+ * Пора ли сну: 15–40 лет, раз за жизнь, не в год экрана-главы и не вместе с историческим событием.
+ * В первой жизни сон приходит наверняка к dreamFirstBy годам (шанс растёт с каждым годом), дальше — dream_chance в год.
  */
 export function dreamDue(state: GameState, historicalThisYear: boolean): boolean {
   const h = state.hero
-  if ((state.settings.livesBefore ?? 0) < 1 && h.generation < 2) return false
+  const first = (state.settings.livesBefore ?? 0) < 1 && h.generation < 2
+  const firstBy = state.settings.dreamFirstBy ?? 0
+  if (first && firstBy < 15) return false
   if (h.age < 15 || h.age > 40 || h.dreamSeen || state.dream || historicalThisYear) return false
   if (DEFAULT_FLAGS.chapter_ages.includes(h.age)) return false
   if (!dreamsAvailable(state).length) return false
-  return dreamRng(state, 'due')() < (state.settings.dreamChance ?? DREAM_CHANCE)
+  const chance = first ? (h.age >= firstBy ? 1 : 1 / (firstBy - h.age + 1)) : (state.settings.dreamChance ?? DREAM_CHANCE)
+  return dreamRng(state, 'due')() < chance
 }
 
 const WAR_JOBS = ['soldier', 'officer', 'legionary', 'centurion', 'druzhinnik', 'strelets', 'knight', 'samurai', 'mamluk', 'janissary', 'akrites', 'eagle_warrior', 'maryannu']

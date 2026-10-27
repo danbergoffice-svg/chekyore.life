@@ -70,6 +70,11 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   `src/fonts/ThousandsLetopis-VF.woff2`, `--font-display`: h1–h3, название игры, имя героя, подписи разделов, крупные
   цифры). На холстах (карточка «Поделиться», OG) — так же, перерисовка после `document.fonts.load`. README «Летописи» —
   `src/fonts/README-Letopis.md`.
+- Главное меню (`Menu` в `Screens.tsx`): язык и звук, картинка, название, **барабан лотереи** (`SlotMachine` в `Slots.tsx`,
+  отдельного экрана лотереи нет; страна грузится с рывка рычага), «Продолжить», дальше разделы. «Новая жизнь» с итогов
+  ведёт в меню к барабану. Защищены до 20 лет первые `protected_lives` жизней (`protectedAge` в `App.tsx`, и наследник);
+  сон о будущем в первой жизни — к `dream_first_by` годам. Пробный период «страна за отзыв» — флаг
+  `trial_country_pick`, `prefs.country`, `CountryModal`/`CountryPrompt`; проверка — `node tools/qa/country.cjs`.
 - Подсказки на экране жизни — `hintFor`/`closeHint` в `Life.tsx` (закрытые помнятся в `thousands.hints`): скорость (0–1 год),
   длительность года с кнопкой «Открыть настройки» (2–6 лет; «Назад» из настроек возвращает в жизнь), фокус, вкладка «Герой».
 - Графика (`docs/TZ_graphics.md`): сцена 320×100 из кэшируемых слоёв + движение (`scene.ts`, `fx.ts`, `figures.ts`),

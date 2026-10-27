@@ -7,7 +7,6 @@ const dir = process.env.SHOTS || 'shots';
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error' && !/ERR_FAILED/.test(m.text())) errs.push(m.text()) });
   await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu');
-  await p.click('.menu .stack .primary');
   await p.waitForSelector('.lever:not([disabled])', { timeout: 15000 });
   await p.click('.lever'); await p.waitForSelector('.spin-result'); await p.click('.spin-result .primary');
   await p.click('.reveal .primary');

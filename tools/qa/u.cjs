@@ -9,7 +9,6 @@ const dir = process.env.SHOTS || 'shots';
   const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error' && !/ERR_FAILED/.test(m.text())) errs.push(m.text()) });
   await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu');
   let taps = 0;
-  await p.click('.menu .stack .primary'); taps++;
   await p.waitForSelector('.lever:not([disabled])', { timeout: 15000 });
   console.log('setup link in first life:', !!(await p.$('text=Настроить жизнь')));
   await p.click('.lever'); taps++;
@@ -38,8 +37,9 @@ const dir = process.env.SHOTS || 'shots';
     }
     if (shot === 1 && age >= 8 && !(await p.$('.modal'))) {
       await p.click('.speed .chip:nth-child(1)').catch(() => {});
-      await p.click('.focus-panel .help');
-      await (await p.$('.focus-panel')).screenshot({ path: `${dir}/u-focus.png` });
+      await p.click('.focus-panel .help', { timeout: 2000 }).catch(() => {});
+      const fp = await p.$('.focus-panel');
+      if (fp) await fp.screenshot({ path: `${dir}/u-focus.png` });
       shot = 2
     }
     await p.click('.speed .chip:last-child', { timeout: 300 }).catch(() => {});

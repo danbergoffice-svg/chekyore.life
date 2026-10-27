@@ -10,7 +10,7 @@
 | Событие | Параметры | Когда |
 |---|---|---|
 | app_open | referrer, life_code, load_ms | игра загрузилась |
-| life_start | era, region, cls, sex, lottery, protected, generation | герой родился (lottery=heir — наследник) |
+| life_start | era, region, cls, sex, lottery, protected, generation | герой родился (lottery=heir — наследник, country — страну выбрал игрок; protected — жизнь защищена до 20 лет) |
 | first_choice | sec_from_start | первый выбор в жизни |
 | age_milestone | age, sec_in_life | 5, 10, 15, 20, 30, 40, 50, 60, 70 лет |
 | choice_made | event_id, option, age, success | любой выбор (только свой приёмник) |
@@ -22,7 +22,8 @@
 | share_open / share_done | what (life/dream) / what, format, method | «Поделиться» жизнью или сном |
 | feedback_sent | rating | отзыв отправлен |
 | heir_chosen | generation | продолжение рода |
-| dream_offer | dream, era, age | герою приснился сон о будущем (docs/TZ_dreams.md) |
+| dream_offer | dream, era, age | герою приснился сон о будущем (docs/TZ_dreams.md); в первой жизни — наверняка к 25 годам |
+| country_pick | era | пробный период: игрок после отзыва выбрал страну следующих жизней |
 | dream_start / dream_skip | dream | «Попробовать вспомнить» / «Это просто сон» |
 | dream_step | dream, step, kind, correct (0/1), value (до 80 знаков), sec | ответ на шаге сна (только свой приёмник; отчёт «Сны о будущем» в `/admin`) |
 | dream_end | dream, score, outcome (breakthrough/partial/failure/death), hint_used, known | сон кончился |

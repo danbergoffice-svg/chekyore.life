@@ -19,27 +19,30 @@ async function run(mode) {
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', (e) => errs.push(e.message));
   await p.goto('http://localhost:4173/'); await p.waitForSelector('.menu');
-  await p.click('.menu .stack button:last-child'); await p.click('.screen > .primary');
+  // Барабан в меню: страна грузится с рывка рычага; готово — когда «Узнать свою семью» активна.
+  const READY = '.spin-result .primary:not([disabled])'
+  const pull = async () => { await p.waitForSelector('.lever:not([disabled])'); await p.click('.lever') }
+  await pull();
   let outcome = 'stuck';
   for (let i = 0; i < 40; i++) {
-    if (await p.$('.lever:not([disabled])')) { outcome = 'ready'; break }
+    if (await p.$(READY)) { outcome = 'ready'; break }
     if (await p.$('.load-problem')) { outcome = 'error-shown'; break }
-    if (await p.$('.menu')) { // автоперезагрузка вернула на главную — начинаем заново
+    if (await p.$('.menu .lever:not([disabled])') && !(await p.$('.spin-result'))) { // автоперезагрузка — тянем заново
       outcome = 'reloaded'
-      await p.click('.menu .stack button:last-child'); await p.click('.screen > .primary');
+      await pull();
     }
     await p.waitForTimeout(500);
   }
   if (outcome === 'reloaded') {
-    for (let i = 0; i < 30 && !(await p.$('.lever:not([disabled])')); i++) await p.waitForTimeout(500);
-    outcome = (await p.$('.lever:not([disabled])')) ? 'reloaded→ready' : 'reloaded→stuck';
+    for (let i = 0; i < 30 && !(await p.$(READY)); i++) await p.waitForTimeout(500);
+    outcome = (await p.$(READY)) ? 'reloaded→ready' : 'reloaded→stuck';
   }
   if (outcome === 'error-shown') {
     await p.screenshot({ path: `${dir}/load-error.png` });
     broken = 0; // связь «вернулась»
-    await p.click(".load-problem .primary"); await p.waitForTimeout(1500); if (await p.$(".menu")) { await p.click(".menu .stack button:last-child"); await p.click(".screen > .primary") }
-    for (let i = 0; i < 30 && !(await p.$('.lever:not([disabled])')); i++) await p.waitForTimeout(500);
-    outcome += (await p.$('.lever:not([disabled])')) ? ' → retry ok' : ' → retry stuck';
+    await p.click(".load-problem .primary"); await p.waitForTimeout(1500); if (!(await p.$('.spin-result'))) await pull();
+    for (let i = 0; i < 30 && !(await p.$(READY)); i++) await p.waitForTimeout(500);
+    outcome += (await p.$(READY)) ? ' → retry ok' : ' → retry stuck';
   }
   console.log(mode, outcome, errs.slice(0, 2));
   await b.close();

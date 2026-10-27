@@ -12,7 +12,7 @@ import { loadAllTexts } from '../src/i18n'
 
 const eras = await loadAllEras()
 await loadAllTexts()
-const soft = (livesBefore: number, dreamChance?: number) => ({ mode: 'quick' as const, mortality: 'soft' as const, softenHeavy: false, livesBefore, dreamChance })
+const soft = (livesBefore: number, dreamChance?: number, dreamFirstBy?: number) => ({ mode: 'quick' as const, mortality: 'soft' as const, softenHeavy: false, livesBefore, dreamChance, dreamFirstBy })
 
 describe('Сон о будущем', () => {
   it('вычислитель формул: скобки, степени, тригонометрия в градусах', () => {
@@ -27,7 +27,7 @@ describe('Сон о будущем', () => {
     expect(validateDreams()).toEqual([])
   })
 
-  it('1000 первых жизней — ни одного сна', () => {
+  it('первая жизнь без флага dream_first_by: 1000 жизней — ни одного сна', () => {
     let dreams = 0
     for (let i = 0; i < 1000; i += 1) {
       const era = eras[Object.keys(eras)[i % 13]]
@@ -35,6 +35,23 @@ describe('Сон о будущем', () => {
       if (s.hero.dreamSeen || s.hero.diary.some((d) => d.eventId === 'dream_intro')) dreams++
     }
     expect(dreams).toBe(0)
+  }, 300000)
+
+  it('первая жизнь с dream_first_by = 25: у доживших до 26 лет сон был почти у всех, и не раньше 15', () => {
+    let alive = 0
+    let had = 0
+    for (let i = 0; i < 600; i++) {
+      const era = eras[Object.keys(eras)[i % 13]]
+      const s = autoplay(newLife(era, soft(0, 0.05, 25), 75000 + i), era)
+      const intro = s.hero.diary.filter((d) => d.eventId === 'dream_intro')
+      expect(intro.length).toBeLessThanOrEqual(1)
+      if (intro.length) expect(intro[0].age).toBeGreaterThanOrEqual(15)
+      if (s.hero.age >= 26) {
+        alive++
+        if (intro.length && intro[0].age <= 26) had++
+      }
+    }
+    expect(had / alive).toBeGreaterThan(0.9)
   }, 300000)
 
   it('со второй жизни — не больше одного сна; у доживших до 40 сон был у 55–75%', () => {

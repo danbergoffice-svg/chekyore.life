@@ -8,10 +8,6 @@ const dir = process.env.SHOTS || 'shots';
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message));
   await p.goto('http://localhost:4173/'); await p.waitForSelector('.menu');
-  await p.click('.menu .stack button:last-child');
-  // Полная жизнь, мягкая смертность — чтобы успела вырасти семья.
-  await p.click('text=Полная'); await p.click('text=Мягкая');
-  await p.click('.screen > .primary');
   await p.waitForSelector('.lever:not([disabled])', { timeout: 15000 });
   await p.click('.lever');
   await p.waitForSelector('.spin-result', { timeout: 10000 });

@@ -8,8 +8,6 @@ const dir = process.env.SHOTS || 'shots';
     const p = await ctx.newPage();
     const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type()==='error') errs.push(m.text()) });
     await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu');
-    await p.click('.menu .stack .primary');
-    if (await p.$('.screen > .primary')) await p.click('.screen > .primary');
     await p.waitForSelector('.lever:not([disabled])');
     await p.click('.lever');
     await p.waitForTimeout(1500);

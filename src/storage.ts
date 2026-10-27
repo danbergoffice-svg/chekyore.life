@@ -22,6 +22,8 @@ export interface Prefs {
   volume?: number
   /** Отзыв: ещё не просили, отложили (на какой по счёту жизни), отправлен. */
   feedback?: { state: 'later' | 'sent'; lives: number }
+  /** Страна следующих жизней по выбору игрока (пробный период, за отзыв); не задано — жребий. */
+  country?: string
 }
 
 export interface SaveFile {

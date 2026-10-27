@@ -493,8 +493,15 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .expected { font-weight: 700; color: var(--accent); }
 .option-effect { display: block; font-size: 0.8rem; color: var(--gold); margin-top: 2px; }
 
-/* Лотерея рождения: игровой автомат с тремя барабанами */
-.spin h1 { margin-bottom: 4px; }
+/* Лотерея рождения: игровой автомат с тремя барабанами — прямо в главном меню, под названием игры */
+.menu .spin { margin: 4px 0 8px; }
+.menu .spin .lead { margin: 0; }
+.spin .slot-machine { margin-top: 10px; }
+.spin-button { width: 100%; }
+.picked-country { margin: 6px 0 0; color: var(--accent); }
+.secondary.continue .option-desc { color: var(--muted); }
+.locked-country { display: block; }
+.locked-country p { margin: 0 0 8px; }
 .slot-machine {
   --wood: #5a3420;
   --wood-2: #3e2214;

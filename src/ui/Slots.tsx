@@ -82,19 +82,51 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
   )
 }
 
-export function Slots(props: { birth: Birth; seed: number; ready: boolean; error?: boolean; onRetry?: () => void; onDone: () => void; onBack: () => void; onSetup?: () => void }) {
+/** Какой запрос «к барабану» уже выполнен: при возврате в меню страница сама к нему не едет. */
+let focused = 0
+
+/**
+ * Барабан в главном меню: рычаг и кнопка «Крутить новую жизнь». Страна, которая выпадет, грузится с рывка рычага —
+ * пока крутятся барабаны; если не успела, кнопка «Начать жизнь» ждёт загрузки.
+ */
+export function SlotMachine(props: {
+  birth: Birth
+  seed: number
+  ready: boolean
+  error?: boolean
+  onRetry?: () => void
+  onPull: () => void
+  onDone: () => void
+  onSetup?: () => void
+  /** Страну выбрал сам игрок (пробный период, за отзыв). */
+  country?: string
+  /** Растёт, когда к барабану нужно прокрутить страницу (новая жизнь с экрана итогов). */
+  focus?: number
+}) {
   const { t, lang } = useUi()
   const { birth } = props
   const [phase, setPhase] = useState<'idle' | 'pull' | 'spin' | 'done'>('idle')
   const [stopped, setStopped] = useState([false, false, false])
   const fast = useMemo(reducedMotion, [])
-  // Если мир грузится дольше 12 секунд — подсказать, что делать.
+  const box = useRef<HTMLDivElement>(null)
+  const result = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!props.focus || props.focus === focused) return
+    focused = props.focus
+    // После смены экрана страница сама прокручивается наверх — к барабану едем чуть позже.
+    const id = setTimeout(() => box.current?.scrollIntoView({ block: 'center', behavior: fast ? 'auto' : 'smooth' }), 80)
+    return () => clearTimeout(id)
+  }, [props.focus])
+  // Если мир грузится дольше 12 секунд после рывка — подсказать, что делать.
   const [slow, setSlow] = useState(false)
   useEffect(() => {
-    if (props.ready) return
+    if (props.ready || phase === 'idle') return
     const id = setTimeout(() => setSlow(true), 12000)
     return () => clearTimeout(id)
-  }, [props.ready])
+  }, [props.ready, phase === 'idle'])
+  useEffect(() => {
+    if (phase === 'done') result.current?.scrollIntoView({ block: 'nearest', behavior: fast ? 'auto' : 'smooth' })
+  }, [phase])
   const o = { sex: birth.sex, region: birth.region }
 
   const reels = useMemo(() => {
@@ -118,12 +150,13 @@ export function Slots(props: { birth: Birth; seed: number; ready: boolean; error
     status.push({ top: t(`class.${birth.cls}.short`, {}, o), icon: CLASS_ICON[birth.cls] ?? '•' }, { top: '…' })
     sex.push({ top: t(`spin.sex.${birth.sex}`), icon: birth.sex === 'm' ? '♂' : '♀' }, { top: '…' })
     return [where, status, sex]
-  }, [props.seed, props.ready, lang])
+  }, [props.seed, lang])
 
   const durations = fast ? [300, 400, 500] : [2300, 3200, 4100]
 
   const pull = () => {
     if (phase !== 'idle') return
+    props.onPull()
     setPhase('pull')
     setTimeout(() => setPhase('spin'), fast ? 50 : 450)
   }
@@ -136,10 +169,9 @@ export function Slots(props: { birth: Birth; seed: number; ready: boolean; error
 
   const labels = [t('spin.where'), t('spin.status'), t('spin.sex')]
   return (
-    <div class="screen spin">
-      <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
-      <h1>{t('spin.title')}</h1>
-      <p class="lead">{t('spin.lead')}</p>
+    <section class="spin" ref={box}>
+      <p class="lead center">{t('spin.lead')}</p>
+      {props.country && <p class="small center picked-country">{t('country.picked', { era: { key: `era.${props.country}.short` } })}</p>}
 
       <div class={`slot-machine ${phase}`}>
         <div class="slot-lights" aria-hidden="true">
@@ -153,7 +185,7 @@ export function Slots(props: { birth: Birth; seed: number; ready: boolean; error
               <Reel label={labels[i]} items={items} spinning={phase === 'spin' || phase === 'done'} duration={durations[i]} stopped={stopped[i]} onStop={() => onStop(i)} />
             ))}
           </div>
-          <button class={`lever ${phase === 'pull' ? 'pulled' : ''}`} onClick={pull} disabled={phase !== 'idle' || !props.ready} aria-label={t('spin.pull')}>
+          <button class={`lever ${phase === 'pull' ? 'pulled' : ''}`} onClick={pull} disabled={phase !== 'idle'} aria-label={t('menu.spin')}>
             <span class="lever-knob" />
             <span class="lever-rod" />
             <span class="lever-base" />
@@ -161,12 +193,26 @@ export function Slots(props: { birth: Birth; seed: number; ready: boolean; error
         </div>
       </div>
 
-      {phase === 'idle' && !props.error && (
-        <button class="primary" onClick={pull} disabled={!props.ready}>
-          {props.ready ? t('spin.pull') : t('spin.loading')}
+      {phase === 'idle' && (
+        <button class="primary spin-button" onClick={pull}>
+          {t('menu.spin')}
         </button>
       )}
-      {phase === 'idle' && !props.ready && (props.error || slow) && (
+      {phase !== 'idle' && phase !== 'done' && <p class="muted center small">{t('spin.wait')}</p>}
+      {phase === 'done' && (
+        <div class="spin-result" ref={result}>
+          <Scene scene={{ place: 'landmark', time: 'dawn', people: 2, props: ['sun'] }} region={birth.region} seed={`spin:${props.seed}`} label={t(`region.${birth.region}`)} />
+          <p class="lead center">
+            {t('spin.result', { cls: { key: `class.${birth.cls}.family` }, region: { key: `region.${birth.region}` }, era: { key: `era.${birth.era}` }, year: formatYear(birth.year, lang) }, o)}
+          </p>
+          {!props.error && (
+            <button class="primary" onClick={props.onDone} disabled={!props.ready}>
+              {props.ready ? t('spin.go') : t('spin.loading')}
+            </button>
+          )}
+        </div>
+      )}
+      {phase !== 'idle' && !props.ready && (props.error || slow) && (
         <div class="load-problem" role="alert">
           <p>{props.error ? t('spin.error') : t('spin.slow')}</p>
           <div class="row">
@@ -182,22 +228,12 @@ export function Slots(props: { birth: Birth; seed: number; ready: boolean; error
           </div>
         </div>
       )}
-      {phase === 'done' && (
-        <div class="spin-result">
-          <Scene scene={{ place: 'landmark', time: 'dawn', people: 2, props: ['sun'] }} region={birth.region} seed={`spin:${props.seed}`} label={t(`region.${birth.region}`)} />
-          <p class="lead center">
-            {t('spin.result', { cls: { key: `class.${birth.cls}.family` }, region: { key: `region.${birth.region}` }, era: { key: `era.${birth.era}` }, year: formatYear(birth.year, lang) }, o)}
-          </p>
-          <button class="primary" onClick={props.onDone}>{t('spin.go')}</button>
-        </div>
-      )}
-      {phase !== 'idle' && phase !== 'done' && <p class="muted center small">{t('spin.wait')}</p>}
       {/* В первой жизни настроек нет: меньше решений до начала игры. */}
       {phase === 'idle' && props.onSetup && (
         <p class="center">
           <button class="link" onClick={props.onSetup}>{t('setup.custom')}</button>
         </p>
       )}
-    </div>
+    </section>
   )
 }

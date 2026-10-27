@@ -56,14 +56,15 @@ export function Feedback(props: { context: FeedbackData['context']; onSend: (d: 
 }
 
 /** Приглашение оставить отзыв на экране итогов. */
-export function FeedbackPrompt(props: { onOpen: () => void; onLater: () => void }) {
+export function FeedbackPrompt(props: { onOpen: () => void; onLater: () => void; /** Пробный период: за отзыв — выбор страны. */ reward?: boolean }) {
   const { t } = useUi()
+  const k = props.reward ? 'feedback.prompt.reward' : 'feedback.prompt'
   return (
     <section class="block feedback-prompt">
-      <h2 class="section-title">{t('feedback.prompt.title')}</h2>
-      <p>{t('feedback.prompt.text')}</p>
+      <h2 class="section-title">{t(`${k}.title`)}</h2>
+      <p>{t(`${k}.text`)}</p>
       <div class="row">
-        <button class="primary" onClick={props.onOpen}>{t('feedback.prompt.go')}</button>
+        <button class="primary" onClick={props.onOpen}>{t(`${k}.go`)}</button>
         <button class="link" onClick={props.onLater}>{t('feedback.prompt.later')}</button>
       </div>
     </section>

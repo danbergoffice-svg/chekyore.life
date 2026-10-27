@@ -12,7 +12,6 @@ const { chromium } = require('playwright');
   await group.screenshot({ path: 'shots/year-settings.png' });
   await p.click('text=1 минута');
   await p.click('.back');
-  await p.click('.menu .stack .primary');
   await p.waitForSelector('.lever:not([disabled])', { timeout: 15000 });
   await p.click('.lever'); await p.waitForSelector('.spin-result'); await p.click('.spin-result .primary');
   await p.click('.reveal .primary');
