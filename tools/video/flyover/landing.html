@@ -10,7 +10,12 @@
       .page { position: relative; width: 640px; background: #f3ead8; overflow: hidden; }
       .sec { position: absolute; left: 0; width: 640px; display: flex; flex-direction: column; }
       .sec > .fill { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
-      .band { position: absolute; left: 0; width: 640px; background: #171a2e; }
+      .band { position: absolute; left: 0; width: 640px; background: #171a2e; overflow: hidden; }
+      .band .loc { position: absolute; left: 0; width: 640px; }
+      .band .loc canvas { position: absolute; left: -640px; width: 1920px; height: 600px; image-rendering: pixelated; }
+      .band .tint { position: absolute; inset: 0; background: rgba(14, 16, 34, 0.26); }
+      .dark .h { text-shadow: 0 2px 12px rgba(8, 10, 24, 0.85), 0 0 3px rgba(8, 10, 24, 0.6); }
+      .dark .sub { text-shadow: 0 1px 8px rgba(8, 10, 24, 0.9); }
       .h { font-family: 'Thousands Letopis', serif; font-weight: 500; font-size: 38px; line-height: 1.1; margin: 0 40px; text-align: center; }
       .h.small { font-size: 30px; }
       .dark .h { color: #e8e6f4; }
@@ -33,7 +38,7 @@
       .ev p { margin: 0 0 12px; font-size: 18px; line-height: 1.4; }
       .ev .choice { border: 1px solid #d6c6aa; background: #ebdfc8; border-radius: 10px; padding: 10px 14px; margin-top: 8px; font-size: 17px; }
       .btn { font-family: 'Thousands Letopis', serif; font-weight: 600; font-size: 22px; padding: 14px 34px; background: #8e3b22; color: #fbf6ec; border-radius: 14px; }
-      .tile { width: 32px; height: 32px; border-radius: 8px; display: block; }
+      .tile { width: 36px; height: 45px; border: 2px solid #fbf6ec; border-radius: 8px; display: block; image-rendering: pixelated; box-shadow: 0 1px 3px rgba(43, 33, 25, 0.25); }
       .stat { width: 250px; padding: 18px 16px; text-align: center; }
       .stat b { display: block; font-family: 'Thousands Letopis', serif; font-weight: 600; font-size: 56px; color: #8e3b22; line-height: 1; }
       .stat span { font-size: 17px; color: #5a4a3b; }
@@ -59,6 +64,7 @@
       import { createT, loadAllTexts } from '../../../src/i18n'
       import { loadEra } from '../../../src/content'
       import { BEATS, travel, PAGE_W } from './timeline.js'
+      import { HEROES, LOCATIONS } from './heroes.js'
       import poster from './poster.webp'
 
       // Шрифт «Летопись» — из игры.
@@ -139,10 +145,20 @@
         <div class="badge" style="margin-top:34px"><img src="${LOGO}" alt="" /> Thousands of Lives</div>
         <h1 class="h" style="margin-top:20px;font-size:44px">You wouldn’t survive the past.</h1>`
       const btnRow = el('<div class="row" style="margin-top:22px;align-items:center"></div>')
-      const tiles = el('<div style="display:flex;gap:8px"></div>')
-      for (let i = 0; i < 4; i++) tiles.appendChild(wrap(el(`<img class="tile" src="${LOGO}" alt="" />`), { 'data-layer': 'tile', 'data-tile': String(i) }))
+      const tilesL = el('<div style="display:flex;gap:6px"></div>')
+      const tilesR = el('<div style="display:flex;gap:6px"></div>')
+      // Восемь героев вместо значков сайта: взлетят от кнопки и полетят с камерой до финала.
+      HEROES.forEach((h, i) => {
+        const c = document.createElement('canvas')
+        c.width = 32
+        c.height = 40
+        c.className = 'tile'
+        drawAvatar(c.getContext('2d'), h)
+        ;(i < 4 ? tilesL : tilesR).appendChild(wrap(c, { 'data-layer': 'tile', 'data-tile': String(i), style: 'display:block' }))
+      })
+      btnRow.appendChild(tilesL)
       btnRow.appendChild(wrap(el('<div class="btn">Play free</div>'), { 'data-layer': 'button', 'data-z': '12', 'data-stand': '10' }))
-      btnRow.appendChild(tiles)
+      btnRow.appendChild(tilesR)
       hero.appendChild(btnRow)
       const chips = el('<div class="row" style="margin-top:18px"></div>')
       for (const c of ['13 countries', '4,000 years', 'One life']) chips.appendChild(wrap(el(`<span class="chip light">${c}</span>`), { 'data-layer': 'chip', 'data-z': '70', 'data-stand': '30' }))
@@ -225,7 +241,35 @@
       // ---------- Тёмная полоса: знания из будущего ----------
       const darkFrom = yAt(BEATS.find((b) => b.id === 'edge').t + LEAD) - 120
       const darkTo = yAt(BEATS.find((b) => b.id === 'sorcerer').t + LEAD) - 90
-      page.appendChild(el(`<div class="band" style="top:${darkFrom}px;height:${darkTo - darkFrom}px"></div>`))
+      // Вместо сплошного синего — локации игры сменяют друг друга (небо продолжено вверх, земля — вниз,
+      // соседние перетекают), сверху лёгкое затемнение, чтобы читался текст.
+      const band = el(`<div class="band" style="top:${darkFrom}px;height:${darkTo - darkFrom}px"></div>`)
+      const step = (darkTo - darkFrom) / LOCATIONS.length
+      const BLEND = 160
+      const avg = (d, y, w) => {
+        let r = 0, g = 0, b = 0
+        for (let x = 0; x < w; x++) { r += d[(y * w + x) * 4]; g += d[(y * w + x) * 4 + 1]; b += d[(y * w + x) * 4 + 2] }
+        return `rgb(${Math.round(r / w)},${Math.round(g / w)},${Math.round(b / w)})`
+      }
+      LOCATIONS.forEach((loc, i) => {
+        const c = document.createElement('canvas')
+        c.width = 320
+        c.height = 100
+        drawScene(c.getContext('2d'), { region: loc.region, seed: `v-loc-${loc.region}`, scene: { place: 'landmark', time: loc.time, people: 2, props: loc.props }, art: 'full' }, 0.8)
+        const d = c.getContext('2d').getImageData(0, 0, 320, 100).data
+        const top = i === 0 ? 0 : Math.round(i * step - BLEND / 2)
+        const bottom = i === LOCATIONS.length - 1 ? darkTo - darkFrom : Math.round((i + 1) * step + BLEND / 2)
+        const h = bottom - top
+        const sceneTop = Math.round(h * 0.55 - 300)
+        const seg = el(`<div class="loc" style="top:${top}px;height:${h}px"></div>`)
+        seg.style.background = `linear-gradient(${avg(d, 0, 320)} 0, ${avg(d, 2, 320)} ${sceneTop}px, ${avg(d, 2, 320)} ${sceneTop + 2}px, transparent ${sceneTop + 2}px, transparent ${sceneTop + 598}px, ${avg(d, 99, 320)} ${sceneTop + 598}px, ${avg(d, 99, 320)} 100%)`
+        if (i > 0) seg.style.maskImage = seg.style.webkitMaskImage = `linear-gradient(transparent 0, #000 ${BLEND}px)`
+        c.style.top = `${sceneTop}px`
+        seg.appendChild(c)
+        band.appendChild(seg)
+      })
+      band.appendChild(el('<div class="tint"></div>'))
+      page.appendChild(band)
 
       section('edge', (s) => {
         s.appendChild(el('<h2 class="h">But you have something they never had.</h2>'))

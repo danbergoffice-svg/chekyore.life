@@ -6,6 +6,8 @@ import '@fontsource-variable/alegreya/wght.css'
 import '@fontsource-variable/alegreya/wght-italic.css'
 import { T, travel, DURATION, FPS } from './timeline.js'
 import posterUrl from './poster.webp'
+import { drawAvatar } from '../../../src/pixel/avatar'
+import { HEROES } from './heroes.js'
 
 const W = 1080
 const H = 1920
@@ -106,15 +108,16 @@ void main(){
   dep = vec4(depth * a, 0.0, 0.0, a);
 }`
 
-// Тень элемента: тот же силуэт плоским цветом, размытый выбором мипа.
+// Тень элемента: скруглённый прямоугольник его содержимого с мягким краем шириной blur.
 const SHADOW_FS = `#version 300 es
 precision highp float;
 in vec2 uv; in float depth; in vec2 local;
-uniform sampler2D tex; uniform float alpha, lod;
+uniform float alpha, blur, radius; uniform vec2 size, box;
 layout(location=0) out vec4 col; layout(location=1) out vec4 dep;
+float rr(vec2 p, vec2 b, float r){ vec2 q = abs(p) - b + r; return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r; }
 void main(){
-  float s = (uv.x < 0.0 || uv.y < 0.0 || uv.x > 1.0 || uv.y > 1.0) ? 0.0 : texture(tex, uv, lod).a;
-  float a = s * alpha;
+  float d = rr((local - 0.5) * size, box, radius);
+  float a = alpha * (1.0 - smoothstep(-0.6 * blur, blur, d));
   col = vec4(vec3(0x1a, 0x21, 0x33) / 255.0 * a, a);
   dep = vec4(depth * a, 0.0, 0.0, a);
 }`
@@ -218,11 +221,31 @@ const load = (src) => new Promise((res, rej) => { const im = new Image(); im.onl
 
 const tiles = []
 for (const tl of data.tiles) tiles.push({ ...tl, tex: texFrom(await load(`./layers/${tl.file}`)) })
+/** Портрет героя-спутника в светлой рамке, крупно (пиксели ×10), чтобы не мылился вблизи. */
+const CARD_W = 360
+const CARD_H = 440
+function heroCard(h) {
+  const c = document.createElement('canvas')
+  c.width = CARD_W
+  c.height = CARD_H
+  const x = c.getContext('2d')
+  x.fillStyle = '#fbf6ec'
+  x.beginPath()
+  x.roundRect(0, 0, CARD_W, CARD_H, 40)
+  x.fill()
+  x.save()
+  x.beginPath()
+  x.roundRect(20, 20, CARD_W - 40, CARD_H - 40, 24)
+  x.clip()
+  drawAvatar(x, h, 20, 20, 10)
+  x.restore()
+  return c
+}
 const pieces = []
 for (const L of data.layers) {
-  const img = L.kind === 'hero' ? await load(posterUrl) : await load(`./layers/${L.file}`)
+  const img = L.kind === 'hero' ? await load(posterUrl) : L.kind === 'tile' ? heroCard(HEROES[L.tile]) : await load(`./layers/${L.file}`)
   // Постер — исходной картинкой (чётче снимка страницы); его прямоугольник — без полей.
-  const rect = L.kind === 'hero' ? { x: L.x, y: L.y, w: L.w, h: L.h } : { x: L.cx, y: L.cy, w: L.cw, h: L.ch }
+  const rect = L.kind === 'hero' || L.kind === 'tile' ? { x: L.x, y: L.y, w: L.w, h: L.h } : { x: L.cx, y: L.cy, w: L.cw, h: L.ch }
   pieces.push({ ...L, rect, tex: texFrom(img), tw: img.width })
 }
 const tilesP = pieces.filter((p) => p.kind === 'tile').sort((a, b) => a.tile - b.tile)
@@ -410,27 +433,54 @@ for (const p of pieces) {
 }
 window.caps = pieces.filter((p) => p.cap < 1).map((p) => [p.i, p.kind, Math.round(p.y), +p.cap.toFixed(2)])
 
-/** Плитки логотипа: взлетают от кнопки и летят рядом с камерой (вне страницы, у верхних углов кадра);
- *  третья однажды проносится у самого объектива вдоль левого края; в финале — на углах карточки. */
-// Спутники камеры: x страницы, сдвиг вверх по странице от точки взгляда, высота, размер.
-const ESCORT = [[-96, -660, 200, 132], [740, -760, 240, 150], [-130, -1900, 150, 120], [790, -2300, 190, 130]]
-// Финал: место на экране (x, y), высота и размер в точках экрана.
-const FINAL = [[978, 482, 14, 118], [96, 548, 70, 104], [74, 1250, 110, 150], [1006, 900, 150, 170]]
+/** Герои-спутники: взлетают от кнопки и летят рядом с камерой по краям кадра (дальние — мельче и выше, ближние —
+ *  крупные и размытые у самого края); один однажды проносится у объектива; в финале окружают карточку. */
+// Место в кадре (x, y), расстояние от камеры и ширина в точках экрана; ниже переводится в смещение от точки взгляда.
+const ESCORT_SCREEN = [
+  [104, 330, 2000, 118], // слева
+  [222, 150, 3000, 76],
+  [70, 590, 1500, 150],
+  [46, 800, 1300, 170],
+  [970, 255, 2100, 124], // справа
+  [852, 112, 3200, 74],
+  [1006, 540, 1500, 156],
+  [1040, 760, 1300, 176],
+]
+const ESCORT = ESCORT_SCREEN.map(([sx, sy, zc, w]) => {
+  const cam = cameraOf(PW / 2, 0, 1500, TILT)
+  const a = (sx - W / 2) / F
+  const b = (H / 2 - sy) / F
+  const pt = [0, 1, 2].map((j) => cam.C[j] + zc * (cam.Fw[j] + a * cam.R[j] + b * cam.U[j]))
+  return [pt[0], pt[1], Math.max(40, pt[2]), (w * zc) / F]
+})
+// Финал: место на экране (x, y), высота над постером и ширина в точках экрана.
+const FINAL = [
+  [92, 560, 70, 104],
+  [66, 900, 40, 112],
+  [74, 1270, 50, 130],
+  [150, 1840, 70, 140],
+  [978, 486, 14, 118],
+  [1004, 870, 50, 132],
+  [1010, 1300, 40, 120],
+  [950, 1846, 70, 140],
+]
+const PASS = 1 // этот герой однажды проносится у объектива
 function tileState(i, t) {
   const p = tilesP[i]
   if (t >= T.riseEnd) {
     const [sx, sy, z, size] = FINAL[i]
     const k = (D_CARD - z) / F
     const Ly = HERO.y - (CARD_TOP - H / 2) / S_CARD
-    // Медленный дрейф ближних плиток к центру — чтобы финал жил.
+    // Медленный дрейф — чтобы финал жил: ближние подплывают, остальные чуть покачиваются.
     const u = ss(T.diveEnd - 0.2, DURATION, t)
-    const dx = (i === 2 ? 26 : i === 3 ? -26 : 0) * u
-    const dy = i < 2 ? 4 * Math.sin(t * 1.3 + i) : (i === 2 ? -40 : 40) * u
+    const near = z >= 80
+    const dx = near ? (sx < W / 2 ? 24 : -24) * u : 3 * Math.sin(t * 1.1 + i)
+    const dy = near ? (sy < H / 2 ? 30 : -30) * u : 4 * Math.sin(t * 1.3 + i)
     return { x: HERO.x + HERO.w / 2 + (sx - W / 2 + dx) * k, y: Ly + (sy - H / 2 + dy) * k, z, size: size * k, alpha: ss(T.overheadEnd, T.diveEnd - 0.1, t) }
   }
-  const up = ss(0.15, 1.6, t)
+  const up = ss(0.1 + 0.06 * (i % 4), 1.4 + 0.1 * (i % 4), t)
   let [ex, edy, ez, es] = ESCORT[i]
-  if (i === 2) {
+  if (i === PASS) {
     // Пролёт у объектива: падает назад к камере и уходит под кадр, потом камера его догоняет.
     const go = ss(23.4, 25.0, t)
     const back = ss(25.4, 31.5, t)
@@ -441,12 +491,12 @@ function tileState(i, t) {
   }
   const bob = Math.sin(t * 0.55 + i * 1.7)
   const ax = ex + 8 * Math.sin(t * 0.4 + i)
-  const ay = flightLy(t) + edy + 30 * bob
+  const ay = flightLy(t) + edy + 24 * bob
   return {
     x: lerp(p.x + p.w / 2, ax, up),
     y: lerp(p.y + p.h / 2, ay, up),
     z: lerp(1, ez, up),
-    size: lerp(32, es, up),
+    size: lerp(p.w, es, up),
     alpha: 1 - ss(T.riseStart + 0.45, T.riseEnd - 0.25, t),
   }
 }
@@ -548,49 +598,39 @@ function drawScene(cam, t) {
   items.sort((a, b) => a.pose.z - b.pose.z)
   const geom = (it) => {
     if (it.tile) {
-      // Снимок плитки с полями: сам знак занимает w из cw.
-      const sz = (it.tile.size * it.p.cw) / it.p.w
-      return { x: it.tile.x - sz / 2, y: it.tile.y - sz / 2, w: sz, h: sz }
+      // Портрет: ширина — size, высота — по пропорции карточки.
+      const w = it.tile.size
+      const h = (w * CARD_H) / CARD_W
+      return { x: it.tile.x - w / 2, y: it.tile.y - h / 2, w, h }
     }
     return { x: it.p.rect.x + it.pose.dx, y: it.p.rect.y, w: it.p.rect.w, h: it.p.rect.h }
   }
-  // Тени.
+  // Тени: прямоугольник содержимого (без прозрачных полей снимка), сдвиг и мягкость — от высоты.
   gl.useProgram(P_SHADOW.p)
   setCam(P_SHADOW, cam)
+  const shadow = (cx, cy, bw, bh, radius, blur, alpha) => {
+    gl.uniform3fv(P_SHADOW.u.O, [cx - bw / 2 - blur, cy - bh / 2 - blur, 0.2])
+    gl.uniform3fv(P_SHADOW.u.AX, [bw + 2 * blur, 0, 0])
+    gl.uniform3fv(P_SHADOW.u.AY, [0, bh + 2 * blur, 0])
+    gl.uniform2fv(P_SHADOW.u.size, [bw + 2 * blur, bh + 2 * blur])
+    gl.uniform2fv(P_SHADOW.u.box, [bw / 2, bh / 2])
+    gl.uniform1f(P_SHADOW.u.radius, Math.min(radius, bw / 2, bh / 2))
+    gl.uniform1f(P_SHADOW.u.blur, blur)
+    gl.uniform1f(P_SHADOW.u.alpha, alpha)
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+  }
   for (const it of items) {
     const z = it.pose.z
     if (z < 2) continue
     const g = geom(it)
-    const blur = 7 + 0.5 * z
-    const ox = 0.1 * z
-    const oy = 4 + 0.36 * z
-    const sx = g.x + ox - blur
-    const sy = g.y + oy - blur
-    gl.bindTexture(gl.TEXTURE_2D, it.p.tex)
-    gl.uniform3fv(P_SHADOW.u.O, [sx, sy, 0.2])
-    gl.uniform3fv(P_SHADOW.u.AX, [g.w + 2 * blur, 0, 0])
-    gl.uniform3fv(P_SHADOW.u.AY, [0, g.h + 2 * blur, 0])
-    gl.uniform2fv(P_SHADOW.u.uvMin, [-blur / g.w, -blur / g.h])
-    gl.uniform2fv(P_SHADOW.u.uvMax, [1 + blur / g.w, 1 + blur / g.h])
-    const texPerUnit = it.p.tw / g.w
-    gl.uniform1f(P_SHADOW.u.lod, Math.log2(Math.max(1, (blur * texPerUnit) / 1.5)))
+    const bw = it.tile || it.isHero ? g.w : it.p.w
+    const bh = it.tile || it.isHero ? g.h : it.p.h
+    const radius = it.tile ? g.w * 0.11 : it.p.kind === 'chip' ? bh / 2 : it.isHero ? 16 : 12
     const heroBoost = it.isHero ? lerp(0, 0.3, ss(0, 1, cam.dive ?? 0)) : 0
-    gl.uniform1f(P_SHADOW.u.alpha, (0.26 + heroBoost) * (it.tile ? it.tile.alpha : 1) * (1 - it.fade))
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+    shadow(g.x + g.w / 2 + 0.1 * z, g.y + g.h / 2 + 4 + 0.36 * z, bw, bh, radius, 7 + 0.5 * z, (0.26 + heroBoost) * (it.tile ? it.tile.alpha : 1) * (1 - it.fade))
   }
   // Финальная карточка: мягкая широкая тень под постером.
-  if ((cam.dive ?? 0) > 0) {
-    gl.bindTexture(gl.TEXTURE_2D, heroP.tex)
-    const b = 40
-    gl.uniform3fv(P_SHADOW.u.O, [HERO.x - b, HERO.y - b + 18, 0.3])
-    gl.uniform3fv(P_SHADOW.u.AX, [HERO.w + 2 * b, 0, 0])
-    gl.uniform3fv(P_SHADOW.u.AY, [0, HERO.h + 2 * b, 0])
-    gl.uniform2fv(P_SHADOW.u.uvMin, [-b / HERO.w, -b / HERO.h])
-    gl.uniform2fv(P_SHADOW.u.uvMax, [1 + b / HERO.w, 1 + b / HERO.h])
-    gl.uniform1f(P_SHADOW.u.lod, 5)
-    gl.uniform1f(P_SHADOW.u.alpha, 0.22 * ss(0.3, 1, cam.dive))
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
-  }
+  if ((cam.dive ?? 0) > 0) shadow(HERO.x + HERO.w / 2, HERO.y + HERO.h / 2 + 18, HERO.w, HERO.h, 16, 40, 0.22 * ss(0.3, 1, cam.dive))
   // Сами элементы.
   gl.useProgram(P_LAYER.p)
   setCam(P_LAYER, cam)
