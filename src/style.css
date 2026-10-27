@@ -329,6 +329,10 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .scene { display: block; width: 100%; aspect-ratio: 16 / 5; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; background: var(--paper-2); }
 .panel > .scene { margin-bottom: 12px; }
 .modal > .scene { border-radius: 16px 16px 0 0; }
+/* Рамка-орнамент края вокруг картинки (G5): узор 6 точек — вдвое, без сглаживания. */
+.art-frame { border: 12px solid transparent; image-rendering: pixelated; image-rendering: crisp-edges; line-height: 0; }
+.art-frame > .scene { border-radius: 0; }
+.modal > .art-frame { border-radius: 16px 16px 0 0; overflow: hidden; }
 .reveal .scene { margin-bottom: 16px; }
 
 /* Итоги жизни */

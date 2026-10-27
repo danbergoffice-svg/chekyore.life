@@ -21,6 +21,8 @@ export interface Flags {
   ach_rarity: Record<string, number>
   /** Стиль портрета героя. */
   portrait_style: string
+  /** Сила стиля искусства страны на сценах 0–1 (палитра, фактура, контур). */
+  art_strength: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -33,6 +35,7 @@ export const DEFAULT_FLAGS: Flags = {
   dream_chance: 0.05,
   ach_rarity: {},
   portrait_style: 'painting',
+  art_strength: 0.5,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

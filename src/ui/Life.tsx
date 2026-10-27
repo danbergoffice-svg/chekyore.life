@@ -249,7 +249,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'life' && (
         <section class="panel">
-          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} ambient />
+          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} year={state.year} ambient />
 
           {stage === 'infancy' || focuses.length === 0 ? (
             <p class="muted">{t('life.infancy', {}, o)}</p>
@@ -557,7 +557,7 @@ function Chapter({ state, era, onNext }: { state: GameState; era: EraDef; onNext
   return (
     <div class="modal-backdrop">
       <div class="modal chapter" role="dialog" aria-modal="true" aria-labelledby="chapter-title">
-        <Scene scene={{ place: 'landmark', time: 'sunset', people: 3, props: ['sun'] }} region={hero.region} seed={`${hero.id}:ch${hero.age}`} cast={familyCast(state)} />
+        <Scene art="full" frame year={state.year} scene={{ place: 'landmark', time: 'sunset', people: 3, props: ['sun'] }} region={hero.region} seed={`${hero.id}:ch${hero.age}`} cast={familyCast(state)} />
         <div class="modal-body">
           <p class="eyebrow">{t('chapter.eyebrow', { n: hero.age, year: formatYear(state.year, lang) })}</p>
           <h2 id="chapter-title">{title}</h2>
@@ -786,7 +786,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   return (
     <div class="modal-backdrop">
       <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="ev-title">
-        <Scene ambient scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
+        <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
         <div class="modal-body">
           {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
           <h2 id="ev-title">{t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)}</h2>

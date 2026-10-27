@@ -22,6 +22,7 @@ import { initAudio, onIosHint, setMusic, setSound } from '../audio'
 import { planReturn, routeTargets } from '../engine/abroad'
 import { answerDream, dreamDef, resolveDream, trainingOutcome, trainingState } from '../engine/dreams'
 import { DreamModal } from './Dream'
+import { setArtStrength } from '../pixel/art'
 import type { DreamResult } from './Dream'
 import { ACH_BY_ID, checkLife, checkLive, checkMemorial, nearMisses, nextGoals, schoolProgram } from '../engine/achievements'
 import type { Earned } from '../engine/achievements'
@@ -107,7 +108,7 @@ export function App() {
   }
 
   useEffect(() => {
-    initPlatform().then(loadSave).then(async (save) => {
+    initPlatform().then(() => setArtStrength(platform.flags.art_strength ?? 0.5)).then(loadSave).then(async (save) => {
       game.current = save.game && ERA_META[save.game.hero.era] ? save.game : null
       const lives = save.memorial.filter((l) => ERA_META[l.era])
       setMemorial(lives)

@@ -12,6 +12,8 @@ import type { FigureHat, FigureSpec, Tool } from './figures'
 import { drawFxBack, drawFxMid, drawFxTop, emptyFx, noise } from './fx'
 import type { Fx, Weather } from './fx'
 import { climateOf, seasonLook, seasonName } from './season'
+import { artFor, artStrength, drawBackground, paletteMapper, stylize } from './art'
+import type { ArtStyle } from './art'
 import type { SeasonLook, SeasonName } from './season'
 import type { SceneDef, SceneProp, ScenePlace, SceneTime } from '../engine/types'
 
@@ -1340,16 +1342,19 @@ function scaledPx(ctx: Ctx, ox = 0, oy = 0): Px {
     const x1 = Math.round((x + w) * S) + ox
     const y1 = Math.round((y + h) * S) + oy
     if (x1 <= x0 || y1 <= y0) return
-    ctx.fillStyle = c
+    ctx.fillStyle = colorMap ? colorMap(c) : c
     ctx.fillRect(x0, y0, x1 - x0, y1 - y0)
   }
 }
+
+/** Цвета стиля искусства края (палитра вполсилы); null — без изменений. */
+let colorMap: ((c: string) => string) | null = null
 
 /** Кисть в точках холста. */
 function nativePx(ctx: Ctx): Px {
   return (x, y, w, h, c) => {
     if (w <= 0 || h <= 0) return
-    ctx.fillStyle = c
+    ctx.fillStyle = colorMap ? colorMap(c) : c
     ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h))
   }
 }
@@ -1372,6 +1377,8 @@ interface Build {
   actors: Actor[]
   /** Дым из труб: x в сетке 192, высота находится по готовому слою (верх крыши). */
   chimneys: number[]
+  /** Цвет контура людей по стилю края (rgba) или null. */
+  outline: string | null
 }
 let cur: Build
 
@@ -1436,9 +1443,18 @@ function person(_px: Px, x: number, look: Look, r: () => number, k: number, smal
   }
   const anim: Anim = opts.anim ?? 'idle'
   const phase = noise(X, B, cur.actors.length)
+  const outline = cur.outline
   cur.actors.push({
     draw: (ctx, t) => {
       const { pose, dy } = poseAt(anim, t, phase)
+      if (outline) {
+        // Контур стиля: силуэт цветом контура со сдвигом на точку в четыре стороны.
+        const sil: Px = (x, y, w, h) => {
+          ctx.fillStyle = outline
+          ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h))
+        }
+        for (const [ox, oy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) drawFigure(sil, X + ox, B + dy + oy, { ...spec, hero: false }, k, pose, prof)
+      }
       drawFigure(nativePx(ctx), X, B + dy, spec, k, pose, prof)
     },
   })
@@ -1589,6 +1605,11 @@ export interface SceneInput {
   weather?: Weather | null
   /** Состояние мира: мор, война, голод, праздник. */
   mood?: SceneMood
+  /** Стиль искусства края: half — палитра, фактура и контур (по умолчанию); full — ещё и фон-традиция
+   *  вместо неба (окна событий, экраны-главы); none — без стиля. */
+  art?: 'half' | 'full' | 'none'
+  /** Год: стиль может меняться со временем (Европа: рукопись → гравюра). */
+  year?: number
 }
 
 export type SceneMood = 'epidemic' | 'war' | 'famine' | 'feast'
@@ -1891,6 +1912,8 @@ export interface BuiltScene {
   actors: Actor[]
   fx: Fx
   badge?: { x: number; y: number; text: string }
+  /** Палитра стиля для людей (рисуются каждый кадр). */
+  colors: ((c: string) => string) | null
   /** Для звуков места. */
   place: ScenePlace
   time: SceneTime
@@ -1909,7 +1932,7 @@ function layer(): [HTMLCanvasElement, Ctx] {
 /** Ключ кэша: всё, от чего зависит неподвижная часть сцены (время года — восьмыми долями). */
 export function sceneKey(input: SceneInput): string {
   const season = input.season === undefined ? null : Math.floor(input.season * 8) % 8
-  return JSON.stringify([input.scene, input.region, input.seed, input.cast ?? null, season, input.weather ?? null, input.mood ?? null])
+  return JSON.stringify([input.scene, input.region, input.seed, input.cast ?? null, season, input.weather ?? null, input.mood ?? null, input.art ?? 'half', input.year ?? null, artStrength()])
 }
 
 /** Сцена из кэша или собранная заново (последние 24). */
@@ -1942,7 +1965,9 @@ export function composeScene(ctx: CanvasRenderingContext2D, b: BuiltScene, t: nu
   ctx.drawImage(b.far, Math.round(Math.sin(t / 9) * 2), 0)
   ctx.drawImage(b.main, 0, 0)
   drawFxMid(ctx, b.fx, t)
+  colorMap = b.colors
   for (const a of b.actors) a.draw(ctx, t)
+  colorMap = null
   ctx.drawImage(b.front, 0, 0)
   drawFxTop(ctx, b.fx, t)
   if (b.badge) {
@@ -1987,16 +2012,25 @@ function build(input: SceneInput): BuiltScene {
   const outdoor = !INTERIOR_PLACES.includes(place)
   const fx = emptyFx(Math.floor(rand(seed)() * 1e9), Math.round(GROUND * S))
   fx.wind = (noise(fx.seed, 1, 1) - 0.4) * 1.2
-  cur = { main: ctx, far: farX, front: frontX, sky: skyX, fx, actors: [], chimneys: [] }
+  // Стиль искусства края: палитра вполсилы, фактура и контур; фон-традиция — только в окнах событий.
+  const artMode = input.art ?? 'half'
+  const art: ArtStyle | null = artMode === 'none' ? null : artFor(look.style, input.year)
+  const ak = art ? artStrength() : 0
+  const oc = art && ak >= 0.25 ? ({ none: null, black: '30,26,24', brown: '74,48,32', gold: '200,160,60' } as const)[art.outline] : null
+  cur = { main: ctx, far: farX, front: frontX, sky: skyX, fx, actors: [], chimneys: [], outline: oc ? `rgba(${oc},${Math.min(1, ak * 1.4)})` : null }
+  colorMap = art && ak > 0 ? paletteMapper(art.palette, ak) : null
+  const colors = colorMap
   const px = scaledPx(ctx)
   const skyPx = scaledPx(skyX)
   const frontPx = scaledPx(frontX)
   sky(skyPx, time, r)
+  const traditional = !!art && artMode === 'full' && outdoor && drawBackground(skyX, W, Math.round(GROUND * S), art, time === 'day' ? null : SKY[time][2])
+  if (traditional) fx.stars = []
   const props = scene.props ?? []
   // В ненастье солнца не видно.
   if (props.includes('sun') && outdoor && !(input.weather && ['rain', 'snow', 'storm', 'fog'].includes(input.weather))) prop(skyPx, 'sun', 0, time, p, 0, r)
   if (props.includes('moon')) prop(skyPx, 'moon', 0, time, p, 0, r)
-  if (outdoor) {
+  if (outdoor && !traditional) {
     fx.clouds = { ...CLOUDS[time] }
     if (time !== 'night' && !props.includes('rain') && place !== 'battle') fx.birds = 1 + Math.floor(noise(fx.seed, 2, 2) * 3)
   }
@@ -2133,6 +2167,15 @@ function build(input: SceneInput): BuiltScene {
     }
   }
   if (seasonNow || mood === 'epidemic') finishSeason(cur, seasonNow, mood === 'epidemic')
+  if (art && ak > 0) {
+    // Фактура и контур стиля — по готовым слоям построек и гор.
+    for (const layerCtx of [ctx, farX]) {
+      const img = layerCtx.getImageData(0, 0, W, H)
+      stylize(img.data, W, H, art, ak)
+      layerCtx.putImageData(img, 0, 0)
+    }
+  }
+  colorMap = null
   // Дым из труб: над верхом крыши (первая непрозрачная точка столбца).
   if (cur.chimneys.length && outdoor && scene.disaster !== 'fire') {
     const img = ctx.getImageData(0, 0, W, Math.round(GROUND * S))
@@ -2148,7 +2191,7 @@ function build(input: SceneInput): BuiltScene {
   }
   // Не поместившиеся близкие — подписью «+N» справа от семьи, выше голов.
   const badge = cast?.more ? { x: Math.round(Math.min(LW - 14, start + span + 4) * S), y: Math.round((base - 15) * S), text: `+${cast.more}` } : undefined
-  return { sky: skyC, far: farC, main: mainC, front: frontC, actors: cur.actors, fx, badge, place, time, mood }
+  return { sky: skyC, far: farC, main: mainC, front: frontC, actors: cur.actors, fx, badge, place, time, mood, colors }
 }
 
 // ---------- Промпт для настоящей иллюстрации ----------

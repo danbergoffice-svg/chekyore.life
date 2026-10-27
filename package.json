@@ -18,6 +18,7 @@
     "music": "node tools/gen/music.mjs",
     "achievements": "vite-node tools/achievements.ts --",
     "dream-review": "vite-node tools/dream-review.ts",
+    "size": "node tools/size.mjs",
     "longevity": "vite-node tools/longevity.ts --"
   },
   "devDependencies": {
@@ -31,5 +32,11 @@
   "type": "module",
   "dependencies": {
     "preact": "^10.29.8"
+  },
+  "size": {
+    "dist_mb": 45,
+    "first_mb": 3.5,
+    "image_kb": 30,
+    "atlas_kb": 300
   }
 }

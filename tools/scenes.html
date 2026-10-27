@@ -15,13 +15,18 @@
     <script type="module">
       import { drawScene, W, H } from '../src/pixel/scene.ts'
       const params = new URLSearchParams(location.search)
-      const list = JSON.parse(params.get('list') || '[]')
+      // ?styles=1&place=street&time=day&art=full&t=0 — одна и та же сцена во всех 16 стилях (проверка G5).
+      const STYLES = ['roman', 'greek', 'egyptian', 'mesopotamian', 'byzantine', 'islamic', 'gothic', 'russian', 'chinese', 'japanese', 'indian', 'ethiopian', 'sahel', 'maya', 'aztec', 'andean']
+      const list = params.get('styles')
+        ? STYLES.map((region) => ({ region, seed: 'styles', label: region, art: params.get('art') || 'half', year: params.get('year') ? +params.get('year') : undefined, scene: { place: params.get('place') || 'street', time: params.get('time') || 'day', people: 4, props: (params.get('props') || '').split(',').filter(Boolean) } }))
+        : JSON.parse(params.get('list') || '[]')
+      const t = +(params.get('t') || 0)
       const grid = document.getElementById('grid')
       for (const item of list) {
         const box = document.createElement('div')
         const c = document.createElement('canvas')
         c.width = W; c.height = H
-        drawScene(c.getContext('2d'), item)
+        drawScene(c.getContext('2d'), item, t)
         const p = document.createElement('p')
         p.textContent = item.label || `${item.region} · ${item.scene.place} · ${item.scene.time || 'day'}`
         box.append(c, p); grid.append(box)

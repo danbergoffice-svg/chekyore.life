@@ -6,5 +6,6 @@
   "fullscreen_gap_sec": 180,
   "ab_buckets": { "a": 1 },
   "ach_rarity": {},
-  "portrait_style": "painting"
+  "portrait_style": "painting",
+  "art_strength": 0.5
 }

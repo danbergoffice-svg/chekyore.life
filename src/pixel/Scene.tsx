@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'preact/hooks'
 import type { SceneDef } from '../engine/types'
-import { buildScene, composeScene, H, W } from './scene'
+import { buildScene, composeScene, H, lookOf, W } from './scene'
+import { frameImage } from './art'
 import type { BuiltScene, Cast, SceneMood } from './scene'
 import type { Weather } from './fx'
 import { setAmbience } from '../audio'
@@ -53,11 +54,11 @@ const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(pre
  * Анимируется, только когда видна на экране; стоит на паузе игры (paused), в скрытой вкладке,
  * при prefers-reduced-motion и в неподвижных местах (still: лента итогов, дневник) — тогда один кадр.
  */
-export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean }) {
-  const { scene, region, seed, label, cast, season, weather, mood, still, paused, ambient } = props
+export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean; art?: 'half' | 'full' | 'none'; year?: number; frame?: boolean }) {
+  const { scene, region, seed, label, cast, season, weather, mood, still, paused, ambient, art, year, frame } = props
   const ref = useRef<HTMLCanvasElement>(null)
   const t = useRef(0)
-  const input = { scene, region, seed, cast, season, weather, mood }
+  const input = { scene, region, seed, cast, season, weather, mood, art, year }
   const key = JSON.stringify(input)
   const live = useRef({ paused, still })
   live.current = { paused, still }
@@ -95,5 +96,13 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
     }
   }, [key, still, ambient])
 
-  return <canvas ref={ref} class="scene" width={W} height={H} role="img" aria-label={label} />
+  const canvas = <canvas ref={ref} class="scene" width={W} height={H} role="img" aria-label={label} />
+  if (!frame) return canvas
+  // Рамка-орнамент края (G5): пиксельный узор, нарисованный кодом.
+  const img = frameImage(lookOf(region).style, year)
+  return (
+    <div class="art-frame" style={img ? { borderImage: `url(${img}) 6 round` } : undefined}>
+      {canvas}
+    </div>
+  )
 }
