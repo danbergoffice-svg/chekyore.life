@@ -52,7 +52,7 @@ function protectedAge(lives: number): number | undefined {
 
 /** Страна, выбранная игроком: только в пробный период и только после отзыва. */
 function pickedCountry(prefs: Prefs): string | undefined {
-  if (!platform.flags.trial_country_pick || prefs.feedback?.state !== 'sent') return undefined
+  if (!EXTERNAL || !platform.flags.trial_country_pick || prefs.feedback?.state !== 'sent') return undefined
   return prefs.country && ERA_META[prefs.country] ? prefs.country : undefined
 }
 
@@ -636,15 +636,14 @@ export function App() {
             }}
             onClose={() => setSetupOpen(false)}
             country={
-              platform.flags.trial_country_pick
+              // Отзывы — только на сайте; на порталах (CrazyGames) выбора страны за отзыв нет.
+              platform.flags.trial_country_pick && EXTERNAL
                 ? {
                     unlocked: prefs.feedback?.state === 'sent',
-                    onFeedback: EXTERNAL
-                      ? () => {
-                          setSetupOpen(false)
-                          openFeedback('menu')
-                        }
-                      : undefined,
+                    onFeedback: () => {
+                      setSetupOpen(false)
+                      openFeedback('menu')
+                    },
                   }
                 : undefined
             }
