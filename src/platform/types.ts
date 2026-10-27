@@ -25,6 +25,8 @@ export interface Flags {
   trial_country_pick: boolean
   /** Сколько раз можно перекрутить барабан после результата, пока не начата жизнь: 0 — нельзя, -1 — без ограничений. */
   respins: number
+  /** Когда бесплатные перекрутки кончились — ещё за рекламу (на порталах с рекламой за награду, сейчас CrazyGames). */
+  respin_ad: boolean
   /** Редкость достижений: id → доля игроков. */
   ach_rarity: Record<string, number>
   /** Стиль портрета героя. */
@@ -45,6 +47,7 @@ export const DEFAULT_FLAGS: Flags = {
   dream_first_by: 25,
   trial_country_pick: true,
   respins: 2,
+  respin_ad: true,
   ach_rarity: {},
   portrait_style: 'painting',
   art_strength: 0.5,

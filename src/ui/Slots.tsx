@@ -107,6 +107,9 @@ export function SlotMachine(props: {
   left?: number
   /** Это перекрутка: барабан сам дёргает рычаг сразу после появления. */
   autoSpin?: boolean
+  /** Бесплатные перекрутки кончились — ещё одна за рекламу (CrazyGames); adBusy — реклама грузится или идёт. */
+  onAdRespin?: () => void
+  adBusy?: boolean
 }) {
   const { t, lang } = useUi()
   const { birth } = props
@@ -230,7 +233,12 @@ export function SlotMachine(props: {
               {Number.isFinite(left) ? t('spin.again', { n: left }) : t('spin.again.unlimited')}
             </button>
           )}
-          {props.onRespin && !canRespin && <p class="muted small center">{t('spin.fate')}</p>}
+          {!canRespin && props.onAdRespin && (
+            <button class="secondary ad-respin" onClick={props.onAdRespin} disabled={props.adBusy}>
+              {props.adBusy ? t('spin.ad.loading') : t('spin.again.ad')}
+            </button>
+          )}
+          {props.onRespin && !canRespin && !props.onAdRespin && <p class="muted small center">{t('spin.fate')}</p>}
         </div>
       )}
       {phase !== 'idle' && !props.ready && (props.error || slow) && (

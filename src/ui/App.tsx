@@ -297,6 +297,23 @@ export function App() {
     platform.track('respin', { n: pending.respin + 1, era: pending.birth.era, cls: pending.birth.cls })
     rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1)
   }
+  // На CrazyGames после бесплатных перекруток (всего три вращения) — ещё одно за рекламу; на сайте рекламы нет.
+  const adRespin = !!platform.flags.respin_ad && platform.name === 'crazygames' && respinLimit >= 0
+  const [adBusy, setAdBusy] = useState(false)
+  const [adFail, setAdFail] = useState(false)
+  const onAdRespin = async () => {
+    if (!pending || adBusy) return
+    setAdBusy(true)
+    const rewarded = await platform.showRewarded('respin')
+    setAdBusy(false)
+    if (!rewarded) {
+      setAdFail(true)
+      setTimeout(() => setAdFail(false), 4000)
+      return
+    }
+    platform.track('respin', { n: pending.respin + 1, era: pending.birth.era, cls: pending.birth.cls, ad: 1 })
+    rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1)
+  }
   // В меню барабан всегда заряжен.
   useEffect(() => {
     if (screen === 'menu' && !pending) rollPending()
@@ -586,6 +603,8 @@ export function App() {
                   onDone={bornAfterSpin}
                   onRespin={respinLimit !== 0 ? onRespin : undefined}
                   left={respinsLeft}
+                  onAdRespin={adRespin ? onAdRespin : undefined}
+                  adBusy={adBusy}
                   autoSpin={!!pending.auto}
                   onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
                   country={pickedCountry(prefs)}
@@ -752,6 +771,11 @@ export function App() {
         {thanks && (
           <p class="toast" role="status">
             {ui.t('feedback.thanks')}
+          </p>
+        )}
+        {adFail && (
+          <p class="toast" role="status" onClick={() => setAdFail(false)}>
+            {ui.t('spin.ad.fail')}
           </p>
         )}
       </main>

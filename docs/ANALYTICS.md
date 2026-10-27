@@ -11,7 +11,7 @@
 |---|---|---|
 | app_open | referrer, life_code, load_ms | игра загрузилась |
 | life_start | era, region, cls, sex, lottery, protected, generation, respins | герой родился (lottery=heir — наследник, country — страну выбрал игрок; protected — жизнь защищена до 20 лет; respins — сколько раз перекрутил барабан) |
-| respin | n, era, cls | перекрутил барабан после результата (n — какая по счёту перекрутка; era, cls — что выпало до неё) |
+| respin | n, era, cls, ad | перекрутил барабан после результата (n — какая по счёту перекрутка; era, cls — что выпало до неё; ad=1 — за рекламу, только CrazyGames) |
 | first_choice | sec_from_start | первый выбор в жизни |
 | age_milestone | age, sec_in_life | 5, 10, 15, 20, 30, 40, 50, 60, 70 лет |
 | choice_made | event_id, option, age, success | любой выбор (только свой приёмник) |

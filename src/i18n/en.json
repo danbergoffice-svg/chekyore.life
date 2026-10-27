@@ -995,5 +995,8 @@
   "feedback.prompt.reward.go": "Review & choose a country",
   "spin.again": "Spin again · {n} left",
   "spin.again.unlimited": "Spin again",
-  "spin.fate": "Fate is sealed — life will show the rest."
+  "spin.fate": "Fate is sealed — life will show the rest.",
+  "spin.again.ad": "▶ Spin again — watch an ad",
+  "spin.ad.loading": "Loading the ad…",
+  "spin.ad.fail": "No ad available right now — try again a bit later."
 }
