@@ -2,6 +2,8 @@
 // Используется в тестах (tests/content.test.ts) и в инструменте npm run check -- <ID> для авторов контента.
 import { allKeys, createT, hasKey, LANGS } from '../i18n'
 import { isPet } from '../engine/pets'
+import { checkInput, DREAM_DEFS, expectedAnswer } from '../engine/dreams'
+import { evaluate } from '../engine/formula'
 import { PRIMER_TOPICS, SCENE_PLACES, SCENE_PROPS, SCENE_TIMES, TOPICS } from '../engine/types'
 import type { Condition, Effect, EraDef, EventDef } from '../engine/types'
 import { ERA_META, RELIGION_BY_ID, RELIGIONS } from '.'
@@ -236,7 +238,7 @@ export function validateEra(era: EraDef): string[] {
 
 /** Параметры для проверки, что после подстановки не остаётся {скобок}. */
 export const SAMPLE_PARAMS = {
-  n: 3, npc: 'x', pet: 'x', kid: 'x', total: 9, homeland: 'x', homeplace: 'x', country: 'x', i: 1, h: 1, a: 1, place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
+  n: 3, npc: 'x', pet: 'x', kid: 'x', total: 9, dream: 'x', result: 'x', homeland: 'x', homeplace: 'x', country: 'x', i: 1, h: 1, a: 1, place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
   grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x', born: 'x', died: 'x', focus: 'x', via: 'x', role: 'x',
 }
 
@@ -246,9 +248,71 @@ export function leftoverBraces(keys?: string[]): string[] {
   for (const lang of LANGS) {
     for (const sex of ['m', 'f'] as const) {
       const t = createT(lang, { sex })
-      const params = { ...SAMPLE_PARAMS, sex, psex: sex, vsex: sex, npc_sex: sex }
+      // Числа снов о будущем ({wall}, {liters}…) — тоже параметры.
+      const dreamParams = Object.fromEntries(DREAM_DEFS.flatMap((d) => [...Object.keys(d.params ?? {}), ...Object.keys(d.derived ?? {})]).map((k) => [k, 1]))
+      const params = { ...SAMPLE_PARAMS, ...dreamParams, sex, psex: sex, vsex: sex, npc_sex: sex }
       for (const k of keys ?? allKeys(lang)) if (hasKey(lang, k) && /[{}]/.test(t(k, params))) out.push(`${lang}:${k}`)
     }
   }
   return [...new Set(out)]
+}
+
+/**
+ * Сны о будущем: верный ответ среди вариантов и проходит проверку, ответ за допуском — нет, доли дают 100,
+ * формулы считаются на краях параметров, страны существуют, все тексты есть на обоих языках.
+ */
+export function validateDreams(): string[] {
+  const bad: string[] = []
+  for (const d of DREAM_DEFS) {
+    for (const e of d.eras ?? []) if (!ERA_META[e]) bad.push(`${d.id}: страна ${e}`)
+    // Все сочетания краёв параметров.
+    const keys = Object.keys(d.params ?? {})
+    const corners: Record<string, number>[] = [{}]
+    for (const k of keys) {
+      const [lo, hi] = d.params![k]
+      corners.splice(0, corners.length, ...corners.flatMap((c) => [{ ...c, [k]: lo }, { ...c, [k]: hi }]))
+    }
+    const steps = d.steps
+    if (steps.length !== 3) bad.push(`${d.id}: шагов должно быть 3`)
+    if (d.debate && steps[2].kind !== 'debate') bad.push(`${d.id}: громкий сон — шаг 3 должен быть спором`)
+    for (const c of corners.slice(0, 64)) {
+      const params: Record<string, number> = { ...c }
+      for (const [k, f] of Object.entries(d.derived ?? {})) params[k] = evaluate(f, params)
+      steps.forEach((s, si) =>
+        s.items.forEach((input, ii) => {
+          const where = `${d.id}.q${si + 1}.${ii + 1}`
+          for (const era of [...(d.eras ?? []), 'XXX']) {
+            const want = expectedAnswer(input, params, era)
+            if (typeof want === 'number' && !Number.isFinite(want)) bad.push(`${where}: формула не считается при ${JSON.stringify(params)}`)
+            if (!checkInput(input, want, params, era)) bad.push(`${where}: верный ответ не проходит (${era})`)
+            if (input.kind === 'number' && checkInput(input, (want as number) * 1.5 + 3, params, era)) bad.push(`${where}: ответ вне допуска проходит`)
+          }
+        }),
+      )
+    }
+    steps.forEach((s, si) =>
+      s.items.forEach((input, ii) => {
+        const where = `${d.id}.q${si + 1}.${ii + 1}`
+        if (input.kind === 'pick' || input.kind === 'order') {
+          for (const a of [...input.answer, ...Object.values((input.kind === 'pick' && input.answer_by_era) || {}).flat()]) if (!input.options.includes(a)) bad.push(`${where}: ответ ${a} не среди вариантов`)
+          if (input.kind === 'pick' && input.options.length < 4) bad.push(`${where}: мало вариантов`)
+          if (input.kind === 'order' && input.options.length <= input.answer.length) bad.push(`${where}: в порядке нет лишнего шага`)
+        }
+        if (input.kind === 'ratio' && Object.values(input.answer).reduce((a, b) => a + b, 0) !== 100) bad.push(`${where}: доли не дают 100`)
+        for (const lang of LANGS) {
+          if (!hasKey(lang, `dream.${d.id}.q${si + 1}.${ii + 1}`)) bad.push(`${lang}: нет условия ${where}`)
+          if (input.kind === 'pick' || input.kind === 'order') for (const o of input.options) if (!hasKey(lang, `dream.${d.id}.opt.${o}`)) bad.push(`${lang}: нет варианта ${d.id}.opt.${o}`)
+          if (input.kind === 'ratio') for (const o of Object.keys(input.answer)) if (!hasKey(lang, `dream.${d.id}.opt.${o}`)) bad.push(`${lang}: нет варианта ${d.id}.opt.${o}`)
+        }
+      }),
+    )
+    for (const lang of LANGS) {
+      for (const k of ['title', 'intro', 'breakthrough', 'partial', 'failure', 'truth', 'hint1', 'hint2', 'hint3']) if (!hasKey(lang, `dream.${d.id}.${k}`)) bad.push(`${lang}: нет dream.${d.id}.${k}`)
+      if (d.death_chance?.some((p) => p > 0) && !hasKey(lang, `dream.${d.id}.death`)) bad.push(`${lang}: нет dream.${d.id}.death`)
+      if (d.known_in?.length && !hasKey(lang, `dream.${d.id}.known`)) bad.push(`${lang}: нет dream.${d.id}.known`)
+      if (d.debate && !hasKey(lang, `dream.${d.id}.sage`)) bad.push(`${lang}: нет dream.${d.id}.sage`)
+      if (d.profession && !hasKey(lang, `prof.${d.profession}`)) bad.push(`${lang}: нет prof.${d.profession}`)
+    }
+  }
+  return bad
 }

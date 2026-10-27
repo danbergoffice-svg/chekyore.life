@@ -7,7 +7,7 @@ import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
 import type { AttrId, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
 
-export const SAVE_VERSION = 4
+export const SAVE_VERSION = 5
 
 /** Где, когда и кем родиться: результат лотереи рождения. */
 export interface Birth {

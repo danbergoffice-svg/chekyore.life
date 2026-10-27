@@ -26,6 +26,7 @@ import {
 import { householdYear } from './household'
 import { pets } from './pets'
 import { abroadYear, homesickDue, naturalizeDue } from './abroad'
+import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
 import { eraById, isEraLoaded } from '../content'
 import { eraEnding, summarize } from './life'
 import { PRIMER_TOPICS } from './types'
@@ -215,7 +216,8 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
         applyEffects(state, era, [{ add_npc: 'child', attitude: 50 }])
         births.push(hero.npcs[hero.npcs.length - 1])
         changeParam(hero, 'happiness', 8)
-        const risk = era.mortality.childbirth * (state.settings.mortality === 'soft' ? 0.5 : 1)
+        // Сон о чистых руках: в семье, где моют руки щёлоком и кипятят ткани, горячка при родах вдвое реже.
+        const risk = era.mortality.childbirth * (state.settings.mortality === 'soft' ? 0.5 : 1) * (hero.tags.includes('clean_births') ? 0.5 : 1)
         if (chance(state, risk)) {
           if (hero.sex === 'f') applyEffects(state, era, [{ kill: 'childbirth' }])
           else killNpc(state, spouse)
@@ -640,6 +642,14 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     for (let i = 0; i < count; i++) add(weighted(state, pool.filter((p) => !has(p)), (e) => eventWeight(state, e)))
   }
 
+  // 4а. Сон о будущем — со второй жизни, раз за жизнь. Свой поток случайности: остальная жизнь не меняется.
+  const historical = picked.some((p) => byId(p.eventId)?.type === 'global_historical')
+  const intro = byId('dream_intro')
+  if (intro && dreamDue(state, historical)) {
+    const dream = pickDream(state)
+    if (dream) picked.push({ eventId: intro.id, at: Math.round((0.2 + dreamRng(state, 'at')() * 0.6) * 100) / 100, dream: dream.id, outcome: null })
+  }
+
   state.queue = picked.sort((a, b) => a.at - b.at)
   for (const p of picked) hero.seen[p.eventId] = state.year
 
@@ -808,6 +818,11 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   const choice = choices.find((c) => c.id === choiceId)
   if (choices.length > 0 && (!choice || !choiceAvailable(state, choice))) throw new Error(`Bad choice ${choiceId}`)
 
+  // Сон о будущем: «Попробовать вспомнить» открывает мини-игру, «Это просто сон» — второго сна не будет.
+  if (ev.id === 'dream_intro' && active.dream) {
+    if (choiceId === 'try') startDream(state, active.dream)
+    else skipDream(state, active.dream)
+  }
   const ctx = { npcId: active.npcId }
   const params = eventParams(state, active)
   const moodBefore = hero.hidden.happiness
@@ -891,6 +906,8 @@ export function dismiss(state: GameState, era: EraDef): void {
   era = eraNow(state, era)
   const active = state.queue[0]
   if (!active?.outcome) throw new Error('Event not resolved yet')
+  // Досмотренный сон подводит итог сам, если интерфейс не успел (например, страница закрылась на карточке).
+  if (state.dream?.done) resolveDream(state, era)
   state.queue.shift()
   if (!state.hero.alive) return die(state, era)
   // Пропускаем события, которые стали неуместны после предыдущих решений.
@@ -995,7 +1012,13 @@ export function autoplay(state: GameState, era: EraDef, maxYears = 130): GameSta
     } else if (state.queue.length > 0) {
       const ev = currentEvent(state, era)!
       const options = eventChoices(state, era, ev).filter((c) => choiceAvailable(state, c))
-      choose(state, era, options.length ? options[Math.floor(next(state) * options.length)].id : null)
+      // Сон выбирается и решается своим потоком случайности — с ним и без него остальная жизнь одинакова.
+      const r = ev.id === 'dream_intro' ? dreamRng(state, 'auto_choice')() : next(state)
+      choose(state, era, options.length ? options[Math.floor(r * options.length)].id : null)
+      if (state.dream) {
+        autoDream(state)
+        resolveDream(state, eraNow(state, era))
+      }
       dismiss(state, era)
     } else finishYear(state, era)
   }

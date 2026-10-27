@@ -39,6 +39,7 @@
   },
   "lifeExpectancy": 30,
   "inheritance": "sons_first",
+  "scholar_climate": "hostile",
   "household": "neolocal",
   "traits": [
     "cautious",

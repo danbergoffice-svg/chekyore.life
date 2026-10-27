@@ -516,6 +516,20 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       abroadChoice(state, e.abroad_choice)
     } else if ('naturalize' in e) {
       naturalize(state)
+    } else if ('class_up' in e) {
+      // Скачок по сословиям (сон о будущем): не выше землевладельца, а громкие открытия — до знати.
+      const order = ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble']
+      const cap = order.indexOf(e.max ?? 'landowner')
+      const at = order.indexOf(hero.cls)
+      if (at >= 0 && at < cap) hero.cls = order[Math.min(cap, at + e.class_up)]
+    } else if ('money_years' in e) {
+      // Деньги в годовых доходах героя: по занятию, а без занятия — по расходам сословия.
+      const prof = era.professions.find((p) => p.id === hero.profession)
+      const cls = era.classes.find((c) => c.id === hero.cls)
+      const year = prof ? (prof.income[0] + prof.income[1]) / 2 : Math.max(100, (cls?.upkeep ?? 100) * 1.2)
+      hero.money = Math.round(hero.money + year * e.money_years)
+    } else if ('dream_start' in e) {
+      // Сон начинает движок сам (выбор «Попробовать вспомнить» в dream_intro).
     } else if ('remove_pet' in e) {
       const pet = pets(state).find((p) => p.kind === e.remove_pet)
       if (pet) hero.animals = hero.animals.filter((a) => a !== pet)

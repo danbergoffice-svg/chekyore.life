@@ -349,7 +349,7 @@ export function App() {
   }
 
   const onExport = () => {
-    const blob = new Blob([JSON.stringify({ version: 4, game: game.current, memorial })], { type: 'application/json' })
+    const blob = new Blob([JSON.stringify({ version: 5, game: game.current, memorial })], { type: 'application/json' })
     const a = document.createElement('a')
     a.href = URL.createObjectURL(blob)
     a.download = 'thousands-of-lives-save.json'

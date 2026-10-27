@@ -21,8 +21,21 @@ export const ERA_FOLDER: Record<string, string> = {}
 /** К какой стране относится регион (id регионов уникальны). */
 export const REGION_ERA: Record<string, string> = {}
 
+/** Занятия из снов о будущем — во всех странах; только по прорыву во сне, доход — как у землевладельца. */
+const DREAM_PROFESSIONS: [string, string][] = [
+  ['dream_alchemist', 'craft'],
+  ['dream_healer', 'medicine'],
+  ['dream_engineer', 'craft'],
+  ['dream_astronomer', 'literacy'],
+  ['dream_banker', 'trade'],
+]
+
 for (const [path, meta] of Object.entries(metas)) {
   const folder = path.split('/')[1]
+  const land = meta.classes.find((c) => c.id === 'landowner')?.upkeep ?? 400
+  for (const [id, skill] of DREAM_PROFESSIONS) {
+    if (!meta.professions.some((p) => p.id === id)) meta.professions.push({ id, skill, minAge: 15, income: [Math.round(land * 1.3), Math.round(land * 2)], promotion_only: true } as EraMeta['professions'][number])
+  }
   ERA_META[meta.id] = meta
   ERA_FOLDER[meta.id] = folder
   for (const r of meta.regions) REGION_ERA[r.id] = meta.id

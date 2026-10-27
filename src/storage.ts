@@ -45,6 +45,8 @@ function migrate(game: GameState | undefined): GameState | null {
     game.hero.religion ??= OLD_FAITH[game.hero.region] ?? 'roman_gods'
     game.version = 4
   }
+  // 4 → 5: сон о будущем (поле dream, hero.dreamSeen) — в старых жизнях сна не было, менять нечего.
+  if (game.version === 4) game.version = 5
   if (game.version !== SAVE_VERSION) return null
   return game
 }

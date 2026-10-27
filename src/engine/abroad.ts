@@ -4,7 +4,7 @@
 import { ERA_META, isEraLoaded } from '../content'
 import ROUTES from '../content/routes.json'
 import { chance, int, weighted } from './rng'
-import { aliveNpcs, changeParam, clamp, HOME_TAGS, isMinority, note, sendAway } from './rules'
+import { aliveNpcs, changeParam, clamp, HOME_TAGS, isMinority, isProtected, note, rescue, sendAway } from './rules'
 import { isPet } from './pets'
 import type { Abroad, EmigrationReason, FocusDef, GameState, RegionDef } from './types'
 
@@ -139,9 +139,13 @@ export function emigrate(state: GameState, spec: string, reason: EmigrationReaso
   state.queue = state.queue.slice(0, 1)
   // Дорога опасна: далеко — гибнут чаще, близко — редко.
   if (chance(state, far ? 0.05 : 0.012)) {
-    hero.alive = false
-    hero.deathCause = 'accident'
-    hero.deathYear = y
+    // Защищённая первая жизнь: вместо гибели в дороге — «выжил чудом».
+    if (isProtected(state)) rescue(state, 'accident')
+    else {
+      hero.alive = false
+      hero.deathCause = 'accident'
+      hero.deathYear = y
+    }
   }
   return true
 }

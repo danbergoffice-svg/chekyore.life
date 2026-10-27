@@ -60,6 +60,7 @@ export interface Name {
 export type AncestorNames = 'forbid' | 'allow' | 'prefer'
 
 export type Household = 'patrilocal' | 'neolocal' | 'matrilocal'
+export type ScholarClimate = 'welcoming' | 'neutral' | 'hostile'
 
 export interface RegionDef {
   id: string
@@ -76,6 +77,7 @@ export interface RegionDef {
   inheritance?: 'equal' | 'sons_first'
   /** Где живёт семья после свадьбы: у родителей мужа (по умолчанию), отдельно, у родителей жены. */
   household?: Household
+  scholar_climate?: ScholarClimate
   /** Вера жителей: id религии → вес. */
   religions: Record<string, number>
   /** С какого года вера жителей меняется (крещение, исламизация…): берётся последняя подходящая запись. */
@@ -219,6 +221,8 @@ export interface EraMeta {
   lifeExpectancy: number
   inheritance: 'equal' | 'sons_first'
   household?: Household
+  /** Как в стране относятся к учёным и новым знаниям (для снов о будущем). */
+  scholar_climate?: ScholarClimate
   lifestyle: LifestyleDef[]
   vices: ViceDef[]
 }
@@ -346,6 +350,10 @@ export type Effect =
   /** Решение о возвращении: остаться (ещё один отказ) или подумать (спросить через год); стать здешним. */
   | { abroad_choice: 'stay' | 'later' }
   | { naturalize: true }
+  /** Сон о будущем: начать мини-игру; скачок сословия; деньги в годовых доходах. */
+  | { dream_start: true }
+  | { class_up: number; max?: string }
+  | { money_years: number }
   /** Дом героя: сгорел, разрушен (на ступень меньше, стоит повреждённым) или отстраивается. */
   | { home: 'burn' | 'ruin' | 'rebuild' }
   | { chance: number; effects: Effect[] }
@@ -380,7 +388,7 @@ export interface ChoiceDef {
   risk_roll?: RiskRoll
 }
 
-export type EventType = 'personal' | 'family' | 'local' | 'global_historical'
+export type EventType = 'personal' | 'family' | 'local' | 'global_historical' | 'dream'
 
 export interface EventDef {
   id: string
@@ -619,6 +627,8 @@ export interface Hero {
   erasLived?: string[]
   /** Вернулся домой: год и сколько лет прожил на чужбине. */
   returned?: { year: number; years: number }
+  /** Сон о будущем в этой жизни: какой и чем кончился. */
+  dreamSeen?: { id: string; year: number; score: number; outcome: DreamOutcome; known?: boolean; hint?: boolean; params: Record<string, number> }
   /** Год, когда дом сгорел/разрушен или начали отстраиваться (метки home_burned, home_ruined, home_rebuilding). */
   homeSince?: number
   /** Телосложение −3…3 (худоба … полнота): меняется от еды, достатка и болезней; только для портрета. */
@@ -678,6 +688,8 @@ export interface LifeSummary {
   erasLived?: string[]
   abroad?: Abroad
   returned?: { year: number; years: number }
+  /** Сон о будущем этой жизни. */
+  dreamSeen?: Hero['dreamSeen']
   /** Жизнь прожита вне хроники (после конца эпохи страны) — с этого года. */
   offChronicle?: number
   /** Для наград: режим смертности, была ли защита первой жизни, метки, навыки, животные на момент смерти. */
@@ -703,6 +715,8 @@ export interface ActiveEvent {
   npcId?: string
   npcName?: string
   npcSex?: Sex
+  /** Сон о будущем, который снится в этом окне (событие dream_intro). */
+  dream?: string
   /** Питомец события: вид и кличка (если есть). */
   petKind?: string
   petName?: string
@@ -721,6 +735,10 @@ export interface GameSettings {
   mode: 'quick' | 'full'
   mortality: 'soft' | 'historical'
   softenHeavy: boolean
+  /** Сколько жизней прожито до этой (мемориал): сны о будущем — только со второй жизни. */
+  livesBefore?: number
+  /** Шанс сна о будущем в год (флаг dream_chance). */
+  dreamChance?: number
   /** Защищённая первая жизнь: до этого возраста герой не умирает (смертельный исход → «выжил чудом»). Игроку не показывается. */
   protectedUntil?: number
 }
@@ -740,6 +758,8 @@ export interface GameState {
   reveal: Record<number, number>
   /** Счётчики для аналитики текущей жизни (не влияют на игру). */
   stats?: LifeStats
+  /** Сон о будущем, который снится прямо сейчас (мини-игра); пока он открыт, часы года стоят. */
+  dream?: DreamState
   /** Род продолжен после конца хроники страны («вне хроники» с этого года): без исторических событий, вестей и справок. */
   offChronicle?: number
 }
@@ -755,4 +775,63 @@ export interface LifeStats {
   milestones: number[]
   /** Показанные экраны-главы (возрасты). */
   chapters?: number[]
+}
+
+// ---------- Сон о будущем (docs/TZ_dreams.md) ----------
+
+export type DreamTheme = 'medicine' | 'war' | 'trade' | 'farming' | 'building' | 'scholar' | 'sea'
+
+/** Один ввод игрока: отметить нужное (pick), доли (ratio), порядок (order), число (number). */
+export type DreamInput =
+  | { kind: 'pick'; options: string[]; answer: string[]; answer_by_era?: Record<string, string[]> }
+  | { kind: 'ratio'; answer: Record<string, number>; tolerance: number }
+  | { kind: 'order'; options: string[]; answer: string[] }
+  | { kind: 'number'; formula: string; unit?: string; /** Допуск: доля от ответа (0.03) или абсолютный (abs). */ tolerance?: number; abs?: number }
+
+/** Шаг сна: один или несколько вводов подряд; спор с мудрецом (debate) — два возражения, засчитывается, если верны оба. */
+export interface DreamStep {
+  kind: 'single' | 'multi' | 'debate'
+  items: DreamInput[]
+}
+
+export interface DreamDef {
+  id: string
+  subject: 'chemistry' | 'biology' | 'physics' | 'math'
+  themes: DreamTheme[]
+  /** Громкая тема: шаг 3 — спор с мудрецами. */
+  debate?: boolean
+  /** Страны, где сон возможен (по умолчанию все); край должен иметь эти метки (port — порт). */
+  eras?: string[]
+  region_tags?: string[]
+  /** Где и с какого года это уже знали: прорыв становится частичным успехом. */
+  known_in?: { era: string; from: number }[]
+  /** Параметры: [от, до, шаг] — числа генерируются заново в каждой жизни; derived — вычисляемые из них. */
+  params?: Record<string, [number, number, number]>
+  derived?: Record<string, string>
+  steps: [DreamStep, DreamStep, DreamStep]
+  /** Шанс смерти при провале: [0 очков, 1 очко]; hostile_only — только там, где к учёным враждебны. */
+  death_chance?: [number, number]
+  hostile_only?: boolean
+  /** Занятие сна при прорыве (dream_alchemist, dream_healer…). */
+  profession?: string
+  outcomes: { breakthrough: Effect[]; partial: Effect[]; failure: Effect[] }
+}
+
+export type DreamOutcome = 'breakthrough' | 'partial' | 'failure' | 'death'
+
+/** Сон, который сейчас снится: параметры, ответы по шагам, очки. Живёт в сохранении — переживает перезагрузку. */
+export interface DreamState {
+  id: string
+  params: Record<string, number>
+  /** Номер шага 0–2 и ввода внутри шага. */
+  step: number
+  item: number
+  answers: unknown[][]
+  correct: boolean[][]
+  hint?: boolean
+  /** Все шаги пройдены: показывается итог и карточка «Как было на самом деле». */
+  done?: boolean
+  score?: number
+  outcome?: DreamOutcome
+  known?: boolean
 }

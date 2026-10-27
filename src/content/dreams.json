@@ -1,0 +1,2322 @@
+{
+  "dreams": [
+    {
+      "id": "gunpowder",
+      "subject": "chemistry",
+      "themes": [
+        "war"
+      ],
+      "debate": true,
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "CHN",
+          "from": 900
+        },
+        {
+          "era": "ISL",
+          "from": 1260
+        },
+        {
+          "era": "EUR",
+          "from": 1260
+        },
+        {
+          "era": "JPN",
+          "from": 1274
+        },
+        {
+          "era": "RUS",
+          "from": 1380
+        },
+        {
+          "era": "IND",
+          "from": 1350
+        },
+        {
+          "era": "BYZ",
+          "from": 1400
+        }
+      ],
+      "params": {
+        "wall": [
+          6,
+          12,
+          1
+        ]
+      },
+      "steps": [
+        {
+          "kind": "multi",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "saltpeter",
+                "charcoal",
+                "sulfur",
+                "salt",
+                "lime",
+                "resin",
+                "vitriol",
+                "chalk"
+              ],
+              "answer": [
+                "saltpeter",
+                "charcoal",
+                "sulfur"
+              ]
+            },
+            {
+              "kind": "ratio",
+              "answer": {
+                "saltpeter": 75,
+                "charcoal": 15,
+                "sulfur": 10
+              },
+              "tolerance": 5
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "nitre_bed",
+                "sea_salt",
+                "volcano_sulfur",
+                "willow_charcoal",
+                "clay",
+                "river_sand",
+                "potato_starch"
+              ],
+              "answer": [
+                "nitre_bed",
+                "volcano_sulfur",
+                "willow_charcoal"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "debate",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "wall / cos(30)",
+              "unit": "m",
+              "tolerance": 0.05
+            },
+            {
+              "kind": "order",
+              "options": [
+                "grind",
+                "mix_wet",
+                "corn",
+                "dry",
+                "heat_mix"
+              ],
+              "answer": [
+                "grind",
+                "mix_wet",
+                "corn",
+                "dry"
+              ]
+            }
+          ]
+        }
+      ],
+      "death_chance": [
+        0.4,
+        0.15
+      ],
+      "profession": "dream_alchemist",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 2,
+            "max": "noble"
+          },
+          {
+            "money_years": 4
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -25
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          },
+          {
+            "money_pct": -20
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean_hands",
+      "subject": "biology",
+      "themes": [
+        "medicine"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "params": {
+        "die": [
+          8,
+          12,
+          1
+        ],
+        "k": [
+          4,
+          6,
+          1
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "wash_hands",
+                "boil_cloth",
+                "clean_bed",
+                "fumigate",
+                "close_windows",
+                "bloodletting",
+                "amulet",
+                "swaddle_tight"
+              ],
+              "answer": [
+                "wash_hands",
+                "boil_cloth",
+                "clean_bed"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "ash",
+                "lime",
+                "clean_water",
+                "cauldron",
+                "incense",
+                "mercury",
+                "wine_dregs"
+              ],
+              "answer": [
+                "ash",
+                "lime",
+                "clean_water",
+                "cauldron"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "100 - 100 / die / k",
+              "abs": 0.5
+            }
+          ]
+        }
+      ],
+      "profession": "dream_healer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          },
+          {
+            "add_tag": "clean_births"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "rehydration",
+      "subject": "biology",
+      "themes": [
+        "medicine"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "params": {
+        "liters": [
+          1,
+          3,
+          1
+        ]
+      },
+      "steps": [
+        {
+          "kind": "multi",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "6 * liters",
+              "unit": "tsp",
+              "abs": 0.5
+            },
+            {
+              "kind": "number",
+              "formula": "0.5 * liters",
+              "unit": "tsp",
+              "abs": 0.26
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "honey",
+                "rice_water",
+                "more_salt",
+                "vinegar",
+                "strong_wine",
+                "raw_milk"
+              ],
+              "answer": [
+                "honey",
+                "rice_water"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "order",
+              "options": [
+                "boil",
+                "cool",
+                "dissolve",
+                "sip_often",
+                "no_drink"
+              ],
+              "answer": [
+                "boil",
+                "cool",
+                "dissolve",
+                "sip_often"
+              ]
+            }
+          ]
+        }
+      ],
+      "profession": "dream_healer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -10
+          },
+          {
+            "param": "reputation",
+            "delta": -8
+          },
+          {
+            "chance": 0.3,
+            "effects": [
+              {
+                "kill_npc": "child"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "scurvy",
+      "subject": "biology",
+      "themes": [
+        "sea",
+        "medicine"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "region_tags": [
+        "port"
+      ],
+      "params": {
+        "days": [
+          60,
+          120,
+          20
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "citrus",
+                "sauerkraut",
+                "greens",
+                "onion",
+                "salt_beef",
+                "hardtack",
+                "long_boiled"
+              ],
+              "answer": [
+                "citrus",
+                "sauerkraut",
+                "greens",
+                "onion"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "lemons",
+                "cabbage_barrel",
+                "pine_tea",
+                "salted_fish",
+                "ship_biscuit",
+                "sweet_wine"
+              ],
+              "answer": [
+                "lemons",
+                "cabbage_barrel",
+                "pine_tea"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "order",
+              "options": [
+                "slice",
+                "salt",
+                "press",
+                "weight_cool",
+                "boil_long"
+              ],
+              "answer": [
+                "slice",
+                "salt",
+                "press",
+                "weight_cool"
+              ]
+            }
+          ]
+        }
+      ],
+      "profession": "dream_healer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "cowpox",
+      "subject": "biology",
+      "themes": [
+        "medicine"
+      ],
+      "debate": true,
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "CHN",
+          "from": 1550
+        }
+      ],
+      "params": {
+        "sick": [
+          15,
+          25,
+          1
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "cowpox_pus",
+                "patient_blood",
+                "saliva",
+                "burnt_clothes",
+                "sweat",
+                "fresh_milk"
+              ],
+              "answer": [
+                "cowpox_pus"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "cowshed",
+                "milkmaids",
+                "market",
+                "bathhouse",
+                "graveyard",
+                "temple"
+              ],
+              "answer": [
+                "cowshed",
+                "milkmaids"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "debate",
+          "items": [
+            {
+              "kind": "order",
+              "options": [
+                "cut_shoulder",
+                "apply",
+                "wait_two_weeks",
+                "vaccinate_others",
+                "drink_milk"
+              ],
+              "answer": [
+                "cut_shoulder",
+                "apply",
+                "wait_two_weeks",
+                "vaccinate_others"
+              ]
+            },
+            {
+              "kind": "number",
+              "formula": "sick / 1",
+              "abs": 0.5
+            }
+          ]
+        }
+      ],
+      "death_chance": [
+        0.3,
+        0.1
+      ],
+      "profession": "dream_healer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 2,
+            "max": "noble"
+          },
+          {
+            "money_years": 4
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -30
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "penicillin",
+      "subject": "biology",
+      "themes": [
+        "medicine",
+        "war"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "params": {
+        "wounded": [
+          10,
+          40,
+          5
+        ],
+        "part": [
+          8,
+          12,
+          2
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "bluegreen_mold",
+                "black_mold",
+                "white_mold",
+                "rotten_meat",
+                "moss",
+                "honey_comb"
+              ],
+              "answer": [
+                "bluegreen_mold"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "order",
+              "options": [
+                "broth_flat",
+                "sow_mold",
+                "keep_warm",
+                "strain",
+                "apply_now",
+                "boil_after"
+              ],
+              "answer": [
+                "broth_flat",
+                "sow_mold",
+                "keep_warm",
+                "strain",
+                "apply_now"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "wounded * part",
+              "abs": 0.5
+            }
+          ]
+        }
+      ],
+      "death_chance": [
+        0.1,
+        0
+      ],
+      "profession": "dream_healer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 4
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "rotation",
+      "subject": "biology",
+      "themes": [
+        "farming"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "params": {
+        "sacks": [
+          10,
+          30,
+          5
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "order",
+              "options": [
+                "wheat",
+                "turnip",
+                "barley",
+                "clover",
+                "fallow"
+              ],
+              "answer": [
+                "wheat",
+                "turnip",
+                "barley",
+                "clover"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "clover",
+                "vetch",
+                "peas",
+                "beans",
+                "soy",
+                "rye",
+                "oats",
+                "potato"
+              ],
+              "answer": [
+                "clover",
+                "vetch",
+                "peas"
+              ],
+              "answer_by_era": {
+                "AMR": [
+                  "beans"
+                ],
+                "MAY": [
+                  "beans"
+                ],
+                "CHN": [
+                  "soy",
+                  "peas"
+                ],
+                "JPN": [
+                  "soy",
+                  "peas"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "sacks * 2",
+              "abs": 0.5
+            }
+          ]
+        }
+      ],
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "thales",
+      "subject": "math",
+      "themes": [
+        "scholar",
+        "building"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "E03",
+          "from": -600
+        },
+        {
+          "era": "ANE",
+          "from": -1550
+        }
+      ],
+      "params": {
+        "h": [
+          1.6,
+          1.9,
+          0.1
+        ],
+        "me": [
+          1.2,
+          2,
+          0.2
+        ],
+        "tower": [
+          30,
+          60,
+          5
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "h * tower / me",
+              "unit": "m",
+              "tolerance": 0.03
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "pole",
+                "knotted_rope",
+                "noon_flat",
+                "water_clock",
+                "magnet",
+                "hourglass"
+              ],
+              "answer": [
+                "pole",
+                "knotted_rope",
+                "noon_flat"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "45",
+              "unit": "deg",
+              "abs": 1
+            }
+          ]
+        }
+      ],
+      "profession": "dream_engineer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "right_angle",
+      "subject": "math",
+      "themes": [
+        "building"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "ANE",
+          "from": -1550
+        },
+        {
+          "era": "E03",
+          "from": -500
+        },
+        {
+          "era": "CHN",
+          "from": 960
+        },
+        {
+          "era": "IND",
+          "from": 1200
+        },
+        {
+          "era": "BYZ",
+          "from": 850
+        },
+        {
+          "era": "ISL",
+          "from": 750
+        }
+      ],
+      "params": {
+        "k": [
+          1,
+          4,
+          1
+        ],
+        "side": [
+          10,
+          30,
+          5
+        ]
+      },
+      "derived": {
+        "a": "3 * k",
+        "b": "4 * k"
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "sqrt(a^2 + b^2)",
+              "unit": "cubit",
+              "abs": 0.1
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "12",
+              "abs": 0
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "side * sqrt(2)",
+              "unit": "m",
+              "tolerance": 0.02
+            }
+          ]
+        }
+      ],
+      "profession": "dream_engineer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "eratosthenes",
+      "subject": "physics",
+      "themes": [
+        "scholar"
+      ],
+      "debate": true,
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "E03",
+          "from": -240
+        },
+        {
+          "era": "BYZ",
+          "from": 850
+        },
+        {
+          "era": "ISL",
+          "from": 800
+        },
+        {
+          "era": "EUR",
+          "from": 1100
+        }
+      ],
+      "params": {
+        "angle": [
+          6,
+          8,
+          0.4
+        ],
+        "dist": [
+          700,
+          900,
+          50
+        ],
+        "pace": [
+          30,
+          50,
+          5
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "dist * 360 / angle",
+              "unit": "km",
+              "tolerance": 0.03
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "pole",
+                "same_noon",
+                "caravan_distance",
+                "star_chart",
+                "water_clock",
+                "magnet"
+              ],
+              "answer": [
+                "pole",
+                "same_noon",
+                "caravan_distance"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "debate",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "40000 / pace",
+              "unit": "days",
+              "tolerance": 0.05
+            },
+            {
+              "kind": "pick",
+              "options": [
+                "round",
+                "straight",
+                "square",
+                "crescent"
+              ],
+              "answer": [
+                "round"
+              ]
+            }
+          ]
+        }
+      ],
+      "death_chance": [
+        0.2,
+        0.05
+      ],
+      "hostile_only": true,
+      "profession": "dream_astronomer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 2,
+            "max": "noble"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "archimedes",
+      "subject": "physics",
+      "themes": [
+        "scholar",
+        "trade"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "E03",
+          "from": -250
+        },
+        {
+          "era": "BYZ",
+          "from": 850
+        }
+      ],
+      "params": {
+        "m": [
+          0.8,
+          1.2,
+          0.1
+        ],
+        "v": [
+          48,
+          72,
+          4
+        ]
+      },
+      "derived": {
+        "rho": "m * 1000 / v"
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "rho",
+              "unit": "g/cm3",
+              "tolerance": 0.03
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "scales",
+                "full_vessel",
+                "overflow_bowl",
+                "ruler",
+                "forge_fire",
+                "sundial"
+              ],
+              "answer": [
+                "scales",
+                "full_vessel",
+                "overflow_bowl"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "(1/10.5 - 1/rho) / (1/10.5 - 1/19.3) * 100",
+              "unit": "%",
+              "abs": 3
+            }
+          ]
+        }
+      ],
+      "death_chance": [
+        0.05,
+        0
+      ],
+      "profession": "dream_engineer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 4
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "lever",
+      "subject": "physics",
+      "themes": [
+        "building"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "E03",
+          "from": -250
+        },
+        {
+          "era": "BYZ",
+          "from": 850
+        }
+      ],
+      "params": {
+        "w": [
+          400,
+          800,
+          100
+        ],
+        "L": [
+          2,
+          4,
+          0.5
+        ],
+        "a": [
+          0.4,
+          0.6,
+          0.1
+        ],
+        "q": [
+          200,
+          600,
+          100
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "w * a / (L - a)",
+              "unit": "kg",
+              "tolerance": 0.03
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "q / 4",
+              "unit": "kg",
+              "tolerance": 0.02
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "order",
+              "options": [
+                "set_support",
+                "hang_blocks",
+                "thread_rope",
+                "tie_load",
+                "pull_slowly",
+                "jerk_rope"
+              ],
+              "answer": [
+                "set_support",
+                "hang_blocks",
+                "thread_rope",
+                "tie_load",
+                "pull_slowly"
+              ]
+            }
+          ]
+        }
+      ],
+      "death_chance": [
+        0.1,
+        0
+      ],
+      "profession": "dream_engineer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "interest",
+      "subject": "math",
+      "themes": [
+        "trade"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "EUR",
+          "from": 1300
+        }
+      ],
+      "params": {
+        "p": [
+          100,
+          300,
+          50
+        ],
+        "r": [
+          5,
+          15,
+          5
+        ],
+        "n": [
+          2,
+          4,
+          1
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "p * (1 + r/100)^n",
+              "unit": "coins",
+              "tolerance": 0.01
+            }
+          ]
+        },
+        {
+          "kind": "multi",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "7",
+              "abs": 0
+            },
+            {
+              "kind": "number",
+              "formula": "6",
+              "abs": 0
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "order",
+              "options": [
+                "two_sides",
+                "every_deal_twice",
+                "check_totals",
+                "burn_old_books"
+              ],
+              "answer": [
+                "two_sides",
+                "every_deal_twice",
+                "check_totals"
+              ]
+            }
+          ]
+        }
+      ],
+      "profession": "dream_banker",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 5
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "lenses",
+      "subject": "physics",
+      "themes": [
+        "scholar"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "EUR",
+          "from": 1286
+        }
+      ],
+      "params": {
+        "f": [
+          0.25,
+          1,
+          0.25
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "convex",
+                "concave",
+                "flat",
+                "colored"
+              ],
+              "answer": [
+                "convex"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "glass",
+                "rock_crystal",
+                "mica",
+                "obsidian",
+                "amber",
+                "horn"
+              ],
+              "answer": [
+                "glass",
+                "rock_crystal"
+              ],
+              "answer_by_era": {
+                "MAY": [
+                  "rock_crystal"
+                ],
+                "AMR": [
+                  "rock_crystal"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "1 / f",
+              "unit": "dpt",
+              "tolerance": 0.02
+            }
+          ]
+        }
+      ],
+      "profession": "dream_engineer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "latitude",
+      "subject": "physics",
+      "themes": [
+        "sea"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "region_tags": [
+        "port"
+      ],
+      "known_in": [
+        {
+          "era": "ISL",
+          "from": 900
+        }
+      ],
+      "params": {
+        "star": [
+          30,
+          55,
+          1
+        ],
+        "deg": [
+          1,
+          3,
+          1
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "star",
+              "unit": "deg",
+              "abs": 0.5
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "111 * deg",
+              "unit": "km",
+              "tolerance": 0.03
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "kamal",
+                "plumb_arc",
+                "compass_needle",
+                "hourglass",
+                "sounding_line",
+                "bell"
+              ],
+              "answer": [
+                "kamal",
+                "plumb_arc"
+              ]
+            }
+          ]
+        }
+      ],
+      "death_chance": [
+        0.15,
+        0
+      ],
+      "profession": "dream_astronomer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "compass",
+      "subject": "physics",
+      "themes": [
+        "sea",
+        "trade"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "CHN",
+          "from": 1100
+        },
+        {
+          "era": "EUR",
+          "from": 1190
+        },
+        {
+          "era": "ISL",
+          "from": 1230
+        }
+      ],
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "lodestone_needle",
+                "cork",
+                "water_bowl",
+                "copper_needle",
+                "amber",
+                "silk_thread"
+              ],
+              "answer": [
+                "lodestone_needle",
+                "cork",
+                "water_bowl"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "iron_mine",
+                "ore_trader",
+                "river_clay",
+                "sea_sand",
+                "beehive"
+              ],
+              "answer": [
+                "iron_mine",
+                "ore_trader"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "90",
+              "unit": "deg",
+              "abs": 1
+            }
+          ]
+        }
+      ],
+      "profession": "dream_astronomer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 3
+          },
+          {
+            "param": "reputation",
+            "delta": 20
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "health",
+            "delta": -20
+          },
+          {
+            "money_pct": -20
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -38,6 +38,7 @@
   },
   "lifeExpectancy": 30,
   "inheritance": "sons_first",
+  "scholar_climate": "welcoming",
   "traits": [
     "cautious",
     "ambitious",

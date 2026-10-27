@@ -1,0 +1,27 @@
+[
+  {
+    "id": "dream_intro",
+    "type": "dream",
+    "trigger_only": true,
+    "base_weight": 1,
+    "topic": "life",
+    "icon": "study",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 1,
+      "props": [
+        "moon",
+        "bed"
+      ]
+    },
+    "choices": [
+      {
+        "id": "try"
+      },
+      {
+        "id": "skip"
+      }
+    ]
+  }
+]
