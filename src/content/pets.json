@@ -1,0 +1,713 @@
+{
+  "pets": [
+    {
+      "id": "dog",
+      "life": [
+        12,
+        15
+      ],
+      "styles": [
+        "roman",
+        "greek",
+        "egyptian",
+        "mesopotamian",
+        "byzantine",
+        "islamic",
+        "indian",
+        "chinese",
+        "japanese",
+        "gothic",
+        "russian",
+        "sahel",
+        "ethiopian",
+        "maya",
+        "aztec",
+        "andean"
+      ],
+      "weight": 5,
+      "price": 0
+    },
+    {
+      "id": "cat",
+      "life": [
+        12,
+        18
+      ],
+      "styles": [
+        "roman",
+        "greek",
+        "egyptian",
+        "mesopotamian",
+        "byzantine",
+        "islamic",
+        "indian",
+        "chinese",
+        "japanese",
+        "gothic",
+        "russian",
+        "sahel",
+        "ethiopian"
+      ],
+      "weight": 4,
+      "price": 0,
+      "rare": [
+        "greek",
+        "sahel"
+      ]
+    },
+    {
+      "id": "songbird",
+      "life": [
+        4,
+        8
+      ],
+      "styles": [
+        "roman",
+        "greek",
+        "byzantine",
+        "islamic",
+        "chinese",
+        "gothic",
+        "russian"
+      ],
+      "weight": 1.5,
+      "price": 15
+    },
+    {
+      "id": "parrot",
+      "life": [
+        30,
+        60
+      ],
+      "styles": [
+        "maya",
+        "aztec",
+        "andean",
+        "sahel",
+        "indian",
+        "roman",
+        "byzantine",
+        "islamic",
+        "gothic"
+      ],
+      "weight": 1.5,
+      "price": 80,
+      "classes_by_style": {
+        "sahel": [
+          "trader",
+          "landowner",
+          "noble"
+        ],
+        "indian": [
+          "trader",
+          "landowner",
+          "noble"
+        ],
+        "roman": [
+          "noble"
+        ],
+        "byzantine": [
+          "noble"
+        ],
+        "islamic": [
+          "noble"
+        ],
+        "gothic": [
+          "noble"
+        ]
+      }
+    },
+    {
+      "id": "tortoise",
+      "life": [
+        40,
+        80
+      ],
+      "styles": [
+        "greek",
+        "roman",
+        "byzantine",
+        "islamic",
+        "sahel",
+        "maya",
+        "aztec",
+        "chinese",
+        "japanese"
+      ],
+      "weight": 1,
+      "price": 0
+    },
+    {
+      "id": "goldfish",
+      "life": [
+        10,
+        20
+      ],
+      "styles": [
+        "chinese",
+        "japanese"
+      ],
+      "years": {
+        "chinese": [
+          960,
+          9999
+        ],
+        "japanese": [
+          1502,
+          9999
+        ]
+      },
+      "classes": [
+        "trader",
+        "landowner",
+        "noble",
+        "craftsman"
+      ],
+      "weight": 1,
+      "price": 30
+    },
+    {
+      "id": "cricket",
+      "life": [
+        1,
+        1
+      ],
+      "styles": [
+        "chinese",
+        "japanese"
+      ],
+      "weight": 1,
+      "price": 0,
+      "owner": "child"
+    },
+    {
+      "id": "mouse",
+      "life": [
+        1,
+        3
+      ],
+      "styles": [
+        "roman",
+        "greek",
+        "egyptian",
+        "mesopotamian",
+        "byzantine",
+        "islamic",
+        "indian",
+        "chinese",
+        "japanese",
+        "gothic",
+        "russian",
+        "sahel",
+        "ethiopian",
+        "maya",
+        "aztec",
+        "andean"
+      ],
+      "weight": 0.8,
+      "price": 0,
+      "owner": "child"
+    },
+    {
+      "id": "guinea_pig",
+      "life": [
+        5,
+        8
+      ],
+      "styles": [
+        "andean"
+      ],
+      "weight": 1.5,
+      "price": 0
+    },
+    {
+      "id": "monkey",
+      "life": [
+        15,
+        25
+      ],
+      "styles": [
+        "egyptian",
+        "roman",
+        "indian",
+        "islamic",
+        "byzantine",
+        "maya"
+      ],
+      "classes": [
+        "trader",
+        "landowner",
+        "noble"
+      ],
+      "weight": 0.4,
+      "price": 150
+    },
+    {
+      "id": "mongoose",
+      "life": [
+        8,
+        12
+      ],
+      "styles": [
+        "indian",
+        "egyptian"
+      ],
+      "weight": 0.8,
+      "price": 0
+    },
+    {
+      "id": "falcon",
+      "life": [
+        12,
+        20
+      ],
+      "styles": [
+        "gothic",
+        "russian",
+        "islamic",
+        "byzantine",
+        "chinese",
+        "japanese",
+        "indian"
+      ],
+      "classes": [
+        "landowner",
+        "noble"
+      ],
+      "weight": 0.8,
+      "price": 120
+    }
+  ],
+  "names": {
+    "russian": {
+      "dog": [
+        {
+          "id": "pet_rus_d_0",
+          "ru": "Полкан",
+          "en": "Polkan"
+        },
+        {
+          "id": "pet_rus_d_1",
+          "ru": "Серко",
+          "en": "Serko"
+        },
+        {
+          "id": "pet_rus_d_2",
+          "ru": "Жучка",
+          "en": "Zhuchka"
+        },
+        {
+          "id": "pet_rus_d_3",
+          "ru": "Буян",
+          "en": "Buyan"
+        },
+        {
+          "id": "pet_rus_d_4",
+          "ru": "Лыско",
+          "en": "Lysko"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_rus_c_0",
+          "ru": "Мурка",
+          "en": "Murka"
+        },
+        {
+          "id": "pet_rus_c_1",
+          "ru": "Васька",
+          "en": "Vaska"
+        },
+        {
+          "id": "pet_rus_c_2",
+          "ru": "Дымка",
+          "en": "Dymka"
+        }
+      ]
+    },
+    "gothic": {
+      "dog": [
+        {
+          "id": "pet_eur_d_0",
+          "ru": "Бран",
+          "en": "Bran"
+        },
+        {
+          "id": "pet_eur_d_1",
+          "ru": "Байяр",
+          "en": "Bayard"
+        },
+        {
+          "id": "pet_eur_d_2",
+          "ru": "Ловкий",
+          "en": "Swift"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_eur_c_0",
+          "ru": "Гиб",
+          "en": "Gyb"
+        },
+        {
+          "id": "pet_eur_c_1",
+          "ru": "Тиберт",
+          "en": "Tibert"
+        },
+        {
+          "id": "pet_eur_c_2",
+          "ru": "Мими",
+          "en": "Mimi"
+        }
+      ]
+    },
+    "roman": {
+      "dog": [
+        {
+          "id": "pet_rom_d_0",
+          "ru": "Ферокс",
+          "en": "Ferox"
+        },
+        {
+          "id": "pet_rom_d_1",
+          "ru": "Гилакс",
+          "en": "Hylax"
+        },
+        {
+          "id": "pet_rom_d_2",
+          "ru": "Аргус",
+          "en": "Argus"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_rom_c_0",
+          "ru": "Феликс",
+          "en": "Felix"
+        },
+        {
+          "id": "pet_rom_c_1",
+          "ru": "Миля",
+          "en": "Mila"
+        }
+      ]
+    },
+    "greek": {
+      "dog": [
+        {
+          "id": "pet_grk_d_0",
+          "ru": "Аргос",
+          "en": "Argos"
+        },
+        {
+          "id": "pet_grk_d_1",
+          "ru": "Лелапс",
+          "en": "Laelaps"
+        },
+        {
+          "id": "pet_grk_d_2",
+          "ru": "Мелампус",
+          "en": "Melampus"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_grk_c_0",
+          "ru": "Айлурос",
+          "en": "Ailouros"
+        }
+      ]
+    },
+    "byzantine": {
+      "dog": [
+        {
+          "id": "pet_byz_d_0",
+          "ru": "Аргос",
+          "en": "Argos"
+        },
+        {
+          "id": "pet_byz_d_1",
+          "ru": "Тигрис",
+          "en": "Tigris"
+        },
+        {
+          "id": "pet_byz_d_2",
+          "ru": "Левкон",
+          "en": "Leukon"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_byz_c_0",
+          "ru": "Мурина",
+          "en": "Murina"
+        },
+        {
+          "id": "pet_byz_c_1",
+          "ru": "Хрисо",
+          "en": "Chryso"
+        }
+      ]
+    },
+    "islamic": {
+      "dog": [
+        {
+          "id": "pet_isl_d_0",
+          "ru": "Кытмир",
+          "en": "Qitmir"
+        },
+        {
+          "id": "pet_isl_d_1",
+          "ru": "Салук",
+          "en": "Saluq"
+        },
+        {
+          "id": "pet_isl_d_2",
+          "ru": "Барк",
+          "en": "Barq"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_isl_c_0",
+          "ru": "Муэзза",
+          "en": "Muezza"
+        },
+        {
+          "id": "pet_isl_c_1",
+          "ru": "Хирра",
+          "en": "Hirra"
+        },
+        {
+          "id": "pet_isl_c_2",
+          "ru": "Лулу",
+          "en": "Lulu"
+        }
+      ]
+    },
+    "indian": {
+      "dog": [
+        {
+          "id": "pet_ind_d_0",
+          "ru": "Шьяма",
+          "en": "Shyama"
+        },
+        {
+          "id": "pet_ind_d_1",
+          "ru": "Бхайрав",
+          "en": "Bhairav"
+        },
+        {
+          "id": "pet_ind_d_2",
+          "ru": "Моти",
+          "en": "Moti"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_ind_c_0",
+          "ru": "Билли",
+          "en": "Billi"
+        },
+        {
+          "id": "pet_ind_c_1",
+          "ru": "Мани",
+          "en": "Mani"
+        }
+      ]
+    },
+    "chinese": {
+      "dog": [
+        {
+          "id": "pet_chn_d_0",
+          "ru": "Хуан-эр",
+          "en": "Huang'er"
+        },
+        {
+          "id": "pet_chn_d_1",
+          "ru": "Сяо Хэй",
+          "en": "Xiao Hei"
+        },
+        {
+          "id": "pet_chn_d_2",
+          "ru": "Ваньцай",
+          "en": "Wangcai"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_chn_c_0",
+          "ru": "Сяо Ху",
+          "en": "Xiao Hu"
+        },
+        {
+          "id": "pet_chn_c_1",
+          "ru": "Сюэ-эр",
+          "en": "Xue'er"
+        }
+      ]
+    },
+    "japanese": {
+      "dog": [
+        {
+          "id": "pet_jpn_d_0",
+          "ru": "Сиро",
+          "en": "Shiro"
+        },
+        {
+          "id": "pet_jpn_d_1",
+          "ru": "Куро",
+          "en": "Kuro"
+        },
+        {
+          "id": "pet_jpn_d_2",
+          "ru": "Хати",
+          "en": "Hachi"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_jpn_c_0",
+          "ru": "Тама",
+          "en": "Tama"
+        },
+        {
+          "id": "pet_jpn_c_1",
+          "ru": "Мике",
+          "en": "Mike"
+        }
+      ]
+    },
+    "egyptian": {
+      "dog": [
+        {
+          "id": "pet_egy_d_0",
+          "ru": "Абутиу",
+          "en": "Abuwtiyuw"
+        },
+        {
+          "id": "pet_egy_d_1",
+          "ru": "Пахатес",
+          "en": "Pahates"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_egy_c_0",
+          "ru": "Нэджем",
+          "en": "Nedjem"
+        },
+        {
+          "id": "pet_egy_c_1",
+          "ru": "Миу",
+          "en": "Miu"
+        }
+      ]
+    },
+    "mesopotamian": {
+      "dog": [
+        {
+          "id": "pet_mes_d_0",
+          "ru": "Иту",
+          "en": "Itu"
+        },
+        {
+          "id": "pet_mes_d_1",
+          "ru": "Кальбу",
+          "en": "Kalbu"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_mes_c_0",
+          "ru": "Шурану",
+          "en": "Shuranu"
+        }
+      ]
+    },
+    "sahel": {
+      "dog": [
+        {
+          "id": "pet_waf_d_0",
+          "ru": "Бамба",
+          "en": "Bamba"
+        },
+        {
+          "id": "pet_waf_d_1",
+          "ru": "Сани",
+          "en": "Sani"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_waf_c_0",
+          "ru": "Нджау",
+          "en": "Njau"
+        }
+      ]
+    },
+    "ethiopian": {
+      "dog": [
+        {
+          "id": "pet_eth_d_0",
+          "ru": "Анбесса",
+          "en": "Anbessa"
+        },
+        {
+          "id": "pet_eth_d_1",
+          "ru": "Тесфа",
+          "en": "Tesfa"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_eth_c_0",
+          "ru": "Дмет",
+          "en": "Dimet"
+        }
+      ]
+    },
+    "maya": {
+      "dog": [
+        {
+          "id": "pet_may_d_0",
+          "ru": "Пек",
+          "en": "Pek"
+        },
+        {
+          "id": "pet_may_d_1",
+          "ru": "Ц'уль",
+          "en": "Tz'ul"
+        }
+      ]
+    },
+    "aztec": {
+      "dog": [
+        {
+          "id": "pet_azt_d_0",
+          "ru": "Шоло",
+          "en": "Xolo"
+        },
+        {
+          "id": "pet_azt_d_1",
+          "ru": "Тлалок",
+          "en": "Tlaloc"
+        }
+      ]
+    },
+    "andean": {
+      "dog": [
+        {
+          "id": "pet_and_d_0",
+          "ru": "Алльку",
+          "en": "Allqu"
+        },
+        {
+          "id": "pet_and_d_1",
+          "ru": "Уаман",
+          "en": "Waman"
+        }
+      ]
+    }
+  }
+}

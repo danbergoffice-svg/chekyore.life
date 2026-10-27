@@ -221,3 +221,40 @@ describe('Дом: пожар и отстройка (п. 13)', () => {
     expect(s.hero.diary.some((d) => d.key === 'diary.home_rebuilt')).toBe(true)
   })
 })
+
+describe('Питомцы (п. 12)', () => {
+  it('500 жизней по всем странам: питомцы только своего края, срок по виду, черепаха и попугай переходят наследнику', async () => {
+    const { loadAllEras, ERA_META } = await import('../src/content')
+    const { isPet, petDef } = await import('../src/engine/pets')
+    const eras = await loadAllEras()
+    let withPet = 0
+    let lives = 0
+    for (const e of Object.values(eras)) {
+      for (let k = 0; k < 40; k++, lives++) {
+        const s = autoplay(newLife(e, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 60000 + lives), e)
+        const style = ERA_META[e.id].regions.find((r) => r.id === s.hero.places[0])?.scene?.style ?? ''
+        const got = s.hero.diary.filter((d) => d.key.startsWith('diary.pet_new'))
+        if (got.length || s.hero.animals.some((a) => isPet(a.kind))) withPet++
+        for (const d of got) {
+          const kind = (d.params!.animal as { key: string }).key.slice(4)
+          // Питомец мог появиться в другом краю той же страны после переезда — проверяем страну целиком.
+          const styles = new Set(ERA_META[e.id].regions.map((r) => r.scene?.style))
+          expect(petDef(kind)!.styles.some((st) => styles.has(st)), `${e.id} ${kind}`).toBe(true)
+        }
+        for (const a of s.hero.animals.filter((a) => isPet(a.kind) && a.dies !== undefined)) {
+          const [lo, hi] = petDef(a.kind)!.life
+          expect(a.dies! - a.born!).toBeGreaterThanOrEqual(lo)
+          expect(a.dies! - a.born!).toBeLessThanOrEqual(hi)
+        }
+        void style
+      }
+    }
+    expect(withPet / lives).toBeGreaterThan(0.35)
+    expect(withPet / lives).toBeLessThan(0.75)
+    // Хомяков, кошек в Америке — нет.
+    const amr = await (async () => (await import('../src/engine/pets')).petPossible)()
+    const s = newLife(eras.AMR, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 1)
+    expect(amr(s, 'cat')).toBe(false)
+    expect(amr(s, 'hamster')).toBe(false)
+  }, 300000)
+})

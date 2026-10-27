@@ -1,7 +1,8 @@
 // Хозяйство героя: дом и животные. Меняются вместе с жизнью — разбогател и купил дом побольше или корову,
 // задолжал и продал; к дому прибился пёс. Всё это видно на картинке и записывается в дневник.
 import { ERA_META } from '../content'
-import { chance, pick } from './rng'
+import { chance, int, pick } from './rng'
+import { isPet, makePet, petDef, pets, randomPet } from './pets'
 import { changeParam, HOME_TAGS, note } from './rules'
 import type { EraDef, EraMeta, GameState } from './types'
 
@@ -13,7 +14,6 @@ const HOME_BY_CLASS: Record<string, number> = { slave: 0, peasant: 1, craftsman:
 export const ANIMAL_COST: Record<string, number> = {
   chickens: 10, turkey: 15, goat: 30, sheep: 30, pig: 40, llama: 60, donkey: 80, cow: 120, ox: 150, camel: 250, horse: 300, dog: 0, cat: 0,
 }
-const PETS = ['dog', 'cat']
 
 /** Какой скот держат в краю: по стилю края (он же культура) и признакам страны. */
 function livestock(state: GameState): string[] {
@@ -30,11 +30,6 @@ function livestock(state: GameState): string[] {
   return out
 }
 
-function pets(state: GameState): string[] {
-  const style = ERA_META[state.hero.era]?.regions.find((r) => r.id === state.hero.region)?.scene?.style
-  // Домашних кошек в Америке до европейцев не было.
-  return style === 'maya' || style === 'aztec' || style === 'andean' ? ['dog'] : PETS
-}
 
 const rural = (state: GameState) => state.hero.tags.includes('rural') || ['peasant', 'landowner'].includes(state.hero.cls)
 
@@ -50,7 +45,17 @@ export function initHousehold(state: GameState): void {
   }
   if (hero.cls === 'landowner') for (const k of stock.slice(-2)) hero.animals.push({ kind: k, since: state.year })
   if (hero.cls === 'noble' && stock.includes('horse')) hero.animals.push({ kind: 'horse', since: state.year })
-  if (chance(state, 0.25)) hero.animals.push({ kind: pick(state, pets(state)), since: state.year })
+  // Пёс или кошка, которые жили в семье ещё до рождения героя.
+  if (chance(state, 0.18)) {
+    const kind = randomPet(state, ['dog', 'cat'])
+    if (kind) {
+      const pet = makePet(state, kind)
+      const [a, b] = petDef(kind)!.life
+      pet.born = state.year - int(state, 1, 5)
+      pet.dies = pet.born + int(state, a, b)
+      hero.animals.push(pet)
+    }
+  }
 }
 
 /** Год хозяйства: покупки, продажи, питомцы. Вызывается после того, как посчитаны доходы и расходы. */
@@ -82,7 +87,7 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
   }
   // В долгах приходится продавать: сначала скот, потом дом.
   if (adult && hero.money < 0) {
-    const stock = hero.animals.filter((a) => !PETS.includes(a.kind))
+    const stock = hero.animals.filter((a) => !isPet(a.kind))
     if (stock.length && chance(state, 0.4)) {
       const sold = stock[stock.length - 1]
       hero.animals = hero.animals.filter((a) => a !== sold)
@@ -98,7 +103,7 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
   // Скот в деревенском хозяйстве.
   if (adult && free && rural(state) && hero.money > 0) {
     const stock = livestock(state).filter((k) => (ANIMAL_COST[k] ?? 0) * 2.5 < hero.money)
-    const herd = hero.animals.filter((a) => !PETS.includes(a.kind)).length
+    const herd = hero.animals.filter((a) => !isPet(a.kind)).length
     if (stock.length && herd < 4 && chance(state, 0.18)) {
       // Сначала то, чего ещё нет, и подороже: курица → коза → корова → лошадь.
       const owned = new Set(hero.animals.map((a) => a.kind))
@@ -110,17 +115,34 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
       changeParam(hero, 'happiness', 2)
     }
   }
-  // Питомцы приходят сами и стареют.
-  const pet = hero.animals.find((a) => PETS.includes(a.kind))
-  if (pet && state.year - pet.since > 9 && chance(state, 0.2)) {
+  petsYear(state)
+}
+
+/**
+ * Питомцы стареют: каждый доживает свой срок (собака 12–15, кошка 12–18, попугай и черепаха — дольше человека),
+ * если раньше не случится беда (болезнь, волки, повозка; в нужде — чаще). Появляются они событиями (events_pets).
+ */
+function petsYear(state: GameState): void {
+  const hero = state.hero
+  const poor = hero.money < 0 || hero.tags.includes('home_damaged')
+  for (const pet of pets(state)) {
+    // Старые сохранения: питомцу без срока назначаем его сейчас.
+    if (pet.dies === undefined) Object.assign(pet, makePet(state, pet.kind), { since: pet.since, name: pet.name })
+    const d = petDef(pet.kind)!
+    // Ранняя беда: у собак и кошек чаще, у черепах и попугаев — редко.
+    const early = d.life[1] >= 30 ? 0.004 : d.life[1] >= 10 ? 0.012 + (poor ? 0.03 : 0) : 0
+    if (state.year < pet.dies! && !chance(state, early)) continue
     hero.animals = hero.animals.filter((a) => a !== pet)
-    note(state, { key: 'diary.pet_died', params: { animal: { key: `animal.${pet.kind}` } }, topic: 'life', score: 16, mood: -5 })
-    changeParam(hero, 'happiness', -4)
-  } else if (!pet && hero.age >= 4 && chance(state, 0.05)) {
-    const kind = pick(state, pets(state))
-    hero.animals.push({ kind, since: state.year })
-    note(state, { key: `diary.pet_found_${kind}`, topic: 'life', score: 16, mood: 5 })
-    changeParam(hero, 'happiness', 4)
-    changeParam(hero, 'loneliness', -4)
+    const years = Math.max(1, state.year - (pet.born ?? pet.since))
+    const kid = pet.owner ? hero.npcs.find((n) => n.id === pet.owner && n.alive) : undefined
+    note(state, {
+      key: pet.name ? 'diary.pet_died_named' : 'diary.pet_gone',
+      params: { animal: { key: `pet.${pet.kind}` }, name: { name: pet.name ?? '' }, n: years, kid: { name: kid?.name ?? '' } },
+      topic: 'life',
+      score: 16,
+      mood: -5,
+    })
+    changeParam(hero, 'happiness', d.life[1] >= 10 ? -5 : -2)
+    if (kid) note(state, { key: 'diary.pet_died_kid', params: { kid: { name: kid.name }, sex: kid.sex }, topic: 'family', score: 8 })
   }
 }

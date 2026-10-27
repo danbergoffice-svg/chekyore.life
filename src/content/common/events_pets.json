@@ -1,0 +1,975 @@
+[
+  {
+    "id": "pt_stray_puppy",
+    "type": "personal",
+    "base_weight": 0.8,
+    "topic": "life",
+    "age_range": [
+      6,
+      90
+    ],
+    "conditions": [
+      {
+        "pet_possible": "dog"
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 1
+    },
+    "choices": [
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "add_pet": "dog"
+          }
+        ]
+      },
+      {
+        "id": "chase",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pt_kitten",
+    "type": "personal",
+    "base_weight": 0.7,
+    "topic": "life",
+    "age_range": [
+      6,
+      90
+    ],
+    "conditions": [
+      {
+        "pet_possible": "cat"
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "dawn",
+      "people": 1
+    },
+    "choices": [
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "add_pet": "cat"
+          },
+          {
+            "param": "stress",
+            "delta": -2
+          }
+        ]
+      },
+      {
+        "id": "leave"
+      }
+    ]
+  },
+  {
+    "id": "pt_child_kitten",
+    "type": "family",
+    "base_weight": 0.7,
+    "topic": "life",
+    "npc": "child",
+    "npc_age": [
+      4,
+      13
+    ],
+    "conditions": [
+      {
+        "pet_possible": "cat"
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "yes",
+        "effects": [
+          {
+            "add_pet": "cat",
+            "owner": "npc"
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 10
+          }
+        ]
+      },
+      {
+        "id": "no",
+        "effects": [
+          {
+            "npc_attitude": "npc",
+            "delta": -6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pt_child_puppy",
+    "type": "family",
+    "base_weight": 0.7,
+    "topic": "life",
+    "npc": "child",
+    "npc_age": [
+      4,
+      13
+    ],
+    "conditions": [
+      {
+        "pet_possible": "dog"
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "yes",
+        "effects": [
+          {
+            "add_pet": "dog",
+            "owner": "npc"
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 10
+          }
+        ]
+      },
+      {
+        "id": "no",
+        "effects": [
+          {
+            "npc_attitude": "npc",
+            "delta": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pt_beg_dog",
+    "type": "personal",
+    "base_weight": 0.7,
+    "topic": "life",
+    "age_range": [
+      5,
+      12
+    ],
+    "conditions": [
+      {
+        "pet_possible": "dog"
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "plead",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "add_pet": "dog"
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "happiness",
+              "delta": -3
+            }
+          ]
+        }
+      },
+      {
+        "id": "obey",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pt_parrot_merchant",
+    "type": "personal",
+    "base_weight": 0.8,
+    "topic": "life",
+    "age_range": [
+      16,
+      90
+    ],
+    "not_eras": [
+      "MAY",
+      "AMR"
+    ],
+    "conditions": [
+      {
+        "pet_possible": "parrot"
+      }
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "buy",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -80
+          },
+          {
+            "add_pet": "parrot"
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ],
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 80
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "pt_parrot_nest",
+    "type": "personal",
+    "base_weight": 1.2,
+    "topic": "life",
+    "age_range": [
+      8,
+      90
+    ],
+    "eras": [
+      "MAY",
+      "AMR"
+    ],
+    "conditions": [
+      {
+        "pet_possible": "parrot"
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -10
+          },
+          {
+            "add_pet": "parrot"
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "pt_songbird",
+    "type": "personal",
+    "base_weight": 0.9,
+    "topic": "life",
+    "age_range": [
+      8,
+      90
+    ],
+    "conditions": [
+      {
+        "pet_possible": "songbird"
+      }
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "buy",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -15
+          },
+          {
+            "add_pet": "songbird"
+          }
+        ]
+      },
+      {
+        "id": "free",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -15
+          },
+          {
+            "param": "faith",
+            "delta": 3
+          },
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "pt_tortoise",
+    "type": "personal",
+    "base_weight": 0.9,
+    "topic": "life",
+    "age_range": [
+      5,
+      90
+    ],
+    "conditions": [
+      {
+        "pet_possible": "tortoise"
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 1
+    },
+    "choices": [
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "add_pet": "tortoise"
+          }
+        ]
+      },
+      {
+        "id": "release"
+      }
+    ]
+  },
+  {
+    "id": "pt_goldfish",
+    "type": "personal",
+    "base_weight": 0.8,
+    "topic": "life",
+    "age_range": [
+      10,
+      90
+    ],
+    "conditions": [
+      {
+        "pet_possible": "goldfish"
+      }
+    ],
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "buy",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -30
+          },
+          {
+            "add_pet": "goldfish"
+          },
+          {
+            "param": "stress",
+            "delta": -2
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "pt_cricket",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "age_range": [
+      6,
+      14
+    ],
+    "conditions": [
+      {
+        "pet_possible": "cricket"
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "sunset",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "catch",
+        "effects": [
+          {
+            "add_pet": "cricket"
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "pt_mouse",
+    "type": "personal",
+    "base_weight": 0.6,
+    "topic": "life",
+    "age_range": [
+      5,
+      12
+    ],
+    "conditions": [
+      {
+        "pet_possible": "mouse"
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 1
+    },
+    "choices": [
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "add_pet": "mouse"
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "pt_guinea_pig",
+    "type": "personal",
+    "base_weight": 1.2,
+    "topic": "life",
+    "age_range": [
+      4,
+      14
+    ],
+    "conditions": [
+      {
+        "pet_possible": "guinea_pig"
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "beg",
+        "effects": [
+          {
+            "add_pet": "guinea_pig"
+          }
+        ]
+      },
+      {
+        "id": "accept",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": -2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pt_monkey",
+    "type": "personal",
+    "base_weight": 0.6,
+    "topic": "life",
+    "age_range": [
+      16,
+      90
+    ],
+    "conditions": [
+      {
+        "pet_possible": "monkey"
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "accept",
+        "effects": [
+          {
+            "add_pet": "monkey"
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "decline"
+      }
+    ]
+  },
+  {
+    "id": "pt_falcon",
+    "type": "personal",
+    "base_weight": 0.8,
+    "topic": "life",
+    "age_range": [
+      16,
+      80
+    ],
+    "conditions": [
+      {
+        "pet_possible": "falcon"
+      }
+    ],
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "buy",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -120
+          },
+          {
+            "add_pet": "falcon"
+          },
+          {
+            "param": "reputation",
+            "delta": 4
+          }
+        ],
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 120
+          }
+        ]
+      },
+      {
+        "id": "no"
+      }
+    ]
+  },
+  {
+    "id": "pt_mongoose",
+    "type": "personal",
+    "base_weight": 0.8,
+    "topic": "life",
+    "age_range": [
+      6,
+      90
+    ],
+    "conditions": [
+      {
+        "pet_possible": "mongoose"
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 1
+    },
+    "choices": [
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "add_pet": "mongoose"
+          }
+        ]
+      },
+      {
+        "id": "chase"
+      }
+    ]
+  },
+  {
+    "id": "pt_dog_thief",
+    "type": "personal",
+    "base_weight": 1.2,
+    "topic": "life",
+    "moment": true,
+    "pet": "dog",
+    "scene": {
+      "place": "yard",
+      "time": "night",
+      "people": 1,
+      "props": [
+        "moon"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 10
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "pt_dog_saves",
+    "type": "family",
+    "base_weight": 0.6,
+    "topic": "life",
+    "moment": true,
+    "pet": "dog",
+    "conditions": [
+      {
+        "has_npc": "child"
+      }
+    ],
+    "scene": {
+      "place": "river",
+      "time": "day",
+      "people": 2
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 6
+      },
+      {
+        "param": "stress",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "pt_dog_chicken",
+    "type": "personal",
+    "base_weight": 0.8,
+    "topic": "life",
+    "pet": "dog",
+    "age_range": [
+      14,
+      90
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -8
+          }
+        ]
+      },
+      {
+        "id": "argue",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": -1
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "money",
+              "delta": -16
+            },
+            {
+              "param": "reputation",
+              "delta": -3
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "pt_cat_mice",
+    "type": "personal",
+    "base_weight": 1.2,
+    "topic": "life",
+    "moment": true,
+    "pet": "cat",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 1
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 8
+      }
+    ]
+  },
+  {
+    "id": "pt_cat_lap",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "moment": true,
+    "pet": "cat",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 1
+    },
+    "effects": [
+      {
+        "param": "stress",
+        "delta": -3
+      },
+      {
+        "param": "loneliness",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "pt_parrot_words",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "moment": true,
+    "pet": "parrot",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 3
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "reputation",
+        "delta": -1
+      }
+    ]
+  },
+  {
+    "id": "pt_bird_song",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "moment": true,
+    "pet": "songbird",
+    "scene": {
+      "place": "home",
+      "time": "dawn",
+      "people": 1
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "stress",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "pt_tortoise_spring",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "moment": true,
+    "pet": "tortoise",
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 1,
+      "props": [
+        "sun"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "pt_falcon_hunt",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "moment": true,
+    "pet": "falcon",
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 3
+    },
+    "effects": [
+      {
+        "param": "reputation",
+        "delta": 4
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "pt_monkey_mischief",
+    "type": "personal",
+    "base_weight": 1,
+    "topic": "life",
+    "moment": true,
+    "pet": "monkey",
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 3
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": -6
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "pt_hungry_dog",
+    "type": "personal",
+    "base_weight": 1.5,
+    "topic": "life",
+    "pet": "dog",
+    "age_range": [
+      14,
+      90
+    ],
+    "conditions": [
+      {
+        "param": "money",
+        "op": "<",
+        "value": 0
+      }
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "overcast",
+      "people": 1
+    },
+    "choices": [
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -2
+          },
+          {
+            "param": "happiness",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "let_go",
+        "effects": [
+          {
+            "remove_pet": "dog"
+          },
+          {
+            "param": "happiness",
+            "delta": -6
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,6 +1,7 @@
 // Проверка контента страны: тексты на обоих языках, ссылки, сцены, вера, регионы.
 // Используется в тестах (tests/content.test.ts) и в инструменте npm run check -- <ID> для авторов контента.
 import { allKeys, createT, hasKey, LANGS } from '../i18n'
+import { isPet } from '../engine/pets'
 import { PRIMER_TOPICS, SCENE_PLACES, SCENE_PROPS, SCENE_TIMES, TOPICS } from '../engine/types'
 import type { Condition, Effect, EraDef, EventDef } from '../engine/types'
 import { ERA_META, RELIGION_BY_ID, RELIGIONS } from '.'
@@ -171,6 +172,12 @@ function checkHomeBurn(ev: EventDef, bad: string[]) {
   if (HOUSE_BURNED.test(text) && !JSON.stringify(ev).includes('"home":"burn"')) bad.push(`${ev.id}: в тексте дом сгорел, но нет эффекта {"home":"burn"}`)
 }
 
+/** Питомцы в событиях — только виды из src/content/pets.json. */
+function checkPets(ev: EventDef, bad: string[]) {
+  const s = JSON.stringify(ev)
+  for (const m of s.matchAll(/"(?:add_pet|has_pet|pet_possible|remove_pet|pet)":"([a-z_@]+)"/g)) if (!m[1].startsWith('@') && !isPet(m[1])) bad.push(`${ev.id}: питомец ${m[1]}`)
+}
+
 function checkCountry(era: EraDef, bad: string[]) {
   if (!(era.population > 0)) bad.push('population')
   for (const f of era.features ?? []) if (!FEATURES.includes(f)) bad.push(`feature ${f}`)
@@ -222,13 +229,14 @@ export function validateEra(era: EraDef): string[] {
     checkRoles(ev, bad)
     checkAway(ev, bad)
     checkHomeBurn(ev, bad)
+    checkPets(ev, bad)
   }
   return bad
 }
 
 /** Параметры для проверки, что после подстановки не остаётся {скобок}. */
 export const SAMPLE_PARAMS = {
-  n: 3, npc: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
+  n: 3, npc: 'x', pet: 'x', kid: 'x', place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
   grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x', born: 'x', died: 'x', focus: 'x', via: 'x', role: 'x',
 }
 

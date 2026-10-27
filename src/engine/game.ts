@@ -24,6 +24,7 @@ import {
   awayNpcs,
 } from './rules'
 import { householdYear } from './household'
+import { pets } from './pets'
 import { summarize } from './life'
 import { PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
@@ -452,6 +453,7 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   if (last !== undefined && (ev.once || ev.milestone || ev.global_chance !== undefined)) return false
   if (last !== undefined && !ignoreTiming && state.year - last < COOLDOWN) return false
   if (ev.npc && npcCandidates(state, ev).length === 0) return false
+  if (ev.pet && !pets(state).some((p) => p.kind === ev.pet)) return false
   if (ev.effects && addsSpouse({ id: '', effects: ev.effects }) && aliveNpcs(hero, 'spouse').length > 0) return false
   if (convertsToOther(ev) && !resolveFaith(state, 'other')) return false
   if (ev.dynamic === 'profession' && professionChoices(state, era).length === 0) return false
@@ -468,6 +470,7 @@ function activate(state: GameState, ev: EventDef, from?: number, npcId?: string)
     npcId: npc?.id,
     npcName: npc?.name,
     npcSex: npc?.sex,
+    ...(ev.pet ? { petKind: ev.pet, petName: pets(state).find((p) => p.kind === ev.pet)?.name } : {}),
     variant: ev.variants ? int(state, 1, ev.variants) : undefined,
     from,
     outcome: null,
@@ -475,10 +478,12 @@ function activate(state: GameState, ev: EventDef, from?: number, npcId?: string)
 }
 
 /** Параметры текста события: имя и пол персонажа, о котором оно. */
-export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex'>): Record<string, TextParam> {
+export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName'>): Record<string, TextParam> {
+  // Питомец: по кличке, а если клички нет — «попугай», «черепаха».
+  const pet: Record<string, TextParam> = active.petKind ? { pet: active.petName ? { name: active.petName } : { key: `pet.${active.petKind}` } } : {}
   const npc = state.hero.npcs.find((n) => n.id === active.npcId)
-  if (npc) return { npc: { name: npc.name }, npc_sex: npc.sex }
-  return active.npcName ? { npc: { name: active.npcName }, npc_sex: active.npcSex ?? 'm' } : {}
+  if (npc) return { npc: { name: npc.name }, npc_sex: npc.sex, ...pet }
+  return active.npcName ? { npc: { name: active.npcName }, npc_sex: active.npcSex ?? 'm', ...pet } : pet
 }
 
 export function eventTextKey(ev: EventDef, variant?: number): string {

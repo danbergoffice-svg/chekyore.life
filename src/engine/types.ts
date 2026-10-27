@@ -288,6 +288,10 @@ export type Condition =
   | { no_profession: true }
   | { has_npc: NpcRole; age_min?: number; age_max?: number }
   | { no_npc: NpcRole }
+  /** Есть питомец этого вида / такого питомца могли держать здесь и сейчас / питомцев меньше n. */
+  | { has_pet: string }
+  | { pet_possible: string }
+  | { pets_below: number }
   | { classes: string[] }
   | { age: [number, number] }
   | { religion: string[] }
@@ -328,6 +332,9 @@ export type Effect =
   | { set_religion: string }
   /** Переехать в другой регион страны: id региона или '@capital', '@port', '@other'. */
   | { migrate: string }
+  /** Новый питомец: вид, '@any' — любой возможный здесь, '@stray' — пёс или кошка; owner child — питомец ребёнка героя. */
+  | { add_pet: string; owner?: 'child' | 'npc' }
+  | { remove_pet: string }
   /** Дом героя: сгорел, разрушен (на ступень меньше, стоит повреждённым) или отстраивается. */
   | { home: 'burn' | 'ruin' | 'rebuild' }
   | { chance: number; effects: Effect[] }
@@ -410,6 +417,8 @@ export interface EventDef {
   /** Отбор человека события по метке (например, пьёт) и по её отсутствию. */
   npc_tag?: string
   npc_no_tag?: string
+  /** Событие про питомца этого вида: он должен быть у героя, его имя — {pet} в тексте. */
+  pet?: string
   /** Событие про того, кто вдали (уехал, на службе, в монастыре): весть от него или его возвращение. */
   npc_away?: boolean | AwayReason[]
   /** Родственники, которые упомянуты в тексте, но это чужие люди (не нужна проверка, что они есть у героя). */
@@ -584,10 +593,15 @@ export interface Hero {
 }
 
 export interface Animal {
-  /** chickens, goat, sheep, pig, cow, ox, donkey, horse, camel, llama, turkey, dog, cat… */
+  /** chickens, goat, sheep, pig, cow, ox, donkey, horse, camel, llama, turkey; питомцы — src/content/pets.json. */
   kind: string
   /** С какого года в хозяйстве. */
   since: number
+  /** Питомец: год рождения, год, до которого доживёт (если раньше не случится беда), имя, хозяин (id ребёнка). */
+  born?: number
+  dies?: number
+  name?: string
+  owner?: string
 }
 
 export interface LifeSummary {
@@ -637,6 +651,9 @@ export interface ActiveEvent {
   npcId?: string
   npcName?: string
   npcSex?: Sex
+  /** Питомец события: вид и кличка (если есть). */
+  petKind?: string
+  petName?: string
   variant?: number
   /** Номер записи-решения, если это отложенное последствие. */
   from?: number

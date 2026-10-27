@@ -1,6 +1,7 @@
 import { bell, chance, int, pick, weighted } from './rng'
 import { addYears, clamp, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
+import { isPet } from './pets'
 import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
 import type { AttrId, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
@@ -244,6 +245,13 @@ function familyOfDescendant(state: GameState, era: EraDef, prevHero: Hero, heir:
   }
 }
 
+/** Долгоживущие питомцы (попугай, черепаха) и все, кто живёт в доме, переходят к наследнику — запись в дневник. */
+function inheritPets(hero: Hero, year: number): void {
+  for (const pet of hero.animals.filter((a) => isPet(a.kind) && (a.born ?? a.since) < hero.birthYear)) {
+    hero.diary.push({ year, age: hero.age, key: pet.name ? 'diary.pet_inherited_named' : 'diary.pet_inherited', params: { animal: { key: `pet.${pet.kind}` }, name: { name: pet.name ?? '' }, n: Math.max(1, year - pet.since) }, reg: hero.region, rel: hero.religion, topic: 'life', score: 12 })
+  }
+}
+
 /** Продолжение рода: наследник становится новым героем, время идёт дальше. */
 export function continueWithHeir(prev: GameState, era: EraDef, childId: string): GameState {
   const parent = prev.hero
@@ -302,6 +310,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
 
   if (gen > 1) {
     familyOfDescendant(state, era, parent, child)
+    inheritPets(hero, prev.year)
     const via = parent.npcs.find((n) => n.id === child.parentId)
     hero.diary.push({ year: prev.year, age: hero.age, key: gen === 2 ? 'diary.heir_grand' : 'diary.heir_great', params: { parent: { name: parent.name }, psex: parent.sex, via: { name: via?.name ?? '' }, vsex: via?.sex ?? 'm', money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
     return state
@@ -324,6 +333,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     if (n.role === 'spouse') hero.npcs.push({ ...n, role: n.sex === 'm' ? 'father' : 'mother', attitude: 50 })
     if (n.role === 'child' && n.id !== child.id && n.alive) hero.npcs.push({ ...n, role: 'sibling', attitude: 30 })
   }
+  inheritPets(hero, prev.year)
   hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
   return state
 }

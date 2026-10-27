@@ -13,6 +13,7 @@ import {
   stageOf,
 } from '../engine/game'
 import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey } from '../engine/rules'
+import { isPet } from '../engine/pets'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Lang, Npc, SceneTime } from '../engine/types'
 import type { AvatarInput } from '../pixel/avatar'
@@ -308,7 +309,16 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           </p>
           <p class="small">
             <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)} · <strong>{t('hero.animals')}:</strong>{' '}
-            {hero.animals?.length ? hero.animals.map((a) => t(`animal.${a.kind}`, {}, o)).join(', ') : t('hero.no_animals')}
+            {hero.animals?.length
+              ? hero.animals
+                  .map((a) =>
+                    // Питомец — с кличкой и возрастом: «пёс Полкан, 7 лет».
+                    isPet(a.kind)
+                      ? `${t(`pet.${a.kind}`, {}, o)}${a.name ? ` ${nameOf(a.name, lang)}` : ''}${a.born !== undefined ? `, ${t('hero.pet_age', { n: Math.max(0, state.year - a.born) })}` : ''}`
+                      : t(`animal.${a.kind}`, {}, o),
+                  )
+                  .join('; ')
+              : t('hero.no_animals')}
           </p>
           <div class="bars">
             {ATTRIBUTES.map((id) => <Bar label={t(`attr.${id}`)} value={hero.attrs[id]} />)}

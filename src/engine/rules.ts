@@ -1,4 +1,5 @@
 import { ERA_META, RELIGION_BY_ID } from '../content'
+import { MAX_PETS, makePet, petPossible, pets, randomPet } from './pets'
 import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
 import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
@@ -154,6 +155,9 @@ export function check(state: GameState, c: Condition): boolean {
     })
   }
   if ('no_npc' in c) return aliveNpcs(hero, c.no_npc).length === 0
+  if ('has_pet' in c) return pets(state).some((p) => p.kind === c.has_pet)
+  if ('pet_possible' in c) return pets(state).length < MAX_PETS && !pets(state).some((p) => p.kind === c.pet_possible) && petPossible(state, c.pet_possible)
+  if ('pets_below' in c) return pets(state).length < c.pets_below
   if ('classes' in c) return c.classes.includes(hero.cls)
   if ('age' in c) return hero.age >= c.age[0] && hero.age <= c.age[1]
   if ('religion' in c) return faithMatches(hero.religion, c.religion)
@@ -483,6 +487,19 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       }
     } else if ('home' in e) {
       homeEffect(state, e.home)
+    } else if ('add_pet' in e) {
+      const kind = e.add_pet === '@any' ? randomPet(state) : e.add_pet === '@stray' ? randomPet(state, ['dog', 'cat']) : petPossible(state, e.add_pet) ? e.add_pet : undefined
+      if (kind && pets(state).length < MAX_PETS) {
+        const kid = e.owner === 'child' ? aliveNpcs(hero, 'child').sort((a, b) => b.birthYear - a.birthYear)[0] : e.owner === 'npc' ? hero.npcs.find((n) => n.id === ctx.npcId) : undefined
+        const pet = makePet(state, kind, kid?.id)
+        hero.animals = [...(hero.animals ?? []), pet]
+        note(state, { key: pet.name ? 'diary.pet_new_named' : 'diary.pet_new', params: { animal: { key: `pet.${kind}` }, name: { name: pet.name ?? '' } }, topic: 'life', icon: 'find', score: 18, mood: 5 })
+        changeParam(hero, 'happiness', 4)
+        changeParam(hero, 'loneliness', -4)
+      }
+    } else if ('remove_pet' in e) {
+      const pet = pets(state).find((p) => p.kind === e.remove_pet)
+      if (pet) hero.animals = hero.animals.filter((a) => a !== pet)
     } else if ('chance' in e) {
       if (chance(state, e.chance)) applyEffects(state, era, e.effects, ctx)
     }

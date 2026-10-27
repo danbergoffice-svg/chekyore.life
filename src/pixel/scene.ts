@@ -1525,6 +1525,110 @@ function animal(px: Px, kind: string, x: number, k: number) {
       px(x - 1, g - 6, 1, 4, c('#5a5a5a'))
       legs([0, 3], '#4a4a4a', 1)
       return
+    default:
+      return pet(px, kind, x, g, k)
+  }
+}
+
+/** Цвет попугая по краю: ара у майя, ацтеков и инков, серый жако в Мали, зелёный кольчатый в Индии и Старом свете. */
+let parrotStyle = ''
+function parrotColors(): [string, string] {
+  if (parrotStyle === 'maya' || parrotStyle === 'aztec' || parrotStyle === 'andean') return ['#c8302a', '#2a6ab8']
+  if (parrotStyle === 'sahel') return ['#8a8a8a', '#c0302a']
+  return ['#3a9a4a', '#c0302a']
+}
+
+/** Питомец (кроме пса и кошки): стоит на земле или на «полу» y = base. */
+function pet(px: Px, kind: string, x: number, base: number, k: number) {
+  const c = (h: string) => shade(h, k * 0.6)
+  switch (kind) {
+    case 'parrot': {
+      const [body, tail] = parrotColors()
+      px(x, base - 6, 3, 4, c(body))
+      px(x + 2, base - 7, 2, 2, c(body))
+      px(x + 4, base - 6, 1, 1, c('#e8dcc0'))
+      px(x + 1, base - 2, 1, 2, c(tail))
+      return
+    }
+    case 'songbird':
+      // Клетка с птицей.
+      px(x, base - 9, 7, 1, c('#8a6a3a'))
+      for (let i = 0; i < 7; i += 2) px(x + i, base - 8, 1, 8, c('#8a6a3a'))
+      px(x, base, 7, 1, c('#8a6a3a'))
+      px(x + 2, base - 4, 3, 2, c('#d8a83a'))
+      px(x + 4, base - 5, 1, 1, c('#c0302a'))
+      return
+    case 'tortoise':
+      px(x, base - 3, 6, 2, c('#6a6a3a'))
+      px(x + 1, base - 4, 4, 1, c('#8a7a4a'))
+      px(x + 6, base - 2, 2, 1, c('#8a8a5a'))
+      px(x + 1, base - 1, 1, 1, c('#8a8a5a'))
+      px(x + 4, base - 1, 1, 1, c('#8a8a5a'))
+      return
+    case 'goldfish':
+      // Чаша с водой и двумя рыбками.
+      px(x, base - 5, 8, 5, c('#9ac0d8'))
+      px(x + 1, base, 6, 1, c('#6a8aa0'))
+      px(x + 2, base - 3, 2, 1, c('#f0902a'))
+      px(x + 5, base - 2, 2, 1, c('#f0902a'))
+      return
+    case 'mouse':
+      px(x, base - 2, 3, 2, c('#9a9088'))
+      px(x + 3, base - 2, 1, 1, c('#9a9088'))
+      px(x - 2, base - 1, 2, 1, c('#c8a8a0'))
+      return
+    case 'guinea_pig':
+      px(x, base - 3, 5, 3, c('#c8783a'))
+      px(x + 1, base - 3, 2, 1, c('#efe2c8'))
+      px(x + 5, base - 2, 1, 1, c('#3a2a20'))
+      return
+    case 'monkey':
+      px(x, base - 6, 4, 4, c('#7a5a3a'))
+      px(x + 1, base - 9, 3, 3, c('#7a5a3a'))
+      px(x + 2, base - 8, 1, 1, c('#d8b890'))
+      px(x + 1, base - 10, 2, 1, c('#c0302a'))
+      px(x + 4, base - 4, 3, 1, c('#7a5a3a'))
+      px(x + 1, base - 2, 1, 2, c('#5a3a2a'))
+      px(x + 3, base - 2, 1, 2, c('#5a3a2a'))
+      return
+    case 'mongoose':
+      px(x, base - 3, 7, 2, c('#8a7a5a'))
+      px(x + 7, base - 3, 2, 1, c('#8a7a5a'))
+      px(x - 3, base - 2, 3, 1, c('#6a5a40'))
+      px(x + 1, base - 1, 1, 1, c('#5a4a30'))
+      px(x + 5, base - 1, 1, 1, c('#5a4a30'))
+      return
+    case 'falcon':
+      px(x, base - 6, 3, 5, c('#6a5a4a'))
+      px(x + 1, base - 7, 2, 1, c('#3a3028'))
+      px(x + 3, base - 6, 1, 1, c('#e0b030'))
+      px(x, base - 1, 3, 1, c('#e8dcc0'))
+      return
+  }
+}
+
+const INTERIOR_PLACES = ['home', 'workshop', 'school', 'bath']
+
+/** Питомцы, которые живут в доме, — дома на своих местах; во двор не выходят. */
+const INDOOR = ['songbird', 'goldfish', 'mouse', 'cricket']
+
+/** Питомцы в комнате: кошка у печи, пёс у порога, клетка у окна, рыбки на сундуке, черепаха на полу. */
+function petsIndoors(px: Px, kinds: string[], k: number) {
+  const g = GROUND - 1
+  for (const kind of kinds) {
+    if (kind === 'dog') animal(px, 'dog', 20, k * 0.85)
+    else if (kind === 'cat') animal(px, 'cat', 140, k * 0.85)
+    else if (kind === 'songbird') pet(px, 'songbird', 52, 18, k)
+    else if (kind === 'goldfish') pet(px, 'goldfish', 115, GROUND - 9, k)
+    else if (kind === 'parrot') {
+      px(98, 22, 1, GROUND - 22, shade('#6a4a2a', k * 0.6))
+      px(95, 22, 8, 1, shade('#6a4a2a', k * 0.6))
+      pet(px, 'parrot', 96, 22, k)
+    } else if (kind === 'falcon') {
+      px(104, 24, 1, GROUND - 24, shade('#6a4a2a', k * 0.6))
+      px(102, 24, 6, 1, shade('#6a4a2a', k * 0.6))
+      pet(px, 'falcon', 103, 24, k)
+    } else if (kind !== 'cricket') pet(px, kind, kind === 'tortoise' ? 128 : kind === 'mouse' ? 92 : 30, g + 1, k)
   }
 }
 
@@ -1575,6 +1679,7 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
   built = []
   const time = scene.time ?? 'day'
   const look = lookOf(region)
+  parrotStyle = look.style
   const p = look.p
   const r = rand(`${seed}:${place}:${region}`)
   const px: Px = (x, y, w, h, c) => {
@@ -1641,11 +1746,13 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
   if (place === 'yard' && cast) {
     // Животные во дворе — справа от семьи.
     let ax = start + span + 12
-    for (const kind of cast.animals.slice(0, 6)) {
+    for (const kind of cast.animals.filter((a) => !INDOOR.includes(a)).slice(0, 6)) {
       if (ax > W - 14) break
       animal(px, kind, ax, k)
-      ax += kind === 'chickens' || kind === 'turkey' || kind === 'dog' || kind === 'cat' ? 10 : 15
+      ax += ['chickens', 'turkey', 'dog', 'cat', 'tortoise', 'guinea_pig', 'mongoose', 'parrot', 'falcon', 'monkey'].includes(kind) ? 10 : 15
     }
+  } else if (place === 'home' && cast?.animals.length) {
+    petsIndoors(px, cast.animals, k)
   } else if (cast?.animals.length && !water && place !== 'home' && place !== 'school' && place !== 'bath' && place !== 'workshop') {
     // На улице и в поле за героем идёт пёс, если он есть.
     const pet = cast.animals.find((a) => a === 'dog')
@@ -1666,6 +1773,12 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput): voi
     const x = start + (n > 1 ? (i * span) / (n - 1) : 0) + (water ? 0 : Math.floor(r() * 4) - 2)
     const m = members[i]
     person(px, x, look, r, k, !m && place === 'home' && i === n - 1 && n > 2, base, m)
+    // Вне дома попугай сидит у героя на плече (у майя, ацтеков, инков), сокол — на руке в поле и в дороге.
+    if (m?.role === 'hero' && cast && !water && !INTERIOR_PLACES.includes(place) && place !== 'yard') {
+      const adult = m.age >= 15
+      if (cast.animals.includes('parrot') && ['maya', 'aztec', 'andean'].includes(look.style)) pet(px, 'parrot', x + 4, base - (adult ? 10 : 7), k)
+      else if (adult && cast.animals.includes('falcon') && (place === 'field' || place === 'road')) pet(px, 'falcon', x + 5, base - 6, k)
+    }
   }
   // Не поместившиеся близкие — подписью «+N» справа от семьи.
   if (cast?.more) {

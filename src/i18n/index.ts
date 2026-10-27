@@ -1,4 +1,5 @@
 import { ERA_FOLDER, ERA_META, REGION_ERA, RELIGION_BY_ID } from '../content'
+import PETS from '../content/pets.json'
 import type { Lang, Sex, TextParam } from '../engine/types'
 import en from './en.json'
 import ru from './ru.json'
@@ -54,6 +55,8 @@ export async function loadAllTexts(): Promise<void> {
 }
 
 const names: Record<string, { ru: string; en: string }> = {}
+// Клички питомцев (src/content/pets.json) — тоже имена.
+for (const byKind of Object.values(PETS.names as Record<string, Record<string, { id: string; ru: string; en: string }[]>>)) for (const list of Object.values(byKind)) for (const n of list) names[n.id] = n
 for (const era of Object.values(ERA_META)) {
   for (const region of era.regions) for (const n of [...region.names.m, ...region.names.f]) names[n.id] = n
 }
