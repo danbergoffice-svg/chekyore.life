@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><div id="app"></div>
+<script type="module">
+// Состояния настоящих экранов игры для ролика: сон о будущем (шаг, итог), итоги жизни, награды. ?view=…&lang=en
+import '@fontsource-variable/alegreya/wght.css'
+import '@fontsource-variable/alegreya/wght-italic.css'
+import '../../../src/style.css'
+import { h, render } from 'preact'
+import { loadEra } from '../../../src/content'
+import { newLife, summarize } from '../../../src/engine/life'
+import { startDream, answerDream, resolveDream, currentInput, expectedAnswer } from '../../../src/engine/dreams'
+import { createT, loadAllTexts } from '../../../src/i18n'
+import { UiContext } from '../../../src/ui/text'
+import { DreamModal } from '../../../src/ui/Dream'
+import { Summary } from '../../../src/ui/Summary'
+import { Awards } from '../../../src/ui/Awards'
+const q = new URLSearchParams(location.search)
+const lang = q.get('lang') || 'en'
+const view = q.get('view') || 'dream'
+const era = await loadEra(q.get('era') || 'BYZ')
+await loadAllTexts()
+const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false, livesBefore: 1 }, +(q.get('seed') || 77))
+s.year = +(q.get('year') || 1185); s.hero.age = 25
+const t = createT(lang, { region: s.hero.region })
+const good = (inp) => { const w = expectedAnswer(inp, s.dream.params, s.hero.era); return inp.kind === 'ratio' ? Object.fromEntries(Object.entries(w).map(([k, v]) => [k, String(v)])) : inp.kind === 'number' ? String(w) : w }
+const bad = (inp) => inp.kind === 'number' ? '1' : inp.kind === 'ratio' ? {} : []
+startDream(s, q.get('dream') || 'gunpowder')
+// steps=N — ответить на N вводов; outcome=good|bad — пройти сон до конца и показать итог
+const steps = +(q.get('steps') || 0)
+for (let i = 0; i < steps && s.dream && !s.dream.done; i++) answerDream(s, good(currentInput(s)))
+let result = null
+if (q.get('outcome')) {
+  for (let i = 0; i < 20 && s.dream && !s.dream.done; i++) answerDream(s, q.get('outcome') === 'good' ? good(currentInput(s)) : bad(currentInput(s)))
+  const snap = { ...s.dream }
+  const o = resolveDream(s, era)
+  result = { dream: { ...snap, outcome: o, known: s.hero.dreamSeen?.known }, outcome: o, era: s.hero.era }
+}
+const ui = (child) => h(UiContext.Provider, { value: { t, lang } }, child)
+if (view === 'dream') render(ui(h(DreamModal, { state: s, result, onAnswer() {}, onHint() {}, onWake() {}, onClose() {} })), document.getElementById('app'))
+else {
+  s.hero.alive = false; s.hero.deathYear = s.year; s.hero.deathCause = s.hero.deathCause || 'old_age'
+  const life = summarize(s, era)
+  if (view === 'awards') render(ui(h(Awards, { earned: [{ id: 'dream_first', ts: 1, lifeId: 'x' }, { id: 'age_60', ts: 1, lifeId: 'x' }, { id: 'heir', ts: 1, lifeId: 'x' }], memorial: [life], onBack() {} })), document.getElementById('app'))
+  else render(ui(h(Summary, { life, era, canContinue: false, onAgain() {}, onMemorial() {}, onMenu() {}, onUpdate() {} })), document.getElementById('app'))
+}
+setTimeout(() => (document.body.dataset.ready = '1'), 400)
+</script></body></html>

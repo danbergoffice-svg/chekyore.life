@@ -1,0 +1,37 @@
+// Снимки настоящих экранов игры (английский) для ролика: tools/video/flyover/shots/*.png. Нужен npx vite --port 5174.
+const { chromium } = require('playwright')
+const path = require('path')
+const OUT = path.join(__dirname, 'shots')
+require('fs').mkdirSync(OUT, { recursive: true })
+const B = 'http://localhost:5174/tools/video/flyover/ui.html?lang=en&'
+;(async () => {
+  const b = await chromium.launch()
+  const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, locale: 'en-US', reducedMotion: 'reduce' })
+  const p = await ctx.newPage()
+  const errs = []; p.on('pageerror', (e) => errs.push(e.message))
+  const shot = async (name, url, sel, before) => {
+    await p.goto(url); await p.waitForSelector('body[data-ready="1"]', { timeout: 30000, state: 'attached' })
+    if (before) await before()
+    await p.evaluate(() => document.fonts.ready)
+    await p.waitForTimeout(300)
+    const el = await p.$(sel)
+    await el.screenshot({ path: path.join(OUT, name + '.png') })
+    console.log('ok', name)
+  }
+  await shot('dream-pick', B + 'view=dream&dream=gunpowder', '.dream-modal', async () => { for (const n of ['saltpeter', 'charcoal', 'sulfur']) await p.click(`.dream-card:has-text("${n === 'saltpeter' ? 'saltpeter' : n === 'charcoal' ? 'charcoal' : 'sulfur'}")`).catch(() => {}) })
+  await shot('dream-smallpox', B + 'view=dream&dream=cowpox', '.dream-modal')
+  await shot('dream-earth', B + 'view=dream&dream=eratosthenes&steps=2', '.dream-modal', async () => { await p.fill('.dream-number input', '39 500').catch(() => {}) })
+  await shot('dream-win', B + 'view=dream&dream=gunpowder&outcome=good', '.dream-modal')
+  await shot('dream-fail', B + 'view=dream&dream=gunpowder&outcome=bad&seed=5', '.dream-modal')
+  await shot('summary-note', B + 'view=summary&era=E03', '.note-box')
+  await shot('summary-ribbon', B + 'view=summary&era=E03', '.portrait-ribbon')
+  await shot('awards-dream', B + 'view=awards', 'section.block:has(.school-grid)')
+  // Лотерея рождения в самой игре.
+  await p.goto('http://localhost:5174/?lang=en'); await p.waitForSelector('.menu')
+  await p.click('.menu .stack .primary')
+  await p.waitForSelector('.lever:not([disabled])', { timeout: 15000 }); await p.click('.lever')
+  await p.waitForSelector('.spin-result', { timeout: 15000 }); await p.waitForTimeout(500)
+  await p.screenshot({ path: path.join(OUT, 'lottery.png') })
+  console.log('ok lottery', errs)
+  await b.close()
+})()

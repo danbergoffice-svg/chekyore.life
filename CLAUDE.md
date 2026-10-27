@@ -76,6 +76,9 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   сезоны и погода (`season.ts`, `climate` в `era.json`), стиль искусства страны (`art.ts`, флаг `art_strength`),
   звуки места (`setAmbience` в `audio.ts`), иллюстрации G3 (`illustrations.ts`, `src/art/`, `npm run art`),
   вес сборки — `npm run size`, проверка сцен — `node tools/qa/scenes.cjs` (нужен `npx vite --port 5174`).
+- Рекламный ролик-пролёт (вертикальный 1080×1920, озвучка EN, финал — постер): `tools/video/flyover/` — страница из
+  настоящих сцен игры снимается по слоям, кадры считает WebGL2 (`film.js`, `seek(t)`), рендер `render.cjs` → `out/`.
+  Порядок пересборки — `tools/video/flyover/README.md`.
 - Проверка контента ловит: текст «уехал/отправил» без `npc_away`, «дом сгорел» без `{"home":"burn"}`, неизвестных питомцев.
 
 ## Состояние ТЗ (docs/TZ.md)

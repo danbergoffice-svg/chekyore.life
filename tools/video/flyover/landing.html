@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=640" />
+    <title>Thousands of Lives — fly-over page</title>
+    <style>
+      html, body { margin: 0; background: #f3ead8; }
+      body { width: 640px; position: relative; font-family: 'Alegreya Variable', Georgia, serif; color: #2b2119; }
+      .page { position: relative; width: 640px; background: #f3ead8; overflow: hidden; }
+      .sec { position: absolute; left: 0; width: 640px; display: flex; flex-direction: column; }
+      .sec > .fill { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+      .band { position: absolute; left: 0; width: 640px; background: #171a2e; }
+      .h { font-family: 'Thousands Letopis', serif; font-weight: 500; font-size: 38px; line-height: 1.1; margin: 0 40px; text-align: center; }
+      .h.small { font-size: 30px; }
+      .dark .h { color: #e8e6f4; }
+      .sub { text-align: center; font-size: 19px; color: #5a4a3b; margin: 10px 48px 0; line-height: 1.35; }
+      .dark .sub { color: #b9b6d6; }
+      .row { display: flex; gap: 14px; justify-content: center; align-items: flex-start; margin: 22px 0 0; flex-wrap: wrap; }
+      .card { background: #fbf6ec; border: 1px solid #d6c6aa; border-radius: 14px; box-shadow: 0 2px 0 rgba(43, 33, 25, 0.06); overflow: hidden; }
+      .scene { display: block; width: 560px; height: 175px; image-rendering: pixelated; border-radius: 12px; }
+      .scene.sm { width: 272px; height: 85px; border-radius: 10px; }
+      .scene.xs { width: 176px; height: 55px; border-radius: 8px; }
+      .chip { display: inline-block; font-family: 'Thousands Letopis', serif; font-weight: 600; font-size: 17px; padding: 7px 14px; border-radius: 999px; background: #8e3b22; color: #fbf6ec; white-space: nowrap; }
+      .chip.light { background: #fbf6ec; color: #8e3b22; border: 1.5px solid #8e3b22; }
+      .chip.gold { background: #a87a2e; }
+      .dark .chip.light { background: #232745; color: #e8e6f4; border-color: #6a70b8; }
+      .shot { display: block; border-radius: 16px; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1); }
+      .avatar { width: 150px; height: 188px; image-rendering: pixelated; border-radius: 12px; display: block; }
+      .cap { text-align: center; font-size: 17px; color: #5a4a3b; margin-top: 6px; }
+      .ev { width: 520px; padding: 18px 20px; }
+      .ev h3 { font-family: 'Thousands Letopis', serif; font-weight: 500; font-size: 26px; margin: 0 0 8px; }
+      .ev p { margin: 0 0 12px; font-size: 18px; line-height: 1.4; }
+      .ev .choice { border: 1px solid #d6c6aa; background: #ebdfc8; border-radius: 10px; padding: 10px 14px; margin-top: 8px; font-size: 17px; }
+      .btn { font-family: 'Thousands Letopis', serif; font-weight: 600; font-size: 22px; padding: 14px 34px; background: #8e3b22; color: #fbf6ec; border-radius: 14px; }
+      .tile { width: 32px; height: 32px; border-radius: 8px; display: block; }
+      .stat { width: 250px; padding: 18px 16px; text-align: center; }
+      .stat b { display: block; font-family: 'Thousands Letopis', serif; font-weight: 600; font-size: 56px; color: #8e3b22; line-height: 1; }
+      .stat span { font-size: 17px; color: #5a4a3b; }
+      .grid13 { display: grid; grid-template-columns: repeat(3, 176px); gap: 10px 12px; justify-content: center; margin-top: 20px; }
+      .grid13 .cap { font-size: 14px; margin-top: 3px; }
+      .badge { display: flex; align-items: center; gap: 8px; justify-content: center; font-family: 'Thousands Letopis', serif; font-size: 18px; color: #8e3b22; }
+      .badge img { width: 26px; height: 26px; border-radius: 6px; }
+      .record { width: 500px; padding: 0 0 16px; text-align: center; }
+      .record .scene { width: 500px; height: 156px; border-radius: 0; }
+      .record h3 { font-family: 'Thousands Letopis', serif; font-weight: 500; font-size: 34px; margin: 12px 0 4px; }
+      .record p { margin: 2px 16px; font-size: 17px; color: #5a4a3b; }
+      .footer { text-align: center; }
+      .footer .h { font-size: 46px; }
+    </style>
+  </head>
+  <body>
+    <div class="page" id="page"></div>
+    <script type="module">
+      import '@fontsource-variable/alegreya/wght.css'
+      import '@fontsource-variable/alegreya/wght-italic.css'
+      import { drawScene } from '../../../src/pixel/scene'
+      import { drawAvatar, figureLook } from '../../../src/pixel/avatar'
+      import { createT, loadAllTexts } from '../../../src/i18n'
+      import { loadEra } from '../../../src/content'
+      import { BEATS, travel, PAGE_W } from './timeline.js'
+      import poster from './poster.webp'
+
+      // Шрифт «Летопись» — из игры.
+      const face = new FontFace('Thousands Letopis', `url(${new URL('../../../src/fonts/ThousandsLetopis-VF.woff2', import.meta.url)})`, { weight: '300 700' })
+      document.fonts.add(await face.load())
+      await loadEra('BYZ')
+      await loadAllTexts()
+      const t = createT('en', {})
+      const page = document.getElementById('page')
+      const LOGO = '/icon.svg'
+
+      // Камера в начале смотрит на верхнюю половину постера; заголовок раздела проходит середину кадра
+      // через 0,35 с после начала его фразы.
+      const POSTER = { top: 330, w: 380, h: 570 }
+      const Y0 = POSTER.top + POSTER.h * 0.3
+      const yAt = (sec) => Math.round(Y0 + travel(sec))
+      const LEAD = 0.35
+
+      const el = (html) => {
+        const d = document.createElement('div')
+        d.innerHTML = html.trim()
+        return d.firstElementChild
+      }
+      const sceneCanvas = (input, cls = '') => {
+        const c = document.createElement('canvas')
+        c.width = 320
+        c.height = 100
+        c.className = `scene ${cls}`
+        drawScene(c.getContext('2d'), { art: 'half', ...input }, 0.8)
+        return c
+      }
+      const avatar = (input) => {
+        const c = document.createElement('canvas')
+        c.width = 32
+        c.height = 40
+        c.className = 'avatar'
+        drawAvatar(c.getContext('2d'), input)
+        return c
+      }
+      const wrap = (node, attrs) => {
+        const d = document.createElement('div')
+        for (const [k, v] of Object.entries(attrs)) d.setAttribute(k, v)
+        d.appendChild(node)
+        return d
+      }
+      const fam = (region, n = 7, cls = 'peasant') => {
+        const list = [['hero', 'm', 38, 'H'], ['spouse', 'f', 34, 'S'], ['parent', 'm', 70, 'P'], ['parent', 'f', 66, 'M'], ['child', 'f', 14, 'C1'], ['child', 'm', 9, 'C2'], ['child', 'm', 4, 'C3'], ['child', 'f', 2, 'C4']].slice(0, n)
+        return list.map(([role, sex, age, seed]) => ({ role, sex, age, seed, cls, look: figureLook({ region, sex, age, seed, cls, married: role !== 'child' }) }))
+      }
+
+      const sections = []
+      /** Раздел: верх — у заголовка, проходящего середину кадра в момент фразы. */
+      const section = (beat, build, opts = {}) => {
+        const b = BEATS.find((x) => x.id === beat)
+        const headY = yAt(b.t + LEAD)
+        const s = document.createElement('div')
+        s.className = 'sec' + (opts.dark ? ' dark' : '')
+        s.style.top = `${headY - 24}px`
+        // Заголовок — сверху, остальное ровно заполняет место до следующего заголовка.
+        const body = document.createElement('div')
+        body.className = 'fill'
+        s.appendChild(body)
+        build({ appendChild: (n) => (n.matches?.('h2') && !body.childElementCount ? s.insertBefore(n, body) : body.appendChild(n)) })
+        const i = BEATS.findIndex((x) => x.id === beat)
+        const next = BEATS[i + 1]
+        const nextY = next.id === 'footer' ? yAt(59.45) : yAt(next.t + LEAD)
+        s.style.height = `${nextY - headY - 40}px`
+        page.appendChild(s)
+        sections.push({ beat, el: s, headY })
+        return s
+      }
+
+      // ---------- Hero ----------
+      const hero = document.createElement('div')
+      hero.className = 'sec'
+      hero.style.top = '0px'
+      hero.innerHTML = `
+        <div class="badge" style="margin-top:34px"><img src="${LOGO}" alt="" /> Thousands of Lives</div>
+        <h1 class="h" style="margin-top:20px;font-size:44px">You wouldn’t survive the past.</h1>`
+      const btnRow = el('<div class="row" style="margin-top:22px;align-items:center"></div>')
+      const tiles = el('<div style="display:flex;gap:8px"></div>')
+      for (let i = 0; i < 4; i++) tiles.appendChild(wrap(el(`<img class="tile" src="${LOGO}" alt="" />`), { 'data-layer': 'tile', 'data-tile': String(i) }))
+      btnRow.appendChild(wrap(el('<div class="btn">Play free</div>'), { 'data-layer': 'button', 'data-z': '12', 'data-stand': '10' }))
+      btnRow.appendChild(tiles)
+      hero.appendChild(btnRow)
+      const chips = el('<div class="row" style="margin-top:18px"></div>')
+      for (const c of ['13 countries', '4,000 years', 'One life']) chips.appendChild(wrap(el(`<span class="chip light">${c}</span>`), { 'data-layer': 'chip', 'data-z': '70', 'data-stand': '30' }))
+      hero.appendChild(chips)
+      const posterBox = el(`<img src="${poster}" style="position:absolute;left:${(PAGE_W - POSTER.w) / 2}px;top:${POSTER.top}px;width:${POSTER.w}px;height:${POSTER.h}px;border-radius:16px;display:block" alt="" />`)
+      posterBox.setAttribute('data-layer', 'hero')
+      posterBox.setAttribute('data-z', '6')
+      page.appendChild(posterBox)
+      page.appendChild(hero)
+
+      // ---------- Half of all children ----------
+      section('children', (s) => {
+        s.appendChild(el('<h2 class="h">Half of all children never reached fifteen.</h2>'))
+        const r = el('<div class="row"></div>')
+        r.appendChild(wrap(el('<div class="card stat"><b>1 in 2</b><span>never saw fifteen</span></div>'), { 'data-layer': 'photo', 'data-z': '110', 'data-stand': '46' }))
+        r.appendChild(wrap(el('<div class="card stat"><b>26</b><span>years — life expectancy at birth</span></div>'), { 'data-layer': 'photo', 'data-z': '120', 'data-stand': '46' }))
+        s.appendChild(r)
+        const n = el('<div class="row"></div>')
+        n.appendChild(wrap(el('<img class="shot" src="./shots/summary-note-crop.png" style="width:440px" alt="" />'), { 'data-layer': 'card', 'data-z': '30', 'data-stand': '12' }))
+        s.appendChild(n)
+        const c = el('<div class="row" style="justify-content:space-between;margin:26px 40px 0"></div>')
+        c.appendChild(wrap(el('<span class="chip">Childhood fever</span>'), { 'data-layer': 'chip', 'data-z': '200', 'data-stand': '54', 'data-fly': 'left' }))
+        c.appendChild(wrap(el('<span class="chip">Smallpox</span>'), { 'data-layer': 'chip', 'data-z': '200', 'data-stand': '54', 'data-fly': 'right' }))
+        s.appendChild(c)
+      })
+
+      // ---------- Plague, war, famine, slavery ----------
+      section('plague', (s) => {
+        s.appendChild(el('<h2 class="h">Plague. War. Famine. Slavery.</h2>'))
+        const items = [
+          ['Plague', { region: 'paris', seed: 'v-plague', scene: { place: 'street', time: 'overcast', people: 2 }, mood: 'epidemic' }],
+          ['War', { region: 'kiev', seed: 'v-war', scene: { place: 'battle', time: 'sunset', people: 5, props: ['banner', 'smoke'] }, mood: 'war' }],
+          ['Famine', { region: 'delhi', seed: 'v-famine', scene: { place: 'yard', time: 'day' }, season: 0.6, mood: 'famine', cast: { members: fam('delhi', 4), animals: [], home: 0 } }],
+          ['Slavery', { region: 'rome', seed: 'v-slave', scene: { place: 'field', time: 'day', people: 5, props: ['grain'] } }],
+        ]
+        for (const [name, input] of items) {
+          const box = el('<div style="margin:0 40px"></div>')
+          box.appendChild(wrap(sceneCanvas(input), { 'data-layer': 'photo', 'data-z': '40', 'data-stand': '30' }))
+          box.appendChild(el(`<div class="cap">${name}</div>`))
+          s.appendChild(box)
+        }
+      })
+
+      // ---------- You don't choose where you're born ----------
+      section('born', (s) => {
+        s.appendChild(el('<h2 class="h">You don’t choose where you’re born.</h2>'))
+        const r = el('<div class="row"></div>')
+        r.appendChild(wrap(el('<img class="shot" src="./shots/lottery-crop.png" style="width:330px" alt="" />'), { 'data-layer': 'card', 'data-z': '60', 'data-stand': '24' }))
+        s.appendChild(r)
+      })
+
+      section('cities', (s) => {
+        s.appendChild(el('<h2 class="h small">The roulette drops you into…</h2>'))
+        const cities = [['Rome', 'rome'], ['Baghdad', 'baghdad'], ['Kyoto', 'kyoto'], ['The Aztec empire', 'tenochtitlan']]
+        for (const [name, region] of cities) {
+          const r = el('<div class="row" style="flex-direction:column;align-items:center;gap:8px"></div>')
+          r.appendChild(wrap(sceneCanvas({ region, seed: `v-${region}`, scene: { place: 'landmark', time: region === 'kyoto' ? 'dawn' : region === 'baghdad' ? 'sunset' : 'day', people: 3, props: ['sun'] }, art: 'full' }), { 'data-layer': 'photo', 'data-z': '34', 'data-stand': '20' }))
+          r.appendChild(wrap(el(`<span class="chip">${name}</span>`), { 'data-layer': 'chip', 'data-z': '64', 'data-stand': '30' }))
+          s.appendChild(r)
+        }
+      })
+
+      // ---------- Slave, peasant, merchant ----------
+      section('rank', (s) => {
+        s.appendChild(el('<h2 class="h">A slave, a peasant or a merchant’s son.</h2>'))
+        const r = el('<div class="row" style="gap:20px"></div>')
+        for (const [name, input] of [
+          ['Slave', { region: 'baghdad', sex: 'm', age: 24, seed: 'v-s1', cls: 'slave', enslaved: true, happiness: 20 }],
+          ['Peasant', { region: 'kiev', sex: 'f', age: 30, seed: 'v-s2', cls: 'peasant', married: true, happiness: 55 }],
+          ['Merchant’s son', { region: 'florence', sex: 'm', age: 19, seed: 'v-s3', cls: 'trader', happiness: 75 }],
+        ]) {
+          const b = el('<div></div>')
+          b.appendChild(wrap(avatar(input), { 'data-layer': 'photo', 'data-z': '100', 'data-stand': '40' }))
+          b.appendChild(el(`<div class="cap">${name}</div>`))
+          r.appendChild(b)
+        }
+        s.appendChild(r)
+      })
+
+      // ---------- Тёмная полоса: знания из будущего ----------
+      const darkFrom = yAt(BEATS.find((b) => b.id === 'edge').t + LEAD) - 120
+      const darkTo = yAt(BEATS.find((b) => b.id === 'sorcerer').t + LEAD) - 90
+      page.appendChild(el(`<div class="band" style="top:${darkFrom}px;height:${darkTo - darkFrom}px"></div>`))
+
+      section('edge', (s) => {
+        s.appendChild(el('<h2 class="h">But you have something they never had.</h2>'))
+        s.appendChild(wrap(sceneCanvas({ region: 'kyoto', seed: 'v-night', scene: { place: 'yard', time: 'night', props: ['moon'] }, cast: { members: fam('kyoto', 3), animals: ['cat'], home: 2 } }), { 'data-layer': 'photo', 'data-z': '34', 'data-stand': '20', style: 'margin:0 40px' }))
+      }, { dark: true })
+      section('knowledge', (s) => {
+        s.appendChild(el('<h2 class="h" style="font-size:52px">21st-century knowledge.</h2>'))
+        s.appendChild(el('<p class="sub">Dreams of the future: real school lessons.</p>'))
+        const r = el('<div class="row"></div>')
+        for (const c of ['Chemistry', 'Biology', 'Physics', 'Maths']) r.appendChild(wrap(el(`<span class="chip light">${c}</span>`), { 'data-layer': 'chip', 'data-z': '64', 'data-stand': '30' }))
+        s.appendChild(r)
+      }, { dark: true })
+      section('gunpowder', (s) => {
+        s.appendChild(el('<h2 class="h small">What goes into gunpowder?</h2>'))
+        s.appendChild(wrap(el('<img class="shot" src="./shots/dream-pick-crop.png" style="width:400px;margin:20px auto 0" alt="" />'), { 'data-layer': 'card', 'data-z': '50', 'data-stand': '26' }))
+      }, { dark: true })
+      section('smallpox', (s) => {
+        s.appendChild(el('<h2 class="h small">How to beat smallpox?</h2>'))
+        s.appendChild(wrap(el('<img class="shot" src="./shots/dream-smallpox-crop.png" style="width:380px;margin:18px auto 0" alt="" />'), { 'data-layer': 'card', 'data-z': '40', 'data-stand': '22' }))
+      }, { dark: true })
+      section('earth', (s) => {
+        s.appendChild(el('<h2 class="h small">How to measure the Earth?</h2>'))
+        s.appendChild(wrap(el('<img class="shot" src="./shots/dream-earth-crop.png" style="width:380px;margin:18px auto 0" alt="" />'), { 'data-layer': 'card', 'data-z': '40', 'data-stand': '22' }))
+      }, { dark: true })
+      section('dream', (s) => {
+        s.appendChild(el('<h2 class="h">Remember your lessons —</h2>'))
+        s.appendChild(el('<h2 class="h" style="margin-top:6px">become the genius of your age.</h2>'))
+        s.appendChild(wrap(el('<img class="shot" src="./shots/dream-win-crop.png" style="width:420px;margin:24px auto 0" alt="" />'), { 'data-layer': 'card', 'data-z': '60', 'data-stand': '28' }))
+        const r = el('<div class="row" style="margin-top:26px"></div>')
+        r.appendChild(wrap(el('<span class="chip gold">🏅 Visitor from the Future</span>'), { 'data-layer': 'chip', 'data-z': '90', 'data-stand': '34' }))
+        s.appendChild(r)
+      }, { dark: true })
+
+      // ---------- Ошибка — колдун ----------
+      section('sorcerer', (s) => {
+        s.appendChild(el('<h2 class="h">Get it wrong — they’ll call you a sorcerer.</h2>'))
+        s.appendChild(wrap(sceneCanvas({ region: 'toledo', seed: 'v-sorcerer', scene: { place: 'street', time: 'night', people: 5, props: ['fire', 'smoke'] } }), { 'data-layer': 'photo', 'data-z': '36', 'data-stand': '22', style: 'margin:22px 40px 0' }))
+        s.appendChild(wrap(el('<img class="shot" src="./shots/dream-fail-crop.png" style="width:400px;margin:22px auto 0" alt="" />'), { 'data-layer': 'card', 'data-z': '44', 'data-stand': '24' }))
+        s.appendChild(el('<p class="sub" style="margin-top:20px;font-style:italic">Sorcerers didn’t fare well back then.</p>'))
+      })
+
+      // ---------- Труд или пороки ----------
+      section('work', (s) => {
+        s.appendChild(el('<h2 class="h">Work yourself to the bone — or drink it all away.</h2>'))
+        s.appendChild(wrap(sceneCanvas({ region: 'kaifeng', seed: 'v-work', scene: { place: 'field', time: 'day', people: 5 }, cast: { members: fam('kaifeng', 1).map((m) => ({ ...m, tool: 'hoe' })), animals: ['ox'] } }), { 'data-layer': 'photo', 'data-z': '34', 'data-stand': '20', style: 'margin:20px 40px 0' }))
+        const r = el('<div class="row"></div>')
+        for (const c of ['Work', 'Study', 'Pray', 'Drink', 'Gamble']) r.appendChild(wrap(el(`<span class="chip ${c === 'Drink' || c === 'Gamble' ? '' : 'light'}">${c}</span>`), { 'data-layer': 'chip', 'data-z': '60', 'data-stand': '30' }))
+        s.appendChild(r)
+      })
+
+      // ---------- Брак ----------
+      section('marry', (s) => {
+        s.appendChild(el('<h2 class="h">Marry for love — or by arrangement.</h2>'))
+        const ev = el(`<div class="card ev" style="margin:20px auto 0">
+          <h3>${t('ev.mar_bride_chosen.title')}</h3>
+          <p>${t('ev.mar_bride_chosen.text')}</p>
+          <div class="choice">${t('ev.mar_bride_chosen.obey')}</div>
+          <div class="choice">${t('ev.mar_bride_chosen.refuse')}</div></div>`)
+        s.appendChild(wrap(ev, { 'data-layer': 'card', 'data-z': '40', 'data-stand': '20' }))
+      })
+
+      // ---------- Чужбина ----------
+      section('flee', (s) => {
+        s.appendChild(el('<h2 class="h">Flee to a foreign land.</h2>'))
+        s.appendChild(wrap(sceneCanvas({ region: 'constantinople', seed: 'v-sea', scene: { place: 'sea', time: 'sunset', people: 2, props: ['boat'] }, cast: { members: fam('kiev', 2), animals: [] } }), { 'data-layer': 'photo', 'data-z': '36', 'data-stand': '20', style: 'margin:20px 40px 0' }))
+        const r = el('<div class="row"></div>')
+        r.appendChild(wrap(el('<span class="chip">Kiev → Constantinople</span>'), { 'data-layer': 'chip', 'data-z': '70', 'data-stand': '30' }))
+        s.appendChild(r)
+      })
+
+      // ---------- 30 или 90 ----------
+      section('die', (s) => {
+        s.appendChild(el('<h2 class="h">Die at 30 — or live to 90.</h2>'))
+        const r = el('<div class="row" style="gap:10px"></div>')
+        for (const age of [6, 17, 30, 52, 70, 90]) {
+          const b = el('<div></div>')
+          const a = avatar({ region: 'kyoto', sex: 'f', age, seed: 'v-life', cls: 'craftsman', married: age >= 20, happiness: 60, stress: age >= 52 ? 70 : 30 })
+          a.style.width = '88px'
+          a.style.height = '110px'
+          b.appendChild(wrap(a, { 'data-layer': 'photo', 'data-z': '80', 'data-stand': '36' }))
+          b.appendChild(el(`<div class="cap">${age}</div>`))
+          r.appendChild(b)
+        }
+        s.appendChild(r)
+      })
+      section('bloodline', (s) => {
+        s.appendChild(el('<h2 class="h small">Children, grandchildren, great-grandchildren.</h2>'))
+        s.appendChild(wrap(sceneCanvas({ region: 'kyoto', seed: 'v-family', scene: { place: 'yard', time: 'day' }, season: 0.35, cast: { members: fam('kyoto', 8, 'craftsman'), animals: ['dog', 'chickens'], home: 3, more: 6 } }), { 'data-layer': 'photo', 'data-z': '34', 'data-stand': '20', style: 'margin:22px 40px 0' }))
+        const r = el('<div class="row"></div>')
+        for (const c of ['Heir: Takeshi', 'Generation 4']) r.appendChild(wrap(el(`<span class="chip light">${c}</span>`), { 'data-layer': 'chip', 'data-z': '60', 'data-stand': '30' }))
+        s.appendChild(r)
+      })
+
+      // ---------- Каждая жизнь ----------
+      section('every', (s) => {
+        s.appendChild(el('<h2 class="h">Every life is new.</h2>'))
+        s.appendChild(el('<h2 class="h" style="margin-top:6px">Every life is your last.</h2>'))
+        const rec = el('<div class="card record" style="margin:24px auto 0"></div>')
+        rec.appendChild(sceneCanvas({ region: 'thessalonica', seed: 'v-tomb', scene: { place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] } }))
+        rec.appendChild(el('<h3>Lazarus</h3>'))
+        rec.appendChild(el('<p>1098 — 1185 · 87 years</p>'))
+        rec.appendChild(el('<p style="font-style:italic">Born a merchant’s son. Died a court alchemist.</p>'))
+        s.appendChild(wrap(rec, { 'data-layer': 'testimonial', 'data-z': '112', 'data-stand': '30' }))
+      })
+
+      // ---------- 13 стран ----------
+      section('world', (s) => {
+        s.appendChild(el('<h2 class="h small">13 countries. 4,000 years of history.</h2>'))
+        const g = el('<div class="grid13"></div>')
+        const lands = [['Egypt', 'thebes'], ['Rome', 'rome'], ['Maya', 'tikal'], ['Islam', 'cairo'], ['Byzantium', 'constantinople'], ['China', 'kaifeng'], ['Rus', 'novgorod'], ['Europe', 'paris'], ['Ethiopia', 'lalibela'], ['Japan', 'kamakura'], ['India', 'vijayanagara'], ['Mali', 'timbuktu'], ['Aztecs & Inca', 'cusco']]
+        for (const [name, region] of lands) {
+          const b = el('<div></div>')
+          b.appendChild(wrap(sceneCanvas({ region, seed: `v-w-${region}`, scene: { place: 'landmark', time: 'day', people: 2 } }, 'xs'), { 'data-layer': 'photo', 'data-z': '22', 'data-stand': '14' }))
+          b.appendChild(el(`<div class="cap">${name}</div>`))
+          g.appendChild(b)
+        }
+        s.appendChild(g)
+      })
+
+      // ---------- Подвал ----------
+      const footerY = yAt(59.45)
+      const footer = el(`<div class="sec footer" style="top:${footerY - 30}px">
+        <h2 class="h">One life at a time.</h2>
+        <div class="badge" style="margin-top:18px"><img src="${LOGO}" alt="" /> thousands.life</div></div>`)
+      page.appendChild(footer)
+      page.style.height = `${footerY + 170}px`
+
+      // Проверка: разделы не налезают друг на друга.
+      await Promise.all([...document.images].map((im) => (im.complete ? 0 : new Promise((r) => (im.onload = im.onerror = r)))))
+      await document.fonts.ready
+      const overlaps = []
+      const all = [...sections.map((x) => x.el), footer]
+      for (let i = 0; i < all.length - 1; i++) {
+        const a = all[i].getBoundingClientRect()
+        const b = all[i + 1].getBoundingClientRect()
+        if (a.bottom > b.top - 16) overlaps.push(`${sections[i]?.beat ?? 'footer'}: ${Math.round(a.bottom - b.top + 16)}px`)
+      }
+      // Заголовки — чтобы в ролике поднятые элементы не заслоняли фразу, которую сейчас читают.
+      const heads = [...document.querySelectorAll('h1, h2')].map((n) => { const r = n.getBoundingClientRect(); return { y: r.top + scrollY, h: r.height } })
+      window.layout = { overlaps, height: page.offsetHeight, y0: Y0, poster: { x: (PAGE_W - POSTER.w) / 2, y: POSTER.top, w: POSTER.w, h: POSTER.h }, heads }
+      document.body.dataset.ready = '1'
+    </script>
+  </body>
+</html>
