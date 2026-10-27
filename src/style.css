@@ -329,15 +329,22 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .scene { display: block; width: 100%; aspect-ratio: 16 / 5; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; background: var(--paper-2); }
 .panel > .scene { margin-bottom: 12px; }
 .modal > .scene { border-radius: 16px 16px 0 0; }
+/* Рисованная иллюстрация момента (G3): 256×144, 16:9. */
+.scene.illustration { aspect-ratio: 16 / 9; }
 /* Рамка-орнамент края вокруг картинки (G5): узор 6 точек — вдвое, без сглаживания. */
 .art-frame { border: 12px solid transparent; image-rendering: pixelated; image-rendering: crisp-edges; line-height: 0; }
-.art-frame > .scene { border-radius: 0; }
+.art-frame > .scene { border-radius: 0; margin: 0 !important; }
+.summary .record-card .art-frame, .panel > .art-frame { margin-bottom: 12px; }
 .modal > .art-frame { border-radius: 16px 16px 0 0; overflow: hidden; }
 .reveal .scene { margin-bottom: 16px; }
 
 /* Итоги жизни */
 .summary .block { margin: 0 0 28px; }
 .summary .record-card .scene { margin-bottom: 12px; }
+/* Лента портретов героя в итогах (G2). */
+.portrait-ribbon { display: flex; gap: 8px; margin: 10px 0; overflow-x: auto; }
+.portrait-ribbon figure { margin: 0; text-align: center; flex: 0 0 auto; }
+.portrait-ribbon .avatar { width: 56px; height: 70px; image-rendering: pixelated; border-radius: 6px; display: block; }
 .bio-text { font-size: 1.02rem; }
 .summary .facts { grid-template-columns: minmax(7rem, max-content) 1fr; }
 .archetype { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 12px; }

@@ -7,6 +7,8 @@ import type { DiaryEntry, EraDef, Icon, LifeSummary, Npc, SceneDef, Topic } from
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
 import { dreamDef } from '../engine/dreams'
 import { Scene } from '../pixel/Scene'
+import { Avatar } from '../pixel/Avatar'
+import { lifeMarks } from '../pixel/avatar'
 import { BarList, LineChart, Numbers } from './charts'
 import { CARD_SIZES, cleanLine, drawCard } from './shareCard'
 import type { CardFormat } from './shareCard'
@@ -107,6 +109,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         </p>
         <p class="muted small">{t('summary.cls_line', { born: { key: `class.${birthCls}` }, died: { key: `class.${life.cls}` } }, o)}</p>
         <p class="bio-text">{bio.join(' ')}</p>
+        <PortraitRibbon life={life} />
         {life.offChronicle !== undefined && <p class="small muted">{t('summary.off_chronicle', { year: formatYear(life.offChronicle, lang) })}</p>}
         {(life.erasLived?.length ?? 0) > 1 && <p class="small muted">{t('summary.path', { list: life.erasLived!.map((id) => t(`era.${id}`)).join(' → ') })}</p>}
         <p>
@@ -684,6 +687,44 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+/** Лента портретов: детство, юность, зрелость, старость — по истории героя, без хранения картинок. */
+function PortraitRibbon({ life }: { life: LifeSummary }) {
+  const { t } = useUi()
+  const ages = [6, 17, 32, 50, 68].filter((a) => a < life.age)
+  if (life.age >= 2) ages.push(life.age)
+  const shown = ages.slice(-5)
+  if (shown.length < 2) return null
+  const birthCls = life.report.facts.birthCls ?? life.cls
+  return (
+    <div class="portrait-ribbon" role="list" aria-label={t('summary.portraits')}>
+      {shown.map((age, i) => {
+        const y = life.history.find((h) => h.age === age)
+        const last = i === shown.length - 1
+        return (
+          <figure role="listitem">
+            <Avatar
+              input={{
+                region: life.region,
+                sex: life.sex,
+                age,
+                seed: life.heroId,
+                cls: age < 18 ? birthCls : life.cls,
+                happiness: y?.happiness,
+                stress: y?.stress,
+                ill: last && (y?.health ?? 100) < 25,
+                married: age >= 20 && life.npcs.some((n) => n.role === 'spouse'),
+                ...lifeMarks(life.diary, life.traits ?? [], age),
+              }}
+              label={t('life.portrait', { n: age })}
+            />
+            <figcaption class="small muted">{t('summary.portrait_age', { n: age })}</figcaption>
+          </figure>
+        )
+      })}
     </div>
   )
 }

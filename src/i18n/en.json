@@ -278,6 +278,8 @@
   "summary.record": "Record No. {n}",
   "summary.sex.m": "male",
   "summary.sex.f": "female",
+  "summary.portraits": "Over the years",
+  "summary.portrait_age": "age {n}",
   "summary.cause": "Cause of death",
   "summary.cmp_expected": "Life expectancy at birth here and then was about {n} years; those who reached 15 lived on average to {adult}.",
   "summary.cmp_more": "{name} lived {n} {p=n:year|years} longer than expected at birth.",

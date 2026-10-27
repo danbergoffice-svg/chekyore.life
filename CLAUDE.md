@@ -65,6 +65,10 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —
   `achievements.ts`/`Awards.tsx`, отчёт в `/admin` — `SQL.dreamSteps`. Новый сон: запись в `dreams.json` + тексты RU/EN;
   `validateDreams()` проверяет ответы, допуски и формулы на краях параметров.
+- Графика (`docs/TZ_graphics.md`): сцена 320×100 из кэшируемых слоёв + движение (`scene.ts`, `fx.ts`, `figures.ts`),
+  сезоны и погода (`season.ts`, `climate` в `era.json`), стиль искусства страны (`art.ts`, флаг `art_strength`),
+  звуки места (`setAmbience` в `audio.ts`), иллюстрации G3 (`illustrations.ts`, `src/art/`, `npm run art`),
+  вес сборки — `npm run size`, проверка сцен — `node tools/qa/scenes.cjs` (нужен `npx vite --port 5174`).
 - Проверка контента ловит: текст «уехал/отправил» без `npc_away`, «дом сгорел» без `{"home":"burn"}`, неизвестных питомцев.
 
 ## Состояние ТЗ (docs/TZ.md)

@@ -18,11 +18,14 @@ import LONGEVITY from '../content/longevity.json'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Lang, Npc, SceneTime } from '../engine/types'
 import type { AvatarInput } from '../pixel/avatar'
+import { lifeMarks } from '../pixel/avatar'
 import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
 import type { T } from '../i18n'
 import { platform } from '../platform'
 import { lifeStats } from '../telemetry'
 import { Scene } from '../pixel/Scene'
+import { Illustration } from '../pixel/Illustration'
+import { momentOf } from '../pixel/illustrations'
 import { moodFor, weatherFor } from '../pixel/season'
 import { Avatar } from '../pixel/Avatar'
 import { eventCast, eventRoles, familyCast } from './cast'
@@ -427,6 +430,8 @@ function heroLook(hero: Hero): AvatarInput {
     integrated: !!hero.abroad && (!!hero.abroad.naturalized || hero.abroad.integration >= 60),
     dead: !hero.alive,
     enslaved: hero.tags.includes('enslaved'),
+    stress: hero.hidden.stress,
+    ...lifeMarks(hero.diary, hero.traits),
   }
 }
 
@@ -786,7 +791,9 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   return (
     <div class="modal-backdrop">
       <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="ev-title">
-        <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
+        <Illustration era={hero.era} moment={momentOf(ev)} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} fire={ev.scene?.disaster === 'fire'}>
+          <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
+        </Illustration>
         <div class="modal-body">
           {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
           <h2 id="ev-title">{t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)}</h2>

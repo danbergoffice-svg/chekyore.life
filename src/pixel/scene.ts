@@ -2230,17 +2230,19 @@ function regionPrompt(region: string): string {
 
 const TIME_EN: Record<SceneTime, string> = { day: 'daylight', dawn: 'dawn light', sunset: 'warm sunset', night: 'night, moonlight', overcast: 'overcast grey sky' }
 
-/** Промпт по шаблону ТЗ: [сцена] + [эпоха и регион] + [единый стиль] + [освещение] + [формат кадра]. */
-export function scenePrompt(scene: SceneDef, region: string, eraName: string): string {
+/** Промпт по шаблону ТЗ: [сцена] + [эпоха и регион] + [стиль искусства края] + [освещение, сезон, погода] + [формат кадра]. */
+export function scenePrompt(scene: SceneDef, region: string, eraName: string, extra: { season?: string; weather?: string; year?: number; format?: string } = {}): string {
   const place = PLACE_EN[scene.place ?? 'landmark']
   const people = scene.people ? `${scene.people} small figures in period clothing` : 'no people'
   const props = scene.props?.length ? `, with ${scene.props.join(', ')}` : ''
+  const art = artFor(lookOf(region).style, extra.year)
+  const light = [TIME_EN[scene.time ?? 'day'], extra.season, extra.weather].filter(Boolean).join(', ')
   return [
     `${place}${props}, ${people}`,
     `${regionPrompt(region)}, ${eraName}`,
-    'flat pixel art, limited palette, no outlines, simple shapes, no text',
-    TIME_EN[scene.time ?? 'day'],
-    'wide panorama 16:5',
+    `pixel art ${art.prompt}; limited palette of 16–32 colours, no anti-aliasing, no text`,
+    light,
+    extra.format ?? 'wide panorama 16:5',
   ].join('; ')
 }
 

@@ -6,6 +6,7 @@
 // Рисуется детерминированно: один и тот же герой в том же возрасте всегда выглядит одинаково.
 
 import { lookOf, rand, shade } from './scene'
+import type { DiaryEntry } from '../engine/types'
 import type { Palette } from './scene'
 
 export const AW = 32
@@ -31,9 +32,27 @@ export interface AvatarInput {
   integrated?: boolean
   dead?: boolean
   enslaved?: boolean
+  /** Усталость (стресс 0–100): мешки под глазами, опущенные брови — третье выражение лица. */
+  stress?: number
+  /** Следы жизни: шрам после войны, оспины после оспы, знак сновидца на одежде. */
+  scar?: boolean
+  pox?: boolean
+  dreamer?: boolean
 }
 
 type Px = (x: number, y: number, w: number, h: number, c: string) => void
+
+/** Следы жизни по дневнику до возраста untilAge: шрам — после боя или драки, где герой сам решал;
+ *  оспины — переболел оспой; сновидец — черта «dreamer». */
+export function lifeMarks(diary: DiaryEntry[], traits: string[], untilAge = Infinity): Pick<AvatarInput, 'scar' | 'pox' | 'dreamer'> {
+  const before = diary.filter((d) => d.age <= untilAge)
+  return {
+    scar: before.some((d) => d.age >= 14 && !!d.eventId && /battle|war|raid|duel|fight|wound|siege|brawl/.test(d.eventId) && (d.decision || d.params?.result === 'failure')),
+    pox: before.some((d) => !!d.eventId && /smallpox/.test(d.eventId) && d.params?.result === 'failure'),
+    dreamer: traits.includes('dreamer') && (untilAge === Infinity || before.some((d) => d.key === 'diary.dream')),
+  }
+}
+
 type Stage = 'infant' | 'toddler' | 'child' | 'teen' | 'adult' | 'elder'
 
 const CX = 16
@@ -528,7 +547,35 @@ export function drawAvatar(ctx: CanvasRenderingContext2D, input: AvatarInput, x 
     px(x0 + g.headW, T + 5, 2, 3, '#e0b030')
   }
   if (L.bindi) px(CX - 1, T + 4, 2, 1, '#c0303a')
+  // 10. Следы жизни.
+  drawMarks(px, g, skin, input, st)
   return finish(ctx, input, x, y, s)
+}
+
+/** Следы жизни: шрам через щёку, оспины, траурная лента вдовца, знак «Сновидца» — звезда на груди. */
+function drawMarks(px: Px, g: Geo, skin: string, input: AvatarInput, st: Stage): void {
+  const x0 = CX - g.headW / 2
+  const T = g.top
+  if (input.scar && st !== 'toddler' && st !== 'child') {
+    const c = mix(skin, '#8a3a34', 0.45)
+    for (let i = 0; i < 4; i++) px(x0 + g.headW - 3 + (i % 2), T + 4 + i, 1, 1, c)
+  }
+  if (input.pox) {
+    const c = shade(skin, -0.14)
+    for (const [dx, dy] of [[2, 3], [7, 2], [1, 8], [8, 8], [4, 10], [6, 9]]) px(x0 + dx, T + dy, 1, 1, c)
+  }
+  // Вдовец — чёрная лента на груди (у вдовы — тёмное покрывало).
+  if (input.widow && input.sex === 'm' && !input.dead) {
+    px(CX - g.shoulderW / 2 + 3, g.shoulderY + 3, 2, 3, '#1e1a18')
+    px(CX - g.shoulderW / 2 + 2, g.shoulderY + 3, 4, 1, '#1e1a18')
+  }
+  if (input.dreamer) {
+    // Сновидец: маленькая серебряная звезда на груди справа.
+    const sx = CX + g.shoulderW / 2 - 5
+    const sy = g.shoulderY + 4
+    px(sx + 1, sy, 1, 3, '#dfe6f2')
+    px(sx, sy + 1, 3, 1, '#dfe6f2')
+  }
 }
 
 /** Умерший — в серых тонах. */
@@ -886,6 +933,14 @@ function drawFace(px: Px, g: Geo, L: Look, skin: string, input: AvatarInput, st:
     px(rx + 2, eyeY + 1, 1, 1, wr)
     px(CX - 3, noseY + 1, 1, 2, wr)
     px(CX + 2, noseY + 1, 1, 2, wr)
+  }
+  // Усталость: тёмные мешки и опущенные внешние концы бровей.
+  const tired = !small && !input.dead && (input.stress ?? 0) >= 65 && (input.happiness ?? 50) < 65
+  if (tired) {
+    px(lx, eyeY + 1, 2, 1, shade(skin, -0.26))
+    px(rx, eyeY + 1, 2, 1, shade(skin, -0.26))
+    px(lx - 1, browY + 1, 1, 1, browC)
+    px(rx + 2, browY + 1, 1, 1, browC)
   }
   // Впалые щёки у худых.
   if (body <= -2 && !small) {
