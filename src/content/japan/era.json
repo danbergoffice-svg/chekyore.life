@@ -501,6 +501,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "japanese",
         "land": "mountains",
         "prompt": "Kyoto: grid streets of the old imperial capital, temple pagodas and palace roofs in a basin ringed by wooded hills"
@@ -934,6 +935,7 @@
         "shinto": 45
       },
       "scene": {
+        "climate": "temperate",
         "style": "japanese",
         "land": "green",
         "prompt": "Kamakura: seat of the shogunate between steep wooded hills and Sagami Bay, the Hachiman shrine avenue, Zen temples, the great bronze Buddha"
@@ -1395,6 +1397,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "japanese",
         "land": "green",
         "prompt": "Hakata: busy Kyushu harbour with Chinese junks, warehouses, Zen temples and a long stone defence wall along the bay"
@@ -1840,6 +1843,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "japanese",
         "land": "green",
         "prompt": "Sakai: moated merchant city on Osaka Bay, storehouses, sake breweries, tea houses and foreign ships at anchor"
@@ -2272,6 +2276,7 @@
         "shinto": 45
       },
       "scene": {
+        "climate": "temperate",
         "style": "japanese",
         "land": "snow",
         "prompt": "Echigo: deep snow over rice paddies and steep thatched farmhouses beneath high mountains on the Sea of Japan coast"

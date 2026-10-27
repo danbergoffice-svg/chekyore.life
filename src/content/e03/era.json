@@ -504,6 +504,7 @@
         }
       ],
       "scene": {
+        "climate": "mediterranean",
         "style": "roman"
       },
       "tags": [
@@ -948,6 +949,7 @@
         }
       ],
       "scene": {
+        "climate": "mediterranean",
         "style": "greek"
       },
       "tags": [
@@ -1393,6 +1395,7 @@
         }
       ],
       "scene": {
+        "climate": "arid",
         "style": "egyptian"
       },
       "tags": [

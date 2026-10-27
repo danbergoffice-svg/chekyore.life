@@ -493,6 +493,7 @@
         }
       },
       "scene": {
+        "climate": "tropical",
         "style": "sahel",
         "land": "dry",
         "prompt": "Niani, royal town of the Mali empire on the Sankarani river: round mud houses with conical thatch, a walled royal compound, millet fields and baobabs on dry savanna"
@@ -930,6 +931,7 @@
         }
       },
       "scene": {
+        "climate": "arid",
         "style": "sahel",
         "land": "desert",
         "prompt": "Timbuktu at the edge of the Sahara: flat-roofed mud-brick houses, the Djinguereber and Sankore mosques with wooden beams jutting from the walls, camel caravans and sand dunes, the Niger port of Kabara nearby"
@@ -1391,6 +1393,7 @@
         }
       },
       "scene": {
+        "climate": "arid",
         "style": "sahel",
         "land": "dry",
         "prompt": "Gao, Songhai capital on the river Niger: mud-brick compounds, the pyramidal tomb of Askia Muhammad, long dugout canoes and fishermen on the wide river, dry savanna beyond"
@@ -1806,6 +1809,7 @@
         }
       },
       "scene": {
+        "climate": "tropical",
         "style": "sahel",
         "land": "dry",
         "prompt": "Djenne in the inland Niger delta: the great mud-brick mosque with palm-wood spikes, a market square full of traders, the town on an island surrounded by flooded rice fields and canoes"

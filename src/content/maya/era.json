@@ -452,6 +452,7 @@
         "maya_gods": 100
       },
       "scene": {
+        "climate": "tropical",
         "style": "maya",
         "land": "jungle",
         "prompt": "Tikal, a great Maya city of steep limestone temple-pyramids rising above the rainforest canopy, plastered plazas, reservoirs"
@@ -841,6 +842,7 @@
         "maya_gods": 100
       },
       "scene": {
+        "climate": "tropical",
         "style": "maya",
         "land": "jungle",
         "prompt": "Calakmul, seat of the Snake kingdom: massive pyramid amid seasonal swamps, rows of carved stelae, white causeways through the forest"
@@ -1227,6 +1229,7 @@
         "maya_gods": 100
       },
       "scene": {
+        "climate": "tropical",
         "style": "maya",
         "land": "jungle",
         "prompt": "Palenque, a Maya city on forested hills above the plain, palace with a tower, Temple of the Inscriptions, streams and waterfalls"
@@ -1613,6 +1616,7 @@
         "maya_gods": 100
       },
       "scene": {
+        "climate": "tropical",
         "style": "maya",
         "land": "jungle",
         "prompt": "Copan, a Maya city in a green river valley, plaza of deeply carved stelae, ballcourt, scarlet macaws, hieroglyphic stairway"

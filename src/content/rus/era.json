@@ -477,6 +477,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "russian",
         "land": "green",
         "prompt": "Kiev on the high wooded bank of the Dnieper: timber walls and gates, the domes of St Sophia, river boats moored below Podil"
@@ -902,6 +903,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "russian",
         "land": "snow",
         "prompt": "Novgorod on the Volkhov river: the great wooden bridge, St Sophia with its helmet dome, log-paved streets and merchant boats by the market side"
@@ -1287,6 +1289,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "russian",
         "land": "green",
         "prompt": "Vladimir on the Klyazma: white-stone cathedrals with carved walls, the Golden Gate, timber houses and dark forest beyond the river meadows"
@@ -1700,6 +1703,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "russian",
         "land": "snow",
         "prompt": "Moscow on the Moskva river: the Kremlin walls and towers, onion domes and bell towers, wooden houses of the posad under snow, sledges on the frozen river"

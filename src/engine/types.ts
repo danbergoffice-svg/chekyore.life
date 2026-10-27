@@ -95,6 +95,9 @@ export interface RegionScene {
   /** Архитектурный стиль: roman, greek, egyptian, chinese, japanese, indian, islamic, gothic, byzantine, russian,
    *  mesopotamian, maya, aztec, andean, sahel, ethiopian. */
   style: string
+  /** Климат для времён года и погоды на картинке: temperate (снежная зима), mediterranean, arid, tropical
+   *  (сезон дождей), monsoon, highland. */
+  climate?: 'temperate' | 'mediterranean' | 'arid' | 'tropical' | 'monsoon' | 'highland'
   /** Пейзаж за городом: green, dry, desert, snow, jungle, mountains, steppe. */
   land?: string
   /** Подпись для промпта настоящей иллюстрации, по-английски. */

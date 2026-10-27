@@ -452,6 +452,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "gothic",
         "land": "green",
         "prompt": "Medieval Paris on the Seine: Île de la Cité with Notre-Dame, timber-framed houses on the bridges, wheat fields and vineyards around"
@@ -823,6 +824,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "gothic",
         "land": "green",
         "prompt": "Medieval London on the Thames: the Tower, old St Paul's spire, London Bridge lined with houses, ships at the wharves"
@@ -1175,6 +1177,7 @@
         "judaism": 2
       },
       "scene": {
+        "climate": "mediterranean",
         "style": "gothic",
         "land": "green",
         "prompt": "Medieval Florence on the Arno: stone family towers, the cathedral and its great dome, Tuscan hills with olive groves and cypresses"
@@ -1550,6 +1553,7 @@
         }
       ],
       "scene": {
+        "climate": "temperate",
         "style": "gothic",
         "land": "green",
         "prompt": "Medieval Cologne on the Rhine: the unfinished cathedral with a wooden crane on its tower, many church spires, river barges and city walls"
@@ -1922,6 +1926,7 @@
         }
       ],
       "scene": {
+        "climate": "mediterranean",
         "style": "gothic",
         "land": "dry",
         "prompt": "Medieval Toledo on a rocky hill above the Tagus gorge: the cathedral, synagogues and mudéjar brick towers, dry hills with olive trees"

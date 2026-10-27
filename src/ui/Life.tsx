@@ -23,6 +23,7 @@ import type { T } from '../i18n'
 import { platform } from '../platform'
 import { lifeStats } from '../telemetry'
 import { Scene } from '../pixel/Scene'
+import { moodFor, weatherFor } from '../pixel/season'
 import { Avatar } from '../pixel/Avatar'
 import { eventCast, eventRoles, familyCast } from './cast'
 import { DreamModal } from './Dream'
@@ -173,6 +174,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const yearTime: SceneTime = disaster === 'fire' ? 'night' : TIMES[Math.abs(state.year) % TIMES.length]
   const yearScene = { place: 'yard' as const, time: yearTime, props: [yearTime === 'night' ? ('moon' as const) : ('sun' as const)], disaster }
   void stage
+  // Время года на картинке двора идёт вместе с полоской года.
+  const season = state.phase === 'running' ? progress : 0
   const kids = hero.npcs.filter((n) => n.role === 'child' && n.alive)
 
   return (
@@ -246,7 +249,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'life' && (
         <section class="panel">
-          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} />
+          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} />
 
           {stage === 'infancy' || focuses.length === 0 ? (
             <p class="muted">{t('life.infancy', {}, o)}</p>

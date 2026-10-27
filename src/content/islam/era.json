@@ -538,6 +538,7 @@
         }
       },
       "scene": {
+        "climate": "arid",
         "style": "islamic",
         "land": "dry",
         "prompt": "Round City of Baghdad on the Tigris, green domes, boat bridges, date palms, crowded markets, Abbasid era"
@@ -999,6 +1000,7 @@
         }
       },
       "scene": {
+        "climate": "arid",
         "style": "islamic",
         "land": "green",
         "prompt": "Damascus oasis city with the Great Umayyad Mosque, orchards of the Ghouta, rose gardens, mountains behind"
@@ -1470,6 +1472,7 @@
         }
       },
       "scene": {
+        "climate": "arid",
         "style": "islamic",
         "land": "desert",
         "prompt": "Medieval Cairo on the Nile, minarets and domes, feluccas with triangular sails, desert cliffs of Muqattam beyond"
@@ -1856,6 +1859,7 @@
         }
       },
       "scene": {
+        "climate": "mediterranean",
         "style": "islamic",
         "land": "green",
         "prompt": "Córdoba of al-Andalus on the Guadalquivir, red-and-white arches of the Great Mosque, orange groves, water wheels, Roman bridge"
@@ -2245,6 +2249,7 @@
         }
       },
       "scene": {
+        "climate": "mediterranean",
         "style": "islamic",
         "land": "green",
         "prompt": "Ottoman Istanbul on the Bosphorus, Hagia Sophia with minarets, Süleymaniye dome, caiques on the Golden Horn, cypress trees"

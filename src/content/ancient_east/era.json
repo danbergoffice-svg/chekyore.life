@@ -431,6 +431,7 @@
         "egyptian_gods": 100
       },
       "scene": {
+        "climate": "arid",
         "style": "egyptian",
         "land": "desert",
         "prompt": "Thebes on the Nile in the Egyptian New Kingdom: temples of Karnak and Luxor on the east bank, mortuary temples and the cliffs of the Valley of the Kings on the west bank, mud-brick houses, palm groves, papyrus boats"
@@ -811,6 +812,7 @@
         "mesopotamian_gods": 3
       },
       "scene": {
+        "climate": "arid",
         "style": "egyptian",
         "land": "desert",
         "prompt": "Memphis, the great administrative city of New Kingdom Egypt: the temple of Ptah, busy Nile harbour of Peru-nefer with cargo ships, white walls, the old pyramids of Saqqara and Giza on the desert edge"
@@ -1171,6 +1173,7 @@
         "mesopotamian_gods": 100
       },
       "scene": {
+        "climate": "arid",
         "style": "mesopotamian",
         "land": "dry",
         "prompt": "Kassite Babylon on the Euphrates, Late Bronze Age: mud-brick city walls and gates, the temple of Marduk Esagila and its ziggurat, date palms along irrigation canals, reed boats"
@@ -1528,6 +1531,7 @@
         "mesopotamian_gods": 100
       },
       "scene": {
+        "climate": "arid",
         "style": "mesopotamian",
         "land": "dry",
         "prompt": "The city of Assur on a rocky bluff above the Tigris, Middle Assyrian period: the temple of the god Ashur, ziggurat, royal palace, city walls, steppe and barley fields beyond the river"

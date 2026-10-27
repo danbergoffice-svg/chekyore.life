@@ -418,7 +418,7 @@ export interface FigureLook {
   cloth: string
   trim: string | null
   /** Как рисовать убор в 5 точек ширины: покрывало, тюрбан, высокая шапка, перо, шапка, обруч. */
-  hat: 'cover' | 'turban' | 'tall' | 'feather' | 'cap' | 'band' | null
+  hat: 'cover' | 'turban' | 'tall' | 'feather' | 'cap' | 'band' | 'helmet' | null
   hatColor: string
   beard: boolean
   longHair: boolean

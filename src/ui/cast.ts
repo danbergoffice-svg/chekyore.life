@@ -4,6 +4,7 @@ import { ERA_META } from '../content'
 import { descentOf, maritalStatus, npcAge } from '../engine/rules'
 import type { EventDef, GameState, Household, Npc, NpcRole } from '../engine/types'
 import { figureLook } from '../pixel/avatar'
+import { toolFor } from '../pixel/figures'
 import type { Cast, CastMember } from '../pixel/scene'
 
 /** Сколько человек помещается на картинке; остальные — подписью «+N». */
@@ -21,17 +22,15 @@ function member(state: GameState, n: Npc, role: CastMember['role']): CastMember 
     age,
     seed: n.id,
     look: figureLook({ region: h.region, sex: n.sex, age, seed: n.id, cls: h.cls, married: !!n.married || role === 'spouse' || role === 'parent' }),
+    // Семья живёт в одном сословии с героем; чужие люди события — без сословных примет.
+    cls: role === 'npc' ? undefined : h.cls,
   }
 }
 
 function heroMember(state: GameState): CastMember {
   const h = state.hero
-  return {
-    role: 'hero',
-    sex: h.sex,
-    age: h.age,
-    seed: h.id,
-    look: figureLook({
+  const tool = h.age >= 14 ? toolFor(h.profession ?? undefined) : undefined
+  const look = figureLook({
       region: h.region,
       sex: h.sex,
       age: h.age,
@@ -44,8 +43,10 @@ function heroMember(state: GameState): CastMember {
       enslaved: h.tags.includes('enslaved'),
       homeRegion: h.abroad?.homeland.region,
       integrated: !!h.abroad && (!!h.abroad.naturalized || h.abroad.integration >= 60),
-    }),
-  }
+    })
+  // Воин — в шлеме.
+  if ((tool === 'spear' || tool === 'sword') && look.hat !== 'cover') look.hat = 'helmet'
+  return { role: 'hero', sex: h.sex, age: h.age, seed: h.id, look, cls: h.tags.includes('enslaved') ? 'slave' : h.cls, profession: h.profession ?? undefined, tool }
 }
 
 /** Обычай края: после свадьбы семья живёт у родителей мужа, отдельно или у родителей жены. */

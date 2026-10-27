@@ -1343,6 +1343,7 @@
         }
       ],
       "scene": {
+        "climate": "highland",
         "style": "aztec",
         "land": "dry",
         "prompt": "Tenochtitlan, island city of white temples and canals on Lake Texcoco, causeways, canoes, volcanoes on the horizon"
@@ -1705,6 +1706,7 @@
         }
       ],
       "scene": {
+        "climate": "highland",
         "style": "aztec",
         "land": "dry",
         "prompt": "Texcoco, Acolhua city on the eastern shore of the lake, palaces and terraced gardens, cypress groves, dry hills"
@@ -2058,6 +2060,7 @@
         }
       ],
       "scene": {
+        "climate": "highland",
         "style": "andean",
         "land": "mountains",
         "prompt": "Cusco, Inca capital of fitted stone walls and thatched roofs in a high Andean valley, terraces, llamas, snowy peaks"
@@ -2408,6 +2411,7 @@
         }
       ],
       "scene": {
+        "climate": "highland",
         "style": "andean",
         "land": "mountains",
         "prompt": "Quito, northern Inca city on a green mountain shelf beneath volcanoes, stone storehouses, the royal road, cloud forest below"

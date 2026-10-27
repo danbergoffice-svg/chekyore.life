@@ -468,6 +468,7 @@
         }
       },
       "scene": {
+        "climate": "monsoon",
         "style": "indian",
         "land": "dry",
         "prompt": "Delhi on the Yamuna plain: red sandstone minarets, domed tombs, mud-brick lanes, dusty fields and mango groves"
@@ -831,6 +832,7 @@
         }
       ],
       "scene": {
+        "climate": "monsoon",
         "style": "indian",
         "land": "dry",
         "prompt": "Hampi on the Tungabhadra river: granite boulder hills, towering temple gopurams, stone bazaar colonnades, banana groves and paddy fields"
@@ -1226,6 +1228,7 @@
         }
       },
       "scene": {
+        "climate": "monsoon",
         "style": "indian",
         "land": "green",
         "prompt": "Gaur and Pandua in the Bengal delta: brick mosques with curved roofs, bamboo huts on stilts, rice paddies, river boats and palm trees"
@@ -1607,6 +1610,7 @@
         }
       },
       "scene": {
+        "climate": "monsoon",
         "style": "indian",
         "land": "dry",
         "prompt": "Cambay and Ahmedabad in Gujarat: carved stone stepwells, white Jain temples, mosques with lattice windows, a busy harbour with dhows and cotton fields"

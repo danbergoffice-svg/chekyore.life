@@ -96,7 +96,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
     <div class="screen summary">
       {/* 1. Запись о смерти */}
       <section class="block record-card" aria-labelledby="sum-name">
-        <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} />
+        <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} still />
         <p class="eyebrow">{t('summary.record', { n: String(life.record ?? 1).padStart(6, '0') })}</p>
         <h1 id="sum-name" class="hero-name big">{name}</h1>
         <p class="muted">
@@ -326,7 +326,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
               const e = life.diary[i]
               return (
                 <li>
-                  <Scene scene={entryScene(e, era)} region={life.region} seed={`${life.heroId}:${i}`} />
+                  <Scene scene={entryScene(e, era)} region={life.region} seed={`${life.heroId}:${i}`} still />
                   <p>
                     <span class="diary-age">{t('diary.age', { n: e.age })}</span> {line(e)}
                   </p>
@@ -423,7 +423,7 @@ export function EarlyDeath({ life, era, onAgain, onFull }: { life: LifeSummary; 
   return (
     <div class="screen summary early-death">
       <section class="block record-card" aria-labelledby="early-name">
-        <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} />
+        <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} still />
         <h1 id="early-name" class="hero-name big">{name}</h1>
         <p class="muted">
           {formatYear(life.birthYear, lang)} — {formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}

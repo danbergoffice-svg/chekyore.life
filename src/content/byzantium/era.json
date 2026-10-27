@@ -547,6 +547,7 @@
         }
       ],
       "scene": {
+        "climate": "mediterranean",
         "style": "byzantine",
         "land": "dry",
         "prompt": "Constantinople: the great dome of Hagia Sophia, the Theodosian land walls and the Golden Horn crowded with ships"
@@ -1033,6 +1034,7 @@
         }
       ],
       "scene": {
+        "climate": "mediterranean",
         "style": "byzantine",
         "land": "dry",
         "prompt": "Thessalonica: sea walls on the Thermaic Gulf, the basilica of Saint Demetrios and the arch of Galerius"
@@ -1517,6 +1519,7 @@
         }
       ],
       "scene": {
+        "climate": "mediterranean",
         "style": "byzantine",
         "land": "green",
         "prompt": "Nicaea in Bithynia: square city walls by the shore of Lake Askania, olive groves and wooded hills"
@@ -1977,6 +1980,7 @@
         }
       ],
       "scene": {
+        "climate": "mediterranean",
         "style": "byzantine",
         "land": "green",
         "prompt": "Trebizond on the Black Sea: a walled citadel between two ravines, green Pontic mountains and a harbor full of galleys"

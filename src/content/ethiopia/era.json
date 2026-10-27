@@ -469,6 +469,7 @@
         }
       ],
       "scene": {
+        "climate": "highland",
         "style": "ethiopian",
         "land": "mountains",
         "prompt": "Lasta mountains with churches carved down into red volcanic rock, round stone houses with thatched roofs, terraced fields"
@@ -893,6 +894,7 @@
         }
       ],
       "scene": {
+        "climate": "highland",
         "style": "ethiopian",
         "land": "green",
         "prompt": "ancient granite stelae and the old church of Mary of Zion in Aksum, Tigray highlands with flat-topped mountains"
@@ -1333,6 +1335,7 @@
         }
       },
       "scene": {
+        "climate": "highland",
         "style": "ethiopian",
         "land": "green",
         "prompt": "green Shewan plateau with a vast royal camp of white tents, round thatched huts and steep flat-topped ambas"
@@ -1708,6 +1711,7 @@
         }
       ],
       "scene": {
+        "climate": "highland",
         "style": "islamic",
         "land": "dry",
         "prompt": "walled Muslim city of Harar with whitewashed stone houses, narrow lanes, mosques and gates, dry hills with coffee shrubs"
