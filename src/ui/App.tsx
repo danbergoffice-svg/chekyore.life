@@ -83,7 +83,8 @@ export function App() {
   const [choiceChanges, setChoiceChanges] = useState<Change[]>([])
   const [, rerender] = useReducer((x: number) => x + 1, 0)
   // Лотерея рождения, пока барабаны крутятся: что выпало и загружена ли страна.
-  const [pending, setPending] = useState<{ seed: number; birth: Birth } | null>(null)
+  // respin — сколько раз уже перекрутили барабан для этой жизни; auto — барабан сам дёргает рычаг (перекрутка).
+  const [pending, setPending] = useState<{ seed: number; birth: Birth; respin: number; auto?: boolean } | null>(null)
   const [loadedVersion, setLoadedVersion] = useState(0)
   // С какого экрана открыли отзыв — туда и вернуться; благодарность после отправки.
   const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
@@ -283,10 +284,18 @@ export function App() {
 
   /** Жребий для барабана в меню: что выпадет при рывке рычага. Страну игрок может выбрать сам — в пробный период,
    *  после отзыва; год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
-  const rollPending = (lottery = prefs.lottery, country = pickedCountry(prefs)) => {
+  const rollPending = (lottery = prefs.lottery, country = pickedCountry(prefs), respin = 0) => {
     const seed = newSeed()
     const birth = rollBirth(seed, lottery, (country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
-    setPending({ seed, birth })
+    setPending({ seed, birth, respin, auto: respin > 0 })
+  }
+  /** Перекрутить барабан, пока жизнь не начата: флаг respins (0 — нельзя, -1 — без ограничений). */
+  const respinLimit = platform.flags.respins ?? 0
+  const respinsLeft = pending ? (respinLimit < 0 ? Infinity : Math.max(0, respinLimit - pending.respin)) : 0
+  const onRespin = () => {
+    if (!pending || respinsLeft <= 0) return
+    platform.track('respin', { n: pending.respin + 1, era: pending.birth.era, cls: pending.birth.cls })
+    rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1)
   }
   // В меню барабан всегда заряжен.
   useEffect(() => {
@@ -323,7 +332,7 @@ export function App() {
     const h = game.current.hero
     void h
     platform.setContext({ mode: prefs.mode })
-    trackLifeStart(game.current, pickedCountry(prefs) ? 'country' : prefs.lottery, protectedUntil !== undefined)
+    trackLifeStart(game.current, pickedCountry(prefs) ? 'country' : prefs.lottery, protectedUntil !== undefined, pending.respin)
     setPending(null)
     setYearChanges([])
     setScreen('reveal')
@@ -575,6 +584,9 @@ export function App() {
                   onRetry={() => ensure(pending.birth.era)}
                   onPull={onPull}
                   onDone={bornAfterSpin}
+                  onRespin={respinLimit !== 0 ? onRespin : undefined}
+                  left={respinsLeft}
+                  autoSpin={!!pending.auto}
                   onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
                   country={pickedCountry(prefs)}
                   focus={drumFocus}

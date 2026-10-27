@@ -576,6 +576,8 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 @keyframes knob { 50% { transform: translateY(84px); } }
 @keyframes rod { 50% { transform: scaleY(0.12); } }
 .slot-machine.idle .lever:not(:disabled) .lever-knob { animation: beckon 1.6s ease-in-out infinite; }
+/* Перекрутки кончились: рычаг замирает и тускнеет. */
+.slot-machine.done .lever:disabled { opacity: 0.5; filter: grayscale(0.5); }
 @keyframes beckon { 0%, 100% { transform: none; } 50% { transform: translateY(6px); } }
 .spin-result { display: grid; gap: 10px; margin-top: 4px; }
 .spin-result .scene { margin-bottom: 2px; }

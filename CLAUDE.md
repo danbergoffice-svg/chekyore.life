@@ -75,6 +75,7 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   ведёт в меню к барабану. Защищены до 20 лет первые `protected_lives` жизней (`protectedAge` в `App.tsx`, и наследник);
   сон о будущем в первой жизни — к `dream_first_by` годам. Пробный период «страна за отзыв» — флаг
   `trial_country_pick`, `prefs.country`, `CountryModal`/`CountryPrompt`; проверка — `node tools/qa/country.cjs`.
+  Перекрутка барабана после результата — флаг `respins` (2), проверка — `node tools/qa/respin.cjs`.
 - Подсказки на экране жизни — `hintFor`/`closeHint` в `Life.tsx` (закрытые помнятся в `thousands.hints`): скорость (0–1 год),
   длительность года с кнопкой «Открыть настройки» (2–6 лет; «Назад» из настроек возвращает в жизнь), фокус, вкладка «Герой».
 - Графика (`docs/TZ_graphics.md`): сцена 320×100 из кэшируемых слоёв + движение (`scene.ts`, `fx.ts`, `figures.ts`),

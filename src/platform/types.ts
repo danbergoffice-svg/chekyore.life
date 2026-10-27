@@ -23,6 +23,8 @@ export interface Flags {
   dream_first_by: number
   /** Пробный период: за отзыв после смерти игрок сам выбирает страну следующих жизней. */
   trial_country_pick: boolean
+  /** Сколько раз можно перекрутить барабан после результата, пока не начата жизнь: 0 — нельзя, -1 — без ограничений. */
+  respins: number
   /** Редкость достижений: id → доля игроков. */
   ach_rarity: Record<string, number>
   /** Стиль портрета героя. */
@@ -42,6 +44,7 @@ export const DEFAULT_FLAGS: Flags = {
   dream_chance: 0.05,
   dream_first_by: 25,
   trial_country_pick: true,
+  respins: 2,
   ach_rarity: {},
   portrait_style: 'painting',
   art_strength: 0.5,

@@ -992,5 +992,8 @@
   "setup.country.feedback": "Leave feedback",
   "feedback.prompt.reward.title": "Choose where to be born",
   "feedback.prompt.reward.text": "This is a beta, and the game changes with players’ feedback. Tell us in a couple of sentences what you liked and what to fix — and while the trial lasts, you will choose the country of your next lives.",
-  "feedback.prompt.reward.go": "Review & choose a country"
+  "feedback.prompt.reward.go": "Review & choose a country",
+  "spin.again": "Spin again · {n} left",
+  "spin.again.unlimited": "Spin again",
+  "spin.fate": "Fate is sealed — life will show the rest."
 }

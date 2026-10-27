@@ -16,10 +16,10 @@ export function tickLife(state: GameState, sec: number): void {
   lifeStats(state).sec += sec
 }
 
-export function trackLifeStart(state: GameState, lottery: string, isProtected: boolean): void {
+export function trackLifeStart(state: GameState, lottery: string, isProtected: boolean, respins = 0): void {
   const h = state.hero
   lifeStats(state)
-  platform.track('life_start', { era: h.era, region: h.region, cls: h.cls, sex: h.sex, lottery, protected: isProtected, generation: h.generation })
+  platform.track('life_start', { era: h.era, region: h.region, cls: h.cls, sex: h.sex, lottery, protected: isProtected, generation: h.generation, respins })
 }
 
 /** Выбор в событии: сразу после choose(), пока событие ещё в очереди с итогом. */

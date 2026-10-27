@@ -102,6 +102,11 @@ export function SlotMachine(props: {
   country?: string
   /** Растёт, когда к барабану нужно прокрутить страницу (новая жизнь с экрана итогов). */
   focus?: number
+  /** Перекрутить после результата (рычаг остаётся активным); left — сколько раз ещё можно. */
+  onRespin?: () => void
+  left?: number
+  /** Это перекрутка: барабан сам дёргает рычаг сразу после появления. */
+  autoSpin?: boolean
 }) {
   const { t, lang } = useUi()
   const { birth } = props
@@ -160,6 +165,11 @@ export function SlotMachine(props: {
     setPhase('pull')
     setTimeout(() => setPhase('spin'), fast ? 50 : 450)
   }
+  useEffect(() => {
+    if (props.autoSpin) pull()
+  }, [])
+  const canRespin = !!props.onRespin && (props.left ?? 0) > 0
+  const left = props.left ?? 0
   const onStop = (i: number) =>
     setStopped((s) => {
       const next = s.map((v, j) => v || j === i)
@@ -185,7 +195,12 @@ export function SlotMachine(props: {
               <Reel label={labels[i]} items={items} spinning={phase === 'spin' || phase === 'done'} duration={durations[i]} stopped={stopped[i]} onStop={() => onStop(i)} />
             ))}
           </div>
-          <button class={`lever ${phase === 'pull' ? 'pulled' : ''}`} onClick={pull} disabled={phase !== 'idle'} aria-label={t('menu.spin')}>
+          <button
+            class={`lever ${phase === 'pull' ? 'pulled' : ''}`}
+            onClick={phase === 'done' ? props.onRespin : pull}
+            disabled={phase === 'pull' || phase === 'spin' || (phase === 'done' && !canRespin)}
+            aria-label={phase === 'done' ? t('spin.again.unlimited') : t('menu.spin')}
+          >
             <span class="lever-knob" />
             <span class="lever-rod" />
             <span class="lever-base" />
@@ -210,6 +225,12 @@ export function SlotMachine(props: {
               {props.ready ? t('spin.go') : t('spin.loading')}
             </button>
           )}
+          {canRespin && (
+            <button class="secondary" onClick={props.onRespin}>
+              {Number.isFinite(left) ? t('spin.again', { n: left }) : t('spin.again.unlimited')}
+            </button>
+          )}
+          {props.onRespin && !canRespin && <p class="muted small center">{t('spin.fate')}</p>}
         </div>
       )}
       {phase !== 'idle' && !props.ready && (props.error || slow) && (
