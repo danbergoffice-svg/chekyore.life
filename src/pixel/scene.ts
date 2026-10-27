@@ -13,6 +13,7 @@ import { drawFxBack, drawFxMid, drawFxTop, emptyFx, noise } from './fx'
 import type { Fx, Weather } from './fx'
 import { climateOf, seasonLook, seasonName } from './season'
 import { artFor, artStrength, drawBackground, paletteMapper, stylize } from './art'
+import { detailHouses } from './detail'
 import type { ArtStyle } from './art'
 import type { SeasonLook, SeasonName } from './season'
 import type { SceneDef, SceneProp, ScenePlace, SceneTime } from '../engine/types'
@@ -428,6 +429,7 @@ let built: { x: number; w: number; top: number }[] = []
 function door(px: Px, cx: number, h: number, c: string, arch = false) {
   px(cx - 2, GROUND - h, 4, h, c)
   if (arch) px(cx - 1, GROUND - h - 1, 2, 1, c)
+  cur.openings.push({ ...nrect(cx - 2, GROUND - h, 4, h), kind: 'door', style: '' })
 }
 
 /**
@@ -462,7 +464,14 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
     px(wx, wy, ww, wh, col)
     if (col === '#e8c96a') light(wx, wy, ww, wh)
   }
-  const window = (wx: number, wy: number, ww = 3, wh = 3) => lamp(wx, wy, ww, wh)
+  const window = (wx: number, wy: number, ww = 3, wh = 3) => {
+    lamp(wx, wy, ww, wh)
+    cur.openings.push({ ...nrect(wx, wy, ww, wh), kind: 'window', style: look.style })
+  }
+  // Дом для прорисовки в полном разрешении (detailHouses): стены, крыша, стреха.
+  const rec = (h: number, roof: RoofKind, hx = x, hw = w) => {
+    cur.houses.push({ x: hx, w: hw, h, roof, style: look.style })
+  }
   // Дым из трубы или очага — у части домов.
   if (noise(Math.round(x * 7), Math.round(w), 3) < (['russian', 'gothic', 'japanese', 'chinese', 'andean'].includes(look.style) ? 0.55 : 0.3)) cur.chimneys.push(x + Math.round(w * 0.68))
   switch (look.style) {
@@ -482,7 +491,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
         px(x + w - 12, GROUND - 6, 8, 6, dark)
         px(x + w - 13, GROUND - 7, 10, 1, shade('#a83a2f', k))
       }
-      return
+      return rec(h, 'tile')
     }
     case 'egyptian':
     case 'mesopotamian': {
@@ -497,7 +506,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
         px(x + w - 3, GROUND - h - 6, 1, 5, shade('#6a4a2a', k))
         px(x + w - 11, GROUND - h - 7, 10, 1, shade('#c9b48a', k))
       }
-      return
+      return rec(h, 'flat')
     }
     case 'islamic':
     case 'indian': {
@@ -507,7 +516,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
         px(x + 2, GROUND - h, w - 4, h, shade('#c8a070', k))
         door(px, cx, 6, dark)
         gable(px, x, w, GROUND - h - 1, shade('#b89a5a', k), 0.45)
-        return
+        return rec(h, 'thatch', x + 2, w - 4)
       }
       const h = 10 + Math.floor(r() * 5)
       px(x, GROUND - h, w, h, wall)
@@ -521,7 +530,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
         for (let i = 0; i < 3; i++) px(x + w - 9 + i * 2, GROUND - h + 3, 1, 3, shade('#4a3020', k))
       } else window(x + w - 8, GROUND - h + 3, 3, 3)
       if (r() > 0.85) dome(px, cx, GROUND - h - 1, Math.min(5, Math.floor(w / 4)), shade(look.style === 'islamic' ? p.accent : p.stone, k), shade('#d8b040', k))
-      return
+      return rec(h, 'flat')
     }
     case 'chinese':
     case 'japanese': {
@@ -539,7 +548,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
         px(x + 6, GROUND - h + 3, 1, 4, shade('#5a4030', k))
       }
       curvedRoof(px, x, w, GROUND - h - 1, roof, look.style === 'japanese')
-      return
+      return rec(h, 'tile')
     }
     case 'gothic': {
       // Фахверк: одна-две «клетки» балок, крутая крыша, дверь и пара окон.
@@ -556,7 +565,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
       window(x + 4, GROUND - 7, 3, 3)
       if (two) window(x + w / 2 - 1, GROUND - 15, 3, 3)
       gable(px, x - 1, w + 2, GROUND - h - 1, roof, 1)
-      return
+      return rec(h, 'tile')
     }
     case 'russian': {
       const h = 11 + Math.floor(r() * 3)
@@ -566,7 +575,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
       px(cx - 3, GROUND - h + 3, 6, 5, shade('#e8dcc0', k))
       lamp(cx - 2, GROUND - h + 4, 4, 3)
       gable(px, x - 2, w + 4, GROUND - h - 1, roof, 0.9)
-      return
+      return rec(h, 'shingle')
     }
     case 'sahel': {
       const h = 9 + Math.floor(r() * 4)
@@ -575,7 +584,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
       px(x + w - 2, GROUND - h - 2, 2, 2, wall)
       for (let tx = x + 3; tx < x + w - 2; tx += 5) px(tx, GROUND - h + 2, 1, 1, shade('#5a3a20', k))
       door(px, cx, 7, dark)
-      return
+      return rec(h, 'flat')
     }
     case 'ethiopian': {
       // Круглая хижина-тукуль с конической соломенной крышей.
@@ -584,7 +593,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
       door(px, cx, 6, dark)
       for (let i = 0; i < 9; i++) px(cx - 10 + i, GROUND - h - 1 - i, 20 - i * 2, 1, shade(p.roof, k - (i % 2) * 0.05))
       px(cx, GROUND - h - 12, 1, 3, shade('#5a4030', k))
-      return
+      return rec(h, 'thatch', cx - 8, 16)
     }
     case 'maya':
     case 'aztec':
@@ -597,7 +606,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
       px(cx - 2, GROUND - 7, 4, 7, dark)
       px(cx - 1, GROUND - 8, 2, 1, dark)
       gable(px, x - 2, w + 4, GROUND - h - 1, roof, look.style === 'andean' ? 0.7 : 0.55)
-      return
+      return rec(h, 'thatch')
     }
   }
 }
@@ -1379,7 +1388,12 @@ interface Build {
   chimneys: number[]
   /** Цвет контура людей по стилю края (rgba) или null. */
   outline: string | null
+  /** Дома и проёмы для прорисовки в полном разрешении. */
+  houses: { x: number; w: number; h: number; roof: RoofKind; style: string }[]
+  openings: { x: number; y: number; w: number; h: number; kind: 'window' | 'door'; style: string }[]
 }
+
+type RoofKind = 'tile' | 'shingle' | 'thatch' | 'flat'
 let cur: Build
 
 /** Позы актёра по времени: idle — изредка переступает; work — замах; bob — качается на воде. */
@@ -2017,7 +2031,7 @@ function build(input: SceneInput): BuiltScene {
   const art: ArtStyle | null = artMode === 'none' ? null : artFor(look.style, input.year)
   const ak = art ? artStrength() : 0
   const oc = art && ak >= 0.25 ? ({ none: null, black: '30,26,24', brown: '74,48,32', gold: '200,160,60' } as const)[art.outline] : null
-  cur = { main: ctx, far: farX, front: frontX, sky: skyX, fx, actors: [], chimneys: [], outline: oc ? `rgba(${oc},${Math.min(1, ak * 1.4)})` : null }
+  cur = { main: ctx, far: farX, front: frontX, sky: skyX, fx, actors: [], chimneys: [], houses: [], openings: [], outline: oc ? `rgba(${oc},${Math.min(1, ak * 1.4)})` : null }
   colorMap = art && ak > 0 ? paletteMapper(art.palette, ak) : null
   const colors = colorMap
   const px = scaledPx(ctx)
@@ -2165,6 +2179,12 @@ function build(input: SceneInput): BuiltScene {
       fx.flames.push(nrect(150, GROUND - 9, 8, 7))
       fx.smoke.push({ x: Math.round(154 * S), y: Math.round((GROUND - 10) * S), size: 1 })
     }
+  }
+  // Дома в полном разрешении: фактура стен, крыши, стрехи, окна, двери.
+  if (cur.houses.length || cur.openings.length) {
+    const img = ctx.getImageData(0, 0, W, H)
+    detailHouses(img, cur.houses, cur.openings, S, Math.round(GROUND * S))
+    ctx.putImageData(img, 0, 0)
   }
   if (seasonNow || mood === 'epidemic') finishSeason(cur, seasonNow, mood === 'epidemic')
   if (art && ak > 0) {
