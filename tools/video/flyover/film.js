@@ -355,8 +355,10 @@ function camAt(t) {
     const e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2
     const D = Math.exp(lerp(Math.log(D_OVER * 0.965), Math.log(D_CARD), e))
     const s = F / D
-    // Верх страницы прижат к верху кадра, к концу верх постера опускается на CARD_TOP.
-    const pinned = 42 + HERO.y * s
+    // Верх страницы начинает с того места, где был в конце вида сверху, прижимается к верху кадра,
+    // к концу верх постера опускается на CARD_TOP.
+    const top0 = H / 2 - (anchoredLy(D_OVER, 0) * F) / (D_OVER * 0.965)
+    const pinned = lerp(top0, 42, ss(0, 0.35, u)) + HERO.y * s
     const yh = lerp(pinned, CARD_TOP, ss(0.55, 1, u))
     const Ly = HERO.y - (yh - H / 2) / s
     return { ...cameraOf(HERO.x + HERO.w / 2, Ly, D, 0), phase: 'dive', dive: u }
@@ -665,8 +667,23 @@ function renderGL(t) {
   gl.viewport(0, 0, W, H)
   gl.clearColor(0, 0, 0, 0)
   gl.clear(gl.COLOR_BUFFER_BIT)
-  // В финальной карточке камера почти стоит — хватает одного подкадра.
-  const n = t > T.diveEnd + 0.4 ? 1 : SUB
+  // В финальной карточке камера почти стоит — хватает одного подкадра; на подъёме и нырке картинка за выдержку
+  // сдвигается на десятки точек — подкадров столько, чтобы шаг был не больше ~2 точек (до 16).
+  let n = t > T.diveEnd + 0.4 ? 1 : SUB
+  if (t > T.riseStart - 0.05 && t < T.diveEnd + 0.1) {
+    const a = camAt(t - (0.5 * SHUTTER) / RFPS)
+    const b = camAt(t + (0.5 * SHUTTER) / RFPS)
+    let disp = 0
+    for (const pt of [[PW / 2, 0, 0], [PW / 2, PH, 0], [0, PH / 2, 0], [PW, PH / 2, 0], [HERO.x, HERO.y, 0], [HERO.x + HERO.w, HERO.y + HERO.h, 0]]) {
+      const pa = project(a, pt)
+      const pb = project(b, pt)
+      if (pa.z < 1 || pb.z < 1) continue
+      if (Math.abs(pa.x) > 4 * W || Math.abs(pa.y) > 4 * H) continue
+      disp = Math.max(disp, Math.hypot(pa.x - pb.x, pa.y - pb.y))
+    }
+    n = Math.max(n, Math.min(16, Math.ceil(disp / 2)))
+  }
+  window.lastSub = n
   let focus = 0
   for (let k = 0; k < n; k++) {
     const tk = n > 1 ? t + ((k / (n - 1) - 0.5) * SHUTTER) / RFPS : t
