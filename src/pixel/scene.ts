@@ -1988,7 +1988,7 @@ export function composeScene(ctx: CanvasRenderingContext2D, b: BuiltScene, t: nu
     ctx.fillStyle = 'rgba(20,16,12,0.7)'
     ctx.fillRect(b.badge.x - 2, b.badge.y - 10, 20, 13)
     ctx.fillStyle = '#f2ead8'
-    ctx.font = 'bold 11px sans-serif'
+    ctx.font = "700 11px 'Thousands Letopis', serif"
     ctx.fillText(b.badge.text, b.badge.x, b.badge.y)
   }
 }

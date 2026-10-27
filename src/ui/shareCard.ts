@@ -52,7 +52,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
   const muted = d.dark ? '#a8977f' : '#7d6b58'
   const accent = d.dark ? '#d07a52' : '#8e3b22'
   const gold = d.dark ? '#d1a35a' : '#a87a2e'
-  const serif = "'PT Serif', Georgia, serif"
+  const serif = "'Thousands Letopis', serif"
   ctx.fillStyle = paper
   ctx.fillRect(0, 0, cw, ch)
 

@@ -12,8 +12,6 @@ function portalHtml(platform: string | undefined): Plugin {
     transformIndexHtml(html) {
       if (platform !== 'crazygames') return html
       return html
-        .replace(/\s*<link rel="preconnect"[^>]*>/g, '')
-        .replace(/\s*<link href="https:\/\/fonts\.googleapis[^>]*>/g, '')
         .replace(/\s*<!--[^>]*соцсетях[\s\S]*?-->/g, '')
         .replace(/\s*<meta (property="og:|name="twitter:)[^>]*>/g, '')
         .replace(/\s*<link rel="(canonical|manifest)"[^>]*>/g, '')

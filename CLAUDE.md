@@ -65,6 +65,9 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —
   `achievements.ts`/`Awards.tsx`, отчёт в `/admin` — `SQL.dreamSteps`. Новый сон: запись в `dreams.json` + тексты RU/EN;
   `validateDreams()` проверяет ответы, допуски и формулы на краях параметров.
+- Шрифт — только «Летопись» (Thousands Letopis 0.2): `src/fonts/ThousandsLetopis-VF.woff2` (вариативный, веса 300–700,
+  прописные + капитель), `@font-face` в `style.css`; на холстах (карточка «Поделиться», OG) — тот же шрифт, перерисовка
+  после `document.fonts.load`. Google Fonts и PT Serif убраны. README шрифта — `src/fonts/README-Letopis.md`.
 - Графика (`docs/TZ_graphics.md`): сцена 320×100 из кэшируемых слоёв + движение (`scene.ts`, `fx.ts`, `figures.ts`),
   сезоны и погода (`season.ts`, `climate` в `era.json`), стиль искусства страны (`art.ts`, флаг `art_strength`),
   звуки места (`setAmbience` в `audio.ts`), иллюстрации G3 (`illustrations.ts`, `src/art/`, `npm run art`),

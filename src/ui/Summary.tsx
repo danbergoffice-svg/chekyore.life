@@ -603,7 +603,9 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
 
   useEffect(() => {
     if (!canvas.current) return
-    drawCard(canvas.current, format, {
+    const el = canvas.current
+    // Холст сам не перерисуется, когда догрузится шрифт «Летопись», — рисуем ещё раз после загрузки.
+    const draw = () => drawCard(el, format, {
       name,
       years: ds ? t('share.dream.when', { year: formatYear(ds.year, lang) }) : years,
       place: `${t(`era.${ds?.era ?? life.era}`)} · ${t(`region.${life.region}`)}`,
@@ -618,6 +620,8 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
       scene: ds ? { place: 'landmark', time: 'night', people: 1, props: [] } : { place: 'landmark', time: 'sunset', people: 3, props: era.id === 'E03' && life.region === 'egypt' ? ['palm', 'sun'] : ['sun'] },
       dark,
     })
+    draw()
+    document.fonts?.load("700 40px 'Thousands Letopis'").then(draw, () => {})
   }, [format, clean.text, lang])
 
   const save = () => onUpdate({ ...life, playerLine: clean.text })

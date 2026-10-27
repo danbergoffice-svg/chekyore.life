@@ -1,4 +1,15 @@
 /* «Тёплая гравюра»: бумага, чернила, сепия. */
+
+/* Шрифт игры — «Летопись» (Thousands Letopis 0.2, src/fonts): глифическая антиква широкого пера,
+   прописные и капитель; один вариативный файл, веса 300–700. Других шрифтов в игре нет. */
+@font-face {
+  font-family: 'Thousands Letopis';
+  src: url('./fonts/ThousandsLetopis-VF.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --paper: #f3ead8;
   --paper-2: #ebdfc8;
@@ -15,7 +26,7 @@
   --art-1: #d9c39b;
   --art-2: #b9955f;
   --shadow: 0 1px 0 rgba(43, 33, 25, 0.06), 0 6px 18px rgba(43, 33, 25, 0.08);
-  --font: 'PT Serif', Georgia, 'Times New Roman', serif;
+  --font: 'Thousands Letopis', serif;
   --size: 17px;
   color-scheme: light;
 }
