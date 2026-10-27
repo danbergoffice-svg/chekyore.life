@@ -5,6 +5,7 @@ import { npcAge, regionOf, roleKey } from '../engine/rules'
 import { AXES } from '../engine/types'
 import type { DiaryEntry, EraDef, Icon, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
+import { dreamDef } from '../engine/dreams'
 import { Scene } from '../pixel/Scene'
 import { BarList, LineChart, Numbers } from './charts'
 import { CARD_SIZES, cleanLine, drawCard } from './shareCard'
@@ -73,7 +74,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
   const birthCls = r.facts.birthCls ?? life.cls
   const name = nameOf(life.name, lang)
   const coin = regionOf(era, life.region).coin
-  const [sharing, setSharing] = useState(false)
+  const [sharing, setSharing] = useState<false | 'life' | 'dream'>(false)
   const starred = life.starred ?? []
   const toggleStar = (i: number) => onUpdate({ ...life, starred: starred.includes(i) ? starred.filter((x) => x !== i) : [...starred, i] })
   const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion, lang)
@@ -81,6 +82,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
   const act = (action: string, run: () => void) => () => {
     platform.track('summary_action', { action })
     if (action === 'share') platform.track('share_open', { what: 'life' })
+    if (action === 'share_dream') platform.track('share_open', { what: 'dream' })
     run()
   }
 
@@ -198,6 +200,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
             <strong>{t(`dream.${life.dreamSeen.id}.title`)}</strong> — {t(`dream.result.${life.dreamSeen.outcome}`)} · {t('dream.score', { n: life.dreamSeen.score })}
           </p>
           <p class="small">{t(`dream.${life.dreamSeen.id}.truth`)}</p>
+          <button class="secondary" onClick={act('share_dream', () => setSharing('dream'))}>{t('share.dream.button')}</button>
         </section>
       )}
 
@@ -402,10 +405,10 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         ) : (
           <button class="primary" onClick={act('reborn', onAgain)}>{t('actions.again')}</button>
         )}
-        <button class="secondary" onClick={act('share', () => setSharing(true))}>{t('actions.share_short')}</button>
+        <button class="secondary" onClick={act('share', () => setSharing('life'))}>{t('actions.share_short')}</button>
       </div>
 
-      {sharing && <ShareDialog life={life} era={era} archetype={archetype} onClose={() => setSharing(false)} onUpdate={onUpdate} />}
+      {sharing && <ShareDialog what={sharing} life={life} era={era} archetype={archetype} onClose={() => setSharing(false)} onUpdate={onUpdate} />}
     </div>
   )
 }
@@ -556,7 +559,16 @@ function FamilyLink({ life }: { life: LifeSummary }) {
   )
 }
 
-function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSummary; era: EraDef; archetype: string; onClose: () => void; onUpdate: (l: LifeSummary) => void }) {
+/** Заголовок карточки сна: «Я помню школьную химию — и совершил прорыв в прошлом» или «Я плохо учился в школе…». */
+function dreamHeadline(t: ReturnType<typeof useUi>['t'], life: LifeSummary): string {
+  const d = life.dreamSeen!
+  const o = { sex: life.sex, region: life.region, religion: life.religion }
+  const subject = t(`share.dream.subject.${dreamDef(d.id)?.subject ?? 'math'}`)
+  const kind = d.outcome === 'partial' && d.known ? 'known' : d.outcome
+  return t(`share.dream.${kind}`, { subject }, o)
+}
+
+function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 'life' | 'dream'; life: LifeSummary; era: EraDef; archetype: string; onClose: () => void; onUpdate: (l: LifeSummary) => void }) {
   const { t, lang } = useUi()
   const [format, setFormat] = useState<CardFormat>('square')
   const [draft, setDraft] = useState(life.playerLine ?? '')
@@ -575,26 +587,32 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
     out.push(`${t('summary.cause')}: ${t(`cause.${life.cause}`)}`)
     return out
   }, [life, lang])
-  const patternLine = AXES.map((a) => t(`pattern.axis.${a}.${r.pattern.scores[a] > 0 ? 'right' : 'left'}`)).join(' · ')
+  const ds = what === 'dream' ? life.dreamSeen : undefined
+  const headline = ds ? dreamHeadline(t, life) : archetype
+  const patternLine = ds
+    ? `${t(`dream.${ds.id}.title`)} — ${t(`dream.result.${ds.outcome}`)}`
+    : AXES.map((a) => t(`pattern.axis.${a}.${r.pattern.scores[a] > 0 ? 'right' : 'left'}`)).join(' · ')
+  const cardFacts = ds ? [t('share.dream.ask')] : facts
   const dark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)
   // На порталах — без ссылки на сайт: платформа сама добавит ссылку на страницу игры у себя.
-  const shareText = EXTERNAL ? `${t('share.text', { name, years, archetype })} ${SITE}` : t('share.text', { name, years, archetype })
+  const baseText = ds ? `${headline} ${t('share.dream.ask')}` : t('share.text', { name, years, archetype })
+  const shareText = EXTERNAL ? `${baseText} ${SITE}` : baseText
 
   useEffect(() => {
     if (!canvas.current) return
     drawCard(canvas.current, format, {
       name,
-      years,
-      place: `${t(`era.${life.era}`)} · ${t(`region.${life.region}`)}`,
-      archetype,
+      years: ds ? t('share.dream.when', { year: formatYear(ds.year, lang) }) : years,
+      place: `${t(`era.${ds?.era ?? life.era}`)} · ${t(`region.${life.region}`)}`,
+      archetype: headline,
       patternLine,
-      facts,
+      facts: cardFacts,
       playerLine: clean.text,
       cta: EXTERNAL ? `${t('share.card.cta')} · ${SITE_NAME}` : t('share.card.cta_portal'),
       region: life.region,
       sex: life.sex,
       seed: life.heroId,
-      scene: { place: 'landmark', time: 'sunset', people: 3, props: era.id === 'E03' && life.region === 'egypt' ? ['palm', 'sun'] : ['sun'] },
+      scene: ds ? { place: 'landmark', time: 'night', people: 1, props: [] } : { place: 'landmark', time: 'sunset', people: 3, props: era.id === 'E03' && life.region === 'egypt' ? ['palm', 'sun'] : ['sun'] },
       dark,
     })
   }, [format, clean.text, lang])
@@ -609,7 +627,7 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
     a.href = URL.createObjectURL(b)
     a.download = `thousands-of-lives-${format}.png`
     a.click()
-    platform.track('share_done', { what: 'life', format, method: 'download' })
+    platform.track('share_done', { what, format, method: 'download' })
     setTimeout(() => URL.revokeObjectURL(a.href), 1000)
   }
   const systemShare = async () => {
@@ -618,14 +636,14 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
     const file = b ? new File([b], 'thousands-of-lives.png', { type: 'image/png' }) : null
     const result = await platform.share({ text: shareText, url: EXTERNAL ? SITE : undefined, file: file ?? undefined })
     if (result === 'copied') setCopied(true)
-    if (result !== 'failed') platform.track('share_done', { what: 'life', format, method: result === 'shared' ? 'system' : 'copy' })
+    if (result !== 'failed') platform.track('share_done', { what, format, method: result === 'shared' ? 'system' : 'copy' })
   }
   const copy = async () => {
     save()
     // На портале к тексту добавляется ссылка-приглашение на страницу игры у платформы.
     const ok = (await platform.share({ text: shareText, copyOnly: EXTERNAL })) === 'copied'
     setCopied(ok)
-    if (ok) platform.track('share_done', { what: 'life', format: 'text', method: 'copy' })
+    if (ok) platform.track('share_done', { what, format: 'text', method: 'copy' })
   }
   const [w, h] = CARD_SIZES[format]
 
@@ -633,7 +651,7 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
     <div class="modal-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div class="modal share" role="dialog" aria-modal="true" aria-labelledby="share-title">
         <div class="modal-body">
-          <h2 id="share-title">{t('share.title')}</h2>
+          <h2 id="share-title">{t(ds ? 'share.dream.title' : 'share.title')}</h2>
           <label class="field">
             <span>{t('share.prompt.one_line')}</span>
             <input type="text" maxLength={140} value={draft} onInput={(e) => setDraft(e.currentTarget.value)} />
@@ -646,7 +664,7 @@ function ShareDialog({ life, era, archetype, onClose, onUpdate }: { life: LifeSu
               </button>
             ))}
           </div>
-          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={`${name}, ${years}. ${archetype}. ${facts.join('. ')}`} />
+          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={`${name}, ${years}. ${headline}. ${cardFacts.join('. ')}`} />
           <p class="small muted">{t('share.privacy')}</p>
           <div class="stack">
             {EXTERNAL && 'share' in navigator && <button class="primary" onClick={systemShare}>{t('share.system')}</button>}

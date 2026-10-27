@@ -95,6 +95,18 @@ FROM events WHERE ts >= ?1 AND ts < ?2 GROUP BY day ORDER BY day DESC`,
   choices: `SELECT json_extract(params_json,'$.event_id') AS event, COUNT(*) AS shown,
   ROUND(100.0*SUM(json_extract(params_json,'$.success'))/COUNT(*)) AS success_pct
 FROM events WHERE name='choice_made' AND ts >= ?1 AND ts < ?2 GROUP BY event ORDER BY shown DESC LIMIT 30`,
+  // Сны о будущем: доля верных ответов по сну и шагу и самое частое неверное значение (docs/TZ_dreams.md).
+  dreamSteps: `WITH d AS (
+  SELECT json_extract(params_json,'$.dream') AS dream, json_extract(params_json,'$.step') AS step,
+    json_extract(params_json,'$.correct') AS ok, json_extract(params_json,'$.value') AS value
+  FROM events WHERE name='dream_step' AND ts >= ?1 AND ts < ?2
+), w AS (
+  SELECT dream, step, value, COUNT(*) AS n, ROW_NUMBER() OVER (PARTITION BY dream, step ORDER BY COUNT(*) DESC) AS r
+  FROM d WHERE ok = 0 GROUP BY dream, step, value
+)
+SELECT d.dream AS dream, d.step AS step, COUNT(*) AS answers, ROUND(100.0*SUM(d.ok)/COUNT(*)) AS correct_pct,
+  (SELECT value || ' ×' || n FROM w WHERE w.dream = d.dream AND w.step = d.step AND w.r = 1) AS top_wrong
+FROM d GROUP BY d.dream, d.step ORDER BY d.dream, d.step LIMIT 120`,
   // Когорты: день первого события игрока (?1…?2 — номера дней), возврат — любое событие ровно через 1 и 7 дней.
   cohorts: `WITH f AS (
   SELECT player_id, CAST((MIN(ts)/1000 + 10800)/86400 AS INTEGER) AS d0 FROM events WHERE player_id IS NOT NULL GROUP BY player_id

@@ -14,16 +14,19 @@ let lives = 0
 for (const era of Object.values(eras)) {
   for (let k = 0; k < per; k++) {
     // Род: до трёх поколений подряд, чтобы были видны награды рода.
-    let s = autoplay(newLife(era, { mode: 'quick', mortality, softenHeavy: false }, 90000 + lives), era)
+    let s = autoplay(newLife(era, { mode: 'quick', mortality, softenHeavy: false, livesBefore: 1 }, 90000 + lives), era)
     const memorial: LifeSummary[] = []
     for (let g = 0; g < 3; g++) {
-      const life = summarize(s, era)
+      // После переезда герой живёт и умирает уже в другой стране.
+      const now = eras[s.hero.era] ?? era
+      const life = summarize(s, now)
       memorial.push(life)
       lives++
       for (const id of checkLife(life, memorial, new Set())) count[id] = (count[id] ?? 0) + 1
       const h = heirs(s)
       if (!h.length || g === 2) break
-      s = autoplay(continueWithHeir(s, era, h[0].id), era)
+      const next = continueWithHeir(s, now, h[0].id)
+      s = autoplay(next, eras[next.hero.era] ?? now)
     }
   }
 }

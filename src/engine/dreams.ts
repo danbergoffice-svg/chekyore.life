@@ -249,7 +249,7 @@ export function resolveDream(state: GameState, era: EraDef): DreamOutcome {
   }
   d.outcome = outcome
   d.known = known
-  hero.dreamSeen = { id: d.id, year: state.year, score, outcome, known, hint: !!d.hint, params: d.params }
+  hero.dreamSeen = { id: d.id, year: state.year, era: hero.era, score, outcome, known, hint: !!d.hint, params: d.params }
   note(state, {
     key: 'diary.dream',
     params: { dream: { key: `dream.${d.id}.title` }, result: { key: `dream.result.${outcome}` }, n: score },

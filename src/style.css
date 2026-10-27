@@ -634,6 +634,11 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .era-chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .era-chips li { padding: 4px 10px; border: 1px dashed var(--line); border-radius: 99px; color: var(--muted); font-size: 0.85rem; }
 .era-chips li.lived { border-style: solid; border-color: var(--gold); color: var(--ink); background: var(--card); }
+.school-subject { font-size: 0.95rem; margin: 14px 0 0; }
+.school-grid { list-style: none; padding: 0; margin: 6px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+.school-grid li { padding: 6px 8px; border: 1px dashed var(--line); border-radius: 6px; color: var(--muted); font-size: 0.85rem; min-width: 0; overflow-wrap: anywhere; }
+.school-grid li.seen { border-style: solid; color: var(--ink); }
+.school-grid li.solved { border: 1px solid #3a3f6a; background: #232848; color: #e8e6f4; }
 .era-end h2 { margin-top: 0; font-size: 1.1rem; }
 .era-badge { color: var(--gold); font-weight: 700; }
 

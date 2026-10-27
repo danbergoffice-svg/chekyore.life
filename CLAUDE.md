@@ -60,6 +60,11 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   питомцы — `src/engine/pets.ts` + `src/content/pets.json`; дом сгорел — эффект `{"home": "burn|ruin|rebuild"}`, метки
   `home_damaged`…; переезд в другую страну — `src/engine/abroad.ts` + `src/content/routes.json` (пока Русь, Европа, Византия,
   Исламский мир; после переезда движок сам берёт страну героя — `eraNow`); долголетие — `npm run longevity`.
+- Сны о будущем (`docs/TZ_dreams.md`, **сделано**, этапы 1–4): движок — `src/engine/dreams.ts` (свой поток случайности
+  `dreamRng`, не трогает остальную жизнь), формулы — `src/engine/formula.ts`, каталог — `src/content/dreams.json`, тексты —
+  `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —
+  `achievements.ts`/`Awards.tsx`, отчёт в `/admin` — `SQL.dreamSteps`. Новый сон: запись в `dreams.json` + тексты RU/EN;
+  `validateDreams()` проверяет ответы, допуски и формулы на краях параметров.
 - Проверка контента ловит: текст «уехал/отправил» без `npc_away`, «дом сгорел» без `{"home":"burn"}`, неизвестных питомцев.
 
 ## Состояние ТЗ (docs/TZ.md)

@@ -1,7 +1,7 @@
 // ТЗ v3, п. 8–10: награды — выдаются по итогам жизни, задним числом по мемориалу, трудные — только при исторической смертности.
 import { describe, expect, it } from 'vitest'
 import { loadEra } from '../src/content'
-import { ACHIEVEMENTS, checkLife, checkLive, checkMemorial, nearMisses, nextGoals } from '../src/engine/achievements'
+import { ACHIEVEMENTS, checkLife, checkLive, checkMemorial, nearMisses, nextGoals, schoolProgram } from '../src/engine/achievements'
 import { autoplay } from '../src/engine/game'
 import { newLife, summarize } from '../src/engine/life'
 import { createT } from '../src/i18n'
@@ -40,6 +40,25 @@ describe('Награды', () => {
     s.hero.alive = true
     s.hero.age = 61
     expect(checkLive(s, new Set())).toContain('age_60')
+  })
+
+  it('сны о будущем: прорыв, без шпаргалки, «уже знали», тайная гибель и «Школьная программа»', () => {
+    type Seen = NonNullable<ReturnType<typeof lifeAt>['dreamSeen']>
+    const withDream = (d: Partial<Seen>, era = 'RUS') => ({ ...lifeAt(40), dreamSeen: { id: 'eratosthenes', year: 1200, era, score: 3, outcome: 'breakthrough', params: {}, ...d } as Seen })
+    expect(checkLife(withDream({}), [], new Set())).toEqual(expect.arrayContaining(['dream_first', 'dream_no_hint']))
+    expect(checkLife(withDream({ hint: true }), [], new Set())).not.toContain('dream_no_hint')
+    // в «Высоте храма» нет спора с мудрецами
+    expect(checkLife(withDream({ id: 'thales' }), [], new Set())).not.toContain('dream_no_hint')
+    expect(checkLife(withDream({ outcome: 'partial', known: true }), [], new Set())).toEqual(expect.arrayContaining(['dream_known']))
+    expect(checkLife(withDream({ outcome: 'death', score: 0 }), [], new Set())).toContain('secret_dream_boom')
+    expect(checkLife(withDream({ skipped: true, outcome: 'failure', score: 0 }), [], new Set()).some((id) => id.startsWith('dream') || id === 'secret_dream_boom')).toBe(false)
+    const five = ['RUS', 'EUR', 'BYZ', 'ISL', 'CHN'].map((e, i) => ({ ...withDream({}, e), heroId: `h${i}` }))
+    expect(checkLife(five[4], five, new Set())).toContain('dream_5')
+    expect(checkLife(five[3], five.slice(0, 4), new Set())).not.toContain('dream_5')
+    const school = schoolProgram([withDream({}), withDream({ id: 'thales', score: 1, outcome: 'failure' })])
+    expect(school.solved).toEqual(new Set(['eratosthenes']))
+    expect(school.seen).toEqual(new Set(['eratosthenes', 'thales']))
+    expect(school.subjects.reduce((n, x) => n + x.ids.length, 0)).toBe(16)
   })
 
   it('«Почти получилось» и цели на следующую жизнь', () => {

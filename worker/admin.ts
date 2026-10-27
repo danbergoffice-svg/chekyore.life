@@ -44,12 +44,13 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
   const week = period(today, 7)
   const two = period(today, 14)
   const all = (sql: string, p = week) => db.prepare(sql).bind(p.from, p.to).all().then((r) => r.results)
-  const [fb, s, byDay, players, choices, cohortRows, digest] = await Promise.all([
+  const [fb, s, byDay, players, choices, dreams, cohortRows, digest] = await Promise.all([
     db.prepare("SELECT datetime(ts/1000 + 10800,'unixepoch') AS time, rating, answers_json, contact, context_json FROM feedback ORDER BY ts DESC LIMIT 100").all(),
     summary(db, week, 100),
     all(SQL.funnelByDay, two),
     all(SQL.playersByDay, two),
     all(SQL.choices),
+    all(SQL.dreamSteps, period(today, 30)),
     cohorts(db, today, 21),
     digestMessage(db, now),
   ])
@@ -62,6 +63,7 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     { title: `Жизни по режимам за 7 дней (как /week): минуты, возраст смерти, выборы`, rows: [...s.modes, s.lives] as unknown as Record<string, unknown>[] },
     { title: `Где уходят за 7 дней (как /exits): последний экран, возраст героя, минуты сессии`, rows: s.exits as unknown as Record<string, unknown>[] },
     { title: 'События: частота и доля успеха выбора (топ-30, 7 дней)', rows: choices },
+    { title: 'Сны о будущем (30 дней): доля верных ответов по сну и шагу, самый частый неверный ответ', rows: dreams },
   ]
   const feedbackHtml = fb.results.length
     ? fb.results

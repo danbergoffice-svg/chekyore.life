@@ -9,7 +9,7 @@ const COUNTER_ID = 113771699
 const API = (import.meta.env.VITE_API_BASE as string | undefined) ?? '/api'
 const BUILD = typeof __BUILD__ === 'string' ? __BUILD__ : 'dev'
 /** Эти события идут только в свой приёмник, чтобы не засорять Метрику. */
-const RECEIVER_ONLY = new Set(['choice_made'])
+const RECEIVER_ONLY = new Set(['choice_made', 'dream_step'])
 
 type Ym = ((id: number, method: string, ...args: unknown[]) => void) & { a?: unknown[][]; l?: number }
 declare global {

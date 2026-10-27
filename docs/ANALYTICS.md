@@ -19,9 +19,13 @@
 | session_end | screen, age, sec_in_session | вкладку скрыли/закрыли (sendBeacon) |
 | life_end | age, cause, region, era, sec_in_life, choices, rescued, generation | смерть героя |
 | summary_action | action: heir/reborn/share/memorial/menu | кнопки итогов |
-| share_open / share_done | what / what, format, method | «Поделиться» |
+| share_open / share_done | what (life/dream) / what, format, method | «Поделиться» жизнью или сном |
 | feedback_sent | rating | отзыв отправлен |
 | heir_chosen | generation | продолжение рода |
+| dream_offer | dream, era, age | герою приснился сон о будущем (docs/TZ_dreams.md) |
+| dream_start / dream_skip | dream | «Попробовать вспомнить» / «Это просто сон» |
+| dream_step | dream, step, kind, correct (0/1), value (до 80 знаков), sec | ответ на шаге сна (только свой приёмник; отчёт «Сны о будущем» в `/admin`) |
+| dream_end | dream, score, outcome (breakthrough/partial/failure/death), hint_used, known | сон кончился |
 | achievement_unlocked | id, rare (1 — секретная, трудная или у <5% игроков) | получена награда (ТЗ v3, п. 10) |
 
 Позже (этапы 2–4): ad_request/ad_shown/ad_rewarded, challenge_end, portrait_request/portrait_done.
@@ -30,7 +34,7 @@
 
 1. **Цели** (Настройка → Цели → Добавить цель → «JavaScript-событие»), идентификаторы ровно как в таблице:
    `app_open`, `life_start`, `first_choice`, `age_milestone`, `life_end`, `summary_action`, `share_open`,
-   `share_done`, `feedback_sent`, `speed_change`, `tab_open`, `session_end`.
+   `share_done`, `feedback_sent`, `speed_change`, `tab_open`, `session_end`, `dream_offer`, `dream_start`, `dream_end`.
 2. **Составная цель «Воронка жизни»** (тип «Составная», шаги — JavaScript-события):
    `app_open` → `life_start` → `first_choice` → `age_milestone` → `life_end`.
    Возврат на вторую жизнь — отчёт ниже (параметр life_index=2 у life_start).

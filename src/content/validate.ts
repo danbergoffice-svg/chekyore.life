@@ -238,7 +238,7 @@ export function validateEra(era: EraDef): string[] {
 
 /** Параметры для проверки, что после подстановки не остаётся {скобок}. */
 export const SAMPLE_PARAMS = {
-  n: 3, npc: 'x', pet: 'x', kid: 'x', total: 9, dream: 'x', result: 'x', homeland: 'x', homeplace: 'x', country: 'x', i: 1, h: 1, a: 1, place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
+  n: 3, subject: 'x', npc: 'x', pet: 'x', kid: 'x', total: 9, dream: 'x', result: 'x', homeland: 'x', homeplace: 'x', country: 'x', i: 1, h: 1, a: 1, place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
   grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x', born: 'x', died: 'x', focus: 'x', via: 'x', role: 'x',
 }
 

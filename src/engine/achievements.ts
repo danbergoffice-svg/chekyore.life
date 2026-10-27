@@ -3,9 +3,10 @@
 // Во время жизни часть наград (возраст, правнуки, поколения) выдаётся сразу, по состоянию игры (live).
 // Тексты: ach.<id>.title, ach.<id>.desc (условие), ach.<id>.hint (как добиться) — в src/i18n/*.json.
 import { ERA_META } from '../content'
+import { DREAM_DEFS, dreamDef } from './dreams'
 import type { GameState, LifeSummary } from './types'
 
-export type AchGroup = 'age' | 'blood' | 'fate' | 'heart' | 'wanderer' | 'challenge' | 'land'
+export type AchGroup = 'age' | 'blood' | 'fate' | 'heart' | 'wanderer' | 'dream' | 'challenge' | 'land'
 
 export interface AchDef {
   id: string
@@ -67,6 +68,11 @@ const partners = (life: LifeSummary) => life.report.facts.partners
 const grandchildren = (life: LifeSummary) => life.npcs.filter((n) => n.role === 'grandchild').length
 /** Жизни этого рода по порядку. */
 const familyOf = (life: LifeSummary, all: LifeSummary[]) => all.filter((l) => l.familyId === life.familyId)
+/** Сон о будущем этой жизни (пропущенный не считается). */
+const dreamOf = (l: LifeSummary) => (l.dreamSeen && !l.dreamSeen.skipped ? l.dreamSeen : undefined)
+const breakthrough = (l: LifeSummary) => dreamOf(l)?.outcome === 'breakthrough'
+/** Страны, где случился прорыв (страна на момент сна — после переезда это новая). */
+const dreamLands = (all: LifeSummary[]) => new Set(all.filter(breakthrough).map((l) => l.dreamSeen!.era ?? l.era))
 const isHistorical = (life: LifeSummary) => life.mortality === 'historical'
 
 /** Профессия страны: награда «Самурай», «Рыцарь»… */
@@ -204,6 +210,12 @@ export const ACHIEVEMENTS: AchDef[] = [
   { id: 'naturalized', group: 'wanderer', test: (l) => !!l.abroad?.naturalized, live: (s) => !!s.hero.abroad?.naturalized },
   { id: 'half_world', group: 'wanderer', test: (l) => !!l.abroad?.far || l.diary.some((d) => d.key.startsWith('diary.emigrated_') && d.params?.far === 1) },
   { id: 'prodigal', group: 'wanderer', test: (l) => (l.returned?.years ?? 0) >= 20 },
+  // Сны о будущем (docs/TZ_dreams.md).
+  { id: 'dream_first', group: 'dream', test: breakthrough, live: (s) => s.hero.dreamSeen?.outcome === 'breakthrough' },
+  { id: 'dream_5', group: 'dream', test: (_, all) => dreamLands(all).size >= 5, progress: (_, all) => Math.min(1, dreamLands(all).size / 5) },
+  { id: 'dream_no_hint', group: 'dream', test: (l) => breakthrough(l) && !l.dreamSeen!.hint && !!dreamDef(l.dreamSeen!.id)?.debate },
+  { id: 'dream_known', group: 'dream', test: (l) => (dreamOf(l)?.score ?? 0) >= 3 && !!l.dreamSeen!.known },
+  { id: 'secret_dream_boom', group: 'dream', secret: true, test: (l) => dreamOf(l)?.outcome === 'death' },
   {
     id: 'three_lands',
     group: 'blood',
@@ -250,7 +262,21 @@ export const ACHIEVEMENTS: AchDef[] = [
 ]
 
 export const ACH_BY_ID = new Map(ACHIEVEMENTS.map((a) => [a.id, a]))
-export const ACH_GROUPS: AchGroup[] = ['age', 'blood', 'fate', 'heart', 'wanderer', 'challenge', 'land']
+export const ACH_GROUPS: AchGroup[] = ['age', 'blood', 'fate', 'heart', 'wanderer', 'dream', 'challenge', 'land']
+
+/** «Школьная программа»: какие сны решены верно (все три шага) хотя бы в одной жизни, по предметам. */
+export function schoolProgram(memorial: LifeSummary[]): { solved: Set<string>; seen: Set<string>; subjects: { subject: string; ids: string[] }[] } {
+  const solved = new Set<string>()
+  const seen = new Set<string>()
+  for (const l of memorial) {
+    const d = dreamOf(l)
+    if (!d) continue
+    seen.add(d.id)
+    if (d.score >= 3) solved.add(d.id)
+  }
+  const subjects = ['biology', 'physics', 'math', 'chemistry'].map((subject) => ({ subject, ids: DREAM_DEFS.filter((d) => d.subject === subject).map((d) => d.id) }))
+  return { solved, seen, subjects: subjects.filter((x) => x.ids.length) }
+}
 
 /** Засчитывается ли награда в этой жизни (трудные — только при исторической смертности). */
 function allowed(a: AchDef, life: { mortality?: string }): boolean {

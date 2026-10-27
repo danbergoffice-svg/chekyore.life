@@ -111,6 +111,8 @@ function seed(db) {
   ev(at(Y, 0, 1, 5), 'p1', 'first_choice', { sec_from_start: 5 })
   for (const [m, age] of [[5, 5], [8, 10], [12, 20]]) ev(at(Y, 0, m), 'p1', 'age_milestone', { age, sec_in_life: m * 60 })
   ev(at(Y, 0, 30), 'p1', 'choice_made', { event_id: 'market_fight', option: 'a', age: 20, success: true })
+  // сон о будущем: два неверных ответа «3», один верный
+  for (const [sec, ok, value] of [[1, 0, '3'], [2, 0, '3'], [3, 1, '8']]) ev(at(Y, 0, 29, sec), 'p1', 'dream_step', { dream: 'eratosthenes', step: 3, kind: 'number', correct: ok, value })
   ev(at(Y, 0, 30), 'p1', 'life_end', { age: 54, cause: 'old', sec_in_life: 1740, choices: 30 })
   ev(at(Y, 0, 31), 'p1', 'life_start', {}, { life_index: 2 })
   ev(at(Y, 0, 40), 'p1', 'session_end', { screen: 'life', age: 3, sec_in_session: 2400 }, { life_index: 2 })
@@ -371,6 +373,7 @@ async function suite(realBinds) {
   check('/admin: та же сводка, что в Telegram', r.status === 200 && html.includes(`<div class="tg">${dg?.text}</div>`))
   check('/admin: старые отчёты и отзывы на месте', /быстрее/.test(html) && /Где уходят/.test(html) && /События: частота/.test(html))
   check('/admin: отчёты «Воронка по дням» и «Когорты»', /Воронка по дням/.test(html) && /Когорты по дню первого захода/.test(html))
+  check('/admin: отчёт по снам — доля верных и частый неверный ответ', html.includes('<td>eratosthenes</td><td>3</td><td>3</td><td>33</td><td>3 ×2</td>'))
   check('/admin: ссылки CSV', /href="\/admin\/export\?table=events&amp;days=7"/.test(html) && /table=feedback/.test(html))
   const fy = sy.funnel
   check('/admin: строка вчера в «Воронке по дням» = цифрам сводки', html.includes(`<tr><td>${S.dayIso(Y)}</td><td>${fy.app_open}</td><td>${fy.life_start}</td><td>${fy.first_choice}</td><td>${fy.age_20}</td><td>${fy.life_end}</td><td>${fy.second_life}</td></tr>`))

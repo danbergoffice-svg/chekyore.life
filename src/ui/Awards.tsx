@@ -1,7 +1,7 @@
 // Раздел «Награды»: сетка по группам, полученные — с датой, неполученные — серые с условием и подсказкой,
 // секретные — «???». Счётчик «12 из 66», коллекция стран (где уже прожита жизнь), редкость из флага ach_rarity.
 import { ERA_IDS } from '../content'
-import { ACH_GROUPS, ACHIEVEMENTS } from '../engine/achievements'
+import { ACH_GROUPS, ACHIEVEMENTS, schoolProgram } from '../engine/achievements'
 import type { Earned } from '../engine/achievements'
 import type { LifeSummary } from '../engine/types'
 import { platform } from '../platform'
@@ -12,6 +12,7 @@ export function Awards({ earned, memorial, onBack }: { earned: Earned[]; memoria
   const got = new Map(earned.map((e) => [e.id, e]))
   const lived = new Set(memorial.map((l) => l.era))
   const rarity = platform.flags.ach_rarity ?? {}
+  const school = schoolProgram(memorial)
   return (
     <div class="screen awards">
       <button class="link back" onClick={onBack}>
@@ -55,6 +56,21 @@ export function Awards({ earned, memorial, onBack }: { earned: Earned[]; memoria
           </ul>
         </section>
       ))}
+
+      <section class="block">
+        <h2 class="section-title">{t('school.title')}</h2>
+        <p class="small muted">{t('school.lead')}</p>
+        {school.subjects.map((x) => (
+          <>
+            <h3 class="school-subject">{t('school.count', { subject: t(`school.subject.${x.subject}`), n: x.ids.filter((id) => school.solved.has(id)).length, total: x.ids.length })}</h3>
+            <ul class="school-grid" aria-label={t(`school.subject.${x.subject}`)}>
+              {x.ids.map((id) => (
+                <li class={school.solved.has(id) ? 'solved' : school.seen.has(id) ? 'seen' : ''}>{school.seen.has(id) ? t(`school.${id}`) : '???'}</li>
+              ))}
+            </ul>
+          </>
+        ))}
+      </section>
     </div>
   )
 }
