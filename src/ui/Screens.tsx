@@ -376,6 +376,8 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
                   <span>
                     {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} — {formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}
                   </span>
+                  {/* Род дошёл до конца хроники страны и ждёт следующей эпохи. */}
+                  {l === lives[lives.length - 1] && l.diary.some((d) => d.key === 'diary.era_end') && <span class="small era-badge">{t('era_end.badge')}</span>}
                 </button>
               </li>
             ))}

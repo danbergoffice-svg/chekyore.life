@@ -48,3 +48,29 @@ describe('Награды', () => {
     expect(nextGoals(lifeAt(55), new Set())).toHaveLength(3)
   })
 })
+
+describe('Конец эпохи (п. 9)', () => {
+  it('род на Руси у 1600: «продолжение следует», вне хроники — без исторических событий и вестей', async () => {
+    const { chronicleEnd, eraEnding, continueWithHeir, heirs } = await import('../src/engine/life')
+    const { applyEffects } = await import('../src/engine/rules')
+    const { startYear } = await import('../src/engine/game')
+    const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 77)
+    s.year = chronicleEnd(s) - 10
+    applyEffects(s, era, [{ add_npc: 'child', attitude: 50 }])
+    s.hero.npcs[s.hero.npcs.length - 1].birthYear = s.year - 20
+    expect(eraEnding(s)).toBe(true)
+    s.hero.alive = false
+    s.phase = 'dead'
+    const next = continueWithHeir(s, era, heirs(s)[0].id)
+    next.offChronicle = s.year
+    for (let i = 0; i < 15 && next.hero.alive; i++) {
+      next.phase = 'year'
+      startYear(next, era, null)
+      next.year++
+      next.hero.age++
+    }
+    expect(next.hero.diary.some((d) => d.news || d.primer)).toBe(false)
+    expect(next.hero.diary.some((d) => d.eventId && era.events.find((e) => e.id === d.eventId)?.type === 'global_historical')).toBe(false)
+    expect(eraEnding(next)).toBe(false)
+  })
+})

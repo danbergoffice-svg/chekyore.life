@@ -634,6 +634,8 @@ export interface LifeSummary {
   /** Отмеченные звёздочкой записи и строка игрока для карточки. */
   starred?: number[]
   playerLine?: string
+  /** Жизнь прожита вне хроники (после конца эпохи страны) — с этого года. */
+  offChronicle?: number
   /** Для наград: режим смертности, была ли защита первой жизни, метки, навыки, животные на момент смерти. */
   mortality?: 'soft' | 'historical'
   protectedLife?: boolean
@@ -694,6 +696,8 @@ export interface GameState {
   reveal: Record<number, number>
   /** Счётчики для аналитики текущей жизни (не влияют на игру). */
   stats?: LifeStats
+  /** Род продолжен после конца хроники страны («вне хроники» с этого года): без исторических событий, вестей и справок. */
+  offChronicle?: number
 }
 
 export interface LifeStats {

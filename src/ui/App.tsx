@@ -56,6 +56,8 @@ export function App() {
   const [memorial, setMemorial] = useState<LifeSummary[]>([])
   const [earned, setEarned] = useState<Earned[]>([])
   const earnedRef = useRef<Earned[]>([])
+  /** Игрок решил продолжить род после конца хроники страны. */
+  const offChronicle = useRef(false)
   const [achToast, setAchToast] = useState<string | null>(null)
   const [opened, setOpened] = useState<string | null>(null)
   const game = useRef<GameState | null>(null)
@@ -314,7 +316,11 @@ export function App() {
 
   const onHeir = (childId: string) => {
     if (!era) return
+    const prevYear = game.current!.year
     game.current = continueWithHeir(game.current!, era, childId)
+    // Продолжение после конца хроники страны: с этого года — без исторических событий, вестей и справок.
+    if (offChronicle.current && game.current.offChronicle === undefined) game.current.offChronicle = prevYear
+    offChronicle.current = false
     platform.track('heir_chosen', { generation: game.current.hero.generation })
     trackLifeStart(game.current, 'heir', false)
     setYearChanges([])
@@ -472,7 +478,14 @@ export function App() {
             life={lastLife}
             era={era}
             canContinue={heirs(state).length > 0}
-            onContinue={() => setScreen('heirs')}
+            onContinue={() => {
+              offChronicle.current = false
+              setScreen('heirs')
+            }}
+            onOffChronicle={() => {
+              offChronicle.current = true
+              setScreen('heirs')
+            }}
             onAgain={() => startNew()}
             onMemorial={() => setScreen('memorial')}
             onMenu={toMenu}

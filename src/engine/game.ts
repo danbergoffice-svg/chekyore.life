@@ -25,7 +25,7 @@ import {
 } from './rules'
 import { householdYear } from './household'
 import { pets } from './pets'
-import { summarize } from './life'
+import { eraEnding, summarize } from './life'
 import { PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
 import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
@@ -582,8 +582,8 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     }
   }
 
-  // 2. Исторические события в этом регионе и году.
-  for (const ev of b.globals) {
+  // 2. Исторические события в этом регионе и году (вне хроники их нет).
+  for (const ev of state.offChronicle === undefined ? b.globals : []) {
     if (fits(ev) && chance(state, ev.global_chance!)) add(ev)
   }
 
@@ -620,12 +620,12 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   for (const p of picked) hero.seen[p.eventId] = state.year
 
   // Историческая справка в первые годы: младенцу ещё нечего решать — игрок узнаёт свой мир.
-  if (hero.generation === 1 && hero.age * PRIMERS_PER_YEAR < PRIMER_TOPICS.length) {
+  if (hero.generation === 1 && hero.age * PRIMERS_PER_YEAR < PRIMER_TOPICS.length && state.offChronicle === undefined) {
     for (const p of primersForYear(state, era)) note(state, { key: `primer.${p.id}.title`, primer: p.id, topic: 'history', score: 2 })
   }
 
   // Вести из мира этого года.
-  if (hero.age >= 6) {
+  if (hero.age >= 6 && state.offChronicle === undefined) {
     for (const n of era.news) {
       if (n.year !== state.year || n.exclude_regions?.includes(hero.region)) continue
       note(state, { key: `news.${n.id}`, news: n.id, topic: 'history', score: 4 })
@@ -949,6 +949,8 @@ function die(state: GameState, era: EraDef): void {
   hero.deathCause ??= pickCause(state, era)
   recordYear(state, era)
   note(state, { key: 'diary.died', params: { cause: { key: `cause.${hero.deathCause}` } }, major: true, topic: 'health', icon: 'death', score: 100 })
+  // Хроника страны кончается: род ждёт продолжения в следующей эпохе (или «вне хроники» по желанию игрока).
+  if (eraEnding(state)) note(state, { key: 'diary.era_end', params: { n: hero.generation, era: { key: `era.${hero.era}` } }, major: true, topic: 'history', icon: 'find', score: 60 })
   state.queue = []
   state.phase = 'dead'
   state.family.lives.push(summarize(state, era))

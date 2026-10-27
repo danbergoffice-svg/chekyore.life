@@ -878,5 +878,13 @@
   "menu.awards": "Awards · {n} of {total}",
   "summary.cmp_adult_more": "You lived {n} {p=n:year|years} — {d} {p=d:year|years} longer than the average adult of your time.",
   "summary.cmp_adult_less": "You lived {n} {p=n:year|years} — {d} {p=d:year|years} less than the average adult of your time.",
-  "lifestyle.bonus": "Varied food, walks, a physician and the baths add an adult here about {n} {p=n:year|years} of life on average."
+  "lifestyle.bonus": "Varied food, walks, a physician and the baths add an adult here about {n} {p=n:year|years} of life on average.",
+  "diary.era_end": "The chronicle of the era \"{era}\" is coming to an end. Your family has gone through {n} {p=n:generation|generations} — to be continued.",
+  "era_end.title": "The chronicle of this era has ended",
+  "era_end.text": "Your family has gone through {n} {p=n:generation|generations}. The heir would live most of their life after the end of the chronicle \"{era}\". To be continued: when the next era arrives in the game, you'll be able to carry this family on. It is saved in the memorial.",
+  "era_end.off": "Continue anyway — outside the chronicle",
+  "era_end.off_hint": "From here on — no historical events, news or primers: only the life of the family.",
+  "era_end.badge": "To be continued",
+  "life.off_chronicle": "Outside the chronicle since {year}",
+  "summary.off_chronicle": "This life was lived outside the chronicle — after the end of the country's era, since {year}."
 }

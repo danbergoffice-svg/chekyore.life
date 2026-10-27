@@ -1,3 +1,4 @@
+import { ERA_META } from '../content'
 import { bell, chance, int, pick, weighted } from './rng'
 import { addYears, clamp, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
@@ -191,12 +192,25 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     places: h.places,
     traits: h.traits,
     report: buildReport(state, era),
+    offChronicle: state.offChronicle,
     mortality: state.settings.mortality,
     protectedLife: state.settings.protectedUntil !== undefined,
     tags: h.tags,
     skills: h.skills,
     animals: h.animals,
   }
+}
+
+/** Год, когда кончается хроника края героя (годы страны или края, что раньше). */
+export function chronicleEnd(state: GameState): number {
+  const meta = ERA_META[state.hero.era]
+  const region = meta?.regions.find((r) => r.id === state.hero.region)
+  return Math.min(meta?.years[1] ?? Infinity, region?.years[1] ?? Infinity)
+}
+
+/** Наследник прожил бы большую часть жизни после конца хроники: род «ждёт продолжения» (п. 9 ТЗ v3). */
+export function eraEnding(state: GameState): boolean {
+  return state.offChronicle === undefined && heirs(state).length > 0 && state.year + 20 > chronicleEnd(state)
 }
 
 /**

@@ -192,6 +192,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </p>
             <Bar label={t('attr.health')} value={hero.attrs.health} />
             {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
+            {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
           </div>
         </div>
       </header>

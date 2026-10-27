@@ -57,11 +57,15 @@ interface SummaryProps {
   onMemorial: () => void
   onMenu: () => void
   onUpdate: (life: LifeSummary) => void
+  /** Хроника страны кончилась: «Продолжение следует» и кнопка «Всё равно продолжить без хроники». */
+  onOffChronicle?: () => void
   /** Награды: полученные в этой жизни, «почти получилось», цели на следующую жизнь. */
   awards?: { got: string[]; near: { id: string; progress: number }[]; goals: string[] }
 }
 
-export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback, awards }: SummaryProps) {
+export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback, awards, onOffChronicle }: SummaryProps) {
+  // Хроника страны кончилась: наследник есть, но его жизнь — уже за краем эпохи.
+  const eraEnded = !!onOffChronicle && canContinue && life.diary.some((d) => d.key === 'diary.era_end')
   const { t, lang } = useUi()
   const r = life.report
   const o = { sex: life.sex, region: life.region, religion: life.religion }
@@ -101,6 +105,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         </p>
         <p class="muted small">{t('summary.cls_line', { born: { key: `class.${birthCls}` }, died: { key: `class.${life.cls}` } }, o)}</p>
         <p class="bio-text">{bio.join(' ')}</p>
+        {life.offChronicle !== undefined && <p class="small muted">{t('summary.off_chronicle', { year: formatYear(life.offChronicle, lang) })}</p>}
         <p>
           <strong>{t('summary.cause')}:</strong> {t(`cause.${life.cause}`)}
         </p>
@@ -361,17 +366,26 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
 
       {feedback}
 
+      {eraEnded && (
+        <section class="block note-box era-end">
+          <h2>{t('era_end.title')}</h2>
+          <p>{t('era_end.text', { n: life.generation, era: { key: `era.${life.era}` } }, o)}</p>
+          <button class="secondary" onClick={act('off_chronicle', onOffChronicle!)}>{t('era_end.off')}</button>
+          <p class="small muted">{t('era_end.off_hint')}</p>
+        </section>
+      )}
+
       {/* 9. Остальные действия */}
       <section class="block stack">
         {!(canContinue && onContinue) && <p class="muted">{t('actions.no_heirs')}</p>}
-        {canContinue && onContinue && <button class="secondary" onClick={act('reborn', onAgain)}>{t('actions.again')}</button>}
+        {canContinue && onContinue && !eraEnded && <button class="secondary" onClick={act('reborn', onAgain)}>{t('actions.again')}</button>}
         <button class="secondary" onClick={act('memorial', onMemorial)}>{t('actions.memorial')}</button>
         <button class="link" onClick={act('menu', onMenu)}>{t('actions.menu')}</button>
       </section>
 
       {/* Главное действие всегда под рукой: панель прилипает к низу экрана. */}
       <div class="sticky-actions">
-        {canContinue && onContinue ? (
+        {canContinue && onContinue && !eraEnded ? (
           <button class="primary" onClick={act('heir', onContinue)}>{t('actions.continue')}</button>
         ) : (
           <button class="primary" onClick={act('reborn', onAgain)}>{t('actions.again')}</button>
