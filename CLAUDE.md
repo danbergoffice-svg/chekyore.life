@@ -52,8 +52,15 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   рекламе и «без звука» платформы — `platform.onAudio`), значок и громкость — `src/ui/Sound.tsx`, настройки
   `prefs.sound`/`prefs.volume`. Треки сочиняет и синтезирует `npm run music` (`tools/gen/music.mjs`, нужен ffmpeg):
   `public/music/<id>.mp3` и MIDI в `tools/gen/music/`. После перегенерации — увеличить `MUSIC_VERSION`.
-- `docs/TZ.md` (+ `TZ_dorabotka.docx`) — исходное ТЗ, `docs/TZ_v3.md` — правки владельца после тестов (звук, наследники-внуки,
-  уехавшие родственники, последствия, вдовство, картинки, конец эпохи, награды); `docs/DECISIONS.md` — принятые решения и отступления.
+- `docs/TZ.md` (+ `TZ_dorabotka.docx`) — исходное ТЗ, `docs/TZ_v3.md` — правки владельца после тестов (**сделано**, статус в конце
+  файла); `docs/DECISIONS.md` — принятые решения и отступления.
+- ТЗ v3, что где: уехавшие — `npc.away` + `sendAway` (`rules.ts`); отложенные последствия — `snapshot`/`dependsOf`/`storyline`
+  (`game.ts`, счётчики `triggerStats`); семейное положение — `maritalStatus`; наследники-внуки — `heirs`; конец эпохи —
+  `eraEnding`/`state.offChronicle`; награды — `src/engine/achievements.ts` (+ `npm run achievements`), экран `src/ui/Awards.tsx`;
+  питомцы — `src/engine/pets.ts` + `src/content/pets.json`; дом сгорел — эффект `{"home": "burn|ruin|rebuild"}`, метки
+  `home_damaged`…; переезд в другую страну — `src/engine/abroad.ts` + `src/content/routes.json` (пока Русь, Европа, Византия,
+  Исламский мир; после переезда движок сам берёт страну героя — `eraNow`); долголетие — `npm run longevity`.
+- Проверка контента ловит: текст «уехал/отправил» без `npc_away`, «дом сгорел» без `{"home":"burn"}`, неизвестных питомцев.
 
 ## Состояние ТЗ (docs/TZ.md)
 
