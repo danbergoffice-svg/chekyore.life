@@ -1,5 +1,6 @@
 // Сохранения игры и настройки поверх модуля platform. Схема версионируется (SAVE_VERSION), старые сохранения мигрируют.
 import { SAVE_VERSION } from './engine/life'
+import type { Earned } from './engine/achievements'
 import type { Lottery } from './engine/life'
 import type { GameState, Lang, LifeSummary } from './engine/types'
 import { platform } from './platform'
@@ -66,8 +67,18 @@ export function saveMemorial(memorial: LifeSummary[]): Promise<void> {
   return put('memorial', memorial)
 }
 
+/** Полученные награды: {id, ts, lifeId}. */
+export async function loadAchievements(): Promise<Earned[]> {
+  const list = await get<Earned[]>('achievements')
+  return Array.isArray(list) ? list.filter((e) => e && typeof e.id === 'string') : []
+}
+
+export function saveAchievements(list: Earned[]): Promise<void> {
+  return put('achievements', list)
+}
+
 export async function clearAll(): Promise<void> {
-  await Promise.all([put('game', null), put('memorial', [])])
+  await Promise.all([put('game', null), put('memorial', []), put('achievements', [])])
 }
 
 export function loadPrefs(defaults: Prefs): Prefs {

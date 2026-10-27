@@ -370,5 +370,7 @@
   "diary.rescued.other.3": "You pulled through. The old people shook their heads: luck like that comes once in a life.",
   "diary.rescued.other.4": "You lay without strength for a long time, and then you rose. They say someone prayed you back.",
   "diary.rescued.other.5": "Misfortune turned aside at the last moment. You live, though weaker than before.",
-  "trait.survivor": "survived by a miracle"
+  "trait.survivor": "survived by a miracle",
+  "primer.common_p_lifespan.title": "How long people lived",
+  "primer.common_p_lifespan.text": "People say that \"in the old days everyone died at thirty.\" Not so. Life expectancy at birth was 25–35 years because of child mortality: one child in three did not reach five. But someone who reached twenty lived on average to 50–55, and many to seventy and beyond. Enough food, clean water, warmth, the baths, calm and a good healer added years to a life — just as they do today. The estimates come from the Coale–Demeny model life tables and historical demographic studies (see \"About the data and sources\")."
 }

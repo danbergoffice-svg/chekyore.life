@@ -3,7 +3,7 @@
 // Статистику (запуски, загрузка, время в игре, удержание) CrazyGames собирает сам по сигналам SDK:
 //   loadingStart/loadingStop — загрузка до главного меню;
 //   gameplayStart/gameplayStop — идёт жизнь героя / меню, итоги, пауза, реклама;
-//   happytime — праздничный момент (герой дожил до старости, род продолжился).
+//   happytime — праздничный момент (герой дожил до старости, род продолжился, редкая награда).
 // Сохранения: на устройстве (IndexedDB) и копия в модуле data SDK — у вошедших в аккаунт она переезжает на другие устройства.
 // Вне CrazyGames (environment 'disabled') SDK не вызывается, игра работает как обычная локальная.
 import type { Lang } from '../engine/types'
@@ -232,6 +232,8 @@ export const crazyPlatform: Platform = {
   track(event, params = {}) {
     if (event === 'life_end' && Number(params.age) >= 60) call((s) => s.game.happytime(), 'happytime')
     if (event === 'heir_chosen') call((s) => s.game.happytime(), 'happytime')
+    // Редкая награда (меньше 5% игроков, секретная или трудная) — тоже праздник.
+    if (event === 'achievement_unlocked' && Number(params.rare) === 1) call((s) => s.game.happytime(), 'happytime')
   },
   userParams() {},
   setContext() {},

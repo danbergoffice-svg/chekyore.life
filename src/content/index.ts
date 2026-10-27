@@ -103,6 +103,8 @@ export function loadEra(id: string): Promise<EraDef> {
         if (!ev.choices?.some((c) => c.delayed_effects?.some((d) => !byId.has(d.trigger_event)))) return ev
         return { ...ev, choices: ev.choices.map((c) => ({ ...c, delayed_effects: c.delayed_effects?.filter((d) => byId.has(d.trigger_event)) })) }
       })
+      // Общая справка для всех стран: сколько на самом деле жили люди (п. 8 ТЗ v3).
+      if (!primers.some((p) => p.topic === 'lifespan')) primers.push({ id: 'common_p_lifespan', topic: 'lifespan' })
       const era: EraDef = { ...meta, events, news, primers, patternWeights: patternWeights as EraDef['patternWeights'] }
       loaded[id] = era
       return era

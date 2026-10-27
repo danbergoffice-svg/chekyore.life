@@ -14,6 +14,7 @@ import {
 } from '../engine/game'
 import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey } from '../engine/rules'
 import { isPet } from '../engine/pets'
+import LONGEVITY from '../content/longevity.json'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Lang, Npc, SceneTime } from '../engine/types'
 import type { AvatarInput } from '../pixel/avatar'
@@ -610,6 +611,8 @@ function Lifestyle({ state, era, coin, onChange }: { state: GameState; era: EraD
       <h2 class="section-title">{t('lifestyle.title')}</h2>
       <p class="expected">{t('lifestyle.expected', { n: expectedAge(state, era) })}</p>
       <p class="small muted">{t('lifestyle.hint')}</p>
+      {/* Цифра — из симуляции (npm run longevity): сколько лет добавляет взрослому бережный образ жизни в этой стране. */}
+      <p class="small">{t('lifestyle.bonus', { n: (LONGEVITY.eras as Record<string, { bonus: number }>)[era.id]?.bonus ?? LONGEVITY.bonusMin })}</p>
       {defs.map((def) => {
         const current = lifestyleOption(state, def).id
         return (

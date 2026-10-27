@@ -620,7 +620,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   for (const p of picked) hero.seen[p.eventId] = state.year
 
   // Историческая справка в первые годы: младенцу ещё нечего решать — игрок узнаёт свой мир.
-  if (hero.generation === 1 && hero.age <= 3) {
+  if (hero.generation === 1 && hero.age * PRIMERS_PER_YEAR < PRIMER_TOPICS.length) {
     for (const p of primersForYear(state, era)) note(state, { key: `primer.${p.id}.title`, primer: p.id, topic: 'history', score: 2 })
   }
 

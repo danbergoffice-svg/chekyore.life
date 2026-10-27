@@ -22,8 +22,9 @@
 | share_open / share_done | what / what, format, method | «Поделиться» |
 | feedback_sent | rating | отзыв отправлен |
 | heir_chosen | generation | продолжение рода |
+| achievement_unlocked | id, rare (1 — секретная, трудная или у <5% игроков) | получена награда (ТЗ v3, п. 10) |
 
-Позже (этапы 2–4): achievement_unlocked, ad_request/ad_shown/ad_rewarded, challenge_end, portrait_request/portrait_done.
+Позже (этапы 2–4): ad_request/ad_shown/ad_rewarded, challenge_end, portrait_request/portrait_done.
 
 ## Настройка Метрики (A2), счётчик 113771699
 

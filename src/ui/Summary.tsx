@@ -57,9 +57,11 @@ interface SummaryProps {
   onMemorial: () => void
   onMenu: () => void
   onUpdate: (life: LifeSummary) => void
+  /** Награды: полученные в этой жизни, «почти получилось», цели на следующую жизнь. */
+  awards?: { got: string[]; near: { id: string; progress: number }[]; goals: string[] }
 }
 
-export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback }: SummaryProps) {
+export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback, awards }: SummaryProps) {
   const { t, lang } = useUi()
   const r = life.report
   const o = { sex: life.sex, region: life.region, religion: life.religion }
@@ -112,6 +114,14 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
                 : t('summary.cmp_same')}{' '}
             {t('summary.cmp_outlived', { n: r.comparison.outlivedBy }, o)}
           </p>
+          {life.age >= 15 && (
+            // Сравнение со взрослыми: детская смертность занижает «среднюю жизнь», доживший до 15 жил дольше.
+            <p>
+              {life.age - r.comparison.expectedAdult > 0
+                ? t('summary.cmp_adult_more', { n: life.age, d: life.age - r.comparison.expectedAdult }, o)
+                : t('summary.cmp_adult_less', { n: life.age, d: r.comparison.expectedAdult - life.age }, o)}
+            </p>
+          )}
           {r.comparison.causeShare !== null && <p>{t('summary.cmp_cause', { n: r.comparison.causeShare })}</p>}
           <p class="confidence">{t('summary.source')}</p>
         </div>
@@ -173,6 +183,63 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
           </>
         )}
       </section>
+
+      {/* 2а. Награды этой жизни, почти полученные и цели на следующую */}
+      {awards && (awards.got.length > 0 || awards.near.length > 0 || awards.goals.length > 0) && (
+        <section class="block awards-block">
+          {awards.got.length > 0 && (
+            <>
+              <h2 class="section-title">{t('ach.got_here')}</h2>
+              <ul class="ach-list">
+                {awards.got.map((id) => (
+                  <li class="ach got">
+                    <span class="ach-icon" aria-hidden="true">🏅</span>
+                    <span>
+                      <strong>{t(`ach.${id}.title`, {}, o)}</strong>
+                      <span class="muted small"> — {t(`ach.${id}.desc`, {}, o)}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {awards.near.length > 0 && (
+            <>
+              <h2 class="section-title">{t('ach.near')}</h2>
+              <ul class="ach-list">
+                {awards.near.map(({ id, progress }) => (
+                  <li class="ach">
+                    <span class="ach-icon" aria-hidden="true">⏳</span>
+                    <span>
+                      <strong>{t(`ach.${id}.title`, {}, o)}</strong>
+                      <span class="muted small"> — {t(`ach.${id}.desc`, {}, o)}</span>
+                      <span class="ach-bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
+                        <span style={{ width: `${Math.round(progress * 100)}%` }} />
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {awards.goals.length > 0 && (
+            <>
+              <h2 class="section-title">{t('ach.goals')}</h2>
+              <ul class="ach-list">
+                {awards.goals.map((id) => (
+                  <li class="ach">
+                    <span class="ach-icon" aria-hidden="true">🎯</span>
+                    <span>
+                      <strong>{t(`ach.${id}.title`, {}, o)}</strong>
+                      <span class="muted small"> — {t(`ach.${id}.hint`, {}, o)}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </section>
+      )}
 
       {/* 3. Узор жизни */}
       <section class="block">

@@ -234,7 +234,7 @@ export interface EraDef extends EraMeta {
 /** Темы исторической справки для первых лет жизни, по порядку показа. */
 export const PRIMER_TOPICS = [
   'world', 'society', 'birth', 'childhood', 'home', 'food', 'clothes', 'faith',
-  'work', 'place', 'law', 'health', 'women', 'leisure', 'knowledge', 'war',
+  'work', 'place', 'law', 'health', 'women', 'leisure', 'knowledge', 'war', 'lifespan',
 ] as const
 export type PrimerTopic = (typeof PRIMER_TOPICS)[number]
 
@@ -634,6 +634,12 @@ export interface LifeSummary {
   /** Отмеченные звёздочкой записи и строка игрока для карточки. */
   starred?: number[]
   playerLine?: string
+  /** Для наград: режим смертности, была ли защита первой жизни, метки, навыки, животные на момент смерти. */
+  mortality?: 'soft' | 'historical'
+  protectedLife?: boolean
+  tags?: string[]
+  skills?: Record<string, number>
+  animals?: Animal[]
 }
 
 export interface Family {

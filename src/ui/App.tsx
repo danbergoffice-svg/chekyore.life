@@ -8,21 +8,24 @@ import type { GameState, LifeSummary } from '../engine/types'
 import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
-import { clearAll, loadPrefs, loadSave, parseSaveFile, saveGame, saveMemorial, savePrefs } from '../storage'
+import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
 import { About, Heirs, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
+import { Awards } from './Awards'
 import { sendFeedback } from '../feedback'
 import type { FeedbackData } from '../feedback'
 import { Feedback, FeedbackPrompt } from './Feedback'
 import { Slots } from './Slots'
 import { SoundControl } from './Sound'
 import { initAudio, onIosHint, setMusic, setSound } from '../audio'
+import { ACH_BY_ID, checkLife, checkLive, checkMemorial, nearMisses, nextGoals } from '../engine/achievements'
+import type { Earned } from '../engine/achievements'
 import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
-type Screen = 'loading' | 'menu' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about'
+type Screen = 'loading' | 'menu' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about' | 'awards'
 
 const defaultPrefs: Prefs = {
   lang: platform.lang(),
@@ -51,6 +54,9 @@ export function App() {
   const [prefs, setPrefsState] = useState<Prefs>(() => loadPrefs(defaultPrefs))
   const [screen, setScreen] = useState<Screen>('loading')
   const [memorial, setMemorial] = useState<LifeSummary[]>([])
+  const [earned, setEarned] = useState<Earned[]>([])
+  const earnedRef = useRef<Earned[]>([])
+  const [achToast, setAchToast] = useState<string | null>(null)
   const [opened, setOpened] = useState<string | null>(null)
   const game = useRef<GameState | null>(null)
   // Снимки героя: в начале года (итоги прошлого года) и перед выбором в событии.
@@ -98,6 +104,12 @@ export function App() {
       game.current = save.game && ERA_META[save.game.hero.era] ? save.game : null
       const lives = save.memorial.filter((l) => ERA_META[l.era])
       setMemorial(lives)
+      // Награды: сохранённые плюс те, что положены задним числом по уже прожитым жизням.
+      const got = await loadAchievements()
+      const retro = checkMemorial(lives, new Set(got.map((e) => e.id)))
+      earnedRef.current = [...got, ...retro]
+      setEarned(earnedRef.current)
+      if (retro.length) saveAchievements(earnedRef.current)
       platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode })
       const params = new URLSearchParams(location.search)
       let referrer = ''
@@ -194,14 +206,35 @@ export function App() {
     rerender(0)
   }
 
+  /** Выдать награды: сохранить, показать значок (время не останавливается), отметить в аналитике. */
+  const grant = (ids: string[], lifeId: string) => {
+    if (!ids.length) return
+    const now = Date.now()
+    earnedRef.current = [...earnedRef.current, ...ids.map((id) => ({ id, ts: now, lifeId }))]
+    setEarned(earnedRef.current)
+    saveAchievements(earnedRef.current)
+    for (const id of ids) {
+      const def = ACH_BY_ID.get(id)
+      const rarity = platform.flags.ach_rarity?.[id]
+      platform.track('achievement_unlocked', { id, rare: def?.secret || def?.hard || (rarity !== undefined && rarity < 0.05) ? 1 : 0 })
+    }
+    setAchToast(ids[ids.length - 1])
+    clearTimeout(achTimer.current)
+    achTimer.current = window.setTimeout(() => setAchToast(null), 3500)
+  }
+  const achTimer = useRef<number | undefined>(undefined)
+  const have = () => new Set(earnedRef.current.map((e) => e.id))
+
   const afterTurn = () => {
     const s = game.current!
+    if (s.phase !== 'dead') grant(checkLive(s, have()), s.hero.id)
     if (s.phase === 'dead') {
       const life = s.family.lives[s.family.lives.length - 1]
       life.record = memorial.length + 1
       const next = [...memorial, life]
       setMemorial(next)
       saveMemorial(next)
+      grant(checkLife(life, next, have()), life.heroId)
       trackLifeEnd(s, life)
       platform.setContext({ life_index: next.length + 1 })
       trackUserParams(next)
@@ -313,6 +346,8 @@ export function App() {
     await clearAll()
     game.current = null
     setMemorial([])
+    earnedRef.current = []
+    setEarned([])
     rerender(0)
   }
 
@@ -374,6 +409,7 @@ export function App() {
             onFeedback={() => openFeedback('menu')}
             onLang={(lang) => setPrefs({ ...prefs, lang })}
             go={setScreen}
+            awards={earned.length}
             sound={soundButton}
           />
         )}
@@ -441,6 +477,11 @@ export function App() {
             onMemorial={() => setScreen('memorial')}
             onMenu={toMenu}
             onUpdate={onUpdateLife}
+            awards={{
+              got: earned.filter((e) => e.lifeId === lastLife.heroId).map((e) => e.id),
+              near: nearMisses(lastLife, memorial, new Set(earned.map((e) => e.id))),
+              goals: nextGoals(lastLife, new Set(earned.map((e) => e.id))),
+            }}
             feedback={
               askFeedback ? (
                 <FeedbackPrompt onOpen={() => openFeedback('death')} onLater={() => setPrefs({ ...prefs, feedback: { state: 'later', lives: memorial.length } })} />
@@ -472,6 +513,12 @@ export function App() {
         )}
         {screen === 'settings' && <Settings prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={toMenu} />}
         {screen === 'about' && <About onBack={toMenu} />}
+        {achToast && (
+          <p class="toast ach-toast" role="status" onClick={() => setAchToast(null)}>
+            <span aria-hidden="true">🏅</span> {ui.t('ach.toast')} <strong>{ui.t(`ach.${achToast}.title`)}</strong>
+          </p>
+        )}
+        {screen === 'awards' && <Awards earned={earned} memorial={memorial} onBack={toMenu} />}
         {soundHint && (
           <p class="toast" role="status" onClick={() => setSoundHint(false)}>
             {ui.t('sound.ios_hint')}

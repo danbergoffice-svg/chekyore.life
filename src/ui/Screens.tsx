@@ -1,6 +1,7 @@
 import type { ComponentChildren } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { heirs, inheritanceShare } from '../engine/life'
+import { ACHIEVEMENTS } from '../engine/achievements'
 import { descentOf, regionOf, roleKey, yearsBetween } from '../engine/rules'
 import { ERA_IDS, ERA_META } from '../content'
 import STATS from '../content/stats.json'
@@ -30,12 +31,14 @@ interface MenuProps {
   onOpenLife: (heroId: string) => void
   onFeedback: () => void
   onLang: (lang: Lang) => void
-  go: (s: 'memorial' | 'settings' | 'about') => void
+  go: (s: 'memorial' | 'settings' | 'about' | 'awards') => void
+  /** Сколько наград получено. */
+  awards?: number
   /** Кнопка музыки. */
   sound: ComponentChildren
 }
 
-export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedback, onLang, go, sound }: MenuProps) {
+export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -158,6 +161,9 @@ export function Menu({ current, memorial, onNew, onContinue, onOpenLife, onFeedb
       </section>
 
       <div class="menu-links">
+        <button class="link" onClick={() => go('awards')}>
+          {t('menu.awards', { n: awards ?? 0, total: ACHIEVEMENTS.length })}
+        </button>
         <button class="link" onClick={() => go('settings')}>
           {t('menu.settings')}
         </button>

@@ -191,6 +191,11 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     places: h.places,
     traits: h.traits,
     report: buildReport(state, era),
+    mortality: state.settings.mortality,
+    protectedLife: state.settings.protectedUntil !== undefined,
+    tags: h.tags,
+    skills: h.skills,
+    animals: h.animals,
   }
 }
 

@@ -1,0 +1,72 @@
+{
+  "per": 400,
+  "bonusMin": 5,
+  "bonusMax": 10,
+  "eras": {
+    "ANE": {
+      "adult": 49.2,
+      "careful": 56.7,
+      "bonus": 7
+    },
+    "ISL": {
+      "adult": 53.9,
+      "careful": 61.5,
+      "bonus": 8
+    },
+    "E03": {
+      "adult": 51.6,
+      "careful": 58.4,
+      "bonus": 7
+    },
+    "CHN": {
+      "adult": 55.2,
+      "careful": 58.7,
+      "bonus": 4
+    },
+    "BYZ": {
+      "adult": 49.2,
+      "careful": 56,
+      "bonus": 7
+    },
+    "ETH": {
+      "adult": 51.2,
+      "careful": 58.2,
+      "bonus": 7
+    },
+    "EUR": {
+      "adult": 50.2,
+      "careful": 60,
+      "bonus": 10
+    },
+    "RUS": {
+      "adult": 51,
+      "careful": 60.2,
+      "bonus": 9
+    },
+    "MAY": {
+      "adult": 46.9,
+      "careful": 57.3,
+      "bonus": 10
+    },
+    "JPN": {
+      "adult": 51.8,
+      "careful": 56.8,
+      "bonus": 5
+    },
+    "WAF": {
+      "adult": 50.3,
+      "careful": 59.3,
+      "bonus": 9
+    },
+    "AMR": {
+      "adult": 52.4,
+      "careful": 59,
+      "bonus": 7
+    },
+    "IND": {
+      "adult": 51,
+      "careful": 56.6,
+      "bonus": 6
+    }
+  }
+}
