@@ -568,7 +568,8 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
   -webkit-mask-image: linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.18) 12%, rgba(0, 0, 0, 0.55) 26%, #000 36%, #000 64%, rgba(0, 0, 0, 0.55) 74%, rgba(0, 0, 0, 0.18) 88%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.18) 12%, rgba(0, 0, 0, 0.55) 26%, #000 36%, #000 64%, rgba(0, 0, 0, 0.55) 74%, rgba(0, 0, 0, 0.18) 88%, transparent 100%);
 }
-.reel-strip { transition-property: transform; transition-timing-function: cubic-bezier(0.15, 0.6, 0.22, 1.04); will-change: transform; }
+/* Кривая хода ленты — в Slots.tsx (EASE): по ней же считаются щелчки барабана. */
+.reel-strip { transition-property: transform; will-change: transform; }
 .reel-strip.blur { filter: blur(1.4px); }
 .reel-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0 3px; color: #2b2119; text-align: center; overflow: hidden; }
 .reel-icon { font-size: 17px; line-height: 1; flex: none; }
@@ -772,6 +773,7 @@ div.hint .hint-x { background: none; border: 0; color: inherit; font: inherit; c
 .menu-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 0; margin: 18px 0 8px; }
 .menu-nav .link { padding: 6px 0; color: var(--ink-2); text-decoration: none; }
 .menu-nav .link + .link::before { content: '·'; margin: 0 9px; color: var(--muted); opacity: 0.6; }
+.players-note { margin: 14px 0 0; color: var(--ink-2); }
 .beta-note { margin-top: 10px; opacity: 0.8; }
 
 /* Панель «Дары» снизу. */

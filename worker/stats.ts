@@ -129,6 +129,22 @@ FROM s LEFT JOIN e ON e.player_id = s.player_id GROUP BY s.variant ORDER BY s.va
   dailyClaims: `SELECT json_extract(params_json,'$.day') AS day, COUNT(DISTINCT player_id) AS players,
   COUNT(DISTINCT CASE WHEN json_extract(params_json,'$.broken') = 1 THEN player_id END) AS broken
 FROM events WHERE name='daily_claim' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL GROUP BY day ORDER BY day LIMIT 7`,
+  // Ушли из меню, так и не начав жизнь (новички: ни одной жизни ни до, ни в этом периоде): по игроку — видел ли барабан
+  // и кнопку «Крути», крутил ли, сколько секунд пробыл в меню (сумма за все уходы), прокрутка и высота экрана (menu_leave).
+  menuLeave: `WITH m AS (
+  SELECT player_id, MAX(json_extract(params_json,'$.spun')) AS spun, MAX(json_extract(params_json,'$.button')) AS button,
+    MAX(json_extract(params_json,'$.drum')) AS drum, SUM(json_extract(params_json,'$.sec')) AS sec,
+    MAX(json_extract(params_json,'$.scroll')) AS scroll, MAX(json_extract(params_json,'$.vh')) AS vh
+  FROM events WHERE name='menu_leave' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL
+    AND json_extract(params_json,'$.lives') = 0 AND json_extract(params_json,'$.hero') = 0
+    AND player_id NOT IN (SELECT player_id FROM events WHERE name='life_start' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL)
+  GROUP BY player_id
+)
+SELECT CASE WHEN spun = 1 THEN 'крутил, но не начал жизнь' WHEN button = 1 THEN 'видел кнопку «Крути», не крутил'
+  WHEN drum >= 50 THEN 'видел барабан, кнопку — нет' ELSE 'барабан почти не видел' END AS what,
+  COUNT(*) AS players, SUM(sec <= 10) AS quick, CAST(ROUND(AVG(sec)) AS INTEGER) AS avg_sec,
+  CAST(ROUND(AVG(scroll)) AS INTEGER) AS avg_scroll, CAST(ROUND(AVG(vh)) AS INTEGER) AS avg_vh
+FROM m GROUP BY what ORDER BY players DESC, what`,
   // Когорты: день первого события игрока (?1…?2 — номера дней), возврат — любое событие ровно через 1 и 7 дней.
   cohorts: `WITH f AS (
   SELECT player_id, CAST((MIN(ts)/1000 + 10800)/86400 AS INTEGER) AS d0 FROM events WHERE player_id IS NOT NULL GROUP BY player_id

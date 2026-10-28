@@ -38,13 +38,13 @@ import type { Change } from './text'
 type Tab = 'life' | 'hero' | 'people' | 'diary'
 
 /**
- * Длительность года на скорости ×1. Стандартная — из флагов (в раннем детстве короче).
+ * Длительность года на скорости ×1. Стандартная — из флагов (в детстве, до child_age лет, короче).
  * Если игрок выбрал свою (до минуты), детство удлиняется в той же пропорции.
  */
 function yearMs(age: number, custom?: number): number {
   const f = platform.flags
   const adult = custom ?? f.year_sec
-  return (age <= 5 ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
+  return (age <= f.child_age ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
 }
 const TICK_MS = 100
 export const SPEEDS = [0, 1, 2, 4, 10] as const

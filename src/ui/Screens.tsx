@@ -39,6 +39,10 @@ interface MenuProps {
   sound?: ComponentChildren
 }
 
+/** Сколько всего игроков заходило в игру: один запрос за загрузку страницы, число помнится до перезагрузки. */
+let playersAsk: Promise<number | null> | null = null
+let playersSeen: number | null = null
+
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
  *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, — в «Об игре». */
 export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound }: MenuProps) {
@@ -47,6 +51,14 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
   useEffect(() => {
     const id = setInterval(() => setShot((x) => (x + 1) % SHOWCASE.length), 5000)
     return () => clearInterval(id)
+  }, [])
+  const [players, setPlayers] = useState(playersSeen)
+  useEffect(() => {
+    playersAsk ??= platform.playersCount()
+    playersAsk.then((n) => {
+      playersSeen = n
+      setPlayers(n)
+    })
   }, [])
   const view = SHOWCASE[shot]
   const hero = current?.hero
@@ -96,6 +108,7 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
         <button class="link" onClick={() => go('about')}>{t('menu.nav.about')}</button>
         {EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
       </nav>
+      {players !== null && <p class="small center players-note">{t('menu.players', { n: players, count: players.toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US') })}</p>}
       <p class="small muted center beta-note">{t('beta.notice')}</p>
     </div>
   )

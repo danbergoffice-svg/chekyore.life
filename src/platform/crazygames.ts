@@ -274,6 +274,11 @@ export const crazyPlatform: Platform = {
     return Date.now()
   },
 
+  // Без внешних запросов: свой приёмник на CrazyGames не используется.
+  async playersCount() {
+    return null
+  },
+
   flags,
 
   // На CrazyGames игра всегда начинается на английском; русский игрок выбирает сам (RU в меню или настройках).

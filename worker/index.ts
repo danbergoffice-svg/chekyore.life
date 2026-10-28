@@ -3,6 +3,7 @@
 //   POST /api/events    — пачка событий (до 50), пишется в D1, таблица events;
 //   POST /api/feedback  — отзыв: таблица feedback + копия в Telegram (если заданы TELEGRAM_TOKEN и TELEGRAM_CHAT_ID);
 //   HEAD|GET /api/time  — время сервера (заголовок Date и {now});
+//   GET /api/players    — сколько всего игроков заходило в игру ({n}; пересчёт не чаще раза в 10 минут);
 //   POST /api/telegram  — webhook бота: команды /stats /week /funnel /exits /digest /help (worker/telegram.ts);
 //   GET /admin          — отзывы и отчёты, пароль ADMIN_PASSWORD (логин любой) (worker/admin.ts);
 //   GET /admin/export   — CSV для Excel/Google Таблиц (?table=events|feedback&days=N).
@@ -30,6 +31,8 @@ CREATE INDEX IF NOT EXISTS events_name_ts ON events(name, ts);
 CREATE INDEX IF NOT EXISTS events_player ON events(player_id);
 CREATE INDEX IF NOT EXISTS events_ts ON events(ts);
 CREATE TABLE IF NOT EXISTS feedback (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, rating INTEGER, answers_json TEXT, contact TEXT, context_json TEXT);
+CREATE TABLE IF NOT EXISTS players (player_id TEXT PRIMARY KEY, first_ts INTEGER);
+CREATE TABLE IF NOT EXISTS counters (name TEXT PRIMARY KEY, value INTEGER NOT NULL, mark INTEGER NOT NULL, updated INTEGER NOT NULL);
 `
 
 let schemaReady = false
@@ -103,6 +106,33 @@ async function feedback(req: Request, env: Env, ctx: Ctx): Promise<Response> {
   return json({ ok: true })
 }
 
+// Сколько всего игроков заходило в игру — для строки в подвале главного экрана. Чтобы не перечитывать всю таблицу
+// событий на каждый заход: игроки копятся в таблице players по новым событиям (id больше прошлой отметки),
+// число и отметка лежат в counters; пересчёт — не чаще раза в 10 минут, между ними — одна строка counters.
+const PLAYERS_FRESH = 10 * 6e4
+let playersMemo: { n: number; until: number } | null = null
+async function players(env: Env): Promise<number> {
+  const now = Date.now()
+  if (playersMemo && playersMemo.until > now) return playersMemo.n
+  const db = env.DB!
+  await ensureSchema(db)
+  const row = (await db.prepare("SELECT value, mark, updated FROM counters WHERE name = 'players'").all<{ value: number; mark: number; updated: number }>()).results[0]
+  let n = row ? Number(row.value) : 0
+  if (!row || now - Number(row.updated) >= PLAYERS_FRESH) {
+    const mark = row ? Number(row.mark) : 0
+    const top = Number((await db.prepare('SELECT COALESCE(MAX(id), 0) AS m FROM events').all<{ m: number }>()).results[0]?.m ?? 0)
+    await db.batch([
+      db.prepare('INSERT OR IGNORE INTO players (player_id, first_ts) SELECT player_id, MIN(ts) FROM events WHERE id > ?1 AND id <= ?2 AND player_id IS NOT NULL GROUP BY player_id').bind(mark, top),
+      db
+        .prepare("INSERT INTO counters (name, value, mark, updated) VALUES ('players', (SELECT COUNT(*) FROM players), ?1, ?2) ON CONFLICT(name) DO UPDATE SET value = excluded.value, mark = excluded.mark, updated = excluded.updated")
+        .bind(top, now),
+    ])
+    n = Number((await db.prepare("SELECT value FROM counters WHERE name = 'players'").all<{ value: number }>()).results[0]?.value ?? 0)
+  }
+  playersMemo = { n, until: now + 2 * 6e4 }
+  return n
+}
+
 export default {
   async fetch(req: Request, env: Env, ctx: Ctx): Promise<Response> {
     const url = new URL(req.url)
@@ -128,9 +158,18 @@ export default {
     const headers = cors(req)
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers })
     if (path === '/api/time') return req.method === 'HEAD' ? new Response(null, { headers: { ...headers, 'cache-control': 'no-store' } }) : json({ now: Date.now() }, 200, headers)
+    const ip = req.headers.get('cf-connecting-ip') ?? 'unknown'
+    if (path === '/api/players' && req.method === 'GET') {
+      if (!env.DB) return json({ ok: false, error: 'no_db' }, 503, headers)
+      if (limited(ip)) return json({ ok: false, error: 'rate' }, 429, headers)
+      try {
+        return json({ ok: true, n: await players(env) }, 200, { ...headers, 'cache-control': 'public, max-age=300' })
+      } catch (e) {
+        return json({ ok: false, error: String(e).slice(0, 200) }, 500, headers)
+      }
+    }
     if (req.method !== 'POST') return json({ ok: false }, 405, headers)
     if (!env.DB) return json({ ok: false, error: 'no_db' }, 503, headers)
-    const ip = req.headers.get('cf-connecting-ip') ?? 'unknown'
     if (limited(ip, path === '/api/feedback' ? 10 : 60)) return json({ ok: false, error: 'rate' }, 429, headers)
     try {
       if (path === '/api/events') return withHeaders(await events(req, env), headers)

@@ -142,6 +142,10 @@ function seed(db) {
   ev(at(B, 20), 'p5', 'app_open')
   ev(at(Y, 20), 'p5', 'app_open')
   ev(at(Y, 20, 5), 'p5', 'session_end', { screen: 'menu', age: 0, sec_in_session: 300 })
+  // p5 ушёл из меню дважды, не начав жизнь: барабан видел, кнопку видел, не крутил; p7 тоже уходил, но потом начал жизнь
+  ev(at(B, 20, 1), 'p5', 'menu_leave', { sec: 4, drum: 75, button: 0, spun: 0, gifts: 0, scroll: 0, vw: 390, vh: 664, lives: 0, hero: 0, played: 0 })
+  ev(at(Y, 20, 5), 'p5', 'menu_leave', { sec: 20, drum: 100, button: 1, spun: 0, gifts: 0, scroll: 120, vw: 390, vh: 664, lives: 0, hero: 0, played: 0 })
+  ev(at(T, 0, 5, 30), 'p7', 'menu_leave', { sec: 25, drum: 100, button: 1, spun: 1, gifts: 0, scroll: 0, vw: 390, vh: 664, lives: 0, hero: 0, played: 0 })
   // p6: пришёл 8 дней назад, вернулся вчера (D7)
   ev(at(T - 8, 15), 'p6', 'app_open')
   ev(at(Y, 15), 'p6', 'app_open')
@@ -273,6 +277,15 @@ async function suite(realBinds) {
   // уберём служебные отзывы/события api2, чтобы не мешали ручным ожиданиям
   DB.sql.exec("DELETE FROM feedback WHERE player_id='api2'; DELETE FROM events WHERE player_id='api2'")
 
+  // Счётчик игроков для подвала меню: все уникальные игроки за всё время; отметка — последний учтённый id события.
+  const distinct = DB.sql.prepare('SELECT COUNT(DISTINCT player_id) AS n FROM events WHERE player_id IS NOT NULL').get().n
+  r = await call('/api/players')
+  const pj = await r.json()
+  check('GET /api/players — все игроки за всё время', r.status === 200 && pj.n === distinct && /max-age=300/.test(r.headers.get('cache-control') ?? ''), JSON.stringify(pj) + ' ожидалось ' + distinct)
+  check('/api/players: отметка — последний id события', DB.sql.prepare("SELECT mark FROM counters WHERE name='players'").get()?.mark === DB.sql.prepare('SELECT MAX(id) AS m FROM events').get().m)
+  r = await call('/api/players', { method: 'POST' })
+  check('POST /api/players → не 200', r.status !== 200)
+
   r = await call('/api/time', { method: 'HEAD' })
   check('HEAD /api/time 200', r.status === 200)
   r = await call('/')
@@ -380,6 +393,7 @@ async function suite(realBinds) {
   check('/admin: отчёты «Воронка по дням» и «Когорты»', /Воронка по дням/.test(html) && /Когорты по дню первого захода/.test(html))
   check('/admin: A/B второй жизни — по вариантам и доли', /A\/B второй жизни/.test(html) && html.includes('<td>b</td><td>1</td><td>1</td><td>0 (0%)</td><td>0 (0%)</td><td>0 (0%)</td><td>0 (0%)</td><td>—</td>'), html.match(/<td>[ab]<\/td>.*?<\/tr>/g))
   check('/admin: дары за вход — день, дар, игроки', /Дары за вход/.test(html) && html.includes('<td>1</td><td>страна по выбору</td><td>1</td><td>0</td>'), html.match(/<td>1<\/td><td>страна.*?<\/tr>/))
+  check('/admin: ушли из меню — по игроку, без начавших жизнь', /Ушли из меню/.test(html) && html.includes('<td>видел кнопку «Крути», не крутил</td><td>1</td><td>0</td><td>24</td><td>120</td><td>664</td>') && !html.includes('крутил, но не начал жизнь'), html.match(/<td>[^<]*(?:барабан|кнопку|крутил)[^<]*<\/td>.*?<\/tr>/g))
   check('/admin: отчёт по снам — доля верных и частый неверный ответ', html.includes('<td>eratosthenes</td><td>3</td><td>3</td><td>33</td><td>3 ×2</td>'))
   check('/admin: ссылки CSV', /href="\/admin\/export\?table=events&amp;days=7"/.test(html) && /table=feedback/.test(html))
   const fy = sy.funnel

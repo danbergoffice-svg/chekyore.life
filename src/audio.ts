@@ -5,6 +5,8 @@
 // Начинает после первого касания или клавиши (раньше браузеры звук не пускают), молчит, пока вкладка скрыта,
 // идёт реклама или платформа просит выключить звук. Грузится только тот трек, который нужен сейчас.
 import { platform } from './platform'
+import { leverSound, reelsSound } from './sfx'
+import type { ReelTiming } from './sfx'
 
 type Ctx = AudioContext
 
@@ -32,6 +34,7 @@ function apply(): void {
   if (!ctx || !master) return
   const l = level()
   master.gain.setTargetAtTime(l, ctx.currentTime, 0.2)
+  sfxOut?.gain.setTargetAtTime(l * SFX_LEVEL, ctx.currentTime, 0.05)
   if (l > 0) {
     if (asleep()) ctx.resume().catch(() => {})
     switchTrack()
@@ -485,3 +488,33 @@ export function setAmbience(layers: AmbienceLayer[]): void {
   applyAmbience()
 }
 
+// ---------- Звуки барабана лотереи (src/sfx.ts) ----------
+
+/** Громкость звуков барабана относительно ползунка. */
+const SFX_LEVEL = 0.9
+let sfxOut: GainNode | null = null
+
+/** Куда играть звук: мимо плавного нарастания музыки (первое касание — это и есть рывок рычага). */
+function sfxTarget(): GainNode | null {
+  if (!ctx || level() === 0) return null
+  if (asleep()) ctx.resume().catch(() => {})
+  if (!sfxOut) {
+    sfxOut = ctx.createGain()
+    sfxOut.connect(ctx.destination)
+  }
+  sfxOut.gain.cancelScheduledValues(ctx.currentTime)
+  sfxOut.gain.setValueAtTime(level() * SFX_LEVEL, ctx.currentTime)
+  return sfxOut
+}
+
+/** Рывок рычага. */
+export function playLever(): void {
+  const out = sfxTarget()
+  if (out && ctx) leverSound(ctx, out, ctx.currentTime + 0.01)
+}
+
+/** Барабаны пошли: щелчки строк и остановки по заранее рассчитанному времени. */
+export function playReels(reels: ReelTiming[]): void {
+  const out = sfxTarget()
+  if (out && ctx) reelsSound(ctx, out, ctx.currentTime + 0.02, reels)
+}

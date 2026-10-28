@@ -2,8 +2,12 @@
 
 Код — `worker/index.ts`. При `npm run build` он собирается в `dist/_worker.js`, и Cloudflare Pages
 запускает его вместе с сайтом (режим «advanced», работает и при загрузке архива через «Create deployment»).
-Адреса: `POST /api/events`, `POST /api/feedback`, `HEAD /api/time`, `POST /api/telegram` (бот),
-`GET /admin`, `GET /admin/export` (CSV).
+Адреса: `POST /api/events`, `POST /api/feedback`, `HEAD /api/time`, `GET /api/players` (сколько всего игроков заходило —
+строка в подвале главного экрана), `POST /api/telegram` (бот), `GET /admin`, `GET /admin/export` (CSV).
+
+`/api/players` не перечитывает всю таблицу событий: уникальные игроки копятся в таблице `players` по новым событиям
+(`id` больше прошлой отметки), число и отметка — в таблице `counters` (строка `players`); пересчёт — не чаще раза
+в 10 минут, ответ браузер кэширует на 5 минут. Обе таблицы создаются сами (`ensureSchema`).
 
 Файлы: `worker/index.ts` — маршруты и приём; `worker/stats.ts` — все расчёты отчётов (один код для `/admin`,
 бота и утренней сводки, поэтому цифры совпадают); `worker/telegram.ts` — бот; `worker/admin.ts` — админка и CSV;

@@ -8,9 +8,11 @@ export interface Flags {
   first_life_min_age: number
   /** Сколько первых жизней защищены (вместе с наследником, если он — одна из них). */
   protected_lives: number
-  /** Секунд на год на скорости ×1: детство (0–5) и дальше. */
+  /** Секунд на год на скорости ×1: детство (0 … child_age лет) и дальше. */
   year_sec_child: number
   year_sec: number
+  /** До какого возраста героя (включительно) год идёт в детском темпе year_sec_child. */
+  child_age: number
   /** Возрасты заставок глав. */
   chapter_ages: number[]
   /** Минимальный промежуток между полноэкранной рекламой, сек. */
@@ -40,8 +42,9 @@ export interface Flags {
 export const DEFAULT_FLAGS: Flags = {
   first_life_min_age: 20,
   protected_lives: 2,
-  year_sec_child: 8,
+  year_sec_child: 6,
   year_sec: 10,
+  child_age: 12,
   chapter_ages: [16, 30, 45, 60],
   fullscreen_gap_sec: 180,
   ab_buckets: { a: 1 },
@@ -102,6 +105,8 @@ export interface Platform {
   showRewarded(slot: string): Promise<boolean>
   submitScore(board: string, score: number): Promise<void>
   serverTime(): Promise<number>
+  /** Сколько всего игроков заходило в игру (свой приёмник); null — нет данных или платформе нельзя наружу. */
+  playersCount(): Promise<number | null>
   flags: Flags
   /** Язык платформы (если игрок ещё не выбирал). */
   lang(): Lang

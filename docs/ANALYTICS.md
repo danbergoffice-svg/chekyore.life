@@ -2,7 +2,7 @@
 
 Игра шлёт события только через `platform.track(name, params)` (`src/platform/`), игровые счётчики —
 `src/telemetry.ts`. Каждое событие уходит в Яндекс Метрику (цель `reachGoal`) и в свой приёмник
-(`docs/BACKEND.md`). `choice_made` — только в свой приёмник, чтобы не засорять Метрику.
+(`docs/BACKEND.md`). `choice_made`, `dream_step` и `menu_leave` — только в свой приёмник, чтобы не засорять Метрику.
 
 Общие параметры каждого события: `platform, lang, build, ab, life_index, mode, session_id, player_id`.
 Параметры посетителя (userParams): `lives_total, first_seen, best_age`.
@@ -18,6 +18,7 @@
 | speed_change | speed | смена скорости |
 | tab_open | tab | вкладки жизни, «Читать» справку, графики и запись в итогах; `settings_from_hint` — открыл настройки из подсказки о длительности года |
 | session_end | screen, age, sec_in_session | вкладку скрыли/закрыли (sendBeacon) |
+| menu_leave | sec, drum, button, spun, gifts, scroll, vw, vh, lives, hero, played | вкладку скрыли/закрыли на главном экране (только свой приёмник): sec — секунд в меню с прошлого показа; drum — какая часть барабана была видна (максимум, %); button — кнопка «Крути» была видна целиком; spun — дёргал рычаг; gifts — открывал «Дары»; scroll — насколько прокрутил страницу (px); vw, vh — размер окна; lives — прожитых жизней; hero — есть незаконченная жизнь; played — уже играл в этот заход. Отчёт «Ушли из меню» в `/admin` |
 | life_end | age, cause, region, era, sec_in_life, choices, rescued, generation | смерть героя |
 | summary_action | action: heir/reborn/share/memorial/menu | кнопки итогов |
 | share_open / share_done | what (life/dream) / what, format, method | «Поделиться» жизнью или сном |

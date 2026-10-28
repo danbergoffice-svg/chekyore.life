@@ -219,13 +219,59 @@ export function App() {
   }, [screen])
 
   // Уход со страницы: какой экран, возраст героя, сколько длилась сессия.
-  const where = useRef({ screen, age: 0 })
-  where.current = { screen, age: game.current?.hero.age ?? 0 }
+  const where = useRef({ screen, age: 0, lives: 0, hero: false })
+  where.current = { screen, age: game.current?.hero.age ?? 0, lives: memorial.length, hero: !!state && state.phase !== 'dead' }
   useEffect(() => {
     platform.onPause((paused) => {
       if (paused) platform.track('session_end', { screen: where.current.screen, age: where.current.age, sec_in_session: Math.round(performance.now() / 1000) })
+      if (where.current.screen !== 'menu') return
+      const m = menuVisit.current
+      if (paused) {
+        platform.track('menu_leave', {
+          sec: Math.round((performance.now() - m.since) / 1000),
+          drum: m.drum,
+          button: m.button ? 1 : 0,
+          spun: m.spun ? 1 : 0,
+          gifts: m.gifts ? 1 : 0,
+          scroll: m.scroll,
+          vw: window.innerWidth,
+          vh: window.innerHeight,
+          lives: where.current.lives,
+          hero: where.current.hero ? 1 : 0,
+          played: playedThisVisit.current ? 1 : 0,
+        })
+      } else m.since = performance.now()
     })
   }, [])
+
+  // Уход из меню (menu_leave, docs/ANALYTICS.md): сколько секунд пробыл, какую часть барабана видел (процент),
+  // видел ли кнопку «Крути» целиком, крутил ли, открывал ли дары, насколько прокрутил страницу.
+  const menuVisit = useRef({ since: 0, drum: 0, button: false, spun: false, gifts: false, scroll: 0 })
+  useEffect(() => {
+    if (screen !== 'menu') return
+    menuVisit.current = { since: performance.now(), drum: 0, button: false, spun: false, gifts: false, scroll: 0 }
+    const onScroll = () => (menuVisit.current.scroll = Math.max(menuVisit.current.scroll, Math.round(window.scrollY)))
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [screen])
+  // Барабан пересоздаётся с каждым жребием — следим за новым.
+  useEffect(() => {
+    if (screen !== 'menu' || typeof IntersectionObserver === 'undefined') return
+    const drum = document.querySelector('.menu .spin')
+    const button = document.querySelector('.menu .spin-button')
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.target === drum) menuVisit.current.drum = Math.max(menuVisit.current.drum, Math.round(e.intersectionRatio * 100))
+          else if (e.intersectionRatio >= 0.9) menuVisit.current.button = true
+        }
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 0.9, 1] },
+    )
+    if (drum) io.observe(drum)
+    if (button) io.observe(button)
+    return () => io.disconnect()
+  }, [screen, pending?.seed])
 
   const soundButton = <SoundControl on={soundOn} volume={volume} onChange={(sound, v) => setPrefs({ ...prefs, sound, volume: v })} />
 
@@ -452,6 +498,7 @@ export function App() {
     if (!pending) return
     // Рывок рычага: где теряются новички — до барабана или после результата.
     if (pending.respin === 0) platform.track('spin', {})
+    menuVisit.current.spun = true
     ensure(pending.birth.era)
     platform.gameplayStart()
   }
@@ -752,6 +799,7 @@ export function App() {
   const giftsCount = (dailyNow ? 1 : 0) + (fateWaiting ? 1 : 0) + (royalWanted ? 1 : 0) + activeGifts.length
   const openGifts = () => {
     platform.track('gifts_open', { auto: 0, n: giftsCount })
+    menuVisit.current.gifts = true
     setGiftsOpen(true)
   }
   // Дар дня ждёт — панель сама открывается один раз в день, при входе в игру (после жизни дар дня и так на итогах).
@@ -761,6 +809,7 @@ export function App() {
     if (screen !== 'menu' || playedThisVisit.current || !dailyNow || !today || prefs.dailyShown === today) return
     setPrefs({ ...prefs, dailyShown: today })
     setGiftsOpen(true)
+    menuVisit.current.gifts = true
     platform.track('gifts_open', { auto: 1, n: giftsCount })
   }, [screen, dailyNow?.day, today])
   const giftsButton =

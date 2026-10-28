@@ -9,7 +9,7 @@ const COUNTER_ID = 113771699
 const API = (import.meta.env.VITE_API_BASE as string | undefined) ?? '/api'
 const BUILD = typeof __BUILD__ === 'string' ? __BUILD__ : 'dev'
 /** Эти события идут только в свой приёмник, чтобы не засорять Метрику. */
-const RECEIVER_ONLY = new Set(['choice_made', 'dream_step'])
+const RECEIVER_ONLY = new Set(['choice_made', 'dream_step', 'menu_leave'])
 
 type Ym = ((id: number, method: string, ...args: unknown[]) => void) & { a?: unknown[][]; l?: number }
 declare global {
@@ -232,6 +232,19 @@ export const webPlatform: Platform = {
       // ignore
     }
     return Date.now()
+  },
+
+  async playersCount() {
+    try {
+      const ctrl = new AbortController()
+      const timer = setTimeout(() => ctrl.abort(), 4000)
+      const res = await fetch(`${API}/players`, { signal: ctrl.signal })
+      clearTimeout(timer)
+      const data = res.ok ? ((await res.json()) as { n?: unknown }) : null
+      return typeof data?.n === 'number' && data.n > 0 ? data.n : null
+    } catch {
+      return null
+    }
   },
 
   flags,

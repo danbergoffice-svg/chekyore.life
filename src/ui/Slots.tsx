@@ -3,6 +3,8 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META } from '../content'
 import type { Birth } from '../engine/life'
 import { formatYear } from '../i18n'
+import { playLever, playReels } from '../audio'
+import type { ReelTiming } from '../sfx'
 import { Scene } from '../pixel/Scene'
 import { useUi } from './text'
 
@@ -28,6 +30,26 @@ function rand(seed: number) {
     x ^= x + Math.imul(x ^ (x >>> 7), x | 61)
     return ((x ^ (x >>> 14)) >>> 0) / 4294967296
   }
+}
+
+/** Ход барабана: кривая CSS-перехода ленты (в конце — лёгкий перелёт). По ней же считаются щелчки строк. */
+const EASE = [0.15, 0.6, 0.22, 1.04] as const
+
+/** Когда (секунды от начала вращения) через середину окна проезжает каждая строка и когда барабан встаёт. */
+export function reelTiming(duration: number, rows: number): ReelTiming {
+  const [x1, y1, x2, y2] = EASE
+  const bez = (s: number, a: number, b: number) => 3 * (1 - s) * (1 - s) * s * a + 3 * (1 - s) * s * s * b + s * s * s
+  const ticks: number[] = []
+  let next = 1
+  let land = -1
+  for (let i = 1; i <= 800; i++) {
+    const s = i / 800
+    const t = (bez(s, x1, x2) * duration) / 1000
+    const d = bez(s, y1, y2) * rows
+    for (; next < rows && d >= next; next++) ticks.push(t)
+    if (land < 0 && d >= rows - 0.03) land = t
+  }
+  return { ticks, land: land < 0 ? duration / 1000 : land }
 }
 
 function reducedMotion(): boolean {
@@ -67,7 +89,7 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
           <div class="reel-clip">
             <div
               class={`reel-strip ${blur ? 'blur' : ''}`}
-              style={{ transform: `translateY(${y}px)`, transitionDuration: props.spinning ? `${props.duration}ms` : '0ms' }}
+              style={{ transform: `translateY(${y}px)`, transitionDuration: props.spinning ? `${props.duration}ms` : '0ms', transitionTimingFunction: `cubic-bezier(${EASE.join(', ')})` }}
               onTransitionEnd={stop}
             >
               {props.items.map((it, i) => (
@@ -173,6 +195,7 @@ export function SlotMachine(props: {
 
   const pull = () => {
     if (phase !== 'idle') return
+    playLever()
     props.onPull()
     setPhase('pull')
     setTimeout(() => setPhase('spin'), fast ? 50 : 450)
@@ -180,6 +203,10 @@ export function SlotMachine(props: {
   useEffect(() => {
     if (props.autoSpin) pull()
   }, [])
+  // Барабаны пошли — щелчки строк и стук остановки в такт ленте.
+  useEffect(() => {
+    if (phase === 'spin') playReels(durations.map((d, i) => reelTiming(d, reels[i].length - 2)))
+  }, [phase])
   const canRespin = !!props.onRespin && (props.left ?? 0) > 0
   const left = props.left ?? 0
   const onStop = (i: number) =>

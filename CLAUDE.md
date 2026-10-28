@@ -48,6 +48,12 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
 - Ранние браки по сговору — `common/events_marriage.json` (обручение в детстве, свадьба девочки/мальчика,
   невесту выбирают родители, быт молодой жены); эффект `add_npc` принимает `age_offset`. Доли по странам —
   `npm run marriage -- 300`.
+- Звуки барабана лотереи (рычаг, щелчки строк в такт ленте, стук остановки, звон) — `src/sfx.ts` (синтез, без файлов),
+  проигрывают `playLever`/`playReels` из `src/audio.ts`; время щелчков — `reelTiming` по кривой `EASE` в `Slots.tsx`.
+  Прослушать в WAV — `node tools/qa/sfx.cjs` (нужен `npx vite --port 5174`).
+- Темп детства — флаги `year_sec_child` (6 с) и `child_age` (12): до этого возраста год короче (`yearMs` в `Life.tsx`).
+- Уход из меню — событие `menu_leave` (`App.tsx`, отчёт «Ушли из меню» в `/admin`); счётчик игроков в подвале меню —
+  `GET /api/players` (таблицы `players`/`counters`, пересчёт раз в 10 мин) → `platform.playersCount()` → `menu.players`.
 - Музыка: `src/audio.ts` (Web Audio, трек меню и по треку на страну, плавные переходы, пауза при скрытой вкладке,
   рекламе и «без звука» платформы — `platform.onAudio`), значок и громкость — `src/ui/Sound.tsx`, настройки
   `prefs.sound`/`prefs.volume`. Треки сочиняет и синтезирует `npm run music` (`tools/gen/music.mjs`, нужен ffmpeg):
