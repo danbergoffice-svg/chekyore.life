@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Карточки жизни</title>
+    <style>
+      body { background: #111; color: #ccc; font: 12px sans-serif; margin: 12px; }
+      .row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 18px; }
+      canvas { width: 360px; height: auto; display: block; }
+      canvas.wide { width: 480px; }
+    </style>
+  </head>
+  <body>
+    <div id="grid">загрузка…</div>
+    <script type="module">
+      // Карточки «Поделиться» на настоящих жизнях из движка: ?n=4&seed=100&lang=ru&formats=story,square,wide&ages=1 (минимальный возраст)
+      import '@fontsource-variable/alegreya'
+      import '../src/style.css'
+      import { ERA_IDS, ERA_META, loadAllEras } from '../src/content/index.ts'
+      import { autoplay } from '../src/engine/game.ts'
+      import { newLife, rollBirth } from '../src/engine/life.ts'
+      import { createT, loadAllTexts } from '../src/i18n/index.ts'
+      import { lifeCardData } from '../src/ui/lifeCard.ts'
+      import { drawCard } from '../src/ui/shareCard.ts'
+      const q = new URLSearchParams(location.search)
+      const n = Number(q.get('n') || 4)
+      const seed0 = Number(q.get('seed') || 100)
+      const lang = q.get('lang') || 'ru'
+      const formats = (q.get('formats') || 'story,square,wide').split(',')
+      const minAge = Number(q.get('ages') || 0)
+      const eras = await loadAllEras()
+      await loadAllTexts()
+      let quotes = []
+      // Пока подборки нет — пробные цитаты (пути через переменную, чтобы vite не падал на отсутствующем файле).
+      const real = '../src/content/common/quotes.json', sample = './tmp/sample-quotes.json'
+      try { quotes = (await import(/* @vite-ignore */ real)).default } catch { quotes = (await import(/* @vite-ignore */ sample)).default }
+      await document.fonts.load("600 40px 'Thousands Letopis'")
+      await document.fonts.load("400 30px 'Alegreya Variable'")
+      await document.fonts.load("italic 400 30px 'Alegreya Variable'")
+      const t = createT(lang)
+      const grid = document.getElementById('grid')
+      grid.textContent = ''
+      let seed = seed0, made = 0
+      while (made < n && seed < seed0 + 500) {
+        const b = rollBirth(seed, 'population', ERA_IDS.map((id) => ERA_META[id]))
+        const era = eras[b.era]
+        const s = autoplay(newLife(era, { mode: 'full', mortality: 'soft', softenHeavy: false, livesBefore: 3, dreamChance: 0.05 }, seed, undefined, b), era)
+        seed++
+        const life = s.family.lives[s.family.lives.length - 1]
+        if (!life || life.age < minAge) continue
+        made++
+        const data = lifeCardData(life, t, lang, { quotes, playerLine: '', site: 'thousands.life', scene: { place: 'landmark', time: 'sunset', people: 3, props: ['sun'] } })
+        const row = document.createElement('div'); row.className = 'row'
+        for (const f of formats) {
+          const c = document.createElement('canvas'); if (f === 'wide') c.className = 'wide'
+          drawCard(c, f, data); row.append(c)
+        }
+        grid.append(row)
+      }
+      document.body.dataset.ready = '1'
+    </script>
+  </body>
+</html>

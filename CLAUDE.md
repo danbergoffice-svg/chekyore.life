@@ -84,6 +84,8 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   награда — царская семья (`royalBirth`, тег `royal`, слова `classKey()` → `class.royal*`, `prefs.royal`).
   **Дары за вход** — `src/daily.ts` (лестница `GIFTS`, серия `dailyNext`, `prefs.daily`/`prefs.gifts`), `DailyCard`/`GiftsLine`,
   в движке `Birth.boons` и `settings.dreamSure`; проверка — `node tools/qa/daily.cjs`.
+- Карточка «Поделиться» — `src/ui/shareCard.ts` (рисует), `src/ui/lifeCard.ts` (данные), яркие факты и подбор афоризма —
+  `src/engine/highlights.ts`, афоризмы — `src/content/common/quotes.json`; стенд — `tools/cards.html` + `node tools/qa/cards.cjs`.
 - Подсказки на экране жизни — `hintFor`/`closeHint` в `Life.tsx` (закрытые помнятся в `thousands.hints`): скорость (0–1 год),
   длительность года с кнопкой «Открыть настройки» (2–6 лет; «Назад» из настроек возвращает в жизнь), фокус, вкладка «Герой».
 - Графика (`docs/TZ_graphics.md`): сцена 320×100 из кэшируемых слоёв + движение (`scene.ts`, `fx.ts`, `figures.ts`),

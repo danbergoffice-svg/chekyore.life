@@ -11,6 +11,8 @@ import { Avatar } from '../pixel/Avatar'
 import { lifeMarks } from '../pixel/avatar'
 import { BarList, LineChart, Numbers } from './charts'
 import { CARD_SIZES, cleanLine, drawCard } from './shareCard'
+import { lifeCardData, portraitAges, portraitInput } from './lifeCard'
+import { QUOTES } from '../content/quotes'
 import type { CardFormat } from './shareCard'
 import { diaryText, useUi } from './text'
 
@@ -578,7 +580,7 @@ function dreamHeadline(t: ReturnType<typeof useUi>['t'], life: LifeSummary): str
 
 function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 'life' | 'dream'; life: LifeSummary; era: EraDef; archetype: string; onClose: () => void; onUpdate: (l: LifeSummary) => void }) {
   const { t, lang } = useUi()
-  const [format, setFormat] = useState<CardFormat>('square')
+  const [format, setFormat] = useState<CardFormat>('story')
   const [draft, setDraft] = useState(life.playerLine ?? '')
   const [copied, setCopied] = useState(false)
   const canvas = useRef<HTMLCanvasElement>(null)
@@ -586,45 +588,32 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   const name = nameOf(life.name, lang)
   const years = `${formatYear(life.birthYear, lang)} — ${formatYear(life.deathYear, lang)}`
-  const r = life.report
-  const starred = (life.starred ?? []).map((i) => life.diary[i]).filter(Boolean)
-  const facts = useMemo(() => {
-    if (starred.length) return starred.slice(0, 3).map((e) => diaryText(t, e, life.sex, life.region, life.religion, lang))
-    const out = [life.profession ? t(`prof.${life.profession}`, {}, o) : t(`class.${classKey(life.cls, life.tags)}`, {}, o)]
-    out.push(t('facts.children_value', { n: r.facts.children, grand: r.facts.grandchildren }))
-    out.push(`${t('summary.cause')}: ${t(`cause.${life.cause}`)}`)
-    return out
-  }, [life, lang])
   const ds = what === 'dream' ? life.dreamSeen : undefined
-  const headline = ds ? dreamHeadline(t, life) : archetype
-  const patternLine = ds
-    ? `${t(`dream.${ds.id}.title`)} — ${t(`dream.result.${ds.outcome}`)}`
-    : AXES.map((a) => t(`pattern.axis.${a}.${r.pattern.scores[a] > 0 ? 'right' : 'left'}`)).join(' · ')
-  const cardFacts = ds ? [t('share.dream.ask')] : facts
-  const dark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)
+  // Карточка: главное дело жизни, самый яркий факт, афоризм под эту жизнь, портреты по возрастам.
+  const card = useMemo(
+    () =>
+      lifeCardData(life, t, lang, {
+        quotes: QUOTES,
+        playerLine: clean.text,
+        site: EXTERNAL ? SITE_NAME : t('share.card.cta_portal'),
+        dream: !!ds,
+        scene: ds ? { place: 'landmark', time: 'night', people: 1, props: [] } : { place: 'landmark', time: 'sunset', people: 3, props: era.id === 'E03' && life.region === 'egypt' ? ['palm', 'sun'] : ['sun'] },
+      }),
+    [life, lang, clean.text, what],
+  )
+  const headline = ds ? dreamHeadline(t, life) : card.hook
   // На порталах — без ссылки на сайт: платформа сама добавит ссылку на страницу игры у себя.
-  const baseText = ds ? `${headline} ${t('share.dream.ask')}` : t('share.text', { name, years, archetype })
+  const quote = card.quotes[0]
+  const baseText = ds
+    ? `${headline} ${t('share.dream.ask')}`
+    : t('share.text', { name, years, archetype: `${card.title}. ${card.hook}${quote ? `. «${quote.text}» — ${quote.author}` : ''}` })
   const shareText = EXTERNAL ? `${baseText} ${SITE}` : baseText
 
   useEffect(() => {
     if (!canvas.current) return
     const el = canvas.current
     // Холст сам не перерисуется, когда догрузится шрифт «Летопись», — рисуем ещё раз после загрузки.
-    const draw = () => drawCard(el, format, {
-      name,
-      years: ds ? t('share.dream.when', { year: formatYear(ds.year, lang) }) : years,
-      place: `${t(`era.${ds?.era ?? life.era}`)} · ${t(`region.${life.region}`)}`,
-      archetype: headline,
-      patternLine,
-      facts: cardFacts,
-      playerLine: clean.text,
-      cta: EXTERNAL ? `${t('share.card.cta')} · ${SITE_NAME}` : t('share.card.cta_portal'),
-      region: life.region,
-      sex: life.sex,
-      seed: life.heroId,
-      scene: ds ? { place: 'landmark', time: 'night', people: 1, props: [] } : { place: 'landmark', time: 'sunset', people: 3, props: era.id === 'E03' && life.region === 'egypt' ? ['palm', 'sun'] : ['sun'] },
-      dark,
-    })
+    const draw = () => drawCard(el, format, card)
     draw()
     if (document.fonts) Promise.all([document.fonts.load("600 40px 'Thousands Letopis'"), document.fonts.load("400 30px 'Alegreya Variable'")]).then(draw, () => {})
   }, [format, clean.text, lang])
@@ -676,7 +665,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
               </button>
             ))}
           </div>
-          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={`${name}, ${years}. ${headline}. ${cardFacts.join('. ')}`} />
+          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={`${name}, ${years}. ${card.title}. ${card.hook}. ${quote ? `«${quote.text}» — ${quote.author}` : ''}`} />
           <p class="small muted">{t('share.privacy')}</p>
           <div class="stack">
             {EXTERNAL && 'share' in navigator && <button class="primary" onClick={systemShare}>{t('share.system')}</button>}
@@ -703,37 +692,16 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
 /** Лента портретов: детство, юность, зрелость, старость — по истории героя, без хранения картинок. */
 function PortraitRibbon({ life }: { life: LifeSummary }) {
   const { t } = useUi()
-  const ages = [6, 17, 32, 50, 68].filter((a) => a < life.age)
-  if (life.age >= 2) ages.push(life.age)
-  const shown = ages.slice(-5)
+  const shown = portraitAges(life, 5)
   if (shown.length < 2) return null
-  const birthCls = life.report.facts.birthCls ?? life.cls
   return (
     <div class="portrait-ribbon" role="list" aria-label={t('summary.portraits')}>
-      {shown.map((age, i) => {
-        const y = life.history.find((h) => h.age === age)
-        const last = i === shown.length - 1
-        return (
-          <figure role="listitem">
-            <Avatar
-              input={{
-                region: life.region,
-                sex: life.sex,
-                age,
-                seed: life.heroId,
-                cls: age < 18 ? birthCls : life.cls,
-                happiness: y?.happiness,
-                stress: y?.stress,
-                ill: last && (y?.health ?? 100) < 25,
-                married: age >= 20 && life.npcs.some((n) => n.role === 'spouse'),
-                ...lifeMarks(life.diary, life.traits ?? [], age),
-              }}
-              label={t('life.portrait', { n: age })}
-            />
-            <figcaption class="small muted">{t('summary.portrait_age', { n: age })}</figcaption>
-          </figure>
-        )
-      })}
+      {shown.map((age, i) => (
+        <figure role="listitem">
+          <Avatar input={portraitInput(life, age, i === shown.length - 1)} label={t('life.portrait', { n: age })} />
+          <figcaption class="small muted">{t('summary.portrait_age', { n: age })}</figcaption>
+        </figure>
+      ))}
     </div>
   )
 }
