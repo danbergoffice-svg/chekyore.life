@@ -52,11 +52,15 @@ const AGAIN = /Родиться снова/;
   console.log('   тост «пройдено»:', done);
   // 3. В меню у барабана — выбор судьбы; «Знатная семья» → знать или землевладельцы.
   await p.click('text=Меню').catch(() => {});
-  await p.waitForSelector('.menu .fate-picker', { timeout: 10000 }).catch(() => {});
-  console.log('3) выбор судьбы у барабана:', !!(await p.$('.fate-picker')));
-  if (await p.$('.fate-picker')) {
-    await (await p.$('.menu .spin')).screenshot({ path: `${dir}/ch-fate.png` });
-    await p.click('.fate-options .option >> nth=0');
+  await p.waitForSelector('.menu .slot-machine');
+  if (!(await p.$('.sheet'))) await p.click('.gifts-btn').catch(() => {});
+  await p.waitForSelector('.sheet .fate-picker', { timeout: 10000 }).catch(() => {});
+  console.log('3) выбор судьбы в «Дарах»:', !!(await p.$('.sheet .fate-picker')));
+  if (await p.$('.sheet .fate-picker')) {
+    await (await p.$('.sheet')).screenshot({ path: `${dir}/ch-fate.png` });
+    await p.click('.sheet .fate-options .option >> nth=0');
+    await p.click('.sheet-done');
+    console.log('   ярлык на барабане:', await p.$$eval('.reel-tag', (els) => els.map((e) => e.innerText).join(' ')));
     await p.click('.spin-button');
     await p.waitForSelector('.spin-result .primary:not([disabled])');
     console.log('   выпало:', await p.$eval('.spin-result p', e => e.innerText));
@@ -65,7 +69,7 @@ const AGAIN = /Родиться снова/;
     await p.click('.reveal .primary');
     await p.click('text=Меню').catch(() => {});
     await p.waitForSelector('.menu .slot-machine');
-    console.log('4) после рождения награда потрачена (выбора нет):', !(await p.$('.fate-picker')));
+    console.log('4) после рождения награда потрачена:', await p.evaluate(() => JSON.parse(localStorage.getItem('thousands.prefs') || '{}').fate));
   }
   console.log({ errors: errs.slice(0, 5) });
   await b.close();

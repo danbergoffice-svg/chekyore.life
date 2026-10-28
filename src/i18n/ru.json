@@ -1094,5 +1094,22 @@
   "hook.cause.epidemic": "Унесло моровое поветрие в {n}",
   "hook.cause.smallpox": "Унесла оспа в {n}",
   "card.stat.family": "детей · внуков",
-  "card.stat.outlived": "ровесников прожили меньше"
+  "card.stat.outlived": "ровесников прожили меньше",
+  "menu.subtitle": "Одна жизнь в случайной стране и эпохе",
+  "menu.nav.memorial": "Мемориал",
+  "menu.nav.awards": "Награды",
+  "menu.nav.settings": "Настройки",
+  "menu.nav.about": "Об игре",
+  "menu.nav.feedback": "Отзыв",
+  "spin.head": "Лотерея рождения",
+  "gifts.button": "Дары",
+  "gifts.sheet": "Дары",
+  "gifts.daily.sub": "день {n} из 7 · на 7-й — 👑",
+  "gifts.country.none": "Страна ещё не выбрана",
+  "gifts.change": "Изменить",
+  "gifts.choose": "Выбрать",
+  "gifts.active": "Сработают в этой жизни",
+  "gifts.done": "Готово",
+  "drum.tag.royal": "Царская",
+  "drum.tag.noble": "Знать"
 }

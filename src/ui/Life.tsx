@@ -433,7 +433,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 }
 
 /** Как выглядит герой на портрете сейчас. */
-function heroLook(hero: Hero): AvatarInput {
+export function heroLook(hero: Hero): AvatarInput {
   return {
     region: hero.region,
     sex: hero.sex,

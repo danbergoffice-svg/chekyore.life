@@ -29,7 +29,8 @@ async function royalLife(p, kind) {
   const again = p.locator('.summary button', { hasText: /Родиться снова/ }).first();
   if (await again.count()) await again.click();
   await p.waitForSelector('.menu .slot-machine');
-  console.log(kind, '| над барабаном:', await p.$eval('.royal-note', (e) => e.innerText).catch(() => 'НЕТ'));
+  if (await p.$('.sheet')) await p.click('.sheet-done');
+  console.log(kind, '| ярлык на барабане:', await p.$$eval('.reel-tag', (els) => els.map((e) => e.innerText).join(' ')));
   await p.click('.spin-button'); await p.waitForSelector('.spin-result');
   console.log(kind, '| результат:', await p.$eval('.spin-result .lead', (e) => e.innerText));
   await p.screenshot({ path: `${dir}/install-royal-${kind}.png` });
@@ -51,7 +52,7 @@ async function royalLife(p, kind) {
     console.log('ios-home | карточки установки нет:', !(await p.$('.install-card')));
     await royalLife(p, 'ios-home');
     await p.reload(); await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(500);
-    console.log('ios-home | после перезапуска награды нет:', !(await p.$('.royal-note')) && !(await p.$('.toast')));
+    console.log('ios-home | после перезапуска награды нет:', !(await p.$('.reel-tag')) && !(await p.$('.toast.ach-toast')));
     console.log('ios-home', { errors: errs.slice(0, 3) });
     await ctx.close();
   }

@@ -34,7 +34,7 @@ function reducedMotion(): boolean {
   return typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-function Reel(props: { label: string; items: Item[]; spinning: boolean; duration: number; onStop: () => void; stopped: boolean }) {
+function Reel(props: { label: string; items: Item[]; spinning: boolean; duration: number; onStop: () => void; stopped: boolean; tag?: string }) {
   const final = props.items.length - 2
   const offset = (WINDOW - ROW) / 2
   const [blur, setBlur] = useState(false)
@@ -59,23 +59,27 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
   return (
     <div class={`reel ${props.stopped ? 'stopped' : ''}`}>
       <div class="reel-label">{props.label}</div>
-      <div class="reel-window" style={{ height: `${WINDOW}px` }}>
-        {/* Соседние строки видны только у середины и плавно гаснут к краям окна, чтобы надписи не обрезались. */}
-        <div class="reel-clip">
-          <div
-            class={`reel-strip ${blur ? 'blur' : ''}`}
-            style={{ transform: `translateY(${y}px)`, transitionDuration: props.spinning ? `${props.duration}ms` : '0ms' }}
-            onTransitionEnd={stop}
-          >
-            {props.items.map((it, i) => (
-              <div class={`reel-item ${i === final && props.stopped ? 'win' : ''}`} style={{ height: `${ROW}px` }}>
-                {it.icon && <span class="reel-icon" aria-hidden="true">{it.icon}</span>}
-                <span class="reel-text">
-                  <span class="reel-top">{it.top}</span>
-                  {it.bottom && <span class="reel-bottom">{it.bottom}</span>}
-                </span>
-              </div>
-            ))}
+      {/* Награда, которая уже решила этот барабан: «🔒 Византия», «👑 Знать» — над краем окна. */}
+      <div class="reel-frame">
+        {props.tag && <span class="reel-tag">{props.tag}</span>}
+        <div class="reel-window" style={{ height: `${WINDOW}px` }}>
+          {/* Соседние строки видны только у середины и плавно гаснут к краям окна, чтобы надписи не обрезались. */}
+          <div class="reel-clip">
+            <div
+              class={`reel-strip ${blur ? 'blur' : ''}`}
+              style={{ transform: `translateY(${y}px)`, transitionDuration: props.spinning ? `${props.duration}ms` : '0ms' }}
+              onTransitionEnd={stop}
+            >
+              {props.items.map((it, i) => (
+                <div class={`reel-item ${i === final && props.stopped ? 'win' : ''}`} style={{ height: `${ROW}px` }}>
+                  {it.icon && <span class="reel-icon" aria-hidden="true">{it.icon}</span>}
+                  <span class="reel-text">
+                    <span class="reel-top">{it.top}</span>
+                    {it.bottom && <span class="reel-bottom">{it.bottom}</span>}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -109,8 +113,10 @@ export function SlotMachine(props: {
   /** Бесплатные перекрутки кончились — ещё одна за рекламу (CrazyGames); adBusy — реклама грузится или идёт. */
   onAdRespin?: () => void
   adBusy?: boolean
-  /** Над барабаном до рывка рычага: награда за испытание (выбор судьбы) или за главный экран (царская семья). */
-  fate?: ComponentChildren
+  /** Справа над барабаном — кнопка «🎁 Дары» (если они есть). */
+  gifts?: ComponentChildren
+  /** Ярлыки наград на окнах барабана: страна и положение. */
+  tags?: { where?: string; status?: string }
 }) {
   const { t, lang } = useUi()
   const { birth } = props
@@ -145,13 +151,15 @@ export function SlotMachine(props: {
     const where: Item[] = [q]
     const status: Item[] = [q]
     const sex: Item[] = [q]
+    const lockWhere = !!props.tags?.where
+    const lockStatus = !!props.tags?.status
     for (let i = 0; i < DECOYS; i++) {
-      const id = ERA_IDS[(i + Math.floor(r() * 3)) % ERA_IDS.length]
+      const id = lockWhere ? birth.era : ERA_IDS[(i + Math.floor(r() * 3)) % ERA_IDS.length]
       const meta = ERA_META[id]
       const year = Math.round(meta.years[0] + r() * (meta.years[1] - meta.years[0] - 20)) || 1
       where.push({ top: t(`era.${id}.short`), bottom: formatYear(year, lang) })
-      const cls = pick(Object.keys(CLASS_ICON))
-      status.push({ top: t(`class.${cls}.short`), icon: CLASS_ICON[cls] })
+      const cls = lockStatus ? birth.cls : pick(Object.keys(CLASS_ICON))
+      status.push({ top: t(`class.${lockStatus && birth.royal ? 'royal' : cls}.short`), icon: CLASS_ICON[cls] })
       const s = i % 2 === 0 ? 'm' : 'f'
       sex.push({ top: t(`spin.sex.${s}`), icon: s === 'm' ? '♂' : '♀' })
     }
@@ -184,7 +192,10 @@ export function SlotMachine(props: {
   const labels = [t('spin.where'), t('spin.status'), t('spin.sex')]
   return (
     <section class="spin" ref={box}>
-      {props.fate && phase === 'idle' ? props.fate : <p class="lead center">{t('spin.lead')}</p>}
+      <div class="spin-head">
+        <span class="caps">{t('spin.head')}</span>
+        {props.gifts}
+      </div>
 
       <div class={`slot-machine ${phase}`}>
         <div class="slot-lights" aria-hidden="true">
@@ -195,7 +206,15 @@ export function SlotMachine(props: {
         <div class="slot-body">
           <div class="reels">
             {reels.map((items, i) => (
-              <Reel label={labels[i]} items={items} spinning={phase === 'spin' || phase === 'done'} duration={durations[i]} stopped={stopped[i]} onStop={() => onStop(i)} />
+              <Reel
+                label={labels[i]}
+                items={items}
+                spinning={phase === 'spin' || phase === 'done'}
+                duration={durations[i]}
+                stopped={stopped[i]}
+                onStop={() => onStop(i)}
+                tag={phase === 'idle' ? (i === 0 ? props.tags?.where : i === 1 ? props.tags?.status : undefined) : undefined}
+              />
             ))}
           </div>
           <button

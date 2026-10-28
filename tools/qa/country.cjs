@@ -58,9 +58,9 @@ const dir = process.env.SHOTS || 'shots';
     await p.waitForSelector('#country-title');
     await p.screenshot({ path: `${dir}/c-country.png` });
     await p.click('.modal .option:has-text("Япония")');
-    await p.waitForSelector('.menu .gifts-line');
+    await p.waitForSelector('.menu .reel-tag');
     await (await p.$('.menu .spin')).screenshot({ path: `${dir}/c-menu-picked.png` });
-    console.log('над барабаном:', await p.$eval('.gifts-line', e => e.innerText));
+    console.log('ярлык на барабане:', await p.$eval('.reel-tag', e => e.innerText));
     await p.click('.spin-button');
     await p.waitForSelector('.spin-result .primary:not([disabled])');
     console.log('выпало:', await p.$eval('.spin-result p', e => e.innerText));
@@ -69,7 +69,8 @@ const dir = process.env.SHOTS || 'shots';
     console.log('после рождения дар потрачен:', JSON.stringify((await prefs()).gifts), '| страны навсегда нет:', !(await prefs()).country);
     // Следующая жизнь — снова жребий: строки даров нет.
     await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(500);
-    console.log('следующая жизнь — жребий (строки даров нет):', !(await p.$('.gifts-line')));
+    if (await p.$('.sheet')) await p.click('.sheet-done');
+    console.log('следующая жизнь — жребий (ярлыка нет):', !(await p.$('.reel-tag')));
     // Настройки жизни: выбора страны больше нет, приглашения к отзыву — тоже (отзыв уже оставлен).
     await p.click('text=Настроить жизнь');
     await p.waitForSelector('#setup-title');
@@ -78,7 +79,8 @@ const dir = process.env.SHOTS || 'shots';
     // Старый постоянный выбор (до 28.10) превращается в один дар.
     await p.evaluate(() => { const x = JSON.parse(localStorage.getItem('thousands.prefs')); x.country = 'CHN'; x.gifts = []; localStorage.setItem('thousands.prefs', JSON.stringify(x)) });
     await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(500);
-    console.log('старый выбор → дар:', await p.$eval('.gifts-line', e => e.innerText).catch(() => 'НЕТ'));
+    if (!(await p.$('.sheet'))) await p.click('.gifts-btn');
+    console.log('старый выбор → дар:', await p.$eval('.sheet-pick', e => e.innerText).catch(() => 'НЕТ'));
   }
   console.log({ errors: errs.slice(0, 5) });
   await b.close();

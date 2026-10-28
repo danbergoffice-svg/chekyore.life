@@ -1094,5 +1094,22 @@
   "hook.cause.epidemic": "Taken by a plague at {n}",
   "hook.cause.smallpox": "Taken by smallpox at {n}",
   "card.stat.family": "children · grandchildren",
-  "card.stat.outlived": "of peers lived less"
+  "card.stat.outlived": "of peers lived less",
+  "menu.subtitle": "One life in a random country and age",
+  "menu.nav.memorial": "Memorial",
+  "menu.nav.awards": "Awards",
+  "menu.nav.settings": "Settings",
+  "menu.nav.about": "About",
+  "menu.nav.feedback": "Feedback",
+  "spin.head": "Birth lottery",
+  "gifts.button": "Gifts",
+  "gifts.sheet": "Gifts",
+  "gifts.daily.sub": "day {n} of 7 · day 7 — 👑",
+  "gifts.country.none": "No country chosen yet",
+  "gifts.change": "Change",
+  "gifts.choose": "Choose",
+  "gifts.active": "Active in this life",
+  "gifts.done": "Done",
+  "drum.tag.royal": "Royal",
+  "drum.tag.noble": "Noble"
 }

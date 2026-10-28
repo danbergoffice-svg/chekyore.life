@@ -12,6 +12,8 @@ import { BIG_DAYS, GIFT_ICON, GIFTS } from '../daily'
 import type { Gift } from '../daily'
 import { EXTERNAL, platform } from '../platform'
 import { Scene } from '../pixel/Scene'
+import { Avatar } from '../pixel/Avatar'
+import { heroLook } from './Life'
 import { VolumeSlider } from './Sound'
 import { useUi } from './text'
 
@@ -27,25 +29,19 @@ const SHOWCASE: { region: string; era: string; scene: SceneDef }[] = ERA_IDS.fla
 
 interface MenuProps {
   current: GameState | null
-  memorial: LifeSummary[]
   /** Барабан лотереи рождения — сразу под названием игры, на первом экране. */
   slot: ComponentChildren
-  /** «На главный экран» — после первой жизни, под барабаном. */
-  install?: ComponentChildren
-  /** Дары за вход — под «Продолжить». */
-  daily?: ComponentChildren
   onContinue: () => void
-  onOpenLife: (heroId: string) => void
   onFeedback: () => void
   onLang: (lang: Lang) => void
   go: (s: 'memorial' | 'settings' | 'about' | 'awards') => void
-  /** Сколько наград получено. */
-  awards?: number
   /** Кнопка музыки. */
-  sound: ComponentChildren
+  sound?: ComponentChildren
 }
 
-export function Menu({ current, memorial, slot, install, daily, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
+/** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
+ *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, — в «Об игре». */
+export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -57,10 +53,11 @@ export function Menu({ current, memorial, slot, install, daily, onContinue, onOp
   const playing = !!current && current.phase !== 'dead' && !!hero
   return (
     <div class="screen menu">
-      {/* Верх меню сжат, чтобы барабан с кнопкой был виден на телефоне без прокрутки. */}
-      <div class="menu-top">
-        <span class="badge">{t('beta.badge')}</span>
-        <div class="menu-top-right">
+      <header class="menu-hero">
+        <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={`${t(`region.${view.region}`)} · ${t(`era.${view.era}.short`)}`} />
+        <div class="menu-topbar">
+          <span class="badge">{t('beta.badge')}</span>
+          <span class="grow" />
           {sound}
           <div class="lang-switch" role="group" aria-label={t('settings.language')}>
             {LANGS.map((l) => (
@@ -70,129 +67,36 @@ export function Menu({ current, memorial, slot, install, daily, onContinue, onOp
             ))}
           </div>
         </div>
-      </div>
-      <div class="menu-scene">
-        <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={t(`region.${view.region}`)} />
-        <span class="scene-cap">
-          {t(`region.${view.region}`)} · {t(`era.${view.era}.short`)}
-        </span>
-      </div>
+      </header>
       <div class="title-block">
         {/* Длинное название (Thousands of Lives) — мельче, чтобы в одну строку на любом телефоне. */}
         <h1 class={`game-title ${t('app.title').length > 14 ? 'long' : ''}`}>{t('app.title')}</h1>
-        <p class="lead">{t('menu.tagline')}</p>
+        <p class="lead">{t('menu.subtitle')}</p>
       </div>
 
       {slot}
 
-      {install}
-
       {playing && hero && (
-        <div class="stack">
-          <button class="secondary continue" onClick={onContinue}>
-            <span>{t('menu.continue')}</span>
-            <span class="option-desc">
+        <button class="continue-card" onClick={onContinue}>
+          <Avatar input={heroLook(hero)} label={t('life.portrait', { n: hero.age })} />
+          <span class="continue-text">
+            <strong>{t('menu.continue')}</strong>
+            <span>
               {nameOf(hero.name, lang)} · {t('life.age', { n: hero.age })} · {t(`region.${hero.region}`)} · {formatYear(current!.year, lang)}
             </span>
-          </button>
-        </div>
+          </span>
+          <span class="continue-go" aria-hidden="true">›</span>
+        </button>
       )}
 
-      {daily}
-
-      <section class="block">
-        <h2 class="section-title">{t('menu.how')}</h2>
-        <ol class="how">
-          {[1, 2, 3, 4].map((i) => (
-            <li>
-              <strong>{t(`menu.how.${i}.title`)}</strong>
-              <span>{t(`menu.how.${i}.text`)}</span>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section class="block">
-        <h2 class="section-title">{t('menu.eras')}</h2>
-        <p class="muted small">{t('menu.eras.lead')}</p>
-        <ol class="eras">
-          {ERA_IDS.map((id) => (
-            <li class="open">
-              <span class="era-name">{t(`era.${id}`)}</span>
-              <span class="muted small">
-                {t(`era.${id}.years`)} · {ERA_META[id].regions.map((r) => t(`region.${r.id}`)).join(', ')}
-              </span>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section class="block">
-        <h2 class="section-title">{t('menu.inside')}</h2>
-        <ul class="stats">
-          <li>
-            <strong>{STATS.events}</strong> {t('menu.stat.events')}
-          </li>
-          <li>
-            <strong>{STATS.history}</strong> {t('menu.stat.history')}
-          </li>
-          <li>
-            <strong>{STATS.news}</strong> {t('menu.stat.news')}
-          </li>
-          <li>
-            <strong>{STATS.religions}</strong> {t('menu.stat.religions')}
-          </li>
-        </ul>
-      </section>
-
-      <section class="block">
-        <h2 class="section-title">{t('menu.your_lives')}</h2>
-        {memorial.length === 0 ? (
-          <p class="muted">{t('menu.no_lives')}</p>
-        ) : (
-          <>
-            <p class="muted">{t('menu.lives_count', { n: memorial.length, years: memorial.reduce((s, l) => s + l.age, 0) })}</p>
-            <ul class="people">
-              {[...memorial]
-                .reverse()
-                .slice(0, 3)
-                .map((l) => (
-                  <li>
-                    <button class="tree-row" onClick={() => onOpenLife(l.heroId)}>
-                      <span class="person-name">
-                        {nameOf(l.name, lang)} · {t('death.lived', { n: l.age })}
-                      </span>
-                      <span class="muted small">
-                        {t(`region.${l.region}`)} · {formatYear(l.birthYear, lang)} · {t(`archetype.${l.report.pattern.code}`)}
-                      </span>
-                    </button>
-                  </li>
-                ))}
-            </ul>
-            <button class="link" onClick={() => go('memorial')}>
-              {t('menu.memorial')} →
-            </button>
-          </>
-        )}
-      </section>
-
-      <div class="menu-links">
-        <button class="link" onClick={() => go('awards')}>
-          {t('menu.awards', { n: awards ?? 0, total: ACHIEVEMENTS.length })}
-        </button>
-        <button class="link" onClick={() => go('settings')}>
-          {t('menu.settings')}
-        </button>
-        <button class="link" onClick={() => go('about')}>
-          {t('menu.about')}
-        </button>
-        {EXTERNAL && (
-          <button class="link" onClick={onFeedback}>
-            {t('menu.feedback')}
-          </button>
-        )}
-      </div>
-      <p class="small muted">{t('beta.notice')}</p>
+      <nav class="menu-nav">
+        <button class="link" onClick={() => go('memorial')}>{t('menu.nav.memorial')}</button>
+        <button class="link" onClick={() => go('awards')}>{t('menu.nav.awards')}</button>
+        <button class="link" onClick={() => go('settings')}>{t('menu.nav.settings')}</button>
+        <button class="link" onClick={() => go('about')}>{t('menu.nav.about')}</button>
+        {EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
+      </nav>
+      <p class="small muted center beta-note">{t('beta.notice')}</p>
     </div>
   )
 }
@@ -327,15 +231,15 @@ export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: n
 }
 
 /** Дары за вход: календарь недели (сильные дни 1, 4, 7), сегодняшний дар и кнопка «Забрать»; после — что будет завтра. */
-export function DailyCard(props: { day: number; claimable: boolean; broken?: boolean; onClaim: () => void }) {
+export function DailyCard(props: { day: number; claimable: boolean; broken?: boolean; onClaim: () => void; compact?: boolean }) {
   const { t } = useUi()
   const gift = GIFTS[props.day - 1]
   const next = GIFTS[props.day % 7]
   const taken = (n: number) => n < props.day || (!props.claimable && n === props.day)
   return (
-    <section class="block daily-card">
-      <h2 class="section-title">🎁 {t('daily.title')}</h2>
-      <p class="small">{t('daily.lead')}</p>
+    <section class={props.compact ? 'daily-card compact' : 'block daily-card'}>
+      {!props.compact && <h2 class="section-title">🎁 {t('daily.title')}</h2>}
+      {!props.compact && <p class="small">{t('daily.lead')}</p>}
       <ol class="daily-days">
         {GIFTS.map((g, i) => (
           <li
@@ -364,33 +268,89 @@ export function DailyCard(props: { day: number; claimable: boolean; broken?: boo
   )
 }
 
-/** Над барабаном: дары, которые сработают в этой жизни; страну по дару игрок выбирает сам. */
-export function GiftsLine(props: { gifts: Gift[]; country?: string | null; onCountry: () => void }) {
+
+/** Панель «Дары» снизу: всё, что изменит следующую жизнь, — в одном месте (макет A). Разделы показываются, только
+ *  когда им есть что сказать: царская семья, выбор судьбы за испытание, дары за вход, страна по дару, остальные дары
+ *  этой жизни и «На главный экран». */
+export function GiftsSheet(props: {
+  onClose: () => void
+  royal?: 'install' | 'daily'
+  fate?: ComponentChildren
+  daily?: ComponentChildren
+  dailyDay?: number
+  country?: { value: string | null; onPick: () => void }
+  gifts: Gift[]
+  install?: ComponentChildren
+}) {
   const { t } = useUi()
+  const others = props.gifts.filter((g) => g !== 'country' && g !== 'royal')
   return (
-    <p class="gifts-line center">
-      <span class="gifts-title">🎁 {t('gifts.title')}</span>{' '}
-      {props.gifts.map((g) =>
-        g === 'country' ? (
-          <button class="gift-chip pick" onClick={props.onCountry}>
-            {GIFT_ICON[g]} {props.country ? t(`era.${props.country}.short`) : t('gift.country.pick')}
-          </button>
-        ) : (
-          <span class="gift-chip">
-            {GIFT_ICON[g]} {t(`gift.${g}.short`)}
-          </span>
-        ),
-      )}
-    </p>
+    <div class="sheet-backdrop" onClick={(e) => e.target === e.currentTarget && props.onClose()}>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="gifts-title">
+        <div class="sheet-handle" aria-hidden="true" />
+        <div class="sheet-head">
+          <h2 id="gifts-title">🎁 {t('gifts.sheet')}</h2>
+          <button class="link sheet-x" aria-label={t('common.close')} onClick={props.onClose}>×</button>
+        </div>
+        {props.royal && (
+          <section class="sheet-sec">
+            <h3>👑 {t('gift.royal')}</h3>
+            <p>{t(props.royal === 'install' ? 'royal.note' : 'royal.note.daily')}</p>
+          </section>
+        )}
+        {props.fate && <section class="sheet-sec">{props.fate}</section>}
+        {props.daily && (
+          <section class="sheet-sec">
+            <h3>
+              🎁 {t('daily.title')}
+              {props.dailyDay !== undefined && <span class="sub">{t('gifts.daily.sub', { n: props.dailyDay })}</span>}
+            </h3>
+            {props.daily}
+          </section>
+        )}
+        {props.country && (
+          <section class="sheet-sec">
+            <h3>{GIFT_ICON.country} {t('gift.country')}</h3>
+            <button class="sheet-pick" onClick={props.country.onPick}>
+              <b>{props.country.value ? t(`era.${props.country.value}`) : t('gifts.country.none')}</b>
+              <span>{t(props.country.value ? 'gifts.change' : 'gifts.choose')} ›</span>
+            </button>
+          </section>
+        )}
+        {others.length > 0 && (
+          <section class="sheet-sec">
+            <h3>{t('gifts.active')}</h3>
+            <ul class="sheet-gifts">
+              {others.map((g) => (
+                <li>
+                  <span class="gift-icon" aria-hidden="true">{GIFT_ICON[g]}</span>
+                  <span>
+                    <b>{t(`gift.${g}`)}</b>
+                    <span class="muted small"> — {t(`gift.${g}.desc`)}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {props.install && (
+          <section class="sheet-sec">
+            <h3>📱 {t('install.title')}</h3>
+            {props.install}
+          </section>
+        )}
+        <button class="primary sheet-done" onClick={props.onClose}>{t('gifts.done')}</button>
+      </div>
+    </div>
   )
 }
 
 /** «На главный экран»: Android — системное окно, iPhone — подсказка, как добавить из Safari. */
-export function InstallCard(props: { kind: 'prompt' | 'ios'; reward?: boolean; onInstall: () => void; onLater: () => void; onDone: () => void }) {
+export function InstallCard(props: { kind: 'prompt' | 'ios'; reward?: boolean; onInstall: () => void; onLater: () => void; onDone: () => void; compact?: boolean }) {
   const { t } = useUi()
   return (
-    <section class="block install-card">
-      <h2 class="section-title">📱 {t('install.title')}</h2>
+    <section class={props.compact ? 'install-card compact' : 'block install-card'}>
+      {!props.compact && <h2 class="section-title">📱 {t('install.title')}</h2>}
       <p>{t('install.text')}</p>
       {props.kind === 'ios' && <p class="small">{t('install.ios')}</p>}
       {props.reward && <p class="install-reward">{t(props.kind === 'ios' ? 'install.reward.ios' : 'install.reward')}</p>}
@@ -673,6 +633,34 @@ export function About(props: { onBack: () => void }) {
       <p>{t('about.body2')}</p>
       <p>{t('about.body3')}</p>
       <p class="note-box">{t(EXTERNAL ? 'about.beta' : 'about.beta_portal')}</p>
+      <h2 class="section-title">{t('menu.how')}</h2>
+      <ol class="how">
+        {[1, 2, 3, 4].map((i) => (
+          <li>
+            <strong>{t(`menu.how.${i}.title`)}</strong>
+            <span>{t(`menu.how.${i}.text`)}</span>
+          </li>
+        ))}
+      </ol>
+      <h2 class="section-title">{t('menu.eras')}</h2>
+      <p class="muted small">{t('menu.eras.lead')}</p>
+      <ol class="eras">
+        {ERA_IDS.map((id) => (
+          <li class="open">
+            <span class="era-name">{t(`era.${id}`)}</span>
+            <span class="muted small">
+              {t(`era.${id}.years`)} · {ERA_META[id].regions.map((r) => t(`region.${r.id}`)).join(', ')}
+            </span>
+          </li>
+        ))}
+      </ol>
+      <h2 class="section-title">{t('menu.inside')}</h2>
+      <ul class="stats">
+        <li><strong>{STATS.events}</strong> {t('menu.stat.events')}</li>
+        <li><strong>{STATS.history}</strong> {t('menu.stat.history')}</li>
+        <li><strong>{STATS.news}</strong> {t('menu.stat.news')}</li>
+        <li><strong>{STATS.religions}</strong> {t('menu.stat.religions')}</li>
+      </ul>
       <h2 class="section-title">{t('about.sources')}</h2>
       <ul>
         {[1, 2, 3, 4, 5].map((i) => <li>{t(`about.source.${i}`)}</li>)}

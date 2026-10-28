@@ -11,7 +11,7 @@ import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, t
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
-import { About, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsLine, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
+import { About, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsSheet, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { CHEST_GIFT, dailyNext, dayKey, GIFT_ICON, GIFTS, HEALTH_GIFT, RESPIN_GIFT, spendGifts } from '../daily'
 import type { Gift } from '../daily'
 import { Awards } from './Awards'
@@ -383,8 +383,10 @@ export function App() {
       rollPending(prefs.lottery, chosenCountry(), 0, null, true)
     } else if (!royalWanted && gifts.includes('noble') && !pending.high) rollPending(prefs.lottery, chosenCountry(), 0)
   }, [screen, pending, royalWanted, prefs.gifts])
-  const installCard = showInstall ? (
+  const installCardFor = (compact = false) =>
+    showInstall ? (
     <InstallCard
+      compact={compact}
       kind={installKind!}
       reward={!prefs.royal}
       onInstall={async () => {
@@ -401,6 +403,7 @@ export function App() {
       onLater={() => setPrefs({ ...prefs, install: { state: 'later', lives: memorial.length } })}
     />
   ) : undefined
+  const installCard = installCardFor()
   /** Карточка испытания на итогах: только что кончилась первая жизнь — новое; позже — «не вышло» или «награда ждёт». */
   const challengeCard = () =>
     prefs.fate === 'ready' ? (
@@ -741,26 +744,59 @@ export function App() {
   const openedLife = memorial.find((l) => l.heroId === opened)
   const openedEra = openedLife && isEraLoaded(openedLife.era) ? eraById(openedLife.era) : null
 
-  /** Над барабаном до рывка рычага: царская семья, выбор судьбы за испытание, «дар дня ждёт» и дары этой жизни. */
-  const drumTop = (royal?: boolean) => {
-    // Знать и царская семья по дарам видны в результате барабана; в строке — остальные дары, которые сработают.
-    const shown = [...new Set(gifts)].filter((g) => g !== 'royal' && !(g === 'noble' && royal))
-    const parts = [
-      royal && (
-        <p class="lead center royal-note">
-          <span aria-hidden="true">👑</span> {ui.t(prefs.royal === 'ready' ? 'royal.note' : 'royal.note.daily')}
-        </p>
-      ),
-      !royal && prefs.fate === 'ready' && <FatePicker pick={fatePick} onPick={onFate} />,
-      dailyNow && (
-        <button class="gift-claim" onClick={claimDaily}>
-          🎁 {ui.t('daily.waiting', { n: dailyNow.day })}
-        </button>
-      ),
-      shown.length > 0 && <GiftsLine gifts={shown} country={giftCountry} onCountry={() => setGiftCountryOpen(true)} />,
-    ].filter(Boolean)
-    return parts.length ? <>{parts}</> : undefined
+  // «Дары» (макет A): всё, что меняет следующую жизнь, — в одной панели; кнопка над барабаном показывает, сколько ждёт.
+  const [giftsOpen, setGiftsOpen] = useState(false)
+  const royalSource = prefs.royal === 'ready' ? 'install' : gifts.includes('royal') ? 'daily' : undefined
+  const activeGifts = [...new Set(gifts)].filter((g) => g !== 'royal' && !(g === 'noble' && royalWanted))
+  const fateWaiting = prefs.fate === 'ready' && !royalWanted
+  const giftsCount = (dailyNow ? 1 : 0) + (fateWaiting ? 1 : 0) + (royalWanted ? 1 : 0) + activeGifts.length
+  const openGifts = () => {
+    platform.track('gifts_open', { auto: 0, n: giftsCount })
+    setGiftsOpen(true)
   }
+  // Дар дня ждёт — панель сама открывается один раз в день, при входе в игру (после жизни дар дня и так на итогах).
+  const playedThisVisit = useRef(false)
+  if (screen === 'life' || screen === 'death' || screen === 'reveal') playedThisVisit.current = true
+  useEffect(() => {
+    if (screen !== 'menu' || playedThisVisit.current || !dailyNow || !today || prefs.dailyShown === today) return
+    setPrefs({ ...prefs, dailyShown: today })
+    setGiftsOpen(true)
+    platform.track('gifts_open', { auto: 1, n: giftsCount })
+  }, [screen, dailyNow?.day, today])
+  const giftsButton =
+    memorial.length >= 1 ? (
+      <button class={giftsCount ? 'gifts-btn has' : 'gifts-btn'} onClick={openGifts}>
+        🎁 {ui.t('gifts.button')}
+        {giftsCount > 0 && <span class="n">{giftsCount}</span>}
+      </button>
+    ) : undefined
+  /** Ярлыки наград на окнах барабана: страна по дару или за испытание, знать или царская семья. */
+  const drumTags = (royal?: boolean) => {
+    const fateCountry = fatePick && fatePick !== 'high' ? fatePick : null
+    const country = fateCountry ?? (gifts.includes('country') ? giftCountry : null)
+    return {
+      where: country ? `🔒 ${ui.t(`era.${country}.short`)}` : undefined,
+      status: royal ? `👑 ${ui.t('drum.tag.royal')}` : gifts.includes('noble') || fatePick === 'high' ? `👑 ${ui.t('drum.tag.noble')}` : undefined,
+    }
+  }
+  const giftsSheet = giftsOpen && (
+    <GiftsSheet
+      onClose={() => setGiftsOpen(false)}
+      royal={royalSource}
+      fate={fateWaiting ? <FatePicker pick={fatePick} onPick={(kind) => {
+        if (kind === 'country') setGiftsOpen(false)
+        onFate(kind)
+      }} /> : undefined}
+      daily={today && memorial.length >= 1 ? <DailyCard compact day={dailyNow?.day ?? prefs.daily?.day ?? 1} claimable={!!dailyNow} broken={dailyNow?.broken} onClaim={claimDaily} /> : undefined}
+      dailyDay={dailyNow?.day ?? prefs.daily?.day}
+      country={gifts.includes('country') ? { value: giftCountry, onPick: () => {
+        setGiftsOpen(false)
+        setGiftCountryOpen(true)
+      } } : undefined}
+      gifts={activeGifts}
+      install={installCardFor(true)}
+    />
+  )
 
   const slotMachine = pending ? (
     <SlotMachine
@@ -779,7 +815,8 @@ export function App() {
       autoSpin={!!pending.auto}
       onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
       focus={drumFocus}
-      fate={drumTop(pending.royal)}
+      gifts={giftsButton}
+      tags={drumTags(pending.royal)}
     />
   ) : null
 
@@ -790,24 +827,20 @@ export function App() {
         {screen === 'menu' && (
           <Menu
             current={state}
-            memorial={memorial}
             slot={slotMachine}
-            install={installCard}
-            daily={dailyCard}
             onContinue={() => {
               if (!state) return
               const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
               if (isEraLoaded(state.hero.era)) go()
               else ensure(state.hero.era, prefs.lang, state.hero.erasLived).then(() => isEraLoaded(state.hero.era) && go())
             }}
-            onOpenLife={openPast}
             onFeedback={() => openFeedback('menu')}
             onLang={(lang) => setPrefs({ ...prefs, lang })}
             go={setScreen}
-            awards={earned.length}
             sound={soundButton}
           />
         )}
+        {screen === 'menu' && giftsSheet}
         {setupOpen && (
           <SetupModal
             prefs={prefs}

@@ -31,6 +31,7 @@
 | install_prompt / install_result / install_done | kind (prompt/ios) / accepted / — | «На главный экран»: нажал кнопку в карточке / ответ системного окна (Android) / игра установлена |
 | install_reward | via (prompt/home) | награда за установку получена: согласился в системном окне (Android) или впервые открыл игру с главного экрана |
 | royal_used | era, region | награда потрачена: жизнь началась в царской семье (у `life_start` этой жизни — `royal: 1`) |
+| gifts_open | auto (1 — открылась сама раз в день), n — сколько даров ждёт | панель «Дары» на главном экране |
 | daily_claim | day (1–7), gift, broken | забрал дар за вход: день серии и дар (country, respins, health, noble, dream, chest, royal); `broken: 1` — серия перед этим прервалась. Потраченные дары — в `life_start.gifts` (через запятую). Отчёт — `/admin`, «Дары за вход» |
 | dream_start / dream_skip | dream | «Попробовать вспомнить» / «Это просто сон» |
 | dream_step | dream, step, kind, correct (0/1), value (до 80 знаков), sec | ответ на шаге сна (только свой приёмник; отчёт «Сны о будущем» в `/admin`) |
