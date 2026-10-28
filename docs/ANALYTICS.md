@@ -26,6 +26,8 @@
 | dream_offer | dream, era, age | герою приснился сон о будущем (docs/TZ_dreams.md); в первой жизни — наверняка к 25 годам |
 | country_pick | era | пробный период: игрок после отзыва выбрал страну следующих жизней |
 | spin | — | первый рывок рычага лотереи (без перекруток): видно, где теряются новички — до барабана или после результата |
+| challenge_done | age | испытание пройдено: жизнь после первой прожита дольше `challenge_age` лет (флаг, 30) |
+| fate_used | kind (high/country), era | награда за испытание потрачена: родился в знатной семье или в выбранной стране |
 | dream_start / dream_skip | dream | «Попробовать вспомнить» / «Это просто сон» |
 | dream_step | dream, step, kind, correct (0/1), value (до 80 знаков), sec | ответ на шаге сна (только свой приёмник; отчёт «Сны о будущем» в `/admin`) |
 | dream_end | dream, score, outcome (breakthrough/partial/failure/death), hint_used, known | сон кончился |

@@ -55,6 +55,8 @@ interface SummaryProps {
   canContinue: boolean
   /** Приглашение оставить отзыв (показывается после первой жизни). */
   feedback?: preact.ComponentChildren
+  /** Испытание после первой жизни — сразу под записью о смерти. */
+  challenge?: preact.ComponentChildren
   onContinue?: () => void
   onAgain: () => void
   onMemorial: () => void
@@ -66,7 +68,7 @@ interface SummaryProps {
   awards?: { got: string[]; near: { id: string; progress: number }[]; goals: string[] }
 }
 
-export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback, awards, onOffChronicle }: SummaryProps) {
+export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback, challenge, awards, onOffChronicle }: SummaryProps) {
   // Хроника страны кончилась: наследник есть, но его жизнь — уже за краем эпохи.
   const eraEnded = !!onOffChronicle && canContinue && life.diary.some((d) => d.key === 'diary.era_end')
   const { t, lang } = useUi()
@@ -137,6 +139,8 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
           <p class="confidence">{t('summary.source')}</p>
         </div>
       </section>
+
+      {challenge}
 
       {/* 2. Карточка фактов */}
       <section class="block">
@@ -417,7 +421,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
 }
 
 /** Короткий итог ранней смерти: имя, годы, причина, исторический факт и две кнопки. */
-export function EarlyDeath({ life, era, onAgain, onFull }: { life: LifeSummary; era: EraDef; onAgain: () => void; onFull: () => void }) {
+export function EarlyDeath({ life, era, onAgain, onFull, challenge }: { life: LifeSummary; era: EraDef; onAgain: () => void; onFull: () => void; challenge?: preact.ComponentChildren }) {
   const { t, lang } = useUi()
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   const name = nameOf(life.name, lang)
@@ -439,6 +443,7 @@ export function EarlyDeath({ life, era, onAgain, onFull }: { life: LifeSummary; 
           <p class="confidence">{t('summary.source')}</p>
         </div>
       </section>
+      {challenge}
       <div class="sticky-actions">
         <button class="primary" onClick={onAgain}>{t('actions.again')}</button>
         <button class="secondary" onClick={onFull}>{t('early.full')}</button>

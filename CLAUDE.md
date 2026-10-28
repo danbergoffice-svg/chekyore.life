@@ -78,6 +78,8 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   `dreamLadder()` (уровень = 1 + решённые сны), мягкая проверка в `checkInput` (см. `docs/TZ_dreams.md`). Пробный период «страна за отзыв» — флаг
   `trial_country_pick`, `prefs.country`, `CountryModal`/`CountryPrompt`; проверка — `node tools/qa/country.cjs`.
   Перекрутка барабана после результата — флаг `respins` (2), проверка — `node tools/qa/respin.cjs`.
+  **Испытание** после первой жизни (флаг `challenge_age`, `prefs.fate`, `ChallengeCard`/`FatePicker`): прожить следующую
+  дольше 30 лет → у барабана выбор судьбы (знать или страна), проверка — `node tools/qa/challenge.cjs`.
 - Подсказки на экране жизни — `hintFor`/`closeHint` в `Life.tsx` (закрытые помнятся в `thousands.hints`): скорость (0–1 год),
   длительность года с кнопкой «Открыть настройки» (2–6 лет; «Назад» из настроек возвращает в жизнь), фокус, вкладка «Герой».
 - Графика (`docs/TZ_graphics.md`): сцена 320×100 из кэшируемых слоёв + движение (`scene.ts`, `fx.ts`, `figures.ts`),

@@ -292,19 +292,52 @@ export function SetupModal(props: {
 }
 
 /** Пробный период, после отзыва: где родиться в следующей жизни. */
-export function CountryModal(props: { current?: string; onPick: (era: string | undefined) => void; onClose: () => void }) {
+export function CountryModal(props: { current?: string; onPick: (era: string | undefined) => void; onClose: () => void; lead?: string }) {
   const { t } = useUi()
   return (
     <div class="modal-backdrop" onClick={(e) => e.target === e.currentTarget && props.onClose()}>
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="country-title">
         <div class="modal-body">
           <h2 id="country-title">{t('country.title')}</h2>
-          <p class="small muted">{t('country.lead')}</p>
+          <p class="small muted">{props.lead ?? t('country.lead')}</p>
           <Choice title={t('setup.country')} value={props.current ?? ''} onChange={(v) => props.onPick(v || undefined)} options={countryOptions(t)} />
           <p class="center">
             <button class="link" onClick={props.onClose}>{t('common.close')}</button>
           </p>
         </div>
+      </div>
+    </div>
+  )
+}
+
+/** Испытание после первой жизни: start — новое, retry — не вышло, ждёт в следующей жизни, ready — награда у барабана. */
+export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: number }) {
+  const { t } = useUi()
+  return (
+    <section class="block challenge-card">
+      <h2 class="section-title">{t(props.kind === 'ready' ? 'challenge.ready.title' : 'challenge.title')}</h2>
+      <p>{t(`challenge.${props.kind}`, { n: props.age, m: props.age + 1 })}</p>
+    </section>
+  )
+}
+
+/** Награда за испытание — у барабана: знатная семья, страна по выбору или жребий. */
+export function FatePicker(props: { pick: string | null; onPick: (kind: 'high' | 'country' | null) => void }) {
+  const { t } = useUi()
+  const country = props.pick && props.pick !== 'high' ? props.pick : null
+  return (
+    <div class="fate-picker" role="group" aria-labelledby="fate-title">
+      <p id="fate-title" class="fate-title">🏆 {t('fate.title')}</p>
+      <div class="fate-options">
+        <button class={props.pick === 'high' ? 'option active' : 'option'} aria-pressed={props.pick === 'high'} onClick={() => props.onPick('high')}>
+          <span class="option-label">{t('fate.high')}</span>
+        </button>
+        <button class={country ? 'option active' : 'option'} aria-pressed={!!country} onClick={() => props.onPick('country')}>
+          <span class="option-label">{country ? t(`era.${country}.short`) : t('fate.country')}</span>
+        </button>
+        <button class={!props.pick ? 'option active' : 'option'} aria-pressed={!props.pick} onClick={() => props.onPick(null)}>
+          <span class="option-label">{t('fate.none')}</span>
+        </button>
       </div>
     </div>
   )
@@ -322,7 +355,7 @@ export function CountryPrompt(props: { country?: string; onOpen: () => void }) {
   )
 }
 
-export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void }) {
+export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void; note?: string }) {
   const { t, lang } = useUi()
   const hero = props.state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -372,6 +405,7 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
         )}
       </dl>
       <p class="intro">{t(`region.${hero.region}.intro`)}</p>
+      {props.note && <p class="challenge-note">🏆 {props.note}</p>}
       <button class="primary" onClick={props.onStart}>{t('reveal.start')}</button>
     </div>
   )

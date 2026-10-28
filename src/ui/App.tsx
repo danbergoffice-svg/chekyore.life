@@ -11,7 +11,7 @@ import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, t
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
-import { About, CountryModal, CountryPrompt, Heirs, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
+import { About, ChallengeCard, CountryModal, CountryPrompt, FatePicker, Heirs, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { Awards } from './Awards'
 import { sendFeedback } from '../feedback'
 import type { FeedbackData } from '../feedback'
@@ -285,22 +285,52 @@ export function App() {
 
   /** Жребий для барабана в меню: что выпадет при рывке рычага. Страну игрок может выбрать сам — в пробный период,
    *  после отзыва; год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
-  const rollPending = (lottery = prefs.lottery, country = pickedCountry(prefs), respin = 0) => {
+  const rollPending = (lottery = prefs.lottery, country = pickedCountry(prefs), respin = 0, fate = fatePick) => {
     const seed = newSeed()
-    const rolled = rollBirth(seed, lottery, (country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
+    // Награда за испытание: страна по выбору — вместо жребия страны.
+    const fateCountry = fate && fate !== 'high' ? fate : undefined
+    const rolled = rollBirth(seed, lottery, (fateCountry ? [fateCountry] : country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
     // A/B второй жизни (флаг ab_buckets, только сайт): a — положение как выпало, b — сразу высокое (знать или
     // землевладельцы), где бы ни родился. Обе вторые жизни защищены до 20 лет. Смотрим, кто дольше остаётся в игре.
-    const high = platform.name === 'web' && platform.ab() === 'b' && memorial.length === 1
+    // Награда «знатная семья» за испытание — так же.
+    const high = (platform.name === 'web' && platform.ab() === 'b' && memorial.length === 1) || fate === 'high'
     const birth = high ? highBirth(seed, rolled, ERA_META[rolled.era]) : rolled
     setPending({ seed, birth, respin, auto: respin > 0, high })
   }
+  // Испытание (флаг challenge_age): после первой жизни прожить следующую дольше N лет → награда «выбор судьбы» у барабана:
+  // знатная семья или страна по выбору (один раз). Не вышло — испытание переходит на следующую жизнь.
+  const challengeAge = platform.flags.challenge_age ?? 0
+  const challengeOn = challengeAge > 0 && !prefs.fate
+  const [fatePick, setFatePick] = useState<string | null>(null)
+  const [fateCountryOpen, setFateCountryOpen] = useState(false)
+  const [challengeToast, setChallengeToast] = useState(false)
+  const onFate = (kind: 'high' | 'country' | null) => {
+    if (kind === 'country') return setFateCountryOpen(true)
+    setFatePick(kind)
+    rollPending(undefined, undefined, 0, kind)
+  }
+  useEffect(() => {
+    // Считаются годы, прожитые в этой жизни: наследник, ставший героем взрослым, испытание сразу не проходит.
+    if (!challengeOn || !state || state.phase === 'dead' || memorial.length < 1 || state.hero.age - (state.settings.startAge ?? 0) <= challengeAge) return
+    setPrefs({ ...prefs, fate: 'ready' })
+    platform.track('challenge_done', { age: state.hero.age })
+    setChallengeToast(true)
+    setTimeout(() => setChallengeToast(false), 5000)
+  }, [state?.hero.age, challengeOn])
+  /** Карточка испытания на итогах: только что кончилась первая жизнь — новое; позже — «не вышло» или «награда ждёт». */
+  const challengeCard = () =>
+    prefs.fate === 'ready' ? (
+      <ChallengeCard kind="ready" age={challengeAge} />
+    ) : challengeOn && memorial.length >= 1 ? (
+      <ChallengeCard kind={memorial.length === 1 ? 'start' : 'retry'} age={challengeAge} />
+    ) : undefined
   /** Перекрутить барабан, пока жизнь не начата: флаг respins (0 — нельзя, -1 — без ограничений). */
   const respinLimit = platform.flags.respins ?? 0
   const respinsLeft = pending ? (respinLimit < 0 ? Infinity : Math.max(0, respinLimit - pending.respin)) : 0
   const onRespin = () => {
     if (!pending || respinsLeft <= 0) return
     platform.track('respin', { n: pending.respin + 1, era: pending.birth.era, cls: pending.birth.cls })
-    rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1)
+    rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1, fatePick)
   }
   // На CrazyGames после бесплатных перекруток (всего три вращения) — ещё одно за рекламу; на сайте рекламы нет.
   const adRespin = !!platform.flags.respin_ad && platform.name === 'crazygames' && respinLimit >= 0
@@ -317,7 +347,7 @@ export function App() {
       return
     }
     platform.track('respin', { n: pending.respin + 1, era: pending.birth.era, cls: pending.birth.cls, ad: 1 })
-    rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1)
+    rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1, fatePick)
   }
   // В меню барабан всегда заряжен.
   useEffect(() => {
@@ -360,7 +390,13 @@ export function App() {
     const h = game.current.hero
     void h
     platform.setContext({ mode: prefs.mode })
-    trackLifeStart(game.current, pickedCountry(prefs) ? 'country' : prefs.lottery, protectedUntil !== undefined, pending.respin, pending.high)
+    trackLifeStart(game.current, pickedCountry(prefs) || (fatePick && fatePick !== 'high') ? 'country' : prefs.lottery, protectedUntil !== undefined, pending.respin, pending.high)
+    // Награда за испытание потрачена (если игрок что-то выбрал; «жребий» её не тратит).
+    if (prefs.fate === 'ready' && fatePick) {
+      setPrefs({ ...prefs, fate: 'used' })
+      platform.track('fate_used', { kind: fatePick === 'high' ? 'high' : 'country', era: game.current.hero.era })
+      setFatePick(null)
+    }
     setPending(null)
     setYearChanges([])
     setScreen('reveal')
@@ -501,6 +537,8 @@ export function App() {
     game.current = continueWithHeir(game.current!, era, childId)
     // Наследник — тоже одна из первых защищённых жизней (обычно вторая): до 20 лет не погибает.
     game.current.settings.protectedUntil = protectedAge(memorial.length)
+    // Испытание считает годы этой жизни — с возраста, в котором наследник стал героем.
+    game.current.settings.startAge = game.current.hero.age
     // Лестница снов — с учётом сна предка.
     const ladder = dreamLadder(memorial)
     game.current.settings.dreamLevel = ladder.level
@@ -615,6 +653,7 @@ export function App() {
       onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
       country={pickedCountry(prefs)}
       focus={drumFocus}
+      fate={prefs.fate === 'ready' ? <FatePicker pick={fatePick} onPick={onFate} /> : undefined}
     />
   ) : null
 
@@ -665,7 +704,26 @@ export function App() {
           />
         )}
         {countryOpen && <CountryModal current={prefs.country} onPick={onCountry} onClose={() => setCountryOpen(false)} />}
-        {screen === 'reveal' && state && era && <Reveal state={state} era={era} onStart={() => setScreen('life')} />}
+        {fateCountryOpen && (
+          <CountryModal
+            current={fatePick && fatePick !== 'high' ? fatePick : undefined}
+            lead={ui.t('fate.country.lead')}
+            onPick={(era) => {
+              setFateCountryOpen(false)
+              setFatePick(era ?? null)
+              rollPending(undefined, undefined, 0, era ?? null)
+            }}
+            onClose={() => setFateCountryOpen(false)}
+          />
+        )}
+        {screen === 'reveal' && state && era && (
+          <Reveal
+            state={state}
+            era={era}
+            onStart={() => setScreen('life')}
+            note={challengeOn && memorial.length >= 1 ? ui.t('challenge.note', { n: challengeAge, m: challengeAge + 1 }) : undefined}
+          />
+        )}
         {screen === 'life' && state && era && state.phase !== 'dead' && (
           <Life
             state={state}
@@ -704,6 +762,7 @@ export function App() {
               platform.track('summary_action', { action: 'full', early: true })
               setFullSummary(true)
             }}
+            challenge={challengeCard()}
           />
         )}
         {screen === 'death' && state && era && lastLife && (fullSummary || lastLife.age >= 15 || memorial.length <= 1) && (
@@ -723,6 +782,7 @@ export function App() {
             onMemorial={() => setScreen('memorial')}
             onMenu={toMenu}
             onUpdate={onUpdateLife}
+            challenge={challengeCard()}
             awards={{
               got: earned.filter((e) => e.lifeId === lastLife.heroId).map((e) => e.id),
               near: nearMisses(lastLife, memorial, new Set(earned.map((e) => e.id))),
@@ -785,6 +845,11 @@ export function App() {
         {thanks && (
           <p class="toast" role="status">
             {ui.t('feedback.thanks')}
+          </p>
+        )}
+        {challengeToast && (
+          <p class="toast ach-toast" role="status" onClick={() => setChallengeToast(false)}>
+            <span aria-hidden="true">🏆</span> {ui.t('challenge.toast')}
           </p>
         )}
         {adFail && (

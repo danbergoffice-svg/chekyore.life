@@ -517,6 +517,15 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
   .menu .spin .slot-machine { margin-top: 6px; }
 }
 
+/* Испытание и награда «выбор судьбы» */
+.challenge-card { border: 1.5px solid var(--gold); border-radius: 12px; padding: 12px 14px; background: var(--paper-2); }
+.challenge-card .section-title { margin-top: 0; }
+.challenge-note { margin: 10px 0; padding: 8px 12px; border-left: 3px solid var(--gold); background: var(--paper-2); border-radius: 6px; }
+.fate-picker { margin: 0 0 4px; }
+.fate-title { margin: 0 0 6px; text-align: center; font-weight: 700; color: var(--accent); }
+.fate-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.fate-options .option { padding: 8px 6px; text-align: center; }
+
 /* Лотерея рождения: игровой автомат с тремя барабанами — прямо в главном меню, под названием игры */
 .menu .spin { margin: 4px 0 8px; }
 .menu .spin .lead { margin: 0; }

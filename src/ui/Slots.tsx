@@ -1,3 +1,4 @@
+import type { ComponentChildren } from 'preact'
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META } from '../content'
 import type { Birth } from '../engine/life'
@@ -110,6 +111,8 @@ export function SlotMachine(props: {
   /** Бесплатные перекрутки кончились — ещё одна за рекламу (CrazyGames); adBusy — реклама грузится или идёт. */
   onAdRespin?: () => void
   adBusy?: boolean
+  /** Награда за испытание: выбор судьбы над барабаном (до рывка рычага). */
+  fate?: ComponentChildren
 }) {
   const { t, lang } = useUi()
   const { birth } = props
@@ -183,7 +186,7 @@ export function SlotMachine(props: {
   const labels = [t('spin.where'), t('spin.status'), t('spin.sex')]
   return (
     <section class="spin" ref={box}>
-      <p class="lead center">{t('spin.lead')}</p>
+      {props.fate && phase === 'idle' ? props.fate : <p class="lead center">{t('spin.lead')}</p>}
       {props.country && <p class="small center picked-country">{t('country.picked', { era: { key: `era.${props.country}.short` } })}</p>}
 
       <div class={`slot-machine ${phase}`}>

@@ -999,5 +999,17 @@
   "spin.again.ad": "▶ Spin again — watch an ad",
   "spin.ad.loading": "Loading the ad…",
   "spin.ad.fail": "No ad available right now — try again a bit later.",
-  "menu.tagline": "One life in a random country and age — from pharaohs to samurai. Will your bloodline go on?"
+  "menu.tagline": "One life in a random country and age — from pharaohs to samurai. Will your bloodline go on?",
+  "challenge.title": "Challenge",
+  "challenge.start": "Live your next life past {n} — and as a reward you choose your fate: be born into a noble family or in a country of your choice.",
+  "challenge.retry": "You didn’t live past {n} this time. The challenge waits in your next life: live it past {n} and you choose your fate.",
+  "challenge.ready.title": "A reward awaits",
+  "challenge.ready": "Challenge complete! At the reels, choose the fate of your next life: a noble family or a country of your choice.",
+  "challenge.note": "Challenge: live this life past {n} — the reward: you choose the fate of the next one.",
+  "challenge.toast": "Challenge complete! In your next life you choose your fate.",
+  "fate.title": "Challenge reward — choose your fate",
+  "fate.high": "Noble family",
+  "fate.country": "Your country",
+  "fate.none": "Chance",
+  "fate.country.lead": "Challenge reward: you choose the country; chance decides the year, region and station. It works for one life."
 }

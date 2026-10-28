@@ -24,6 +24,8 @@ export interface Prefs {
   feedback?: { state: 'later' | 'sent'; lives: number }
   /** Страна следующих жизней по выбору игрока (пробный период, за отзыв); не задано — жребий. */
   country?: string
+  /** Испытание «прожить жизнь дольше 30 лет»: ready — награда ждёт (выбор судьбы у барабана), used — получена. */
+  fate?: 'ready' | 'used'
 }
 
 export interface SaveFile {
