@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { axisLabel, survivalTable } from '../engine/report'
 import { EXTERNAL, platform } from '../platform'
-import { npcAge, regionOf, roleKey } from '../engine/rules'
+import { classKey, npcAge, regionOf, roleKey } from '../engine/rules'
 import { AXES } from '../engine/types'
 import type { DiaryEntry, EraDef, Icon, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
 import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
@@ -75,7 +75,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
   const r = life.report
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   // Старые записи мемориала без сословия при рождении показывают итоговое.
-  const birthCls = r.facts.birthCls ?? life.cls
+  const birthCls = classKey(r.facts.birthCls ?? life.cls, life.tags)
   const name = nameOf(life.name, lang)
   const coin = regionOf(era, life.region).coin
   const [sharing, setSharing] = useState<false | 'life' | 'dream'>(false)
@@ -109,7 +109,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         <p class="muted">
           {t(`era.${life.era}`)} · {t(`region.${life.region}`)} · {t(`summary.sex.${life.sex}`)} · {t(`class.${birthCls}`, {}, o)}
         </p>
-        <p class="muted small">{t('summary.cls_line', { born: { key: `class.${birthCls}` }, died: { key: `class.${life.cls}` } }, o)}</p>
+        <p class="muted small">{t('summary.cls_line', { born: { key: `class.${birthCls}` }, died: { key: `class.${classKey(life.cls, life.tags)}` } }, o)}</p>
         <p class="bio-text">{bio.join(' ')}</p>
         <PortraitRibbon life={life} />
         {life.offChronicle !== undefined && <p class="small muted">{t('summary.off_chronicle', { year: formatYear(life.offChronicle, lang) })}</p>}
@@ -590,7 +590,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
   const starred = (life.starred ?? []).map((i) => life.diary[i]).filter(Boolean)
   const facts = useMemo(() => {
     if (starred.length) return starred.slice(0, 3).map((e) => diaryText(t, e, life.sex, life.region, life.religion, lang))
-    const out = [life.profession ? t(`prof.${life.profession}`, {}, o) : t(`class.${life.cls}`, {}, o)]
+    const out = [life.profession ? t(`prof.${life.profession}`, {}, o) : t(`class.${classKey(life.cls, life.tags)}`, {}, o)]
     out.push(t('facts.children_value', { n: r.facts.children, grand: r.facts.grandchildren }))
     out.push(`${t('summary.cause')}: ${t(`cause.${life.cause}`)}`)
     return out

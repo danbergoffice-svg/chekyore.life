@@ -12,6 +12,8 @@ import { loadAllTexts } from '../src/i18n'
 
 const eras = await loadAllEras()
 await loadAllTexts()
+// Долгие циклы изредка отдают управление: иначе vitest не успевает получить отчёт о ходе и пишет «Timeout calling onTaskUpdate».
+const breathe = () => new Promise((r) => setTimeout(r, 0))
 const soft = (livesBefore: number, dreamChance?: number, dreamFirstBy?: number) => ({ mode: 'quick' as const, mortality: 'soft' as const, softenHeavy: false, livesBefore, dreamChance, dreamFirstBy })
 
 describe('Сон о будущем', () => {
@@ -27,9 +29,10 @@ describe('Сон о будущем', () => {
     expect(validateDreams()).toEqual([])
   })
 
-  it('первая жизнь без флага dream_first_by: 1000 жизней — ни одного сна', () => {
+  it('первая жизнь без флага dream_first_by: 1000 жизней — ни одного сна', async () => {
     let dreams = 0
     for (let i = 0; i < 1000; i += 1) {
+      if (i % 50 === 0) await breathe()
       const era = eras[Object.keys(eras)[i % 13]]
       const s = autoplay(newLife(era, soft(0, 1), 70000 + i), era)
       if (s.hero.dreamSeen || s.hero.diary.some((d) => d.eventId === 'dream_intro')) dreams++
@@ -37,10 +40,11 @@ describe('Сон о будущем', () => {
     expect(dreams).toBe(0)
   }, 300000)
 
-  it('первая жизнь с dream_first_by = 25: у доживших до 26 лет сон был почти у всех, и не раньше 15', () => {
+  it('первая жизнь с dream_first_by = 25: у доживших до 26 лет сон был почти у всех, и не раньше 15', async () => {
     let alive = 0
     let had = 0
     for (let i = 0; i < 600; i++) {
+      if (i % 50 === 0) await breathe()
       const era = eras[Object.keys(eras)[i % 13]]
       const s = autoplay(newLife(era, soft(0, 0.05, 25), 75000 + i), era)
       const intro = s.hero.diary.filter((d) => d.eventId === 'dream_intro')
@@ -54,10 +58,11 @@ describe('Сон о будущем', () => {
     expect(had / alive).toBeGreaterThan(0.9)
   }, 300000)
 
-  it('со второй жизни — не больше одного сна; у доживших до 40 сон был у 55–75%', () => {
+  it('со второй жизни — не больше одного сна; у доживших до 40 сон был у 55–75%', async () => {
     let alive40 = 0
     let had = 0
     for (let i = 0; i < 1000; i++) {
+      if (i % 50 === 0) await breathe()
       const era = eras[Object.keys(eras)[i % 13]]
       const s = autoplay(newLife(era, soft(1), 80000 + i), era)
       const n = s.hero.diary.filter((d) => d.eventId === 'dream_intro').length

@@ -276,6 +276,11 @@ export function resolveRegion(state: GameState, era: EraMeta, target: string): s
 
 // ---------- Персонажи ----------
 
+/** Слово для сословия: знать с отметкой royal (награда за главный экран и её наследники) — «царская семья». */
+export function classKey(cls: string, tags?: string[]): string {
+  return cls === 'noble' && tags?.includes('royal') ? 'royal' : cls
+}
+
 export function regionOf(era: EraDef | EraMeta, id: string) {
   const r = era.regions.find((x) => x.id === id)
   if (!r) throw new Error(`Unknown region ${id}`)

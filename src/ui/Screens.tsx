@@ -2,7 +2,7 @@ import type { ComponentChildren } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { heirs, inheritanceShare } from '../engine/life'
 import { ACHIEVEMENTS } from '../engine/achievements'
-import { descentOf, regionOf, roleKey, yearsBetween } from '../engine/rules'
+import { classKey, descentOf, regionOf, roleKey, yearsBetween } from '../engine/rules'
 import { ERA_IDS, ERA_META } from '../content'
 import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
@@ -326,13 +326,14 @@ export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: n
 }
 
 /** «На главный экран»: Android — системное окно, iPhone — подсказка, как добавить из Safari. */
-export function InstallCard(props: { kind: 'prompt' | 'ios'; onInstall: () => void; onLater: () => void; onDone: () => void }) {
+export function InstallCard(props: { kind: 'prompt' | 'ios'; reward?: boolean; onInstall: () => void; onLater: () => void; onDone: () => void }) {
   const { t } = useUi()
   return (
     <section class="block install-card">
       <h2 class="section-title">📱 {t('install.title')}</h2>
       <p>{t('install.text')}</p>
       {props.kind === 'ios' && <p class="small">{t('install.ios')}</p>}
+      {props.reward && <p class="install-reward">{t(props.kind === 'ios' ? 'install.reward.ios' : 'install.reward')}</p>}
       <div class="row">
         {props.kind === 'prompt' ? (
           <button class="primary" onClick={props.onInstall}>{t('install.go')}</button>
@@ -405,7 +406,7 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
         <dt>{t('reveal.year')}</dt>
         <dd>{formatYear(hero.birthYear, lang)}{isHeir ? ` · ${t('life.age', { n: hero.age })}` : ''}</dd>
         <dt>{t('reveal.class')}</dt>
-        <dd>{t(`class.${hero.cls}`, {}, o)}</dd>
+        <dd>{t(`class.${classKey(hero.cls, hero.tags)}`, {}, o)}</dd>
         <dt>{t('reveal.faith')}</dt>
         <dd>
           <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>

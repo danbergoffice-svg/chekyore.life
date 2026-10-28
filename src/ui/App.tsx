@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, finishYear, startYear } from '../engine/game'
-import { continueWithHeir, heirs, highBirth, newLife, rollBirth } from '../engine/life'
+import { continueWithHeir, heirs, highBirth, newLife, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed } from '../engine/rng'
 import type { GameState, LifeSummary } from '../engine/types'
@@ -85,7 +85,7 @@ export function App() {
   // Лотерея рождения, пока барабаны крутятся: что выпало и загружена ли страна.
   // respin — сколько раз уже перекрутили барабан для этой жизни; auto — барабан сам дёргает рычаг (перекрутка);
   // high — вариант b A/B второй жизни: сразу высокое положение.
-  const [pending, setPending] = useState<{ seed: number; birth: Birth; respin: number; auto?: boolean; high?: boolean } | null>(null)
+  const [pending, setPending] = useState<{ seed: number; birth: Birth; respin: number; auto?: boolean; high?: boolean; royal?: boolean } | null>(null)
   const [loadedVersion, setLoadedVersion] = useState(0)
   // С какого экрана открыли отзыв — туда и вернуться; благодарность после отправки.
   const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
@@ -285,7 +285,7 @@ export function App() {
 
   /** Жребий для барабана в меню: что выпадет при рывке рычага. Страну игрок может выбрать сам — в пробный период,
    *  после отзыва; год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
-  const rollPending = (lottery = prefs.lottery, country = pickedCountry(prefs), respin = 0, fate = fatePick) => {
+  const rollPending = (lottery = prefs.lottery, country = pickedCountry(prefs), respin = 0, fate = fatePick, royal = prefs.royal === 'ready') => {
     const seed = newSeed()
     // Награда за испытание: страна по выбору — вместо жребия страны.
     const fateCountry = fate && fate !== 'high' ? fate : undefined
@@ -294,8 +294,9 @@ export function App() {
     // землевладельцы), где бы ни родился. Обе вторые жизни защищены до 20 лет. Смотрим, кто дольше остаётся в игре.
     // Награда «знатная семья» за испытание — так же.
     const high = (platform.name === 'web' && platform.ab() === 'b' && memorial.length === 1) || fate === 'high'
-    const birth = high ? highBirth(seed, rolled, ERA_META[rolled.era]) : rolled
-    setPending({ seed, birth, respin, auto: respin > 0, high })
+    // Награда за главный экран — царская семья, где бы ни родился (поверх A/B и «знатной семьи»).
+    const birth = royal ? royalBirth(seed, rolled, ERA_META[rolled.era]) : high ? highBirth(seed, rolled, ERA_META[rolled.era]) : rolled
+    setPending({ seed, birth, respin, auto: respin > 0, high, royal })
   }
   // Испытание (флаг challenge_age): после первой жизни прожить следующую дольше N лет → награда «выбор судьбы» у барабана:
   // знатная семья или страна по выбору (один раз). Не вышло — испытание переходит на следующую жизнь.
@@ -328,14 +329,35 @@ export function App() {
   }, [])
   const showInstall =
     !!installKind && memorial.length >= 1 && (!prefs.install || (prefs.install.state === 'later' && memorial.length >= prefs.install.lives + 3))
+  // Награда за установку — следующая жизнь в царской семье (один раз): Android — как только игрок согласился в системном
+  // окне; iPhone (и любая установка не через карточку) — при первом запуске с главного экрана. На iPhone игра с главного
+  // экрана хранит жизни отдельно от Safari, поэтому награда и должна появиться там.
+  const [royalToast, setRoyalToast] = useState(false)
+  const royalReward = (via: 'prompt' | 'home'): Partial<Prefs> => {
+    if (prefs.royal) return {}
+    platform.track('install_reward', { via })
+    setRoyalToast(true)
+    setTimeout(() => setRoyalToast(false), 5000)
+    return { royal: 'ready' }
+  }
+  useEffect(() => {
+    if (platform.installed() && !prefs.royal) setPrefs({ ...prefs, ...royalReward('home') })
+  }, [])
+  // Награда пришла, когда барабан в меню уже заряжен, — перезарядить его царской семьёй (выбор судьбы подождёт).
+  useEffect(() => {
+    if (screen !== 'menu' || !pending || pending.royal || prefs.royal !== 'ready') return
+    setFatePick(null)
+    rollPending(prefs.lottery, pickedCountry(prefs), 0, null, true)
+  }, [screen, pending, prefs.royal])
   const installCard = showInstall ? (
     <InstallCard
       kind={installKind!}
+      reward={!prefs.royal}
       onInstall={async () => {
         platform.track('install_prompt', { kind: 'prompt' })
         const ok = await platform.install()
         platform.track('install_result', { accepted: ok ? 1 : 0 })
-        setPrefs({ ...prefs, install: { state: ok ? 'done' : 'later', lives: memorial.length } })
+        setPrefs({ ...prefs, install: { state: ok ? 'done' : 'later', lives: memorial.length }, ...(ok ? royalReward('prompt') : {}) })
         setInstallKind(platform.installKind())
       }}
       onDone={() => {
@@ -418,13 +440,19 @@ export function App() {
     const h = game.current.hero
     void h
     platform.setContext({ mode: prefs.mode })
-    trackLifeStart(game.current, pickedCountry(prefs) || (fatePick && fatePick !== 'high') ? 'country' : prefs.lottery, protectedUntil !== undefined, pending.respin, pending.high)
-    // Награда за испытание потрачена (если игрок что-то выбрал; «жребий» её не тратит).
+    trackLifeStart(game.current, pickedCountry(prefs) || (fatePick && fatePick !== 'high') ? 'country' : prefs.lottery, protectedUntil !== undefined, pending.respin, pending.high, pending.royal)
+    // Награды потрачены: за испытание (если игрок что-то выбрал; «жребий» её не тратит) и за главный экран.
+    const spent: Partial<Prefs> = {}
     if (prefs.fate === 'ready' && fatePick) {
-      setPrefs({ ...prefs, fate: 'used' })
+      spent.fate = 'used'
       platform.track('fate_used', { kind: fatePick === 'high' ? 'high' : 'country', era: game.current.hero.era })
       setFatePick(null)
     }
+    if (pending.royal && prefs.royal === 'ready') {
+      spent.royal = 'used'
+      platform.track('royal_used', { era: game.current.hero.era, region: game.current.hero.region })
+    }
+    if (Object.keys(spent).length) setPrefs({ ...prefs, ...spent })
     setPending(null)
     setYearChanges([])
     setScreen('reveal')
@@ -681,7 +709,15 @@ export function App() {
       onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
       country={pickedCountry(prefs)}
       focus={drumFocus}
-      fate={prefs.fate === 'ready' ? <FatePicker pick={fatePick} onPick={onFate} /> : undefined}
+      fate={
+        pending.royal ? (
+          <p class="lead center royal-note">
+            <span aria-hidden="true">👑</span> {ui.t('royal.note')}
+          </p>
+        ) : prefs.fate === 'ready' ? (
+          <FatePicker pick={fatePick} onPick={onFate} />
+        ) : undefined
+      }
     />
   ) : null
 
@@ -889,6 +925,11 @@ export function App() {
         {challengeToast && (
           <p class="toast ach-toast" role="status" onClick={() => setChallengeToast(false)}>
             <span aria-hidden="true">🏆</span> {ui.t('challenge.toast')}
+          </p>
+        )}
+        {royalToast && (
+          <p class="toast ach-toast" role="status" onClick={() => setRoyalToast(false)}>
+            <span aria-hidden="true">👑</span> {ui.t('royal.toast')}
           </p>
         )}
         {adFail && (

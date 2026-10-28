@@ -610,6 +610,7 @@
   "class.trader.short": "Merchants",
   "class.landowner.short": "Landowners",
   "class.noble.short": "Nobility",
+  "class.royal.short": "Royal family",
   "summary.cls_line": "Born — {born}, died — {died}",
   "setup.custom": "Customize life",
   "setup.done": "Done",
@@ -1017,5 +1018,9 @@
   "install.ios": "In Safari tap “Share” (the square with an arrow at the bottom), then “Add to Home Screen”.",
   "install.go": "Add",
   "install.ok": "Got it",
-  "install.later": "Not now"
+  "install.later": "Not now",
+  "install.reward": "🎁 Reward: your next life begins in the royal family.",
+  "install.reward.ios": "🎁 Reward: open the game from its home-screen icon and your next life begins in the royal family.",
+  "royal.toast": "Home-screen reward: your next life begins in the royal family!",
+  "royal.note": "Home-screen reward: this life begins in the royal family. The rest is up to chance."
 }

@@ -262,6 +262,7 @@ export const crazyPlatform: Platform = {
   showRewarded: () => ad('rewarded'),
   // На портале игра живёт на его странице — на главный экран её не ставят.
   installKind: () => null,
+  installed: () => false,
   install: async () => false,
 
   async submitScore(board, score) {

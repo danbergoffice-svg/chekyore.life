@@ -1,6 +1,6 @@
 import { ERA_META, eraById, isEraLoaded } from '../content'
 import { bell, chance, int, pick, weighted } from './rng'
-import { addYears, clamp, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
+import { addYears, clamp, classKey, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
 import { isPet } from './pets'
 import { buildReport } from './report'
@@ -16,6 +16,8 @@ export interface Birth {
   year: number
   cls: string
   sex: Sex
+  /** Царская семья (награда за установку на главный экран): знать, но богаче и почётнее. */
+  royal?: boolean
 }
 
 /** equal — все страны поровну; population — по числу жителей, как в жизни. */
@@ -64,6 +66,14 @@ export function highBirth(seed: number, birth: Birth, era: EraMeta): Birth {
   const high = HIGH_CLASSES.filter((c) => (w[c] ?? 0) > 0)
   const cls = high.length ? weighted(h, high, (c) => w[c])! : (CLASS_RANK.find((c) => (w[c] ?? 0) > 0) ?? birth.cls)
   return { ...birth, cls }
+}
+
+/** Награда за установку на главный экран: царская семья — знать края с отметкой royal. Знать есть во всех краях;
+ *  если когда-нибудь не будет — просто высокое положение. */
+export function royalBirth(seed: number, birth: Birth, era: EraMeta): Birth {
+  const region = era.regions.find((r) => r.id === birth.region)
+  if (!region || !((region.classWeights.noble ?? 0) > 0)) return highBirth(seed, birth, era)
+  return { ...birth, cls: 'noble', royal: true }
 }
 
 function emptyHero(seed: number): Hero {
@@ -158,6 +168,12 @@ export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: num
   hero.tags = [...(region.tags ?? []), ...(cls.tags ?? [])]
   if (cls.id === 'noble') hero.hidden.reputation = 20
   if (cls.id === 'slave') hero.hidden.reputation = -10
+  // Царская семья: после бросков, чтобы остальная жизнь от того же seed не менялась.
+  if (birth?.royal && cls.id === 'noble') {
+    hero.tags.push('royal')
+    hero.money = cls.money[1] * 2
+    hero.hidden.reputation = 40
+  }
   rollAttrs(state, hero)
   hero.traits = rollTraits(state, era)
   initHousehold(state)
@@ -169,7 +185,7 @@ export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: num
     makeNpc(state, era, 'sibling', undefined, addYears(hero.birthYear, -int(state, 1, 10)), int(state, 10, 60))
   }
   hero.birthCls = hero.cls
-  hero.diary.push({ year: state.year, age: 0, key: 'diary.born', params: { region: { key: `region.${hero.region}` }, cls: { key: `class.${hero.cls}` } }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
+  hero.diary.push({ year: state.year, age: 0, key: 'diary.born', params: { region: { key: `region.${hero.region}` }, cls: { key: `class.${classKey(hero.cls, hero.tags)}` } }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
   return state
 }
 
@@ -339,6 +355,8 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   const prof = era.professions.find((p) => p.id === parent.profession)
   if (prof) hero.tags.push(`raised_${prof.skill}`)
   if (parent.tags.includes('freedman') || parent.tags.includes('freeborn_heir')) hero.tags.push('freeborn_heir')
+  // Царский род продолжается, пока наследник остаётся в знати.
+  if (parent.tags.includes('royal') && hero.cls === 'noble') hero.tags.push('royal')
   // Чужбина: ребёнок, привезённый из родной страны, — ещё немного чужой; рождённый здесь — здешний.
   const pa = parent.abroad
   if (pa && !pa.naturalized && child.birthYear < pa.since) {

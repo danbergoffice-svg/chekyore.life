@@ -242,12 +242,14 @@ export const webPlatform: Platform = {
 
   ab: abBucket,
   installKind() {
-    const standalone = matchMedia('(display-mode: standalone)').matches || (navigator as Navigator & { standalone?: boolean }).standalone
-    if (standalone) return null
+    if (webPlatform.installed()) return null
     if (installEvent) return 'prompt'
     // На iPhone и iPad добавить на экран «Домой» умеет только Safari, и только вручную.
     const ua = navigator.userAgent
     return /iPhone|iPad|iPod/.test(ua) && !/CriOS|FxiOS|EdgiOS|YaBrowser/.test(ua) ? 'ios' : null
+  },
+  installed() {
+    return matchMedia('(display-mode: standalone)').matches || !!(navigator as Navigator & { standalone?: boolean }).standalone
   },
   async install() {
     if (!installEvent) return false

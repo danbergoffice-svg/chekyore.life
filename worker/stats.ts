@@ -113,7 +113,8 @@ FROM d GROUP BY d.dream, d.step ORDER BY d.dream, d.step LIMIT 120`,
   SELECT player_id, MIN(ts) AS t2, MIN(COALESCE(json_extract(params_json,'$.ab'),'(нет)')) AS variant,
     MAX(COALESCE(json_extract(params_json,'$.high'),0)) AS high
   FROM events WHERE name='life_start' AND json_extract(params_json,'$.life_index') = 2
-    AND COALESCE(json_extract(params_json,'$.lottery'),'') <> 'heir' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL
+    AND COALESCE(json_extract(params_json,'$.lottery'),'') <> 'heir' AND COALESCE(json_extract(params_json,'$.royal'),0) = 0
+    AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL
   GROUP BY player_id
 ), e AS (SELECT player_id, ts, name, params_json FROM events WHERE ts >= ?1 AND player_id IN (SELECT player_id FROM s))
 SELECT s.variant AS variant, COUNT(DISTINCT s.player_id) AS players, COUNT(DISTINCT CASE WHEN s.high = 1 THEN s.player_id END) AS high,

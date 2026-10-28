@@ -111,7 +111,7 @@ export function SlotMachine(props: {
   /** Бесплатные перекрутки кончились — ещё одна за рекламу (CrazyGames); adBusy — реклама грузится или идёт. */
   onAdRespin?: () => void
   adBusy?: boolean
-  /** Награда за испытание: выбор судьбы над барабаном (до рывка рычага). */
+  /** Над барабаном до рывка рычага: награда за испытание (выбор судьбы) или за главный экран (царская семья). */
   fate?: ComponentChildren
 }) {
   const { t, lang } = useUi()
@@ -158,7 +158,7 @@ export function SlotMachine(props: {
       sex.push({ top: t(`spin.sex.${s}`), icon: s === 'm' ? '♂' : '♀' })
     }
     where.push({ top: t(`era.${birth.era}.short`), bottom: formatYear(birth.year, lang) }, { top: '…' })
-    status.push({ top: t(`class.${birth.cls}.short`, {}, o), icon: CLASS_ICON[birth.cls] ?? '•' }, { top: '…' })
+    status.push({ top: t(`class.${birth.royal ? 'royal' : birth.cls}.short`, {}, o), icon: CLASS_ICON[birth.cls] ?? '•' }, { top: '…' })
     sex.push({ top: t(`spin.sex.${birth.sex}`), icon: birth.sex === 'm' ? '♂' : '♀' }, { top: '…' })
     return [where, status, sex]
   }, [props.seed, lang])
@@ -224,7 +224,7 @@ export function SlotMachine(props: {
         <div class="spin-result" ref={result}>
           <Scene scene={{ place: 'landmark', time: 'dawn', people: 2, props: ['sun'] }} region={birth.region} seed={`spin:${props.seed}`} label={t(`region.${birth.region}`)} />
           <p class="lead center">
-            {t('spin.result', { cls: { key: `class.${birth.cls}.family` }, region: { key: `region.${birth.region}` }, era: { key: `era.${birth.era}` }, year: formatYear(birth.year, lang) }, o)}
+            {t('spin.result', { cls: { key: `class.${birth.royal ? 'royal' : birth.cls}.family` }, region: { key: `region.${birth.region}` }, era: { key: `era.${birth.era}` }, year: formatYear(birth.year, lang) }, o)}
           </p>
           {!props.error && (
             <button class="primary" onClick={props.onDone} disabled={!props.ready}>

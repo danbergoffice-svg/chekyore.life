@@ -1,7 +1,7 @@
 // Итоги жизни (ТЗ, раздел 17a): всё, что показывает экран после смерти, считается здесь из
 // состояния героя. Тексты собираются в интерфейсе из ключей, поэтому отчёт не зависит от языка.
 
-import { npcAge, qx, regionOf, yearsBetween } from './rules'
+import { classKey, npcAge, qx, regionOf, yearsBetween } from './rules'
 import { AXES } from './types'
 import type { Axis, DiaryEntry, EraDef, GameState, Hero, Icon, Npc, Sex, TextParam } from './types'
 
@@ -322,7 +322,7 @@ function biography(state: GameState, f: Facts, cmp: EraComparison): Sentence[] {
   const hero = state.hero
   const out: Sentence[] = []
   // Сословие при рождении: оно могло измениться (например, раб получил свободу).
-  out.push({ key: hero.generation > 1 ? 'bio.born_heir' : 'bio.born', params: { region: { key: `region.${hero.region}.in` }, cls: { key: `class.${f.birthCls}.family` } } })
+  out.push({ key: hero.generation > 1 ? 'bio.born_heir' : 'bio.born', params: { region: { key: `region.${hero.region}.in` }, cls: { key: `class.${classKey(f.birthCls, hero.tags)}.family` } } })
   out.push(f.education[0])
   if (f.profession) out.push({ key: 'bio.work', params: { prof: { key: `prof.${f.profession}.as` } } })
   // Все браки по порядку: «Овдовела в 34, через два года вышла замуж снова…» (не больше трёх).

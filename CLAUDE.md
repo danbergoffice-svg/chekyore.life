@@ -80,7 +80,8 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   Перекрутка барабана после результата — флаг `respins` (2), проверка — `node tools/qa/respin.cjs`.
   **Испытание** после первой жизни (флаг `challenge_age`, `prefs.fate`, `ChallengeCard`/`FatePicker`): прожить следующую
   дольше 30 лет → у барабана выбор судьбы (знать или страна), проверка — `node tools/qa/challenge.cjs`.
-  «На главный экран» после первой жизни — `InstallCard`, `platform.installKind()/install()`, `node tools/qa/install.cjs`.
+  «На главный экран» после первой жизни — `InstallCard`, `platform.installKind()/install()/installed()`, `node tools/qa/install.cjs`;
+  награда — царская семья (`royalBirth`, тег `royal`, слова `classKey()` → `class.royal*`, `prefs.royal`).
 - Подсказки на экране жизни — `hintFor`/`closeHint` в `Life.tsx` (закрытые помнятся в `thousands.hints`): скорость (0–1 год),
   длительность года с кнопкой «Открыть настройки» (2–6 лет; «Назад» из настроек возвращает в жизнь), фокус, вкладка «Герой».
 - Графика (`docs/TZ_graphics.md`): сцена 320×100 из кэшируемых слоёв + движение (`scene.ts`, `fx.ts`, `figures.ts`),

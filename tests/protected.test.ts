@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { ERA_IDS, ERA_META, loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
-import { highBirth, newLife, rollBirth } from '../src/engine/life'
+import { highBirth, newLife, rollBirth, royalBirth } from '../src/engine/life'
+import { classKey } from '../src/engine/rules'
 import { DEFAULT_FLAGS } from '../src/platform/types'
 
 const ERAS = await loadAllEras()
@@ -46,5 +47,27 @@ describe('Защищённая первая жизнь (P1)', () => {
       if (i < 40) expect(newLife(ERAS[b.era], { mode: 'quick', mortality: 'soft', softenHeavy: false, protectedUntil: 20, livesBefore: 1 }, 7000 + i, undefined, b).hero.cls).toBe(b.cls)
     }
     expect((counts.noble ?? 0) + (counts.landowner ?? 0)).toBeGreaterThan(280)
+  })
+
+  it('награда за главный экран: царская семья в любой стране — знать с отметкой royal, богаче и почётнее; остальная жизнь от seed та же', () => {
+    const settings = { mode: 'quick', mortality: 'soft', softenHeavy: false, protectedUntil: 20, livesBefore: 1 } as const
+    for (let i = 0; i < 120; i++) {
+      const rolled = rollBirth(8000 + i, 'population', ERA_IDS.map((id) => ERA_META[id]))
+      const b = royalBirth(8000 + i, rolled, ERA_META[rolled.era])
+      expect(b).toEqual({ ...rolled, cls: 'noble', royal: true })
+      if (i >= 30) continue
+      const royal = newLife(ERAS[b.era], settings, 8000 + i, undefined, b).hero
+      const noble = newLife(ERAS[b.era], settings, 8000 + i, undefined, { ...b, royal: undefined }).hero
+      expect(royal.tags).toContain('royal')
+      expect(noble.tags).not.toContain('royal')
+      expect(royal.money).toBeGreaterThan(noble.money)
+      expect(royal.hidden.reputation).toBeGreaterThan(noble.hidden.reputation)
+      expect(royal.attrs).toEqual(noble.attrs)
+      expect(royal.name).toBe(noble.name)
+      expect(royal.diary[0].params?.cls).toEqual({ key: 'class.royal' })
+    }
+    expect(classKey('noble', ['royal'])).toBe('royal')
+    expect(classKey('trader', ['royal'])).toBe('trader')
+    expect(classKey('noble', [])).toBe('noble')
   })
 })
