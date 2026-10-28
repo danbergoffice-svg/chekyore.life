@@ -606,7 +606,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
   const quote = card.quotes[0]
   const baseText = ds
     ? `${headline} ${t('share.dream.ask')}`
-    : t('share.text', { name, years, archetype: `${card.title}. ${card.hook}${quote ? `. «${quote.text}» — ${quote.author}` : ''}` })
+    : t('share.text', { name, years, archetype: `${card.title}. ${card.hook}${quote ? `. ${quote.text} — ${quote.author}` : ''}` })
   const shareText = EXTERNAL ? `${baseText} ${SITE}` : baseText
 
   useEffect(() => {
@@ -665,7 +665,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
               </button>
             ))}
           </div>
-          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={`${name}, ${years}. ${card.title}. ${card.hook}. ${quote ? `«${quote.text}» — ${quote.author}` : ''}`} />
+          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={[`${name}, ${years}`, card.title, card.hook, quote && `${quote.text} — ${quote.author}`].filter(Boolean).map((x) => String(x).replace(/[.!?…]+$/, '')).join('. ')} />
           <p class="small muted">{t('share.privacy')}</p>
           <div class="stack">
             {EXTERNAL && 'share' in navigator && <button class="primary" onClick={systemShare}>{t('share.system')}</button>}

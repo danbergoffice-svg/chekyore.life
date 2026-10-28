@@ -1,0 +1,2010 @@
+[
+  {
+    "id": "seneca_play",
+    "ru": "Жизнь — как пьеса: важно не то, долго ли она длится, а то, хорошо ли сыграна.",
+    "en": "As it is with a play, so it is with life — what matters is not how long it lasts, but how well it is acted.",
+    "author_ru": "Сенека",
+    "author_en": "Seneca",
+    "tags": [
+      "long_life",
+      "short_life"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "seneca_time_wasted",
+    "ru": "Мы не мало времени имеем, а много его теряем.",
+    "en": "It is not that we have a short time to live, but that we waste a great deal of it.",
+    "author_ru": "Сенека",
+    "author_en": "Seneca",
+    "tags": [
+      "short_life",
+      "work"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "seneca_fate",
+    "ru": "Желающего судьба ведёт, нежелающего — тащит.",
+    "en": "Fate leads the willing and drags the unwilling.",
+    "author_ru": "Сенека",
+    "author_en": "Seneca",
+    "tags": [
+      "fate"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "seneca_poor",
+    "ru": "Беден не тот, у кого мало, а тот, кто хочет большего.",
+    "en": "It is not the man who has too little, but the man who craves more, that is poor.",
+    "author_ru": "Сенека",
+    "author_en": "Seneca",
+    "tags": [
+      "poor",
+      "rich"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "marcus_ten_thousand",
+    "ru": "Не живи так, будто впереди у тебя десять тысяч лет. Смерть уже нависла над тобой.",
+    "en": "Do not act as if thou wert going to live ten thousand years. Death hangs over thee.",
+    "author_ru": "Марк Аврелий",
+    "author_en": "Marcus Aurelius",
+    "tags": [
+      "short_life",
+      "death"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "marcus_forget",
+    "ru": "Скоро ты забудешь обо всём, и скоро все забудут о тебе.",
+    "en": "Near is thy forgetfulness of all things; and near the forgetfulness of thee by all.",
+    "author_ru": "Марк Аврелий",
+    "author_en": "Marcus Aurelius",
+    "tags": [
+      "legacy",
+      "death"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "epictetus_returned",
+    "ru": "Никогда не говори «я потерял», говори «я вернул». Умер ребёнок? Он возвращён. Умерла жена? Она возвращена.",
+    "en": "Never say \"I have lost it\", but \"I have returned it.\" Has your child died? It is returned. Has your wife died? She is returned.",
+    "author_ru": "Эпиктет",
+    "author_en": "Epictetus",
+    "tags": [
+      "widowed",
+      "death",
+      "sorrow"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "horace_carpe_diem",
+    "ru": "Лови день, как можно меньше веря завтрашнему.",
+    "en": "Seize the day, trusting as little as possible in tomorrow.",
+    "author_ru": "Гораций",
+    "author_en": "Horace",
+    "tags": [
+      "youth",
+      "short_life"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "horace_pallida_mors",
+    "ru": "Бледная смерть одной и той же ногой стучится в лачуги бедняков и в башни царей.",
+    "en": "Pale Death knocks with impartial foot at the hovels of the poor and the towers of kings.",
+    "author_ru": "Гораций",
+    "author_en": "Horace",
+    "tags": [
+      "death",
+      "poor",
+      "power"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "heraclitus_river",
+    "ru": "Нельзя дважды войти в одну и ту же реку.",
+    "en": "You cannot step twice into the same river.",
+    "author_ru": "Гераклит",
+    "author_en": "Heraclitus",
+    "tags": [
+      "fate",
+      "travel"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "solon_happy",
+    "ru": "Пока человек не умер, не называй его счастливым — называй лишь удачливым.",
+    "en": "Until a man is dead, call him not happy, but only fortunate.",
+    "author_ru": "Солон (у Геродота)",
+    "author_en": "Solon (in Herodotus)",
+    "tags": [
+      "happiness",
+      "death",
+      "fate"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "hippocrates_ars_longa",
+    "ru": "Жизнь коротка, путь искусства долог, случай мимолётен, опыт обманчив, суждение трудно.",
+    "en": "Life is short, the art long, opportunity fleeting, experience perilous, judgment difficult.",
+    "author_ru": "Гиппократ",
+    "author_en": "Hippocrates",
+    "tags": [
+      "healer",
+      "craft",
+      "short_life"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "caesar_first",
+    "ru": "Лучше быть первым здесь, чем вторым в Риме.",
+    "en": "I would rather be first here than second at Rome.",
+    "author_ru": "Юлий Цезарь",
+    "author_en": "Julius Caesar",
+    "tags": [
+      "power",
+      "rise"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "caesar_alea",
+    "ru": "Жребий брошен.",
+    "en": "The die is cast.",
+    "author_ru": "Юлий Цезарь",
+    "author_en": "Julius Caesar",
+    "tags": [
+      "chance",
+      "fate"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "virgil_forsan",
+    "ru": "Может быть, когда-нибудь и об этом будет приятно вспомнить.",
+    "en": "Perhaps one day it will be a joy to remember even this.",
+    "author_ru": "Вергилий",
+    "author_en": "Virgil",
+    "tags": [
+      "survivor"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "ovid_friends",
+    "ru": "Пока ты счастлив, друзей будет много; придут ненастные времена — останешься один.",
+    "en": "While you are fortunate, you will count many friends; when the skies grow cloudy, you will be alone.",
+    "author_ru": "Овидий",
+    "author_en": "Ovid",
+    "tags": [
+      "friendship",
+      "fall",
+      "lonely"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "diogenes_sun",
+    "ru": "Отойди немного, не заслоняй мне солнце.",
+    "en": "Stand a little out of my sun.",
+    "author_ru": "Диоген — Александру Македонскому",
+    "author_en": "Diogenes, to Alexander the Great",
+    "tags": [
+      "freedom",
+      "poor",
+      "power"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "homer_homeland",
+    "ru": "Нет ничего слаще родной земли и родителей.",
+    "en": "Naught is sweeter than a man's own land and his parents.",
+    "author_ru": "Гомер",
+    "author_en": "Homer",
+    "tags": [
+      "homeland",
+      "travel",
+      "family"
+    ],
+    "culture": [
+      "e03"
+    ]
+  },
+  {
+    "id": "eccl_time_chance",
+    "ru": "Не проворным достаётся успешный бег, не храбрым — победа… но время и случай для всех их.",
+    "en": "The race is not to the swift, nor the battle to the strong… but time and chance happeneth to them all.",
+    "author_ru": "Екклесиаст",
+    "author_en": "Ecclesiastes",
+    "tags": [
+      "chance",
+      "fate"
+    ],
+    "culture": [
+      "byzantium",
+      "europe",
+      "rus"
+    ]
+  },
+  {
+    "id": "eccl_two_better",
+    "ru": "Двоим лучше, нежели одному: если упадёт один, другой поднимет товарища. Но горе одному, когда упадёт.",
+    "en": "Two are better than one… For if they fall, the one will lift up his fellow: but woe to him that is alone when he falleth.",
+    "author_ru": "Екклесиаст",
+    "author_en": "Ecclesiastes",
+    "tags": [
+      "friendship",
+      "lonely",
+      "marriage"
+    ],
+    "culture": [
+      "byzantium",
+      "europe",
+      "rus"
+    ]
+  },
+  {
+    "id": "eccl_for_whom",
+    "ru": "Ни сына, ни брата нет у него, а всем трудам его нет конца… Для кого же я тружусь?",
+    "en": "He hath neither child nor brother: yet is there no end of all his labour… For whom do I labour?",
+    "author_ru": "Екклесиаст",
+    "author_en": "Ecclesiastes",
+    "tags": [
+      "childless",
+      "lonely",
+      "work"
+    ],
+    "culture": [
+      "byzantium",
+      "europe",
+      "rus"
+    ]
+  },
+  {
+    "id": "eccl_sleep_labourer",
+    "ru": "Сладок сон трудящегося, мало или много он съест; а пресыщение богатого не даёт ему уснуть.",
+    "en": "The sleep of a labouring man is sweet, whether he eat little or much: but the abundance of the rich will not suffer him to sleep.",
+    "author_ru": "Екклесиаст",
+    "author_en": "Ecclesiastes",
+    "tags": [
+      "work",
+      "rich",
+      "poor"
+    ],
+    "culture": [
+      "byzantium",
+      "europe",
+      "rus"
+    ]
+  },
+  {
+    "id": "eccl_living_dog",
+    "ru": "Псу живому лучше, нежели мёртвому льву.",
+    "en": "A living dog is better than a dead lion.",
+    "author_ru": "Екклесиаст",
+    "author_en": "Ecclesiastes",
+    "tags": [
+      "survivor",
+      "death"
+    ],
+    "culture": [
+      "byzantium",
+      "europe",
+      "rus"
+    ]
+  },
+  {
+    "id": "prov_pride",
+    "ru": "Погибели предшествует гордость, и падению — надменность.",
+    "en": "Pride goeth before destruction, and an haughty spirit before a fall.",
+    "author_ru": "Книга Притчей Соломоновых",
+    "author_en": "The Book of Proverbs",
+    "tags": [
+      "fall",
+      "power"
+    ],
+    "culture": [
+      "byzantium",
+      "europe",
+      "rus"
+    ]
+  },
+  {
+    "id": "prov_grandchildren",
+    "ru": "Венец стариков — сыновья сыновей, и слава детей — родители их.",
+    "en": "Children's children are the crown of old men; and the glory of children are their fathers.",
+    "author_ru": "Книга Притчей Соломоновых",
+    "author_en": "The Book of Proverbs",
+    "tags": [
+      "many_children",
+      "old_age",
+      "family"
+    ],
+    "culture": [
+      "byzantium",
+      "rus",
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "psalm_seventy",
+    "ru": "Дней лет наших — семьдесят лет, а при большей крепости — восемьдесят; и лучшая пора их — труд и болезнь.",
+    "en": "The days of our years are threescore years and ten… yet is their strength labour and sorrow; for it is soon cut off.",
+    "author_ru": "Псалтирь (молитва Моисея)",
+    "author_en": "Psalms (a prayer of Moses)",
+    "tags": [
+      "long_life",
+      "old_age"
+    ],
+    "culture": [
+      "byzantium",
+      "rus",
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "psalm_babylon",
+    "ru": "При реках Вавилона, там сидели мы и плакали, когда вспоминали о Сионе.",
+    "en": "By the rivers of Babylon, there we sat down, yea, we wept, when we remembered Zion.",
+    "author_ru": "Псалтирь",
+    "author_en": "Psalms",
+    "tags": [
+      "exile",
+      "homeland",
+      "sorrow"
+    ],
+    "culture": [
+      "ancient_east",
+      "byzantium",
+      "europe"
+    ]
+  },
+  {
+    "id": "job_gave_took",
+    "ru": "Наг я вышел из чрева матери моей, наг и возвращусь. Господь дал, Господь и взял.",
+    "en": "Naked came I out of my mother's womb, and naked shall I return thither: the LORD gave, and the LORD hath taken away.",
+    "author_ru": "Книга Иова",
+    "author_en": "The Book of Job",
+    "tags": [
+      "widowed",
+      "sorrow",
+      "faith"
+    ],
+    "culture": [
+      "byzantium",
+      "rus",
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "wisdom_childless",
+    "ru": "Лучше бездетность с добродетелью, ибо бессмертна память её.",
+    "en": "Better it is to have no children, and to have virtue: for the memorial thereof is immortal.",
+    "author_ru": "Книга Премудрости Соломона",
+    "author_en": "The Book of Wisdom",
+    "tags": [
+      "childless",
+      "legacy"
+    ],
+    "culture": [
+      "byzantium",
+      "rus",
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "song_love_death",
+    "ru": "Крепка, как смерть, любовь… Большие воды не могут потушить любви.",
+    "en": "Love is strong as death… Many waters cannot quench love.",
+    "author_ru": "Песнь песней",
+    "author_en": "The Song of Songs",
+    "tags": [
+      "love",
+      "marriage",
+      "death"
+    ],
+    "culture": [
+      "byzantium",
+      "europe",
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "chrysostom_glory",
+    "ru": "Слава Богу за всё!",
+    "en": "Glory to God for all things!",
+    "author_ru": "Иоанн Златоуст",
+    "author_en": "John Chrysostom",
+    "tags": [
+      "faith",
+      "death"
+    ],
+    "culture": [
+      "byzantium",
+      "rus"
+    ]
+  },
+  {
+    "id": "montaigne_cabbage",
+    "ru": "Хочу, чтобы смерть застала меня за посадкой капусты — и чтобы мне не было дела ни до неё, ни до огорода.",
+    "en": "I want death to find me planting my cabbages, caring little for death and still less for my unfinished garden.",
+    "author_ru": "Мишель Монтень",
+    "author_en": "Michel de Montaigne",
+    "tags": [
+      "death",
+      "work"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "montaigne_friend",
+    "ru": "Потому что это был он, потому что это был я.",
+    "en": "Because it was he, because it was I.",
+    "author_ru": "Мишель Монтень",
+    "author_en": "Michel de Montaigne",
+    "tags": [
+      "friendship"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "dante_salt_bread",
+    "ru": "Узнаешь, как солон чужой хлеб и как тяжело спускаться и подниматься по чужим лестницам.",
+    "en": "You shall learn how salt is the taste of another's bread, and how hard a path it is to go down and up another's stairs.",
+    "author_ru": "Данте Алигьери",
+    "author_en": "Dante Alighieri",
+    "tags": [
+      "exile",
+      "homeland",
+      "poor"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "dante_no_greater_sorrow",
+    "ru": "Нет большей муки, чем вспоминать о счастливом времени в несчастье.",
+    "en": "There is no greater sorrow than to be mindful of the happy time in misery.",
+    "author_ru": "Данте Алигьери",
+    "author_en": "Dante Alighieri",
+    "tags": [
+      "sorrow",
+      "fall",
+      "love"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "petrarch_good_death",
+    "ru": "Хорошая смерть делает честь всей жизни.",
+    "en": "A good death does honour to a whole life.",
+    "author_ru": "Франческо Петрарка",
+    "author_en": "Francesco Petrarca",
+    "tags": [
+      "death",
+      "legacy"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "leonardo_day_well_spent",
+    "ru": "Как хорошо проведённый день дарит спокойный сон, так хорошо прожитая жизнь дарит спокойную смерть.",
+    "en": "As a day well spent procures a happy sleep, so a life well employed procures a happy death.",
+    "author_ru": "Леонардо да Винчи",
+    "author_en": "Leonardo da Vinci",
+    "tags": [
+      "death",
+      "work",
+      "long_life"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "pare_dressed_god_healed",
+    "ru": "Я его перевязал, Бог его исцелил.",
+    "en": "I dressed his wound, and God healed him.",
+    "author_ru": "Амбруаз Паре",
+    "author_en": "Ambroise Paré",
+    "tags": [
+      "healer",
+      "faith"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "kempis_proposes",
+    "ru": "Человек предполагает, а Бог располагает.",
+    "en": "Man proposes, but God disposes.",
+    "author_ru": "Фома Кемпийский",
+    "author_en": "Thomas à Kempis",
+    "tags": [
+      "fate",
+      "faith"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "bacon_hostages",
+    "ru": "Кто обзавёлся женой и детьми, тот дал судьбе заложников.",
+    "en": "He that hath wife and children hath given hostages to fortune.",
+    "author_ru": "Фрэнсис Бэкон",
+    "author_en": "Francis Bacon",
+    "tags": [
+      "family",
+      "marriage",
+      "many_children"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "bacon_childless",
+    "ru": "Благороднейшие дела и начинания исходили от бездетных: не оставив образа тела, они оставляли образ души.",
+    "en": "The noblest works and foundations have proceeded from childless men, which have sought to express the images of their minds.",
+    "author_ru": "Фрэнсис Бэкон",
+    "author_en": "Francis Bacon",
+    "tags": [
+      "childless",
+      "legacy"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "cervantes_haves",
+    "ru": "На свете только два рода, как говаривала моя бабка: имущие и неимущие.",
+    "en": "There are only two families in the world, as a grandmother of mine used to say: the Haves and the Haven'ts.",
+    "author_ru": "Сервантес (Санчо Панса)",
+    "author_en": "Cervantes (Sancho Panza)",
+    "tags": [
+      "rich",
+      "poor"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "cervantes_freedom",
+    "ru": "Свобода, Санчо, — один из драгоценнейших даров, какие небо даровало людям.",
+    "en": "Freedom, Sancho, is one of the most precious gifts that heaven has bestowed upon men.",
+    "author_ru": "Сервантес (Дон Кихот)",
+    "author_en": "Cervantes (Don Quixote)",
+    "tags": [
+      "freedom"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "chaucer_craft",
+    "ru": "Жизнь так коротка, а ремеслу так долго учиться.",
+    "en": "The lyf so short, the craft so long to lerne.",
+    "author_ru": "Джеффри Чосер",
+    "author_en": "Geoffrey Chaucer",
+    "tags": [
+      "craft",
+      "learning",
+      "short_life"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "shakespeare_stage",
+    "ru": "Весь мир — театр, а люди в нём — актёры: у каждого свои уходы и выходы.",
+    "en": "All the world's a stage, and all the men and women merely players; they have their exits and their entrances.",
+    "author_ru": "Уильям Шекспир",
+    "author_en": "William Shakespeare",
+    "tags": [
+      "fate"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "shakespeare_idiot_tale",
+    "ru": "Жизнь — это повесть, рассказанная дураком: в ней много шума и ярости, но нет смысла.",
+    "en": "Life… is a tale told by an idiot, full of sound and fury, signifying nothing.",
+    "author_ru": "Уильям Шекспир",
+    "author_en": "William Shakespeare",
+    "tags": [
+      "fate",
+      "sorrow",
+      "death"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "shakespeare_cowards",
+    "ru": "Трус умирает много раз до смерти, а храбрый вкушает смерть лишь однажды.",
+    "en": "Cowards die many times before their deaths; the valiant never taste of death but once.",
+    "author_ru": "Уильям Шекспир",
+    "author_en": "William Shakespeare",
+    "tags": [
+      "war",
+      "death",
+      "survivor"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "shakespeare_tide",
+    "ru": "В делах людей бывает свой прилив: поймаешь его — и он вынесет тебя к удаче.",
+    "en": "There is a tide in the affairs of men, which, taken at the flood, leads on to fortune.",
+    "author_ru": "Уильям Шекспир",
+    "author_en": "William Shakespeare",
+    "tags": [
+      "chance",
+      "rise"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "shakespeare_crown",
+    "ru": "Неспокойна голова, что носит корону.",
+    "en": "Uneasy lies the head that wears a crown.",
+    "author_ru": "Уильям Шекспир",
+    "author_en": "William Shakespeare",
+    "tags": [
+      "power"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "shakespeare_dreams",
+    "ru": "Мы созданы из того же вещества, что и сны, и нашу маленькую жизнь венчает сон.",
+    "en": "We are such stuff as dreams are made on, and our little life is rounded with a sleep.",
+    "author_ru": "Уильям Шекспир",
+    "author_en": "William Shakespeare",
+    "tags": [
+      "dream",
+      "death",
+      "short_life"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "twain_report_death",
+    "ru": "Слух о моей смерти был преувеличением.",
+    "en": "The report of my death was an exaggeration.",
+    "author_ru": "Марк Твен",
+    "author_en": "Mark Twain",
+    "tags": [
+      "survivor",
+      "death"
+    ]
+  },
+  {
+    "id": "twain_undertaker",
+    "ru": "Будем жить так, чтобы, когда мы умрём, пожалел об этом даже гробовщик.",
+    "en": "Let us endeavor so to live that when we come to die even the undertaker will be sorry.",
+    "author_ru": "Марк Твен",
+    "author_en": "Mark Twain",
+    "tags": [
+      "death",
+      "legacy"
+    ]
+  },
+  {
+    "id": "wilde_old_age",
+    "ru": "Трагедия старости не в том, что ты стар, а в том, что ты молод.",
+    "en": "The tragedy of old age is not that one is old, but that one is young.",
+    "author_ru": "Оскар Уайльд",
+    "author_en": "Oscar Wilde",
+    "tags": [
+      "old_age",
+      "youth"
+    ]
+  },
+  {
+    "id": "wilde_children_forgive",
+    "ru": "Дети начинают с того, что любят родителей; потом судят их; прощают — редко, если вообще прощают.",
+    "en": "Children begin by loving their parents. After a time they judge them. Rarely, if ever, do they forgive them.",
+    "author_ru": "Оскар Уайльд",
+    "author_en": "Oscar Wilde",
+    "tags": [
+      "family"
+    ]
+  },
+  {
+    "id": "wilde_marry_tired",
+    "ru": "Мужчины женятся от усталости, женщины выходят замуж из любопытства, и все разочаровываются.",
+    "en": "Men marry because they are tired; women, because they are curious: both are disappointed.",
+    "author_ru": "Оскар Уайльд",
+    "author_en": "Oscar Wilde",
+    "tags": [
+      "marriage"
+    ]
+  },
+  {
+    "id": "wilde_live_rarest",
+    "ru": "Жить — самая редкая вещь на свете. Большинство людей просто существует.",
+    "en": "To live is the rarest thing in the world. Most people exist, that is all.",
+    "author_ru": "Оскар Уайльд",
+    "author_en": "Oscar Wilde",
+    "tags": [
+      "happiness",
+      "long_life",
+      "freedom"
+    ]
+  },
+  {
+    "id": "franklin_death_taxes",
+    "ru": "В этом мире нельзя быть уверенным ни в чём, кроме смерти и налогов.",
+    "en": "In this world nothing can be said to be certain, except death and taxes.",
+    "author_ru": "Бенджамин Франклин",
+    "author_en": "Benjamin Franklin",
+    "tags": [
+      "death",
+      "fate"
+    ]
+  },
+  {
+    "id": "franklin_doctor_fees",
+    "ru": "Бог исцеляет, а гонорар берёт доктор.",
+    "en": "God heals, and the Doctor takes the Fees.",
+    "author_ru": "Бенджамин Франклин",
+    "author_en": "Benjamin Franklin",
+    "tags": [
+      "healer"
+    ]
+  },
+  {
+    "id": "bierce_longevity",
+    "ru": "Долголетие — необычайно затянувшийся страх смерти.",
+    "en": "Longevity, n. Uncommon extension of the fear of death.",
+    "author_ru": "Амброз Бирс",
+    "author_en": "Ambrose Bierce",
+    "tags": [
+      "long_life",
+      "old_age"
+    ]
+  },
+  {
+    "id": "bierce_exile",
+    "ru": "Изгнанник — тот, кто служит родине, живя за границей, но не будучи послом.",
+    "en": "Exile, n. One who serves his country by residing abroad, yet is not an ambassador.",
+    "author_ru": "Амброз Бирс",
+    "author_en": "Ambrose Bierce",
+    "tags": [
+      "exile",
+      "homeland"
+    ]
+  },
+  {
+    "id": "bierce_alone",
+    "ru": "Один — то есть в дурной компании.",
+    "en": "Alone, adj. In bad company.",
+    "author_ru": "Амброз Бирс",
+    "author_en": "Ambrose Bierce",
+    "tags": [
+      "lonely"
+    ]
+  },
+  {
+    "id": "johnson_second_marriage",
+    "ru": "Второй брак — торжество надежды над опытом.",
+    "en": "A second marriage — the triumph of hope over experience.",
+    "author_ru": "Сэмюэл Джонсон",
+    "author_en": "Samuel Johnson",
+    "tags": [
+      "widowed",
+      "marriage"
+    ]
+  },
+  {
+    "id": "swift_live_long",
+    "ru": "Каждый хочет жить долго, но никто не хочет быть старым.",
+    "en": "Every man desires to live long, but no man would be old.",
+    "author_ru": "Джонатан Свифт",
+    "author_en": "Jonathan Swift",
+    "tags": [
+      "long_life",
+      "old_age"
+    ]
+  },
+  {
+    "id": "nietzsche_stronger",
+    "ru": "Что меня не убивает, делает меня сильнее.",
+    "en": "What does not kill me makes me stronger.",
+    "author_ru": "Фридрих Ницше",
+    "author_en": "Friedrich Nietzsche",
+    "tags": [
+      "survivor"
+    ]
+  },
+  {
+    "id": "tennyson_loved_lost",
+    "ru": "Лучше любить и потерять, чем не любить вовсе.",
+    "en": "'Tis better to have loved and lost than never to have loved at all.",
+    "author_ru": "Альфред Теннисон",
+    "author_en": "Alfred Tennyson",
+    "tags": [
+      "love",
+      "widowed",
+      "sorrow"
+    ]
+  },
+  {
+    "id": "kierkegaard_backwards",
+    "ru": "Жизнь можно понять, лишь оглядываясь назад, но прожить её можно, только глядя вперёд.",
+    "en": "Life can only be understood backwards; but it must be lived forwards.",
+    "author_ru": "Сёрен Кьеркегор",
+    "author_en": "Søren Kierkegaard",
+    "tags": [
+      "fate",
+      "reason"
+    ]
+  },
+  {
+    "id": "voltaire_garden",
+    "ru": "Это хорошо сказано, но надо возделывать свой сад.",
+    "en": "That is well said, but we must cultivate our garden.",
+    "author_ru": "Вольтер",
+    "author_en": "Voltaire",
+    "tags": [
+      "work",
+      "happiness"
+    ],
+    "culture": [
+      "europe"
+    ]
+  },
+  {
+    "id": "monomakh_laziness",
+    "ru": "Леность — всему мать: что умеешь — забудешь, а чего не умеешь — тому не научишься.",
+    "en": "Sloth is the mother of everything: what you know, you forget, and what you do not know, you never learn.",
+    "author_ru": "Владимир Мономах",
+    "author_en": "Vladimir Monomakh",
+    "tags": [
+      "work",
+      "learning"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "sviatoslav_dead_no_shame",
+    "ru": "Ляжем здесь костьми: мёртвые сраму не имут.",
+    "en": "Let us lay down our bones here: the dead know no shame.",
+    "author_ru": "Князь Святослав",
+    "author_en": "Prince Sviatoslav",
+    "tags": [
+      "war",
+      "death"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "slovo_slain_not_captive",
+    "ru": "Лучше убитым быть, чем пленённым.",
+    "en": "Better to be slain than taken captive.",
+    "author_ru": "«Слово о полку Игореве» (князь Игорь)",
+    "author_en": "The Tale of Igor's Campaign (Prince Igor)",
+    "tags": [
+      "war",
+      "freedom"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "pushkin_peace_freedom",
+    "ru": "На свете счастья нет, но есть покой и воля.",
+    "en": "There is no happiness in this world, but there is peace and freedom.",
+    "author_ru": "Александр Пушкин",
+    "author_en": "Alexander Pushkin",
+    "tags": [
+      "happiness",
+      "freedom"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "pushkin_some_are_gone",
+    "ru": "Иных уж нет, а те далече, как Сади некогда сказал.",
+    "en": "Some are no more, and others are far away, as Saadi once said.",
+    "author_ru": "Александр Пушкин",
+    "author_en": "Alexander Pushkin",
+    "tags": [
+      "survivor",
+      "old_age",
+      "friendship"
+    ],
+    "culture": [
+      "rus",
+      "islam"
+    ]
+  },
+  {
+    "id": "griboyedov_smoke",
+    "ru": "И дым Отечества нам сладок и приятен!",
+    "en": "Even the smoke of the fatherland is sweet and pleasant to us!",
+    "author_ru": "Александр Грибоедов (вслед за Державиным)",
+    "author_en": "Alexander Griboyedov (after Derzhavin)",
+    "tags": [
+      "homeland",
+      "travel"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "lermontov_bored_sad",
+    "ru": "И скучно, и грустно, и некому руку подать в минуту душевной невзгоды…",
+    "en": "I am weary and sad, and there is no one to give my hand to in a moment of the soul's distress…",
+    "author_ru": "Михаил Лермонтов",
+    "author_en": "Mikhail Lermontov",
+    "tags": [
+      "lonely",
+      "sorrow"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "tolstoy_happy_families",
+    "ru": "Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему.",
+    "en": "All happy families are alike; each unhappy family is unhappy in its own way.",
+    "author_ru": "Лев Толстой",
+    "author_en": "Leo Tolstoy",
+    "tags": [
+      "family",
+      "happiness",
+      "sorrow"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "tolstoy_ivan_ilyich",
+    "ru": "Прошедшая история жизни Ивана Ильича была самая простая и обыкновенная и самая ужасная.",
+    "en": "Ivan Ilych's life had been most simple and most ordinary and therefore most terrible.",
+    "author_ru": "Лев Толстой",
+    "author_en": "Leo Tolstoy",
+    "tags": [
+      "fate",
+      "death"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "chekhov_many_remedies",
+    "ru": "Если против какой-нибудь болезни предлагается очень много средств, то это значит, что болезнь неизлечима.",
+    "en": "When a great many remedies are suggested for some disease, it means the disease is incurable.",
+    "author_ru": "Антон Чехов",
+    "author_en": "Anton Chekhov",
+    "tags": [
+      "healer",
+      "death"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "chekhov_life_passed",
+    "ru": "Жизнь-то прошла, словно и не жил.",
+    "en": "Life has slipped by as if I had never lived.",
+    "author_ru": "Антон Чехов",
+    "author_en": "Anton Chekhov",
+    "tags": [
+      "old_age",
+      "long_life",
+      "sorrow"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "ru_two_deaths",
+    "ru": "Двух смертей не бывает, а одной не миновать.",
+    "en": "No one dies twice, and no one escapes dying once.",
+    "author_ru": "Русская пословица",
+    "author_en": "Russian proverb",
+    "tags": [
+      "death",
+      "war",
+      "survivor"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "ru_live_learn_fool",
+    "ru": "Век живи, век учись, а умри дураком.",
+    "en": "Live and learn all your life — and die a fool all the same.",
+    "author_ru": "Русская пословица",
+    "author_en": "Russian proverb",
+    "tags": [
+      "learning",
+      "long_life"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "ru_trust_god",
+    "ru": "На Бога надейся, а сам не оплошай.",
+    "en": "Trust in God, but don't slip up yourself.",
+    "author_ru": "Русская пословица",
+    "author_en": "Russian proverb",
+    "tags": [
+      "faith",
+      "work"
+    ],
+    "culture": [
+      "rus"
+    ]
+  },
+  {
+    "id": "mutanabbi_winds_ships",
+    "ru": "Не всё, чего желает человек, он обретает: ветры дуют не так, как хотелось бы кораблям.",
+    "en": "Not all that a man desires does he attain: the winds blow in ways the ships do not wish.",
+    "author_ru": "Аль-Мутанабби",
+    "author_en": "Al-Mutanabbi",
+    "tags": [
+      "dream",
+      "fate",
+      "trade"
+    ],
+    "culture": [
+      "islam"
+    ]
+  },
+  {
+    "id": "mutanabbi_horse_night",
+    "ru": "Меня знают кони, ночь и пустыня, меч и копьё, бумага и перо.",
+    "en": "The horses, the night and the desert know me, and the sword and the spear, the paper and the pen.",
+    "author_ru": "Аль-Мутанабби",
+    "author_en": "Al-Mutanabbi",
+    "tags": [
+      "war",
+      "learning",
+      "travel"
+    ],
+    "culture": [
+      "islam"
+    ]
+  },
+  {
+    "id": "rumi_reed_home",
+    "ru": "Кто далеко от родного дома, тот всё ждёт дня, когда вернётся.",
+    "en": "He who abides far away from his home is ever longing for the day he shall return.",
+    "author_ru": "Джалаладдин Руми",
+    "author_en": "Jalal al-Din Rumi",
+    "tags": [
+      "exile",
+      "homeland",
+      "lonely"
+    ],
+    "culture": [
+      "islam"
+    ]
+  },
+  {
+    "id": "saadi_sons_of_adam",
+    "ru": "Сыны Адама — члены одного тела: если судьба ранит один член, другим не будет покоя.",
+    "en": "The children of Adam are limbs of one body: when fate afflicts one limb, the others cannot remain at rest.",
+    "author_ru": "Саади",
+    "author_en": "Saadi",
+    "tags": [
+      "friendship",
+      "sorrow",
+      "family"
+    ],
+    "culture": [
+      "islam"
+    ]
+  },
+  {
+    "id": "saadi_wealth_learning",
+    "ru": "Двое трудились напрасно: один копил богатство и не пользовался им, другой учился и не применял выученного.",
+    "en": "Two men took useless trouble: one gathered wealth without enjoying it, the other learnt without practising what he learnt.",
+    "author_ru": "Саади",
+    "author_en": "Saadi",
+    "tags": [
+      "rich",
+      "learning",
+      "work"
+    ],
+    "culture": [
+      "islam"
+    ]
+  },
+  {
+    "id": "khayyam_moving_finger",
+    "ru": "Пишет перст судьбы и, написав, идёт дальше: ни благочестие, ни ум не заставят его стереть и полстроки.",
+    "en": "The Moving Finger writes; and, having writ, moves on: nor all thy Piety nor Wit shall lure it back to cancel half a Line.",
+    "author_ru": "Омар Хайям (в переложении Э. Фицджеральда)",
+    "author_en": "Omar Khayyam (tr. Edward FitzGerald)",
+    "tags": [
+      "fate"
+    ],
+    "culture": [
+      "islam"
+    ]
+  },
+  {
+    "id": "ibn_khaldun_four_generations",
+    "ru": "Слава рода живёт обычно четыре поколения: строитель, свидетель стройки, подражатель — и разрушитель.",
+    "en": "Prestige lasts at most four generations: the builder, the one who knew the builder, the imitator, and the destroyer.",
+    "author_ru": "Ибн Хальдун",
+    "author_en": "Ibn Khaldun",
+    "tags": [
+      "legacy",
+      "family",
+      "fall"
+    ],
+    "culture": [
+      "islam"
+    ]
+  },
+  {
+    "id": "ibn_battuta_nests",
+    "ru": "Я решился покинуть всех любимых и оставил родину, как птицы оставляют гнёзда.",
+    "en": "I resolved to leave all my dear ones, and forsook my home as birds forsake their nests.",
+    "author_ru": "Ибн Баттута",
+    "author_en": "Ibn Battuta",
+    "tags": [
+      "travel",
+      "homeland",
+      "youth"
+    ],
+    "culture": [
+      "islam"
+    ]
+  },
+  {
+    "id": "gilgamesh_life_you_seek",
+    "ru": "Жизни, которой ищешь, не найдёшь: создав человека, боги смерть определили ему, а жизнь удержали в своих руках.",
+    "en": "The life you seek you will not find: when the gods created mankind, they allotted death to man and kept life in their own hands.",
+    "author_ru": "«Эпос о Гильгамеше» (Сидури — Гильгамешу)",
+    "author_en": "Epic of Gilgamesh (Siduri to Gilgamesh)",
+    "tags": [
+      "death",
+      "fate"
+    ],
+    "culture": [
+      "ancient_east"
+    ]
+  },
+  {
+    "id": "gilgamesh_child_hand",
+    "ru": "Гляди, как дитя держит тебя за руку, пусть жена радуется в твоих объятиях — только в этом дело человека.",
+    "en": "Look at the child who holds your hand, let your wife delight in your embrace — for this is the task of mankind.",
+    "author_ru": "«Эпос о Гильгамеше» (Сидури — Гильгамешу)",
+    "author_en": "Epic of Gilgamesh (Siduri to Gilgamesh)",
+    "tags": [
+      "family",
+      "happiness",
+      "marriage"
+    ],
+    "culture": [
+      "ancient_east"
+    ]
+  },
+  {
+    "id": "gilgamesh_but_wind",
+    "ru": "Лишь боги живут вечно, а у людей дни сочтены, и всё, что они ни делают, — ветер.",
+    "en": "Only the gods live forever under the sun. As for mankind, their days are numbered; whatever they achieve is but wind.",
+    "author_ru": "«Эпос о Гильгамеше» (Гильгамеш — Энкиду)",
+    "author_en": "Epic of Gilgamesh (Gilgamesh to Enkidu)",
+    "tags": [
+      "legacy",
+      "war",
+      "death"
+    ],
+    "culture": [
+      "ancient_east"
+    ]
+  },
+  {
+    "id": "ptahhotep_no_perfect_artist",
+    "ru": "Нет предела искусству, и нет мастера, достигшего совершенства.",
+    "en": "The limits of art are not reached; no artist's skill is perfect.",
+    "author_ru": "Птахотеп",
+    "author_en": "Ptahhotep",
+    "tags": [
+      "craft",
+      "learning"
+    ],
+    "culture": [
+      "ancient_east"
+    ]
+  },
+  {
+    "id": "ptahhotep_old_age",
+    "ru": "Глаза ослабли, уши оглохли, сила уходит… Что делает старость с людьми — зло во всём.",
+    "en": "The eyes are dim, the ears deaf, strength is failing… What old age does to people is evil in every respect.",
+    "author_ru": "Птахотеп",
+    "author_en": "Ptahhotep",
+    "tags": [
+      "old_age"
+    ],
+    "culture": [
+      "ancient_east"
+    ]
+  },
+  {
+    "id": "harper_make_holiday",
+    "ru": "Празднуй и не уставай! Никому не дано унести своё добро с собой, и никто из ушедших не вернулся.",
+    "en": "Make holiday, do not weary of it! No one is allowed to take his goods with him, and no one who departs comes back again.",
+    "author_ru": "«Песнь арфиста» из гробницы царя Иньотефа",
+    "author_en": "Harper's Song from the tomb of King Intef",
+    "tags": [
+      "death",
+      "rich",
+      "happiness"
+    ],
+    "culture": [
+      "ancient_east"
+    ]
+  },
+  {
+    "id": "sumer_silver_grain_livestock",
+    "ru": "У кого серебро — тот счастлив, у кого зерно — тому спокойно, а у кого скот — тому не спится.",
+    "en": "He who has silver is happy, he who has grain feels comfortable, but he who has livestock cannot sleep.",
+    "author_ru": "Шумерская пословица",
+    "author_en": "Sumerian proverb",
+    "tags": [
+      "rich",
+      "trade"
+    ],
+    "culture": [
+      "ancient_east"
+    ]
+  },
+  {
+    "id": "shelley_ozymandias",
+    "ru": "Моё имя — Озимандия, я царь царей. Взгляните на мои дела, владыки, и отчайтесь! Больше ничего не осталось.",
+    "en": "My name is Ozymandias, King of Kings; look on my Works, ye Mighty, and despair! Nothing beside remains.",
+    "author_ru": "Перси Биши Шелли",
+    "author_en": "Percy Bysshe Shelley",
+    "tags": [
+      "fall",
+      "power",
+      "legacy"
+    ],
+    "culture": [
+      "ancient_east"
+    ]
+  },
+  {
+    "id": "confucius_life_death",
+    "ru": "Не зная, что такое жизнь, как узнать, что такое смерть?",
+    "en": "While you do not know life, how can you know about death?",
+    "author_ru": "Конфуций",
+    "author_en": "Confucius",
+    "tags": [
+      "death",
+      "reason"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "confucius_morning_way",
+    "ru": "Если утром узнал Путь, вечером можно и умереть.",
+    "en": "If a man in the morning hear the right way, he may die in the evening without regret.",
+    "author_ru": "Конфуций",
+    "author_en": "Confucius",
+    "tags": [
+      "faith",
+      "learning",
+      "death"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "laozi_thousand_li",
+    "ru": "Путь в тысячу ли начинается с первого шага.",
+    "en": "The journey of a thousand li commences with a single step.",
+    "author_ru": "Лао-цзы",
+    "author_en": "Laozi",
+    "tags": [
+      "travel",
+      "rise",
+      "work"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "laozi_misery_happiness",
+    "ru": "Несчастье — вот на что опирается счастье; счастье — вот где таится несчастье.",
+    "en": "Misery! — happiness is to be found by its side! Happiness! — misery lurks beneath it!",
+    "author_ru": "Лао-цзы",
+    "author_en": "Laozi",
+    "tags": [
+      "fate",
+      "chance",
+      "happiness"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "zhuangzi_butterfly",
+    "ru": "Проснувшись, он не знал: то ли Чжоу снилось, что он бабочка, то ли бабочке снится, что она — Чжоу.",
+    "en": "He did not know whether he was Zhou who had dreamt he was a butterfly, or a butterfly dreaming that it was Zhou.",
+    "author_ru": "Чжуан-цзы",
+    "author_en": "Zhuangzi",
+    "tags": [
+      "dream",
+      "reason"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "zhuangzi_white_colt",
+    "ru": "Жизнь человека между небом и землёй — как белый жеребёнок, мелькнувший в щели: миг — и нет его.",
+    "en": "Man's life between heaven and earth is like a white colt glimpsed through a crack: a sudden flash, and it is gone.",
+    "author_ru": "Чжуан-цзы",
+    "author_en": "Zhuangzi",
+    "tags": [
+      "short_life",
+      "death"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "huainanzi_old_man_horse",
+    "ru": "Старик с границы потерял коня — кто знает, не к счастью ли это?",
+    "en": "The old man at the frontier lost his horse — who can tell whether it was not a blessing?",
+    "author_ru": "«Хуайнань-цзы»",
+    "author_en": "Huainanzi",
+    "tags": [
+      "chance",
+      "fate"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "libai_quiet_night",
+    "ru": "Подниму голову — смотрю на ясную луну; опущу голову — думаю о родном доме.",
+    "en": "I raise my head and gaze at the bright moon; I lower my head and think of home.",
+    "author_ru": "Ли Бо",
+    "author_en": "Li Bai",
+    "tags": [
+      "homeland",
+      "exile",
+      "travel"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "dufu_state_shattered",
+    "ru": "Страна разбита — горы и реки остались.",
+    "en": "The state is shattered, but the mountains and rivers remain.",
+    "author_ru": "Ду Фу",
+    "author_en": "Du Fu",
+    "tags": [
+      "war",
+      "homeland",
+      "fall"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "sushi_ten_years",
+    "ru": "Десять лет — живой и мёртвая — врозь во мгле. Не думаю о тебе, а забыть не могу.",
+    "en": "Ten years, the living and the dead, apart in boundless dark. I do not try to think of you, yet I cannot forget.",
+    "author_ru": "Су Ши",
+    "author_en": "Su Shi",
+    "tags": [
+      "widowed",
+      "love",
+      "sorrow"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "suntzu_without_fighting",
+    "ru": "Высшее искусство — сломить сопротивление врага, не сражаясь.",
+    "en": "Supreme excellence consists in breaking the enemy's resistance without fighting.",
+    "author_ru": "Сунь-цзы",
+    "author_en": "Sun Tzu",
+    "tags": [
+      "war",
+      "power"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "mencius_heaven_suffering",
+    "ru": "Когда Небо хочет возложить на человека великое дело, оно сперва закаляет его сердце страданием.",
+    "en": "When Heaven is about to confer a great office on any man, it first exercises his mind with suffering.",
+    "author_ru": "Мэн-цзы",
+    "author_en": "Mencius",
+    "tags": [
+      "rise",
+      "survivor",
+      "fate"
+    ],
+    "culture": [
+      "china"
+    ]
+  },
+  {
+    "id": "kenko_uncertainty",
+    "ru": "Именно непостоянство мира и делает его прекрасным.",
+    "en": "It is precisely because the world is uncertain that it is so precious.",
+    "author_ru": "Кэнко-хоси",
+    "author_en": "Yoshida Kenkō",
+    "tags": [
+      "fate",
+      "short_life"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "kenko_before_forty",
+    "ru": "Чем длиннее жизнь, тем больше позора. Лучше всего умереть, не дожив и до сорока.",
+    "en": "The longer you live, the more shame you know. It is best to die before you reach forty.",
+    "author_ru": "Кэнко-хоси",
+    "author_en": "Yoshida Kenkō",
+    "tags": [
+      "short_life"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "kenko_death_behind",
+    "ru": "Смерть приходит не спереди: она уже стоит у тебя за спиной.",
+    "en": "Death does not come from in front; it is already pressing on us from behind.",
+    "author_ru": "Кэнко-хоси",
+    "author_en": "Yoshida Kenkō",
+    "tags": [
+      "death"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "basho_sick_on_journey",
+    "ru": "Заболел в пути — а сны всё бегут и кружат по сухим полям.",
+    "en": "Sick on a journey, my dreams go wandering over withered fields.",
+    "author_ru": "Мацуо Басё",
+    "author_en": "Matsuo Bashō",
+    "tags": [
+      "travel",
+      "dream",
+      "death"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "basho_summer_grasses",
+    "ru": "Летние травы — вот что осталось от снов воинов.",
+    "en": "Summer grasses — all that remains of warriors' dreams.",
+    "author_ru": "Мацуо Басё",
+    "author_en": "Matsuo Bashō",
+    "tags": [
+      "war",
+      "legacy",
+      "dream"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "heike_proud_not_endure",
+    "ru": "Гордые недолговечны, как сон весенней ночью; могучие в конце концов гибнут, как пыль на ветру.",
+    "en": "The proud do not endure, like a dream on a spring night; the mighty fall at last, like dust before the wind.",
+    "author_ru": "«Повесть о доме Тайра»",
+    "author_en": "The Tale of the Heike",
+    "tags": [
+      "fall",
+      "power"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "jp_fall_seven_rise_eight",
+    "ru": "Семь раз упади — восемь раз поднимись.",
+    "en": "Fall seven times, rise eight.",
+    "author_ru": "Японская пословица",
+    "author_en": "Japanese proverb",
+    "tags": [
+      "survivor",
+      "fall",
+      "rise"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "jp_stake_hammered",
+    "ru": "Торчащий кол забивают.",
+    "en": "The stake that sticks out gets hammered down.",
+    "author_ru": "Японская пословица",
+    "author_en": "Japanese proverb",
+    "tags": [
+      "rise",
+      "power"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "jp_stone_three_years",
+    "ru": "Посиди на камне три года — и он согреется.",
+    "en": "Sit on a stone for three years and even it grows warm.",
+    "author_ru": "Японская пословица",
+    "author_en": "Japanese proverb",
+    "tags": [
+      "work",
+      "survivor"
+    ],
+    "culture": [
+      "japan"
+    ]
+  },
+  {
+    "id": "gita_action_not_fruits",
+    "ru": "Тебе дано право лишь на действие, но не на его плоды.",
+    "en": "You have a right to your work alone, never to its fruits.",
+    "author_ru": "«Бхагавадгита»",
+    "author_en": "Bhagavad Gita",
+    "tags": [
+      "work",
+      "fate"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "kabir_clay_potter",
+    "ru": "Глина говорит гончару: что ты меня мнёшь? Придёт день — я сомну тебя.",
+    "en": "The clay says to the potter: why do you knead me? A day will come when I shall knead you.",
+    "author_ru": "Кабир",
+    "author_en": "Kabir",
+    "tags": [
+      "craft",
+      "death"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "kabir_books_love",
+    "ru": "Читая книги, умер весь мир, а мудрецом не стал никто. Кто прочёл два с половиной слога слова «любовь» — тот и мудр.",
+    "en": "Reading books, the whole world died, and none became wise; who reads the two and a half letters of 'love' is wise.",
+    "author_ru": "Кабир",
+    "author_en": "Kabir",
+    "tags": [
+      "learning",
+      "love"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "kabir_tomorrow_today",
+    "ru": "Что собрался сделать завтра — сделай сегодня, что сегодня — сейчас. Миг — и конец: когда же ты успеешь?",
+    "en": "What you would do tomorrow, do today; what today, do now. In a moment the end may come — when will you do it then?",
+    "author_ru": "Кабир",
+    "author_en": "Kabir",
+    "tags": [
+      "work",
+      "short_life"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "kural_children_prattle",
+    "ru": "Сладка флейта, сладка лютня — так говорят те, кто не слышал лепета своих детей.",
+    "en": "\"The pipe is sweet, the lute is sweet,\" say those who have not heard the prattle of their own children.",
+    "author_ru": "Тируваллувар",
+    "author_en": "Thiruvalluvar",
+    "tags": [
+      "many_children",
+      "family",
+      "happiness"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "kural_yesterday_today",
+    "ru": "Вчера он был, сегодня его нет — вот величие этого мира.",
+    "en": "Existing yesterday, today to nothing hurled! Such greatness owns this transitory world.",
+    "author_ru": "Тируваллувар",
+    "author_en": "Thiruvalluvar",
+    "tags": [
+      "death",
+      "fate"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "kural_plough",
+    "ru": "Как бы ни метался мир, он идёт за плугом: при всех тяготах пахота — первое из дел.",
+    "en": "However the world may whirl, it follows the plough; so, for all its toil, farming is the first of trades.",
+    "author_ru": "Тируваллувар",
+    "author_en": "Thiruvalluvar",
+    "tags": [
+      "work",
+      "craft"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "dhammapada_victory_hatred",
+    "ru": "Победа порождает ненависть: побеждённый живёт в горе. Счастлив спокойный, отказавшийся и от победы, и от поражения.",
+    "en": "Victory breeds hatred, for the conquered is unhappy. He who has given up both victory and defeat, he, the contented, is happy.",
+    "author_ru": "«Дхаммапада»",
+    "author_en": "Dhammapada",
+    "tags": [
+      "war",
+      "happiness"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "yaksha_most_wonderful",
+    "ru": "День за днём люди уходят в обитель смерти, а оставшиеся надеются жить вечно. Что может быть удивительнее?",
+    "en": "Day after day people go to the abode of Death, yet those who remain hope to live forever. What could be more wonderful?",
+    "author_ru": "«Махабхарата» (Юдхиштхира — Якше)",
+    "author_en": "Mahabharata (Yudhishthira to the Yaksha)",
+    "tags": [
+      "death",
+      "reason"
+    ],
+    "culture": [
+      "india"
+    ]
+  },
+  {
+    "id": "kebra_nagast_wisdom",
+    "ru": "Мудрость слаще мёда и радует больше вина.",
+    "en": "Wisdom is sweeter than honey, and it maketh one to rejoice more than wine.",
+    "author_ru": "Царица Савская Македа («Кебра Нагаст»)",
+    "author_en": "Queen Makeda of Sheba (Kebra Nagast)",
+    "tags": [
+      "learning",
+      "happiness"
+    ],
+    "culture": [
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "oromo_egg_walks",
+    "ru": "Терпение — и яйцо пойдёт на своих ногах.",
+    "en": "With patience, even an egg will walk on its own legs.",
+    "author_ru": "Пословица оромо (Эфиопия)",
+    "author_en": "Oromo proverb (Ethiopia)",
+    "tags": [
+      "work",
+      "rise",
+      "youth"
+    ],
+    "culture": [
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "amharic_spider_webs",
+    "ru": "Если паутины соединятся, они свяжут льва.",
+    "en": "When spider webs unite, they can tie up a lion.",
+    "author_ru": "Амхарская пословица",
+    "author_en": "Amharic proverb",
+    "tags": [
+      "friendship",
+      "family",
+      "power"
+    ],
+    "culture": [
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "akan_death_ladder",
+    "ru": "По лестнице смерти поднимается не один человек.",
+    "en": "Death's ladder is not climbed by one person alone.",
+    "author_ru": "Пословица акан",
+    "author_en": "Akan proverb",
+    "tags": [
+      "death",
+      "sorrow"
+    ],
+    "culture": [
+      "west_africa"
+    ]
+  },
+  {
+    "id": "akan_sankofa",
+    "ru": "Не зазорно вернуться за тем, что забыл.",
+    "en": "It is not wrong to go back for that which you have forgotten.",
+    "author_ru": "Пословица акан",
+    "author_en": "Akan proverb",
+    "tags": [
+      "legacy",
+      "homeland",
+      "learning"
+    ],
+    "culture": [
+      "west_africa"
+    ]
+  },
+  {
+    "id": "fula_patience_stone",
+    "ru": "Терпением можно сварить и камень.",
+    "en": "Patience can cook a stone.",
+    "author_ru": "Пословица фульбе",
+    "author_en": "Fula proverb",
+    "tags": [
+      "work",
+      "survivor"
+    ],
+    "culture": [
+      "west_africa"
+    ]
+  },
+  {
+    "id": "bambara_log_crocodile",
+    "ru": "Сколько бревно ни лежит в воде, крокодилом оно не станет.",
+    "en": "However long a log stays in the water, it will never become a crocodile.",
+    "author_ru": "Пословица бамбара (Мали)",
+    "author_en": "Bambara proverb (Mali)",
+    "tags": [
+      "exile",
+      "homeland",
+      "fate"
+    ],
+    "culture": [
+      "west_africa"
+    ]
+  },
+  {
+    "id": "bambara_empty_sack",
+    "ru": "Пустой мешок не стоит.",
+    "en": "An empty sack doesn't stand.",
+    "author_ru": "Пословица бамбара (Мали)",
+    "author_en": "Bambara proverb (Mali)",
+    "tags": [
+      "poor",
+      "work"
+    ],
+    "culture": [
+      "west_africa"
+    ]
+  },
+  {
+    "id": "timbuktu_treasures_wisdom",
+    "ru": "Соль приходит с севера, золото — с юга, а слово Божье и сокровища мудрости — только в Тимбукту.",
+    "en": "Salt comes from the north, gold from the south, but the word of God and the treasures of wisdom are found only in Timbuktu.",
+    "author_ru": "Пословица Тимбукту (Мали)",
+    "author_en": "Timbuktu proverb (Mali)",
+    "tags": [
+      "trade",
+      "learning",
+      "homeland"
+    ],
+    "culture": [
+      "west_africa"
+    ]
+  },
+  {
+    "id": "popolvuh_saliva_descendants",
+    "ru": "В моей слюне я дал тебе потомство. Уходя, отец не исчезает — он оставляет себя сыновьям и дочерям.",
+    "en": "In my saliva I have given you my descendants: a father does not vanish when he goes — he leaves himself to his children.",
+    "author_ru": "«Пополь-Вух» (череп Хун-Хунахпу — деве Шкик)",
+    "author_en": "Popol Vuh (the skull of Hun Hunahpu to the maiden Xquic)",
+    "tags": [
+      "family",
+      "legacy",
+      "many_children"
+    ],
+    "culture": [
+      "maya"
+    ]
+  },
+  {
+    "id": "nezahualcoyotl_jade_breaks",
+    "ru": "Неужели и вправду живут на земле? Не навсегда на земле — лишь ненадолго здесь. Даже нефрит раскалывается.",
+    "en": "Do we truly live on earth? Not forever on earth, only a little while here. Even jade breaks; even gold cracks.",
+    "author_ru": "Несауалькойотль",
+    "author_en": "Nezahualcoyotl",
+    "tags": [
+      "short_life",
+      "death"
+    ],
+    "culture": [
+      "americas"
+    ]
+  },
+  {
+    "id": "nezahualcoyotl_painting",
+    "ru": "Как рисунок, мы сотрёмся; как цветок, засохнем на земле.",
+    "en": "Like a painting we will be erased; like a flower we will wither here on earth.",
+    "author_ru": "Несауалькойотль",
+    "author_en": "Nezahualcoyotl",
+    "tags": [
+      "death",
+      "legacy"
+    ],
+    "culture": [
+      "americas"
+    ]
+  },
+  {
+    "id": "pachacuti_count_stars",
+    "ru": "Кто хочет сосчитать звёзды, ещё не умея считать узелки на кипу, достоин смеха.",
+    "en": "He who would count the stars, not yet knowing how to count the knots of the quipu, deserves to be laughed at.",
+    "author_ru": "Пачакутек (по Гарсиласо де ла Веге)",
+    "author_en": "Pachacuti (as recorded by Garcilaso de la Vega)",
+    "tags": [
+      "learning",
+      "reason"
+    ],
+    "culture": [
+      "americas"
+    ]
+  },
+  {
+    "id": "pachacuti_herbalist",
+    "ru": "Лекарь, что знает лишь некоторые травы, знает мало или ничего: пусть изучит все — и целебные, и ядовитые.",
+    "en": "A herbalist who knows only some herbs knows little or nothing; he must learn them all, the healing and the poisonous alike.",
+    "author_ru": "Пачакутек (по Гарсиласо де ла Веге)",
+    "author_en": "Pachacuti (as recorded by Garcilaso de la Vega)",
+    "tags": [
+      "healer",
+      "learning",
+      "craft"
+    ],
+    "culture": [
+      "americas"
+    ]
+  },
+  {
+    "id": "shakespeare_true_love",
+    "ru": "Путь истинной любви никогда не бывает гладким.",
+    "en": "The course of true love never did run smooth.",
+    "author_ru": "Уильям Шекспир",
+    "author_en": "William Shakespeare",
+    "tags": [
+      "love",
+      "marriage"
+    ],
+    "culture": [
+      "europe"
+    ]
+  }
+]

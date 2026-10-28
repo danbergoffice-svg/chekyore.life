@@ -120,11 +120,11 @@ export function lifeThemes(life: LifeSummary): Record<string, number> {
   if (age < 25) add('short_life', 3)
   if (age < 18) add('youth', 2)
   if (f.children >= 6) add('many_children', 2.5)
-  if (f.children >= 3 || f.grandchildren >= 3) add('family', 1.5)
+  if (f.children >= 3 || f.grandchildren >= 3) add('family', 1)
   if (greatGrandchildren(life) > 0 || f.grandchildren >= 8) add('legacy', 2.5)
   if (age >= 40 && f.children === 0) add('childless', 2)
   if (widowings(life) >= 1) add('widowed', 1.5 + widowings(life))
-  if (f.partners.length >= 1) add('love', 1)
+  if (f.partners.length >= 1) add('love', 0.8)
   if (f.partners.length >= 2) add('marriage', 1.5)
   if (age >= 40 && f.partners.length === 0) add('lonely', 2)
   if (rose(life)) add('rise', 3.5)
@@ -135,8 +135,8 @@ export function lifeThemes(life: LifeSummary): Record<string, number> {
   if (f.percentile <= 25 || (life.tags ?? []).includes('in_debt')) add('poor', 2)
   const job = jobTheme(life.profession)
   if (job) add(job, 3)
-  if (job === 'craft' || life.cls === 'craftsman') add('work', 1)
-  if (life.cls === 'peasant') add('work', 1.5)
+  if (job === 'craft' || life.cls === 'craftsman') add('work', 0.8)
+  if (life.cls === 'peasant') add('work', 1)
   if (life.dreamSeen && !life.dreamSeen.skipped) add('dream', 2.5)
   if (life.dreamSeen?.outcome === 'breakthrough') add('reason', 2)
   if (life.abroad) add(life.returned ? 'homeland' : 'exile', 3)
@@ -157,8 +157,14 @@ function hash(s: string): number {
   return (h >>> 0) / 4294967296
 }
 
-/** Афоризмы для жизни — от самого подходящего: темы жизни × теги цитаты, бонус мудрецам своей страны. */
+/** Афоризмы для жизни — от самого подходящего: темы жизни × теги цитаты, бонус мудрецам своей страны. Среди близких
+ *  по смыслу (не хуже 60% лучшего, до 10 штук) первый выбирается по жизни — у похожих жизней разные афоризмы,
+ *  а у одной и той же — всегда один. */
 export function rankQuotes(life: LifeSummary, quotes: Quote[], folder: string, themes = lifeThemes(life)): Quote[] {
-  const score = (q: Quote) => q.tags.reduce((s, tag) => s + (themes[tag] ?? 0), 0) / Math.sqrt(q.tags.length) + (q.culture?.includes(folder) ? 1.5 : 0) + hash(life.heroId + q.id) * 0.8
-  return [...quotes].sort((a, b) => score(b) - score(a))
+  const base = new Map(quotes.map((q) => [q, q.tags.reduce((s, tag) => s + (themes[tag] ?? 0), 0) / Math.sqrt(q.tags.length) + (q.culture?.includes(folder) ? 1 : 0)]))
+  const sorted = [...quotes].sort((a, b) => base.get(b)! - base.get(a)!)
+  const best = base.get(sorted[0]) ?? 0
+  const pool = sorted.filter((q) => base.get(q)! >= best * 0.6).slice(0, 10)
+  pool.sort((a, b) => hash(life.heroId + a.id) - hash(life.heroId + b.id))
+  return [...pool, ...sorted.filter((q) => !pool.includes(q))]
 }

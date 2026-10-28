@@ -70,7 +70,7 @@ export function lifeCardData(
   const themes = ds ? { dream: 3, reason: 2, learning: 2, fate: 1 } : lifeThemes(life)
   const quotes = rankQuotes(life, opts.quotes, ERA_FOLDER[life.era] ?? '', themes)
     .slice(0, 8)
-    .map((q) => ({ text: lang === 'ru' ? q.ru : q.en, author: lang === 'ru' ? q.author_ru : q.author_en }))
+    .map((q) => ({ text: lang === 'ru' ? `«${q.ru}»` : `“${q.en}”`, author: lang === 'ru' ? q.author_ru : q.author_en }))
   const ages = portraitAges(life)
   let hook = hooks[0]
   let hook2 = highlights[1] && highlights[1].score >= 50 ? hooks[1] : undefined
@@ -98,7 +98,7 @@ export function lifeCardData(
     hook2,
     quotes,
     portraits: ages.map((age, i) => ({ input: portraitInput(life, age, i === ages.length - 1), label: t('summary.portrait_age', { n: age }) })),
-    playerLine: opts.playerLine ? `«${opts.playerLine}»` : '',
+    playerLine: opts.playerLine ? (lang === 'ru' ? `«${opts.playerLine}»` : `“${opts.playerLine}”`) : '',
     cta: t('card.cta'),
     site: opts.site,
     region: life.region,

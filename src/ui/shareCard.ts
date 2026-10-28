@@ -28,7 +28,7 @@ export interface CardData {
   /** Самый яркий факт и, если есть место, второй. */
   hook: string
   hook2?: string
-  /** Афоризмы от самого подходящего: на карточку идёт первый, что помещается. */
+  /** Афоризмы от самого подходящего (уже в кавычках языка): на карточку идёт первый, что помещается. */
   quotes: { text: string; author: string }[]
   portraits: { input: AvatarInput; label: string }[]
   /** Строка игрока «каково было прожить эту жизнь». */
@@ -328,10 +328,10 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
   const quoteSection = (maxLines: number): Section | null => {
     const quote = d.quotes.find((q) => {
       ctx.font = `italic 400 ${L.quote}px ${SERIF}`
-      return wrap(ctx, `«${q.text}»`, textW).length <= maxLines
+      return wrap(ctx, q.text, textW).length <= maxLines
     }) ?? d.quotes[0]
     if (!quote) return null
-    const q = block(ctx, `«${quote.text}»`, (px) => `italic 400 ${px}px ${SERIF}`, L.quote, Math.round(L.quote * 0.8), textW, maxLines)
+    const q = block(ctx, quote.text, (px) => `italic 400 ${px}px ${SERIF}`, L.quote, Math.round(L.quote * 0.8), textW, maxLines)
     const player = d.playerLine && L.player ? block(ctx, d.playerLine, (px) => `italic 400 ${px}px ${SERIF}`, L.player, L.player, textW, 1) : null
     const qH = q.lines.length * q.px * 1.25
     return {
@@ -408,11 +408,11 @@ function drawWide(ctx: CanvasRenderingContext2D, cw: number, ch: number, d: Card
   }
   const quote = d.quotes.find((q) => {
     ctx.font = `italic 400 28px ${SERIF}`
-    return wrap(ctx, `«${q.text}»`, w).length <= 3
+    return wrap(ctx, q.text, w).length <= 3
   }) ?? d.quotes[0]
   if (quote) {
     y += 30
-    const q = block(ctx, `«${quote.text}»`, (px) => `italic 400 ${px}px ${SERIF}`, 28, 22, w, 3)
+    const q = block(ctx, quote.text, (px) => `italic 400 ${px}px ${SERIF}`, 28, 22, w, 3)
     for (const l of q.lines) {
       y += q.px * 1.25
       ctx.font = `italic 400 ${q.px}px ${SERIF}`

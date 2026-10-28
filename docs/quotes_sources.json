@@ -1,0 +1,854 @@
+[
+  {
+    "id": "seneca_play",
+    "source": "Нравственные письма к Луцилию, 77, 20 («Quomodo fabula, sic vita…»)",
+    "check": "https://ethicsofsuicide.lib.utah.edu/selections/seneca/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "seneca_time_wasted",
+    "source": "О скоротечности жизни, 1, 3 («Non exiguum temporis habemus, sed multum perdidimus»)",
+    "check": "https://sententiaeantiquae.com/tag/time/page/3/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "seneca_fate",
+    "source": "Нравственные письма к Луцилию, 107, 11 (переложение гимна Клеанфа)",
+    "check": "https://qcurtius.com/2018/08/27/surge-and-consolidate-surge-and-recuperate/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "seneca_poor",
+    "source": "Нравственные письма к Луцилию, 2, 6",
+    "check": "https://caninalittera.blogspot.com/2020/04/what-is-wealth-seneca-epistulae-125-6.html",
+    "translation": "ru: own, en: public (R. M. Gummere, 1917)"
+  },
+  {
+    "id": "marcus_ten_thousand",
+    "source": "Размышления, IV, 17",
+    "check": "https://lexundria.com/m_aur_med/4.17/lg",
+    "translation": "ru: own, en: public (G. Long, 1862)"
+  },
+  {
+    "id": "marcus_forget",
+    "source": "Размышления, VII, 21",
+    "check": "https://lexundria.com/m_aur_med/7.21/lg",
+    "translation": "ru: own, en: public (G. Long, 1862)"
+  },
+  {
+    "id": "epictetus_returned",
+    "source": "Энхиридион (Краткое руководство), 11",
+    "check": "https://classics.mit.edu/Epictetus/epicench.html",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "horace_carpe_diem",
+    "source": "Оды, I, 11 («Carpe diem, quam minimum credula postero»)",
+    "check": "https://classicalanthology.theclassicslibrary.com/2020/08/06/carpe-diem-odes-1-11/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "horace_pallida_mors",
+    "source": "Оды, I, 4, 13–14",
+    "check": "https://fgh.perseids.org/read/latinLit/phi0893/phi001/perseus-lat2/1.4.9-1.4.16",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "heraclitus_river",
+    "source": "Фрагмент B91 (Плутарх; ср. Платон, «Кратил», 402a)",
+    "check": "https://www.perseus.tufts.edu/hopper/text?doc=Plat.+Crat.+402a",
+    "translation": "ru: public, en: public"
+  },
+  {
+    "id": "solon_happy",
+    "source": "Геродот, История, I, 32 (беседа Солона с Крёзом)",
+    "check": "https://sourcebooks.web.fordham.edu/ancient/herodotus-creususandsolon.asp",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "hippocrates_ars_longa",
+    "source": "Афоризмы, I, 1",
+    "check": "https://en.wikipedia.org/wiki/Ars_longa,_vita_brevis",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "caesar_first",
+    "source": "Плутарх, Цезарь, 11 (о бедной альпийской деревушке)",
+    "check": "https://lexundria.com/plut_caes/11/prr",
+    "translation": "ru: own, en: public (B. Perrin, 1919)"
+  },
+  {
+    "id": "caesar_alea",
+    "source": "Светоний, Божественный Юлий, 32 (переход Рубикона, 49 г. до н. э.)",
+    "check": "https://en.wikipedia.org/wiki/Alea_iacta_est",
+    "translation": "ru: public, en: public"
+  },
+  {
+    "id": "virgil_forsan",
+    "source": "Энеида, I, 203 («Forsan et haec olim meminisse iuvabit»)",
+    "check": "https://medium.com/in-medias-res/forsan-et-haec-olim-meminisse-iuvabit-will-remembering-help-or-please-d631c8829886",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "ovid_friends",
+    "source": "Скорбные элегии, I, 9, 5–6 (написано в ссылке у Чёрного моря)",
+    "check": "https://oviddaily.substack.com/p/tristia-19",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "diogenes_sun",
+    "source": "Плутарх, Александр, 14",
+    "check": "https://lexundria.com/plut_alex/14/prr",
+    "translation": "ru: own, en: public (B. Perrin, 1919)"
+  },
+  {
+    "id": "homer_homeland",
+    "source": "Одиссея, IX, 34",
+    "check": "https://www.theoi.com/Text/HomerOdyssey9.html",
+    "translation": "ru: own, en: public (A. T. Murray, 1919)"
+  },
+  {
+    "id": "eccl_time_chance",
+    "source": "Екклесиаст 9:11",
+    "check": "https://azbyka.ru/biblia/?Eccl.9:11",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "eccl_two_better",
+    "source": "Екклесиаст 4:9–10",
+    "check": "https://azbyka.ru/biblia/?Eccl.4:9-10",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "eccl_for_whom",
+    "source": "Екклесиаст 4:8",
+    "check": "https://azbyka.ru/biblia/?Eccl.4:8",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "eccl_sleep_labourer",
+    "source": "Екклесиаст 5:11 (в KJV — 5:12)",
+    "check": "https://azbyka.ru/biblia/?Eccl.5:11",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "eccl_living_dog",
+    "source": "Екклесиаст 9:4",
+    "check": "https://azbyka.ru/biblia/?Eccl.9:4",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "prov_pride",
+    "source": "Притчи 16:18",
+    "check": "https://azbyka.ru/biblia/?Prov.16:18",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "prov_grandchildren",
+    "source": "Притчи 17:6",
+    "check": "https://azbyka.ru/biblia/?Prov.17:6",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "psalm_seventy",
+    "source": "Псалом 89:10 (в KJV — 90:10)",
+    "check": "https://azbyka.ru/biblia/?Ps.89:10",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "psalm_babylon",
+    "source": "Псалом 136:1 (в KJV — 137:1)",
+    "check": "https://azbyka.ru/biblia/?Ps.136:1",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "job_gave_took",
+    "source": "Иов 1:21",
+    "check": "https://azbyka.ru/biblia/?Job.1:21",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "wisdom_childless",
+    "source": "Премудрость Соломона 4:1",
+    "check": "https://azbyka.ru/biblia/?Wis.4:1",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV Apocrypha)"
+  },
+  {
+    "id": "song_love_death",
+    "source": "Песнь песней 8:6–7",
+    "check": "https://azbyka.ru/biblia/?Song.8:6-7",
+    "translation": "ru: public (Синодальный перевод), en: public (KJV)"
+  },
+  {
+    "id": "chrysostom_glory",
+    "source": "Предсмертные слова (407 г.; Палладий, «Диалог о жизни Иоанна Златоуста», 11)",
+    "check": "https://en.wikipedia.org/wiki/John_Chrysostom",
+    "translation": "ru: public, en: public"
+  },
+  {
+    "id": "montaigne_cabbage",
+    "source": "Опыты, I, 20 «О том, что философствовать — значит учиться умирать»",
+    "check": "https://wist.info/montaigne-michel-de/8109/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "montaigne_friend",
+    "source": "Опыты, I, 28 «О дружбе» — о покойном друге Этьене де Ла Боэси",
+    "check": "https://blog.oup.com/2017/03/friendship-michel-de-montaigne/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "dante_salt_bread",
+    "source": "Божественная комедия, Рай, XVII, 58–60 (пророчество об изгнании Данте)",
+    "check": "https://riowang.studiolum.com/node/1185",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "dante_no_greater_sorrow",
+    "source": "Божественная комедия, Ад, V, 121–123 (слова Франчески да Римини)",
+    "check": "https://en.wikisource.org/wiki/Divine_Comedy_(Longfellow_1867)/Volume_1/Canto_5",
+    "translation": "ru: own, en: public (H. W. Longfellow, 1867)"
+  },
+  {
+    "id": "petrarch_good_death",
+    "source": "Канцоньере, 207 («Un bel morir tutta la vita onora»)",
+    "check": "https://sapere.virgilio.it/aforismi/citazione/un-bel-morir-tutta-la-vita-onora-9999",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "leonardo_day_well_spent",
+    "source": "Записные книжки (Кодекс Тривульцио; изд. Рихтера, № 1173)",
+    "check": "https://www.fromoldbooks.org/R.bak/section-19/item-1173.html",
+    "translation": "ru: own, en: public (J. P. Richter, 1883)"
+  },
+  {
+    "id": "pare_dressed_god_healed",
+    "source": "Записи полевого хирурга (поход в Пьемонт, 1537), позже — девиз Паре",
+    "check": "https://en.wikipedia.org/wiki/Ambroise_Par%C3%A9",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kempis_proposes",
+    "source": "О подражании Христу, I, 19 («Homo proponit, sed Deus disponit»)",
+    "check": "https://age-of-the-sage.org/quotations/quotes/man_proposes_but_god_disposes.html",
+    "translation": "ru: public, en: public"
+  },
+  {
+    "id": "bacon_hostages",
+    "source": "Опыты, «О браке и безбрачии»",
+    "check": "https://knarf.english.upenn.edu/EtAlia/bacon8.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "bacon_childless",
+    "source": "Опыты, «О родителях и детях»",
+    "check": "https://westegg.com/bacon/parents.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "cervantes_haves",
+    "source": "Дон Кихот, ч. II, гл. 20",
+    "check": "https://wist.info/author/cervantes-miguel-de/",
+    "translation": "ru: own, en: public (J. Ormsby, 1885)"
+  },
+  {
+    "id": "cervantes_freedom",
+    "source": "Дон Кихот, ч. II, гл. 58",
+    "check": "https://dialnet.unirioja.es/descarga/articulo/1993425.pdf",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "chaucer_craft",
+    "source": "Птичий парламент, строка 1",
+    "check": "https://en.wikisource.org/wiki/Chaucer%27s_Works_(ed._Skeat)_Vol._I/V",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "shakespeare_stage",
+    "source": "Как вам это понравится, II, 7",
+    "check": "https://shakespeare.mit.edu/asyoulikeit/asyoulikeit.2.7.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "shakespeare_idiot_tale",
+    "source": "Макбет, V, 5",
+    "check": "https://shakespeare.mit.edu/macbeth/macbeth.5.5.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "shakespeare_cowards",
+    "source": "Юлий Цезарь, II, 2",
+    "check": "https://shakespeare.mit.edu/julius_caesar/julius_caesar.2.2.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "shakespeare_tide",
+    "source": "Юлий Цезарь, IV, 3",
+    "check": "https://shakespeare.mit.edu/julius_caesar/julius_caesar.4.3.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "shakespeare_crown",
+    "source": "Генрих IV, часть 2, III, 1",
+    "check": "https://shakespeare.mit.edu/2henryiv/2henryiv.3.1.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "shakespeare_dreams",
+    "source": "Буря, IV, 1",
+    "check": "https://shakespeare.mit.edu/tempest/tempest.4.1.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "twain_report_death",
+    "source": "Записка для New York Journal, 2 июня 1897 г.",
+    "check": "https://quoteinvestigator.com/2024/06/07/report-death/",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "twain_undertaker",
+    "source": "Простофиля Вильсон (1894), «Календарь Простофили Вильсона»",
+    "check": "https://twainquotes.com/Undertaker.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "wilde_old_age",
+    "source": "Портрет Дориана Грея, гл. XIX (лорд Генри)",
+    "check": "https://www.goodreads.com/notes/123982056-the-picture-of-dorian-gray/126052836-meghan-mcclain?page=7",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "wilde_children_forgive",
+    "source": "Женщина, не стоящая внимания (1893), реплика лорда Иллингворта",
+    "check": "https://www.semicolonblog.com/tag/oscar-wilde/",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "wilde_marry_tired",
+    "source": "Портрет Дориана Грея, гл. IV (лорд Генри)",
+    "check": "https://app.shmoop.com/study-guides/picture-dorian-gray/sexuality-sexual-identity-quotes.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "wilde_live_rarest",
+    "source": "Душа человека при социализме (1891)",
+    "check": "https://en.wikipedia.org/wiki/The_Soul_of_Man_Under_Socialism",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "franklin_death_taxes",
+    "source": "Письмо Ж.-Б. Леруа, 13 ноября 1789 г.",
+    "check": "https://en.wikipedia.org/wiki/Death_and_taxes_(idiom)",
+    "translation": "ru: own, en: public (англ. перевод письма, 1817)"
+  },
+  {
+    "id": "franklin_doctor_fees",
+    "source": "Альманах Бедного Ричарда, 1736",
+    "check": "https://founders.archives.gov/documents/Franklin/01-02-02-0019",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "bierce_longevity",
+    "source": "Словарь Сатаны (1911), статья «Долголетие»",
+    "check": "https://stoppingpoints.com/devils-dictionary/longevity.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "bierce_exile",
+    "source": "Словарь Сатаны (1911), статья «Изгнанник»",
+    "check": "https://stoppingpoints.com/devils-dictionary/exile.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "bierce_alone",
+    "source": "Словарь Сатаны (1911), статья «Один»",
+    "check": "https://www.mentalfloss.com/language/words/words-redefined-37-notable-entries-devils-dictionary",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "johnson_second_marriage",
+    "source": "Джеймс Босуэлл, «Жизнь Сэмюэла Джонсона» (1791), запись 1770 г. — о вдовце, который поспешно женился снова",
+    "check": "https://phrases.org.uk/meanings/hope-over-experience.html",
+    "translation": "ru: own, en: own (сжатый пересказ записи Босуэлла: «it was the triumph of hope over experience»)"
+  },
+  {
+    "id": "swift_live_long",
+    "source": "Мысли о разных предметах (1706–1711)",
+    "check": "https://essays.quotidiana.org/swift/thoughts_on_various_subjects/",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "nietzsche_stronger",
+    "source": "Сумерки идолов (1888), «Изречения и стрелы», 8",
+    "check": "https://theanarchistlibrary.org/library/friedrich-nietzsche-twilight-of-the-idols",
+    "translation": "ru: public, en: public"
+  },
+  {
+    "id": "tennyson_loved_lost",
+    "source": "In Memoriam A. H. H., XXVII (1850)",
+    "check": "https://monadnock.net/tennyson/mem-27.html",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "kierkegaard_backwards",
+    "source": "Дневники, 1843 (Papirer IV A 164)",
+    "check": "https://homepage.divms.uiowa.edu/~jorgen/kierkegaardquotesource.html",
+    "translation": "ru: own, en: public"
+  },
+  {
+    "id": "voltaire_garden",
+    "source": "Кандид, или Оптимизм (1759), последняя фраза",
+    "check": "https://www.schoolmouv.fr/cours/un-conte-philosophique-au-xviiie-siecle-candide-de-voltaire/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "monomakh_laziness",
+    "source": "Поучение (Лаврентьевская летопись): «Лѣность бо всему мати: еже умѣеть, то забудеть, а егоже не умѣеть, а тому ся не учить»",
+    "check": "https://dic.academic.ru/dic.nsf/russian_history/11036/%D0%9F%D0%9E%D0%A3%D0%A7%D0%95%D0%9D%D0%98%D0%95",
+    "translation": "ru: own (с древнерусского), en: own"
+  },
+  {
+    "id": "sviatoslav_dead_no_shame",
+    "source": "Повесть временных лет, под 971 г. (речь перед битвой с греками)",
+    "check": "https://www.drevnyaya.ru/vyp/2015_4/part_5.pdf",
+    "translation": "ru: original (летописная формула в близкой к тексту форме), en: own"
+  },
+  {
+    "id": "slovo_slain_not_captive",
+    "source": "Слово о полку Игореве: «Луце жъ бы потяту быти, неже полонену быти»",
+    "check": "https://ru.wikisource.org/wiki/%D0%A1%D0%BB%D0%BE%D0%B2%D0%BE_%D0%BE_%D0%BF%D0%BE%D0%BB%D0%BA%D1%83_%D0%98%D0%B3%D0%BE%D1%80%D0%B5%D0%B2%D0%B5_(%D0%9C%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2)",
+    "translation": "ru: own (с древнерусского), en: own"
+  },
+  {
+    "id": "pushkin_peace_freedom",
+    "source": "«Пора, мой друг, пора! покоя сердце просит…» (1834)",
+    "check": "https://fantlab.ru/work149503",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "pushkin_some_are_gone",
+    "source": "Евгений Онегин, гл. 8, строфа LI (отсылка к «Бустану» Саади)",
+    "check": "https://ru.wikisource.org/wiki/%D0%95%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B9_%D0%9E%D0%BD%D0%B5%D0%B3%D0%B8%D0%BD._%D0%93%D0%BB%D0%B0%D0%B2%D0%B0_8_(%D0%9F%D1%83%D1%88%D0%BA%D0%B8%D0%BD)",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "griboyedov_smoke",
+    "source": "Горе от ума, д. I, явл. 7 (Чацкий)",
+    "check": "https://www.techinsider.ru/popmem/1620893-schastlivye-chasov-ne-nablyudayut-yarkie-citaty-iz-russkoi-klassicheskoi-literatury/",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "lermontov_bored_sad",
+    "source": "«И скучно и грустно…» (1840)",
+    "check": "https://ru.wikisource.org/wiki/%D0%98_%D1%81%D0%BA%D1%83%D1%87%D0%BD%D0%BE_%D0%B8_%D0%B3%D1%80%D1%83%D1%81%D1%82%D0%BD%D0%BE_(%D0%9B%D0%B5%D1%80%D0%BC%D0%BE%D0%BD%D1%82%D0%BE%D0%B2)",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "tolstoy_happy_families",
+    "source": "Анна Каренина, ч. I, гл. I",
+    "check": "https://ru.wikisource.org/wiki/%D0%90%D0%BD%D0%BD%D0%B0_%D0%9A%D0%B0%D1%80%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0_(%D0%A2%D0%BE%D0%BB%D1%81%D1%82%D0%BE%D0%B9)/%D0%A7%D0%B0%D1%81%D1%82%D1%8C_I/%D0%93%D0%BB%D0%B0%D0%B2%D0%B0_I",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "tolstoy_ivan_ilyich",
+    "source": "Смерть Ивана Ильича (1886), гл. II",
+    "check": "https://human.libretexts.org/Bookshelves/Languages/Russian/The_Death_of_Ivan_Ilich%3A_An_Electronic_Study_Edition_of_the_Russian_Text_(Jahn)/04%3A_The_Russian_and_English_texts_of_The_Death_of_Ivan_Ilich_Presented_Side_by_Side/4.02%3A_Chapter_2",
+    "translation": "ru: original, en: public (Louise and Aylmer Maude)"
+  },
+  {
+    "id": "chekhov_many_remedies",
+    "source": "Вишнёвый сад (1903), д. I (Гаев)",
+    "check": "https://ru.wikisource.org/wiki/%D0%92%D0%B8%D1%88%D0%BD%D1%91%D0%B2%D1%8B%D0%B9_%D1%81%D0%B0%D0%B4_(%D0%A7%D0%B5%D1%85%D0%BE%D0%B2)",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "chekhov_life_passed",
+    "source": "Вишнёвый сад (1903), финал, д. IV (Фирс)",
+    "check": "https://ru.wikisource.org/wiki/%D0%92%D0%B8%D1%88%D0%BD%D1%91%D0%B2%D1%8B%D0%B9_%D1%81%D0%B0%D0%B4_(%D0%A7%D0%B5%D1%85%D0%BE%D0%B2)",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "ru_two_deaths",
+    "source": "В. И. Даль, Толковый словарь, статья «Два»",
+    "check": "https://booksite.ru/fulltext/dal/00/302.htm",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "ru_live_learn_fool",
+    "source": "В. И. Даль, Толковый словарь, статья «Век»",
+    "check": "https://booksite.ru/fulltext/dal/00/134.htm",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "ru_trust_god",
+    "source": "В. И. Даль, Пословицы русского народа, раздел «Верное — надёжное»",
+    "check": "https://ru.wikisource.org/wiki/%D0%9F%D0%BE%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%86%D1%8B_%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%B0_(%D0%94%D0%B0%D0%BB%D1%8C)/%D0%92%D0%B5%D1%80%D0%BD%D0%BE%D0%B5_%E2%80%94_%D0%9D%D0%B0%D0%B4%D0%B5%D0%B6%D0%BD%D0%BE%D0%B5",
+    "translation": "ru: original, en: own"
+  },
+  {
+    "id": "mutanabbi_winds_ships",
+    "source": "Диван, касыда, написанная в Египте после ложных слухов о его смерти (X в.)",
+    "check": "https://diwanalarab.com/%D8%A7%D9%84%D9%85%D8%AA%D9%86%D8%A8%D9%8A-68531.html",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "mutanabbi_horse_night",
+    "source": "Диван, касыда-самовосхваление («Я тот, чьи стихи увидел и слепой…»)",
+    "check": "https://mawdoo3.com/%D8%A3%D8%A8%D9%8A%D8%A7%D8%AA_%D8%B4%D8%B9%D8%B1_%D8%A7%D9%84%D9%85%D8%AA%D9%86%D8%A8%D9%8A_%D9%81%D9%8A_%D9%85%D8%AF%D8%AD_%D9%86%D9%81%D8%B3%D9%87",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "rumi_reed_home",
+    "source": "Маснави, кн. I, «Песнь тростника»",
+    "check": "https://dar-al-masnavi.org/reedsong.html",
+    "translation": "ru: own, en: public (E. H. Whinfield, 1887)"
+  },
+  {
+    "id": "saadi_sons_of_adam",
+    "source": "Гулистан, гл. I, рассказ 10",
+    "check": "https://quotepark.com/works/gulistan-of-sadi-1530/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "saadi_wealth_learning",
+    "source": "Гулистан, гл. VIII, изречение 2",
+    "check": "https://classics.mit.edu/Sadi/gulistan.9.viii.html",
+    "translation": "ru: own, en: public (по переводу E. Rehatsek, 1888)"
+  },
+  {
+    "id": "khayyam_moving_finger",
+    "source": "Рубайят Омара Хайяма, LI (изд. 1859)",
+    "check": "https://en.wikipedia.org/wiki/Rubaiyat_of_Omar_Khayyam",
+    "translation": "ru: own, en: public (E. FitzGerald, 1859)"
+  },
+  {
+    "id": "ibn_khaldun_four_generations",
+    "source": "Мукаддима, ч. II, гл. 14",
+    "check": "https://spblist.pages.dev/research/ibn-khaldun/muqaddimah/chapter-2/part-13",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "ibn_battuta_nests",
+    "source": "Путешествие (Рихла): отъезд из Танжера в 21 год, 1325 г.",
+    "check": "https://en.wikipedia.org/wiki/Ibn_Battuta",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "gilgamesh_life_you_seek",
+    "source": "Эпос о Гильгамеше, старовавилонская версия (табличка из Сиппара)",
+    "check": "https://www.cs.utexas.edu/~vl/notes/gilgamesh.html",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "gilgamesh_child_hand",
+    "source": "Эпос о Гильгамеше, старовавилонская версия (табличка из Сиппара)",
+    "check": "https://en.wikipedia.org/wiki/Epic_of_Gilgamesh",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "gilgamesh_but_wind",
+    "source": "Эпос о Гильгамеше, старовавилонская Йельская табличка (перед походом на Хуваву)",
+    "check": "https://gutenberg.org/ebooks/11000.html.images",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "ptahhotep_no_perfect_artist",
+    "source": "Поучение Птахотепа, максима 1 (папирус Присса)",
+    "check": "https://www.ucl.ac.uk/museums-static/digitalegypt/literature/ptahhotep.html",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "ptahhotep_old_age",
+    "source": "Поучение Птахотепа, вступление (просьба старого везира об отставке)",
+    "check": "https://www.ucl.ac.uk/museums-static/digitalegypt/literature/ptahhotep.html",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "harper_make_holiday",
+    "source": "Песнь арфиста (Древний Египет; список Нового царства)",
+    "check": "https://en.wikipedia.org/wiki/Harper%27s_Songs",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "sumer_silver_grain_livestock",
+    "source": "Шумерские пословицы из Ура (ETCSL 6.2.3)",
+    "check": "https://etcsl.orinst.ox.ac.uk/proverbs/t.6.2.3.html",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "shelley_ozymandias",
+    "source": "Озимандия (1818) — о разбитой статуе Рамсеса II",
+    "check": "https://en.wikipedia.org/wiki/Ozymandias",
+    "translation": "ru: own, en: original"
+  },
+  {
+    "id": "confucius_life_death",
+    "source": "Лунь юй, XI, 12 («未知生，焉知死»)",
+    "check": "https://ctext.org/analects/xian-jin",
+    "translation": "ru: own, en: public (J. Legge, 1861)"
+  },
+  {
+    "id": "confucius_morning_way",
+    "source": "Лунь юй, IV, 8 («朝聞道，夕死可矣»)",
+    "check": "https://ctext.org/analects/li-ren",
+    "translation": "ru: own, en: public (J. Legge, 1861)"
+  },
+  {
+    "id": "laozi_thousand_li",
+    "source": "Дао дэ цзин, 64 («千里之行，始於足下»)",
+    "check": "https://ctext.org/dao-de-jing",
+    "translation": "ru: own, en: public (J. Legge, 1891)"
+  },
+  {
+    "id": "laozi_misery_happiness",
+    "source": "Дао дэ цзин, 58 («禍兮福之所倚，福兮禍之所伏»)",
+    "check": "https://ctext.org/dao-de-jing",
+    "translation": "ru: own, en: public (J. Legge, 1891)"
+  },
+  {
+    "id": "zhuangzi_butterfly",
+    "source": "Чжуан-цзы, гл. 2 «Уравнивание вещей»",
+    "check": "https://ctext.org/zhuangzi/adjustment-of-controversies",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "zhuangzi_white_colt",
+    "source": "Чжуан-цзы, гл. 22 «Знание странствует на север» («若白駒之過郤»)",
+    "check": "https://ctext.org/zhuangzi/knowledge-rambling-in-the-north",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "huainanzi_old_man_horse",
+    "source": "Хуайнань-цзы, гл. 18, притча о Сай Вэне («塞翁失馬，焉知非福»)",
+    "check": "https://en.wikipedia.org/wiki/Sai_Weng_Lost_His_Horse",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "libai_quiet_night",
+    "source": "«Думы тихой ночью» («舉頭望明月，低頭思故鄉»)",
+    "check": "https://en.wikipedia.org/wiki/Quiet_Night_Thought",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "dufu_state_shattered",
+    "source": "«Весенний пейзаж» (757, в занятом мятежниками Чанъане) («國破山河在»)",
+    "check": "https://en.wikipedia.org/wiki/Spring_View",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "sushi_ten_years",
+    "source": "Цы на мотив «Цзянчэнцзы», к годовщине смерти жены (1075) («十年生死兩茫茫，不思量，自難忘»)",
+    "check": "https://en.wikipedia.org/wiki/Su_Shi",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "suntzu_without_fighting",
+    "source": "Искусство войны, гл. 3",
+    "check": "https://ctext.org/art-of-war/attack-by-stratagem",
+    "translation": "ru: own, en: public (L. Giles, 1910)"
+  },
+  {
+    "id": "mencius_heaven_suffering",
+    "source": "Мэн-цзы, VI Б, 15",
+    "check": "https://ctext.org/mengzi/gaozi-ii",
+    "translation": "ru: own, en: public (J. Legge, 1895)"
+  },
+  {
+    "id": "kenko_uncertainty",
+    "source": "Записки от скуки (Цурэдзурэгуса), 7 («世は定めなきこそいみじけれ»)",
+    "check": "https://core.ac.uk/download/154410009.pdf",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kenko_before_forty",
+    "source": "Записки от скуки, 7 («長くとも四十に足らぬほどにて死なんこそ、めやすかるべけれ»)",
+    "check": "https://core.ac.uk/download/154410009.pdf",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kenko_death_behind",
+    "source": "Записки от скуки, 155 («死は前よりしも来らず、かねて後ろに迫れり»)",
+    "check": "https://ja.wikisource.org/wiki/%E5%BE%92%E7%84%B6%E8%8D%89",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "basho_sick_on_journey",
+    "source": "Последнее хокку (1694) («旅に病んで夢は枯野をかけ廻る»)",
+    "check": "https://en.wikipedia.org/wiki/Matsuo_Bash%C5%8D",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "basho_summer_grasses",
+    "source": "Узкая тропа на Север (Оку-но хосомити), Хираидзуми, 1689 («夏草や兵どもが夢の跡»)",
+    "check": "https://en.wikipedia.org/wiki/Oku_no_Hosomichi",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "heike_proud_not_endure",
+    "source": "Хэйкэ-моногатари, зачин («おごれる人も久しからず…»)",
+    "check": "https://en.wikipedia.org/wiki/The_Tale_of_the_Heike",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "jp_fall_seven_rise_eight",
+    "source": "七転び八起き (нана коробú я оки)",
+    "check": "https://en.wiktionary.org/wiki/%E4%B8%83%E8%BB%A2%E3%81%B3%E5%85%AB%E8%B5%B7%E3%81%8D",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "jp_stake_hammered",
+    "source": "出る杭は打たれる (дэру куй ва утарэру)",
+    "check": "https://en.wiktionary.org/wiki/%E5%87%BA%E3%82%8B%E6%9D%AD%E3%81%AF%E6%89%93%E3%81%9F%E3%82%8C%E3%82%8B",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "jp_stone_three_years",
+    "source": "石の上にも三年 (иси но уэ ни мо сан нэн)",
+    "check": "https://en.wiktionary.org/wiki/%E7%9F%B3%E3%81%AE%E4%B8%8A%E3%81%AB%E3%82%82%E4%B8%89%E5%B9%B4",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "gita_action_not_fruits",
+    "source": "Бхагавадгита, 2.47",
+    "check": "https://www.holy-bhagavad-gita.org/chapter/2/verse/47",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kabir_clay_potter",
+    "source": "Доха «माटी कहे कुम्हार से…»",
+    "check": "https://isha.sadhguru.org/hi/wisdom/article/Kabir-Ek-Aatmgyani-Bunkar",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kabir_books_love",
+    "source": "Доха «पोथी पढ़ि पढ़ि जग मुआ…»",
+    "check": "https://vedpath.pages.dev/en/dohas/kabir-ke-dohe",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kabir_tomorrow_today",
+    "source": "Доха «काल करे सो आज कर, आज करे सो अब…»",
+    "check": "https://folklore.usc.edu/ah-yes-procrastination-is-in-fact-bad-a-proverb/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kural_children_prattle",
+    "source": "Тирукурал, 66 (глава «О детях»)",
+    "check": "https://thirukkural.io/kural/66",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kural_yesterday_today",
+    "source": "Тирукурал, 336 (глава «О непостоянстве»)",
+    "check": "https://standardebooks.org/ebooks/thiruvalluvar/the-kural/v-v-s-aiyar/text/single-page",
+    "translation": "ru: own, en: public (G. U. Pope, 1886)"
+  },
+  {
+    "id": "kural_plough",
+    "source": "Тирукурал, 1031 (глава «О земледелии»)",
+    "check": "https://www.swaveda.com/texts/tirukkural/104/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "dhammapada_victory_hatred",
+    "source": "Дхаммапада, 201",
+    "check": "https://sacred-texts.com/bud/sbe10/sbe1017.htm",
+    "translation": "ru: own, en: public (F. Max Müller, 1881)"
+  },
+  {
+    "id": "yaksha_most_wonderful",
+    "source": "Махабхарата, Вана-парва, «Вопросы Якши»",
+    "check": "https://en.wikipedia.org/wiki/Yaksha_Prashna",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "kebra_nagast_wisdom",
+    "source": "Кебра Нагаст («Слава царей»), гл. 24",
+    "check": "https://sacred-texts.com/afr/kn/kn032.htm",
+    "translation": "ru: own, en: public (E. A. W. Budge, 1922)"
+  },
+  {
+    "id": "oromo_egg_walks",
+    "source": "«Turina keessatt killen millaan adeemti»; похожая есть в тигринья",
+    "check": "https://afriprov.tangaza.ac.ke/?p=222",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "amharic_spider_webs",
+    "source": "«ድር ቢያብር አንበሳ ያስር» (дыр бийабыр анбэса йасыр)",
+    "check": "https://sublearn.com/ko/learn/am/phrases/%E1%8B%B5%E1%88%AD-%E1%89%A2%E1%8B%AB%E1%89%A5%E1%88%AD-%E1%8A%A0%E1%8A%95%E1%89%A0%E1%88%B3-%E1%8B%AB%E1%88%B5%E1%88%AD",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "akan_death_ladder",
+    "source": "«Owuo atwedeɛ baakofoɔ mforo» — символ адинкра «лестница смерти»",
+    "check": "https://en.wikipedia.org/wiki/Owuo",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "akan_sankofa",
+    "source": "«Se wo were fi na wosankofa a yenkyi» — символ адинкра «санкофа»",
+    "check": "https://en.wikipedia.org/wiki/Sankofa",
+    "translation": "ru: own, en: public"
+  },
+  {
+    "id": "fula_patience_stone",
+    "source": "«Munyal deefan hayre» (фульфульде; Мали, Нигер, Сенегал и др.)",
+    "check": "https://afriprov.tangaza.ac.ke/2008/03/06/patience-can-cook-a-stoneq-fulfulde-benin-burkina-faso-cameroon-central-african-republic-chad-mali-niger-nigeria-sudan-and-togo/",
+    "translation": "ru: own, en: public"
+  },
+  {
+    "id": "bambara_log_crocodile",
+    "source": "«Jirikurun men o men ji la, a te ke bama ye»",
+    "check": "https://afriprov.tangaza.ac.ke/jun2001/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "bambara_empty_sack",
+    "source": "«Bɔrɔ lankolon tɛ jɔ»",
+    "check": "https://www.ankataa.com/blog/2023/10/27/five-bambara-proverbs-for-bambara-and-dioula-learners",
+    "translation": "ru: own, en: public"
+  },
+  {
+    "id": "timbuktu_treasures_wisdom",
+    "source": "Малийская пословица, обычно датируемая XV в.",
+    "check": "https://www.digitalhistory.uh.edu/active_learning/explorations/1492/1492_timbuktu.cfm",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "popolvuh_saliva_descendants",
+    "source": "Пополь-Вух, ч. II (дерево с черепом в Шибальбе)",
+    "check": "https://www.gob.mx/cms/uploads/attachment/file/803568/Libro-Seleccion-de-cuentos-del-Popol-Vuh-INPI.pdf",
+    "translation": "ru: own (вторая фраза — сжатый пересказ), en: own"
+  },
+  {
+    "id": "nezahualcoyotl_jade_breaks",
+    "source": "Песнь «Я спрашиваю» (Cantares Mexicanos, XV в.)",
+    "check": "https://www.culturagenial.com/es/poemas-nezahualcoyotl/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "nezahualcoyotl_painting",
+    "source": "Песни (Cantares Mexicanos, XV в.)",
+    "check": "https://www.infobae.com/mexico/2026/04/28/nezahualcoyotl-poeta-texcocano-como-una-pintura-nos-iremos-borrando-como-una-flor-nos-hemos-de-secar-sobre-la-tierra/",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "pachacuti_count_stars",
+    "source": "Гарсиласо де ла Вега, Подлинные комментарии инков (1609), кн. VI, гл. 36 — изречения инки Пачакутека",
+    "check": "https://es.wikisource.org/wiki/P%C3%A1gina:Leyendas_de_los_indios_quichuas_(IA_leyendasdelosindoliv).pdf/34",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "pachacuti_herbalist",
+    "source": "Гарсиласо де ла Вега, Подлинные комментарии инков (1609), кн. VI, гл. 36 — изречения инки Пачакутека",
+    "check": "https://es.wikisource.org/wiki/P%C3%A1gina:Leyendas_de_los_indios_quichuas_(IA_leyendasdelosindoliv).pdf/34",
+    "translation": "ru: own, en: own"
+  },
+  {
+    "id": "shakespeare_true_love",
+    "source": "Сон в летнюю ночь, I, 1 (Лизандр)",
+    "check": "https://shakespeare.mit.edu/midsummer/midsummer.1.1.html",
+    "translation": "ru: own, en: original"
+  }
+]
