@@ -70,6 +70,25 @@ describe('Контент', () => {
     expect(leftoverBraces()).toEqual([])
   })
 
+  it('{other_faith} — только в событиях, где чужая вера точно есть (меньшинство или обращение в чужую веру)', async () => {
+    // Иначе в крае, где все одной веры, подставить нечего и игрок видит «{other_faith}».
+    const eras = await loadAllEras()
+    const safe = new Set<string>()
+    for (const era of Object.values(eras)) {
+      for (const ev of era.events) {
+        if (JSON.stringify(ev).includes('"set_religion":"other"') || ev.conditions?.some((c) => (c as { minority?: boolean }).minority === true)) safe.add(ev.id)
+      }
+    }
+    const bad: string[] = []
+    for (const lang of ['ru', 'en'] as const) {
+      for (const k of allKeys(lang)) {
+        if (!k.startsWith('ev.') || !rawText(lang, k).includes('{other_faith}')) continue
+        if (!safe.has(k.split('.')[1])) bad.push(`${lang}:${k}`)
+      }
+    }
+    expect(bad).toEqual([])
+  })
+
   it('числа в меню не устарели (npm run stats)', async () => {
     const actual = await computeStats()
     const saved = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/content/stats.json'), 'utf8'))

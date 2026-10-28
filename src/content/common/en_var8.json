@@ -547,7 +547,7 @@
   "ev.c_new_faith.title.3": "The Wandering Preacher",
   "ev.c_new_faith.text.3": "A wandering preacher has come to town, and {npc} never misses one of his night-time talks. At home {g=npc_sex:he|she} is giving away {g=npc_sex:his|her} belongings and calling it \"liberation.\"",
   "ev.c_new_faith.title.4": "The Other Faith",
-  "ev.c_new_faith.text.4": "Your {g=npc_sex:son|daughter} {npc} secretly goes to the night gatherings of those who follow another faith — {other_faith}. {g=npc_sex:He|She} says {g=npc_sex:he|she} has found a truth there that home never offered.",
+  "ev.c_new_faith.text.4": "Your {g=npc_sex:son|daughter} {npc} secretly goes to night gatherings where the faith is read in a way the temple does not teach. {g=npc_sex:He|She} says {g=npc_sex:he|she} has found a truth there that home never offered.",
   "ev.c_new_faith.title.5": "Fasting and Silence",
   "ev.c_new_faith.text.5": "{npc} has joined a community that fasts for three days at a time and keeps silent vigils at night. {g=npc_sex:He|She} has grown thin, glows from within and hardly speaks to you.",
   "ev.c_new_faith.title.6": "The Stranger's Teaching",
