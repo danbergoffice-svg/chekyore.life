@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<title>Карточка жизни — «Свиток»</title>
+<link rel="stylesheet" href="mock.css" />
+<style>
+  html, body { width: 1080px; height: 1920px; overflow: hidden; }
+  body {
+    --ink: #2b2119; --muted: #7a6650; --accent: #8e3b22; --gold: #a87a2e;
+    background:
+      radial-gradient(130% 90% at 50% 45%, #f6ebd2 0%, #ecdcb9 62%, #d9c194 100%);
+    color: var(--ink);
+  }
+  /* Лёгкая фактура пергамента. */
+  body::before { content: ''; position: fixed; inset: 0; opacity: 0.35; background:
+    repeating-linear-gradient(0deg, rgba(120, 90, 50, 0.05) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(90deg, rgba(120, 90, 50, 0.04) 0 1px, transparent 1px 9px); }
+  .frame { position: absolute; inset: 34px; border: 3px solid var(--gold); border-radius: 26px; }
+  .frame::after { content: ''; position: absolute; inset: 12px; border: 1.5px solid rgba(168, 122, 46, 0.55); border-radius: 18px; }
+  .corner { position: absolute; width: 22px; height: 22px; background: var(--gold); transform: rotate(45deg); }
+  .page { position: relative; padding: 96px 104px 0; }
+  .brand { text-align: center; font-size: 26px; letter-spacing: 0.42em; color: var(--gold); display: flex; align-items: center; gap: 24px; }
+  .brand::before, .brand::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+  .who { display: flex; gap: 46px; align-items: center; margin-top: 44px; }
+  .medal { flex: none; width: 236px; height: 292px; border-radius: 22px; padding: 6px; background: linear-gradient(160deg, #e9c87e, #a87a2e); box-shadow: 0 10px 26px rgba(80, 50, 20, 0.28); }
+  .medal img { width: 224px; height: 280px; border-radius: 17px; }
+  .name { font-family: var(--font-display); font-weight: 500; font-size: 124px; line-height: 0.95; color: var(--accent); }
+  .years { font-family: var(--font-display); font-size: 52px; margin-top: 12px; }
+  .place { font-size: 40px; color: var(--muted); margin-top: 2px; }
+  .path { display: inline-flex; align-items: center; gap: 14px; margin-top: 18px; padding: 6px 22px; border-radius: 999px; border: 2px solid rgba(142, 59, 34, 0.35); font-size: 34px; }
+  .path b { color: var(--accent); }
+
+  .stat { display: flex; align-items: center; gap: 36px; margin-top: 44px; }
+  .stat .big { font-family: var(--font-display); font-size: 164px; line-height: 0.9; color: var(--accent); white-space: nowrap; }
+  .stat .big small { font-size: 60px; margin-left: 8px; }
+  .stat p { margin: 0; font-size: 46px; line-height: 1.15; }
+  .stat p b { color: var(--accent); }
+  .bar { position: relative; height: 16px; margin: 26px 0 0; border-radius: 8px; background: rgba(120, 90, 50, 0.18); }
+  .bar i { position: absolute; inset: 0 19% 0 0; border-radius: 8px; background: linear-gradient(90deg, #c9a35f, var(--accent)); }
+  .bar em { position: absolute; left: 81%; top: -12px; width: 6px; height: 40px; border-radius: 3px; background: var(--ink); }
+  .bar-l { display: flex; justify-content: space-between; font-size: 26px; color: var(--muted); margin-top: 10px; }
+
+  .tl-title { margin-top: 40px; font-size: 26px; letter-spacing: 0.32em; color: var(--gold); text-transform: uppercase; }
+  .tl { position: relative; margin-top: 18px; }
+  .tl::before { content: ''; position: absolute; left: 150px; top: 20px; bottom: 20px; width: 3px; background: linear-gradient(180deg, var(--gold), rgba(168, 122, 46, 0.25)); }
+  .ev { position: relative; display: grid; grid-template-columns: 112px 76px 1fr; align-items: center; column-gap: 20px; min-height: 80px; }
+  .ev .age { text-align: right; font-family: var(--font-display); font-size: 40px; color: var(--muted); }
+  .ev .ic { position: relative; z-index: 1; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; font-size: 32px; background: #fbf3e0; box-shadow: 0 0 0 3px var(--gold); }
+  .ev .tx { font-size: 34px; line-height: 1.2; }
+  .ev .tx small { display: block; font-size: 26px; color: var(--muted); }
+  .ev.world .ic { background: #2b2119; box-shadow: 0 0 0 3px #2b2119; font-size: 28px; }
+  .ev.world .tx { font-style: italic; color: #5a4632; }
+  .ev.world .age { color: var(--gold); font-size: 34px; }
+
+  .epitaph { margin: 30px 10px 0; text-align: center; font-style: italic; font-size: 46px; line-height: 1.22; color: #3a2a1c; }
+  .epitaph::before, .epitaph::after { content: ''; display: block; width: 180px; height: 2px; margin: 0 auto 22px; background: var(--gold); }
+  .epitaph::after { margin: 22px auto 0; }
+  .rare { display: flex; justify-content: center; margin-top: 26px; }
+  .rare span { padding: 10px 30px; border-radius: 999px; background: #2b2119; color: #f3d488; font-size: 32px; font-weight: 700; }
+  .foot { position: absolute; left: 0; right: 0; bottom: 84px; text-align: center; }
+  .foot .q { font-family: var(--font-display); font-size: 56px; color: var(--accent); }
+  .foot .u { font-size: 34px; letter-spacing: 0.08em; color: var(--muted); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="frame">
+  <span class="corner" style="top:-12px;left:-12px"></span><span class="corner" style="top:-12px;right:-12px"></span>
+  <span class="corner" style="bottom:-12px;left:-12px"></span><span class="corner" style="bottom:-12px;right:-12px"></span>
+</div>
+<div class="page">
+  <div class="brand">ТЫСЯЧИ ЖИЗНЕЙ</div>
+
+  <div class="who">
+    <div class="medal"><img class="pix" src="assets/avatar-matsu.png" alt="" /></div>
+    <div>
+      <div class="name">Мацу</div>
+      <div class="years">1463 – 1521</div>
+      <div class="place">Этиго, Япония</div>
+      <div class="path">крестьянка <b>→</b> лекарь</div>
+    </div>
+  </div>
+
+  <div class="stat">
+    <div class="big">58<small>лет</small></div>
+    <p>Прожила дольше, чем <b>81%</b> людей своего времени</p>
+  </div>
+  <div class="bar"><i></i><em></em></div>
+  <div class="bar-l"><span>0 лет</span><span>средняя жизнь в Японии XV века — 31 год</span><span>80</span></div>
+
+  <div class="tl-title">Линия жизни</div>
+  <div class="tl">
+    <div class="ev world"><span class="age">1467</span><span class="ic">⚔️</span><span class="tx">Началась война Онин<small>сто лет смут по всей Японии</small></span></div>
+    <div class="ev"><span class="age">17</span><span class="ic">💍</span><span class="tx">Вышла замуж за Дзиро, сына рыбака</span></div>
+    <div class="ev"><span class="age">24</span><span class="ic">🌙</span><span class="tx">Сон о будущем: «Кипячёная вода»<small>соседи перестали болеть летом</small></span></div>
+    <div class="ev"><span class="age">31</span><span class="ic">⚕️</span><span class="tx">Стала лекарем — первой в роду</span></div>
+    <div class="ev"><span class="age">44</span><span class="ic">❄️</span><span class="tx">Пережила голодную зиму<small>в деревне умер каждый пятый</small></span></div>
+    <div class="ev"><span class="age">58</span><span class="ic">🕯️</span><span class="tx">Умерла дома<small>трое детей, пятеро внуков</small></span></div>
+  </div>
+
+  <div class="epitaph">«Лекарка из Этиго, пережившая три войны и спасшая город от холеры во сне»</div>
+  <div class="rare"><span>◆ Такую жизнь прожил 1 из 200 игроков</span></div>
+</div>
+<div class="foot"><div class="q">Кем будешь ты?</div><div class="u">thousands.life</div></div>
+</body>
+</html>

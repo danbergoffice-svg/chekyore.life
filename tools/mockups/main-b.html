@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Главный экран — вариант B</title>
+<link rel="stylesheet" href="mock.css" />
+<script>
+  const q = new URLSearchParams(location.search)
+  document.documentElement.dataset.theme = q.get('theme') || 'dark'
+</script>
+<style>
+  body { min-height: 100vh; background: radial-gradient(120% 70% at 50% 18%, color-mix(in srgb, var(--gold) 9%, var(--paper)) 0%, var(--paper) 62%); }
+  .screen { max-width: 430px; margin: 0 auto; padding: 0 20px 84px; min-height: 100vh; display: flex; flex-direction: column; }
+  .stage { margin: auto 0; padding-bottom: 7vh; }
+  .top { display: flex; align-items: center; gap: 8px; height: 56px; }
+  .mark { white-space: nowrap; font-family: var(--font-display); font-weight: 500; font-size: 19px; color: var(--accent); letter-spacing: 0.02em; }
+  .beta { font-size: 10px; letter-spacing: 0.16em; color: var(--gold); border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent); border-radius: 999px; padding: 1px 7px; margin-left: 2px; }
+  .grow { flex: 1; }
+  .ib { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); }
+  .ib svg { width: 17px; height: 17px; }
+  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; font-size: 12px; letter-spacing: 0.06em; }
+  .lang span { padding: 3px 9px; border-radius: 999px; color: var(--muted); }
+  .lang .on { background: var(--ink); color: var(--paper); font-weight: 700; }
+
+  .head { text-align: center; margin: clamp(6px, 3vh, 26px) 0 clamp(14px, 3.4vh, 30px); }
+  .head h1 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(30px, 9vw, 38px); line-height: 1.02; color: var(--ink); }
+  .head p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+
+  /* Витрина: окно в мир (сцена) и под ним три барабана; рычаг сбоку; награды — табличка на рамке. */
+  .cab { position: relative; display: flex; gap: 10px; padding: 12px; border-radius: 22px; background: linear-gradient(180deg, #4a2b1a, #2c180d); box-shadow: inset 0 0 0 1.5px #c9973f, inset 0 0 0 5px #2c180d, inset 0 0 0 6px rgba(201, 151, 63, 0.45), 0 22px 44px rgba(0, 0, 0, 0.35); }
+  .plaque { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); z-index: 2; height: 30px; display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; border-radius: 999px; background: linear-gradient(180deg, #f3d488, #c48f36); color: #2b1a0c; font-weight: 800; font-size: 14px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+  .inner { flex: 1; min-width: 0; display: grid; gap: 10px; }
+  .window { position: relative; height: clamp(84px, 17vh, 150px); border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1.5px rgba(201, 151, 63, 0.7); }
+  .window img { position: absolute; left: 50%; top: 0; height: 100%; transform: translateX(-50%); }
+  .window::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.45)); }
+  .window span { position: absolute; z-index: 1; left: 10px; bottom: 6px; font-size: 12px; color: #f7ecd8; letter-spacing: 0.04em; }
+  .reels { display: grid; grid-template-columns: 1.2fr 1.1fr 0.8fr; gap: 6px; }
+  .win { position: relative; height: clamp(76px, 11.5vh, 96px); border-radius: 10px; background: linear-gradient(180deg, #e3d4b5 0%, #fbf6ec 32%, #fbf6ec 68%, #e3d4b5 100%); box-shadow: inset 0 0 0 1.5px #d6a649, inset 0 6px 10px rgba(0, 0, 0, 0.22), inset 0 -6px 10px rgba(0, 0, 0, 0.22); display: grid; place-items: center; color: #2b2119; text-align: center; }
+  .win .lab { position: absolute; top: 6px; left: 0; right: 0; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8f7a5e; }
+  .win b { font-size: 22px; line-height: 1; color: #6e5134; }
+  .tag { position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%); white-space: nowrap; height: 19px; display: inline-flex; align-items: center; padding: 0 7px; border-radius: 999px; background: linear-gradient(180deg, #f2cf7c, #c9973f); color: #2b1a0c; font-size: 11px; font-weight: 800; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35); }
+  .lever { position: relative; width: 22px; flex: none; }
+  .lever .slot { position: absolute; left: 6px; top: 24px; bottom: 30px; width: 10px; border-radius: 5px; background: #1c0f07; box-shadow: inset 0 0 0 1px rgba(201, 151, 63, 0.4); }
+  .lever .knob { position: absolute; left: 0; top: 10px; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffd98a, #c9973f 60%, #7a5418); box-shadow: 0 3px 6px rgba(0, 0, 0, 0.45); }
+
+  .cta { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 56px; margin-top: clamp(16px, 3vh, 26px); border: 0; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 19px; letter-spacing: 0.01em; box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .cont { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; color: var(--ink-2); font-size: 15px; }
+  .cont img { width: 22px; height: 28px; border-radius: 4px; }
+  .cont u { text-decoration-color: color-mix(in srgb, var(--accent) 60%, transparent); text-underline-offset: 4px; }
+
+  .nav { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: 0; padding: 8px 12px 14px; background: linear-gradient(180deg, transparent, var(--paper) 30%); }
+  .nav a { flex: 1; max-width: 96px; display: grid; justify-items: center; gap: 3px; color: var(--muted); font-size: 11.5px; text-decoration: none; letter-spacing: 0.02em; }
+  .nav svg { width: 22px; height: 22px; stroke: var(--ink-2); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /></symbol>
+    <symbol id="i-scroll" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h11a2 2 0 0 1 2 2v1h-4" /><path d="M16 7v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1h10" /><path d="M7 4a2 2 0 0 0-2 2v11" /><path d="M8.5 9h5M8.5 12.5h5" /></symbol>
+    <symbol id="i-medal" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l2.5 6M16 3l-2.5 6" /><circle cx="12" cy="15" r="5.5" /><path d="M12 12.3l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 14.4l2-.3z" /></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z" /></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></symbol>
+  </defs>
+</svg>
+<div class="screen">
+  <div class="top">
+    <span class="mark">Тысячи жизней</span><span class="beta">БЕТА</span>
+    <span class="grow"></span>
+    <span class="ib"><svg><use href="#i-sound" /></svg></span>
+    <span class="lang"><span>EN</span><span class="on">RU</span></span>
+  </div>
+
+  <div class="stage">
+  <div class="head">
+    <h1>Кем будешь ты?</h1>
+    <p>Одна жизнь в случайной стране и эпохе</p>
+  </div>
+
+  <div class="cab">
+    <span class="plaque">🎁 Награды: 2 ›</span>
+    <div class="inner">
+      <div class="window"><img class="pix" src="assets/scene-kyoto-sunset.png" alt="" /><span>Киото · Япония</span></div>
+      <div class="reels">
+        <div class="win"><span class="lab">Где и когда</span><b>?</b><span class="tag">🔒 Византия</span></div>
+        <div class="win"><span class="lab">Положение</span><b>?</b><span class="tag">👑 Знать</span></div>
+        <div class="win"><span class="lab">Пол</span><b>?</b></div>
+      </div>
+    </div>
+    <div class="lever"><span class="slot"></span><span class="knob"></span></div>
+  </div>
+
+  <button class="cta">Крути</button>
+  <div class="cont"><img class="pix" src="assets/avatar-matsu.png" alt="" /><span>или <u>продолжить жизнь Мацу, 45 лет</u> ›</span></div>
+  </div>
+</div>
+<nav class="nav">
+  <a><svg><use href="#i-scroll" /></svg>Мемориал</a>
+  <a><svg><use href="#i-medal" /></svg>Награды</a>
+  <a><svg><use href="#i-gear" /></svg>Настройки</a>
+  <a><svg><use href="#i-info" /></svg>Об игре</a>
+</nav>
+</body>
+</html>

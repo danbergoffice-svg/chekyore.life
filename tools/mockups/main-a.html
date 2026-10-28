@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Главный экран — вариант A</title>
+<link rel="stylesheet" href="mock.css" />
+<script>
+  const q = new URLSearchParams(location.search)
+  document.documentElement.dataset.theme = q.get('theme') || 'dark'
+</script>
+<style>
+  .screen { max-width: 430px; margin: 0 auto; padding-bottom: 28px; }
+  /* Шапка: сцена во всю ширину, снизу растворяется в фоне; название поверх. */
+  .hero { position: relative; height: min(28vh, 240px); overflow: hidden; }
+  .hero .scene { position: absolute; left: 50%; top: 0; height: 100%; width: auto; transform: translateX(-50%); }
+  .hero::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 58px; background: linear-gradient(180deg, rgba(20, 15, 10, 0.45), transparent); z-index: 1; }
+  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 38%, color-mix(in srgb, var(--paper) 70%, transparent) 72%, var(--paper) 100%); }
+  .topbar { position: absolute; z-index: 2; inset: 12px 16px auto 16px; display: flex; align-items: center; gap: 8px; }
+  .chip { height: 32px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; background: rgba(28, 22, 16, 0.42); color: #f5ead6; border: 1px solid rgba(255, 240, 210, 0.28); font-size: 12px; letter-spacing: 0.14em; backdrop-filter: blur(6px); }
+  .grow { flex: 1; }
+  .icon { width: 32px; padding: 0; justify-content: center; font-size: 14px; letter-spacing: 0; }
+  .lang { display: inline-flex; padding: 3px; gap: 2px; letter-spacing: 0.04em; font-size: 13px; }
+  .lang span { padding: 3px 9px; border-radius: 999px; }
+  .lang .on { background: #f5ead6; color: #2b2119; font-weight: 700; }
+  .title { position: relative; z-index: 2; margin: -50px 16px 0; text-align: center; }
+  .title h1 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(28px, 9.4vw, 40px); line-height: 1; color: var(--accent); letter-spacing: 0.01em; }
+  .title p { margin: 7px 0 0; color: var(--muted); font-size: 16px; }
+
+  .spin { margin: 18px 16px 0; }
+  .spin-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .caps { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .rewards { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--gold); background: var(--gold-soft); color: var(--gold); font-weight: 700; font-size: 15px; }
+  .rewards .n { display: inline-grid; place-items: center; min-width: 20px; height: 20px; border-radius: 999px; background: var(--gold); color: #1f1914; font-size: 12px; }
+
+  /* Барабан — как в игре, но тоньше и без гирлянды. */
+  .slot { position: relative; padding: 18px 10px 14px 12px; border-radius: 20px; background: linear-gradient(180deg, var(--wood), var(--wood-2)); box-shadow: inset 0 0 0 2px var(--brass-2), inset 0 0 0 5px var(--wood-2), 0 14px 30px rgba(0, 0, 0, 0.28); display: flex; gap: 8px; align-items: center; }
+  .reels { flex: 1; display: grid; grid-template-columns: 1.2fr 1.1fr 0.8fr; gap: 6px; }
+  .reel-label { text-align: center; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #f1d9a6; margin-bottom: 9px; }
+  .win { position: relative; margin-top: 4px; height: 118px; border-radius: 10px; background: linear-gradient(180deg, #e9dcc0 0%, #fbf6ec 35%, #fbf6ec 65%, #e9dcc0 100%); box-shadow: inset 0 0 0 2px var(--brass), inset 0 8px 14px rgba(0, 0, 0, 0.22), inset 0 -8px 14px rgba(0, 0, 0, 0.22); display: grid; grid-template-rows: 1fr 52px 1fr; color: #2b2119; text-align: center; }
+  .win .row { display: grid; place-items: center; font-size: 12px; color: #9a8a74; opacity: 0.55; overflow: hidden; }
+  .win .mid { border-top: 2px solid rgba(142, 59, 34, 0.32); border-bottom: 2px solid rgba(142, 59, 34, 0.32); display: grid; place-items: center; line-height: 1.05; font-weight: 700; font-size: 15px; }
+  .win .mid small { display: block; font-size: 15px; }
+  /* Применённая награда — золотой ярлык на окне барабана. */
+  .tag { position: absolute; z-index: 1; top: -10px; left: 50%; transform: translateX(-50%); white-space: nowrap; height: 21px; display: inline-flex; align-items: center; gap: 3px; padding: 0 8px; border-radius: 999px; background: linear-gradient(180deg, #f2cf7c, #c9973f); color: #2b1a0c; font-size: 12px; font-weight: 800; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35); }
+  .lever { position: relative; width: 26px; height: 150px; flex: none; }
+  .lever .knob { position: absolute; top: 0; left: 1px; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff8a6a, #c0331c 60%, #7a1d0e); box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35); z-index: 1; }
+  .lever .rod { position: absolute; left: 10px; top: 14px; width: 6px; height: 96px; border-radius: 3px; background: linear-gradient(90deg, #9aa0a6, #e6e9ec, #9aa0a6); }
+  .lever .base { position: absolute; left: 0; bottom: 6px; width: 26px; height: 38px; border-radius: 8px; background: linear-gradient(90deg, var(--brass-2), var(--brass), var(--brass-2)); }
+  .primary { display: block; width: 100%; height: 54px; margin-top: 14px; border: 0; border-radius: 14px; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 18px; box-shadow: 0 8px 18px rgba(142, 59, 34, 0.28); }
+
+  .continue { margin: 22px 16px 0; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--card); }
+  .continue img { width: 40px; height: 50px; border-radius: 8px; }
+  .continue .t { flex: 1; min-width: 0; }
+  .continue b { display: block; font-size: 16px; }
+  .continue span { color: var(--muted); font-size: 14px; }
+  .continue .go { color: var(--accent); font-size: 22px; }
+  .links { margin: 18px 16px 0; text-align: center; color: var(--muted); font-size: 15px; }
+  .links a { color: var(--ink-2); text-decoration: none; }
+  .links i { font-style: normal; margin: 0 7px; opacity: 0.5; }
+
+  /* Выдвижная панель «Награды». */
+  .backdrop { position: fixed; inset: 0; background: rgba(10, 7, 4, 0.58); z-index: 10; }
+  .sheet { position: fixed; z-index: 11; left: 0; right: 0; bottom: 0; max-height: 82vh; overflow: hidden; border-radius: 22px 22px 0 0; background: var(--card); box-shadow: 0 -14px 40px rgba(0, 0, 0, 0.4); padding: 8px 18px 18px; }
+  .handle { width: 40px; height: 4px; border-radius: 2px; background: var(--line); margin: 0 auto 10px; }
+  .sheet h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 26px; display: flex; align-items: center; }
+  .sheet h2 .x { margin-left: auto; font-family: var(--font); font-size: 24px; color: var(--muted); }
+  .sec { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .sec:last-of-type { border-bottom: 0; }
+  .sec h3 { margin: 0 0 3px; font-size: 16px; display: flex; align-items: baseline; gap: 6px; }
+  .sec h3 .sub { margin-left: auto; font-weight: 400; color: var(--muted); font-size: 13px; }
+  .sec p { margin: 0 0 10px; color: var(--muted); font-size: 14px; line-height: 1.35; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr 0.8fr; padding: 3px; border-radius: 12px; background: var(--paper-2); gap: 3px; }
+  .seg span { text-align: center; padding: 8px 4px; border-radius: 9px; font-size: 14px; font-weight: 700; color: var(--ink-2); }
+  .seg .on { background: var(--card); color: var(--accent); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), inset 0 0 0 1px var(--accent); }
+  .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 10px; }
+  .days div { position: relative; text-align: center; padding: 6px 0 4px; border-radius: 9px; border: 1px solid var(--line); font-size: 18px; line-height: 1.1; }
+  .days div small { display: block; font-size: 11px; color: var(--muted); }
+  .days .big { border-color: var(--gold); }
+  .days .taken { opacity: 0.45; }
+  .days .taken::after { content: '✓'; position: absolute; top: -2px; right: 3px; font-size: 12px; color: var(--up); font-weight: 800; }
+  .days .today { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  .claim { width: 100%; height: 42px; border-radius: 11px; border: 1px solid var(--gold); background: var(--gold-soft); color: var(--gold); font-weight: 800; font-size: 15px; }
+  .pick { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--paper-2); }
+  .pick b { flex: 1; font-size: 16px; }
+  .pick span { color: var(--accent); font-weight: 700; font-size: 14px; }
+  .done { margin-top: 12px; height: 50px; }
+  body.sheet-open .screen { filter: saturate(0.8); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <header class="hero">
+    <img class="pix scene" src="assets/scene-kyoto.png" alt="" />
+    <div class="topbar">
+      <span class="chip">БЕТА</span>
+      <span class="grow"></span>
+      <span class="chip icon">🔊</span>
+      <span class="chip lang"><span>EN</span><span class="on">RU</span></span>
+    </div>
+  </header>
+  <div class="title">
+    <h1>Тысячи жизней</h1>
+    <p>Одна жизнь в случайной стране и эпохе</p>
+  </div>
+
+  <section class="spin">
+    <div class="spin-head">
+      <span class="caps">Лотерея рождения</span>
+      <span class="rewards">🎁 Награды <span class="n">2</span></span>
+    </div>
+    <div class="slot">
+      <div class="reels">
+        <div>
+          <div class="reel-label">Где и когда</div>
+          <div class="win"><span class="tag">🔒 Византия</span><div class="row"></div><div class="mid">✦<small>?</small></div><div class="row">Византия · 1390</div></div>
+        </div>
+        <div>
+          <div class="reel-label">Положение</div>
+          <div class="win"><span class="tag">👑 Знать</span><div class="row"></div><div class="mid">✦<small>?</small></div><div class="row">Землевладельцы</div></div>
+        </div>
+        <div>
+          <div class="reel-label">Пол</div>
+          <div class="win"><div class="row">♀</div><div class="mid">✦<small>?</small></div><div class="row">♂</div></div>
+        </div>
+      </div>
+      <div class="lever"><span class="knob"></span><span class="rod"></span><span class="base"></span></div>
+    </div>
+    <button class="primary">Кем будешь ты? — Крути</button>
+  </section>
+
+  <div class="continue">
+    <img class="pix" src="assets/avatar-matsu.png" alt="" />
+    <div class="t"><b>Продолжить</b><span>Мацу · 45 лет · Этиго · 1521 г.</span></div>
+    <span class="go">›</span>
+  </div>
+  <nav class="links"><a>Мемориал</a><i>·</i><a>Награды</a><i>·</i><a>Настройки</a><i>·</i><a>Об игре</a></nav>
+</div>
+
+<template id="sheet">
+  <div class="backdrop"></div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>Награды <span class="x">×</span></h2>
+    <div class="sec">
+      <h3>🏆 За испытание</h3>
+      <p>Прожила жизнь дольше 30 лет. Выбери одно — сработает в этой жизни. «Жребий» — награда подождёт.</p>
+      <div class="seg"><span class="on">Знатная семья</span><span>Страна по выбору</span><span>Жребий</span></div>
+    </div>
+    <div class="sec">
+      <h3>🎁 Дары за вход <span class="sub">день 2 из 7 · на 7-й — 👑</span></h3>
+      <div class="days">
+        <div class="big taken">🌍<small>1</small></div>
+        <div class="today">🎰<small>2</small></div>
+        <div>❤️<small>3</small></div>
+        <div class="big">🏰<small>4</small></div>
+        <div>🌙<small>5</small></div>
+        <div>💰<small>6</small></div>
+        <div class="big">👑<small>7</small></div>
+      </div>
+      <button class="claim">Забрать дар дня 2 — 🎰 +3 перекрутки</button>
+    </div>
+    <div class="sec">
+      <h3>🌍 Страна по выбору <span class="sub">дар дня 1</span></h3>
+      <div class="pick"><b>Византия</b><span>Изменить ›</span></div>
+    </div>
+    <button class="primary done">Готово</button>
+  </div>
+</template>
+<script>
+  if (q.has('sheet')) {
+    document.body.classList.add('sheet-open')
+    document.body.append(document.getElementById('sheet').content.cloneNode(true))
+  }
+</script>
+</body>
+</html>
