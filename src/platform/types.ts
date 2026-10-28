@@ -108,4 +108,9 @@ export interface Platform {
   /** Вариант A/B игрока. */
   ab(): string
   playerId(): string
+  /** Игра на главном экране телефона: prompt — есть системное окно установки (Android, Chrome), ios — только подсказка
+   *  «Поделиться → На экран „Домой“» (Safari), null — нельзя или уже установлена. */
+  installKind(): 'prompt' | 'ios' | null
+  /** Показать системное окно установки; true — игрок согласился. */
+  install(): Promise<boolean>
 }

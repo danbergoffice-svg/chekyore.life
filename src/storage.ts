@@ -26,6 +26,8 @@ export interface Prefs {
   country?: string
   /** Испытание «прожить жизнь дольше 30 лет»: ready — награда ждёт (выбор судьбы у барабана), used — получена. */
   fate?: 'ready' | 'used'
+  /** «На главный экран»: done — добавили или поняли подсказку; later — отложили (на какой по счёту жизни). */
+  install?: { state: 'done' | 'later'; lives: number }
 }
 
 export interface SaveFile {

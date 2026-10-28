@@ -517,6 +517,11 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
   .menu .spin .slot-machine { margin-top: 6px; }
 }
 
+/* «На главный экран» */
+.install-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.install-card .section-title { margin-top: 0; }
+.install-card .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
 /* Испытание и награда «выбор судьбы» */
 .challenge-card { border: 1.5px solid var(--gold); border-radius: 12px; padding: 12px 14px; background: var(--paper-2); }
 .challenge-card .section-title { margin-top: 0; }

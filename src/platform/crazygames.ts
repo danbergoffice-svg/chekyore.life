@@ -260,6 +260,9 @@ export const crazyPlatform: Platform = {
 
   showInterstitial: () => ad('midgame'),
   showRewarded: () => ad('rewarded'),
+  // На портале игра живёт на его странице — на главный экран её не ставят.
+  installKind: () => null,
+  install: async () => false,
 
   async submitScore(board, score) {
     const key = `thousands.best.${board}`

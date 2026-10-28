@@ -11,7 +11,7 @@ import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, t
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
-import { About, ChallengeCard, CountryModal, CountryPrompt, FatePicker, Heirs, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
+import { About, ChallengeCard, CountryModal, CountryPrompt, FatePicker, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { Awards } from './Awards'
 import { sendFeedback } from '../feedback'
 import type { FeedbackData } from '../feedback'
@@ -317,6 +317,34 @@ export function App() {
     setChallengeToast(true)
     setTimeout(() => setChallengeToast(false), 5000)
   }, [state?.hero.age, challengeOn])
+  // «На главный экран» после первой жизни: Android — системное окно, iPhone — подсказка. Отложили — снова через 3 жизни.
+  const [installKind, setInstallKind] = useState<'prompt' | 'ios' | null>(null)
+  useEffect(() => {
+    const check = () => setInstallKind(platform.installKind())
+    check()
+    // Chrome присылает разрешение на установку не сразу после загрузки.
+    const id = setInterval(check, 3000)
+    return () => clearInterval(id)
+  }, [])
+  const showInstall =
+    !!installKind && memorial.length >= 1 && (!prefs.install || (prefs.install.state === 'later' && memorial.length >= prefs.install.lives + 3))
+  const installCard = showInstall ? (
+    <InstallCard
+      kind={installKind!}
+      onInstall={async () => {
+        platform.track('install_prompt', { kind: 'prompt' })
+        const ok = await platform.install()
+        platform.track('install_result', { accepted: ok ? 1 : 0 })
+        setPrefs({ ...prefs, install: { state: ok ? 'done' : 'later', lives: memorial.length } })
+        setInstallKind(platform.installKind())
+      }}
+      onDone={() => {
+        platform.track('install_prompt', { kind: 'ios' })
+        setPrefs({ ...prefs, install: { state: 'done', lives: memorial.length } })
+      }}
+      onLater={() => setPrefs({ ...prefs, install: { state: 'later', lives: memorial.length } })}
+    />
+  ) : undefined
   /** Карточка испытания на итогах: только что кончилась первая жизнь — новое; позже — «не вышло» или «награда ждёт». */
   const challengeCard = () =>
     prefs.fate === 'ready' ? (
@@ -666,6 +694,7 @@ export function App() {
             current={state}
             memorial={memorial}
             slot={slotMachine}
+            install={installCard}
             onContinue={() => {
               if (!state) return
               const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
@@ -762,7 +791,12 @@ export function App() {
               platform.track('summary_action', { action: 'full', early: true })
               setFullSummary(true)
             }}
-            challenge={challengeCard()}
+            challenge={
+              <>
+                {challengeCard()}
+                {installCard}
+              </>
+            }
           />
         )}
         {screen === 'death' && state && era && lastLife && (fullSummary || lastLife.age >= 15 || memorial.length <= 1) && (
@@ -782,7 +816,12 @@ export function App() {
             onMemorial={() => setScreen('memorial')}
             onMenu={toMenu}
             onUpdate={onUpdateLife}
-            challenge={challengeCard()}
+            challenge={
+              <>
+                {challengeCard()}
+                {installCard}
+              </>
+            }
             awards={{
               got: earned.filter((e) => e.lifeId === lastLife.heroId).map((e) => e.id),
               near: nearMisses(lastLife, memorial, new Set(earned.map((e) => e.id))),

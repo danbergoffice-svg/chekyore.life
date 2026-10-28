@@ -28,6 +28,8 @@ interface MenuProps {
   memorial: LifeSummary[]
   /** Барабан лотереи рождения — сразу под названием игры, на первом экране. */
   slot: ComponentChildren
+  /** «На главный экран» — после первой жизни, под «Продолжить». */
+  install?: ComponentChildren
   onContinue: () => void
   onOpenLife: (heroId: string) => void
   onFeedback: () => void
@@ -39,7 +41,7 @@ interface MenuProps {
   sound: ComponentChildren
 }
 
-export function Menu({ current, memorial, slot, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
+export function Menu({ current, memorial, slot, install, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -78,6 +80,8 @@ export function Menu({ current, memorial, slot, onContinue, onOpenLife, onFeedba
       </div>
 
       {slot}
+
+      {install}
 
       {playing && hero && (
         <div class="stack">
@@ -317,6 +321,26 @@ export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: n
     <section class="block challenge-card">
       <h2 class="section-title">{t(props.kind === 'ready' ? 'challenge.ready.title' : 'challenge.title')}</h2>
       <p>{t(`challenge.${props.kind}`, { n: props.age, m: props.age + 1 })}</p>
+    </section>
+  )
+}
+
+/** «На главный экран»: Android — системное окно, iPhone — подсказка, как добавить из Safari. */
+export function InstallCard(props: { kind: 'prompt' | 'ios'; onInstall: () => void; onLater: () => void; onDone: () => void }) {
+  const { t } = useUi()
+  return (
+    <section class="block install-card">
+      <h2 class="section-title">📱 {t('install.title')}</h2>
+      <p>{t('install.text')}</p>
+      {props.kind === 'ios' && <p class="small">{t('install.ios')}</p>}
+      <div class="row">
+        {props.kind === 'prompt' ? (
+          <button class="primary" onClick={props.onInstall}>{t('install.go')}</button>
+        ) : (
+          <button class="primary" onClick={props.onDone}>{t('install.ok')}</button>
+        )}
+        <button class="link" onClick={props.onLater}>{t('install.later')}</button>
+      </div>
     </section>
   )
 }

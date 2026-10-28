@@ -4,7 +4,7 @@ import type { Plugin } from 'vite'
 
 /**
  * Сборка для порталов (VITE_PLATFORM=crazygames): из index.html убираются Google Fonts, превью для соцсетей,
- * canonical и манифест сайта, а в начало подключается SDK портала.
+ * canonical, манифест и иконка «На главный экран», а в начало подключается SDK портала.
  */
 function portalHtml(platform: string | undefined): Plugin {
   return {
@@ -14,7 +14,7 @@ function portalHtml(platform: string | undefined): Plugin {
       return html
         .replace(/\s*<!--[^>]*соцсетях[\s\S]*?-->/g, '')
         .replace(/\s*<meta (property="og:|name="twitter:)[^>]*>/g, '')
-        .replace(/\s*<link rel="(canonical|manifest)"[^>]*>/g, '')
+        .replace(/\s*<link rel="(canonical|manifest|apple-touch-icon)"[^>]*>/g, '')
         .replace('<html lang="ru">', '<html lang="en">')
         .replace(/<title>[^<]*<\/title>/, '<title>Thousands of Lives</title>')
         .replace(/<meta name="description" content="[^"]*"/, '<meta name="description" content="A life simulator set in a random era of history."')

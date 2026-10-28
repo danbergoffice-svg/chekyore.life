@@ -1011,5 +1011,11 @@
   "fate.high": "Noble family",
   "fate.country": "Your country",
   "fate.none": "Chance",
-  "fate.country.lead": "Challenge reward: you choose the country; chance decides the year, region and station. It works for one life."
+  "fate.country.lead": "Challenge reward: you choose the country; chance decides the year, region and station. It works for one life.",
+  "install.title": "Add to Home Screen",
+  "install.text": "Add Thousands of Lives to your phone’s home screen — your next life is one tap away.",
+  "install.ios": "In Safari tap “Share” (the square with an arrow at the bottom), then “Add to Home Screen”.",
+  "install.go": "Add",
+  "install.ok": "Got it",
+  "install.later": "Not now"
 }

@@ -32,6 +32,10 @@ function hash(s: string): number {
   return (h >>> 0) / 4294967296
 }
 
+/** Отложенное системное окно установки (Chrome на Android и компьютере). */
+type InstallEvent = Event & { prompt(): Promise<void>; userChoice: Promise<{ outcome: string }> }
+let installEvent: InstallEvent | null = null
+
 function abBucket(): string {
   // ?ab=b в адресе — посмотреть вариант вручную (и для проверок в браузере); иначе — по id игрока и долям флага.
   const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('ab') : null
@@ -119,6 +123,15 @@ export const webPlatform: Platform = {
   external: true,
 
   async init() {
+    // Установка на главный экран: Chrome присылает событие заранее — придерживаем его до кнопки «Добавить».
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault()
+      installEvent = e as InstallEvent
+    })
+    window.addEventListener('appinstalled', () => {
+      installEvent = null
+      webPlatform.track('install_done', {})
+    })
     player = kvGet('thousands.player_id') ?? ''
     if (!player) {
       player = uuid()
@@ -228,5 +241,20 @@ export const webPlatform: Platform = {
   },
 
   ab: abBucket,
+  installKind() {
+    const standalone = matchMedia('(display-mode: standalone)').matches || (navigator as Navigator & { standalone?: boolean }).standalone
+    if (standalone) return null
+    if (installEvent) return 'prompt'
+    // На iPhone и iPad добавить на экран «Домой» умеет только Safari, и только вручную.
+    const ua = navigator.userAgent
+    return /iPhone|iPad|iPod/.test(ua) && !/CriOS|FxiOS|EdgiOS|YaBrowser/.test(ua) ? 'ios' : null
+  },
+  async install() {
+    if (!installEvent) return false
+    const e = installEvent
+    installEvent = null
+    await e.prompt()
+    return (await e.userChoice).outcome === 'accepted'
+  },
   playerId: () => player,
 }

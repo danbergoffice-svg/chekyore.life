@@ -8,7 +8,7 @@ import zlib from 'node:zlib'
 
 const DIR = 'dist-crazygames'
 const OUT = 'crazygames.zip'
-const DROP = ['CNAME', 'sw.js', 'manifest.webmanifest', 'og-ru.png', 'og-en.png', '_worker.js']
+const DROP = ['CNAME', 'sw.js', 'manifest.webmanifest', 'og-ru.png', 'og-en.png', '_worker.js', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']
 /** Разрешённые адреса: SDK портала и пространства имён SVG/XML (это не запросы в сеть). */
 const ALLOWED = [/^https:\/\/sdk\.crazygames\.com\//, /^http:\/\/www\.w3\.org\//]
 /**
