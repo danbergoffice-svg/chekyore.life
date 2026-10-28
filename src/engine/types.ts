@@ -744,6 +744,10 @@ export interface GameSettings {
   dreamChance?: number
   /** Первая жизнь: сон приходит наверняка к этому возрасту (флаг dream_first_by); не задано или 0 — снов нет. */
   dreamFirstBy?: number
+  /** Лестница снов: самый сложный уровень, который игрок уже открыл (1 + сколько снов решено хотя бы частично);
+   *  не задано — все уровни. dreamsSeen — сны прошлых жизней: новые снятся чаще. */
+  dreamLevel?: number
+  dreamsSeen?: string[]
   /** Защищённая жизнь (первые protected_lives): до этого возраста герой не умирает (смертельный исход → «выжил чудом»). Игроку не показывается. */
   protectedUntil?: number
 }
@@ -801,6 +805,8 @@ export interface DreamStep {
 
 export interface DreamDef {
   id: string
+  /** Сложность по школьной программе: 1 — 5–6 класс, 2 — 6–7, 3 — 7–8, 4 — 8–9, 5 — 9–11. */
+  level: 1 | 2 | 3 | 4 | 5
   subject: 'chemistry' | 'biology' | 'physics' | 'math'
   themes: DreamTheme[]
   /** Громкая тема: шаг 3 — спор с мудрецами. */

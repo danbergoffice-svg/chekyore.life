@@ -998,5 +998,8 @@
   "spin.fate": "Fate is sealed — life will show the rest.",
   "spin.again.ad": "▶ Spin again — watch an ad",
   "spin.ad.loading": "Loading the ad…",
-  "spin.ad.fail": "No ad available right now — try again a bit later."
+  "spin.ad.fail": "No ad available right now — try again a bit later.",
+  "menu.tagline": "One life in a random country and age — from pharaohs to samurai. Will your bloodline go on?",
+  "menu.new": "New life",
+  "spin.title": "Birth lottery"
 }

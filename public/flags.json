@@ -9,7 +9,7 @@
   "year_sec": 10,
   "chapter_ages": [16, 30, 45, 60],
   "fullscreen_gap_sec": 180,
-  "ab_buckets": { "a": 1 },
+  "ab_buckets": { "a": 0.5, "b": 0.5 },
   "ach_rarity": {},
   "portrait_style": "painting",
   "art_strength": 0.5

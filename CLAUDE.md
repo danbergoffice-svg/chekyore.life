@@ -70,10 +70,12 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   `src/fonts/ThousandsLetopis-VF.woff2`, `--font-display`: h1–h3, название игры, имя героя, подписи разделов, крупные
   цифры). На холстах (карточка «Поделиться», OG) — так же, перерисовка после `document.fonts.load`. README «Летописи» —
   `src/fonts/README-Letopis.md`.
-- Главное меню (`Menu` в `Screens.tsx`): язык и звук, картинка, название, **барабан лотереи** (`SlotMachine` в `Slots.tsx`,
-  отдельного экрана лотереи нет; страна грузится с рывка рычага), «Продолжить», дальше разделы. «Новая жизнь» с итогов
-  ведёт в меню к барабану. Защищены до 20 лет первые `protected_lives` жизней (`protectedAge` в `App.tsx`, и наследник);
-  сон о будущем в первой жизни — к `dream_first_by` годам. Пробный период «страна за отзыв» — флаг
+- Главное меню (`Menu` в `Screens.tsx`): бейдж, звук и язык, картинка с подписью, название, затем **A/B** (флаг
+  `ab_buckets`, `?ab=a|b`, отчёт в `/admin`): a — барабан лотереи прямо в меню (`SlotMachine` в `Slots.tsx`), b — кнопка
+  «Новая жизнь» и экран лотереи (`screen === 'spin'`); страна грузится с рывка рычага (событие `spin`). Ниже — «Продолжить»,
+  разделы. Проверка экрана на телефоне — `node tools/qa/fold.cjs`, варианта b — `node tools/qa/ab-b.cjs`. Защищены до 20 лет первые `protected_lives` жизней (`protectedAge` в `App.tsx`, и наследник);
+  сон о будущем в первой жизни — к `dream_first_by` годам; **лестница снов** — `level` 1–5 в `dreams.json`,
+  `dreamLadder()` (уровень = 1 + решённые сны), мягкая проверка в `checkInput` (см. `docs/TZ_dreams.md`). Пробный период «страна за отзыв» — флаг
   `trial_country_pick`, `prefs.country`, `CountryModal`/`CountryPrompt`; проверка — `node tools/qa/country.cjs`.
   Перекрутка барабана после результата — флаг `respins` (2), проверка — `node tools/qa/respin.cjs`.
 - Подсказки на экране жизни — `hintFor`/`closeHint` в `Life.tsx` (закрытые помнятся в `thousands.hints`): скорость (0–1 год),

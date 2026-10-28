@@ -13,7 +13,7 @@ const dir = process.env.SHOTS || 'shots';
   await ctx.route(/\/api\/(feedback|events)/, r => r.fulfill({ status: 204, body: '' }));
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error' && !/ERR_FAILED|404/.test(m.text())) errs.push(m.text()) });
-  await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu .slot-machine');
+  await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine');
   await p.screenshot({ path: `${dir}/c-menu-new.png` });
   await p.screenshot({ path: `${dir}/c-menu-new-full.png`, fullPage: true });
   console.log('без «Продолжить» у нового игрока:', !(await p.$('.continue')));
@@ -65,7 +65,7 @@ const dir = process.env.SHOTS || 'shots';
     await p.waitForSelector('.spin-result .primary:not([disabled])');
     console.log('выпало:', await p.$eval('.spin-result p', e => e.innerText));
     // Настройки жизни: выбор страны открыт.
-    await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu .slot-machine');
+    await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine');
     await p.click('text=Настроить жизнь');
     await p.waitForSelector('#setup-title');
     await p.screenshot({ path: `${dir}/c-setup.png` });

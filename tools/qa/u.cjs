@@ -7,7 +7,7 @@ const dir = process.env.SHOTS || 'shots';
   await ctx.route(/fonts\.(googleapis|gstatic)|mc\.yandex/, r => r.abort());
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error' && !/ERR_FAILED/.test(m.text())) errs.push(m.text()) });
-  await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu');
+  await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu');
   let taps = 0;
   await p.waitForSelector('.lever:not([disabled])', { timeout: 15000 });
   console.log('setup link in first life:', !!(await p.$('text=Настроить жизнь')));

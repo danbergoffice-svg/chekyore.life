@@ -119,11 +119,12 @@ function seed(db) {
   ev(at(Y, 0, 31), 'p1', 'life_start', {}, { life_index: 2 })
   ev(at(Y, 0, 40), 'p1', 'session_end', { screen: 'life', age: 3, sec_in_session: 2400 }, { life_index: 2 })
   // p2: вчера в 01:00 по Стамбулу = позавчера 22:00 UTC — должен попасть во «вчера»
-  ev(at(Y, 1), 'p2', 'app_open', {}, { mode: 'full' })
-  ev(at(Y, 1, 1), 'p2', 'life_start', {}, { mode: 'full' })
-  ev(at(Y, 1, 2), 'p2', 'first_choice', { sec_from_start: 9 }, { mode: 'full' })
-  ev(at(Y, 1, 5), 'p2', 'age_milestone', { age: 5, sec_in_life: 200 }, { mode: 'full' })
-  ev(at(Y, 1, 7), 'p2', 'session_end', { screen: 'life', age: 12, sec_in_session: 400 }, { mode: 'full' })
+  // p2 — во втором варианте A/B первого экрана
+  ev(at(Y, 1), 'p2', 'app_open', {}, { mode: 'full', ab: 'b' })
+  ev(at(Y, 1, 1), 'p2', 'life_start', {}, { mode: 'full', ab: 'b' })
+  ev(at(Y, 1, 2), 'p2', 'first_choice', { sec_from_start: 9 }, { mode: 'full', ab: 'b' })
+  ev(at(Y, 1, 5), 'p2', 'age_milestone', { age: 5, sec_in_life: 200 }, { mode: 'full', ab: 'b' })
+  ev(at(Y, 1, 7), 'p2', 'session_end', { screen: 'life', age: 12, sec_in_session: 400 }, { mode: 'full', ab: 'b' })
   // p3: зашёл в 23:59:59.999, закрыл вкладку ровно в 00:00 сегодня
   ev(at(Y, 23, 59, 59, 999), 'p3', 'app_open')
   ev(at(T, 0), 'p3', 'session_end', { screen: 'menu', age: 0, sec_in_session: 30 })
@@ -375,6 +376,7 @@ async function suite(realBinds) {
   check('/admin: та же сводка, что в Telegram', r.status === 200 && html.includes(`<div class="tg">${dg?.text}</div>`))
   check('/admin: старые отчёты и отзывы на месте', /быстрее/.test(html) && /Где уходят/.test(html) && /События: частота/.test(html))
   check('/admin: отчёты «Воронка по дням» и «Когорты»', /Воронка по дням/.test(html) && /Когорты по дню первого захода/.test(html))
+  check('/admin: A/B первого экрана — новички по вариантам и доли', /A\/B первого экрана/.test(html) && html.includes('<td>b</td><td>1</td><td>0 (0%)</td><td>1 (100%)</td><td>1 (100%)</td><td>0 (0%)</td>') && html.includes('<td>a</td><td>7</td><td>0 (0%)</td><td>4 (57%)</td><td>2 (29%)</td><td>2 (29%)</td>'), html.match(/<td>[ab]<\/td>.*?<\/tr>/g))
   check('/admin: отчёт по снам — доля верных и частый неверный ответ', html.includes('<td>eratosthenes</td><td>3</td><td>3</td><td>33</td><td>3 ×2</td>'))
   check('/admin: ссылки CSV', /href="\/admin\/export\?table=events&amp;days=7"/.test(html) && /table=feedback/.test(html))
   const fy = sy.funnel

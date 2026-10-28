@@ -24,13 +24,13 @@ import { answerDream, dreamDef, resolveDream, trainingOutcome, trainingState } f
 import { DreamModal } from './Dream'
 import { setArtStrength } from '../pixel/art'
 import type { DreamResult } from './Dream'
-import { ACH_BY_ID, checkLife, checkLive, checkMemorial, nearMisses, nextGoals, schoolProgram } from '../engine/achievements'
+import { ACH_BY_ID, checkLife, checkLive, checkMemorial, dreamLadder, nearMisses, nextGoals, schoolProgram } from '../engine/achievements'
 import type { Earned } from '../engine/achievements'
 import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
-type Screen = 'loading' | 'menu' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about' | 'awards'
+type Screen = 'loading' | 'menu' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about' | 'awards'
 
 const defaultPrefs: Prefs = {
   lang: platform.lang(),
@@ -314,19 +314,27 @@ export function App() {
     platform.track('respin', { n: pending.respin + 1, era: pending.birth.era, cls: pending.birth.cls, ad: 1 })
     rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1)
   }
-  // В меню барабан всегда заряжен.
+  // A/B первого экрана (флаг ab_buckets): a — барабан прямо в меню; b — кнопка «Новая жизнь» и отдельный экран лотереи.
+  // Только на сайте: на порталах своей аналитики нет.
+  const variant = platform.name === 'web' && platform.ab() === 'b' ? 'b' : 'a'
+  // Барабан всегда заряжен.
   useEffect(() => {
-    if (screen === 'menu' && !pending) rollPending()
+    if ((screen === 'menu' || screen === 'spin') && !pending) rollPending()
   }, [screen, pending])
-  /** «Новая жизнь» с итогов: в меню к барабану (жребий новый). */
+  /** «Новая жизнь» (с итогов или из меню варианта b): к барабану, жребий новый. */
   const [drumFocus, setDrumFocus] = useState(0)
   const startNew = (lottery = prefs.lottery, country = pickedCountry(prefs)) => {
     rollPending(lottery, country)
-    setScreen('menu')
-    setDrumFocus((n) => n + 1)
+    if (variant === 'b') setScreen('spin')
+    else {
+      setScreen('menu')
+      setDrumFocus((n) => n + 1)
+    }
   }
   const onPull = () => {
     if (!pending) return
+    // Рывок рычага: где теряются новички — до барабана или после результата.
+    if (pending.respin === 0) platform.track('spin', {})
     ensure(pending.birth.era)
     platform.gameplayStart()
   }
@@ -335,7 +343,9 @@ export function App() {
     if (!pending) return
     // Первые protected_lives жизней защищены до first_life_min_age лет (флаги): герой не погибает, а «выживает чудом».
     const protectedUntil = protectedAge(memorial.length)
-    // Сон о будущем: в первой жизни — наверняка к dream_first_by годам, дальше — шанс dream_chance в год.
+    // Сон о будущем: в первой жизни — наверняка к dream_first_by годам, дальше — шанс dream_chance в год;
+    // сложность — по лестнице: сначала лёгкие (5 класс), следующий уровень — после решённого сна.
+    const ladder = dreamLadder(memorial)
     const settings = {
       mode: prefs.mode,
       mortality: prefs.mortality,
@@ -344,6 +354,8 @@ export function App() {
       livesBefore: memorial.length,
       dreamChance: platform.flags.dream_chance,
       dreamFirstBy: platform.flags.dream_first_by,
+      dreamLevel: ladder.level,
+      dreamsSeen: ladder.seen,
     }
     game.current = newLife(ERA_META[pending.birth.era], settings, pending.seed, undefined, pending.birth)
     const h = game.current.hero
@@ -490,6 +502,10 @@ export function App() {
     game.current = continueWithHeir(game.current!, era, childId)
     // Наследник — тоже одна из первых защищённых жизней (обычно вторая): до 20 лет не погибает.
     game.current.settings.protectedUntil = protectedAge(memorial.length)
+    // Лестница снов — с учётом сна предка.
+    const ladder = dreamLadder(memorial)
+    game.current.settings.dreamLevel = ladder.level
+    game.current.settings.dreamsSeen = ladder.seen
     // Продолжение после конца хроники страны: с этого года — без исторических событий, вестей и справок.
     if (offChronicle.current && game.current.offChronicle === undefined) game.current.offChronicle = prevYear
     offChronicle.current = false
@@ -554,7 +570,7 @@ export function App() {
     setPrefs(next)
     setCountryOpen(false)
     if (country) platform.track('country_pick', { era: country })
-    if (screen === 'death' || screen === 'menu') startNew(next.lottery, pickedCountry(next))
+    if (screen === 'death' || screen === 'menu' || screen === 'spin') startNew(next.lottery, pickedCountry(next))
   }
   // Просим отзыв после первой жизни; если отложили — ещё раз через две жизни; после отправки — больше нет.
   const askFeedback =
@@ -582,6 +598,27 @@ export function App() {
   const openedLife = memorial.find((l) => l.heroId === opened)
   const openedEra = openedLife && isEraLoaded(openedLife.era) ? eraById(openedLife.era) : null
 
+  const slotMachine = pending ? (
+    <SlotMachine
+      key={pending.seed}
+      birth={pending.birth}
+      seed={pending.seed}
+      ready={isEraLoaded(pending.birth.era) && loadedVersion > 0}
+      error={loadError}
+      onRetry={() => ensure(pending.birth.era)}
+      onPull={onPull}
+      onDone={bornAfterSpin}
+      onRespin={respinLimit !== 0 ? onRespin : undefined}
+      left={respinsLeft}
+      onAdRespin={adRespin ? onAdRespin : undefined}
+      adBusy={adBusy}
+      autoSpin={!!pending.auto}
+      onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
+      country={pickedCountry(prefs)}
+      focus={drumFocus}
+    />
+  ) : null
+
   return (
     <UiContext.Provider value={ui}>
       <main class="app">
@@ -590,28 +627,8 @@ export function App() {
           <Menu
             current={state}
             memorial={memorial}
-            slot={
-              pending ? (
-                <SlotMachine
-                  key={pending.seed}
-                  birth={pending.birth}
-                  seed={pending.seed}
-                  ready={isEraLoaded(pending.birth.era) && loadedVersion > 0}
-                  error={loadError}
-                  onRetry={() => ensure(pending.birth.era)}
-                  onPull={onPull}
-                  onDone={bornAfterSpin}
-                  onRespin={respinLimit !== 0 ? onRespin : undefined}
-                  left={respinsLeft}
-                  onAdRespin={adRespin ? onAdRespin : undefined}
-                  adBusy={adBusy}
-                  autoSpin={!!pending.auto}
-                  onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
-                  country={pickedCountry(prefs)}
-                  focus={drumFocus}
-                />
-              ) : null
-            }
+            slot={variant === 'a' ? slotMachine : null}
+            onNew={variant === 'b' ? () => startNew() : undefined}
             onContinue={() => {
               if (!state) return
               const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
@@ -625,6 +642,13 @@ export function App() {
             awards={earned.length}
             sound={soundButton}
           />
+        )}
+        {screen === 'spin' && (
+          <div class="screen spin-screen">
+            <button class="link back" onClick={toMenu}>← {ui.t('common.back')}</button>
+            <h1>{ui.t('spin.title')}</h1>
+            {slotMachine}
+          </div>
         )}
         {setupOpen && (
           <SetupModal

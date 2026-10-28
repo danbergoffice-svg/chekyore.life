@@ -18,7 +18,7 @@ async function run(mode) {
   });
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', (e) => errs.push(e.message));
-  await p.goto('http://localhost:4173/'); await p.waitForSelector('.menu');
+  await p.goto('http://localhost:4173/?ab=a'); await p.waitForSelector('.menu');
   // Барабан в меню: страна грузится с рывка рычага; готово — когда «Узнать свою семью» активна.
   const READY = '.spin-result .primary:not([disabled])'
   const pull = async () => { await p.waitForSelector('.lever:not([disabled])'); await p.click('.lever') }

@@ -6,7 +6,7 @@ import { ERA_META } from '../content'
 import DREAMS from '../content/dreams.json'
 import { evaluate } from './formula'
 import { newLife } from './life'
-import { applyEffects, changeParam, note } from './rules'
+import { applyEffects, changeParam, isProtected, note } from './rules'
 import { DEFAULT_FLAGS } from '../platform/types'
 import type { DreamDef, DreamInput, DreamOutcome, DreamState, DreamTheme, EraDef, EraMeta, GameState } from './types'
 
@@ -44,10 +44,16 @@ export function dreamRng(state: GameState, salt: string): () => number {
 
 // ---------- Когда и какой сон ----------
 
-/** Сны, возможные в стране и краю героя. */
+/** Классы школы по уровням сложности сна. */
+export const DREAM_GRADES: Record<number, string> = { 1: '5–6', 2: '6–7', 3: '7–8', 4: '8–9', 5: '9–11' }
+
+/** Сны, возможные в стране и краю героя — не сложнее открытого уровня лестницы. */
 export function dreamsAvailable(state: GameState): DreamDef[] {
   const region = ERA_META[state.hero.era]?.regions.find((r) => r.id === state.hero.region)
-  return DREAM_DEFS.filter((d) => (!d.eras || d.eras.includes(state.hero.era)) && (!d.region_tags || d.region_tags.every((t) => region?.tags?.includes(t))))
+  const level = state.settings.dreamLevel ?? 5
+  return DREAM_DEFS.filter(
+    (d) => d.level <= level && (!d.eras || d.eras.includes(state.hero.era)) && (!d.region_tags || d.region_tags.every((t) => region?.tags?.includes(t))),
+  )
 }
 
 /**
@@ -88,13 +94,21 @@ export function dreamThemes(state: GameState): Set<DreamTheme> {
   return out
 }
 
-/** Сон по судьбе героя: темы, которые ему сейчас близки, — втрое вероятнее. */
+/** Сон по судьбе героя: темы, которые ему сейчас близки, — втрое вероятнее; сны открытого уровня лестницы — в 8 раз,
+ *  уровнем ниже — вдвое; уже снившиеся в прошлых жизнях — вчетверо реже. */
 export function pickDream(state: GameState): DreamDef | undefined {
   const list = dreamsAvailable(state)
   const themes = dreamThemes(state)
+  const top = Math.max(0, ...list.map((d) => d.level))
+  const seen = new Set(state.settings.dreamsSeen ?? [])
   // Во время мора сны о лечении приходят почти всегда: это то, о чём герой думает днём и ночью.
   const plague = state.hero.tags.includes('epidemic')
-  const w = list.map((d) => (plague && d.themes.includes('medicine') ? 8 : d.themes.some((t) => themes.has(t)) ? 3 : 1))
+  const w = list.map(
+    (d) =>
+      (plague && d.themes.includes('medicine') ? 8 : d.themes.some((t) => themes.has(t)) ? 3 : 1) *
+      (state.settings.dreamLevel === undefined ? 1 : d.level === top ? 8 : d.level === top - 1 ? 2 : 1) *
+      (seen.has(d.id) ? 0.25 : 1),
+  )
   const total = w.reduce((a, b) => a + b, 0)
   let x = dreamRng(state, 'pick')() * total
   for (let i = 0; i < list.length; i++) if ((x -= w[i]) < 0) return list[i]
@@ -131,17 +145,25 @@ export function parseNumber(raw: unknown): number {
 /** Верен ли ответ: pick — ровно нужное; ratio — каждая доля в допуске; order — нужные шаги по порядку; number — в допуске. */
 export function checkInput(input: DreamInput, value: unknown, params: Record<string, number>, era: string): boolean {
   if (input.kind === 'pick') {
+    // Лишнее — всегда ошибка (ловушки и анахронизмы); если нужных три и больше, один пропуск прощается — «почти всё».
     const want = new Set(expectedAnswer(input, params, era) as string[])
     const got = new Set(Array.isArray(value) ? (value as string[]) : [])
-    return want.size === got.size && [...want].every((x) => got.has(x))
+    if ([...got].some((x) => !want.has(x))) return false
+    const missed = [...want].filter((x) => !got.has(x)).length
+    return missed === 0 || (want.size >= 3 && missed === 1)
   }
   if (input.kind === 'ratio') {
     const got = (value ?? {}) as Record<string, unknown>
     return Object.entries(input.answer).every(([k, v]) => Math.abs(parseNumber(got[k]) - v) <= input.tolerance) && Object.keys(got).every((k) => k in input.answer)
   }
   if (input.kind === 'order') {
+    // Лишний шаг должен быть выброшен; в порядке прощается одна перестановка соседних шагов (из четырёх и больше).
     const got = Array.isArray(value) ? (value as string[]) : []
-    return got.length === input.answer.length && got.every((x, i) => x === input.answer[i])
+    const want = input.answer
+    if (got.length !== want.length || !want.every((x) => got.includes(x))) return false
+    const wrong = got.map((x, i) => (x === want[i] ? -1 : i)).filter((i) => i >= 0)
+    if (!wrong.length) return true
+    return want.length >= 4 && wrong.length === 2 && wrong[1] === wrong[0] + 1
   }
   const want = evaluate(input.formula, params)
   const v = parseNumber(value)
@@ -246,6 +268,8 @@ export function resolveDream(state: GameState, era: EraDef): DreamOutcome {
     applyEffects(state, era, def.outcomes.failure)
     if (def.debate && r() < 0.3 && !hero.tags.includes('suspected_witch')) hero.tags.push('suspected_witch')
   }
+  // Защищённая жизнь (первые protected_lives до 20 лет): сон не убивает — просто провал.
+  if (outcome === 'death' && isProtected(state)) outcome = 'failure'
   if (outcome === 'death' && hero.alive) {
     hero.alive = false
     hero.deathCause = 'dream_failure'

@@ -265,6 +265,7 @@ export function validateDreams(): string[] {
   const bad: string[] = []
   for (const d of DREAM_DEFS) {
     for (const e of d.eras ?? []) if (!ERA_META[e]) bad.push(`${d.id}: страна ${e}`)
+    if (![1, 2, 3, 4, 5].includes(d.level)) bad.push(`${d.id}: уровень сложности 1–5`)
     // Все сочетания краёв параметров.
     const keys = Object.keys(d.params ?? {})
     const corners: Record<string, number>[] = [{}]

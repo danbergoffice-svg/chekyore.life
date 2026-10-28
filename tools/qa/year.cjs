@@ -5,7 +5,7 @@ const { chromium } = require('playwright');
   await ctx.route(/fonts\.(googleapis|gstatic)|mc\.yandex/, r => r.abort());
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message));
-  await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu');
+  await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu');
   await p.click('text=Настройки');
   const group = await p.$('fieldset:has(legend:text("Длительность года"))');
   console.log(await group.innerText());

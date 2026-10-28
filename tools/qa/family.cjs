@@ -7,7 +7,7 @@ const dir = process.env.SHOTS || 'shots';
   await ctx.route(/fonts\.(googleapis|gstatic)|mc\.yandex/, r => r.abort());
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message));
-  await p.goto('http://localhost:4173/'); await p.waitForSelector('.menu');
+  await p.goto('http://localhost:4173/?ab=a'); await p.waitForSelector('.menu');
   await p.waitForSelector('.lever:not([disabled])', { timeout: 15000 });
   await p.click('.lever');
   await p.waitForSelector('.spin-result', { timeout: 10000 });

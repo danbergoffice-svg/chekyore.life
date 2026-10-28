@@ -2,6 +2,7 @@
   "dreams": [
     {
       "id": "gunpowder",
+      "level": 5,
       "subject": "chemistry",
       "themes": [
         "war"
@@ -193,6 +194,7 @@
     },
     {
       "id": "clean_hands",
+      "level": 2,
       "subject": "biology",
       "themes": [
         "medicine"
@@ -332,6 +334,7 @@
     },
     {
       "id": "rehydration",
+      "level": 2,
       "subject": "biology",
       "themes": [
         "medicine"
@@ -470,6 +473,7 @@
     },
     {
       "id": "scurvy",
+      "level": 2,
       "subject": "biology",
       "themes": [
         "sea",
@@ -614,6 +618,7 @@
     },
     {
       "id": "cowpox",
+      "level": 3,
       "subject": "biology",
       "themes": [
         "medicine"
@@ -762,6 +767,7 @@
     },
     {
       "id": "penicillin",
+      "level": 2,
       "subject": "biology",
       "themes": [
         "medicine",
@@ -899,6 +905,7 @@
     },
     {
       "id": "rotation",
+      "level": 1,
       "subject": "biology",
       "themes": [
         "farming"
@@ -1043,6 +1050,7 @@
     },
     {
       "id": "thales",
+      "level": 3,
       "subject": "math",
       "themes": [
         "scholar",
@@ -1182,6 +1190,7 @@
     },
     {
       "id": "right_angle",
+      "level": 4,
       "subject": "math",
       "themes": [
         "building"
@@ -1324,6 +1333,7 @@
     },
     {
       "id": "eratosthenes",
+      "level": 3,
       "subject": "physics",
       "themes": [
         "scholar"
@@ -1488,6 +1498,7 @@
     },
     {
       "id": "archimedes",
+      "level": 5,
       "subject": "physics",
       "themes": [
         "scholar",
@@ -1629,6 +1640,7 @@
     },
     {
       "id": "lever",
+      "level": 4,
       "subject": "physics",
       "themes": [
         "building"
@@ -1778,6 +1790,7 @@
     },
     {
       "id": "interest",
+      "level": 5,
       "subject": "math",
       "themes": [
         "trade"
@@ -1914,6 +1927,7 @@
     },
     {
       "id": "lenses",
+      "level": 4,
       "subject": "physics",
       "themes": [
         "scholar"
@@ -2051,6 +2065,7 @@
     },
     {
       "id": "latitude",
+      "level": 3,
       "subject": "physics",
       "themes": [
         "sea"
@@ -2186,6 +2201,7 @@
     },
     {
       "id": "compass",
+      "level": 1,
       "subject": "physics",
       "themes": [
         "sea",
@@ -2314,6 +2330,570 @@
           {
             "param": "reputation",
             "delta": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "numerals",
+      "level": 1,
+      "subject": "math",
+      "themes": [
+        "trade",
+        "scholar"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "MAY",
+          "from": 300
+        },
+        {
+          "era": "IND",
+          "from": 600
+        },
+        {
+          "era": "ISL",
+          "from": 830
+        },
+        {
+          "era": "CHN",
+          "from": 1250
+        },
+        {
+          "era": "EUR",
+          "from": 1480
+        }
+      ],
+      "params": {
+        "a": [
+          12,
+          29,
+          1
+        ],
+        "b": [
+          11,
+          19,
+          1
+        ],
+        "k": [
+          3,
+          6,
+          1
+        ],
+        "m": [
+          12,
+          40,
+          1
+        ]
+      },
+      "derived": {
+        "total": "k * m"
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "a * b",
+              "abs": 0.5
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "ten_digits",
+                "zero",
+                "place_value",
+                "letters",
+                "knots",
+                "pebbles"
+              ],
+              "answer": [
+                "ten_digits",
+                "zero",
+                "place_value"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "m",
+              "abs": 0.5
+            }
+          ]
+        }
+      ],
+      "profession": "dream_banker",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 2
+          },
+          {
+            "param": "reputation",
+            "delta": 15
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 6
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "reputation",
+            "delta": -5
+          }
+        ]
+      }
+    },
+    {
+      "id": "boiled_water",
+      "level": 1,
+      "subject": "biology",
+      "themes": [
+        "medicine"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "CHN",
+          "from": 700
+        },
+        {
+          "era": "JPN",
+          "from": 1200
+        }
+      ],
+      "params": {
+        "l": [
+          4,
+          10,
+          1
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "boil",
+                "settle",
+                "filter_cloth",
+                "add_salt",
+                "add_honey",
+                "silver_coin"
+              ],
+              "answer": [
+                "boil",
+                "settle",
+                "filter_cloth"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "l * 7",
+              "abs": 0.5
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "order",
+              "options": [
+                "settle",
+                "filter_cloth",
+                "boil",
+                "cool_covered",
+                "add_raw_water"
+              ],
+              "answer": [
+                "settle",
+                "filter_cloth",
+                "boil",
+                "cool_covered"
+              ]
+            }
+          ]
+        }
+      ],
+      "profession": "dream_healer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 2
+          },
+          {
+            "param": "reputation",
+            "delta": 15
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 6
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "reputation",
+            "delta": -5
+          }
+        ]
+      }
+    },
+    {
+      "id": "field_area",
+      "level": 1,
+      "subject": "math",
+      "themes": [
+        "farming",
+        "building"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "ANE",
+          "from": -3000
+        },
+        {
+          "era": "E03",
+          "from": -500
+        },
+        {
+          "era": "CHN",
+          "from": -200
+        }
+      ],
+      "params": {
+        "a": [
+          20,
+          60,
+          10
+        ],
+        "b": [
+          10,
+          50,
+          10
+        ]
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "a * b",
+              "abs": 0.5
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "a * b / 100",
+              "abs": 0.05
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "knotted_rope",
+                "stakes",
+                "measuring_rod",
+                "by_eye",
+                "hourglass",
+                "shadow"
+              ],
+              "answer": [
+                "knotted_rope",
+                "stakes",
+                "measuring_rod"
+              ]
+            }
+          ]
+        }
+      ],
+      "profession": "dream_engineer",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 2
+          },
+          {
+            "param": "reputation",
+            "delta": 15
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 6
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "reputation",
+            "delta": -5
+          }
+        ]
+      }
+    },
+    {
+      "id": "fair_price",
+      "level": 1,
+      "subject": "math",
+      "themes": [
+        "trade"
+      ],
+      "eras": [
+        "E03",
+        "ANE",
+        "BYZ",
+        "RUS",
+        "EUR",
+        "ISL",
+        "JPN",
+        "IND",
+        "WAF",
+        "ETH",
+        "MAY",
+        "AMR",
+        "CHN"
+      ],
+      "known_in": [
+        {
+          "era": "CHN",
+          "from": 100
+        },
+        {
+          "era": "IND",
+          "from": 600
+        },
+        {
+          "era": "ISL",
+          "from": 850
+        },
+        {
+          "era": "EUR",
+          "from": 1250
+        }
+      ],
+      "params": {
+        "n": [
+          3,
+          6,
+          1
+        ],
+        "u": [
+          2,
+          6,
+          1
+        ],
+        "m": [
+          7,
+          12,
+          1
+        ],
+        "buy": [
+          5,
+          10,
+          1
+        ],
+        "add": [
+          2,
+          5,
+          1
+        ]
+      },
+      "derived": {
+        "c": "n * u",
+        "sell": "buy + add"
+      },
+      "steps": [
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "m * u",
+              "abs": 0.5
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "pick",
+              "options": [
+                "standard_weights",
+                "balance_scale",
+                "swap_pans",
+                "bigger_sack",
+                "trust_word",
+                "count_fingers"
+              ],
+              "answer": [
+                "standard_weights",
+                "balance_scale",
+                "swap_pans"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "single",
+          "items": [
+            {
+              "kind": "number",
+              "formula": "10 * add",
+              "abs": 0.5
+            }
+          ]
+        }
+      ],
+      "profession": "dream_banker",
+      "outcomes": {
+        "breakthrough": [
+          {
+            "class_up": 1,
+            "max": "landowner"
+          },
+          {
+            "money_years": 2
+          },
+          {
+            "param": "reputation",
+            "delta": 15
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "partial": [
+          {
+            "money_years": 1
+          },
+          {
+            "param": "reputation",
+            "delta": 6
+          },
+          {
+            "add_trait": "dreamer"
+          }
+        ],
+        "failure": [
+          {
+            "param": "reputation",
+            "delta": -5
           }
         ]
       }

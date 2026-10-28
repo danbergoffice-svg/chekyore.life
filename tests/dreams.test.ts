@@ -23,7 +23,7 @@ describe('Сон о будущем', () => {
   })
 
   it('каталог снов проходит проверку: ответы, доли, формулы на краях, тексты RU и EN', () => {
-    expect(DREAM_DEFS.length).toBeGreaterThanOrEqual(16)
+    expect(DREAM_DEFS.length).toBeGreaterThanOrEqual(20)
     expect(validateDreams()).toEqual([])
   })
 
@@ -135,6 +135,61 @@ describe('Сон о будущем', () => {
     expect(checkInput(legumes, ['clover', 'vetch', 'peas'], {}, 'EUR')).toBe(true)
     expect(checkInput(legumes, ['clover', 'vetch', 'peas', 'potato'], {}, 'EUR')).toBe(false)
     expect(checkInput(legumes, ['beans'], {}, 'AMR')).toBe(true)
+  })
+
+  it('лестница: в первой жизни — только сны 5–6 класса, с открытым уровнем 3 — чаще всего уровень 3, новые — чаще снившихся', () => {
+    const levels = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } as Record<number, number>
+    let repeats = 0
+    for (let i = 0; i < 400; i++) {
+      const era = eras[Object.keys(eras)[i % 13]]
+      const first = newLife(era, { ...soft(0, 0.05, 25), dreamLevel: 1 }, 30000 + i)
+      first.hero.age = 18
+      expect(dreamDef(pickDream(first)!.id)!.level).toBe(1)
+      const third = newLife(era, { ...soft(2), dreamLevel: 3, dreamsSeen: ['thales'] }, 31000 + i)
+      third.hero.age = 25
+      const d = pickDream(third)!
+      levels[d.level]++
+      if (d.id === 'thales') repeats++
+    }
+    expect(levels[4] + levels[5]).toBe(0)
+    expect(levels[3]).toBeGreaterThan(levels[1] + levels[2])
+    expect(repeats).toBeLessThan(levels[3] / 6)
+    expect(DREAM_DEFS.filter((d) => d.level === 1).length).toBeGreaterThanOrEqual(6)
+  })
+
+  it('мягкая проверка: один пропуск из трёх нужных и одна перестановка соседних шагов — верно; лишнее — ошибка', () => {
+    const legumes = dreamDef('rotation')!.steps[1].items[0]
+    expect(checkInput(legumes, ['clover', 'vetch'], {}, 'EUR')).toBe(true)
+    expect(checkInput(legumes, ['clover'], {}, 'EUR')).toBe(false)
+    expect(checkInput(legumes, ['clover', 'vetch', 'potato'], {}, 'EUR')).toBe(false)
+    const lenses = dreamDef('lenses')!.steps[1].items[0]
+    expect(checkInput(lenses, [(lenses as { answer: string[] }).answer[0]], {}, 'EUR')).toBe(false)
+    const lever = dreamDef('lever')!.steps[2].items[0] as { answer: string[] }
+    const a = lever.answer
+    expect(checkInput(lever as never, [a[0], a[2], a[1], a[3], a[4]], {}, 'EUR')).toBe(true)
+    expect(checkInput(lever as never, [a[0], a[2], a[3], a[1], a[4]], {}, 'EUR')).toBe(false)
+    expect(checkInput(lever as never, [a[1], a[0], a[3], a[2], a[4]], {}, 'EUR')).toBe(false)
+    expect(checkInput(lever as never, [...a.slice(0, 4), 'jerk_rope'], {}, 'EUR')).toBe(false)
+  })
+
+  it('защищённая жизнь: проваленный сон не убивает', () => {
+    let deaths = 0
+    let protectedDeaths = 0
+    for (let i = 0; i < 400; i++) {
+      const s = newLife(eras.EUR, { ...soft(1), protectedUntil: 20 }, 5000 + i)
+      s.hero.age = 19
+      startDream(s, 'cowpox')
+      const def = dreamDef('cowpox')!
+      for (const step of def.steps) for (const input of step.items) answerDream(s, input.kind === 'number' ? '0' : [])
+      if (resolveDream(s, eras.EUR) === 'death') protectedDeaths++
+      const t = newLife(eras.EUR, soft(1), 5000 + i)
+      t.hero.age = 25
+      startDream(t, 'cowpox')
+      for (const step of def.steps) for (const input of step.items) answerDream(t, input.kind === 'number' ? '0' : [])
+      if (resolveDream(t, eras.EUR) === 'death') deaths++
+    }
+    expect(protectedDeaths).toBe(0)
+    expect(deaths).toBeGreaterThan(0)
   })
 
   it('сон не меняет остальную жизнь: без сна и с отказом от сна — те же события', () => {

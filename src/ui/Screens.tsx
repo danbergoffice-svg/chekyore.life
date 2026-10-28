@@ -26,8 +26,10 @@ const SHOWCASE: { region: string; era: string; scene: SceneDef }[] = ERA_IDS.fla
 interface MenuProps {
   current: GameState | null
   memorial: LifeSummary[]
-  /** Барабан лотереи рождения — сразу под названием игры. */
+  /** Барабан лотереи рождения — сразу под названием игры (вариант a). */
   slot: ComponentChildren
+  /** Вариант b: кнопка «Новая жизнь» ведёт на отдельный экран лотереи. */
+  onNew?: () => void
   onContinue: () => void
   onOpenLife: (heroId: string) => void
   onFeedback: () => void
@@ -39,7 +41,7 @@ interface MenuProps {
   sound: ComponentChildren
 }
 
-export function Menu({ current, memorial, slot, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
+export function Menu({ current, memorial, slot, onNew, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -51,26 +53,38 @@ export function Menu({ current, memorial, slot, onContinue, onOpenLife, onFeedba
   const playing = !!current && current.phase !== 'dead' && !!hero
   return (
     <div class="screen menu">
+      {/* Верх меню сжат, чтобы барабан (или «Новая жизнь») был виден на телефоне без прокрутки. */}
       <div class="menu-top">
-        {sound}
-        <div class="lang-switch" role="group" aria-label={t('settings.language')}>
-          {LANGS.map((l) => (
-            <button type="button" class={l === lang ? 'active' : ''} aria-pressed={l === lang} onClick={() => onLang(l)}>
-              {l.toUpperCase()}
-            </button>
-          ))}
+        <span class="badge">{t('beta.badge')}</span>
+        <div class="menu-top-right">
+          {sound}
+          <div class="lang-switch" role="group" aria-label={t('settings.language')}>
+            {LANGS.map((l) => (
+              <button type="button" class={l === lang ? 'active' : ''} aria-pressed={l === lang} onClick={() => onLang(l)}>
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-      <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={t(`region.${view.region}`)} />
-      <p class="small muted center">
-        {t(`region.${view.region}`)} · {t(`era.${view.era}`)}
-      </p>
+      <div class="menu-scene">
+        <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={t(`region.${view.region}`)} />
+        <span class="scene-cap">
+          {t(`region.${view.region}`)} · {t(`era.${view.era}.short`)}
+        </span>
+      </div>
       <div class="title-block">
-        <span class="badge">{t('beta.badge')}</span>
         <h1 class="game-title">{t('app.title')}</h1>
-        <p class="lead">{t('app.tagline')}</p>
+        <p class="lead">{t('menu.tagline')}</p>
       </div>
 
+      {onNew && (
+        <div class="stack">
+          <button class="primary" onClick={onNew}>
+            {t('menu.new')}
+          </button>
+        </div>
+      )}
       {slot}
 
       {playing && hero && (

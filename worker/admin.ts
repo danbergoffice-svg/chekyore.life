@@ -44,7 +44,7 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
   const week = period(today, 7)
   const two = period(today, 14)
   const all = (sql: string, p = week) => db.prepare(sql).bind(p.from, p.to).all().then((r) => r.results)
-  const [fb, s, byDay, players, choices, dreams, cohortRows, digest] = await Promise.all([
+  const [fb, s, byDay, players, choices, dreams, cohortRows, digest, ab] = await Promise.all([
     db.prepare("SELECT datetime(ts/1000 + 10800,'unixepoch') AS time, rating, answers_json, contact, context_json FROM feedback ORDER BY ts DESC LIMIT 100").all(),
     summary(db, week, 100),
     all(SQL.funnelByDay, two),
@@ -53,11 +53,18 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     all(SQL.dreamSteps, period(today, 30)),
     cohorts(db, today, 21),
     digestMessage(db, now),
+    all(SQL.abTest, two),
   ])
+  // A/B первого экрана: доли — от новичков варианта.
+  const abRows = ab.map((r) => {
+    const n = Number(r.new_players)
+    return { вариант: r.variant, новички: n, 'дёрнули рычаг': `${r.pulled} (${pct(Number(r.pulled), n)})`, 'начали жизнь': `${r.started} (${pct(Number(r.started), n)})`, 'до 5 лет': `${r.age_5} (${pct(Number(r.age_5), n)})`, 'до 20 лет': `${r.age_20} (${pct(Number(r.age_20), n)})` }
+  })
   const f = s.funnel
   const reports: { title: string; rows: Record<string, unknown>[] }[] = [
     { title: `Воронка за 7 дней, ${week.label} (уникальные игроки; как /funnel)`, rows: FUNNEL_STEPS.map(([k, label], i) => ({ шаг: label, событие: k, игроки: f[k], '% от прошлого': i ? pct(f[k], f[FUNNEL_STEPS[i - 1][0]]) : '' })) },
     { title: 'Воронка по дням (14 дней, уникальные игроки)', rows: byDay },
+    { title: 'A/B первого экрана за 14 дней: a — барабан в меню, b — кнопка «Новая жизнь» и экран лотереи (новички, флаг ab_buckets)', rows: abRows },
     { title: 'Когорты по дню первого захода: вернулись через 1 день (D1) и через 7 дней (D7)', rows: cohortRows.map((c) => ({ day: c.day, new_players: c.new_players, D1: c.d1, D7: c.d7 })) },
     { title: 'Игроки и жизни по дням (14 дней)', rows: players },
     { title: `Жизни по режимам за 7 дней (как /week): минуты, возраст смерти, выборы`, rows: [...s.modes, s.lives] as unknown as Record<string, unknown>[] },

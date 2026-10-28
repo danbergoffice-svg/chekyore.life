@@ -8,7 +8,7 @@ const dir = process.env.SHOTS || 'shots';
   const p = await ctx.newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error' && !/ERR_FAILED/.test(m.text())) errs.push(m.text()) });
   const events = []; p.on('request', r => { if (/\/api\/events/.test(r.url())) events.push(r.postData() || '') });
-  await p.goto('http://localhost:5174/'); await p.waitForSelector('.menu .slot-machine');
+  await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine');
   const results = [];
   await p.click('.spin-button');
   for (let i = 0; i < 3; i++) {

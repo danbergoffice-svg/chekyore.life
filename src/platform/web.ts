@@ -33,6 +33,9 @@ function hash(s: string): number {
 }
 
 function abBucket(): string {
+  // ?ab=b в адресе — посмотреть вариант вручную (и для проверок в браузере); иначе — по id игрока и долям флага.
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('ab') : null
+  if (forced && forced in flags.ab_buckets) return forced
   const r = hash(player + ':ab')
   let acc = 0
   const entries = Object.entries(flags.ab_buckets)

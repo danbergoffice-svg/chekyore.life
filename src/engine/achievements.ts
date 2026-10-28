@@ -286,6 +286,20 @@ export function schoolProgram(memorial: LifeSummary[]): {
   return { solved, seen, where, subjects: subjects.filter((x) => x.ids.length) }
 }
 
+/** Лестница снов: открытый уровень — 1 + сколько снов решено хотя бы частично (прорыв или «частично»), не выше 5;
+ *  и какие сны уже снились — новые снятся чаще. */
+export function dreamLadder(memorial: LifeSummary[]): { level: number; seen: string[] } {
+  let solved = 0
+  const seen: string[] = []
+  for (const l of memorial) {
+    const d = dreamOf(l)
+    if (!d) continue
+    seen.push(d.id)
+    if (d.outcome === 'breakthrough' || d.outcome === 'partial') solved++
+  }
+  return { level: Math.min(5, 1 + solved), seen }
+}
+
 /** Засчитывается ли награда в этой жизни (трудные — только при исторической смертности). */
 function allowed(a: AchDef, life: { mortality?: string }): boolean {
   return !a.hard || life.mortality === 'historical'

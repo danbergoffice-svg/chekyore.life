@@ -1,7 +1,7 @@
 // ТЗ v3, п. 8–10: награды — выдаются по итогам жизни, задним числом по мемориалу, трудные — только при исторической смертности.
 import { describe, expect, it } from 'vitest'
 import { loadEra } from '../src/content'
-import { ACHIEVEMENTS, checkLife, checkLive, checkMemorial, nearMisses, nextGoals, schoolProgram } from '../src/engine/achievements'
+import { ACHIEVEMENTS, checkLife, checkLive, checkMemorial, dreamLadder, nearMisses, nextGoals, schoolProgram } from '../src/engine/achievements'
 import { autoplay } from '../src/engine/game'
 import { newLife, summarize } from '../src/engine/life'
 import { createT } from '../src/i18n'
@@ -58,7 +58,13 @@ describe('Награды', () => {
     const school = schoolProgram([withDream({}), withDream({ id: 'thales', score: 1, outcome: 'failure' })])
     expect(school.solved).toEqual(new Set(['eratosthenes']))
     expect(school.seen).toEqual(new Set(['eratosthenes', 'thales']))
-    expect(school.subjects.reduce((n, x) => n + x.ids.length, 0)).toBe(16)
+    expect(school.subjects.reduce((n, x) => n + x.ids.length, 0)).toBe(20)
+    // Лестница снов: уровень растёт с каждым сном, решённым хотя бы частично; провал и отказ не поднимают.
+    expect(dreamLadder([])).toEqual({ level: 1, seen: [] })
+    expect(dreamLadder([withDream({ id: 'thales', score: 1, outcome: 'failure' })]).level).toBe(1)
+    expect(dreamLadder([withDream({ skipped: true, outcome: 'failure', score: 0 })]).level).toBe(1)
+    expect(dreamLadder([withDream({}), withDream({ id: 'thales', outcome: 'partial', score: 2 })])).toEqual({ level: 3, seen: ['eratosthenes', 'thales'] })
+    expect(dreamLadder(five.concat(five)).level).toBe(5)
   })
 
   it('«Почти получилось» и цели на следующую жизнь', () => {
