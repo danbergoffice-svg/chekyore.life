@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<title>Карточка жизни — «Плакат»</title>
+<link rel="stylesheet" href="mock.css" />
+<style>
+  html, body { width: 1080px; height: 1920px; overflow: hidden; }
+  body { --gold: #e0b465; --accent: #e08a5e; --ink: #f3e8d4; --muted: #b3a089; background: #14100c; color: var(--ink); }
+  /* Сцена края крупно (×5), снизу растворяется в чёрном. */
+  .scene { position: absolute; z-index: 0; left: 0; top: 0; width: 1080px; height: 640px; overflow: hidden; }
+  .page, .foot { z-index: 2; }
+  .scene img { position: absolute; top: 0; left: -420px; width: 1920px; height: 600px; filter: contrast(1.12) saturate(1.25) brightness(0.96); }
+  .scene::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(200deg, rgba(255, 190, 110, 0.18), transparent 60%); mix-blend-mode: soft-light; }
+  .scene::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 16, 12, 0.5) 0%, transparent 22%, transparent 52%, #14100c 94%); z-index: 1; }
+  .brand { position: absolute; z-index: 2; top: 54px; left: 0; right: 0; text-align: center; font-size: 26px; letter-spacing: 0.42em; color: #fff4dc; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); }
+  .page { position: absolute; left: 84px; right: 84px; top: 470px; }
+  .who { display: flex; align-items: flex-end; gap: 40px; }
+  .ava { flex: none; width: 204px; height: 252px; padding: 6px; border-radius: 20px; background: linear-gradient(160deg, #f3d488, #a87a2e); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55); }
+  .ava img { width: 192px; height: 240px; border-radius: 15px; }
+  .name { font-family: var(--font-display); font-weight: 500; font-size: 150px; line-height: 0.9; }
+  .meta { font-size: 38px; color: var(--muted); margin-top: 16px; }
+  .path { margin-top: 34px; font-size: 38px; color: var(--gold); letter-spacing: 0.02em; }
+  .path b { color: var(--muted); font-weight: 400; margin: 0 10px; }
+
+  .nums { display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 54px; border-top: 1.5px solid rgba(224, 180, 101, 0.35); border-bottom: 1.5px solid rgba(224, 180, 101, 0.35); }
+  .nums div { padding: 34px 0 30px; text-align: center; }
+  .nums div + div { border-left: 1.5px solid rgba(224, 180, 101, 0.2); }
+  .nums b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 92px; line-height: 1; color: var(--ink); }
+  .nums b small { font-size: 46px; color: var(--muted); }
+  .nums .hl b { color: var(--accent); }
+  .nums span { display: block; margin-top: 12px; font-size: 28px; color: var(--muted); line-height: 1.2; }
+
+  .dream { display: flex; align-items: center; gap: 22px; margin-top: 46px; padding: 22px 28px; border-radius: 22px; background: rgba(110, 120, 220, 0.12); border: 1.5px solid rgba(150, 160, 255, 0.28); font-size: 32px; color: #d9dcff; }
+  .dream i { font-style: normal; font-size: 44px; }
+  .dream small { display: block; color: #a9addb; font-size: 26px; margin-top: 2px; }
+  .epitaph { margin-top: 56px; font-style: italic; font-size: 56px; line-height: 1.2; color: #fff6e6; }
+  .epitaph::before { content: '«'; color: var(--gold); }
+  .epitaph::after { content: '»'; color: var(--gold); }
+  .rare { display: inline-flex; align-items: center; gap: 14px; margin-top: 40px; padding: 12px 30px; border-radius: 999px; border: 2px solid var(--gold); color: var(--gold); font-size: 32px; font-weight: 700; }
+
+  .foot { position: absolute; left: 84px; right: 84px; bottom: 80px; display: flex; align-items: center; gap: 30px; padding-top: 34px; border-top: 1.5px solid rgba(224, 180, 101, 0.3); }
+  .drum { display: flex; gap: 8px; padding: 12px; border-radius: 18px; background: linear-gradient(180deg, #5a3420, #3e2214); box-shadow: inset 0 0 0 2px #a87a2e; }
+  .drum span { width: 46px; height: 64px; border-radius: 9px; background: linear-gradient(180deg, #e9dcc0, #fbf6ec 40%, #fbf6ec 60%, #e9dcc0); display: grid; place-items: center; color: #8e3b22; font-weight: 800; font-size: 30px; }
+  .foot .q { font-family: var(--font-display); font-size: 58px; line-height: 1; color: var(--ink); }
+  .foot .u { font-size: 34px; color: var(--gold); margin-top: 8px; letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<div class="scene"><img class="pix" src="assets/scene-echigo-snow.png" alt="" /></div>
+<div class="brand">ТЫСЯЧИ ЖИЗНЕЙ</div>
+<div class="page">
+  <div class="who">
+    <div class="ava"><img class="pix" src="assets/avatar-matsu.png" alt="" /></div>
+    <div>
+      <div class="name">Мацу</div>
+      <div class="meta">58 лет · 1463–1521 · Этиго, Япония</div>
+    </div>
+  </div>
+  <div class="path">крестьянка <b>→</b> лекарь</div>
+
+  <div class="nums">
+    <div><b>3<small> · </small>5</b><span>детей · внуков</span></div>
+    <div><b>7 611</b><span>монов к старости<br />богаче 9 из 10 соседей</span></div>
+    <div class="hl"><b>81%</b><span>людей её времени<br />прожили меньше</span></div>
+  </div>
+
+  <div class="dream"><i>🌙</i><div>Сон о будущем: «Кипячёная вода»<small>частичный успех — соседи перестали болеть летом</small></div></div>
+
+  <div class="epitaph">Лекарка из Этиго, пережившая три войны и спасшая город от холеры во сне</div>
+  <div class="rare">◆ Такую жизнь прожил 1 из 200 игроков</div>
+</div>
+<div class="foot">
+  <div class="drum"><span>?</span><span>?</span><span>?</span></div>
+  <div><div class="q">Кем будешь ты?</div><div class="u">thousands.life</div></div>
+</div>
+</body>
+</html>
