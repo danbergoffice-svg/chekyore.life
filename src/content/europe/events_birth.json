@@ -1,0 +1,356 @@
+[
+  {
+    "id": "eur_fc_baptism",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "religions": [
+      "catholic"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "fire",
+        "cradle",
+        "lamp"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "midwife",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 1
+          },
+          {
+            "param": "health",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "eur_fc_baptism_midwife",
+            "after_years": [
+              6,
+              10
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -1,
+          "home_road": -2
+        }
+      },
+      {
+        "id": "church",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 2
+          },
+          {
+            "param": "health",
+            "delta": -2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "eur_fc_baptism_godparent",
+            "after_years": [
+              12,
+              16
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      },
+      {
+        "id": "priest",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 10
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -10
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "craft_power": 1
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ],
+    "others": [
+      "child"
+    ]
+  },
+  {
+    "id": "eur_fc_baptism_midwife",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "table",
+        "fire"
+      ]
+    },
+    "effects": [
+      {
+        "skill": "medicine",
+        "delta": 4
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      },
+      {
+        "param": "intellect",
+        "delta": 1
+      }
+    ]
+  },
+  {
+    "id": "eur_fc_baptism_godparent",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "table"
+      ]
+    },
+    "effects": [
+      {
+        "param": "reputation",
+        "delta": 3
+      },
+      {
+        "param": "money",
+        "delta": 15
+      },
+      {
+        "param": "diligence",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "eur_fc_balia",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "classes": [
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "cradle",
+        "coins"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "village",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -15
+          },
+          {
+            "param": "health",
+            "delta": -1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "eur_fc_balia_flour",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": 2
+        }
+      },
+      {
+        "id": "home",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 40
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -40
+          },
+          {
+            "param": "health",
+            "delta": 3
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "eur_fc_balia_tales",
+            "after_years": [
+              6,
+              10
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "mother",
+        "effects": [
+          {
+            "param": "health",
+            "delta": 2
+          },
+          {
+            "param": "happiness",
+            "delta": 1
+          },
+          {
+            "param": "reputation",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      },
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "eur_fc_balia_flour",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "road",
+      "time": "overcast",
+      "people": 2,
+      "props": [
+        "cart",
+        "grain"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "loneliness",
+        "delta": -3
+      },
+      {
+        "param": "health",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "eur_fc_balia_tales",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 2,
+      "props": [
+        "lamp",
+        "bed"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "loneliness",
+        "delta": -4
+      },
+      {
+        "param": "intellect",
+        "delta": 1
+      }
+    ]
+  }
+]

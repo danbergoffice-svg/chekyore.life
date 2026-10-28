@@ -1,0 +1,296 @@
+[
+  {
+    "id": "rus_fc_caul",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "bath",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "fire",
+        "lamp"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "reconstructed",
+    "choices": [
+      {
+        "id": "amulet",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 2
+          },
+          {
+            "param": "risk_tolerance",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "rus_fc_caul_ice",
+            "after_years": [
+              12,
+              17
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2,
+          "memory_future": 2
+        }
+      },
+      {
+        "id": "threshold",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": 1
+          },
+          {
+            "param": "loneliness",
+            "delta": -2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "rus_fc_caul_yard",
+            "after_years": [
+              10,
+              15
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      },
+      {
+        "id": "burn",
+        "effects": [
+          {
+            "param": "diligence",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "rus_fc_caul_ice",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "river",
+      "time": "overcast",
+      "people": 2
+    },
+    "effects": [
+      {
+        "param": "self_esteem",
+        "delta": 4
+      },
+      {
+        "param": "risk_tolerance",
+        "delta": 2
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      },
+      {
+        "param": "stress",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "rus_fc_caul_yard",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "grain"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 20
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "rus_fc_names",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "religions": [
+      "orthodox"
+    ],
+    "scene": {
+      "place": "temple",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "altar",
+        "lamp"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "secular",
+        "effects": [
+          {
+            "param": "health",
+            "delta": 1
+          },
+          {
+            "param": "loneliness",
+            "delta": -1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "rus_fc_names_fever",
+            "after_years": [
+              8,
+              12
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "church",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "rus_fc_names_psalter",
+            "after_years": [
+              7,
+              10
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "rus_fc_names_fever",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "health",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "fire",
+        "bed"
+      ]
+    },
+    "effects": [
+      {
+        "param": "health",
+        "delta": 3
+      },
+      {
+        "param": "self_esteem",
+        "delta": 2
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "rus_fc_names_psalter",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "scroll",
+        "lamp"
+      ]
+    },
+    "effects": [
+      {
+        "param": "intellect",
+        "delta": 3
+      },
+      {
+        "skill": "literacy",
+        "delta": 6
+      },
+      {
+        "param": "faith",
+        "delta": 1
+      }
+    ]
+  }
+]

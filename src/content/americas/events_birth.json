@@ -1,0 +1,319 @@
+[
+  {
+    "id": "amr_fc_school",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "regions": [
+      "tenochtitlan",
+      "texcoco"
+    ],
+    "religions": [
+      "aztec_gods"
+    ],
+    "scene": {
+      "place": "temple",
+      "time": "sunset",
+      "people": 5,
+      "props": [
+        "fire",
+        "table",
+        "altar"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "temple",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 15
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -15
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "amr_fc_school_temple",
+            "after_years": [
+              12,
+              15
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      },
+      {
+        "id": "ward",
+        "effects": [
+          {
+            "param": "strength",
+            "delta": 1
+          },
+          {
+            "param": "loneliness",
+            "delta": -1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "amr_fc_school_ward",
+            "after_years": [
+              12,
+              15
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "amr_fc_school_temple",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "fire",
+        "altar"
+      ]
+    },
+    "effects": [
+      {
+        "param": "intellect",
+        "delta": 3
+      },
+      {
+        "param": "faith",
+        "delta": 3
+      },
+      {
+        "param": "diligence",
+        "delta": 2
+      },
+      {
+        "param": "stress",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "amr_fc_school_ward",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "street",
+      "time": "sunset",
+      "people": 6,
+      "props": [
+        "fire"
+      ]
+    },
+    "effects": [
+      {
+        "param": "strength",
+        "delta": 2
+      },
+      {
+        "param": "loneliness",
+        "delta": -4
+      },
+      {
+        "param": "charisma",
+        "delta": 2
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "amr_fc_thunder",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "regions": [
+      "cusco",
+      "quito"
+    ],
+    "religions": [
+      "andean"
+    ],
+    "scene": {
+      "place": "field",
+      "time": "overcast",
+      "people": 3,
+      "props": [
+        "rain",
+        "smoke"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "reconstructed",
+    "choices": [
+      {
+        "id": "offer",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 10
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -10
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "amr_fc_thunder_healer",
+            "after_years": [
+              11,
+              15
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      },
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 1
+          },
+          {
+            "param": "risk_tolerance",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "amr_fc_thunder_storm",
+            "after_years": [
+              9,
+              13
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "amr_fc_thunder_healer",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 2,
+      "props": [
+        "fire",
+        "smoke"
+      ]
+    },
+    "effects": [
+      {
+        "skill": "medicine",
+        "delta": 5
+      },
+      {
+        "param": "intellect",
+        "delta": 2
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "amr_fc_thunder_storm",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "field",
+      "time": "overcast",
+      "people": 1,
+      "props": [
+        "rain"
+      ]
+    },
+    "effects": [
+      {
+        "param": "faith",
+        "delta": 3
+      },
+      {
+        "param": "stress",
+        "delta": 3
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      },
+      {
+        "param": "self_esteem",
+        "delta": 2
+      }
+    ]
+  }
+]

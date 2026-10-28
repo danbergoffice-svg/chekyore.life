@@ -1,0 +1,283 @@
+[
+  {
+    "id": "may_fc_tzolkin",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "dawn",
+      "people": 3,
+      "props": [
+        "fire",
+        "altar",
+        "scroll"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "reconstructed",
+    "choices": [
+      {
+        "id": "offering",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 10
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -10
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "may_fc_tzolkin_keeper",
+            "after_years": [
+              11,
+              15
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      },
+      {
+        "id": "wind",
+        "effects": [
+          {
+            "param": "risk_tolerance",
+            "delta": 2
+          },
+          {
+            "param": "happiness",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "may_fc_tzolkin_road",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "may_fc_tzolkin_keeper",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "night",
+      "people": 2,
+      "props": [
+        "fire",
+        "scroll",
+        "moon"
+      ]
+    },
+    "effects": [
+      {
+        "param": "intellect",
+        "delta": 4
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      },
+      {
+        "skill": "literacy",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "may_fc_tzolkin_road",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "road",
+      "time": "dawn",
+      "people": 4,
+      "props": [
+        "palm",
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 15
+      },
+      {
+        "param": "risk_tolerance",
+        "delta": 2
+      },
+      {
+        "param": "self_esteem",
+        "delta": 2
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "may_fc_head",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "cradle"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "bind",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -1
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "may_fc_head_beauty",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "none",
+        "effects": [
+          {
+            "param": "health",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "may_fc_head_round",
+            "after_years": [
+              8,
+              12
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": 3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "may_fc_head_beauty",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "landmark",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "banner"
+      ]
+    },
+    "effects": [
+      {
+        "param": "charisma",
+        "delta": 3
+      },
+      {
+        "param": "self_esteem",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "may_fc_head_round",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "self_esteem",
+        "delta": 2
+      },
+      {
+        "param": "strength",
+        "delta": 2
+      }
+    ]
+  }
+]

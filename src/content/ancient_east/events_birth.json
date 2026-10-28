@@ -1,0 +1,355 @@
+[
+  {
+    "id": "ane_fc_bad_day",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "regions": [
+      "thebes",
+      "memphis"
+    ],
+    "religions": [
+      "egyptian_gods"
+    ],
+    "scene": {
+      "place": "temple",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "scroll"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "spell",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 15
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -15
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "ane_fc_bad_day_croc",
+            "after_years": [
+              12,
+              16
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      },
+      {
+        "id": "river",
+        "effects": [
+          {
+            "param": "risk_tolerance",
+            "delta": -1
+          },
+          {
+            "param": "health",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "ane_fc_bad_day_swim",
+            "after_years": [
+              10,
+              14
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      },
+      {
+        "id": "ignore",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "mother"
+      }
+    ],
+    "others": [
+      "child"
+    ]
+  },
+  {
+    "id": "ane_fc_bad_day_croc",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "river",
+      "time": "dawn",
+      "people": 2,
+      "props": [
+        "boat"
+      ]
+    },
+    "effects": [
+      {
+        "param": "faith",
+        "delta": 3
+      },
+      {
+        "param": "self_esteem",
+        "delta": 3
+      },
+      {
+        "param": "stress",
+        "delta": 2
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "ane_fc_bad_day_swim",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "river",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "boat"
+      ]
+    },
+    "effects": [
+      {
+        "param": "stress",
+        "delta": 3
+      },
+      {
+        "param": "loneliness",
+        "delta": -3
+      },
+      {
+        "add_npc": "friend",
+        "attitude": 55
+      }
+    ]
+  },
+  {
+    "id": "ane_fc_lamashtu",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "health",
+    "regions": [
+      "babylon",
+      "assur"
+    ],
+    "religions": [
+      "mesopotamian_gods"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "lamp",
+        "cradle"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "ashipu",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 20
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -20
+          },
+          {
+            "param": "health",
+            "delta": 2
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "ane_fc_lamashtu_ashipu",
+            "after_years": [
+              12,
+              16
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2
+        }
+      },
+      {
+        "id": "plaque",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -5
+          },
+          {
+            "param": "health",
+            "delta": 1
+          }
+        ]
+      },
+      {
+        "id": "god",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "ane_fc_lamashtu_god",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2,
+          "memory_future": -2
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      },
+      {
+        "has_npc": "mother"
+      }
+    ],
+    "others": [
+      "child"
+    ]
+  },
+  {
+    "id": "ane_fc_lamashtu_ashipu",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "night",
+      "people": 2,
+      "props": [
+        "lamp",
+        "scroll"
+      ]
+    },
+    "effects": [
+      {
+        "skill": "medicine",
+        "delta": 4
+      },
+      {
+        "param": "intellect",
+        "delta": 2
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "ane_fc_lamashtu_god",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 1,
+      "props": [
+        "lamp",
+        "statue"
+      ]
+    },
+    "effects": [
+      {
+        "param": "faith",
+        "delta": 3
+      },
+      {
+        "param": "self_esteem",
+        "delta": 2
+      },
+      {
+        "param": "stress",
+        "delta": -3
+      }
+    ]
+  }
+]

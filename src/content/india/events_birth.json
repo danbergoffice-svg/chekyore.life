@@ -1,0 +1,358 @@
+[
+  {
+    "id": "ind_fc_nakshatra",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "religions": [
+      "hindu"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "lamp",
+        "scroll",
+        "moon"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "shanti",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 25
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -25
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "ind_fc_nakshatra_match",
+            "after_years": [
+              9,
+              13
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      },
+      {
+        "id": "syllable",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "ind_fc_nakshatra_doubt",
+            "after_years": [
+              9,
+              13
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -1
+        }
+      },
+      {
+        "id": "ignore",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "ind_fc_nakshatra_match",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "scroll",
+        "table"
+      ]
+    },
+    "effects": [
+      {
+        "param": "reputation",
+        "delta": 3
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "stress",
+        "delta": -2
+      }
+    ],
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      }
+    ]
+  },
+  {
+    "id": "ind_fc_nakshatra_doubt",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 3,
+      "props": [
+        "scroll"
+      ]
+    },
+    "effects": [
+      {
+        "param": "stress",
+        "delta": 4
+      },
+      {
+        "param": "reputation",
+        "delta": -2
+      },
+      {
+        "param": "self_esteem",
+        "delta": -2
+      }
+    ],
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      },
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "ind_fc_nazar",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "health",
+    "regions": [
+      "delhi",
+      "bengal",
+      "gujarat"
+    ],
+    "years": [
+      1250,
+      1600
+    ],
+    "religions": [
+      "hindu",
+      "islam"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "lamp",
+        "cradle"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "kajal",
+        "effects": [
+          {
+            "param": "health",
+            "delta": 1
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "dargah",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -5
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "ind_fc_nazar_urs",
+            "after_years": [
+              10,
+              14
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3,
+          "home_road": 1
+        }
+      },
+      {
+        "id": "healer",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 15
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -15
+          },
+          {
+            "param": "health",
+            "delta": 3
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "ind_fc_nazar_healer",
+            "after_years": [
+              12,
+              16
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "ind_fc_nazar_urs",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "night",
+      "people": 6,
+      "props": [
+        "lamp",
+        "banner"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "loneliness",
+        "delta": -3
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      },
+      {
+        "add_npc": "friend",
+        "attitude": 50
+      }
+    ]
+  },
+  {
+    "id": "ind_fc_nazar_healer",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "table",
+        "amphora"
+      ]
+    },
+    "effects": [
+      {
+        "skill": "medicine",
+        "delta": 5
+      },
+      {
+        "param": "intellect",
+        "delta": 2
+      }
+    ]
+  }
+]

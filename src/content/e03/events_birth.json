@@ -1,0 +1,297 @@
+[
+  {
+    "id": "e03_fc_foundling",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "sensitive": true,
+    "scene": {
+      "place": "street",
+      "time": "dawn",
+      "people": 3,
+      "props": [
+        "cradle"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "adopt",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -10
+          },
+          {
+            "param": "reputation",
+            "delta": 1
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "e03_fc_foundling_kin",
+            "after_years": [
+              10,
+              14
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": -2
+        }
+      },
+      {
+        "id": "neighbor",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "e03_fc_foundling_neighbor",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ]
+      },
+      {
+        "id": "temple",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": -1
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      },
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "e03_fc_foundling_kin",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "add_npc": "friend",
+        "attitude": 65
+      },
+      {
+        "param": "loneliness",
+        "delta": -5
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "e03_fc_foundling_neighbor",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "table",
+        "amphora"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 25
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ],
+    "others": [
+      "child"
+    ]
+  },
+  {
+    "id": "e03_fc_verna",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "regions": [
+      "rome"
+    ],
+    "years": [
+      -250,
+      200
+    ],
+    "classes": [
+      "slave"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "cradle",
+        "lamp"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "nurse",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -2
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "e03_fc_verna_free",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 2,
+          "memory_future": 2
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "health",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "home_road": -2
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "mother"
+      }
+    ],
+    "others": [
+      "child",
+      "sibling"
+    ]
+  },
+  {
+    "id": "e03_fc_verna_free",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "classes": [
+      "slave"
+    ],
+    "icon": "freedom",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "scroll"
+      ]
+    },
+    "effects": [
+      {
+        "set_class": "craftsman"
+      },
+      {
+        "add_tag": "freedman"
+      },
+      {
+        "remove_tag": "enslaved"
+      },
+      {
+        "set_profession": "artisan"
+      },
+      {
+        "param": "happiness",
+        "delta": 12
+      },
+      {
+        "param": "self_esteem",
+        "delta": 8
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      }
+    ],
+    "others": [
+      "father",
+      "sibling"
+    ]
+  }
+]

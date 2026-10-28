@@ -1,0 +1,349 @@
+[
+  {
+    "id": "waf_fc_namesake",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "yard",
+      "time": "dawn",
+      "people": 5,
+      "props": [
+        "tree",
+        "fire"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "reconstructed",
+    "choices": [
+      {
+        "id": "elder",
+        "effects": [
+          {
+            "param": "loneliness",
+            "delta": -2
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "waf_fc_namesake_elder",
+            "after_years": [
+              12,
+              16
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -4
+        }
+      },
+      {
+        "id": "marabout",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 2
+          },
+          {
+            "param": "intellect",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "waf_fc_namesake_marabout",
+            "after_years": [
+              6,
+              10
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2
+        }
+      },
+      {
+        "id": "rich",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": 2
+          },
+          {
+            "param": "money",
+            "delta": 5
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "waf_fc_namesake_rich",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ],
+    "others": [
+      "mother"
+    ]
+  },
+  {
+    "id": "waf_fc_namesake_elder",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "yard",
+      "time": "sunset",
+      "people": 5,
+      "props": [
+        "tree",
+        "fire"
+      ]
+    },
+    "effects": [
+      {
+        "param": "reputation",
+        "delta": 4
+      },
+      {
+        "param": "self_esteem",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "waf_fc_namesake_marabout",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "school",
+      "time": "dawn",
+      "people": 4,
+      "props": [
+        "scroll",
+        "fire"
+      ]
+    },
+    "effects": [
+      {
+        "skill": "literacy",
+        "delta": 6
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      },
+      {
+        "param": "intellect",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "waf_fc_namesake_rich",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins",
+        "grain"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 40
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "waf_fc_griot",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "classes": [
+      "peasant",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "night",
+      "people": 6,
+      "props": [
+        "fire"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "gold",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 25
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -25
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "waf_fc_griot_praise",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "kola",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -5
+          }
+        ]
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "waf_fc_griot_mock",
+            "after_years": [
+              12,
+              16
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": 3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "waf_fc_griot_praise",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "banner"
+      ]
+    },
+    "effects": [
+      {
+        "param": "reputation",
+        "delta": 5
+      },
+      {
+        "param": "self_esteem",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "waf_fc_griot_mock",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "street",
+      "time": "sunset",
+      "people": 6,
+      "props": [
+        "fire"
+      ]
+    },
+    "effects": [
+      {
+        "param": "reputation",
+        "delta": -4
+      },
+      {
+        "param": "stress",
+        "delta": 3
+      }
+    ]
+  }
+]

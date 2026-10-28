@@ -1,0 +1,341 @@
+[
+  {
+    "id": "jpn_fc_miyamairi",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "dawn",
+      "people": 4,
+      "props": [
+        "tree",
+        "lamp"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "reconstructed",
+    "choices": [
+      {
+        "id": "ujigami",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 2
+          },
+          {
+            "param": "loneliness",
+            "delta": -2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "jpn_fc_miyamairi_matsuri",
+            "after_years": [
+              7,
+              11
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -2,
+          "home_road": -2
+        }
+      },
+      {
+        "id": "hachiman",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 20
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -20
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "jpn_fc_miyamairi_omamori",
+            "after_years": [
+              13,
+              17
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": 2,
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "later",
+        "effects": [
+          {
+            "param": "health",
+            "delta": 1
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "jpn_fc_miyamairi_matsuri",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "street",
+      "time": "night",
+      "people": 6,
+      "props": [
+        "lamp",
+        "banner"
+      ]
+    },
+    "effects": [
+      {
+        "param": "reputation",
+        "delta": 3
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      },
+      {
+        "param": "loneliness",
+        "delta": -3
+      }
+    ]
+  },
+  {
+    "id": "jpn_fc_miyamairi_omamori",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "road",
+      "time": "overcast",
+      "people": 3,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "self_esteem",
+        "delta": 3
+      },
+      {
+        "param": "risk_tolerance",
+        "delta": 2
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      },
+      {
+        "param": "stress",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "jpn_fc_meigen",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "classes": [
+      "landowner",
+      "noble"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 4,
+      "props": [
+        "lamp",
+        "cradle"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "veteran",
+        "effects": [
+          {
+            "param": "strength",
+            "delta": 1
+          },
+          {
+            "param": "self_esteem",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "jpn_fc_meigen_bow",
+            "after_years": [
+              8,
+              12
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 2,
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "lord",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 40
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -40
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "jpn_fc_meigen_lord",
+            "after_years": [
+              14,
+              18
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 4
+        }
+      },
+      {
+        "id": "monks",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -10
+          },
+          {
+            "param": "faith",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "jpn_fc_meigen_bow",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "strength",
+        "delta": 3
+      },
+      {
+        "skill": "military",
+        "delta": 4
+      },
+      {
+        "param": "self_esteem",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "jpn_fc_meigen_lord",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "banner"
+      ]
+    },
+    "effects": [
+      {
+        "param": "reputation",
+        "delta": 4
+      },
+      {
+        "add_npc": "patron",
+        "attitude": 40
+      }
+    ]
+  }
+]

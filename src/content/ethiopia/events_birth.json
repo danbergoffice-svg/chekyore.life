@@ -1,0 +1,332 @@
+[
+  {
+    "id": "eth_fc_saint",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "religions": [
+      "tewahedo"
+    ],
+    "scene": {
+      "place": "temple",
+      "time": "dawn",
+      "people": 4,
+      "props": [
+        "altar",
+        "lamp"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "mariam",
+        "effects": [
+          {
+            "param": "faith",
+            "delta": 2
+          },
+          {
+            "param": "loneliness",
+            "delta": -1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "eth_fc_saint_mahber",
+            "after_years": [
+              10,
+              14
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      },
+      {
+        "id": "giyorgis",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 1
+          },
+          {
+            "param": "risk_tolerance",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "eth_fc_saint_hyena",
+            "after_years": [
+              9,
+              13
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "mikael",
+        "effects": [
+          {
+            "param": "health",
+            "delta": 1
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "eth_fc_saint_mahber",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "religions": [
+      "tewahedo"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "table",
+        "amphora"
+      ]
+    },
+    "effects": [
+      {
+        "param": "loneliness",
+        "delta": -4
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      },
+      {
+        "param": "money",
+        "delta": -5
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "eth_fc_saint_hyena",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "field",
+      "time": "sunset",
+      "people": 2,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "self_esteem",
+        "delta": 3
+      },
+      {
+        "param": "risk_tolerance",
+        "delta": 2
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "eth_fc_rist",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "money",
+    "regions": [
+      "lalibela",
+      "aksum",
+      "shewa"
+    ],
+    "classes": [
+      "peasant",
+      "landowner"
+    ],
+    "religions": [
+      "tewahedo"
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "sunset",
+      "people": 6,
+      "props": [
+        "table",
+        "amphora",
+        "fire"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "reconstructed",
+    "choices": [
+      {
+        "id": "feast",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 20
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -20
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "eth_fc_rist_won",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -4
+        }
+      },
+      {
+        "id": "modest",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "eth_fc_rist_lost",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      },
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "eth_fc_rist_won",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 45
+      },
+      {
+        "param": "reputation",
+        "delta": 3
+      },
+      {
+        "param": "stress",
+        "delta": -2
+      }
+    ]
+  },
+  {
+    "id": "eth_fc_rist_lost",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "field",
+      "time": "overcast",
+      "people": 5,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": -20
+      },
+      {
+        "param": "stress",
+        "delta": 4
+      },
+      {
+        "param": "reputation",
+        "delta": -2
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  }
+]

@@ -1,0 +1,366 @@
+[
+  {
+    "id": "isl_fc_aqiqa",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "religions": [
+      "islam"
+    ],
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "goat",
+        "table",
+        "fire"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "sheep",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 25
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -25
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "isl_fc_aqiqa_guest",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "silver",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -5
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ]
+      },
+      {
+        "id": "later",
+        "effects": [],
+        "delayed_effects": [
+          {
+            "trigger_event": "isl_fc_aqiqa_late",
+            "after_years": [
+              6,
+              9
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "isl_fc_aqiqa_guest",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 25
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "isl_fc_aqiqa_late",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "goat",
+        "table"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      },
+      {
+        "param": "self_esteem",
+        "delta": 2
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "isl_fc_qirad",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "money",
+    "classes": [
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "caravan",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 30
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -30
+          },
+          {
+            "param": "risk_tolerance",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "isl_fc_qirad_return",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": 3,
+          "memory_future": 4
+        }
+      },
+      {
+        "id": "shop",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 30
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -30
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "isl_fc_qirad_shop",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": -2,
+          "craft_power": -2
+        }
+      },
+      {
+        "id": "keep",
+        "effects": [],
+        "pattern": {
+          "memory_future": -2
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "isl_fc_qirad_return",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "trust",
+        "effects": [
+          {
+            "param": "money",
+            "delta": 60
+          },
+          {
+            "param": "reputation",
+            "delta": 1
+          }
+        ]
+      },
+      {
+        "id": "audit",
+        "risk_roll": {
+          "param": "intellect",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "money",
+              "delta": 110
+            },
+            {
+              "skill": "trade",
+              "delta": 3
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "money",
+              "delta": 40
+            },
+            {
+              "param": "reputation",
+              "delta": -2
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "isl_fc_qirad_shop",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "workshop",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "anvil",
+        "coins"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 40
+      },
+      {
+        "skill": "trade",
+        "delta": 2
+      },
+      {
+        "param": "happiness",
+        "delta": 2
+      }
+    ]
+  }
+]

@@ -1,0 +1,335 @@
+[
+  {
+    "id": "chn_fc_bazi",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "life",
+    "religions": [
+      "chinese_folk",
+      "buddhist"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "scroll",
+        "table",
+        "lamp"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "ugly",
+        "effects": [
+          {
+            "param": "health",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "chn_fc_bazi_nickname",
+            "after_years": [
+              8,
+              12
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2
+        }
+      },
+      {
+        "id": "temple",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 15
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -15
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          },
+          {
+            "param": "health",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "chn_fc_bazi_temple",
+            "after_years": [
+              6,
+              10
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -3
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "chn_fc_bazi_nickname",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "health",
+        "delta": 3
+      },
+      {
+        "param": "self_esteem",
+        "delta": 3
+      }
+    ]
+  },
+  {
+    "id": "chn_fc_bazi_temple",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "scroll",
+        "lamp"
+      ]
+    },
+    "effects": [
+      {
+        "param": "intellect",
+        "delta": 3
+      },
+      {
+        "skill": "literacy",
+        "delta": 5
+      },
+      {
+        "param": "faith",
+        "delta": 2
+      }
+    ]
+  },
+  {
+    "id": "chn_fc_baijia",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "years": [
+      1368,
+      1644
+    ],
+    "religions": [
+      "chinese_folk",
+      "buddhist"
+    ],
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "loom",
+        "coins"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "reconstructed",
+    "choices": [
+      {
+        "id": "scraps",
+        "effects": [
+          {
+            "param": "loneliness",
+            "delta": -2
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "chn_fc_baijia_lantern",
+            "after_years": [
+              5,
+              9
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      },
+      {
+        "id": "lock",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 20
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -20
+          },
+          {
+            "param": "health",
+            "delta": 1
+          },
+          {
+            "param": "self_esteem",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "chn_fc_baijia_pawn",
+            "after_years": [
+              14,
+              19
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      },
+      {
+        "id": "none",
+        "effects": []
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "chn_fc_baijia_lantern",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "market",
+      "time": "night",
+      "people": 5,
+      "props": [
+        "lamp"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 3
+      },
+      {
+        "param": "loneliness",
+        "delta": -4
+      },
+      {
+        "param": "reputation",
+        "delta": 2
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "chn_fc_baijia_pawn",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "market",
+      "time": "overcast",
+      "people": 2,
+      "props": [
+        "coins"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 30
+      },
+      {
+        "param": "stress",
+        "delta": -2
+      },
+      {
+        "param": "happiness",
+        "delta": -1
+      }
+    ]
+  }
+]

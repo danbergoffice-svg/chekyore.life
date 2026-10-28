@@ -1,0 +1,348 @@
+[
+  {
+    "id": "byz_fc_anadochos",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "religions": [
+      "orthodox"
+    ],
+    "scene": {
+      "place": "temple",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "altar",
+        "lamp"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "archon",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 15
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -15
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "byz_fc_anadochos_letter",
+            "after_years": [
+              14,
+              18
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 4
+        }
+      },
+      {
+        "id": "neighbor",
+        "effects": [
+          {
+            "param": "loneliness",
+            "delta": -2
+          },
+          {
+            "param": "happiness",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "byz_fc_anadochos_kin",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      },
+      {
+        "id": "uncle",
+        "effects": [
+          {
+            "param": "loneliness",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      }
+    ]
+  },
+  {
+    "id": "byz_fc_anadochos_letter",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "scroll",
+        "coins"
+      ]
+    },
+    "effects": [
+      {
+        "param": "money",
+        "delta": 40
+      },
+      {
+        "param": "reputation",
+        "delta": 4
+      }
+    ]
+  },
+  {
+    "id": "byz_fc_anadochos_kin",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "street",
+      "time": "sunset",
+      "people": 2,
+      "props": [
+        "tree"
+      ]
+    },
+    "effects": [
+      {
+        "param": "stress",
+        "delta": 4
+      },
+      {
+        "param": "happiness",
+        "delta": -3
+      },
+      {
+        "param": "faith",
+        "delta": 1
+      }
+    ],
+    "conditions": [
+      {
+        "no_npc": "spouse"
+      }
+    ],
+    "others": [
+      "child"
+    ]
+  },
+  {
+    "id": "byz_fc_eulogia",
+    "type": "family",
+    "first_choice": true,
+    "age_range": [
+      0,
+      0
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "health",
+    "religions": [
+      "orthodox"
+    ],
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "lamp",
+        "cradle"
+      ]
+    },
+    "historian_note": true,
+    "confidence": "confirmed",
+    "choices": [
+      {
+        "id": "oil",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -3
+          },
+          {
+            "param": "health",
+            "delta": 1
+          },
+          {
+            "param": "faith",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "byz_fc_eulogia_fair",
+            "after_years": [
+              10,
+              14
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2
+        }
+      },
+      {
+        "id": "icon",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 20
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -20
+          },
+          {
+            "param": "faith",
+            "delta": 2
+          },
+          {
+            "param": "self_esteem",
+            "delta": 1
+          }
+        ],
+        "delayed_effects": [
+          {
+            "trigger_event": "byz_fc_eulogia_icon",
+            "after_years": [
+              15,
+              20
+            ],
+            "chance": 1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2,
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "wait",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "faith_reason": 2
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "has_npc": "father"
+      },
+      {
+        "has_npc": "mother"
+      }
+    ]
+  },
+  {
+    "id": "byz_fc_eulogia_fair",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 6,
+      "props": [
+        "banner",
+        "coins"
+      ]
+    },
+    "effects": [
+      {
+        "param": "happiness",
+        "delta": 4
+      },
+      {
+        "param": "loneliness",
+        "delta": -3
+      },
+      {
+        "param": "faith",
+        "delta": 1
+      }
+    ]
+  },
+  {
+    "id": "byz_fc_eulogia_icon",
+    "type": "family",
+    "trigger_only": true,
+    "base_weight": 1,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 1,
+      "props": [
+        "lamp"
+      ]
+    },
+    "effects": [
+      {
+        "param": "stress",
+        "delta": -4
+      },
+      {
+        "param": "faith",
+        "delta": 3
+      },
+      {
+        "param": "self_esteem",
+        "delta": 2
+      }
+    ]
+  }
+]
