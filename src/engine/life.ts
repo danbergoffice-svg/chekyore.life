@@ -16,8 +16,10 @@ export interface Birth {
   year: number
   cls: string
   sex: Sex
-  /** Царская семья (награда за установку на главный экран): знать, но богаче и почётнее. */
+  /** Царская семья (награда за установку на главный экран и дар седьмого дня): знать, но богаче и почётнее. */
   royal?: boolean
+  /** Дары за вход: прибавка к здоровью с рождения и во сколько раз богаче семья. */
+  boons?: { health?: number; wealth?: number }
 }
 
 /** equal — все страны поровну; population — по числу жителей, как в жизни. */
@@ -174,7 +176,9 @@ export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: num
     hero.money = cls.money[1] * 2
     hero.hidden.reputation = 40
   }
+  if (birth?.boons?.wealth) hero.money = Math.round(hero.money * birth.boons.wealth)
   rollAttrs(state, hero)
+  if (birth?.boons?.health) hero.attrs.health = Math.min(95, hero.attrs.health + birth.boons.health)
   hero.traits = rollTraits(state, era)
   initHousehold(state)
 

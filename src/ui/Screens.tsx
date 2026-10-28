@@ -8,6 +8,8 @@ import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
 import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
+import { BIG_DAYS, GIFT_ICON, GIFTS } from '../daily'
+import type { Gift } from '../daily'
 import { EXTERNAL, platform } from '../platform'
 import { Scene } from '../pixel/Scene'
 import { VolumeSlider } from './Sound'
@@ -28,8 +30,10 @@ interface MenuProps {
   memorial: LifeSummary[]
   /** Барабан лотереи рождения — сразу под названием игры, на первом экране. */
   slot: ComponentChildren
-  /** «На главный экран» — после первой жизни, под «Продолжить». */
+  /** «На главный экран» — после первой жизни, под барабаном. */
   install?: ComponentChildren
+  /** Дары за вход — под «Продолжить». */
+  daily?: ComponentChildren
   onContinue: () => void
   onOpenLife: (heroId: string) => void
   onFeedback: () => void
@@ -41,7 +45,7 @@ interface MenuProps {
   sound: ComponentChildren
 }
 
-export function Menu({ current, memorial, slot, install, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
+export function Menu({ current, memorial, slot, install, daily, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -93,6 +97,8 @@ export function Menu({ current, memorial, slot, install, onContinue, onOpenLife,
           </button>
         </div>
       )}
+
+      {daily}
 
       <section class="block">
         <h2 class="section-title">{t('menu.how')}</h2>
@@ -322,6 +328,65 @@ export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: n
       <h2 class="section-title">{t(props.kind === 'ready' ? 'challenge.ready.title' : 'challenge.title')}</h2>
       <p>{t(`challenge.${props.kind}`, { n: props.age, m: props.age + 1 })}</p>
     </section>
+  )
+}
+
+/** Дары за вход: календарь недели (сильные дни 1, 4, 7), сегодняшний дар и кнопка «Забрать»; после — что будет завтра. */
+export function DailyCard(props: { day: number; claimable: boolean; broken?: boolean; onClaim: () => void }) {
+  const { t } = useUi()
+  const gift = GIFTS[props.day - 1]
+  const next = GIFTS[props.day % 7]
+  const taken = (n: number) => n < props.day || (!props.claimable && n === props.day)
+  return (
+    <section class="block daily-card">
+      <h2 class="section-title">🎁 {t('daily.title')}</h2>
+      <p class="small">{t('daily.lead')}</p>
+      <ol class="daily-days">
+        {GIFTS.map((g, i) => (
+          <li
+            class={[taken(i + 1) && 'taken', i + 1 === props.day && 'today', BIG_DAYS.includes(i + 1) && 'big'].filter(Boolean).join(' ')}
+            aria-label={`${t('daily.day', { n: i + 1 })}: ${t(`gift.${g}`)}`}
+          >
+            <span class="daily-icon" aria-hidden="true">{GIFT_ICON[g]}</span>
+            <span class="daily-n" aria-hidden="true">{i + 1}</span>
+          </li>
+        ))}
+      </ol>
+      {props.claimable ? (
+        <>
+          {props.broken && <p class="small muted">{t('daily.broken')}</p>}
+          <p>{t('daily.today', { gift: { key: `gift.${gift}` }, desc: { key: `gift.${gift}.desc` } })}</p>
+          <button class="primary" onClick={props.onClaim}>
+            {GIFT_ICON[gift]} {t('daily.claim', { n: props.day })}
+          </button>
+        </>
+      ) : (
+        <p>
+          {t('daily.got')} <strong>{props.day === 7 ? t('daily.week') : t('daily.tomorrow', { gift: { key: `gift.${next}` } })}</strong>
+        </p>
+      )}
+    </section>
+  )
+}
+
+/** Над барабаном: дары, которые сработают в этой жизни; страну по дару игрок выбирает сам. */
+export function GiftsLine(props: { gifts: Gift[]; country?: string | null; onCountry: () => void }) {
+  const { t } = useUi()
+  return (
+    <p class="gifts-line center">
+      <span class="gifts-title">🎁 {t('gifts.title')}</span>{' '}
+      {props.gifts.map((g) =>
+        g === 'country' ? (
+          <button class="gift-chip pick" onClick={props.onCountry}>
+            {GIFT_ICON[g]} {props.country ? t(`era.${props.country}.short`) : t('gift.country.pick')}
+          </button>
+        ) : (
+          <span class="gift-chip">
+            {GIFT_ICON[g]} {t(`gift.${g}.short`)}
+          </span>
+        ),
+      )}
+    </p>
   )
 }
 

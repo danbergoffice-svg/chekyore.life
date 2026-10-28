@@ -68,7 +68,10 @@ export function dreamDue(state: GameState, historicalThisYear: boolean): boolean
   if (h.age < 15 || h.age > 40 || h.dreamSeen || state.dream || historicalThisYear) return false
   if (DEFAULT_FLAGS.chapter_ages.includes(h.age)) return false
   if (!dreamsAvailable(state).length) return false
-  const chance = first ? (h.age >= firstBy ? 1 : 1 / (firstBy - h.age + 1)) : (state.settings.dreamChance ?? DREAM_CHANCE)
+  // В первой жизни и с даром «Вещий сон» — наверняка к firstBy годам (дар без флага — к 25).
+  const sure = first || !!state.settings.dreamSure
+  const by = firstBy >= 15 ? firstBy : 25
+  const chance = sure ? (h.age >= by ? 1 : 1 / (by - h.age + 1)) : (state.settings.dreamChance ?? DREAM_CHANCE)
   return dreamRng(state, 'due')() < chance
 }
 

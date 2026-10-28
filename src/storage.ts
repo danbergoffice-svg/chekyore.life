@@ -4,6 +4,7 @@ import type { Earned } from './engine/achievements'
 import type { Lottery } from './engine/life'
 import type { GameState, Lang, LifeSummary } from './engine/types'
 import { platform } from './platform'
+import type { Daily, Gift } from './daily'
 
 export interface Prefs {
   lang: Lang
@@ -28,6 +29,9 @@ export interface Prefs {
   fate?: 'ready' | 'used'
   /** Награда за установку на главный экран: следующая жизнь — в царской семье. */
   royal?: 'ready' | 'used'
+  /** Дары за вход: последний полученный день серии и дары, которые ждут следующей жизни. */
+  daily?: Daily
+  gifts?: Gift[]
   /** «На главный экран»: done — добавили или поняли подсказку; later — отложили (на какой по счёту жизни). */
   install?: { state: 'done' | 'later'; lives: number }
 }

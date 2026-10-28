@@ -82,6 +82,8 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   дольше 30 лет → у барабана выбор судьбы (знать или страна), проверка — `node tools/qa/challenge.cjs`.
   «На главный экран» после первой жизни — `InstallCard`, `platform.installKind()/install()/installed()`, `node tools/qa/install.cjs`;
   награда — царская семья (`royalBirth`, тег `royal`, слова `classKey()` → `class.royal*`, `prefs.royal`).
+  **Дары за вход** — `src/daily.ts` (лестница `GIFTS`, серия `dailyNext`, `prefs.daily`/`prefs.gifts`), `DailyCard`/`GiftsLine`,
+  в движке `Birth.boons` и `settings.dreamSure`; проверка — `node tools/qa/daily.cjs`.
 - Подсказки на экране жизни — `hintFor`/`closeHint` в `Life.tsx` (закрытые помнятся в `thousands.hints`): скорость (0–1 год),
   длительность года с кнопкой «Открыть настройки» (2–6 лет; «Назад» из настроек возвращает в жизнь), фокус, вкладка «Герой».
 - Графика (`docs/TZ_graphics.md`): сцена 320×100 из кэшируемых слоёв + движение (`scene.ts`, `fx.ts`, `figures.ts`),

@@ -114,6 +114,7 @@ FROM d GROUP BY d.dream, d.step ORDER BY d.dream, d.step LIMIT 120`,
     MAX(COALESCE(json_extract(params_json,'$.high'),0)) AS high
   FROM events WHERE name='life_start' AND json_extract(params_json,'$.life_index') = 2
     AND COALESCE(json_extract(params_json,'$.lottery'),'') <> 'heir' AND COALESCE(json_extract(params_json,'$.royal'),0) = 0
+    AND COALESCE(json_extract(params_json,'$.gifts'),'') = ''
     AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL
   GROUP BY player_id
 ), e AS (SELECT player_id, ts, name, params_json FROM events WHERE ts >= ?1 AND player_id IN (SELECT player_id FROM s))
@@ -124,6 +125,10 @@ SELECT s.variant AS variant, COUNT(DISTINCT s.player_id) AS players, COUNT(DISTI
   COUNT(DISTINCT CASE WHEN ${DAYNUM_SQL.replace(/ts/g, 'e.ts')} > CAST((s.t2/1000 + 10800)/86400 AS INTEGER) THEN e.player_id END) AS returned,
   ROUND(AVG(CASE WHEN e.name='life_end' AND json_extract(e.params_json,'$.life_index')=2 THEN json_extract(e.params_json,'$.age') END),1) AS death_age
 FROM s LEFT JOIN e ON e.player_id = s.player_id GROUP BY s.variant ORDER BY s.variant LIMIT 10`,
+  // Дары за вход: сколько игроков забрали дар каждого дня серии (1–7), из них — после обрыва серии.
+  dailyClaims: `SELECT json_extract(params_json,'$.day') AS day, COUNT(DISTINCT player_id) AS players,
+  COUNT(DISTINCT CASE WHEN json_extract(params_json,'$.broken') = 1 THEN player_id END) AS broken
+FROM events WHERE name='daily_claim' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL GROUP BY day ORDER BY day LIMIT 7`,
   // Когорты: день первого события игрока (?1…?2 — номера дней), возврат — любое событие ровно через 1 и 7 дней.
   cohorts: `WITH f AS (
   SELECT player_id, CAST((MIN(ts)/1000 + 10800)/86400 AS INTEGER) AS d0 FROM events WHERE player_id IS NOT NULL GROUP BY player_id

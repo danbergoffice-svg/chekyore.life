@@ -44,7 +44,7 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
   const week = period(today, 7)
   const two = period(today, 14)
   const all = (sql: string, p = week) => db.prepare(sql).bind(p.from, p.to).all().then((r) => r.results)
-  const [fb, s, byDay, players, choices, dreams, cohortRows, digest, ab] = await Promise.all([
+  const [fb, s, byDay, players, choices, dreams, cohortRows, digest, ab, daily] = await Promise.all([
     db.prepare("SELECT datetime(ts/1000 + 10800,'unixepoch') AS time, rating, answers_json, contact, context_json FROM feedback ORDER BY ts DESC LIMIT 100").all(),
     summary(db, week, 100),
     all(SQL.funnelByDay, two),
@@ -54,6 +54,7 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     cohorts(db, today, 21),
     digestMessage(db, now),
     all(SQL.abSecondLife, two),
+    all(SQL.dailyClaims, two),
   ])
   // A/B второй жизни: доли — от начавших вторую жизнь в варианте.
   const abRows = ab.map((r) => {
@@ -61,11 +62,15 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     const p = (k: string) => `${r[k]} (${pct(Number(r[k]), n)})`
     return { вариант: r.variant, 'начали 2-ю жизнь': n, 'высокое положение': r.high, 'до 20 лет': p('age_20'), 'до 40 лет': p('age_40'), '3-я жизнь': p('third_life'), 'вернулись в другой день': p('returned'), 'возраст смерти': r.death_age ?? '—' }
   })
+  // Дары за вход: дни серии и их дары (src/daily.ts); сильные дни — 1, 4, 7.
+  const GIFT_NAMES = ['страна по выбору', '+3 перекрутки', 'здоровье +20', 'знатная семья', 'вещий сон', 'богатство ×3', 'царская семья']
+  const dailyRows = daily.map((r) => ({ день: r.day, дар: GIFT_NAMES[Number(r.day) - 1] ?? '—', игроки: r.players, 'после обрыва серии': r.broken }))
   const f = s.funnel
   const reports: { title: string; rows: Record<string, unknown>[] }[] = [
     { title: `Воронка за 7 дней, ${week.label} (уникальные игроки; как /funnel)`, rows: FUNNEL_STEPS.map(([k, label], i) => ({ шаг: label, событие: k, игроки: f[k], '% от прошлого': i ? pct(f[k], f[FUNNEL_STEPS[i - 1][0]]) : '' })) },
     { title: 'Воронка по дням (14 дней, уникальные игроки)', rows: byDay },
     { title: 'A/B второй жизни за 14 дней: a — положение как выпало, b — сразу высокое (обе защищены до 20 лет; флаг ab_buckets)', rows: abRows },
+    { title: 'Дары за вход за 14 дней: сколько игроков забрали дар каждого дня серии (на 7-й — царская семья)', rows: dailyRows },
     { title: 'Когорты по дню первого захода: вернулись через 1 день (D1) и через 7 дней (D7)', rows: cohortRows.map((c) => ({ day: c.day, new_players: c.new_players, D1: c.d1, D7: c.d7 })) },
     { title: 'Игроки и жизни по дням (14 дней)', rows: players },
     { title: `Жизни по режимам за 7 дней (как /week): минуты, возраст смерти, выборы`, rows: [...s.modes, s.lives] as unknown as Record<string, unknown>[] },
