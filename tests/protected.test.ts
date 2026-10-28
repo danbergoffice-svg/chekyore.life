@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { ERA_IDS, ERA_META, loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
-import { newLife, rollBirth } from '../src/engine/life'
+import { highBirth, newLife, rollBirth } from '../src/engine/life'
 import { DEFAULT_FLAGS } from '../src/platform/types'
 
 const ERAS = await loadAllEras()
@@ -31,5 +31,20 @@ describe('Защищённая первая жизнь (P1)', () => {
     expect(Math.min(...ages)).toBeGreaterThanOrEqual(20)
     expect(Math.max(...ages)).toBeLessThan(110)
     expect(ages.filter((a) => a < 50).length).toBeGreaterThan(5)
+  })
+
+  it('A/B второй жизни, вариант b: высокое положение в любой стране, остальное — как выпало; герой рождается в нём', () => {
+    const counts: Record<string, number> = {}
+    for (let i = 0; i < 300; i++) {
+      const rolled = rollBirth(7000 + i, 'population', ERA_IDS.map((id) => ERA_META[id]))
+      const b = highBirth(7000 + i, rolled, ERA_META[rolled.era])
+      expect({ ...b, cls: rolled.cls }).toEqual(rolled)
+      const w = ERA_META[b.era].regions.find((r) => r.id === b.region)!.classWeights
+      const hasHigh = (w.noble ?? 0) > 0 || (w.landowner ?? 0) > 0
+      if (hasHigh) expect(['noble', 'landowner']).toContain(b.cls)
+      counts[b.cls] = (counts[b.cls] ?? 0) + 1
+      if (i < 40) expect(newLife(ERAS[b.era], { mode: 'quick', mortality: 'soft', softenHeavy: false, protectedUntil: 20, livesBefore: 1 }, 7000 + i, undefined, b).hero.cls).toBe(b.cls)
+    }
+    expect((counts.noble ?? 0) + (counts.landowner ?? 0)).toBeGreaterThan(280)
   })
 })

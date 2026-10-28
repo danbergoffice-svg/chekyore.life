@@ -52,6 +52,20 @@ export function rollBirth(seed: number, lottery: Lottery, eras: EraMeta[]): Birt
   return { era: era.id, region: region.id, year, cls, sex: chance(h, 0.5) ? 'm' : 'f' }
 }
 
+/** Высокое положение при рождении (A/B второй жизни, вариант b): знать или землевладельцы края — по их долям;
+ *  если в крае их нет — самое высокое из возможных сословий. Страна, край, год и пол — как выпало. */
+const HIGH_CLASSES = ['noble', 'landowner']
+const CLASS_RANK = ['noble', 'landowner', 'trader', 'craftsman', 'peasant', 'slave']
+export function highBirth(seed: number, birth: Birth, era: EraMeta): Birth {
+  const region = era.regions.find((r) => r.id === birth.region)
+  if (!region) return birth
+  const w = region.classWeights
+  const h = { rng: (seed ^ 0x2c1b3c6d) >>> 0 }
+  const high = HIGH_CLASSES.filter((c) => (w[c] ?? 0) > 0)
+  const cls = high.length ? weighted(h, high, (c) => w[c])! : (CLASS_RANK.find((c) => (w[c] ?? 0) > 0) ?? birth.cls)
+  return { ...birth, cls }
+}
+
 function emptyHero(seed: number): Hero {
   return {
     id: '',

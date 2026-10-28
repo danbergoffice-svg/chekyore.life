@@ -977,7 +977,7 @@
   "ach.three_lands.title": "A Family of Three Lands",
   "ach.three_lands.desc": "The family has lived in three different countries.",
   "ach.three_lands.hint": "Moves and heirs — and your family will see half the world.",
-  "menu.spin": "Spin a new life",
+  "menu.spin": "Who will you be? — Spin!",
   "country.title": "Where will you be born next?",
   "country.lead": "Thank you for the feedback! While the trial lasts, you choose the country of birth — chance decides the year, region and station. You can change it in “Customize life” under the reels.",
   "country.random": "Chance",
@@ -999,7 +999,5 @@
   "spin.again.ad": "▶ Spin again — watch an ad",
   "spin.ad.loading": "Loading the ad…",
   "spin.ad.fail": "No ad available right now — try again a bit later.",
-  "menu.tagline": "One life in a random country and age — from pharaohs to samurai. Will your bloodline go on?",
-  "menu.new": "New life",
-  "spin.title": "Birth lottery"
+  "menu.tagline": "One life in a random country and age — from pharaohs to samurai. Will your bloodline go on?"
 }

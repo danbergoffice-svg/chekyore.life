@@ -116,7 +116,8 @@ function seed(db) {
   // тренировка — не считается
   ev(at(Y, 0, 29, 4), 'p1', 'dream_step', { dream: 'eratosthenes', step: 3, kind: 'number', correct: 1, value: '8', training: 1 })
   ev(at(Y, 0, 30), 'p1', 'life_end', { age: 54, cause: 'old', sec_in_life: 1740, choices: 30 })
-  ev(at(Y, 0, 31), 'p1', 'life_start', {}, { life_index: 2 })
+  // вторая жизнь p1 — вариант b A/B второй жизни: сразу высокое положение
+  ev(at(Y, 0, 31), 'p1', 'life_start', { high: 1 }, { life_index: 2, ab: 'b' })
   ev(at(Y, 0, 40), 'p1', 'session_end', { screen: 'life', age: 3, sec_in_session: 2400 }, { life_index: 2 })
   // p2: вчера в 01:00 по Стамбулу = позавчера 22:00 UTC — должен попасть во «вчера»
   // p2 — во втором варианте A/B первого экрана
@@ -376,7 +377,7 @@ async function suite(realBinds) {
   check('/admin: та же сводка, что в Telegram', r.status === 200 && html.includes(`<div class="tg">${dg?.text}</div>`))
   check('/admin: старые отчёты и отзывы на месте', /быстрее/.test(html) && /Где уходят/.test(html) && /События: частота/.test(html))
   check('/admin: отчёты «Воронка по дням» и «Когорты»', /Воронка по дням/.test(html) && /Когорты по дню первого захода/.test(html))
-  check('/admin: A/B первого экрана — новички по вариантам и доли', /A\/B первого экрана/.test(html) && html.includes('<td>b</td><td>1</td><td>0 (0%)</td><td>1 (100%)</td><td>1 (100%)</td><td>0 (0%)</td>') && html.includes('<td>a</td><td>7</td><td>0 (0%)</td><td>4 (57%)</td><td>2 (29%)</td><td>2 (29%)</td>'), html.match(/<td>[ab]<\/td>.*?<\/tr>/g))
+  check('/admin: A/B второй жизни — по вариантам и доли', /A\/B второй жизни/.test(html) && html.includes('<td>b</td><td>1</td><td>1</td><td>0 (0%)</td><td>0 (0%)</td><td>0 (0%)</td><td>0 (0%)</td><td>—</td>'), html.match(/<td>[ab]<\/td>.*?<\/tr>/g))
   check('/admin: отчёт по снам — доля верных и частый неверный ответ', html.includes('<td>eratosthenes</td><td>3</td><td>3</td><td>33</td><td>3 ×2</td>'))
   check('/admin: ссылки CSV', /href="\/admin\/export\?table=events&amp;days=7"/.test(html) && /table=feedback/.test(html))
   const fy = sy.funnel

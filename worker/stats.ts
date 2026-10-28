@@ -107,18 +107,22 @@ FROM events WHERE name='choice_made' AND ts >= ?1 AND ts < ?2 GROUP BY event ORD
 SELECT d.dream AS dream, d.step AS step, COUNT(*) AS answers, ROUND(100.0*SUM(d.ok)/COUNT(*)) AS correct_pct,
   (SELECT value || ' ×' || n FROM w WHERE w.dream = d.dream AND w.step = d.step AND w.r = 1) AS top_wrong
 FROM d GROUP BY d.dream, d.step ORDER BY d.dream, d.step LIMIT 120`,
-  // A/B первого экрана: новички (вход с life_index = 1) по вариантам — дёрнули рычаг, начали жизнь, дожили до 5 и 20 лет.
-  abTest: `WITH n AS (
-  SELECT player_id, MIN(COALESCE(json_extract(params_json,'$.ab'),'(нет)')) AS variant FROM events
-  WHERE name='app_open' AND json_extract(params_json,'$.life_index') = 1 AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL
+  // A/B второй жизни: игроки, начавшие вторую жизнь по лотерее (не наследником), по вариантам — дожили в ней до 20 и 40,
+  // начали третью жизнь, вернулись в другой день; средний возраст смерти во второй жизни.
+  abSecondLife: `WITH s AS (
+  SELECT player_id, MIN(ts) AS t2, MIN(COALESCE(json_extract(params_json,'$.ab'),'(нет)')) AS variant,
+    MAX(COALESCE(json_extract(params_json,'$.high'),0)) AS high
+  FROM events WHERE name='life_start' AND json_extract(params_json,'$.life_index') = 2
+    AND COALESCE(json_extract(params_json,'$.lottery'),'') <> 'heir' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL
   GROUP BY player_id
-), e AS (SELECT player_id, name, params_json FROM events WHERE ts >= ?1 AND player_id IN (SELECT player_id FROM n))
-SELECT n.variant AS variant, COUNT(DISTINCT n.player_id) AS new_players,
-  COUNT(DISTINCT CASE WHEN e.name='spin' THEN e.player_id END) AS pulled,
-  COUNT(DISTINCT CASE WHEN e.name='life_start' THEN e.player_id END) AS started,
-  COUNT(DISTINCT CASE WHEN e.name='age_milestone' AND json_extract(e.params_json,'$.age')=5 THEN e.player_id END) AS age_5,
-  COUNT(DISTINCT CASE WHEN e.name='age_milestone' AND json_extract(e.params_json,'$.age')=20 THEN e.player_id END) AS age_20
-FROM n LEFT JOIN e ON e.player_id = n.player_id GROUP BY n.variant ORDER BY n.variant LIMIT 10`,
+), e AS (SELECT player_id, ts, name, params_json FROM events WHERE ts >= ?1 AND player_id IN (SELECT player_id FROM s))
+SELECT s.variant AS variant, COUNT(DISTINCT s.player_id) AS players, COUNT(DISTINCT CASE WHEN s.high = 1 THEN s.player_id END) AS high,
+  COUNT(DISTINCT CASE WHEN e.name='age_milestone' AND json_extract(e.params_json,'$.life_index')=2 AND json_extract(e.params_json,'$.age')=20 THEN e.player_id END) AS age_20,
+  COUNT(DISTINCT CASE WHEN e.name='age_milestone' AND json_extract(e.params_json,'$.life_index')=2 AND json_extract(e.params_json,'$.age')=40 THEN e.player_id END) AS age_40,
+  COUNT(DISTINCT CASE WHEN e.name='life_start' AND json_extract(e.params_json,'$.life_index')>=3 THEN e.player_id END) AS third_life,
+  COUNT(DISTINCT CASE WHEN ${DAYNUM_SQL.replace(/ts/g, 'e.ts')} > CAST((s.t2/1000 + 10800)/86400 AS INTEGER) THEN e.player_id END) AS returned,
+  ROUND(AVG(CASE WHEN e.name='life_end' AND json_extract(e.params_json,'$.life_index')=2 THEN json_extract(e.params_json,'$.age') END),1) AS death_age
+FROM s LEFT JOIN e ON e.player_id = s.player_id GROUP BY s.variant ORDER BY s.variant LIMIT 10`,
   // Когорты: день первого события игрока (?1…?2 — номера дней), возврат — любое событие ровно через 1 и 7 дней.
   cohorts: `WITH f AS (
   SELECT player_id, CAST((MIN(ts)/1000 + 10800)/86400 AS INTEGER) AS d0 FROM events WHERE player_id IS NOT NULL GROUP BY player_id

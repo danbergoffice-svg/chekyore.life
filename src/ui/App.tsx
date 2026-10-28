@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, finishYear, startYear } from '../engine/game'
-import { continueWithHeir, heirs, newLife, rollBirth } from '../engine/life'
+import { continueWithHeir, heirs, highBirth, newLife, rollBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed } from '../engine/rng'
 import type { GameState, LifeSummary } from '../engine/types'
@@ -30,7 +30,7 @@ import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
-type Screen = 'loading' | 'menu' | 'spin' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about' | 'awards'
+type Screen = 'loading' | 'menu' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about' | 'awards'
 
 const defaultPrefs: Prefs = {
   lang: platform.lang(),
@@ -83,8 +83,9 @@ export function App() {
   const [choiceChanges, setChoiceChanges] = useState<Change[]>([])
   const [, rerender] = useReducer((x: number) => x + 1, 0)
   // Лотерея рождения, пока барабаны крутятся: что выпало и загружена ли страна.
-  // respin — сколько раз уже перекрутили барабан для этой жизни; auto — барабан сам дёргает рычаг (перекрутка).
-  const [pending, setPending] = useState<{ seed: number; birth: Birth; respin: number; auto?: boolean } | null>(null)
+  // respin — сколько раз уже перекрутили барабан для этой жизни; auto — барабан сам дёргает рычаг (перекрутка);
+  // high — вариант b A/B второй жизни: сразу высокое положение.
+  const [pending, setPending] = useState<{ seed: number; birth: Birth; respin: number; auto?: boolean; high?: boolean } | null>(null)
   const [loadedVersion, setLoadedVersion] = useState(0)
   // С какого экрана открыли отзыв — туда и вернуться; благодарность после отправки.
   const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
@@ -286,8 +287,12 @@ export function App() {
    *  после отзыва; год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
   const rollPending = (lottery = prefs.lottery, country = pickedCountry(prefs), respin = 0) => {
     const seed = newSeed()
-    const birth = rollBirth(seed, lottery, (country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
-    setPending({ seed, birth, respin, auto: respin > 0 })
+    const rolled = rollBirth(seed, lottery, (country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
+    // A/B второй жизни (флаг ab_buckets, только сайт): a — положение как выпало, b — сразу высокое (знать или
+    // землевладельцы), где бы ни родился. Обе вторые жизни защищены до 20 лет. Смотрим, кто дольше остаётся в игре.
+    const high = platform.name === 'web' && platform.ab() === 'b' && memorial.length === 1
+    const birth = high ? highBirth(seed, rolled, ERA_META[rolled.era]) : rolled
+    setPending({ seed, birth, respin, auto: respin > 0, high })
   }
   /** Перекрутить барабан, пока жизнь не начата: флаг respins (0 — нельзя, -1 — без ограничений). */
   const respinLimit = platform.flags.respins ?? 0
@@ -314,22 +319,16 @@ export function App() {
     platform.track('respin', { n: pending.respin + 1, era: pending.birth.era, cls: pending.birth.cls, ad: 1 })
     rollPending(prefs.lottery, pickedCountry(prefs), pending.respin + 1)
   }
-  // A/B первого экрана (флаг ab_buckets): a — барабан прямо в меню; b — кнопка «Новая жизнь» и отдельный экран лотереи.
-  // Только на сайте: на порталах своей аналитики нет.
-  const variant = platform.name === 'web' && platform.ab() === 'b' ? 'b' : 'a'
-  // Барабан всегда заряжен.
+  // В меню барабан всегда заряжен.
   useEffect(() => {
-    if ((screen === 'menu' || screen === 'spin') && !pending) rollPending()
+    if (screen === 'menu' && !pending) rollPending()
   }, [screen, pending])
-  /** «Новая жизнь» (с итогов или из меню варианта b): к барабану, жребий новый. */
+  /** «Новая жизнь» с итогов: в меню к барабану (жребий новый). */
   const [drumFocus, setDrumFocus] = useState(0)
   const startNew = (lottery = prefs.lottery, country = pickedCountry(prefs)) => {
     rollPending(lottery, country)
-    if (variant === 'b') setScreen('spin')
-    else {
-      setScreen('menu')
-      setDrumFocus((n) => n + 1)
-    }
+    setScreen('menu')
+    setDrumFocus((n) => n + 1)
   }
   const onPull = () => {
     if (!pending) return
@@ -361,7 +360,7 @@ export function App() {
     const h = game.current.hero
     void h
     platform.setContext({ mode: prefs.mode })
-    trackLifeStart(game.current, pickedCountry(prefs) ? 'country' : prefs.lottery, protectedUntil !== undefined, pending.respin)
+    trackLifeStart(game.current, pickedCountry(prefs) ? 'country' : prefs.lottery, protectedUntil !== undefined, pending.respin, pending.high)
     setPending(null)
     setYearChanges([])
     setScreen('reveal')
@@ -570,7 +569,7 @@ export function App() {
     setPrefs(next)
     setCountryOpen(false)
     if (country) platform.track('country_pick', { era: country })
-    if (screen === 'death' || screen === 'menu' || screen === 'spin') startNew(next.lottery, pickedCountry(next))
+    if (screen === 'death' || screen === 'menu') startNew(next.lottery, pickedCountry(next))
   }
   // Просим отзыв после первой жизни; если отложили — ещё раз через две жизни; после отправки — больше нет.
   const askFeedback =
@@ -627,8 +626,7 @@ export function App() {
           <Menu
             current={state}
             memorial={memorial}
-            slot={variant === 'a' ? slotMachine : null}
-            onNew={variant === 'b' ? () => startNew() : undefined}
+            slot={slotMachine}
             onContinue={() => {
               if (!state) return
               const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
@@ -642,13 +640,6 @@ export function App() {
             awards={earned.length}
             sound={soundButton}
           />
-        )}
-        {screen === 'spin' && (
-          <div class="screen spin-screen">
-            <button class="link back" onClick={toMenu}>← {ui.t('common.back')}</button>
-            <h1>{ui.t('spin.title')}</h1>
-            {slotMachine}
-          </div>
         )}
         {setupOpen && (
           <SetupModal

@@ -26,10 +26,8 @@ const SHOWCASE: { region: string; era: string; scene: SceneDef }[] = ERA_IDS.fla
 interface MenuProps {
   current: GameState | null
   memorial: LifeSummary[]
-  /** Барабан лотереи рождения — сразу под названием игры (вариант a). */
+  /** Барабан лотереи рождения — сразу под названием игры, на первом экране. */
   slot: ComponentChildren
-  /** Вариант b: кнопка «Новая жизнь» ведёт на отдельный экран лотереи. */
-  onNew?: () => void
   onContinue: () => void
   onOpenLife: (heroId: string) => void
   onFeedback: () => void
@@ -41,7 +39,7 @@ interface MenuProps {
   sound: ComponentChildren
 }
 
-export function Menu({ current, memorial, slot, onNew, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
+export function Menu({ current, memorial, slot, onContinue, onOpenLife, onFeedback, onLang, go, sound, awards }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
@@ -53,7 +51,7 @@ export function Menu({ current, memorial, slot, onNew, onContinue, onOpenLife, o
   const playing = !!current && current.phase !== 'dead' && !!hero
   return (
     <div class="screen menu">
-      {/* Верх меню сжат, чтобы барабан (или «Новая жизнь») был виден на телефоне без прокрутки. */}
+      {/* Верх меню сжат, чтобы барабан с кнопкой был виден на телефоне без прокрутки. */}
       <div class="menu-top">
         <span class="badge">{t('beta.badge')}</span>
         <div class="menu-top-right">
@@ -74,17 +72,11 @@ export function Menu({ current, memorial, slot, onNew, onContinue, onOpenLife, o
         </span>
       </div>
       <div class="title-block">
-        <h1 class="game-title">{t('app.title')}</h1>
+        {/* Длинное название (Thousands of Lives) — мельче, чтобы в одну строку на любом телефоне. */}
+        <h1 class={`game-title ${t('app.title').length > 14 ? 'long' : ''}`}>{t('app.title')}</h1>
         <p class="lead">{t('menu.tagline')}</p>
       </div>
 
-      {onNew && (
-        <div class="stack">
-          <button class="primary" onClick={onNew}>
-            {t('menu.new')}
-          </button>
-        </div>
-      )}
       {slot}
 
       {playing && hero && (

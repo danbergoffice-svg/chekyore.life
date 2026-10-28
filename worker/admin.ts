@@ -53,18 +53,19 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     all(SQL.dreamSteps, period(today, 30)),
     cohorts(db, today, 21),
     digestMessage(db, now),
-    all(SQL.abTest, two),
+    all(SQL.abSecondLife, two),
   ])
-  // A/B первого экрана: доли — от новичков варианта.
+  // A/B второй жизни: доли — от начавших вторую жизнь в варианте.
   const abRows = ab.map((r) => {
-    const n = Number(r.new_players)
-    return { вариант: r.variant, новички: n, 'дёрнули рычаг': `${r.pulled} (${pct(Number(r.pulled), n)})`, 'начали жизнь': `${r.started} (${pct(Number(r.started), n)})`, 'до 5 лет': `${r.age_5} (${pct(Number(r.age_5), n)})`, 'до 20 лет': `${r.age_20} (${pct(Number(r.age_20), n)})` }
+    const n = Number(r.players)
+    const p = (k: string) => `${r[k]} (${pct(Number(r[k]), n)})`
+    return { вариант: r.variant, 'начали 2-ю жизнь': n, 'высокое положение': r.high, 'до 20 лет': p('age_20'), 'до 40 лет': p('age_40'), '3-я жизнь': p('third_life'), 'вернулись в другой день': p('returned'), 'возраст смерти': r.death_age ?? '—' }
   })
   const f = s.funnel
   const reports: { title: string; rows: Record<string, unknown>[] }[] = [
     { title: `Воронка за 7 дней, ${week.label} (уникальные игроки; как /funnel)`, rows: FUNNEL_STEPS.map(([k, label], i) => ({ шаг: label, событие: k, игроки: f[k], '% от прошлого': i ? pct(f[k], f[FUNNEL_STEPS[i - 1][0]]) : '' })) },
     { title: 'Воронка по дням (14 дней, уникальные игроки)', rows: byDay },
-    { title: 'A/B первого экрана за 14 дней: a — барабан в меню, b — кнопка «Новая жизнь» и экран лотереи (новички, флаг ab_buckets)', rows: abRows },
+    { title: 'A/B второй жизни за 14 дней: a — положение как выпало, b — сразу высокое (обе защищены до 20 лет; флаг ab_buckets)', rows: abRows },
     { title: 'Когорты по дню первого захода: вернулись через 1 день (D1) и через 7 дней (D7)', rows: cohortRows.map((c) => ({ day: c.day, new_players: c.new_players, D1: c.d1, D7: c.d7 })) },
     { title: 'Игроки и жизни по дням (14 дней)', rows: players },
     { title: `Жизни по режимам за 7 дней (как /week): минуты, возраст смерти, выборы`, rows: [...s.modes, s.lives] as unknown as Record<string, unknown>[] },
