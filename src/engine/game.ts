@@ -139,11 +139,16 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   if (age >= era.stages.youth) {
     const prof = era.professions.find((p) => p.id === hero.profession)
     const cls = era.classes.find((c) => c.id === hero.cls)
+    // Старость: взрослый ребёнок рядом берёт на себя половину расходов дома — как и было в жизни.
+    const old = age >= era.stages.old
+    const keeper = old ? hero.npcs.find((n) => n.role === 'child' && n.alive && !n.away && npcAge(n, state.year) >= era.stages.adult) : undefined
     let income = 0
     if (prof) {
       income = int(state, prof.income[0], prof.income[1]) * (0.75 + (hero.skills[prof.skill] ?? 0) / 100)
       income *= (focus?.incomeMultiplier ?? 1) * abroadIncome
-      if (age >= era.stages.old) income *= 0.5
+      // Сил к старости меньше — доход падает постепенно: с наступлением старости на пятую часть, через 10 лет — на 40%.
+      if (age >= era.stages.old + 10) income *= 0.6
+      else if (old) income *= 0.8
       if (focus?.id === 'work') changeSkill(hero, prof.skill, 3)
       changeParam(hero, 'stress', prof.stress ?? 0)
       changeParam(hero, 'reputation', prof.reputation ?? 0)
@@ -153,6 +158,13 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
     let upkeep = cls?.upkeep ?? 0
     if (prof) upkeep = Math.min(upkeep, Math.max(100, ((prof.income[0] + prof.income[1]) / 2) * 0.85))
     if (age < era.stages.adult) upkeep *= 0.5
+    if (keeper) {
+      upkeep *= 0.5
+      if (!hero.flags.includes('old_support')) {
+        hero.flags.push('old_support')
+        note(state, { key: 'diary.old_support', params: { who: { name: keeper.name } }, topic: 'family', score: 14, mood: 3 })
+      }
+    }
     // Земля и капитал приносят доход состоятельным семьям.
     const rent = hero.tags.includes('wealthy') && hero.money > 0 ? hero.money * 0.025 : 0
     hero.money = Math.round(hero.money + income + rent - upkeep)
@@ -467,6 +479,7 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   }
   const last = hero.seen[ev.id]
   if (last !== undefined && (ev.once || ev.milestone || ev.global_chance !== undefined)) return false
+  if (ev.group && hero.seen[`@${ev.group}`] !== undefined) return false
   if (last !== undefined && !ignoreTiming && state.year - last < COOLDOWN) return false
   if (ev.npc && npcCandidates(state, ev).length === 0) return false
   if (ev.pet && !pets(state).some((p) => p.kind === ev.pet)) return false
@@ -625,9 +638,11 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     }
   }
 
-  // 3б. Первый выбор: в первый год первой жизни игрок решает за родителей в первые секунды (ТЗ P2).
+  // 3б. Первый выбор — история рождения: в первый год каждой новой жизни игрок решает за родителей в первые секунды
+  // (ТЗ P2). Истории прошлых жизней выпадают редко, чтобы начало не повторялось.
   if (hero.generation === 1 && hero.age === 0 && !picked.some((p) => (byId(p.eventId)?.choices?.length ?? 0) > 1)) {
-    const first = weighted(state, b.firstChoice.filter(fits), (e) => eventWeight(state, e))
+    const seenBefore = state.settings.birthSeen ?? []
+    const first = weighted(state, b.firstChoice.filter(fits), (e) => eventWeight(state, e) * (seenBefore.includes(e.id) ? 0.15 : 1))
     if (first) picked.push({ ...activate(state, first), at: 0.3 })
   }
 
@@ -651,7 +666,11 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   }
 
   state.queue = picked.sort((a, b) => a.at - b.at)
-  for (const p of picked) hero.seen[p.eventId] = state.year
+  for (const p of picked) {
+    hero.seen[p.eventId] = state.year
+    const group = byId(p.eventId)?.group
+    if (group) hero.seen[`@${group}`] = state.year
+  }
 
   // Историческая справка в первые годы: младенцу ещё нечего решать — игрок узнаёт свой мир.
   if (hero.generation === 1 && hero.age * PRIMERS_PER_YEAR < PRIMER_TOPICS.length && state.offChronicle === undefined) {
@@ -673,6 +692,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     const ev = weighted(state, moments.filter((m) => hero.seen[m.id] !== state.year), (e) => eventWeight(state, e))
     if (!ev) break
     hero.seen[ev.id] = state.year
+    if (ev.group) hero.seen[`@${ev.group}`] = state.year
     const active = activate(state, ev)
     const mood = hero.hidden.happiness
     applyEffects(state, era, ev.effects, { npcId: active.npcId })

@@ -478,7 +478,7 @@
   "dream.boiled_water.partial": "Your household falls ill less often. The neighbors chuckle, but some already boil their water.",
   "dream.boiled_water.failure": "You did not do it all right, and the whole house had stomach aches.",
   "dream.boiled_water.known": "People here already drink boiled water — as tea. They just thanked you for caring.",
-  "dream.boiled_water.truth": "That disease spreads through water was proven by the doctor John Snow in London in 1854, when he stopped a cholera outbreak by removing the handle of an infected pump. Louis Pasteur explained in the 1860s why boiling helps: it kills germs. In China, the habit of drinking tea — that is, boiled water — had protected people from stomach diseases for centuries.",
+  "dream.boiled_water.truth": "That disease spreads through water was proven by the doctor John Snow in London in 1854, when he stopped a cholera outbreak by removing the handle of an infected pump. Louis Pasteur explained in the 1860s why boiling helps: it kills germs. In China, and from the 13th century in Japan too, the habit of drinking tea — that is, boiled water — protected people from stomach diseases for centuries.",
   "dream.boiled_water.opt.boil": "boil it",
   "dream.boiled_water.opt.settle": "let it settle",
   "dream.boiled_water.opt.filter_cloth": "strain it through clean cloth",

@@ -40,6 +40,7 @@
   "base_weight": 3,                    // частота относительно других (1 редко … 5 часто)
   "weight_modifiers": [{ "if": {"trait": "curious"}, "multiply": 2 }],
   "once": true,                        // не больше раза за жизнь (для моментов почти всегда)
+  "group": "sky",                      // группа похожих событий: за жизнь — не больше одного из группы (sky — небесные знамения)
   "sensitive": true,                   // тяжёлая тема (смерть детей, насилие, жестокость)
   "variants": 3,                       // несколько текстов: ev.id.text.1 … .3
   "topic": "family | work | health | money | history | life",

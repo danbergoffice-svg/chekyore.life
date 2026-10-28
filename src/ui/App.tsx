@@ -479,6 +479,8 @@ export function App() {
       dreamLevel: ladder.level,
       dreamsSeen: ladder.seen,
       dreamSure: used.includes('dream') || undefined,
+      // Истории рождения прошлых жизней (события первого года) — чтобы начало жизни не повторялось.
+      birthSeen: [...new Set(memorial.flatMap((l) => (l.diary ?? []).filter((d) => d.age === 0 && d.eventId).map((d) => d.eventId!)))],
     }
     const boons = { health: used.includes('health') ? HEALTH_GIFT : 0, wealth: used.includes('chest') ? CHEST_GIFT : 0 }
     const birth = boons.health || boons.wealth ? { ...pending.birth, boons } : pending.birth

@@ -444,6 +444,7 @@
   "menu.lives_count": "Lives lived: {n}, years: {years}.",
   "diary.debt_start": "Money ran short and you fell into debt. The worry keeps you awake at night.",
   "diary.debt_paid": "The debts are paid off. At last you can sleep in peace.",
+  "diary.old_support": "The household slowly passes to your children: {who} now feeds the family, and you mostly give advice.",
   "lifestyle.expected": "Living like this, you can expect to live to about {n}.",
   "lifestyle.health_year": "health {d} a year",
   "lifestyle.risk": "risk of death {d}%",

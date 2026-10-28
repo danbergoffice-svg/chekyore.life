@@ -156,7 +156,7 @@
       5,
       13
     ],
-    "base_weight": 3,
+    "base_weight": 2,
     "topic": "money",
     "icon": "find",
     "scene": {
@@ -980,7 +980,7 @@
       14,
       35
     ],
-    "base_weight": 2,
+    "base_weight": 1,
     "topic": "life",
     "scene": {
       "place": "market",

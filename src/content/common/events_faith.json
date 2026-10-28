@@ -4556,6 +4556,7 @@
       8,
       90
     ],
+    "group": "sky",
     "base_weight": 1,
     "once": true,
     "topic": "life",
@@ -4637,7 +4638,7 @@
       10,
       90
     ],
-    "base_weight": 2,
+    "base_weight": 1,
     "once": true,
     "topic": "life",
     "scene": {

@@ -173,7 +173,7 @@
       18,
       65
     ],
-    "base_weight": 3,
+    "base_weight": 2,
     "variants": 18,
     "topic": "health",
     "scene": {
@@ -334,6 +334,7 @@
       70
     ],
     "once": true,
+    "group": "sky",
     "base_weight": 1,
     "topic": "life",
     "scene": {

@@ -4845,7 +4845,7 @@
         "delta": 1
       }
     ],
-    "base_weight": 2,
+    "base_weight": 1,
     "topic": "health",
     "scene": {
       "place": "market",
