@@ -11,7 +11,7 @@ import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, t
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
-import { About, ChallengeCard, CountryModal, CountryPrompt, DailyCard, FatePicker, GiftsLine, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
+import { About, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsLine, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { CHEST_GIFT, dailyNext, dayKey, GIFT_ICON, GIFTS, HEALTH_GIFT, RESPIN_GIFT, spendGifts } from '../daily'
 import type { Gift } from '../daily'
 import { Awards } from './Awards'
@@ -50,12 +50,6 @@ const defaultPrefs: Prefs = {
 /** До какого возраста защищена жизнь, если до неё прожито lives жизней: первые protected_lives — до first_life_min_age. */
 function protectedAge(lives: number): number | undefined {
   return lives < (platform.flags.protected_lives ?? 1) ? platform.flags.first_life_min_age : undefined
-}
-
-/** Страна, выбранная игроком: только в пробный период и только после отзыва. */
-function pickedCountry(prefs: Prefs): string | undefined {
-  if (!EXTERNAL || !platform.flags.trial_country_pick || prefs.feedback?.state !== 'sent') return undefined
-  return prefs.country && ERA_META[prefs.country] ? prefs.country : undefined
 }
 
 function reloadOnceForUpdate(): boolean {
@@ -313,15 +307,16 @@ export function App() {
   }
   const dailyCard =
     today && memorial.length >= 1 ? <DailyCard day={dailyNow?.day ?? prefs.daily?.day ?? 1} claimable={!!dailyNow} broken={dailyNow?.broken} onClaim={claimDaily} /> : undefined
-  // Дар «Страна по выбору»: страну игрок выбирает у барабана; не выбрал — дар ждёт следующей жизни.
+  // Дар «Страна по выбору» (дар первого дня и награда за отзыв): страну игрок выбирает у барабана; не выбрал — дар ждёт
+  // следующей жизни.
   const [giftCountry, setGiftCountry] = useState<string | null>(null)
   const [giftCountryOpen, setGiftCountryOpen] = useState(false)
-  const chosenCountry = () => (gifts.includes('country') && giftCountry) || pickedCountry(prefs)
+  const chosenCountry = () => (gifts.includes('country') && giftCountry) || null
   const royalWanted = prefs.royal === 'ready' || gifts.includes('royal')
 
-  /** Жребий для барабана в меню: что выпадет при рывке рычага. Страну игрок может выбрать сам — в пробный период,
-   *  после отзыва, или по дару; год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
-  const rollPending = (lottery = prefs.lottery, country = chosenCountry(), respin = 0, fate = fatePick, royal = royalWanted) => {
+  /** Жребий для барабана в меню: что выпадет при рывке рычага. Страну игрок может выбрать сам — по дару «Страна по
+   *  выбору» (null — жребий); год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
+  const rollPending = (lottery = prefs.lottery, country: string | null = chosenCountry(), respin = 0, fate = fatePick, royal = royalWanted) => {
     const seed = newSeed()
     // Награда за испытание: страна по выбору — вместо жребия страны.
     const fateCountry = fate && fate !== 'high' ? fate : undefined
@@ -445,7 +440,7 @@ export function App() {
   }, [screen, pending])
   /** «Новая жизнь» с итогов: в меню к барабану (жребий новый). */
   const [drumFocus, setDrumFocus] = useState(0)
-  const startNew = (lottery = prefs.lottery, country = chosenCountry()) => {
+  const startNew = (lottery = prefs.lottery, country: string | null = chosenCountry()) => {
     rollPending(lottery, country)
     setScreen('menu')
     setDrumFocus((n) => n + 1)
@@ -701,22 +696,22 @@ export function App() {
   }
   const onSendFeedback = (data: FeedbackData) => {
     sendFeedback(data)
-    setPrefs({ ...prefs, feedback: { state: 'sent', lives: memorial.length } })
     setScreen(feedbackFrom)
-    // Пробный период: награда за отзыв — выбор страны; сразу предлагаем выбрать.
-    if (platform.flags.trial_country_pick) setCountryOpen(true)
+    // Пробный период: награда за отзыв — дар «Страна по выбору» на одну жизнь; сразу предлагаем выбрать.
+    const reward = !!platform.flags.trial_country_pick
+    setPrefs({ ...prefs, feedback: { state: 'sent', lives: memorial.length }, ...(reward ? { gifts: [...gifts, 'country'] } : {}) })
+    if (reward) setCountryOpen(true)
     else {
       setThanks(true)
       setTimeout(() => setThanks(false), 4000)
     }
   }
-  /** Страна выбрана: запоминаем и сразу к лотерее (с экрана лотереи — тянем жребий заново). */
+  /** Страна за отзыв выбрана: сразу к барабану (с итогов или из меню — жребий заново). Не выбрал — дар ждёт у барабана. */
   const onCountry = (country: string | undefined) => {
-    const next = { ...prefs, country }
-    setPrefs(next)
     setCountryOpen(false)
+    setGiftCountry(country ?? null)
     if (country) platform.track('country_pick', { era: country })
-    if (screen === 'death' || screen === 'menu') startNew(next.lottery, pickedCountry(next))
+    if (screen === 'death' || screen === 'menu') startNew(prefs.lottery, country ?? null)
   }
   // Просим отзыв после первой жизни; если отложили — ещё раз через две жизни; после отправки — больше нет.
   const askFeedback =
@@ -781,7 +776,6 @@ export function App() {
       adBusy={adBusy}
       autoSpin={!!pending.auto}
       onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
-      country={pickedCountry(prefs)}
       focus={drumFocus}
       fate={drumTop(pending.royal)}
     />
@@ -817,25 +811,22 @@ export function App() {
             prefs={prefs}
             onPrefs={(next) => {
               setPrefs(next)
-              // Лотерея или страна поменялись до рывка рычага — тянем жребий заново по новому правилу.
-              if (next.lottery !== prefs.lottery || next.country !== prefs.country) startNew(next.lottery, pickedCountry(next))
+              // Лотерея поменялась до рывка рычага — тянем жребий заново по новому правилу.
+              if (next.lottery !== prefs.lottery) startNew(next.lottery)
             }}
             onClose={() => setSetupOpen(false)}
-            country={
-              // Отзывы — только на сайте; на порталах (CrazyGames) выбора страны за отзыв нет.
-              platform.flags.trial_country_pick && EXTERNAL
-                ? {
-                    unlocked: prefs.feedback?.state === 'sent',
-                    onFeedback: () => {
-                      setSetupOpen(false)
-                      openFeedback('menu')
-                    },
+            onFeedback={
+              // Отзывы — только на сайте; на порталах (CrazyGames) награды за отзыв нет.
+              platform.flags.trial_country_pick && EXTERNAL && prefs.feedback?.state !== 'sent'
+                ? () => {
+                    setSetupOpen(false)
+                    openFeedback('menu')
                   }
                 : undefined
             }
           />
         )}
-        {countryOpen && <CountryModal current={prefs.country} onPick={onCountry} onClose={() => setCountryOpen(false)} />}
+        {countryOpen && <CountryModal current={giftCountry ?? undefined} onPick={onCountry} onClose={() => setCountryOpen(false)} />}
         {giftCountryOpen && (
           <CountryModal
             current={giftCountry ?? undefined}
@@ -843,7 +834,7 @@ export function App() {
             onPick={(era) => {
               setGiftCountryOpen(false)
               setGiftCountry(era ?? null)
-              rollPending(undefined, era ?? pickedCountry(prefs))
+              rollPending(undefined, era ?? null)
             }}
             onClose={() => setGiftCountryOpen(false)}
           />
@@ -951,8 +942,6 @@ export function App() {
                   onOpen={() => openFeedback('death')}
                   onLater={() => setPrefs({ ...prefs, feedback: { state: 'later', lives: memorial.length } })}
                 />
-              ) : platform.flags.trial_country_pick && prefs.feedback?.state === 'sent' ? (
-                <CountryPrompt country={prefs.country} onOpen={() => setCountryOpen(true)} />
               ) : undefined
             }
           />

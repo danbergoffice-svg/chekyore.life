@@ -76,7 +76,7 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   (флаг `ab_buckets`, `?ab=a|b`, отчёт в `/admin`): b — сразу высокое положение (`highBirth`). Защищены до 20 лет первые `protected_lives` жизней (`protectedAge` в `App.tsx`, и наследник);
   сон о будущем в первой жизни — к `dream_first_by` годам; **лестница снов** — `level` 1–5 в `dreams.json`,
   `dreamLadder()` (уровень = 1 + решённые сны), мягкая проверка в `checkInput` (см. `docs/TZ_dreams.md`). Пробный период «страна за отзыв» — флаг
-  `trial_country_pick`, `prefs.country`, `CountryModal`/`CountryPrompt`; проверка — `node tools/qa/country.cjs`.
+  `trial_country_pick`: за отзыв один дар «Страна по выбору» (`CountryModal`, `prefs.gifts`); проверка — `node tools/qa/country.cjs`.
   Перекрутка барабана после результата — флаг `respins` (2), проверка — `node tools/qa/respin.cjs`.
   **Испытание** после первой жизни (флаг `challenge_age`, `prefs.fate`, `ChallengeCard`/`FatePicker`): прожить следующую
   дольше 30 лет → у барабана выбор судьбы (знать или страна), проверка — `node tools/qa/challenge.cjs`.

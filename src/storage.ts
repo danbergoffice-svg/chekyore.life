@@ -23,7 +23,8 @@ export interface Prefs {
   volume?: number
   /** Отзыв: ещё не просили, отложили (на какой по счёту жизни), отправлен. */
   feedback?: { state: 'later' | 'sent'; lives: number }
-  /** Страна следующих жизней по выбору игрока (пробный период, за отзыв); не задано — жребий. */
+  /** До 28.10.2026: страна всех следующих жизней за отзыв. Теперь за отзыв — один дар «Страна по выбору»;
+   *  при загрузке старый выбор превращается в такой дар (loadPrefs). */
   country?: string
   /** Испытание «прожить жизнь дольше 30 лет»: ready — награда ждёт (выбор судьбы у барабана), used — получена. */
   fate?: 'ready' | 'used'
@@ -98,7 +99,10 @@ export async function clearAll(): Promise<void> {
 export function loadPrefs(defaults: Prefs): Prefs {
   try {
     const raw = platform.kvGet(PREFS_KEY)
-    return raw ? { ...defaults, ...(JSON.parse(raw) as Partial<Prefs>) } : defaults
+    const p: Prefs = raw ? { ...defaults, ...(JSON.parse(raw) as Partial<Prefs>) } : defaults
+    // Страна за отзыв была навсегда — теперь на одну жизнь: вместо неё один дар «Страна по выбору».
+    if (p.country) return { ...p, country: undefined, gifts: [...(p.gifts ?? []), 'country'] }
+    return p
   } catch {
     return defaults
   }

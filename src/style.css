@@ -555,7 +555,6 @@ button.gift-chip { cursor: pointer; border-color: var(--accent); color: var(--ac
 .menu .spin .lead { margin: 0; }
 .spin .slot-machine { margin-top: 10px; }
 .spin-button { width: 100%; }
-.picked-country { margin: 6px 0 0; color: var(--accent); }
 .secondary.continue .option-desc { color: var(--muted); }
 .locked-country { display: block; }
 .locked-country p { margin: 0 0 8px; }

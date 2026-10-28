@@ -99,8 +99,6 @@ export function SlotMachine(props: {
   onPull: () => void
   onDone: () => void
   onSetup?: () => void
-  /** Страну выбрал сам игрок (пробный период, за отзыв). */
-  country?: string
   /** Растёт, когда к барабану нужно прокрутить страницу (новая жизнь с экрана итогов). */
   focus?: number
   /** Перекрутить после результата (рычаг остаётся активным); left — сколько раз ещё можно. */
@@ -187,7 +185,6 @@ export function SlotMachine(props: {
   return (
     <section class="spin" ref={box}>
       {props.fate && phase === 'idle' ? props.fate : <p class="lead center">{t('spin.lead')}</p>}
-      {props.country && <p class="small center picked-country">{t('country.picked', { era: { key: `era.${props.country}.short` } })}</p>}
 
       <div class={`slot-machine ${phase}`}>
         <div class="slot-lights" aria-hidden="true">

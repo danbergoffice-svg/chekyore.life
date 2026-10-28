@@ -1,4 +1,4 @@
-// Главное меню с барабаном и пробный период «отзыв → выбор страны» на 390×844.
+// Главное меню с барабаном и пробный период «отзыв → страна по выбору на одну жизнь» на 390×844.
 // Чтобы быстро дойти до смерти, защита первых жизней выключена подменой /flags.json.
 const { chromium } = require('playwright');
 const dir = process.env.SHOTS || 'shots';
@@ -58,17 +58,27 @@ const dir = process.env.SHOTS || 'shots';
     await p.waitForSelector('#country-title');
     await p.screenshot({ path: `${dir}/c-country.png` });
     await p.click('.modal .option:has-text("Япония")');
-    await p.waitForSelector('.menu .picked-country');
+    await p.waitForSelector('.menu .gifts-line');
     await (await p.$('.menu .spin')).screenshot({ path: `${dir}/c-menu-picked.png` });
-    console.log('строка выбора:', await p.$eval('.picked-country', e => e.innerText));
+    console.log('над барабаном:', await p.$eval('.gifts-line', e => e.innerText));
     await p.click('.spin-button');
     await p.waitForSelector('.spin-result .primary:not([disabled])');
     console.log('выпало:', await p.$eval('.spin-result p', e => e.innerText));
-    // Настройки жизни: выбор страны открыт.
-    await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine');
+    await p.click('.spin-result .primary'); await p.waitForSelector('.reveal');
+    const prefs = () => p.evaluate(() => JSON.parse(localStorage.getItem('thousands.prefs') || '{}'));
+    console.log('после рождения дар потрачен:', JSON.stringify((await prefs()).gifts), '| страны навсегда нет:', !(await prefs()).country);
+    // Следующая жизнь — снова жребий: строки даров нет.
+    await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(500);
+    console.log('следующая жизнь — жребий (строки даров нет):', !(await p.$('.gifts-line')));
+    // Настройки жизни: выбора страны больше нет, приглашения к отзыву — тоже (отзыв уже оставлен).
     await p.click('text=Настроить жизнь');
     await p.waitForSelector('#setup-title');
+    console.log('в «Настроить жизнь» нет страны:', !(await p.$('.modal >> text=Страна рождения')));
     await p.screenshot({ path: `${dir}/c-setup.png` });
+    // Старый постоянный выбор (до 28.10) превращается в один дар.
+    await p.evaluate(() => { const x = JSON.parse(localStorage.getItem('thousands.prefs')); x.country = 'CHN'; x.gifts = []; localStorage.setItem('thousands.prefs', JSON.stringify(x)) });
+    await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(500);
+    console.log('старый выбор → дар:', await p.$eval('.gifts-line', e => e.innerText).catch(() => 'НЕТ'));
   }
   console.log({ errors: errs.slice(0, 5) });
   await b.close();

@@ -234,8 +234,8 @@ export function SetupModal(props: {
   prefs: Prefs
   onPrefs: (p: Prefs) => void
   onClose: () => void
-  /** Пробный период: выбор страны (открыт после отзыва; до него — приглашение оставить отзыв). */
-  country?: { unlocked: boolean; onFeedback?: () => void }
+  /** Пробный период: приглашение оставить отзыв — за него страна по выбору на одну жизнь. */
+  onFeedback?: () => void
 }) {
   const { t } = useUi()
   const p = props.prefs
@@ -244,19 +244,14 @@ export function SetupModal(props: {
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="setup-title">
         <div class="modal-body">
           <h2 id="setup-title">{t('setup.custom')}</h2>
-          {props.country?.unlocked && (
-            <Choice title={t('setup.country')} value={p.country ?? ''} onChange={(v) => props.onPrefs({ ...p, country: v || undefined })} options={countryOptions(t)} />
-          )}
-          {props.country && !props.country.unlocked && (
+          {props.onFeedback && (
             <div class="choice-group locked-country">
               <p class="small">
                 <strong>{t('setup.country')}.</strong> {t('setup.country.locked')}
               </p>
-              {props.country.onFeedback && (
-                <button class="secondary" onClick={props.country.onFeedback}>
-                  {t('setup.country.feedback')}
-                </button>
-              )}
+              <button class="secondary" onClick={props.onFeedback}>
+                {t('setup.country.feedback')}
+              </button>
             </div>
           )}
           <Choice
@@ -430,18 +425,6 @@ export function FatePicker(props: { pick: string | null; onPick: (kind: 'high' |
         </button>
       </div>
     </div>
-  )
-}
-
-/** На итогах жизни, когда отзыв уже оставлен (пробный период): страна следующей жизни и кнопка выбора. */
-export function CountryPrompt(props: { country?: string; onOpen: () => void }) {
-  const { t } = useUi()
-  return (
-    <section class="block feedback-prompt">
-      <h2 class="section-title">{t('country.prompt.title')}</h2>
-      <p>{props.country ? t('country.prompt.chosen', { era: { key: `era.${props.country}.short` } }) : t('country.prompt.random')}</p>
-      <button class="secondary" onClick={props.onOpen}>{t('country.prompt.go')}</button>
-    </section>
   )
 }
 
