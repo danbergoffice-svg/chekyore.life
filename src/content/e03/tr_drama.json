@@ -1,0 +1,13 @@
+{
+  "ev.d_t_bondage.title": "Borç Kulluğu",
+  "ev.d_t_bondage.text": "Bir borcun şartları gereği {npc} artık son drahmisi ödenene kadar alacaklının evinde hizmet etmek zorunda. Nomos kâtibi sadece omuz silkiyor: kâğıtlar usulüne uygun.",
+  "ev.d_t_bondage.pay": "Borcu kapat",
+  "ev.d_t_bondage.pay.ok": "Gümüşü alacaklının önüne koyup sözleşmeyi aldın. Sözleşme tanıkların önünde oracıkta yırtıldı.",
+  "ev.d_t_bondage.petition": "Strategosa dilekçe ver",
+  "ev.d_t_bondage.petition.success": "Strategos dilekçeyi okudu ve şartları fahiş buldu. {npc} aynı gün eve döndü.",
+  "ev.d_t_bondage.petition.failure": "Dilekçe yarım yıl dairede bekledi ve retle geri döndü. Kâtiplere her satır için para ödemek gerekti.",
+  "ev.d_t_bondage.share": "Borcu birlikte çalışarak öde",
+  "ev.d_t_bondage.share.ok": "İşin yarısını sen üstlendin: kendi tarlandan sonra alacaklınınkine. Sırtın ağrıyor, ama süre yarıya indi.",
+  "ev.d_t_bondage.leave": "Herkes kendi borcundan sorumlu",
+  "ev.d_t_bondage.leave.ok": "{npc} götürülürken sana tek söz söylemedi."
+}

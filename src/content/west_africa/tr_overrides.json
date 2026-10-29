@@ -1,3 +1,26 @@
 {
-  "cause.shipwreck.WAF": "uzak bir yolculukta kayboldu"
+  "cause.shipwreck.WAF": "uzak bir yolculukta kayboldu",
+  "ev.a_voyage.title.WAF": "Çölün ötesine",
+  "ev.a_voyage.text.WAF": "Tanıdığın bir kervanbaşı Sahra'yı aşıp Sicilmase'ye deve götürüyor ve mallarıyla yolcular için yeri var. Dönenler üç katı fiyata satacak. Dönmeyenlerin ise umurunda bile olmayacak.",
+  "ev.a_voyage.go.success.WAF": "Yolculuk karşılığını verdi: mallar ilk gün tükendi, sen de güneşten kapkara yanmış, dolu bir keseyle ve bir düzine hikâyeyle eve döndün.",
+  "ev.a_voyage.go.failure.WAF": "Bir kum fırtınası kervanı dağıttı ve bir kuyuya zor ulaştın. En azından hayattasın.",
+  "ev.a_voyage.send_goods.WAF": "Kervanbaşıyla mal gönder",
+  "ev.a_voyage.send_goods.success.WAF": "Kervanbaşı dürüstçe ve kârla döndü. Nadir bir şans.",
+  "ev.a_voyage.send_goods.failure.WAF": "Kervanbaşı eli boş ve çöl akıncıları hakkında uzun bir hikâyeyle döndü.",
+  "ev.a_voyage.stay.WAF": "Evde kal",
+  "ev.j_up_ship.title.WAF": "Kendi kayıkların",
+  "ev.j_up_ship.text.WAF": "İskelede üç büyük yük kanosu, tayfalarıyla birlikte satılık: sahibi zenginleşti ve işi bırakıyor. Hepsini doğrudan satın alabilir ya da ortaklarla hisseli girebilirsin.",
+  "ev.j_up_ship.buy.WAF": "Kayıkları doğrudan satın al",
+  "ev.j_ship_state.title.WAF": "Hükümdar için tahıl",
+  "ev.j_ship_state.text.WAF": "Sarayın, hükümdarın malikânelerinden başkente tahıl taşıyacak kayıklara ihtiyacı var. Taşıyanlara düzenli ücret ve itibar vaat ediliyor. Kendi hesabına ticaret iki katını getirebilir — ya da hiçbir şey.",
+  "ev.j_ship_state.private.WAF": "Kendi hesabına ticaret yap",
+  "ev.j_ship_state.private.success.WAF": "Hem malda hem zamanlamada isabet ettin. Kâr, sarayın ücretini bozuk para gibi gösteriyor.",
+  "ev.j_ship_state.private.failure.WAF": "Sen varmadan hemen önce pazar fiyatları düştü. Yolculuk masrafını çıkarmadı.",
+  "ev.j_ship_state.overload.WAF": "Kayıkları aşırı yükle",
+  "ev.j_ship_state.overload.success.WAF": "Kayıklar küpeştelerine kadar suya gömülmüş olsa da vardı. Muazzam bir kâr.",
+  "ev.j_ship_state.overload.failure.WAF": "Aşırı yüklü bir kayık karaya oturup alabora oldu. Tahıl kayboldu, kürekçiler zor kurtuldu ve şimdi insanlar senin hakkında kötü konuşuyor.",
+  "ev.a_father_story.text.WAF": "Baban {npc}, gençken bir tuz kervanında az kalsın nasıl zengin olduğunu yine anlatıyor. Hikâyedeki kervan her yıl biraz daha uzuyor, kum fırtınası da daha korkunç oluyor.",
+  "ev.a_neighbor_noise.text.1.WAF": "Duvarın ardındaki komşu yine geceleri bir şeyler dövüyor. Önce bir havanı onardığını sandın; şimdi koca bir kanoyu oyduğundan şüpheleniyorsun.",
+  "ev.j_any_payday.text.WAF": "İş teslim edildi, ama müşteri ödemeyi hep erteliyor: “bugün yarın”, “bayramdan sonra”, “kervan gelince”. İki aydır bunu duyuyorsun.",
+  "ev.a_scribe_blot.text.WAF": "Mürekkep hokkasını neredeyse bitmiş bir elyazmasının üstüne devirdin. Üç günlük emek su aygırı biçiminde bir lekeye dönüştü. Şafağa kadar yeniden yazmak zorunda kaldın."
 }

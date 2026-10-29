@@ -5,9 +5,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 const DIR = 'tools/tr'
-/** Числа по-турецки: тысячи «7,000» → «7.000», дроби «2.5» → «2,5». Цепочки вида 9.13.0.0.0 (даты майя) не трогаем. */
+/** Числа по-турецки: тысячи «7,000» → «7.000», дроби «2.5» → «2,5», процент впереди «75%» → «%75» (и «{r}%» → «%{r}»).
+ *  Цепочки вида 9.13.0.0.0 (даты майя) не трогаем. */
 export const turkishNumbers = (s) =>
-  s.replace(/(?<![\d.,])\d+\.\d{1,2}(?![\d.,])/g, (m) => m.replace('.', ',')).replace(/(?<![\d.,])\d{1,3}(?:,\d{3})+(?![\d.,])/g, (m) => m.replace(/,/g, '.'))
+  s
+    .replace(/(?<![\d.,%])(\d+(?:[.,]\d+)?|\{\w+\})\s?%/g, '%$1')
+    .replace(/(?<![\d.,])\d+\.\d{1,2}(?![\d.,])/g, (m) => m.replace('.', ',')).replace(/(?<![\d.,])\d{1,3}(?:,\d{3})+(?![\d.,])/g, (m) => m.replace(/,/g, '.'))
 const parse = (file) => {
   const out = new Map()
   for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
@@ -48,7 +51,31 @@ function check(id) {
   return { ok, errors }
 }
 
+// При импорте (например, ради turkishNumbers) ничего не запускать.
+if (import.meta.url !== `file://${path.resolve(process.argv[1] ?? '')}`) {
+  // модуль подключён из другого скрипта
+} else main()
+
+function main() {
 const args = process.argv.slice(2)
+if (args[0] === '--normalize') {
+  // Числа по-турецки во всех tr*.json (и в уже слитом раньше).
+  let changed = 0
+  const all = ['src/i18n/tr.json', ...fs.readdirSync('src/content').flatMap((d) => (fs.statSync(path.join('src/content', d)).isDirectory() ? fs.readdirSync(path.join('src/content', d)).filter((f) => /^(ui_)?tr(_.*)?\.json$/.test(f)).map((f) => path.join('src/content', d, f)) : []))]
+  for (const f of all) {
+    const dict = JSON.parse(fs.readFileSync(f, 'utf8'))
+    for (const [k, v] of Object.entries(dict)) {
+      const n = turkishNumbers(v)
+      if (n !== v) {
+        dict[k] = n
+        changed++
+      }
+    }
+    fs.writeFileSync(f, JSON.stringify(dict, null, 2) + '\n')
+  }
+  console.log(`файлов ${all.length}, исправлено строк: ${changed}`)
+  return
+}
 if (args[0] === '--check') {
   const { ok, errors } = check(args[1].padStart(2, '0'))
   console.log(errors.length ? `ошибок ${errors.length} (верных ${ok.size}):\n${errors.slice(0, 40).join('\n')}` : `OK: ${ok.size} строк`)
@@ -76,3 +103,4 @@ for (const f of fs.readdirSync(`${DIR}/out`).filter((f) => /^batch-\d+\.txt$/.te
 }
 for (const [to, dict] of files) fs.writeFileSync(to, JSON.stringify(dict, null, 2) + '\n')
 console.log(`слито строк: ${total} в ${files.size} файлов; пропущено с ошибками: ${bad}`)
+}
