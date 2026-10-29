@@ -3,7 +3,8 @@
 // Верно ли ответил игрок, видно только в конце. Вариантов «один из четырёх» нет.
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { dreamDef, expectedAnswer } from '../engine/dreams'
-import type { DreamInput, DreamOutcome, DreamState, GameState } from '../engine/types'
+import { LOCALE } from '../i18n'
+import type { DreamInput, DreamOutcome, DreamState, GameState, Lang } from '../engine/types'
 import { useUi } from './text'
 
 /** Итог сна, который показывается после «Проснуться» (сам сон в состоянии игры уже закрыт). */
@@ -39,7 +40,7 @@ function shuffled<T>(list: T[], seed: string): T[] {
 
 /** Число для показа: до двух знаков, без лишних нулей. */
 function fmt(n: number, lang: string): string {
-  return (Math.round(n * 100) / 100).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US')
+  return (Math.round(n * 100) / 100).toLocaleString(LOCALE[lang as Lang] ?? 'en-US')
 }
 
 export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose, training }: Props) {

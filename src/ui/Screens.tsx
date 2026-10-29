@@ -6,7 +6,7 @@ import { classKey, descentOf, regionOf, roleKey, yearsBetween } from '../engine/
 import { ERA_IDS, ERA_META } from '../content'
 import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
-import { formatMoney, formatYear, LANGS, nameOf } from '../i18n'
+import { formatMoney, formatYear, LANG_NAMES, LANGS, LOCALE, nameOf } from '../i18n'
 import type { Prefs } from '../storage'
 import { BIG_DAYS, GIFT_ICON, GIFTS } from '../daily'
 import type { Gift } from '../daily'
@@ -108,7 +108,7 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
         <button class="link" onClick={() => go('about')}>{t('menu.nav.about')}</button>
         {EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
       </nav>
-      {players !== null && <p class="small center players-note">{t('menu.players', { n: players, count: players.toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US') })}</p>}
+      {players !== null && <p class="small center players-note">{t('menu.players', { n: players, count: players.toLocaleString(LOCALE[lang]) })}</p>}
       <p class="small muted center beta-note">{t('beta.notice')}</p>
     </div>
   )
@@ -553,7 +553,7 @@ export function Settings(props: {
     <div class="screen">
       <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
       <h1>{t('settings.title')}</h1>
-      <Choice title={t('settings.language')} value={p.lang} onChange={(lang) => props.onPrefs({ ...p, lang })} options={LANGS.map((l) => ({ id: l, label: l === 'ru' ? 'Русский' : 'English' }))} />
+      <Choice title={t('settings.language')} value={p.lang} onChange={(lang) => props.onPrefs({ ...p, lang })} options={LANGS.map((l) => ({ id: l, label: LANG_NAMES[l] }))} />
       <fieldset class="choice-group">
         <legend>{t('settings.music')}</legend>
         <label class="toggle">

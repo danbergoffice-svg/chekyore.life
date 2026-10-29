@@ -3,9 +3,14 @@ import PETS from '../content/pets.json'
 import type { Lang, Sex, TextParam } from '../engine/types'
 import en from './en.json'
 import ru from './ru.json'
+import tr from './tr.json'
 
 // Новый язык добавляется файлами перевода и строкой здесь, без правок остального кода.
-export const LANGS: Lang[] = ['en', 'ru']
+export const LANGS: Lang[] = ['en', 'ru', 'tr']
+/** Названия языков в переключателе настроек. */
+export const LANG_NAMES: Record<Lang, string> = { en: 'English', ru: 'Русский', tr: 'Türkçe' }
+/** Локаль для чисел. */
+export const LOCALE: Record<Lang, string> = { en: 'en-US', ru: 'ru-RU', tr: 'tr-TR' }
 
 // Тексты стран. ui_ru.json / ui_en.json — названия стран и регионов, нужны сразу (меню, мемориал).
 // Остальные ru*.json / en*.json грузятся вместе со страной и только на нужном языке.
@@ -13,17 +18,27 @@ type Dict = Record<string, string>
 const merge = (files: Record<string, Dict>) => Object.assign({}, ...Object.values(files)) as Dict
 const uiRu = merge(import.meta.glob<Dict>('../content/*/ui_ru.json', { eager: true, import: 'default' }))
 const uiEn = merge(import.meta.glob<Dict>('../content/*/ui_en.json', { eager: true, import: 'default' }))
-const lazy = import.meta.glob<Dict>(['../content/*/ru*.json', '../content/*/en*.json'], { import: 'default' })
+const uiTr = merge(import.meta.glob<Dict>('../content/*/ui_tr.json', { eager: true, import: 'default' }))
+const lazy = import.meta.glob<Dict>(['../content/*/ru*.json', '../content/*/en*.json', '../content/*/tr*.json'], { import: 'default' })
 
+const dictEn: Dict = { ...en, ...uiEn }
 const dicts: Record<Lang, Dict> = {
   ru: { ...ru, ...uiRu },
-  en: { ...en, ...uiEn },
+  en: dictEn,
+  // Турецкий переведён не весь: чего нет — берётся из английского (через прототип; allKeys — только переведённое).
+  tr: Object.assign(Object.create(dictEn) as Dict, tr, uiTr),
 }
 
 const loadedTexts = new Map<string, Promise<void>>()
 
 /** Загрузить тексты папки контента (common, e03, china…) на языке. */
 export function loadTexts(lang: Lang, folder: string): Promise<void> {
+  // Под турецким лежит английский — его тоже нужно загрузить.
+  if (lang === 'tr') return Promise.all([loadTexts('en', folder), loadOwn(lang, folder)]).then(() => undefined)
+  return loadOwn(lang, folder)
+}
+
+function loadOwn(lang: Lang, folder: string): Promise<void> {
   const id = `${lang}/${folder}`
   let p = loadedTexts.get(id)
   if (!p) {
@@ -91,7 +106,8 @@ export interface TextOptions {
 export type T = (key: string, params?: Record<string, TextParam>, opts?: TextOptions) => string
 
 export function nameOf(id: string, lang: Lang): string {
-  return names[id]?.[lang] ?? id
+  const n = names[id] as Partial<Record<Lang, string>> | undefined
+  return n?.[lang] ?? n?.en ?? id
 }
 
 function plural(lang: Lang, n: number, forms: string[]): string {
@@ -135,6 +151,7 @@ export function createT(lang: Lang, defaults: TextOptions = {}): T {
 
 export function formatYear(year: number, lang: Lang): string {
   if (lang === 'ru') return year < 0 ? `${-year} г. до н.э.` : `${year} г. н.э.`
+  if (lang === 'tr') return year < 0 ? `MÖ ${-year}` : `MS ${year}`
   return year < 0 ? `${-year} BC` : `AD ${year}`
 }
 

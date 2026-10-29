@@ -6,7 +6,7 @@ import { lifeHighlights, lifeThemes, outlivedShare, rankQuotes } from '../engine
 import type { Quote } from '../engine/highlights'
 import { classKey } from '../engine/rules'
 import type { Lang, LifeSummary, SceneDef } from '../engine/types'
-import { nameOf } from '../i18n'
+import { LOCALE, nameOf } from '../i18n'
 import type { T } from '../i18n'
 import { lifeMarks } from '../pixel/avatar'
 import type { AvatarInput } from '../pixel/avatar'
@@ -41,6 +41,7 @@ export function portraitAges(life: LifeSummary, max = 6): number[] {
 
 /** Годы жизни коротко: «1328–1415», «350–280 до н. э.». */
 function span(from: number, to: number, lang: Lang): string {
+  if (lang === 'tr') return from < 0 && to < 0 ? `MÖ ${-from}–${-to}` : from < 0 ? `MÖ ${-from} – MS ${to}` : `${from}–${to}`
   const bc = lang === 'ru' ? ' до н. э.' : ' BC'
   if (from < 0 && to < 0) return `${-from}–${-to}${bc}`
   if (from < 0) return lang === 'ru' ? `${-from} до н. э. – ${to} н. э.` : `${-from} BC – AD ${to}`
@@ -85,7 +86,7 @@ export function lifeCardData(
   const stats = [
     { value: `${f.children} · ${f.grandchildren}`, label: t('card.stat.family') },
     { value: `${outlivedShare(life)}%`, label: t('card.stat.outlived') },
-    ...(coin ? [{ value: wealth.toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US'), label: t(`coin.${coin}`, { n: wealth }) }] : []),
+    ...(coin ? [{ value: wealth.toLocaleString(LOCALE[lang]), label: t(`coin.${coin}`, { n: wealth }) }] : []),
   ]
   return {
     brand: t('app.title'),

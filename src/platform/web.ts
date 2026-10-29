@@ -250,7 +250,8 @@ export const webPlatform: Platform = {
   flags,
 
   lang(): Lang {
-    return typeof navigator !== 'undefined' && navigator.language?.toLowerCase().startsWith('ru') ? 'ru' : 'en'
+    const l = typeof navigator !== 'undefined' ? (navigator.language ?? '').toLowerCase() : ''
+    return l.startsWith('ru') ? 'ru' : l.startsWith('tr') ? 'tr' : 'en'
   },
 
   ab: abBucket,
