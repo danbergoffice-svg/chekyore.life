@@ -366,7 +366,7 @@
   "ev.v_envy_neighbor.curse.ok": "Büyücü komşunun eşiğinden alınmış bir avuç toprağın üstüne bir şeyler mırıldandı ve onu bir kavşağa gömdü. Rahatladın — gerçi komşu bir şey fark etmiş gibi görünmüyor.",
   "ev.v_envy_neighbor.rumor": "Servetinin kaynağı hakkında söylenti çıkar",
   "ev.v_envy_neighbor.rumor.success": "Söylenti tuttu: artık bütün mahalle ondan söz ediyor. Garip, ama bu sana hiç sevinç getirmedi.",
-  "ev.v_envy_neighbor.rumor.failure": "Söylentinin kaynağı çabucak sana dayandı. Artık insanlar senin kıskançlığından söz ediyor.",
+  "ev.v_envy_neighbor.rumor.failure": "Söylentinin senden çıktığı çabucak anlaşıldı. Artık insanlar senin kıskançlığından söz ediyor.",
   "ev.v_envy_neighbor.work": "Kıskançlığı çalışmaya çevir",
   "ev.v_envy_neighbor.work.ok": "Şafaktan karanlığa çalışıyorsun. Ona henüz yetişemedin, ama kaburgalarının altındaki yanma hafifledi.",
   "ev.v_envy_neighbor.ask": "Uğrayıp nasıl başardığını sor",
