@@ -161,7 +161,11 @@ export function App() {
     document.title = ui.t('app.title')
   }, [prefs, ui])
 
-  useEffect(() => window.scrollTo(0, 0), [screen])
+  // Новый экран — с начала (во вложенном окне прокручивается body, см. style.css html.framed).
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    document.body.scrollTop = 0
+  }, [screen])
 
   // Сигналы платформе об игре: игра начинается с рывка рычага лотереи рождения (onPull); знакомство с семьёй —
   // перерыв, как заставка уровня; с «Начать жизнь» на экране жизни старт и паузу решает сам экран (пауза, глава,
@@ -250,9 +254,10 @@ export function App() {
   useEffect(() => {
     if (screen !== 'menu') return
     menuVisit.current = { since: performance.now(), drum: 0, button: false, spun: false, gifts: false, scroll: 0 }
-    const onScroll = () => (menuVisit.current.scroll = Math.max(menuVisit.current.scroll, Math.round(window.scrollY)))
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    // Прокрутка окна или body (во вложенном окне): события прокрутки элементов не всплывают — ловим на погружении.
+    const onScroll = () => (menuVisit.current.scroll = Math.max(menuVisit.current.scroll, Math.round(window.scrollY), document.body.scrollTop))
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true })
+    return () => document.removeEventListener('scroll', onScroll, { capture: true })
   }, [screen])
   // Барабан пересоздаётся с каждым жребием — следим за новым.
   useEffect(() => {

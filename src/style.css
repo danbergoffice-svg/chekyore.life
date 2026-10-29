@@ -94,6 +94,11 @@ body {
   line-height: 1.5;
 }
 
+/* Во вложенном окне прокручивается body, а не само окно: окно портала может быть без полос прокрутки (scrolling="no"). */
+html.framed, html.framed body { height: 100%; overflow: hidden; }
+html.framed body { overflow-y: auto; overscroll-behavior: contain; }
+html.framed .app { min-height: 100%; }
+
 button, input { font: inherit; color: inherit; }
 
 h1, h2, h3 { line-height: 1.2; margin: 0 0 0.5rem; }

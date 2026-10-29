@@ -6,6 +6,14 @@ import '@fontsource-variable/alegreya/wght.css'
 import '@fontsource-variable/alegreya/wght-italic.css'
 import './style.css'
 
+// Игра во вложенном окне (itch.io, порталы): окно часто фиксированного размера и само не прокручивается —
+// тогда прокручивается страница игры (style.css, html.framed).
+try {
+  if (window.self !== window.top) document.documentElement.classList.add('framed')
+} catch {
+  document.documentElement.classList.add('framed')
+}
+
 initPlatform()
 render(<App />, document.getElementById('app')!)
 
