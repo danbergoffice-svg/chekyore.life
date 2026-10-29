@@ -5,6 +5,8 @@
     "en": "As it is with a play, so it is with life — what matters is not how long it lasts, but how well it is acted.",
     "author_ru": "Сенека",
     "author_en": "Seneca",
+    "tr": "Hayat bir oyun gibidir: önemli olan ne kadar sürdüğü değil, ne kadar iyi oynandığıdır.",
+    "author_tr": "Seneca",
     "tags": [
       "long_life",
       "short_life"
@@ -19,6 +21,8 @@
     "en": "It is not that we have a short time to live, but that we waste a great deal of it.",
     "author_ru": "Сенека",
     "author_en": "Seneca",
+    "tr": "Hayatımız kısa değil; biz onun büyük kısmını boşa harcıyoruz.",
+    "author_tr": "Seneca",
     "tags": [
       "short_life",
       "work"
@@ -33,6 +37,8 @@
     "en": "Fate leads the willing and drags the unwilling.",
     "author_ru": "Сенека",
     "author_en": "Seneca",
+    "tr": "Kader isteyeni peşinden götürür, istemeyeni sürükler.",
+    "author_tr": "Seneca",
     "tags": [
       "fate"
     ],
@@ -46,6 +52,8 @@
     "en": "It is not the man who has too little, but the man who craves more, that is poor.",
     "author_ru": "Сенека",
     "author_en": "Seneca",
+    "tr": "Yoksul olan, az şeyi olan değil, daha fazlasını isteyendir.",
+    "author_tr": "Seneca",
     "tags": [
       "poor",
       "rich"
@@ -60,6 +68,8 @@
     "en": "Do not act as if thou wert going to live ten thousand years. Death hangs over thee.",
     "author_ru": "Марк Аврелий",
     "author_en": "Marcus Aurelius",
+    "tr": "On bin yıl yaşayacakmış gibi davranma. Ölüm tepende asılı duruyor.",
+    "author_tr": "Marcus Aurelius",
     "tags": [
       "short_life",
       "death"
@@ -74,6 +84,8 @@
     "en": "Near is thy forgetfulness of all things; and near the forgetfulness of thee by all.",
     "author_ru": "Марк Аврелий",
     "author_en": "Marcus Aurelius",
+    "tr": "Yakında sen her şeyi unutacaksın, yakında herkes de seni unutacak.",
+    "author_tr": "Marcus Aurelius",
     "tags": [
       "legacy",
       "death"
@@ -88,6 +100,8 @@
     "en": "Never say \"I have lost it\", but \"I have returned it.\" Has your child died? It is returned. Has your wife died? She is returned.",
     "author_ru": "Эпиктет",
     "author_en": "Epictetus",
+    "tr": "Hiçbir zaman kaybettim deme, geri verdim de. Çocuğun mu öldü? Geri verildi. Karın mı öldü? Geri verildi.",
+    "author_tr": "Epiktetos",
     "tags": [
       "widowed",
       "death",
@@ -103,6 +117,8 @@
     "en": "Seize the day, trusting as little as possible in tomorrow.",
     "author_ru": "Гораций",
     "author_en": "Horace",
+    "tr": "Günü yakala, yarına olabildiğince az güven.",
+    "author_tr": "Horatius",
     "tags": [
       "youth",
       "short_life"
@@ -117,6 +133,8 @@
     "en": "Pale Death knocks with impartial foot at the hovels of the poor and the towers of kings.",
     "author_ru": "Гораций",
     "author_en": "Horace",
+    "tr": "Solgun ölüm, yoksulların kulübelerini de kralların kulelerini de aynı ayakla çalar.",
+    "author_tr": "Horatius",
     "tags": [
       "death",
       "poor",
@@ -132,6 +150,8 @@
     "en": "You cannot step twice into the same river.",
     "author_ru": "Гераклит",
     "author_en": "Heraclitus",
+    "tr": "Aynı nehirde iki kez yıkanılmaz.",
+    "author_tr": "Herakleitos",
     "tags": [
       "fate",
       "travel"
@@ -146,6 +166,8 @@
     "en": "Until a man is dead, call him not happy, but only fortunate.",
     "author_ru": "Солон (у Геродота)",
     "author_en": "Solon (in Herodotus)",
+    "tr": "İnsan ölmeden ona mutlu deme, yalnızca talihli de.",
+    "author_tr": "Solon (Herodotos'a göre)",
     "tags": [
       "happiness",
       "death",
@@ -161,6 +183,8 @@
     "en": "Life is short, the art long, opportunity fleeting, experience perilous, judgment difficult.",
     "author_ru": "Гиппократ",
     "author_en": "Hippocrates",
+    "tr": "Hayat kısa, sanat uzun, fırsat geçici, tecrübe aldatıcı, karar vermek güçtür.",
+    "author_tr": "Hipokrat",
     "tags": [
       "healer",
       "craft",
@@ -176,6 +200,8 @@
     "en": "I would rather be first here than second at Rome.",
     "author_ru": "Юлий Цезарь",
     "author_en": "Julius Caesar",
+    "tr": "Roma'da ikinci olmaktansa burada birinci olmayı yeğlerim.",
+    "author_tr": "Jül Sezar",
     "tags": [
       "power",
       "rise"
@@ -190,6 +216,8 @@
     "en": "The die is cast.",
     "author_ru": "Юлий Цезарь",
     "author_en": "Julius Caesar",
+    "tr": "Zar atıldı.",
+    "author_tr": "Jül Sezar",
     "tags": [
       "chance",
       "fate"
@@ -204,6 +232,8 @@
     "en": "Perhaps one day it will be a joy to remember even this.",
     "author_ru": "Вергилий",
     "author_en": "Virgil",
+    "tr": "Belki bir gün bunu hatırlamak bile insana sevinç verecek.",
+    "author_tr": "Vergilius",
     "tags": [
       "survivor"
     ],
@@ -217,6 +247,8 @@
     "en": "While you are fortunate, you will count many friends; when the skies grow cloudy, you will be alone.",
     "author_ru": "Овидий",
     "author_en": "Ovid",
+    "tr": "Talihin yaver gittikçe çok dostun olur; gökyüzü bulutlanınca yalnız kalırsın.",
+    "author_tr": "Ovidius",
     "tags": [
       "friendship",
       "fall",
@@ -232,6 +264,8 @@
     "en": "Stand a little out of my sun.",
     "author_ru": "Диоген — Александру Македонскому",
     "author_en": "Diogenes, to Alexander the Great",
+    "tr": "Gölge etme, başka ihsan istemem.",
+    "author_tr": "Diyojen, Büyük İskender'e",
     "tags": [
       "freedom",
       "poor",
@@ -247,6 +281,8 @@
     "en": "Naught is sweeter than a man's own land and his parents.",
     "author_ru": "Гомер",
     "author_en": "Homer",
+    "tr": "İnsana kendi yurdundan ve anne babasından daha tatlı hiçbir şey yoktur.",
+    "author_tr": "Homeros",
     "tags": [
       "homeland",
       "travel",
@@ -262,6 +298,8 @@
     "en": "The race is not to the swift, nor the battle to the strong… but time and chance happeneth to them all.",
     "author_ru": "Екклесиаст",
     "author_en": "Ecclesiastes",
+    "tr": "Yarışı hızlı koşanlar, savaşı güçlüler kazanmaz… ama zaman ve talih herkesin başına gelir.",
+    "author_tr": "Kutsal Kitap, Vaiz",
     "tags": [
       "chance",
       "fate"
@@ -278,6 +316,8 @@
     "en": "Two are better than one… For if they fall, the one will lift up his fellow: but woe to him that is alone when he falleth.",
     "author_ru": "Екклесиаст",
     "author_en": "Ecclesiastes",
+    "tr": "İki kişi bir kişiden iyidir… Biri düşerse öbürü onu kaldırır. Ama düştüğünde kaldıracak kimsesi olmayanın vay haline!",
+    "author_tr": "Kutsal Kitap, Vaiz",
     "tags": [
       "friendship",
       "lonely",
@@ -295,6 +335,8 @@
     "en": "He hath neither child nor brother: yet is there no end of all his labour… For whom do I labour?",
     "author_ru": "Екклесиаст",
     "author_en": "Ecclesiastes",
+    "tr": "Ne oğlu var ne kardeşi, ama emeğinin sonu yok… Ben kimin için emek veriyorum?",
+    "author_tr": "Kutsal Kitap, Vaiz",
     "tags": [
       "childless",
       "lonely",
@@ -312,6 +354,8 @@
     "en": "The sleep of a labouring man is sweet, whether he eat little or much: but the abundance of the rich will not suffer him to sleep.",
     "author_ru": "Екклесиаст",
     "author_en": "Ecclesiastes",
+    "tr": "Az yesin çok yesin, emekçinin uykusu tatlıdır; ama zenginin bolluğu onu uyutmaz.",
+    "author_tr": "Kutsal Kitap, Vaiz",
     "tags": [
       "work",
       "rich",
@@ -329,6 +373,8 @@
     "en": "A living dog is better than a dead lion.",
     "author_ru": "Екклесиаст",
     "author_en": "Ecclesiastes",
+    "tr": "Diri köpek ölü aslandan iyidir.",
+    "author_tr": "Kutsal Kitap, Vaiz",
     "tags": [
       "survivor",
       "death"
@@ -345,6 +391,8 @@
     "en": "Pride goeth before destruction, and an haughty spirit before a fall.",
     "author_ru": "Книга Притчей Соломоновых",
     "author_en": "The Book of Proverbs",
+    "tr": "Gururun ardından yıkım, kibrin ardından düşüş gelir.",
+    "author_tr": "Kutsal Kitap, Süleyman'ın Özdeyişleri",
     "tags": [
       "fall",
       "power"
@@ -361,6 +409,8 @@
     "en": "Children's children are the crown of old men; and the glory of children are their fathers.",
     "author_ru": "Книга Притчей Соломоновых",
     "author_en": "The Book of Proverbs",
+    "tr": "Torunlar yaşlıların tacıdır, babalar da çocuklarının övüncü.",
+    "author_tr": "Kutsal Kitap, Süleyman'ın Özdeyişleri",
     "tags": [
       "many_children",
       "old_age",
@@ -378,6 +428,8 @@
     "en": "The days of our years are threescore years and ten… yet is their strength labour and sorrow; for it is soon cut off.",
     "author_ru": "Псалтирь (молитва Моисея)",
     "author_en": "Psalms (a prayer of Moses)",
+    "tr": "Ömrümüz yetmiş yıl, gücümüz yeterse seksen… Ama en iyisi bile emek ve dert; çabucak geçer gideriz.",
+    "author_tr": "Kutsal Kitap, Mezmurlar (Musa'nın duası)",
     "tags": [
       "long_life",
       "old_age"
@@ -394,6 +446,8 @@
     "en": "By the rivers of Babylon, there we sat down, yea, we wept, when we remembered Zion.",
     "author_ru": "Псалтирь",
     "author_en": "Psalms",
+    "tr": "Babil ırmaklarının kıyısında oturup ağladık, Siyon'u andıkça.",
+    "author_tr": "Kutsal Kitap, Mezmurlar",
     "tags": [
       "exile",
       "homeland",
@@ -411,6 +465,8 @@
     "en": "Naked came I out of my mother's womb, and naked shall I return thither: the LORD gave, and the LORD hath taken away.",
     "author_ru": "Книга Иова",
     "author_en": "The Book of Job",
+    "tr": "Ana rahminden çıplak çıktım, oraya çıplak döneceğim. Rab verdi, Rab aldı.",
+    "author_tr": "Kutsal Kitap, Eyüp",
     "tags": [
       "widowed",
       "sorrow",
@@ -428,6 +484,8 @@
     "en": "Better it is to have no children, and to have virtue: for the memorial thereof is immortal.",
     "author_ru": "Книга Премудрости Соломона",
     "author_en": "The Book of Wisdom",
+    "tr": "Çocuksuz olup erdemli olmak daha iyidir; çünkü erdemin anısı ölümsüzdür.",
+    "author_tr": "Kutsal Kitap, Bilgelik Kitabı",
     "tags": [
       "childless",
       "legacy"
@@ -444,6 +502,8 @@
     "en": "Love is strong as death… Many waters cannot quench love.",
     "author_ru": "Песнь песней",
     "author_en": "The Song of Songs",
+    "tr": "Sevgi ölüm kadar güçlüdür… Engin sular sevgiyi söndüremez.",
+    "author_tr": "Kutsal Kitap, Ezgiler Ezgisi",
     "tags": [
       "love",
       "marriage",
@@ -461,6 +521,8 @@
     "en": "Glory to God for all things!",
     "author_ru": "Иоанн Златоуст",
     "author_en": "John Chrysostom",
+    "tr": "Her şey için Tanrı'ya şükür!",
+    "author_tr": "Yuhanna Hrisostomos",
     "tags": [
       "faith",
       "death"
@@ -476,6 +538,8 @@
     "en": "I want death to find me planting my cabbages, caring little for death and still less for my unfinished garden.",
     "author_ru": "Мишель Монтень",
     "author_en": "Michel de Montaigne",
+    "tr": "Ölümün beni lahanalarımı dikerken bulmasını isterim; ölümü de, yarım kalan bahçemi de umursamadan.",
+    "author_tr": "Michel de Montaigne",
     "tags": [
       "death",
       "work"
@@ -490,6 +554,8 @@
     "en": "Because it was he, because it was I.",
     "author_ru": "Мишель Монтень",
     "author_en": "Michel de Montaigne",
+    "tr": "Çünkü o oydu, çünkü ben bendim.",
+    "author_tr": "Michel de Montaigne",
     "tags": [
       "friendship"
     ],
@@ -503,6 +569,8 @@
     "en": "You shall learn how salt is the taste of another's bread, and how hard a path it is to go down and up another's stairs.",
     "author_ru": "Данте Алигьери",
     "author_en": "Dante Alighieri",
+    "tr": "Başkasının ekmeğinin ne kadar tuzlu olduğunu, başkasının merdivenlerinden inip çıkmanın ne zor olduğunu öğreneceksin.",
+    "author_tr": "Dante Alighieri",
     "tags": [
       "exile",
       "homeland",
@@ -518,6 +586,8 @@
     "en": "There is no greater sorrow than to be mindful of the happy time in misery.",
     "author_ru": "Данте Алигьери",
     "author_en": "Dante Alighieri",
+    "tr": "Mutsuzlukta mutlu günleri hatırlamaktan daha büyük acı yoktur.",
+    "author_tr": "Dante Alighieri",
     "tags": [
       "sorrow",
       "fall",
@@ -533,6 +603,8 @@
     "en": "A good death does honour to a whole life.",
     "author_ru": "Франческо Петрарка",
     "author_en": "Francesco Petrarca",
+    "tr": "İyi bir ölüm bütün bir hayatı onurlandırır.",
+    "author_tr": "Francesco Petrarca",
     "tags": [
       "death",
       "legacy"
@@ -547,6 +619,8 @@
     "en": "As a day well spent procures a happy sleep, so a life well employed procures a happy death.",
     "author_ru": "Леонардо да Винчи",
     "author_en": "Leonardo da Vinci",
+    "tr": "İyi geçmiş bir gün huzurlu bir uyku getirir, iyi yaşanmış bir hayat da huzurlu bir ölüm.",
+    "author_tr": "Leonardo da Vinci",
     "tags": [
       "death",
       "work",
@@ -562,6 +636,8 @@
     "en": "I dressed his wound, and God healed him.",
     "author_ru": "Амбруаз Паре",
     "author_en": "Ambroise Paré",
+    "tr": "Ben yarasını sardım, Tanrı onu iyileştirdi.",
+    "author_tr": "Ambroise Paré",
     "tags": [
       "healer",
       "faith"
@@ -576,6 +652,8 @@
     "en": "Man proposes, but God disposes.",
     "author_ru": "Фома Кемпийский",
     "author_en": "Thomas à Kempis",
+    "tr": "İnsan tasarlar, Tanrı takdir eder.",
+    "author_tr": "Kempisli Thomas",
     "tags": [
       "fate",
       "faith"
@@ -590,6 +668,8 @@
     "en": "He that hath wife and children hath given hostages to fortune.",
     "author_ru": "Фрэнсис Бэкон",
     "author_en": "Francis Bacon",
+    "tr": "Karısı ve çocukları olan, talihe rehine vermiştir.",
+    "author_tr": "Francis Bacon",
     "tags": [
       "family",
       "marriage",
@@ -605,6 +685,8 @@
     "en": "The noblest works and foundations have proceeded from childless men, which have sought to express the images of their minds.",
     "author_ru": "Фрэнсис Бэкон",
     "author_en": "Francis Bacon",
+    "tr": "En soylu eserler ve kurumlar çocuksuz insanlardan çıkmıştır: bedenlerinin suretini bırakamayınca akıllarının suretini bıraktılar.",
+    "author_tr": "Francis Bacon",
     "tags": [
       "childless",
       "legacy"
@@ -619,6 +701,8 @@
     "en": "There are only two families in the world, as a grandmother of mine used to say: the Haves and the Haven'ts.",
     "author_ru": "Сервантес (Санчо Панса)",
     "author_en": "Cervantes (Sancho Panza)",
+    "tr": "Ninemin dediği gibi, dünyada yalnızca iki soy vardır: olanlar ve olmayanlar.",
+    "author_tr": "Cervantes (Sancho Panza)",
     "tags": [
       "rich",
       "poor"
@@ -633,6 +717,8 @@
     "en": "Freedom, Sancho, is one of the most precious gifts that heaven has bestowed upon men.",
     "author_ru": "Сервантес (Дон Кихот)",
     "author_en": "Cervantes (Don Quixote)",
+    "tr": "Özgürlük, Sancho, göklerin insanlara bahşettiği en değerli armağanlardan biridir.",
+    "author_tr": "Cervantes (Don Kişot)",
     "tags": [
       "freedom"
     ],
@@ -646,6 +732,8 @@
     "en": "The lyf so short, the craft so long to lerne.",
     "author_ru": "Джеффри Чосер",
     "author_en": "Geoffrey Chaucer",
+    "tr": "Hayat öyle kısa, zanaatı öğrenmek öyle uzun ki.",
+    "author_tr": "Geoffrey Chaucer",
     "tags": [
       "craft",
       "learning",
@@ -661,6 +749,8 @@
     "en": "All the world's a stage, and all the men and women merely players; they have their exits and their entrances.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
+    "tr": "Bütün dünya bir sahnedir; kadınlar, erkekler hepsi birer oyuncu. Her birinin girişi de çıkışı da vardır.",
+    "author_tr": "William Shakespeare",
     "tags": [
       "fate"
     ],
@@ -674,6 +764,8 @@
     "en": "Life… is a tale told by an idiot, full of sound and fury, signifying nothing.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
+    "tr": "Hayat… bir budalanın anlattığı, gürültü ve öfkeyle dolu, hiçbir anlamı olmayan bir masaldır.",
+    "author_tr": "William Shakespeare",
     "tags": [
       "fate",
       "sorrow",
@@ -689,6 +781,8 @@
     "en": "Cowards die many times before their deaths; the valiant never taste of death but once.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
+    "tr": "Korkaklar ölmeden önce defalarca ölür; yiğitler ölümü yalnızca bir kez tadar.",
+    "author_tr": "William Shakespeare",
     "tags": [
       "war",
       "death",
@@ -704,6 +798,8 @@
     "en": "There is a tide in the affairs of men, which, taken at the flood, leads on to fortune.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
+    "tr": "İnsanların işlerinde bir met zamanı vardır; kabardığında yakalanırsa insanı talihe taşır.",
+    "author_tr": "William Shakespeare",
     "tags": [
       "chance",
       "rise"
@@ -718,6 +814,8 @@
     "en": "Uneasy lies the head that wears a crown.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
+    "tr": "Taç giyen baş rahat uyumaz.",
+    "author_tr": "William Shakespeare",
     "tags": [
       "power"
     ],
@@ -731,6 +829,8 @@
     "en": "We are such stuff as dreams are made on, and our little life is rounded with a sleep.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
+    "tr": "Biz rüyaların yapıldığı kumaştanız ve kısacık hayatımızı bir uyku çevreler.",
+    "author_tr": "William Shakespeare",
     "tags": [
       "dream",
       "death",
@@ -746,6 +846,8 @@
     "en": "The report of my death was an exaggeration.",
     "author_ru": "Марк Твен",
     "author_en": "Mark Twain",
+    "tr": "Ölüm haberim abartıydı.",
+    "author_tr": "Mark Twain",
     "tags": [
       "survivor",
       "death"
@@ -757,6 +859,8 @@
     "en": "Let us endeavor so to live that when we come to die even the undertaker will be sorry.",
     "author_ru": "Марк Твен",
     "author_en": "Mark Twain",
+    "tr": "Öyle yaşayalım ki öldüğümüzde mezarcı bile üzülsün.",
+    "author_tr": "Mark Twain",
     "tags": [
       "death",
       "legacy"
@@ -768,6 +872,8 @@
     "en": "The tragedy of old age is not that one is old, but that one is young.",
     "author_ru": "Оскар Уайльд",
     "author_en": "Oscar Wilde",
+    "tr": "Yaşlılığın trajedisi insanın yaşlı olması değil, genç olmasıdır.",
+    "author_tr": "Oscar Wilde",
     "tags": [
       "old_age",
       "youth"
@@ -779,6 +885,8 @@
     "en": "Children begin by loving their parents. After a time they judge them. Rarely, if ever, do they forgive them.",
     "author_ru": "Оскар Уайльд",
     "author_en": "Oscar Wilde",
+    "tr": "Çocuklar anne babalarını sevmekle başlar. Bir süre sonra onları yargılar. Nadiren, belki de hiçbir zaman onları affetmez.",
+    "author_tr": "Oscar Wilde",
     "tags": [
       "family"
     ]
@@ -789,6 +897,8 @@
     "en": "Men marry because they are tired; women, because they are curious: both are disappointed.",
     "author_ru": "Оскар Уайльд",
     "author_en": "Oscar Wilde",
+    "tr": "Erkekler yorgun oldukları için evlenir, kadınlar meraktan; sonunda ikisi de hayal kırıklığına uğrar.",
+    "author_tr": "Oscar Wilde",
     "tags": [
       "marriage"
     ]
@@ -799,6 +909,8 @@
     "en": "To live is the rarest thing in the world. Most people exist, that is all.",
     "author_ru": "Оскар Уайльд",
     "author_en": "Oscar Wilde",
+    "tr": "Yaşamak dünyanın en nadir şeyidir. İnsanların çoğu yalnızca var olur, o kadar.",
+    "author_tr": "Oscar Wilde",
     "tags": [
       "happiness",
       "long_life",
@@ -811,6 +923,8 @@
     "en": "In this world nothing can be said to be certain, except death and taxes.",
     "author_ru": "Бенджамин Франклин",
     "author_en": "Benjamin Franklin",
+    "tr": "Bu dünyada ölüm ve vergiden başka hiçbir şey kesin değildir.",
+    "author_tr": "Benjamin Franklin",
     "tags": [
       "death",
       "fate"
@@ -822,6 +936,8 @@
     "en": "God heals, and the Doctor takes the Fees.",
     "author_ru": "Бенджамин Франклин",
     "author_en": "Benjamin Franklin",
+    "tr": "Tanrı iyileştirir, ücreti doktor alır.",
+    "author_tr": "Benjamin Franklin",
     "tags": [
       "healer"
     ]
@@ -832,6 +948,8 @@
     "en": "Longevity, n. Uncommon extension of the fear of death.",
     "author_ru": "Амброз Бирс",
     "author_en": "Ambrose Bierce",
+    "tr": "Uzun ömür: Ölüm korkusunun alışılmadık ölçüde uzaması.",
+    "author_tr": "Ambrose Bierce",
     "tags": [
       "long_life",
       "old_age"
@@ -843,6 +961,8 @@
     "en": "Exile, n. One who serves his country by residing abroad, yet is not an ambassador.",
     "author_ru": "Амброз Бирс",
     "author_en": "Ambrose Bierce",
+    "tr": "Sürgün: Yurt dışında yaşayarak ülkesine hizmet eden, ama elçi olmayan kişi.",
+    "author_tr": "Ambrose Bierce",
     "tags": [
       "exile",
       "homeland"
@@ -854,6 +974,8 @@
     "en": "Alone, adj. In bad company.",
     "author_ru": "Амброз Бирс",
     "author_en": "Ambrose Bierce",
+    "tr": "Yalnız: Kötü bir arkadaşla baş başa.",
+    "author_tr": "Ambrose Bierce",
     "tags": [
       "lonely"
     ]
@@ -864,6 +986,8 @@
     "en": "A second marriage — the triumph of hope over experience.",
     "author_ru": "Сэмюэл Джонсон",
     "author_en": "Samuel Johnson",
+    "tr": "İkinci evlilik: umudun tecrübeye karşı zaferi.",
+    "author_tr": "Samuel Johnson",
     "tags": [
       "widowed",
       "marriage"
@@ -875,6 +999,8 @@
     "en": "Every man desires to live long, but no man would be old.",
     "author_ru": "Джонатан Свифт",
     "author_en": "Jonathan Swift",
+    "tr": "Herkes uzun yaşamak ister, ama kimse yaşlı olmak istemez.",
+    "author_tr": "Jonathan Swift",
     "tags": [
       "long_life",
       "old_age"
@@ -886,6 +1012,8 @@
     "en": "What does not kill me makes me stronger.",
     "author_ru": "Фридрих Ницше",
     "author_en": "Friedrich Nietzsche",
+    "tr": "Beni öldürmeyen şey güçlendirir.",
+    "author_tr": "Friedrich Nietzsche",
     "tags": [
       "survivor"
     ]
@@ -896,6 +1024,8 @@
     "en": "'Tis better to have loved and lost than never to have loved at all.",
     "author_ru": "Альфред Теннисон",
     "author_en": "Alfred Tennyson",
+    "tr": "Sevip kaybetmek, hiç sevmemiş olmaktan iyidir.",
+    "author_tr": "Alfred Tennyson",
     "tags": [
       "love",
       "widowed",
@@ -908,6 +1038,8 @@
     "en": "Life can only be understood backwards; but it must be lived forwards.",
     "author_ru": "Сёрен Кьеркегор",
     "author_en": "Søren Kierkegaard",
+    "tr": "Hayat ancak geriye bakarak anlaşılır, ama ileriye bakarak yaşanmalıdır.",
+    "author_tr": "Søren Kierkegaard",
     "tags": [
       "fate",
       "reason"
@@ -919,6 +1051,8 @@
     "en": "That is well said, but we must cultivate our garden.",
     "author_ru": "Вольтер",
     "author_en": "Voltaire",
+    "tr": "Güzel söylediniz, ama bahçemizi ekip biçmeliyiz.",
+    "author_tr": "Voltaire",
     "tags": [
       "work",
       "happiness"
@@ -933,6 +1067,8 @@
     "en": "Sloth is the mother of everything: what you know, you forget, and what you do not know, you never learn.",
     "author_ru": "Владимир Мономах",
     "author_en": "Vladimir Monomakh",
+    "tr": "Tembellik her kötülüğün anasıdır: bildiğini unutursun, bilmediğini de hiç öğrenemezsin.",
+    "author_tr": "Vladimir Monomah",
     "tags": [
       "work",
       "learning"
@@ -947,6 +1083,8 @@
     "en": "Let us lay down our bones here: the dead know no shame.",
     "author_ru": "Князь Святослав",
     "author_en": "Prince Sviatoslav",
+    "tr": "Kemiklerimizi burada bırakalım: ölüler utanç bilmez.",
+    "author_tr": "Knez Svyatoslav",
     "tags": [
       "war",
       "death"
@@ -961,6 +1099,8 @@
     "en": "Better to be slain than taken captive.",
     "author_ru": "«Слово о полку Игореве» (князь Игорь)",
     "author_en": "The Tale of Igor's Campaign (Prince Igor)",
+    "tr": "Esir düşmektense ölmek yeğdir.",
+    "author_tr": "İgor'un Seferi Destanı (Knez İgor)",
     "tags": [
       "war",
       "freedom"
@@ -975,6 +1115,8 @@
     "en": "There is no happiness in this world, but there is peace and freedom.",
     "author_ru": "Александр Пушкин",
     "author_en": "Alexander Pushkin",
+    "tr": "Dünyada mutluluk yoktur, ama huzur ve özgürlük vardır.",
+    "author_tr": "Aleksandr Puşkin",
     "tags": [
       "happiness",
       "freedom"
@@ -989,6 +1131,8 @@
     "en": "Some are no more, and others are far away, as Saadi once said.",
     "author_ru": "Александр Пушкин",
     "author_en": "Alexander Pushkin",
+    "tr": "Kimi artık yok, kimi de uzaklarda, bir zamanlar Sadi'nin dediği gibi.",
+    "author_tr": "Aleksandr Puşkin",
     "tags": [
       "survivor",
       "old_age",
@@ -1005,6 +1149,8 @@
     "en": "Even the smoke of the fatherland is sweet and pleasant to us!",
     "author_ru": "Александр Грибоедов (вслед за Державиным)",
     "author_en": "Alexander Griboyedov (after Derzhavin)",
+    "tr": "Vatanın dumanı bile tatlı ve hoştur bize!",
+    "author_tr": "Aleksandr Griboyedov (Derjavin'den)",
     "tags": [
       "homeland",
       "travel"
@@ -1019,6 +1165,8 @@
     "en": "I am weary and sad, and there is no one to give my hand to in a moment of the soul's distress…",
     "author_ru": "Михаил Лермонтов",
     "author_en": "Mikhail Lermontov",
+    "tr": "Hem sıkıntılı hem hüzünlü, ruhun dertli anında elini uzatacak kimse yok…",
+    "author_tr": "Mihail Lermontov",
     "tags": [
       "lonely",
       "sorrow"
@@ -1033,6 +1181,8 @@
     "en": "All happy families are alike; each unhappy family is unhappy in its own way.",
     "author_ru": "Лев Толстой",
     "author_en": "Leo Tolstoy",
+    "tr": "Bütün mutlu aileler birbirine benzer; her mutsuz ailenin ise kendine özgü bir mutsuzluğu vardır.",
+    "author_tr": "Lev Tolstoy",
     "tags": [
       "family",
       "happiness",
@@ -1048,6 +1198,8 @@
     "en": "Ivan Ilych's life had been most simple and most ordinary and therefore most terrible.",
     "author_ru": "Лев Толстой",
     "author_en": "Leo Tolstoy",
+    "tr": "İvan İlyiç'in hayatı son derece basit, son derece sıradan ve bu yüzden son derece korkunçtu.",
+    "author_tr": "Lev Tolstoy",
     "tags": [
       "fate",
       "death"
@@ -1062,6 +1214,8 @@
     "en": "When a great many remedies are suggested for some disease, it means the disease is incurable.",
     "author_ru": "Антон Чехов",
     "author_en": "Anton Chekhov",
+    "tr": "Bir hastalığa karşı çok sayıda çare öneriliyorsa, o hastalık tedavi edilemez demektir.",
+    "author_tr": "Anton Çehov",
     "tags": [
       "healer",
       "death"
@@ -1076,6 +1230,8 @@
     "en": "Life has slipped by as if I had never lived.",
     "author_ru": "Антон Чехов",
     "author_en": "Anton Chekhov",
+    "tr": "Hayat geçti gitti, sanki hiç yaşamamışım gibi.",
+    "author_tr": "Anton Çehov",
     "tags": [
       "old_age",
       "long_life",
@@ -1091,6 +1247,8 @@
     "en": "No one dies twice, and no one escapes dying once.",
     "author_ru": "Русская пословица",
     "author_en": "Russian proverb",
+    "tr": "İnsan iki kez ölmez, ama bir kez de ölümden kaçamaz.",
+    "author_tr": "Rus atasözü",
     "tags": [
       "death",
       "war",
@@ -1106,6 +1264,8 @@
     "en": "Live and learn all your life — and die a fool all the same.",
     "author_ru": "Русская пословица",
     "author_en": "Russian proverb",
+    "tr": "Bir ömür yaşa, bir ömür öğren, yine de budala olarak öl.",
+    "author_tr": "Rus atasözü",
     "tags": [
       "learning",
       "long_life"
@@ -1120,6 +1280,8 @@
     "en": "Trust in God, but don't slip up yourself.",
     "author_ru": "Русская пословица",
     "author_en": "Russian proverb",
+    "tr": "Tanrı'ya güven, ama kendin de gafil olma.",
+    "author_tr": "Rus atasözü",
     "tags": [
       "faith",
       "work"
@@ -1134,6 +1296,8 @@
     "en": "Not all that a man desires does he attain: the winds blow in ways the ships do not wish.",
     "author_ru": "Аль-Мутанабби",
     "author_en": "Al-Mutanabbi",
+    "tr": "Kişinin her dilediği gerçekleşmez; rüzgârlar gemilerin istemediği yönde eser.",
+    "author_tr": "Mütenebbi",
     "tags": [
       "dream",
       "fate",
@@ -1149,6 +1313,8 @@
     "en": "The horses, the night and the desert know me, and the sword and the spear, the paper and the pen.",
     "author_ru": "Аль-Мутанабби",
     "author_en": "Al-Mutanabbi",
+    "tr": "Atlar, gece ve çöl beni tanır; kılıç ve mızrak, kâğıt ve kalem de.",
+    "author_tr": "Mütenebbi",
     "tags": [
       "war",
       "learning",
@@ -1164,6 +1330,8 @@
     "en": "He who abides far away from his home is ever longing for the day he shall return.",
     "author_ru": "Джалаладдин Руми",
     "author_en": "Jalal al-Din Rumi",
+    "tr": "Aslından uzak düşen kişi, yine kavuşma gününü arar.",
+    "author_tr": "Mevlânâ Celâleddin-i Rûmî",
     "tags": [
       "exile",
       "homeland",
@@ -1179,6 +1347,8 @@
     "en": "The children of Adam are limbs of one body: when fate afflicts one limb, the others cannot remain at rest.",
     "author_ru": "Саади",
     "author_en": "Saadi",
+    "tr": "Âdemoğulları bir bedenin uzuvlarıdır: felek bir uzvu derde düşürünce öbürleri de huzur bulmaz.",
+    "author_tr": "Sadi-i Şirazi",
     "tags": [
       "friendship",
       "sorrow",
@@ -1194,6 +1364,8 @@
     "en": "Two men took useless trouble: one gathered wealth without enjoying it, the other learnt without practising what he learnt.",
     "author_ru": "Саади",
     "author_en": "Saadi",
+    "tr": "İki kişi boşuna zahmet çekti: biri mal biriktirip yemedi, öbürü ilim öğrenip amel etmedi.",
+    "author_tr": "Sadi-i Şirazi",
     "tags": [
       "rich",
       "learning",
@@ -1209,6 +1381,8 @@
     "en": "The Moving Finger writes; and, having writ, moves on: nor all thy Piety nor Wit shall lure it back to cancel half a Line.",
     "author_ru": "Омар Хайям (в переложении Э. Фицджеральда)",
     "author_en": "Omar Khayyam (tr. Edward FitzGerald)",
+    "tr": "Yürüyen parmak yazar ve yazınca geçip gider: ne bütün dindarlığın ne zekân onu geri getirip yarım satır sildiremez.",
+    "author_tr": "Ömer Hayyam (Edward FitzGerald'ın çevirisiyle)",
     "tags": [
       "fate"
     ],
@@ -1222,6 +1396,8 @@
     "en": "Prestige lasts at most four generations: the builder, the one who knew the builder, the imitator, and the destroyer.",
     "author_ru": "Ибн Хальдун",
     "author_en": "Ibn Khaldun",
+    "tr": "Şan şeref en fazla dört nesil sürer: kuran, kurucuyu tanıyan, taklit eden ve yıkan.",
+    "author_tr": "İbn Haldun",
     "tags": [
       "legacy",
       "family",
@@ -1237,6 +1413,8 @@
     "en": "I resolved to leave all my dear ones, and forsook my home as birds forsake their nests.",
     "author_ru": "Ибн Баттута",
     "author_en": "Ibn Battuta",
+    "tr": "Bütün sevdiklerimi bırakmaya karar verdim ve kuşların yuvalarını terk ettiği gibi yurdumu terk ettim.",
+    "author_tr": "İbn Battuta",
     "tags": [
       "travel",
       "homeland",
@@ -1252,6 +1430,8 @@
     "en": "The life you seek you will not find: when the gods created mankind, they allotted death to man and kept life in their own hands.",
     "author_ru": "«Эпос о Гильгамеше» (Сидури — Гильгамешу)",
     "author_en": "Epic of Gilgamesh (Siduri to Gilgamesh)",
+    "tr": "Aradığın hayatı bulamayacaksın: tanrılar insanı yarattığında ölümü ona verdiler, hayatı kendi ellerinde tuttular.",
+    "author_tr": "Gılgamış Destanı (Siduri'den Gılgamış'a)",
     "tags": [
       "death",
       "fate"
@@ -1266,6 +1446,8 @@
     "en": "Look at the child who holds your hand, let your wife delight in your embrace — for this is the task of mankind.",
     "author_ru": "«Эпос о Гильгамеше» (Сидури — Гильгамешу)",
     "author_en": "Epic of Gilgamesh (Siduri to Gilgamesh)",
+    "tr": "Elini tutan çocuğa bak, karın kollarında sevinsin — insanın işi budur.",
+    "author_tr": "Gılgamış Destanı (Siduri'den Gılgamış'a)",
     "tags": [
       "family",
       "happiness",
@@ -1281,6 +1463,8 @@
     "en": "Only the gods live forever under the sun. As for mankind, their days are numbered; whatever they achieve is but wind.",
     "author_ru": "«Эпос о Гильгамеше» (Гильгамеш — Энкиду)",
     "author_en": "Epic of Gilgamesh (Gilgamesh to Enkidu)",
+    "tr": "Güneşin altında yalnızca tanrılar sonsuza dek yaşar. İnsanın günleri sayılıdır; ne yaparsa yapsın, hepsi rüzgârdır.",
+    "author_tr": "Gılgamış Destanı (Gılgamış'tan Enkidu'ya)",
     "tags": [
       "legacy",
       "war",
@@ -1296,6 +1480,8 @@
     "en": "The limits of art are not reached; no artist's skill is perfect.",
     "author_ru": "Птахотеп",
     "author_en": "Ptahhotep",
+    "tr": "Sanatın sınırına varılmaz; hiçbir ustanın hüneri kusursuz değildir.",
+    "author_tr": "Ptahhotep",
     "tags": [
       "craft",
       "learning"
@@ -1310,6 +1496,8 @@
     "en": "The eyes are dim, the ears deaf, strength is failing… What old age does to people is evil in every respect.",
     "author_ru": "Птахотеп",
     "author_en": "Ptahhotep",
+    "tr": "Gözler zayıfladı, kulaklar sağır, güç tükeniyor… Yaşlılığın insana yaptığı her bakımdan kötüdür.",
+    "author_tr": "Ptahhotep",
     "tags": [
       "old_age"
     ],
@@ -1323,6 +1511,8 @@
     "en": "Make holiday, do not weary of it! No one is allowed to take his goods with him, and no one who departs comes back again.",
     "author_ru": "«Песнь арфиста» из гробницы царя Иньотефа",
     "author_en": "Harper's Song from the tomb of King Intef",
+    "tr": "Bayram et, bıkma bundan! Kimse malını yanında götüremez, gidenlerden de kimse geri dönmez.",
+    "author_tr": "Kral İntef'in mezarındaki Arpçının Şarkısı",
     "tags": [
       "death",
       "rich",
@@ -1338,6 +1528,8 @@
     "en": "He who has silver is happy, he who has grain feels comfortable, but he who has livestock cannot sleep.",
     "author_ru": "Шумерская пословица",
     "author_en": "Sumerian proverb",
+    "tr": "Gümüşü olan mutludur, tahılı olan rahattır, ama hayvanı olan uyuyamaz.",
+    "author_tr": "Sümer atasözü",
     "tags": [
       "rich",
       "trade"
@@ -1352,6 +1544,8 @@
     "en": "My name is Ozymandias, King of Kings; look on my Works, ye Mighty, and despair! Nothing beside remains.",
     "author_ru": "Перси Биши Шелли",
     "author_en": "Percy Bysshe Shelley",
+    "tr": "Adım Ozymandias, krallar kralı; eserlerime bakın, ey güçlüler, ve umutsuzluğa düşün! Geriye hiçbir şey kalmamış.",
+    "author_tr": "Percy Bysshe Shelley",
     "tags": [
       "fall",
       "power",
@@ -1367,6 +1561,8 @@
     "en": "While you do not know life, how can you know about death?",
     "author_ru": "Конфуций",
     "author_en": "Confucius",
+    "tr": "Hayatı henüz bilmiyorken ölümü nasıl bilebilirsin?",
+    "author_tr": "Konfüçyüs",
     "tags": [
       "death",
       "reason"
@@ -1381,6 +1577,8 @@
     "en": "If a man in the morning hear the right way, he may die in the evening without regret.",
     "author_ru": "Конфуций",
     "author_en": "Confucius",
+    "tr": "Sabah doğru yolu öğrenen, akşam pişmanlık duymadan ölebilir.",
+    "author_tr": "Konfüçyüs",
     "tags": [
       "faith",
       "learning",
@@ -1396,6 +1594,8 @@
     "en": "The journey of a thousand li commences with a single step.",
     "author_ru": "Лао-цзы",
     "author_en": "Laozi",
+    "tr": "Bin millik yolculuk tek bir adımla başlar.",
+    "author_tr": "Lao Tzu",
     "tags": [
       "travel",
       "rise",
@@ -1411,6 +1611,8 @@
     "en": "Misery! — happiness is to be found by its side! Happiness! — misery lurks beneath it!",
     "author_ru": "Лао-цзы",
     "author_en": "Laozi",
+    "tr": "Felaketin yanı başında mutluluk durur; mutluluğun altında felaket pusudadır.",
+    "author_tr": "Lao Tzu",
     "tags": [
       "fate",
       "chance",
@@ -1426,6 +1628,8 @@
     "en": "He did not know whether he was Zhou who had dreamt he was a butterfly, or a butterfly dreaming that it was Zhou.",
     "author_ru": "Чжуан-цзы",
     "author_en": "Zhuangzi",
+    "tr": "Kelebek olduğunu düşleyen Zhou mu, yoksa Zhou olduğunu düşleyen bir kelebek mi olduğunu bilemedi.",
+    "author_tr": "Zhuangzi",
     "tags": [
       "dream",
       "reason"
@@ -1440,6 +1644,8 @@
     "en": "Man's life between heaven and earth is like a white colt glimpsed through a crack: a sudden flash, and it is gone.",
     "author_ru": "Чжуан-цзы",
     "author_en": "Zhuangzi",
+    "tr": "İnsanın gökle yer arasındaki hayatı, bir aralıktan görünen beyaz bir tay gibidir: bir an parlar ve gider.",
+    "author_tr": "Zhuangzi",
     "tags": [
       "short_life",
       "death"
@@ -1454,6 +1660,8 @@
     "en": "The old man at the frontier lost his horse — who can tell whether it was not a blessing?",
     "author_ru": "«Хуайнань-цзы»",
     "author_en": "Huainanzi",
+    "tr": "Sınırdaki yaşlı adam atını kaybetti — kim bilir, belki de bu bir nimetti?",
+    "author_tr": "Huainanzi",
     "tags": [
       "chance",
       "fate"
@@ -1468,6 +1676,8 @@
     "en": "I raise my head and gaze at the bright moon; I lower my head and think of home.",
     "author_ru": "Ли Бо",
     "author_en": "Li Bai",
+    "tr": "Başımı kaldırıp parlak aya bakarım; başımı eğip yurdumu düşünürüm.",
+    "author_tr": "Li Bai",
     "tags": [
       "homeland",
       "exile",
@@ -1483,6 +1693,8 @@
     "en": "The state is shattered, but the mountains and rivers remain.",
     "author_ru": "Ду Фу",
     "author_en": "Du Fu",
+    "tr": "Devlet yıkıldı, ama dağlar ve ırmaklar yerinde duruyor.",
+    "author_tr": "Du Fu",
     "tags": [
       "war",
       "homeland",
@@ -1498,6 +1710,8 @@
     "en": "Ten years, the living and the dead, apart in boundless dark. I do not try to think of you, yet I cannot forget.",
     "author_ru": "Су Ши",
     "author_en": "Su Shi",
+    "tr": "On yıl — biri diri, biri ölü — uçsuz bucaksız karanlıkta ayrı. Seni düşünmemeye çalışıyorum, yine de unutamıyorum.",
+    "author_tr": "Su Shi",
     "tags": [
       "widowed",
       "love",
@@ -1513,6 +1727,8 @@
     "en": "Supreme excellence consists in breaking the enemy's resistance without fighting.",
     "author_ru": "Сунь-цзы",
     "author_en": "Sun Tzu",
+    "tr": "En yüce ustalık, düşmanın direncini savaşmadan kırmaktır.",
+    "author_tr": "Sun Tzu",
     "tags": [
       "war",
       "power"
@@ -1527,6 +1743,8 @@
     "en": "When Heaven is about to confer a great office on any man, it first exercises his mind with suffering.",
     "author_ru": "Мэн-цзы",
     "author_en": "Mencius",
+    "tr": "Gök bir insana büyük bir görev vereceği zaman, önce onun yüreğini acıyla sınar.",
+    "author_tr": "Mencius",
     "tags": [
       "rise",
       "survivor",
@@ -1542,6 +1760,8 @@
     "en": "It is precisely because the world is uncertain that it is so precious.",
     "author_ru": "Кэнко-хоси",
     "author_en": "Yoshida Kenkō",
+    "tr": "Dünya belirsiz olduğu içindir ki bu kadar değerlidir.",
+    "author_tr": "Yoshida Kenkō",
     "tags": [
       "fate",
       "short_life"
@@ -1556,6 +1776,8 @@
     "en": "The longer you live, the more shame you know. It is best to die before you reach forty.",
     "author_ru": "Кэнко-хоси",
     "author_en": "Yoshida Kenkō",
+    "tr": "Ne kadar uzun yaşarsan o kadar çok utanç tadarsın. En iyisi kırkına varmadan ölmektir.",
+    "author_tr": "Yoshida Kenkō",
     "tags": [
       "short_life"
     ],
@@ -1569,6 +1791,8 @@
     "en": "Death does not come from in front; it is already pressing on us from behind.",
     "author_ru": "Кэнко-хоси",
     "author_en": "Yoshida Kenkō",
+    "tr": "Ölüm karşıdan gelmez; o çoktan arkamızda, ensemizde.",
+    "author_tr": "Yoshida Kenkō",
     "tags": [
       "death"
     ],
@@ -1582,6 +1806,8 @@
     "en": "Sick on a journey, my dreams go wandering over withered fields.",
     "author_ru": "Мацуо Басё",
     "author_en": "Matsuo Bashō",
+    "tr": "Yolda hastayım — düşlerim dolaşıyor kurumuş kırlarda.",
+    "author_tr": "Matsuo Bashō",
     "tags": [
       "travel",
       "dream",
@@ -1597,6 +1823,8 @@
     "en": "Summer grasses — all that remains of warriors' dreams.",
     "author_ru": "Мацуо Басё",
     "author_en": "Matsuo Bashō",
+    "tr": "Yaz otları — savaşçıların düşlerinden geriye kalan.",
+    "author_tr": "Matsuo Bashō",
     "tags": [
       "war",
       "legacy",
@@ -1612,6 +1840,8 @@
     "en": "The proud do not endure, like a dream on a spring night; the mighty fall at last, like dust before the wind.",
     "author_ru": "«Повесть о доме Тайра»",
     "author_en": "The Tale of the Heike",
+    "tr": "Kibirliler kalıcı değildir, bahar gecesinin rüyası gibi; güçlüler de sonunda düşer, rüzgârın önündeki toz gibi.",
+    "author_tr": "Heike Hikâyesi",
     "tags": [
       "fall",
       "power"
@@ -1626,6 +1856,8 @@
     "en": "Fall seven times, rise eight.",
     "author_ru": "Японская пословица",
     "author_en": "Japanese proverb",
+    "tr": "Yedi kez düş, sekiz kez kalk.",
+    "author_tr": "Japon atasözü",
     "tags": [
       "survivor",
       "fall",
@@ -1641,6 +1873,8 @@
     "en": "The stake that sticks out gets hammered down.",
     "author_ru": "Японская пословица",
     "author_en": "Japanese proverb",
+    "tr": "Dışarı çıkan kazık çakılır.",
+    "author_tr": "Japon atasözü",
     "tags": [
       "rise",
       "power"
@@ -1655,6 +1889,8 @@
     "en": "Sit on a stone for three years and even it grows warm.",
     "author_ru": "Японская пословица",
     "author_en": "Japanese proverb",
+    "tr": "Bir taşın üstünde üç yıl otur, o bile ısınır.",
+    "author_tr": "Japon atasözü",
     "tags": [
       "work",
       "survivor"
@@ -1669,6 +1905,8 @@
     "en": "You have a right to your work alone, never to its fruits.",
     "author_ru": "«Бхагавадгита»",
     "author_en": "Bhagavad Gita",
+    "tr": "Senin hakkın yalnızca eyleminedir, asla meyvelerine değil.",
+    "author_tr": "Bhagavad Gita",
     "tags": [
       "work",
       "fate"
@@ -1683,6 +1921,8 @@
     "en": "The clay says to the potter: why do you knead me? A day will come when I shall knead you.",
     "author_ru": "Кабир",
     "author_en": "Kabir",
+    "tr": "Balçık çömlekçiye der ki: Beni neden yoğuruyorsun? Bir gün gelecek, ben seni yoğuracağım.",
+    "author_tr": "Kabir",
     "tags": [
       "craft",
       "death"
@@ -1697,6 +1937,8 @@
     "en": "Reading books, the whole world died, and none became wise; who reads the two and a half letters of 'love' is wise.",
     "author_ru": "Кабир",
     "author_en": "Kabir",
+    "tr": "Kitap okuya okuya bütün dünya öldü, kimse bilge olamadı; sevgi sözünün iki buçuk harfini okuyan bilgedir.",
+    "author_tr": "Kabir",
     "tags": [
       "learning",
       "love"
@@ -1711,6 +1953,8 @@
     "en": "What you would do tomorrow, do today; what today, do now. In a moment the end may come — when will you do it then?",
     "author_ru": "Кабир",
     "author_en": "Kabir",
+    "tr": "Yarın yapacağını bugün yap, bugün yapacağını şimdi. Bir anda son gelebilir — o zaman ne zaman yapacaksın?",
+    "author_tr": "Kabir",
     "tags": [
       "work",
       "short_life"
@@ -1725,6 +1969,8 @@
     "en": "\"The pipe is sweet, the lute is sweet,\" say those who have not heard the prattle of their own children.",
     "author_ru": "Тируваллувар",
     "author_en": "Thiruvalluvar",
+    "tr": "Ney tatlıdır, ut tatlıdır, derler — kendi çocuklarının cıvıltısını hiç duymamış olanlar.",
+    "author_tr": "Tiruvalluvar",
     "tags": [
       "many_children",
       "family",
@@ -1740,6 +1986,8 @@
     "en": "Existing yesterday, today to nothing hurled! Such greatness owns this transitory world.",
     "author_ru": "Тируваллувар",
     "author_en": "Thiruvalluvar",
+    "tr": "Dün vardı, bugün yok — bu geçici dünyanın büyüklüğü işte budur.",
+    "author_tr": "Tiruvalluvar",
     "tags": [
       "death",
       "fate"
@@ -1754,6 +2002,8 @@
     "en": "However the world may whirl, it follows the plough; so, for all its toil, farming is the first of trades.",
     "author_ru": "Тируваллувар",
     "author_en": "Thiruvalluvar",
+    "tr": "Dünya nasıl dönerse dönsün, sabanın ardından gider; bu yüzden bütün zahmetine rağmen çiftçilik zanaatların ilkidir.",
+    "author_tr": "Tiruvalluvar",
     "tags": [
       "work",
       "craft"
@@ -1768,6 +2018,8 @@
     "en": "Victory breeds hatred, for the conquered is unhappy. He who has given up both victory and defeat, he, the contented, is happy.",
     "author_ru": "«Дхаммапада»",
     "author_en": "Dhammapada",
+    "tr": "Zafer nefret doğurur, çünkü yenilen mutsuzdur. Hem zaferden hem yenilgiden vazgeçen, gönlü huzurlu kişi mutludur.",
+    "author_tr": "Dhammapada",
     "tags": [
       "war",
       "happiness"
@@ -1782,6 +2034,8 @@
     "en": "Day after day people go to the abode of Death, yet those who remain hope to live forever. What could be more wonderful?",
     "author_ru": "«Махабхарата» (Юдхиштхира — Якше)",
     "author_en": "Mahabharata (Yudhishthira to the Yaksha)",
+    "tr": "İnsanlar her gün ölümün yurduna gidiyor, ama geride kalanlar sonsuza dek yaşamayı umuyor. Bundan daha şaşırtıcı ne olabilir?",
+    "author_tr": "Mahabharata (Yudhişthira'dan Yakşa'ya)",
     "tags": [
       "death",
       "reason"
@@ -1796,6 +2050,8 @@
     "en": "Wisdom is sweeter than honey, and it maketh one to rejoice more than wine.",
     "author_ru": "Царица Савская Македа («Кебра Нагаст»)",
     "author_en": "Queen Makeda of Sheba (Kebra Nagast)",
+    "tr": "Bilgelik baldan tatlıdır ve insanı şaraptan çok sevindirir.",
+    "author_tr": "Saba Melikesi Makeda (Kebra Nagast)",
     "tags": [
       "learning",
       "happiness"
@@ -1810,6 +2066,8 @@
     "en": "With patience, even an egg will walk on its own legs.",
     "author_ru": "Пословица оромо (Эфиопия)",
     "author_en": "Oromo proverb (Ethiopia)",
+    "tr": "Sabırla yumurta bile kendi ayaklarıyla yürür.",
+    "author_tr": "Oromo atasözü (Etiyopya)",
     "tags": [
       "work",
       "rise",
@@ -1825,6 +2083,8 @@
     "en": "When spider webs unite, they can tie up a lion.",
     "author_ru": "Амхарская пословица",
     "author_en": "Amharic proverb",
+    "tr": "Örümcek ağları birleşince bir aslanı bile bağlar.",
+    "author_tr": "Amhara atasözü",
     "tags": [
       "friendship",
       "family",
@@ -1840,6 +2100,8 @@
     "en": "Death's ladder is not climbed by one person alone.",
     "author_ru": "Пословица акан",
     "author_en": "Akan proverb",
+    "tr": "Ölümün merdivenine yalnızca bir kişi tırmanmaz.",
+    "author_tr": "Akan atasözü",
     "tags": [
       "death",
       "sorrow"
@@ -1854,6 +2116,8 @@
     "en": "It is not wrong to go back for that which you have forgotten.",
     "author_ru": "Пословица акан",
     "author_en": "Akan proverb",
+    "tr": "Unuttuğun şey için geri dönmek yanlış değildir.",
+    "author_tr": "Akan atasözü",
     "tags": [
       "legacy",
       "homeland",
@@ -1869,6 +2133,8 @@
     "en": "Patience can cook a stone.",
     "author_ru": "Пословица фульбе",
     "author_en": "Fula proverb",
+    "tr": "Sabır taşı bile pişirir.",
+    "author_tr": "Fula atasözü",
     "tags": [
       "work",
       "survivor"
@@ -1883,6 +2149,8 @@
     "en": "However long a log stays in the water, it will never become a crocodile.",
     "author_ru": "Пословица бамбара (Мали)",
     "author_en": "Bambara proverb (Mali)",
+    "tr": "Kütük suda ne kadar kalırsa kalsın, timsah olmaz.",
+    "author_tr": "Bambara atasözü (Mali)",
     "tags": [
       "exile",
       "homeland",
@@ -1898,6 +2166,8 @@
     "en": "An empty sack doesn't stand.",
     "author_ru": "Пословица бамбара (Мали)",
     "author_en": "Bambara proverb (Mali)",
+    "tr": "Boş çuval dik durmaz.",
+    "author_tr": "Bambara atasözü (Mali)",
     "tags": [
       "poor",
       "work"
@@ -1912,6 +2182,8 @@
     "en": "Salt comes from the north, gold from the south, but the word of God and the treasures of wisdom are found only in Timbuktu.",
     "author_ru": "Пословица Тимбукту (Мали)",
     "author_en": "Timbuktu proverb (Mali)",
+    "tr": "Tuz kuzeyden, altın güneyden gelir; ama Tanrı'nın sözü ve bilgelik hazineleri yalnızca Timbuktu'da bulunur.",
+    "author_tr": "Timbuktu atasözü (Mali)",
     "tags": [
       "trade",
       "learning",
@@ -1927,6 +2199,8 @@
     "en": "In my saliva I have given you my descendants: a father does not vanish when he goes — he leaves himself to his children.",
     "author_ru": "«Пополь-Вух» (череп Хун-Хунахпу — деве Шкик)",
     "author_en": "Popol Vuh (the skull of Hun Hunahpu to the maiden Xquic)",
+    "tr": "Tükürüğümle sana soyumu verdim: baba gidince yok olmaz — kendini çocuklarına bırakır.",
+    "author_tr": "Popol Vuh (Hun Hunahpu'nun kafatasından genç kız Xquic'e)",
     "tags": [
       "family",
       "legacy",
@@ -1942,6 +2216,8 @@
     "en": "Do we truly live on earth? Not forever on earth, only a little while here. Even jade breaks; even gold cracks.",
     "author_ru": "Несауалькойотль",
     "author_en": "Nezahualcoyotl",
+    "tr": "Gerçekten yeryüzünde mi yaşıyoruz? Sonsuza dek değil, burada yalnızca kısa bir süre. Yeşim bile kırılır, altın bile çatlar.",
+    "author_tr": "Nezahualcoyotl",
     "tags": [
       "short_life",
       "death"
@@ -1956,6 +2232,8 @@
     "en": "Like a painting we will be erased; like a flower we will wither here on earth.",
     "author_ru": "Несауалькойотль",
     "author_en": "Nezahualcoyotl",
+    "tr": "Bir resim gibi silineceğiz; bir çiçek gibi burada, yeryüzünde solacağız.",
+    "author_tr": "Nezahualcoyotl",
     "tags": [
       "death",
       "legacy"
@@ -1970,6 +2248,8 @@
     "en": "He who would count the stars, not yet knowing how to count the knots of the quipu, deserves to be laughed at.",
     "author_ru": "Пачакутек (по Гарсиласо де ла Веге)",
     "author_en": "Pachacuti (as recorded by Garcilaso de la Vega)",
+    "tr": "Kipu düğümlerini saymayı bilmeden yıldızları saymaya kalkan, gülünç olmayı hak eder.",
+    "author_tr": "Pachacuti (Garcilaso de la Vega'nın aktardığına göre)",
     "tags": [
       "learning",
       "reason"
@@ -1984,6 +2264,8 @@
     "en": "A herbalist who knows only some herbs knows little or nothing; he must learn them all, the healing and the poisonous alike.",
     "author_ru": "Пачакутек (по Гарсиласо де ла Веге)",
     "author_en": "Pachacuti (as recorded by Garcilaso de la Vega)",
+    "tr": "Otların yalnızca bir kısmını bilen şifacı az bilir ya da hiçbir şey bilmez; hepsini öğrenmelidir, şifalısını da zehirlisini de.",
+    "author_tr": "Pachacuti (Garcilaso de la Vega'nın aktardığına göre)",
     "tags": [
       "healer",
       "learning",
@@ -1999,6 +2281,8 @@
     "en": "The course of true love never did run smooth.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
+    "tr": "Gerçek aşkın yolu hiçbir zaman düz olmamıştır.",
+    "author_tr": "William Shakespeare",
     "tags": [
       "love",
       "marriage"
