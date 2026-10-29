@@ -5,6 +5,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 const DIR = 'tools/tr'
+/** Тысячи по-турецки: «7,000» → «7.000» (запятая в турецком — десятичная). Десятичные «2.5» не трогаем. */
+const turkishNumbers = (s) => s.replace(/\b\d{1,3}(?:,\d{3})+\b/g, (m) => m.replace(/,/g, '.'))
 const parse = (file) => {
   const out = new Map()
   for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
@@ -67,7 +69,7 @@ for (const f of fs.readdirSync(`${DIR}/out`).filter((f) => /^batch-\d+\.txt$/.te
     const [file, key] = map[n - 1]
     const to = target(file)
     if (!files.has(to)) files.set(to, fs.existsSync(to) ? JSON.parse(fs.readFileSync(to, 'utf8')) : {})
-    files.get(to)[key] = t
+    files.get(to)[key] = turkishNumbers(t)
     total++
   }
 }
