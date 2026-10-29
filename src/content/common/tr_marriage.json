@@ -1,0 +1,22 @@
+{
+  "ev.mar_betrothal.title": "Nişanlı",
+  "ev.mar_betrothal.text": "Bir akşam annenle baban seni çağırıp söylediler: nişanlandın. Büyükler her şeyi kendileri ayarladı — nişanlını, düğün hediyelerini, daha yıllar sonra olacak düğünün gününü. Kimse ne düşündüğünü sormadı: burada evlilikler böyle yapılır.",
+  "ev.mar_betrothal.text.IND": "Rahip doğum haritalarını karşılaştırdı, annenle baban çeyizde anlaştı — ve nişanlandın. Nişanlın kendi kastından ve iyi bir aileden; hiç karşılaşmadınız. Düğün yakında olacak, ama birlikte ancak büyüyünce yaşayacaksınız.",
+  "ev.mar_betrothal.text.CHN": "Çöpçatan doğumunun sekiz karakterini taşıyan kırmızı bir kart getirdi, falcı işaretlerin uyuştuğunu söyledi, aileler de nişan hediyeleri değiş tokuş etti. Nişanlandın. Nişanlının yüzünü hiç görmedin — düğüne kadar da görmeyeceksin.",
+  "ev.mar_betrothal.text.BYZ": "Yasa çocukların yedi yaşından itibaren nişanlanmasına izin veriyor, annenle baban da beklemedi. Bir rahip nişanı kutsadı; aileler hediye ve yüzük değiş tokuş etti. Düğün sen {g:on dört|on iki} yaşına girince olacak.",
+  "ev.mar_betrothal.text.RUS": "Dünürcüler geldi, annenle baban el sıkışıp anlaşmanın şerefine içti. Nişanlandın. Nişanlını büyüklerin seçti — soyuna, ocağına, çeyizine bakarak. Düğün büyüyünce olacak.",
+  "ev.mar_betrothal.text.ISL": "İki ailenin büyükleri evlilikte ve gelin hediyesi olan mehirde anlaştı. Nişanlandın. Âdete göre rızan sorulmalı, ama her şey çoktan kararlaştırıldı.",
+  "ev.mar_betrothal.text.WAF": "{g:Ailen|Damadın ailesi} ilk hediyeleri — kola cevizi ve kumaş — {g:götürdü|getirdi}, hediyeler de kabul edildi. Bu, nişanlandığın anlamına geliyor. Düğün birkaç yıl sonra, başlık parasının tamamı toplanınca olacak.",
+  "ev.mar_betrothal.text.ETH": "Annenle baban bir evlilikte anlaştı; verilen söze büyükler ve bir rahip tanık oldu. Nişanlandın. Burada kızlar çok küçük yaşta evlendirilir, bu yüzden düğün çok gecikmeyecek.",
+  "ev.mar_betrothal.text.ANE": "{g:Ailen|Damadın ailesi} başlık parasını, yani terhatumu {g:götürdü|getirdi}, bir kâtip de evliliğin şartlarını kil bir tablete yazdı. Nişanlandın, oysa hâlâ avluda öbür çocuklarla oynuyorsun.",
+  "ev.mar_betrothal.text.JPN": "Annenle baban bir aracı vasıtasıyla kendi mevkilerinden bir aileyle evlilik ayarladı. Nişanlandın. Haneler çocukluktan böyle bağlanır; duyguların bunda hiç yeri yok.",
+  "ev.mar_betrothal.text.EUR": "Annenle baban başka bir aileyle evlilik sözleşmesi imzaladı: toprağa toprak, çeyize miras. Nişanlandın; nişanlını yalnızca bir kez, kilisede gördün. Düğün büyüyünce olacak.",
+  "ev.mar_betrothal.text.rome": "Roma âdetine göre nişan, yani sponsalia, yedi yaşından itibaren yapılabilir. Aileler çeyizde anlaştı ve parmağına demir bir yüzük takıldı. Düğün on iki yaşına girince olacak.",
+  "ev.mar_betrothal.text.athens": "Ailen ve damadın tanıklar önünde evlilik sözü verdi — engyē: çeyiz, tarih, şartlar. Damat senden çok büyük; onu yalnızca bir an gördün. Düğün on dört yaşına girince olacak.",
+  "ev.mar_betrothal.obey": "Eğil ve sus",
+  "ev.mar_betrothal.obey.ok": "Büyükler memnun: yakışık aldığı gibi büyüklerine karşı gelmiyorsun.",
+  "ev.mar_betrothal.hide": "Kaç ve saklan",
+  "ev.mar_betrothal.hide.ok": "Seni samanlıkta buldular, gözyaşlarını sildiler ve işlerin böyle olduğunu uzun uzun anlattılar. Nişan yine de bozulmadı.",
+  "ev.mar_betrothal.ask": "Nişanlını sor",
+  "ev.mar_betrothal.ask.ok": "Sana biraz anlattılar: hangi aileden geldiğini, kaç yaşında olduğunu, ailesinin neyle tanındığını. Gerisini düğünde öğreneceksin."
+}

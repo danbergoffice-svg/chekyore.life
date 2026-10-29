@@ -1,0 +1,20 @@
+{
+  "era.ISL": "İslam dünyası: Bağdat'tan İstanbul'a",
+  "era.ISL.years": "MS 750 — 1600",
+  "era.ISL.short": "İslam dünyası",
+  "region.baghdad": "Bağdat",
+  "region.damascus": "Şam",
+  "region.cairo": "Kahire",
+  "region.cordoba": "Kurtuba",
+  "region.istanbul": "İstanbul",
+  "region.baghdad.intro": "Halifelerin Dicle kıyısındaki Yuvarlak Şehri, yeryüzünün en büyük şehirlerinden biridir. Dünyanın dört bir köşesinden kâğıt, ipek ve kitap akar; Beytülhikme Yunanların ve Hintlilerin eserlerini çevirir. Ama burada insanlar isyan da eder, aç da kalır, ve bir gün Moğollarla yüz yüze gelecekler.",
+  "region.damascus.intro": "Kasiyun Dağı'nın eteğinde, yeşil Guta vahasında kadim bir şehir. Eski Emevî başkenti ticaret, meyve bahçeleri ve ünlü zanaatlarıyla yaşar; ordular ise tekrar tekrar buradan geçer: Haçlılar, Moğollar, Timur, Osmanlılar.",
+  "region.cairo.intro": "Fatımîlerin Nil kıyısında kurduğu Kahire, sultanların başkentine ve İslam dünyasının en kalabalık şehrine dönüşür. Hayat nehrin taşkınlarına uyar, öğrenciler Ezher'e akın eder, Kıptiler kadim kiliselerinde dua eder.",
+  "region.cordoba.intro": "Endülüs'ün Vadiülkebir kıyısındaki başkenti: kırmızı-beyaz kemerlerden bir orman gibi cami, taş döşeli sokaklar, kütüphaneler ve portakal bahçeleri. Müslümanlar, Mozarap Hristiyanlar ve Yahudiler yan yana yaşar; kuzeyden ise Hristiyan krallar bastırır.",
+  "region.istanbul.intro": "Bir zamanlar Konstantinopolis, şimdi Osmanlı sultanlarının başkenti. Yeniçeriler, Kapalıçarşı, Haliç'te gemiler, tepelerde Mimar Sinan'ın camileri. Müslümanlar, Rumlar, Ermeniler ve Yahudiler bir arada onu dünyanın en zengin şehirlerinden biri yapar.",
+  "region.baghdad.in": "Bağdat'ta",
+  "region.damascus.in": "Şam'da",
+  "region.cairo.in": "Kahire'de",
+  "region.cordoba.in": "Kurtuba'da",
+  "region.istanbul.in": "İstanbul'da"
+}

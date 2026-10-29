@@ -1,0 +1,11 @@
+{
+  "ev.v_rel_father_drunk.title": "Kapıdaki ayak sesleri",
+  "ev.v_rel_father_drunk.text": "Ayak seslerinden babanın ne kadar içtiğini artık anlayabiliyorsun. Bu gece adımlar ağır ve düzensiz; {npc} daha kapıdan girmeden hıncını çıkaracak birini arıyor.",
+  "ev.v_rel_father_drunk.hide": "Komşulara saklan",
+  "ev.v_rel_father_drunk.hide.ok": "Komşu kadın tek söz etmeden sana bir peyke hazırladı. Bu daha önce de oldu, hiçbir şey sormuyor.",
+  "ev.v_rel_father_drunk.calm": "Onu yatır",
+  "ev.v_rel_father_drunk.calm.success": "Ayakkabılarını çıkardın, üstünü pelerininle örttün. Ne kadar pişman olduğunu mırıldandı. Sabah bunu hatırlamayacak.",
+  "ev.v_rel_father_drunk.calm.failure": "Seni öyle itti ki duvara çarptın. Sabah bunu hatırlamayacak — ama sen hatırlayacaksın.",
+  "ev.v_rel_father_drunk.roam": "Kaç, şafağa dek dolaş",
+  "ev.v_rel_father_drunk.roam.ok": "Şafağa kadar karanlık sokaklarda dolaştın. Gece şehir korkutucu, ama evden fazla değil."
+}

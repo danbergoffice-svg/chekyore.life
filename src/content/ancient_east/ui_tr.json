@@ -1,0 +1,17 @@
+{
+  "era.ANE": "Firavunlar Mısırı ve Mezopotamya",
+  "era.ANE.years": "MÖ 1550 — 1070",
+  "era.ANE.short": "Mısır & Babil",
+  "region.thebes": "Teb",
+  "region.memphis": "Memfis",
+  "region.babylon": "Babil",
+  "region.assur": "Asur",
+  "region.thebes.intro": "Teb, Amon'un şehri ve Yeni Krallık'ın başkentidir. Karnak tapınakları doğu kıyısında yükselir; batıda kral mezarları kayalıklara oyulur ve onları bir zanaatkâr köyü inşa eder. Hayat Nil taşkınının ve tapınak bayramlarının ritmine uyar.",
+  "region.memphis.intro": "Memfis, Mısır'ın en eski şehridir; kâtipler ve memurlarla doludur, limanında Biblos'tan ve Kıbrıs'tan gelen gemiler boşaltılır. Şehrin ötesinde, çölün kenarında, şimdiden bin yaşında olan piramitler durur.",
+  "region.babylon.intro": "Babil'i dağlardan inen Kassit kralları yönetir, ama şehir hâlâ Marduk'a dua eder. Kanalları, hurmalıkları ve arpasıyla yaşar; kâtipler eski tabletleri kopyalar, yenilerini yazar.",
+  "region.assur.intro": "Asur, Dicle'ye bakan bir kayalıkta kurulu, tanrı Aşur'un şehridir. Uzun süre Mitanni krallarına haraç ödedi, ama artık kendi kralları orduları batıya ve güneye götürüyor. Burada insanlar sağlam bir eli, krala sadakati ve titiz hesabı önemser.",
+  "region.thebes.in": "Teb'de",
+  "region.memphis.in": "Memfis'te",
+  "region.babylon.in": "Babil'de",
+  "region.assur.in": "Asur'da"
+}

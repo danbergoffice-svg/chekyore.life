@@ -1,0 +1,21 @@
+{
+  "ev.pt_stray_puppy.title": "Kapıdaki köpek yavrusu",
+  "ev.pt_stray_puppy.text": "Üç gündür tüylü bir köpek yavrusu kapının önünde oturuyor: gitmiyor, inlemiyor, sadece seni ezelden beri tanıyormuş gibi bakıyor.",
+  "ev.pt_stray_puppy.keep": "Sahiplen",
+  "ev.pt_stray_puppy.keep.ok": "Yavru bir kap, kapının yanında bir köşe ve galiba bunlarla birlikte seni de kazandı.",
+  "ev.pt_stray_puppy.chase": "Kov gitsin",
+  "ev.pt_stray_puppy.chase.ok": "Yavruyu kovdun. Uzun süre dönüp dönüp arkasına baktı.",
+  "ev.pt_kitten.title": "Samanlıkta bir kedi yavrusu",
+  "ev.pt_kitten.text": "Samanlıkta bir kedi yavrusu ciyaklıyor — sıska, gözleri hâlâ bulanık. Annesini yolda bir araba ezmiş.",
+  "ev.pt_kitten.keep": "Ona bak",
+  "ev.pt_kitten.keep.ok": "Bir hafta boyunca onu sütle ıslatılmış bir bezle besledin. Yaşadı — ve artık yalnızca senin ayak ucunda uyuyor.",
+  "ev.pt_kitten.leave": "Buna vakit yok",
+  "ev.pt_kitten.leave.ok": "Sabah kedi yavrusu samanlıkta yoktu.",
+  "ev.pt_beg_dog.title": "Kendi köpek yavrun",
+  "ev.pt_beg_dog.text": "Komşuların köpeği yavruladı, sen de birine çoktan gizlice ad koydun. Şimdi büyükleri ikna etmek kaldı.",
+  "ev.pt_beg_dog.plead": "Razı olana kadar yalvar",
+  "ev.pt_beg_dog.plead.success": "Razı oldular! Yavru senin — ve tabii ki seninle uyuyor.",
+  "ev.pt_beg_dog.plead.failure": "“Hayır dedik, hayır.” Yavruyu başka birine verdiler.",
+  "ev.pt_beg_dog.obey": "Tartışma",
+  "ev.pt_beg_dog.obey.ok": "Tartışmadın. Ama o yavruyu hâlâ hatırlıyorsun."
+}

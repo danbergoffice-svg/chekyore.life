@@ -1,0 +1,23 @@
+{
+  "ev.f_omen_sky.title": "Bir alamet",
+  "ev.f_omen_sky.text": "Güpegündüz güneş kararmaya başladı, sanki bir şey onu ısırıp koparıyordu. Köpekler uludu, kuşlar sustu, insanlar diz çöktü. Birkaç dakika sonra ışık geri geldi — ama neydi bu?",
+  "ev.f_omen_sky.sign": "Bu bir işaret: dua et, tövbe et",
+  "ev.f_omen_sky.explain": "Bilginlerin bunu önceden bildiğini anlat",
+  "ev.f_omen_sky.explain.success": "Seni dinlediler, hatta biri yıldızbilimcilerin de buna benzer bir şey söylediğini hatırladı. Bilgili biri olarak ad saldın.",
+  "ev.f_omen_sky.explain.failure": "Sana dinsizmişsin gibi baktılar. İnsanlar bunu hâlâ açıp duruyor.",
+  "ev.f_omen_sky.hide": "Eve kapan, geçmesini bekle",
+  "ev.f_miracle.title": "Bir mucize",
+  "ev.f_miracle.text": "Yıllardır yataktan kalkamayan bir komşu kadın, biri ona kutsal bir pınardan su getirince birden yeniden yürümeye başladı. Bütün mahalle çalkalanıyor, insanlar şimdiden pınara akın ediyor.",
+  "ev.f_miracle.go": "Pınara kendin git",
+  "ev.f_miracle.tell": "Haberi bütün şehre yay",
+  "ev.f_miracle.shrug": "Omuz silk: daha tuhafları da olur",
+  "ev.f_religious_school.title": "Tapınaktaki hoca",
+  "ev.f_religious_school.text": "Tapınaktaki hoca sana okumayı ve kutsal kitapları öğretmeyi teklif ediyor. Bu, oyun ve ev işleri yerine harflerin başında saatler demek.",
+  "ev.f_religious_school.text.islamic": "Camideki hoca seni mektebe almayı teklif ediyor: okuma, yazma ve Kur'an'ı ezberlemek. Bu, oyun ve ev işleri yerine bir levhanın başında saatler demek.",
+  "ev.f_religious_school.text.jewish": "Cemaatin hocası sana Tevrat okumayı öğretmeyi teklif ediyor. Bu, oyun ve ev işleri yerine harflerin başında saatler demek.",
+  "ev.f_religious_school.text.christian": "Manastırdaki keşişler çocuklara Mezmurlar kitabından okuma öğretiyor. Seni de almaya razılar — oyun ve ev işleri yerine harflerin başında saatler.",
+  "ev.f_religious_school.text.chinese_folk": "Köyün hocası sana yazı karakterlerini ve bilgelerin klasiklerini öğretmeyi teklif ediyor. Bu, oyun ve ev işleri yerine fırçanın başında saatler demek.",
+  "ev.f_religious_school.study": "Oku",
+  "ev.f_religious_school.sometimes": "İşler el verdikçe git",
+  "ev.f_religious_school.no": "Zaten yeterince iş var"
+}

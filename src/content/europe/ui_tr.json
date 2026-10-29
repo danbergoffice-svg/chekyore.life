@@ -1,0 +1,20 @@
+{
+  "era.EUR": "Orta Çağ Avrupası",
+  "era.EUR.years": "MS 1000 — 1500",
+  "era.EUR.short": "Avrupa",
+  "region.paris": "Paris",
+  "region.london": "Londra",
+  "region.florence": "Floransa",
+  "region.cologne": "Köln",
+  "region.toledo": "Toledo",
+  "region.paris.intro": "Paris, Capet hanedanından Fransa krallarının başkentidir. Île de la Cité'de bir katedral yükselir, Sol Yaka'da öğrenciler tartışır, şehrin çevresinde köylülerin efendileri için işlediği tarlalar ve bağlar uzanır.",
+  "region.london.intro": "Londra, İngiltere'nin Thames üzerindeki büyük limanıdır. 1066'dan sonra burada Norman kralları hüküm sürer, üç dil konuşulur; şehir özgürlükleri ve tüccar loncalarıyla övünür.",
+  "region.florence.intro": "Floransa, Arno kıyısında bir şehir cumhuriyetidir. Zenginliği yünlü kumaş ve bankacılık, belası büyük ailelerin kan davaları. Burada krallar değil, loncalar ve tüccarlar yönetir.",
+  "region.cologne.intro": "Köln, Kutsal Roma İmparatorluğu'nun Ren kıyısındaki en büyük şehridir. Üç Kral'ın kutsal emanetlerini saklar, tüccarları Londra'dan Novgorod'a ticaret yapar, kentlileri şehri kimin yöneteceği konusunda başpiskoposla çekişir.",
+  "region.toledo.intro": "Kastilya, Toledo'yu 1085'te Müslümanlardan aldı. Sokaklarında kilise çanları çalar, sinagoglarda ilahiler yükselir, ezan hâlâ duyulur; üç dinin bilginleri Arapça kitapları birlikte Latinceye çevirir.",
+  "region.paris.in": "Paris'te",
+  "region.london.in": "Londra'da",
+  "region.florence.in": "Floransa'da",
+  "region.cologne.in": "Köln'de",
+  "region.toledo.in": "Toledo'da"
+}

@@ -1,0 +1,17 @@
+{
+  "era.BYZ": "Bizans: Romalıların İmparatorluğu",
+  "era.BYZ.years": "MS 850 — 1453",
+  "era.BYZ.short": "Bizans",
+  "region.constantinople": "Konstantinopolis",
+  "region.thessalonica": "Selanik",
+  "region.nicaea": "İznik",
+  "region.trebizond": "Trabzon",
+  "region.constantinople.intro": "Halkının kısaca “Şehir” dediği Konstantinopolis, Romalıların Boğaziçi'ndeki başkentidir. Ayasofya'nın kubbesi damların üstünde süzülür, her diyardan gemiler Haliç'i doldurur, Hipodrom'da Maviler ve Yeşiller kükrer. Ekmeğin ve ipeğin fiyatını Eparkhos belirler; servetler sarayda kazanılır ve kaybedilir.",
+  "region.thessalonica.intro": "Selanik, imparatorluğun ikinci şehri; Aziz Dimitrios'un koruması altında, Thermai Körfezi'nde bir liman. Sonbahar panayırına bütün Balkanlar'dan tüccarlar gelir; Bulgar ve Slav komşuları bir yıl ticaret, ertesi yıl savaş getirir.",
+  "region.nicaea.intro": "Birinci Ekümenik Konsil'in şehri İznik, Anadolu themalarının kalbinde, İznik Gölü kıyısında kuruludur. Çevresinde vergi ödeyen ve asker gönderen zeytinlikler, bağlar ve köyler uzanır. Doğudan Türkler gittikçe yaklaşır.",
+  "region.trebizond.intro": "Trabzon, dalgalarla yeşil Pontus dağları arasına sıkışmış bir Karadeniz limanıdır. Doğu'dan ipek ve baharat yüklü kervanlar buraya ulaşır, yukarıda dağlarda Sümela Manastırı dik bir kayalığa tutunur. Burada imparatorluğun her yerinden daha çok yağmur yağar.",
+  "region.constantinople.in": "Konstantinopolis'te",
+  "region.thessalonica.in": "Selanik'te",
+  "region.nicaea.in": "İznik'te",
+  "region.trebizond.in": "Trabzon'da"
+}

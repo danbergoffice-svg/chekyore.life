@@ -1,0 +1,14 @@
+{
+  "era.E03": "Klasik Antik Çağ",
+  "era.E03.years": "MÖ 500 — MS 200",
+  "region.rome": "Roma",
+  "region.athens": "Atina",
+  "region.egypt": "Mısır",
+  "region.rome.intro": "Roma, Tiber kıyısındaki bir kasabadan bir imparatorluğun başkentine dönüşür. Her şeye aile, hamiler ve para karar verir; yoksullar insula denen sıkışık apartmanlarda yaşar.",
+  "region.athens.intro": "Atina; halk meclisinin, tiyatronun ve filozofların şehri. Ama yalnızca erkek yurttaşlar oy verir, halkının birçoğu köle ya da yabancıdır.",
+  "region.egypt.intro": "Mısır, Nil taşkınlarının ritmiyle yaşar. Yunan kralları, sonra da Romalılar milyonlarca çiftçiyi vergilendirir; dünyanın dört bir yanından gelen bilginler İskenderiye'de çalışır.",
+  "region.rome.in": "Roma'da",
+  "region.athens.in": "Atina'da",
+  "region.egypt.in": "Mısır'da",
+  "era.E03.short": "Roma ve Yunanistan"
+}

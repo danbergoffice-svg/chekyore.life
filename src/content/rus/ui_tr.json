@@ -1,0 +1,17 @@
+{
+  "era.RUS": "Rus ve Moskova Knezliği",
+  "era.RUS.years": "MS 980 — 1600",
+  "era.RUS.short": "Rus",
+  "region.kiev": "Kiev",
+  "region.novgorod": "Novgorod",
+  "region.vladimir": "Vladimir",
+  "region.moscow": "Moskova",
+  "region.kiev.intro": "Kiev, Dinyeper'in yüksek kıyısında durur: “Rus şehirlerinin anası”. Buraya Konstantinopolis'ten ve Baltık'tan kayıklar gelir, büyük knez burada saray kurar, ve her yıl güney bozkırından göçebeler akın edebilir.",
+  "region.novgorod.intro": "Novgorod, Volhov kıyısında özgür bir ticaret şehridir. Şehir meclisi veçe knezleri davet eder ve kovar, sokaklar kütüklerle döşenmiştir, insanlar birbirine huş kabuğuna kazınmış notlar gönderir — çocuklar ve kadınlar bile.",
+  "region.vladimir.intro": "Klyazma kıyısındaki Vladimir, ormanlık kuzeydoğunun genç başkentidir. Knezleri beyaz taştan katedraller yaptırır, köylüler tarla açmak için ormanı temizler, kışlar uzun ve karlıdır.",
+  "region.moscow.intro": "Moskova küçük bir orman kasabasıydı ve bütün Rus'un başkenti oldu. Kremlin'i, pazar meydanı, yüzlerce kilisesi ve birkaç yılda bir yanıp kül olan ahşap evleri vardır. Her şeyin üstünde büyük knezin, sonra da çarın iradesi durur.",
+  "region.kiev.in": "Kiev'de",
+  "region.novgorod.in": "Novgorod'da",
+  "region.vladimir.in": "Vladimir'de",
+  "region.moscow.in": "Moskova'da"
+}

@@ -1,0 +1,21 @@
+{
+  "prof.soldier.desc.E03": "Orduda hizmet: hoplit, kürekçi ya da paralı asker.",
+  "prof.scribe.desc.E03": "Yazı bilen az, bu yüzden kâtiplere değer verilir.",
+  "prof.priest.E03": "{g:Rahip|Rahibe}",
+  "prof.priest.as.E03": "{g:rahip|rahibe}",
+  "prof.priest.desc.E03": "Bir tapınakta tanrılara hizmet.",
+  "prof.magistrate.E03": "Hâkim",
+  "prof.magistrate.as.E03": "hâkim",
+  "skill.oratory.E03": "Hitabet",
+  "focus.learn.desc.E03": "Bir öğretmenle okuma ve hesap. Parasını aile öder",
+  "focus.health.desc.E03": "Hamamlar, gimnazyum, dinlenme ve otlar",
+  "focus.religion.E03": "Tanrılar",
+  "focus.religion.desc.E03": "Tapınaklar, kurbanlar, ayinler",
+  "lifestyle.food.plain.desc.E03": "Ekmek, lapa, fasulye, zeytin",
+  "lifestyle.food.varied.desc.E03": "Balık, meyve, şarap. Sağlığa iyi gelir",
+  "lifestyle.exercise.gymnasium.E03": "Gimnazyum",
+  "lifestyle.exercise.gymnasium.desc.E03": "Güreş, koşu, egzersiz. Daha güçlü ve sağlıklı",
+  "lifestyle.medicine.temple.E03": "Şifa tapınağı",
+  "lifestyle.medicine.temple.desc.E03": "Asklepios, İsis: dualar ve tapınakta uyku",
+  "lifestyle.baths.E03": "Hamamlar"
+}
