@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Инди-макет Б — «Пиксельный интерфейс»</title>
+<link rel="stylesheet" href="mock.css" />
+<style>
+  @font-face { font-family: 'PS2P'; src: url('fonts/press-start-2p-cyrillic-400-normal.woff2') format('woff2'); unicode-range: U+0400-045F; }
+  @font-face { font-family: 'PS2P'; src: url('fonts/press-start-2p-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+  @font-face { font-family: 'PS2P'; src: url('fonts/press-start-2p-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F; }
+  @font-face { font-family: 'Tiny5'; src: url('fonts/tiny5-cyrillic-400-normal.woff2') format('woff2'); unicode-range: U+0400-045F; }
+  @font-face { font-family: 'Tiny5'; src: url('fonts/tiny5-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+  @font-face { font-family: 'Tiny5'; src: url('fonts/tiny5-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F; }
+  /* Палитра края (Египет): ночь, золото, бирюза, киноварь. Жёсткие тени, ступенчатые углы, никаких скруглений. */
+  :root { --bg: #16121f; --panel: #241d31; --line: #0a0810; --hi: #3d3252; --gold: #f0c048; --gold-2: #c77d2e; --teal: #3fc1b0; --red: #e8484a; --txt: #f3e7c9; --dim: #a99ab8; }
+  html, body { width: 390px; min-height: 844px; }
+  body { background: var(--bg); color: var(--txt); font-family: 'Tiny5', monospace; font-size: 18px; line-height: 1.35; -webkit-font-smoothing: none; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 3px); }
+  img { image-rendering: pixelated; }
+  /* Рамка-панель: ступенчатые углы тенями, жёсткая тень снизу-справа. */
+  .px { position: relative; background: var(--panel); box-shadow: 0 -4px 0 0 var(--line), 0 4px 0 0 var(--line), -4px 0 0 0 var(--line), 4px 0 0 0 var(--line), inset 0 0 0 3px var(--hi), 8px 8px 0 0 rgba(0, 0, 0, 0.55); }
+  .scene { position: relative; height: 200px; overflow: hidden; border-bottom: 4px solid var(--line); }
+  .scene > img { position: absolute; left: 50%; top: 0; width: 640px; height: 200px; transform: translateX(-50%); }
+  #menu .scene { height: 122px; } #menu .scene > img { position: static; transform: none; width: 100%; height: 122px; }
+  .top { position: absolute; z-index: 2; left: 12px; right: 12px; top: 12px; display: flex; gap: 8px; align-items: center; }
+  .chip { background: var(--line); color: var(--txt); padding: 5px 8px; font-size: 14px; display: flex; gap: 6px; align-items: center; }
+  .chip.on { color: var(--gold); }
+  .grow { flex: 1; }
+  .logo { font-family: 'PS2P'; text-align: center; margin: 18px 0 0; font-weight: 400; font-size: 30px; line-height: 1.25; color: var(--gold); letter-spacing: 1px;
+    text-shadow: 3px 0 0 var(--gold-2), 0 3px 0 var(--gold-2), 3px 3px 0 var(--gold-2), 6px 6px 0 var(--line); }
+  .sub { text-align: center; margin: 10px 18px 0; color: var(--dim); font-size: 16px; }
+  .wrap { padding: 0 18px; }
+  .machine { margin: 20px 4px 0; padding: 14px 12px 12px; display: grid; grid-template-columns: 1fr 1fr 1fr 34px; gap: 8px; align-items: stretch; }
+  .reel { background: #f3e7c9; color: #241d31; text-align: center; padding: 8px 2px; box-shadow: inset 0 4px 0 #d8c79f, inset 0 -4px 0 #d8c79f, 0 0 0 3px var(--line); }
+  .reel small { display: block; font-size: 12px; color: #6d5a7a; }
+  .reel b { display: block; font-size: 30px; line-height: 1.1; color: var(--red); }
+  .reel img { display: block; margin: 2px auto 0; }
+  .lever { position: relative; }
+  .lever i { position: absolute; left: 13px; top: 18px; width: 8px; height: 64px; background: #b9b2c4; box-shadow: 0 0 0 3px var(--line); }
+  .lever b { position: absolute; left: 6px; top: 0; width: 22px; height: 22px; background: var(--red); box-shadow: 0 0 0 3px var(--line), inset -4px -4px 0 #a52a2c; }
+  .tag { position: absolute; top: -14px; left: 10px; background: var(--gold); color: var(--line); font-size: 13px; padding: 2px 6px; display: flex; gap: 4px; align-items: center; box-shadow: 0 0 0 3px var(--line); }
+  .cta { display: block; width: calc(100% - 8px); margin: 22px 4px 0; padding: 14px 0 12px; border: 0; font-family: 'PS2P'; font-weight: 400; font-size: 20px; color: var(--line); background: var(--gold);
+    box-shadow: 0 -4px 0 0 var(--line), 0 4px 0 0 var(--line), -4px 0 0 0 var(--line), 4px 0 0 0 var(--line), inset 0 -6px 0 var(--gold-2), 8px 8px 0 0 rgba(0, 0, 0, 0.55); }
+  .gift { position: absolute; right: 10px; top: -30px; z-index: 3; }
+  .gift .n { position: absolute; right: -8px; top: -8px; background: var(--red); color: #fff; font-size: 12px; padding: 0 5px; box-shadow: 0 0 0 2px var(--line); }
+  .cont { margin: 22px 4px 0; padding: 10px 12px; display: flex; gap: 12px; align-items: center; }
+  .cont img { width: 32px; height: 40px; box-shadow: 0 0 0 3px var(--line); }
+  .cont b { color: var(--gold); font-weight: 400; }
+  .cont span { font-size: 15px; color: var(--dim); }
+  .nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 22px 4px 0; }
+  .nav div { text-align: center; font-size: 13px; color: var(--dim); }
+  .nav div i { display: grid; place-items: center; height: 46px; margin-bottom: 5px; background: var(--panel); box-shadow: 0 0 0 3px var(--line), inset 0 0 0 3px var(--hi); }
+  .foot { text-align: center; margin: 18px 0 0; font-size: 13px; color: #6f6283; }
+
+  /* Событие: HUD, сцена, окно диалога. */
+  .hud { display: flex; gap: 10px; align-items: center; padding: 12px 14px 10px; background: var(--line); }
+  .hud .port { width: 52px; height: 65px; box-shadow: 0 0 0 3px var(--hi); }
+  .hud h3 { margin: 0; font-family: 'PS2P'; font-weight: 400; font-size: 15px; color: var(--gold); }
+  .hud p { margin: 0; font-size: 13px; color: var(--dim); }
+  .hearts { display: flex; gap: 3px; margin-top: 5px; align-items: center; }
+  .coins { display: flex; gap: 5px; align-items: center; margin-left: auto; align-self: flex-start; color: var(--gold); }
+  .speed { display: flex; gap: 8px; padding: 10px 14px; background: #1d1729; border-bottom: 4px solid var(--line); }
+  .speed span { min-width: 40px; height: 32px; display: grid; place-items: center; background: var(--panel); box-shadow: 0 0 0 3px var(--line); font-size: 15px; color: var(--dim); }
+  .speed span.on { background: var(--teal); color: var(--line); }
+  .year { margin-left: auto; color: var(--dim); align-self: center; font-size: 14px; }
+  .dialog { margin: 18px 14px 0; padding: 14px 14px 12px; }
+  .dialog h2 { margin: 0; font-family: 'PS2P'; font-weight: 400; font-size: 14px; line-height: 1.5; color: var(--gold); }
+  .dialog p { margin: 8px 0 0; font-size: 16.5px; }
+  .choices { margin: 12px 0 0; padding: 0; list-style: none; }
+  .choices li { display: flex; gap: 8px; align-items: center; padding: 8px 6px; font-size: 16.5px; }
+  .choices li.sel { background: var(--hi); color: var(--gold); }
+  .choices li i { width: 15px; flex: none; }
+  .choices li em { margin-left: auto; font-style: normal; display: flex; gap: 4px; align-items: center; color: var(--gold); font-size: 14px; }
+  .hint { margin: 14px 14px 0; font-size: 13px; color: #6f6283; text-align: center; }
+</style>
+</head>
+<body>
+<div id="menu">
+  <div class="scene"><img src="assets/ind-egy-land.png">
+    <div class="top"><span class="chip">v0.9</span><span class="grow"></span><span class="chip"><img data-icon="speaker" data-pal="gold" data-px="2"></span><span class="chip on">RU</span><span class="chip">EN</span><span class="chip">TR</span></div>
+  </div>
+  <div class="logo">ТЫСЯЧИ<br>ЖИЗНЕЙ</div>
+  <p class="sub">Одна жизнь. Случайная эпоха.<br>Второго шанса не будет.</p>
+  <div class="wrap">
+    <div class="machine px">
+      <span class="tag"><img data-icon="crown" data-pal="gold" data-px="1">знать</span>
+      <div class="reel"><small>ГДЕ</small><b>?</b><img data-icon="sun" data-pal="gold" data-px="2"></div>
+      <div class="reel"><small>КТО</small><b>?</b><img data-icon="crown" data-pal="gold" data-px="2"></div>
+      <div class="reel"><small>ПОЛ</small><b>?</b><img data-icon="heart" data-pal="red" data-px="2"></div>
+      <div class="lever"><b></b><i></i></div>
+      <span class="gift"><img data-icon="chest" data-pal="gold" data-px="3"><span class="n">2</span></span>
+    </div>
+    <button class="cta">КРУТИ!</button>
+    <div class="cont px"><img src="assets/ind-av-egy.png"><div><b>Продолжить</b><br><span>Хори, 12 лет · Фивы</span></div></div>
+    <div class="nav">
+      <div><i><img data-icon="grave" data-pal="gold" data-px="3"></i>Память</div>
+      <div><i><img data-icon="medal" data-pal="gold" data-px="3"></i>Награды</div>
+      <div><i><img data-icon="gear" data-pal="gold" data-px="3"></i>Опции</div>
+      <div><i><img data-icon="book" data-pal="gold" data-px="3"></i>Об игре</div>
+    </div>
+    <p class="foot">сделано одним человеком · дневник разработки</p>
+  </div>
+</div>
+
+<div id="event" hidden>
+  <div class="hud">
+    <img class="port" src="assets/ind-av-egy.png">
+    <div><h3>ХОРИ</h3><p>0 лет · Фивы · 1350 до н. э.</p>
+      <div class="hearts"><img data-icon="heart" data-pal="red" data-px="3"><img data-icon="heart" data-pal="red" data-px="3"><img data-icon="heart" data-pal="red" data-px="3"><img data-icon="heartEmpty" data-pal="light" data-px="3"><img data-icon="heartEmpty" data-pal="light" data-px="3"></div></div>
+    <div class="coins"><img data-icon="coin" data-pal="gold" data-px="3">203</div>
+  </div>
+  <div class="speed"><span><img data-icon="pause" data-pal="light" data-px="3"></span><span class="on"><img data-icon="play" data-pal="teal" data-px="3"></span><span>×2</span><span>×4</span><span class="year">год 1</span></div>
+  <div class="scene"><img src="assets/ind-egy-home.png"></div>
+  <div class="dialog px">
+    <h2>Оберег над колыбелью</h2>
+    <p>Бабушка принесла к твоей колыбели оберег: узелок, о содержимом которого она молчит. Отец хмурится. «Лучше позвать жреца, пусть благословит как положено». Решать родителям, а значит, тебе.</p>
+    <ul class="choices">
+      <li class="sel"><i><img data-icon="play" data-pal="gold" data-px="2"></i>Повесить бабушкин узелок</li>
+      <li><i></i>Позвать жреца<em><img data-icon="coin" data-pal="gold" data-px="2">5</em></li>
+      <li><i></i>Обойтись без этого</li>
+    </ul>
+  </div>
+  <p class="hint">выбор нельзя отменить</p>
+</div>
+<script src="pixel-icons.js"></script>
+<script>
+  if (new URLSearchParams(location.search).get('screen') === 'event') { document.getElementById('menu').hidden = true; document.getElementById('event').hidden = false }
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Инди-макет А — «Летопись с миниатюрами»</title>
+<link rel="stylesheet" href="mock.css" />
+<style>
+  /* Пергамент: своя фактура (шум), потемневшие края, пятна. Чернила, киноварь, золото — без «кремового» веб-фона. */
+  :root { --ink: #1d1712; --rub: #a5301a; --gold: #a6802f; --vellum: #dcc89f; }
+  html, body { width: 390px; min-height: 844px; }
+  body {
+    position: relative; overflow: hidden; color: var(--ink);
+    background:
+      radial-gradient(60px 44px at 82% 64%, rgba(120, 70, 20, 0.16), transparent 70%),
+      radial-gradient(90px 60px at 14% 88%, rgba(110, 70, 30, 0.12), transparent 70%),
+      radial-gradient(140% 100% at 50% 40%, #e9d9b4 0%, #d9c391 70%, #b99a62 100%);
+  }
+  body::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.55; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45  0 0 0 0 0.33  0 0 0 0 0.18  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .page { position: relative; padding: 18px 22px 26px; }
+  .margin { display: flex; align-items: center; gap: 10px; font-style: italic; font-size: 14px; color: #5b4632; }
+  .grow { flex: 1; }
+  .langs b { color: var(--rub); font-style: normal; }
+  /* Миниатюра: пиксельная сцена в рамке «от руки» — двойная линия, киноварные уголки. */
+  .mini { position: relative; margin: 14px 0 0; padding: 7px; border: 2px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 3px; background: #2a2118; }
+  .mini img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+  .mini i { position: absolute; width: 11px; height: 11px; background: var(--rub); border: 2px solid var(--ink); }
+  .mini i:nth-of-type(1) { left: -9px; top: -9px; } .mini i:nth-of-type(2) { right: -9px; top: -9px; }
+  .mini i:nth-of-type(3) { left: -9px; bottom: -9px; } .mini i:nth-of-type(4) { right: -9px; bottom: -9px; }
+  .cap-note { margin: 9px 0 0; text-align: right; font-style: italic; font-size: 13px; color: #6a5440; }
+  h1 { font-family: var(--font-display); font-weight: 500; font-size: 44px; line-height: 1; margin: 12px 0 0; letter-spacing: 0; }
+  h1 .cap { color: var(--rub); font-size: 64px; float: left; line-height: 0.8; margin: 4px 6px 0 0; text-shadow: 1px 1px 0 var(--gold); }
+  .tag { clear: both; margin: 10px 0 0; font-style: italic; font-size: 19px; }
+  /* Жребий: три графы «от руки», вместо латунного автомата. */
+  .lots { display: grid; grid-template-columns: 1.25fr 1fr 0.8fr; gap: 0; margin: 16px 0 0; border: 2px solid var(--ink); }
+  .lot { padding: 8px 6px 10px; text-align: center; border-left: 1px solid var(--ink); }
+  .lot:first-child { border-left: 0; }
+  .lot small { display: block; color: var(--rub); font-size: 13px; font-style: italic; }
+  .lot b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 34px; line-height: 1.1; margin-top: 2px; }
+  .lot em { display: block; font-size: 12px; color: #7a644d; opacity: 0.7; }
+  /* Печать вместо кнопки. */
+  .seal-row { display: flex; align-items: center; gap: 14px; margin: 16px 0 0; }
+  .seal { width: 78px; height: 78px; flex: none; border: 0; border-radius: 47% 53% 50% 48% / 52% 46% 54% 48%; color: #f6e3c2; font-family: var(--font-display); font-size: 15px; line-height: 1.05;
+    background: radial-gradient(circle at 38% 34%, #d0533a 0%, #a5301a 48%, #6e1d0e 100%); box-shadow: inset -4px -5px 0 rgba(0, 0, 0, 0.22), inset 3px 3px 0 rgba(255, 210, 170, 0.22); transform: rotate(-8deg); }
+  .seal-row p { margin: 0; font-size: 18px; line-height: 1.25; }
+  .seal-row p b { font-family: var(--font-display); font-weight: 500; font-size: 26px; display: block; }
+  /* Закладка-ленточка с дарами. */
+  .ribbon { position: absolute; top: 0; right: 26px; width: 46px; padding: 10px 0 18px; text-align: center; color: #f6e3c2; font-size: 13px; line-height: 1.1;
+    background: #6f2a5a; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%); }
+  .ribbon img { display: block; margin: 0 auto 4px; }
+  .note { margin: 16px 0 0; display: flex; gap: 10px; align-items: center; font-size: 17px; }
+  .note img { flex: none; }
+  .note span i { color: #6a5440; }
+  nav { margin: 14px 0 0; font-size: 17px; text-align: center; }
+  nav span { color: var(--rub); margin: 0 4px; }
+  .colophon { margin: 16px 0 0; text-align: center; font-style: italic; font-size: 13px; color: #6a5440; }
+  .colophon u { text-decoration-color: var(--rub); }
+
+  /* Экран события. */
+  .hero { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+  .hero .port { flex: none; padding: 3px; border: 2px solid var(--ink); background: #2a2118; }
+  .hero .port img { display: block; width: 48px; height: 60px; image-rendering: pixelated; }
+  .hero h3 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 26px; line-height: 1; }
+  .hero p { margin: 2px 0 0; font-style: italic; font-size: 14px; color: #5b4632; }
+  .health { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13px; }
+  .health s { display: block; width: 110px; height: 7px; border: 1.5px solid var(--ink); background: linear-gradient(90deg, var(--rub) 0 52%, transparent 52%); text-decoration: none; }
+  .speed { display: grid; grid-template-columns: repeat(2, 28px); gap: 4px; margin-left: auto; align-self: flex-start; }
+  .speed span { width: 28px; height: 28px; display: grid; place-items: center; border: 1.5px solid var(--ink); font-family: var(--font-display); font-size: 14px; }
+  .speed span.on { background: var(--ink); color: #e9d9b4; }
+  h2 { margin: 14px 0 0; font-family: var(--font-display); font-weight: 500; font-size: 30px; color: var(--rub); line-height: 1.05; }
+  .text { margin: 8px 0 0; font-size: 18px; line-height: 1.42; }
+  .text .drop { float: left; font-family: var(--font-display); font-size: 62px; line-height: 0.82; margin: 5px 8px 0 0; padding: 4px 6px 2px; color: var(--rub); border: 1.5px solid var(--gold); background: rgba(166, 128, 47, 0.12); }
+  ol { list-style: none; padding: 0; margin: 14px 0 0; clear: both; }
+  ol li { display: flex; gap: 10px; align-items: baseline; padding: 9px 2px; border-bottom: 1px solid rgba(29, 23, 18, 0.55); font-size: 18px; }
+  ol li:first-child { border-top: 1px solid rgba(29, 23, 18, 0.55); }
+  ol li b { flex: none; width: 28px; color: var(--rub); font-family: var(--font-display); font-weight: 500; font-size: 19px; }
+  ol li span { flex: 1; }
+  ol li em { font-size: 14px; color: #6a5440; }
+  .gloss { margin: 12px 0 0 38px; font-style: italic; font-size: 14px; color: #6a5440; border-left: 2px solid var(--rub); padding-left: 8px; }
+</style>
+</head>
+<body>
+<div class="page" id="menu">
+  <div class="ribbon"><img data-icon="chest" data-pal="brass" data-px="2">дары<br>2</div>
+  <div class="margin"><span>лист I</span><span class="grow"></span><img data-icon="speaker" data-pal="inkplain" data-px="2"><span class="langs"><b>RU</b> EN TR</span><span style="width:52px"></span></div>
+  <figure class="mini"><img src="assets/ind-rus-land.png"><i></i><i></i><i></i><i></i></figure>
+  <p class="cap-note">Новгород. Зима 1243 года</p>
+  <h1><span class="cap">Т</span>ысячи жизней</h1>
+  <p class="tag">Летопись одной жизни. Чьей? Решит жребий.</p>
+  <div class="lots">
+    <div class="lot"><small>где и когда</small><b>?</b><em>Новгород…</em></div>
+    <div class="lot"><small>сословие</small><b>?</b><em>купцы…</em></div>
+    <div class="lot"><small>пол</small><b>?</b><em>дочь…</em></div>
+  </div>
+  <div class="seal-row"><button class="seal">брось<br>жребий</button><p><b>Брось жребий</b>и узнай, кем родишься</p></div>
+  <p class="note"><img data-icon="play" data-pal="ink" data-px="3"><span>Продолжить: <b>Ефросинья</b>, 12 лет <i>(Новгород)</i></span></p>
+  <nav>Синодик<span>❧</span>Награды<span>❧</span>Настройки<span>❧</span>Об игре</nav>
+  <p class="colophon">Летопись пишет один человек. v0.9 · <u>что нового</u></p>
+</div>
+
+<div class="page" id="event" hidden>
+  <div class="hero">
+    <div class="port"><img src="assets/ind-av-rus.png"></div>
+    <div><h3>Ефросинья</h3><p>0 лет · Новгород, 1243</p><div class="health">здоровье <s></s></div></div>
+    <div class="speed"><span><img data-icon="pause" data-pal="inkplain" data-px="2"></span><span class="on">1</span><span>2</span><span>4</span></div>
+  </div>
+  <figure class="mini" style="margin-top:14px"><img src="assets/ind-rus-home.png"><i></i><i></i><i></i><i></i></figure>
+  <h2>Оберег над колыбелью</h2>
+  <p class="text"><span class="drop">Б</span>абушка принесла к твоей колыбели оберег: узелок, о содержимом которого она молчит. Отец хмурится. «Лучше позвать священника, пусть благословит как положено». Решать родителям, а значит, тебе.</p>
+  <ol>
+    <li><b>I.</b><span>Повесить бабушкин узелок</span></li>
+    <li><b>II.</b><span>Позвать священника</span><em>5 кун</em></li>
+    <li><b>III.</b><span>Обойтись без этого</span></li>
+  </ol>
+  <p class="gloss">На полях: узелок потом найдётся в сундуке.</p>
+</div>
+<script src="pixel-icons.js"></script>
+<script>
+  if (new URLSearchParams(location.search).get('screen') === 'event') { document.getElementById('menu').hidden = true; document.getElementById('event').hidden = false }
+</script>
+</body>
+</html>
