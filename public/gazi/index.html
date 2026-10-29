@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<base href="/gazi/">
+<title>Gazi: Kurtuluş Savaşı oyunu · 1919–1923</title>
+<meta name="description" content="Mustafa Kemal olarak 1919–1923 Kurtuluş Savaşı'nın kararlarını verin, şehirleri kurtarın ve rütbenizi paylaşın. Türkiye tarihini ne kadar iyi biliyorsunuz?">
+<link rel="canonical" href="https://thousands.life/gazi/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='6' fill='%23e30a17'/%3E%3Ccircle cx='17' cy='21' r='10.5' fill='%23fff'/%3E%3Ccircle cx='19.8' cy='21' r='8.4' fill='%23e30a17'/%3E%3Cpolygon fill='%23fff' points='29.5,21 25.2,22.4 27.9,18.7 27.9,23.3 25.2,19.6'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#1b1f1a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="thousands.life">
+<meta property="og:url" content="https://thousands.life/gazi/">
+<meta property="og:title" content="Gazi: Türkiye tarihini ne kadar iyi biliyorsun?">
+<meta property="og:description" content="Mustafa Kemal olarak 1919–1923 Kurtuluş Savaşı'nın kararlarını verin, şehirleri kurtarın ve rütbenizi paylaşın. Türkiye tarihini ne kadar iyi biliyorsunuz?">
+<meta property="og:image" content="https://thousands.life/gazi/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gazi: Kurtuluş Savaşı oyunu, Mustafa Kemal Atatürk">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gazi: Türkiye tarihini ne kadar iyi biliyorsun?">
+<meta name="twitter:description" content="Mustafa Kemal olarak 1919–1923 Kurtuluş Savaşı'nın kararlarını verin, şehirleri kurtarın ve rütbenizi paylaşın. Türkiye tarihini ne kadar iyi biliyorsunuz?">
+<meta name="twitter:image" content="https://thousands.life/gazi/og.jpg">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;800&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans+Narrow:wght@400;700&display=swap">
+<style>
+/* Layout: field HQ table — staff map on the left, order sheet on the right; stacks on phones. Single dark look by choice. */
+:root {
+  color-scheme: dark;
+  --bg: #1b1f1a;
+  --panel: #252a23;
+  --line: #3b4237;
+  --ink: #ece4cf;
+  --muted: #a8a28d;
+  --paper: #d9cda8;
+  --paper-ink: #3b3427;
+  --sea: #34474a;
+  --red: #e30a17;
+  --red-ink: #fff6f2;
+  --good: #8fbf6a;
+  --bad: #e07a5f;
+  --c-nat: #e30a17;
+  --c-sultan: #8a7e60;
+  --c-greece: #2f6db5;
+  --c-britain: #7b4ca0;
+  --c-france: #1d8c87;
+  --c-italy: #3f8a3a;
+  --c-armenia: #c98a1e;
+  --c-georgia: #9c5a32;
+  --f-display: "Playfair Display", "Didot", "Times New Roman", serif;
+  --f-body: "PT Serif", Georgia, serif;
+  --f-ui: "PT Sans Narrow", "Arial Narrow", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body {
+  font-family: var(--f-body); font-size: 16px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 16px 32px;
+}
+.wrap { max-width: 1280px; margin: 0 auto; display: grid; gap: 16px; }
+
+header { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.brand { display: flex; gap: 14px; align-items: center; }
+.crescent { width: 42px; height: 42px; flex: none; }
+h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(30px, 4vw, 42px); line-height: 1; margin: 0; }
+.sub { font-family: var(--f-ui); text-transform: uppercase; letter-spacing: .12em; font-size: 13px; color: var(--muted); }
+.right { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: end; }
+.date { font-family: var(--f-display); font-weight: 500; font-size: 22px; line-height: 1; min-width: 8ch; }
+.stat { display: grid; gap: 4px; min-width: 110px; }
+.stat-top { display: flex; justify-content: space-between; font-family: var(--f-ui); font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.stat-top b { color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ink); transition: width .5s ease; }
+.bar.low i { background: var(--bad); }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.lang button { background: transparent; border: 0; padding: 6px 12px; cursor: pointer; font-family: var(--f-ui); font-weight: 700; letter-spacing: .1em; font-size: 14px; color: var(--muted); }
+.lang button[aria-pressed="true"] { background: var(--red); color: var(--red-ink); }
+.lang button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+
+main { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 16px; align-items: start; }
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
+
+.mapbox { background: var(--sea); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+#map { display: block; width: 100%; height: auto; }
+.land { fill: var(--paper); stroke: #8d8166; stroke-width: 1.2; }
+.grid line { stroke: #ffffff10; stroke-width: 1; }
+.sea-label { fill: #c9d6d2; opacity: .55; font-family: var(--f-body); font-style: italic; font-size: 15px; letter-spacing: .2em; }
+.foreign { fill: #c9d6d2; opacity: .55; font-family: var(--f-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .14em; }
+.node { cursor: pointer; }
+.node circle.dot { stroke: var(--paper); stroke-width: 2.5; transition: fill .6s ease; }
+.node text { font-family: var(--f-ui); font-size: 13px; font-weight: 700; fill: var(--paper-ink); paint-order: stroke; stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
+.node .ring { fill: none; stroke: var(--red); stroke-width: 2.5; opacity: 0; }
+.node.target .ring { opacity: 1; animation: pulse 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.node.target circle.dot { stroke: var(--red); }
+.node.dim { opacity: .45; }
+.node:focus { outline: none; }
+.node:focus-visible circle.dot { stroke: #fff; stroke-width: 4; }
+@keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .node.target .ring { animation: none; } .bar i, .node circle.dot { transition: none; } }
+
+.under { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 10px 12px; background: var(--panel); border-top: 1px solid var(--line); font-family: var(--f-ui); font-size: 13px; color: var(--muted); }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.lg i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.info { padding: 10px 12px; background: var(--panel); border-top: 1px solid var(--line); font-size: 14px; min-height: 44px; color: var(--muted); }
+.info b { color: var(--ink); font-family: var(--f-ui); letter-spacing: .04em; font-size: 15px; }
+
+.sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 20px; display: grid; gap: 14px; min-width: 0; }
+.eyebrow { font-family: var(--f-ui); text-transform: uppercase; letter-spacing: .14em; font-size: 13px; color: var(--red); display: flex; justify-content: space-between; gap: 8px; }
+.eyebrow span:last-child { color: var(--muted); }
+h2 { font-family: var(--f-display); font-weight: 500; font-size: 28px; line-height: 1.12; margin: 0; text-wrap: balance; }
+.sheet p { margin: 0; }
+.opts { display: grid; gap: 8px; }
+button { font: inherit; color: inherit; }
+.opt { text-align: left; background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 12px 14px; cursor: pointer; font-size: 15px; line-height: 1.4; transition: border-color .15s, background .15s; }
+.opt:hover { border-color: var(--ink); background: #ffffff08; }
+.opt:focus-visible, .go:focus-visible, .ghost:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.opt small { display: block; font-family: var(--f-ui); font-size: 13px; color: var(--muted); letter-spacing: .04em; margin-top: 2px; }
+.hint { font-family: var(--f-ui); font-size: 14px; color: var(--muted); letter-spacing: .03em; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.go { background: var(--red); color: var(--red-ink); border: 0; border-radius: 4px; padding: 11px 22px; cursor: pointer; font-family: var(--f-ui); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; font-size: 15px; }
+.go:hover { filter: brightness(1.1); }
+.ghost { background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 10px 18px; cursor: pointer; font-family: var(--f-ui); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: 14px; }
+.ghost:hover { border-color: var(--ink); }
+.verdict { font-family: var(--f-ui); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; font-size: 14px; }
+.verdict.ok { color: var(--good); } .verdict.no { color: var(--bad); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--f-ui); font-size: 13px; padding: 2px 8px; border-radius: 10px; border: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.chip.up { color: var(--good); border-color: #8fbf6a55; } .chip.down { color: var(--bad); border-color: #e07a5f55; }
+.history { border-left: 3px solid var(--red); padding: 4px 0 4px 14px; font-size: 15px; color: #d8d0bb; display: grid; gap: 10px; }
+.history h3 { margin: 0; font-family: var(--f-ui); text-transform: uppercase; letter-spacing: .12em; font-size: 13px; color: var(--muted); font-weight: 700; }
+figure { margin: 0; display: grid; gap: 6px; }
+figure img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 3px; background: var(--line); filter: sepia(.18) contrast(1.03); }
+figure.tall img { max-height: 380px; object-fit: contain; background: #0f120e; }
+figcaption { font-family: var(--f-ui); font-size: 13px; color: var(--muted); line-height: 1.35; }
+figcaption a { color: var(--muted); }
+.quote { font-family: var(--f-display); font-weight: 500; font-size: 21px; line-height: 1.3; }
+.quote small { display: block; font-family: var(--f-ui); font-size: 13px; color: var(--muted); letter-spacing: .06em; margin-top: 4px; }
+.progress { display: flex; gap: 3px; }
+.progress i { flex: 1; height: 3px; background: var(--line); border-radius: 2px; }
+.progress i.done { background: var(--red); }
+.score { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+.score div { border: 1px solid var(--line); border-radius: 4px; padding: 8px; text-align: center; }
+.score b { display: block; font-family: var(--f-display); font-size: 26px; font-variant-numeric: tabular-nums; }
+.score span { font-family: var(--f-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.card img { width: 100%; height: auto; border-radius: 6px; display: block; box-shadow: 0 12px 30px #0006; }
+.promo { display: grid; gap: 10px; padding: 16px; border: 1px solid var(--red); border-radius: 6px; background: #e30a1714; }
+.promo p { font-family: var(--f-display); font-size: 20px; line-height: 1.25; }
+.promo a.go { text-decoration: none; justify-self: start; display: inline-block; text-transform: none; letter-spacing: .04em; font-size: 16px; }
+.social { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-family: var(--f-ui); font-size: 15px; }
+.social span { color: var(--muted); }
+.social a { color: var(--ink); text-underline-offset: 3px; }
+.status { font-family: var(--f-ui); font-size: 14px; color: var(--muted); min-height: 1.2em; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg class="crescent" viewBox="0 0 42 42" aria-hidden="true"><rect width="42" height="42" rx="4" fill="#e30a17"/><circle cx="17" cy="21" r="10.5" fill="#fff"/><circle cx="19.8" cy="21" r="8.4" fill="#e30a17"/><polygon fill="#fff" points="29.5,21 25.2,22.4 27.9,18.7 27.9,23.3 25.2,19.6"/></svg>
+      <div>
+        <h1>Gazi</h1>
+        <div class="sub" id="sub"></div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="stats">
+        <div class="date" id="date"></div>
+        <div class="stat"><div class="stat-top"><span id="l-army"></span> <b id="v-army">0</b></div><div class="bar" id="b-army"><i></i></div></div>
+        <div class="stat"><div class="stat-top"><span id="l-morale"></span> <b id="v-morale">0</b></div><div class="bar" id="b-morale"><i></i></div></div>
+        <div class="stat"><div class="stat-top"><span id="l-people"></span> <b id="v-people">0</b></div><div class="bar" id="b-people"><i></i></div></div>
+      </div>
+      <div class="lang" role="group" aria-label="Dil / Language">
+        <button id="lang-tr" aria-pressed="true">TR</button><button id="lang-en" aria-pressed="false">EN</button><button id="lang-ru" aria-pressed="false">RU</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="mapbox" id="mapbox">
+      <svg id="map" viewBox="0 0 1000 470" role="img"></svg>
+      <div class="under" id="legend"></div>
+      <div class="info" id="info"></div>
+    </section>
+    <section class="sheet" id="sheet" aria-live="polite"></section>
+  </main>
+</div>
+
+<script src="ru.js"></script>
+<script>
+/* ---------- Where the game lives ---------- */
+const GAME_URL = "https://thousands.life/gazi";
+// On our own site (and local testing) the page saves and shares by itself; anywhere else it is the claude.ai preview
+const IN_CLAUDE = !/(^|\.)thousands\.life$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
+
+/* ---------- Language ---------- */
+let LANG = "tr";
+try { const l = localStorage.getItem("gazi-lang"); if (l === "en" || l === "ru") LANG = l; } catch (e) {}
+// Russian lives in ru.js, keyed by each pair's English text; plain strings (city names) are looked up too
+const t = (x) => {
+  if (x == null) return "";
+  if (LANG === "ru") { const en = typeof x === "string" ? x : x.en; return (typeof RU !== "undefined" && RU[en]) || en; }
+  return typeof x === "string" ? x : x[LANG] ?? x.tr;
+};
+const LOCALE = { tr: "tr-TR", en: "en-US", ru: "ru-RU" };
+const fmt = (s, v) => s.replace(/\{(\w+)\}/g, (_, k) => v[k]);
+
+const UI = {
+  sub: { tr: "Kurtuluş Savaşı · 1919–1923", en: "War of Independence · 1919–1923" },
+  army: { tr: "Ordu", en: "Army" }, morale: { tr: "Moral", en: "Morale" }, people: { tr: "Halk", en: "People" },
+  mapLabel: { tr: "Anadolu ve Doğu Trakya haritası", en: "Map of Anatolia and Eastern Thrace" },
+  infoDefault: { tr: "Bir şehre dokunun: kimin elinde olduğunu ve orada ne yaşandığını görün.", en: "Tap a city to see who holds it and what happened there." },
+  chapter: { tr: "Bölüm {n} / {total}", en: "Chapter {n} of {total}" },
+  targets: { tr: "Hedefler haritada yanıp sönüyor. Kurtarılan: {d} / {total}.", en: "Targets pulse on the map. Liberated: {d} of {total}." },
+  attack: { tr: "Saldır: ", en: "Attack: " },
+  ok: { tr: "Doğru karar", en: "Right call" }, bad: { tr: "Hata", en: "Mistake" },
+  left: { tr: "Kalan hedef: {n}.", en: "Targets left: {n}." }, other: { tr: "Başka bir hedef seçin.", en: "Choose another target." },
+  toMap: { tr: "Haritaya dön", en: "Back to map" },
+  history: { tr: "Gerçekte ne oldu", en: "What really happened" },
+  next: { tr: "Devam", en: "Continue" }, results: { tr: "Sonuçlar", en: "Results" },
+  photo: { tr: "Fotoğraf", en: "Photo" }, unknown: { tr: "fotoğrafçı bilinmiyor", en: "photographer unknown" },
+  pd: { tr: "kamu malı", en: "public domain" },
+  start: { tr: "Mücadeleyi başlat", en: "Begin the struggle" },
+  intro: {
+    tr: "1919 baharı. Osmanlı Devleti Birinci Dünya Savaşı'ndan yenik çıktı. İstanbul'da İtilaf donanması demirli, İzmir'e Yunan askeri çıktı. Siz Mustafa Kemal Paşa'sınız: Çanakkale'nin kahramanı, yenilmemiş birkaç komutandan biri. 21 bölümde doğru kararları verin, şehirleri kurtarın ve Cumhuriyet'e ulaşın.",
+    en: "Spring 1919. The Ottoman Empire has lost the First World War. Allied warships ride at anchor off Istanbul, and Greek troops have landed in İzmir. You are Mustafa Kemal Pasha, the hero of Gallipoli and one of the few undefeated commanders. Make the right calls across 21 chapters, liberate the cities and found the Republic.",
+  },
+  introQuote: { tr: "Ben size taarruzu emretmiyorum, ölmeyi emrediyorum.", en: "I don't order you to attack, I order you to die." },
+  introBy: { tr: "Mustafa Kemal, 57. Alay'a, Çanakkale, 25 Nisan 1915", en: "Mustafa Kemal to the 57th Regiment, Gallipoli, 25 April 1915" },
+  introCap: { tr: "Mustafa Kemal Çanakkale'de, 1915", en: "Mustafa Kemal at Gallipoli, 1915" },
+  defeat: { tr: "Yenilgi", en: "Defeat" }, defeatTitle: { tr: "Mücadele bastırıldı", en: "The movement is crushed" },
+  defeatHint: { tr: "Tarih Sevr Antlaşması'nın yolundan gitti. Yeniden deneyin: halka dayanın, orduyu koruyun, saldırı anını doğru seçin.", en: "History followed the Treaty of Sèvres. Try again: rely on the people, preserve the army and pick your moment to strike." },
+  why: {
+    army: { tr: "Ordu dağıldı.", en: "The army has been destroyed." },
+    morale: { tr: "Askerler inancını yitirdi, binlercesi firar ediyor.", en: "The soldiers have lost faith and are deserting by the thousand." },
+    people: { tr: "Halk hareketten yüz çevirdi, Meclis dağıldı.", en: "The people have turned away and the Assembly has dissolved." },
+  },
+  moreQ: { tr: "Bu geliştiricinin diğer oyunlarını da oynamak ister misiniz?", en: "Want to play more games from this developer?" },
+  moreBtn: { tr: "Diğer oyunlar: thousands.life", en: "More games at thousands.life" },
+  restart: { tr: "Yeniden başla", en: "Start again" }, again: { tr: "Bir daha oyna", en: "Play again" },
+  final: { tr: "Final", en: "Finale" }, rankIs: { tr: "Rütbeniz: {r}", en: "Your rank: {r}" },
+  correct: { tr: "doğru karar", en: "right calls" }, mistakes: { tr: "hata", en: "mistakes" }, total: { tr: "kaynak toplamı", en: "resources left" },
+  epilogue: { tr: "Sonsöz", en: "Epilogue" },
+  epilogueText: { tr: "Ekrandaki harita bugünkü Türkiye. Hatay kırmızıyla işaretli, ama 1939'da, Atatürk'ün ölümünden bir yıl sonra katıldı. Musul ise 1926'da Milletler Cemiyeti kararıyla Irak'a bırakıldı.", en: "The map now shows modern Turkey. Hatay is marked red, though it only joined in 1939, a year after Atatürk's death. Mosul went to Iraq by a League of Nations ruling in 1926." },
+  motto: { tr: "Yurtta sulh, cihanda sulh.", en: "Peace at home, peace in the world." }, mottoBy: { tr: "Atatürk", en: "Atatürk" },
+  shareOn: { tr: "Paylaş:", en: "Share:" }, shareBtn: { tr: "Paylaş", en: "Share" },
+  shared: { tr: "Paylaşıldı.", en: "Shared." },
+  cardTitle: { tr: "Paylaşım kartınız", en: "Your share card" },
+  save: { tr: "Kartı kaydet", en: "Save card" }, copy: { tr: "Metni kopyala", en: "Copy text" },
+  saved: { tr: "Kart kaydedildi.", en: "Card saved." }, declined: { tr: "Kaydetme iptal edildi.", en: "Save cancelled." },
+  noSave: { tr: "Kaydetmek için karta basılı tutun veya sağ tıklayın.", en: "Press and hold or right-click the card to save it." },
+  copied: { tr: "Metin kopyalandı.", en: "Text copied." }, copyFail: { tr: "Kopyalanamadı, metni elle seçin.", en: "Couldn't copy, select the text manually." },
+  shareText: { tr: "Türkiye tarihini ne kadar iyi biliyorum? Kurtuluş Savaşı oyunu Gazi'de rütbem: {r}. {c}/{n} doğru karar. Sen de dene!", en: "How well do I know Turkish history? In Gazi, the War of Independence game, my rank is {r}. {c}/{n} right calls. Your turn!" },
+  cardQ: { tr: "TÜRKİYE TARİHİNİ NE KADAR İYİ BİLİYORUM?", en: "HOW WELL DO I KNOW TURKISH HISTORY?" },
+  cardRank: { tr: "RÜTBEM", en: "MY RANK" },
+  cardScore: { tr: "{c} / {n} doğru karar", en: "{c} of {n} right calls" },
+  cardFoot: { tr: "GAZİ · Kurtuluş Savaşı oyunu · 1919–1923", en: "GAZI · War of Independence game · 1919–1923" },
+};
+const RANKS = [
+  { max: 0, n: { tr: "Gazi", en: "Gazi" }, d: { tr: "Kusursuz bir sefer. Mustafa Kemal'in yolunu tek hata yapmadan yürüdünüz.", en: "A flawless campaign. You walked Mustafa Kemal's path without a single mistake." } },
+  { max: 2, n: { tr: "Mareşal", en: "Marshal" }, d: { tr: "Birkaç küçük hata, ama zafer sizin.", en: "A few small slips, but the victory is yours." } },
+  { max: 4, n: { tr: "Paşa", en: "Pasha" }, d: { tr: "Hatalar kana mal oldu, ama Cumhuriyet doğdu.", en: "Your mistakes cost blood, but the Republic was born." } },
+  { max: 7, n: { tr: "Yüzbaşı", en: "Captain" }, d: { tr: "Zafer pahalıya geldi. Tarihi bir kez daha okuyun.", en: "Victory came at a high price. Worth another look at the history." } },
+  { max: 99, n: { tr: "Nefer", en: "Private" }, d: { tr: "Sona kadar dayandınız. Tarih size cömert davrandı.", en: "You held on to the end. History was kind to you." } },
+];
+
+/* ---------- Photos (Wikimedia Commons) ---------- */
+const PHOTOS = {
+  samsun:     { f: "img/samsun.jpg", page: "https://commons.wikimedia.org/wiki/File:Mustafa_Kemal%27in_Samsun_ziyareti.jpg", lic: "pd", cap: { tr: "Mustafa Kemal Samsun'da (sonraki yıllardaki bir ziyaret)", en: "Mustafa Kemal in Samsun (a later visit)" } },
+  amasya:     { f: "img/amasya.jpg", page: "https://commons.wikimedia.org/wiki/File:Amasya_Tamimi_An%C4%B1t%C4%B1.jpg", lic: "CC BY-SA 4.0", by: "Cobija", cap: { tr: "Amasya Genelgesi Anıtı, Amasya", en: "Amasya Circular monument, Amasya" } },
+  erzurum:    { f: "img/erzurum.jpg", page: "https://commons.wikimedia.org/wiki/File:Mustafa_Kemal_Pa%C5%9Fa,_Erzurum,_5_Temmuz_1919.png", lic: "pd", cap: { tr: "Mustafa Kemal Paşa, Erzurum, 5 Temmuz 1919", en: "Mustafa Kemal Pasha, Erzurum, 5 July 1919" } },
+  sivas:      { f: "img/sivas.jpg", page: "https://commons.wikimedia.org/wiki/File:Sivas_Congress_September_1919.jpg", lic: "pd", cap: { tr: "Sivas Kongresi, Eylül 1919", en: "The Sivas Congress, September 1919" } },
+  ankara1919: { f: "img/ankara1919.jpg", page: "https://commons.wikimedia.org/wiki/File:Mustafa_Kemal_ve_Heyet-i_Temsiliye%27nin_Ankara%27ya_geli%C5%9Fi_(1919).jpg", lic: "pd", cap: { tr: "Heyet-i Temsiliye'nin Ankara'ya gelişi, 27 Aralık 1919", en: "The Representative Committee arrives in Ankara, 27 December 1919" } },
+  tbmm:       { f: "img/tbmm.jpg", page: "https://commons.wikimedia.org/wiki/File:Opening_of_the_Grand_National_Assembly,_23_April_1920.jpg", lic: "CC BY-SA 3.0", by: "arastiralim.net", cap: { tr: "TBMM'nin açılışı, 23 Nisan 1920", en: "Opening of the Grand National Assembly, 23 April 1920" } },
+  karabekir:  { f: "img/karabekir.jpg", page: "https://commons.wikimedia.org/wiki/File:Kiazim_Karabekir_Pasha_at_Kars_in_1918.jpg", lic: "pd", cap: { tr: "Kâzım Karabekir Paşa, Kars, 1918", en: "Kâzım Karabekir Pasha, Kars, 1918" } },
+  ethem:      { f: "img/ethem.jpg", page: "https://commons.wikimedia.org/wiki/File:%C3%87erkez_Ethem,_%C3%87erkez_sava%C5%9F%C3%A7%C4%B1lar%C4%B1_ve_Mustafa_Kemal_Atat%C3%BCrk,_06-1920.jpg", lic: "pd", cap: { tr: "Çerkez Ethem, savaşçıları ve Mustafa Kemal, Haziran 1920", en: "Çerkez Ethem, his fighters and Mustafa Kemal, June 1920" } },
+  inonu:      { f: "img/inonu.jpg", page: "https://commons.wikimedia.org/wiki/File:Kemal_Pa%C5%9Fa_ve_%C4%B0smet_Pa%C5%9Fa_II._%C4%B0n%C3%B6n%C3%BC_Muharebesi%27nden_sonra_askerleri_tefti%C5%9Fte.png", lic: "pd", cap: { tr: "Mustafa Kemal ve İsmet Paşa, II. İnönü'den sonra askerleri denetlerken", en: "Mustafa Kemal and İsmet Pasha inspect the troops after the Second Battle of İnönü" } },
+  moscow:     { f: "img/moscow.jpg", page: "https://commons.wikimedia.org/wiki/File:Ceremonial_signing_of_the_Treaty_of_Moscow,_March_16,_1921.jpg", lic: "pd", cap: { tr: "Moskova Antlaşması'nın imza töreni, 16 Mart 1921", en: "Signing ceremony of the Treaty of Moscow, 16 March 1921" } },
+  sakarya:    { f: "img/sakarya.jpg", page: "https://commons.wikimedia.org/wiki/File:Battle_of_Sakarya_1921.jpg", lic: "CC BY-SA 3.0", by: "Sfisek", cap: { tr: "Sakarya Meydan Muharebesi sırasında Mustafa Kemal ve komutanlar, 1921 (renklendirilmiş)", en: "Mustafa Kemal and commanders during the Battle of Sakarya, 1921 (colourised)" } },
+  staff:      { f: "img/staff.jpg", page: "https://commons.wikimedia.org/wiki/File:Atat%C3%BCrk_ve_kurmaylar%C4%B1.jpg", lic: "pd", cap: { tr: "Mustafa Kemal ve kurmayları", en: "Mustafa Kemal and his staff" } },
+  kocatepe:   { f: "img/kocatepe.jpg", page: "https://commons.wikimedia.org/wiki/File:Kocatepe,_Afyonkarahisar,_26_A%C4%9Fustos_1922.png", lic: "pd", cap: { tr: "Kocatepe, Afyonkarahisar, 26 Ağustos 1922", en: "Kocatepe, Afyonkarahisar, 26 August 1922" } },
+  izmir:      { f: "img/izmir.jpg", page: "https://commons.wikimedia.org/wiki/File:T%C3%BCrk_s%C3%BCvari_birliklerinin_%C4%B0zmire_giri%C5%9Fi.jpg", lic: "pd", cap: { tr: "Türk birliklerinin İzmir'e girişi, Eylül 1922", en: "Turkish troops enter İzmir, September 1922" } },
+  mudanya:    { f: "img/mudanya.jpg", page: "https://commons.wikimedia.org/wiki/File:Mudanya_02.jpg", lic: "pd", cap: { tr: "Mudanya Mütareke Evi, bugün müze", en: "The Mudanya Armistice House, now a museum" } },
+  lausanne:   { f: "img/lausanne.jpg", page: "https://commons.wikimedia.org/wiki/File:Signing_of_the_Treaty_of_Lausanne_(1923).jpg", lic: "pd", cap: { tr: "Lozan Antlaşması'nın imzası, 24 Temmuz 1923", en: "Signing of the Treaty of Lausanne, 24 July 1923" } },
+  republic:   { f: "img/republic.jpg", page: "https://commons.wikimedia.org/wiki/File:1923_11_03_Resimli_Gazete_Cumhuriyetin_Ilani.jpg", lic: "pd", tall: true, cap: { tr: "Resimli Gazete, 3 Kasım 1923: Cumhuriyet'in ilanı", en: "Resimli Gazete, 3 November 1923: the Republic is proclaimed" } },
+  gallipoli:  { f: "img/gallipoli.jpg", page: "https://commons.wikimedia.org/wiki/File:Mustafa_Kemal_in_Gallipoli.jpg", lic: "pd", tall: true, cap: UI.introCap },
+  portrait:   { f: "img/portrait.jpg", page: "https://commons.wikimedia.org/wiki/File:Mustafa_Kemal_Atat%C3%BCrk_(white_balance).png", lic: "pd", cap: { tr: "Mustafa Kemal Atatürk", en: "Mustafa Kemal Atatürk" } },
+};
+
+/* ---------- Map data ---------- */
+const SIDES = {
+  nat:     { n: { tr: "Millî Mücadele (Ankara)", en: "Nationalists (Ankara)" }, c: "var(--c-nat)", hex: "#e30a17" },
+  sultan:  { n: { tr: "İstanbul Hükûmeti", en: "Sultan's government" }, c: "var(--c-sultan)" },
+  greece:  { n: { tr: "Yunanistan", en: "Greece" }, c: "var(--c-greece)" },
+  britain: { n: { tr: "İngiltere", en: "Britain" }, c: "var(--c-britain)" },
+  france:  { n: { tr: "Fransa", en: "France" }, c: "var(--c-france)" },
+  italy:   { n: { tr: "İtalya", en: "Italy" }, c: "var(--c-italy)" },
+  armenia: { n: { tr: "Ermenistan", en: "Armenia" }, c: "var(--c-armenia)" },
+  georgia: { n: { tr: "Gürcistan", en: "Georgia" }, c: "var(--c-georgia)" },
+};
+
+// lon, lat, starting side, note
+const REGIONS = {
+  edirne:    { n: "Edirne", ll: [26.56, 41.68], s: "sultan", note: { tr: "Doğu Trakya. 1920 yazında Yunanlar işgal etti, Ekim 1922'de Mudanya Mütarekesi ile savaşsız geri alındı.", en: "Eastern Thrace. Occupied by Greece in summer 1920, returned without a fight by the Mudanya Armistice in October 1922." } },
+  istanbul:  { n: { tr: "İstanbul", en: "Istanbul" }, ll: [28.97, 41.01], s: "britain", note: { tr: "Padişahın başkenti. İtilaf donanması 13.11.1918'de geldi, resmî işgal 16.03.1920. Türk ordusu 6.10.1923'te girdi.", en: "The Sultan's capital. The Allied fleet arrived on 13.11.1918, formal occupation on 16.03.1920. Turkish troops entered on 6.10.1923." } },
+  canakkale: { n: "Çanakkale", ll: [26.41, 40.15], s: "britain", note: { tr: "1915: Mustafa Kemal burada İtilaf çıkarmasını durdurdu. 1922'de İngiltere ile kriz.", en: "1915: Mustafa Kemal stopped the Allied landings here. In 1922 it was the scene of the crisis with Britain." } },
+  bursa:     { n: "Bursa", ll: [29.06, 40.19], s: "sultan", note: { tr: "8.07.1920'de Yunanlar işgal etti, 11.09.1922'de kurtarıldı.", en: "Taken by Greece on 8.07.1920, liberated on 11.09.1922." } },
+  balikesir: { n: "Balıkesir", ll: [27.88, 39.65], s: "sultan", note: { tr: "30.06.1920'de işgal edildi, 6.09.1922'de kurtarıldı.", en: "Occupied on 30.06.1920, liberated on 6.09.1922." } },
+  izmir:     { n: "İzmir", ll: [27.14, 38.42], s: "greece", note: { tr: "15.05.1919 Yunan çıkarması Millî Mücadele'yi ateşledi. 9.09.1922'de kurtarıldı.", en: "The Greek landing of 15.05.1919 sparked the national movement. Liberated on 9.09.1922." } },
+  usak:      { n: "Uşak", ll: [29.40, 38.68], s: "sultan", note: { tr: "Ağustos 1920'de işgal edildi. Yunan başkomutanı Trikupis burada esir düştü (Eylül 1922).", en: "Occupied in August 1920. The Greek commander-in-chief Trikoupis was captured here (September 1922)." } },
+  kutahya:   { n: "Kütahya", ll: [29.98, 39.42], s: "sultan", note: { tr: "Temmuz 1921'de düştü. Yakınında Dumlupınar: 30.08.1922 Başkomutanlık Meydan Muharebesi.", en: "Fell in July 1921. Nearby Dumlupınar saw the decisive battle of 30.08.1922." } },
+  afyon:     { n: "Afyon", ll: [30.54, 38.76], s: "sultan", note: { tr: "Kocatepe: Mustafa Kemal 26.08.1922'de Büyük Taarruz'u buradan yönetti.", en: "Kocatepe: Mustafa Kemal directed the Great Offensive from here on 26.08.1922." } },
+  eskisehir: { n: "Eskişehir", ll: [30.52, 39.78], s: "sultan", note: { tr: "Demiryolu kavşağı. Yakınındaki İnönü'de İsmet Paşa Yunanları 1921'de iki kez durdurdu.", en: "A railway junction. At nearby İnönü, İsmet Pasha stopped the Greeks twice in 1921." } },
+  polatli:   { n: "Sakarya", ll: [32.14, 39.58], s: "sultan", note: { tr: "Polatlı yakınında Sakarya Nehri: Ağustos–Eylül 1921'de 22 gün süren muharebe, savaşın dönüm noktası.", en: "The Sakarya river near Polatlı: 22 days of battle in August–September 1921, the turning point of the war." } },
+  ankara:    { n: "Ankara", ll: [32.86, 39.93], s: "sultan", note: { tr: "27.12.1919'dan itibaren karargâh, 23.04.1920'den itibaren TBMM, 13.10.1923'ten itibaren başkent.", en: "Headquarters from 27.12.1919, seat of the Grand National Assembly from 23.04.1920, capital from 13.10.1923." } },
+  konya:     { n: "Konya", ll: [32.48, 37.87], s: "italy", note: { tr: "İtalyan birlikleri 1921'de çekildi.", en: "Italian units withdrew in 1921." } },
+  antalya:   { n: "Antalya", ll: [30.70, 36.90], s: "italy", note: { tr: "İtalyan işgal bölgesi. İtalya 1921'de askerlerini çekti.", en: "Italian zone of occupation. Italy withdrew its troops in 1921." } },
+  mersin:    { n: "Mersin", ll: [34.63, 36.80], s: "france", note: { tr: "Çukurova limanı. Ankara Antlaşması (20.10.1921) ile geri alındı.", en: "Port of Cilicia. Returned by the Treaty of Ankara with France (20.10.1921)." } },
+  adana:     { n: "Adana", ll: [35.32, 37.00], s: "france", note: { tr: "Fransız Kilikyası'nın merkezi, Ocak 1922'de Türkiye'ye devredildi.", en: "Centre of French Cilicia, handed over to Turkey in January 1922." } },
+  hatay:     { n: "Hatay", ll: [36.16, 36.20], s: "france", note: { tr: "İskenderun Sancağı. Fransız mandasında kaldı, 29.06.1939'da Türkiye'ye katıldı.", en: "The Sanjak of Alexandretta. Remained under the French mandate, joined Turkey on 29.06.1939." } },
+  maras:     { n: "Maraş", ll: [36.93, 37.58], s: "france", note: { tr: "Halk ayaklandı, Fransızlar 12.02.1920'de çekildi. Şehre 'Kahraman' unvanı verildi.", en: "The townspeople rose up and the French left on 12.02.1920. The city was given the title 'Kahraman' (heroic)." } },
+  antep:     { n: "Antep", ll: [37.38, 37.07], s: "france", note: { tr: "10 ay kuşatma, 9.02.1921'de teslim. Şehre 'Gazi' unvanı verildi.", en: "Ten months under siege, surrendered on 9.02.1921. The city was given the title 'Gazi' (veteran)." } },
+  urfa:      { n: "Urfa", ll: [38.79, 37.16], s: "france", note: { tr: "Fransız garnizonu 11.04.1920'de çekildi. Şehre 'Şanlı' unvanı verildi.", en: "The French garrison left on 11.04.1920. The city was given the title 'Şanlı' (glorious)." } },
+  samsun:    { n: "Samsun", ll: [36.33, 41.29], s: "sultan", note: { tr: "19.05.1919'da Mustafa Kemal buraya çıktı. Millî Mücadele bu günle başlar.", en: "Mustafa Kemal landed here on 19.05.1919. The struggle is dated from this day." } },
+  amasya:    { n: "Amasya", ll: [35.83, 40.65], s: "sultan", note: { tr: "Amasya Genelgesi, 22.06.1919: Millî Mücadele'nin programı.", en: "The Amasya Circular of 22.06.1919: the national movement's programme." } },
+  sivas:     { n: "Sivas", ll: [37.02, 39.75], s: "sultan", note: { tr: "Sivas Kongresi, 4–11.09.1919: bütün ülkedeki direniş birleşti.", en: "The Sivas Congress, 4–11.09.1919, united the resistance across the country." } },
+  trabzon:   { n: "Trabzon", ll: [39.72, 41.00], s: "sultan", note: { tr: "Karadeniz limanı. Sovyet Rusya'dan gelen yardım buradan geçti.", en: "Black Sea port. Aid from Soviet Russia came through here." } },
+  erzurum:   { n: "Erzurum", ll: [41.27, 39.90], s: "sultan", note: { tr: "Erzurum Kongresi, 23.07–7.08.1919. Kâzım Karabekir'in 15. Kolordusu buradaydı.", en: "The Erzurum Congress, 23.07–7.08.1919. Kâzım Karabekir's XV Corps was based here." } },
+  kars:      { n: "Kars", ll: [43.10, 40.60], s: "armenia", note: { tr: "Kâzım Karabekir 30.10.1920'de aldı. Sınır Kars Antlaşması (13.10.1921) ile kesinleşti.", en: "Taken by Kâzım Karabekir on 30.10.1920. The border was fixed by the Treaty of Kars (13.10.1921)." } },
+  ardahan:   { n: "Ardahan", ll: [42.70, 41.11], s: "georgia", note: { tr: "Moskova Antlaşması (16.03.1921) ile Artvin'le birlikte Türkiye'ye geçti, Batum Gürcistan'da kaldı.", en: "Passed to Turkey with Artvin under the Treaty of Moscow (16.03.1921); Batumi stayed with Georgia." } },
+  diyarbakir:{ n: "Diyarbakır", ll: [40.23, 37.91], s: "sultan", note: { tr: "Güneydoğu. Irak sınırı ancak 1926'da çözüldü, Musul Irak'a bırakıldı.", en: "The southeast. The Iraqi border was settled only in 1926, when Mosul went to Iraq." } },
+  van:       { n: "Van", ll: [43.38, 38.50], s: "sultan", note: { tr: "Millî Mücadele'nin doğudaki gerisi.", en: "The national movement's eastern rear." } },
+};
+
+const ANATOLIA = [[29.1,41.15],[30.3,41.2],[31.4,41.3],[32.5,41.85],[33.5,42.0],[34.9,42.05],[35.2,41.7],[36.1,41.7],[36.4,41.3],[37.1,41.15],[38.3,40.95],[39.7,41.0],[40.8,41.2],[41.55,41.52],[42.6,41.6],[43.5,41.1],[43.7,40.7],[43.6,40.1],[44.8,39.7],[44.4,39.4],[44.2,38.8],[44.3,38.2],[44.8,37.2],[44.2,37.0],[43.2,37.35],[42.4,37.1],[41.2,37.1],[40.2,37.1],[38.8,36.7],[37.5,36.65],[36.7,36.8],[36.6,36.2],[36.0,35.85],[35.8,35.95],[36.15,36.6],[35.6,36.6],[34.6,36.8],[34.0,36.3],[33.0,36.1],[32.3,36.5],[31.5,36.8],[30.6,36.85],[30.4,36.2],[29.6,36.2],[29.0,36.6],[28.2,36.7],[27.4,37.0],[27.2,37.4],[26.4,38.25],[26.8,38.5],[26.7,39.0],[26.1,39.5],[26.15,40.05],[26.7,40.4],[27.5,40.35],[28.6,40.35],[29.4,40.75],[29.95,40.72],[29.3,40.85],[29.0,41.0]];
+const THRACE = [[26.05,40.75],[26.35,41.25],[26.3,41.75],[27.0,42.05],[28.0,41.95],[29.0,41.25],[28.95,41.02],[28.0,40.97],[27.4,40.65],[26.9,40.55],[26.2,40.05],[26.25,40.4]];
+// Label side per city where the default (right) would collide with a neighbour
+const LABEL_POS = { istanbul: "l", eskisehir: "l", antep: "l", hatay: "l", mersin: "b", balikesir: "l" };
+const P = ([lon, lat]) => [(lon - 25.5) * 51.3, (42.5 - lat) * 66.2];
+
+/* ---------- Chapters ----------
+   type "choice": options; every option applies `after` (history goes on), bad ones cost resources, fatal ends the game.
+   type "map": click highlighted regions; ids in `need` are correct, the rest are traps that cost resources. */
+const CHAPTERS = [
+  { date: { tr: "Mayıs 1919", en: "May 1919" }, title: { tr: "Yabancı bayraklar altında", en: "Under foreign flags" }, photo: "samsun",
+    text: { tr: "İstanbul, İtilaf donanmasının topları altında. 15 Mayıs'ta Yunan askerleri İzmir'e çıktı. Padişah hükûmeti size uzak Samsun'da 9. Ordu Müfettişliği'ni teklif ediyor: sevilen bir komutanı başkentten uzaklaştırmak istiyor.",
+            en: "Istanbul lies under the guns of the Allied fleet. On 15 May Greek troops landed in İzmir. The Sultan's government offers you the post of Inspector of the 9th Army in distant Samsun. It wants a popular general out of the capital." },
+    options: [
+      { t: { tr: "Görevi kabul et ve Samsun'a hareket et", en: "Accept the post and sail for Samsun" }, d: { tr: "Anadolu'dan bütün ülke ayağa kaldırılabilir", en: "From Anatolia the whole country can be roused" }, ok: true, fx: { army: 5, morale: 10, people: 10 },
+        r: { tr: "Bandırma vapuru İstanbul'dan ayrılıyor. 19 Mayıs'ta Samsun'a ayak basıyorsunuz.", en: "The steamer Bandırma leaves Istanbul. On 19 May you step ashore in Samsun." } },
+      { t: { tr: "İstanbul'da kal ve padişah hükûmetiyle çalış", en: "Stay in Istanbul and work with the Sultan's cabinet" }, d: { tr: "Siyaseti içeriden etkile", en: "Shape policy from inside" }, fatal: true,
+        r: { tr: "İngilizler direnişin önde gelenlerini tutuklayıp Malta'ya sürüyor. Siz de aralarındasınız. Mücadele hiç başlamıyor.", en: "The British arrest the leaders of the resistance and exile them to Malta. You are among them. The struggle never begins." } },
+      { t: { tr: "Avrupa'ya git ve bekle", en: "Leave for Europe and wait" }, d: { tr: "Kendini gelecek için sakla", en: "Save yourself for later" }, fx: { morale: -15, people: -15 },
+        r: { tr: "İki ay sonra yine dönüyorsunuz, ama yerel önderler dağınık ve size güvenmiyorlar.", en: "Two months later you return after all, but the local leaders are divided and no longer trust you." } },
+    ],
+    after: { nat: ["samsun"] },
+    history: { tr: "Mustafa Kemal 16 Mayıs 1919'da İstanbul'dan ayrıldı ve 19 Mayıs'ta Samsun'a çıktı. Bu gün bugün Atatürk'ü Anma, Gençlik ve Spor Bayramı'dır.", en: "Mustafa Kemal left Istanbul on 16 May 1919 and landed in Samsun on 19 May. The day is now a Turkish holiday commemorating Atatürk, youth and sport." } },
+
+  { date: { tr: "Haziran 1919", en: "June 1919" }, title: { tr: "Amasya Genelgesi", en: "The Amasya Circular" }, photo: "amasya",
+    text: { tr: "Havza'yı ve Amasya'yı dolaştınız. Halk işgale öfkeli ama dağınık. Kolordu komutanları sizden bir söz bekliyor.", en: "You have toured Havza and Amasya. People are angry about the occupation but act alone. The corps commanders are waiting for your word." },
+    options: [
+      { t: { tr: "Genelgeyi yayımla: «Milletin istiklalini yine milletin azim ve kararı kurtaracaktır»", en: "Issue the circular: \"The nation's independence will be saved by the nation's own will and resolve\"" }, d: { tr: "Sivas'ta ulusal bir kongre topla", en: "Call a national congress in Sivas" }, ok: true, fx: { morale: 10, people: 15 },
+        r: { tr: "Telgraflar bütün Anadolu'ya ulaşıyor. Valiler ve subaylar bir direniş merkezi olduğunu öğreniyor.", en: "Telegrams go out across Anatolia. Governors and officers learn there is now a centre of resistance." } },
+      { t: { tr: "Padişaha dilekçe yaz ve kararını bekle", en: "Petition the Sultan and wait for his decision" }, d: { tr: "Açık bir kopuşu göze alma", en: "Avoid an open break" }, fx: { morale: -10, people: -10 },
+        r: { tr: "İstanbul'dan cevap gelmiyor. Siz beklerken Yunanlar İzmir'den içeri ilerliyor.", en: "Istanbul does not reply. While you wait, the Greeks push inland from İzmir." } },
+    ],
+    after: { nat: ["amasya"] },
+    history: { tr: "Genelge 22 Haziran 1919'da Amasya'da imzalandı. İstanbul hükûmetinin ülkeyi koruyamadığı ilk kez açıkça yazıldı.", en: "The circular was signed in Amasya on 22 June 1919. It said openly for the first time that the Istanbul government could not defend the country." } },
+
+  { date: { tr: "Temmuz 1919", en: "July 1919" }, title: { tr: "Üniforma mı, vatan mı", en: "The uniform or the nation" }, photo: "erzurum",
+    text: { tr: "İstanbul sizi geri çağırıyor ve yetkilerinizi alıyor. İngilizler tutuklanmanızı istiyor. Boyun eğerseniz hareket lidersiz kalır.", en: "Istanbul recalls you and strips your authority. The British demand your arrest. If you obey, the movement loses its leader." },
+    options: [
+      { t: { tr: "Ordudan istifa et, mücadeleye bir sivil olarak devam et", en: "Resign from the army and carry on as a civilian" }, d: { tr: "Emre değil, millete dayan", en: "Rely on the nation, not on orders" }, ok: true, fx: { morale: 10, people: 10 },
+        r: { tr: "8 Temmuz gecesi üniformanızı çıkarıyorsunuz. Kâzım Karabekir ve Ali Fuat Paşa sizi lider tanıyor.", en: "On the night of 8 July you take off your uniform. Kâzım Karabekir and Ali Fuat Pasha accept you as their leader." } },
+      { t: { tr: "Emre uy ve geri dön", en: "Obey the order and go back" }, d: { tr: "Rütbeni ve kariyerini koru", en: "Keep your rank and career" }, fx: { morale: -20, people: -10 },
+        r: { tr: "Erzurum'a kadar gidiyorsunuz, ama subaylar kalmanız için yalvarıyor. Zaman ve güven kaybedildi.", en: "You get as far as Erzurum before the officers beg you to stay. Time and trust have been lost." } },
+    ],
+    history: { tr: "İstifa 8 Temmuz 1919 tarihlidir. Mustafa Kemal mücadeleye «milletin bir ferdi olarak» devam edeceğini söyledi.", en: "The resignation is dated 8 July 1919. Mustafa Kemal said he would fight on \"as one of the nation's sons\"." } },
+
+  { date: { tr: "Temmuz – Eylül 1919", en: "July – Sept 1919" }, title: { tr: "Kongreler", en: "The congresses" }, type: "map", photo: "sivas",
+    text: { tr: "Bütün ülkenin temsilcilerini toplamak ve ortak bir program çıkarmak gerekiyor. Kongrelerin nerede toplanacağını haritada seçin.", en: "You need to gather delegates from the whole country and agree a common programme. Pick on the map where the congresses meet." },
+    need: ["erzurum", "sivas"],
+    targets: {
+      erzurum: { r: { tr: "Erzurum Kongresi (23 Temmuz – 7 Ağustos): vatan bölünmez, manda ve himaye kabul edilemez.", en: "The Erzurum Congress (23 July – 7 August): the homeland is indivisible, no mandate or protectorate is acceptable." }, fx: { people: 10, morale: 5 } },
+      sivas:   { r: { tr: "Sivas Kongresi (4–11 Eylül) bütün Müdafaa-i Hukuk cemiyetlerini birleştiriyor. Heyet-i Temsiliye başkanı seçiliyorsunuz.", en: "The Sivas Congress (4–11 September) unites all the Defence of Rights societies. You are elected head of the Representative Committee." }, fx: { people: 10, morale: 5 } },
+      izmir:   { r: { tr: "Ordusuz bir saldırı Yunan kolordusuna karşı katliam olur. Gönüllüler dağılıyor.", en: "Attacking a Greek corps without an army is a massacre. The volunteers scatter." }, fx: { army: -10, morale: -10 } },
+    },
+    history: { tr: "Kongre kararları, 28 Ocak 1920'de kabul edilen Misak-ı Millî'nin temeli oldu. Sonraki üç yıl bu harita için savaşıldı.", en: "The congresses' decisions became the basis of the National Pact (Misak-ı Millî), adopted on 28 January 1920. The next three years were fought over that map." } },
+
+  { date: { tr: "Aralık 1919", en: "December 1919" }, title: { tr: "Karargâh nerede olacak", en: "Where to make headquarters" }, photo: "ankara1919",
+    text: { tr: "Hareketin İngiliz donanmasından uzak ve cephelere demiryoluyla bağlı bir merkeze ihtiyacı var.", en: "The movement needs a base out of reach of the British fleet and linked by rail to the fronts." },
+    options: [
+      { t: { tr: "Ankara", en: "Ankara" }, d: { tr: "Anadolu'nun ortası, batıya demiryolu", en: "Central Anatolia, a railway to the west" }, ok: true, fx: { army: 5, people: 10 },
+        r: { tr: "27 Aralık 1919'da Ankaralılar sizi coşkuyla karşılıyor. Küçük bozkır kasabası ülkenin kalbi oluyor.", en: "On 27 December 1919 crowds in Ankara greet you. A small steppe town becomes the heart of the country." } },
+      { t: { tr: "Sivas'ta kal", en: "Stay in Sivas" }, d: { tr: "Düşmandan uzak", en: "Far from the enemy" }, fx: { army: -10, morale: -5 },
+        r: { tr: "Batı cephesiyle haberleşme haftalar sürüyor. Sonunda yine Ankara'ya taşınıyorsunuz, ama geç.", en: "Messages to the western front take weeks. You move to Ankara in the end, but late." } },
+      { t: { tr: "Meclisin açılışı için İstanbul'a dön", en: "Return to Istanbul for the opening of parliament" }, d: { tr: "Siyasetin yakınında ol", en: "Be close to politics" }, fatal: true,
+        r: { tr: "16 Mart 1920'de İngilizler Meclis-i Mebusan'ı basıp milletvekillerini tutukluyor. Malta'ya sürülüyorsunuz.", en: "On 16 March 1920 the British raid the parliament and arrest the deputies. You are exiled to Malta." } },
+    ],
+    after: { nat: ["ankara", "polatli"] },
+    history: { tr: "Mustafa Kemal 27 Aralık 1919'da Ankara'ya geldi. Üç ay sonra, 16 Mart 1920'de İstanbul resmen işgal edildi ve milletvekilleri ona katılmak için Ankara'ya kaçtı.", en: "Mustafa Kemal reached Ankara on 27 December 1919. Three months later, on 16 March 1920, Istanbul was formally occupied and deputies fled to join him." } },
+
+  { date: { tr: "Nisan 1920", en: "April 1920" }, title: { tr: "Millî irade", en: "The nation's own government" }, photo: "tbmm",
+    text: { tr: "Meclis-i Mebusan dağıtıldı. Milletvekilleri Ankara'ya ulaşıyor. Şeyhülislam sizi asi ilan etti.", en: "The Ottoman parliament has been dissolved. Deputies are reaching Ankara. The Sultan's chief cleric has declared you a rebel." },
+    options: [
+      { t: { tr: "Türkiye Büyük Millet Meclisi'ni aç", en: "Open the Grand National Assembly" }, d: { tr: "Egemenlik milletindir", en: "Sovereignty belongs to the nation" }, ok: true, fx: { people: 20, morale: 10 },
+        r: { tr: "23 Nisan 1920'de Ankara'da TBMM açılıyor. Meclis başkanı seçiliyorsunuz.", en: "On 23 April 1920 the Grand National Assembly opens in Ankara. You are elected its president." } },
+      { t: { tr: "Kendini tek başına yönetici ilan et", en: "Declare yourself sole ruler" }, d: { tr: "Savaş diktatörlük ister", en: "War demands a dictator" }, fx: { people: -20, morale: -5 },
+        r: { tr: "Pek çok destekçi yüz çeviriyor. Güveni geri kazanmak için yine de bir meclis toplamak zorunda kalıyorsunuz.", en: "Many supporters turn away. You have to convene an assembly anyway to win back their trust." } },
+    ],
+    after: { nat: ["trabzon", "erzurum", "sivas", "diyarbakir", "van", "eskisehir", "kutahya", "afyon"], greece: ["balikesir", "bursa", "usak", "edirne"] },
+    event: { tr: "1920 yazında Yunanlar saldırıyor: Balıkesir, Bursa, Uşak ve Edirne düşüyor. 10 Ağustos'ta padişah hükûmeti ülkeyi bölen Sevr Antlaşması'nı imzalıyor.", en: "In summer 1920 the Greeks attack: Balıkesir, Bursa, Uşak and Edirne fall. On 10 August the Sultan's government signs the Treaty of Sèvres, which partitions the country." },
+    history: { tr: "23 Nisan bugün Ulusal Egemenlik ve Çocuk Bayramı'dır. TBMM, 1920 tarihli Sevr Antlaşması'nı hiçbir zaman tanımadı.", en: "23 April is now National Sovereignty and Children's Day. The Assembly never recognised the 1920 Treaty of Sèvres." } },
+
+  { date: { tr: "1920", en: "1920" }, title: { tr: "Güney Cephesi", en: "The southern front" }, type: "map",
+    text: { tr: "Fransızlar Çukurova'yı tutuyor. Yerel kuvvetler ayaklanmaya hazır. Yardımı nereye göndermeli? İki şehri kurtarın.", en: "The French hold Cilicia. Local fighters are ready to rise. Where should help go? Liberate two cities." },
+    need: ["maras", "urfa"],
+    targets: {
+      maras: { r: { tr: "22 gün sokak çatışması. 12 Şubat 1920'de Fransız garnizonu Maraş'tan çekiliyor.", en: "22 days of street fighting. On 12 February 1920 the French garrison leaves Maraş." }, fx: { morale: 10, army: -5 } },
+      urfa:  { r: { tr: "Garnizon kuşatılıyor. 11 Nisan 1920'de Fransızlar Urfa'yı terk ediyor.", en: "The garrison is besieged. On 11 April 1920 the French abandon Urfa." }, fx: { morale: 5, people: 5 } },
+      antep: { r: { tr: "Kahramanca savunma 10 ay sürüyor, ama Şubat 1921'de aç kalan şehir teslim oluyor. Ancak antlaşmayla geri dönecek.", en: "A heroic defence lasts ten months, but in February 1921 the starving city surrenders. It will only return by treaty." }, fx: { army: -10, morale: 5 } },
+      adana: { r: { tr: "Adana, topçusu ve zırhlı trenleriyle Fransızların ana üssü. Saldırı ağır kayıplarla püskürtülüyor.", en: "Adana is the main French base, with artillery and armoured trains. The attack is thrown back with heavy losses." }, fx: { army: -15, morale: -10 } },
+    },
+    history: { tr: "Güney çoğunlukla yerel Kuva-yi Milliye tarafından kurtarıldı. Direnişleri için şehirler unvan aldı: Kahramanmaraş, Gaziantep, Şanlıurfa.", en: "The south was freed mostly by local militias. The cities earned honorary titles for their resistance: Kahramanmaraş, Gaziantep, Şanlıurfa." } },
+
+  { date: { tr: "Sonbahar 1920", en: "Autumn 1920" }, title: { tr: "Doğu Cephesi", en: "The eastern front" }, type: "map", photo: "karabekir",
+    text: { tr: "Ermenistan Erzurum'a kadar toprak talep ediyor. Kâzım Karabekir'in 15. Kolordusu ilerlemeye hazır. Hedefi seçin.", en: "Armenia claims land as far as Erzurum. Kâzım Karabekir's XV Corps is ready to advance. Pick the target." },
+    need: ["kars"],
+    targets: {
+      kars:    { r: { tr: "29 Eylül'de Sarıkamış, 30 Ekim'de Kars Kalesi alınıyor. 2–3 Aralık'ta Gümrü Antlaşması imzalanıyor.", en: "Sarıkamış falls on 29 September and the fortress of Kars on 30 October. The Treaty of Gyumri is signed on 2–3 December." }, fx: { army: 10, morale: 15 } },
+      ardahan: { r: { tr: "Ardahan Gürcistan'ın elinde. Bir komşuyla daha savaşmak gücü dağıtıyor, birlik geri çekiliyor.", en: "Ardahan is held by Georgia. A war with yet another neighbour spreads your forces thin, and the unit pulls back." }, fx: { army: -10, people: -5 } },
+    },
+    history: { tr: "Doğudaki zafer, birlikleri batı cephesine kaydırmayı ve Sovyet yardımının yolunu açtı.", en: "Victory in the east freed troops for the western front and opened the route for Soviet aid." } },
+
+  { date: { tr: "Ocak 1921", en: "January 1921" }, title: { tr: "Milis mi, ordu mu", en: "Militia or army" }, photo: "ethem",
+    text: { tr: "Çerkez Ethem'in kuvvetleri Yunanlara karşı yiğitçe savaştı, ama emir dinlemiyor. Ethem «Kuvve-i Seyyare»sinin bağımsız kalmasını istiyor.", en: "Çerkez Ethem's bands fought bravely against the Greeks, but they ignore orders. Ethem wants his \"mobile forces\" to stay independent." },
+    options: [
+      { t: { tr: "Bütün birlikleri düzenli orduya kat", en: "Fold every band into the regular army" }, d: { tr: "Tek komuta", en: "One chain of command" }, ok: true, fx: { army: 10, morale: 5 },
+        r: { tr: "Ethem isyan edip Yunanlara geçiyor, ama askerlerinin çoğu orduda kalıyor. Cephe disipline kavuşuyor.", en: "Ethem rebels and goes over to the Greeks, but most of his men stay with the army. The front gains discipline." } },
+      { t: { tr: "Birlikleri bağımsız bırak", en: "Leave the bands independent" }, d: { tr: "Kahramanlarla bozuşma", en: "Don't fall out with heroes" }, fx: { army: -10, morale: -10 },
+        r: { tr: "Milisler köyleri yağmalıyor ve dağınık hareket ediyor. Yine de dağıtmak zorunda kalıyorsunuz, zaman kaybederek.", en: "The bands loot villages and fight on their own. You have to disband them anyway, and you lose time doing it." } },
+    ],
+    history: { tr: "Ethem isyanı Ocak 1921'de bastırıldı. İsmet Paşa'nın düzenli ordusu ilk sınavını hemen ardından verdi.", en: "Ethem's revolt was put down in January 1921. İsmet Pasha's regular army faced its first test straight after." } },
+
+  { date: { tr: "Ocak – Nisan 1921", en: "Jan – Apr 1921" }, title: { tr: "İnönü", en: "İnönü" }, type: "map", photo: "inonu",
+    text: { tr: "Yunan ordusu Bursa'dan Eskişehir'e ilerliyor. Elinizde genç bir düzenli ordu var. Düşmanı nerede karşılamalı?", en: "The Greek army advances from Bursa towards Eskişehir. You have a young regular army. Where do you meet the enemy?" },
+    need: ["eskisehir"],
+    targets: {
+      eskisehir: { r: { tr: "İsmet Paşa İnönü mevzilerini tutuyor. 6–11 Ocak'ta ve yeniden 23 Mart – 1 Nisan'da Yunanlar geri püskürtülüyor.", en: "İsmet Pasha holds the line at İnönü. On 6–11 January and again on 23 March – 1 April the Greeks are thrown back." }, fx: { morale: 20, people: 10, army: -5 } },
+      bursa:     { r: { tr: "Tahkimli Bursa'ya saldırı genç ordunun gücünü aşıyor. Kayıplar ağır.", en: "Storming fortified Bursa is beyond the young army. Losses are heavy." }, fx: { army: -15, morale: -10 } },
+      izmir:     { r: { tr: "İzmir 400 kilometre ötede, işgal altındaki topraklarda. Kol yolda takılıp kalıyor.", en: "İzmir is 400 kilometres away across occupied land. The column bogs down on the way." }, fx: { army: -15, morale: -5 } },
+    },
+    after: { greece: ["afyon"] },
+    event: { tr: "İkinci taarruz sırasında Yunanlar Afyon'u alıyor.", en: "During the second offensive the Greeks take Afyon." },
+    history: { tr: "İnönü zaferleri Fransa ve İtalya'yı Ankara'yı ciddiye almaya ikna etti. Cephe komutanı daha sonra İnönü soyadını aldı.", en: "The İnönü victories convinced France and Italy to take Ankara seriously. The front commander later took İnönü as his surname." } },
+
+  { date: { tr: "Mart 1921", en: "March 1921" }, title: { tr: "Moskova ile antlaşma", en: "A treaty with Moscow" }, photo: "moscow",
+    text: { tr: "Sovyet Rusya altın ve silah vermeye hazır, ama Kafkasya'da sınırın çizilmesini istiyor. Batum Gürcistan'da kalmalı.", en: "Soviet Russia is ready to send gold and weapons but wants the Caucasus border settled. Batumi must stay with Georgia." },
+    options: [
+      { t: { tr: "İmzala: Batum Gürcistan'a, Kars ve Ardahan Türkiye'ye", en: "Sign: Batumi to Georgia, Kars and Ardahan to Turkey" }, d: { tr: "Yardım limandan önemli", en: "Aid matters more than a port" }, ok: true, fx: { army: 15, people: 5 },
+        r: { tr: "16 Mart 1921'de Moskova Antlaşması imzalanıyor. Trabzon üzerinden tüfek, makineli tüfek ve altın geliyor.", en: "The Treaty of Moscow is signed on 16 March 1921. Rifles, machine guns and gold arrive through Trabzon." } },
+      { t: { tr: "Savaş pahasına da olsa Batum'u iste", en: "Demand Batumi, even at the cost of war" }, d: { tr: "Bir adım geri yok", en: "Not one step back" }, fx: { army: -10, people: -10 },
+        r: { tr: "Görüşmeler kopuyor, birlikler Kafkasya'da bekliyor. Bir ay sonra aynı metni imzalıyorsunuz.", en: "Talks break down and troops sit idle in the Caucasus. A month later you sign the same text." } },
+    ],
+    after: { nat: ["ardahan"] },
+    history: { tr: "Doğu sınırı 13 Ekim 1921 tarihli Kars Antlaşması ile kesinleşti ve bugüne dek neredeyse hiç değişmedi.", en: "The eastern border was fixed by the Treaty of Kars on 13 October 1921 and has barely changed since." } },
+
+  { date: { tr: "Temmuz 1921", en: "July 1921" }, title: { tr: "Geri çekilme", en: "The retreat" },
+    text: { tr: "Yunanlar 100 bin asker topladı ve Kütahya'da cepheyi yardı. Eskişehir tehlikede. Ordu yorgun.", en: "The Greeks have massed 100,000 men and broken the front at Kütahya. Eskişehir is threatened. The army is exhausted." },
+    options: [
+      { t: { tr: "Orduyu Sakarya Nehri'nin doğusuna çek", en: "Pull the army back behind the Sakarya river" }, d: { tr: "Toprak ver, orduyu koru", en: "Give up ground, save the army" }, ok: true, fx: { morale: -5, army: 10 },
+        r: { tr: "Ordu düzenli biçimde 200 km doğuya çekiliyor. Ankara'da homurdanmalar var, ama birlikler sağlam.", en: "The army falls back 200 km east in good order. Ankara grumbles, but the units are intact." } },
+      { t: { tr: "Eskişehir'i ne pahasına olursa olsun tut", en: "Hold Eskişehir at any cost" }, d: { tr: "Bir karış toprak verme", en: "Not an inch of ground" }, fx: { army: -25, morale: -10 },
+        r: { tr: "Kuşatılan tümenler yok oluyor. Kalanlar yine de Sakarya'nın gerisine çekiliyor.", en: "The encircled divisions are destroyed. The survivors fall back behind the Sakarya anyway." } },
+    ],
+    after: { greece: ["kutahya", "eskisehir"] },
+    history: { tr: "Geri çekilme kararı Meclis'te fırtına kopardı. 5 Ağustos 1921'de TBMM, Mustafa Kemal'i olağanüstü yetkilerle Başkomutan atadı.", en: "The decision to retreat caused uproar in the Assembly. On 5 August 1921 it appointed Mustafa Kemal Commander-in-Chief with emergency powers." } },
+
+  { date: { tr: "Ağustos 1921", en: "August 1921" }, title: { tr: "Her şey cephe için", en: "Everything for the front" },
+    text: { tr: "Artık Başkomutansınız. Ordunun her şeyi eksik: kaput, çarık, at, ekmek.", en: "You are now Commander-in-Chief. The army lacks everything: coats, boots, horses, bread." },
+    options: [
+      { t: { tr: "Tekâlif-i Milliye emirlerini yayımla", en: "Issue the National Obligations orders (Tekâlif-i Milliye)" }, d: { tr: "Her aile elindekinin bir kısmını orduya verir", en: "Every household gives part of its stores to the army" }, ok: true, fx: { army: 20, people: -5 },
+        r: { tr: "Kadınlar kağnılarla cepheye cephane taşıyor. Ordu ülkedeki kumaşın ve derinin yüzde 40'ını alıyor.", en: "Women haul shells to the front on ox carts. The army receives 40% of the country's cloth and leather." } },
+      { t: { tr: "Meclisin oylamasını bekle", en: "Wait for the Assembly to vote" }, d: { tr: "Halka yük olma", en: "Don't burden the people" }, fx: { army: -10, morale: -10 },
+        r: { tr: "Tartışmalar haftalarca sürüyor. Askerler düşmanı yalınayak karşılıyor.", en: "The debate drags on for weeks. The soldiers meet the enemy barefoot." } },
+    ],
+    history: { tr: "Tekâlif-i Milliye emirleri 7–8 Ağustos 1921'de yayımlandı. Kağnıyla cephane taşıyan kadın, savaşın simgesi oldu.", en: "The National Obligations orders were issued on 7–8 August 1921. The woman hauling ammunition by ox cart became a symbol of the war." } },
+
+  { date: { tr: "23 Ağustos 1921", en: "23 August 1921" }, title: { tr: "Sakarya", en: "Sakarya" }, photo: "sakarya",
+    text: { tr: "Yunan ordusu Ankara üzerine yürüyor. Cephe nehir boyunca 100 kilometre uzanıyor. Savunmayı nasıl kurmalı?", en: "The Greek army marches on Ankara. The front stretches 100 kilometres along the river. How do you organise the defence?" },
+    options: [
+      { t: { tr: "«Hattı müdafaa yoktur, sathı müdafaa vardır»", en: "\"There is no line of defence, only a surface of defence\"" }, d: { tr: "Mevzi ver, ama her yerden karşı saldırıya geç", en: "Yield positions but counter-attack from everywhere" }, ok: true, fx: { morale: 25, army: -10, people: 10 },
+        r: { tr: "22 gün süren muharebe. Yunanlar tükeniyor ve 13 Eylül'de Sakarya'nın batısına çekiliyor.", en: "22 days of battle. The Greeks wear themselves out and on 13 September retreat west of the Sakarya." } },
+      { t: { tr: "Katı hat savunması: her siperi tut", en: "A rigid line: hold every trench" }, d: { tr: "Klasik savunma", en: "Textbook defence" }, fx: { army: -25, morale: -10 },
+        r: { tr: "Tek bir noktadaki yarılma bütün cepheyi çökertiyor. Savunmayı yolda yeniden kuruyor, Ankara'yı ağır kayıplarla tutuyorsunuz.", en: "A breach at one point collapses the whole line. You rebuild the defence on the move and hold Ankara at a terrible cost." } },
+    ],
+    quote: { q: { tr: "Hattı müdafaa yoktur, sathı müdafaa vardır. O satıh bütün vatandır.", en: "There is no line of defence, only a surface of defence. That surface is the whole homeland." }, by: { tr: "Mustafa Kemal, Sakarya, 1921", en: "Mustafa Kemal, Sakarya, 1921" } },
+    history: { tr: "Sakarya Meydan Muharebesi savaşın dönüm noktasıdır. 19 Eylül 1921'de TBMM, Mustafa Kemal'e Mareşal rütbesi ve Gazi unvanını verdi.", en: "The Battle of Sakarya was the turning point of the war. On 19 September 1921 the Assembly made Mustafa Kemal a Marshal and gave him the title Gazi." } },
+
+  { date: { tr: "Ekim 1921", en: "October 1921" }, title: { tr: "Fransa ile barış", en: "Peace with France" },
+    text: { tr: "Sakarya'dan sonra Fransa çıkış yolu arıyor. Çukurova'yı geri vermeye hazır, ama İskenderun'u (Hatay) elinde tutmak istiyor.", en: "After Sakarya, France wants a way out. It will return Cilicia but wants to keep Alexandretta (Hatay)." },
+    options: [
+      { t: { tr: "Ankara Antlaşması'nı imzala", en: "Sign the Treaty of Ankara" }, d: { tr: "Güneyi savaşsız al, Hatay'ı sonra", en: "Recover the south without war, Hatay later" }, ok: true, fx: { army: 15, people: 10 },
+        r: { tr: "20 Ekim 1921'de antlaşma imzalanıyor. Fransızlar silahlarını bırakıyor. İtalya Antalya'dan zaten çekildi.", en: "The treaty is signed on 20 October 1921. The French leave their weapons behind. Italy has already left Antalya." } },
+      { t: { tr: "Bütün güney için savaş", en: "Fight for the whole south at once" }, d: { tr: "Hatay da bizim", en: "Hatay is ours too" }, fx: { army: -15, morale: -5 },
+        r: { tr: "İki cephe orduyu tüketiyor. Birkaç ay sonra aynı şartları kabul ediyorsunuz.", en: "Two fronts drain the army. A few months later you accept the same terms." } },
+    ],
+    after: { nat: ["adana", "mersin", "antep", "maras", "urfa", "antalya", "konya"] },
+    history: { tr: "Ankara Antlaşması, Batılı büyük bir devletin Ankara hükûmetini ilk tanımasıydı. Hatay ancak 1939'da anavatana katıldı.", en: "The Treaty of Ankara was the first recognition of the Ankara government by a Western power. Hatay joined Turkey only in 1939." } },
+
+  { date: { tr: "İlkbahar 1922", en: "Spring 1922" }, title: { tr: "Fırtına öncesi sessizlik", en: "The calm before the storm" }, photo: "staff",
+    text: { tr: "Halk ve Meclis hemen taarruz istiyor. Ordu henüz hazır değil: süvari ve top eksik.", en: "The people and the Assembly want an offensive now. The army is not ready: it is short of cavalry and guns." },
+    options: [
+      { t: { tr: "Bir yıl daha hazırlan, birlikleri gece kaydır", en: "Prepare for another year and move troops by night" }, d: { tr: "Taarruzun yönünü gizle", en: "Hide where the blow will fall" }, ok: true, fx: { army: 20, morale: 10, people: -5 },
+        r: { tr: "Tümenler geceleri yürüyor, gündüzleri saklanıyor. Yunan istihbaratı hiçbir şey fark etmiyor.", en: "Divisions march at night and hide by day. Greek intelligence notices nothing." } },
+      { t: { tr: "Hemen saldır", en: "Attack now" }, d: { tr: "Zaman kaybedilemez", en: "There is no time to lose" }, fx: { army: -20, morale: -15 },
+        r: { tr: "Taarruz Yunan tahkimatına çarpıp dağılıyor. Hazırlığa baştan başlamak gerekiyor.", en: "The offensive breaks on the Greek fortifications. Preparations have to start over." } },
+    ],
+    history: { tr: "Ordu neredeyse bir yıl hazırlandı. Taarruzdan önce Mustafa Kemal Ankara'da bir çay daveti verileceğini duyurdu, kendisi ise gizlice cepheye gitti.", en: "The army prepared for almost a year. Before the offensive Mustafa Kemal announced a tea party in Ankara and slipped away to the front in secret." } },
+
+  { date: { tr: "26 Ağustos 1922", en: "26 August 1922" }, title: { tr: "Büyük Taarruz", en: "The Great Offensive" }, type: "map", photo: "kocatepe",
+    text: { tr: "Ordu hazır. Yunanlar darbeyi kuzeyde, Eskişehir'de bekliyor. Cepheyi nereden yarmalı?", en: "The army is ready. The Greeks expect the blow in the north, at Eskişehir. Where do you break the front?" },
+    need: ["afyon"],
+    targets: {
+      afyon:     { r: { tr: "Şafakta Kocatepe'den toplar gürlüyor. Cephe yarılıyor, 27 Ağustos'ta Afyon alınıyor. 30 Ağustos'ta Yunan ordusu Dumlupınar'da bozguna uğruyor.", en: "At dawn the guns open up from Kocatepe. The front breaks and Afyon falls on 27 August. On 30 August the Greek army is routed at Dumlupınar." }, fx: { morale: 25, army: -5, people: 10 } },
+      eskisehir: { r: { tr: "Yunanlar yedeklerini burada topladı. Saldırı boğuluyor.", en: "This is where the Greeks massed their reserves. The attack stalls." }, fx: { army: -15, morale: -10 } },
+      izmir:     { r: { tr: "Çıkarma için donanmanız yok. Plan kurmay heyetince reddediliyor, zaman kaybediliyor.", en: "You have no fleet for a landing. The staff rejects the plan, and time is lost." }, fx: { morale: -10 } },
+    },
+    after: { nat: ["kutahya"] },
+    history: { tr: "30 Ağustos, Dumlupınar'daki Başkomutanlık Meydan Muharebesi'dir. Bugün Türkiye'de Zafer Bayramı olarak kutlanır.", en: "30 August is the Battle of the Commander-in-Chief at Dumlupınar. Turkey celebrates it today as Victory Day." } },
+
+  { date: { tr: "Eylül 1922", en: "September 1922" }, title: { tr: "İleri, denize", en: "Onward to the sea" }, type: "map", photo: "izmir",
+    text: { tr: "Yunan ordusu kaçıyor. Batıyı kurtarın: Uşak, İzmir, Bursa, Balıkesir ve Eskişehir.", en: "The Greek army is in flight. Free the west: Uşak, İzmir, Bursa, Balıkesir and Eskişehir." },
+    need: ["usak", "izmir", "bursa", "balikesir", "eskisehir"],
+    targets: {
+      usak:      { r: { tr: "2 Eylül'de Yunan başkomutanı Trikupis esir alınıyor.", en: "On 2 September the Greek commander-in-chief Trikoupis is captured." }, fx: { morale: 5 } },
+      izmir:     { r: { tr: "9 Eylül'de süvariler İzmir'e giriyor. Batıda savaş bitti.", en: "On 9 September the cavalry rides into İzmir. The war in the west is over." }, fx: { morale: 10, people: 10 } },
+      bursa:     { r: { tr: "11 Eylül'de Bursa kurtarılıyor.", en: "Bursa is liberated on 11 September." }, fx: { people: 5 } },
+      balikesir: { r: { tr: "6 Eylül'de Balıkesir kurtarılıyor.", en: "Balıkesir is liberated on 6 September." }, fx: { people: 5 } },
+      eskisehir: { r: { tr: "2 Eylül'de Yunanlar Eskişehir'i terk ediyor.", en: "On 2 September the Greeks abandon Eskişehir." }, fx: { people: 5 } },
+    },
+    quote: { q: { tr: "Ordular! İlk hedefiniz Akdeniz'dir. İleri!", en: "Armies! Your first objective is the Mediterranean. Forward!" }, by: { tr: "Başkomutan'ın emri, 1 Eylül 1922", en: "Order of the Commander-in-Chief, 1 September 1922" } },
+    history: { tr: "Ordu iki haftada 400 kilometre ilerledi. Yunan birlikleri denizden tahliye edildi.", en: "The army covered 400 kilometres in two weeks. The Greek forces were evacuated by sea." } },
+
+  { date: { tr: "Eylül 1922", en: "September 1922" }, title: { tr: "Çanakkale Krizi", en: "The Chanak Crisis" }, photo: "mudanya",
+    text: { tr: "Birlikleriniz Boğazlar'daki tarafsız bölgeye dayandı. Orada İngilizler var. Londra savaşla tehdit ediyor.", en: "Your troops have reached the neutral zone at the Straits. The British are there. London threatens war." },
+    options: [
+      { t: { tr: "Dur ve müzakere et", en: "Halt and negotiate" }, d: { tr: "Trakya'yı yeni bir savaş olmadan al", en: "Win Thrace without another war" }, ok: true, fx: { people: 10, morale: 5 },
+        r: { tr: "11 Ekim'de Mudanya Mütarekesi imzalanıyor. Doğu Trakya ve Edirne savaşsız geri dönüyor.", en: "The Mudanya Armistice is signed on 11 October. Eastern Thrace and Edirne return without a fight." } },
+      { t: { tr: "İngiliz mevzilerine saldır", en: "Storm the British positions" }, d: { tr: "Düşmanın işini bitir", en: "Finish the enemy off" }, fx: { army: -25, people: -10 },
+        r: { tr: "İngiliz donanması kıyıyı bombalıyor. Büyük bir savaştan sizi ancak Fransa ve İtalya'nın araya girmesi kurtarıyor.", en: "The British fleet shells the coast. Only French and Italian mediation prevents a major war." } },
+    ],
+    after: { nat: ["edirne"] },
+    history: { tr: "Saldırmamak, Mustafa Kemal'in en soğukkanlı kararlarından biriydi. 1 Kasım 1922'de TBMM saltanatı kaldırdı.", en: "Holding back was one of Mustafa Kemal's coolest-headed decisions. On 1 November 1922 the Assembly abolished the sultanate." } },
+
+  { date: { tr: "1923", en: "1923" }, title: { tr: "Lozan", en: "Lausanne" }, photo: "lausanne",
+    text: { tr: "Barış konferansında heyeti İsmet Paşa yönetiyor. Müttefikler kapitülasyonları, yani yabancıların Türk yasalarına tabi olmama ayrıcalığını korumak istiyor.", en: "İsmet Pasha leads the delegation at the peace conference. The Allies want to keep the capitulations, the privilege that put foreigners beyond Turkish law." },
+    options: [
+      { t: { tr: "Sonuna kadar dayan: kapitülasyonlar kalkmalı", en: "Stand firm: the capitulations must go" }, d: { tr: "Tam bağımsızlık", en: "Full sovereignty" }, ok: true, fx: { people: 15, morale: 10 },
+        r: { tr: "Görüşmeler iki kez kesiliyor, ama 24 Temmuz 1923'te Lozan Antlaşması imzalanıyor. Kapitülasyonlar kaldırılıyor.", en: "Talks break down twice, but the Treaty of Lausanne is signed on 24 July 1923. The capitulations are abolished." } },
+      { t: { tr: "Çabuk barış için taviz ver", en: "Give ground for a quick peace" }, d: { tr: "Ülke savaştan yoruldu", en: "The country is tired of war" }, fx: { people: -15, morale: -10 },
+        r: { tr: "Meclis antlaşmayı onaylamayı reddediyor. Heyet masaya dönüp kapitülasyonların kaldırılmasını sağlıyor.", en: "The Assembly refuses to ratify. The delegation goes back to the table and gets the capitulations abolished." } },
+    ],
+    after: { nat: ["istanbul", "canakkale"] },
+    history: { tr: "Lozan, Türkiye'nin bağımsızlığını ve sınırlarını tanıdı. 6 Ekim 1923'te Türk ordusu İstanbul'a girdi, 13 Ekim'de Ankara başkent oldu.", en: "Lausanne recognised Turkey's independence and borders. On 6 October 1923 Turkish troops entered Istanbul, and on 13 October Ankara became the capital." } },
+
+  { date: { tr: "29 Ekim 1923", en: "29 October 1923" }, title: { tr: "Cumhuriyet", en: "The Republic" }, photo: "republic",
+    text: { tr: "Savaş bitti. Geriye devletin nasıl olacağına karar vermek kaldı.", en: "The war is over. What remains is to decide what kind of state this will be." },
+    options: [
+      { t: { tr: "Türkiye Cumhuriyeti'ni ilan et", en: "Proclaim the Republic of Turkey" }, d: { tr: "Egemenlik kayıtsız şartsız milletindir", en: "Sovereignty belongs to the nation, without condition" }, ok: true, fx: { people: 10, morale: 10 },
+        r: { tr: "29 Ekim 1923'te TBMM Cumhuriyet'i ilan ediyor. Mustafa Kemal ilk cumhurbaşkanı seçiliyor.", en: "On 29 October 1923 the Assembly proclaims the Republic. Mustafa Kemal is elected its first president." } },
+    ],
+    quote: { q: { tr: "Efendiler, yarın cumhuriyeti ilan edeceğiz.", en: "Gentlemen, tomorrow we shall proclaim the republic." }, by: { tr: "Mustafa Kemal, 28 Ekim 1923 akşamı", en: "Mustafa Kemal, evening of 28 October 1923" } },
+    history: { tr: "1934'te Meclis ona Atatürk soyadını verdi. 10 Kasım 1938'de hayatını kaybetti. Hatay 1939'da katıldı ve harita bugünkü hâlini aldı.", en: "In 1934 the Assembly gave him the surname Atatürk, \"father of the Turks\". He died on 10 November 1938. Hatay joined in 1939, and the map took its modern shape." },
+    final: true },
+];
+
+/* ---------- State ---------- */
+const START = { army: 35, morale: 50, people: 30 };
+let S;
+function fresh() {
+  const owner = {}; for (const k in REGIONS) owner[k] = REGIONS[k].s;
+  return { ch: 0, stats: { ...START }, owner, phase: "intro", good: 0, bad: 0, taken: [], last: null, over: false, won: false, why: null };
+}
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tx = (x) => esc(t(x));
+
+// Gains are halved so a long good streak does not make later mistakes free; losses hit in full.
+const gain = (v) => (v > 0 ? Math.round(v / 2) : v);
+function applyFx(fx = {}) {
+  for (const k in fx) S.stats[k] = Math.max(0, Math.min(100, S.stats[k] + gain(fx[k])));
+}
+function applyAfter(after = {}) {
+  for (const side in after) for (const id of after[side]) S.owner[id] = side;
+}
+function dead() { return Object.keys(S.stats).find((k) => S.stats[k] <= 0); }
+
+/* ---------- Map ---------- */
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); parent && parent.appendChild(e); return e; }
+const FOREIGN = [
+  ["sea-label", 560, 22, { tr: "KARADENİZ", en: "BLACK SEA" }], ["sea-label", 330, 455, { tr: "AKDENİZ", en: "MEDITERRANEAN" }], ["sea-label", 20, 330, { tr: "EGE", en: "AEGEAN" }],
+  ["foreign", 20, 30, { tr: "Bulgaristan", en: "Bulgaria" }], ["foreign", 14, 110, { tr: "Yunanistan", en: "Greece" }], ["foreign", 640, 455, { tr: "Suriye", en: "Syria" }], ["foreign", 840, 440, { tr: "Irak", en: "Iraq" }],
+  ["foreign", 948, 330, { tr: "İran", en: "Iran" }], ["foreign", 808, 40, { tr: "Gürcistan", en: "Georgia" }], ["foreign", 924, 175, { tr: "Ermenistan", en: "Armenia" }],
+];
+
+function buildMap() {
+  const svg = $("map");
+  const g = el("g", { class: "grid" }, svg);
+  for (let lon = 26; lon <= 45; lon += 2) { const [x] = P([lon, 0]); el("line", { x1: x, y1: 0, x2: x, y2: 470 }, g); }
+  for (let lat = 36; lat <= 42; lat += 1) { const [, y] = P([0, lat]); el("line", { x1: 0, y1: y, x2: 1000, y2: y }, g); }
+  for (const poly of [ANATOLIA, THRACE]) el("polygon", { class: "land", points: poly.map((p) => P(p).join(",")).join(" ") }, svg);
+  FOREIGN.forEach(([c, x, y], i) => el("text", { class: c, x, y, id: "f-" + i }, svg));
+  for (const id in REGIONS) {
+    const r = REGIONS[id]; const [x, y] = P(r.ll);
+    const node = el("g", { class: "node", id: "n-" + id, tabindex: 0, role: "button" }, svg);
+    el("circle", { class: "ring", cx: x, cy: y, r: 13 }, node);
+    el("circle", { class: "dot", cx: x, cy: y, r: 9 }, node);
+    const pos = LABEL_POS[id] || "r";
+    const [dx, dy, anchor] = { r: [13, 4, "start"], l: [-13, 4, "end"], t: [0, -15, "middle"], b: [0, 25, "middle"] }[pos];
+    el("text", { x: x + dx, y: y + dy, "text-anchor": anchor }, node);
+    node.addEventListener("click", () => clickRegion(id));
+    node.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); clickRegion(id); } });
+  }
+}
+
+function labelMap() {
+  $("map").setAttribute("aria-label", t(UI.mapLabel));
+  FOREIGN.forEach(([, , , txt], i) => ($("f-" + i).textContent = t(txt)));
+  for (const id in REGIONS) {
+    const node = $("n-" + id); const name = t(REGIONS[id].n);
+    node.querySelector("text").textContent = name; node.setAttribute("aria-label", name);
+  }
+  $("legend").innerHTML = Object.values(SIDES).map((s) => `<span class="lg"><i style="background:${s.c}"></i>${tx(s.n)}</span>`).join("");
+}
+
+function paintMap() {
+  const ch = CHAPTERS[S.ch];
+  const targets = !S.over && S.phase === "ask" && ch.type === "map" ? Object.keys(ch.targets).filter((x) => !S.taken.includes(x)) : [];
+  for (const id in REGIONS) {
+    const node = $("n-" + id);
+    node.querySelector(".dot").setAttribute("fill", SIDES[S.owner[id]].c);
+    node.classList.toggle("target", targets.includes(id));
+    node.classList.toggle("dim", targets.length > 0 && !targets.includes(id));
+  }
+}
+
+let infoId = null;
+function showInfo() {
+  if (!infoId) { $("info").textContent = t(UI.infoDefault); return; }
+  const r = REGIONS[infoId];
+  $("info").innerHTML = `<b>${tx(r.n)}</b> · ${tx(SIDES[S.owner[infoId]].n)}<br>${tx(r.note)}`;
+}
+function clickRegion(id) {
+  const ch = CHAPTERS[S.ch];
+  if (!S.over && S.phase === "ask" && ch.type === "map" && ch.targets[id] && !S.taken.includes(id)) return pickTarget(id);
+  infoId = id; showInfo();
+}
+
+/* ---------- Flow ---------- */
+function choose(i) {
+  const ch = CHAPTERS[S.ch]; const o = ch.options[i];
+  if (o.ok) S.good++; else S.bad++;
+  applyFx(o.fx);
+  S.last = { ok: !!o.ok, r: o.r, fx: o.fx || {} };
+  if (o.fatal) { S.over = true; S.why = o.r; return render(); }
+  applyAfter(ch.after);
+  S.phase = "result";
+  if (dead()) S.over = true;
+  render();
+}
+
+function pickTarget(id) {
+  const ch = CHAPTERS[S.ch]; const tg = ch.targets[id]; const ok = ch.need.includes(id);
+  S.taken.push(id);
+  applyFx(tg.fx);
+  if (ok) S.owner[id] = "nat"; else S.bad++;
+  const left = ch.need.filter((n) => !S.taken.includes(n));
+  S.last = { ok, r: tg.r, fx: tg.fx || {}, place: id, left: left.length };
+  if (dead()) { S.over = true; return render(); }
+  if (left.length === 0) { S.good++; applyAfter(ch.after); S.phase = "result"; }
+  else S.phase = "step";
+  render();
+}
+
+function next() {
+  if (S.phase === "intro" || S.phase === "step") { S.phase = "ask"; return render(); }
+  const ch = CHAPTERS[S.ch];
+  if (ch.final) { S.over = true; S.won = true; S.owner.hatay = "nat"; return render(); }
+  S.ch++; S.taken = []; S.phase = "ask"; S.last = null;
+  render();
+}
+
+function restart() { S = fresh(); infoId = null; render(); }
+const rankOf = () => RANKS.find((r) => S.bad <= r.max);
+
+/* ---------- Share card (canvas) ---------- */
+const imgCache = {};
+function loadImg(src) {
+  return imgCache[src] ||= new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+}
+function drawFlag(ctx, cx, cy, h) {
+  // Turkish flag proportions: crescent outer circle 0.5h, inner 0.4h offset 0.0625h, star 0.25h diameter
+  // Cut the inner circle out instead of painting it red, so whatever is behind (gradient, photo) shows through
+  const off = document.createElement("canvas"); off.width = ctx.canvas.width; off.height = ctx.canvas.height;
+  const o = off.getContext("2d");
+  o.fillStyle = "#fff";
+  o.beginPath(); o.arc(cx, cy, h * 0.25, 0, Math.PI * 2); o.fill();
+  o.globalCompositeOperation = "destination-out";
+  o.beginPath(); o.arc(cx + h * 0.0625, cy, h * 0.2, 0, Math.PI * 2); o.fill();
+  ctx.drawImage(off, 0, 0);
+  const sx = cx + h * 0.0625 + h * 0.2 + h * 0.0333 + h * 0.125 - h * 0.125 * 0.19, sR = h * 0.125, sr = sR * 0.382;
+  ctx.fillStyle = "#fff"; ctx.beginPath();
+  for (let k = 0; k < 10; k++) {
+    const a = Math.PI + (k * Math.PI) / 5, rr = k % 2 ? sr : sR;
+    ctx.lineTo(sx + rr * Math.cos(a), cy + rr * Math.sin(a));
+  }
+  ctx.closePath(); ctx.fill();
+}
+function wrapText(ctx, text, x, y, maxW, lh) {
+  const words = text.split(" "); let line = ""; const lines = [];
+  for (const w of words) { const test = line ? line + " " + w : w; if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; } else line = test; }
+  lines.push(line); lines.forEach((l, i) => ctx.fillText(l, x, y + i * lh)); return lines.length;
+}
+async function makeCard() {
+  const W = 1080, H = 1350;
+  const c = document.createElement("canvas"); c.width = W; c.height = H;
+  const ctx = c.getContext("2d");
+  try { await Promise.all(["800 120px 'Playfair Display'", "500 40px 'Playfair Display'", "700 30px 'PT Sans Narrow'", "400 30px 'PT Serif'"].map((f) => document.fonts.load(f))); } catch (e) {}
+  const portrait = await loadImg(PHOTOS.portrait.f).catch(() => null);
+  const rank = rankOf(); const total = S.good + S.bad;
+
+  // red field
+  ctx.fillStyle = "#e30a17"; ctx.fillRect(0, 0, W, H);
+  // portrait, multiplied into the red so the white studio ground disappears
+  if (portrait) {
+    const ph = 1000, pw = (portrait.width / portrait.height) * ph;
+    const off = document.createElement("canvas"); off.width = W; off.height = H; const o = off.getContext("2d");
+    o.filter = "grayscale(1) contrast(1.25) brightness(1.05)";
+    o.drawImage(portrait, W - pw + 90, H - ph, pw, ph);
+    ctx.save(); ctx.globalCompositeOperation = "multiply"; ctx.drawImage(off, 0, 0); ctx.restore();
+  }
+  // dark fade on the left for legibility
+  const gr = ctx.createLinearGradient(0, 0, W * 0.75, 0);
+  gr.addColorStop(0, "rgba(90,0,6,.75)"); gr.addColorStop(1, "rgba(90,0,6,0)");
+  ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+  // flag mark
+  drawFlag(ctx, 150, 170, 220);
+  // question
+  ctx.fillStyle = "#fff"; ctx.textBaseline = "alphabetic";
+  ctx.font = "700 34px 'PT Sans Narrow', 'Arial Narrow', sans-serif";
+  if ("letterSpacing" in ctx) ctx.letterSpacing = "3px";
+  wrapText(ctx, t(UI.cardQ), 80, 380, 560, 44);
+  // rank
+  ctx.font = "700 28px 'PT Sans Narrow', 'Arial Narrow', sans-serif";
+  ctx.fillStyle = "rgba(255,255,255,.75)";
+  ctx.fillText(t(UI.cardRank), 80, 640);
+  if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+  ctx.fillStyle = "#fff";
+  const rn = t(rank.n).toLocaleUpperCase(LOCALE[LANG]);
+  let size = 150; ctx.font = `800 ${size}px 'Playfair Display', Didot, serif`;
+  while (ctx.measureText(rn).width > 620 && size > 70) { size -= 6; ctx.font = `800 ${size}px 'Playfair Display', Didot, serif`; }
+  ctx.fillText(rn, 72, 640 + size * 0.95);
+  // score
+  ctx.font = "500 44px 'Playfair Display', Didot, serif";
+  ctx.fillText(fmt(t(UI.cardScore), { c: S.good, n: total }), 80, 640 + size * 0.95 + 80);
+  ctx.font = "italic 400 30px 'PT Serif', Georgia, serif"; ctx.fillStyle = "rgba(255,255,255,.88)";
+  wrapText(ctx, t(rank.d), 80, 640 + size * 0.95 + 140, 560, 40);
+  // footer band
+  ctx.fillStyle = "rgba(0,0,0,.35)"; ctx.fillRect(0, H - 96, W, 96);
+  ctx.fillStyle = "#fff"; ctx.font = "700 28px 'PT Sans Narrow', 'Arial Narrow', sans-serif";
+  if ("letterSpacing" in ctx) ctx.letterSpacing = "3px";
+  const foot = t(UI.cardFoot).toLocaleUpperCase(LOCALE[LANG]);
+  let fs = 26; ctx.font = `700 ${fs}px 'PT Sans Narrow', 'Arial Narrow', sans-serif`;
+  while (ctx.measureText(foot).width > 560 && fs > 16) { fs -= 1; ctx.font = `700 ${fs}px 'PT Sans Narrow', 'Arial Narrow', sans-serif`; }
+  ctx.fillText(foot, 80, H - 38);
+  if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+  ctx.font = "800 34px 'Playfair Display', Didot, serif"; ctx.textAlign = "right";
+  ctx.fillText(GAME_URL.replace("https://", ""), W - 60, H - 36); ctx.textAlign = "left";
+  return c;
+}
+
+let cardBlob = null;
+async function renderCard() {
+  const box = $("card"); if (!box) return;
+  const canvas = await makeCard();
+  cardBlob = await new Promise((res) => canvas.toBlob(res, "image/png"));
+  const url = URL.createObjectURL(cardBlob);
+  box.innerHTML = `<img src="${url}" alt="${tx(UI.cardTitle)}: ${tx(rankOf().n)}">`;
+  const filename = "gazi-" + t(rankOf().n).toLowerCase() + ".png";
+  const btn = $("save");
+  if (!IN_CLAUDE) {
+    btn.hidden = false;
+    btn.onclick = () => { const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); $("status").textContent = t(UI.saved); };
+    const nb = $("share-native");
+    const file = new File([cardBlob], filename, { type: "image/png" });
+    if (navigator.share) {
+      nb.hidden = false;
+      nb.onclick = async () => {
+        const text = $("share-text").textContent;
+        const data = navigator.canShare?.({ files: [file] }) ? { files: [file], text } : { text, url: GAME_URL };
+        try { await navigator.share(data); $("status").textContent = t(UI.shared); } catch (e) {}
+      };
+    }
+    return;
+  }
+  const downloads = await (window.claude?.use?.("downloads") ?? null);
+  if (!downloads) { btn.hidden = true; $("status").textContent = t(UI.noSave); return; }
+  btn.hidden = false;
+  btn.onclick = async () => {
+    try { await downloads.save({ filename, data: cardBlob }); $("status").textContent = t(UI.saved); }
+    catch (e) { $("status").textContent = e && e.code === "declined" ? t(UI.declined) : t(UI.noSave); }
+  };
+}
+
+function shareLinks(text) {
+  const u = encodeURIComponent(GAME_URL), tx_ = encodeURIComponent(text);
+  const links = [
+    ["X", `https://twitter.com/intent/tweet?text=${tx_}&url=${u}`],
+    ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${u}`],
+    ["WhatsApp", `https://wa.me/?text=${encodeURIComponent(text + " " + GAME_URL)}`],
+    ["Telegram", `https://t.me/share/url?url=${u}&text=${tx_}`],
+  ];
+  return `<div class="social"><span>${tx(UI.shareOn)}</span>${links.map(([n, h]) => `<a href="${h}" target="_blank" rel="noopener">${n}</a>`).join("")}</div>`;
+}
+
+/* ---------- Render ---------- */
+function renderChrome() {
+  document.documentElement.lang = LANG;
+  $("sub").textContent = t(UI.sub);
+  for (const k of ["army", "morale", "people"]) $("l-" + k).textContent = t(UI[k]);
+  for (const l of ["tr", "en", "ru"]) $("lang-" + l).setAttribute("aria-pressed", LANG === l);
+  labelMap(); showInfo();
+}
+function renderStats() {
+  $("date").textContent = t(CHAPTERS[S.ch].date);
+  for (const k of ["army", "morale", "people"]) {
+    $("v-" + k).textContent = S.stats[k];
+    $("b-" + k).querySelector("i").style.width = S.stats[k] + "%";
+    $("b-" + k).classList.toggle("low", S.stats[k] < 20);
+  }
+}
+function fxChips(fx) {
+  return Object.entries(fx).map(([k, v]) => [k, gain(v)]).filter(([, v]) => v).map(([k, v]) => `<span class="chip ${v > 0 ? "up" : "down"}">${tx(UI[k])} ${v > 0 ? "+" : ""}${v}</span>`).join("");
+}
+function figure(key) {
+  const p = PHOTOS[key]; if (!p) return "";
+  const credit = `${t(UI.photo)}: ${p.by ? esc(p.by) : t(UI.unknown)} · ${p.lic === "pd" ? t(UI.pd) : esc(p.lic)} · <a href="${p.page}" target="_blank" rel="noopener">Wikimedia Commons</a>`;
+  return `<figure class="${p.tall ? "tall" : ""}"><img src="${p.f}" alt="${tx(p.cap)}" loading="lazy"><figcaption>${tx(p.cap)}<br>${credit}</figcaption></figure>`;
+}
+
+function render() {
+  renderStats(); paintMap();
+  const sheet = $("sheet");
+  if (S.phase === "intro") return renderIntro();
+  if (S.over) return S.won ? renderVictory() : renderDefeat();
+
+  const ch = CHAPTERS[S.ch];
+  const prog = `<div class="progress">${CHAPTERS.map((_, i) => `<i class="${i < S.ch || (i === S.ch && S.phase === "result") ? "done" : ""}"></i>`).join("")}</div>`;
+  let html = `${prog}<div class="eyebrow"><span>${esc(fmt(t(UI.chapter), { n: S.ch + 1, total: CHAPTERS.length }))}</span><span>${tx(ch.date)}</span></div><h2>${tx(ch.title)}</h2>`;
+
+  if (S.phase === "ask") {
+    html += `<p>${tx(ch.text)}</p>`;
+    if (ch.type === "map") {
+      const open = Object.keys(ch.targets).filter((x) => !S.taken.includes(x));
+      const done = ch.need.filter((n) => S.taken.includes(n)).length;
+      html += `<p class="hint">${esc(fmt(t(UI.targets), { d: done, total: ch.need.length }))}</p>
+        <div class="opts">${open.map((x) => `<button class="opt" data-t="${x}">${tx(UI.attack)}${tx(REGIONS[x].n)}<small>${tx(SIDES[S.owner[x]].n)}</small></button>`).join("")}</div>`;
+    } else {
+      html += `<div class="opts">${ch.options.map((o, i) => `<button class="opt" data-i="${i}">${tx(o.t)}<small>${tx(o.d)}</small></button>`).join("")}</div>`;
+    }
+  } else {
+    const L = S.last;
+    html += `<div class="verdict ${L.ok ? "ok" : "no"}">${tx(L.ok ? UI.ok : UI.bad)}${L.place ? " · " + tx(REGIONS[L.place].n) : ""}</div>
+      <p>${tx(L.r)}</p><div class="chips">${fxChips(L.fx)}</div>`;
+    if (S.phase === "step") {
+      html += `<p class="hint">${L.ok ? esc(fmt(t(UI.left), { n: L.left })) : tx(UI.other)}</p><div class="row"><button class="go" id="next">${tx(UI.toMap)}</button></div>`;
+    } else {
+      if (ch.event) html += `<p class="hint">${tx(ch.event)}</p>`;
+      if (ch.quote) html += `<p class="quote">«${tx(ch.quote.q)}»<small>${tx(ch.quote.by)}</small></p>`;
+      html += `<div class="history"><h3>${tx(UI.history)}</h3>${figure(ch.photo)}<p>${tx(ch.history)}</p></div>
+        <div class="row"><button class="go" id="next">${tx(ch.final ? UI.results : UI.next)}</button></div>`;
+    }
+  }
+  sheet.innerHTML = html;
+  wire();
+}
+
+function renderIntro() {
+  $("sheet").innerHTML = `
+    <div class="eyebrow"><span>1919–1923</span><span>${tx(CHAPTERS[0].date)}</span></div>
+    <h2>Gazi</h2>
+    <p>${tx(UI.intro)}</p>
+    <p class="quote">«${tx(UI.introQuote)}»<small>${tx(UI.introBy)}</small></p>
+    ${figure("gallipoli")}
+    <div class="row"><button class="go" id="next">${tx(UI.start)}</button></div>`;
+  wire();
+}
+
+const promo = () => `<div class="promo"><p>${tx(UI.moreQ)}</p><a class="go" href="https://thousands.life" target="_blank" rel="noopener">${tx(UI.moreBtn)} →</a></div>`;
+
+function renderDefeat() {
+  const k = dead();
+  const why = S.why ? t(S.why) : t(UI.why[k] || UI.why.army);
+  $("sheet").innerHTML = `
+    <div class="eyebrow"><span>${tx(UI.defeat)}</span><span>${tx(CHAPTERS[S.ch].date)}</span></div>
+    <h2>${tx(UI.defeatTitle)}</h2>
+    <p>${esc(why)}</p>
+    <p class="hint">${tx(UI.defeatHint)}</p>
+    <div class="row"><button class="go" id="restart">${tx(UI.restart)}</button></div>
+    ${promo()}`;
+  wire();
+}
+
+function renderVictory() {
+  const rank = rankOf();
+  const total = S.stats.army + S.stats.morale + S.stats.people;
+  const share = fmt(t(UI.shareText), { r: t(rank.n), c: S.good, n: S.good + S.bad });
+  $("sheet").innerHTML = `
+    <div class="eyebrow"><span>${tx(UI.final)}</span><span>29.10.1923</span></div>
+    <h2>${esc(fmt(t(UI.rankIs), { r: t(rank.n) }))}</h2>
+    <p>${tx(rank.d)}</p>
+    <div class="score">
+      <div><b>${S.good}</b><span>${tx(UI.correct)}</span></div>
+      <div><b>${S.bad}</b><span>${tx(UI.mistakes)}</span></div>
+      <div><b>${total}</b><span>${tx(UI.total)}</span></div>
+    </div>
+    <div class="history"><h3>${tx(UI.cardTitle)}</h3>
+      <div class="card" id="card"></div>
+      <p id="share-text">${esc(share + " " + GAME_URL)}</p>
+      <div class="row"><button class="go" id="save" hidden>${tx(UI.save)}</button><button class="go" id="share-native" hidden>${tx(UI.shareBtn)}</button><button class="ghost" id="copy">${tx(UI.copy)}</button></div>
+      ${shareLinks(share)}
+      <div class="status" id="status" role="status"></div>
+    </div>
+    <div class="history"><h3>${tx(UI.epilogue)}</h3><p>${tx(UI.epilogueText)}</p></div>
+    <p class="quote">«${tx(UI.motto)}»<small>${tx(UI.mottoBy)}</small></p>
+    ${promo()}
+    <div class="row"><button class="ghost" id="restart">${tx(UI.again)}</button></div>`;
+  wire();
+  $("copy").onclick = async () => {
+    try { await navigator.clipboard.writeText(share + " " + GAME_URL); $("status").textContent = t(UI.copied); }
+    catch (e) { const r = document.createRange(); r.selectNodeContents($("share-text")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $("status").textContent = t(UI.copyFail); }
+  };
+  renderCard();
+}
+
+function wire() {
+  const sheet = $("sheet");
+  sheet.querySelectorAll("[data-i]").forEach((b) => (b.onclick = () => choose(+b.dataset.i)));
+  sheet.querySelectorAll("[data-t]").forEach((b) => (b.onclick = () => pickTarget(b.dataset.t)));
+  const n = $("next"); if (n) n.onclick = next;
+  const r = $("restart"); if (r) r.onclick = restart;
+}
+
+function setLang(l) {
+  LANG = l; try { localStorage.setItem("gazi-lang", l); } catch (e) {}
+  renderChrome(); render();
+}
+for (const l of ["tr", "en", "ru"]) $("lang-" + l).onclick = () => setLang(l);
+
+buildMap();
+const boot = (data) => { S = data && data.S ? data.S : fresh(); renderChrome(); render(); };
+window.claude?.hot?.snapshot?.(() => ({ S }));
+window.claude?.hot?.ready ? window.claude.hot.ready(boot) : boot(window.claude?.hot?.data ?? {});
+</script>
+
+</body>
+</html>

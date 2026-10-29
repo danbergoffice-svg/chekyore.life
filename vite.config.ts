@@ -1,14 +1,27 @@
 /// <reference types="vitest/config" />
+import fs from 'node:fs'
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import type { Plugin } from 'vite'
+
+/** Папки public/, которые нужны только сайту thousands.life: на порталы не попадают (там нельзя ссылок наружу). */
+const SITE_ONLY = ['gazi']
 
 /**
  * Сборка для порталов (VITE_PLATFORM=crazygames): из index.html убираются Google Fonts, превью для соцсетей,
  * canonical, манифест и иконка «На главный экран», а в начало подключается SDK портала.
+ * В любой сборке для портала (crazygames, yandex) убираются папки только для сайта (SITE_ONLY).
  */
 function portalHtml(platform: string | undefined): Plugin {
+  let outDir = 'dist'
   return {
     name: 'portal-html',
+    configResolved(config) {
+      outDir = path.resolve(config.root, config.build.outDir)
+    },
+    closeBundle() {
+      if (platform) for (const dir of SITE_ONLY) fs.rmSync(path.join(outDir, dir), { recursive: true, force: true })
+    },
     transformIndexHtml(html) {
       if (platform !== 'crazygames') return html
       return html
@@ -35,7 +48,7 @@ export default defineConfig({
       output: {
         // Контент страны склеивается в несколько файлов: события и вести, тексты на каждом языке.
         manualChunks(id) {
-          const m = id.match(/src\/content\/(\w+)\/(events|news|primer|ru|en)[^/]*\.json$/)
+          const m = id.match(/src\/content\/(\w+)\/(events|news|primer|ru|en|tr)[^/]*\.json$/)
           if (!m) return undefined
           const kind = m[2] === 'news' || m[2] === 'primer' ? 'events' : m[2]
           return `c-${m[1]}-${kind}`

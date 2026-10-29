@@ -54,6 +54,10 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
 - Темп детства — флаги `year_sec_child` (6 с) и `child_age` (12): до этого возраста год короче (`yearMs` в `Life.tsx`).
 - Уход из меню — событие `menu_leave` (`App.tsx`, отчёт «Ушли из меню» в `/admin`); счётчик игроков в подвале меню —
   `GET /api/players` (таблицы `players`/`counters`, пересчёт раз в 10 мин) → `platform.playersCount()` → `menu.players`.
+- Игра «Gazi» (отдельная, про 1919–1923) — `public/gazi/` как есть, адрес /gazi/; в сборки для порталов не попадает (`SITE_ONLY` в `vite.config.ts`).
+- Турецкий язык (`tr`): тексты `tr*.json` рядом с `en*.json`, интерфейс `src/i18n/tr.json`; чего нет — берётся английский.
+  Перевод новых текстов: `npx vite-node tools/tr-plan.ts all` → пачки `tools/tr/batch-NN.txt` → перевод в `tools/tr/out/` →
+  `node tools/tr-merge.mjs --check NN` и `node tools/tr-merge.mjs`; проверка — `node tools/tr-lint.mjs`.
 - Музыка: `src/audio.ts` (Web Audio, трек меню и по треку на страну, плавные переходы, пауза при скрытой вкладке,
   рекламе и «без звука» платформы — `platform.onAudio`), значок и громкость — `src/ui/Sound.tsx`, настройки
   `prefs.sound`/`prefs.volume`. Треки сочиняет и синтезирует `npm run music` (`tools/gen/music.mjs`, нужен ffmpeg):

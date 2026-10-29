@@ -56,7 +56,7 @@ const errors = []
 if (total > limits.dist_mb * 1024 * 1024) errors.push(`сборка ${mb(total)} МБ > ${limits.dist_mb} МБ`)
 if (firstGz > limits.first_mb * 1024 * 1024) errors.push(`первый запуск ${mb(firstGz)} МБ > ${limits.first_mb} МБ`)
 for (const f of files) {
-  if (!/\.(png|webp|jpe?g|gif)$/i.test(f.path) || /^og-/.test(f.path)) continue
+  if (!/\.(png|webp|jpe?g|gif)$/i.test(f.path) || /^og-/.test(f.path) || f.path.startsWith('gazi/')) continue
   const limit = /atlas/.test(f.path) ? limits.atlas_kb : limits.image_kb
   if (f.size > limit * 1024) errors.push(`картинка ${f.path}: ${kb(f.size)} КБ > ${limit} КБ`)
 }
