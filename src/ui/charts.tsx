@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks'
+import { percent } from '../i18n'
 import { useUi } from './text'
 
 // Простые SVG-графики шириной под экран 360 px. У каждого есть таблица значений для скринридеров.
@@ -70,6 +71,7 @@ export function LineChart({ points, yMin, yMax, bands, marks, frameX, label, for
 }
 
 export function BarList({ items, label }: { items: { label: string; value: number }[]; label: string }) {
+  const { lang } = useUi()
   return (
     <div class="barlist" role="list" aria-label={label}>
       {items.map((i) => (
@@ -78,7 +80,7 @@ export function BarList({ items, label }: { items: { label: string; value: numbe
           <span class="barlist-track">
             <span class="barlist-fill" style={{ width: `${i.value}%` }} />
           </span>
-          <span class="barlist-value">{i.value}%</span>
+          <span class="barlist-value">{percent(i.value, lang)}</span>
         </div>
       ))}
     </div>

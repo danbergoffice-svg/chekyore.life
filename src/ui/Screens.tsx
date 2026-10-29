@@ -6,7 +6,7 @@ import { classKey, descentOf, regionOf, roleKey, yearsBetween } from '../engine/
 import { ERA_IDS, ERA_META } from '../content'
 import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
-import { formatMoney, formatYear, LANG_NAMES, LANGS, LOCALE, nameOf } from '../i18n'
+import { formatMoney, formatYear, LANG_NAMES, LANGS, LOCALE, nameOf, percent } from '../i18n'
 import type { Prefs } from '../storage'
 import { BIG_DAYS, GIFT_ICON, GIFTS } from '../daily'
 import type { Gift } from '../daily'
@@ -129,12 +129,12 @@ function Choice<V extends string>(props: { title: string; value: V; options: { i
 }
 
 /** Три самые многолюдные страны: подсказка к режиму «как в жизни». */
-function topByPopulation(t: (k: string) => string): string {
+function topByPopulation(t: (k: string) => string, lang: Lang): string {
   const total = ERA_IDS.reduce((n, id) => n + ERA_META[id].population, 0)
   return [...ERA_IDS]
     .sort((a, b) => ERA_META[b].population - ERA_META[a].population)
     .slice(0, 3)
-    .map((id) => `${t(`era.${id}.short`)} ${Math.round((ERA_META[id].population / total) * 100)}%`)
+    .map((id) => `${t(`era.${id}.short`)} ${percent(Math.round((ERA_META[id].population / total) * 100), lang)}`)
     .join(', ')
 }
 
@@ -154,7 +154,7 @@ export function SetupModal(props: {
   /** Пробный период: приглашение оставить отзыв — за него страна по выбору на одну жизнь. */
   onFeedback?: () => void
 }) {
-  const { t } = useUi()
+  const { t, lang } = useUi()
   const p = props.prefs
   return (
     <div class="modal-backdrop" onClick={(e) => e.target === e.currentTarget && props.onClose()}>
@@ -176,7 +176,7 @@ export function SetupModal(props: {
             value={p.lottery}
             onChange={(lottery) => props.onPrefs({ ...p, lottery })}
             options={[
-              { id: 'population', label: t('setup.lottery.population'), desc: t('setup.lottery.population.desc', { top: topByPopulation(t) }) },
+              { id: 'population', label: t('setup.lottery.population'), desc: t('setup.lottery.population.desc', { top: topByPopulation(t, lang) }) },
               { id: 'equal', label: t('setup.lottery.equal'), desc: t('setup.lottery.equal.desc', { n: ERA_IDS.length }) },
             ]}
           />

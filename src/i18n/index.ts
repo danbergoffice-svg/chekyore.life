@@ -9,6 +9,8 @@ import tr from './tr.json'
 export const LANGS: Lang[] = ['en', 'ru', 'tr']
 /** Названия языков в переключателе настроек. */
 export const LANG_NAMES: Record<Lang, string> = { en: 'English', ru: 'Русский', tr: 'Türkçe' }
+/** Процент по правилам языка: «58%», по-турецки «%58». */
+export const percent = (n: number | string, lang: Lang): string => (lang === 'tr' ? `%${n}` : `${n}%`)
 /** Локаль для чисел. */
 export const LOCALE: Record<Lang, string> = { en: 'en-US', ru: 'ru-RU', tr: 'tr-TR' }
 

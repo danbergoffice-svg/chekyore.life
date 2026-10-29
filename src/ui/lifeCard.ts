@@ -6,7 +6,7 @@ import { lifeHighlights, lifeThemes, outlivedShare, rankQuotes } from '../engine
 import type { Quote } from '../engine/highlights'
 import { classKey } from '../engine/rules'
 import type { Lang, LifeSummary, SceneDef } from '../engine/types'
-import { LOCALE, nameOf } from '../i18n'
+import { LOCALE, nameOf, percent } from '../i18n'
 import type { T } from '../i18n'
 import { lifeMarks } from '../pixel/avatar'
 import type { AvatarInput } from '../pixel/avatar'
@@ -85,7 +85,7 @@ export function lifeCardData(
   const wealth = Math.max(0, f.wealth)
   const stats = [
     { value: `${f.children} · ${f.grandchildren}`, label: t('card.stat.family') },
-    { value: `${outlivedShare(life)}%`, label: t('card.stat.outlived') },
+    { value: percent(outlivedShare(life), lang), label: t('card.stat.outlived') },
     ...(coin ? [{ value: wealth.toLocaleString(LOCALE[lang]), label: t(`coin.${coin}`, { n: wealth }) }] : []),
   ]
   return {

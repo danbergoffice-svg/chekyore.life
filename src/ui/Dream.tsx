@@ -3,7 +3,7 @@
 // Верно ли ответил игрок, видно только в конце. Вариантов «один из четырёх» нет.
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { dreamDef, expectedAnswer } from '../engine/dreams'
-import { LOCALE } from '../i18n'
+import { LOCALE, percent } from '../i18n'
 import type { DreamInput, DreamOutcome, DreamState, GameState, Lang } from '../engine/types'
 import { useUi } from './text'
 
@@ -63,7 +63,7 @@ export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose, t
       const want = expectedAnswer(input, d.params, era)
       if (input.kind === 'pick') return (want as string[]).map(opt).join(', ')
       if (input.kind === 'order') return (want as string[]).map(opt).join(' → ')
-      if (input.kind === 'ratio') return Object.entries(want as Record<string, number>).map(([k, v]) => `${opt(k)} ${v}%`).join(', ')
+      if (input.kind === 'ratio') return Object.entries(want as Record<string, number>).map(([k, v]) => `${opt(k)} ${percent(v, lang as Lang)}`).join(', ')
       return `${fmt(want as number, lang)} ${unit(input.unit)}`.trim()
     }
     const text = result.outcome === 'partial' && d.known ? `dream.${d.id}.known` : `dream.${d.id}.${result.outcome}`
