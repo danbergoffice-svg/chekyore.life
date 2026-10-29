@@ -5,8 +5,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 const DIR = 'tools/tr'
-/** Тысячи по-турецки: «7,000» → «7.000» (запятая в турецком — десятичная). Десятичные «2.5» не трогаем. */
-const turkishNumbers = (s) => s.replace(/\b\d{1,3}(?:,\d{3})+\b/g, (m) => m.replace(/,/g, '.'))
+/** Числа по-турецки: тысячи «7,000» → «7.000», дроби «2.5» → «2,5». Цепочки вида 9.13.0.0.0 (даты майя) не трогаем. */
+export const turkishNumbers = (s) =>
+  s.replace(/(?<![\d.,])\d+\.\d{1,2}(?![\d.,])/g, (m) => m.replace('.', ',')).replace(/(?<![\d.,])\d{1,3}(?:,\d{3})+(?![\d.,])/g, (m) => m.replace(/,/g, '.'))
 const parse = (file) => {
   const out = new Map()
   for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
