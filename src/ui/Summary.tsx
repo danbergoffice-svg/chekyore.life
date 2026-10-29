@@ -149,7 +149,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         <h2 class="section-title">{t('facts.title')}</h2>
         <dl class="facts">
           <dt>{t('facts.education')}</dt>
-          <dd>{r.facts.education.map((s) => t(s.key, s.key === 'facts.edu.skill' ? { skill: t((s.params?.skill as { key: string }).key).toLowerCase() } : s.params, o)).join(' ')}</dd>
+          <dd>{r.facts.education.map((s) => t(s.key, s.key === 'facts.edu.skill' ? { skill: t((s.params?.skill as { key: string }).key).toLocaleLowerCase(lang) } : s.params, o)).join(' ')}</dd>
           <dt>{t('facts.work')}</dt>
           <dd>{life.profession ? t(`prof.${life.profession}`, {}, o) : t('life.no_profession')}</dd>
           <dt>{t('facts.status')}</dt>
@@ -164,7 +164,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
               ? r.facts.farewell
                   .map((id) => life.npcs.find((n) => n.id === id))
                   .filter((n): n is Npc => !!n)
-                  .map((n) => `${nameOf(n.name, lang)} (${t(`npc.${roleKey(life.npcs, n)}`, { sex: n.sex }).toLowerCase()})`)
+                  .map((n) => `${nameOf(n.name, lang)} (${t(`npc.${roleKey(life.npcs, n)}`, { sex: n.sex }).toLocaleLowerCase(lang)})`)
                   .join(', ')
               : t('facts.farewell_none')}
           </dd>

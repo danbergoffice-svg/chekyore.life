@@ -13,7 +13,7 @@ import { newLife, rollBirth } from '../src/engine/life'
 const ALL = process.argv[2] === 'all'
 const BUDGET = ALL ? Infinity : Number(process.argv[2] ?? 200000)
 const LIVES = ALL ? 0 : Number(process.argv[3] ?? 400)
-const BATCH = 22000
+const BATCH = ALL ? 30000 : 22000
 const ROOT = 'src/content'
 
 /** Доля игроков, которые ещё играют в этом возрасте героя (по аналитике 26–29.10, грубо). */
@@ -125,4 +125,4 @@ batches.forEach((b, i) => {
 })
 
 console.log(`жизней ${LIVES}; интерфейс ${uiChars} зн.; групп событий ${groups.length}, взято ${picked.length}; короткие подписи ${small.chars} зн.`)
-console.log(`к переводу ${BUDGET - left} зн. в ${batches.length} пачках; покрытие показанного текста событий: ${total ? Math.round((100 * covered) / total) : 100}%`)
+console.log(`к переводу ${ALL ? batches.reduce((n, b) => n + b.lines.join('').length, 0) : BUDGET - left} зн. в ${batches.length} пачках; покрытие показанного текста событий: ${total ? Math.round((100 * covered) / total) : 100}%`)

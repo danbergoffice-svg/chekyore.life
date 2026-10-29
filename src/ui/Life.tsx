@@ -607,7 +607,7 @@ function Chapter({ state, era, onNext }: { state: GameState; era: EraDef; onNext
           <p class="eyebrow">{t('chapter.eyebrow', { n: hero.age, year: formatYear(state.year, lang) })}</p>
           <h2 id="chapter-title">{title}</h2>
           <p>
-            {hero.profession ? t('chapter.work', { prof: t(`prof.${hero.profession}`, {}, o).toLowerCase() }, o) : t('chapter.no_work', {}, o)}{' '}
+            {hero.profession ? t('chapter.work', { prof: t(`prof.${hero.profession}`, {}, o).toLocaleLowerCase(lang) }, o) : t('chapter.no_work', {}, o)}{' '}
             {maritalText(t, hero, lang, 'chapter')}{' '}
             {kids > 0 && t('chapter.kids', { n: kids })}
           </p>
@@ -670,7 +670,7 @@ function ChildRow({ child, year, all }: { child: Npc; year: number; all: Npc[] }
   const { t, lang } = useUi()
   const grand = all.filter((g) => g.role === 'grandchild' && g.parentId === child.id && g.alive).length
   const bits = [t('life.age', { n: Math.max(0, npcAge(child, year)) })]
-  if (child.profession) bits.push(t(`prof.${child.profession}`, {}, { sex: child.sex }).toLowerCase())
+  if (child.profession) bits.push(t(`prof.${child.profession}`, {}, { sex: child.sex }).toLocaleLowerCase(lang))
   if (child.married) bits.push(t('people.married', { sex: child.sex }))
   if (grand) bits.push(t('people.grandkids', { n: grand }))
   return (
@@ -758,7 +758,7 @@ function People({ state }: { state: GameState }) {
           ? [
               t('life.age', { n: Math.max(0, npcAge(n, state.year)) }),
               attitudeText(t, n),
-              n.profession ? t(`prof.${n.profession}`, {}, { sex: n.sex }).toLowerCase() : '',
+              n.profession ? t(`prof.${n.profession}`, {}, { sex: n.sex }).toLocaleLowerCase(lang) : '',
               n.married ? t('people.married', { sex: n.sex }) : '',
               ...(n.tags ?? []).filter((tag) => hasKey(lang, `npctag.${tag}`)).map((tag) => t(`npctag.${tag}`, { sex: n.sex })),
             ]

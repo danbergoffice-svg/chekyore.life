@@ -227,7 +227,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
   ctx.fillStyle = 'rgba(243,232,212,0.92)'
   ctx.shadowColor = 'rgba(0,0,0,0.55)'
   ctx.shadowBlur = 8
-  spaced(ctx, d.brand.toUpperCase(), cw / 2, Math.round(L.pad * 0.75), Math.round(L.meta * 0.25))
+  spaced(ctx, d.brand.toLocaleUpperCase(document.documentElement.lang || undefined), cw / 2, Math.round(L.pad * 0.75), Math.round(L.meta * 0.25))
   ctx.shadowBlur = 0
 
   // Низ: призыв, над ним — лента портретов.
@@ -372,7 +372,7 @@ function drawWide(ctx: CanvasRenderingContext2D, cw: number, ch: number, d: Card
   drawSceneBand(ctx, d, 0, 0, leftW, Math.round((leftW * H) / W))
   ctx.font = `600 22px ${DISPLAY}`
   ctx.fillStyle = 'rgba(243,232,212,0.92)'
-  spaced(ctx, d.brand.toUpperCase(), leftW / 2, 34, 5)
+  spaced(ctx, d.brand.toLocaleUpperCase(document.documentElement.lang || undefined), leftW / 2, 34, 5)
   const portraits = { ...d, portraits: d.portraits.slice(-5) }
   drawPortraits(ctx, portraits, pad, 240, leftW - pad * 2, 2, 18)
   ctx.font = `600 34px ${DISPLAY}`

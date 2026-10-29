@@ -12,8 +12,6 @@ import { lifeMarks } from '../pixel/avatar'
 import type { AvatarInput } from '../pixel/avatar'
 import type { CardData } from './shareCard'
 
-const cap = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s)
-
 /** Портрет героя в этом возрасте — по истории жизни, без хранения картинок. */
 export function portraitInput(life: LifeSummary, age: number, last: boolean): AvatarInput {
   const y = life.history.find((h) => h.age === age)
@@ -54,6 +52,8 @@ export function lifeCardData(
   lang: Lang,
   opts: { quotes: Quote[]; playerLine: string; site: string; scene: SceneDef; dream?: boolean },
 ): CardData {
+  // Заглавная — по правилам языка (турецкое i → İ).
+  const cap = (s: string) => (s ? s[0].toLocaleUpperCase(lang) + s.slice(1) : s)
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   const f = life.report.facts
   const title = life.profession
