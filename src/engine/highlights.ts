@@ -17,6 +17,9 @@ export interface Quote {
   en: string
   author_ru: string
   author_en: string
+  /** Турецкий (может не быть — тогда английский). */
+  tr?: string
+  author_tr?: string
   tags: string[]
   culture?: string[]
 }

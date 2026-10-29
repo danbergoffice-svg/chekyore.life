@@ -2,7 +2,7 @@
 // которые игроки видят чаще — симуляция жизней с весом по возрасту (новички чаще уходят в детстве).
 // Пачки — tools/tr/batch-NN.txt: строки «номер<TAB>текст» (перенос строки — \n), без длинных ключей — так дешевле;
 // номер → файл и ключ — в batch-NN.map.json. Уже переведённое (tr*.json) пропускается: следующий запуск — следующая порция.
-// Запуск: npx vite-node tools/tr-plan.ts [бюджет знаков=200000] [жизней=400]
+// Запуск: npx vite-node tools/tr-plan.ts [бюджет знаков=200000] [жизней=400]; `all` вместо бюджета — всё, что ещё не переведено.
 // Перевод — в tools/tr/out/batch-NN.txt той же формы, затем: node tools/tr-merge.mjs.
 import fs from 'node:fs'
 import path from 'node:path'
@@ -10,8 +10,9 @@ import { ERA_FOLDER, ERA_IDS, ERA_META, loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
 import { newLife, rollBirth } from '../src/engine/life'
 
-const BUDGET = Number(process.argv[2] ?? 200000)
-const LIVES = Number(process.argv[3] ?? 400)
+const ALL = process.argv[2] === 'all'
+const BUDGET = ALL ? Infinity : Number(process.argv[2] ?? 200000)
+const LIVES = ALL ? 0 : Number(process.argv[3] ?? 400)
 const BATCH = 22000
 const ROOT = 'src/content'
 
@@ -57,6 +58,8 @@ type Group = { file: string; weight: number; texts: Record<string, string>; char
 const groups: Group[] = []
 const small: Group = { file: '', weight: Infinity, texts: {}, chars: 0 }
 const smallFiles: Record<string, Record<string, string>> = {}
+/** Остальное (новости лет, справка, сны, длинные описания) — только при `all`. */
+const rest: Record<string, Record<string, string>> = {}
 for (const folder of fs.readdirSync(ROOT)) {
   const dir = path.join(ROOT, folder)
   if (!fs.statSync(dir).isDirectory()) continue
@@ -69,11 +72,12 @@ for (const folder of fs.readdirSync(ROOT)) {
       if (head === 'ev') (byEvent[id] ??= {})[k] = v
       // Короткие подписи (сословия, занятия, причины смерти, образ жизни, вера, монеты…) — видны всем и всегда.
       else if (head !== 'news' && head !== 'primer' && head !== 'dream' && v.length <= 60) (smallFiles[file] ??= {})[k] = v
+      else (rest[file] ??= {})[k] = v
     }
     const counts = folder === 'common' ? seen['*'] : (seen[folder] ?? {})
     for (const [id, texts] of Object.entries(byEvent)) {
       const weight = counts[id] ?? 0
-      if (weight > 0) groups.push({ file, weight, texts, chars: Object.values(texts).reduce((n, v) => n + v.length, 0) })
+      if (weight > 0 || ALL) groups.push({ file, weight, texts, chars: Object.values(texts).reduce((n, v) => n + v.length, 0) })
     }
   }
 }
@@ -112,6 +116,7 @@ const push = (file: string, texts: Record<string, string>) => {
 for (const [file, t] of Object.entries(ui)) push(file, t)
 for (const [file, t] of Object.entries(smallFiles)) push(file, t)
 for (const g of picked) push(g.file, g.texts)
+if (ALL) for (const [file, t] of Object.entries(rest)) for (const [k, v] of Object.entries(t)) push(file, { [k]: v })
 if (size) batches.push(cur)
 batches.forEach((b, i) => {
   const n = `tools/tr/batch-${String(i + 1).padStart(2, '0')}`
@@ -120,4 +125,4 @@ batches.forEach((b, i) => {
 })
 
 console.log(`жизней ${LIVES}; интерфейс ${uiChars} зн.; групп событий ${groups.length}, взято ${picked.length}; короткие подписи ${small.chars} зн.`)
-console.log(`к переводу ${BUDGET - left} зн. в ${batches.length} пачках; покрытие показанного текста событий: ${Math.round((100 * covered) / total)}%`)
+console.log(`к переводу ${BUDGET - left} зн. в ${batches.length} пачках; покрытие показанного текста событий: ${total ? Math.round((100 * covered) / total) : 100}%`)
