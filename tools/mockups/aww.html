@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Три стиля по референсам Awwwards</title>
+<link rel="stylesheet" href="mock.css" />
+<style>
+  /* Три направления по брендбукам-референсам: ?v=a «Золотой фолиант» (Inner Worlds), ?v=b «Карта пути» (Wayfinder),
+     ?v=c «Сумерки с огнями» (Max Mara, Catch the Lantern); ?screen=menu|event. Шрифты — игровые: «Летопись» и Alegreya. */
+  html, body { width: 390px; height: 844px; margin: 0; }
+  body { position: relative; overflow: hidden; font-family: var(--font); }
+  .page { position: relative; width: 390px; height: 844px; overflow: hidden; box-sizing: border-box; }
+  .page[hidden] { display: none; }
+  .grow { flex: 1; }
+  button { font: inherit; color: inherit; }
+  p, h1, h2, h3 { margin: 0; }
+
+  /* ================= A · Золотой фолиант: бархат сливы, сусальное золото, гравюра штрихом, симметрия разворота ================= */
+  .va { --plum: #4a3550; --plum-2: #2e2033; --gold: #ddbe97; --gold-hi: #f0d9a8; --gold-lo: #a8875e; --seal: #8e2b2b; --txt: #ebd9bc; --dim: #b9a28a;
+    color: var(--txt); padding: 26px 30px; text-align: center;
+    background: radial-gradient(120% 80% at 50% 30%, #57405e 0%, var(--plum) 45%, var(--plum-2) 100%); }
+  .va::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.4; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .va::after { content: ''; position: absolute; inset: 10px; pointer-events: none; border: 1px solid var(--gold); outline: 1px solid var(--gold); outline-offset: -6px; }
+  .va > * { position: relative; z-index: 1; }
+  .a-corner { position: absolute; width: 34px; height: 34px; z-index: 2; }
+  .a-corner.tl { left: 6px; top: 6px; } .a-corner.tr { right: 6px; top: 6px; transform: scaleX(-1); }
+  .a-corner.bl { left: 6px; bottom: 6px; transform: scaleY(-1); } .a-corner.br { right: 6px; bottom: 6px; transform: scale(-1); }
+  .a-top { display: flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: 0.18em; color: var(--dim); }
+  .a-top b { color: var(--gold); font-weight: 600; }
+  .a-gift { display: inline-flex; align-items: center; gap: 6px; padding: 5px 8px; border: 1px solid var(--gold-lo); color: var(--gold); letter-spacing: 0.12em; }
+  .a-kicker { margin: 18px 0 0; font-size: 13px; letter-spacing: 0.34em; color: var(--gold); }
+  .a-emblem { display: block; margin: 12px auto 0; width: 104px; height: 104px; }
+  .gold-text { background: linear-gradient(170deg, #f4e2be 0%, #ddbe97 38%, #a8875e 62%, #e8cfa3 80%, #b8956a 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .a-word { margin: 10px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 68px; line-height: 0.86; letter-spacing: 0.01em; }
+  .a-word span { display: block; }
+  .a-dates { margin: 10px 0 0; font-style: italic; font-size: 19px; color: var(--gold); }
+  .a-rule { display: block; width: 100%; height: 18px; margin: 12px 0 0; }
+  .a-reels { position: relative; display: grid; grid-template-columns: 1.3fr 1fr 0.8fr; gap: 10px; margin: 14px 6px 0; }
+  .a-reels::before, .a-reels::after { content: ''; position: absolute; top: 50%; margin-top: -7px; border: 7px solid transparent; }
+  .a-reels::before { left: -16px; border-left: 9px solid var(--gold); }
+  .a-reels::after { right: -16px; border-right: 9px solid var(--gold); }
+  .a-win { position: relative; height: 104px; border: 1px solid var(--gold); outline: 1px solid var(--gold-lo); outline-offset: 3px; background: rgba(28, 19, 32, 0.55); overflow: hidden;
+    -webkit-mask-image: linear-gradient(transparent, #000 26%, #000 74%, transparent); mask-image: linear-gradient(transparent, #000 26%, #000 74%, transparent); }
+  .a-win div { height: 34.6px; display: grid; place-items: center; font-style: italic; font-size: 14px; color: var(--dim); white-space: nowrap; }
+  .a-win div.mid { font-family: var(--font-display); font-style: normal; font-size: 40px; }
+  .a-labels { display: grid; grid-template-columns: 1.3fr 1fr 0.8fr; gap: 10px; margin: 9px 6px 0; font-size: 11px; letter-spacing: 0.2em; color: var(--dim); }
+  .a-btn { display: block; position: relative; width: 100%; margin: 18px 0 0; padding: 15px 10px; border: 0; background: linear-gradient(180deg, #ecd2a6, #ddbe97 50%, #c3a171);
+    color: var(--plum-2); font-weight: 700; font-size: 16px; letter-spacing: 0.24em; }
+  .a-btn::before { content: ''; position: absolute; inset: 3px; border: 1px solid var(--plum-2); opacity: 0.5; }
+  .a-btn.ghost { margin-top: 10px; background: transparent; color: var(--gold); font-weight: 500; font-size: 15px; letter-spacing: 0.06em; }
+  .a-btn.ghost::before { border-color: var(--gold); }
+  .a-btn.ghost i { color: var(--dim); }
+  .a-nav { margin: 18px 0 0; font-size: 14.5px; white-space: nowrap; }
+  .a-nav span { color: var(--gold-lo); margin: 0 5px; font-size: 11px; }
+  .a-foot { margin: 12px 0 0; font-style: italic; font-size: 13px; color: var(--dim); }
+  /* Событие */
+  .a-hero { display: flex; gap: 12px; align-items: center; text-align: left; }
+  .a-port { flex: none; padding: 3px; border: 1px solid var(--gold); outline: 1px solid var(--gold-lo); outline-offset: 2px; }
+  .duo { position: relative; background: var(--gold); overflow: hidden; }
+  .duo img { display: block; width: 100%; height: 100%; image-rendering: pixelated; filter: grayscale(1) contrast(1.2) brightness(1.45); mix-blend-mode: multiply; }
+  .duo::after { content: ''; position: absolute; inset: 0; background: var(--plum-2); mix-blend-mode: lighten; }
+  .duo::before { content: ''; position: absolute; inset: 0; z-index: 1; opacity: 0.45; background: repeating-linear-gradient(-38deg, rgba(46, 32, 51, 0.9) 0 1px, transparent 1px 3px); mix-blend-mode: multiply; }
+  .a-port .duo { width: 46px; height: 58px; }
+  .a-hero h3 { font-family: var(--font-display); font-weight: 600; font-size: 28px; line-height: 1; }
+  .a-hero p { margin: 3px 0 0; font-style: italic; font-size: 14px; color: var(--dim); }
+  .a-health { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 11px; letter-spacing: 0.2em; color: var(--dim); }
+  .a-health s { display: block; width: 104px; height: 5px; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); background: linear-gradient(90deg, var(--gold) 0 52%, transparent 52%); background-clip: content-box; padding: 1px 0; text-decoration: none; }
+  .a-speed { margin-left: auto; align-self: flex-start; display: grid; grid-template-columns: repeat(2, 26px); gap: 5px; }
+  .a-speed span { width: 26px; height: 26px; display: grid; place-items: center; border: 1px solid var(--gold-lo); color: var(--gold); font-family: var(--font-display); font-size: 14px; }
+  .a-speed span.on { background: var(--gold); color: var(--plum-2); border-color: var(--gold); }
+  .a-scene { margin: 20px 0 0; padding: 5px; border: 1px solid var(--gold); outline: 1px solid var(--gold-lo); outline-offset: 3px; }
+  .a-scene .duo { height: 103px; }
+  .a-cap { margin: 10px 0 0; font-style: italic; font-size: 13px; color: var(--dim); letter-spacing: 0.04em; }
+  .a-title { margin: 14px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 32px; line-height: 1.02; }
+  .a-text { margin: 12px 0 0; text-align: left; font-size: 17px; line-height: 1.45; }
+  .a-text .drop { float: left; margin: 5px 9px 0 0; padding: 6px 8px 2px; border: 1px solid var(--gold); outline: 1px solid var(--gold-lo); outline-offset: 2px; font-family: var(--font-display); font-size: 50px; line-height: 0.8; }
+  .a-opts { margin: 16px 0 0; display: grid; gap: 9px; text-align: left; }
+  .a-opt { position: relative; display: flex; align-items: baseline; gap: 12px; padding: 12px 14px; border: 1px solid var(--gold-lo); font-size: 17px; }
+  .a-opt::before { content: ''; position: absolute; inset: 3px; border: 1px solid rgba(221, 190, 151, 0.28); pointer-events: none; }
+  .a-opt b { flex: none; width: 26px; font-family: var(--font-display); font-weight: 500; font-size: 18px; color: var(--gold); }
+  .a-opt span { flex: 1; }
+  .a-opt em { font-size: 14px; color: var(--dim); }
+  .a-opt.on { background: var(--gold); color: var(--plum-2); border-color: var(--gold); }
+  .a-opt.on b, .a-opt.on em { color: var(--plum-2); }
+  .a-opt.on::before { border-color: rgba(46, 32, 51, 0.45); }
+  .a-gloss { margin: 14px 0 0; font-style: italic; font-size: 14px; color: var(--dim); }
+
+  /* ================= B · Карта пути: вырезанная бумага, простая геометрия, пунктир маршрута, кнопки с рваным краем ================= */
+  .vb { --night: #130904; --ochre: #987654; --terra: #df6c4f; --mustard: #ecd06f; --olive: #6e7044; --paper: #f3ead7; --earth: #2a1a10; --dim: #bfa987;
+    color: var(--paper); background: var(--night); }
+  .b-scene { position: absolute; left: 0; top: 0; width: 390px; height: 404px; overflow: hidden;
+    background: repeating-linear-gradient(-8deg, rgba(255, 240, 200, 0.05) 0 2px, transparent 2px 9px), radial-gradient(ellipse at 50% 30%, #b08a48 0%, #9a7a3e 35%, #7a5c2e 70%, #4a3418 100%); }
+  .b-scene.night { background: repeating-linear-gradient(-8deg, rgba(255, 240, 200, 0.035) 0 2px, transparent 2px 9px), radial-gradient(ellipse at 70% 20%, #3a2a1c 0%, #22140b 55%, #130904 100%); }
+  .b-scene svg { position: absolute; left: 0; top: 0; }
+  .b-scene::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.35; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.3  0 0 0 0 0.15  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .b-top { position: absolute; z-index: 3; left: 16px; right: 16px; top: 14px; display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 13px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: var(--paper); color: var(--night); clip-path: polygon(3% 8%, 98% 0, 100% 92%, 0 100%); }
+  .chip.dark { background: var(--night); color: var(--paper); }
+  .chip b { color: var(--terra); }
+  .b-title { position: absolute; z-index: 3; left: 0; right: 0; top: 64px; text-align: center; }
+  .b-title h1 { font-family: var(--font-display); font-weight: 600; font-size: 66px; line-height: 0.86; color: var(--paper); letter-spacing: 0.02em; text-shadow: 0 3px 0 rgba(19, 9, 4, 0.4); }
+  .b-title p { margin: 10px auto 0; max-width: 26ch; font-weight: 600; font-size: 16px; line-height: 1.35; color: var(--paper); text-shadow: 0 1px 0 rgba(19, 9, 4, 0.5); }
+  .b-pin { position: absolute; z-index: 4; transform: translate(-50%, -100%); margin-top: -9px; padding: 4px 8px 5px; font-size: 12px; font-weight: 700; line-height: 1.1; white-space: nowrap; background: var(--paper); color: var(--night);
+    clip-path: polygon(0 4%, 100% 0, 97% 100%, 3% 96%); }
+  .b-pin small { display: block; font-weight: 500; color: #6a5440; }
+  .b-pin.next { background: var(--mustard); }
+  .b-body { position: absolute; z-index: 3; left: 0; right: 0; top: 404px; padding: 18px 20px 0; }
+  .b-ask { display: flex; align-items: baseline; gap: 10px; }
+  .b-ask h2 { font-family: var(--font-display); font-weight: 600; font-size: 28px; color: var(--mustard); line-height: 1; }
+  .b-ask span { font-size: 14px; color: var(--dim); }
+  .b-cards { display: grid; grid-template-columns: 1.3fr 1fr 0.8fr; gap: 10px; margin: 14px 0 0; }
+  .b-card { padding: 9px 6px 10px; text-align: center; background: var(--paper); color: var(--night); clip-path: polygon(0 3%, 100% 0, 98% 97%, 2% 100%); }
+  .b-card:nth-child(1) { transform: rotate(-2deg); } .b-card:nth-child(2) { transform: rotate(1.2deg) translateY(3px); background: var(--mustard); } .b-card:nth-child(3) { transform: rotate(-1deg); background: var(--terra); color: var(--paper); }
+  .b-card small { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; opacity: 0.75; }
+  .b-card b { display: block; font-family: var(--font-display); font-weight: 600; font-size: 42px; line-height: 1.05; }
+  .b-card em { display: block; font-size: 12px; opacity: 0.6; }
+  .b-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; margin: 18px 0 0; padding: 15px 20px; border: 0; background: var(--paper); color: var(--night); font-weight: 800; font-size: 18px;
+    clip-path: polygon(1% 8%, 99% 0, 98% 92%, 0 100%); transform: rotate(-0.8deg); }
+  .b-btn svg { width: 26px; height: 16px; }
+  .b-btn.dark { margin-top: 10px; padding: 12px 16px; background: transparent; color: var(--paper); font-weight: 600; font-size: 15px; transform: none; clip-path: none; border: 2px dashed rgba(243, 234, 215, 0.45); }
+  .b-btn.dark i { color: var(--dim); }
+  .b-nav { display: flex; justify-content: center; gap: 16px; margin: 16px 0 0; font-weight: 600; font-size: 14px; }
+  .b-nav span { padding-bottom: 3px; background: linear-gradient(var(--olive), var(--olive)) 0 100% / 100% 3px no-repeat; }
+  .b-foot { margin: 12px 0 0; text-align: center; font-size: 13px; color: var(--dim); }
+  /* Событие: та же карта, но ночь — палитра сдвигается */
+  .b-hud { position: absolute; z-index: 3; left: 16px; right: 16px; top: 14px; display: flex; gap: 10px; align-items: flex-start; }
+  .b-hud .port { flex: none; width: 44px; height: 54px; padding: 3px; background: var(--paper); clip-path: polygon(0 3%, 100% 0, 97% 100%, 3% 97%); }
+  .b-hud .port img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  .b-hud h3 { font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1; color: var(--paper); }
+  .b-hud p { margin: 2px 0 0; font-size: 13px; font-weight: 600; color: var(--dim); }
+  .b-hp { display: flex; gap: 3px; margin-top: 6px; }
+  .b-hp i { width: 9px; height: 9px; background: var(--terra); clip-path: polygon(0 10%, 100% 0, 90% 100%, 6% 92%); }
+  .b-hp i.off { background: rgba(243, 234, 215, 0.25); }
+  .b-speed { margin-left: auto; display: flex; gap: 4px; }
+  .b-speed span { width: 28px; height: 28px; display: grid; place-items: center; font-weight: 800; font-size: 13px; background: rgba(243, 234, 215, 0.14); color: var(--paper); clip-path: polygon(6% 0, 100% 6%, 94% 100%, 0 94%); }
+  .b-speed span.on { background: var(--mustard); color: var(--night); }
+  .b-sheet { position: absolute; z-index: 3; left: 14px; right: 14px; top: 236px; padding: 18px 18px 18px; background: var(--paper); color: var(--night);
+    clip-path: polygon(0 1%, 100% 0, 99.4% 99%, 0.6% 100%); transform: rotate(-0.6deg); }
+  .b-kick { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: var(--olive); }
+  .b-sheet h2 { margin: 6px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 34px; line-height: 0.98; }
+  .b-sheet .text { margin: 10px 0 0; font-size: 16.5px; line-height: 1.42; }
+  .b-opts { display: grid; gap: 8px; margin: 14px 0 0; }
+  .b-opt { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid var(--night); font-weight: 600; font-size: 16px; }
+  .b-opt b { flex: none; width: 22px; height: 22px; display: grid; place-items: center; background: var(--night); color: var(--paper); font-size: 13px; clip-path: polygon(0 6%, 100% 0, 94% 100%, 4% 94%); }
+  .b-opt span { flex: 1; }
+  .b-opt em { font-style: normal; font-size: 13px; font-weight: 700; padding: 3px 7px; background: var(--terra); color: var(--paper); clip-path: polygon(0 8%, 100% 0, 96% 100%, 4% 92%); }
+  .b-opt.on { background: var(--mustard); transform: rotate(-1deg); }
+  .b-gloss { margin: 12px 0 0; font-size: 13px; color: #6a5440; }
+
+  /* ================= C · Сумерки с огнями: персиковый туман, слои глубины, светящиеся фонари, мягкие пилюли ================= */
+  .vc { --sunset: #db6f41; --peach: #f2a97e; --haze: #f6d3b3; --honey: #f7c873; --bark: #5a3a2a; --deep: #103d62; --cream: #fbefe2; --txt: #4a2f22; --dim: #8a6550;
+    color: var(--cream); background: linear-gradient(180deg, #d9673c 0%, #e88a5c 26%, #f0a87d 50%, #f4c39c 72%, #f6d3b3 100%); }
+  .vc .sky { position: absolute; inset: 0; pointer-events: none; }
+  .c-sun { position: absolute; left: 40px; top: 96px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, #fce3a0 0 32%, rgba(252, 227, 160, 0.45) 52%, transparent 72%); }
+  .c-star { position: absolute; width: 6px; height: 6px; background: #fbe1b0; clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); opacity: 0.8; }
+  .c-fog { position: absolute; border-radius: 50%; background: #fbe7d3; filter: blur(26px); opacity: 0.7; }
+  .vc svg.city { position: absolute; left: 0; bottom: 0; }
+  .c-hud { position: absolute; z-index: 5; left: 14px; right: 14px; top: 14px; display: flex; gap: 8px; align-items: center; font-size: 13px; font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; background: rgba(90, 58, 42, 0.62); color: var(--cream); backdrop-filter: blur(6px); }
+  .pill b { color: var(--honey); font-weight: 600; }
+  .c-title { position: absolute; z-index: 4; left: 0; right: 0; top: 76px; text-align: center; text-shadow: 0 0 30px rgba(255, 220, 160, 0.6); }
+  .c-title .it { display: block; font-style: italic; font-weight: 400; font-size: 42px; line-height: 1; }
+  .c-title .cap { display: block; font-family: var(--font-display); font-weight: 500; font-size: 58px; line-height: 0.95; letter-spacing: 0.06em; }
+  .c-title p { margin: 22px 0 0; font-size: 16px; color: var(--cream); text-shadow: 0 1px 8px rgba(122, 58, 34, 0.5); }
+  .c-lamps { position: absolute; z-index: 4; left: 0; right: 0; top: 300px; display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; }
+  .c-lamp { position: relative; display: grid; justify-items: center; }
+  .c-lamp:nth-child(1) { transform: translateY(8px) rotate(-4deg); } .c-lamp:nth-child(2) { transform: translateY(-14px) rotate(2deg); } .c-lamp:nth-child(3) { transform: translateY(14px) rotate(4deg); }
+  .c-lamp .glow { position: absolute; left: 50%; top: 56px; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 214, 130, 0.7), rgba(255, 196, 110, 0.18) 45%, transparent 66%); }
+  .c-lamp .cap { position: relative; width: 26px; height: 10px; background: #7a3a22; border-radius: 4px 4px 0 0; }
+  .c-lamp .cap::before { content: ''; position: absolute; left: 12px; top: -14px; width: 2px; height: 14px; background: #7a3a22; }
+  .c-lamp .bulb { position: relative; width: 76px; height: 92px; border-radius: 42% 42% 48% 48%; display: grid; place-items: center;
+    background: radial-gradient(circle at 46% 38%, #fff4c8 0%, #ffe3a0 22%, #f5a74c 62%, #c4562c 100%); box-shadow: inset 0 0 0 2px rgba(122, 40, 20, 0.3), 0 0 26px rgba(255, 200, 120, 0.8); }
+  .c-lamp .bulb::before { content: ''; position: absolute; inset: 0 34%; border-left: 1px solid rgba(122, 40, 20, 0.22); border-right: 1px solid rgba(122, 40, 20, 0.22); border-radius: 40%; }
+  .c-lamp .bulb b { position: relative; font-family: var(--font-display); font-weight: 600; font-size: 38px; color: #8a3418; }
+  .c-lamp .base { width: 34px; height: 8px; background: #7a3a22; border-radius: 0 0 6px 6px; }
+  .c-lamp .tassel { width: 2px; height: 16px; background: #7a3a22; }
+  .c-lamp .tassel::after { content: ''; display: block; width: 8px; height: 10px; margin: 14px 0 0 -3px; background: #b4552c; border-radius: 0 0 4px 4px; }
+  .c-lamp small { position: relative; margin-top: 12px; padding: 4px 10px; border-radius: 999px; font-size: 12px; letter-spacing: 0.04em; background: rgba(251, 239, 226, 0.7); color: var(--txt); white-space: nowrap; }
+  .c-ui { position: absolute; z-index: 6; left: 20px; right: 20px; top: 548px; display: grid; justify-items: center; gap: 10px; }
+  .c-go { padding: 15px 34px; border: 0; border-radius: 999px; background: var(--bark); color: var(--cream); font-size: 18px; font-weight: 600; letter-spacing: 0.02em; box-shadow: 0 0 0 7px rgba(255, 211, 120, 0.3), 0 14px 30px -10px rgba(90, 58, 42, 0.8); }
+  .c-cont { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 14px; border-radius: 20px; background: rgba(251, 239, 226, 0.78); backdrop-filter: blur(12px); color: var(--txt); font-size: 15px; box-sizing: border-box; }
+  .c-cont .ava { flex: none; width: 34px; height: 34px; border-radius: 50%; overflow: hidden; background: #e2b999; }
+  .c-cont .ava img { width: 100%; height: 120%; image-rendering: pixelated; object-fit: cover; object-position: top; }
+  .c-cont i { color: var(--dim); }
+  .c-cont .arrow { margin-left: auto; font-size: 18px; color: var(--sunset); }
+  .c-low { position: absolute; z-index: 6; left: 16px; right: 16px; bottom: 18px; display: grid; justify-items: center; gap: 10px; }
+  .c-nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; font-size: 14px; }
+  .c-nav span { padding: 6px 11px; border-radius: 999px; background: rgba(251, 239, 226, 0.1); border: 1px solid rgba(251, 239, 226, 0.4); }
+  .c-foot { font-size: 13px; color: var(--cream); opacity: 0.9; font-variant-numeric: tabular-nums; }
+  /* Событие */
+  .c-scene { position: absolute; left: 0; right: 0; top: 0; height: 330px; overflow: hidden; }
+  .c-ehud { position: absolute; z-index: 5; left: 14px; right: 14px; top: 14px; display: flex; align-items: center; gap: 10px; }
+  .c-ehud .ava { flex: none; width: 46px; height: 46px; border-radius: 50%; overflow: hidden; background: #e2b999; box-shadow: 0 0 0 3px rgba(251, 239, 226, 0.6), 0 0 18px rgba(255, 200, 120, 0.7); }
+  .c-ehud .ava img { width: 100%; height: 125%; object-fit: cover; object-position: top; image-rendering: pixelated; }
+  .c-ehud h3 { font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1; text-shadow: 0 1px 10px rgba(122, 58, 34, 0.5); }
+  .c-ehud p { margin: 2px 0 0; font-size: 13px; text-shadow: 0 1px 8px rgba(122, 58, 34, 0.6); }
+  .c-hp { position: relative; width: 120px; height: 4px; margin-top: 6px; border-radius: 4px; background: rgba(251, 239, 226, 0.35); }
+  .c-hp::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 52%; border-radius: 4px; background: var(--honey); box-shadow: 0 0 10px #ffd27a; }
+  .c-speed { margin-left: auto; display: flex; padding: 3px; gap: 2px; border-radius: 999px; background: rgba(90, 58, 42, 0.55); }
+  .c-speed span { min-width: 26px; height: 26px; display: grid; place-items: center; border-radius: 999px; font-size: 13px; font-variant-numeric: tabular-nums; }
+  .c-speed span.on { background: var(--cream); color: var(--bark); }
+  .c-panel { position: absolute; z-index: 6; left: 12px; right: 12px; top: 268px; padding: 20px 18px 18px; border-radius: 26px; background: rgba(251, 239, 226, 0.86); backdrop-filter: blur(14px);
+    color: var(--txt); box-shadow: 0 24px 60px -24px rgba(122, 58, 34, 0.55); }
+  .c-num { font-size: 12px; letter-spacing: 0.14em; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .c-panel h2 { margin: 6px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 32px; line-height: 1; color: #6b3420; }
+  .c-panel .text { margin: 10px 0 0; font-size: 16.5px; line-height: 1.45; }
+  .c-panel .text i { color: var(--sunset); }
+  .c-opts { display: grid; gap: 8px; margin: 14px 0 0; }
+  .c-opt { display: flex; align-items: center; gap: 10px; padding: 9px 14px 9px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.55); border: 1px solid #e8c3a3; font-size: 16px; }
+  .c-opt b { flex: none; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--haze); color: var(--sunset); font-size: 13px; font-weight: 600; }
+  .c-opt span { flex: 1; }
+  .c-opt em { font-style: normal; font-size: 13px; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .c-opt.on { background: linear-gradient(90deg, #ffe7b8, #fbd29a); border-color: #f2b56a; box-shadow: 0 0 22px rgba(255, 200, 110, 0.6); }
+  .c-opt.on b { background: var(--sunset); color: var(--cream); }
+  .c-gloss { margin: 12px 0 0; font-size: 13px; color: var(--dim); font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ======================= A · меню ======================= -->
+<section class="page va" data-v="a" data-screen="menu">
+  <svg class="a-corner tl" viewBox="0 0 34 34" data-orn="corner"></svg><svg class="a-corner tr" viewBox="0 0 34 34" data-orn="corner"></svg>
+  <svg class="a-corner bl" viewBox="0 0 34 34" data-orn="corner"></svg><svg class="a-corner br" viewBox="0 0 34 34" data-orn="corner"></svg>
+  <div class="a-top"><span><b>RU</b> · EN · TR</span><span class="grow"></span><svg width="18" height="16" viewBox="0 0 18 16" fill="none" stroke="#ddbe97" stroke-width="1.3"><path d="M1 5.5h3.5L9 1.5v13l-4.5-4H1z"/><path d="M12 5c1.3 1.6 1.3 4.4 0 6M14.5 3c2.4 2.8 2.4 7.2 0 10"/></svg><span class="a-gift">ДАРЫ · 2</span></div>
+  <p class="a-kicker">ЛЕТОПИСЬ ОДНОЙ ЖИЗНИ</p>
+  <svg class="a-emblem" viewBox="0 0 120 120" data-orn="emblem"></svg>
+  <h1 class="a-word gold-text"><span>Тысячи</span><span>жизней</span></h1>
+  <p class="a-dates">Чьей — решит жребий</p>
+  <svg class="a-rule" viewBox="0 0 330 18" preserveAspectRatio="none" data-orn="rule"></svg>
+  <div class="a-reels">
+    <div class="a-win"><div>Новгород</div><div class="mid gold-text">?</div><div>Фивы</div></div>
+    <div class="a-win"><div>купцы</div><div class="mid gold-text">?</div><div>знать</div></div>
+    <div class="a-win"><div>сын</div><div class="mid gold-text">?</div><div>дочь</div></div>
+  </div>
+  <div class="a-labels"><span>ГДЕ И КОГДА</span><span>СОСЛОВИЕ</span><span>ПОЛ</span></div>
+  <button class="a-btn">БРОСИТЬ ЖРЕБИЙ</button>
+  <button class="a-btn ghost">Продолжить: Ефросинья, 12 лет <i>· Новгород</i></button>
+  <nav class="a-nav">Синодик<span>✦</span>Награды<span>✦</span>Настройки<span>✦</span>Об игре</nav>
+  <p class="a-foot">На данный момент в игру вошли 12 480 игроков</p>
+</section>
+
+<!-- ======================= A · событие ======================= -->
+<section class="page va" data-v="a" data-screen="event" hidden>
+  <svg class="a-corner tl" viewBox="0 0 34 34" data-orn="corner"></svg><svg class="a-corner tr" viewBox="0 0 34 34" data-orn="corner"></svg>
+  <svg class="a-corner bl" viewBox="0 0 34 34" data-orn="corner"></svg><svg class="a-corner br" viewBox="0 0 34 34" data-orn="corner"></svg>
+  <div class="a-hero">
+    <div class="a-port"><div class="duo"><img src="assets/ind-av-rus.png"></div></div>
+    <div><h3 class="gold-text">Ефросинья</h3><p>0 лет · Новгород, 1243</p><div class="a-health">ЗДОРОВЬЕ <s></s></div></div>
+    <div class="a-speed"><span>‖</span><span class="on">1</span><span>2</span><span>4</span></div>
+  </div>
+  <div class="a-scene"><div class="duo"><img src="assets/ind-rus-home.png"></div></div>
+  <p class="a-cap">Глава I · Новгород, зима 1243 года</p>
+  <h2 class="a-title gold-text">Оберег над колыбелью</h2>
+  <svg class="a-rule" viewBox="0 0 330 18" preserveAspectRatio="none" data-orn="rule" style="margin-top:8px"></svg>
+  <p class="a-text"><span class="drop gold-text">Б</span>абушка принесла к твоей колыбели оберег — узелок, о содержимом которого она молчит. Отец хмурится: «Лучше позвать священника, пусть благословит как положено». Решать родителям, а значит, тебе.</p>
+  <div class="a-opts">
+    <div class="a-opt on"><b>I.</b><span>Повесить бабушкин узелок</span></div>
+    <div class="a-opt"><b>II.</b><span>Позвать священника</span><em>5 кун</em></div>
+    <div class="a-opt"><b>III.</b><span>Обойтись без этого</span></div>
+  </div>
+  <p class="a-gloss">На полях: узелок потом найдётся в сундуке.</p>
+</section>
+
+<!-- ======================= B · меню ======================= -->
+<section class="page vb" data-v="b" data-screen="menu" hidden>
+  <div class="b-scene" data-scene="day"></div>
+  <div class="b-top"><span class="chip"><b>RU</b> EN TR</span><span class="chip">♪</span><span class="grow"></span><span class="chip dark">дары · 2</span></div>
+  <div class="b-title"><h1>Тысячи<br>жизней</h1><p>Одна дорога через века. Где родишься в этот раз?</p></div>
+  <div class="b-body">
+    <div class="b-ask"><h2>Куда поведёт жребий?</h2></div>
+    <div class="b-cards">
+      <div class="b-card"><small>где и когда</small><b>?</b><em>Новгород, Фивы…</em></div>
+      <div class="b-card"><small>сословие</small><b>?</b><em>купцы, знать…</em></div>
+      <div class="b-card"><small>пол</small><b>?</b><em>сын, дочь</em></div>
+    </div>
+    <button class="b-btn">Крутить жребий <svg viewBox="0 0 26 16" fill="none" stroke="#130904" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5c6-1 12 .5 21-.5M17 2.5l6 5.5-6 5.5"/></svg></button>
+    <button class="b-btn dark">Продолжить: Ефросинья, 12 лет <i>· Новгород</i></button>
+    <nav class="b-nav"><span>Синодик</span><span>Награды</span><span>Настройки</span><span>Об игре</span></nav>
+    <p class="b-foot">На данный момент в игру вошли 12 480 игроков</p>
+  </div>
+</section>
+
+<!-- ======================= B · событие ======================= -->
+<section class="page vb" data-v="b" data-screen="event" hidden>
+  <div class="b-scene night" data-scene="night" style="height:300px"></div>
+  <div class="b-hud">
+    <div class="port"><img src="assets/ind-av-rus.png"></div>
+    <div><h3>Ефросинья</h3><p>0 лет · Новгород, 1243</p><div class="b-hp"><i></i><i></i><i></i><i></i><i></i><i class="off"></i><i class="off"></i><i class="off"></i><i class="off"></i><i class="off"></i></div></div>
+    <div class="b-speed"><span>II</span><span class="on">1</span><span>2</span><span>4</span></div>
+  </div>
+  <div class="b-sheet">
+    <p class="b-kick">ГЛАВА I · ЗИМНЯЯ НОЧЬ</p>
+    <h2>Оберег над колыбелью</h2>
+    <p class="text">Бабушка принесла к твоей колыбели оберег — узелок, о содержимом которого она молчит. Отец хмурится: «Лучше позвать священника, пусть благословит как положено». Решать родителям, а значит, тебе.</p>
+    <div class="b-opts">
+      <div class="b-opt on"><b>1</b><span>Повесить бабушкин узелок</span></div>
+      <div class="b-opt"><b>2</b><span>Позвать священника</span><em>5 кун</em></div>
+      <div class="b-opt"><b>3</b><span>Обойтись без этого</span></div>
+    </div>
+    <p class="b-gloss">Пометка на карте: узелок потом найдётся в сундуке.</p>
+  </div>
+</section>
+
+<!-- ======================= C · меню ======================= -->
+<section class="page vc" data-v="c" data-screen="menu" hidden>
+  <div class="sky" data-sky></div>
+  <div class="c-hud"><span class="pill"><b>RU</b> EN TR</span><span class="pill">♪ вкл</span><span class="grow"></span><span class="pill">дары <b>02</b></span></div>
+  <div class="c-title"><span class="it">тысячи</span><span class="cap">ЖИЗНЕЙ</span><p>Поймай три огня — узнаешь, кем родишься</p></div>
+  <div class="c-lamps">
+    <div class="c-lamp"><i class="glow"></i><i class="cap"></i><div class="bulb"><b>?</b></div><i class="base"></i><i class="tassel"></i><small>где и когда</small></div>
+    <div class="c-lamp"><i class="glow"></i><i class="cap"></i><div class="bulb"><b>?</b></div><i class="base"></i><i class="tassel"></i><small>сословие</small></div>
+    <div class="c-lamp"><i class="glow"></i><i class="cap"></i><div class="bulb"><b>?</b></div><i class="base"></i><i class="tassel"></i><small>пол</small></div>
+  </div>
+  <div class="c-ui">
+    <button class="c-go">Зажечь огни</button>
+    <div class="c-cont"><span class="ava"><img src="assets/ind-av-rus.png"></span><span>Продолжить: <b>Ефросинья</b>, 12 лет <i>· Новгород</i></span><span class="arrow">→</span></div>
+  </div>
+  <div class="c-low">
+    <nav class="c-nav"><span>Синодик</span><span>Награды</span><span>Настройки</span><span>Об игре</span></nav>
+    <p class="c-foot">На данный момент в игру вошли 12 480 игроков</p>
+  </div>
+</section>
+
+<!-- ======================= C · событие ======================= -->
+<section class="page vc" data-v="c" data-screen="event" hidden>
+  <div class="c-scene"><div class="sky" data-sky="event"></div></div>
+  <div class="c-ehud">
+    <span class="ava"><img src="assets/ind-av-rus.png"></span>
+    <div><h3>Ефросинья</h3><p>0 лет · Новгород, 1243</p><div class="c-hp"></div></div>
+    <div class="c-speed"><span>II</span><span class="on">1×</span><span>2×</span><span>4×</span></div>
+  </div>
+  <div class="c-panel">
+    <p class="c-num">ГЛАВА 01 · ОГОНЬ 1 ИЗ 12</p>
+    <h2>Оберег над колыбелью</h2>
+    <p class="text">Бабушка принесла к твоей колыбели оберег — узелок, о содержимом которого она молчит. Отец хмурится: «Лучше позвать священника, пусть благословит как положено». <i>Решать родителям, а значит, тебе.</i></p>
+    <div class="c-opts">
+      <div class="c-opt on"><b>1</b><span>Повесить бабушкин узелок</span></div>
+      <div class="c-opt"><b>2</b><span>Позвать священника</span><em>5 кун</em></div>
+      <div class="c-opt"><b>3</b><span>Обойтись без этого</span></div>
+    </div>
+    <p class="c-gloss">Узелок потом найдётся в сундуке.</p>
+  </div>
+</section>
+
+<script>
+  const q = new URLSearchParams(location.search)
+  const V = q.get('v') || 'a'
+  const SCREEN = q.get('screen') || 'menu'
+  for (const s of document.querySelectorAll('.page')) s.hidden = !(s.dataset.v === V && s.dataset.screen === SCREEN)
+
+  // ---------- A: орнаменты золотым штрихом ----------
+  const GOLD = `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4e2be"/><stop offset=".45" stop-color="#ddbe97"/><stop offset=".7" stop-color="#a8875e"/><stop offset="1" stop-color="#e8cfa3"/></linearGradient></defs>`
+  const ORN = {
+    // Уголок рамки: завиток и ромб, как тиснение на переплёте.
+    corner: () => GOLD + `<g fill="none" stroke="url(#g)" stroke-width="1.2"><path d="M4 30V10Q4 4 10 4H30"/><path d="M9 26c0-9 4-15 15-17"/><path d="M13 18c2-3 4-4 7-5"/></g><path d="M4 4l4 0 0 4-4 0z" fill="#ddbe97"/><circle cx="16" cy="16" r="1.8" fill="#ddbe97"/>`,
+    rule: () => GOLD + `<g stroke="url(#g)" fill="none" stroke-width="1"><path d="M0 7H136M194 7H330M0 11H136M194 11H330" /><path d="M140 9q8-9 16 0q-8 9-16 0M190 9q-8-9-16 0q8 9 16 0"/></g><path d="M165 1l7 8-7 8-7-8z" fill="#ddbe97"/>`,
+    emblem: () => {
+      let s = GOLD + '<g fill="none" stroke="url(#g)">'
+      s += '<circle cx="60" cy="60" r="57" stroke-width="1.2"/><circle cx="60" cy="60" r="53" stroke-width=".6"/><circle cx="60" cy="60" r="39" stroke-width=".8"/>'
+      // Лучи между кругами — гравюрный штрих.
+      for (let i = 0; i < 48; i++) {
+        const a = (i / 48) * Math.PI * 2, r1 = i % 2 ? 44 : 41, r2 = 51
+        s += `<line x1="${60 + Math.cos(a) * r1}" y1="${60 + Math.sin(a) * r1}" x2="${60 + Math.cos(a) * r2}" y2="${60 + Math.sin(a) * r2}" stroke-width="${i % 2 ? 0.5 : 0.9}"/>`
+      }
+      // Песочные часы: крышки, колбы, песок штриховкой.
+      s += '<path d="M45 30H75M45 90H75M47 27H73M47 93H73" stroke-width="1.4"/>'
+      s += '<path d="M48 31C48 50 58 55 58 60C58 65 48 70 48 89M72 31C72 50 62 55 62 60C62 65 72 70 72 89" stroke-width="1.3"/>'
+      for (let y = 40; y < 54; y += 2.4) { const w = (54 - y) * 0.62; s += `<line x1="${60 - w}" y1="${y}" x2="${60 + w}" y2="${y}" stroke-width=".55"/>` }
+      s += '<line x1="60" y1="58" x2="60" y2="80" stroke-width=".6" stroke-dasharray="1.2 1.6"/>'
+      for (let y = 80; y < 89; y += 2.2) { const w = (y - 77) * 1.2; s += `<line x1="${60 - w}" y1="${y}" x2="${60 + w}" y2="${y}" stroke-width=".55"/>` }
+      s += '</g>'
+      // Звёздочки по сторонам.
+      const star = (x, y, r) => `<path d="M${x} ${y - r}L${x + r * 0.28} ${y - r * 0.28}L${x + r} ${y}L${x + r * 0.28} ${y + r * 0.28}L${x} ${y + r}L${x - r * 0.28} ${y + r * 0.28}L${x - r} ${y}L${x - r * 0.28} ${y - r * 0.28}Z" fill="#ddbe97"/>`
+      return s + star(26, 60, 4) + star(94, 60, 4) + star(60, 14, 2.6) + star(60, 106, 2.6)
+    },
+  }
+  for (const el of document.querySelectorAll('[data-orn]')) el.innerHTML = ORN[el.dataset.orn]()
+
+  // ---------- общие силуэты: луковичные главы, башни с шатрами, стена с зубцами ----------
+  const onion = (cx, y, w, h, f, extra = '') => `<path d="M${cx - w / 2} ${y}C${cx - w / 2} ${y - h * 0.55} ${cx - w * 0.06} ${y - h * 0.6} ${cx} ${y - h}C${cx + w * 0.06} ${y - h * 0.6} ${cx + w / 2} ${y - h * 0.55} ${cx + w / 2} ${y}Z" fill="${f}" ${extra}/>`
+  const church = (cx, base, s, f, extra = '') => {
+    const w = 24 * s, dh = 26 * s, bw = 46 * s, bh = 34 * s
+    return `<rect x="${cx - bw / 2}" y="${base - bh}" width="${bw}" height="${bh}" fill="${f}" ${extra}/>` +
+      `<rect x="${cx - w / 2}" y="${base - bh - dh}" width="${w}" height="${dh}" fill="${f}" ${extra}/>` +
+      onion(cx, base - bh - dh, w * 1.3, 24 * s, f, extra) +
+      `<rect x="${cx - 1}" y="${base - bh - dh - 24 * s - 9 * s}" width="2" height="${9 * s}" fill="${f}"/><rect x="${cx - 4 * s}" y="${base - bh - dh - 24 * s - 6.5 * s}" width="${8 * s}" height="1.6" fill="${f}"/>`
+  }
+  const tower = (x, base, w, h, roof, f, extra = '') => `<rect x="${x}" y="${base - h}" width="${w}" height="${h}" fill="${f}" ${extra}/><path d="M${x - 3} ${base - h}L${x + w / 2} ${base - h - roof}L${x + w + 3} ${base - h}Z" fill="${f}" ${extra}/>`
+  const wall = (x1, x2, base, h, f, extra = '') => {
+    let d = `M${x1} ${base}V${base - h}`
+    for (let x = x1; x < x2 - 8; x += 12) d += `H${x + 5}v-6l3 3 3-3v6`
+    return `<path d="${d}H${x2}V${base}Z" fill="${f}" ${extra}/>`
+  }
+
+  // ---------- B: бумажная аппликация ----------
+  const P = { paper: '#f3ead7', terra: '#df6c4f', mustard: '#ecd06f', olive: '#6e7044', ochre: '#987654', night: '#130904', earth: '#2a1a10' }
+  const cut = `stroke="${P.paper}" stroke-width="2.4" stroke-linejoin="round"`
+  const cypress = (x, base, h, w = h * 0.28) => `<path d="M${x} ${base - h}L${x + w / 2} ${base}H${x - w / 2}Z" fill="${P.paper}"/><path d="M${x} ${base - h + 9}L${x + w / 2 - 5} ${base - 3}H${x - w / 2 + 5}Z" fill="${P.olive}"/>`
+  const roundTree = (x, base, r, f = P.terra) => `<rect x="${x - 2.5}" y="${base - r}" width="5" height="${r}" fill="${P.earth}"/><circle cx="${x}" cy="${base - r - r * 0.7}" r="${r}" fill="${f}" ${cut}/><path d="M${x - r * 0.5} ${base - r * 1.5}l${r * 0.7} ${r * 0.6}M${x - r * 0.2} ${base - r * 2.1}l${r * 0.7} ${r * 0.6}" stroke="${P.paper}" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>`
+  const house = (x, base, w, h, roof = P.terra, lit = false) => `<rect x="${x}" y="${base - h}" width="${w}" height="${h}" fill="${P.paper}"/><path d="M${x - 4} ${base - h + 1}L${x + w / 2} ${base - h - w * 0.55}L${x + w + 4} ${base - h + 1}Z" fill="${roof}" ${cut}/><rect x="${x + w / 2 - 4}" y="${base - h * 0.62}" width="8" height="9" fill="${lit ? P.mustard : P.earth}"/>`
+  const hill = (cx, top, rx, f, extra = '') => `<ellipse cx="${cx}" cy="${top + rx * 0.62}" rx="${rx}" ry="${rx * 0.62}" fill="${f}" ${extra}/>`
+
+  function bScene(el, night) {
+    const W = 390, H = el.offsetHeight
+    let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`
+    if (night) {
+      // Ночь: луна-горчица, звёзды-крестики, тёмные холмы, светятся окна.
+      s += `<circle cx="318" cy="96" r="26" fill="${P.mustard}" ${cut}/><circle cx="330" cy="88" r="22" fill="#22140b"/>`
+      for (const [x, y] of [[40, 110], [96, 132], [150, 104], [214, 124], [262, 150], [358, 160], [70, 170], [190, 160]]) s += `<path d="M${x - 4} ${y}h8M${x} ${y - 4}v8" stroke="${P.paper}" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>`
+      s += hill(80, 212, 190, '#3c3a22') + hill(330, 226, 160, '#5a2f22')
+      s += church(206, 262, 1, P.paper, cut) + house(110, 262, 34, 30, '#5a2f22', true) + house(270, 266, 30, 26, '#3c3a22', true) + house(306, 270, 26, 22, P.terra, true)
+      s += cypress(60, 268, 64) + cypress(80, 270, 44) + cypress(350, 280, 58)
+      s += `<path d="M0 ${H - 26}Q120 ${H - 46} 220 ${H - 30}T390 ${H - 34}V${H}H0Z" fill="${P.paper}"/>` // снег
+      s += `<path d="M30 ${H - 18}C110 ${H - 34} 170 ${H - 10} 240 ${H - 24}S340 ${H - 30} 380 ${H - 22}" fill="none" stroke="${P.terra}" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round"/>`
+    } else {
+      s += `<circle cx="306" cy="58" r="30" fill="${P.mustard}" ${cut}/>`
+      s += hill(70, 236, 170, P.olive) + hill(320, 250, 150, '#b45a3e') + hill(190, 300, 240, '#7a5c2e')
+      s += cypress(36, 286, 70) + cypress(58, 290, 46) + roundTree(112, 296, 16) + house(150, 300, 30, 26)
+      s += church(240, 304, 0.8, P.paper, cut) + house(286, 308, 26, 22, P.olive) + cypress(334, 300, 64) + cypress(356, 304, 42) + roundTree(372, 312, 13, P.mustard)
+      s += hill(80, 330, 230, '#5e4428') + hill(330, 344, 190, '#4a3418')
+      s += cypress(20, 372, 50) + roundTree(240, 380, 12, P.terra) + cypress(300, 384, 40)
+    }
+    s += '</svg>'
+    el.innerHTML = s
+    if (night) return
+    // Маршрут прошлых жизней: пунктир через холмы, флажки на остановках — последняя ещё не открыта.
+    const ns = 'http://www.w3.org/2000/svg'
+    const svg = el.querySelector('svg')
+    const path = document.createElementNS(ns, 'path')
+    path.setAttribute('d', 'M-6 398C40 380 70 330 120 346S200 392 236 356 270 290 330 300 372 330 362 262')
+    path.setAttribute('fill', 'none'); path.setAttribute('stroke', P.paper); path.setAttribute('stroke-width', '3.2')
+    path.setAttribute('stroke-dasharray', '1 9'); path.setAttribute('stroke-linecap', 'round')
+    svg.appendChild(path)
+    const len = path.getTotalLength()
+    const stops = [[0.2, 'Фивы', '−1350'], [0.48, 'Константинополь', '1180'], [0.74, 'Новгород', '1243'], [1, '?', 'следующая']]
+    for (const [k, name, when] of stops) {
+      const pt = path.getPointAtLength(len * k)
+      const last = k === 1
+      const c = document.createElementNS(ns, 'circle')
+      c.setAttribute('cx', pt.x); c.setAttribute('cy', pt.y); c.setAttribute('r', last ? 7 : 5.5)
+      c.setAttribute('fill', last ? P.mustard : P.night); c.setAttribute('stroke', P.paper); c.setAttribute('stroke-width', '2.4')
+      svg.appendChild(c)
+      if (last) { const r = c.cloneNode(); r.setAttribute('r', 13); r.setAttribute('fill', 'none'); r.setAttribute('stroke', P.mustard); r.setAttribute('stroke-dasharray', '3 4'); svg.appendChild(r) }
+      const pin = document.createElement('div')
+      pin.className = 'b-pin' + (last ? ' next' : '')
+      pin.innerHTML = `${name}<small>${when}</small>`
+      pin.style.left = Math.min(Math.max(pt.x, 52), 338) + 'px'; pin.style.top = pt.y + 'px'
+      el.appendChild(pin)
+    }
+  }
+  for (const el of document.querySelectorAll('.vb:not([hidden]) [data-scene]')) bScene(el, el.dataset.scene === 'night')
+
+  // ---------- C: слои глубины в персиковом тумане ----------
+  function cSky(el, event) {
+    const W = 390, H = event ? 330 : 844
+    let h = `<i class="c-sun" style="${event ? 'left:236px;top:40px' : ''}"></i>`
+    for (const [x, y, o] of [[60, 60, 0.6], [140, 40, 0.8], [250, 70, 0.5], [330, 40, 0.9], [300, 120, 0.4], [30, 150, 0.5], [200, 150, 0.35]]) h += `<i class="c-star" style="left:${x}px;top:${y * (event ? 0.8 : 1)}px;opacity:${o}"></i>`
+    const base = H
+    // Три слоя: дальний (почти цвет неба), средний, ближний (кора). Чёрного нет.
+    const far = '#eea07a', mid = '#d9764a', near = '#9a4a2e', closest = '#6e3a26'
+    let s = `<svg class="city" width="${W}" height="${event ? H : 360}" viewBox="0 0 ${W} ${event ? H : 360}">`
+    const B = event ? H : 360
+    s += `<path d="M0 ${B - 120}Q90 ${B - 160} 180 ${B - 130}T390 ${B - 140}V${B}H0Z" fill="${far}"/>`
+    s += church(70, B - 120, 0.9, far) + church(300, B - 128, 1.1, far) + tower(180, B - 128, 14, 40, 30, far)
+    s += `</svg>`
+    const fog1 = event ? [[-40, 190, 260, 70], [200, 210, 260, 80]] : [[-60, 520, 300, 90], [180, 540, 300, 100]]
+    let fogs = fog1.map(([x, y, w, hh]) => `<i class="c-fog" style="left:${x}px;top:${y}px;width:${w}px;height:${hh}px"></i>`).join('')
+    let s2 = `<svg class="city" width="${W}" height="${event ? H : 300}" viewBox="0 0 ${W} ${event ? H : 300}">`
+    const B2 = event ? H : 300
+    s2 += wall(20, 370, B2 - 60, 30, mid) + tower(10, B2 - 60, 28, 64, 40, mid) + tower(352, B2 - 60, 28, 56, 36, mid) + tower(170, B2 - 60, 24, 76, 44, mid)
+    s2 += church(110, B2 - 84, 1.2, mid) + church(262, B2 - 84, 1.45, mid) + onion(236, B2 - 150, 20, 22, mid) + onion(290, B2 - 150, 20, 22, mid)
+    s2 += `<rect x="0" y="${B2 - 62}" width="${W}" height="62" fill="${mid}"/></svg>`
+    const fog2 = event ? [[60, 280, 280, 60]] : [[20, 600, 360, 70]]
+    let s3 = ''
+    if (!event) {
+      s3 = `<svg class="city" width="${W}" height="170" viewBox="0 0 ${W} 170"><path d="M0 40Q100 10 200 34T390 20V170H0Z" fill="${near}"/>`
+      s3 += `<path d="M0 84Q110 64 230 80T390 76V170H0Z" fill="${closest}"/></svg>`
+    }
+    h += s + fogs + s2 + fog2.map(([x, y, w, hh]) => `<i class="c-fog" style="left:${x}px;top:${y}px;width:${w}px;height:${hh}px;opacity:.55"></i>`).join('') + s3
+    el.innerHTML = h
+    if (event) { // один фонарь висит над сценой — «огонь главы»
+      el.insertAdjacentHTML('beforeend', `<div class="c-lamp" style="position:absolute;left:300px;top:96px;transform:rotate(5deg) scale(.55);transform-origin:top center"><i class="glow"></i><i class="cap"></i><div class="bulb"><b style="font-size:30px">I</b></div><i class="base"></i><i class="tassel"></i></div>`)
+    }
+  }
+  for (const el of document.querySelectorAll('.vc:not([hidden]) [data-sky]')) cSky(el, el.dataset.sky === 'event')
+</script>
+</body>
+</html>
