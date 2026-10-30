@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Тёмная летопись — три варианта</title>
+<link rel="stylesheet" href="mock.css" />
+<style>
+  /* Элементы макета А (миниатюры, буквицы, киноварь, печать, закладка, поля) на тёмном фоне; барабан — однорукий бандит.
+     ?v=1 «Сажа и золото», ?v=2 «Лазурит», ?v=3 «Кожаный переплёт»; ?screen=menu|event. Шрифты — игровые. */
+  body.v1 { --bg: #120d09; --bg-2: #1e1610; --txt: #ecdfc4; --dim: #a8967a; --rub: #d9573c; --gold: #c9a04a; --gold-2: #8a6a26; --frame: #c9a04a;
+    --cab: linear-gradient(180deg, #4a2c17, #2c180b); --cab-trim: #c9a04a; --reel: #efe3c6; --bulb: #f5c25a; }
+  body.v2 { --bg: #0b1330; --bg-2: #13204a; --txt: #efe6cf; --dim: #9fa9c9; --rub: #e3684d; --gold: #d8b25a; --gold-2: #96752c; --frame: #d8b25a;
+    --cab: linear-gradient(180deg, #1d3a8a, #0f1f52); --cab-trim: #d8b25a; --reel: #f3ecda; --bulb: #fbe08a; }
+  body.v3 { --bg: #22100d; --bg-2: #3a1a14; --txt: #f0dcc0; --dim: #b89a82; --rub: #e48a4e; --gold: #c99a4a; --gold-2: #8c5f2a; --frame: #c99a4a;
+    --cab: linear-gradient(180deg, #b0703a, #6e3f1c); --cab-trim: #f0c27a; --reel: #f4e6c8; --bulb: #ffd28a; }
+  html, body { width: 390px; min-height: 844px; }
+  body { position: relative; overflow: hidden; color: var(--txt); background: var(--bg); }
+  /* Фактура фона: шум + свет сверху + виньетка; у каждого варианта своё. */
+  body::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.5; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.6  0 0 0 0 0.5  0 0 0 0 0.35  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  body::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 70% at 50% 12%, rgba(255, 200, 120, 0.10), transparent 60%), radial-gradient(150% 110% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.6) 100%); }
+  body.v2::after { background: radial-gradient(120% 70% at 50% 10%, rgba(140, 170, 255, 0.10), transparent 60%), radial-gradient(150% 110% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.6) 100%); }
+  /* Лазурит: золотые звёзды, как на ночном небе часослова. */
+  .stars { display: none; position: absolute; inset: 0; pointer-events: none; background-image:
+    radial-gradient(1.6px 1.6px at 12% 18%, var(--gold), transparent), radial-gradient(1.2px 1.2px at 74% 9%, var(--gold), transparent), radial-gradient(1.4px 1.4px at 88% 31%, var(--gold), transparent),
+    radial-gradient(1.2px 1.2px at 33% 41%, var(--gold), transparent), radial-gradient(1.6px 1.6px at 61% 57%, var(--gold), transparent), radial-gradient(1.2px 1.2px at 9% 71%, var(--gold), transparent),
+    radial-gradient(1.4px 1.4px at 92% 78%, var(--gold), transparent), radial-gradient(1.2px 1.2px at 45% 92%, var(--gold), transparent); background-size: 390px 420px; opacity: 0.8; }
+  body.v2 .stars { display: block; }
+  /* Кожа: тиснёная золотая рамка по краю. */
+  .tool { display: none; position: absolute; inset: 9px; pointer-events: none; border: 1.5px solid var(--gold-2); outline: 1px solid rgba(201, 154, 74, 0.45); outline-offset: -6px; }
+  body.v3 .tool { display: block; }
+  body.v3 { background: radial-gradient(130% 90% at 50% 30%, #3a1a14, #22100d 70%, #160907); }
+  body.v1 { background: radial-gradient(130% 90% at 50% 30%, #1e1610, #120d09 70%, #0a0705); }
+  body.v2 { background: radial-gradient(130% 90% at 50% 30%, #16245a, #0b1330 70%, #070c20); }
+
+  .page { position: relative; z-index: 1; padding: 18px 22px 20px; }
+  .margin { display: flex; align-items: center; gap: 10px; font-style: italic; font-size: 14px; color: var(--dim); }
+  .grow { flex: 1; }
+  .langs b { color: var(--rub); font-style: normal; }
+  .ribbon { position: absolute; z-index: 2; top: 0; right: 26px; width: 46px; padding: 9px 0 18px; text-align: center; color: #f6e3c2; font-size: 13px; line-height: 1.1;
+    background: var(--rub); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%); }
+  .ribbon img { display: block; margin: 0 auto 3px; }
+  .mini { position: relative; margin: 12px 0 0; padding: 6px; border: 2px solid var(--frame); outline: 1px solid var(--frame); outline-offset: 3px; background: #000; }
+  .mini img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+  .mini i { position: absolute; width: 10px; height: 10px; background: var(--rub); border: 2px solid var(--frame); }
+  .mini i:nth-of-type(1) { left: -8px; top: -8px; } .mini i:nth-of-type(2) { right: -8px; top: -8px; } .mini i:nth-of-type(3) { left: -8px; bottom: -8px; } .mini i:nth-of-type(4) { right: -8px; bottom: -8px; }
+  .cap-note { margin: 8px 0 0; text-align: right; font-style: italic; font-size: 13px; color: var(--dim); }
+  h1 { font-family: var(--font-display); font-weight: 500; font-size: 38px; line-height: 1; margin: 4px 0 0; }
+  h1 .cap { color: var(--rub); font-size: 56px; text-shadow: 1px 1px 0 var(--gold-2); }
+  .tag { margin: 6px 0 0; font-style: italic; font-size: 17px; color: var(--dim); }
+
+  /* Однорукий бандит: арка с лампами, корпус, стекло с бликом, линия выигрыша, табличка, лоток, рычаг. */
+  .bandit { position: relative; margin: 16px 34px 0 6px; }
+  .arch { position: relative; height: 58px; border-radius: 150px 150px 0 0 / 58px 58px 0 0; background: var(--cab); box-shadow: inset 0 0 0 3px #000, inset 0 0 0 6px var(--cab-trim); text-align: center; }
+  .arch span { position: absolute; left: 0; right: 0; top: 24px; font-family: var(--font-display); font-size: 20px; color: var(--cab-trim); letter-spacing: 1px; text-shadow: 0 1px 0 #000; }
+  .arch b { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: radial-gradient(circle, #fff7d6, var(--bulb) 55%, rgba(0, 0, 0, 0.4)); box-shadow: 0 0 7px var(--bulb); }
+  .body { position: relative; padding: 10px 12px 12px; background: var(--cab); box-shadow: inset 0 0 0 3px #000, inset 0 0 0 6px var(--cab-trim), 0 14px 24px rgba(0, 0, 0, 0.6); border-radius: 0 0 10px 10px; }
+  body.v3 .body::before, body.v3 .arch::before { content: ''; position: absolute; inset: 9px; pointer-events: none; background-image: radial-gradient(circle, rgba(255, 230, 180, 0.8) 1.4px, transparent 2px); background-size: 22px 22px; opacity: 0.35; }
+  .glass { position: relative; display: grid; grid-template-columns: 1.3fr 1fr 0.8fr; gap: 5px; padding: 6px; background: #0b0806; border-radius: 6px; box-shadow: inset 0 0 0 2px var(--cab-trim), inset 0 4px 10px rgba(0, 0, 0, 0.8); }
+  .glass::after { content: ''; position: absolute; inset: 6px; border-radius: 4px; pointer-events: none; background: linear-gradient(115deg, rgba(255, 255, 255, 0.28) 0 14%, transparent 14% 40%, rgba(255, 255, 255, 0.08) 40% 46%, transparent 46%); }
+  .reel { position: relative; overflow: hidden; height: 108px; border-radius: 3px; color: #2a1d12; text-align: center; background: linear-gradient(180deg, #8f8167 0%, var(--reel) 26%, var(--reel) 74%, #8f8167 100%); }
+  .reel .row { height: 36px; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 13px; opacity: 0.45; }
+  .reel .row.mid { opacity: 1; font-family: var(--font-display); font-size: 26px; color: #8e2a18; }
+  .labels { display: grid; grid-template-columns: 1.3fr 1fr 0.8fr; gap: 5px; padding: 0 6px 4px; text-align: center; font-size: 12px; font-style: italic; color: var(--cab-trim); text-shadow: 0 1px 0 #000; }
+  .payline { position: absolute; left: -2px; right: -2px; top: 50%; height: 2px; margin-top: -1px; background: var(--rub); box-shadow: 0 0 6px var(--rub); }
+  .payline::before, .payline::after { content: ''; position: absolute; top: -5px; border: 6px solid transparent; }
+  .payline::before { left: -6px; border-left-color: var(--rub); } .payline::after { right: -6px; border-right-color: var(--rub); }
+  .plate { display: flex; align-items: center; justify-content: space-between; margin: 10px 2px 0; }
+  .plate span { padding: 3px 10px; font-size: 13px; font-style: italic; color: #2a1d12; background: linear-gradient(180deg, #f3d892, var(--cab-trim)); border-radius: 3px; box-shadow: 0 1px 0 #000; }
+  .slot { width: 34px; height: 8px; border-radius: 4px; background: #000; box-shadow: 0 0 0 2px var(--cab-trim); }
+  .tray { height: 14px; margin: 10px 18px 0; border-radius: 0 0 14px 14px; background: linear-gradient(180deg, #000, #2a2a2a); box-shadow: inset 0 0 0 2px var(--cab-trim); }
+  .arm { position: absolute; right: -30px; top: 92px; width: 28px; height: 150px; }
+  .arm .mount { position: absolute; left: 0; top: 58px; width: 18px; height: 34px; border-radius: 0 6px 6px 0; background: linear-gradient(90deg, var(--cab-trim), #6a4a18); box-shadow: inset 0 0 0 2px #000; }
+  .arm .rod { position: absolute; left: 10px; top: 10px; width: 7px; height: 72px; border-radius: 4px; background: linear-gradient(90deg, #8e8a84, #f2f0ea, #8e8a84); }
+  .arm .ball { position: absolute; left: 1px; top: -10px; width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff8a72, #b8322a 55%, #5e120c); box-shadow: 0 5px 8px rgba(0, 0, 0, 0.6); }
+  /* Печать-кнопка. */
+  .seal-row { display: flex; align-items: center; gap: 14px; margin: 16px 0 0; }
+  .seal { width: 68px; height: 68px; flex: none; border: 0; border-radius: 47% 53% 50% 48% / 52% 46% 54% 48%; color: #f6e3c2; font-family: var(--font-display); font-size: 13px; line-height: 1.05;
+    background: radial-gradient(circle at 38% 34%, #e0664a 0%, #a5301a 48%, #5e170a 100%); box-shadow: inset -4px -5px 0 rgba(0, 0, 0, 0.25), inset 3px 3px 0 rgba(255, 210, 170, 0.22), 0 6px 10px rgba(0, 0, 0, 0.5); transform: rotate(-8deg); }
+  .seal-row p { margin: 0; font-size: 16px; line-height: 1.25; color: var(--dim); }
+  .seal-row p b { font-family: var(--font-display); font-weight: 500; font-size: 23px; display: block; color: var(--txt); }
+  .note { margin: 14px 0 0; display: flex; gap: 10px; align-items: center; font-size: 16px; }
+  .note b { color: var(--gold); font-weight: 500; }
+  .tri { flex: none; width: 0; height: 0; border: 7px solid transparent; border-left: 11px solid var(--rub); border-right: 0; }
+  .note i { color: var(--dim); }
+  nav { margin: 10px 0 0; font-size: 16px; text-align: center; }
+  nav span { color: var(--rub); margin: 0 4px; }
+  .colophon { margin: 10px 0 0; text-align: center; font-style: italic; font-size: 12.5px; color: var(--dim); }
+  .colophon u { text-decoration-color: var(--rub); }
+
+  /* Событие. */
+  .hero { display: flex; gap: 10px; align-items: center; margin-top: 6px; }
+  .hero .port { flex: none; padding: 3px; border: 2px solid var(--frame); background: #000; }
+  .hero .port img { display: block; width: 46px; height: 58px; image-rendering: pixelated; }
+  .hero h3 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 25px; line-height: 1; }
+  .hero p { margin: 2px 0 0; font-style: italic; font-size: 14px; color: var(--dim); }
+  .health { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13px; color: var(--dim); }
+  .health s { display: block; width: 100px; height: 7px; border: 1.5px solid var(--frame); background: linear-gradient(90deg, var(--rub) 0 52%, transparent 52%); text-decoration: none; }
+  .speed { display: grid; grid-template-columns: repeat(2, 28px); gap: 4px; margin-left: auto; align-self: flex-start; }
+  .speed span { width: 28px; height: 28px; display: grid; place-items: center; border: 1.5px solid var(--frame); font-family: var(--font-display); font-size: 14px; color: var(--gold); }
+  .speed span.on { background: var(--gold); color: var(--bg); }
+  h2 { margin: 14px 0 0; font-family: var(--font-display); font-weight: 500; font-size: 29px; color: var(--rub); line-height: 1.05; }
+  .text { margin: 8px 0 0; font-size: 17.5px; line-height: 1.45; }
+  .text .drop { float: left; font-family: var(--font-display); font-size: 60px; line-height: 0.82; margin: 5px 8px 0 0; padding: 4px 6px 2px; color: var(--rub); border: 1.5px solid var(--gold); background: rgba(201, 160, 74, 0.12); }
+  ol { list-style: none; padding: 0; margin: 14px 0 0; clear: both; }
+  ol li { display: flex; gap: 10px; align-items: baseline; padding: 9px 2px; border-bottom: 1px solid rgba(201, 160, 74, 0.4); font-size: 17.5px; }
+  ol li:first-child { border-top: 1px solid rgba(201, 160, 74, 0.4); }
+  ol li b { flex: none; width: 28px; color: var(--rub); font-family: var(--font-display); font-weight: 500; font-size: 19px; }
+  ol li span { flex: 1; }
+  ol li em { font-size: 14px; color: var(--dim); }
+  .gloss { margin: 12px 0 0 38px; font-style: italic; font-size: 14px; color: var(--dim); border-left: 2px solid var(--rub); padding-left: 8px; }
+</style>
+</head>
+<body>
+<div class="stars"></div><div class="tool"></div>
+<div class="page" id="menu">
+  <div class="ribbon"><img data-icon="chest" data-pal="brass" data-px="2">дары<br>2</div>
+  <div class="margin"><span>v0.9</span><span class="grow"></span><img data-icon="speaker" data-pal="brass" data-px="2"><span class="langs"><b>RU</b> EN TR</span><span style="width:52px"></span></div>
+  <figure class="mini"><img data-scene="land"><i></i><i></i><i></i><i></i></figure>
+  <p class="cap-note" data-caption></p>
+  <h1><span class="cap">Т</span>ысячи жизней</h1>
+  <p class="tag">Летопись одной жизни. Чьей? Решит жребий.</p>
+  <div class="bandit">
+    <div class="arch"><span>жребий</span></div>
+    <div class="body">
+      <div class="labels"><span>где и когда</span><span>сословие</span><span>пол</span></div>
+      <div class="glass">
+        <div class="reel"><div class="row" data-r="0a"></div><div class="row mid">?</div><div class="row" data-r="0b"></div></div>
+        <div class="reel"><div class="row"><img data-icon="crown" data-pal="ink" data-px="2"></div><div class="row mid">?</div><div class="row"><img data-icon="coin" data-pal="ink" data-px="2"></div></div>
+        <div class="reel"><div class="row">сын</div><div class="row mid">?</div><div class="row">дочь</div></div>
+        <div class="payline"></div>
+      </div>
+      <div class="plate"><span>брось жребий или дёрни рычаг</span><i class="slot"></i></div>
+      <div class="tray"></div>
+    </div>
+    <div class="arm"><i class="mount"></i><i class="rod"></i><i class="ball"></i></div>
+  </div>
+  <div class="seal-row"><button class="seal">брось<br>жребий</button><p><b>Кем родишься?</b>страна, сословие, пол</p></div>
+  <p class="note"><i class="tri"></i><span>Продолжить: <b data-heroname></b>, 12 лет <i data-heroplace></i></span></p>
+  <nav>Синодик<span>❧</span>Награды<span>❧</span>Настройки<span>❧</span>Об игре</nav>
+  <p class="colophon">Летопись пишет один человек · <u>что нового</u></p>
+</div>
+
+<div class="page" id="event" hidden>
+  <div class="hero">
+    <div class="port"><img data-avatar></div>
+    <div><h3 data-heroname></h3><p data-herometa></p><div class="health">здоровье <s></s></div></div>
+    <div class="speed"><span><img data-icon="pause" data-pal="brass" data-px="2"></span><span class="on">1</span><span>2</span><span>4</span></div>
+  </div>
+  <figure class="mini" style="margin-top:14px"><img data-scene="home"><i></i><i></i><i></i><i></i></figure>
+  <h2>Оберег над колыбелью</h2>
+  <p class="text"><span class="drop">Б</span>абушка принесла к твоей колыбели оберег: узелок, о содержимом которого она молчит. Отец хмурится. «Лучше позвать <span data-priest></span>, пусть благословит как положено». Решать родителям, а значит, тебе.</p>
+  <ol>
+    <li><b>I.</b><span>Повесить бабушкин узелок</span></li>
+    <li><b>II.</b><span>Позвать <span data-priest></span></span><em data-cost></em></li>
+    <li><b>III.</b><span>Обойтись без этого</span></li>
+  </ol>
+  <p class="gloss">На полях: узелок потом найдётся в сундуке.</p>
+</div>
+<script src="pixel-icons.js"></script>
+<script>
+  const q = new URLSearchParams(location.search)
+  const v = q.get('v') || '1'
+  document.body.className = 'v' + v
+  // Своя страна у каждого варианта — чтобы видеть, как тёмный фон уживается с разными сценами.
+  const C = {
+    1: { land: 'ind-rus-land', home: 'ind-rus-home', av: 'ind-av-rus', name: 'Ефросинья', place: '(Новгород)', meta: '0 лет · Новгород, 1243', cap: 'Новгород. Зима 1243 года', priest: 'священника', cost: '5 кун', r: ['Новгород', 'Фивы'] },
+    2: { land: 'ind-byz-land', home: 'ind-byz-home', av: 'ind-av-byz', name: 'Ирина', place: '(Константинополь)', meta: '0 лет · Константинополь, 1180', cap: 'Константинополь. Вечер 1180 года', priest: 'священника', cost: '5 номисм', r: ['Византия', 'Русь'] },
+    3: { land: 'ind-egy-land', home: 'ind-egy-home', av: 'ind-av-egy', name: 'Хори', place: '(Фивы)', meta: '0 лет · Фивы, 1350 до н. э.', cap: 'Фивы. Закат, 1350 год до н. э.', priest: 'жреца', cost: '5 дебенов', r: ['Египет', 'Япония'] },
+  }[v]
+  for (const img of document.querySelectorAll('[data-scene]')) img.src = `assets/${C[img.dataset.scene]}.png`
+  for (const img of document.querySelectorAll('[data-avatar]')) img.src = `assets/${C.av}.png`
+  for (const el of document.querySelectorAll('[data-heroname]')) el.textContent = C.name
+  for (const el of document.querySelectorAll('[data-heroplace]')) el.textContent = C.place
+  for (const el of document.querySelectorAll('[data-herometa]')) el.textContent = C.meta
+  for (const el of document.querySelectorAll('[data-caption]')) el.textContent = C.cap
+  for (const el of document.querySelectorAll('[data-priest]')) el.textContent = C.priest
+  for (const el of document.querySelectorAll('[data-cost]')) el.textContent = C.cost
+  document.querySelector('[data-r="0a"]').textContent = C.r[0]
+  document.querySelector('[data-r="0b"]').textContent = C.r[1]
+  // Лампочки по дуге арки.
+  const arch = document.querySelector('.arch')
+  for (let i = 0; i <= 10; i++) {
+    const a = Math.PI * (i / 10)
+    const b = document.createElement('b')
+    b.style.left = `calc(50% + ${Math.cos(a) * -46}% - 4px)`
+    b.style.top = `${56 - Math.sin(a) * 48}px`
+    arch.appendChild(b)
+  }
+  if (q.get('screen') === 'event') { document.getElementById('menu').hidden = true; document.getElementById('event').hidden = false }
+</script>
+</body>
+</html>
