@@ -16,6 +16,7 @@ for (const unique of [false, true]) {
   const kidsDistinct: number[] = []
   const adultKids: number[][] = []
   const rep = new Map<string, number>()
+  const byAge = [0, 0, 0, 0]
   for (let p = 0; p < players; p++) {
     const memorial: LifeSummary[] = []
     const kids: number[] = []
@@ -34,6 +35,7 @@ for (const unique of [false, true]) {
       const sum = s.family.lives[s.family.lives.length - 1]
       memorial.push(sum)
       const ids = sum.diary.map((d) => d.eventId).filter((x): x is string => !!x)
+      for (const d of sum.diary) if (d.eventId) byAge[d.age <= 10 ? 0 : d.age <= 20 ? 1 : d.age <= 40 ? 2 : 3]++
       const counts = new Map<string, number>()
       for (const e of ids) counts.set(e, (counts.get(e) ?? 0) + 1)
       for (const [e, n] of counts) {
@@ -59,5 +61,6 @@ for (const unique of [false, true]) {
     console.log('  чаще всего:', [...rep].sort((a, b) => b[1] - a[1]).slice(0, 15).map(([id, n]) => `${id}:${n}`).join(' '))
   }
   console.log(`  событий в жизнях: ${events}, уже были в прошлых жизнях: ${((repeats / events) * 100).toFixed(1)}%, повторы внутри жизни: ${((inLife / events) * 100).toFixed(1)}%`)
+  console.log(`  событий на жизнь по возрасту: 0–10: ${(byAge[0] / players / 10).toFixed(1)}, 11–20: ${(byAge[1] / players / 10).toFixed(1)}, 21–40: ${(byAge[2] / players / 10).toFixed(1)}, 41+: ${(byAge[3] / players / 10).toFixed(1)}`)
   console.log(`  разных чисел детей среди взрослых жизней: ${((kidsDistinct.reduce((a, b) => a + b, 0) / players) * 100).toFixed(0)}%; пример: ${adultKids.slice(0, 3).map((k) => k.join(',')).join(' | ')}`)
 }
