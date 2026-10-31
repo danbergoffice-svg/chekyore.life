@@ -37,6 +37,8 @@ export interface Flags {
   portrait_style: string
   /** Сила стиля искусства страны на сценах 0–1 (палитра, фактура, контур). */
   art_strength: number
+  /** Сколько первых жизней уникальны: события прошлых жизней не повторяются, у каждой своё число детей; 0 - выключено. */
+  unique_lives: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -57,6 +59,7 @@ export const DEFAULT_FLAGS: Flags = {
   ach_rarity: {},
   portrait_style: 'painting',
   art_strength: 0.5,
+  unique_lives: 10,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

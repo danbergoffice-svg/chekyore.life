@@ -9,10 +9,19 @@
   "year_sec_child": 6,
   "year_sec": 10,
   "child_age": 12,
-  "chapter_ages": [16, 30, 45, 60],
+  "chapter_ages": [
+    16,
+    30,
+    45,
+    60
+  ],
   "fullscreen_gap_sec": 180,
-  "ab_buckets": { "a": 0.5, "b": 0.5 },
+  "ab_buckets": {
+    "a": 0.5,
+    "b": 0.5
+  },
   "ach_rarity": {},
   "portrait_style": "painting",
-  "art_strength": 0.5
+  "art_strength": 0.5,
+  "unique_lives": 10
 }

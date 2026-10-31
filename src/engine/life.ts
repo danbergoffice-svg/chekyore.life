@@ -404,3 +404,17 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
   return state
 }
+
+/**
+ * Первые жизни игрока: сколько детей будет в этой - число, которого ещё не было в прошлых (у кого жизнь была взрослой).
+ * Чаще 2–5, реже без детей или 8–9; когда все числа уже были - любое по тем же весам.
+ */
+export function pickKidsTarget(before: number[], r: () => number): number {
+  const weights = [0.6, 1, 2, 3, 3, 3, 2, 1.5, 1, 0.7]
+  const used = new Set(before)
+  let options = weights.map((w, n) => [n, w] as const).filter(([n]) => !used.has(n))
+  if (!options.length) options = weights.map((w, n) => [n, w] as const)
+  let x = r() * options.reduce((a, [, w]) => a + w, 0)
+  for (const [n, w] of options) if ((x -= w) < 0) return n
+  return options[options.length - 1][0]
+}

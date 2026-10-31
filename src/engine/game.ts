@@ -223,7 +223,15 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   if (hero.tags.includes('married') && spouse) {
     const motherAge = hero.sex === 'f' ? age : npcAge(spouse, state.year)
     if (motherAge >= 15 && motherAge <= 44) {
-      const p = 0.28 + (focus?.id === 'family' ? 0.12 : 0) - (motherAge > 38 ? 0.12 : 0)
+      let p = 0.28 + (focus?.id === 'family' ? 0.12 : 0) - (motherAge > 38 ? 0.12 : 0)
+      // Первые жизни: у каждой своё число детей - до цели чаще, после почти никогда.
+      const target = state.settings.kidsTarget
+      if (target !== undefined) {
+        const born = hero.npcs.filter((n) => n.role === 'child').length
+        // Сколько ещё нужно за оставшиеся годы - столько и шанс (с запасом на неудачные годы).
+        const left = Math.max(1, 45 - motherAge)
+        p = born >= target ? p * 0.06 : Math.min(0.85, Math.max(p, ((target - born) / left) * 1.6))
+      }
       if (chance(state, p)) {
         applyEffects(state, era, [{ add_npc: 'child', attitude: 50 }])
         births.push(hero.npcs[hero.npcs.length - 1])
@@ -587,6 +595,14 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   }
   const byId = (id: string) => b.byId.get(id)
   const fits = (ev: EventDef) => quickFit(state, ev) && eligible(state, era, ev)
+  // Первые жизни: события прошлых жизней и уже бывшие в этой не повторяются - если нового подходящего нет,
+  // в этот год такого события просто не будет (кроме истории рождения: она нужна всегда).
+  const before = state.settings.eventsSeen ? new Set(state.settings.eventsSeen) : null
+  const fresh = (list: EventDef[], must = false): EventDef[] => {
+    if (!before) return list
+    const unseen = list.filter((e) => !before.has(e.id) && hero.seen[e.id] === undefined)
+    return unseen.length || !must ? unseen : list
+  }
 
   // 1. Отложенные последствия прошлых решений: только если обстоятельства решения не изменились,
   // только про того же человека; не больше одного в год на сюжетную линию и двух всего - остальные ждут год.
@@ -631,7 +647,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
 
   // 3а. Поворотный момент: примерно раз в 7–12 лет что-то круто меняет жизнь.
   if (hero.age >= 14 && hero.age - hero.lastTurning >= 7 && chance(state, 0.3)) {
-    const turning = weighted(state, b.turning.filter((ev) => !has(ev) && fits(ev)), (e) => eventWeight(state, e))
+    const turning = weighted(state, fresh(b.turning.filter((ev) => !has(ev) && fits(ev))), (e) => eventWeight(state, e))
     if (turning) {
       add(turning)
       hero.lastTurning = hero.age
@@ -642,7 +658,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   // (ТЗ P2). Истории прошлых жизней выпадают редко, чтобы начало не повторялось.
   if (hero.generation === 1 && hero.age === 0 && !picked.some((p) => (byId(p.eventId)?.choices?.length ?? 0) > 1)) {
     const seenBefore = state.settings.birthSeen ?? []
-    const first = weighted(state, b.firstChoice.filter(fits), (e) => eventWeight(state, e) * (seenBefore.includes(e.id) ? 0.15 : 1))
+    const first = weighted(state, fresh(b.firstChoice.filter(fits), true), (e) => eventWeight(state, e) * (seenBefore.includes(e.id) ? 0.15 : 1))
     if (first) picked.push({ ...activate(state, first), at: 0.3 })
   }
 
@@ -654,7 +670,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   count = Math.max(0, count - (picked.length > 1 ? 1 : 0))
   if (count > 0) {
     const pool = b.regular.filter(fits)
-    for (let i = 0; i < count; i++) add(weighted(state, pool.filter((p) => !has(p)), (e) => eventWeight(state, e)))
+    for (let i = 0; i < count; i++) add(weighted(state, fresh(pool.filter((p) => !has(p))), (e) => eventWeight(state, e)))
   }
 
   // 4а. Сон о будущем - со второй жизни, раз за жизнь. Свой поток случайности: остальная жизнь не меняется.
@@ -689,7 +705,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const moments = b.moments.filter(fits)
   const momentCount = state.settings.mode === 'quick' ? (chance(state, 0.7) ? 1 : 0) : 1 + (chance(state, 0.5) ? 1 : 0)
   for (let i = 0; i < momentCount && hero.alive; i++) {
-    const ev = weighted(state, moments.filter((m) => hero.seen[m.id] !== state.year), (e) => eventWeight(state, e))
+    const ev = weighted(state, fresh(moments.filter((m) => hero.seen[m.id] !== state.year)), (e) => eventWeight(state, e))
     if (!ev) break
     hero.seen[ev.id] = state.year
     if (ev.group) hero.seen[`@${ev.group}`] = state.year

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, finishYear, startYear } from '../engine/game'
-import { continueWithHeir, heirs, highBirth, newLife, rollBirth, royalBirth } from '../engine/life'
+import { continueWithHeir, heirs, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
-import { newSeed } from '../engine/rng'
+import { newSeed, next } from '../engine/rng'
 import type { GameState, LifeSummary } from '../engine/types'
 import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
@@ -524,6 +524,7 @@ export function App() {
     if (gifts.includes('noble') && !pending.royal) used.push('noble')
     if (gifts.includes('country') && giftCountry && !fateCountry && pending.birth.era === giftCountry) used.push('country')
     for (const g of ['respins', 'health', 'dream', 'chest'] as const) if (gifts.includes(g)) used.push(g)
+    const unique = memorial.length < (platform.flags.unique_lives ?? 0)
     const settings = {
       mode: prefs.mode,
       mortality: prefs.mortality,
@@ -537,6 +538,13 @@ export function App() {
       dreamSure: used.includes('dream') || undefined,
       // Истории рождения прошлых жизней (события первого года) - чтобы начало жизни не повторялось.
       birthSeen: [...new Set(memorial.flatMap((l) => (l.diary ?? []).filter((d) => d.age === 0 && d.eventId).map((d) => d.eventId!)))],
+      // Первые жизни игрока уникальны: события прошлых жизней не повторяются, детей - своё число в каждой.
+      ...(unique
+        ? {
+            eventsSeen: [...new Set(memorial.flatMap((l) => (l.diary ?? []).map((d) => d.eventId).filter((id): id is string => !!id)))],
+            kidsTarget: pickKidsTarget(memorial.filter((l) => l.age >= 25).map((l) => l.children), ((h) => () => next(h))({ rng: (pending.seed ^ 0x9e3779b9) >>> 0 })),
+          }
+        : {}),
     }
     const boons = { health: used.includes('health') ? HEALTH_GIFT : 0, wealth: used.includes('chest') ? CHEST_GIFT : 0 }
     const birth = boons.health || boons.wealth ? { ...pending.birth, boons } : pending.birth
