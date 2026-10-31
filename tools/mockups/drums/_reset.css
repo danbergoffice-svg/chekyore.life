@@ -1,0 +1,6 @@
+/* Сброс барабана из skin-map.css: варианты рисуют его заново. */
+html.skin .slot-machine { clip-path: none; box-shadow: none; background: none; border-radius: 0; padding: 0; }
+html.skin .slot-machine::before, html.skin .slot-machine::after { content: none; }
+html.skin .reel-frame { filter: none; transform: none !important; }
+html.skin .reel-window { clip-path: none; }
+html.skin .reel-label { display: block; margin: 0 0 6px; padding: 0; background: none; clip-path: none; }

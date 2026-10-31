@@ -1,10 +1,12 @@
 // Превью «скина» поверх настоящей игры: node tools/mockups/skin-capture.cjs [skin.css] → out/skin-{name}-*.png
+// Можно несколько css подряд (скин + вариант барабана), имя снимков — по последнему; STOP=spun — только меню и барабан.
 // Без аргумента — снимки текущего дизайна. Нужен npx vite --port 5174.
 const { chromium } = require('playwright')
 const path = require('path')
 const fs = require('fs')
 const DIR = __dirname
-const skin = process.argv[2]
+const skins = process.argv.slice(2)
+const skin = skins[skins.length - 1]
 const name = skin ? path.basename(skin, '.css') : 'now'
 const theme = process.env.THEME || 'dark'
 ;(async () => {
@@ -15,7 +17,7 @@ const theme = process.env.THEME || 'dark'
   const p = await ctx.newPage()
   const errs = []
   p.on('pageerror', (e) => errs.push(e.message))
-  const css = skin ? fs.readFileSync(path.resolve(skin), 'utf8') : ''
+  const css = skins.map((f) => fs.readFileSync(path.resolve(f), 'utf8')).join('\n')
   const addSkin = async () => { if (css) { await p.addStyleTag({ content: css }); await p.evaluate(() => document.documentElement.classList.add('skin')) } }
   await p.addInitScript(() => { localStorage.setItem('thousands.lang', 'ru') })
   await p.goto('http://localhost:5174/?ab=a')
@@ -30,6 +32,7 @@ const theme = process.env.THEME || 'dark'
   await p.waitForSelector('.spin-result', { timeout: 15000 })
   await p.waitForTimeout(500)
   await shot('spun')
+  if (process.env.STOP === 'spun') { console.log(name, 'ошибки:', errs.slice(0, 3)); await b.close(); return }
   await p.click('.spin-result .primary')
   await p.waitForSelector('.reveal')
   await p.waitForTimeout(400)

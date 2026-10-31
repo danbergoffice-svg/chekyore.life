@@ -1,0 +1,23 @@
+/* 1 · «Три карты судьбы»: без автомата — веер из трёх бумажных карт, как гадальные; вместо рычага — шнурок с кисточкой. */
+html.skin .slot-lights { display: none; }
+html.skin .slot-body { align-items: flex-start; gap: 4px; }
+html.skin .reels { gap: 8px; padding: 6px 2px 10px; }
+html.skin .reel { position: relative; padding: 8px 6px 12px; background: var(--sheet); border-radius: 8px;
+  box-shadow: inset 0 0 0 4px var(--sheet), inset 0 0 0 5px #b8a27a, inset 0 0 0 7px var(--sheet), inset 0 0 0 8px #b8a27a, 0 6px 0 rgba(0, 0, 0, 0.35); }
+html.skin .reel:nth-child(1) { transform: rotate(-4deg) translateY(8px); }
+html.skin .reel:nth-child(2) { transform: translateY(-2px); z-index: 1; }
+html.skin .reel:nth-child(3) { transform: rotate(4deg) translateY(8px); }
+html.skin .reel-label { margin: 4px 0 2px; text-align: center; color: #8a3a1e; font: 600 13px/1.1 var(--font-display); letter-spacing: 0.04em; text-transform: none; white-space: normal; }
+html.skin .reel::after { content: '✦'; position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 10px; color: #b8a27a; }
+html.skin .reel-window { background: transparent; box-shadow: none; border-radius: 0; }
+html.skin .reel-window::after { border: 0; height: 56px; background: rgba(236, 208, 111, 0.28); border-radius: 4px; }
+html.skin .reel.stopped .reel-window::after { background: rgba(236, 208, 111, 0.6); mix-blend-mode: multiply; box-shadow: none; }
+html.skin .reel-item { color: var(--night); }
+html.skin .reel-item.win .reel-top { color: #9a3418; }
+/* Шнурок: тонкая нить, на конце — кисточка; основание прячем. */
+html.skin .lever { width: 24px; height: 190px; }
+html.skin .lever-base { display: none; }
+html.skin .lever-rod { left: 11px; bottom: 30px; top: 0; height: auto; width: 2px; background: var(--sheet); box-shadow: none; transform-origin: 50% 0; }
+html.skin .lever-knob { left: 3px; top: auto; bottom: 0; width: 18px; height: 34px; border-radius: 40% 40% 4px 4px / 30% 30% 4px 4px; background: repeating-linear-gradient(90deg, var(--terra) 0 3px, #b84e34 3px 5px); box-shadow: 0 -4px 0 -1px var(--mustard); }
+@keyframes knob { 50% { transform: translateY(30px); } }
+@keyframes rod { 50% { transform: scaleY(1.2); } }
