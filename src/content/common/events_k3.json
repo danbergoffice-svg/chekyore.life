@@ -1,0 +1,202 @@
+[
+  {"id": "k3_bully", "type": "personal", "age_range": [6, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 3},
+    "choices": [
+      {"id": "fight", "effects": [{"set_flag": "k3_fought_bully"}], "risk_roll": {"param": "strength", "success_chance_base": 0.4, "on_success": [{"param": "reputation", "delta": 5}, {"param": "self_esteem", "delta": 6}, {"chance": 0.3, "effects": [{"add_trait": "brave"}]}], "on_failure": [{"param": "health", "delta": -4}, {"param": "self_esteem", "delta": -2}, {"param": "reputation", "delta": 2}]}, "delayed_effects": [{"after_years": [12, 20], "chance": 0.5, "trigger_event": "k3_bully_grown"}], "pattern": {"craft_power": 3, "memory_future": 2}},
+      {"id": "give", "effects": [{"param": "self_esteem", "delta": -4}, {"param": "stress", "delta": 3}, {"param": "happiness", "delta": -2}], "pattern": {"craft_power": -2}},
+      {"id": "gang", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "reputation", "delta": 4}, {"param": "loneliness", "delta": -4}], "on_failure": [{"param": "loneliness", "delta": 3}, {"param": "self_esteem", "delta": -2}]}, "pattern": {"craft_power": 2, "home_road": -1}}
+    ]},
+  {"id": "k3_bully_grown", "type": "personal", "trigger_only": true, "age_range": [16, 40], "base_weight": 1, "topic": "life", "conditions": [{"flag": "k3_fought_bully"}], "scene": {"place": "street", "time": "sunset", "people": 2},
+    "choices": [
+      {"id": "feed", "effects": [{"param": "money", "delta": -5}, {"param": "happiness", "delta": 3}, {"param": "faith", "delta": 2}, {"param": "self_esteem", "delta": 2}], "pattern": {"memory_future": -2}},
+      {"id": "remind", "effects": [{"param": "self_esteem", "delta": 2}, {"param": "happiness", "delta": -2}, {"param": "reputation", "delta": -1}], "pattern": {"craft_power": 2}}
+    ]},
+
+  {"id": "k3_nickname", "type": "personal", "age_range": [5, 9], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 5},
+    "choices": [
+      {"id": "own_it", "effects": [{"param": "reputation", "delta": 3}, {"param": "loneliness", "delta": -3}, {"param": "self_esteem", "delta": 1}, {"set_flag": "k3_nickname_kept"}], "delayed_effects": [{"after_years": [15, 30], "chance": 0.5, "trigger_event": "k3_nickname_sticks"}], "pattern": {"memory_future": -2}},
+      {"id": "fight", "risk_roll": {"param": "strength", "success_chance_base": 0.35, "on_success": [{"param": "reputation", "delta": 3}, {"param": "self_esteem", "delta": 3}], "on_failure": [{"param": "health", "delta": -3}, {"param": "self_esteem", "delta": -3}, {"param": "reputation", "delta": -1}]}, "pattern": {"craft_power": 2}},
+      {"id": "feat", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.45, "on_success": [{"param": "reputation", "delta": 5}, {"param": "self_esteem", "delta": 4}, {"param": "risk_tolerance", "delta": 1}], "on_failure": [{"param": "health", "delta": -2}, {"param": "reputation", "delta": -1}, {"param": "happiness", "delta": -1}]}, "pattern": {"memory_future": 3}}
+    ]},
+  {"id": "k3_nickname_sticks", "type": "personal", "trigger_only": true, "age_range": [18, 60], "base_weight": 1, "topic": "life", "conditions": [{"flag": "k3_nickname_kept"}], "scene": {"place": "market", "time": "day", "people": 4},
+    "choices": [
+      {"id": "croak", "effects": [{"param": "happiness", "delta": 4}, {"param": "reputation", "delta": 1}, {"param": "loneliness", "delta": -2}], "pattern": {"memory_future": -2}},
+      {"id": "frown", "effects": [{"param": "self_esteem", "delta": 1}, {"param": "stress", "delta": 1}, {"param": "happiness", "delta": -1}], "pattern": {"memory_future": 2}}
+    ]},
+
+  {"id": "k3_oath", "type": "personal", "npc": "friend", "age_range": [7, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "sunset", "people": 2, "props": ["tree"]},
+    "choices": [
+      {"id": "blood", "effects": [{"set_flag": "k3_oath"}], "risk_roll": {"success_chance_base": 0.8, "on_success": [{"npc_attitude": "npc", "delta": 25}, {"param": "happiness", "delta": 3}, {"param": "loneliness", "delta": -3}], "on_failure": [{"param": "health", "delta": -3}, {"npc_attitude": "npc", "delta": 20}]}, "delayed_effects": [{"after_years": [12, 25], "chance": 0.5, "trigger_event": "k3_oath_called"}], "pattern": {"memory_future": -3, "faith_reason": -1}},
+      {"id": "token", "effects": [{"set_flag": "k3_oath"}, {"npc_attitude": "npc", "delta": 15}, {"param": "happiness", "delta": 2}, {"param": "loneliness", "delta": -2}], "delayed_effects": [{"after_years": [12, 25], "chance": 0.4, "trigger_event": "k3_oath_called"}], "pattern": {"memory_future": -2}},
+      {"id": "laugh", "effects": [{"npc_attitude": "npc", "delta": -10}, {"param": "loneliness", "delta": 2}, {"param": "self_esteem", "delta": 1}], "pattern": {"faith_reason": 2, "memory_future": 1}}
+    ]},
+  {"id": "k3_oath_called", "type": "personal", "trigger_only": true, "npc": "friend", "age_range": [18, 50], "base_weight": 1, "topic": "life", "conditions": [{"flag": "k3_oath"}], "scene": {"place": "home", "time": "night", "people": 2, "props": ["lamp"]},
+    "choices": [
+      {"id": "help", "effects": [{"money_pct": -15}, {"npc_attitude": "npc", "delta": 20}, {"param": "self_esteem", "delta": 4}, {"param": "happiness", "delta": 2}], "pattern": {"memory_future": -3}},
+      {"id": "refuse", "effects": [{"npc_attitude": "npc", "delta": -30}, {"param": "self_esteem", "delta": -3}, {"param": "stress", "delta": 2}], "pattern": {"memory_future": 3}}
+    ]},
+
+  {"id": "k3_told_secret", "type": "personal", "npc": "friend", "age_range": [7, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 4},
+    "choices": [
+      {"id": "tell", "effects": [{"param": "reputation", "delta": 3}, {"param": "loneliness", "delta": -3}, {"npc_attitude": "npc", "delta": -30}, {"param": "self_esteem", "delta": -4}], "pattern": {"craft_power": 2, "memory_future": 2}},
+      {"id": "keep", "effects": [{"npc_attitude": "npc", "delta": 10}, {"param": "self_esteem", "delta": 3}, {"param": "loneliness", "delta": 2}, {"set_flag": "k3_kept_secret"}], "delayed_effects": [{"after_years": [10, 20], "chance": 0.5, "trigger_event": "k3_secret_trust"}], "pattern": {"memory_future": -2}},
+      {"id": "invent", "risk_roll": {"param": "charisma", "success_chance_base": 0.45, "on_success": [{"param": "reputation", "delta": 4}, {"param": "happiness", "delta": 3}], "on_failure": [{"param": "health", "delta": -2}, {"param": "reputation", "delta": -2}]}, "pattern": {"craft_power": -1, "memory_future": 1}}
+    ]},
+  {"id": "k3_secret_trust", "type": "personal", "trigger_only": true, "npc": "friend", "age_range": [17, 45], "base_weight": 1, "topic": "money", "conditions": [{"flag": "k3_kept_secret"}], "scene": {"place": "home", "time": "sunset", "people": 2, "props": ["coins"]},
+    "choices": [
+      {"id": "accept", "effects": [{"npc_attitude": "npc", "delta": 20}, {"param": "reputation", "delta": 3}, {"param": "self_esteem", "delta": 3}, {"param": "stress", "delta": 2}], "pattern": {"memory_future": -2}},
+      {"id": "decline", "effects": [{"npc_attitude": "npc", "delta": -5}, {"param": "stress", "delta": -1}], "pattern": {"memory_future": 1}}
+    ]},
+
+  {"id": "k3_new_kid", "type": "personal", "age_range": [5, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 4},
+    "choices": [
+      {"id": "befriend", "effects": [{"add_npc": "friend", "attitude": 40}, {"param": "loneliness", "delta": -6}, {"param": "reputation", "delta": -2}, {"param": "happiness", "delta": 2}, {"set_flag": "k3_new_kid"}], "delayed_effects": [{"after_years": [12, 22], "chance": 0.45, "trigger_event": "k3_new_kid_return"}], "pattern": {"home_road": 3, "memory_future": 2}},
+      {"id": "tease", "effects": [{"param": "reputation", "delta": 2}, {"param": "loneliness", "delta": -2}, {"param": "self_esteem", "delta": -2}], "pattern": {"home_road": -2}},
+      {"id": "watch", "effects": [{"param": "intellect", "delta": 1}, {"param": "loneliness", "delta": 1}], "pattern": {"faith_reason": 1}}
+    ]},
+  {"id": "k3_new_kid_return", "type": "personal", "trigger_only": true, "age_range": [17, 45], "base_weight": 1, "topic": "life", "conditions": [{"flag": "k3_new_kid"}], "scene": {"place": "road", "time": "day", "people": 2, "props": ["cart"]},
+    "choices": [
+      {"id": "gift", "effects": [{"param": "money", "delta": 25}, {"param": "happiness", "delta": 3}], "pattern": {"craft_power": 1}},
+      {"id": "stories", "effects": [{"param": "intellect", "delta": 2}, {"param": "happiness", "delta": 3}, {"param": "loneliness", "delta": -3}], "pattern": {"home_road": 3}}
+    ]},
+
+  {"id": "k3_fruit_raid", "type": "personal", "age_range": [7, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "field", "time": "day", "people": 4, "props": ["tree", "sun"]},
+    "choices": [
+      {"id": "climb", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.5, "on_success": [{"param": "reputation", "delta": 4}, {"param": "happiness", "delta": 4}], "on_failure": [{"param": "reputation", "delta": -3}, {"param": "stress", "delta": 3}, {"param": "health", "delta": -1}]}, "pattern": {"memory_future": 3}},
+      {"id": "lookout", "effects": [{"param": "reputation", "delta": 1}, {"param": "happiness", "delta": 2}, {"chance": 0.3, "effects": [{"param": "reputation", "delta": -2}, {"param": "stress", "delta": 2}]}], "pattern": {"memory_future": 1}},
+      {"id": "refuse", "effects": [{"param": "reputation", "delta": -2}, {"param": "faith", "delta": 2}, {"param": "self_esteem", "delta": 1}], "pattern": {"faith_reason": -2, "memory_future": -2}}
+    ]},
+
+  {"id": "k3_found_thing", "type": "personal", "age_range": [5, 9], "base_weight": 3, "once": true, "topic": "life", "icon": "find", "scene": {"place": "road", "time": "day", "people": 2},
+    "choices": [
+      {"id": "grab", "risk_roll": {"param": "strength", "success_chance_base": 0.5, "on_success": [{"param": "happiness", "delta": 4}, {"param": "self_esteem", "delta": 1}], "on_failure": [{"param": "health", "delta": -2}, {"param": "happiness", "delta": -2}]}, "pattern": {"craft_power": 2}},
+      {"id": "game", "risk_roll": {"success_chance_base": 0.5, "on_success": [{"param": "happiness", "delta": 3}, {"param": "reputation", "delta": 2}], "on_failure": [{"param": "happiness", "delta": -1}, {"param": "reputation", "delta": 2}]}, "pattern": {"faith_reason": 1}},
+      {"id": "owner", "effects": [{"param": "faith", "delta": 2}, {"param": "self_esteem", "delta": 2}, {"chance": 0.5, "effects": [{"param": "money", "delta": 5}, {"param": "reputation", "delta": 2}]}], "pattern": {"faith_reason": -2, "memory_future": -1}}
+    ]},
+
+  {"id": "k3_fight_makeup", "type": "personal", "npc": "friend", "age_range": [6, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 3},
+    "choices": [
+      {"id": "first", "risk_roll": {"param": "charisma", "success_chance_base": 0.55, "on_success": [{"npc_attitude": "npc", "delta": 15}, {"param": "happiness", "delta": 4}, {"param": "loneliness", "delta": -4}], "on_failure": [{"npc_attitude": "npc", "delta": -5}, {"param": "self_esteem", "delta": -2}]}, "pattern": {"memory_future": 2}},
+      {"id": "gift", "effects": [{"npc_attitude": "npc", "delta": 12}, {"param": "happiness", "delta": -1}, {"param": "loneliness", "delta": -2}], "pattern": {"craft_power": -2}},
+      {"id": "wait", "effects": [{"npc_attitude": "npc", "delta": -8}, {"param": "loneliness", "delta": 4}, {"param": "self_esteem", "delta": 1}], "pattern": {"craft_power": 2, "memory_future": -1}}
+    ]},
+
+  {"id": "k3_dare_wall", "type": "personal", "age_range": [7, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 4},
+    "choices": [
+      {"id": "jump", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.55, "on_success": [{"param": "reputation", "delta": 4}, {"param": "self_esteem", "delta": 5}, {"param": "risk_tolerance", "delta": 2}], "on_failure": [{"param": "health", "delta": -6}, {"param": "stress", "delta": 3}]}, "pattern": {"memory_future": 3}},
+      {"id": "refuse", "effects": [{"param": "self_esteem", "delta": -2}, {"param": "reputation", "delta": -1}, {"param": "stress", "delta": -1}], "pattern": {"memory_future": -2}},
+      {"id": "lower", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "reputation", "delta": 2}, {"param": "happiness", "delta": 2}], "on_failure": [{"param": "reputation", "delta": -3}, {"param": "self_esteem", "delta": -1}]}, "pattern": {"faith_reason": 2}}
+    ]},
+
+  {"id": "k3_hideout", "type": "personal", "age_range": [6, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "field", "time": "day", "people": 5, "props": ["tree", "fire"]},
+    "choices": [
+      {"id": "defend", "risk_roll": {"param": "strength", "success_chance_base": 0.45, "on_success": [{"param": "reputation", "delta": 4}, {"param": "happiness", "delta": 3}], "on_failure": [{"param": "health", "delta": -3}, {"param": "happiness", "delta": -3}]}, "pattern": {"craft_power": 3, "memory_future": -1}},
+      {"id": "share", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "loneliness", "delta": -5}, {"param": "reputation", "delta": 3}], "on_failure": [{"param": "reputation", "delta": -2}, {"param": "happiness", "delta": -2}]}, "pattern": {"craft_power": -2, "memory_future": 2}},
+      {"id": "new", "effects": [{"param": "diligence", "delta": 2}, {"param": "happiness", "delta": 1}, {"param": "reputation", "delta": -1}], "pattern": {"craft_power": -3, "home_road": 1}}
+    ]},
+
+  {"id": "k3_street_war", "type": "personal", "sex": "m", "age_range": [8, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 6, "props": ["shield"]},
+    "choices": [
+      {"id": "front", "risk_roll": {"param": "strength", "success_chance_base": 0.5, "on_success": [{"param": "reputation", "delta": 5}, {"param": "self_esteem", "delta": 4}, {"chance": 0.25, "effects": [{"add_trait": "brave"}]}], "on_failure": [{"param": "health", "delta": -5}, {"param": "reputation", "delta": 1}]}, "pattern": {"craft_power": 3, "memory_future": 2}},
+      {"id": "truce", "risk_roll": {"param": "charisma", "success_chance_base": 0.4, "on_success": [{"param": "reputation", "delta": 4}, {"param": "charisma", "delta": 2}], "on_failure": [{"param": "reputation", "delta": -3}, {"param": "self_esteem", "delta": -2}]}, "pattern": {"craft_power": 1, "faith_reason": 2}},
+      {"id": "home", "effects": [{"param": "reputation", "delta": -2}, {"param": "stress", "delta": -1}, {"param": "loneliness", "delta": 2}], "pattern": {"home_road": -2}}
+    ]},
+
+  {"id": "k3_other_kid", "type": "personal", "age_range": [6, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 3},
+    "choices": [
+      {"id": "secret", "effects": [{"add_npc": "friend", "attitude": 35}, {"param": "happiness", "delta": 3}, {"param": "stress", "delta": 2}, {"param": "loneliness", "delta": -4}, {"set_flag": "k3_other_kid"}], "delayed_effects": [{"after_years": [15, 25], "chance": 0.45, "trigger_event": "k3_other_kid_help"}], "pattern": {"memory_future": 3}},
+      {"id": "obey", "effects": [{"param": "loneliness", "delta": 3}, {"param": "self_esteem", "delta": -1}, {"param": "reputation", "delta": 1}], "pattern": {"memory_future": -3}},
+      {"id": "open", "effects": [{"set_flag": "k3_other_kid"}], "risk_roll": {"param": "charisma", "success_chance_base": 0.4, "on_success": [{"add_npc": "friend", "attitude": 45}, {"param": "reputation", "delta": 2}, {"param": "self_esteem", "delta": 3}, {"param": "loneliness", "delta": -5}], "on_failure": [{"add_npc": "friend", "attitude": 40}, {"param": "reputation", "delta": -3}, {"param": "stress", "delta": 3}]}, "delayed_effects": [{"after_years": [15, 25], "chance": 0.5, "trigger_event": "k3_other_kid_help"}], "pattern": {"memory_future": 4, "craft_power": 1}}
+    ]},
+  {"id": "k3_other_kid_help", "type": "personal", "trigger_only": true, "age_range": [20, 50], "base_weight": 1, "topic": "money", "conditions": [{"flag": "k3_other_kid"}], "scene": {"place": "market", "time": "day", "people": 3, "props": ["table"]},
+    "choices": [
+      {"id": "accept", "effects": [{"param": "money", "delta": 30}, {"skill": "trade", "delta": 3}, {"param": "reputation", "delta": -1}], "pattern": {"memory_future": 3}},
+      {"id": "decline", "effects": [{"param": "reputation", "delta": 1}, {"param": "self_esteem", "delta": -2}], "pattern": {"memory_future": -3}}
+    ]},
+
+  {"id": "k3_lie_for_friend", "type": "personal", "npc": "friend", "age_range": [7, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 3, "props": ["amphora"]},
+    "choices": [
+      {"id": "lie", "effects": [{"set_flag": "k3_lied_for_friend"}], "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"npc_attitude": "npc", "delta": 15}, {"param": "happiness", "delta": 1}], "on_failure": [{"param": "reputation", "delta": -4}, {"npc_attitude": "npc", "delta": 8}, {"param": "stress", "delta": 3}]}, "delayed_effects": [{"after_years": [10, 18], "chance": 0.5, "trigger_event": "k3_lie_again"}], "pattern": {"memory_future": -2, "faith_reason": 1}},
+      {"id": "truth", "effects": [{"npc_attitude": "npc", "delta": -20}, {"param": "faith", "delta": 2}, {"param": "self_esteem", "delta": 1}, {"param": "reputation", "delta": 1}], "pattern": {"faith_reason": -2, "memory_future": 1}},
+      {"id": "together", "risk_roll": {"param": "charisma", "success_chance_base": 0.45, "on_success": [{"npc_attitude": "npc", "delta": 5}, {"param": "reputation", "delta": 3}, {"param": "self_esteem", "delta": 3}], "on_failure": [{"npc_attitude": "npc", "delta": -10}, {"param": "loneliness", "delta": 2}]}, "pattern": {"faith_reason": -1}}
+    ]},
+  {"id": "k3_lie_again", "type": "personal", "trigger_only": true, "npc": "friend", "age_range": [17, 40], "base_weight": 1, "topic": "life", "conditions": [{"flag": "k3_lied_for_friend"}], "scene": {"place": "home", "time": "night", "people": 2, "props": ["lamp"]},
+    "choices": [
+      {"id": "lie", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"npc_attitude": "npc", "delta": 25}, {"param": "self_esteem", "delta": -2}, {"param": "stress", "delta": 2}], "on_failure": [{"param": "reputation", "delta": -8}, {"param": "stress", "delta": 5}, {"npc_attitude": "npc", "delta": 5}]}, "pattern": {"memory_future": -3, "faith_reason": 2}},
+      {"id": "refuse", "effects": [{"npc_attitude": "npc", "delta": -25}, {"param": "self_esteem", "delta": 2}, {"param": "faith", "delta": 2}], "pattern": {"faith_reason": -2, "memory_future": 2}}
+    ]},
+
+  {"id": "k3_first_crush", "type": "personal", "age_range": [7, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "sunset", "people": 2},
+    "choices": [
+      {"id": "give", "effects": [{"set_flag": "k3_gave_stone"}], "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "happiness", "delta": 6}, {"param": "self_esteem", "delta": 3}], "on_failure": [{"param": "happiness", "delta": -3}, {"param": "reputation", "delta": -2}]}, "delayed_effects": [{"after_years": [10, 20], "chance": 0.4, "trigger_event": "k3_crush_later"}], "pattern": {"memory_future": 3}},
+      {"id": "messenger", "risk_roll": {"success_chance_base": 0.35, "on_success": [{"param": "happiness", "delta": 3}], "on_failure": [{"param": "reputation", "delta": -3}, {"param": "stress", "delta": 2}]}, "pattern": {"memory_future": 1}},
+      {"id": "keep", "effects": [{"param": "happiness", "delta": -1}, {"param": "loneliness", "delta": 1}, {"param": "intellect", "delta": 1}], "pattern": {"memory_future": -2}}
+    ]},
+  {"id": "k3_crush_later", "type": "personal", "trigger_only": true, "age_range": [17, 40], "base_weight": 1, "topic": "life", "conditions": [{"flag": "k3_gave_stone"}], "scene": {"place": "street", "time": "sunset", "people": 4},
+    "choices": [
+      {"id": "talk", "effects": [{"param": "happiness", "delta": 5}, {"param": "loneliness", "delta": -3}], "pattern": {"memory_future": -2}},
+      {"id": "smile", "effects": [{"param": "happiness", "delta": 2}, {"param": "self_esteem", "delta": 1}], "pattern": {"memory_future": 1}}
+    ]},
+
+  {"id": "k3_race_prize", "type": "personal", "age_range": [5, 9], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 5, "props": ["tree"]},
+    "choices": [
+      {"id": "fair", "risk_roll": {"param": "strength", "success_chance_base": 0.45, "on_success": [{"param": "reputation", "delta": 4}, {"param": "happiness", "delta": 4}, {"param": "strength", "delta": 1}], "on_failure": [{"param": "happiness", "delta": -2}, {"param": "strength", "delta": 1}]}, "pattern": {"craft_power": -1}},
+      {"id": "shortcut", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.45, "on_success": [{"param": "reputation", "delta": 3}, {"param": "happiness", "delta": 3}, {"param": "self_esteem", "delta": -1}], "on_failure": [{"param": "reputation", "delta": -4}, {"param": "health", "delta": -2}]}, "pattern": {"craft_power": 2, "faith_reason": 2}},
+      {"id": "yield", "effects": [{"param": "happiness", "delta": 2}, {"param": "reputation", "delta": 1}, {"chance": 0.3, "effects": [{"add_trait": "kind"}]}], "pattern": {"craft_power": -2, "faith_reason": -1}}
+    ]},
+
+  {"id": "k3_game_too_far", "type": "personal", "age_range": [7, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "field", "time": "sunset", "people": 2, "props": ["tree"]},
+    "choices": [
+      {"id": "free", "effects": [{"param": "self_esteem", "delta": 3}, {"param": "faith", "delta": 1}, {"chance": 0.35, "effects": [{"add_trait": "kind"}]}], "pattern": {"memory_future": -1}},
+      {"id": "confess", "risk_roll": {"success_chance_base": 0.5, "on_success": [{"param": "reputation", "delta": 4}, {"param": "self_esteem", "delta": 4}], "on_failure": [{"param": "reputation", "delta": -2}, {"param": "stress", "delta": 3}]}, "pattern": {"faith_reason": -2, "memory_future": 1}},
+      {"id": "leave", "effects": [{"param": "stress", "delta": 4}, {"param": "self_esteem", "delta": -3}, {"param": "faith", "delta": -1}], "pattern": {"craft_power": 1}}
+    ]},
+
+  {"id": "k3_girls_circle", "type": "personal", "sex": "f", "age_range": [6, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "home", "time": "day", "people": 5},
+    "choices": [
+      {"id": "give", "effects": [{"param": "loneliness", "delta": -5}, {"param": "happiness", "delta": 1}, {"param": "self_esteem", "delta": -1}, {"skill": "craft", "delta": 1}], "pattern": {"memory_future": -2}},
+      {"id": "refuse", "effects": [{"param": "self_esteem", "delta": 3}, {"param": "loneliness", "delta": 3}], "pattern": {"craft_power": 1}},
+      {"id": "own", "risk_roll": {"param": "charisma", "success_chance_base": 0.45, "on_success": [{"param": "reputation", "delta": 3}, {"param": "loneliness", "delta": -5}, {"param": "charisma", "delta": 2}], "on_failure": [{"param": "loneliness", "delta": 2}, {"param": "happiness", "delta": -1}]}, "pattern": {"craft_power": 3, "memory_future": 2}}
+    ]},
+
+  {"id": "k3_target", "type": "personal", "age_range": [6, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "road", "time": "day", "people": 5},
+    "choices": [
+      {"id": "aim", "risk_roll": {"param": "diligence", "success_chance_base": 0.45, "on_success": [{"param": "reputation", "delta": 4}, {"param": "happiness", "delta": 4}], "on_failure": [{"param": "happiness", "delta": -2}]}, "pattern": {"craft_power": -2}},
+      {"id": "hard", "risk_roll": {"param": "strength", "success_chance_base": 0.4, "on_success": [{"param": "reputation", "delta": 5}, {"param": "happiness", "delta": 3}], "on_failure": [{"param": "reputation", "delta": -2}, {"param": "stress", "delta": 2}]}, "pattern": {"craft_power": 2, "memory_future": 2}},
+      {"id": "pass", "effects": [{"param": "happiness", "delta": 1}, {"param": "reputation", "delta": 1}, {"param": "loneliness", "delta": -1}], "pattern": {"craft_power": -1, "memory_future": -1}}
+    ]},
+
+  {"id": "k3_gang_leader", "type": "personal", "age_range": [8, 10], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 6},
+    "choices": [
+      {"id": "claim", "risk_roll": {"param": "charisma", "success_chance_base": 0.45, "on_success": [{"param": "reputation", "delta": 6}, {"param": "self_esteem", "delta": 5}, {"chance": 0.3, "effects": [{"add_trait": "ambitious"}]}], "on_failure": [{"param": "reputation", "delta": -3}, {"param": "self_esteem", "delta": -3}]}, "pattern": {"craft_power": 4}},
+      {"id": "back", "effects": [{"param": "reputation", "delta": 2}, {"param": "loneliness", "delta": -2}], "pattern": {"craft_power": -2}},
+      {"id": "council", "risk_roll": {"param": "charisma", "success_chance_base": 0.4, "on_success": [{"param": "reputation", "delta": 3}, {"param": "happiness", "delta": 3}, {"param": "intellect", "delta": 1}], "on_failure": [{"param": "reputation", "delta": -2}, {"param": "loneliness", "delta": 2}]}, "pattern": {"faith_reason": 2, "memory_future": 2}}
+    ]},
+
+  {"id": "k3_rich_kid", "type": "personal", "classes": ["slave", "peasant", "craftsman", "trader"], "age_range": [5, 9], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 3},
+    "choices": [
+      {"id": "invite", "risk_roll": {"success_chance_base": 0.5, "on_success": [{"add_npc": "friend", "attitude": 35}, {"param": "happiness", "delta": 3}, {"param": "reputation", "delta": 1}], "on_failure": [{"param": "stress", "delta": 3}, {"param": "reputation", "delta": -1}]}, "pattern": {"craft_power": 1, "memory_future": 3}},
+      {"id": "trade", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "happiness", "delta": 5}, {"skill": "trade", "delta": 1}], "on_failure": [{"param": "stress", "delta": 2}, {"param": "happiness", "delta": -1}]}, "pattern": {"craft_power": 2}},
+      {"id": "mock", "effects": [{"param": "reputation", "delta": 1}, {"param": "happiness", "delta": 1}], "pattern": {"craft_power": -2, "memory_future": -2}}
+    ]},
+
+  {"id": "k3_m_hide_seek", "type": "personal", "moment": true, "once": true, "age_range": [5, 9], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "sunset", "people": 3}, "effects": [{"param": "happiness", "delta": 2}, {"param": "self_esteem", "delta": 1}]},
+  {"id": "k3_m_mud_city", "type": "personal", "moment": true, "once": true, "age_range": [5, 8], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 3, "props": ["rain"]}, "effects": [{"param": "happiness", "delta": 2}, {"param": "diligence", "delta": 1}]},
+  {"id": "k3_m_echo", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "base_weight": 3, "topic": "life", "scene": {"place": "field", "time": "day", "people": 3}, "effects": [{"param": "happiness", "delta": 2}]},
+  {"id": "k3_m_sticks_war", "type": "personal", "sex": "m", "moment": true, "once": true, "age_range": [6, 10], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 2, "props": ["shield"]}, "effects": [{"param": "happiness", "delta": 2}, {"param": "strength", "delta": 1}]},
+  {"id": "k3_m_spit_seeds", "type": "personal", "moment": true, "once": true, "age_range": [5, 10], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 4, "props": ["sun"]}, "effects": [{"param": "happiness", "delta": 2}, {"param": "reputation", "delta": 1}]},
+  {"id": "k3_m_whistle", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 2}, "effects": [{"param": "happiness", "delta": 2}, {"param": "reputation", "delta": -1}]},
+  {"id": "k3_m_counting_rhyme", "type": "personal", "moment": true, "once": true, "age_range": [5, 8], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 5}, "effects": [{"param": "intellect", "delta": 1}, {"param": "loneliness", "delta": -1}]},
+  {"id": "k3_m_scars", "type": "personal", "moment": true, "once": true, "age_range": [7, 10], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 4}, "effects": [{"param": "self_esteem", "delta": 2}, {"param": "reputation", "delta": 1}]},
+  {"id": "k3_m_scary_tale", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "base_weight": 3, "topic": "life", "scene": {"place": "home", "time": "night", "people": 3, "props": ["moon"]}, "effects": [{"param": "stress", "delta": 2}, {"param": "faith", "delta": 1}]},
+  {"id": "k3_m_beetles", "type": "personal", "moment": true, "once": true, "age_range": [5, 9], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 3}, "effects": [{"param": "happiness", "delta": 2}]},
+  {"id": "k3_m_secret_language", "type": "personal", "npc": "friend", "moment": true, "once": true, "age_range": [7, 10], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 2}, "effects": [{"npc_attitude": "npc", "delta": 5}, {"param": "loneliness", "delta": -2}, {"param": "intellect", "delta": 1}]},
+  {"id": "k3_m_shared_sweet", "type": "personal", "npc": "friend", "moment": true, "once": true, "age_range": [5, 9], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 2}, "effects": [{"npc_attitude": "npc", "delta": 4}, {"param": "happiness", "delta": 2}]},
+  {"id": "k3_m_glance", "type": "personal", "moment": true, "once": true, "age_range": [8, 10], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 2}, "effects": [{"param": "happiness", "delta": 3}]},
+  {"id": "k3_m_tree_top", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "base_weight": 3, "topic": "life", "scene": {"place": "field", "time": "sunset", "people": 1, "props": ["tree"]}, "effects": [{"param": "risk_tolerance", "delta": 1}, {"param": "happiness", "delta": 1}]},
+  {"id": "k3_m_first_rain", "type": "personal", "moment": true, "once": true, "age_range": [5, 9], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "overcast", "people": 5, "props": ["rain"]}, "effects": [{"param": "happiness", "delta": 3}]},
+  {"id": "k3_m_clapping", "type": "personal", "sex": "f", "moment": true, "once": true, "age_range": [5, 9], "base_weight": 3, "topic": "life", "scene": {"place": "home", "time": "day", "people": 3}, "effects": [{"param": "happiness", "delta": 2}, {"param": "loneliness", "delta": -2}]},
+  {"id": "k3_m_wrestling", "type": "personal", "sex": "m", "moment": true, "once": true, "age_range": [7, 10], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 4}, "effects": [{"param": "strength", "delta": 1}, {"param": "self_esteem", "delta": 2}]},
+  {"id": "k3_m_grumpy_old", "type": "personal", "moment": true, "once": true, "age_range": [5, 9], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 2}, "effects": [{"param": "happiness", "delta": 2}, {"param": "loneliness", "delta": -1}]},
+  {"id": "k3_m_stars", "type": "personal", "moment": true, "once": true, "age_range": [7, 10], "base_weight": 3, "topic": "life", "scene": {"place": "field", "time": "night", "people": 3, "props": ["moon"]}, "effects": [{"param": "intellect", "delta": 1}, {"param": "happiness", "delta": 1}]},
+  {"id": "k3_m_gang_sign", "type": "personal", "moment": true, "once": true, "age_range": [7, 10], "base_weight": 3, "topic": "life", "scene": {"place": "street", "time": "day", "people": 3}, "effects": [{"param": "happiness", "delta": 1}, {"param": "loneliness", "delta": -2}]}
+]
