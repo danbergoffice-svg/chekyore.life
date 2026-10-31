@@ -1,6 +1,6 @@
 // Сон о будущем (docs/TZ_dreams.md): раз за жизнь, со второй жизни, герою снится школьная задача.
-// Три шага – вспомнить, найти в своём мире, применить или переспорить мудрецов; очки 0–3 решают исход:
-// прорыв (скачок по сословиям, занятие сна), частичный успех или провал (вплоть до смерти – «плохо учился в школе»).
+// Три шага - вспомнить, найти в своём мире, применить или переспорить мудрецов; очки 0–3 решают исход:
+// прорыв (скачок по сословиям, занятие сна), частичный успех или провал (вплоть до смерти - «плохо учился в школе»).
 // У снов свой поток случайности: появление сна, его параметры и исход не трогают остальную жизнь.
 import { ERA_META } from '../content'
 import DREAMS from '../content/dreams.json'
@@ -47,7 +47,7 @@ export function dreamRng(state: GameState, salt: string): () => number {
 /** Классы школы по уровням сложности сна. */
 export const DREAM_GRADES: Record<number, string> = { 1: '5–6', 2: '6–7', 3: '7–8', 4: '8–9', 5: '9–11' }
 
-/** Сны, возможные в стране и краю героя – не сложнее открытого уровня лестницы. */
+/** Сны, возможные в стране и краю героя - не сложнее открытого уровня лестницы. */
 export function dreamsAvailable(state: GameState): DreamDef[] {
   const region = ERA_META[state.hero.era]?.regions.find((r) => r.id === state.hero.region)
   const level = state.settings.dreamLevel ?? 5
@@ -58,7 +58,7 @@ export function dreamsAvailable(state: GameState): DreamDef[] {
 
 /**
  * Пора ли сну: 15–40 лет, раз за жизнь, не в год экрана-главы и не вместе с историческим событием.
- * В первой жизни сон приходит наверняка к dreamFirstBy годам (шанс растёт с каждым годом), дальше – dream_chance в год.
+ * В первой жизни сон приходит наверняка к dreamFirstBy годам (шанс растёт с каждым годом), дальше - dream_chance в год.
  */
 export function dreamDue(state: GameState, historicalThisYear: boolean): boolean {
   const h = state.hero
@@ -68,7 +68,7 @@ export function dreamDue(state: GameState, historicalThisYear: boolean): boolean
   if (h.age < 15 || h.age > 40 || h.dreamSeen || state.dream || historicalThisYear) return false
   if (DEFAULT_FLAGS.chapter_ages.includes(h.age)) return false
   if (!dreamsAvailable(state).length) return false
-  // В первой жизни и с даром «Вещий сон» – наверняка к firstBy годам (дар без флага – к 25).
+  // В первой жизни и с даром «Вещий сон» - наверняка к firstBy годам (дар без флага - к 25).
   const sure = first || !!state.settings.dreamSure
   const by = firstBy >= 15 ? firstBy : 25
   const chance = sure ? (h.age >= by ? 1 : 1 / (by - h.age + 1)) : (state.settings.dreamChance ?? DREAM_CHANCE)
@@ -80,7 +80,7 @@ const SCHOLAR_JOBS = ['priest', 'scribe', 'monk', 'hegumen', 'astronomer', 'exam
 const SEA_JOBS = ['sailor', 'shipowner']
 const BUILD_JOBS = ['artisan', 'cathedral_mason', 'stone_carver', 'church_carver', 'tomb_builder', 'mita_builder', 'workshop_owner']
 
-/** Что сейчас происходит с героем – темы снов, у которых вес ×3. */
+/** Что сейчас происходит с героем - темы снов, у которых вес ×3. */
 export function dreamThemes(state: GameState): Set<DreamTheme> {
   const h = state.hero
   const out = new Set<DreamTheme>()
@@ -97,8 +97,8 @@ export function dreamThemes(state: GameState): Set<DreamTheme> {
   return out
 }
 
-/** Сон по судьбе героя: темы, которые ему сейчас близки, – втрое вероятнее; сны открытого уровня лестницы – в 8 раз,
- *  уровнем ниже – вдвое; уже снившиеся в прошлых жизнях – вчетверо реже. */
+/** Сон по судьбе героя: темы, которые ему сейчас близки, - втрое вероятнее; сны открытого уровня лестницы - в 8 раз,
+ *  уровнем ниже - вдвое; уже снившиеся в прошлых жизнях - вчетверо реже. */
 export function pickDream(state: GameState): DreamDef | undefined {
   const list = dreamsAvailable(state)
   const themes = dreamThemes(state)
@@ -145,10 +145,10 @@ export function parseNumber(raw: unknown): number {
   return Number(String(raw ?? '').replace(/\s/g, '').replace(',', '.'))
 }
 
-/** Верен ли ответ: pick – ровно нужное (или главное – need, или сколько-то – min; ok – не ошибка); ratio – каждая доля в допуске; order – нужные шаги по порядку (cyclic – с любого шага); number – в допуске. */
+/** Верен ли ответ: pick - ровно нужное (или главное - need, или сколько-то - min; ok - не ошибка); ratio - каждая доля в допуске; order - нужные шаги по порядку (cyclic - с любого шага); number - в допуске. */
 export function checkInput(input: DreamInput, value: unknown, params: Record<string, number>, era: string): boolean {
   if (input.kind === 'pick') {
-    // Лишнее – всегда ошибка (ловушки и анахронизмы); если нужных три и больше, один пропуск прощается – «почти всё».
+    // Лишнее - всегда ошибка (ловушки и анахронизмы); если нужных три и больше, один пропуск прощается - «почти всё».
     const want = new Set(expectedAnswer(input, params, era) as string[])
     const got = new Set(Array.isArray(value) ? (value as string[]) : [])
     if ([...got].some((x) => !want.has(x) && !input.ok?.includes(x))) return false
@@ -218,7 +218,7 @@ export function answerDream(state: GameState, value: unknown): boolean {
     d.item = 0
   } else {
     d.done = true
-    // Очко за шаг – только если верны все его вводы (в споре – оба возражения).
+    // Очко за шаг - только если верны все его вводы (в споре - оба возражения).
     d.score = d.correct.filter((c) => c.length > 0 && c.every(Boolean)).length
   }
   return ok
@@ -237,7 +237,7 @@ export function knownHere(def: DreamDef, state: GameState): boolean {
 
 /**
  * Итог сна: прорыв, частичный успех, провал или смерть. Эффекты исхода, занятие сна, запись в дневник
- * и карточка «Как было на самом деле». Смерть – причина «плохо учился (училась) в школе».
+ * и карточка «Как было на самом деле». Смерть - причина «плохо учился (училась) в школе».
  */
 export function resolveDream(state: GameState, era: EraDef): DreamOutcome {
   const d = state.dream
@@ -259,7 +259,7 @@ export function resolveDream(state: GameState, era: EraDef): DreamOutcome {
     const effects = [...def.outcomes.breakthrough]
     // Знание храмов (Египет, Вавилон, майя): учёный становится жрецом.
     const templeLand = (era.id === 'ANE' || era.id === 'MAY') && def.themes.some((t) => t === 'scholar' || t === 'medicine')
-    // Раб получает свободу, знатный – влияние при дворе: вместо скачка по сословиям.
+    // Раб получает свободу, знатный - влияние при дворе: вместо скачка по сословиям.
     const special = hero.cls === 'slave' || hero.cls === 'noble'
     if (hero.cls === 'slave') {
       hero.cls = 'peasant'
@@ -278,7 +278,7 @@ export function resolveDream(state: GameState, era: EraDef): DreamOutcome {
     applyEffects(state, era, def.outcomes.failure)
     if (def.debate && r() < 0.3 && !hero.tags.includes('suspected_witch')) hero.tags.push('suspected_witch')
   }
-  // Защищённая жизнь (первые protected_lives до 20 лет): сон не убивает – просто провал.
+  // Защищённая жизнь (первые protected_lives до 20 лет): сон не убивает - просто провал.
   if (outcome === 'death' && isProtected(state)) outcome = 'failure'
   if (outcome === 'death' && hero.alive) {
     hero.alive = false
@@ -301,7 +301,7 @@ export function resolveDream(state: GameState, era: EraDef): DreamOutcome {
   return outcome
 }
 
-/** Случайные ответы – для autoplay и калибровки (свой поток случайности). */
+/** Случайные ответы - для autoplay и калибровки (свой поток случайности). */
 export function autoDream(state: GameState): void {
   const r = dreamRng(state, 'auto')
   for (let guard = 0; guard < 20 && state.dream && !state.dream.done; guard++) {
@@ -322,7 +322,7 @@ export function autoDream(state: GameState): void {
 // ---------- Тренировка из меню ----------
 
 /** Тренировка: уже приснившийся сон с новыми числами в той стране и том году, где он приснился.
- *  Состояние одноразовое – жизнь, мемориал и награды не меняются. */
+ *  Состояние одноразовое - жизнь, мемориал и награды не меняются. */
 export function trainingState(meta: EraMeta, id: string, year: number, seed: number): GameState {
   const state = newLife(meta, { mode: 'quick', mortality: 'soft', softenHeavy: false }, seed)
   state.year = year
@@ -330,7 +330,7 @@ export function trainingState(meta: EraMeta, id: string, year: number, seed: num
   return state
 }
 
-/** Итог тренировки – только по очкам: без гибели и без «уже знали». */
+/** Итог тренировки - только по очкам: без гибели и без «уже знали». */
 export function trainingOutcome(score: number): DreamOutcome {
   return score >= 3 ? 'breakthrough' : score === 2 ? 'partial' : 'failure'
 }

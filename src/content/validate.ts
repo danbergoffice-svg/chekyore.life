@@ -147,7 +147,7 @@ const AWAY_REASONS = ['abroad', 'monastery', 'service', 'sold', 'exile', 'marrie
 function checkAway(ev: EventDef, bad: string[]) {
   const s = JSON.stringify(ev)
   for (const m of s.matchAll(/"npc_away":"([a-z_]+)"/g)) if (!AWAY_REASONS.includes(m[1])) bad.push(`${ev.id}: npc_away ${m[1]}`)
-  // Событие про того, кто и так вдали (весть, возвращение): «снова уехал» – не новый отъезд.
+  // Событие про того, кто и так вдали (весть, возвращение): «снова уехал» - не новый отъезд.
   if (!ev.npc || !KIN_ROLES.includes(ev.npc) || ev.npc_away) return
   const t = createT('ru')
   for (const c of ev.choices ?? []) {
@@ -162,7 +162,7 @@ function checkAway(ev: EventDef, bad: string[]) {
   }
 }
 
-/** «Дом сгорел» в тексте – у события должен быть эффект {"home":"burn"}: иначе на картинке дом целый. */
+/** «Дом сгорел» в тексте - у события должен быть эффект {"home":"burn"}: иначе на картинке дом целый. */
 const HOUSE_BURNED = /(дом|сруб|изба|жилище|имущество)[^.,]{0,16}сгорел|сгорел[аои]? дотла/
 
 function checkHomeBurn(ev: EventDef, bad: string[]) {
@@ -174,7 +174,7 @@ function checkHomeBurn(ev: EventDef, bad: string[]) {
   if (HOUSE_BURNED.test(text) && !JSON.stringify(ev).includes('"home":"burn"')) bad.push(`${ev.id}: в тексте дом сгорел, но нет эффекта {"home":"burn"}`)
 }
 
-/** Питомцы в событиях – только виды из src/content/pets.json. */
+/** Питомцы в событиях - только виды из src/content/pets.json. */
 function checkPets(ev: EventDef, bad: string[]) {
   const s = JSON.stringify(ev)
   for (const m of s.matchAll(/"(?:add_pet|has_pet|pet_possible|remove_pet|pet)":"([a-z_@]+)"/g)) if (!m[1].startsWith('@') && !isPet(m[1])) bad.push(`${ev.id}: питомец ${m[1]}`)
@@ -219,7 +219,7 @@ function checkPrimers(era: EraDef, bad: string[]) {
   }
 }
 
-/** Все проблемы страны; пустой список – всё в порядке. */
+/** Все проблемы страны; пустой список - всё в порядке. */
 export function validateEra(era: EraDef): string[] {
   const bad: string[] = []
   for (const lang of LANGS) for (const k of requiredKeys(era)) if (!hasKey(lang, k)) bad.push(`нет текста ${k} (${lang})`)
@@ -249,17 +249,17 @@ export function leftoverBraces(keys?: string[]): string[] {
   for (const lang of LANGS) {
     for (const sex of ['m', 'f'] as const) {
       const t = createT(lang, { sex })
-      // Числа снов о будущем ({wall}, {liters}…) – тоже параметры.
+      // Числа снов о будущем ({wall}, {liters}…) - тоже параметры; {i:имя} - значки интерфейса (Icon.tsx), не скобки.
       const dreamParams = Object.fromEntries(DREAM_DEFS.flatMap((d) => [...Object.keys(d.params ?? {}), ...Object.keys(d.derived ?? {})]).map((k) => [k, 1]))
       const params = { ...SAMPLE_PARAMS, ...dreamParams, sex, psex: sex, vsex: sex, npc_sex: sex }
-      for (const k of keys ?? allKeys(lang)) if (hasKey(lang, k) && /[{}]/.test(t(k, params))) out.push(`${lang}:${k}`)
+      for (const k of keys ?? allKeys(lang)) if (hasKey(lang, k) && /[{}]/.test(t(k, params).replace(/\{i:\w+\}/g, ''))) out.push(`${lang}:${k}`)
     }
   }
   return [...new Set(out)]
 }
 
 /**
- * Сны о будущем: верный ответ среди вариантов и проходит проверку, ответ за допуском – нет, доли дают 100,
+ * Сны о будущем: верный ответ среди вариантов и проходит проверку, ответ за допуском - нет, доли дают 100,
  * формулы считаются на краях параметров, страны существуют, все тексты есть на обоих языках.
  */
 export function validateDreams(): string[] {
@@ -276,7 +276,7 @@ export function validateDreams(): string[] {
     }
     const steps = d.steps
     if (steps.length !== 3) bad.push(`${d.id}: шагов должно быть 3`)
-    if (d.debate && steps[2].kind !== 'debate') bad.push(`${d.id}: громкий сон – шаг 3 должен быть спором`)
+    if (d.debate && steps[2].kind !== 'debate') bad.push(`${d.id}: громкий сон - шаг 3 должен быть спором`)
     for (const c of corners.slice(0, 64)) {
       const params: Record<string, number> = { ...c }
       for (const [k, f] of Object.entries(d.derived ?? {})) params[k] = evaluate(f, params)

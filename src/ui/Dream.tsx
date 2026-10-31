@@ -1,11 +1,12 @@
-// Экран сна о будущем (docs/TZ_dreams.md): три шага с вводом – отметить нужное, доли, порядок, число;
-// спор с мудрецом; подсказка «Заглянуть в учебник»; в конце – итог и карточка «Как было на самом деле».
+// Экран сна о будущем (docs/TZ_dreams.md): три шага с вводом - отметить нужное, доли, порядок, число;
+// спор с мудрецом; подсказка «Заглянуть в учебник»; в конце - итог и карточка «Как было на самом деле».
 // Верно ли ответил игрок, видно только в конце. Вариантов «один из четырёх» нет.
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { dreamDef, expectedAnswer } from '../engine/dreams'
 import { LOCALE, percent } from '../i18n'
 import type { DreamInput, DreamOutcome, DreamState, GameState, Lang } from '../engine/types'
 import { useUi } from './text'
+import { Icon } from './Icon'
 
 /** Итог сна, который показывается после «Проснуться» (сам сон в состоянии игры уже закрыт). */
 export interface DreamResult {
@@ -136,7 +137,7 @@ export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose, t
                     {t('dream.hint')}
                   </button>
                 ) : (
-                  hintOpen && <p class="small">📖 {t(`dream.${d.id}.hint${d.step + 1}`)}</p>
+                  hintOpen && <p class="small"><Icon name="book" /> {t(`dream.${d.id}.hint${d.step + 1}`)}</p>
                 )}
               </div>
             </>
@@ -160,7 +161,7 @@ function DreamInputView({ input, seed, picked, opt, unit, onDone }: { input: Dre
   const [order, setOrder] = useState<string[]>(options)
   const [removed, setRemoved] = useState<string[]>([])
   const [num, setNum] = useState('')
-  // Доли – для того, что игрок выбрал в предыдущем вводе этого шага.
+  // Доли - для того, что игрок выбрал в предыдущем вводе этого шага.
   const parts = input.kind === 'ratio' ? picked : []
   const [ratio, setRatio] = useState<Record<string, string>>({})
   useEffect(() => setOrder(options), [options])

@@ -1,4 +1,4 @@
-// ТЗ v3, п. 8–10: награды – выдаются по итогам жизни, задним числом по мемориалу, трудные – только при исторической смертности.
+// ТЗ v3, п. 8–10: награды - выдаются по итогам жизни, задним числом по мемориалу, трудные - только при исторической смертности.
 import { describe, expect, it } from 'vitest'
 import { loadEra } from '../src/content'
 import { ACHIEVEMENTS, checkLife, checkLive, checkMemorial, dreamLadder, nearMisses, nextGoals, schoolProgram } from '../src/engine/achievements'
@@ -22,7 +22,7 @@ describe('Награды', () => {
     }
   })
 
-  it('долголетие: 85 в Средневековье – «Долгий век»; 100 – только при исторической смертности', () => {
+  it('долголетие: 85 в Средневековье - «Долгий век»; 100 - только при исторической смертности', () => {
     expect(checkLife(lifeAt(86), [], new Set())).toEqual(expect.arrayContaining(['age_60', 'age_70', 'age_80', 'long_medieval']))
     expect(checkLife(lifeAt(101, 'soft'), [], new Set())).not.toContain('century')
     expect(checkLife(lifeAt(101, 'historical'), [], new Set())).toContain('century')
@@ -35,7 +35,7 @@ describe('Награды', () => {
     expect(checkMemorial(memorial, new Set(got.map((e) => e.id)))).toEqual([])
   })
 
-  it('по ходу жизни: 60 лет – награда сразу', () => {
+  it('по ходу жизни: 60 лет - награда сразу', () => {
     const s = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 5), era)
     s.hero.alive = true
     s.hero.age = 61
@@ -75,7 +75,7 @@ describe('Награды', () => {
 })
 
 describe('Конец эпохи (п. 9)', () => {
-  it('род на Руси у 1600: «продолжение следует», вне хроники – без исторических событий и вестей', async () => {
+  it('род на Руси у 1600: «продолжение следует», вне хроники - без исторических событий и вестей', async () => {
     const { chronicleEnd, eraEnding, continueWithHeir, heirs } = await import('../src/engine/life')
     const { applyEffects } = await import('../src/engine/rules')
     const { startYear } = await import('../src/engine/game')

@@ -12,7 +12,7 @@ import { lifeMarks } from '../pixel/avatar'
 import type { AvatarInput } from '../pixel/avatar'
 import type { CardData } from './shareCard'
 
-/** Портрет героя в этом возрасте – по истории жизни, без хранения картинок. */
+/** Портрет героя в этом возрасте - по истории жизни, без хранения картинок. */
 export function portraitInput(life: LifeSummary, age: number, last: boolean): AvatarInput {
   const y = life.history.find((h) => h.age === age)
   const birthCls = life.report.facts.birthCls ?? life.cls
@@ -30,7 +30,7 @@ export function portraitInput(life: LifeSummary, age: number, last: boolean): Av
   }
 }
 
-/** Возрасты для ленты портретов: детство, юность, зрелость, старость – и последний год. */
+/** Возрасты для ленты портретов: детство, юность, зрелость, старость - и последний год. */
 export function portraitAges(life: LifeSummary, max = 6): number[] {
   const ages = [7, 17, 32, 50, 65, 80].filter((a) => a < life.age - 2)
   if (life.age >= 1) ages.push(life.age)
@@ -39,11 +39,11 @@ export function portraitAges(life: LifeSummary, max = 6): number[] {
 
 /** Годы жизни коротко: «1328–1415», «350–280 до н. э.». */
 function span(from: number, to: number, lang: Lang): string {
-  if (lang === 'tr') return from < 0 && to < 0 ? `MÖ ${-from}–${-to}` : from < 0 ? `MÖ ${-from} – MS ${to}` : `${from}–${to}`
+  if (lang === 'tr') return from < 0 && to < 0 ? `MÖ ${-from}-${-to}` : from < 0 ? `MÖ ${-from} - MS ${to}` : `${from}-${to}`
   const bc = lang === 'ru' ? ' до н. э.' : ' BC'
-  if (from < 0 && to < 0) return `${-from}–${-to}${bc}`
-  if (from < 0) return lang === 'ru' ? `${-from} до н. э. – ${to} н. э.` : `${-from} BC – AD ${to}`
-  return `${from}–${to}`
+  if (from < 0 && to < 0) return `${-from}-${-to}${bc}`
+  if (from < 0) return lang === 'ru' ? `${-from} до н. э. - ${to} н. э.` : `${-from} BC - AD ${to}`
+  return `${from}-${to}`
 }
 
 export function lifeCardData(
@@ -52,7 +52,7 @@ export function lifeCardData(
   lang: Lang,
   opts: { quotes: Quote[]; playerLine: string; site: string; scene: SceneDef; dream?: boolean },
 ): CardData {
-  // Заглавная – по правилам языка (турецкое i → İ).
+  // Заглавная - по правилам языка (турецкое i → İ).
   const cap = (s: string) => (s ? s[0].toLocaleUpperCase(lang) + s.slice(1) : s)
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   const f = life.report.facts
@@ -63,7 +63,7 @@ export function lifeCardData(
       : cap(t(`class.${classKey(life.cls, life.tags)}`, {}, o))
   const highlights = lifeHighlights(life)
   const hooks = highlights.map((h) => cap(t(h.key, h.params ?? {}, o)))
-  // Путь по сословию – если положение изменилось, а факт об этом ещё не сказал.
+  // Путь по сословию - если положение изменилось, а факт об этом ещё не сказал.
   const said = highlights[0]?.key.startsWith('hook.rise') || highlights[0]?.key === 'hook.freed'
   const changed = f.birthCls && f.birthCls !== life.cls && !said
   const path = changed ? `${t(`class.${f.birthCls}`, {}, o)} → ${t(`class.${classKey(life.cls, life.tags)}`, {}, o)}` : undefined
@@ -78,7 +78,7 @@ export function lifeCardData(
   if (ds) {
     const subject = t(`share.dream.subject.${dreamDef(ds.id)?.subject ?? 'math'}`)
     hook = t(`share.dream.${ds.outcome === 'partial' && ds.known ? 'known' : ds.outcome}`, { subject }, o)
-    hook2 = `${t(`dream.${ds.id}.title`)} – ${t(`dream.result.${ds.outcome}`)}`
+    hook2 = `${t(`dream.${ds.id}.title`)} - ${t(`dream.result.${ds.outcome}`)}`
   }
   // Три крупные цифры: семья, сколько ровесников прожили меньше, богатство в монетах края.
   const coin = ERA_META[life.era]?.regions.find((r) => r.id === life.region)?.coin

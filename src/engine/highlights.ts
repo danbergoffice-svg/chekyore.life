@@ -1,5 +1,5 @@
 // Главное о прожитой жизни для карточки «Поделиться»: самый яркий факт («пережила двух мужей», «стала прабабушкой»)
-// и темы жизни, по которым подбирается афоризм известного человека. Только чтение итогов жизни – ничего не меняет.
+// и темы жизни, по которым подбирается афоризм известного человека. Только чтение итогов жизни - ничего не меняет.
 import { descentOf } from './rules'
 import type { LifeSummary, TextParam } from './types'
 
@@ -17,7 +17,7 @@ export interface Quote {
   en: string
   author_ru: string
   author_en: string
-  /** Турецкий (может не быть – тогда английский). */
+  /** Турецкий (может не быть - тогда английский). */
   tr?: string
   author_tr?: string
   tags: string[]
@@ -48,7 +48,7 @@ function widowings(life: LifeSummary): number {
   return life.report.facts.partners.filter((p) => p.end === 'death').length
 }
 
-/** Поднялся из низов (рабы, крестьяне) к высокому положению – или выкупился из рабства. */
+/** Поднялся из низов (рабы, крестьяне) к высокому положению - или выкупился из рабства. */
 function rose(life: LifeSummary): boolean {
   const f = life.report.facts
   const from = CLASS_RANK[f.birthCls] ?? 2
@@ -64,12 +64,12 @@ function fell(life: LifeSummary): boolean {
   return from >= 4 && (to <= 2 || f.percentile <= 30 || (life.tags ?? []).includes('in_debt'))
 }
 
-/** Сколько ровесников (в процентах) прожили меньше героя (outlivedBy – сколько из 100 прожили дольше). */
+/** Сколько ровесников (в процентах) прожили меньше героя (outlivedBy - сколько из 100 прожили дольше). */
 export function outlivedShare(life: LifeSummary): number {
   return Math.max(0, Math.min(99, 100 - life.report.comparison.outlivedBy))
 }
 
-/** Яркие факты жизни – от самого яркого. Всегда есть хотя бы один (запасной). */
+/** Яркие факты жизни - от самого яркого. Всегда есть хотя бы один (запасной). */
 export function lifeHighlights(life: LifeSummary): Highlight[] {
   const f = life.report.facts
   const out: Highlight[] = []
@@ -93,7 +93,7 @@ export function lifeHighlights(life: LifeSummary): Highlight[] {
   if (f.partners.length >= 3) out.push({ key: `hook.married.${Math.min(f.partners.length, 4)}`, score: 62 })
   if (f.percentile >= 95 && !rose(life)) out.push({ key: 'hook.top', params: { p: f.percentile }, score: 58 })
   if (age >= 40 && f.partners.length === 0 && f.children === 0) out.push({ key: 'hook.alone', score: 40 })
-  // Факты поскромнее – чтобы у любой жизни нашлось что сказать, кроме возраста.
+  // Факты поскромнее - чтобы у любой жизни нашлось что сказать, кроме возраста.
   if (widowed === 1) {
     const p = f.partners.find((x) => x.end === 'death')!
     out.push({ key: 'hook.widowed', params: { n: p.endAge }, score: p.endAge < 40 ? 56 : 46 })
@@ -107,7 +107,7 @@ export function lifeHighlights(life: LifeSummary): Highlight[] {
   if (ds && !ds.skipped && ds.outcome === 'failure') out.push({ key: 'hook.dream_lost', score: 44 })
   const dramatic: Record<string, number> = { arena: 72, shipwreck: 60, war: 56, childbirth: 52, snakebite: 50, drowning: 50, hunger: 50, epidemic: 46, smallpox: 46 }
   if (age >= 15 && dramatic[life.cause]) out.push({ key: `hook.cause.${life.cause}`, params: { n: age }, score: dramatic[life.cause] })
-  // Запасной факт: возраст и чем кончилась жизнь – есть у всех.
+  // Запасной факт: возраст и чем кончилась жизнь - есть у всех.
   out.push({ key: share >= 50 ? 'hook.lived' : 'hook.lived_plain', params: { n: age, p: share }, score: 10 })
   return out.sort((a, b) => b.score - a.score)
 }
@@ -153,16 +153,16 @@ export function lifeThemes(life: LifeSummary): Record<string, number> {
   return w
 }
 
-/** Простой устойчивый хэш: одна и та же жизнь – тот же афоризм. */
+/** Простой устойчивый хэш: одна и та же жизнь - тот же афоризм. */
 function hash(s: string): number {
   let h = 2166136261
   for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619)
   return (h >>> 0) / 4294967296
 }
 
-/** Афоризмы для жизни – от самого подходящего: темы жизни × теги цитаты, бонус мудрецам своей страны. Среди близких
- *  по смыслу (не хуже 60% лучшего, до 10 штук) первый выбирается по жизни – у похожих жизней разные афоризмы,
- *  а у одной и той же – всегда один. */
+/** Афоризмы для жизни - от самого подходящего: темы жизни × теги цитаты, бонус мудрецам своей страны. Среди близких
+ *  по смыслу (не хуже 60% лучшего, до 10 штук) первый выбирается по жизни - у похожих жизней разные афоризмы,
+ *  а у одной и той же - всегда один. */
 export function rankQuotes(life: LifeSummary, quotes: Quote[], folder: string, themes = lifeThemes(life)): Quote[] {
   const base = new Map(quotes.map((q) => [q, q.tags.reduce((s, tag) => s + (themes[tag] ?? 0), 0) / Math.sqrt(q.tags.length) + (q.culture?.includes(folder) ? 1 : 0)]))
   const sorted = [...quotes].sort((a, b) => base.get(b)! - base.get(a)!)

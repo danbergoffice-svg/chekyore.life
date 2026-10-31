@@ -2,7 +2,7 @@
 // Меняется вместе с героем: младенец в пелёнках → малыш → ребёнок → подросток → взрослый → старик.
 // Пол: у мужчин усы и борода (как принято в краю), у женщин длинные волосы, грудь, талия и бёдра.
 // Телосложение: от скудной еды, болезней и бедности герой худеет, от пиров полнеет.
-// Край и сословие: цвет кожи, причёска, головной убор и одежда эпохи; у знати – богатая ткань и украшения.
+// Край и сословие: цвет кожи, причёска, головной убор и одежда эпохи; у знати - богатая ткань и украшения.
 // Рисуется детерминированно: один и тот же герой в том же возрасте всегда выглядит одинаково.
 
 import { lookOf, rand, shade } from './scene'
@@ -24,15 +24,15 @@ export interface AvatarInput {
   happiness?: number
   ill?: boolean
   married?: boolean
-  /** Вдова: тёмное покрывало (Русь, Византия, Европа), белое – в Индии. */
+  /** Вдова: тёмное покрывало (Русь, Византия, Европа), белое - в Индии. */
   widow?: boolean
-  /** Иноземец: родной край (кожа и волосы – оттуда; одежда – тоже, пока не вжился). */
+  /** Иноземец: родной край (кожа и волосы - оттуда; одежда - тоже, пока не вжился). */
   homeRegion?: string
   /** Вжился на чужбине: одевается по-здешнему. */
   integrated?: boolean
   dead?: boolean
   enslaved?: boolean
-  /** Усталость (стресс 0–100): мешки под глазами, опущенные брови – третье выражение лица. */
+  /** Усталость (стресс 0–100): мешки под глазами, опущенные брови - третье выражение лица. */
   stress?: number
   /** Следы жизни: шрам после войны, оспины после оспы, знак сновидца на одежде. */
   scar?: boolean
@@ -42,8 +42,8 @@ export interface AvatarInput {
 
 type Px = (x: number, y: number, w: number, h: number, c: string) => void
 
-/** Следы жизни по дневнику до возраста untilAge: шрам – после боя или драки, где герой сам решал;
- *  оспины – переболел оспой; сновидец – черта «dreamer». */
+/** Следы жизни по дневнику до возраста untilAge: шрам - после боя или драки, где герой сам решал;
+ *  оспины - переболел оспой; сновидец - черта «dreamer». */
 export function lifeMarks(diary: DiaryEntry[], traits: string[], untilAge = Infinity): Pick<AvatarInput, 'scar' | 'pox' | 'dreamer'> {
   const before = diary.filter((d) => d.age <= untilAge)
   return {
@@ -64,7 +64,7 @@ export function avatarStage(age: number): Stage {
   return age < 2 ? 'infant' : age < 5 ? 'toddler' : age < 12 ? 'child' : age < 17 ? 'teen' : age < 58 ? 'adult' : 'elder'
 }
 
-/** Смешать два цвета: k = 0 – первый, 1 – второй. */
+/** Смешать два цвета: k = 0 - первый, 1 - второй. */
 function mix(a: string, b: string, k: number): string {
   const pa = parseInt(a.slice(1), 16)
   const pb = parseInt(b.slice(1), 16)
@@ -72,7 +72,7 @@ function mix(a: string, b: string, k: number): string {
   return `#${[16, 8, 0].map((s) => ch(s).toString(16).padStart(2, '0')).join('')}`
 }
 
-/** Размеры фигуры: голова, плечи, талия, бёдра. Ширины чётные – фигура симметрична относительно середины. */
+/** Размеры фигуры: голова, плечи, талия, бёдра. Ширины чётные - фигура симметрична относительно середины. */
 interface Geo {
   headW: number
   headH: number
@@ -167,7 +167,7 @@ function lookFor(style: string, input: AvatarInput, st: Stage, p: Palette, r: ()
   const poor = slave || cls === 'peasant'
   const light = style === 'gothic' || style === 'russian'
   const base = light ? pickOf(r, LIGHT_HAIR) : style === 'sahel' || style === 'ethiopian' || style === 'maya' || style === 'aztec' || style === 'andean' || style === 'japanese' || style === 'chinese' ? pickOf(r, BLACK_HAIR) : pickOf(r, DARK_HAIR)
-  // Ткань: у знати – яркая с золотом, у бедняков – тусклая, у рабов – неокрашенная.
+  // Ткань: у знати - яркая с золотом, у бедняков - тусклая, у рабов - неокрашенная.
   const dye = pickOf(r, p.clothes)
   const cloth = slave ? '#a89878' : poor ? mix(dye, '#8f826c', 0.45) : dye
   const L: Look = {
@@ -309,7 +309,7 @@ function lookFor(style: string, input: AvatarInput, st: Stage, p: Palette, r: ()
       L.neck = f ? 'straps' : 'round'
       L.belt = f ? null : '#a83a2f'
       if (f) {
-        // Девушка – одна коса и повязка, замужняя – волосы под повойником или кокошником.
+        // Девушка - одна коса и повязка, замужняя - волосы под повойником или кокошником.
         L.hair = 'braid'
         if (married && !kid) L.hat = rich ? 'kokoshnik' : 'kerchief'
         L.hatColor = L.hat === 'kokoshnik' ? '#a83a2f' : pickOf(r, ['#a83a2f', '#3a5a8a', '#c9a34a', '#e8e0d0'])
@@ -404,7 +404,7 @@ function lookFor(style: string, input: AvatarInput, st: Stage, p: Palette, r: ()
     L.earrings = null
     L.earSpools = false
   }
-  // Вдовий наряд там, где он был заметен: тёмный плат, в Индии – белое сари без украшений.
+  // Вдовий наряд там, где он был заметен: тёмный плат, в Индии - белое сари без украшений.
   if (f && input.widow && grown && (style === 'russian' || style === 'byzantine' || style === 'gothic' || style === 'greek' || style === 'roman')) {
     L.hat = style === 'russian' ? 'kerchief' : 'veil'
     L.hatColor = '#2a2628'
@@ -416,7 +416,7 @@ function lookFor(style: string, input: AvatarInput, st: Stage, p: Palette, r: ()
   return L
 }
 
-/** Седина: с 40 лет пробивается, к 55 волосы серые, к 65 – белые. */
+/** Седина: с 40 лет пробивается, к 55 волосы серые, к 65 - белые. */
 function hairWithAge(base: string, age: number, r: () => number): string[] {
   const grey = '#9a968e'
   const white = '#d8d4cc'
@@ -430,7 +430,7 @@ function hairWithAge(base: string, age: number, r: () => number): string[] {
 
 // ---------- Фигурка в сцене ----------
 
-/** Цвета и убор человечка в сцене – те же, что на портрете (кожа, волосы с сединой, одежда, головной убор, борода). */
+/** Цвета и убор человечка в сцене - те же, что на портрете (кожа, волосы с сединой, одежда, головной убор, борода). */
 export interface FigureLook {
   skin: string
   hair: string
@@ -450,7 +450,7 @@ const HAT_KIND: Record<Hat, FigureLook['hat']> = {
   conical: 'tall', futou: 'tall', eboshi: 'tall', feathers: 'feather', kokoshnik: 'band', circlet: 'band', laurel: 'band', band: 'band', llautu: 'band',
 }
 
-/** В чьей одежде: здешней – местные и вжившиеся, родной – иноземцы первых лет. */
+/** В чьей одежде: здешней - местные и вжившиеся, родной - иноземцы первых лет. */
 function dressRegion(input: AvatarInput): string {
   return input.homeRegion && !input.integrated ? input.homeRegion : input.region
 }
@@ -488,13 +488,13 @@ export function drawAvatar(ctx: CanvasRenderingContext2D, input: AvatarInput, x 
     ctx.fillStyle = c
     ctx.fillRect(x + gx * s, y + gy * s, w * s, h * s)
   }
-  // Иноземец: кожа и волосы – родного края, одежда – родная, пока не вжился, потом здешняя.
+  // Иноземец: кожа и волосы - родного края, одежда - родная, пока не вжился, потом здешняя.
   const look = lookOf(dressRegion(input))
   const p = look.p
   const native = lookOf(input.homeRegion ?? input.region).p
   const st = avatarStage(input.age)
   const r = rand(`avatar:${input.seed}`)
-  // Цвет кожи и черты лица постоянны для героя, остальное – по возрасту.
+  // Цвет кожи и черты лица постоянны для героя, остальное - по возрасту.
   let skin = native.skin[Math.floor(r() * native.skin.length)]
   if (input.ill) skin = mix(skin, '#b4b896', 0.3)
   const body = Math.max(-3, Math.min(3, input.body ?? 0))
@@ -552,7 +552,7 @@ export function drawAvatar(ctx: CanvasRenderingContext2D, input: AvatarInput, x 
   return finish(ctx, input, x, y, s)
 }
 
-/** Следы жизни: шрам через щёку, оспины, траурная лента вдовца, знак «Сновидца» – звезда на груди. */
+/** Следы жизни: шрам через щёку, оспины, траурная лента вдовца, знак «Сновидца» - звезда на груди. */
 function drawMarks(px: Px, g: Geo, skin: string, input: AvatarInput, st: Stage): void {
   const x0 = CX - g.headW / 2
   const T = g.top
@@ -564,7 +564,7 @@ function drawMarks(px: Px, g: Geo, skin: string, input: AvatarInput, st: Stage):
     const c = shade(skin, -0.14)
     for (const [dx, dy] of [[2, 3], [7, 2], [1, 8], [8, 8], [4, 10], [6, 9]]) px(x0 + dx, T + dy, 1, 1, c)
   }
-  // Вдовец – чёрная лента на груди (у вдовы – тёмное покрывало).
+  // Вдовец - чёрная лента на груди (у вдовы - тёмное покрывало).
   if (input.widow && input.sex === 'm' && !input.dead) {
     px(CX - g.shoulderW / 2 + 3, g.shoulderY + 3, 2, 3, '#1e1a18')
     px(CX - g.shoulderW / 2 + 2, g.shoulderY + 3, 4, 1, '#1e1a18')
@@ -578,7 +578,7 @@ function drawMarks(px: Px, g: Geo, skin: string, input: AvatarInput, st: Stage):
   }
 }
 
-/** Умерший – в серых тонах. */
+/** Умерший - в серых тонах. */
 function finish(ctx: CanvasRenderingContext2D, input: AvatarInput, x: number, y: number, s: number): void {
   if (!input.dead) return
   const img = ctx.getImageData(x, y, AW * s, AH * s)
@@ -593,7 +593,7 @@ function finish(ctx: CanvasRenderingContext2D, input: AvatarInput, x: number, y:
 function drawInfant(px: Px, g: Geo, L: Look, skin: string, hair: string, input: AvatarInput): void {
   const T = g.top
   const x0 = CX - g.headW / 2
-  // Пелёнки: свёрток с перевязью; у бедняков – простая ткань.
+  // Пелёнки: свёрток с перевязью; у бедняков - простая ткань.
   const wrap = L.hat === 'bonnet' ? WHITE : mix(WHITE, L.cloth, 0.35)
   const band = L.trim ?? shade(L.cloth, -0.1)
   for (let yy = 20; yy < AH; yy++) {
@@ -620,7 +620,7 @@ function drawInfant(px: Px, g: Geo, L: Look, skin: string, hair: string, input: 
     px(CX - 2, T, 4, 1, hair)
     px(CX - 1, T - 1, 1, 1, hair)
   }
-  // Глаза: пока здоров – открытые и блестящие; мёртвый – закрытые.
+  // Глаза: пока здоров - открытые и блестящие; мёртвый - закрытые.
   if (input.dead) {
     px(x0 + 2, T + 4, 2, 1, shade(skin, -0.4))
     px(x0 + g.headW - 4, T + 4, 2, 1, shade(skin, -0.4))
@@ -684,7 +684,7 @@ function drawBody(px: Px, g: Geo, L: Look, skin: string, input: AvatarInput, st:
   for (let yy = sy; yy < AH; yy++) {
     const w = yy - sy < 2 ? torsoW(yy) : Math.max(4, torsoW(yy))
     px(CX - w / 2, yy, w, 1, cloth)
-    // Боковой изгиб бёдер темнее – видна линия фигуры.
+    // Боковой изгиб бёдер темнее - видна линия фигуры.
     if (yy > waistY + 1 && g.hipW > g.waistW && input.sex === 'f') {
       px(CX - w / 2, yy, 1, 1, shade(cloth, -0.2))
       px(CX + w / 2 - 1, yy, 1, 1, shade(cloth, -0.2))
@@ -714,7 +714,7 @@ function drawBody(px: Px, g: Geo, L: Look, skin: string, input: AvatarInput, st:
     const side = shade(bodyC, -0.14)
     const lo = shade(bodyC, -0.38)
     for (const dir of [-1, 1]) {
-      // Столбец c: 0 – у середины груди, bw−1 – снаружи.
+      // Столбец c: 0 - у середины груди, bw−1 - снаружи.
       const at = (c: number) => (dir > 0 ? CX + c : CX - 1 - c)
       for (let row = 1; row <= size; row++) for (let c = 0; c < bw; c++) px(at(c), by + row, 1, 1, fill)
       px(at(1), by + 1, 1, 1, hi)
@@ -726,7 +726,7 @@ function drawBody(px: Px, g: Geo, L: Look, skin: string, input: AvatarInput, st:
       for (let c = 1; c < bw - 1; c++) px(at(c), by + size + 1, 1, 1, lo)
       for (let c = 2; c < bw - 2; c++) px(at(c), by + size + 2, 1, 1, shade(bodyC, -0.12))
     }
-    // У полных и взрослых – бока шире на уровне груди.
+    // У полных и взрослых - бока шире на уровне груди.
     if (size >= 3) {
       px(CX - chest / 2 - 1, by + 1, 1, size, bodyC)
       px(CX + chest / 2, by + 1, 1, size, bodyC)
@@ -1001,7 +1001,7 @@ function drawBeard(px: Px, g: Geo, beard: Beard, hairAt: (i: number) => string, 
     if (i <= H - 3) w = g.headW + (i >= 6 ? 0 : 0)
     else w = Math.max(4, g.headW - 2 * (i - (H - 3)) + (beard === 'long' ? 4 : 0))
     if (i >= H && beard === 'long') w = Math.max(4, 8 - Math.floor((i - H) / 2))
-    // Бакенбарды и щёки – узкие полосы по краям, ниже рта – сплошь.
+    // Бакенбарды и щёки - узкие полосы по краям, ниже рта - сплошь.
     if (yy < mouthY) {
       px(x0, yy, 2, 1, hairAt(yy))
       px(x0 + g.headW - 2, yy, 2, 1, hairAt(yy))
@@ -1183,7 +1183,7 @@ function drawHat(px: Px, g: Geo, L: Look, st: Stage, r: () => number): void {
     case 'hijab':
     case 'wimple':
     case 'kerchief': {
-      // Закрывает волосы, шею и подбородок (у платка – узел под подбородком).
+      // Закрывает волосы, шею и подбородок (у платка - узел под подбородком).
       const cc = L.hat === 'wimple' ? WHITE : c
       px(x0 - 2, T - 2, w + 4, 4, cc)
       px(x0 - 1, T - 3, w + 2, 1, cc)

@@ -1,6 +1,6 @@
-// Времена года и погода на сцене двора: год идёт полоской 0→100% – зима → весна → лето → осень.
-// Климат края – scene.climate региона в era.json. Погода выбирается по климату и сезону из seed и года:
-// при повторе жизни та же. Состояние мира (мор, война, голод, праздник) – по меткам героя и событиям года.
+// Времена года и погода на сцене двора: год идёт полоской 0→100% - зима → весна → лето → осень.
+// Климат края - scene.climate региона в era.json. Погода выбирается по климату и сезону из seed и года:
+// при повторе жизни та же. Состояние мира (мор, война, голод, праздник) - по меткам героя и событиям года.
 import { ERA_META } from '../content'
 import type { DiaryEntry, RegionScene } from '../engine/types'
 import { noise } from './fx'
@@ -22,11 +22,11 @@ export function seasonName(season: number): SeasonName {
 
 /** Как выглядит край в этот сезон. */
 export interface SeasonLook {
-  /** Земля: цвет, к которому подмешивается, и сила (0 – без изменений). */
+  /** Земля: цвет, к которому подмешивается, и сила (0 - без изменений). */
   ground?: { color: string; k: number }
   /** Снег на крышах, кронах и вершинах. */
   snow?: boolean
-  /** Цвет листвы лиственных деревьев; bare – голые ветви. */
+  /** Цвет листвы лиственных деревьев; bare - голые ветви. */
   leaf?: string
   bare?: boolean
   /** Поле за двором: снег, всходы, спелое, снопы, голая земля. */
@@ -76,7 +76,7 @@ export function seasonLook(climate: Climate, season: number): SeasonLook {
   return TABLE[climate][seasonName(season)]
 }
 
-/** Погода: вероятности по климату и сезону (остальное – ясно). */
+/** Погода: вероятности по климату и сезону (остальное - ясно). */
 const WEATHER: Record<Climate, Record<SeasonName, [Weather, number][]>> = {
   temperate: {
     winter: [['snow', 0.45], ['fog', 0.1], ['wind', 0.1]],
@@ -136,7 +136,7 @@ export function weatherFor(region: string, season: number, year: number, seed: s
 
 export type Mood = 'epidemic' | 'war' | 'famine' | 'feast'
 
-/** Состояние мира для сцены двора: мор (метка героя), война, голод, праздник – по событиям этого года. */
+/** Состояние мира для сцены двора: мор (метка героя), война, голод, праздник - по событиям этого года. */
 export function moodFor(tags: string[], diary: DiaryEntry[], year: number): Mood | undefined {
   if (tags.includes('epidemic')) return 'epidemic'
   const now = diary.filter((d) => d.year === year)

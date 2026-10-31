@@ -1,5 +1,5 @@
-// /admin — отчёты и отзывы, /admin/export — выгрузка CSV. Пароль ADMIN_PASSWORD (Basic, логин любой).
-// Цифры считаются тем же кодом, что и бот, и ежедневная сводка (worker/stats.ts), дни — по Стамбулу.
+// /admin - отчёты и отзывы, /admin/export - выгрузка CSV. Пароль ADMIN_PASSWORD (Basic, логин любой).
+// Цифры считаются тем же кодом, что и бот, и ежедневная сводка (worker/stats.ts), дни - по Стамбулу.
 import { cohorts, dayIso, dayOf, dayStart, digestMessage, esc, FUNNEL_STEPS, pct, period, SQL, summary, type D1Database } from './stats'
 import { safeEqual } from './telegram'
 
@@ -57,23 +57,23 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     all(SQL.dailyClaims, two),
     all(SQL.menuLeave, two),
   ])
-  // A/B второй жизни: доли — от начавших вторую жизнь в варианте.
+  // A/B второй жизни: доли - от начавших вторую жизнь в варианте.
   const abRows = ab.map((r) => {
     const n = Number(r.players)
     const p = (k: string) => `${r[k]} (${pct(Number(r[k]), n)})`
-    return { вариант: r.variant, 'начали 2-ю жизнь': n, 'высокое положение': r.high, 'до 20 лет': p('age_20'), 'до 40 лет': p('age_40'), '3-я жизнь': p('third_life'), 'вернулись в другой день': p('returned'), 'возраст смерти': r.death_age ?? '—' }
+    return { вариант: r.variant, 'начали 2-ю жизнь': n, 'высокое положение': r.high, 'до 20 лет': p('age_20'), 'до 40 лет': p('age_40'), '3-я жизнь': p('third_life'), 'вернулись в другой день': p('returned'), 'возраст смерти': r.death_age ?? '-' }
   })
-  // Дары за вход: дни серии и их дары (src/daily.ts); сильные дни — 1, 4, 7.
+  // Дары за вход: дни серии и их дары (src/daily.ts); сильные дни - 1, 4, 7.
   const GIFT_NAMES = ['страна по выбору', '+3 перекрутки', 'здоровье +20', 'знатная семья', 'вещий сон', 'богатство ×3', 'царская семья']
-  const dailyRows = daily.map((r) => ({ день: r.day, дар: GIFT_NAMES[Number(r.day) - 1] ?? '—', игроки: r.players, 'после обрыва серии': r.broken }))
+  const dailyRows = daily.map((r) => ({ день: r.day, дар: GIFT_NAMES[Number(r.day) - 1] ?? '-', игроки: r.players, 'после обрыва серии': r.broken }))
   const menuRows = menuLeave.map((r) => ({ 'что было': r.what, игроки: r.players, 'ушли за 10 с': r.quick, 'секунд в меню': r.avg_sec, 'прокрутили, px': r.avg_scroll, 'высота экрана, px': r.avg_vh }))
   const f = s.funnel
   const reports: { title: string; rows: Record<string, unknown>[] }[] = [
     { title: `Воронка за 7 дней, ${week.label} (уникальные игроки; как /funnel)`, rows: FUNNEL_STEPS.map(([k, label], i) => ({ шаг: label, событие: k, игроки: f[k], '% от прошлого': i ? pct(f[k], f[FUNNEL_STEPS[i - 1][0]]) : '' })) },
     { title: 'Воронка по дням (14 дней, уникальные игроки)', rows: byDay },
-    { title: 'A/B второй жизни за 14 дней: a — положение как выпало, b — сразу высокое (обе защищены до 20 лет; флаг ab_buckets)', rows: abRows },
+    { title: 'A/B второй жизни за 14 дней: a - положение как выпало, b - сразу высокое (обе защищены до 20 лет; флаг ab_buckets)', rows: abRows },
     { title: 'Ушли из меню, так и не начав жизнь (новички, 14 дней): видели ли барабан и кнопку «Крути», сколько пробыли (событие menu_leave)', rows: menuRows },
-    { title: 'Дары за вход за 14 дней: сколько игроков забрали дар каждого дня серии (на 7-й — царская семья)', rows: dailyRows },
+    { title: 'Дары за вход за 14 дней: сколько игроков забрали дар каждого дня серии (на 7-й - царская семья)', rows: dailyRows },
     { title: 'Когорты по дню первого захода: вернулись через 1 день (D1) и через 7 дней (D7)', rows: cohortRows.map((c) => ({ day: c.day, new_players: c.new_players, D1: c.d1, D7: c.d7 })) },
     { title: 'Игроки и жизни по дням (14 дней)', rows: players },
     { title: `Жизни по режимам за 7 дней (как /week): минуты, возраст смерти, выборы`, rows: [...s.modes, s.lives] as unknown as Record<string, unknown>[] },
@@ -95,15 +95,15 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
         .join('')
     : '<p class="muted">Отзывов пока нет.</p>'
   const link = (t: string, days: number, label: string, sep = '') => `<a href="/admin/export?table=${t}&amp;days=${days}${sep ? '&amp;sep=comma' : ''}">${label}</a>`
-  const csv = `<p class="csv">Скачать CSV — события: ${link('events', 1, 'сегодня')} · ${link('events', 7, '7 дней')} · ${link('events', 30, '30 дней')} · ${link('events', 90, '90 дней')};
+  const csv = `<p class="csv">Скачать CSV - события: ${link('events', 1, 'сегодня')} · ${link('events', 7, '7 дней')} · ${link('events', 30, '30 дней')} · ${link('events', 90, '90 дней')};
 отзывы: ${link('feedback', 30, '30 дней')} · ${link('feedback', 365, 'год')}.<br><span class="muted">Файлы для Excel (разделитель «;»). Для Google Таблиц: ${link('events', 30, 'события 30 дней', 'comma')} · ${link('feedback', 365, 'отзывы за год', 'comma')} (разделитель «,»). Не больше ${EXPORT_LIMIT.toLocaleString('ru-RU')} строк.</span></p>`
-  const html = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Тысячи жизней — админка</title>
+  const html = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Тысячи жизней - админка</title>
 <style>body{font:15px/1.45 system-ui,sans-serif;margin:16px;max-width:1100px;color:#2b2119;background:#f6efe2}h1{font-size:22px}h2{font-size:17px;margin-top:28px}
 table{border-collapse:collapse;font-size:13px}td,th{border:1px solid #d6c6aa;padding:4px 8px;text-align:left}th{background:#ebdfc8}.scroll{overflow-x:auto}
 article,.tg{background:#fbf6ec;border:1px solid #d6c6aa;border-radius:8px;padding:8px 12px;margin:8px 0}article p{margin:4px 0}.muted{color:#7d6b58;font-size:13px}
 .tg{white-space:pre-wrap;max-width:520px}.tg pre{margin:4px 0;font-size:13px;overflow-x:auto}</style></head>
-<body><h1>Тысячи жизней — отзывы и отчёты</h1><p class="muted">Дни считаются по Стамбулу (UTC+3). «7 дней» — сегодня и 6 дней до него, как в командах бота.</p>${csv}
-<h2>Сводка за вчера — то же сообщение, что утром приходит в Telegram</h2><div class="tg">${digest}</div>
+<body><h1>Тысячи жизней - отзывы и отчёты</h1><p class="muted">Дни считаются по Стамбулу (UTC+3). «7 дней» - сегодня и 6 дней до него, как в командах бота.</p>${csv}
+<h2>Сводка за вчера - то же сообщение, что утром приходит в Telegram</h2><div class="tg">${digest}</div>
 ${reports.map((r) => `<h2>${esc(r.title)}</h2>${table(r.rows)}`).join('')}<h2>Отзывы (последние 100)</h2>${feedbackHtml}</body></html>`
   return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
 }
@@ -121,7 +121,7 @@ FROM events WHERE ts >= ?1 AND (ts > ?1 OR id > ?2) ORDER BY ts, id LIMIT ?3`,
 FROM feedback WHERE ts >= ?1 AND (ts > ?1 OR id > ?2) ORDER BY ts, id LIMIT ?3`,
 }
 
-/** Ячейка CSV: кавычки по необходимости; текст, похожий на формулу (=, +, -, @), — с апострофом, чтобы Excel его не исполнял. */
+/** Ячейка CSV: кавычки по необходимости; текст, похожий на формулу (=, +, -, @), - с апострофом, чтобы Excel его не исполнял. */
 function cell(v: unknown, sep: string): string {
   if (v == null) return ''
   if (typeof v === 'number') return String(v)
@@ -143,7 +143,7 @@ export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> 
   let lastTs = from
   let lastId = 0
   let total = 0
-  // Страницами по 5000 строк по времени (индекс events_ts), продолжение — после последней пары (ts, id); всего не больше 50 000.
+  // Страницами по 5000 строк по времени (индекс events_ts), продолжение - после последней пары (ts, id); всего не больше 50 000.
   while (total < EXPORT_LIMIT) {
     const take = Math.min(PAGE, EXPORT_LIMIT - total)
     const rows = (await env.DB!.prepare(EXPORT_SQL[name]).bind(lastTs, lastId, take).all()).results
@@ -154,7 +154,7 @@ export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> 
     lastId = Number(rows[rows.length - 1].id)
   }
   const file = `thousands-${name}-${dayIso(today - days + 1)}_${dayIso(today)}.csv`
-  // BOM в начале — чтобы Excel открыл UTF-8 без кракозябр.
+  // BOM в начале - чтобы Excel открыл UTF-8 без кракозябр.
   return new Response('﻿' + lines.join('\r\n') + '\r\n', {
     headers: {
       'content-type': 'text/csv; charset=utf-8',

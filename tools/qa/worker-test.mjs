@@ -317,7 +317,7 @@ async function suite(realBinds) {
   // 4. Когорты
   const coh = await S.cohorts(DB, T, 21)
   const byDay = Object.fromEntries(coh.map((c) => [c.day, c]))
-  same('когорта позавчера: 2 новых, D1 = 1 (p5), D7 ещё рано', [byDay[S.dayIso(B)]?.new_players, byDay[S.dayIso(B)]?.d1, byDay[S.dayIso(B)]?.d7], [2, '1 (50%)', '—'])
+  same('когорта позавчера: 2 новых, D1 = 1 (p5), D7 ещё рано', [byDay[S.dayIso(B)]?.new_players, byDay[S.dayIso(B)]?.d1, byDay[S.dayIso(B)]?.d7], [2, '1 (50%)', '-'])
   same('когорта 8 дней назад: D7 = 1 (p6)', [byDay[S.dayIso(T - 8)]?.d1, byDay[S.dayIso(T - 8)]?.d7], ['0 (0%)', '1 (100%)'])
   same('когорта вчера: D1 = p3 (событие в 00:00 сегодня)', byDay[S.dayIso(Y)]?.d1, '1 (33%)')
   same('когорта 10 дней назад', [byDay[S.dayIso(T - 10)]?.new_players, byDay[S.dayIso(T - 10)]?.d7], [1, '0 (0%)'])
@@ -391,7 +391,7 @@ async function suite(realBinds) {
   check('/admin: та же сводка, что в Telegram', r.status === 200 && html.includes(`<div class="tg">${dg?.text}</div>`))
   check('/admin: старые отчёты и отзывы на месте', /быстрее/.test(html) && /Где уходят/.test(html) && /События: частота/.test(html))
   check('/admin: отчёты «Воронка по дням» и «Когорты»', /Воронка по дням/.test(html) && /Когорты по дню первого захода/.test(html))
-  check('/admin: A/B второй жизни — по вариантам и доли', /A\/B второй жизни/.test(html) && html.includes('<td>b</td><td>1</td><td>1</td><td>0 (0%)</td><td>0 (0%)</td><td>0 (0%)</td><td>0 (0%)</td><td>—</td>'), html.match(/<td>[ab]<\/td>.*?<\/tr>/g))
+  check('/admin: A/B второй жизни — по вариантам и доли', /A\/B второй жизни/.test(html) && html.includes('<td>b</td><td>1</td><td>1</td><td>0 (0%)</td><td>0 (0%)</td><td>0 (0%)</td><td>0 (0%)</td><td>-</td>'), html.match(/<td>[ab]<\/td>.*?<\/tr>/g))
   check('/admin: дары за вход — день, дар, игроки', /Дары за вход/.test(html) && html.includes('<td>1</td><td>страна по выбору</td><td>1</td><td>0</td>'), html.match(/<td>1<\/td><td>страна.*?<\/tr>/))
   check('/admin: ушли из меню — по игроку, без начавших жизнь', /Ушли из меню/.test(html) && html.includes('<td>видел кнопку «Крути», не крутил</td><td>1</td><td>0</td><td>24</td><td>120</td><td>664</td>') && !html.includes('крутил, но не начал жизнь'), html.match(/<td>[^<]*(?:барабан|кнопку|крутил)[^<]*<\/td>.*?<\/tr>/g))
   check('/admin: отчёт по снам — доля верных и частый неверный ответ', html.includes('<td>eratosthenes</td><td>3</td><td>3</td><td>33</td><td>3 ×2</td>'))

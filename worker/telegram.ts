@@ -37,7 +37,7 @@ const plain = (html: string) =>
 /** Отправка в чат владельца. Никогда не бросает исключение: ошибка Telegram не должна ронять приёмник. */
 export async function sendMessage(env: TgEnv, text: string, html = true): Promise<boolean> {
   if (!env.TELEGRAM_TOKEN || !env.TELEGRAM_CHAT_ID) return false
-  // Длиннее лимита — без разметки и обрезано, чтобы не разорвать теги.
+  // Длиннее лимита - без разметки и обрезано, чтобы не разорвать теги.
   const tooLong = text.length > LIMIT
   const body: Record<string, unknown> = { chat_id: env.TELEGRAM_CHAT_ID, text: tooLong || !html ? (html ? plain(text) : text).slice(0, LIMIT) : text, disable_web_page_preview: true }
   if (html && !tooLong) body.parse_mode = 'HTML'
@@ -69,7 +69,7 @@ export async function telegramWebhook(req: Request, env: TgEnv, ctx: Ctx): Promi
   const update = (await req.json().catch(() => null)) as Update | null
   const msg = update?.message
   const chat = msg?.chat?.id
-  // Чужие чаты и всё, что не команда, — молча 200, чтобы Telegram не повторял доставку.
+  // Чужие чаты и всё, что не команда, - молча 200, чтобы Telegram не повторял доставку.
   if (chat == null || !env.TELEGRAM_CHAT_ID || String(chat) !== String(env.TELEGRAM_CHAT_ID).trim()) return ok()
   const text = typeof msg?.text === 'string' ? msg.text.trim() : ''
   if (!text.startsWith('/')) return ok()

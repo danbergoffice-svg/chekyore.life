@@ -1,5 +1,5 @@
 // Пиксельные сцены. Холст 320×100 точек (панорама 16:5), плоские цвета без обводки.
-// Постройки и земля рисуются в прежней сетке 192×60 (×5/3), люди – в полном разрешении (figures.ts).
+// Постройки и земля рисуются в прежней сетке 192×60 (×5/3), люди - в полном разрешении (figures.ts).
 // Сцена собирается из слоёв: небо → дальние горы → постройки и земля → люди и животные → передний план;
 // неподвижные слои рисуются один раз и кэшируются, каждый кадр только складываются и поверх рисуется
 // движение (fx.ts): облака, птицы, дым, огонь, вода, флаги, огни, погода.
@@ -129,7 +129,7 @@ export interface Look {
   p: Palette
 }
 
-/** Как выглядит регион: стиль из era.json; неизвестное имя региона, совпадающее со стилем, – этот стиль (для галереи). */
+/** Как выглядит регион: стиль из era.json; неизвестное имя региона, совпадающее со стилем, - этот стиль (для галереи). */
 export function lookOf(region: string): Look {
   const def = REGION_DEF.get(region)
   const style = def?.scene?.style ?? (STYLE_PALETTE[region] ? region : 'roman')
@@ -147,7 +147,7 @@ function sky(px: Px, time: SceneTime, r: () => number) {
   const h = Math.ceil(GROUND / bands.length)
   bands.forEach((c, i) => px(0, i * h, LW, h, c))
   if (time === 'night') {
-    // Звёзды – точками холста; треть из них мигает (fx).
+    // Звёзды - точками холста; треть из них мигает (fx).
     for (let i = 0; i < 46; i++) {
       const x = Math.floor(r() * W)
       const y = Math.floor(r() * 50)
@@ -370,7 +370,7 @@ function tree(px: Px, look: Look, x: number, k: number, r: () => number) {
     px(x - 3, GROUND - 16, 2, 1, palm)
     px(x + 8, GROUND - 16, 2, 1, palm)
   } else if (s === 'japanese' || s === 'russian' || s === 'gothic' || look.land === 'snow') {
-    // Ель или сосна – вечнозелёная.
+    // Ель или сосна - вечнозелёная.
     const fir = shade(LAND[look.land]?.tree ?? '#3f5f4a', k)
     px(x + 3, GROUND - 4, 2, 4, '#4a3420')
     for (let i = 0; i < 14; i++) px(x + 4 - Math.floor(i / 3), GROUND - 18 + i, Math.floor(i / 3) * 2 + 1, 1, fir)
@@ -434,10 +434,10 @@ function door(px: Px, cx: number, h: number, c: string, arch = false) {
 }
 
 /**
- * Жилой дом в стиле края: низкий, в один (редко два) этажа, с дверью и одним-двумя окнами –
+ * Жилой дом в стиле края: низкий, в один (редко два) этажа, с дверью и одним-двумя окнами -
  * никаких рядов одинаковых окон, как у многоэтажек.
  */
-/** Дом героя сгорел: вместо дома во дворе – обугленный остов (ставится на время рисования двора). */
+/** Дом героя сгорел: вместо дома во дворе - обугленный остов (ставится на время рисования двора). */
 let burnt = false
 
 function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () => number, lit: boolean) {
@@ -473,7 +473,7 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
   const rec = (h: number, roof: RoofKind, hx = x, hw = w) => {
     cur.houses.push({ x: hx, w: hw, h, roof, style: look.style })
   }
-  // Дым из трубы или очага – у части домов.
+  // Дым из трубы или очага - у части домов.
   if (noise(Math.round(x * 7), Math.round(w), 3) < (['russian', 'gothic', 'japanese', 'chinese', 'andean'].includes(look.style) ? 0.55 : 0.3)) cur.chimneys.push(x + Math.round(w * 0.68))
   switch (look.style) {
     case 'roman':
@@ -814,7 +814,7 @@ function landmark(px: Px, look: Look, region: string, k: number, r: () => number
   }
 }
 
-/** Храм, святилище, церковь, мечеть – по стилю. */
+/** Храм, святилище, церковь, мечеть - по стилю. */
 function sanctuary(px: Px, look: Look, k: number, r: () => number) {
   const p = look.p
   const c = (x: string, d = 0) => shade(x, k + d)
@@ -973,7 +973,7 @@ function palace(px: Px, look: Look, region: string, k: number, r: () => number) 
   }
 }
 
-/** Дом семьи героя по размеру: 0 – лачуга, 1 – хижина, 2 – дом, 3 – большой дом с пристройкой, 4 – усадьба за оградой. */
+/** Дом семьи героя по размеру: 0 - лачуга, 1 - хижина, 2 - дом, 3 - большой дом с пристройкой, 4 - усадьба за оградой. */
 function familyHome(px: Px, look: Look, tier: number, k: number, r: () => number, lit: boolean) {
   const fence = shade('#7a5a3a', k)
   if (tier <= 0) {
@@ -1005,8 +1005,8 @@ function familyHome(px: Px, look: Look, tier: number, k: number, r: () => number
   px(46, GROUND - 7, 6, 7, shade('#4a3020', k))
 }
 
-/** Обстановка жилья по достатку: 0 – лачуга с соломой, 1 – лавка у стены, 2 – сундук и полка с посудой,
- *  3 – ковёр на стене, светильники, 4 – расписной пояс, колонны и ткань на стене. */
+/** Обстановка жилья по достатку: 0 - лачуга с соломой, 1 - лавка у стены, 2 - сундук и полка с посудой,
+ *  3 - ковёр на стене, светильники, 4 - расписной пояс, колонны и ткань на стене. */
 function interior(px: Px, look: Look, tier: number, k: number, r: () => number) {
   const c = (hex: string, d = 0) => shade(hex, k * 0.6 + d)
   const wood = '#7a5a3a'
@@ -1050,13 +1050,13 @@ function interior(px: Px, look: Look, tier: number, k: number, r: () => number) 
   }
 }
 
-/** Сгоревший, разрушенный или отстраивающийся дом во дворе – поверх нарисованного дома. */
+/** Сгоревший, разрушенный или отстраивающийся дом во дворе - поверх нарисованного дома. */
 function homeDamage(ctx: CanvasRenderingContext2D, px: Px, state: NonNullable<Cast['homeState']>, k: number, r: () => number) {
   for (const b of built) {
     if (state === 'burned') {
-      // Остов уже нарисован вместо дома (burnt); сверху – тлеющие угли и дымок.
+      // Остов уже нарисован вместо дома (burnt); сверху - тлеющие угли и дымок.
       for (let i = 0; i < 5; i++) px(b.x + 2 + Math.floor(r() * (b.w - 4)), GROUND - 1 - Math.floor(r() * 3), 1, 1, '#e0602a')
-      // Тлеющие угли и дымок – fx.
+      // Тлеющие угли и дымок - fx.
       cur.fx.flames.push(nrect(b.x + 3, GROUND - 3, Math.min(10, b.w - 6), 3))
       cur.fx.smoke.push({ x: Math.round((b.x + b.w / 2) * S), y: Math.round((GROUND - 6) * S), size: 1 })
       void ctx
@@ -1357,7 +1357,7 @@ function scaledPx(ctx: Ctx, ox = 0, oy = 0): Px {
   }
 }
 
-/** Цвета стиля искусства края (палитра вполсилы); null – без изменений. */
+/** Цвета стиля искусства края (палитра вполсилы); null - без изменений. */
 let colorMap: ((c: string) => string) | null = null
 
 /** Кисть в точках холста (цвет ставится, только когда меняется). */
@@ -1402,7 +1402,7 @@ interface Build {
 type RoofKind = 'tile' | 'shingle' | 'thatch' | 'flat'
 let cur: Build
 
-/** Позы актёра по времени: idle – изредка переступает; work – замах; bob – качается на воде. */
+/** Позы актёра по времени: idle - изредка переступает; work - замах; bob - качается на воде. */
 function poseAt(anim: Anim, t: number, phase: number): { pose: number; dy: number } {
   if (anim === 'work') return { pose: Math.floor(t * 2.2 + phase) % 2 ? 2 : 3, dy: 0 }
   if (anim === 'bob') return { pose: 0, dy: Math.round(Math.sin(t * 1.6) * 1) }
@@ -1450,7 +1450,7 @@ interface PersonOpts {
   tool?: Tool
 }
 
-/** Человек на сцене. x, base – в сетке 192×60; рисуется в полном разрешении. */
+/** Человек на сцене. x, base - в сетке 192×60; рисуется в полном разрешении. */
 function person(_px: Px, x: number, look: Look, r: () => number, k: number, small = false, base = GROUND, m?: CastMember, opts: PersonOpts = {}) {
   const spec = m?.look ? castSpec(m, look) : passerSpec(look, m ? rand(`person:${m.seed}`) : rand(`passer:${r()}`), small, m)
   if (opts.tool && !spec.tool) spec.tool = opts.tool
@@ -1480,13 +1480,13 @@ function person(_px: Px, x: number, look: Look, r: () => number, k: number, smal
   })
 }
 
-/** Животное или питомец – актёр: изредка переступает на точку. */
+/** Животное или питомец - актёр: изредка переступает на точку. */
 function actorAnimal(kind: string, x: number, k: number, base?: number) {
   const phase = noise(Math.round(x * 13), cur.actors.length, 7)
   cur.actors.push({
     draw: (ctx, t) => {
       const step = Math.floor(t * 0.7 + phase * 5) % 4 === 0 ? 1 : 0
-      // Животные двора – в полном разрешении (animals.ts), питомцы – прежним рисунком.
+      // Животные двора - в полном разрешении (animals.ts), питомцы - прежним рисунком.
       if (base === undefined && NATIVE_ANIMALS.includes(kind)) return drawAnimal(nativePx(ctx), kind, Math.round(x * S), Math.round((GROUND + 1) * S) - 1, k, step)
       const px = scaledPx(ctx, step, 0)
       if (base === undefined) animal(px, kind, x, k)
@@ -1499,7 +1499,7 @@ function prop(px: Px, kind: SceneProp, x: number, time: SceneTime, p: Palette, k
   const g = GROUND
   switch (kind) {
     case 'sun': {
-      // Солнце по времени суток: днём высоко, на рассвете слева у горизонта, на закате – справа.
+      // Солнце по времени суток: днём высоко, на рассвете слева у горизонта, на закате - справа.
       const [sx, sy] = time === 'dawn' ? [34, 32] : time === 'sunset' ? [160, 32] : [150, 16]
       return disc(px, sx, sy, 6, time === 'sunset' ? '#f8d48a' : time === 'dawn' ? '#fbe2a8' : time === 'overcast' ? '#dcdad2' : '#fff1b0')
     }
@@ -1507,7 +1507,7 @@ function prop(px: Px, kind: SceneProp, x: number, time: SceneTime, p: Palette, k
       disc(px, 160, 10, 4, '#f4ecd0')
       return disc(px, 162, 9, 3, SKY.night[0])
     case 'fire':
-      // Костёр: угли и поленья неподвижны, языки пламени и искры – fx.
+      // Костёр: угли и поленья неподвижны, языки пламени и искры - fx.
       px(x, g - 2, 6, 2, '#5a3a24')
       px(x + 1, g - 3, 4, 1, '#e0702a')
       cur.fx.flames.push(nrect(x, g - 9, 6, 7))
@@ -1589,7 +1589,7 @@ function prop(px: Px, kind: SceneProp, x: number, time: SceneTime, p: Palette, k
       px(x + 2, g - 14, 4, 10, shade(p.stone, k))
       return px(x + 3, g - 16, 2, 2, shade(p.stone, k))
     case 'rain':
-      // Дождь – погода сцены (fx).
+      // Дождь - погода сцены (fx).
       if (!cur.fx.weather) cur.fx.weather = 'rain'
       return
     case 'banner':
@@ -1623,12 +1623,12 @@ export interface SceneInput {
   cast?: Cast
   /** Время года 0–1 (прогресс года: зима → весна → лето → осень); только для сцены двора. */
   season?: number
-  /** Погода; без неё – по сцене (дождь из props). */
+  /** Погода; без неё - по сцене (дождь из props). */
   weather?: Weather | null
   /** Состояние мира: мор, война, голод, праздник. */
   mood?: SceneMood
-  /** Стиль искусства края: half – палитра, фактура и контур (по умолчанию); full – ещё и фон-традиция
-   *  вместо неба (окна событий, экраны-главы); none – без стиля. */
+  /** Стиль искусства края: half - палитра, фактура и контур (по умолчанию); full - ещё и фон-традиция
+   *  вместо неба (окна событий, экраны-главы); none - без стиля. */
   art?: 'half' | 'full' | 'none'
   /** Год: стиль может меняться со временем (Европа: рукопись → гравюра). */
   year?: number
@@ -1802,7 +1802,7 @@ function pet(px: Px, kind: string, x: number, base: number, k: number) {
 
 const INTERIOR_PLACES = ['home', 'workshop', 'school', 'bath']
 
-/** Питомцы, которые живут в доме, – дома на своих местах; во двор не выходят. */
+/** Питомцы, которые живут в доме, - дома на своих местах; во двор не выходят. */
 const INDOOR = ['songbird', 'goldfish', 'mouse', 'cricket']
 
 /** Питомцы в комнате: кошка у печи, пёс у порога, клетка у окна, рыбки на сундуке, черепаха на полу. */
@@ -1850,7 +1850,7 @@ function disasterOverlay(ctx: CanvasRenderingContext2D, px: Px, kind: 'fire' | '
     }
   } else if (kind === 'ruin') {
     for (const b of targets) {
-      // Пролом в стене и крыше: «вырезаем» цветом неба, внизу – груда камней и балок.
+      // Пролом в стене и крыше: «вырезаем» цветом неба, внизу - груда камней и балок.
       const cx = b.x + Math.floor(b.w * (0.3 + r() * 0.4))
       for (let i = 0; i < 9; i++) px(cx - i, b.top - 6 + i, 2 + i * 2, 1, sky)
       for (let i = 0; i < 6; i++) disc(px, b.x + 3 + Math.floor(r() * (b.w - 6)), GROUND - 1, 2 + Math.floor(r() * 2), r() > 0.5 ? '#8a7a68' : '#a8987e')
@@ -1895,7 +1895,7 @@ function finishSeason(b: Build, sl: SeasonLook | null, muted: boolean) {
       }
     }
     if (sl?.snow) {
-      // Снег: 2 точки на верху крыш и крон, 1 – на вершинах гор.
+      // Снег: 2 точки на верху крыш и крон, 1 - на вершинах гор.
       const depth = isMain ? 2 : 1
       for (let x = 0; x < W; x++) {
         for (let y = 0; y < g - 1; y++) {
@@ -1951,7 +1951,7 @@ function layer(): [HTMLCanvasElement, Ctx] {
   return [c, c.getContext('2d')!]
 }
 
-/** Ключ кэша: всё, от чего зависит неподвижная часть сцены (время года – восьмыми долями). */
+/** Ключ кэша: всё, от чего зависит неподвижная часть сцены (время года - восьмыми долями). */
 export function sceneKey(input: SceneInput): string {
   const season = input.season === undefined ? null : Math.floor(input.season * 8) % 8
   return JSON.stringify([input.scene, input.region, input.seed, input.cast ?? null, season, input.weather ?? null, input.mood ?? null, input.art ?? 'half', input.year ?? null, artStrength()])
@@ -1972,18 +1972,18 @@ export function buildScene(input: SceneInput): BuiltScene {
   return b
 }
 
-/** Нарисовать сцену в момент t (секунды анимации). Одинаковые данные и t – одинаковая картинка. */
+/** Нарисовать сцену в момент t (секунды анимации). Одинаковые данные и t - одинаковая картинка. */
 export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput, t = 0): void {
   composeScene(ctx, buildScene(input), t)
 }
 
-/** Кадр: слои складываются, поверх – движение. */
+/** Кадр: слои складываются, поверх - движение. */
 export function composeScene(ctx: CanvasRenderingContext2D, b: BuiltScene, t: number): void {
   ctx.imageSmoothingEnabled = false
   ctx.clearRect(0, 0, W, H)
   ctx.drawImage(b.sky, 0, 0)
   drawFxBack(ctx, b.fx, t)
-  // Дальние горы чуть плывут – лёгкий параллакс.
+  // Дальние горы чуть плывут - лёгкий параллакс.
   ctx.drawImage(b.far, Math.round(Math.sin(t / 9) * 2), 0)
   ctx.drawImage(b.main, 0, 0)
   drawFxMid(ctx, b.fx, t)
@@ -2011,12 +2011,12 @@ const CLOUDS: Record<SceneTime, Fx['clouds']> = {
 
 function build(input: SceneInput): BuiltScene {
   const { scene, region, seed, cast } = input
-  // Пожар дома видно снаружи: горит сам дом героя, семья перед ним. Пожар мастерской – с улицы.
+  // Пожар дома видно снаружи: горит сам дом героя, семья перед ним. Пожар мастерской - с улицы.
   let place = scene.place ?? 'landmark'
   if (scene.disaster === 'fire' && place === 'home') place = 'yard'
   if (scene.disaster === 'fire' && (place === 'workshop' || place === 'school' || place === 'bath')) place = 'street'
   built = []
-  // Ненастье – небо пасмурное.
+  // Ненастье - небо пасмурное.
   const time: SceneTime = (scene.time ?? 'day') === 'day' && input.weather && ['rain', 'snow', 'storm', 'fog'].includes(input.weather) ? 'overcast' : scene.time ?? 'day'
   const mood = input.mood
   seasonNow = input.season !== undefined && place === 'yard' ? { ...seasonLook(climateOf(region), input.season) } : null
@@ -2034,7 +2034,7 @@ function build(input: SceneInput): BuiltScene {
   const outdoor = !INTERIOR_PLACES.includes(place)
   const fx = emptyFx(Math.floor(rand(seed)() * 1e9), Math.round(GROUND * S))
   fx.wind = (noise(fx.seed, 1, 1) - 0.4) * 1.2
-  // Стиль искусства края: палитра вполсилы, фактура и контур; фон-традиция – только в окнах событий.
+  // Стиль искусства края: палитра вполсилы, фактура и контур; фон-традиция - только в окнах событий.
   const artMode = input.art ?? 'half'
   const art: ArtStyle | null = artMode === 'none' ? null : artFor(look.style, input.year)
   const ak = art ? artStrength() : 0
@@ -2062,9 +2062,9 @@ function build(input: SceneInput): BuiltScene {
   const k = SHADE[time]
   if (scene.disaster) disasterOverlay(ctx, px, scene.disaster, SKY[time][3], r)
   else if (place === 'yard' && cast?.homeState) homeDamage(ctx, px, cast.homeState, k, r)
-  // При пожаре огонь и дым – на домах (disasterOverlay), а не отдельным костром рядом.
+  // При пожаре огонь и дым - на домах (disasterOverlay), а не отдельным костром рядом.
   const placed = props.filter((x) => x !== 'sun' && x !== 'moon' && !(scene.disaster === 'fire' && (x === 'fire' || x === 'smoke')))
-  // На воде люди стоят в лодке, в гавани – на причале.
+  // На воде люди стоят в лодке, в гавани - на причале.
   const water = place === 'sea'
   const boatX = water ? 84 : 0
   const xs = placed.map((_, i) => (water && placed[i] === 'boat' ? boatX : PROP_X[i % PROP_X.length] + Math.floor(r() * 6)))
@@ -2079,16 +2079,16 @@ function build(input: SceneInput): BuiltScene {
       cur.actors.push({ draw: (c, t) => prop(scaledPx(c, 0, Math.round(Math.sin(t * 1.6))), 'boat', bx, time, p, k, r) })
     } else prop(px, kind, xs[i], time, p, k, r)
   })
-  // Близкие героя стоят первыми; остальные места – прохожие. Во дворе и дома чужих нет.
+  // Близкие героя стоят первыми; остальные места - прохожие. Во дворе и дома чужих нет.
   let members = cast?.members.slice(0, 8) ?? []
   const private_ = place === 'yard' || place === 'home'
   let extras = private_ && cast ? (place === 'home' && cast.home === 4 ? 1 : 0) : Math.max(0, (scene.people ?? 2) - members.length)
   // Мор: улицы пустеют.
   if (mood === 'epidemic' && !private_) extras = Math.min(extras, 1)
-  // Работники: в поле с мотыгой, в мастерской – с молотом; работают, а не стоят.
+  // Работники: в поле с мотыгой, в мастерской - с молотом; работают, а не стоят.
   const work: PersonOpts = place === 'field' ? { anim: 'work', tool: 'hoe' } : place === 'workshop' ? { anim: 'work', tool: 'hammer' } : {}
   if (place === 'market') {
-    // Рынок: крупные лотки по краям, за ними продавцы, прохожие – в глубине, мельче; семья героя – в середине.
+    // Рынок: крупные лотки по краям, за ними продавцы, прохожие - в глубине, мельче; семья героя - в середине.
     const own = !!cast?.ownStall && members.length > 0
     const stalls = own ? [4, 32, 83] : [4, 32, 136, 164]
     for (let i = 0; i < Math.min(extras, 4); i++) person(px, 14 + Math.floor(r() * 164), look, r, k * 0.85, true, GROUND - 4, undefined, { still: true })
@@ -2110,7 +2110,7 @@ function build(input: SceneInput): BuiltScene {
     }
     extras = 0
     if (own) {
-      // Семья – рядом с прилавком героя, справа.
+      // Семья - рядом с прилавком героя, справа.
       members = members.slice(1)
       const m = members.length
       for (let i = 0; i < m; i++) person(px, 116 + i * 10, look, r, k, false, GROUND, members[i])
@@ -2121,7 +2121,7 @@ function build(input: SceneInput): BuiltScene {
   let span = n > 1 ? Math.min(place === 'yard' || place === 'market' ? 70 : 110, n * 13) : 0
   let start = (place === 'yard' ? 108 : 96) - span / 2
   if (place === 'yard' && cast) {
-    // Животные во дворе – справа от семьи.
+    // Животные во дворе - справа от семьи.
     let ax = start + span + 12
     for (const kind of cast.animals.filter((a) => !INDOOR.includes(a)).slice(0, 6)) {
       if (ax > LW - 14) break
@@ -2151,7 +2151,7 @@ function build(input: SceneInput): BuiltScene {
     const m = members[i]
     const opts: PersonOpts = water ? { anim: 'bob' } : m ? {} : work
     person(px, x, look, r, k, !m && place === 'home' && i === n - 1 && n > 2, base, m, opts)
-    // Вне дома попугай сидит у героя на плече (у майя, ацтеков, инков), сокол – на руке в поле и в дороге.
+    // Вне дома попугай сидит у героя на плече (у майя, ацтеков, инков), сокол - на руке в поле и в дороге.
     if (m?.role === 'hero' && cast && !water && !INTERIOR_PLACES.includes(place) && place !== 'yard') {
       const adult = m.age >= 15
       const shoulder = (kind: string, bx: number, by: number) => cur.actors.push({ draw: (c) => pet(scaledPx(c), kind, bx, by, k) })
@@ -2196,7 +2196,7 @@ function build(input: SceneInput): BuiltScene {
   }
   if (seasonNow || mood === 'epidemic') finishSeason(cur, seasonNow, mood === 'epidemic')
   if (art && ak > 0) {
-    // Фактура и контур стиля – по готовым слоям построек и гор.
+    // Фактура и контур стиля - по готовым слоям построек и гор.
     for (const layerCtx of [ctx, farX]) {
       const img = layerCtx.getImageData(0, 0, W, H)
       stylize(img.data, W, H, art, ak)
@@ -2217,7 +2217,7 @@ function build(input: SceneInput): BuiltScene {
       }
     }
   }
-  // Не поместившиеся близкие – подписью «+N» справа от семьи, выше голов.
+  // Не поместившиеся близкие - подписью «+N» справа от семьи, выше голов.
   const badge = cast?.more ? { x: Math.round(Math.min(LW - 14, start + span + 4) * S), y: Math.round((base - 15) * S), text: `+${cast.more}` } : undefined
   return { sky: skyC, far: farC, main: mainC, front: frontC, actors: cur.actors, fx, badge, place, time, mood, colors }
 }

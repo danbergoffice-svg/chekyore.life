@@ -1,13 +1,13 @@
 // Свой приёмник аналитики и отзывов (ТЗ A3). Работает как _worker.js проекта Cloudflare Pages:
 // /api/* и /admin обслуживает сам, всё остальное отдаёт статикой сайта (env.ASSETS).
-//   POST /api/events    — пачка событий (до 50), пишется в D1, таблица events;
-//   POST /api/feedback  — отзыв: таблица feedback + копия в Telegram (если заданы TELEGRAM_TOKEN и TELEGRAM_CHAT_ID);
-//   HEAD|GET /api/time  — время сервера (заголовок Date и {now});
-//   GET /api/players    — сколько всего игроков заходило в игру ({n}; пересчёт не чаще раза в 10 минут);
-//   POST /api/telegram  — webhook бота: команды /stats /week /funnel /exits /digest /help (worker/telegram.ts);
-//   GET /admin          — отзывы и отчёты, пароль ADMIN_PASSWORD (логин любой) (worker/admin.ts);
-//   GET /admin/export   — CSV для Excel/Google Таблиц (?table=events|feedback&days=N).
-// Цифры для админки, бота и ежедневной сводки (worker/digest/) считает один модуль — worker/stats.ts.
+//   POST /api/events    - пачка событий (до 50), пишется в D1, таблица events;
+//   POST /api/feedback  - отзыв: таблица feedback + копия в Telegram (если заданы TELEGRAM_TOKEN и TELEGRAM_CHAT_ID);
+//   HEAD|GET /api/time  - время сервера (заголовок Date и {now});
+//   GET /api/players    - сколько всего игроков заходило в игру ({n}; пересчёт не чаще раза в 10 минут);
+//   POST /api/telegram  - webhook бота: команды /stats /week /funnel /exits /digest /help (worker/telegram.ts);
+//   GET /admin          - отзывы и отчёты, пароль ADMIN_PASSWORD (логин любой) (worker/admin.ts);
+//   GET /admin/export   - CSV для Excel/Google Таблиц (?table=events|feedback&days=N).
+// Цифры для админки, бота и ежедневной сводки (worker/digest/) считает один модуль - worker/stats.ts.
 // IP-адреса не сохраняются: используются только для ограничения частоты запросов в памяти.
 
 import { admin, authorized, exportCsv, unauthorized } from './admin'
@@ -106,9 +106,9 @@ async function feedback(req: Request, env: Env, ctx: Ctx): Promise<Response> {
   return json({ ok: true })
 }
 
-// Сколько всего игроков заходило в игру — для строки в подвале главного экрана. Чтобы не перечитывать всю таблицу
+// Сколько всего игроков заходило в игру - для строки в подвале главного экрана. Чтобы не перечитывать всю таблицу
 // событий на каждый заход: игроки копятся в таблице players по новым событиям (id больше прошлой отметки),
-// число и отметка лежат в counters; пересчёт — не чаще раза в 10 минут, между ними — одна строка counters.
+// число и отметка лежат в counters; пересчёт - не чаще раза в 10 минут, между ними - одна строка counters.
 const PLAYERS_FRESH = 10 * 6e4
 let playersMemo: { n: number; until: number } | null = null
 async function players(env: Env): Promise<number> {

@@ -12,8 +12,10 @@ html.skin .slot-machine::after { content: ''; position: absolute; left: 16%; rig
   clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%); box-shadow: none; opacity: 1; border: 0; }
 /* Лампы по дуге арки и знак в её середине. */
 html.skin .slot-lights { position: absolute; inset: 0; padding: 0; display: block; z-index: 2; pointer-events: none; }
-html.skin .slot-lights span { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #5a4a2a; box-shadow: 0 0 0 2px var(--sheet); }
-html.skin .slot-machine.idle .slot-lights span:nth-child(odd), html.skin .slot-machine.done .slot-lights span { background: var(--bulb); box-shadow: 0 0 0 2px var(--sheet), 0 0 10px var(--bulb); }
+html.skin .slot-lights span { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #5a4a2a; box-shadow: 0 0 0 1.5px var(--sheet); }
+/* Лампы горят ровно все (мягко), при прокрутке по ним бежит огонь, после результата – ярко. Одиннадцать по дуге на равном расстоянии. */
+html.skin .slot-lights span { background: color-mix(in srgb, var(--bulb) 70%, #5a4a2a); }
+html.skin .slot-machine.done .slot-lights span { background: var(--bulb); box-shadow: 0 0 0 2px var(--sheet), 0 0 9px var(--bulb); }
 @keyframes chase-map { 0%, 100% { background: #5a4a2a; } 40% { background: var(--bulb); box-shadow: 0 0 0 2px var(--sheet), 0 0 12px var(--bulb); } }
 html.skin .slot-lights::before { content: '✦  ✦  ✦'; white-space: pre; position: absolute; left: 0; right: 0; top: -30px; text-align: center; font-size: 16px; color: var(--sheet); letter-spacing: 2px; }
 /* Табличка с прорезью для монеты под стеклом. */
@@ -41,14 +43,14 @@ html.skin .lever-rod { left: 14px; bottom: 38px; width: 6px; height: 92px; borde
 html.skin .lever-knob { left: 4px; top: 0; width: 26px; height: 26px; background: var(--ball); box-shadow: 0 0 0 2.5px var(--sheet), inset -4px -4px 0 rgba(0, 0, 0, 0.18); }
 @keyframes knob { 50% { transform: translateY(80px); } }
 html.skin .spin-button { margin-top: 6px; }
-html.skin .slot-lights span:nth-child(1) { left: calc(4.00% - 5px); top: -8.0px; }
-html.skin .slot-lights span:nth-child(2) { left: calc(6.25% - 5px); top: -20.4px; }
-html.skin .slot-lights span:nth-child(3) { left: calc(12.79% - 5px); top: -31.5px; }
-html.skin .slot-lights span:nth-child(4) { left: calc(22.96% - 5px); top: -40.4px; }
-html.skin .slot-lights span:nth-child(5) { left: calc(35.79% - 5px); top: -46.0px; }
-html.skin .slot-lights span:nth-child(6) { left: calc(50.00% - 5px); top: -48.0px; }
-html.skin .slot-lights span:nth-child(7) { left: calc(64.21% - 5px); top: -46.0px; }
-html.skin .slot-lights span:nth-child(8) { left: calc(77.04% - 5px); top: -40.4px; }
-html.skin .slot-lights span:nth-child(9) { left: calc(87.21% - 5px); top: -31.5px; }
-html.skin .slot-lights span:nth-child(10) { left: calc(93.75% - 5px); top: -20.4px; }
-html.skin .slot-lights span:nth-child(11) { left: calc(96.00% - 5px); top: -8.0px; }
+html.skin .slot-lights span:nth-child(1) { left: calc(5.01% - 4.5px); top: -15.4px; }
+html.skin .slot-lights span:nth-child(2) { left: calc(12.82% - 4.5px); top: -31.7px; }
+html.skin .slot-lights span:nth-child(3) { left: calc(21.90% - 4.5px); top: -40.0px; }
+html.skin .slot-lights span:nth-child(4) { left: calc(31.19% - 4.5px); top: -45.0px; }
+html.skin .slot-lights span:nth-child(5) { left: calc(40.57% - 4.5px); top: -47.6px; }
+html.skin .slot-lights span:nth-child(6) { left: calc(50.00% - 4.5px); top: -48.5px; }
+html.skin .slot-lights span:nth-child(7) { left: calc(59.43% - 4.5px); top: -47.6px; }
+html.skin .slot-lights span:nth-child(8) { left: calc(68.81% - 4.5px); top: -45.0px; }
+html.skin .slot-lights span:nth-child(9) { left: calc(78.10% - 4.5px); top: -40.0px; }
+html.skin .slot-lights span:nth-child(10) { left: calc(87.18% - 4.5px); top: -31.7px; }
+html.skin .slot-lights span:nth-child(11) { left: calc(94.99% - 4.5px); top: -15.4px; }

@@ -1,6 +1,6 @@
 {
   "ev.v_dice_saturnalia.title": "Saturnalia",
-  "ev.v_dice_saturnalia.text": "Saturnalia! For a week the world is upside down: masters wait on their slaves at table, everyone wears a felt cap, and dice can be thrown in the open without fear of the aediles. The whole household plays for nuts – and some already for coins.",
+  "ev.v_dice_saturnalia.text": "Saturnalia! For a week the world is upside down: masters wait on their slaves at table, everyone wears a felt cap, and dice can be thrown in the open without fear of the aediles. The whole household plays for nuts - and some already for coins.",
   "ev.v_dice_saturnalia.nuts": "Play for nuts and laugh",
   "ev.v_dice_saturnalia.nuts.ok": "You lost a sack of nuts and won it all back. You haven't laughed like that in ages.",
   "ev.v_dice_saturnalia.coins": "Play for coins",
@@ -9,12 +9,12 @@
   "ev.v_dice_saturnalia.watch": "Watch the others play",
   "ev.v_dice_saturnalia.watch.ok": "You sat by the brazier watching the game turn sober men into boys. It beat any show in town.",
   "ev.v_dice_aedile.title": "The Raid",
-  "ev.v_dice_aedile.text": "In the middle of a game the aedile's men burst into the popina. Gambling outside the Saturnalia means a heavy fine – and the shame spreads through the whole quarter.",
+  "ev.v_dice_aedile.text": "In the middle of a game the aedile's men burst into the popina. Gambling outside the Saturnalia means a heavy fine - and the shame spreads through the whole quarter.",
   "ev.v_dice_aedile.pay": "Pay the fine",
   "ev.v_dice_aedile.pay.ok": "You paid. Worse, your name was written down, and by the next day the whole street knew it.",
   "ev.v_dice_aedile.bribe": "Slip the guard a coin",
   "ev.v_dice_aedile.bribe.success": "The guard acted as if you'd never been there. Convenient memory he has.",
-  "ev.v_dice_aedile.bribe.failure": "The guard turned out to be honest – a rarity in this city. Now you pay the fine and for the attempted bribe.",
+  "ev.v_dice_aedile.bribe.failure": "The guard turned out to be honest - a rarity in this city. Now you pay the fine and for the attempted bribe.",
   "ev.v_dice_aedile.run": "Bolt through the back yard",
   "ev.v_dice_aedile.run.success": "You vaulted the fence and vanished into the alleys. Your heart pounded all the way home.",
   "ev.v_dice_aedile.run.failure": "You caught on the fence and crashed right at the guards' feet. A fine, scrapes and roars of laughter."

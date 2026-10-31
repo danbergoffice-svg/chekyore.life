@@ -9,7 +9,7 @@ const ERAS = await loadAllEras()
 const breathe = () => new Promise((r) => setTimeout(r, 0))
 
 describe('Дары за вход', () => {
-  it('лестница: 7 даров, сильные дни 1, 4, 7, на седьмой – царская семья', () => {
+  it('лестница: 7 даров, сильные дни 1, 4, 7, на седьмой - царская семья', () => {
     expect(GIFTS).toHaveLength(7)
     expect(BIG_DAYS).toEqual([1, 4, 7])
     expect(GIFTS[0]).toBe('country')
@@ -17,7 +17,7 @@ describe('Дары за вход', () => {
     expect(GIFTS[6]).toBe('royal')
   })
 
-  it('серия: подряд – следующий день, сегодня второй раз – нельзя, пропуск – снова первый, после седьмого – новая неделя', () => {
+  it('серия: подряд - следующий день, сегодня второй раз - нельзя, пропуск - снова первый, после седьмого - новая неделя', () => {
     expect(dailyNext(undefined, '2026-10-28')).toEqual({ day: 1, broken: false })
     expect(dailyNext({ last: '2026-10-28', day: 1 }, '2026-10-28')).toBeNull()
     expect(dailyNext({ last: '2026-10-28', day: 1 }, '2026-10-29')).toEqual({ day: 2, broken: false })

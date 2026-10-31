@@ -1,6 +1,6 @@
 // Общие расчёты аналитики: один и тот же код считает цифры для /admin, команд бота (/api/telegram)
 // и ежедневной сводки (отдельный Worker thousands-digest, worker/digest/). Поэтому цифры везде совпадают.
-// Дни — по Стамбулу (UTC+3, без перехода на летнее время): в SQL день события — date(ts/1000 + 10800, 'unixepoch').
+// Дни - по Стамбулу (UTC+3, без перехода на летнее время): в SQL день события - date(ts/1000 + 10800, 'unixepoch').
 // Границы периода передаются параметрами bind (мс UTC начала дня по Стамбулу), без склейки строк.
 
 export interface D1Result<T> {
@@ -43,10 +43,10 @@ export interface Period {
   label: string
 }
 
-/** Период из n дней по Стамбулу; последний день — last (включительно). */
+/** Период из n дней по Стамбулу; последний день - last (включительно). */
 export function period(last: number, n = 1): Period {
   const first = last - n + 1
-  return { from: dayStart(first), to: dayStart(last + 1), first, last, label: n === 1 ? dayLabel(last) : `${shortDay(first)}–${shortDay(last)}` }
+  return { from: dayStart(first), to: dayStart(last + 1), first, last, label: n === 1 ? dayLabel(last) : `${shortDay(first)}-${shortDay(last)}` }
 }
 
 // ---------- SQL ----------
@@ -66,7 +66,7 @@ const FUNNEL_COLS = `COUNT(DISTINCT CASE WHEN name='app_open' THEN player_id END
 
 export const SQL = {
   events: `SELECT COUNT(*) AS n FROM events WHERE ts >= ?1 AND ts < ?2`,
-  // Зашли: уникальные с app_open; новые — первое событие игрока вообще попало в этот период.
+  // Зашли: уникальные с app_open; новые - первое событие игрока вообще попало в этот период.
   opened: `SELECT COUNT(*) AS opened, COALESCE(SUM(first_ts >= ?1), 0) AS new_players FROM (
   SELECT o.player_id, (SELECT MIN(e.ts) FROM events e WHERE e.player_id = o.player_id) AS first_ts
   FROM (SELECT DISTINCT player_id FROM events WHERE name='app_open' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL) o
@@ -107,7 +107,7 @@ FROM events WHERE name='choice_made' AND ts >= ?1 AND ts < ?2 GROUP BY event ORD
 SELECT d.dream AS dream, d.step AS step, COUNT(*) AS answers, ROUND(100.0*SUM(d.ok)/COUNT(*)) AS correct_pct,
   (SELECT value || ' ×' || n FROM w WHERE w.dream = d.dream AND w.step = d.step AND w.r = 1) AS top_wrong
 FROM d GROUP BY d.dream, d.step ORDER BY d.dream, d.step LIMIT 120`,
-  // A/B второй жизни: игроки, начавшие вторую жизнь по лотерее (не наследником), по вариантам — дожили в ней до 20 и 40,
+  // A/B второй жизни: игроки, начавшие вторую жизнь по лотерее (не наследником), по вариантам - дожили в ней до 20 и 40,
   // начали третью жизнь, вернулись в другой день; средний возраст смерти во второй жизни.
   abSecondLife: `WITH s AS (
   SELECT player_id, MIN(ts) AS t2, MIN(COALESCE(json_extract(params_json,'$.ab'),'(нет)')) AS variant,
@@ -125,11 +125,11 @@ SELECT s.variant AS variant, COUNT(DISTINCT s.player_id) AS players, COUNT(DISTI
   COUNT(DISTINCT CASE WHEN ${DAYNUM_SQL.replace(/ts/g, 'e.ts')} > CAST((s.t2/1000 + 10800)/86400 AS INTEGER) THEN e.player_id END) AS returned,
   ROUND(AVG(CASE WHEN e.name='life_end' AND json_extract(e.params_json,'$.life_index')=2 THEN json_extract(e.params_json,'$.age') END),1) AS death_age
 FROM s LEFT JOIN e ON e.player_id = s.player_id GROUP BY s.variant ORDER BY s.variant LIMIT 10`,
-  // Дары за вход: сколько игроков забрали дар каждого дня серии (1–7), из них — после обрыва серии.
+  // Дары за вход: сколько игроков забрали дар каждого дня серии (1–7), из них - после обрыва серии.
   dailyClaims: `SELECT json_extract(params_json,'$.day') AS day, COUNT(DISTINCT player_id) AS players,
   COUNT(DISTINCT CASE WHEN json_extract(params_json,'$.broken') = 1 THEN player_id END) AS broken
 FROM events WHERE name='daily_claim' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL GROUP BY day ORDER BY day LIMIT 7`,
-  // Ушли из меню, так и не начав жизнь (новички: ни одной жизни ни до, ни в этом периоде): по игроку — видел ли барабан
+  // Ушли из меню, так и не начав жизнь (новички: ни одной жизни ни до, ни в этом периоде): по игроку - видел ли барабан
   // и кнопку «Крути», крутил ли, сколько секунд пробыл в меню (сумма за все уходы), прокрутка и высота экрана (menu_leave).
   menuLeave: `WITH m AS (
   SELECT player_id, MAX(json_extract(params_json,'$.spun')) AS spun, MAX(json_extract(params_json,'$.button')) AS button,
@@ -141,11 +141,11 @@ FROM events WHERE name='daily_claim' AND ts >= ?1 AND ts < ?2 AND player_id IS N
   GROUP BY player_id
 )
 SELECT CASE WHEN spun = 1 THEN 'крутил, но не начал жизнь' WHEN button = 1 THEN 'видел кнопку «Крути», не крутил'
-  WHEN drum >= 50 THEN 'видел барабан, кнопку — нет' ELSE 'барабан почти не видел' END AS what,
+  WHEN drum >= 50 THEN 'видел барабан, кнопку - нет' ELSE 'барабан почти не видел' END AS what,
   COUNT(*) AS players, SUM(sec <= 10) AS quick, CAST(ROUND(AVG(sec)) AS INTEGER) AS avg_sec,
   CAST(ROUND(AVG(scroll)) AS INTEGER) AS avg_scroll, CAST(ROUND(AVG(vh)) AS INTEGER) AS avg_vh
 FROM m GROUP BY what ORDER BY players DESC, what`,
-  // Когорты: день первого события игрока (?1…?2 — номера дней), возврат — любое событие ровно через 1 и 7 дней.
+  // Когорты: день первого события игрока (?1…?2 - номера дней), возврат - любое событие ровно через 1 и 7 дней.
   cohorts: `WITH f AS (
   SELECT player_id, CAST((MIN(ts)/1000 + 10800)/86400 AS INTEGER) AS d0 FROM events WHERE player_id IS NOT NULL GROUP BY player_id
 ), c AS (SELECT player_id, d0 FROM f WHERE d0 >= ?1 AND d0 <= ?2),
@@ -276,11 +276,11 @@ export interface CohortRow {
   d7: string
 }
 
-/** Когорты по дню первого захода за n дней до today (включительно). Возврат, которого ещё не могло быть, — «—». */
+/** Когорты по дню первого захода за n дней до today (включительно). Возврат, которого ещё не могло быть, - «-». */
 export async function cohorts(db: D1Database, today: number, n = 21): Promise<CohortRow[]> {
   const first = today - n + 1
   const res = await db.prepare(SQL.cohorts).bind(first, today, dayStart(first + 1)).all()
-  const cell = (d0: number, k: number, v: number, total: number) => (d0 + k > today ? '—' : `${v} (${pct(v, total)})`)
+  const cell = (d0: number, k: number, v: number, total: number) => (d0 + k > today ? '-' : `${v} (${pct(v, total)})`)
   return res.results.map((r) => {
     const d0 = num(r.d0)
     const total = num(r.new_players)
@@ -293,8 +293,8 @@ export async function cohorts(db: D1Database, today: number, n = 21): Promise<Co
 /** Экранирование для HTML Telegram и админки. */
 export const esc = (v: unknown) => String(v ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!)
 
-export const pct = (a: number, b: number) => (b ? `${Math.round((100 * a) / b)}%` : '—')
-const f1 = (v: number | null) => (v == null || Number.isNaN(v) ? '—' : (Math.round(v * 10) / 10).toFixed(1))
+export const pct = (a: number, b: number) => (b ? `${Math.round((100 * a) / b)}%` : '-')
+const f1 = (v: number | null) => (v == null || Number.isNaN(v) ? '-' : (Math.round(v * 10) / 10).toFixed(1))
 const cut = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + '…' : s)
 
 /** Изменение к прошлому периоду: ▲12% / ▼5% / =0%. */
@@ -387,7 +387,7 @@ export function formatTwoDays(today: Summary, yesterday: Summary): string {
       row('Мин на жизнь', (s) => f1(s.lives.avg_min)),
       row('Отзывы', (s) => s.feedback.n),
     ]),
-    '<i>Сегодня — с 00:00 по Стамбулу до этой минуты.</i>',
+    '<i>Сегодня - с 00:00 по Стамбулу до этой минуты.</i>',
   ].join('\n')
 }
 
@@ -396,17 +396,17 @@ export function formatFunnel(s: Summary): string {
 }
 
 export function formatExits(s: Summary): string {
-  return [`<b>Где уходят за ${esc(s.period.label)}</b> (топ-10 экранов при закрытии вкладки; возраст героя и минуты с начала сессии — средние)`, exitsGrid(s.exits)].join('\n')
+  return [`<b>Где уходят за ${esc(s.period.label)}</b> (топ-10 экранов при закрытии вкладки; возраст героя и минуты с начала сессии - средние)`, exitsGrid(s.exits)].join('\n')
 }
 
 export const HELP = [
-  '<b>Тысячи жизней — команды</b>',
-  '/stats — сегодня и вчера',
-  '/week — сводка за 7 дней (с сегодняшним)',
-  '/funnel — воронка за 7 дней',
-  '/exits — топ-10 экранов выхода за 7 дней',
-  '/digest — утренняя сводка за вчера прямо сейчас',
-  '/help — этот список',
+  '<b>Тысячи жизней - команды</b>',
+  '/stats - сегодня и вчера',
+  '/week - сводка за 7 дней (с сегодняшним)',
+  '/funnel - воронка за 7 дней',
+  '/exits - топ-10 экранов выхода за 7 дней',
+  '/digest - утренняя сводка за вчера прямо сейчас',
+  '/help - этот список',
   '<i>Дни считаются по Стамбулу (UTC+3).</i>',
 ].join('\n')
 
@@ -419,12 +419,12 @@ export async function digestMessage(db: D1Database, now: number): Promise<string
   return formatSummary(`Тысячи жизней, вчера ${dayLabel(y)}`, cur, prev, dayLabel(y - 1))
 }
 
-/** Ответ на команду бота; незнакомая команда — список команд. */
+/** Ответ на команду бота; незнакомая команда - список команд. */
 export async function commandReply(db: D1Database | undefined, command: string, now: number): Promise<string> {
   const today = dayOf(now)
   if (command === '/help' || command === '/start') return HELP
   if (!['/stats', '/week', '/funnel', '/exits', '/digest'].includes(command)) return HELP
-  if (!db) return 'База D1 не подключена к сайту (привязка DB) — считать не из чего.'
+  if (!db) return 'База D1 не подключена к сайту (привязка DB) - считать не из чего.'
   if (command === '/stats') {
     const [t, y] = await Promise.all([summary(db, period(today)), summary(db, period(today - 1))])
     return formatTwoDays(t, y)

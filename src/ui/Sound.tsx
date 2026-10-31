@@ -7,7 +7,7 @@ interface SoundProps {
   onChange: (on: boolean, volume: number) => void
 }
 
-/** Значок динамика: волн столько, сколько громкости; выключено – перечёркнут. */
+/** Значок динамика: волн столько, сколько громкости; выключено - перечёркнут. */
 function SpeakerIcon({ on, volume }: { on: boolean; volume: number }) {
   const waves = !on || volume === 0 ? 0 : volume < 0.34 ? 1 : volume < 0.67 ? 2 : 3
   return (

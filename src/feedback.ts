@@ -1,10 +1,10 @@
 // Обратная связь от игроков. Отзыв уходит:
-//  1) в свой приёмник (Cloudflare Worker → база D1 и Telegram); без сети – копится и уходит при следующем запуске;
-//  2) в Яндекс Метрику – целью feedback_sent с оценкой;
+//  1) в свой приёмник (Cloudflare Worker → база D1 и Telegram); без сети - копится и уходит при следующем запуске;
+//  2) в Яндекс Метрику - целью feedback_sent с оценкой;
 //  3) в Google-форму, если она настроена ниже (необязательно).
 import { platform } from './platform'
 
-/** Вопросы формы: короткие открытые ответы. Тексты – feedback.<id> и feedback.<id>.hint. */
+/** Вопросы формы: короткие открытые ответы. Тексты - feedback.<id> и feedback.<id>.hint. */
 export const FEEDBACK_QUESTIONS = ['liked', 'boring', 'change', 'missing', 'again'] as const
 export type FeedbackQuestion = (typeof FEEDBACK_QUESTIONS)[number]
 
@@ -18,7 +18,7 @@ export interface FeedbackData {
 
 /**
  * Google-форма (необязательно). Создайте форму с полями: оценка, 5 вопросов, контакт, контекст;
- * откройте «Получить ссылку для предзаполнения», заполните поля и скопируйте ссылку – из неё видны
+ * откройте «Получить ссылку для предзаполнения», заполните поля и скопируйте ссылку - из неё видны
  * адрес формы (…/formResponse) и номера полей entry.XXXX. Пока url пустой, отзывы идут только в Метрику.
  */
 export const GOOGLE_FORM: { url: string; fields: Record<'rating' | FeedbackQuestion | 'contact' | 'context', string> } = {
@@ -45,9 +45,9 @@ export async function sendFeedback(data: FeedbackData): Promise<void> {
   put('contact', clip(data.contact))
   put('context', Object.entries(data.context).map(([k, v]) => `${k}: ${v}`).join(', '))
   try {
-    // Google не отдаёт CORS-заголовки, поэтому ответ не читаем – запрос просто уходит.
+    // Google не отдаёт CORS-заголовки, поэтому ответ не читаем - запрос просто уходит.
     await fetch(GOOGLE_FORM.url, { method: 'POST', mode: 'no-cors', body })
   } catch {
-    // Нет сети – отзыв уже лежит в очереди своего приёмника.
+    // Нет сети - отзыв уже лежит в очереди своего приёмника.
   }
 }

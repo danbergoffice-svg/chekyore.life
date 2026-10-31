@@ -56,7 +56,7 @@ export function stageOf(state: GameState, era: EraDef): 'infancy' | 'childhood' 
 
 /**
  * Начать год с выбранным фокусом. Всё, что случится за год, рассчитывается сразу, но показывается
- * постепенно: у событий есть момент `at` (доля года), у записей дневника – `state.reveal`.
+ * постепенно: у событий есть момент `at` (доля года), у записей дневника - `state.reveal`.
  * Когда часы года дойдут до конца и все события будут разобраны, вызывается finishYear.
  */
 export function startYear(state: GameState, era: EraDef, focusId: string | null): void {
@@ -79,7 +79,7 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   rollEvents(state, era, births)
   if (!hero.alive) return die(state, era)
   for (let i = firstEntry; i < hero.diary.length; i++) if (!hero.diary[i].primer) state.reveal[i] = Math.round((0.05 + next(state) * 0.85) * 100) / 100
-  // Справки – равномерно по году, чтобы было время прочитать.
+  // Справки - равномерно по году, чтобы было время прочитать.
   let nth = 0
   for (let i = firstEntry; i < hero.diary.length; i++) if (hero.diary[i].primer) state.reveal[i] = 0.06 + 0.23 * nth++
   // Запись о рождении появляется вместе с окном выбора имени, а не раньше.
@@ -132,21 +132,21 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   const hero = state.hero
   const age = hero.age
   const births: Npc[] = []
-  // Чужбина: вживание, принятие, тоска; доход первых лет ниже, потом – по вживанию.
+  // Чужбина: вживание, принятие, тоска; доход первых лет ниже, потом - по вживанию.
   const abroadIncome = abroadYear(state, focus)
 
   // Работа и расходы взрослого.
   if (age >= era.stages.youth) {
     const prof = era.professions.find((p) => p.id === hero.profession)
     const cls = era.classes.find((c) => c.id === hero.cls)
-    // Старость: взрослый ребёнок рядом берёт на себя половину расходов дома – как и было в жизни.
+    // Старость: взрослый ребёнок рядом берёт на себя половину расходов дома - как и было в жизни.
     const old = age >= era.stages.old
     const keeper = old ? hero.npcs.find((n) => n.role === 'child' && n.alive && !n.away && npcAge(n, state.year) >= era.stages.adult) : undefined
     let income = 0
     if (prof) {
       income = int(state, prof.income[0], prof.income[1]) * (0.75 + (hero.skills[prof.skill] ?? 0) / 100)
       income *= (focus?.incomeMultiplier ?? 1) * abroadIncome
-      // Сил к старости меньше – доход падает постепенно: с наступлением старости на пятую часть, через 10 лет – на 40%.
+      // Сил к старости меньше - доход падает постепенно: с наступлением старости на пятую часть, через 10 лет - на 40%.
       if (age >= era.stages.old + 10) income *= 0.6
       else if (old) income *= 0.8
       if (focus?.id === 'work') changeSkill(hero, prof.skill, 3)
@@ -196,7 +196,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
     }
   }
 
-  // Пороки героя: пьянство, игра, маковый отвар – каждый год, пока не избавится.
+  // Пороки героя: пьянство, игра, маковый отвар - каждый год, пока не избавится.
   for (const vice of era.vices) {
     if (!hero.tags.includes(vice.tag)) continue
     hero.money -= vice.cost ?? 0
@@ -375,7 +375,7 @@ function eventWeight(state: GameState, ev: EventDef): number {
 /** Персонажи, о которых может быть событие. */
 /**
  * Страна, где герой сейчас: после переезда в другую страну дальше считаются её правила и события
- * (если её контент уже загружен; иначе – пока прежняя).
+ * (если её контент уже загружен; иначе - пока прежняя).
  */
 export function eraNow(state: GameState, era: EraDef): EraDef {
   return state.hero.era === era.id || !isEraLoaded(state.hero.era) ? era : eraById(state.hero.era)
@@ -411,10 +411,10 @@ export function dependsOf(ev: EventDef): TriggerDepend[] {
 /** Почему последствие уже не к месту (или undefined, если всё в силе). */
 function triggerBroken(state: GameState, ev: EventDef, t: PendingTrigger): string | undefined {
   const deps = dependsOf(ev)
-  // Того человека нет (умер, уехал, вырос из возраста события): последствие про другого – нельзя.
+  // Того человека нет (умер, уехал, вырос из возраста события): последствие про другого - нельзя.
   if (ev.npc && t.npcId && !npcCandidates(state, ev).some((n) => n.id === t.npcId)) {
     const n = state.hero.npcs.find((x) => x.id === t.npcId)
-    // Причина – для отчёта: умер, уехал, исчез, не подходит больше (бросил пить, вырос из возраста события).
+    // Причина - для отчёта: умер, уехал, исчез, не подходит больше (бросил пить, вырос из возраста события).
     return !n ? 'npc_removed' : !n.alive ? 'npc_dead' : n.away ? 'npc_away' : 'npc_changed'
   }
   if (!t.snap) return undefined
@@ -429,7 +429,7 @@ function triggerBroken(state: GameState, ev: EventDef, t: PendingTrigger): strin
 }
 
 /**
- * Ключ сюжетной линии последствия (поле storyline события; 'child' – своя линия у каждого ребёнка).
+ * Ключ сюжетной линии последствия (поле storyline события; 'child' - своя линия у каждого ребёнка).
  * Разные истории про одного человека не мешают друг другу: противоречия про людей ловит правило «тот же человек».
  */
 function lineOf(ev: EventDef | undefined, npcId: string | undefined): string | undefined {
@@ -439,8 +439,8 @@ function lineOf(ev: EventDef | undefined, npcId: string | undefined): string | u
 
 function npcCandidates(state: GameState, ev: EventDef): Npc[] {
   if (!ev.npc) return []
-  // Весть издалека или возвращение – про того, кто вдали; все остальные события – про тех, кто рядом.
-  // Вести и возвращения – не раньше чем через два года разлуки.
+  // Весть издалека или возвращение - про того, кто вдали; все остальные события - про тех, кто рядом.
+  // Вести и возвращения - не раньше чем через два года разлуки.
   const pool = ev.npc_away
     ? awayNpcs(state.hero, ev.npc).filter((n) => state.year - n.away!.since >= 2 && (ev.npc_away === true || (ev.npc_away as string[]).includes(n.away!.reason)))
     : aliveNpcs(state.hero, ev.npc)
@@ -455,7 +455,7 @@ function npcCandidates(state: GameState, ev: EventDef): Npc[] {
 }
 
 const otherFaithCache = new WeakMap<EventDef, boolean>()
-/** Событие предлагает перейти в чужую веру края – без чужой веры оно бессмысленно. */
+/** Событие предлагает перейти в чужую веру края - без чужой веры оно бессмысленно. */
 function convertsToOther(ev: EventDef): boolean {
   let v = otherFaithCache.get(ev)
   if (v === undefined) {
@@ -508,9 +508,9 @@ function activate(state: GameState, ev: EventDef, from?: number, npcId?: string)
 
 /** Параметры текста события: имя и пол персонажа, о котором оно. */
 export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName'>): Record<string, TextParam> {
-  // Питомец: по кличке, а если клички нет – «попугай», «черепаха».
+  // Питомец: по кличке, а если клички нет - «попугай», «черепаха».
   const pet: Record<string, TextParam> = active.petKind ? { pet: active.petName ? { name: active.petName } : { key: `pet.${active.petKind}` } } : {}
-  // На чужбине: {homeland} – родная страна, {homeplace} – родной край.
+  // На чужбине: {homeland} - родная страна, {homeplace} - родной край.
   const a = state.hero.abroad
   if (a) Object.assign(pet, { homeland: { key: `era.${a.homeland.era}` }, homeplace: { key: `region.${a.homeland.region}` } })
   const npc = state.hero.npcs.find((n) => n.id === active.npcId)
@@ -589,7 +589,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const fits = (ev: EventDef) => quickFit(state, ev) && eligible(state, era, ev)
 
   // 1. Отложенные последствия прошлых решений: только если обстоятельства решения не изменились,
-  // только про того же человека; не больше одного в год на сюжетную линию и двух всего – остальные ждут год.
+  // только про того же человека; не больше одного в год на сюжетную линию и двух всего - остальные ждут год.
   const due = hero.triggers.filter((t) => t.year <= state.year)
   hero.triggers = hero.triggers.filter((t) => t.year > state.year)
   const lines = new Set<string>()
@@ -614,7 +614,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     }
   }
 
-  // 1а. Чужбина: раз в три года – «вернуться домой?»; после трёх отказов и вживания – «Ты здешний».
+  // 1а. Чужбина: раз в три года - «вернуться домой?»; после трёх отказов и вживания - «Ты здешний».
   if (naturalizeDue(state)) add(byId('ab_naturalized'))
   else if (homesickDue(state)) {
     add(byId('ab_homesick'))
@@ -638,7 +638,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     }
   }
 
-  // 3б. Первый выбор – история рождения: в первый год каждой новой жизни игрок решает за родителей в первые секунды
+  // 3б. Первый выбор - история рождения: в первый год каждой новой жизни игрок решает за родителей в первые секунды
   // (ТЗ P2). Истории прошлых жизней выпадают редко, чтобы начало не повторялось.
   if (hero.generation === 1 && hero.age === 0 && !picked.some((p) => (byId(p.eventId)?.choices?.length ?? 0) > 1)) {
     const seenBefore = state.settings.birthSeen ?? []
@@ -657,7 +657,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     for (let i = 0; i < count; i++) add(weighted(state, pool.filter((p) => !has(p)), (e) => eventWeight(state, e)))
   }
 
-  // 4а. Сон о будущем – со второй жизни, раз за жизнь. Свой поток случайности: остальная жизнь не меняется.
+  // 4а. Сон о будущем - со второй жизни, раз за жизнь. Свой поток случайности: остальная жизнь не меняется.
   const historical = picked.some((p) => byId(p.eventId)?.type === 'global_historical')
   const intro = byId('dream_intro')
   if (intro && dreamDue(state, historical)) {
@@ -672,7 +672,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     if (group) hero.seen[`@${group}`] = state.year
   }
 
-  // Историческая справка в первые годы: младенцу ещё нечего решать – игрок узнаёт свой мир.
+  // Историческая справка в первые годы: младенцу ещё нечего решать - игрок узнаёт свой мир.
   if (hero.generation === 1 && hero.age * PRIMERS_PER_YEAR < PRIMER_TOPICS.length && state.offChronicle === undefined) {
     for (const p of primersForYear(state, era)) note(state, { key: `primer.${p.id}.title`, primer: p.id, topic: 'history', score: 2 })
   }
@@ -710,10 +710,10 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   }
 }
 
-/** Сколько тем справки на возраст: 0 лет – темы 1–4, 1 год – 5–8, 2 – 9–12, 3 – 13–16. */
+/** Сколько тем справки на возраст: 0 лет - темы 1–4, 1 год - 5–8, 2 - 9–12, 3 - 13–16. */
 const PRIMERS_PER_YEAR = 4
 
-/** Подходит ли карточка герою и насколько она точна (больше – точнее); -1 – не подходит. */
+/** Подходит ли карточка герою и насколько она точна (больше - точнее); -1 - не подходит. */
 function primerFit(state: GameState, p: PrimerDef): number {
   const h = state.hero
   if (p.regions && !p.regions.includes(h.region)) return -1
@@ -721,7 +721,7 @@ function primerFit(state: GameState, p: PrimerDef): number {
   if (p.religions && !faithMatches(h.religion, p.religions)) return -1
   if (p.sex && p.sex !== h.sex) return -1
   if (p.years && (state.year < p.years[0] || state.year > p.years[1])) return -1
-  // В теме веры точнее всего совпадение веры: обращённому в Теночтитлане – карточка о его новой вере, а не о богах края.
+  // В теме веры точнее всего совпадение веры: обращённому в Теночтитлане - карточка о его новой вере, а не о богах края.
   const faithWeight = p.topic === 'faith' ? 5 : 3
   return (p.regions ? 4 : 0) + (p.classes ? 3 : 0) + (p.religions ? faithWeight : 0) + (p.years ? 2 : 0) + (p.sex ? 1 : 0)
 }
@@ -778,7 +778,7 @@ export function nameChoices(state: GameState, era: EraDef): ChoiceDef[] {
   const rule = ancestorRule(era, state.hero.region)
   const ancestors = new Set(ancestorNamesOf(state.hero))
   const used = new Set([state.hero.name, ...state.hero.npcs.filter((n) => n.alive && n.id !== npc.id).map((n) => n.name)])
-  // Где имя предка запрещено (Китай), его не предлагаем; где принято – одно из трёх имён в честь деда или бабки.
+  // Где имя предка запрещено (Китай), его не предлагаем; где принято - одно из трёх имён в честь деда или бабки.
   if (rule === 'forbid') for (const a of ancestors) used.add(a)
   let h = 0
   for (const ch of npc.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
@@ -794,7 +794,7 @@ export function nameChoices(state: GameState, era: EraDef): ChoiceDef[] {
   return [...ids].map((id) => ({ id, effects: [] }))
 }
 
-/** Варианты выбора текущего события. Пустой список – информационное событие с кнопкой «Далее». */
+/** Варианты выбора текущего события. Пустой список - информационное событие с кнопкой «Далее». */
 export function eventChoices(state: GameState, era: EraDef, ev: EventDef): ChoiceDef[] {
   if (ev.dynamic === 'profession') return professionChoices(state, era)
   if (ev.dynamic === 'name') return nameChoices(state, era)
@@ -802,7 +802,7 @@ export function eventChoices(state: GameState, era: EraDef, ev: EventDef): Choic
 }
 
 const weds = new WeakMap<ChoiceDef, boolean>()
-/** Выбор заводит нового супруга, а прежнего не отпускает (развод в том же выборе – можно). */
+/** Выбор заводит нового супруга, а прежнего не отпускает (развод в том же выборе - можно). */
 function addsSpouse(choice: ChoiceDef): boolean {
   let v = weds.get(choice)
   if (v === undefined) {
@@ -815,7 +815,7 @@ function addsSpouse(choice: ChoiceDef): boolean {
 }
 
 export function choiceAvailable(state: GameState, choice: ChoiceDef): boolean {
-  // Второй брак при живом супруге рядом – нет (в игре нет многожёнства).
+  // Второй брак при живом супруге рядом - нет (в игре нет многожёнства).
   if (addsSpouse(choice) && aliveNpcs(state.hero, 'spouse').length > 0) return false
   return checkAll(state, choice.requirements)
 }
@@ -838,7 +838,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   const choice = choices.find((c) => c.id === choiceId)
   if (choices.length > 0 && (!choice || !choiceAvailable(state, choice))) throw new Error(`Bad choice ${choiceId}`)
 
-  // Сон о будущем: «Попробовать вспомнить» открывает мини-игру, «Это просто сон» – второго сна не будет.
+  // Сон о будущем: «Попробовать вспомнить» открывает мини-игру, «Это просто сон» - второго сна не будет.
   if (ev.id === 'dream_intro' && active.dream) {
     if (choiceId === 'try') startDream(state, active.dream)
     else skipDream(state, active.dream)
@@ -980,7 +980,7 @@ const FOOD_BODY: Record<string, number> = { meager: -2.5, plain: 0, varied: 1, f
 
 /**
  * Телосложение за год: шаг к тому, что дают еда, достаток и здоровье. Скудная еда, долги, болезнь
- * и неурожай худят, пиры полнят. Случайности нет – на ход жизни не влияет, только на портрет.
+ * и неурожай худят, пиры полнят. Случайности нет - на ход жизни не влияет, только на портрет.
  */
 function bodyYear(state: GameState, era: EraDef): void {
   const hero = state.hero
@@ -1023,7 +1023,7 @@ function die(state: GameState, era: EraDef): void {
 /** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов). */
 export function autoplay(state: GameState, era: EraDef, maxYears = 130): GameState {
   for (let i = 0; i < maxYears * 6 && state.phase !== 'dead'; i++) {
-    // Переехал в другую страну – дальше её события (страна уже загружена: переезд открыт только в загруженные).
+    // Переехал в другую страну - дальше её события (страна уже загружена: переезд открыт только в загруженные).
     if (state.hero.era !== era.id && isEraLoaded(state.hero.era)) era = eraById(state.hero.era)
     if (state.phase === 'year') {
       const focuses = availableFocuses(state, era)
@@ -1032,7 +1032,7 @@ export function autoplay(state: GameState, era: EraDef, maxYears = 130): GameSta
     } else if (state.queue.length > 0) {
       const ev = currentEvent(state, era)!
       const options = eventChoices(state, era, ev).filter((c) => choiceAvailable(state, c))
-      // Сон выбирается и решается своим потоком случайности – с ним и без него остальная жизнь одинакова.
+      // Сон выбирается и решается своим потоком случайности - с ним и без него остальная жизнь одинакова.
       const r = ev.id === 'dream_intro' ? dreamRng(state, 'auto_choice')() : next(state)
       choose(state, era, options.length ? options[Math.floor(r * options.length)].id : null)
       if (state.dream) {

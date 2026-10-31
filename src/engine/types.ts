@@ -12,10 +12,10 @@ export type HiddenId = (typeof HIDDEN)[number]
 export type ParamId = AttrId | HiddenId | 'money' | 'integration' | 'acceptance' | 'homesick'
 
 export type NpcRole = 'father' | 'mother' | 'sibling' | 'friend' | 'spouse' | 'child' | 'grandchild' | 'mentor' | 'rival' | 'patron'
-/** Роль в эффектах: 'npc' – персонаж, к которому привязано текущее событие. */
+/** Роль в эффектах: 'npc' - персонаж, к которому привязано текущее событие. */
 export type NpcTarget = NpcRole | 'npc'
 
-/** Оси «Узора жизни»: отрицательное значение – левая сторона, положительное – правая. */
+/** Оси «Узора жизни»: отрицательное значение - левая сторона, положительное - правая. */
 export const AXES = ['craft_power', 'home_road', 'faith_reason', 'memory_future'] as const
 export type Axis = (typeof AXES)[number]
 export type PatternDelta = Partial<Record<Axis, number>>
@@ -65,7 +65,7 @@ export type ScholarClimate = 'welcoming' | 'neutral' | 'hostile'
 export interface RegionDef {
   id: string
   weight: number
-  /** Правило имён предков; если не задано – правило страны, по умолчанию 'allow'. */
+  /** Правило имён предков; если не задано - правило страны, по умолчанию 'allow'. */
   ancestorNames?: AncestorNames
   years: [number, number]
   /** Ключ валюты в текстах: денарии, драхмы. */
@@ -73,7 +73,7 @@ export interface RegionDef {
   classWeights: Record<string, number>
   names: { m: Name[]; f: Name[] }
   tags?: string[]
-  /** Как делится наследство; по умолчанию – как задано для эпохи. */
+  /** Как делится наследство; по умолчанию - как задано для эпохи. */
   inheritance?: 'equal' | 'sons_first'
   /** Где живёт семья после свадьбы: у родителей мужа (по умолчанию), отдельно, у родителей жены. */
   household?: Household
@@ -86,7 +86,7 @@ export interface RegionDef {
   classReligions?: Record<string, Record<string, number>>
   /** Стиль пиксельных сцен: архитектура, одежда, пейзаж. */
   scene?: RegionScene
-  /** Годы, когда регион был столицей (иначе – тег capital на всё время). */
+  /** Годы, когда регион был столицей (иначе - тег capital на всё время). */
   capital?: [number, number]
 }
 
@@ -104,7 +104,7 @@ export interface RegionScene {
   prompt?: string
 }
 
-/** Религия. Названия и описание – в текстах: religion.<id>, religion.<id>.desc. */
+/** Религия. Названия и описание - в текстах: religion.<id>, religion.<id>.desc. */
 export interface ReligionDef {
   id: string
   /** Семья вер: christian, islamic, dharmic, polytheist… События могут ссылаться на семью вместо id. */
@@ -154,7 +154,7 @@ export interface FocusDef {
 /** Образ жизни: питание, движение, лечение, бани. Настройка действует каждый год, пока её не поменять. */
 export interface LifestyleOption {
   id: string
-  /** Расход в год (может быть отрицательным – экономия). */
+  /** Расход в год (может быть отрицательным - экономия). */
   cost: number
   effects?: Effect[]
   /** Множитель смертности. */
@@ -247,7 +247,7 @@ export type PrimerTopic = (typeof PRIMER_TOPICS)[number]
 
 /**
  * Историческая справка «О твоём мире»: пока герой младенец (0–3 года), в ленте появляются карточки о времени и месте.
- * По каждой теме показывается одна карточка – самая точная из подходящих (край, сословие, вера, годы, пол).
+ * По каждой теме показывается одна карточка - самая точная из подходящих (край, сословие, вера, годы, пол).
  * Тексты: primer.<id>.title, primer.<id>.text.
  */
 export interface PrimerDef {
@@ -308,7 +308,7 @@ export type Condition =
   | { age: [number, number] }
   | { religion: string[] }
   | { religion_absent: string[] }
-  /** Вера героя в его краю – вера меньшинства (меньше четверти жителей). */
+  /** Вера героя в его краю - вера меньшинства (меньше четверти жителей). */
   | { minority: boolean }
   | { region: string[] }
   | { any: Condition[] }
@@ -324,11 +324,11 @@ export type Effect =
   | { add_trait: string }
   | { set_class: string }
   | { set_profession: string | null }
-  /** age_offset – возраст нового человека относительно героя [от, до] (у ранних браков супруги ровесники). */
+  /** age_offset - возраст нового человека относительно героя [от, до] (у ранних браков супруги ровесники). */
   | { add_npc: NpcRole; attitude?: number; newborn?: boolean; adopted?: boolean; age_offset?: [number, number] }
   | { npc_attitude: NpcTarget; delta: number }
   | { remove_npc: NpcTarget }
-  /** Человек уезжает или уходит из семьи: жив, но вдали – в событиях и дома его нет (родственник по умолчанию – человек события). */
+  /** Человек уезжает или уходит из семьи: жив, но вдали - в событиях и дома его нет (родственник по умолчанию - человек события). */
   | { npc_away: AwayReason; who?: NpcTarget }
   /** Уехавший возвращается в семью. */
   | { npc_return: true; who?: NpcTarget }
@@ -340,14 +340,14 @@ export type Effect =
   | { npc_untag: string }
   | { set_lifestyle: string; option: string }
   | { kill: string }
-  /** Сменить веру: id религии, 'other' – вторая по распространённости вера края, 'majority' – главная. */
+  /** Сменить веру: id религии, 'other' - вторая по распространённости вера края, 'majority' - главная. */
   | { set_religion: string }
   /** Переехать в другой регион страны: id региона или '@capital', '@port', '@other'. */
   | { migrate: string }
-  /** Новый питомец: вид, '@any' – любой возможный здесь, '@stray' – пёс или кошка; owner child – питомец ребёнка героя. */
+  /** Новый питомец: вид, '@any' - любой возможный здесь, '@stray' - пёс или кошка; owner child - питомец ребёнка героя. */
   | { add_pet: string; owner?: 'child' | 'npc' }
   | { remove_pet: string }
-  /** Уехать в другую страну: '@neighbor', '@far', '@any' или id страны; кто едет – вся семья, один, с сыновьями. */
+  /** Уехать в другую страну: '@neighbor', '@far', '@any' или id страны; кто едет - вся семья, один, с сыновьями. */
   | { emigrate: string; reason: EmigrationReason; family?: 'all' | 'alone' | 'sons' }
   | { return_home: true }
   /** Решение о возвращении: остаться (ещё один отказ) или подумать (спросить через год); стать здешним. */
@@ -421,7 +421,7 @@ export interface EventDef {
   first_choice?: boolean
   /** Не больше одного раза за жизнь. */
   once?: boolean
-  /** Группа похожих событий (sky – небесные знамения): за жизнь – не больше одного события группы. */
+  /** Группа похожих событий (sky - небесные знамения): за жизнь - не больше одного события группы. */
   group?: string
   /** Тяжёлая тема: не показывается в режиме «убрать тяжёлые сцены». */
   sensitive?: boolean
@@ -441,7 +441,7 @@ export interface EventDef {
   /** Отбор человека события по метке (например, пьёт) и по её отсутствию. */
   npc_tag?: string
   npc_no_tag?: string
-  /** Событие про питомца этого вида: он должен быть у героя, его имя – {pet} в тексте. */
+  /** Событие про питомца этого вида: он должен быть у героя, его имя - {pet} в тексте. */
   pet?: string
   /** Событие про того, кто вдали (уехал, на службе, в монастыре): весть от него или его возвращение. */
   npc_away?: boolean | AwayReason[]
@@ -457,7 +457,7 @@ export interface EventDef {
   image_slot?: string
   /** Эффекты самого события, применяются при любом выборе. */
   effects?: Effect[]
-  /** Варианты выбора собираются движком: 'profession' – доступные профессии. */
+  /** Варианты выбора собираются движком: 'profession' - доступные профессии. */
   dynamic?: 'profession' | 'name'
   /** Если выборов нет, показывается одна кнопка «Далее». */
   choices?: ChoiceDef[]
@@ -478,7 +478,7 @@ export interface Npc {
   attitude: number
   alive: boolean
   deathYear?: number
-  /** С какого года рядом (для супругов – год свадьбы). */
+  /** С какого года рядом (для супругов - год свадьбы). */
   since?: number
   /** Для внуков: id ребёнка героя. */
   parentId?: string
@@ -595,7 +595,7 @@ export interface Hero {
   era: string
   region: string
   cls: string
-  /** Сословие при рождении (для наследника – сословие семьи, в которую он вошёл героем). */
+  /** Сословие при рождении (для наследника - сословие семьи, в которую он вошёл героем). */
   birthCls?: string
   /** Имена дедов и бабок героя (для правил имён предков у его детей). */
   ancestors?: string[]
@@ -624,7 +624,7 @@ export interface Hero {
   places: string[]
   /** Выбранный образ жизни: категория → вариант. */
   lifestyle: Record<string, string>
-  /** Дом семьи: 0 – лачуга, 1 – хижина, 2 – дом, 3 – большой дом, 4 – усадьба. */
+  /** Дом семьи: 0 - лачуга, 1 - хижина, 2 - дом, 3 - большой дом, 4 - усадьба. */
   home: number
   /** На чужбине: откуда, с какого года, вживание, принятие, тоска. */
   abroad?: Abroad
@@ -648,7 +648,7 @@ export interface Hero {
 }
 
 export interface Animal {
-  /** chickens, goat, sheep, pig, cow, ox, donkey, horse, camel, llama, turkey; питомцы – src/content/pets.json. */
+  /** chickens, goat, sheep, pig, cow, ox, donkey, horse, camel, llama, turkey; питомцы - src/content/pets.json. */
   kind: string
   /** С какого года в хозяйстве. */
   since: number
@@ -679,7 +679,7 @@ export interface LifeSummary {
   money: number
   /** Номер записи в мемориале. */
   record?: number
-  /** Полный дневник, близкие и итоги – чтобы экран итогов открывался из мемориала. */
+  /** Полный дневник, близкие и итоги - чтобы экран итогов открывался из мемориала. */
   diary: DiaryEntry[]
   npcs: Npc[]
   history: YearRecord[]
@@ -695,7 +695,7 @@ export interface LifeSummary {
   returned?: { year: number; years: number }
   /** Сон о будущем этой жизни. */
   dreamSeen?: Hero['dreamSeen']
-  /** Жизнь прожита вне хроники (после конца эпохи страны) – с этого года. */
+  /** Жизнь прожита вне хроники (после конца эпохи страны) - с этого года. */
   offChronicle?: number
   /** Для наград: режим смертности, была ли защита первой жизни, метки, навыки, животные на момент смерти. */
   mortality?: 'soft' | 'historical'
@@ -728,31 +728,31 @@ export interface ActiveEvent {
   variant?: number
   /** Номер записи-решения, если это отложенное последствие. */
   from?: number
-  /** Выбранный вариант и итог; пока null – игрок ещё не выбрал. */
-  /** rescued – номер записи «выжил чудом», если исход был бы смертельным в защищённой жизни. */
+  /** Выбранный вариант и итог; пока null - игрок ещё не выбрал. */
+  /** rescued - номер записи «выжил чудом», если исход был бы смертельным в защищённой жизни. */
   outcome: { choiceId: string; result: 'ok' | 'success' | 'failure'; rescued?: number } | null
 }
 
-/** year – год ещё не начался; running – год идёт (события ждут своего момента); dead – жизнь окончена. */
+/** year - год ещё не начался; running - год идёт (события ждут своего момента); dead - жизнь окончена. */
 export type Phase = 'year' | 'running' | 'dead'
 
 export interface GameSettings {
   mode: 'quick' | 'full'
   mortality: 'soft' | 'historical'
   softenHeavy: boolean
-  /** Сколько жизней прожито до этой (мемориал): сны о будущем – только со второй жизни. */
+  /** Сколько жизней прожито до этой (мемориал): сны о будущем - только со второй жизни. */
   livesBefore?: number
   /** Шанс сна о будущем в год (флаг dream_chance). */
   dreamChance?: number
-  /** Первая жизнь: сон приходит наверняка к этому возрасту (флаг dream_first_by); не задано или 0 – снов нет. */
+  /** Первая жизнь: сон приходит наверняка к этому возрасту (флаг dream_first_by); не задано или 0 - снов нет. */
   dreamFirstBy?: number
   /** Лестница снов: самый сложный уровень, который игрок уже открыл (1 + сколько снов решено хотя бы частично);
-   *  не задано – все уровни. dreamsSeen – сны прошлых жизней: новые снятся чаще. */
+   *  не задано - все уровни. dreamsSeen - сны прошлых жизней: новые снятся чаще. */
   dreamLevel?: number
   dreamsSeen?: string[]
-  /** С какого возраста герой начал эту жизнь (наследник – не с рождения): испытание считает прожитые годы. */
+  /** С какого возраста герой начал эту жизнь (наследник - не с рождения): испытание считает прожитые годы. */
   startAge?: number
-  /** Дар «Вещий сон» (дары за вход): в этой жизни сон приходит наверняка – как в первой, к dreamFirstBy (или 25) годам. */
+  /** Дар «Вещий сон» (дары за вход): в этой жизни сон приходит наверняка - как в первой, к dreamFirstBy (или 25) годам. */
   dreamSure?: boolean
   /** Истории рождения (первый выбор) прошлых жизней: повторяются реже. */
   birthSeen?: string[]
@@ -807,7 +807,7 @@ export type DreamInput =
       answer_by_era?: Record<string, string[]>
       /** Не ошибка, но и не нужно (бобовые не из этого края). */
       ok?: string[]
-      /** Достаточно отметить это (главное), остальное из ответа – по желанию. */
+      /** Достаточно отметить это (главное), остальное из ответа - по желанию. */
       need?: string[]
       /** Достаточно стольких верных из ответа (вопрос «что из этого…» в единственном числе). */
       min?: number
@@ -816,7 +816,7 @@ export type DreamInput =
   | { kind: 'order'; options: string[]; answer: string[]; /** Порядок по кругу: можно начать с любого шага (севооборот). */ cyclic?: boolean }
   | { kind: 'number'; formula: string; unit?: string; /** Допуск: доля от ответа (0.03) или абсолютный (abs). */ tolerance?: number; abs?: number }
 
-/** Шаг сна: один или несколько вводов подряд; спор с мудрецом (debate) – два возражения, засчитывается, если верны оба. */
+/** Шаг сна: один или несколько вводов подряд; спор с мудрецом (debate) - два возражения, засчитывается, если верны оба. */
 export interface DreamStep {
   kind: 'single' | 'multi' | 'debate'
   items: DreamInput[]
@@ -824,22 +824,22 @@ export interface DreamStep {
 
 export interface DreamDef {
   id: string
-  /** Сложность по школьной программе: 1 – 5–6 класс, 2 – 6–7, 3 – 7–8, 4 – 8–9, 5 – 9–11. */
+  /** Сложность по школьной программе: 1 - 5–6 класс, 2 - 6–7, 3 - 7–8, 4 - 8–9, 5 - 9–11. */
   level: 1 | 2 | 3 | 4 | 5
   subject: 'chemistry' | 'biology' | 'physics' | 'math'
   themes: DreamTheme[]
-  /** Громкая тема: шаг 3 – спор с мудрецами. */
+  /** Громкая тема: шаг 3 - спор с мудрецами. */
   debate?: boolean
-  /** Страны, где сон возможен (по умолчанию все); край должен иметь эти метки (port – порт). */
+  /** Страны, где сон возможен (по умолчанию все); край должен иметь эти метки (port - порт). */
   eras?: string[]
   region_tags?: string[]
   /** Где и с какого года это уже знали: прорыв становится частичным успехом. */
   known_in?: { era: string; from: number }[]
-  /** Параметры: [от, до, шаг] – числа генерируются заново в каждой жизни; derived – вычисляемые из них. */
+  /** Параметры: [от, до, шаг] - числа генерируются заново в каждой жизни; derived - вычисляемые из них. */
   params?: Record<string, [number, number, number]>
   derived?: Record<string, string>
   steps: [DreamStep, DreamStep, DreamStep]
-  /** Шанс смерти при провале: [0 очков, 1 очко]; hostile_only – только там, где к учёным враждебны. */
+  /** Шанс смерти при провале: [0 очков, 1 очко]; hostile_only - только там, где к учёным враждебны. */
   death_chance?: [number, number]
   hostile_only?: boolean
   /** Занятие сна при прорыве (dream_alchemist, dream_healer…). */
@@ -849,7 +849,7 @@ export interface DreamDef {
 
 export type DreamOutcome = 'breakthrough' | 'partial' | 'failure' | 'death'
 
-/** Сон, который сейчас снится: параметры, ответы по шагам, очки. Живёт в сохранении – переживает перезагрузку. */
+/** Сон, который сейчас снится: параметры, ответы по шагам, очки. Живёт в сохранении - переживает перезагрузку. */
 export interface DreamState {
   id: string
   params: Record<string, number>

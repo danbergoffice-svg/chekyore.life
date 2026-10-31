@@ -37,7 +37,7 @@ type InstallEvent = Event & { prompt(): Promise<void>; userChoice: Promise<{ out
 let installEvent: InstallEvent | null = null
 
 function abBucket(): string {
-  // ?ab=b в адресе – посмотреть вариант вручную (и для проверок в браузере); иначе – по id игрока и долям флага.
+  // ?ab=b в адресе - посмотреть вариант вручную (и для проверок в браузере); иначе - по id игрока и долям флага.
   const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('ab') : null
   if (forced && forced in flags.ab_buckets) return forced
   const r = hash(player + ':ab')
@@ -83,7 +83,7 @@ function flush(beacon = false): void {
     }
     fetch(`${API}/events`, { method: 'POST', headers: { 'content-type': 'application/json' }, body, keepalive: true }).catch(() => {})
   } catch {
-    // Приёмник недоступен – события пропадают, игра не страдает.
+    // Приёмник недоступен - события пропадают, игра не страдает.
   }
 }
 
@@ -123,7 +123,7 @@ export const webPlatform: Platform = {
   external: true,
 
   async init() {
-    // Установка на главный экран: Chrome присылает событие заранее – придерживаем его до кнопки «Добавить».
+    // Установка на главный экран: Chrome присылает событие заранее - придерживаем его до кнопки «Добавить».
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault()
       installEvent = e as InstallEvent

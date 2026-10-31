@@ -1,6 +1,6 @@
 // Человечки сцен в полном разрешении (320×100): голова с глазами и убором, одежда по сословию, руки,
 // возраст (седина, сутулость, посох) и предмет по занятию. Рисуются в «родных» точках холста, без масштаба.
-// Кадр позы (pose): 0 – стоит, 1 – переступил, 2–3 – замах при работе.
+// Кадр позы (pose): 0 - стоит, 1 - переступил, 2–3 - замах при работе.
 
 export type Px = (x: number, y: number, w: number, h: number, c: string) => void
 
@@ -21,7 +21,7 @@ export interface FigureSpec {
   beard: boolean
   longHair: boolean
   bald: boolean
-  /** Сословие: раб – простая туника, знать – плащ и украшения, духовные – длинная ряса. */
+  /** Сословие: раб - простая туника, знать - плащ и украшения, духовные - длинная ряса. */
   cls?: string
   tool?: Tool
   hero?: boolean
@@ -39,7 +39,7 @@ function shadeHex(hex: string, k: number): string {
   return `#${[(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => f(v).toString(16).padStart(2, '0')).join('')}`
 }
 
-/** Рост на холсте 320×100 по возрасту: близкие героя – 23 точки, прохожие – 20, дальние – 13. */
+/** Рост на холсте 320×100 по возрасту: близкие героя - 23 точки, прохожие - 20, дальние - 13. */
 export function figureHeight(age: number, kind: 'family' | 'passer' | 'far' = 'family'): number {
   if (kind === 'far') return 13
   const adult = kind === 'family' ? 23 : 20
@@ -67,8 +67,8 @@ export function toolFor(profession: string | undefined): Tool | undefined {
 const CLERGY = ['priest', 'monk', 'hegumen', 'shrine_priest', 'marabout', 'faqir', 'muezzin', 'debtera']
 
 /**
- * Человечек: x – левый край туловища, base – нижняя строка (ступни), k – затемнение по времени суток.
- * Смотрит вправо: сутулый старик наклоняет голову вперёд, предмет – в правой руке.
+ * Человечек: x - левый край туловища, base - нижняя строка (ступни), k - затемнение по времени суток.
+ * Смотрит вправо: сутулый старик наклоняет голову вперёд, предмет - в правой руке.
  */
 export function drawFigure(px: Px, x: number, base: number, f: FigureSpec, k: number, pose = 0, profession?: string): void {
   const c = (hex: string, d = 0) => shadeHex(hex, k * 0.5 + d)
@@ -134,7 +134,7 @@ export function drawFigure(px: Px, x: number, base: number, f: FigureSpec, k: nu
       px(x + 1, yT + 1, 1, 1, '#f2c94c')
     }
     if (f.cls === 'craftsman' && !long) px(x + 1, yT + 2, bw - 2, torso - 1, c('#a8875a'))
-    // Руки: левая вдоль тела, правая – с предметом.
+    // Руки: левая вдоль тела, правая - с предметом.
     const arm = torso - 1
     px(x - 1, yT + 1, 1, arm, c(cloth, -0.1))
     px(x - 1, yT + arm, 1, 1, c(f.skin))
@@ -206,7 +206,7 @@ function drawHat(px: Px, f: FigureSpec, hx: number, hw: number, hh: number, top:
   }
 }
 
-/** Предмет в правой руке (hx, hy – кисть). */
+/** Предмет в правой руке (hx, hy - кисть). */
 function drawTool(px: Px, tool: Tool | undefined, hx: number, hy: number, base: number, top: number, c: (h: string, d?: number) => string, pose: number) {
   const wood = c('#6a4a2a')
   const metal = c('#9a9a9a')

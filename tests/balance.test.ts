@@ -9,7 +9,7 @@ const breathe = () => new Promise((r) => setTimeout(r, 0))
 const settings = { mode: 'full', mortality: 'soft', softenHeavy: false, livesBefore: 3 } as const
 
 describe('Баланс', () => {
-  it('в старости состояние не тает: у доживших до 70 медиана богатства в 65 – не меньше 70% от богатства в 50', async () => {
+  it('в старости состояние не тает: у доживших до 70 медиана богатства в 65 - не меньше 70% от богатства в 50', async () => {
     const ratios: number[] = []
     for (let i = 0; i < 500; i++) {
       if (i % 50 === 0) await breathe()
@@ -26,7 +26,7 @@ describe('Баланс', () => {
     expect(ratios[Math.floor(ratios.length / 2)]).toBeGreaterThan(0.7)
   }, 300000)
 
-  it('небесное знамение – одно на жизнь: столб света и затмение вместе не бывают', async () => {
+  it('небесное знамение - одно на жизнь: столб света и затмение вместе не бывают', async () => {
     let any = 0
     for (let i = 0; i < 400; i++) {
       if (i % 50 === 0) await breathe()

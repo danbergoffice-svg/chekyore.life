@@ -1,8 +1,8 @@
-// Стиль искусства страны (ТЗ графики, G5): каждая сцена рисуется с оглядкой на искусство своего края –
+// Стиль искусства страны (ТЗ графики, G5): каждая сцена рисуется с оглядкой на искусство своего края -
 // Русь на иконопись, Византия на мозаику, Китай на тушь, Европа на рукописи и гравюру. Не копия:
-// основа остаётся пиксельной, а традиция узнаётся по 3–4 признакам – палитре, контуру, фактуре, фону и рамке.
-// Процедурные сцены – «вполсилы» (artStrength, флаг art_strength, по умолчанию 0,5); фон-традиция – только
-// в окнах событий и на экранах-главах. Рамка-орнамент – пиксельный узор, нарисованный кодом (data: URL).
+// основа остаётся пиксельной, а традиция узнаётся по 3–4 признакам - палитре, контуру, фактуре, фону и рамке.
+// Процедурные сцены - «вполсилы» (artStrength, флаг art_strength, по умолчанию 0,5); фон-традиция - только
+// в окнах событий и на экранах-главах. Рамка-орнамент - пиксельный узор, нарисованный кодом (data: URL).
 
 export type Outline = 'none' | 'black' | 'brown' | 'gold'
 export type Texture = 'none' | 'mosaic' | 'hatch' | 'ink' | 'weave' | 'clay' | 'relief'
@@ -21,7 +21,7 @@ export interface ArtStyle {
   frameColors: [string, string, string]
   /** Строка стиля для промпта иллюстрации. */
   prompt: string
-  /** Традиция менялась: с этого года – другой стиль (Европа: рукопись → гравюра). */
+  /** Традиция менялась: с этого года - другой стиль (Европа: рукопись → гравюра). */
   artEras?: { from: number; style: Partial<ArtStyle> }[]
 }
 
@@ -87,7 +87,7 @@ export const ART: Record<string, ArtStyle> = {
     prompt: 'in the manner of a Persian and Arab book miniature: high horizon, bright flat colours without shading, patterned carpets and tiles, arabesque border',
   },
   gothic: {
-    tradition: 'иллюминированные рукописи и часословы XIII–XV вв.; с ~1450 – ксилография',
+    tradition: 'иллюминированные рукописи и часословы XIII–XV вв.; с ~1450 - ксилография',
     palette: ['#2a3a9a', '#3f5ab8', '#d8b040', '#c8402a', '#efe2c0', '#d8c8a0', '#6a8a3a', '#8a2a2a', '#5a4a3a', '#2a2420', '#b8b2a6', '#8a8478', '#e2d6bc', '#6a4038', '#a89878', '#3a5a3a', '#88bbe7'],
     outline: 'brown',
     texture: 'none',
@@ -259,7 +259,7 @@ const OUTLINE_COLOR: Record<Outline, [number, number, number] | null> = { none: 
 
 /**
  * Фактура маской 4×4 по крупным плоскостям и контур силуэтов против неба.
- * data – пиксели слоя W×H; изменяется на месте.
+ * data - пиксели слоя W×H; изменяется на месте.
  */
 export function stylize(d: Uint8ClampedArray, w: number, h: number, art: ArtStyle, k: number): void {
   if (k <= 0) return
@@ -324,7 +324,7 @@ export function stylize(d: Uint8ClampedArray, w: number, h: number, art: ArtStyl
   }
 }
 
-/** Фон-традиция вместо неба (окна событий и экраны-главы). tint – цвет времени суток для ночи и заката. */
+/** Фон-традиция вместо неба (окна событий и экраны-главы). tint - цвет времени суток для ночи и заката. */
 export function drawBackground(ctx: CanvasRenderingContext2D, w: number, horizon: number, art: ArtStyle, tint: string | null): boolean {
   const bg = art.background
   if (bg === 'sky') return false
@@ -394,7 +394,7 @@ export function drawBackground(ctx: CanvasRenderingContext2D, w: number, horizon
       for (let y = 6; y < horizon; y += 14) fill(0, y, w, 1, '#d9a441')
       break
     case 'bands': {
-      // Полосы фона росписи – приглушённые, с тёмной нитью между ними.
+      // Полосы фона росписи - приглушённые, с тёмной нитью между ними.
       const cols = ['#d07a5a', '#e8c870', '#7aa070']
       const hh = Math.ceil(horizon / 6)
       for (let i = 0; i < 6; i++) {

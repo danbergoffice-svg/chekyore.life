@@ -113,7 +113,7 @@ const HOBBY_FOCUSES = ['rest', 'religion', 'study', 'health', 'family', 'trade',
 
 // ---------- Сравнение с эпохой ----------
 
-/** Таблица дожития по возрастам: l[x] – доля доживших до x лет. */
+/** Таблица дожития по возрастам: l[x] - доля доживших до x лет. */
 export function survivalTable(era: EraDef, maxAge = 100): number[] {
   const l = [1]
   for (let x = 0; x < maxAge; x++) l.push(l[x] * (1 - qx(era, x)))
@@ -196,7 +196,7 @@ export function keyMoments(hero: Hero, era: EraDef, happiest: number | null): nu
     return false
   }
 
-  // Сначала – по лучшему моменту из каждого периода жизни, чтобы покрыть детство, юность, зрелость и старость.
+  // Сначала - по лучшему моменту из каждого периода жизни, чтобы покрыть детство, юность, зрелость и старость.
   for (const period of [0, 1, 2, 3] as Period[]) {
     if ([...chosen].some((i) => periodOf(diary[i].age, era) === period)) continue
     const inPeriod = byScore.filter((i) => periodOf(diary[i].age, era) === period)
@@ -226,7 +226,7 @@ function education(hero: Hero): Sentence[] {
 /**
  * Положение в обществе к концу жизни: доля жителей региона с положением ниже.
  * Жители каждого сословия равномерно распределены по полосе сословия на графике, а положение героя
- * (statusOf) уже учитывает последнее занятие, достаток и репутацию – поэтому процент не спорит с графиком.
+ * (statusOf) уже учитывает последнее занятие, достаток и репутацию - поэтому процент не спорит с графиком.
  */
 function percentileOf(hero: Hero, era: EraDef, status: number): number {
   let below = 0
@@ -234,7 +234,7 @@ function percentileOf(hero: Hero, era: EraDef, status: number): number {
   return Math.max(0, Math.min(99, Math.round(below * 100)))
 }
 
-/** Сословие при рождении – из записи о рождении в дневнике. */
+/** Сословие при рождении - из записи о рождении в дневнике. */
 export function birthClassOf(hero: Hero): string {
   if (hero.birthCls) return hero.birthCls
   const born = hero.diary.find((d) => d.key === 'diary.born')?.params?.cls

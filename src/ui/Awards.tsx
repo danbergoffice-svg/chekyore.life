@@ -1,11 +1,12 @@
-// Раздел «Награды»: сетка по группам, полученные – с датой, неполученные – серые с условием и подсказкой,
-// секретные – «???». Счётчик «12 из 66», коллекция стран (где уже прожита жизнь), редкость из флага ach_rarity.
+// Раздел «Награды»: сетка по группам, полученные - с датой, неполученные - серые с условием и подсказкой,
+// секретные - «???». Счётчик «12 из 66», коллекция стран (где уже прожита жизнь), редкость из флага ach_rarity.
 import { ERA_IDS } from '../content'
 import { ACH_GROUPS, ACHIEVEMENTS, schoolProgram } from '../engine/achievements'
 import type { Earned } from '../engine/achievements'
 import type { LifeSummary } from '../engine/types'
 import { platform } from '../platform'
 import { useUi } from './text'
+import { Icon } from './Icon'
 
 export function Awards({ earned, memorial, onBack, onTrain }: { earned: Earned[]; memorial: LifeSummary[]; onBack: () => void; onTrain?: (id: string) => void }) {
   const { t } = useUi()
@@ -41,7 +42,7 @@ export function Awards({ earned, memorial, onBack, onTrain }: { earned: Earned[]
               return (
                 <li class={e ? 'ach got' : 'ach'}>
                   <span class="ach-icon" aria-hidden="true">
-                    {e ? '🏅' : hidden ? '❔' : '🔒'}
+                    <Icon name={e ? 'medal' : hidden ? 'question' : 'lock'} />
                   </span>
                   <span>
                     <strong>{hidden ? '???' : t(`ach.${a.id}.title`)}</strong>

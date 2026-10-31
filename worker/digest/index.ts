@@ -1,7 +1,7 @@
 // Worker thousands-digest: каждый день в 09:00 по Стамбулу (cron «0 6 * * *» UTC) шлёт в Telegram сводку
 // за вчера с дельтой к позавчера. Цифры считает тот же модуль, что /admin и бот (worker/stats.ts).
-// Деплой и секреты — docs/BACKEND.md, раздел «Telegram: бот и утренняя сводка».
-//   POST /run (заголовок Authorization: Bearer <TELEGRAM_WEBHOOK_SECRET>) — отправить сводку сейчас, для проверки.
+// Деплой и секреты - docs/BACKEND.md, раздел «Telegram: бот и утренняя сводка».
+//   POST /run (заголовок Authorization: Bearer <TELEGRAM_WEBHOOK_SECRET>) - отправить сводку сейчас, для проверки.
 import { digestMessage, type D1Database } from '../stats'
 import { safeEqual, sendMessage } from '../telegram'
 
@@ -16,7 +16,7 @@ interface ScheduledController {
   cron: string
 }
 
-/** Посчитать и отправить сводку. Бросает ошибку при сбое — тогда запуск виден как неудачный в Cron Events. */
+/** Посчитать и отправить сводку. Бросает ошибку при сбое - тогда запуск виден как неудачный в Cron Events. */
 async function runDigest(env: Env, now: number): Promise<string> {
   if (!env.TELEGRAM_TOKEN || !env.TELEGRAM_CHAT_ID) throw new Error('нет секретов TELEGRAM_TOKEN / TELEGRAM_CHAT_ID')
   if (!env.DB) {
@@ -27,7 +27,7 @@ async function runDigest(env: Env, now: number): Promise<string> {
   try {
     text = await digestMessage(env.DB, now)
   } catch (e) {
-    await sendMessage(env, 'Утренняя сводка не посчиталась: ошибка базы. Подробности — в логах thousands-digest.', false)
+    await sendMessage(env, 'Утренняя сводка не посчиталась: ошибка базы. Подробности - в логах thousands-digest.', false)
     throw e
   }
   if (!(await sendMessage(env, text))) throw new Error('Telegram не принял сообщение')

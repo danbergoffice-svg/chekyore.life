@@ -14,7 +14,7 @@ export const percent = (n: number | string, lang: Lang): string => (lang === 'tr
 /** Локаль для чисел. */
 export const LOCALE: Record<Lang, string> = { en: 'en-US', ru: 'ru-RU', tr: 'tr-TR' }
 
-// Тексты стран. ui_ru.json / ui_en.json – названия стран и регионов, нужны сразу (меню, мемориал).
+// Тексты стран. ui_ru.json / ui_en.json - названия стран и регионов, нужны сразу (меню, мемориал).
 // Остальные ru*.json / en*.json грузятся вместе со страной и только на нужном языке.
 type Dict = Record<string, string>
 const merge = (files: Record<string, Dict>) => Object.assign({}, ...Object.values(files)) as Dict
@@ -27,7 +27,7 @@ const dictEn: Dict = { ...en, ...uiEn }
 const dicts: Record<Lang, Dict> = {
   ru: { ...ru, ...uiRu },
   en: dictEn,
-  // Турецкий переведён не весь: чего нет – берётся из английского (через прототип; allKeys – только переведённое).
+  // Турецкий переведён не весь: чего нет - берётся из английского (через прототип; allKeys - только переведённое).
   tr: Object.assign(Object.create(dictEn) as Dict, tr, uiTr),
 }
 
@@ -35,7 +35,7 @@ const loadedTexts = new Map<string, Promise<void>>()
 
 /** Загрузить тексты папки контента (common, e03, china…) на языке. */
 export function loadTexts(lang: Lang, folder: string): Promise<void> {
-  // Под турецким лежит английский – его тоже нужно загрузить.
+  // Под турецким лежит английский - его тоже нужно загрузить.
   if (lang === 'tr') return Promise.all([loadTexts('en', folder), loadOwn(lang, folder)]).then(() => undefined)
   return loadOwn(lang, folder)
 }
@@ -72,7 +72,7 @@ export async function loadAllTexts(): Promise<void> {
 }
 
 const names: Record<string, { ru: string; en: string }> = {}
-// Клички питомцев (src/content/pets.json) – тоже имена.
+// Клички питомцев (src/content/pets.json) - тоже имена.
 for (const byKind of Object.values(PETS.names as Record<string, Record<string, { id: string; ru: string; en: string }[]>>)) for (const list of Object.values(byKind)) for (const n of list) names[n.id] = n
 for (const era of Object.values(ERA_META)) {
   for (const region of era.regions) for (const n of [...region.names.m, ...region.names.f]) names[n.id] = n
@@ -138,7 +138,7 @@ export function createT(lang: Lang, defaults: TextOptions = {}): T {
       if (typeof p === 'object') return 'name' in p ? nameOf(p.name, lang) : t(p.key, params, p.sex ? { ...o, sex: p.sex } : o)
       return String(p)
     }
-    // {g:мужская|женская} – по полу героя; {g=param:…|…} – по полу из параметра.
+    // {g:мужская|женская} - по полу героя; {g=param:…|…} - по полу из параметра.
     s = s.replace(/\{g(?:=(\w+))?:([^|}]*)\|([^}]*)\}/g, (_, param: string | undefined, m: string, f: string) => {
       const sex = param ? params[param] : o.sex
       return sex === 'f' ? f : m

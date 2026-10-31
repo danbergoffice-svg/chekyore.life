@@ -7,16 +7,24 @@ import { playLever, playReels } from '../audio'
 import type { ReelTiming } from '../sfx'
 import { Scene } from '../pixel/Scene'
 import { useUi } from './text'
+import { Icon } from './Icon'
+import type { IconName } from './icons'
 
-/** Лотерея рождения: три барабана – где и когда, положение, пол. Игрок дёргает рычаг, барабаны останавливаются по очереди. */
+/** Лотерея рождения: три барабана - где и когда, положение, пол. Игрок дёргает рычаг, барабаны останавливаются по очереди. */
 
 interface Item {
   top: string
   bottom?: string
-  icon?: string
+  icon?: IconName
 }
 
-const CLASS_ICON: Record<string, string> = { slave: '⛓', peasant: '🌾', craftsman: '🔨', trader: '⚖️', landowner: '🏡', noble: '👑' }
+/** Ярлык награды на окне барабана: значок и подпись. */
+export interface ReelTag {
+  icon: IconName
+  text: string
+}
+
+const CLASS_ICON: Record<string, IconName> = { slave: 'chain', peasant: 'wheat', craftsman: 'hammer', trader: 'scales', landowner: 'house', noble: 'crown' }
 const ROW = 60
 const WINDOW = 150
 const DECOYS = 26
@@ -32,7 +40,7 @@ function rand(seed: number) {
   }
 }
 
-/** Ход барабана: кривая CSS-перехода ленты (в конце – лёгкий перелёт). По ней же считаются щелчки строк. */
+/** Ход барабана: кривая CSS-перехода ленты (в конце - лёгкий перелёт). По ней же считаются щелчки строк. */
 const EASE = [0.15, 0.6, 0.22, 1.04] as const
 
 /** Когда (секунды от начала вращения) через середину окна проезжает каждая строка и когда барабан встаёт. */
@@ -56,7 +64,7 @@ function reducedMotion(): boolean {
   return typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-function Reel(props: { label: string; items: Item[]; spinning: boolean; duration: number; onStop: () => void; stopped: boolean; tag?: string }) {
+function Reel(props: { label: string; items: Item[]; spinning: boolean; duration: number; onStop: () => void; stopped: boolean; tag?: ReelTag }) {
   const final = props.items.length - 2
   const offset = (WINDOW - ROW) / 2
   const [blur, setBlur] = useState(false)
@@ -81,9 +89,13 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
   return (
     <div class={`reel ${props.stopped ? 'stopped' : ''}`}>
       <div class="reel-label">{props.label}</div>
-      {/* Награда, которая уже решила этот барабан: «🔒 Византия», «👑 Знать» – над краем окна. */}
+      {/* Награда, которая уже решила этот барабан: «[замок] Византия», «[корона] Знать» - над краем окна. */}
       <div class="reel-frame">
-        {props.tag && <span class="reel-tag">{props.tag}</span>}
+        {props.tag && (
+          <span class="reel-tag">
+            <Icon name={props.tag.icon} /> {props.tag.text}
+          </span>
+        )}
         <div class="reel-window" style={{ height: `${WINDOW}px` }}>
           {/* Соседние строки видны только у середины и плавно гаснут к краям окна, чтобы надписи не обрезались. */}
           <div class="reel-clip">
@@ -94,7 +106,11 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
             >
               {props.items.map((it, i) => (
                 <div class={`reel-item ${i === final && props.stopped ? 'win' : ''}`} style={{ height: `${ROW}px` }}>
-                  {it.icon && <span class="reel-icon" aria-hidden="true">{it.icon}</span>}
+                  {it.icon && (
+                    <span class="reel-icon">
+                      <Icon name={it.icon} />
+                    </span>
+                  )}
                   <span class="reel-text">
                     <span class="reel-top">{it.top}</span>
                     {it.bottom && <span class="reel-bottom">{it.bottom}</span>}
@@ -113,7 +129,7 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
 let focused = 0
 
 /**
- * Барабан в главном меню: рычаг и кнопка «Крутить новую жизнь». Страна, которая выпадет, грузится с рывка рычага –
+ * Барабан в главном меню: рычаг и кнопка «Крутить новую жизнь». Страна, которая выпадет, грузится с рывка рычага -
  * пока крутятся барабаны; если не успела, кнопка «Начать жизнь» ждёт загрузки.
  */
 export function SlotMachine(props: {
@@ -127,18 +143,18 @@ export function SlotMachine(props: {
   onSetup?: () => void
   /** Растёт, когда к барабану нужно прокрутить страницу (новая жизнь с экрана итогов). */
   focus?: number
-  /** Перекрутить после результата (рычаг остаётся активным); left – сколько раз ещё можно. */
+  /** Перекрутить после результата (рычаг остаётся активным); left - сколько раз ещё можно. */
   onRespin?: () => void
   left?: number
   /** Это перекрутка: барабан сам дёргает рычаг сразу после появления. */
   autoSpin?: boolean
-  /** Бесплатные перекрутки кончились – ещё одна за рекламу (CrazyGames); adBusy – реклама грузится или идёт. */
+  /** Бесплатные перекрутки кончились - ещё одна за рекламу (CrazyGames); adBusy - реклама грузится или идёт. */
   onAdRespin?: () => void
   adBusy?: boolean
-  /** Справа над барабаном – кнопка «🎁 Дары» (если они есть). */
+  /** Справа над барабаном - кнопка «Дары» со значком подарка (если они есть). */
   gifts?: ComponentChildren
   /** Ярлыки наград на окнах барабана: страна и положение. */
-  tags?: { where?: string; status?: string }
+  tags?: { where?: ReelTag; status?: ReelTag }
 }) {
   const { t, lang } = useUi()
   const { birth } = props
@@ -150,11 +166,11 @@ export function SlotMachine(props: {
   useEffect(() => {
     if (!props.focus || props.focus === focused) return
     focused = props.focus
-    // После смены экрана страница сама прокручивается наверх – к барабану едем чуть позже.
+    // После смены экрана страница сама прокручивается наверх - к барабану едем чуть позже.
     const id = setTimeout(() => box.current?.scrollIntoView({ block: 'center', behavior: fast ? 'auto' : 'smooth' }), 80)
     return () => clearTimeout(id)
   }, [props.focus])
-  // Если мир грузится дольше 12 секунд после рывка – подсказать, что делать.
+  // Если мир грузится дольше 12 секунд после рывка - подсказать, что делать.
   const [slow, setSlow] = useState(false)
   useEffect(() => {
     if (props.ready || phase === 'idle') return
@@ -168,7 +184,7 @@ export function SlotMachine(props: {
 
   const reels = useMemo(() => {
     const r = rand(props.seed)
-    const q: Item = { top: '?', icon: '✦' }
+    const q: Item = { top: '?', icon: 'spark' }
     const pick = <T,>(xs: readonly T[]) => xs[Math.floor(r() * xs.length)]
     const where: Item[] = [q]
     const status: Item[] = [q]
@@ -183,11 +199,11 @@ export function SlotMachine(props: {
       const cls = lockStatus ? birth.cls : pick(Object.keys(CLASS_ICON))
       status.push({ top: t(`class.${lockStatus && birth.royal ? 'royal' : cls}.short`), icon: CLASS_ICON[cls] })
       const s = i % 2 === 0 ? 'm' : 'f'
-      sex.push({ top: t(`spin.sex.${s}`), icon: s === 'm' ? '♂' : '♀' })
+      sex.push({ top: t(`spin.sex.${s}`), icon: s === 'm' ? 'male' : 'female' })
     }
     where.push({ top: t(`era.${birth.era}.short`), bottom: formatYear(birth.year, lang) }, { top: '…' })
-    status.push({ top: t(`class.${birth.royal ? 'royal' : birth.cls}.short`, {}, o), icon: CLASS_ICON[birth.cls] ?? '•' }, { top: '…' })
-    sex.push({ top: t(`spin.sex.${birth.sex}`), icon: birth.sex === 'm' ? '♂' : '♀' }, { top: '…' })
+    status.push({ top: t(`class.${birth.royal ? 'royal' : birth.cls}.short`, {}, o), icon: CLASS_ICON[birth.cls] }, { top: '…' })
+    sex.push({ top: t(`spin.sex.${birth.sex}`), icon: birth.sex === 'm' ? 'male' : 'female' }, { top: '…' })
     return [where, status, sex]
   }, [props.seed, lang])
 
@@ -203,7 +219,7 @@ export function SlotMachine(props: {
   useEffect(() => {
     if (props.autoSpin) pull()
   }, [])
-  // Барабаны пошли – щелчки строк и стук остановки в такт ленте.
+  // Барабаны пошли - щелчки строк и стук остановки в такт ленте.
   useEffect(() => {
     if (phase === 'spin') playReels(durations.map((d, i) => reelTiming(d, reels[i].length - 2)))
   }, [phase])

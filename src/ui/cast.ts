@@ -1,5 +1,5 @@
-// Кто и что на картинке: герой, его семья, животные и дом – по состоянию игры.
-// Внешность человечков – как на портрете (figureLook): та же кожа, седина, одежда и убор.
+// Кто и что на картинке: герой, его семья, животные и дом - по состоянию игры.
+// Внешность человечков - как на портрете (figureLook): та же кожа, седина, одежда и убор.
 import { ERA_META } from '../content'
 import { descentOf, maritalStatus, npcAge } from '../engine/rules'
 import type { EventDef, GameState, Household, Npc, NpcRole } from '../engine/types'
@@ -7,7 +7,7 @@ import { figureLook } from '../pixel/avatar'
 import { toolFor } from '../pixel/figures'
 import type { Cast, CastMember } from '../pixel/scene'
 
-/** Сколько человек помещается на картинке; остальные – подписью «+N». */
+/** Сколько человек помещается на картинке; остальные - подписью «+N». */
 const MAX_PEOPLE = 8
 
 /** Места, где на картинке вся семья, а не только герой и человек события. */
@@ -22,7 +22,7 @@ function member(state: GameState, n: Npc, role: CastMember['role']): CastMember 
     age,
     seed: n.id,
     look: figureLook({ region: h.region, sex: n.sex, age, seed: n.id, cls: h.cls, married: !!n.married || role === 'spouse' || role === 'parent' }),
-    // Семья живёт в одном сословии с героем; чужие люди события – без сословных примет.
+    // Семья живёт в одном сословии с героем; чужие люди события - без сословных примет.
     cls: role === 'npc' ? undefined : h.cls,
   }
 }
@@ -44,7 +44,7 @@ function heroMember(state: GameState): CastMember {
       homeRegion: h.abroad?.homeland.region,
       integrated: !!h.abroad && (!!h.abroad.naturalized || h.abroad.integration >= 60),
     })
-  // Воин – в шлеме.
+  // Воин - в шлеме.
   if ((tool === 'spear' || tool === 'sword') && look.hat !== 'cover') look.hat = 'helmet'
   return { role: 'hero', sex: h.sex, age: h.age, seed: h.id, look, cls: h.tags.includes('enslaved') ? 'slave' : h.cls, profession: h.profession ?? undefined, tool }
 }
@@ -55,7 +55,7 @@ export function householdRule(state: GameState): Household {
   return meta?.regions.find((r) => r.id === state.hero.region)?.household ?? meta?.household ?? 'patrilocal'
 }
 
-/** Живут ли с героем его родители: до свадьбы – да, после – по обычаю края. */
+/** Живут ли с героем его родители: до свадьбы - да, после - по обычаю края. */
 function parentsAtHome(state: GameState): boolean {
   const h = state.hero
   if (h.age < 16 || maritalStatus(h).kind === 'never' || maritalStatus(h).kind === 'vowed') return true
@@ -65,7 +65,7 @@ function parentsAtHome(state: GameState): boolean {
 
 /**
  * Семья, которая живёт с героем: супруг; дети, пока не выросли и не завели свою семью (у родителей мужа женатые
- * сыновья с детьми остаются в доме); родители – до свадьбы героя и после неё по обычаю края; у ребёнка – братья
+ * сыновья с детьми остаются в доме); родители - до свадьбы героя и после неё по обычаю края; у ребёнка - братья
  * и сёстры. Уехавших (away) нет.
  */
 export function familyCast(state: GameState): Cast {
@@ -104,7 +104,7 @@ export function eventRoles(ev: EventDef | undefined): NpcRole[] {
 }
 
 /**
- * Картинка события: дома, во дворе и на рынке – вся семья; в остальных местах – герой, человек события
+ * Картинка события: дома, во дворе и на рынке - вся семья; в остальных местах - герой, человек события
  * и все, кто упомянут в тексте события (по одному человеку на роль).
  */
 export function eventCast(state: GameState, npcId: string | undefined, place: string | undefined, roles: NpcRole[] = [], ownStall = false): Cast {

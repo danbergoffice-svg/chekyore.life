@@ -1,8 +1,8 @@
 [
   {
     "id": "seneca_play",
-    "ru": "Жизнь – как пьеса: важно не то, долго ли она длится, а то, хорошо ли сыграна.",
-    "en": "As it is with a play, so it is with life – what matters is not how long it lasts, but how well it is acted.",
+    "ru": "Жизнь - как пьеса: важно не то, долго ли она длится, а то, хорошо ли сыграна.",
+    "en": "As it is with a play, so it is with life - what matters is not how long it lasts, but how well it is acted.",
     "author_ru": "Сенека",
     "author_en": "Seneca",
     "tr": "Hayat bir oyun gibidir: önemli olan ne kadar sürdüğü değil, ne kadar iyi oynandığıdır.",
@@ -33,7 +33,7 @@
   },
   {
     "id": "seneca_fate",
-    "ru": "Желающего судьба ведёт, нежелающего – тащит.",
+    "ru": "Желающего судьба ведёт, нежелающего - тащит.",
     "en": "Fate leads the willing and drags the unwilling.",
     "author_ru": "Сенека",
     "author_en": "Seneca",
@@ -162,7 +162,7 @@
   },
   {
     "id": "solon_happy",
-    "ru": "Пока человек не умер, не называй его счастливым – называй лишь удачливым.",
+    "ru": "Пока человек не умер, не называй его счастливым - называй лишь удачливым.",
     "en": "Until a man is dead, call him not happy, but only fortunate.",
     "author_ru": "Солон (у Геродота)",
     "author_en": "Solon (in Herodotus)",
@@ -243,7 +243,7 @@
   },
   {
     "id": "ovid_friends",
-    "ru": "Пока ты счастлив, друзей будет много; придут ненастные времена – останешься один.",
+    "ru": "Пока ты счастлив, друзей будет много; придут ненастные времена - останешься один.",
     "en": "While you are fortunate, you will count many friends; when the skies grow cloudy, you will be alone.",
     "author_ru": "Овидий",
     "author_en": "Ovid",
@@ -262,7 +262,7 @@
     "id": "diogenes_sun",
     "ru": "Отойди немного, не заслоняй мне солнце.",
     "en": "Stand a little out of my sun.",
-    "author_ru": "Диоген – Александру Македонскому",
+    "author_ru": "Диоген - Александру Македонскому",
     "author_en": "Diogenes, to Alexander the Great",
     "tr": "Gölge etme, başka ihsan istemem.",
     "author_tr": "Diyojen, Büyük İskender'e",
@@ -294,7 +294,7 @@
   },
   {
     "id": "eccl_time_chance",
-    "ru": "Не проворным достаётся успешный бег, не храбрым – победа… но время и случай для всех их.",
+    "ru": "Не проворным достаётся успешный бег, не храбрым - победа… но время и случай для всех их.",
     "en": "The race is not to the swift, nor the battle to the strong… but time and chance happeneth to them all.",
     "author_ru": "Екклесиаст",
     "author_en": "Ecclesiastes",
@@ -387,7 +387,7 @@
   },
   {
     "id": "prov_pride",
-    "ru": "Погибели предшествует гордость, и падению – надменность.",
+    "ru": "Погибели предшествует гордость, и падению - надменность.",
     "en": "Pride goeth before destruction, and an haughty spirit before a fall.",
     "author_ru": "Книга Притчей Соломоновых",
     "author_en": "The Book of Proverbs",
@@ -405,7 +405,7 @@
   },
   {
     "id": "prov_grandchildren",
-    "ru": "Венец стариков – сыновья сыновей, и слава детей – родители их.",
+    "ru": "Венец стариков - сыновья сыновей, и слава детей - родители их.",
     "en": "Children's children are the crown of old men; and the glory of children are their fathers.",
     "author_ru": "Книга Притчей Соломоновых",
     "author_en": "The Book of Proverbs",
@@ -424,7 +424,7 @@
   },
   {
     "id": "psalm_seventy",
-    "ru": "Дней лет наших – семьдесят лет, а при большей крепости – восемьдесят; и лучшая пора их – труд и болезнь.",
+    "ru": "Дней лет наших - семьдесят лет, а при большей крепости - восемьдесят; и лучшая пора их - труд и болезнь.",
     "en": "The days of our years are threescore years and ten… yet is their strength labour and sorrow; for it is soon cut off.",
     "author_ru": "Псалтирь (молитва Моисея)",
     "author_en": "Psalms (a prayer of Moses)",
@@ -534,7 +534,7 @@
   },
   {
     "id": "montaigne_cabbage",
-    "ru": "Хочу, чтобы смерть застала меня за посадкой капусты – и чтобы мне не было дела ни до неё, ни до огорода.",
+    "ru": "Хочу, чтобы смерть застала меня за посадкой капусты - и чтобы мне не было дела ни до неё, ни до огорода.",
     "en": "I want death to find me planting my cabbages, caring little for death and still less for my unfinished garden.",
     "author_ru": "Мишель Монтень",
     "author_en": "Michel de Montaigne",
@@ -713,7 +713,7 @@
   },
   {
     "id": "cervantes_freedom",
-    "ru": "Свобода, Санчо, – один из драгоценнейших даров, какие небо даровало людям.",
+    "ru": "Свобода, Санчо, - один из драгоценнейших даров, какие небо даровало людям.",
     "en": "Freedom, Sancho, is one of the most precious gifts that heaven has bestowed upon men.",
     "author_ru": "Сервантес (Дон Кихот)",
     "author_en": "Cervantes (Don Quixote)",
@@ -745,7 +745,7 @@
   },
   {
     "id": "shakespeare_stage",
-    "ru": "Весь мир – театр, а люди в нём – актёры: у каждого свои уходы и выходы.",
+    "ru": "Весь мир - театр, а люди в нём - актёры: у каждого свои уходы и выходы.",
     "en": "All the world's a stage, and all the men and women merely players; they have their exits and their entrances.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
@@ -760,7 +760,7 @@
   },
   {
     "id": "shakespeare_idiot_tale",
-    "ru": "Жизнь – это повесть, рассказанная дураком: в ней много шума и ярости, но нет смысла.",
+    "ru": "Жизнь - это повесть, рассказанная дураком: в ней много шума и ярости, но нет смысла.",
     "en": "Life… is a tale told by an idiot, full of sound and fury, signifying nothing.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
@@ -794,7 +794,7 @@
   },
   {
     "id": "shakespeare_tide",
-    "ru": "В делах людей бывает свой прилив: поймаешь его – и он вынесет тебя к удаче.",
+    "ru": "В делах людей бывает свой прилив: поймаешь его - и он вынесет тебя к удаче.",
     "en": "There is a tide in the affairs of men, which, taken at the flood, leads on to fortune.",
     "author_ru": "Уильям Шекспир",
     "author_en": "William Shakespeare",
@@ -881,7 +881,7 @@
   },
   {
     "id": "wilde_children_forgive",
-    "ru": "Дети начинают с того, что любят родителей; потом судят их; прощают – редко, если вообще прощают.",
+    "ru": "Дети начинают с того, что любят родителей; потом судят их; прощают - редко, если вообще прощают.",
     "en": "Children begin by loving their parents. After a time they judge them. Rarely, if ever, do they forgive them.",
     "author_ru": "Оскар Уайльд",
     "author_en": "Oscar Wilde",
@@ -905,7 +905,7 @@
   },
   {
     "id": "wilde_live_rarest",
-    "ru": "Жить – самая редкая вещь на свете. Большинство людей просто существует.",
+    "ru": "Жить - самая редкая вещь на свете. Большинство людей просто существует.",
     "en": "To live is the rarest thing in the world. Most people exist, that is all.",
     "author_ru": "Оскар Уайльд",
     "author_en": "Oscar Wilde",
@@ -944,7 +944,7 @@
   },
   {
     "id": "bierce_longevity",
-    "ru": "Долголетие – необычайно затянувшийся страх смерти.",
+    "ru": "Долголетие - необычайно затянувшийся страх смерти.",
     "en": "Longevity, n. Uncommon extension of the fear of death.",
     "author_ru": "Амброз Бирс",
     "author_en": "Ambrose Bierce",
@@ -957,7 +957,7 @@
   },
   {
     "id": "bierce_exile",
-    "ru": "Изгнанник – тот, кто служит родине, живя за границей, но не будучи послом.",
+    "ru": "Изгнанник - тот, кто служит родине, живя за границей, но не будучи послом.",
     "en": "Exile, n. One who serves his country by residing abroad, yet is not an ambassador.",
     "author_ru": "Амброз Бирс",
     "author_en": "Ambrose Bierce",
@@ -970,7 +970,7 @@
   },
   {
     "id": "bierce_alone",
-    "ru": "Один – то есть в дурной компании.",
+    "ru": "Один - то есть в дурной компании.",
     "en": "Alone, adj. In bad company.",
     "author_ru": "Амброз Бирс",
     "author_en": "Ambrose Bierce",
@@ -982,8 +982,8 @@
   },
   {
     "id": "johnson_second_marriage",
-    "ru": "Второй брак – торжество надежды над опытом.",
-    "en": "A second marriage – the triumph of hope over experience.",
+    "ru": "Второй брак - торжество надежды над опытом.",
+    "en": "A second marriage - the triumph of hope over experience.",
     "author_ru": "Сэмюэл Джонсон",
     "author_en": "Samuel Johnson",
     "tr": "İkinci evlilik: umudun tecrübeye karşı zaferi.",
@@ -1063,7 +1063,7 @@
   },
   {
     "id": "monomakh_laziness",
-    "ru": "Леность – всему мать: что умеешь – забудешь, а чего не умеешь – тому не научишься.",
+    "ru": "Леность - всему мать: что умеешь - забудешь, а чего не умеешь - тому не научишься.",
     "en": "Sloth is the mother of everything: what you know, you forget, and what you do not know, you never learn.",
     "author_ru": "Владимир Мономах",
     "author_en": "Vladimir Monomakh",
@@ -1261,7 +1261,7 @@
   {
     "id": "ru_live_learn_fool",
     "ru": "Век живи, век учись, а умри дураком.",
-    "en": "Live and learn all your life – and die a fool all the same.",
+    "en": "Live and learn all your life - and die a fool all the same.",
     "author_ru": "Русская пословица",
     "author_en": "Russian proverb",
     "tr": "Bir ömür yaşa, bir ömür öğren, yine de budala olarak öl.",
@@ -1343,7 +1343,7 @@
   },
   {
     "id": "saadi_sons_of_adam",
-    "ru": "Сыны Адама – члены одного тела: если судьба ранит один член, другим не будет покоя.",
+    "ru": "Сыны Адама - члены одного тела: если судьба ранит один член, другим не будет покоя.",
     "en": "The children of Adam are limbs of one body: when fate afflicts one limb, the others cannot remain at rest.",
     "author_ru": "Саади",
     "author_en": "Saadi",
@@ -1392,7 +1392,7 @@
   },
   {
     "id": "ibn_khaldun_four_generations",
-    "ru": "Слава рода живёт обычно четыре поколения: строитель, свидетель стройки, подражатель – и разрушитель.",
+    "ru": "Слава рода живёт обычно четыре поколения: строитель, свидетель стройки, подражатель - и разрушитель.",
     "en": "Prestige lasts at most four generations: the builder, the one who knew the builder, the imitator, and the destroyer.",
     "author_ru": "Ибн Хальдун",
     "author_en": "Ibn Khaldun",
@@ -1428,7 +1428,7 @@
     "id": "gilgamesh_life_you_seek",
     "ru": "Жизни, которой ищешь, не найдёшь: создав человека, боги смерть определили ему, а жизнь удержали в своих руках.",
     "en": "The life you seek you will not find: when the gods created mankind, they allotted death to man and kept life in their own hands.",
-    "author_ru": "«Эпос о Гильгамеше» (Сидури – Гильгамешу)",
+    "author_ru": "«Эпос о Гильгамеше» (Сидури - Гильгамешу)",
     "author_en": "Epic of Gilgamesh (Siduri to Gilgamesh)",
     "tr": "Aradığın hayatı bulamayacaksın: tanrılar insanı yarattığında ölümü ona verdiler, hayatı kendi ellerinde tuttular.",
     "author_tr": "Gılgamış Destanı (Siduri'den Gılgamış'a)",
@@ -1442,11 +1442,11 @@
   },
   {
     "id": "gilgamesh_child_hand",
-    "ru": "Гляди, как дитя держит тебя за руку, пусть жена радуется в твоих объятиях – только в этом дело человека.",
-    "en": "Look at the child who holds your hand, let your wife delight in your embrace – for this is the task of mankind.",
-    "author_ru": "«Эпос о Гильгамеше» (Сидури – Гильгамешу)",
+    "ru": "Гляди, как дитя держит тебя за руку, пусть жена радуется в твоих объятиях - только в этом дело человека.",
+    "en": "Look at the child who holds your hand, let your wife delight in your embrace - for this is the task of mankind.",
+    "author_ru": "«Эпос о Гильгамеше» (Сидури - Гильгамешу)",
     "author_en": "Epic of Gilgamesh (Siduri to Gilgamesh)",
-    "tr": "Elini tutan çocuğa bak, karın kollarında sevinsin – insanın işi budur.",
+    "tr": "Elini tutan çocuğa bak, karın kollarında sevinsin - insanın işi budur.",
     "author_tr": "Gılgamış Destanı (Siduri'den Gılgamış'a)",
     "tags": [
       "family",
@@ -1459,9 +1459,9 @@
   },
   {
     "id": "gilgamesh_but_wind",
-    "ru": "Лишь боги живут вечно, а у людей дни сочтены, и всё, что они ни делают, – ветер.",
+    "ru": "Лишь боги живут вечно, а у людей дни сочтены, и всё, что они ни делают, - ветер.",
     "en": "Only the gods live forever under the sun. As for mankind, their days are numbered; whatever they achieve is but wind.",
-    "author_ru": "«Эпос о Гильгамеше» (Гильгамеш – Энкиду)",
+    "author_ru": "«Эпос о Гильгамеше» (Гильгамеш - Энкиду)",
     "author_en": "Epic of Gilgamesh (Gilgamesh to Enkidu)",
     "tr": "Güneşin altında yalnızca tanrılar sonsuza dek yaşar. İnsanın günleri sayılıdır; ne yaparsa yapsın, hepsi rüzgârdır.",
     "author_tr": "Gılgamış Destanı (Gılgamış'tan Enkidu'ya)",
@@ -1492,7 +1492,7 @@
   },
   {
     "id": "ptahhotep_old_age",
-    "ru": "Глаза ослабли, уши оглохли, сила уходит… Что делает старость с людьми – зло во всём.",
+    "ru": "Глаза ослабли, уши оглохли, сила уходит… Что делает старость с людьми - зло во всём.",
     "en": "The eyes are dim, the ears deaf, strength is failing… What old age does to people is evil in every respect.",
     "author_ru": "Птахотеп",
     "author_en": "Ptahhotep",
@@ -1524,7 +1524,7 @@
   },
   {
     "id": "sumer_silver_grain_livestock",
-    "ru": "У кого серебро – тот счастлив, у кого зерно – тому спокойно, а у кого скот – тому не спится.",
+    "ru": "У кого серебро - тот счастлив, у кого зерно - тому спокойно, а у кого скот - тому не спится.",
     "en": "He who has silver is happy, he who has grain feels comfortable, but he who has livestock cannot sleep.",
     "author_ru": "Шумерская пословица",
     "author_en": "Sumerian proverb",
@@ -1540,7 +1540,7 @@
   },
   {
     "id": "shelley_ozymandias",
-    "ru": "Моё имя – Озимандия, я царь царей. Взгляните на мои дела, владыки, и отчайтесь! Больше ничего не осталось.",
+    "ru": "Моё имя - Озимандия, я царь царей. Взгляните на мои дела, владыки, и отчайтесь! Больше ничего не осталось.",
     "en": "My name is Ozymandias, King of Kings; look on my Works, ye Mighty, and despair! Nothing beside remains.",
     "author_ru": "Перси Биши Шелли",
     "author_en": "Percy Bysshe Shelley",
@@ -1607,8 +1607,8 @@
   },
   {
     "id": "laozi_misery_happiness",
-    "ru": "Несчастье – вот на что опирается счастье; счастье – вот где таится несчастье.",
-    "en": "Misery! – happiness is to be found by its side! Happiness! – misery lurks beneath it!",
+    "ru": "Несчастье - вот на что опирается счастье; счастье - вот где таится несчастье.",
+    "en": "Misery! - happiness is to be found by its side! Happiness! - misery lurks beneath it!",
     "author_ru": "Лао-цзы",
     "author_en": "Laozi",
     "tr": "Felaketin yanı başında mutluluk durur; mutluluğun altında felaket pusudadır.",
@@ -1624,7 +1624,7 @@
   },
   {
     "id": "zhuangzi_butterfly",
-    "ru": "Проснувшись, он не знал: то ли Чжоу снилось, что он бабочка, то ли бабочке снится, что она – Чжоу.",
+    "ru": "Проснувшись, он не знал: то ли Чжоу снилось, что он бабочка, то ли бабочке снится, что она - Чжоу.",
     "en": "He did not know whether he was Zhou who had dreamt he was a butterfly, or a butterfly dreaming that it was Zhou.",
     "author_ru": "Чжуан-цзы",
     "author_en": "Zhuangzi",
@@ -1640,7 +1640,7 @@
   },
   {
     "id": "zhuangzi_white_colt",
-    "ru": "Жизнь человека между небом и землёй – как белый жеребёнок, мелькнувший в щели: миг – и нет его.",
+    "ru": "Жизнь человека между небом и землёй - как белый жеребёнок, мелькнувший в щели: миг - и нет его.",
     "en": "Man's life between heaven and earth is like a white colt glimpsed through a crack: a sudden flash, and it is gone.",
     "author_ru": "Чжуан-цзы",
     "author_en": "Zhuangzi",
@@ -1656,11 +1656,11 @@
   },
   {
     "id": "huainanzi_old_man_horse",
-    "ru": "Старик с границы потерял коня – кто знает, не к счастью ли это?",
-    "en": "The old man at the frontier lost his horse – who can tell whether it was not a blessing?",
+    "ru": "Старик с границы потерял коня - кто знает, не к счастью ли это?",
+    "en": "The old man at the frontier lost his horse - who can tell whether it was not a blessing?",
     "author_ru": "«Хуайнань-цзы»",
     "author_en": "Huainanzi",
-    "tr": "Sınırdaki yaşlı adam atını kaybetti – kim bilir, belki de bu bir nimetti?",
+    "tr": "Sınırdaki yaşlı adam atını kaybetti - kim bilir, belki de bu bir nimetti?",
     "author_tr": "Huainanzi",
     "tags": [
       "chance",
@@ -1672,7 +1672,7 @@
   },
   {
     "id": "libai_quiet_night",
-    "ru": "Подниму голову – смотрю на ясную луну; опущу голову – думаю о родном доме.",
+    "ru": "Подниму голову - смотрю на ясную луну; опущу голову - думаю о родном доме.",
     "en": "I raise my head and gaze at the bright moon; I lower my head and think of home.",
     "author_ru": "Ли Бо",
     "author_en": "Li Bai",
@@ -1689,7 +1689,7 @@
   },
   {
     "id": "dufu_state_shattered",
-    "ru": "Страна разбита – горы и реки остались.",
+    "ru": "Страна разбита - горы и реки остались.",
     "en": "The state is shattered, but the mountains and rivers remain.",
     "author_ru": "Ду Фу",
     "author_en": "Du Fu",
@@ -1706,11 +1706,11 @@
   },
   {
     "id": "sushi_ten_years",
-    "ru": "Десять лет – живой и мёртвая – врозь во мгле. Не думаю о тебе, а забыть не могу.",
+    "ru": "Десять лет - живой и мёртвая - врозь во мгле. Не думаю о тебе, а забыть не могу.",
     "en": "Ten years, the living and the dead, apart in boundless dark. I do not try to think of you, yet I cannot forget.",
     "author_ru": "Су Ши",
     "author_en": "Su Shi",
-    "tr": "On yıl – biri diri, biri ölü – uçsuz bucaksız karanlıkta ayrı. Seni düşünmemeye çalışıyorum, yine de unutamıyorum.",
+    "tr": "On yıl - biri diri, biri ölü - uçsuz bucaksız karanlıkta ayrı. Seni düşünmemeye çalışıyorum, yine de unutamıyorum.",
     "author_tr": "Su Shi",
     "tags": [
       "widowed",
@@ -1723,7 +1723,7 @@
   },
   {
     "id": "suntzu_without_fighting",
-    "ru": "Высшее искусство – сломить сопротивление врага, не сражаясь.",
+    "ru": "Высшее искусство - сломить сопротивление врага, не сражаясь.",
     "en": "Supreme excellence consists in breaking the enemy's resistance without fighting.",
     "author_ru": "Сунь-цзы",
     "author_en": "Sun Tzu",
@@ -1802,11 +1802,11 @@
   },
   {
     "id": "basho_sick_on_journey",
-    "ru": "Заболел в пути – а сны всё бегут и кружат по сухим полям.",
+    "ru": "Заболел в пути - а сны всё бегут и кружат по сухим полям.",
     "en": "Sick on a journey, my dreams go wandering over withered fields.",
     "author_ru": "Мацуо Басё",
     "author_en": "Matsuo Bashō",
-    "tr": "Yolda hastayım – düşlerim dolaşıyor kurumuş kırlarda.",
+    "tr": "Yolda hastayım - düşlerim dolaşıyor kurumuş kırlarda.",
     "author_tr": "Matsuo Bashō",
     "tags": [
       "travel",
@@ -1819,11 +1819,11 @@
   },
   {
     "id": "basho_summer_grasses",
-    "ru": "Летние травы – вот что осталось от снов воинов.",
-    "en": "Summer grasses – all that remains of warriors' dreams.",
+    "ru": "Летние травы - вот что осталось от снов воинов.",
+    "en": "Summer grasses - all that remains of warriors' dreams.",
     "author_ru": "Мацуо Басё",
     "author_en": "Matsuo Bashō",
-    "tr": "Yaz otları – savaşçıların düşlerinden geriye kalan.",
+    "tr": "Yaz otları - savaşçıların düşlerinden geriye kalan.",
     "author_tr": "Matsuo Bashō",
     "tags": [
       "war",
@@ -1852,7 +1852,7 @@
   },
   {
     "id": "jp_fall_seven_rise_eight",
-    "ru": "Семь раз упади – восемь раз поднимись.",
+    "ru": "Семь раз упади - восемь раз поднимись.",
     "en": "Fall seven times, rise eight.",
     "author_ru": "Японская пословица",
     "author_en": "Japanese proverb",
@@ -1885,7 +1885,7 @@
   },
   {
     "id": "jp_stone_three_years",
-    "ru": "Посиди на камне три года – и он согреется.",
+    "ru": "Посиди на камне три года - и он согреется.",
     "en": "Sit on a stone for three years and even it grows warm.",
     "author_ru": "Японская пословица",
     "author_en": "Japanese proverb",
@@ -1917,7 +1917,7 @@
   },
   {
     "id": "kabir_clay_potter",
-    "ru": "Глина говорит гончару: что ты меня мнёшь? Придёт день – я сомну тебя.",
+    "ru": "Глина говорит гончару: что ты меня мнёшь? Придёт день - я сомну тебя.",
     "en": "The clay says to the potter: why do you knead me? A day will come when I shall knead you.",
     "author_ru": "Кабир",
     "author_en": "Kabir",
@@ -1933,7 +1933,7 @@
   },
   {
     "id": "kabir_books_love",
-    "ru": "Читая книги, умер весь мир, а мудрецом не стал никто. Кто прочёл два с половиной слога слова «любовь» – тот и мудр.",
+    "ru": "Читая книги, умер весь мир, а мудрецом не стал никто. Кто прочёл два с половиной слога слова «любовь» - тот и мудр.",
     "en": "Reading books, the whole world died, and none became wise; who reads the two and a half letters of 'love' is wise.",
     "author_ru": "Кабир",
     "author_en": "Kabir",
@@ -1949,11 +1949,11 @@
   },
   {
     "id": "kabir_tomorrow_today",
-    "ru": "Что собрался сделать завтра – сделай сегодня, что сегодня – сейчас. Миг – и конец: когда же ты успеешь?",
-    "en": "What you would do tomorrow, do today; what today, do now. In a moment the end may come – when will you do it then?",
+    "ru": "Что собрался сделать завтра - сделай сегодня, что сегодня - сейчас. Миг - и конец: когда же ты успеешь?",
+    "en": "What you would do tomorrow, do today; what today, do now. In a moment the end may come - when will you do it then?",
     "author_ru": "Кабир",
     "author_en": "Kabir",
-    "tr": "Yarın yapacağını bugün yap, bugün yapacağını şimdi. Bir anda son gelebilir – o zaman ne zaman yapacaksın?",
+    "tr": "Yarın yapacağını bugün yap, bugün yapacağını şimdi. Bir anda son gelebilir - o zaman ne zaman yapacaksın?",
     "author_tr": "Kabir",
     "tags": [
       "work",
@@ -1965,11 +1965,11 @@
   },
   {
     "id": "kural_children_prattle",
-    "ru": "Сладка флейта, сладка лютня – так говорят те, кто не слышал лепета своих детей.",
+    "ru": "Сладка флейта, сладка лютня - так говорят те, кто не слышал лепета своих детей.",
     "en": "\"The pipe is sweet, the lute is sweet,\" say those who have not heard the prattle of their own children.",
     "author_ru": "Тируваллувар",
     "author_en": "Thiruvalluvar",
-    "tr": "Ney tatlıdır, ut tatlıdır, derler – kendi çocuklarının cıvıltısını hiç duymamış olanlar.",
+    "tr": "Ney tatlıdır, ut tatlıdır, derler - kendi çocuklarının cıvıltısını hiç duymamış olanlar.",
     "author_tr": "Tiruvalluvar",
     "tags": [
       "many_children",
@@ -1982,11 +1982,11 @@
   },
   {
     "id": "kural_yesterday_today",
-    "ru": "Вчера он был, сегодня его нет – вот величие этого мира.",
+    "ru": "Вчера он был, сегодня его нет - вот величие этого мира.",
     "en": "Existing yesterday, today to nothing hurled! Such greatness owns this transitory world.",
     "author_ru": "Тируваллувар",
     "author_en": "Thiruvalluvar",
-    "tr": "Dün vardı, bugün yok – bu geçici dünyanın büyüklüğü işte budur.",
+    "tr": "Dün vardı, bugün yok - bu geçici dünyanın büyüklüğü işte budur.",
     "author_tr": "Tiruvalluvar",
     "tags": [
       "death",
@@ -1998,7 +1998,7 @@
   },
   {
     "id": "kural_plough",
-    "ru": "Как бы ни метался мир, он идёт за плугом: при всех тяготах пахота – первое из дел.",
+    "ru": "Как бы ни метался мир, он идёт за плугом: при всех тяготах пахота - первое из дел.",
     "en": "However the world may whirl, it follows the plough; so, for all its toil, farming is the first of trades.",
     "author_ru": "Тируваллувар",
     "author_en": "Thiruvalluvar",
@@ -2032,7 +2032,7 @@
     "id": "yaksha_most_wonderful",
     "ru": "День за днём люди уходят в обитель смерти, а оставшиеся надеются жить вечно. Что может быть удивительнее?",
     "en": "Day after day people go to the abode of Death, yet those who remain hope to live forever. What could be more wonderful?",
-    "author_ru": "«Махабхарата» (Юдхиштхира – Якше)",
+    "author_ru": "«Махабхарата» (Юдхиштхира - Якше)",
     "author_en": "Mahabharata (Yudhishthira to the Yaksha)",
     "tr": "İnsanlar her gün ölümün yurduna gidiyor, ama geride kalanlar sonsuza dek yaşamayı umuyor. Bundan daha şaşırtıcı ne olabilir?",
     "author_tr": "Mahabharata (Yudhişthira'dan Yakşa'ya)",
@@ -2062,7 +2062,7 @@
   },
   {
     "id": "oromo_egg_walks",
-    "ru": "Терпение – и яйцо пойдёт на своих ногах.",
+    "ru": "Терпение - и яйцо пойдёт на своих ногах.",
     "en": "With patience, even an egg will walk on its own legs.",
     "author_ru": "Пословица оромо (Эфиопия)",
     "author_en": "Oromo proverb (Ethiopia)",
@@ -2178,7 +2178,7 @@
   },
   {
     "id": "timbuktu_treasures_wisdom",
-    "ru": "Соль приходит с севера, золото – с юга, а слово Божье и сокровища мудрости – только в Тимбукту.",
+    "ru": "Соль приходит с севера, золото - с юга, а слово Божье и сокровища мудрости - только в Тимбукту.",
     "en": "Salt comes from the north, gold from the south, but the word of God and the treasures of wisdom are found only in Timbuktu.",
     "author_ru": "Пословица Тимбукту (Мали)",
     "author_en": "Timbuktu proverb (Mali)",
@@ -2195,11 +2195,11 @@
   },
   {
     "id": "popolvuh_saliva_descendants",
-    "ru": "В моей слюне я дал тебе потомство. Уходя, отец не исчезает – он оставляет себя сыновьям и дочерям.",
-    "en": "In my saliva I have given you my descendants: a father does not vanish when he goes – he leaves himself to his children.",
-    "author_ru": "«Пополь-Вух» (череп Хун-Хунахпу – деве Шкик)",
+    "ru": "В моей слюне я дал тебе потомство. Уходя, отец не исчезает - он оставляет себя сыновьям и дочерям.",
+    "en": "In my saliva I have given you my descendants: a father does not vanish when he goes - he leaves himself to his children.",
+    "author_ru": "«Пополь-Вух» (череп Хун-Хунахпу - деве Шкик)",
     "author_en": "Popol Vuh (the skull of Hun Hunahpu to the maiden Xquic)",
-    "tr": "Tükürüğümle sana soyumu verdim: baba gidince yok olmaz – kendini çocuklarına bırakır.",
+    "tr": "Tükürüğümle sana soyumu verdim: baba gidince yok olmaz - kendini çocuklarına bırakır.",
     "author_tr": "Popol Vuh (Hun Hunahpu'nun kafatasından genç kız Xquic'e)",
     "tags": [
       "family",
@@ -2212,7 +2212,7 @@
   },
   {
     "id": "nezahualcoyotl_jade_breaks",
-    "ru": "Неужели и вправду живут на земле? Не навсегда на земле – лишь ненадолго здесь. Даже нефрит раскалывается.",
+    "ru": "Неужели и вправду живут на земле? Не навсегда на земле - лишь ненадолго здесь. Даже нефрит раскалывается.",
     "en": "Do we truly live on earth? Not forever on earth, only a little while here. Even jade breaks; even gold cracks.",
     "author_ru": "Несауалькойотль",
     "author_en": "Nezahualcoyotl",
@@ -2260,7 +2260,7 @@
   },
   {
     "id": "pachacuti_herbalist",
-    "ru": "Лекарь, что знает лишь некоторые травы, знает мало или ничего: пусть изучит все – и целебные, и ядовитые.",
+    "ru": "Лекарь, что знает лишь некоторые травы, знает мало или ничего: пусть изучит все - и целебные, и ядовитые.",
     "en": "A herbalist who knows only some herbs knows little or nothing; he must learn them all, the healing and the poisonous alike.",
     "author_ru": "Пачакутек (по Гарсиласо де ла Веге)",
     "author_en": "Pachacuti (as recorded by Garcilaso de la Vega)",

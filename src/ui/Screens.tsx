@@ -16,6 +16,7 @@ import { Avatar } from '../pixel/Avatar'
 import { heroLook } from './Life'
 import { VolumeSlider } from './Sound'
 import { useUi } from './text'
+import { Icon, IconText } from './Icon'
 
 /** Виды для заставки: по региону каждой страны, меняются каждые несколько секунд. */
 const TIMES = ['sunset', 'day', 'dawn', 'day', 'night', 'overcast'] as const
@@ -29,7 +30,7 @@ const SHOWCASE: { region: string; era: string; scene: SceneDef }[] = ERA_IDS.fla
 
 interface MenuProps {
   current: GameState | null
-  /** Барабан лотереи рождения – сразу под названием игры, на первом экране. */
+  /** Барабан лотереи рождения - сразу под названием игры, на первом экране. */
   slot: ComponentChildren
   onContinue: () => void
   onFeedback: () => void
@@ -44,7 +45,7 @@ let playersAsk: Promise<number | null> | null = null
 let playersSeen: number | null = null
 
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
- *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, – в «Об игре». */
+ *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, - в «Об игре». */
 export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
@@ -81,7 +82,7 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
         </div>
       </header>
       <div class="title-block">
-        {/* Длинное название (Thousands of Lives) – мельче, чтобы в одну строку на любом телефоне. */}
+        {/* Длинное название (Thousands of Lives) - мельче, чтобы в одну строку на любом телефоне. */}
         <h1 class={`game-title ${t('app.title').length > 14 ? 'long' : ''}`}>{t('app.title')}</h1>
         <p class="lead">{t('menu.subtitle')}</p>
       </div>
@@ -151,7 +152,7 @@ export function SetupModal(props: {
   prefs: Prefs
   onPrefs: (p: Prefs) => void
   onClose: () => void
-  /** Пробный период: приглашение оставить отзыв – за него страна по выбору на одну жизнь. */
+  /** Пробный период: приглашение оставить отзыв - за него страна по выбору на одну жизнь. */
   onFeedback?: () => void
 }) {
   const { t, lang } = useUi()
@@ -232,7 +233,7 @@ export function CountryModal(props: { current?: string; onPick: (era: string | u
   )
 }
 
-/** Испытание после первой жизни: start – новое, retry – не вышло, ждёт в следующей жизни, ready – награда у барабана. */
+/** Испытание после первой жизни: start - новое, retry - не вышло, ждёт в следующей жизни, ready - награда у барабана. */
 export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: number }) {
   const { t } = useUi()
   return (
@@ -243,7 +244,7 @@ export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: n
   )
 }
 
-/** Дары за вход: календарь недели (сильные дни 1, 4, 7), сегодняшний дар и кнопка «Забрать»; после – что будет завтра. */
+/** Дары за вход: календарь недели (сильные дни 1, 4, 7), сегодняшний дар и кнопка «Забрать»; после - что будет завтра. */
 export function DailyCard(props: { day: number; claimable: boolean; broken?: boolean; onClaim: () => void; compact?: boolean }) {
   const { t } = useUi()
   const gift = GIFTS[props.day - 1]
@@ -251,7 +252,7 @@ export function DailyCard(props: { day: number; claimable: boolean; broken?: boo
   const taken = (n: number) => n < props.day || (!props.claimable && n === props.day)
   return (
     <section class={props.compact ? 'daily-card compact' : 'block daily-card'}>
-      {!props.compact && <h2 class="section-title">🎁 {t('daily.title')}</h2>}
+      {!props.compact && <h2 class="section-title"><Icon name="gift" /> {t('daily.title')}</h2>}
       {!props.compact && <p class="small">{t('daily.lead')}</p>}
       <ol class="daily-days">
         {GIFTS.map((g, i) => (
@@ -259,7 +260,7 @@ export function DailyCard(props: { day: number; claimable: boolean; broken?: boo
             class={[taken(i + 1) && 'taken', i + 1 === props.day && 'today', BIG_DAYS.includes(i + 1) && 'big'].filter(Boolean).join(' ')}
             aria-label={`${t('daily.day', { n: i + 1 })}: ${t(`gift.${g}`)}`}
           >
-            <span class="daily-icon" aria-hidden="true">{GIFT_ICON[g]}</span>
+            <span class="daily-icon"><Icon name={GIFT_ICON[g]} /></span>
             <span class="daily-n" aria-hidden="true">{i + 1}</span>
           </li>
         ))}
@@ -269,7 +270,7 @@ export function DailyCard(props: { day: number; claimable: boolean; broken?: boo
           {props.broken && <p class="small muted">{t('daily.broken')}</p>}
           <p>{t('daily.today', { gift: { key: `gift.${gift}` }, desc: { key: `gift.${gift}.desc` } })}</p>
           <button class="primary" onClick={props.onClaim}>
-            {GIFT_ICON[gift]} {t('daily.claim', { n: props.day })}
+            <Icon name={GIFT_ICON[gift]} /> {t('daily.claim', { n: props.day })}
           </button>
         </>
       ) : (
@@ -282,7 +283,7 @@ export function DailyCard(props: { day: number; claimable: boolean; broken?: boo
 }
 
 
-/** Панель «Дары» снизу: всё, что изменит следующую жизнь, – в одном месте (макет A). Разделы показываются, только
+/** Панель «Дары» снизу: всё, что изменит следующую жизнь, - в одном месте (макет A). Разделы показываются, только
  *  когда им есть что сказать: царская семья, выбор судьбы за испытание, дары за вход, страна по дару, остальные дары
  *  этой жизни и «На главный экран». */
 export function GiftsSheet(props: {
@@ -302,12 +303,12 @@ export function GiftsSheet(props: {
       <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="gifts-title">
         <div class="sheet-handle" aria-hidden="true" />
         <div class="sheet-head">
-          <h2 id="gifts-title">🎁 {t('gifts.sheet')}</h2>
+          <h2 id="gifts-title"><Icon name="gift" /> {t('gifts.sheet')}</h2>
           <button class="link sheet-x" aria-label={t('common.close')} onClick={props.onClose}>×</button>
         </div>
         {props.royal && (
           <section class="sheet-sec">
-            <h3>👑 {t('gift.royal')}</h3>
+            <h3><Icon name="crown" /> {t('gift.royal')}</h3>
             <p>{t(props.royal === 'install' ? 'royal.note' : 'royal.note.daily')}</p>
           </section>
         )}
@@ -315,15 +316,15 @@ export function GiftsSheet(props: {
         {props.daily && (
           <section class="sheet-sec">
             <h3>
-              🎁 {t('daily.title')}
-              {props.dailyDay !== undefined && <span class="sub">{t('gifts.daily.sub', { n: props.dailyDay })}</span>}
+              <Icon name="gift" /> {t('daily.title')}
+              {props.dailyDay !== undefined && <span class="sub"><IconText text={t('gifts.daily.sub', { n: props.dailyDay })} /></span>}
             </h3>
             {props.daily}
           </section>
         )}
         {props.country && (
           <section class="sheet-sec">
-            <h3>{GIFT_ICON.country} {t('gift.country')}</h3>
+            <h3><Icon name={GIFT_ICON.country} /> {t('gift.country')}</h3>
             <button class="sheet-pick" onClick={props.country.onPick}>
               <b>{props.country.value ? t(`era.${props.country.value}`) : t('gifts.country.none')}</b>
               <span>{t(props.country.value ? 'gifts.change' : 'gifts.choose')} ›</span>
@@ -336,10 +337,10 @@ export function GiftsSheet(props: {
             <ul class="sheet-gifts">
               {others.map((g) => (
                 <li>
-                  <span class="gift-icon" aria-hidden="true">{GIFT_ICON[g]}</span>
+                  <span class="gift-icon"><Icon name={GIFT_ICON[g]} /></span>
                   <span>
                     <b>{t(`gift.${g}`)}</b>
-                    <span class="muted small"> – {t(`gift.${g}.desc`)}</span>
+                    <span class="muted small"> - {t(`gift.${g}.desc`)}</span>
                   </span>
                 </li>
               ))}
@@ -348,7 +349,7 @@ export function GiftsSheet(props: {
         )}
         {props.install && (
           <section class="sheet-sec">
-            <h3>📱 {t('install.title')}</h3>
+            <h3><Icon name="phone" /> {t('install.title')}</h3>
             {props.install}
           </section>
         )}
@@ -358,15 +359,15 @@ export function GiftsSheet(props: {
   )
 }
 
-/** «На главный экран»: Android – системное окно, iPhone – подсказка, как добавить из Safari. */
+/** «На главный экран»: Android - системное окно, iPhone - подсказка, как добавить из Safari. */
 export function InstallCard(props: { kind: 'prompt' | 'ios'; reward?: boolean; onInstall: () => void; onLater: () => void; onDone: () => void; compact?: boolean }) {
   const { t } = useUi()
   return (
     <section class={props.compact ? 'install-card compact' : 'block install-card'}>
-      {!props.compact && <h2 class="section-title">📱 {t('install.title')}</h2>}
+      {!props.compact && <h2 class="section-title"><Icon name="phone" /> {t('install.title')}</h2>}
       <p>{t('install.text')}</p>
       {props.kind === 'ios' && <p class="small">{t('install.ios')}</p>}
-      {props.reward && <p class="install-reward">{t(props.kind === 'ios' ? 'install.reward.ios' : 'install.reward')}</p>}
+      {props.reward && <p class="install-reward"><IconText text={t(props.kind === 'ios' ? 'install.reward.ios' : 'install.reward')} /></p>}
       <div class="row">
         {props.kind === 'prompt' ? (
           <button class="primary" onClick={props.onInstall}>{t('install.go')}</button>
@@ -379,13 +380,13 @@ export function InstallCard(props: { kind: 'prompt' | 'ios'; reward?: boolean; o
   )
 }
 
-/** Награда за испытание – у барабана: знатная семья, страна по выбору или жребий. */
+/** Награда за испытание - у барабана: знатная семья, страна по выбору или жребий. */
 export function FatePicker(props: { pick: string | null; onPick: (kind: 'high' | 'country' | null) => void }) {
   const { t } = useUi()
   const country = props.pick && props.pick !== 'high' ? props.pick : null
   return (
     <div class="fate-picker" role="group" aria-labelledby="fate-title">
-      <p id="fate-title" class="fate-title">🏆 {t('fate.title')}</p>
+      <p id="fate-title" class="fate-title"><Icon name="trophy" /> {t('fate.title')}</p>
       <div class="fate-options">
         <button class={props.pick === 'high' ? 'option active' : 'option'} aria-pressed={props.pick === 'high'} onClick={() => props.onPick('high')}>
           <span class="option-label">{t('fate.high')}</span>
@@ -431,7 +432,7 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
         <dt>{t('reveal.faith')}</dt>
         <dd>
           <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
-          <span class="muted small"> – {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+          <span class="muted small"> - {t(`religion.${hero.religion}.desc`, {}, o)}</span>
         </dd>
         <dt>{t('reveal.family')}</dt>
         <dd>
@@ -451,7 +452,7 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
         )}
       </dl>
       <p class="intro">{t(`region.${hero.region}.intro`)}</p>
-      {props.note && <p class="challenge-note">🏆 {props.note}</p>}
+      {props.note && <p class="challenge-note"><Icon name="trophy" /> {props.note}</p>}
       <button class="primary" onClick={props.onStart}>{t('reveal.start')}</button>
     </div>
   )
@@ -471,7 +472,7 @@ export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: str
       <ul class="cards">
         {list.map((k) => {
           const age = yearsBetween(k.birthYear, props.state.year)
-          // У внука – чей он: «сын Таро (†1240)».
+          // У внука - чей он: «сын Таро (†1240)».
           const via = gen > 1 ? npcs.find((n) => n.id === k.parentId) : undefined
           return (
             <li class="card">
@@ -520,7 +521,7 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
                     {t('memorial.generation', { n: l.generation })} · {t(`region.${l.region}`)} · {t(`archetype.${l.report.pattern.code}`)}
                   </span>
                   <span>
-                    {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} – {formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}
+                    {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} - {formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}
                   </span>
                   {/* Род дошёл до конца хроники страны и ждёт следующей эпохи. */}
                   {l === lives[lives.length - 1] && l.diary.some((d) => d.key === 'diary.era_end') && <span class="small era-badge">{t('era_end.badge')}</span>}
@@ -534,7 +535,7 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
   )
 }
 
-/** Варианты длительности года в настройках: 0 – стандартная, остальное – секунды, до минуты. */
+/** Варианты длительности года в настройках: 0 - стандартная, остальное - секунды, до минуты. */
 const YEAR_SECS = [0, 20, 30, 45, 60]
 
 export function Settings(props: {
@@ -569,12 +570,7 @@ export function Settings(props: {
         onChange={(font) => props.onPrefs({ ...p, font })}
         options={(['s', 'm', 'l'] as const).map((f) => ({ id: f, label: t(`settings.font.${f}`) }))}
       />
-      <Choice
-        title={t('settings.theme')}
-        value={p.theme}
-        onChange={(theme) => props.onPrefs({ ...p, theme })}
-        options={(['auto', 'light', 'dark'] as const).map((f) => ({ id: f, label: t(`settings.theme.${f}`) }))}
-      />
+      {/* Тема (светлая/тёмная) убрана: оформление «синяя ночь» одно на всех (src/skin.css). */}
       <Choice
         title={t('settings.year')}
         value={String(p.yearSec ?? 0)}

@@ -1,0 +1,247 @@
+/* Оформление «Карта пути» (решение владельца 31.10–01.11): фон «синяя ночь», вырезанная бумага, рваные края,
+   палитра охра/терракота/горчица/олива; барабан - однорукий бандит «Синяя эмаль и латунь». Подключается после style.css,
+   включается классом html.skin (main.tsx). Превью и варианты - tools/mockups (skin-capture.cjs). */
+
+/* Превью «Карта пути» (вариант Б) поверх текущего дизайна: ночь, вырезанная бумага, охра/терракота/горчица/олива,
+   рваные края (clip-path), пунктир маршрута. Пиксельные сцены и раскладка экранов - как сейчас. Подключается классом html.skin. Фон - «синяя ночь» (выбор владельца 31.10). */
+html.skin:root {
+  --night: #130904;
+  --bg: #16213a;
+  --earth: #0f1729;
+  --ochre: #987654;
+  --terra: #df6c4f;
+  --mustard: #ecd06f;
+  --olive: #6e7044;
+  --sheet: #f3ead7;
+  --paper: var(--bg);
+  --paper-2: #111a2e;
+  --card: #1f2c4a;
+  --ink: #f3ead7;
+  --ink-2: #e2d3b3;
+  --muted: #bfa987;
+  --line: #33456b;
+  --accent: #ec7f5f;
+  --accent-ink: #130904;
+  --gold: #ecd06f;
+  --up: #a9b56a;
+  --down: #ef8a6c;
+  --rough-a: polygon(0.6% 6%, 99.4% 0, 98.6% 94%, 0 100%);
+  --rough-b: polygon(0 0, 99% 5%, 100% 100%, 1.2% 95%);
+  --rough-c: polygon(1% 3%, 100% 0, 99% 97%, 0 100%);
+  color-scheme: dark;
+}
+/* Фон: ночная бумага - косые волокна и зерно. */
+html.skin body {
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.8  0 0 0 0 0.6  0 0 0 0.07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    repeating-linear-gradient(-8deg, rgba(255, 240, 200, 0.025) 0 2px, transparent 2px 9px),
+    var(--bg);
+}
+
+/* ---------- Кнопки: бумажные полоски с неровным краем ---------- */
+html.skin .primary { border: 0; border-radius: 0; background: var(--sheet); color: var(--night); font-weight: 800; clip-path: var(--rough-a); }
+html.skin .primary:not(:disabled):hover { background: var(--mustard); }
+html.skin .secondary { border-radius: 0; border: 2px dashed rgba(243, 234, 215, 0.45); color: var(--sheet); font-weight: 600; }
+html.skin .link { color: var(--mustard); text-decoration-color: rgba(236, 208, 111, 0.5); }
+html.skin .eyebrow { color: var(--olive); color: #b9bc7a; letter-spacing: 0.12em; }
+
+/* ---------- Меню ---------- */
+/* Сцена сверху остаётся пиксельной, но обрезана рваным краем, как вырезанная из бумаги, с бумажной кромкой. */
+html.skin .menu-hero { overflow: visible; }
+html.skin .menu-hero::after { display: none; }
+html.skin .menu-hero .scene { clip-path: polygon(0 0, 100% 0, 100% 86%, 93% 90%, 84% 85%, 74% 91%, 63% 86%, 51% 92%, 40% 86%, 29% 91%, 18% 85%, 8% 90%, 0 86%); }
+html.skin .menu-hero::before { height: 100%; inset: 0; z-index: 0; background: var(--sheet);
+  clip-path: polygon(0 0, 100% 0, 100% 89%, 93% 93%, 84% 88%, 74% 94%, 63% 89%, 51% 95%, 40% 89%, 29% 94%, 18% 88%, 8% 93%, 0 89%); }
+html.skin .menu-hero .scene { z-index: 1; }
+html.skin .menu-topbar { z-index: 3; }
+html.skin .menu-topbar .badge, html.skin .menu-topbar .sound-button, html.skin .menu-topbar .lang-switch {
+  background: var(--sheet); color: var(--night); border: 0; border-radius: 0; backdrop-filter: none; clip-path: var(--rough-b); font-weight: 800; }
+html.skin .menu-topbar .lang-switch button { color: var(--night); border-radius: 0; font-weight: 700; }
+html.skin .menu-topbar .lang-switch button.active { background: var(--terra); color: var(--sheet); clip-path: var(--rough-a); }
+html.skin .menu .title-block { margin-top: 2px; }
+html.skin .menu .game-title { font-size: clamp(2rem, 10vw, 2.7rem); color: var(--sheet); letter-spacing: 0.02em; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55); }
+html.skin .menu .title-block .lead { color: var(--muted); font-weight: 600; }
+/* Подпись «Лотерея рождения» - флажок на маршруте: точка и пунктир до края. */
+html.skin .spin-head .caps { display: inline-flex; align-items: center; gap: 8px; color: var(--mustard); font-weight: 700; }
+html.skin .spin-head .caps::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--mustard); box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--sheet); }
+html.skin .spin-head { background: radial-gradient(circle, rgba(243, 234, 215, 0.5) 1.4px, transparent 2px) 0 50% / 10px 10px repeat-x; }
+html.skin .spin-head > * { background: var(--bg); padding-right: 8px; }
+html.skin .spin-head > *:last-child:not(:first-child) { padding: 0 0 0 8px; }
+
+/* ---------- Барабан: тот же автомат, но из бумаги и картона ---------- */
+html.skin .slot-machine {
+  --brass: var(--mustard);
+  --brass-2: #b8902e;
+  border-radius: 0;
+  padding: 14px 12px 16px;
+  background:
+    repeating-linear-gradient(-8deg, rgba(255, 240, 200, 0.07) 0 2px, transparent 2px 10px),
+    radial-gradient(ellipse at 50% 20%, #b08a48, #9a7a3e 45%, #6e5228 100%);
+  box-shadow: none;
+  clip-path: polygon(0 2%, 3% 0, 97% 1%, 100% 3%, 99.4% 97%, 97% 100%, 2% 99%, 0.4% 96%);
+}
+/* Бумажная кромка по краю автомата. */
+html.skin .slot-machine::before { content: ''; position: absolute; inset: 5px; pointer-events: none; border: 2.5px solid var(--sheet); opacity: 0.85;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+/* Холмы и кипарисы внизу корпуса - как на карте. */
+html.skin .slot-machine::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 26px; pointer-events: none;
+  background:
+    radial-gradient(60% 120% at 18% 120%, #6e7044 98%, transparent 100%),
+    radial-gradient(55% 110% at 80% 125%, #b45a3e 98%, transparent 100%); opacity: 0.9; }
+html.skin .slot-body { position: relative; z-index: 1; }
+html.skin .slot-lights { position: relative; z-index: 1; padding: 2px 12px 10px; }
+html.skin .slot-lights span { width: 9px; height: 9px; background: var(--earth); box-shadow: 0 0 0 2px var(--sheet); }
+html.skin .slot-machine.done .slot-lights span { background: var(--mustard); box-shadow: 0 0 0 2px var(--sheet), 0 0 10px rgba(236, 208, 111, 0.8); }
+@keyframes chase-map { 0%, 100% { background: var(--earth); } 40% { background: var(--mustard); } }
+@media (prefers-reduced-motion: no-preference) { html.skin .slot-machine.spin .slot-lights span { animation-name: chase-map; } }
+/* Подписи окон - бумажные ярлычки. */
+html.skin .reel-label { display: table; margin: 0 auto 7px; padding: 3px 7px 2px; max-width: 100%; box-sizing: border-box; background: var(--night); color: var(--sheet); font-weight: 700; font-size: 11px; letter-spacing: 0.06em; clip-path: var(--rough-b); }
+/* Окна - карточки с рваным краем, каждая чуть повёрнута; в средней строке - горчичная полоса выигрыша. */
+html.skin .reel-frame { filter: drop-shadow(0 3px 0 rgba(19, 9, 4, 0.45)); }
+html.skin .reel:nth-child(1) .reel-frame { transform: rotate(-1.4deg); }
+html.skin .reel:nth-child(2) .reel-frame { transform: rotate(0.9deg) translateY(2px); }
+html.skin .reel:nth-child(3) .reel-frame { transform: rotate(-0.7deg); }
+html.skin .reel-window { border-radius: 0; background: var(--sheet); box-shadow: none; clip-path: var(--rough-c); }
+html.skin .reel-window::after { border-top: 2px dashed rgba(19, 9, 4, 0.35); border-bottom: 2px dashed rgba(19, 9, 4, 0.35); }
+html.skin .reel.stopped .reel-window::after { border: 0; background: rgba(236, 208, 111, 0.55); box-shadow: none; mix-blend-mode: multiply; }
+html.skin .reel-item { color: var(--night); }
+html.skin .reel-top { font-weight: 800; }
+html.skin .reel-bottom { color: #6a5440; }
+html.skin .reel-item.win .reel-top { color: #b23f22; }
+html.skin .reel-tag { border-radius: 0; background: var(--terra); color: var(--sheet); clip-path: var(--rough-a); box-shadow: none; }
+/* Рычаг: тёмный стержень, терракотовый шар с бумажной обводкой, база-холмик. */
+html.skin .lever-rod { background: var(--night); width: 5px; box-shadow: 0 0 0 1.5px var(--sheet); }
+html.skin .lever-knob { background: var(--terra); box-shadow: 0 0 0 2.5px var(--sheet), 0 3px 0 rgba(19, 9, 4, 0.5); }
+html.skin .lever-base { border-radius: 14px 14px 2px 2px; background: var(--olive); box-shadow: 0 0 0 2px var(--sheet); }
+/* «Крути» - главная бумажная полоса со стрелкой. */
+html.skin .spin-button { position: relative; font-size: 1.1rem; transform: rotate(-0.6deg); }
+html.skin .spin-button::after { content: ' →'; font-weight: 800; }
+html.skin .spin-result .scene { clip-path: var(--rough-c); border-radius: 0; }
+html.skin .spin-result .lead { color: var(--ink-2); }
+
+/* Продолжить - карточка-листок. */
+html.skin .continue-card { border-radius: 0; border: 0; background: var(--sheet); color: var(--night); clip-path: var(--rough-c); }
+html.skin .continue-card .avatar { border-radius: 0; background: #e2d3b3; border: 0; }
+html.skin .continue-text span { color: #6a5440; }
+html.skin .continue-go { color: var(--terra); }
+/* Ссылки - подчёркнуты оливковым мазком, без точек. */
+html.skin .menu-nav { gap: 6px 16px; }
+html.skin .menu-nav .link { color: var(--sheet); font-weight: 600; text-decoration: none; padding: 4px 0 3px; background: linear-gradient(var(--olive), var(--olive)) 0 100% / 100% 3px no-repeat; }
+html.skin .menu-nav .link + .link::before { content: none; }
+html.skin .players-note { color: var(--muted); }
+
+/* ---------- Знакомство с героем ---------- */
+html.skin .reveal .scene, html.skin .reveal .art { clip-path: var(--rough-c); border-radius: 0; }
+html.skin .reveal h1, html.skin .reveal h2 { color: var(--sheet); text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5); }
+
+/* ---------- Экран жизни ---------- */
+html.skin .hero-bar { background: var(--earth); border-bottom: 0; position: relative; }
+html.skin .hero-bar::after { content: ''; position: absolute; left: 0; right: 0; bottom: -7px; height: 8px; background: var(--earth);
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 92% 90%, 81% 30%, 70% 100%, 58% 40%, 47% 90%, 35% 30%, 24% 100%, 12% 40%, 0 90%); }
+html.skin .avatar { border-radius: 0; border: 0; background: #e2d3b3; box-shadow: 0 0 0 3px var(--sheet); clip-path: none; }
+html.skin .hero-name { color: var(--sheet); }
+html.skin .bar-track { border-radius: 0; height: 9px; background: rgba(243, 234, 215, 0.14); border: 0; clip-path: var(--rough-b);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 9px, transparent 9px 12px); mask-image: repeating-linear-gradient(90deg, #000 0 9px, transparent 9px 12px); }
+html.skin .bar-fill { background: var(--terra); }
+html.skin .tabs { background: var(--bg); border-bottom: 0; }
+html.skin .tab.active { color: var(--mustard); border-bottom: 0; background: linear-gradient(var(--mustard), var(--mustard)) 50% 100% / 70% 3px no-repeat; }
+html.skin .chip { border-radius: 0; border: 0; background: rgba(243, 234, 215, 0.12); color: var(--sheet); clip-path: var(--rough-b); }
+html.skin .chip.active { background: var(--mustard); color: var(--night); }
+html.skin .sound-button { border-radius: 0; border: 0; background: rgba(243, 234, 215, 0.12); clip-path: var(--rough-a); }
+html.skin .panel > .scene, html.skin .panel > .art-frame { clip-path: var(--rough-c); border-radius: 0; }
+html.skin .feed li { border-bottom: 0; background: radial-gradient(circle, rgba(243, 234, 215, 0.28) 1px, transparent 1.5px) 0 100% / 8px 3px repeat-x; }
+html.skin .feed li.primer, html.skin .diary li.primer { border-radius: 0; border-left: 0; background: var(--earth); clip-path: var(--rough-c); box-shadow: inset 4px 0 0 var(--olive); }
+html.skin .section-title { color: var(--mustard); }
+html.skin .focus, html.skin .focus-chip, html.skin .person, html.skin .card { border-radius: 0; }
+
+/* ---------- Окно события: бумажный лист на ночной карте ---------- */
+html.skin .modal-backdrop { background: rgba(19, 9, 4, 0.6); }
+html.skin .modal { --ink: #130904; --ink-2: #3a2a1c; --muted: #6a5440; --line: #c9b48c; --accent: #b23f22; --paper-2: #e8dcc2;
+  background: var(--sheet); color: var(--night); border-radius: 0; clip-path: polygon(0 10px, 6% 0, 20% 8px, 37% 1px, 55% 9px, 71% 2px, 86% 8px, 100% 0, 100% 100%, 0 100%); padding-top: 6px; }
+html.skin .modal .art, html.skin .modal > .scene, html.skin .modal > .art-frame { border-radius: 0; margin: 10px 12px 0; width: calc(100% - 24px); clip-path: var(--rough-c); border: 0; }
+html.skin .modal h2, html.skin .modal h3 { color: var(--night); }
+html.skin .modal .event-text { color: var(--night); }
+/* Варианты - рамки в два пикселя с номером в чёрном ярлычке; первый как будто под пальцем. */
+html.skin .choices { counter-reset: opt; gap: 9px; }
+html.skin .choice { position: relative; padding-left: 46px; border-radius: 0; border: 2px solid var(--night); background: transparent; color: var(--night); }
+html.skin .choice::before { counter-increment: opt; content: counter(opt); position: absolute; left: 12px; top: 12px; width: 22px; height: 22px; display: grid; place-items: center;
+  background: var(--night); color: var(--sheet); font-weight: 800; font-size: 13px; clip-path: polygon(0 6%, 100% 0, 94% 100%, 4% 94%); }
+html.skin .choice:not(:disabled):hover { background: var(--mustard); border-color: var(--night); transform: rotate(-0.8deg); }
+html.skin .choice-desc { color: #6a5440; }
+html.skin .modal .primary { background: var(--night); color: var(--sheet); }
+html.skin .modal .note { background: #e8dcc2; border-radius: 0; clip-path: var(--rough-c); }
+html.skin .modal .link { color: #8a3a1e; text-decoration-color: rgba(138, 58, 30, 0.45); }
+
+/* Сброс барабана из skin-map.css: варианты рисуют его заново. */
+html.skin .slot-machine { clip-path: none; box-shadow: none; background: none; border-radius: 0; padding: 0; }
+html.skin .slot-machine::before, html.skin .slot-machine::after { content: none; }
+html.skin .reel-frame { filter: none; transform: none !important; }
+html.skin .reel-window { clip-path: none; }
+html.skin .reel-label { display: block; margin: 0 0 6px; padding: 0; background: none; clip-path: none; }
+
+/* Однорукий бандит в стиле сайта: арка с лампами, корпус, стекло с окнами и линией выигрыша, табличка с прорезью,
+   лоток для монет, рычаг сбоку. Плоские цвета, бумажная кромка (var(--sheet)) вместо бликов металла. Цвета - переменные:
+   вариант задаёт --cab, --cab-2, --trim, --marq, --marq-2, --glass, --bulb. */
+html.skin .slot-machine { position: relative; margin: 62px 34px 30px 0; padding: 12px 12px 40px; border-radius: 4px 4px 14px 14px;
+  background: linear-gradient(90deg, var(--cab-2) 0 9px, var(--cab) 9px calc(100% - 9px), var(--cab-2) calc(100% - 9px));
+  box-shadow: 0 0 0 3px var(--trim), 0 0 0 6px var(--bg), 0 0 0 8px var(--sheet), 0 10px 0 6px rgba(0, 0, 0, 0.35); }
+/* Арка-вывеска над корпусом. */
+html.skin .slot-machine::before { content: ''; position: absolute; left: -3px; right: -3px; top: -56px; height: 56px; border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: radial-gradient(ellipse at 50% 100%, var(--marq-2) 0 46%, var(--marq) 47%); box-shadow: inset 0 0 0 3px var(--trim), 0 -2px 0 2px var(--sheet); }
+/* Лоток для монет. */
+html.skin .slot-machine::after { content: ''; position: absolute; left: 16%; right: 16%; bottom: -22px; height: 24px; background: var(--cab-2);
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%); box-shadow: none; opacity: 1; border: 0; }
+/* Лампы по дуге арки и знак в её середине. */
+html.skin .slot-lights { position: absolute; inset: 0; padding: 0; display: block; z-index: 2; pointer-events: none; }
+html.skin .slot-lights span { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #5a4a2a; box-shadow: 0 0 0 1.5px var(--sheet); }
+/* Лампы горят ровно все (мягко), при прокрутке по ним бежит огонь, после результата - ярко. Одиннадцать по дуге на равном расстоянии. */
+html.skin .slot-lights span { background: color-mix(in srgb, var(--bulb) 70%, #5a4a2a); }
+html.skin .slot-machine.done .slot-lights span { background: var(--bulb); box-shadow: 0 0 0 2px var(--sheet), 0 0 9px var(--bulb); }
+@keyframes chase-map { 0%, 100% { background: #5a4a2a; } 40% { background: var(--bulb); box-shadow: 0 0 0 2px var(--sheet), 0 0 12px var(--bulb); } }
+html.skin .slot-lights::before { content: '✦  ✦  ✦'; white-space: pre; position: absolute; left: 0; right: 0; top: -30px; text-align: center; font-size: 16px; color: var(--sheet); letter-spacing: 2px; }
+/* Табличка с прорезью для монеты под стеклом. */
+html.skin .slot-lights::after { content: ''; position: absolute; left: 50%; bottom: 13px; width: 46px; height: 16px; margin-left: -23px; border-radius: 3px;
+  background: linear-gradient(var(--glass), var(--glass)) 50% 50% / 26px 4px no-repeat, var(--trim); box-shadow: 0 0 0 2px var(--sheet); }
+/* Стекло с окнами. */
+html.skin .slot-body { position: static; display: block; padding: 8px 8px 10px; border-radius: 8px; background: var(--glass); box-shadow: inset 0 0 0 3px var(--trim), 0 0 0 2px var(--sheet); }
+html.skin .reels { position: relative; gap: 6px; }
+html.skin .reel { position: relative; z-index: 1; }
+html.skin .reel-label { display: block; margin: 0 0 6px; padding: 0; background: none; clip-path: none; text-align: center; color: var(--sheet); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; }
+html.skin .reel-frame { transform: none !important; filter: none; }
+html.skin .reel-window { border-radius: 4px; clip-path: none; background: linear-gradient(180deg, #cfc2a4, var(--sheet) 30%, var(--sheet) 70%, #cfc2a4); box-shadow: inset 0 0 0 2px var(--bg); }
+html.skin .reel-window::after { border: 0; background: none; height: 60px; box-shadow: none; }
+html.skin .reel.stopped .reel-window::after { background: rgba(236, 208, 111, 0.4); mix-blend-mode: multiply; box-shadow: none; }
+html.skin .reel-item { color: var(--night); }
+html.skin .reel-item.win .reel-top { color: #9a3418; }
+/* Линия выигрыша: рамка выигрышной строки через все окна и стрелки по краям стекла. */
+html.skin .reels::before { content: ''; position: absolute; z-index: 2; left: -4px; right: -4px; top: calc(50% + 12px - 31px); height: 58px; border-top: 2px solid var(--payline); border-bottom: 2px solid var(--payline); pointer-events: none; }
+html.skin .reels::after { content: ''; position: absolute; z-index: 3; left: -13px; right: -13px; top: calc(50% + 12px - 8px); height: 16px; pointer-events: none; background: var(--payline);
+  clip-path: polygon(0 0, 10px 50%, 0 100%, 0 0, 100% 0, 100% 100%, calc(100% - 10px) 50%, 100% 0); }
+/* Рычаг снаружи справа: крепление на боку корпуса, стержень, шар. */
+html.skin .lever { position: absolute; right: -40px; top: 6px; width: 34px; height: 150px; }
+html.skin .lever-base { left: -2px; bottom: 22px; width: 18px; height: 36px; border-radius: 0 6px 6px 0; background: var(--trim); box-shadow: 0 0 0 2px var(--sheet); }
+html.skin .lever-rod { left: 14px; bottom: 38px; width: 6px; height: 92px; border-radius: 3px; background: var(--sheet); box-shadow: inset -2px 0 0 rgba(0, 0, 0, 0.18); }
+html.skin .lever-knob { left: 4px; top: 0; width: 26px; height: 26px; background: var(--ball); box-shadow: 0 0 0 2.5px var(--sheet), inset -4px -4px 0 rgba(0, 0, 0, 0.18); }
+@keyframes knob { 50% { transform: translateY(80px); } }
+html.skin .spin-button { margin-top: 6px; }
+html.skin .slot-lights span:nth-child(1) { left: calc(5.01% - 4.5px); top: -15.4px; }
+html.skin .slot-lights span:nth-child(2) { left: calc(12.82% - 4.5px); top: -31.7px; }
+html.skin .slot-lights span:nth-child(3) { left: calc(21.90% - 4.5px); top: -40.0px; }
+html.skin .slot-lights span:nth-child(4) { left: calc(31.19% - 4.5px); top: -45.0px; }
+html.skin .slot-lights span:nth-child(5) { left: calc(40.57% - 4.5px); top: -47.6px; }
+html.skin .slot-lights span:nth-child(6) { left: calc(50.00% - 4.5px); top: -48.5px; }
+html.skin .slot-lights span:nth-child(7) { left: calc(59.43% - 4.5px); top: -47.6px; }
+html.skin .slot-lights span:nth-child(8) { left: calc(68.81% - 4.5px); top: -45.0px; }
+html.skin .slot-lights span:nth-child(9) { left: calc(78.10% - 4.5px); top: -40.0px; }
+html.skin .slot-lights span:nth-child(10) { left: calc(87.18% - 4.5px); top: -31.7px; }
+html.skin .slot-lights span:nth-child(11) { left: calc(94.99% - 4.5px); top: -15.4px; }
+
+/* 2 · Синяя эмаль и латунь */
+html.skin .slot-machine { --cab: #2a3f6e; --cab-2: #1b2a4d; --trim: #d9b45a; --marq: #d9b45a; --marq-2: #2a3f6e; --glass: #0b1220; --bulb: #ffe08a; --payline: #df6c4f; --ball: #df6c4f; }
+
+/* Сон о будущем остаётся «ночным»: свой тёмный лист со звёздной палитрой, не бумажный. */
+html.skin .modal.dream-modal { --ink: #e8e6f4; --ink-2: #c9cbe8; --muted: #a3a6c4; --line: #3a3f6a; --accent: #ffd27a; --paper-2: #232745;
+  background: #171a2e; color: #e8e6f4; }
+html.skin .dream-modal h2, html.skin .dream-modal h3 { color: #f4f2ff; }
+html.skin .dream-modal .primary { background: var(--sheet); color: var(--night); }
+html.skin .dream-modal .link { color: #a9b0ff; text-decoration-color: rgba(169, 176, 255, 0.5); }

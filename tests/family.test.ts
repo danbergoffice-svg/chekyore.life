@@ -13,7 +13,7 @@ function npc(state: GameState, role: Npc['role'], sex: Sex, birthYear: number, a
   return n
 }
 
-/** Умерший герой 70 лет: двое детей умерли, у одного – трое живых внуков. */
+/** Умерший герой 70 лет: двое детей умерли, у одного - трое живых внуков. */
 function deadGrandfather(): GameState {
   const s = autoplay(newLife(era, { mode: 'quick', mortality: 'historical', softenHeavy: false }, 4242), era)
   s.hero.npcs = s.hero.npcs.filter((n) => n.role !== 'child' && n.role !== 'grandchild')
@@ -28,14 +28,14 @@ function deadGrandfather(): GameState {
 }
 
 describe('Наследники через внуков (п. 3)', () => {
-  it('нет живых детей → наследники – внуки, по старшинству', () => {
+  it('нет живых детей → наследники - внуки, по старшинству', () => {
     const s = deadGrandfather()
     const list = heirs(s)
     expect(list.map((n) => n.role)).toEqual(['grandchild', 'grandchild', 'grandchild'])
     expect(list[0].birthYear).toBeLessThan(list[2].birthYear)
   })
 
-  it('живой ребёнок важнее внуков; уехавший – не наследник', () => {
+  it('живой ребёнок важнее внуков; уехавший - не наследник', () => {
     const s = deadGrandfather()
     const kid = npc(s, 'child', 'f', s.year - 30, true)
     expect(heirs(s).map((n) => n.id)).toEqual([kid.id])
@@ -43,7 +43,7 @@ describe('Наследники через внуков (п. 3)', () => {
     expect(heirs(s).every((n) => n.role === 'grandchild')).toBe(true)
   })
 
-  it('внук-наследник: отец – умерший сын, братья и сёстры – другие внуки, наследство не больше состояния деда', () => {
+  it('внук-наследник: отец - умерший сын, братья и сёстры - другие внуки, наследство не больше состояния деда', () => {
     const s = deadGrandfather()
     const heir = heirs(s)[1]
     const next = continueWithHeir(s, era, heir.id)
@@ -78,7 +78,7 @@ describe('Наследники через внуков (п. 3)', () => {
 })
 
 describe('Уехавшие родственники (п. 4)', () => {
-  it('600 жизней: у уехавших нет новых детей и свадеб «дома», события про них – только вести и возвращения', async () => {
+  it('600 жизней: у уехавших нет новых детей и свадеб «дома», события про них - только вести и возвращения', async () => {
     const { loadAllEras } = await import('../src/content')
     const eras = await loadAllEras()
     let away = 0
@@ -163,7 +163,7 @@ describe('Семейное положение (п. 6)', () => {
     expect(bio[bio.length - 1]).toBe('bio.death')
   })
 
-  it('развод – не удаление: супруг в разводе, статус divorced', async () => {
+  it('развод - не удаление: супруг в разводе, статус divorced', async () => {
     const { maritalStatus, applyEffects } = await import('../src/engine/rules')
     const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 617)
     s.hero.npcs = s.hero.npcs.filter((n) => n.role !== 'spouse')
@@ -177,7 +177,7 @@ describe('Семейное положение (п. 6)', () => {
 })
 
 describe('Близкие на картинке (п. 7)', () => {
-  it('после свадьбы родители – по обычаю края; внешность фигурки героя – как на портрете', async () => {
+  it('после свадьбы родители - по обычаю края; внешность фигурки героя - как на портрете', async () => {
     const { familyCast, householdRule } = await import('../src/ui/cast')
     const { applyEffects } = await import('../src/engine/rules')
     const { figureLook } = await import('../src/pixel/avatar')
@@ -237,7 +237,7 @@ describe('Питомцы (п. 12)', () => {
         if (got.length || s.hero.animals.some((a) => isPet(a.kind))) withPet++
         for (const d of got) {
           const kind = (d.params!.animal as { key: string }).key.slice(4)
-          // Питомец мог появиться в другом краю той же страны после переезда – проверяем страну целиком.
+          // Питомец мог появиться в другом краю той же страны после переезда - проверяем страну целиком.
           const styles = new Set(ERA_META[e.id].regions.map((r) => r.scene?.style))
           expect(petDef(kind)!.styles.some((st) => styles.has(st)), `${e.id} ${kind}`).toBe(true)
         }
@@ -251,7 +251,7 @@ describe('Питомцы (п. 12)', () => {
     }
     expect(withPet / lives).toBeGreaterThan(0.35)
     expect(withPet / lives).toBeLessThan(0.75)
-    // Хомяков, кошек в Америке – нет.
+    // Хомяков, кошек в Америке - нет.
     const amr = await (async () => (await import('../src/engine/pets')).petPossible)()
     const s = newLife(eras.AMR, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 1)
     expect(amr(s, 'cat')).toBe(false)

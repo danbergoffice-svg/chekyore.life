@@ -1,4 +1,4 @@
-// ТЗ v3, п. 11: переезд в другую страну – только по реальным маршрутам, тоска раз в три года, натурализация.
+// ТЗ v3, п. 11: переезд в другую страну - только по реальным маршрутам, тоска раз в три года, натурализация.
 import { describe, expect, it } from 'vitest'
 import { loadAllEras } from '../src/content'
 import ROUTES from '../src/content/routes.json'
@@ -10,7 +10,7 @@ const eras = await loadAllEras()
 const open = new Set((ROUTES.routes as { from: string; to: string }[]).map((r) => `${r.from}>${r.to}`))
 
 describe('Переезд в другую страну (п. 11)', () => {
-  it('1200 жизней: только открытые маршруты, уезжает 2–10% взрослых, «вернуться?» – раз в три года (или через год, если «подумать»)', () => {
+  it('1200 жизней: только открытые маршруты, уезжает 2–10% взрослых, «вернуться?» - раз в три года (или через год, если «подумать»)', () => {
     let adults = 0
     let moved = 0
     let n = 0
@@ -26,7 +26,7 @@ describe('Переезд в другую страну (п. 11)', () => {
         for (let k = 1; k < asks.length; k++) {
           const gap = asks[k].year - asks[k - 1].year
           const later = (asks[k - 1].params?.choice as { key?: string } | undefined)?.key === 'ev.ab_homesick.later'
-          // Между вопросами герой мог вернуться домой или снова переехать – тогда отсчёт начинается заново.
+          // Между вопросами герой мог вернуться домой или снова переехать - тогда отсчёт начинается заново.
           const moved = s.hero.diary.some((d) => (d.key.startsWith('diary.returned_home') || d.key.startsWith('diary.emigrated_')) && d.year >= asks[k - 1].year && d.year <= asks[k].year)
           if (!moved) expect(gap).toBe(later ? 1 : 3)
         }
@@ -40,7 +40,7 @@ describe('Переезд в другую страну (п. 11)', () => {
     expect(moved / adults).toBeLessThan(0.1)
   }, 600000)
 
-  it('в Америку и из неё – никогда; майя и Древний мир – только внутри своей страны', () => {
+  it('в Америку и из неё - никогда; майя и Древний мир - только внутри своей страны', () => {
     for (const id of ['AMR', 'MAY', 'E03', 'ANE', 'CHN', 'JPN']) {
       const s = newLife(eras[id], { mode: 'quick', mortality: 'soft', softenHeavy: false }, 3)
       s.hero.age = 30
