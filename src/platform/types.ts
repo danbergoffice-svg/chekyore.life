@@ -123,4 +123,13 @@ export interface Platform {
   installed(): boolean
   /** Показать системное окно установки; true - игрок согласился. */
   install(): Promise<boolean>
+  /** Языки сборки (переключатель языка показывает только их); нет поля - все языки игры. */
+  languages?: Lang[]
+  /** События, которых в этой сборке нет (портал с возрастным рейтингом: CrazyGames - PEGI 12). */
+  blockedEvents?: string[]
+  /** Игрок портала (имя и аватар) или null - гость; без метода - у платформы нет аккаунтов. Подписка - вход посреди игры. */
+  account?(): Promise<{ name: string; avatar?: string } | null>
+  onAccount?(cb: (user: { name: string; avatar?: string } | null) => void): void
+  /** У игрока блокировщик рекламы: реклама за награду недоступна (кнопку не показываем, только пояснение). */
+  adsBlocked?(): boolean
 }

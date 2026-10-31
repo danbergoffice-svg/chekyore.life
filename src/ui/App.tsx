@@ -64,7 +64,11 @@ function reloadOnceForUpdate(): boolean {
 if (typeof window !== 'undefined') window.addEventListener('vite:preloadError', () => reloadOnceForUpdate())
 
 export function App() {
-  const [prefs, setPrefsState] = useState<Prefs>(() => loadPrefs(defaultPrefs))
+  const [prefs, setPrefsState] = useState<Prefs>(() => {
+    const p = loadPrefs(defaultPrefs)
+    // Сборка только с частью языков (CrazyGames - английский): сохранённый язык вне сборки не берём.
+    return platform.languages && !platform.languages.includes(p.lang) ? { ...p, lang: platform.languages[0] } : p
+  })
   const [screen, setScreen] = useState<Screen>('loading')
   const [memorial, setMemorial] = useState<LifeSummary[]>([])
   const [earned, setEarned] = useState<Earned[]>([])
@@ -122,6 +126,8 @@ export function App() {
   useEffect(() => {
     initPlatform().then(() => setArtStrength(platform.flags.art_strength ?? 0.5)).then(loadSave).then(async (save) => {
       game.current = save.game && ERA_META[save.game.hero.era] ? save.game : null
+      // Сборка для портала без части событий (PEGI 12): и в сохранённой жизни их больше нет.
+      if (game.current && platform.blockedEvents) game.current.settings.blockedEvents = platform.blockedEvents
       const lives = save.memorial.filter((l) => ERA_META[l.era])
       setMemorial(lives)
       // Награды: сохранённые плюс те, что положены задним числом по уже прожитым жизням.
@@ -473,7 +479,8 @@ export function App() {
     rollPending(prefs.lottery, chosenCountry(), pending.respin + 1, fatePick)
   }
   // На CrazyGames после бесплатных перекруток (всего три вращения) - ещё одно за рекламу; на сайте рекламы нет.
-  const adRespin = !!platform.flags.respin_ad && platform.name === 'crazygames' && respinLimit >= 0
+  const adsBlocked = !!platform.adsBlocked?.()
+  const adRespin = !!platform.flags.respin_ad && platform.name === 'crazygames' && respinLimit >= 0 && !adsBlocked
   const [adBusy, setAdBusy] = useState(false)
   const [adFail, setAdFail] = useState(false)
   const onAdRespin = async () => {
@@ -531,6 +538,7 @@ export function App() {
       softenHeavy: prefs.softenHeavy,
       protectedUntil,
       livesBefore: memorial.length,
+      blockedEvents: platform.blockedEvents,
       dreamChance: platform.flags.dream_chance,
       dreamFirstBy: platform.flags.dream_first_by,
       dreamLevel: ladder.level,
@@ -875,6 +883,7 @@ export function App() {
       left={respinsLeft}
       onAdRespin={adRespin ? onAdRespin : undefined}
       adBusy={adBusy}
+      adsBlocked={adsBlocked}
       autoSpin={!!pending.auto}
       onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
       focus={drumFocus}

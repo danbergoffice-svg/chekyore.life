@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Обложки CrazyGames</title>
+    <style>
+      @font-face { font-family: 'Thousands Letopis'; src: url('../src/fonts/ThousandsLetopis-VF.woff2') format('woff2'); font-weight: 300 700; font-display: block; }
+      body { margin: 0; background: #000; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <!-- Обложки CrazyGames в стиле игры (синяя ночь, однорукий бандит): /tools/covers.html?w=1920&h=1080 (800×1200, 800×800).
+         Снимает node tools/qa/covers.cjs → out/crazygames/cover-*.png. Из текста - только название. -->
+    <canvas id="c"></canvas>
+    <script type="module">
+      import { drawScene, W, H } from '../src/pixel/scene.ts'
+      const q = new URLSearchParams(location.search)
+      const CW = Number(q.get('w') || 1920)
+      const CH = Number(q.get('h') || 1080)
+      const c = document.getElementById('c')
+      c.width = CW
+      c.height = CH
+      const ctx = c.getContext('2d')
+      await document.fonts.load("600 120px 'Thousands Letopis'").catch(() => {})
+      const C = { night: '#16213a', deep: '#0f1729', sheet: '#f3ead7', cab: '#2a3f6e', cab2: '#1b2a4d', trim: '#d9b45a', glass: '#0b1220', bulb: '#ffe08a', terra: '#df6c4f', mustard: '#ecd06f' }
+
+      // Фон: ночная бумага с косыми волокнами.
+      ctx.fillStyle = C.night
+      ctx.fillRect(0, 0, CW, CH)
+      ctx.save()
+      ctx.globalAlpha = 0.05
+      ctx.strokeStyle = '#fff0c8'
+      ctx.lineWidth = 2
+      for (let x = -CH; x < CW + CH; x += 9) {
+        ctx.beginPath()
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x + CH * 0.14, CH)
+        ctx.stroke()
+      }
+      ctx.restore()
+      const vign = ctx.createRadialGradient(CW / 2, CH * 0.55, Math.min(CW, CH) * 0.2, CW / 2, CH * 0.55, Math.max(CW, CH) * 0.75)
+      vign.addColorStop(0, 'rgba(60,90,160,0.25)')
+      vign.addColorStop(1, 'rgba(5,8,18,0.6)')
+      ctx.fillStyle = vign
+      ctx.fillRect(0, 0, CW, CH)
+      // Звёзды-крестики.
+      const rnd = ((s) => () => ((s = (s * 16807) % 2147483647) / 2147483647))(7)
+      ctx.strokeStyle = 'rgba(243,234,215,0.55)'
+      ctx.lineWidth = Math.max(2, CW / 640)
+      for (let i = 0; i < 26; i++) {
+        const x = rnd() * CW
+        const y = rnd() * CH
+        const r = 3 + rnd() * 5
+        ctx.beginPath()
+        ctx.moveTo(x - r, y); ctx.lineTo(x + r, y); ctx.moveTo(x, y - r); ctx.lineTo(x, y + r)
+        ctx.stroke()
+      }
+
+      // Раскладка: портрет - название сверху, автомат ниже; пейзаж и квадрат - автомат слева или по центру, название снизу/справа.
+      const portrait = CH > CW * 1.2
+      const landscape = CW > CH * 1.4
+      const scale = Math.min(CW, CH) / 800
+      const mw = landscape ? CW * 0.46 : portrait ? CW * 0.8 : CW * 0.68 // ширина корпуса
+      const mx = landscape ? CW * 0.06 : (CW - mw) / 2 - mw * 0.03
+      const archH = mw * 0.2
+      const bodyH = mw * (landscape ? 0.62 : 0.6)
+      const my = landscape ? (CH - archH - bodyH) / 2 + archH * 0.6 : portrait ? CH * 0.44 : CH * 0.2
+      const S = (n) => n * scale
+
+      // Тень и корпус.
+      ctx.fillStyle = 'rgba(0,0,0,0.35)'
+      ctx.fillRect(mx + S(10), my + S(14), mw, bodyH)
+      ctx.fillStyle = C.sheet
+      roundRect(mx - S(8), my - S(8), mw + S(16), bodyH + S(16), S(24))
+      ctx.fillStyle = C.trim
+      roundRect(mx - S(4), my - S(4), mw + S(8), bodyH + S(8), S(20))
+      ctx.fillStyle = C.cab
+      roundRect(mx + S(2), my + S(2), mw - S(4), bodyH - S(4), S(16))
+      // Арка-вывеска.
+      ctx.save()
+      ctx.beginPath()
+      ctx.ellipse(mx + mw / 2, my + S(2), mw / 2 + S(8), archH + S(8), 0, Math.PI, 0)
+      ctx.fillStyle = C.sheet
+      ctx.fill()
+      ctx.beginPath()
+      ctx.ellipse(mx + mw / 2, my + S(2), mw / 2 + S(3), archH + S(3), 0, Math.PI, 0)
+      ctx.fillStyle = C.trim
+      ctx.fill()
+      ctx.beginPath()
+      ctx.ellipse(mx + mw / 2, my + S(2), mw * 0.33, archH * 0.55, 0, Math.PI, 0)
+      ctx.fillStyle = C.cab
+      ctx.fill()
+      ctx.restore()
+      // Лампы по дуге - на равном шаге.
+      for (let i = 0; i < 13; i++) {
+        const a = Math.PI * (0.06 + (0.88 * i) / 12)
+        const x = mx + mw / 2 - Math.cos(a) * (mw / 2 - S(10))
+        const y = my - Math.sin(a) * (archH - S(12))
+        const g = ctx.createRadialGradient(x, y, 0, x, y, S(16))
+        g.addColorStop(0, 'rgba(255,224,138,0.9)')
+        g.addColorStop(1, 'rgba(255,224,138,0)')
+        ctx.fillStyle = g
+        ctx.fillRect(x - S(16), y - S(16), S(32), S(32))
+        ctx.beginPath()
+        ctx.arc(x, y, S(7), 0, Math.PI * 2)
+        ctx.fillStyle = C.sheet
+        ctx.fill()
+        ctx.beginPath()
+        ctx.arc(x, y, S(5), 0, Math.PI * 2)
+        ctx.fillStyle = C.bulb
+        ctx.fill()
+      }
+      // Звёздочки в арке.
+      ctx.fillStyle = C.sheet
+      ctx.font = `${S(22)}px serif`
+      ctx.textAlign = 'center'
+      ctx.fillText('✦   ✦   ✦', mx + mw / 2, my - archH * 0.18)
+
+      // Стекло с тремя окнами - в каждом сцена своей эпохи.
+      const gx = mx + mw * 0.07
+      const gy = my + bodyH * 0.1
+      const gw = mw * 0.86
+      const gh = bodyH * 0.62
+      ctx.fillStyle = C.trim
+      roundRect(gx - S(6), gy - S(6), gw + S(12), gh + S(12), S(12))
+      ctx.fillStyle = C.glass
+      roundRect(gx, gy, gw, gh, S(8))
+      const scenes = [
+        { region: 'kyoto', scene: { place: 'landmark', time: 'dawn', people: 2, props: ['sun'] } },
+        { region: 'rome', scene: { place: 'landmark', time: 'sunset', people: 2, props: ['sun'] } },
+        { region: 'tenochtitlan', scene: { place: 'landmark', time: 'day', people: 2, props: ['sun'] } },
+      ]
+      const off = document.createElement('canvas')
+      off.width = W
+      off.height = H
+      const pad = S(10)
+      const ww = (gw - pad * 4) / 3
+      const wh = gh - pad * 2
+      ctx.imageSmoothingEnabled = false
+      scenes.forEach((s, i) => {
+        const o = off.getContext('2d')
+        o.clearRect(0, 0, W, H)
+        drawScene(o, { ...s, seed: `cover:${i}` })
+        // Вырезаем середину сцены по пропорциям окна.
+        const sw = Math.min(W, (H * ww) / wh)
+        const sx = (W - sw) / 2
+        const wx = gx + pad + i * (ww + pad)
+        const wy = gy + pad
+        ctx.save()
+        roundRectPath(wx, wy, ww, wh, S(6))
+        ctx.clip()
+        ctx.drawImage(off, sx, 0, sw, H, wx, wy, ww, wh)
+        // Края окна темнее - как у барабана.
+        const sh = ctx.createLinearGradient(0, wy, 0, wy + wh)
+        sh.addColorStop(0, 'rgba(0,0,0,0.45)')
+        sh.addColorStop(0.18, 'rgba(0,0,0,0)')
+        sh.addColorStop(0.82, 'rgba(0,0,0,0)')
+        sh.addColorStop(1, 'rgba(0,0,0,0.45)')
+        ctx.fillStyle = sh
+        ctx.fillRect(wx, wy, ww, wh)
+        ctx.restore()
+      })
+      // Линия выигрыша и стрелки.
+      ctx.strokeStyle = C.terra
+      ctx.lineWidth = S(3)
+      ctx.beginPath()
+      ctx.moveTo(gx, gy + gh / 2); ctx.lineTo(gx + gw, gy + gh / 2)
+      ctx.stroke()
+      ctx.fillStyle = C.terra
+      tri(gx - S(4), gy + gh / 2, S(14), 1)
+      tri(gx + gw + S(4), gy + gh / 2, S(14), -1)
+      // Прорезь для монеты.
+      const sy = gy + gh + bodyH * 0.1
+      ctx.fillStyle = C.sheet
+      roundRect(mx + mw / 2 - S(44), sy - S(2), S(88), S(34), S(6))
+      ctx.fillStyle = C.trim
+      roundRect(mx + mw / 2 - S(40), sy + S(2), S(80), S(26), S(4))
+      ctx.fillStyle = C.glass
+      ctx.fillRect(mx + mw / 2 - S(24), sy + S(12), S(48), S(6))
+      // Лоток.
+      ctx.fillStyle = C.cab2
+      ctx.beginPath()
+      ctx.moveTo(mx + mw * 0.18, my + bodyH)
+      ctx.lineTo(mx + mw * 0.82, my + bodyH)
+      ctx.lineTo(mx + mw * 0.78, my + bodyH + S(34))
+      ctx.lineTo(mx + mw * 0.22, my + bodyH + S(34))
+      ctx.fill()
+      // Рычаг сбоку.
+      const lx = mx + mw + S(30)
+      ctx.fillStyle = C.trim
+      roundRect(mx + mw + S(4), my + bodyH * 0.45, S(26), S(70), S(8))
+      ctx.fillStyle = C.sheet
+      roundRect(lx - S(6), my - S(10), S(12), bodyH * 0.55 + S(20), S(6))
+      ctx.beginPath()
+      ctx.arc(lx, my - S(18), S(24), 0, Math.PI * 2)
+      ctx.fillStyle = C.sheet
+      ctx.fill()
+      ctx.beginPath()
+      ctx.arc(lx, my - S(18), S(20), 0, Math.PI * 2)
+      ctx.fillStyle = C.terra
+      ctx.fill()
+      ctx.beginPath()
+      ctx.arc(lx - S(6), my - S(25), S(6), 0, Math.PI * 2)
+      ctx.fillStyle = 'rgba(255,255,255,0.35)'
+      ctx.fill()
+
+      // Название - единственный текст.
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      const lines = ['Thousands', 'of Lives']
+      // Пейзаж - справа от автомата, портрет - сверху, квадрат - снизу; размер шрифта - по свободному месту.
+      const left = landscape ? mx + mw + S(130) : CW * 0.06
+      const right = CW - (landscape ? CW * 0.04 : CW * 0.06)
+      const maxH = landscape ? CH * 0.5 : portrait ? CH * 0.3 : CH * 0.24
+      let fs = maxH / 2.1
+      ctx.font = `600 ${fs}px 'Thousands Letopis', serif`
+      const widest = () => Math.max(...lines.map((t) => ctx.measureText(t).width))
+      while (widest() > right - left && fs > 10) {
+        fs *= 0.96
+        ctx.font = `600 ${fs}px 'Thousands Letopis', serif`
+      }
+      const tx = (left + right) / 2
+      const ty = landscape ? CH / 2 - fs * 0.52 : portrait ? CH * 0.06 + fs * 0.6 : my + bodyH + S(54) + fs * 0.6
+      lines.forEach((t, i) => {
+        const y = ty + i * fs * 1.05
+        ctx.fillStyle = 'rgba(0,0,0,0.5)'
+        ctx.fillText(t, tx + fs * 0.03, y + fs * 0.05)
+        ctx.fillStyle = C.sheet
+        ctx.fillText(t, tx, y)
+      })
+
+      document.body.dataset.ready = '1'
+
+      function roundRectPath(x, y, w, h, r) {
+        ctx.beginPath()
+        ctx.moveTo(x + r, y)
+        ctx.arcTo(x + w, y, x + w, y + h, r)
+        ctx.arcTo(x + w, y + h, x, y + h, r)
+        ctx.arcTo(x, y + h, x, y, r)
+        ctx.arcTo(x, y, x + w, y, r)
+        ctx.closePath()
+      }
+      function roundRect(x, y, w, h, r) {
+        roundRectPath(x, y, w, h, r)
+        ctx.fill()
+      }
+      function tri(x, y, s, dir) {
+        ctx.beginPath()
+        ctx.moveTo(x, y - s / 2)
+        ctx.lineTo(x + dir * s * 0.8, y)
+        ctx.lineTo(x, y + s / 2)
+        ctx.fill()
+      }
+    </script>
+  </body>
+</html>

@@ -761,6 +761,8 @@ export interface GameSettings {
   eventsSeen?: string[]
   /** Сколько детей родится в этой жизни (примерно): в первых жизнях у каждой своё число (pickKidsTarget). */
   kidsTarget?: number
+  /** Событий нет в этой сборке (портал с возрастным рейтингом, Platform.blockedEvents): не выпадают и как последствия. */
+  blockedEvents?: string[]
   /** Защищённая жизнь (первые protected_lives): до этого возраста герой не умирает (смертельный исход → «выжил чудом»). Игроку не показывается. */
   protectedUntil?: number
 }

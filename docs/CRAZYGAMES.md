@@ -28,9 +28,13 @@ npm run build:crazygames      # → dist-crazygames/ и crazygames.zip
 | «Поделиться»: системное меню, X, Threads, ссылка на thousands.life | Картинка карточки и «Скопировать текст» со ссылкой-приглашением на страницу игры на CrazyGames |
 | Форма отзывов | Скрыта (отзывы — в комментариях на странице игры) |
 | Рекламы нет | Полноэкранная реклама SDK (`midgame`) после экранов-глав в 16, 30, 45, 60 лет; частоту ограничивает CrazyGames |
-| Барабан: 3 вращения на жизнь (рывок + 2 перекрутки), потом «Судьба решена» | 3 вращения бесплатно, дальше кнопка «▶ Spin again — watch an ad»: реклама за награду (`rewarded`), досмотрел — ещё вращение, и так каждый раз; не досмотрел или рекламы нет — результат остаётся, всплывает «No ad available right now» |
+| Барабан: 3 вращения на жизнь (рывок + 2 перекрутки), потом «Судьба решена» | 3 вращения бесплатно, дальше кнопка «Spin again - watch an ad (со значком видео)»: реклама за награду (`rewarded`), досмотрел — ещё вращение, и так каждый раз; не досмотрел или рекламы нет — результат остаётся, всплывает «No ad available right now» |
 | Сохранения в IndexedDB | IndexedDB + копия в модуле `data` SDK: у вошедших в аккаунт — на всех устройствах |
-| Язык по браузеру (русский у русскоязычных) | Всегда английский при первом запуске; русский — переключателем EN/RU или в настройках |
+| Язык по браузеру (русский у русскоязычных) | Только английский (решение владельца 01.11: переводы не вычитаны носителем); переключателя языка нет |
+| Все события | Без событий про маковый отвар и брак детей (PEGI 12): `PEGI12_BLOCKED` в `crazygames.ts` → `Platform.blockedEvents` → `settings.blockedEvents`; тест в `tests/unique.test.ts` |
+| — | Имя и аватар игрока CrazyGames в меню (User module), у гостя «Guest»; вход посреди игры — `addAuthListener` |
+| — | Блокировщик рекламы (`ad.hasAdblock`): кнопки «за рекламу» нет, вместо неё строка-пояснение |
+| — | На телефоне текст не выделяется долгим касанием (`html.portal`) |
 | Музыка | Та же; дополнительно молчит, если в CrazyGames включено «без звука» (`settings.muteAudio`), и во время рекламы |
 
 ## Какие сигналы получает CrazyGames
@@ -62,3 +66,14 @@ CrazyGames считает сам по этим сигналам и показы�
   `npx vite preview --outDir dist-crazygames --port 4174`).
 - Локально SDK можно проверить так: `npx vite preview --outDir dist-crazygames` и открыть
   `http://localhost:4173/?useLocalSdk=true` (вне CrazyGames и localhost SDK отключается, игра работает без него).
+
+## Чек-лист CrazyGames (01.11)
+
+Заполненный чек-лист — `out/crazygames/crazygames_checklist_filled.json` (75 pass, 25 n/a, 6 todo — ручные проверки:
+Safari/iOS, ChromeOS, приложение CrazyGames, поиск похожих названий, прослушивание звука; systemInfo вместо UA — рекомендация).
+Проверки: `node tools/qa/cg-check.cjs` (загрузка до gameplayStart, экраны на 10 размерах при DPR 1),
+`node tools/qa/cg-account.cjs` (имя/гость/вход посреди игры, блокировщик рекламы, один язык), `node tools/qa/cg-respin.cjs`.
+
+Обложки и превью-видео: `tools/covers.html` → `node tools/qa/covers.cjs` (нужен `npx vite --port 5174`) →
+`out/crazygames/cover-*.png`; видео — `node tools/qa/cg-video.cjs` (нужен preview на 4174 и ffmpeg) →
+`out/crazygames/preview-landscape-1920x1080.mp4`, `preview-portrait-1080x1620.mp4` (18,5 с, без звука, первая секунда — обложка).

@@ -7,7 +7,7 @@ import { playLever, playReels } from '../audio'
 import type { ReelTiming } from '../sfx'
 import { Scene } from '../pixel/Scene'
 import { useUi } from './text'
-import { Icon } from './Icon'
+import { Icon, IconText } from './Icon'
 import type { IconName } from './icons'
 
 /** Лотерея рождения: три барабана - где и когда, положение, пол. Игрок дёргает рычаг, барабаны останавливаются по очереди. */
@@ -153,6 +153,8 @@ export function SlotMachine(props: {
   adBusy?: boolean
   /** Справа над барабаном - кнопка «Дары» со значком подарка (если они есть). */
   gifts?: ComponentChildren
+  /** У игрока блокировщик рекламы: вместо кнопки «за рекламу» - пояснение (не всплывающее окно). */
+  adsBlocked?: boolean
   /** Ярлыки наград на окнах барабана: страна и положение. */
   tags?: { where?: ReelTag; status?: ReelTag }
 }) {
@@ -297,10 +299,10 @@ export function SlotMachine(props: {
           )}
           {!canRespin && props.onAdRespin && (
             <button class="secondary ad-respin" onClick={props.onAdRespin} disabled={props.adBusy}>
-              {props.adBusy ? t('spin.ad.loading') : t('spin.again.ad')}
+              {props.adBusy ? t('spin.ad.loading') : <IconText text={t('spin.again.ad')} />}
             </button>
           )}
-          {props.onRespin && !canRespin && !props.onAdRespin && <p class="muted small center">{t('spin.fate')}</p>}
+          {props.onRespin && !canRespin && !props.onAdRespin && <p class="muted small center">{t(props.adsBlocked ? 'spin.ad.blocked' : 'spin.fate')}</p>}
         </div>
       )}
       {phase !== 'idle' && !props.ready && (props.error || slow) && (

@@ -37,3 +37,27 @@ describe('Уникальные первые жизни', () => {
     expect(pickKidsTarget([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], r)).toBeGreaterThanOrEqual(0)
   })
 })
+
+describe('Сборка CrazyGames (PEGI 12)', () => {
+  it('события про маковый отвар и брак детей не выпадают ни в одной стране, и их ключи существуют', async () => {
+    const { PEGI12_BLOCKED } = await import('../src/platform/crazygames')
+    const { ERA_IDS } = await import('../src/content')
+    const all = new Set<string>()
+    let total = 0
+    for (const id of ERA_IDS) {
+      const e = await loadEra(id)
+      for (const ev of e.events) all.add(ev.id)
+      for (let i = 0; i < 12; i++) {
+        const settings: GameSettings = { mode: 'quick', mortality: 'soft', softenHeavy: false, blockedEvents: PEGI12_BLOCKED }
+        const s = autoplay(newLife(e, settings, 900 + i), e)
+        for (const d of s.family.lives[s.family.lives.length - 1].diary) {
+          if (!d.eventId) continue
+          total++
+          expect(PEGI12_BLOCKED).not.toContain(d.eventId)
+        }
+      }
+    }
+    expect(total).toBeGreaterThan(1000)
+    for (const id of PEGI12_BLOCKED) expect(all.has(id), id).toBe(true)
+  })
+})

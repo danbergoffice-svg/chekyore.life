@@ -26,6 +26,12 @@ interface CrazySdk {
   }
   ad: {
     requestAd(type: 'midgame' | 'rewarded', callbacks: { adStarted(): void; adFinished(): void; adError(error: unknown): void }): void
+    hasAdblock?(): Promise<boolean>
+  }
+  user?: {
+    isUserAccountAvailable?: boolean
+    getUser(): Promise<CrazyUser | null>
+    addAuthListener?(cb: (user: CrazyUser | null) => void): void
   }
   data: {
     getItem(key: string): string | null
@@ -33,6 +39,26 @@ interface CrazySdk {
     removeItem(key: string): void
   }
 }
+
+interface CrazyUser {
+  username: string
+  profilePictureUrl?: string
+}
+
+/**
+ * PEGI 12 (требование CrazyGames): в этой сборке нет событий про маковый отвар (опиум) и про обручение и брак детей.
+ * На сайте они остаются. Список сверять при новых событиях на эти темы.
+ */
+export const PEGI12_BLOCKED = [
+  // маковый отвар
+  'v_poppy_pain', 'v_poppy_more', 'v_poppy_dreams', 'v_poppy_cost', 'v_poppy_overdose', 'v_poppy_quit', 'v_poppy_relapse',
+  'v_rel_mother_poppy', 'v_rel_mother_poppy_end', 'ind_d_afim', 'v_wine_fall', 'v_glut_gout',
+  // обручение и брак детей
+  'mar_betrothal', 'mar_betrothal_m', 'mar_wedding_f', 'mar_wedding_m', 'mar_m_matchmakers', 'mar_m_new_home', 'mar_m_child_bride',
+  'mar_m_boy_husband', 'fc_betrothal', 'fc_betrothal_due', 'fc_betrothal_grudge', 'ind_d_betrothal', 'ind_t_betrothal_wedding', 'byz_d_betrothal',
+]
+
+const toAccount = (u: CrazyUser | null) => (u ? { name: u.username, avatar: u.profilePictureUrl } : null)
 
 declare global {
   interface Window {
@@ -53,6 +79,9 @@ let player = ''
 let playing = false
 let loading = false
 let pauseHandlers: ((paused: boolean) => void)[] = []
+let adblock = false
+let accountListener: ((user: { name: string; avatar?: string } | null) => void) | null = null
+let accountHooked = false
 
 /**
  * Вызов SDK, который не роняет игру: вне CrazyGames или при ошибке SDK просто ничего не происходит.
@@ -145,7 +174,14 @@ export const crazyPlatform: Platform = {
       }
     }
     sdkReady()
+    // Мобильный портал: без лупы и меню выделения текста при долгом касании (style.css, html.portal).
+    document.documentElement.classList.add('portal')
     if (sdk) {
+      try {
+        adblock = !!(await sdk.ad.hasAdblock?.())
+      } catch {
+        adblock = false
+      }
       loading = true
       call((s) => s.game.loadingStart(), 'loadingStart')
     }
@@ -281,10 +317,30 @@ export const crazyPlatform: Platform = {
 
   flags,
 
-  // На CrazyGames игра всегда начинается на английском; русский игрок выбирает сам (RU в меню или настройках).
+  // На CrazyGames игра только на английском (переводы на другие языки носитель не вычитывал).
   lang(): Lang {
     return 'en'
   },
+  languages: ['en'],
+  blockedEvents: PEGI12_BLOCKED,
+
+  // Имя и аватар игрока CrazyGames (Full Launch); null - гость. Вход посреди игры ловит Auth Listener.
+  async account() {
+    await sdkStarted
+    if (!sdk?.user) return null
+    try {
+      return toAccount(await sdk.user.getUser())
+    } catch {
+      return null
+    }
+  },
+  onAccount(cb) {
+    accountListener = cb
+    if (accountHooked) return
+    accountHooked = true
+    sdkStarted.then(() => call((s) => s.user?.addAuthListener?.((u) => accountListener?.(toAccount(u)))))
+  },
+  adsBlocked: () => adblock,
 
   ab: () => 'a',
   playerId: () => player,

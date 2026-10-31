@@ -476,6 +476,7 @@ function convertsToOther(ev: EventDef): boolean {
 /** Подходит ли событие герою прямо сейчас (без учёта случайности). */
 export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTiming = false): boolean {
   const hero = state.hero
+  if (state.settings.blockedEvents?.includes(ev.id)) return false
   if (ev.sensitive && state.settings.softenHeavy) return false
   if (ev.regions && !ev.regions.includes(hero.region)) return false
   if (ev.classes && !ev.classes.includes(hero.cls)) return false

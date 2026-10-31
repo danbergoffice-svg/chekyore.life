@@ -60,6 +60,7 @@ html.skin .menu-topbar .lang-switch button { color: var(--night); border-radius:
 html.skin .menu-topbar .lang-switch button.active { background: var(--terra); color: var(--sheet); clip-path: var(--rough-a); }
 html.skin .menu .title-block { margin-top: 2px; }
 html.skin .menu .game-title { font-size: clamp(2rem, 10vw, 2.7rem); color: var(--sheet); letter-spacing: 0.02em; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55); }
+html.skin .menu .game-title.long { font-size: clamp(1.55rem, 8vw, 2.3rem); }
 html.skin .menu .title-block .lead { color: var(--muted); font-weight: 600; }
 /* Подпись «Лотерея рождения» - флажок на маршруте: точка и пунктир до края. */
 html.skin .spin-head .caps { display: inline-flex; align-items: center; gap: 8px; color: var(--mustard); font-weight: 700; }
@@ -245,3 +246,5 @@ html.skin .modal.dream-modal { --ink: #e8e6f4; --ink-2: #c9cbe8; --muted: #a3a6c
 html.skin .dream-modal h2, html.skin .dream-modal h3 { color: #f4f2ff; }
 html.skin .dream-modal .primary { background: var(--sheet); color: var(--night); }
 html.skin .dream-modal .link { color: #a9b0ff; text-decoration-color: rgba(169, 176, 255, 0.5); }
+
+html.skin .player-chip { background: var(--sheet); color: var(--night); border-radius: 0; clip-path: var(--rough-b); font-weight: 700; }

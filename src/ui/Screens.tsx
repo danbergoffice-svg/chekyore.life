@@ -6,7 +6,7 @@ import { classKey, descentOf, regionOf, roleKey, yearsBetween } from '../engine/
 import { ERA_IDS, ERA_META } from '../content'
 import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
-import { formatMoney, formatYear, LANG_NAMES, LANGS, LOCALE, nameOf, percent } from '../i18n'
+import { formatMoney, formatYear, LANG_NAMES, LANGS as ALL_LANGS, LOCALE, nameOf, percent } from '../i18n'
 import type { Prefs } from '../storage'
 import { BIG_DAYS, GIFT_ICON, GIFTS } from '../daily'
 import type { Gift } from '../daily'
@@ -17,6 +17,9 @@ import { heroLook } from './Life'
 import { VolumeSlider } from './Sound'
 import { useUi } from './text'
 import { Icon, IconText } from './Icon'
+
+/** Языки этой сборки: на портале может быть только часть (CrazyGames - английский). */
+const LANGS = platform.languages ?? ALL_LANGS
 
 /** Виды для заставки: по региону каждой страны, меняются каждые несколько секунд. */
 const TIMES = ['sunset', 'day', 'dawn', 'day', 'night', 'overcast'] as const
@@ -42,6 +45,8 @@ interface MenuProps {
 
 /** Сколько всего игроков заходило в игру: один запрос за загрузку страницы, число помнится до перезагрузки. */
 let playersAsk: Promise<number | null> | null = null
+let accountAsk: Promise<{ name: string; avatar?: string } | null> | undefined
+let accountSeen: { name: string; avatar?: string } | null | undefined
 let playersSeen: number | null = null
 
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
@@ -52,6 +57,21 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
   useEffect(() => {
     const id = setInterval(() => setShot((x) => (x + 1) % SHOWCASE.length), 5000)
     return () => clearInterval(id)
+  }, [])
+  // Игрок портала (CrazyGames): имя и аватар, у гостя - «Гость»; вход посреди игры подхватывается.
+  const [user, setUser] = useState<{ name: string; avatar?: string } | null | undefined>(accountSeen)
+  useEffect(() => {
+    if (!platform.account) return
+    accountAsk ??= platform.account()
+    accountAsk.then((u) => {
+      accountSeen = u
+      setUser(u)
+    })
+    platform.onAccount?.((u) => {
+      accountSeen = u
+      accountAsk = Promise.resolve(u)
+      setUser(u)
+    })
   }, [])
   const [players, setPlayers] = useState(playersSeen)
   useEffect(() => {
@@ -70,15 +90,23 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
         <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={`${t(`region.${view.region}`)} · ${t(`era.${view.era}.short`)}`} />
         <div class="menu-topbar">
           <span class="badge">{t('beta.badge')}</span>
+          {platform.account && user !== undefined && (
+            <span class="player-chip">
+              {user?.avatar ? <img src={user.avatar} alt="" /> : <Icon name="person" />}
+              <span class="name">{user ? user.name : t('player.guest')}</span>
+            </span>
+          )}
           <span class="grow" />
           {sound}
-          <div class="lang-switch" role="group" aria-label={t('settings.language')}>
-            {LANGS.map((l) => (
-              <button type="button" class={l === lang ? 'active' : ''} aria-pressed={l === lang} onClick={() => onLang(l)}>
-                {l.toUpperCase()}
-              </button>
-            ))}
-          </div>
+          {LANGS.length > 1 && (
+            <div class="lang-switch" role="group" aria-label={t('settings.language')}>
+              {LANGS.map((l) => (
+                <button type="button" class={l === lang ? 'active' : ''} aria-pressed={l === lang} onClick={() => onLang(l)}>
+                  {l.toUpperCase()}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </header>
       <div class="title-block">
@@ -554,7 +582,7 @@ export function Settings(props: {
     <div class="screen">
       <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
       <h1>{t('settings.title')}</h1>
-      <Choice title={t('settings.language')} value={p.lang} onChange={(lang) => props.onPrefs({ ...p, lang })} options={LANGS.map((l) => ({ id: l, label: LANG_NAMES[l] }))} />
+      {LANGS.length > 1 && <Choice title={t('settings.language')} value={p.lang} onChange={(lang) => props.onPrefs({ ...p, lang })} options={LANGS.map((l) => ({ id: l, label: LANG_NAMES[l] }))} />}
       <fieldset class="choice-group">
         <legend>{t('settings.music')}</legend>
         <label class="toggle">
