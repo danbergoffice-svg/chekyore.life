@@ -33,7 +33,7 @@ export function kvSet(key: string, value: string): void {
   try {
     localStorage.setItem(key, value)
   } catch {
-    // Хранилище недоступно (приватный режим) — живём без него.
+    // Хранилище недоступно (приватный режим) – живём без него.
   }
 }
 
@@ -79,7 +79,7 @@ export function uuid(): string {
   return 'p' + Math.random().toString(36).slice(2) + Date.now().toString(36)
 }
 
-/** Флаги из файла рядом с игрой; не ждём дольше полутора секунд — иначе значения по умолчанию. */
+/** Флаги из файла рядом с игрой; не ждём дольше полутора секунд – иначе значения по умолчанию. */
 export async function fetchFlags<T>(defaults: T): Promise<T> {
   try {
     const ctrl = new AbortController()

@@ -1,5 +1,5 @@
 // Домашние питомцы: кто бывал в каком краю и эпохе, сколько живёт, как зовут.
-// Таблица — src/content/pets.json (виды, срок жизни, края, сословия, цена, имена по краям).
+// Таблица – src/content/pets.json (виды, срок жизни, края, сословия, цена, имена по краям).
 import { ERA_META } from '../content'
 import PETS from '../content/pets.json'
 import { int, pick, weighted } from './rng'
@@ -74,7 +74,7 @@ export function randomPet(state: GameState, only?: string[]): string | undefined
 /** Новый питомец: возраст (детёныш или взрослый), срок жизни по виду, имя по краю. */
 export function makePet(state: GameState, kind: string, owner?: string): Animal {
   const d = BY_ID.get(kind)!
-  // Короткоживущих (мышь, сверчок) берут молодыми; остальных — детёнышем или уже взрослыми.
+  // Короткоживущих (мышь, сверчок) берут молодыми; остальных – детёнышем или уже взрослыми.
   const young = d.life[1] <= 5 || int(state, 0, 2) > 0
   const born = state.year - (young ? 0 : int(state, 1, Math.max(1, Math.floor(d.life[0] / 3))))
   const dies = born + int(state, d.life[0], d.life[1])

@@ -17,15 +17,15 @@
       import { drawScene, W, H } from '../src/pixel/scene.ts'
       const lang = new URLSearchParams(location.search).get('lang') || 'ru'
       const T = {
-        ru: { title: 'Тысячи жизней', sub: 'Родись в случайном месте истории — от Рима до империи инков.', tag: 'Одна жизнь · 13 стран · ваши решения' },
-        en: { title: 'Thousands of Lives', sub: 'Be born somewhere random in history — from Rome to the Inca empire.', tag: 'One life · 13 countries · your choices' },
+        ru: { title: 'Тысячи жизней', sub: 'Родись в случайном месте истории – от Рима до империи инков.', tag: 'Одна жизнь · 13 стран · ваши решения' },
+        en: { title: 'Thousands of Lives', sub: 'Be born somewhere random in history – from Rome to the Inca empire.', tag: 'One life · 13 countries · your choices' },
       }[lang]
       await Promise.all([document.fonts.load("600 80px 'Thousands Letopis'"), document.fonts.load("400 30px 'Alegreya Variable'")]).catch(() => {})
       const c = document.getElementById('c')
       const ctx = c.getContext('2d')
       ctx.fillStyle = '#2a211a'
       ctx.fillRect(0, 0, 1200, 630)
-      // Четыре сцены из разных стран — сеткой 2×2 сверху.
+      // Четыре сцены из разных стран – сеткой 2×2 сверху.
       const scenes = [
         { region: 'rome', scene: { place: 'landmark', time: 'sunset', people: 3, props: ['sun'] } },
         { region: 'kyoto', scene: { place: 'landmark', time: 'dawn', people: 3, props: ['sun'] } },

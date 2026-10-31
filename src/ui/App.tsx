@@ -39,15 +39,15 @@ const defaultPrefs: Prefs = {
   font: 'm',
   contrast: false,
   theme: 'auto',
-  // Первая жизнь — с настройками по умолчанию: быстрая, мягкая смертность, «как в жизни», без тяжёлых сцен.
+  // Первая жизнь – с настройками по умолчанию: быстрая, мягкая смертность, «как в жизни», без тяжёлых сцен.
   mode: 'quick',
   mortality: 'soft',
   softenHeavy: true,
   lottery: 'population',
 }
 
-/** Перезагрузить страницу один раз за сессию (новая версия сайта); false — уже перезагружали. */
-/** До какого возраста защищена жизнь, если до неё прожито lives жизней: первые protected_lives — до first_life_min_age. */
+/** Перезагрузить страницу один раз за сессию (новая версия сайта); false – уже перезагружали. */
+/** До какого возраста защищена жизнь, если до неё прожито lives жизней: первые protected_lives – до first_life_min_age. */
 function protectedAge(lives: number): number | undefined {
   return lives < (platform.flags.protected_lives ?? 1) ? platform.flags.first_life_min_age : undefined
 }
@@ -79,11 +79,11 @@ export function App() {
   const [choiceChanges, setChoiceChanges] = useState<Change[]>([])
   const [, rerender] = useReducer((x: number) => x + 1, 0)
   // Лотерея рождения, пока барабаны крутятся: что выпало и загружена ли страна.
-  // respin — сколько раз уже перекрутили барабан для этой жизни; auto — барабан сам дёргает рычаг (перекрутка);
-  // high — вариант b A/B второй жизни: сразу высокое положение.
+  // respin – сколько раз уже перекрутили барабан для этой жизни; auto – барабан сам дёргает рычаг (перекрутка);
+  // high – вариант b A/B второй жизни: сразу высокое положение.
   const [pending, setPending] = useState<{ seed: number; birth: Birth; respin: number; auto?: boolean; high?: boolean; royal?: boolean } | null>(null)
   const [loadedVersion, setLoadedVersion] = useState(0)
-  // С какого экрана открыли отзыв — туда и вернуться; благодарность после отправки.
+  // С какого экрана открыли отзыв – туда и вернуться; благодарность после отправки.
   const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
   const [thanks, setThanks] = useState(false)
   const [soundHint, setSoundHint] = useState(false)
@@ -106,7 +106,7 @@ export function App() {
 
   /** Загрузить страну и её тексты на текущем языке. */
   const [loadError, setLoadError] = useState(false)
-  /** Загрузить страну и тексты; extra — страны, где герой (или жизнь из мемориала) жил раньше, — их тексты для дневника. */
+  /** Загрузить страну и тексты; extra – страны, где герой (или жизнь из мемориала) жил раньше, – их тексты для дневника. */
   const ensure = (eraId: string, lang = prefs.lang, extra: string[] = []) => {
     setLoadError(false)
     return Promise.all([loadEra(eraId), loadEraTexts(lang, eraId), ...extra.filter((id) => id !== eraId).map((id) => loadEraTexts(lang, id))])
@@ -161,21 +161,21 @@ export function App() {
     document.title = ui.t('app.title')
   }, [prefs, ui])
 
-  // Новый экран — с начала (во вложенном окне прокручивается body, см. style.css html.framed).
+  // Новый экран – с начала (во вложенном окне прокручивается body, см. style.css html.framed).
   useEffect(() => {
     window.scrollTo(0, 0)
     document.body.scrollTop = 0
   }, [screen])
 
-  // Сигналы платформе об игре: игра начинается с рывка рычага лотереи рождения (onPull); знакомство с семьёй —
+  // Сигналы платформе об игре: игра начинается с рывка рычага лотереи рождения (onPull); знакомство с семьёй –
   // перерыв, как заставка уровня; с «Начать жизнь» на экране жизни старт и паузу решает сам экран (пауза, глава,
-  // реклама); меню, настройки, мемориал, смерть и итоги — остановка.
+  // реклама); меню, настройки, мемориал, смерть и итоги – остановка.
   useEffect(() => {
     if (screen === 'life') return
     platform.gameplayStop()
   }, [screen, setupOpen])
 
-  // Музыка: у меню своя мелодия, в жизни героя — мелодия его страны и эпохи.
+  // Музыка: у меню своя мелодия, в жизни героя – мелодия его страны и эпохи.
   const soundOn = prefs.sound ?? true
   const volume = prefs.volume ?? 0.6
   useEffect(() => {
@@ -196,7 +196,7 @@ export function App() {
   }, [screen, heroEra])
 
   // Переезд в другую страну: её события и тексты. Соседние страны (куда можно уехать) подгружаются заранее,
-  // пока герой подрастает, — переезд предлагается только в уже загруженные.
+  // пока герой подрастает, – переезд предлагается только в уже загруженные.
   const heroAdult = !!state && state.hero.age >= 14
   useEffect(() => {
     if (!heroEra) return
@@ -254,12 +254,12 @@ export function App() {
   useEffect(() => {
     if (screen !== 'menu') return
     menuVisit.current = { since: performance.now(), drum: 0, button: false, spun: false, gifts: false, scroll: 0 }
-    // Прокрутка окна или body (во вложенном окне): события прокрутки элементов не всплывают — ловим на погружении.
+    // Прокрутка окна или body (во вложенном окне): события прокрутки элементов не всплывают – ловим на погружении.
     const onScroll = () => (menuVisit.current.scroll = Math.max(menuVisit.current.scroll, Math.round(window.scrollY), document.body.scrollTop))
     document.addEventListener('scroll', onScroll, { capture: true, passive: true })
     return () => document.removeEventListener('scroll', onScroll, { capture: true })
   }, [screen])
-  // Барабан пересоздаётся с каждым жребием — следим за новым.
+  // Барабан пересоздаётся с каждым жребием – следим за новым.
   useEffect(() => {
     if (screen !== 'menu' || typeof IntersectionObserver === 'undefined') return
     const drum = document.querySelector('.menu .spin')
@@ -330,9 +330,9 @@ export function App() {
     persist()
   }
 
-  // Дары за вход (src/daily.ts): каждый день серии — дар на следующую жизнь с барабана, на седьмой — царская семья.
-  // Календарь — с конца первой жизни (новичок сразу идёт к барабану): на итогах и в меню под «Продолжить»; над барабаном —
-  // кнопка «Дар дня N ждёт» и дары, которые сработают в этой жизни. День — по времени сервера.
+  // Дары за вход (src/daily.ts): каждый день серии – дар на следующую жизнь с барабана, на седьмой – царская семья.
+  // Календарь – с конца первой жизни (новичок сразу идёт к барабану): на итогах и в меню под «Продолжить»; над барабаном –
+  // кнопка «Дар дня N ждёт» и дары, которые сработают в этой жизни. День – по времени сервера.
   const gifts = prefs.gifts ?? []
   const [today, setToday] = useState<string | null>(null)
   useEffect(() => {
@@ -342,7 +342,7 @@ export function App() {
       offset = ms - Date.now()
       tick()
     })
-    // Вкладка открыта за полночь — новый день наступает и без перезагрузки.
+    // Вкладка открыта за полночь – новый день наступает и без перезагрузки.
     const id = setInterval(tick, 60000)
     return () => clearInterval(id)
   }, [])
@@ -358,30 +358,30 @@ export function App() {
   }
   const dailyCard =
     today && memorial.length >= 1 ? <DailyCard day={dailyNow?.day ?? prefs.daily?.day ?? 1} claimable={!!dailyNow} broken={dailyNow?.broken} onClaim={claimDaily} /> : undefined
-  // Дар «Страна по выбору» (дар первого дня и награда за отзыв): страну игрок выбирает у барабана; не выбрал — дар ждёт
+  // Дар «Страна по выбору» (дар первого дня и награда за отзыв): страну игрок выбирает у барабана; не выбрал – дар ждёт
   // следующей жизни.
   const [giftCountry, setGiftCountry] = useState<string | null>(null)
   const [giftCountryOpen, setGiftCountryOpen] = useState(false)
   const chosenCountry = () => (gifts.includes('country') && giftCountry) || null
   const royalWanted = prefs.royal === 'ready' || gifts.includes('royal')
 
-  /** Жребий для барабана в меню: что выпадет при рывке рычага. Страну игрок может выбрать сам — по дару «Страна по
-   *  выбору» (null — жребий); год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
+  /** Жребий для барабана в меню: что выпадет при рывке рычага. Страну игрок может выбрать сам – по дару «Страна по
+   *  выбору» (null – жребий); год, край и сословие решает жребий. Страна грузится с рывка рычага (onPull). */
   const rollPending = (lottery = prefs.lottery, country: string | null = chosenCountry(), respin = 0, fate = fatePick, royal = royalWanted) => {
     const seed = newSeed()
-    // Награда за испытание: страна по выбору — вместо жребия страны.
+    // Награда за испытание: страна по выбору – вместо жребия страны.
     const fateCountry = fate && fate !== 'high' ? fate : undefined
     const rolled = rollBirth(seed, lottery, (fateCountry ? [fateCountry] : country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
-    // A/B второй жизни (флаг ab_buckets, только сайт): a — положение как выпало, b — сразу высокое (знать или
+    // A/B второй жизни (флаг ab_buckets, только сайт): a – положение как выпало, b – сразу высокое (знать или
     // землевладельцы), где бы ни родился. Обе вторые жизни защищены до 20 лет. Смотрим, кто дольше остаётся в игре.
-    // Награда «знатная семья» за испытание и дар четвёртого дня — так же.
+    // Награда «знатная семья» за испытание и дар четвёртого дня – так же.
     const high = (platform.name === 'web' && platform.ab() === 'b' && memorial.length === 1) || fate === 'high' || gifts.includes('noble')
-    // Награда за главный экран и дар седьмого дня — царская семья, где бы ни родился (поверх A/B и «знатной семьи»).
+    // Награда за главный экран и дар седьмого дня – царская семья, где бы ни родился (поверх A/B и «знатной семьи»).
     const birth = royal ? royalBirth(seed, rolled, ERA_META[rolled.era]) : high ? highBirth(seed, rolled, ERA_META[rolled.era]) : rolled
     setPending({ seed, birth, respin, auto: respin > 0, high, royal })
   }
   // Испытание (флаг challenge_age): после первой жизни прожить следующую дольше N лет → награда «выбор судьбы» у барабана:
-  // знатная семья или страна по выбору (один раз). Не вышло — испытание переходит на следующую жизнь.
+  // знатная семья или страна по выбору (один раз). Не вышло – испытание переходит на следующую жизнь.
   const challengeAge = platform.flags.challenge_age ?? 0
   const challengeOn = challengeAge > 0 && !prefs.fate
   const [fatePick, setFatePick] = useState<string | null>(null)
@@ -400,7 +400,7 @@ export function App() {
     setChallengeToast(true)
     setTimeout(() => setChallengeToast(false), 5000)
   }, [state?.hero.age, challengeOn])
-  // «На главный экран» после первой жизни: Android — системное окно, iPhone — подсказка. Отложили — снова через 3 жизни.
+  // «На главный экран» после первой жизни: Android – системное окно, iPhone – подсказка. Отложили – снова через 3 жизни.
   const [installKind, setInstallKind] = useState<'prompt' | 'ios' | null>(null)
   useEffect(() => {
     const check = () => setInstallKind(platform.installKind())
@@ -411,8 +411,8 @@ export function App() {
   }, [])
   const showInstall =
     !!installKind && memorial.length >= 1 && (!prefs.install || (prefs.install.state === 'later' && memorial.length >= prefs.install.lives + 3))
-  // Награда за установку — следующая жизнь в царской семье (один раз): Android — как только игрок согласился в системном
-  // окне; iPhone (и любая установка не через карточку) — при первом запуске с главного экрана. На iPhone игра с главного
+  // Награда за установку – следующая жизнь в царской семье (один раз): Android – как только игрок согласился в системном
+  // окне; iPhone (и любая установка не через карточку) – при первом запуске с главного экрана. На iPhone игра с главного
   // экрана хранит жизни отдельно от Safari, поэтому награда и должна появиться там.
   const [royalToast, setRoyalToast] = useState(false)
   const royalReward = (via: 'prompt' | 'home'): Partial<Prefs> => {
@@ -425,7 +425,7 @@ export function App() {
   useEffect(() => {
     if (platform.installed() && !prefs.royal) setPrefs({ ...prefs, ...royalReward('home') })
   }, [])
-  // Награда или дар пришли, когда барабан в меню уже заряжен, — перезарядить: царской семьёй (выбор судьбы подождёт)
+  // Награда или дар пришли, когда барабан в меню уже заряжен, – перезарядить: царской семьёй (выбор судьбы подождёт)
   // или знатной.
   useEffect(() => {
     if (screen !== 'menu' || !pending) return
@@ -455,14 +455,14 @@ export function App() {
     />
   ) : undefined
   const installCard = installCardFor()
-  /** Карточка испытания на итогах: только что кончилась первая жизнь — новое; позже — «не вышло» или «награда ждёт». */
+  /** Карточка испытания на итогах: только что кончилась первая жизнь – новое; позже – «не вышло» или «награда ждёт». */
   const challengeCard = () =>
     prefs.fate === 'ready' ? (
       <ChallengeCard kind="ready" age={challengeAge} />
     ) : challengeOn && memorial.length >= 1 ? (
       <ChallengeCard kind={memorial.length === 1 ? 'start' : 'retry'} age={challengeAge} />
     ) : undefined
-  /** Перекрутить барабан, пока жизнь не начата: флаг respins (0 — нельзя, -1 — без ограничений) и дар второго дня. */
+  /** Перекрутить барабан, пока жизнь не начата: флаг respins (0 – нельзя, -1 – без ограничений) и дар второго дня. */
   const baseRespins = platform.flags.respins ?? 0
   const respinLimit = baseRespins >= 0 && gifts.includes('respins') ? baseRespins + RESPIN_GIFT : baseRespins
   const respinsLeft = pending ? (respinLimit < 0 ? Infinity : Math.max(0, respinLimit - pending.respin)) : 0
@@ -471,7 +471,7 @@ export function App() {
     platform.track('respin', { n: pending.respin + 1, era: pending.birth.era, cls: pending.birth.cls })
     rollPending(prefs.lottery, chosenCountry(), pending.respin + 1, fatePick)
   }
-  // На CrazyGames после бесплатных перекруток (всего три вращения) — ещё одно за рекламу; на сайте рекламы нет.
+  // На CrazyGames после бесплатных перекруток (всего три вращения) – ещё одно за рекламу; на сайте рекламы нет.
   const adRespin = !!platform.flags.respin_ad && platform.name === 'crazygames' && respinLimit >= 0
   const [adBusy, setAdBusy] = useState(false)
   const [adFail, setAdFail] = useState(false)
@@ -501,7 +501,7 @@ export function App() {
   }
   const onPull = () => {
     if (!pending) return
-    // Рывок рычага: где теряются новички — до барабана или после результата.
+    // Рывок рычага: где теряются новички – до барабана или после результата.
     if (pending.respin === 0) platform.track('spin', {})
     menuVisit.current.spun = true
     ensure(pending.birth.era)
@@ -512,11 +512,11 @@ export function App() {
     if (!pending) return
     // Первые protected_lives жизней защищены до first_life_min_age лет (флаги): герой не погибает, а «выживает чудом».
     const protectedUntil = protectedAge(memorial.length)
-    // Сон о будущем: в первой жизни — наверняка к dream_first_by годам, дальше — шанс dream_chance в год;
-    // сложность — по лестнице: сначала лёгкие (5 класс), следующий уровень — после решённого сна.
+    // Сон о будущем: в первой жизни – наверняка к dream_first_by годам, дальше – шанс dream_chance в год;
+    // сложность – по лестнице: сначала лёгкие (5 класс), следующий уровень – после решённого сна.
     const ladder = dreamLadder(memorial)
-    // Дары за вход, которые срабатывают в этой жизни: каждый вид — один раз; царская семья перекрывает знатную;
-    // страна — если игрок её выбрал (и не выбрал другую за испытание).
+    // Дары за вход, которые срабатывают в этой жизни: каждый вид – один раз; царская семья перекрывает знатную;
+    // страна – если игрок её выбрал (и не выбрал другую за испытание).
     const fateCountry = fatePick && fatePick !== 'high' ? fatePick : null
     const used: Gift[] = []
     if (gifts.includes('royal') && pending.royal && prefs.royal !== 'ready') used.push('royal')
@@ -534,7 +534,7 @@ export function App() {
       dreamLevel: ladder.level,
       dreamsSeen: ladder.seen,
       dreamSure: used.includes('dream') || undefined,
-      // Истории рождения прошлых жизней (события первого года) — чтобы начало жизни не повторялось.
+      // Истории рождения прошлых жизней (события первого года) – чтобы начало жизни не повторялось.
       birthSeen: [...new Set(memorial.flatMap((l) => (l.diary ?? []).filter((d) => d.age === 0 && d.eventId).map((d) => d.eventId!)))],
     }
     const boons = { health: used.includes('health') ? HEALTH_GIFT : 0, wealth: used.includes('chest') ? CHEST_GIFT : 0 }
@@ -643,7 +643,7 @@ export function App() {
     onHint: async () => {
       const s = game.current
       if (!s?.dream || s.dream.hint) return
-      // В Яндекс Играх подсказка — за рекламу с вознаграждением, на сайте и в CrazyGames — бесплатно.
+      // В Яндекс Играх подсказка – за рекламу с вознаграждением, на сайте и в CrazyGames – бесплатно.
       if (platform.name === 'yandex' && !(await platform.showRewarded('dream_hint'))) return
       s.dream.hint = true
       persist()
@@ -694,17 +694,17 @@ export function App() {
     if (!era) return
     const prevYear = game.current!.year
     game.current = continueWithHeir(game.current!, era, childId)
-    // Наследник — тоже одна из первых защищённых жизней (обычно вторая): до 20 лет не погибает.
+    // Наследник – тоже одна из первых защищённых жизней (обычно вторая): до 20 лет не погибает.
     game.current.settings.protectedUntil = protectedAge(memorial.length)
-    // Испытание считает годы этой жизни — с возраста, в котором наследник стал героем.
+    // Испытание считает годы этой жизни – с возраста, в котором наследник стал героем.
     game.current.settings.startAge = game.current.hero.age
-    // Лестница снов — с учётом сна предка.
+    // Лестница снов – с учётом сна предка.
     const ladder = dreamLadder(memorial)
     game.current.settings.dreamLevel = ladder.level
     game.current.settings.dreamsSeen = ladder.seen
     // Дар «Вещий сон» был у предка, а не у наследника.
     game.current.settings.dreamSure = undefined
-    // Продолжение после конца хроники страны: с этого года — без исторических событий, вестей и справок.
+    // Продолжение после конца хроники страны: с этого года – без исторических событий, вестей и справок.
     if (offChronicle.current && game.current.offChronicle === undefined) game.current.offChronicle = prevYear
     offChronicle.current = false
     platform.track('heir_chosen', { generation: game.current.hero.generation })
@@ -754,7 +754,7 @@ export function App() {
   const onSendFeedback = (data: FeedbackData) => {
     sendFeedback(data)
     setScreen(feedbackFrom)
-    // Пробный период: награда за отзыв — дар «Страна по выбору» на одну жизнь; сразу предлагаем выбрать.
+    // Пробный период: награда за отзыв – дар «Страна по выбору» на одну жизнь; сразу предлагаем выбрать.
     const reward = !!platform.flags.trial_country_pick
     setPrefs({ ...prefs, feedback: { state: 'sent', lives: memorial.length }, ...(reward ? { gifts: [...gifts, 'country'] } : {}) })
     if (reward) setCountryOpen(true)
@@ -763,14 +763,14 @@ export function App() {
       setTimeout(() => setThanks(false), 4000)
     }
   }
-  /** Страна за отзыв выбрана: сразу к барабану (с итогов или из меню — жребий заново). Не выбрал — дар ждёт у барабана. */
+  /** Страна за отзыв выбрана: сразу к барабану (с итогов или из меню – жребий заново). Не выбрал – дар ждёт у барабана. */
   const onCountry = (country: string | undefined) => {
     setCountryOpen(false)
     setGiftCountry(country ?? null)
     if (country) platform.track('country_pick', { era: country })
     if (screen === 'death' || screen === 'menu') startNew(prefs.lottery, country ?? null)
   }
-  // Просим отзыв после первой жизни; если отложили — ещё раз через две жизни; после отправки — больше нет.
+  // Просим отзыв после первой жизни; если отложили – ещё раз через две жизни; после отправки – больше нет.
   const askFeedback =
     EXTERNAL &&
     memorial.length >= 1 && (!prefs.feedback || (prefs.feedback.state === 'later' && memorial.length >= prefs.feedback.lives + 2))
@@ -796,7 +796,7 @@ export function App() {
   const openedLife = memorial.find((l) => l.heroId === opened)
   const openedEra = openedLife && isEraLoaded(openedLife.era) ? eraById(openedLife.era) : null
 
-  // «Дары» (макет A): всё, что меняет следующую жизнь, — в одной панели; кнопка над барабаном показывает, сколько ждёт.
+  // «Дары» (макет A): всё, что меняет следующую жизнь, – в одной панели; кнопка над барабаном показывает, сколько ждёт.
   const [giftsOpen, setGiftsOpen] = useState(false)
   const royalSource = prefs.royal === 'ready' ? 'install' : gifts.includes('royal') ? 'daily' : undefined
   const activeGifts = [...new Set(gifts)].filter((g) => g !== 'royal' && !(g === 'noble' && royalWanted))
@@ -807,7 +807,7 @@ export function App() {
     menuVisit.current.gifts = true
     setGiftsOpen(true)
   }
-  // Дар дня ждёт — панель сама открывается один раз в день, при входе в игру (после жизни дар дня и так на итогах).
+  // Дар дня ждёт – панель сама открывается один раз в день, при входе в игру (после жизни дар дня и так на итогах).
   const playedThisVisit = useRef(false)
   if (screen === 'life' || screen === 'death' || screen === 'reveal') playedThisVisit.current = true
   useEffect(() => {
@@ -900,12 +900,12 @@ export function App() {
             prefs={prefs}
             onPrefs={(next) => {
               setPrefs(next)
-              // Лотерея поменялась до рывка рычага — тянем жребий заново по новому правилу.
+              // Лотерея поменялась до рывка рычага – тянем жребий заново по новому правилу.
               if (next.lottery !== prefs.lottery) startNew(next.lottery)
             }}
             onClose={() => setSetupOpen(false)}
             onFeedback={
-              // Отзывы — только на сайте; на порталах (CrazyGames) награды за отзыв нет.
+              // Отзывы – только на сайте; на порталах (CrazyGames) награды за отзыв нет.
               platform.flags.trial_country_pick && EXTERNAL && prefs.feedback?.state !== 'sent'
                 ? () => {
                     setSetupOpen(false)

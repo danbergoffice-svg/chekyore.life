@@ -57,7 +57,7 @@
   "ev.j_sol_kleros.sell.success": "Çabucak bir alıcı çıktı, kâtipler de küçük bir karşılık için görmezden geldi.",
   "ev.j_sol_kleros.sell.failure": "Anlaşma ortaya çıktı: kleros kraliyet toprağıdır ve satılamaz. Paraya el konuldu, sana da ceza kesildi.",
   "ev.j_scr_census.title": "Nüfus Sayımı",
-  "ev.j_scr_census.text": "Ev ev nüfus sayımı yapılıyor: kapı kapı dolaşıp insanları baş vergisi için kaydediyorsun. Kalabalık bir ailenin annesi fısıldıyor: “En küçük oğlumu yazma, vergi bizi mahveder” — ve eline sikkeler sıkıştırıyor.",
+  "ev.j_scr_census.text": "Ev ev nüfus sayımı yapılıyor: kapı kapı dolaşıp insanları baş vergisi için kaydediyorsun. Kalabalık bir ailenin annesi fısıldıyor: “En küçük oğlumu yazma, vergi bizi mahveder” – ve eline sikkeler sıkıştırıyor.",
   "ev.j_scr_census.text.rome": "Sansörler nüfus sayımı yapıyor, sen de yurttaşları ve mallarını kaydediyorsun. Bir ev sahibi, hem vergisi hem askerlik hizmeti buna bağlı olduğu için malını olduğundan az yazmanı istiyor ve eline sikkeler sıkıştırıyor.",
   "ev.j_scr_census.leave_out": "İsteneni yap",
   "ev.j_scr_census.refuse": "Olduğu gibi yaz",

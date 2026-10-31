@@ -29,7 +29,7 @@ const SHOWCASE: { region: string; era: string; scene: SceneDef }[] = ERA_IDS.fla
 
 interface MenuProps {
   current: GameState | null
-  /** Барабан лотереи рождения — сразу под названием игры, на первом экране. */
+  /** Барабан лотереи рождения – сразу под названием игры, на первом экране. */
   slot: ComponentChildren
   onContinue: () => void
   onFeedback: () => void
@@ -44,7 +44,7 @@ let playersAsk: Promise<number | null> | null = null
 let playersSeen: number | null = null
 
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
- *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, — в «Об игре». */
+ *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, – в «Об игре». */
 export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound }: MenuProps) {
   const { t, lang } = useUi()
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
@@ -81,7 +81,7 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
         </div>
       </header>
       <div class="title-block">
-        {/* Длинное название (Thousands of Lives) — мельче, чтобы в одну строку на любом телефоне. */}
+        {/* Длинное название (Thousands of Lives) – мельче, чтобы в одну строку на любом телефоне. */}
         <h1 class={`game-title ${t('app.title').length > 14 ? 'long' : ''}`}>{t('app.title')}</h1>
         <p class="lead">{t('menu.subtitle')}</p>
       </div>
@@ -151,7 +151,7 @@ export function SetupModal(props: {
   prefs: Prefs
   onPrefs: (p: Prefs) => void
   onClose: () => void
-  /** Пробный период: приглашение оставить отзыв — за него страна по выбору на одну жизнь. */
+  /** Пробный период: приглашение оставить отзыв – за него страна по выбору на одну жизнь. */
   onFeedback?: () => void
 }) {
   const { t, lang } = useUi()
@@ -232,7 +232,7 @@ export function CountryModal(props: { current?: string; onPick: (era: string | u
   )
 }
 
-/** Испытание после первой жизни: start — новое, retry — не вышло, ждёт в следующей жизни, ready — награда у барабана. */
+/** Испытание после первой жизни: start – новое, retry – не вышло, ждёт в следующей жизни, ready – награда у барабана. */
 export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: number }) {
   const { t } = useUi()
   return (
@@ -243,7 +243,7 @@ export function ChallengeCard(props: { kind: 'start' | 'retry' | 'ready'; age: n
   )
 }
 
-/** Дары за вход: календарь недели (сильные дни 1, 4, 7), сегодняшний дар и кнопка «Забрать»; после — что будет завтра. */
+/** Дары за вход: календарь недели (сильные дни 1, 4, 7), сегодняшний дар и кнопка «Забрать»; после – что будет завтра. */
 export function DailyCard(props: { day: number; claimable: boolean; broken?: boolean; onClaim: () => void; compact?: boolean }) {
   const { t } = useUi()
   const gift = GIFTS[props.day - 1]
@@ -282,7 +282,7 @@ export function DailyCard(props: { day: number; claimable: boolean; broken?: boo
 }
 
 
-/** Панель «Дары» снизу: всё, что изменит следующую жизнь, — в одном месте (макет A). Разделы показываются, только
+/** Панель «Дары» снизу: всё, что изменит следующую жизнь, – в одном месте (макет A). Разделы показываются, только
  *  когда им есть что сказать: царская семья, выбор судьбы за испытание, дары за вход, страна по дару, остальные дары
  *  этой жизни и «На главный экран». */
 export function GiftsSheet(props: {
@@ -339,7 +339,7 @@ export function GiftsSheet(props: {
                   <span class="gift-icon" aria-hidden="true">{GIFT_ICON[g]}</span>
                   <span>
                     <b>{t(`gift.${g}`)}</b>
-                    <span class="muted small"> — {t(`gift.${g}.desc`)}</span>
+                    <span class="muted small"> – {t(`gift.${g}.desc`)}</span>
                   </span>
                 </li>
               ))}
@@ -358,7 +358,7 @@ export function GiftsSheet(props: {
   )
 }
 
-/** «На главный экран»: Android — системное окно, iPhone — подсказка, как добавить из Safari. */
+/** «На главный экран»: Android – системное окно, iPhone – подсказка, как добавить из Safari. */
 export function InstallCard(props: { kind: 'prompt' | 'ios'; reward?: boolean; onInstall: () => void; onLater: () => void; onDone: () => void; compact?: boolean }) {
   const { t } = useUi()
   return (
@@ -379,7 +379,7 @@ export function InstallCard(props: { kind: 'prompt' | 'ios'; reward?: boolean; o
   )
 }
 
-/** Награда за испытание — у барабана: знатная семья, страна по выбору или жребий. */
+/** Награда за испытание – у барабана: знатная семья, страна по выбору или жребий. */
 export function FatePicker(props: { pick: string | null; onPick: (kind: 'high' | 'country' | null) => void }) {
   const { t } = useUi()
   const country = props.pick && props.pick !== 'high' ? props.pick : null
@@ -431,7 +431,7 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
         <dt>{t('reveal.faith')}</dt>
         <dd>
           <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
-          <span class="muted small"> — {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+          <span class="muted small"> – {t(`religion.${hero.religion}.desc`, {}, o)}</span>
         </dd>
         <dt>{t('reveal.family')}</dt>
         <dd>
@@ -471,7 +471,7 @@ export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: str
       <ul class="cards">
         {list.map((k) => {
           const age = yearsBetween(k.birthYear, props.state.year)
-          // У внука — чей он: «сын Таро (†1240)».
+          // У внука – чей он: «сын Таро (†1240)».
           const via = gen > 1 ? npcs.find((n) => n.id === k.parentId) : undefined
           return (
             <li class="card">
@@ -520,7 +520,7 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
                     {t('memorial.generation', { n: l.generation })} · {t(`region.${l.region}`)} · {t(`archetype.${l.report.pattern.code}`)}
                   </span>
                   <span>
-                    {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} — {formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}
+                    {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} – {formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}
                   </span>
                   {/* Род дошёл до конца хроники страны и ждёт следующей эпохи. */}
                   {l === lives[lives.length - 1] && l.diary.some((d) => d.key === 'diary.era_end') && <span class="small era-badge">{t('era_end.badge')}</span>}
@@ -534,7 +534,7 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
   )
 }
 
-/** Варианты длительности года в настройках: 0 — стандартная, остальное — секунды, до минуты. */
+/** Варианты длительности года в настройках: 0 – стандартная, остальное – секунды, до минуты. */
 const YEAR_SECS = [0, 20, 30, 45, 60]
 
 export function Settings(props: {

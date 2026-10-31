@@ -4,7 +4,7 @@
   "ev.eur_fc_baptism.church": "Kiliseye götürsünler",
   "ev.eur_fc_baptism.church.ok": "Seni bir koyun postuna sarıp soğukta kiliseye taşıdılar. Rahip seni taş vaftiz kurnasında vaftiz etti, vaftiz ebeveynlerin sana ad verdi; evde de uzun süre ısınamadın.",
   "ev.eur_fc_baptism.priest": "Rahibi eve çağırsınlar",
-  "ev.eur_fc_baptism.priest.ok": "Baban rahibi çağırmaya koştu ve zahmeti için eline bir sikke sıkıştırdı. Ocağın başında, ılıtılmış su dolu bir leğende vaftiz edildin — pek usulünce değil, ama sıcacık.",
+  "ev.eur_fc_baptism.priest.ok": "Baban rahibi çağırmaya koştu ve zahmeti için eline bir sikke sıkıştırdı. Ocağın başında, ılıtılmış su dolu bir leğende vaftiz edildin – pek usulünce değil, ama sıcacık.",
   "ev.eur_fc_baptism.title": "Hemen vaftiz et",
   "ev.eur_fc_baptism.text": "Gece doğdun, cılız mı cılız, zar zor nefes alan bir şey. Köy kilisesi çok uzakta; bir çocuk vaftiz edilmeden ölürse kutsanmış toprağa gömülemez. Ebe seni hemen şimdi kendisinin vaftiz edebileceğini söylüyor: hayat tehlikedeyken Kilise buna izin verir. Ya da seni sıkıca sarıp rahibe götürebilirler.",
   "ev.eur_fc_baptism.note": "Kilise, vaftiz edilmemiş bir bebeğin cennete giremeyeceğini ve kilise mezarlığına gömülemeyeceğini öğretiyordu; bu yüzden çocuklar doğumdan birkaç gün, hatta birkaç saat sonra vaftiz edilirdi. Bebek zayıfsa ebe ya da herhangi bir Hristiyan onu vaftiz edebilirdi; sinodlar ebelerin bu sakramentin sözlerini bilmesini şart koşuyordu. Çocuk yaşarsa rahip ayini sonradan kilisede tamamlardı.",
@@ -19,10 +19,10 @@
   "ev.eur_fc_balia.mother": "Annen emzirsin",
   "ev.eur_fc_balia.mother.ok": "Annen seni kendisi emzirdi. Teyzeler başlarını iki yana salladı, kilisedeki vaiz ise bunu övdü: doğa da Kutsal Kitap da bunu buyurur.",
   "ev.eur_fc_balia.title": "Köyden bir sütanne",
-  "ev.eur_fc_balia.text": "İyi bir evde bebek sütanneye verilir; baban da kasabanın dışındaki bir köyden genç bir köylü kadın bulmuş bile: seni bir iki yıllığına evine götürecek ve çok az şey istiyor. Bunun yerine evde kalacak bir sütanne de tutulabilir — daha pahalı, ama çocuk göz önünde kalır. Annen ise seni kendisi emzirmek istiyor, aile bunun âdetten olmadığına söylense de.",
+  "ev.eur_fc_balia.text": "İyi bir evde bebek sütanneye verilir; baban da kasabanın dışındaki bir köyden genç bir köylü kadın bulmuş bile: seni bir iki yıllığına evine götürecek ve çok az şey istiyor. Bunun yerine evde kalacak bir sütanne de tutulabilir – daha pahalı, ama çocuk göz önünde kalır. Annen ise seni kendisi emzirmek istiyor, aile bunun âdetten olmadığına söylense de.",
   "ev.eur_fc_balia.note": "Varlıklı kasabalılar ve soylular bebeklerini çoğu zaman sütannelere verirdi. Floransalı babalar, köylü balia'ya ne ödediklerini, ona ne kadar kumaş ve sabun gönderdiklerini ev defterlerine yazardı; Paris'te 1350 tarihli bir kraliyet fermanı sütannelerin ücretini belirliyor ve onları işe veren aracıları düzenliyordu. Vaizler ise anneleri kendi çocuklarını emzirmeye teşvik ediyordu.",
   "ev.eur_fc_balia_flour.title": "Bir çuval un",
   "ev.eur_fc_balia_flour.text": "Kıtlık geçen bir kışta evinin önünde bir araba durdu: eski sütannenin kocası bir çuval un ve kuru elma getirmişti. “Karım, süt evladımız aç kalmasın dedi.” Onu zor tanıdın, ama o sana hâlâ o saman sepetinde yatıyormuşsun gibi baktı.",
   "ev.eur_fc_balia_tales.title": "Dadının masalları",
-  "ev.eur_fc_balia_tales.text": "Sütannen evde kaldı — artık dadın olarak. Akşamları sana kurt adamları, azizleri ve efendilerini kandıran kurnaz köylüleri anlatıyor, sen de önlüğüne tutunarak uyuyakalıyorsun. Evde seni ondan iyi tanıyan yok."
+  "ev.eur_fc_balia_tales.text": "Sütannen evde kaldı – artık dadın olarak. Akşamları sana kurt adamları, azizleri ve efendilerini kandıran kurnaz köylüleri anlatıyor, sen de önlüğüne tutunarak uyuyakalıyorsun. Evde seni ondan iyi tanıyan yok."
 }

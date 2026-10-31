@@ -31,7 +31,7 @@ export function ambienceOf(b: BuiltScene): AmbienceLayer[] {
   return [...out]
 }
 
-/** Звуки места задаёт главная сцена на экране; когда она уходит — возвращаются звуки предыдущей. */
+/** Звуки места задаёт главная сцена на экране; когда она уходит – возвращаются звуки предыдущей. */
 const ambStack: { id: number; layers: AmbienceLayer[] }[] = []
 let ambSeq = 0
 function pushAmbience(layers: AmbienceLayer[]): number {
@@ -52,7 +52,7 @@ const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(pre
 /**
  * Пиксельная сцена: рисуется на холсте 320×100 и растягивается без сглаживания.
  * Анимируется, только когда видна на экране; стоит на паузе игры (paused), в скрытой вкладке,
- * при prefers-reduced-motion и в неподвижных местах (still: лента итогов, дневник) — тогда один кадр.
+ * при prefers-reduced-motion и в неподвижных местах (still: лента итогов, дневник) – тогда один кадр.
  */
 export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean; art?: 'half' | 'full' | 'none'; year?: number; frame?: boolean }) {
   const { scene, region, seed, label, cast, season, weather, mood, still, paused, ambient, art, year, frame } = props

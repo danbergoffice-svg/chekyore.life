@@ -32,7 +32,7 @@ describe('Симуляция', () => {
     expect(JSON.stringify(a)).toBe(JSON.stringify(b))
   })
 
-  it('лотерея рождения: поровну — все страны, по населению — чаще многолюдные', () => {
+  it('лотерея рождения: поровну – все страны, по населению – чаще многолюдные', () => {
     const metas = ERA_IDS.map((id) => ERA_META[id])
     const count = (mode: 'equal' | 'population') => {
       const c: Record<string, number> = {}
@@ -53,7 +53,7 @@ describe('Симуляция', () => {
   })
 
   for (const era of Object.values(ERAS)) {
-    it(`${era.id}: историческая смертность близка к ориентиру, мягкая — большинство взрослеет`, async () => {
+    it(`${era.id}: историческая смертность близка к ориентиру, мягкая – большинство взрослеет`, async () => {
       const h = await run(era, historical, 400)
       expect(h.mean).toBeGreaterThan(era.lifeExpectancy - 5)
       expect(h.mean).toBeLessThan(era.lifeExpectancy + 5)

@@ -37,11 +37,11 @@ describe('Карточка жизни', () => {
         for (const h of hs) expect(t(h.key, h.params ?? {}), `${lang} ${h.key}`).not.toMatch(/[{}]|^hook\./)
       }
     }
-    // Запасной «прожил N лет» — не у большинства: обычно находится что-то ярче.
+    // Запасной «прожил N лет» – не у большинства: обычно находится что-то ярче.
     expect((keys['hook.lived'] ?? 0) + (keys['hook.lived_plain'] ?? 0)).toBeLessThan(all.length * 0.35)
   }, 300000)
 
-  it('афоризм подбирается под темы жизни, свои мудрецы — в приоритете; подборка цитат цела', async () => {
+  it('афоризм подбирается под темы жизни, свои мудрецы – в приоритете; подборка цитат цела', async () => {
     expect(QUOTES.length).toBeGreaterThanOrEqual(100)
     const ids = new Set<string>()
     for (const q of QUOTES) {
@@ -56,7 +56,7 @@ describe('Карточка жизни', () => {
       const themes = lifeThemes(life)
       const top = rankQuotes(life, QUOTES, ERA_FOLDER[life.era], themes)[0]
       if (top.tags.some((tag) => (themes[tag] ?? 0) >= 1.5)) themed++
-      // Та же жизнь — тот же афоризм.
+      // Та же жизнь – тот же афоризм.
       expect(rankQuotes(life, QUOTES, ERA_FOLDER[life.era], themes)[0].id).toBe(top.id)
     }
     expect(themed / all.length).toBeGreaterThan(0.8)

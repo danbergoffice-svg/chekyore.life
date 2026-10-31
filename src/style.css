@@ -1,8 +1,8 @@
 /* «Тёплая гравюра»: бумага, чернила, сепия. */
 
-/* Шрифты: основной текст — Alegreya (OFL, @fontsource-variable/alegreya, подключается в main.tsx);
-   крупные надписи — «Летопись» (Thousands Letopis 0.2, src/fonts): глифическая антиква широкого пера,
-   прописные и капитель, от 18 px — заголовки, название игры, имя героя, крупные цифры, подписи разделов. */
+/* Шрифты: основной текст – Alegreya (OFL, @fontsource-variable/alegreya, подключается в main.tsx);
+   крупные надписи – «Летопись» (Thousands Letopis 0.2, src/fonts): глифическая антиква широкого пера,
+   прописные и капитель, от 18 px – заголовки, название игры, имя героя, крупные цифры, подписи разделов. */
 @font-face {
   font-family: 'Thousands Letopis';
   src: url('./fonts/ThousandsLetopis-VF.woff2') format('woff2');
@@ -102,7 +102,7 @@ html.framed .app { min-height: 100%; }
 button, input { font: inherit; color: inherit; }
 
 h1, h2, h3 { line-height: 1.2; margin: 0 0 0.5rem; }
-/* Крупные надписи — «Летопись». */
+/* Крупные надписи – «Летопись». */
 h1, h2, h3, .game-title, .hero-name, .section-title, .archetype, .stats strong, .chapter-title { font-family: var(--font-display); font-weight: 500; }
 h1 { font-size: 1.7rem; }
 h2 { font-size: 1.25rem; }
@@ -355,7 +355,7 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .modal > .scene { border-radius: 16px 16px 0 0; }
 /* Рисованная иллюстрация момента (G3): 256×144, 16:9. */
 .scene.illustration { aspect-ratio: 16 / 9; }
-/* Рамка-орнамент края вокруг картинки (G5): узор 6 точек — вдвое, без сглаживания. */
+/* Рамка-орнамент края вокруг картинки (G5): узор 6 точек – вдвое, без сглаживания. */
 .art-frame { border: 12px solid transparent; image-rendering: pixelated; image-rendering: crisp-edges; line-height: 0; }
 .art-frame > .scene { border-radius: 0; margin: 0 !important; }
 .summary .record-card .art-frame, .panel > .art-frame { margin-bottom: 12px; }
@@ -523,7 +523,7 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .fate-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .fate-options .option { padding: 8px 6px; text-align: center; }
 
-/* Лотерея рождения: игровой автомат с тремя барабанами — прямо в главном меню, под названием игры */
+/* Лотерея рождения: игровой автомат с тремя барабанами – прямо в главном меню, под названием игры */
 .spin-button { width: 100%; }
 .secondary.continue .option-desc { color: var(--muted); }
 .locked-country { display: block; }
@@ -573,7 +573,7 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
   -webkit-mask-image: linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.18) 12%, rgba(0, 0, 0, 0.55) 26%, #000 36%, #000 64%, rgba(0, 0, 0, 0.55) 74%, rgba(0, 0, 0, 0.18) 88%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.18) 12%, rgba(0, 0, 0, 0.55) 26%, #000 36%, #000 64%, rgba(0, 0, 0, 0.55) 74%, rgba(0, 0, 0, 0.18) 88%, transparent 100%);
 }
-/* Кривая хода ленты — в Slots.tsx (EASE): по ней же считаются щелчки барабана. */
+/* Кривая хода ленты – в Slots.tsx (EASE): по ней же считаются щелчки барабана. */
 .reel-strip { transition-property: transform; will-change: transform; }
 .reel-strip.blur { filter: blur(1.4px); }
 .reel-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0 3px; color: #2b2119; text-align: center; overflow: hidden; }
@@ -809,7 +809,7 @@ div.hint .hint-x { background: none; border: 0; color: inherit; font: inherit; c
 .sheet-gifts .gift-icon { font-size: 1.15rem; }
 .sheet-done { width: 100%; margin-top: 12px; }
 
-/* Невысокие экраны: шапка ниже, отступы меньше — «Крути» должна быть видна без прокрутки. */
+/* Невысокие экраны: шапка ниже, отступы меньше – «Крути» должна быть видна без прокрутки. */
 @media (max-height: 700px) {
   .menu-hero { height: clamp(120px, 22vh, 170px); }
   .menu .title-block { margin-top: -38px; }

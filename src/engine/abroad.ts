@@ -1,6 +1,6 @@
 // Переезд в другую страну (ТЗ v3, п. 11): куда можно уехать в эту эпоху, сам переезд, жизнь на чужбине
 // (вживание, принятие, тоска), желание вернуться раз в три года, возвращение и натурализация.
-// Маршруты — src/content/routes.json: только реальные пути своего времени; в Америку — никогда.
+// Маршруты – src/content/routes.json: только реальные пути своего времени; в Америку – никогда.
 import { ERA_META, isEraLoaded } from '../content'
 import ROUTES from '../content/routes.json'
 import { chance, int, weighted } from './rng'
@@ -26,7 +26,7 @@ export function routeTargets(eraId: string): string[] {
 }
 
 /**
- * Можно ли сейчас перейти в эту страну. В браузере контент грузится после переезда (App), в симуляции —
+ * Можно ли сейчас перейти в эту страну. В браузере контент грузится после переезда (App), в симуляции –
  * страна должна быть уже загружена (loadAllEras), иначе играть дальше нечем.
  */
 let eraAvailable = (id: string) => isEraLoaded(id)
@@ -57,14 +57,14 @@ export function canEmigrate(state: GameState, spec: string): boolean {
   return routesNow(state).some((r) => r.to === spec)
 }
 
-/** Сословие после переезда — по поводу: беженец опускается на ступень, пленник становится рабом. */
+/** Сословие после переезда – по поводу: беженец опускается на ступень, пленник становится рабом. */
 const DOWN: Record<string, string> = { noble: 'landowner', landowner: 'trader', trader: 'craftsman', craftsman: 'peasant', peasant: 'peasant', slave: 'slave' }
 
 /** Цена животного хозяйства при продаже перед дорогой. */
 const STOCK_PRICE: Record<string, number> = { chickens: 10, turkey: 15, goat: 30, sheep: 30, pig: 40, llama: 60, donkey: 80, cow: 120, ox: 150, camel: 250, horse: 300 }
 
 /**
- * Переехать: страна и край по маршруту, имущество продаётся с потерей, сословие и дело — по поводу и по новой
+ * Переехать: страна и край по маршруту, имущество продаётся с потерей, сословие и дело – по поводу и по новой
  * стране, родня (и те, кто не едет) остаются «на родине» (away 'homeland'). Вернёт false, если ехать некуда.
  */
 export function emigrate(state: GameState, spec: string, reason: EmigrationReason, family: 'all' | 'alone' | 'sons' = 'all'): boolean {
@@ -81,7 +81,7 @@ export function emigrate(state: GameState, spec: string, reason: EmigrationReaso
   const home = { era: hero.era, region: hero.region }
   const far = route.kind === 'far'
 
-  // Имущество: скот продают за полцены, дом — с потерей; дорога стоит денег (далеко — дороже).
+  // Имущество: скот продают за полцены, дом – с потерей; дорога стоит денег (далеко – дороже).
   let money = hero.money
   for (const a of hero.animals ?? []) if (!isPet(a.kind)) money += (STOCK_PRICE[a.kind] ?? 30) * 0.5
   hero.animals = (hero.animals ?? []).filter((a) => isPet(a.kind) && (a.kind === 'dog' || a.kind === 'cat' || a.kind === 'parrot' || a.kind === 'songbird' || family === 'all'))
@@ -98,7 +98,7 @@ export function emigrate(state: GameState, spec: string, reason: EmigrationReaso
   if (hero.profession && !meta.professions.some((p) => p.id === hero.profession)) hero.profession = meta.professions.some((p) => p.id === 'laborer') ? 'laborer' : null
   if (reason === 'captive') hero.profession = meta.professions.some((p) => p.id === 'household_slave') ? 'household_slave' : hero.profession
 
-  // Кто остаётся на родине: родители, братья и сёстры, взрослые дети со своими семьями, друзья —
+  // Кто остаётся на родине: родители, братья и сёстры, взрослые дети со своими семьями, друзья –
   // и супруг с детьми, если герой едет один (или только с сыновьями).
   for (const n of hero.npcs.filter((n) => n.alive && !n.away)) {
     const goes =
@@ -135,11 +135,11 @@ export function emigrate(state: GameState, spec: string, reason: EmigrationReaso
     mood: reason === 'captive' || reason === 'refugee' ? -10 : 2,
   })
   changeParam(hero, 'stress', 10)
-  // Остальные события этого года — уже в другой стране: недоигранные старые снимаем.
+  // Остальные события этого года – уже в другой стране: недоигранные старые снимаем.
   state.queue = state.queue.slice(0, 1)
-  // Дорога опасна: далеко — гибнут чаще, близко — редко.
+  // Дорога опасна: далеко – гибнут чаще, близко – редко.
   if (chance(state, far ? 0.05 : 0.012)) {
-    // Защищённая первая жизнь: вместо гибели в дороге — «выжил чудом».
+    // Защищённая первая жизнь: вместо гибели в дороге – «выжил чудом».
     if (isProtected(state)) rescue(state, 'accident')
     else {
       hero.alive = false
@@ -150,7 +150,7 @@ export function emigrate(state: GameState, spec: string, reason: EmigrationReaso
   return true
 }
 
-/** Вернуться домой. Если родной страны уже нет в игре (хроника кончилась) — вернуться некуда. */
+/** Вернуться домой. Если родной страны уже нет в игре (хроника кончилась) – вернуться некуда. */
 export function returnHome(state: GameState): boolean {
   const hero = state.hero
   const a = hero.abroad
@@ -182,8 +182,8 @@ export function returnHome(state: GameState): boolean {
 }
 
 /**
- * Год на чужбине: вживание растёт (быстрее в молодости, с местным супругом), принятие — по вере и репутации,
- * тоска — от одиночества и мыслей о доме. Первые годы — культурный шок. Возвращает множитель дохода.
+ * Год на чужбине: вживание растёт (быстрее в молодости, с местным супругом), принятие – по вере и репутации,
+ * тоска – от одиночества и мыслей о доме. Первые годы – культурный шок. Возвращает множитель дохода.
  */
 export function abroadYear(state: GameState, focus: FocusDef | null): number {
   const hero = state.hero
@@ -197,18 +197,18 @@ export function abroadYear(state: GameState, focus: FocusDef | null): number {
   const age = hero.age
   const localSpouse = aliveNpcs(hero, 'spouse').some((s) => (s.since ?? 0) > a.since)
   const family = aliveNpcs(hero, 'spouse').length + aliveNpcs(hero, 'child').length
-  // Работа и торговля среди местных — лучшая школа языка и обычаев.
+  // Работа и торговля среди местных – лучшая школа языка и обычаев.
   a.integration = clamp(a.integration + (age < 12 ? 10 : age < 25 ? 6 : age < 45 ? 4 : 2) + (localSpouse ? 4 : 0) + (focus && ['work', 'trade', 'service', 'learn'].includes(focus.id) ? 2 : 0) - (isMinority(state) ? 1 : 0))
   a.acceptance = clamp(a.acceptance + (hero.hidden.reputation > 20 ? 2 : 0) + (isMinority(state) ? -2 : 1) + (a.integration > 50 ? 2 : 0) + int(state, -3, 3))
   a.homesick = clamp(a.homesick + 4 + (hero.hidden.loneliness > 50 ? 4 : 0) - Math.round(a.integration / 15) - (family > 0 ? 3 : 0) - (localSpouse ? 3 : 0))
   if (years <= 4) {
-    // Культурный шок: всё чужое — язык, еда, обычаи.
+    // Культурный шок: всё чужое – язык, еда, обычаи.
     changeParam(hero, 'stress', 3)
     changeParam(hero, 'happiness', -2)
   }
   if (a.homesick > 60) changeParam(hero, 'happiness', -3)
   if (a.acceptance < 25) changeParam(hero, 'stress', 3)
-  // Доход: первые годы ниже, потом — по вживанию и принятию (у вжившихся купцов и мастеров — выше, чем дома).
+  // Доход: первые годы ниже, потом – по вживанию и принятию (у вжившихся купцов и мастеров – выше, чем дома).
   if (years < 3) return 0.7
   const skilled = hero.cls === 'trader' || hero.cls === 'craftsman'
   return Math.min(skilled ? 1.5 : 1.3, 0.75 + a.integration / 250 + a.acceptance / 250)
@@ -220,7 +220,7 @@ export function homesickDue(state: GameState): boolean {
   return !!a && (!a.naturalized || !!a.planned) && state.year >= a.nextAsk && state.hero.age >= 12
 }
 
-/** «Задумать возвращение»: вопрос «вернуться?» придёт в следующем году — даже тому, кто стал здешним. */
+/** «Задумать возвращение»: вопрос «вернуться?» придёт в следующем году – даже тому, кто стал здешним. */
 export function planReturn(state: GameState): void {
   const a = state.hero.abroad
   if (!a) return
@@ -229,7 +229,7 @@ export function planReturn(state: GameState): void {
   a.homesick = Math.max(a.homesick, 45)
 }
 
-/** Пора ли стать здешним: несколько отказов вернуться и вживание 60+ — или долгие годы и вживание 75+. */
+/** Пора ли стать здешним: несколько отказов вернуться и вживание 60+ – или долгие годы и вживание 75+. */
 export function naturalizeDue(state: GameState): boolean {
   const a = state.hero.abroad
   if (!a || a.naturalized) return false

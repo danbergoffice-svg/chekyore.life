@@ -1,5 +1,5 @@
-// Экран сна о будущем (docs/TZ_dreams.md): три шага с вводом — отметить нужное, доли, порядок, число;
-// спор с мудрецом; подсказка «Заглянуть в учебник»; в конце — итог и карточка «Как было на самом деле».
+// Экран сна о будущем (docs/TZ_dreams.md): три шага с вводом – отметить нужное, доли, порядок, число;
+// спор с мудрецом; подсказка «Заглянуть в учебник»; в конце – итог и карточка «Как было на самом деле».
 // Верно ли ответил игрок, видно только в конце. Вариантов «один из четырёх» нет.
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { dreamDef, expectedAnswer } from '../engine/dreams'
@@ -160,7 +160,7 @@ function DreamInputView({ input, seed, picked, opt, unit, onDone }: { input: Dre
   const [order, setOrder] = useState<string[]>(options)
   const [removed, setRemoved] = useState<string[]>([])
   const [num, setNum] = useState('')
-  // Доли — для того, что игрок выбрал в предыдущем вводе этого шага.
+  // Доли – для того, что игрок выбрал в предыдущем вводе этого шага.
   const parts = input.kind === 'ratio' ? picked : []
   const [ratio, setRatio] = useState<Record<string, string>>({})
   useEffect(() => setOrder(options), [options])

@@ -8,8 +8,8 @@ import type { Moment } from './illustrations'
 const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
 
 /**
- * Иллюстрация момента (G3): рисованная картинка страны 256×144, поверх — процедурное движение (осадки, огонь).
- * Пока картинки нет, она грузится или не загрузилась — показывается fallback (процедурная сцена); игра не ждёт.
+ * Иллюстрация момента (G3): рисованная картинка страны 256×144, поверх – процедурное движение (осадки, огонь).
+ * Пока картинки нет, она грузится или не загрузилась – показывается fallback (процедурная сцена); игра не ждёт.
  */
 export function Illustration(props: { era: string; moment?: Moment; label?: string; weather?: Weather | null; fire?: boolean; still?: boolean; children: ComponentChildren }) {
   const { era, moment, label, weather, fire, still } = props

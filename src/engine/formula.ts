@@ -38,7 +38,7 @@ const FUNCS: Record<string, (x: number) => number> = {
   round: Math.round,
 }
 
-/** Посчитать формулу с параметрами. Ошибка — если параметра нет или формула записана неверно. */
+/** Посчитать формулу с параметрами. Ошибка – если параметра нет или формула записана неверно. */
 export function evaluate(src: string, vars: Record<string, number>): number {
   const ts = tokens(src)
   let p = 0

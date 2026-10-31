@@ -1,7 +1,7 @@
 // Иллюстрации ключевых моментов (ТЗ графики, G3): по 18 моментов на страну + сон и справка.
-// Файлы — src/art/<папка страны>/<момент>.png (или .webp), 256×144, палитра стиля страны, ≤ 30 КБ.
-// Грузятся только для страны героя (import.meta.glob без eager — файлы с хешем, как чанки стран).
-// Если картинки нет или она не загрузилась — показывается процедурная сцена: игра картинку не ждёт.
+// Файлы – src/art/<папка страны>/<момент>.png (или .webp), 256×144, палитра стиля страны, ≤ 30 КБ.
+// Грузятся только для страны героя (import.meta.glob без eager – файлы с хешем, как чанки стран).
+// Если картинки нет или она не загрузилась – показывается процедурная сцена: игра картинку не ждёт.
 import { ERA_FOLDER } from '../content'
 import type { EventDef } from '../engine/types'
 
@@ -23,14 +23,14 @@ function fileOf(folder: string, moment: Moment): string | undefined {
   return Object.keys(FILES).find((k) => k === `../art/${folder}/${moment}.png` || k === `../art/${folder}/${moment}.webp`)
 }
 
-/** Есть ли иллюстрация момента для страны (папка — как у контента: rus, europe, china…). */
+/** Есть ли иллюстрация момента для страны (папка – как у контента: rus, europe, china…). */
 export function hasIllustration(era: string, moment: Moment): boolean {
   return !!fileOf(ERA_FOLDER[era] ?? era.toLowerCase(), moment)
 }
 
 const urls = new Map<string, Promise<string | null>>()
 
-/** Адрес картинки (загружается лениво, один раз). null — картинки нет. */
+/** Адрес картинки (загружается лениво, один раз). null – картинки нет. */
 export function illustrationUrl(era: string, moment: Moment): Promise<string | null> {
   const folder = ERA_FOLDER[era] ?? era.toLowerCase()
   const key = `${folder}/${moment}`
@@ -67,7 +67,7 @@ const RULES: [RegExp, Moment][] = [
 const BY_PLACE: Partial<Record<string, Moment>> = { market: 'market', temple: 'rite', battle: 'war', camp: 'war', palace: 'court', school: 'study', tomb: 'funeral', workshop: 'work', field: 'work' }
 
 /**
- * Момент для иллюстрации события: поле image_slot или — у событий-вех, поворотов, исторических и с бедствиями —
+ * Момент для иллюстрации события: поле image_slot или – у событий-вех, поворотов, исторических и с бедствиями –
  * по id и месту сцены. Остальные события остаются с процедурной сценой.
  */
 export function momentOf(ev: EventDef): Moment | undefined {

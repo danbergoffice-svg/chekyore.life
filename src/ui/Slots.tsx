@@ -8,7 +8,7 @@ import type { ReelTiming } from '../sfx'
 import { Scene } from '../pixel/Scene'
 import { useUi } from './text'
 
-/** Лотерея рождения: три барабана — где и когда, положение, пол. Игрок дёргает рычаг, барабаны останавливаются по очереди. */
+/** Лотерея рождения: три барабана – где и когда, положение, пол. Игрок дёргает рычаг, барабаны останавливаются по очереди. */
 
 interface Item {
   top: string
@@ -32,7 +32,7 @@ function rand(seed: number) {
   }
 }
 
-/** Ход барабана: кривая CSS-перехода ленты (в конце — лёгкий перелёт). По ней же считаются щелчки строк. */
+/** Ход барабана: кривая CSS-перехода ленты (в конце – лёгкий перелёт). По ней же считаются щелчки строк. */
 const EASE = [0.15, 0.6, 0.22, 1.04] as const
 
 /** Когда (секунды от начала вращения) через середину окна проезжает каждая строка и когда барабан встаёт. */
@@ -81,7 +81,7 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
   return (
     <div class={`reel ${props.stopped ? 'stopped' : ''}`}>
       <div class="reel-label">{props.label}</div>
-      {/* Награда, которая уже решила этот барабан: «🔒 Византия», «👑 Знать» — над краем окна. */}
+      {/* Награда, которая уже решила этот барабан: «🔒 Византия», «👑 Знать» – над краем окна. */}
       <div class="reel-frame">
         {props.tag && <span class="reel-tag">{props.tag}</span>}
         <div class="reel-window" style={{ height: `${WINDOW}px` }}>
@@ -113,7 +113,7 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
 let focused = 0
 
 /**
- * Барабан в главном меню: рычаг и кнопка «Крутить новую жизнь». Страна, которая выпадет, грузится с рывка рычага —
+ * Барабан в главном меню: рычаг и кнопка «Крутить новую жизнь». Страна, которая выпадет, грузится с рывка рычага –
  * пока крутятся барабаны; если не успела, кнопка «Начать жизнь» ждёт загрузки.
  */
 export function SlotMachine(props: {
@@ -127,15 +127,15 @@ export function SlotMachine(props: {
   onSetup?: () => void
   /** Растёт, когда к барабану нужно прокрутить страницу (новая жизнь с экрана итогов). */
   focus?: number
-  /** Перекрутить после результата (рычаг остаётся активным); left — сколько раз ещё можно. */
+  /** Перекрутить после результата (рычаг остаётся активным); left – сколько раз ещё можно. */
   onRespin?: () => void
   left?: number
   /** Это перекрутка: барабан сам дёргает рычаг сразу после появления. */
   autoSpin?: boolean
-  /** Бесплатные перекрутки кончились — ещё одна за рекламу (CrazyGames); adBusy — реклама грузится или идёт. */
+  /** Бесплатные перекрутки кончились – ещё одна за рекламу (CrazyGames); adBusy – реклама грузится или идёт. */
   onAdRespin?: () => void
   adBusy?: boolean
-  /** Справа над барабаном — кнопка «🎁 Дары» (если они есть). */
+  /** Справа над барабаном – кнопка «🎁 Дары» (если они есть). */
   gifts?: ComponentChildren
   /** Ярлыки наград на окнах барабана: страна и положение. */
   tags?: { where?: string; status?: string }
@@ -150,11 +150,11 @@ export function SlotMachine(props: {
   useEffect(() => {
     if (!props.focus || props.focus === focused) return
     focused = props.focus
-    // После смены экрана страница сама прокручивается наверх — к барабану едем чуть позже.
+    // После смены экрана страница сама прокручивается наверх – к барабану едем чуть позже.
     const id = setTimeout(() => box.current?.scrollIntoView({ block: 'center', behavior: fast ? 'auto' : 'smooth' }), 80)
     return () => clearTimeout(id)
   }, [props.focus])
-  // Если мир грузится дольше 12 секунд после рывка — подсказать, что делать.
+  // Если мир грузится дольше 12 секунд после рывка – подсказать, что делать.
   const [slow, setSlow] = useState(false)
   useEffect(() => {
     if (props.ready || phase === 'idle') return
@@ -203,7 +203,7 @@ export function SlotMachine(props: {
   useEffect(() => {
     if (props.autoSpin) pull()
   }, [])
-  // Барабаны пошли — щелчки строк и стук остановки в такт ленте.
+  // Барабаны пошли – щелчки строк и стук остановки в такт ленте.
   useEffect(() => {
     if (phase === 'spin') playReels(durations.map((d, i) => reelTiming(d, reels[i].length - 2)))
   }, [phase])

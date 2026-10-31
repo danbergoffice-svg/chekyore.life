@@ -1,7 +1,7 @@
 // Награды: цели, ради которых хочется прожить ещё одну жизнь (ТЗ v3, п. 10; исходное ТЗ ACH1–ACH3).
-// Условие проверяется по итогам жизни (LifeSummary) и мемориалу — поэтому награды засчитываются и задним числом.
+// Условие проверяется по итогам жизни (LifeSummary) и мемориалу – поэтому награды засчитываются и задним числом.
 // Во время жизни часть наград (возраст, правнуки, поколения) выдаётся сразу, по состоянию игры (live).
-// Тексты: ach.<id>.title, ach.<id>.desc (условие), ach.<id>.hint (как добиться) — в src/i18n/*.json.
+// Тексты: ach.<id>.title, ach.<id>.desc (условие), ach.<id>.hint (как добиться) – в src/i18n/*.json.
 import { ERA_META } from '../content'
 import { DREAM_DEFS, dreamDef } from './dreams'
 import type { GameState, LifeSummary } from './types'
@@ -31,7 +31,7 @@ export interface Earned {
   lifeId: string
 }
 
-/** Средневековье игры — все страны, кроме Древнего мира. */
+/** Средневековье игры – все страны, кроме Древнего мира. */
 const ANCIENT = ['E03', 'ANE']
 const medieval = (era: string) => !ANCIENT.includes(era)
 
@@ -71,7 +71,7 @@ const familyOf = (life: LifeSummary, all: LifeSummary[]) => all.filter((l) => l.
 /** Сон о будущем этой жизни (пропущенный не считается). */
 const dreamOf = (l: LifeSummary) => (l.dreamSeen && !l.dreamSeen.skipped ? l.dreamSeen : undefined)
 const breakthrough = (l: LifeSummary) => dreamOf(l)?.outcome === 'breakthrough'
-/** Страны, где случился прорыв (страна на момент сна — после переезда это новая). */
+/** Страны, где случился прорыв (страна на момент сна – после переезда это новая). */
 const dreamLands = (all: LifeSummary[]) => new Set(all.filter(breakthrough).map((l) => l.dreamSeen!.era ?? l.era))
 const isHistorical = (life: LifeSummary) => life.mortality === 'historical'
 
@@ -90,7 +90,7 @@ const AGE = (id: string, n: number, extra?: (l: LifeSummary) => boolean, more: P
 })
 
 export const ACHIEVEMENTS: AchDef[] = [
-  // Век — долголетие.
+  // Век – долголетие.
   AGE('age_60', 60),
   AGE('age_70', 70),
   AGE('age_80', 80),
@@ -113,7 +113,7 @@ export const ACHIEVEMENTS: AchDef[] = [
       ),
   },
 
-  // Кровь — род.
+  // Кровь – род.
   { id: 'heir', group: 'blood', test: (l) => l.generation >= 2, live: (s) => s.hero.generation >= 2 },
   { id: 'gen_5', group: 'blood', test: (l) => l.generation >= 5, progress: (l) => Math.min(1, l.generation / 5), live: (s) => s.hero.generation >= 5 },
   { id: 'gen_10', group: 'blood', test: (l) => l.generation >= 10, progress: (l) => Math.min(1, l.generation / 10), live: (s) => s.hero.generation >= 10 },
@@ -139,7 +139,7 @@ export const ACHIEVEMENTS: AchDef[] = [
   },
   { id: 'to_be_continued', group: 'blood', test: (l) => hasKey(l, 'diary.era_end') },
 
-  // Жребий — судьба.
+  // Жребий – судьба.
   { id: 'rags_to_riches', group: 'fate', test: (l) => ['slave', 'peasant'].includes(birthCls(l)) && ['landowner', 'noble'].includes(l.cls) },
   { id: 'freedom', group: 'fate', test: (l) => birthCls(l) === 'slave' && l.cls !== 'slave' },
   { id: 'born_in_chains', group: 'fate', test: (l) => birthCls(l) === 'slave' && l.cls !== 'slave' && l.age >= 60 && l.money >= 500 },
@@ -147,7 +147,7 @@ export const ACHIEVEMENTS: AchDef[] = [
   {
     id: 'master',
     group: 'fate',
-    // Вершина ремесла — ступень, до которой только дослуживаются (promotion_only): мастерская, чин, игумен…
+    // Вершина ремесла – ступень, до которой только дослуживаются (promotion_only): мастерская, чин, игумен…
     test: (l) => [...professions(l)].some((p) => ERA_META[l.era]?.professions.some((x) => x.id === p && x.promotion_only)),
   },
   { id: 'scholar', group: 'fate', test: (l) => (l.skills?.literacy ?? 0) >= 80, progress: (l) => Math.min(1, (l.skills?.literacy ?? 0) / 80) },
@@ -157,7 +157,7 @@ export const ACHIEVEMENTS: AchDef[] = [
     test: (l) => !!l.tags?.includes('hajji') || [...choiceKeys(l)].some((k) => /\.(pilgrimage\w*|hajj|ise|d_ise)\.(go|go_poor|join)$/.test(k) || /^ev\.f_pilgrimage_\w+\.(go|go_poor)$/.test(k)),
   },
 
-  // Сердце — любовь и семья.
+  // Сердце – любовь и семья.
   {
     id: 'defiant',
     group: 'heart',
@@ -184,7 +184,7 @@ export const ACHIEVEMENTS: AchDef[] = [
     },
   },
 
-  // Странник — мир.
+  // Странник – мир.
   { id: 'traveler', group: 'wanderer', test: (l) => new Set(l.places).size >= 3, progress: (l) => Math.min(1, new Set(l.places).size / 3) },
   {
     id: 'witness',
@@ -223,7 +223,7 @@ export const ACHIEVEMENTS: AchDef[] = [
     progress: (l, all) => Math.min(1, new Set(familyOf(l, all).flatMap((x) => x.erasLived ?? [x.era])).size / 3),
   },
 
-  // Вызов — только историческая смертность.
+  // Вызов – только историческая смертность.
   {
     id: 'iron_health',
     group: 'challenge',
@@ -268,7 +268,7 @@ export const ACH_GROUPS: AchGroup[] = ['age', 'blood', 'fate', 'heart', 'wandere
 export function schoolProgram(memorial: LifeSummary[]): {
   solved: Set<string>
   seen: Set<string>
-  /** Где и когда сон приснился в последний раз — там же идёт тренировка. */
+  /** Где и когда сон приснился в последний раз – там же идёт тренировка. */
   where: Map<string, { era: string; year: number }>
   subjects: { subject: string; ids: string[] }[]
 } {
@@ -286,8 +286,8 @@ export function schoolProgram(memorial: LifeSummary[]): {
   return { solved, seen, where, subjects: subjects.filter((x) => x.ids.length) }
 }
 
-/** Лестница снов: открытый уровень — 1 + сколько снов решено хотя бы частично (прорыв или «частично»), не выше 5;
- *  и какие сны уже снились — новые снятся чаще. */
+/** Лестница снов: открытый уровень – 1 + сколько снов решено хотя бы частично (прорыв или «частично»), не выше 5;
+ *  и какие сны уже снились – новые снятся чаще. */
 export function dreamLadder(memorial: LifeSummary[]): { level: number; seen: string[] } {
   let solved = 0
   const seen: string[] = []
@@ -300,12 +300,12 @@ export function dreamLadder(memorial: LifeSummary[]): { level: number; seen: str
   return { level: Math.min(5, 1 + solved), seen }
 }
 
-/** Засчитывается ли награда в этой жизни (трудные — только при исторической смертности). */
+/** Засчитывается ли награда в этой жизни (трудные – только при исторической смертности). */
 function allowed(a: AchDef, life: { mortality?: string }): boolean {
   return !a.hard || life.mortality === 'historical'
 }
 
-/** Новые награды по итогам жизни: life — эта жизнь, memorial — все прожитые (с ней или без). */
+/** Новые награды по итогам жизни: life – эта жизнь, memorial – все прожитые (с ней или без). */
 export function checkLife(life: LifeSummary, memorial: LifeSummary[], have: Set<string>): string[] {
   const all = memorial.some((l) => l.heroId === life.heroId) ? memorial : [...memorial, life]
   return ACHIEVEMENTS.filter((a) => !have.has(a.id) && allowed(a, life) && a.test(life, all)).map((a) => a.id)
@@ -316,7 +316,7 @@ export function checkLive(state: GameState, have: Set<string>): string[] {
   return ACHIEVEMENTS.filter((a) => a.live && !have.has(a.id) && allowed(a, state.settings) && a.live(state)).map((a) => a.id)
 }
 
-/** Задним числом — по всем жизням мемориала. */
+/** Задним числом – по всем жизням мемориала. */
 export function checkMemorial(memorial: LifeSummary[], have: Set<string>): Earned[] {
   const got = new Set(have)
   const out: Earned[] = []
@@ -340,7 +340,7 @@ export function nearMisses(life: LifeSummary, memorial: LifeSummary[], have: Set
     .slice(0, 2)
 }
 
-/** Цели на следующую жизнь: три невыполненные награды — сначала по этой стране и роду, потом общие. */
+/** Цели на следующую жизнь: три невыполненные награды – сначала по этой стране и роду, потом общие. */
 export function nextGoals(life: LifeSummary | undefined, have: Set<string>): string[] {
   const open = ACHIEVEMENTS.filter((a) => !have.has(a.id) && !a.secret && !a.hard)
   const score = (a: AchDef) => (a.era && life && a.era === life.era ? 3 : 0) + (a.group === 'blood' && life ? 2 : 0) + (a.group === 'age' ? 1 : 0)

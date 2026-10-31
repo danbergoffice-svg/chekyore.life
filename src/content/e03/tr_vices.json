@@ -1,6 +1,6 @@
 {
   "ev.v_dice_saturnalia.title": "Saturnalia",
-  "ev.v_dice_saturnalia.text": "Saturnalia! Bir hafta boyunca dünya tersine dönüyor: efendiler sofrada kölelerine hizmet ediyor, herkes keçe bir başlık takıyor, zarlar da aedillerden korkmadan açıkta atılabiliyor. Bütün ev halkı ceviz üstüne oynuyor — kimileri şimdiden sikke üstüne.",
+  "ev.v_dice_saturnalia.text": "Saturnalia! Bir hafta boyunca dünya tersine dönüyor: efendiler sofrada kölelerine hizmet ediyor, herkes keçe bir başlık takıyor, zarlar da aedillerden korkmadan açıkta atılabiliyor. Bütün ev halkı ceviz üstüne oynuyor – kimileri şimdiden sikke üstüne.",
   "ev.v_dice_saturnalia.nuts": "Ceviz için oyna, gül",
   "ev.v_dice_saturnalia.nuts.ok": "Bir çuval ceviz kaybettin ve hepsini geri kazandın. Uzun zamandır böyle gülmemiştin.",
   "ev.v_dice_saturnalia.coins": "Sikke için oyna",
@@ -9,12 +9,12 @@
   "ev.v_dice_saturnalia.watch": "Başkalarının oyununu izle",
   "ev.v_dice_saturnalia.watch.ok": "Mangalın yanında oturup oyunun ağırbaşlı adamları nasıl çocuğa çevirdiğini izledin. Şehirdeki her gösteriden iyiydi.",
   "ev.v_dice_aedile.title": "Baskın",
-  "ev.v_dice_aedile.text": "Oyunun ortasında aedilin adamları popinaya daldı. Saturnalia dışında kumar oynamanın cezası ağırdır — rezillik de bütün mahalleye yayılır.",
+  "ev.v_dice_aedile.text": "Oyunun ortasında aedilin adamları popinaya daldı. Saturnalia dışında kumar oynamanın cezası ağırdır – rezillik de bütün mahalleye yayılır.",
   "ev.v_dice_aedile.pay": "Cezayı öde",
   "ev.v_dice_aedile.pay.ok": "Ödedin. Daha kötüsü, adın yazıldı ve ertesi gün bütün sokak bunu biliyordu.",
   "ev.v_dice_aedile.bribe": "Bekçiye bir sikke sıkıştır",
   "ev.v_dice_aedile.bribe.success": "Bekçi seni hiç orada görmemiş gibi davrandı. Ne işe yarar bir hafızası var.",
-  "ev.v_dice_aedile.bribe.failure": "Bekçi dürüst çıktı — bu şehirde ender rastlanır. Şimdi hem cezayı hem de rüşvet girişimini ödüyorsun.",
+  "ev.v_dice_aedile.bribe.failure": "Bekçi dürüst çıktı – bu şehirde ender rastlanır. Şimdi hem cezayı hem de rüşvet girişimini ödüyorsun.",
   "ev.v_dice_aedile.run": "Arka avludan kaç",
   "ev.v_dice_aedile.run.success": "Çitin üstünden atlayıp ara sokaklarda kayboldun. Eve kadar kalbin küt küt attı.",
   "ev.v_dice_aedile.run.failure": "Çite takıldın ve tam bekçilerin ayağının dibine yuvarlandın. Ceza, sıyrıklar ve kahkaha tufanı."

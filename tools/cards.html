@@ -31,7 +31,7 @@
       const eras = await loadAllEras()
       await loadAllTexts()
       let quotes = []
-      // Пока подборки нет — пробные цитаты (пути через переменную, чтобы vite не падал на отсутствующем файле).
+      // Пока подборки нет – пробные цитаты (пути через переменную, чтобы vite не падал на отсутствующем файле).
       const real = '../src/content/common/quotes.json', sample = './tmp/sample-quotes.json'
       try { quotes = (await import(/* @vite-ignore */ real)).default } catch { quotes = (await import(/* @vite-ignore */ sample)).default }
       await document.fonts.load("600 40px 'Thousands Letopis'")

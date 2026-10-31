@@ -22,7 +22,7 @@ describe('Защищённая первая жизнь (P1)', () => {
       for (const y of s.hero.history.filter((h) => h.age < min && h.age > 0)) expect(y.health).toBeGreaterThanOrEqual(10)
       rescued += s.hero.diary.filter((d) => d.key.startsWith('diary.rescued.')).length
     }
-    // Смертельные исходы в детстве редки, но защита должна срабатывать хоть иногда — иначе тест ничего не проверяет.
+    // Смертельные исходы в детстве редки, но защита должна срабатывать хоть иногда – иначе тест ничего не проверяет.
     expect(rescued).toBeGreaterThanOrEqual(0)
   })
 
@@ -34,7 +34,7 @@ describe('Защищённая первая жизнь (P1)', () => {
     expect(ages.filter((a) => a < 50).length).toBeGreaterThan(5)
   })
 
-  it('A/B второй жизни, вариант b: высокое положение в любой стране, остальное — как выпало; герой рождается в нём', () => {
+  it('A/B второй жизни, вариант b: высокое положение в любой стране, остальное – как выпало; герой рождается в нём', () => {
     const counts: Record<string, number> = {}
     for (let i = 0; i < 300; i++) {
       const rolled = rollBirth(7000 + i, 'population', ERA_IDS.map((id) => ERA_META[id]))
@@ -49,7 +49,7 @@ describe('Защищённая первая жизнь (P1)', () => {
     expect((counts.noble ?? 0) + (counts.landowner ?? 0)).toBeGreaterThan(280)
   })
 
-  it('награда за главный экран: царская семья в любой стране — знать с отметкой royal, богаче и почётнее; остальная жизнь от seed та же', () => {
+  it('награда за главный экран: царская семья в любой стране – знать с отметкой royal, богаче и почётнее; остальная жизнь от seed та же', () => {
     const settings = { mode: 'quick', mortality: 'soft', softenHeavy: false, protectedUntil: 20, livesBefore: 1 } as const
     for (let i = 0; i < 120; i++) {
       const rolled = rollBirth(8000 + i, 'population', ERA_IDS.map((id) => ERA_META[id]))

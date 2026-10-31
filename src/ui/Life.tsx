@@ -38,7 +38,7 @@ import type { Change } from './text'
 type Tab = 'life' | 'hero' | 'people' | 'diary'
 
 /**
- * Длительность года на скорости ×1. Стандартная — из флагов (в детстве, до child_age лет, короче).
+ * Длительность года на скорости ×1. Стандартная – из флагов (в детстве, до child_age лет, короче).
  * Если игрок выбрал свою (до минуты), детство удлиняется в той же пропорции.
  */
 function yearMs(age: number, custom?: number): number {
@@ -65,7 +65,7 @@ interface LifeProps {
   onSettings?: () => void
   choiceChanges: Change[]
   yearChanges: Change[]
-  /** Своя длительность года из настроек (секунды); не задана — стандартная. */
+  /** Своя длительность года из настроек (секунды); не задана – стандартная. */
   yearSec?: number
   /** Кнопка музыки. */
   sound?: preact.ComponentChildren
@@ -124,7 +124,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   }
   const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue || adOpen
   // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
-  // пауза без решения и уход с экрана жизни — остановка.
+  // пауза без решения и уход с экрана жизни – остановка.
   const playing = (speed > 0 || modalOpen) && !chapterDue && !adOpen && state.phase !== 'dead'
   useEffect(() => {
     if (playing) platform.gameplayStart()
@@ -167,10 +167,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
   const stage = stageOf(state, era)
   const entries = hero.diary.map((d, i) => [d, i] as const).filter(([d, i]) => visible(state, i, d, progress) && !d.key.startsWith('diary.stage_'))
-  // В ленте — справки только последнего года с ними, прошлые остаются во вкладке «Дневник».
+  // В ленте – справки только последнего года с ними, прошлые остаются во вкладке «Дневник».
   const primerYear = Math.max(-Infinity, ...entries.filter(([d]) => d.primer).map(([d]) => d.year))
   const feed = entries.filter(([d]) => !d.primer || d.year === primerYear).slice(-14).reverse()
-  // Вверху — дом героя: семья, животные и дом нужного размера; если в этом году случилось бедствие, оно видно на доме.
+  // Вверху – дом героя: семья, животные и дом нужного размера; если в этом году случилось бедствие, оно видно на доме.
   const disaster = [...entries]
     .reverse()
     .map(([d]) => (d.year === state.year && d.eventId ? entryScene(d, era).disaster : undefined))
@@ -215,8 +215,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       </header>
 
       {hintFor('hero', hero.age >= 12) && tab === 'life' && <Hint text={t('hint.hero')} onClose={() => closeHint('hero')} />}
-      {/* Вкладки и скорость — вверху и прилипают при прокрутке: скорость рядом с картинкой, а не под лентой.
-          Время идёт на любой вкладке, поэтому скорость и пауза — тоже на всех. */}
+      {/* Вкладки и скорость – вверху и прилипают при прокрутке: скорость рядом с картинкой, а не под лентой.
+          Время идёт на любой вкладке, поэтому скорость и пауза – тоже на всех. */}
       <div class="life-top">
         <nav class="tabs" role="tablist">
           {(['life', 'hero', 'people', 'diary'] as Tab[]).map((id) => (
@@ -336,7 +336,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <ul class="plain">{feelings(t, hero).map((f) => <li>{f}</li>)}</ul>
           <p class="small">
             <strong>{t('reveal.faith')}:</strong> <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
-            <span class="muted"> — {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+            <span class="muted"> – {t(`religion.${hero.religion}.desc`, {}, o)}</span>
           </p>
           <p class="small">
             <strong>{t('hero.family')}:</strong> {maritalText(t, hero, lang, 'marital')}
@@ -365,7 +365,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             {hero.animals?.length
               ? hero.animals
                   .map((a) =>
-                    // Питомец — с кличкой и возрастом: «пёс Полкан, 7 лет».
+                    // Питомец – с кличкой и возрастом: «пёс Полкан, 7 лет».
                     isPet(a.kind)
                       ? `${t(`pet.${a.kind}`, {}, o)}${a.name ? ` ${nameOf(a.name, lang)}` : ''}${a.born !== undefined ? `, ${t('hero.pet_age', { n: Math.max(0, state.year - a.born) })}` : ''}`
                       : t(`animal.${a.kind}`, {}, o),
@@ -454,12 +454,12 @@ export function heroLook(hero: Hero): AvatarInput {
   }
 }
 
-/** Порядок кнопок фокуса: самые частые — первыми. */
+/** Порядок кнопок фокуса: самые частые – первыми. */
 const FOCUS_ORDER = ['play', 'learn', 'help_family', 'work', 'study', 'family', 'health', 'rest', 'religion', 'trade', 'savings', 'service']
 const FOCUS_CHIPS = 6
 
 /**
- * Фокус года над лентой событий. Свёрнуто — до шести коротких кнопок и строка о выбранном;
+ * Фокус года над лентой событий. Свёрнуто – до шести коротких кнопок и строка о выбранном;
  * «Подробнее» раскрывает пояснение и все варианты с описаниями.
  */
 function FocusPanel({ focuses, selected, open, onToggle, onPick, o, hint, lifestyle }: {
@@ -555,7 +555,7 @@ function ChangeList({ changes, coin }: { changes: Change[]; coin: string }) {
   )
 }
 
-/** Подсказка: пузырь с текстом, исчезает по касанию; action — кнопка-действие внутри (например, «Открыть настройки»). */
+/** Подсказка: пузырь с текстом, исчезает по касанию; action – кнопка-действие внутри (например, «Открыть настройки»). */
 function Hint({ text, onClose, action }: { text: string; onClose: () => void; action?: { label: string; run: () => void } }) {
   if (!action) {
     return (
@@ -625,7 +625,7 @@ function Chapter({ state, era, onNext }: { state: GameState; era: EraDef; onNext
   )
 }
 
-/** Справки «О твоём мире» подряд — одна компактная карточка: заголовок и начало текста в строку, «Читать» раскрывает. Год не останавливается. */
+/** Справки «О твоём мире» подряд – одна компактная карточка: заголовок и начало текста в строку, «Читать» раскрывает. Год не останавливается. */
 function PrimerGroup({ ids, o }: { ids: string[]; o: { sex: Hero['sex']; region: string; religion: string } }) {
   const { t } = useUi()
   const [open, setOpen] = useState<string | null>(null)
@@ -642,7 +642,7 @@ function PrimerGroup({ ids, o }: { ids: string[]; o: { sex: Hero['sex']; region:
             <button class="primer-row" aria-expanded={open === id} onClick={() => read(id)}>
               <span class="primer-line">
                 <strong class="primer-title">{t(`primer.${id}.title`, {}, o)}</strong>
-                {open !== id && <span class="primer-peek"> — {t(`primer.${id}.text`, {}, o)}</span>}
+                {open !== id && <span class="primer-peek"> – {t(`primer.${id}.text`, {}, o)}</span>}
               </span>
               <span class="primer-more">{open === id ? '−' : t('primer.read')}</span>
             </button>
@@ -692,7 +692,7 @@ function Lifestyle({ state, era, coin, onChange }: { state: GameState; era: EraD
       <h2 class="section-title">{t('lifestyle.title')}</h2>
       <p class="expected">{t('lifestyle.expected', { n: expectedAge(state, era) })}</p>
       <p class="small muted">{t('lifestyle.hint')}</p>
-      {/* Цифра — из симуляции (npm run longevity): сколько лет добавляет взрослому бережный образ жизни в этой стране. */}
+      {/* Цифра – из симуляции (npm run longevity): сколько лет добавляет взрослому бережный образ жизни в этой стране. */}
       <p class="small">{t('lifestyle.bonus', { n: (LONGEVITY.eras as Record<string, { bonus: number }>)[era.id]?.bonus ?? LONGEVITY.bonusMin })}</p>
       {defs.map((def) => {
         const current = lifestyleOption(state, def).id

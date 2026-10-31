@@ -29,7 +29,7 @@ describe('Сон о будущем', () => {
     expect(validateDreams()).toEqual([])
   })
 
-  it('первая жизнь без флага dream_first_by: 1000 жизней — ни одного сна', async () => {
+  it('первая жизнь без флага dream_first_by: 1000 жизней – ни одного сна', async () => {
     let dreams = 0
     for (let i = 0; i < 1000; i += 1) {
       if (i % 50 === 0) await breathe()
@@ -58,7 +58,7 @@ describe('Сон о будущем', () => {
     expect(had / alive).toBeGreaterThan(0.9)
   }, 300000)
 
-  it('со второй жизни — не больше одного сна; у доживших до 40 сон был у 55–75%', async () => {
+  it('со второй жизни – не больше одного сна; у доживших до 40 сон был у 55–75%', async () => {
     let alive40 = 0
     let had = 0
     for (let i = 0; i < 1000; i++) {
@@ -76,7 +76,7 @@ describe('Сон о будущем', () => {
     expect(had / alive40).toBeLessThan(0.75)
   }, 300000)
 
-  it('при эпидемии — не меньше 60% снов о медицине; «Цинга» и «Полярная звезда» — только в портах', () => {
+  it('при эпидемии – не меньше 60% снов о медицине; «Цинга» и «Полярная звезда» – только в портах', () => {
     const s = newLife(eras.EUR, soft(1), 5)
     s.hero.tags.push('epidemic')
     expect(dreamThemes(s).has('medicine')).toBe(true)
@@ -99,7 +99,7 @@ describe('Сон о будущем', () => {
     }
   })
 
-  it('провал «Пороха» убивает с частотой death_chance ±3 п.п.; причина — «плохо учился в школе»', () => {
+  it('провал «Пороха» убивает с частотой death_chance ±3 п.п.; причина – «плохо учился в школе»', () => {
     const def = dreamDef('gunpowder')!
     let deaths = 0
     const N = 2000
@@ -119,7 +119,7 @@ describe('Сон о будущем', () => {
     expect(Math.abs(deaths / N - def.death_chance![0])).toBeLessThan(0.03)
   })
 
-  it('верные ответы на все шаги — прорыв: скачок по сословию и занятие сна', () => {
+  it('верные ответы на все шаги – прорыв: скачок по сословию и занятие сна', () => {
     const s = newLife(eras.JPN, soft(1), 31)
     s.year = 1250
     s.hero.age = 25
@@ -133,7 +133,7 @@ describe('Сон о будущем', () => {
     expect(s.hero.traits).toContain('dreamer')
   })
 
-  it('ответ: запятая вместо точки, анахронизм (картофель в Европе) — ошибка', () => {
+  it('ответ: запятая вместо точки, анахронизм (картофель в Европе) – ошибка', () => {
     const lever = dreamDef('lever')!.steps[1].items[0]
     expect(checkInput(lever, '125,0', { q: 500 }, 'EUR')).toBe(true)
     const legumes = dreamDef('rotation')!.steps[1].items[0]
@@ -142,7 +142,7 @@ describe('Сон о будущем', () => {
     expect(checkInput(legumes, ['beans'], {}, 'AMR')).toBe(true)
   })
 
-  it('лестница: в первой жизни — только сны 5–6 класса, с открытым уровнем 3 — чаще всего уровень 3, новые — чаще снившихся', () => {
+  it('лестница: в первой жизни – только сны 5–6 класса, с открытым уровнем 3 – чаще всего уровень 3, новые – чаще снившихся', () => {
     const levels = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } as Record<number, number>
     let repeats = 0
     for (let i = 0; i < 400; i++) {
@@ -162,7 +162,7 @@ describe('Сон о будущем', () => {
     expect(DREAM_DEFS.filter((d) => d.level === 1).length).toBeGreaterThanOrEqual(6)
   })
 
-  it('мягкая проверка: один пропуск из трёх нужных и одна перестановка соседних шагов — верно; лишнее — ошибка', () => {
+  it('мягкая проверка: один пропуск из трёх нужных и одна перестановка соседних шагов – верно; лишнее – ошибка', () => {
     const water = dreamDef('boiled_water')!.steps[0].items[0]
     expect(checkInput(water, ['boil', 'settle'], {}, 'EUR')).toBe(true)
     expect(checkInput(water, ['boil'], {}, 'EUR')).toBe(false)
@@ -216,7 +216,7 @@ describe('Сон о будущем', () => {
     expect(deaths).toBeGreaterThan(0)
   })
 
-  it('сон не меняет остальную жизнь: без сна и с отказом от сна — те же события', () => {
+  it('сон не меняет остальную жизнь: без сна и с отказом от сна – те же события', () => {
     const live = (s: GameState, era = eras.EUR) => {
       for (let i = 0; i < 130 * 6 && s.phase !== 'dead'; i++) {
         if (s.phase === 'year') startYear(s, era, null)

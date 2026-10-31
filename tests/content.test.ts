@@ -70,7 +70,7 @@ describe('Контент', () => {
     expect(leftoverBraces()).toEqual([])
   })
 
-  it('{other_faith} — только в событиях, где чужая вера точно есть (меньшинство или обращение в чужую веру)', async () => {
+  it('{other_faith} – только в событиях, где чужая вера точно есть (меньшинство или обращение в чужую веру)', async () => {
     // Иначе в крае, где все одной веры, подставить нечего и игрок видит «{other_faith}».
     const eras = await loadAllEras()
     const safe = new Set<string>()

@@ -1,7 +1,7 @@
 // Фоновая музыка: свой трек у меню и у каждой страны (public/music/<id>.mp3, сочиняет tools/gen/music.mjs).
-// Под музыкой — звуки места (setAmbience): дождь, ветер, огонь, волны, ручей, гомон рынка, птицы, сверчки, цикады.
-// Они синтезируются здесь же из шума и коротких тонов — ни одного файла.
-// Играет по кругу через Web Audio (так громкость работает и на iPhone), между треками — плавный переход.
+// Под музыкой – звуки места (setAmbience): дождь, ветер, огонь, волны, ручей, гомон рынка, птицы, сверчки, цикады.
+// Они синтезируются здесь же из шума и коротких тонов – ни одного файла.
+// Играет по кругу через Web Audio (так громкость работает и на iPhone), между треками – плавный переход.
 // Начинает после первого касания или клавиши (раньше браузеры звук не пускают), молчит, пока вкладка скрыта,
 // идёт реклама или платформа просит выключить звук. Грузится только тот трек, который нужен сейчас.
 import { platform } from './platform'
@@ -27,7 +27,7 @@ const MUSIC_VERSION = 2
 /** Громкость: ползунок 0–1 линейно (в квадрате на телефоне было почти не слышно). */
 const level = () => (enabled && blocked.size === 0 ? volume : 0)
 
-/** Контекст спит (пауза, блокировка телефона, звонок на iOS — 'interrupted'). */
+/** Контекст спит (пауза, блокировка телефона, звонок на iOS – 'interrupted'). */
 const asleep = () => !!ctx && ctx.state !== 'running' && ctx.state !== 'closed'
 
 function apply(): void {
@@ -40,7 +40,7 @@ function apply(): void {
     switchTrack()
   } else {
     silent?.pause()
-    // Через секунду после затухания — пауза контекста: не тратим батарею.
+    // Через секунду после затухания – пауза контекста: не тратим батарею.
     setTimeout(() => {
       if (ctx && level() === 0 && ctx.state === 'running') ctx.suspend().catch(() => {})
     }, 1000)
@@ -105,7 +105,7 @@ const IOS = typeof navigator !== 'undefined' && (/iPad|iPhone|iPod/.test(navigat
 
 /**
  * Беззвучный режим iPhone глушит Web Audio, но не «воспроизведение» (как у видео).
- * iOS 17+: audioSession.type = 'playback'; раньше — зацикленный беззвучный <audio>, который переключает сессию.
+ * iOS 17+: audioSession.type = 'playback'; раньше – зацикленный беззвучный <audio>, который переключает сессию.
  */
 let silent: HTMLAudioElement | null = null
 function playbackSession(): void {
@@ -115,7 +115,7 @@ function playbackSession(): void {
       session.type = 'playback'
       return
     } catch {
-      // не поддерживается — запасной путь ниже
+      // не поддерживается – запасной путь ниже
     }
   }
   if (!IOS) return
@@ -186,7 +186,7 @@ export function onIosHint(cb: () => void): void {
   iosHint = cb
 }
 
-/** ?audiodebug=1 — состояние звука в углу экрана, чтобы проверить телефон. */
+/** ?audiodebug=1 – состояние звука в углу экрана, чтобы проверить телефон. */
 let debugBox: HTMLElement | null = null
 function debug(): void {
   if (typeof location === 'undefined' || !/[?&]audiodebug=1/.test(location.search)) return
@@ -198,10 +198,10 @@ function debug(): void {
   const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession
   debugBox.textContent = [
     `ctx: ${ctx ? ctx.state : 'нет'} ${ctx ? ctx.sampleRate + ' Гц' : ''}`,
-    `трек: ${current?.id ?? '—'} (нужен ${wanted ?? '—'})`,
+    `трек: ${current?.id ?? '–'} (нужен ${wanted ?? '–'})`,
     `громкость: ${enabled ? 'вкл' : 'выкл'} ${volume.toFixed(2)} → ${level().toFixed(2)}`,
     `блок: ${[...blocked].join(', ') || 'нет'}`,
-    `iOS: ${IOS} session: ${session?.type ?? '—'} silent: ${silent ? (silent.paused ? 'пауза' : 'играет') : '—'}`,
+    `iOS: ${IOS} session: ${session?.type ?? '–'} silent: ${silent ? (silent.paused ? 'пауза' : 'играет') : '–'}`,
   ].join('\n')
 }
 
@@ -480,7 +480,7 @@ function applyAmbience(): void {
   for (const layer of ambWanted) if (!ambLive.has(layer)) ambLive.set(layer, startLayer(layer))
 }
 
-/** Какие звуки места слышны сейчас (пустой список — тишина). Включаются плавно, лишние гаснут. */
+/** Какие звуки места слышны сейчас (пустой список – тишина). Включаются плавно, лишние гаснут. */
 export function setAmbience(layers: AmbienceLayer[]): void {
   const next = new Set(layers)
   if (next.size === ambWanted.size && [...next].every((l) => ambWanted.has(l))) return
@@ -494,7 +494,7 @@ export function setAmbience(layers: AmbienceLayer[]): void {
 const SFX_LEVEL = 0.9
 let sfxOut: GainNode | null = null
 
-/** Куда играть звук: мимо плавного нарастания музыки (первое касание — это и есть рывок рычага). */
+/** Куда играть звук: мимо плавного нарастания музыки (первое касание – это и есть рывок рычага). */
 function sfxTarget(): GainNode | null {
   if (!ctx || level() === 0) return null
   if (asleep()) ctx.resume().catch(() => {})

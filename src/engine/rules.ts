@@ -7,7 +7,7 @@ import { ATTRIBUTES, HIDDEN } from './types'
 import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
 
 // ---------- Годы ----------
-// Года хранятся исторически: -44 — это 44 г. до н.э., нулевого года нет.
+// Года хранятся исторически: -44 – это 44 г. до н.э., нулевого года нет.
 
 export function addYears(year: number, n: number): number {
   let y = year + n
@@ -79,7 +79,7 @@ function compare(a: number, op: Op, b: number): boolean {
   }
 }
 
-/** Потомок в каком колене: 1 — ребёнок, 2 — внук, 3 — правнук (по цепочке parentId). */
+/** Потомок в каком колене: 1 – ребёнок, 2 – внук, 3 – правнук (по цепочке parentId). */
 export function descentOf(npcs: Npc[], npc: Npc): number {
   if (npc.role === 'child') return 1
   if (npc.role !== 'grandchild') return 0
@@ -122,7 +122,7 @@ export function aliveNpcs(hero: Hero, role: NpcRole): Npc[] {
   return hero.npcs.filter((n) => n.role === role && n.alive && !n.away)
 }
 
-/** Живые, но вдали — по ролям или все. */
+/** Живые, но вдали – по ролям или все. */
 export function awayNpcs(hero: Hero, role?: NpcRole): Npc[] {
   return hero.npcs.filter((n) => n.alive && n.away && (!role || n.role === role))
 }
@@ -130,7 +130,7 @@ export function awayNpcs(hero: Hero, role?: NpcRole): Npc[] {
 /** Родные, которых нельзя просто «удалить»: они уходят вдаль, а не исчезают из родословной. */
 const KIN: NpcRole[] = ['father', 'mother', 'spouse', 'child', 'grandchild', 'sibling']
 
-/** Отправить человека вдаль: супруг — развод, остальные — уехал/ушёл. */
+/** Отправить человека вдаль: супруг – развод, остальные – уехал/ушёл. */
 export function sendAway(state: GameState, npc: Npc, reason: AwayReason, silent = false): void {
   const hero = state.hero
   if (!npc.alive || npc.away) return
@@ -220,7 +220,7 @@ export function isMinority(state: GameState): boolean {
   return total > 0 && (w[state.hero.religion] ?? 0) / total < 0.25
 }
 
-/** Во что обратиться: 'majority' — главная вера края, 'other' — самая распространённая из чужих. */
+/** Во что обратиться: 'majority' – главная вера края, 'other' – самая распространённая из чужих. */
 export function resolveFaith(state: GameState, target: string): string | undefined {
   if (target !== 'other' && target !== 'majority') return target
   const faiths = localFaiths(state)
@@ -235,8 +235,8 @@ export function rollReligion(state: GameState, region: RegionDef, year: number, 
 }
 
 /**
- * Общие параметры текстов, которые зависят от края, веры и года: {faith} — вера героя, {other_faith} — самая
- * распространённая чужая вера края, {capital} — столица страны. Не хранятся в дневнике, а считаются при показе.
+ * Общие параметры текстов, которые зависят от края, веры и года: {faith} – вера героя, {other_faith} – самая
+ * распространённая чужая вера края, {capital} – столица страны. Не хранятся в дневнике, а считаются при показе.
  */
 export function contextParams(region: string, religion: string, year: number): Record<string, { key: string }> {
   const p: Record<string, { key: string }> = {}
@@ -252,7 +252,7 @@ export function contextParams(region: string, religion: string, year: number): R
   return p
 }
 
-/** Столица страны в этот год; если столиц несколько (ацтеки и инки), — та, что в той же культуре, что и край. */
+/** Столица страны в этот год; если столиц несколько (ацтеки и инки), – та, что в той же культуре, что и край. */
 export function capitalFor(era: EraMeta, here: RegionDef, year: number): RegionDef | undefined {
   const isCapital = (r: RegionDef) => (r.capital ? year >= r.capital[0] && year <= r.capital[1] : !!r.tags?.includes('capital') && year >= r.years[0] && year <= r.years[1])
   const all = era.regions.filter(isCapital)
@@ -276,7 +276,7 @@ export function resolveRegion(state: GameState, era: EraMeta, target: string): s
 
 // ---------- Персонажи ----------
 
-/** Слово для сословия: знать с отметкой royal (награда за главный экран и её наследники) — «царская семья». */
+/** Слово для сословия: знать с отметкой royal (награда за главный экран и её наследники) – «царская семья». */
 export function classKey(cls: string, tags?: string[]): string {
   return cls === 'noble' && tags?.includes('royal') ? 'royal' : cls
 }
@@ -309,7 +309,7 @@ export const RESCUE_GROUP: Record<string, string> = {
 }
 export const RESCUE_VARIANTS = 5
 
-/** Смертельный исход в защищённой жизни: герой выживает с последствиями — здоровье −15 (не ниже 10) и черта «выжил чудом». */
+/** Смертельный исход в защищённой жизни: герой выживает с последствиями – здоровье −15 (не ниже 10) и черта «выжил чудом». */
 export function rescue(state: GameState, cause: string): void {
   const hero = state.hero
   hero.attrs.health = Math.max(10, hero.attrs.health - 15)
@@ -457,7 +457,7 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     } else if ('npc_attitude' in e) {
       for (const n of targets(state, e.npc_attitude, ctx)) n.attitude = clamp(n.attitude + e.delta, -100, 100)
     } else if ('remove_npc' in e) {
-      // Родные не исчезают из родословной: развод или «ушёл из семьи». Чужие (друг, покровитель) — уходят совсем.
+      // Родные не исчезают из родословной: развод или «ушёл из семьи». Чужие (друг, покровитель) – уходят совсем.
       const list = targets(state, e.remove_npc, ctx)
       for (const n of list.filter((n) => KIN.includes(n.role))) sendAway(state, n, 'left')
       const gone = new Set(list.filter((n) => !KIN.includes(n.role)).map((n) => n.id))
@@ -493,7 +493,7 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     } else if ('migrate' in e) {
       const target = resolveRegion(state, era, e.migrate)
       if (target) {
-        // На новом месте — новое жильё: сгоревший дом остаётся позади.
+        // На новом месте – новое жильё: сгоревший дом остаётся позади.
         hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t))
         hero.region = target
         if (hero.places[hero.places.length - 1] !== target) hero.places.push(target)
@@ -513,7 +513,7 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
         changeParam(hero, 'loneliness', -4)
       }
     } else if ('emigrate' in e) {
-      // Дальше в том же списке эффектов — уже правила новой страны (имена, края, сословия).
+      // Дальше в том же списке эффектов – уже правила новой страны (имена, края, сословия).
       if (emigrate(state, e.emigrate, e.reason, e.family) && isEraLoaded(hero.era)) era = eraById(hero.era)
     } else if ('return_home' in e) {
       if (returnHome(state) && isEraLoaded(hero.era)) era = eraById(hero.era)
@@ -522,13 +522,13 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     } else if ('naturalize' in e) {
       naturalize(state)
     } else if ('class_up' in e) {
-      // Скачок по сословиям (сон о будущем): не выше землевладельца, а громкие открытия — до знати.
+      // Скачок по сословиям (сон о будущем): не выше землевладельца, а громкие открытия – до знати.
       const order = ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble']
       const cap = order.indexOf(e.max ?? 'landowner')
       const at = order.indexOf(hero.cls)
       if (at >= 0 && at < cap) hero.cls = order[Math.min(cap, at + e.class_up)]
     } else if ('money_years' in e) {
-      // Деньги в годовых доходах героя: по занятию, а без занятия — по расходам сословия.
+      // Деньги в годовых доходах героя: по занятию, а без занятия – по расходам сословия.
       const prof = era.professions.find((p) => p.id === hero.profession)
       const cls = era.classes.find((c) => c.id === hero.cls)
       const year = prof ? (prof.income[0] + prof.income[1]) / 2 : Math.max(100, (cls?.upkeep ?? 100) * 1.2)
@@ -602,7 +602,7 @@ export function killNpc(state: GameState, npc: Npc): void {
 /** Положение в обществе эпохи, 0–100: сословие или занятие (что выше), достаток относительно расходов и репутация. */
 export function statusOf(hero: Hero, era: EraDef | EraMeta): number {
   const cls = era.classes.find((c) => c.id === hero.cls)
-  // Занятие поднимает положение до самого низкого сословия, которому оно доступно: крестьянин-судья — уже не крестьянин.
+  // Занятие поднимает положение до самого низкого сословия, которому оно доступно: крестьянин-судья – уже не крестьянин.
   const prof = hero.profession ? era.professions.find((p) => p.id === hero.profession) : undefined
   const profBase = prof?.classes?.length ? Math.min(...prof.classes.map((id) => era.classes.find((c) => c.id === id)?.status ?? 0)) : 0
   const base = Math.max(cls?.status ?? 30, profBase)

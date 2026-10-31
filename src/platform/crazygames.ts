@@ -1,10 +1,10 @@
 // Платформа «CrazyGames» (SDK v3, подключается в index.html сборки build:crazygames).
 // Всё остаётся внутри CrazyGames: нет Метрики, своего приёмника, ссылок на сайт и соцсети, формы отзывов.
 // Статистику (запуски, загрузка, время в игре, удержание) CrazyGames собирает сам по сигналам SDK:
-//   loadingStart/loadingStop — загрузка до главного меню;
-//   gameplayStart/gameplayStop — идёт жизнь героя / меню, итоги, пауза, реклама;
-//   happytime — праздничный момент (герой дожил до старости, род продолжился, редкая награда).
-// Сохранения: на устройстве (IndexedDB) и копия в модуле data SDK — у вошедших в аккаунт она переезжает на другие устройства.
+//   loadingStart/loadingStop – загрузка до главного меню;
+//   gameplayStart/gameplayStop – идёт жизнь героя / меню, итоги, пауза, реклама;
+//   happytime – праздничный момент (герой дожил до старости, род продолжился, редкая награда).
+// Сохранения: на устройстве (IndexedDB) и копия в модуле data SDK – у вошедших в аккаунт она переезжает на другие устройства.
 // Вне CrazyGames (environment 'disabled') SDK не вызывается, игра работает как обычная локальная.
 import type { Lang } from '../engine/types'
 import { fetchFlags, kvGet as localGet, kvSet as localSet, loadLocal, saveLocal, sessionFlag, setSessionFlag, uuid } from './local'
@@ -56,7 +56,7 @@ let pauseHandlers: ((paused: boolean) => void)[] = []
 
 /**
  * Вызов SDK, который не роняет игру: вне CrazyGames или при ошибке SDK просто ничего не происходит.
- * label — имя сигнала для консоли (видно в QA Tool CrazyGames): «[CrazyGames SDK] gameplayStart».
+ * label – имя сигнала для консоли (видно в QA Tool CrazyGames): «[CrazyGames SDK] gameplayStart».
  */
 function call(run: (s: CrazySdk) => unknown, label?: string): void {
   if (!sdk) return
@@ -83,7 +83,7 @@ function cloudSet(key: string, value: string | null): void {
   call((s) => (value === null ? s.data.removeItem(key) : s.data.setItem(key, value)))
 }
 
-/** Копия в облако: текущая игра — если не слишком большая, мемориал — последние жизни в пределах остатка. */
+/** Копия в облако: текущая игра – если не слишком большая, мемориал – последние жизни в пределах остатка. */
 const cloudSizes: Record<string, number> = {}
 function mirror(key: string, value: unknown): void {
   if (!sdk || (key !== 'game' && key !== 'memorial')) return
@@ -106,7 +106,7 @@ function ad(type: 'midgame' | 'rewarded'): Promise<boolean> {
   const wasPlaying = playing
   return new Promise<boolean>((resolve) => {
     let started = false
-    // Если реклама не началась за 5 секунд — продолжаем без неё.
+    // Если реклама не началась за 5 секунд – продолжаем без неё.
     const timer = setTimeout(() => !started && done(false), 5000)
     const done = (shown: boolean) => {
       clearTimeout(timer)
@@ -184,7 +184,7 @@ export const crazyPlatform: Platform = {
     pauseHandlers.push(cb)
   },
 
-  // Настройка портала «без звука» (settings.muteAudio): после запуска SDK — сразу и при каждом изменении.
+  // Настройка портала «без звука» (settings.muteAudio): после запуска SDK – сразу и при каждом изменении.
   // Подписка может прийти раньше, чем SDK запустится (он грузит данные игрока), поэтому ждём запуска.
   onAudio(cb) {
     sdkStarted.then(() =>
@@ -207,7 +207,7 @@ export const crazyPlatform: Platform = {
   async load<T>(key: string) {
     const local = await loadLocal<T>(key)
     if (local !== undefined && local !== null) return local
-    // На новом устройстве — облачная копия CrazyGames.
+    // На новом устройстве – облачная копия CrazyGames.
     const raw = cloudGet(`thousands.${key}`)
     try {
       return raw ? (JSON.parse(raw) as T) : local
@@ -232,7 +232,7 @@ export const crazyPlatform: Platform = {
   track(event, params = {}) {
     if (event === 'life_end' && Number(params.age) >= 60) call((s) => s.game.happytime(), 'happytime')
     if (event === 'heir_chosen') call((s) => s.game.happytime(), 'happytime')
-    // Редкая награда (меньше 5% игроков, секретная или трудная) — тоже праздник.
+    // Редкая награда (меньше 5% игроков, секретная или трудная) – тоже праздник.
     if (event === 'achievement_unlocked' && Number(params.rare) === 1) call((s) => s.game.happytime(), 'happytime')
   },
   userParams() {},
@@ -260,7 +260,7 @@ export const crazyPlatform: Platform = {
 
   showInterstitial: () => ad('midgame'),
   showRewarded: () => ad('rewarded'),
-  // На портале игра живёт на его странице — на главный экран её не ставят.
+  // На портале игра живёт на его странице – на главный экран её не ставят.
   installKind: () => null,
   installed: () => false,
   install: async () => false,

@@ -16,12 +16,12 @@ export const CARD_SIZES: Record<CardFormat, [number, number]> = {
 }
 
 export interface CardData {
-  /** «ТЫСЯЧИ ЖИЗНЕЙ» — подпись над сценой. */
+  /** «ТЫСЯЧИ ЖИЗНЕЙ» – подпись над сценой. */
   brand: string
   name: string
   /** «74 года · 1328–1415 · Лондон, Средневековая Европа». */
   meta: string
-  /** Главное дело жизни: профессия, а если её не было — сословие. */
+  /** Главное дело жизни: профессия, а если её не было – сословие. */
   title: string
   /** «крестьянка → лекарь», если положение изменилось. */
   path?: string
@@ -42,7 +42,7 @@ export interface CardData {
   scene: SceneDef
 }
 
-// Тёмный постер — одинаково ярко смотрится в ленте при любой теме игры.
+// Тёмный постер – одинаково ярко смотрится в ленте при любой теме игры.
 const C = { paper: '#1b1511', paper2: '#2a211a', ink: '#f3e8d4', muted: '#ab9a82', accent: '#e08a5c', gold: '#d9ab5f', line: '#4a3d31' }
 const SERIF = "'Alegreya Variable', 'Alegreya', Georgia, serif"
 const DISPLAY = "'Thousands Letopis', 'Alegreya Variable', serif"
@@ -73,7 +73,7 @@ function fit(ctx: CanvasRenderingContext2D, text: string, font: (px: number) => 
   return px
 }
 
-/** Текст абзацем не длиннее maxLines строк; не влез — шрифт меньше (до min), потом многоточие. */
+/** Текст абзацем не длиннее maxLines строк; не влез – шрифт меньше (до min), потом многоточие. */
 function block(ctx: CanvasRenderingContext2D, text: string, font: (px: number) => string, size: number, min: number, maxWidth: number, maxLines: number): { lines: string[]; px: number } {
   let px = size
   for (;;) {
@@ -82,7 +82,7 @@ function block(ctx: CanvasRenderingContext2D, text: string, font: (px: number) =
     if (lines.length <= maxLines) return { lines, px }
     if (px - 2 < min) {
       const cut = lines.slice(0, maxLines)
-      cut[maxLines - 1] = `${cut[maxLines - 1].replace(/[\s,.;:—-]+$/, '')}…`
+      cut[maxLines - 1] = `${cut[maxLines - 1].replace(/[\s,.;:–-]+$/, '')}…`
       return { lines: cut, px }
     }
     px -= 2
@@ -97,7 +97,7 @@ function sceneCanvas(d: CardData): HTMLCanvasElement {
   return scene
 }
 
-/** Сцена заполняет полосу (видна нижняя часть — люди и земля), снизу растворяется в фоне. */
+/** Сцена заполняет полосу (видна нижняя часть – люди и земля), снизу растворяется в фоне. */
 function drawSceneBand(ctx: CanvasRenderingContext2D, d: CardData, x: number, y: number, w: number, h: number): void {
   const scene = sceneCanvas(d)
   const k = Math.max(w / W, h / H)
@@ -127,7 +127,7 @@ function spaced(ctx: CanvasRenderingContext2D, text: string, x: number, y: numbe
   }
 }
 
-/** Лента портретов по возрастам: от детства до последнего года, под каждым — возраст. */
+/** Лента портретов по возрастам: от детства до последнего года, под каждым – возраст. */
 function drawPortraits(ctx: CanvasRenderingContext2D, d: CardData, x: number, y: number, w: number, scale: number, labelPx: number): number {
   const list = d.portraits
   if (!list.length) return 0
@@ -230,7 +230,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
   spaced(ctx, d.brand.toLocaleUpperCase(document.documentElement.lang || undefined), cw / 2, Math.round(L.pad * 0.75), Math.round(L.meta * 0.25))
   ctx.shadowBlur = 0
 
-  // Низ: призыв, над ним — лента портретов.
+  // Низ: призыв, над ним – лента портретов.
   const footerH = Math.round(L.cta * 1.9)
   const footerY = ch - L.pad - footerH
   const reelsW = drawReels(ctx, L.pad, footerY + footerH * 0.08, Math.round(footerH * 0.84))
@@ -273,7 +273,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
       if (d.path) at(d.path, `400 ${L.meta}px ${SERIF}`, C.muted, y + titlePx * 1.05 + L.meta * 1.15)
     },
   })
-  // Самый яркий факт — крупно, с золотой чертой слева; второй — помельче.
+  // Самый яркий факт – крупно, с золотой чертой слева; второй – помельче.
   const hook = block(ctx, d.hook, (px) => `700 ${px}px ${SERIF}`, L.hook, Math.round(L.hook * 0.75), textW - L.pad * 0.2, L.hookLines)
   const h2 = d.hook2 && L.hook2 ? block(ctx, d.hook2, (px) => `400 ${px}px ${SERIF}`, L.hook2, L.hook2, textW, 1) : null
   const hookH = hook.lines.length * hook.px * 1.18
@@ -324,7 +324,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
       },
     })
   }
-  // Афоризм: первый, что помещается; подпись автора золотом; строка игрока — помельче.
+  // Афоризм: первый, что помещается; подпись автора золотом; строка игрока – помельче.
   const quoteSection = (maxLines: number): Section | null => {
     const quote = d.quotes.find((q) => {
       ctx.font = `italic 400 ${L.quote}px ${SERIF}`
@@ -338,7 +338,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
       h: qH + L.author * 1.6 + (player ? L.player * 1.9 : 0),
       draw: (y) => {
         q.lines.forEach((l, i) => at(l, `italic 400 ${q.px}px ${SERIF}`, C.ink, y + q.px * (0.95 + i * 1.25)))
-        at(`— ${quote.author}`, `600 ${L.author}px ${SERIF}`, C.gold, y + qH + L.author * 1.15)
+        at(`– ${quote.author}`, `600 ${L.author}px ${SERIF}`, C.gold, y + qH + L.author * 1.15)
         if (player) at(player.lines[0], `italic 400 ${player.px}px ${SERIF}`, C.muted, y + qH + L.author * 1.6 + L.player * 1.4)
       },
     }
@@ -347,7 +347,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
   let quote = quoteSection(lines)
   const used = () => sections.reduce((sum, x) => sum + x.h, 0) + (quote?.h ?? 0)
   const minGap = Math.round(L.pad * 0.35)
-  // Не влезает — убираем необязательное, потом укорачиваем афоризм.
+  // Не влезает – убираем необязательное, потом укорачиваем афоризм.
   while (used() + minGap * (sections.length + 2) > limit - top) {
     const opt = sections.findIndex((x) => x.optional)
     if (opt >= 0) sections.splice(opt, 1)
@@ -357,7 +357,7 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
   if (quote) sections.push(quote)
   const free = limit - top - sections.reduce((sum, x) => sum + x.h, 0)
   const gap = Math.max(minGap, Math.min(Math.round(L.pad * 1.3), free / (sections.length + 1)))
-  // Остаток после равных промежутков — сверху, чтобы блок стоял по центру.
+  // Остаток после равных промежутков – сверху, чтобы блок стоял по центру.
   let y = top + Math.max(0, (free - gap * (sections.length - 1)) / 2 - gap * 0.6)
   for (const sec of sections) {
     sec.draw(Math.round(y))
@@ -422,7 +422,7 @@ function drawWide(ctx: CanvasRenderingContext2D, cw: number, ch: number, d: Card
     y += 34
     ctx.font = `600 22px ${SERIF}`
     ctx.fillStyle = C.gold
-    ctx.fillText(`— ${quote.author}`, x, y)
+    ctx.fillText(`– ${quote.author}`, x, y)
   }
 }
 

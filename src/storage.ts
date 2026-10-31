@@ -16,26 +16,26 @@ export interface Prefs {
   softenHeavy: boolean
   /** Лотерея рождения: все страны поровну или по числу жителей. */
   lottery: Lottery
-  /** Длительность взрослого года в секундах на скорости ×1; не задано — стандартная (флаг year_sec). */
+  /** Длительность взрослого года в секундах на скорости ×1; не задано – стандартная (флаг year_sec). */
   yearSec?: number
   /** Музыка: включена ли и громкость 0–1 (по умолчанию включена, 0.5). */
   sound?: boolean
   volume?: number
   /** Отзыв: ещё не просили, отложили (на какой по счёту жизни), отправлен. */
   feedback?: { state: 'later' | 'sent'; lives: number }
-  /** До 28.10.2026: страна всех следующих жизней за отзыв. Теперь за отзыв — один дар «Страна по выбору»;
+  /** До 28.10.2026: страна всех следующих жизней за отзыв. Теперь за отзыв – один дар «Страна по выбору»;
    *  при загрузке старый выбор превращается в такой дар (loadPrefs). */
   country?: string
-  /** Испытание «прожить жизнь дольше 30 лет»: ready — награда ждёт (выбор судьбы у барабана), used — получена. */
+  /** Испытание «прожить жизнь дольше 30 лет»: ready – награда ждёт (выбор судьбы у барабана), used – получена. */
   fate?: 'ready' | 'used'
-  /** Награда за установку на главный экран: следующая жизнь — в царской семье. */
+  /** Награда за установку на главный экран: следующая жизнь – в царской семье. */
   royal?: 'ready' | 'used'
   /** Дары за вход: последний полученный день серии и дары, которые ждут следующей жизни. */
   daily?: Daily
   gifts?: Gift[]
   /** День, когда панель «Дары» сама открылась (раз в день, если ждёт дар дня). */
   dailyShown?: string
-  /** «На главный экран»: done — добавили или поняли подсказку; later — отложили (на какой по счёту жизни). */
+  /** «На главный экран»: done – добавили или поняли подсказку; later – отложили (на какой по счёту жизни). */
   install?: { state: 'done' | 'later'; lives: number }
 }
 
@@ -47,7 +47,7 @@ export interface SaveFile {
 
 const PREFS_KEY = 'thousands.prefs'
 
-// Хранение целиком в модуле platform: на сайте IndexedDB, в Яндекс Играх — облачные сохранения.
+// Хранение целиком в модуле platform: на сайте IndexedDB, в Яндекс Играх – облачные сохранения.
 const get = <T,>(key: string) => platform.load<T>(key)
 const put = (key: string, value: unknown) => platform.save(key, value)
 
@@ -60,13 +60,13 @@ function migrate(game: GameState | undefined): GameState | null {
     game.hero.religion ??= OLD_FAITH[game.hero.region] ?? 'roman_gods'
     game.version = 4
   }
-  // 4 → 5: сон о будущем (поле dream, hero.dreamSeen) — в старых жизнях сна не было, менять нечего.
+  // 4 → 5: сон о будущем (поле dream, hero.dreamSeen) – в старых жизнях сна не было, менять нечего.
   if (game.version === 4) game.version = 5
   if (game.version !== SAVE_VERSION) return null
   return game
 }
 
-/** Жизни из первой беты без итогового отчёта открыть нельзя — их пропускаем. */
+/** Жизни из первой беты без итогового отчёта открыть нельзя – их пропускаем. */
 function cleanMemorial(memorial: LifeSummary[] | undefined): LifeSummary[] {
   return (memorial ?? []).filter((l) => l && typeof l === 'object' && 'report' in l && Array.isArray(l.diary))
 }
@@ -102,7 +102,7 @@ export function loadPrefs(defaults: Prefs): Prefs {
   try {
     const raw = platform.kvGet(PREFS_KEY)
     const p: Prefs = raw ? { ...defaults, ...(JSON.parse(raw) as Partial<Prefs>) } : defaults
-    // Страна за отзыв была навсегда — теперь на одну жизнь: вместо неё один дар «Страна по выбору».
+    // Страна за отзыв была навсегда – теперь на одну жизнь: вместо неё один дар «Страна по выбору».
     if (p.country) return { ...p, country: undefined, gifts: [...(p.gifts ?? []), 'country'] }
     return p
   } catch {

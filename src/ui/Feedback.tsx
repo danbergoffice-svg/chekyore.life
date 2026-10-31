@@ -3,7 +3,7 @@ import { FEEDBACK_QUESTIONS } from '../feedback'
 import type { FeedbackData, FeedbackQuestion } from '../feedback'
 import { useUi } from './text'
 
-/** Короткая форма отзыва: оценка звёздами и пять открытых вопросов с подсказками — можно ответить одной фразой. */
+/** Короткая форма отзыва: оценка звёздами и пять открытых вопросов с подсказками – можно ответить одной фразой. */
 export function Feedback(props: { context: FeedbackData['context']; onSend: (d: FeedbackData) => void; onBack: () => void }) {
   const { t } = useUi()
   const [rating, setRating] = useState(0)
@@ -56,7 +56,7 @@ export function Feedback(props: { context: FeedbackData['context']; onSend: (d: 
 }
 
 /** Приглашение оставить отзыв на экране итогов. */
-export function FeedbackPrompt(props: { onOpen: () => void; onLater: () => void; /** Пробный период: за отзыв — выбор страны. */ reward?: boolean }) {
+export function FeedbackPrompt(props: { onOpen: () => void; onLater: () => void; /** Пробный период: за отзыв – выбор страны. */ reward?: boolean }) {
   const { t } = useUi()
   const k = props.reward ? 'feedback.prompt.reward' : 'feedback.prompt'
   return (

@@ -22,7 +22,7 @@ export interface Birth {
   boons?: { health?: number; wealth?: number }
 }
 
-/** equal — все страны поровну; population — по числу жителей, как в жизни. */
+/** equal – все страны поровну; population – по числу жителей, как в жизни. */
 export type Lottery = 'equal' | 'population'
 
 /** Сколько лет до конца окна страны можно ещё родиться: так многие застают последние великие события (конкисту, падение Константинополя). */
@@ -56,8 +56,8 @@ export function rollBirth(seed: number, lottery: Lottery, eras: EraMeta[]): Birt
   return { era: era.id, region: region.id, year, cls, sex: chance(h, 0.5) ? 'm' : 'f' }
 }
 
-/** Высокое положение при рождении (A/B второй жизни, вариант b): знать или землевладельцы края — по их долям;
- *  если в крае их нет — самое высокое из возможных сословий. Страна, край, год и пол — как выпало. */
+/** Высокое положение при рождении (A/B второй жизни, вариант b): знать или землевладельцы края – по их долям;
+ *  если в крае их нет – самое высокое из возможных сословий. Страна, край, год и пол – как выпало. */
 const HIGH_CLASSES = ['noble', 'landowner']
 const CLASS_RANK = ['noble', 'landowner', 'trader', 'craftsman', 'peasant', 'slave']
 export function highBirth(seed: number, birth: Birth, era: EraMeta): Birth {
@@ -70,8 +70,8 @@ export function highBirth(seed: number, birth: Birth, era: EraMeta): Birth {
   return { ...birth, cls }
 }
 
-/** Награда за установку на главный экран: царская семья — знать края с отметкой royal. Знать есть во всех краях;
- *  если когда-нибудь не будет — просто высокое положение. */
+/** Награда за установку на главный экран: царская семья – знать края с отметкой royal. Знать есть во всех краях;
+ *  если когда-нибудь не будет – просто высокое положение. */
 export function royalBirth(seed: number, birth: Birth, era: EraMeta): Birth {
   const region = era.regions.find((r) => r.id === birth.region)
   if (!region || !((region.classWeights.noble ?? 0) > 0)) return highBirth(seed, birth, era)
@@ -252,8 +252,8 @@ export function eraEnding(state: GameState): boolean {
 }
 
 /**
- * Кто может продолжить род: живые дети, которые рядом (не уехали); если детей нет — внуки,
- * если и внуков нет — правнуки. Внутри колена — по старшинству.
+ * Кто может продолжить род: живые дети, которые рядом (не уехали); если детей нет – внуки,
+ * если и внуков нет – правнуки. Внутри колена – по старшинству.
  */
 export function heirs(state: GameState): Npc[] {
   const npcs = state.hero.npcs
@@ -271,7 +271,7 @@ export function inheritanceShare(state: GameState, era: EraDef, child: Npc): num
   if ((regionOf(era, state.hero.region).inheritance ?? era.inheritance) === 'sons_first') {
     const sons = kids.filter((k) => k.sex === 'm')
     if (sons.length > 0) {
-      // Сыновья делят имущество, дочерям — приданое примерно в десятую часть.
+      // Сыновья делят имущество, дочерям – приданое примерно в десятую часть.
       const daughters = kids.length - sons.length
       const dowry = Math.round(money * 0.1)
       if (child.sex === 'f') return dowry
@@ -282,15 +282,15 @@ export function inheritanceShare(state: GameState, era: EraDef, child: Npc): num
 }
 
 /**
- * Семья внука или правнука, ставшего героем: родители — умерший ребёнок (внук) героя и второй родитель
- * (если жив — опекун), братья и сёстры — дети того же родителя.
+ * Семья внука или правнука, ставшего героем: родители – умерший ребёнок (внук) героя и второй родитель
+ * (если жив – опекун), братья и сёстры – дети того же родителя.
  */
 function familyOfDescendant(state: GameState, era: EraDef, prevHero: Hero, heir: Npc): void {
   const hero = state.hero
   const via = prevHero.npcs.find((n) => n.id === heir.parentId)
   if (via) {
     hero.npcs.push({ ...via, role: via.sex === 'm' ? 'father' : 'mother', attitude: 60, alive: false, deathYear: via.deathYear ?? state.year, parentId: undefined })
-    // Второй родитель: жив примерно в половине случаев — он и растит сироту.
+    // Второй родитель: жив примерно в половине случаев – он и растит сироту.
     const age = yearsBetween(via.birthYear, state.year)
     if (age < 70 && chance(state, 0.55)) {
       const other = makeNpc(state, era, via.sex === 'm' ? 'mother' : 'father', via.sex === 'm' ? 'f' : 'm', addYears(via.birthYear, int(state, -4, 6)), 55)
@@ -302,7 +302,7 @@ function familyOfDescendant(state: GameState, era: EraDef, prevHero: Hero, heir:
   }
 }
 
-/** Долгоживущие питомцы (попугай, черепаха) и все, кто живёт в доме, переходят к наследнику — запись в дневник. */
+/** Долгоживущие питомцы (попугай, черепаха) и все, кто живёт в доме, переходят к наследнику – запись в дневник. */
 function inheritPets(hero: Hero, year: number): void {
   for (const pet of hero.animals.filter((a) => isPet(a.kind) && (a.born ?? a.since) < hero.birthYear)) {
     hero.diary.push({ year, age: hero.age, key: pet.name ? 'diary.pet_inherited_named' : 'diary.pet_inherited', params: { animal: { key: `pet.${pet.kind}` }, name: { name: pet.name ?? '' }, n: Math.max(1, year - pet.since) }, reg: hero.region, rel: hero.religion, topic: 'life', score: 12 })
@@ -325,7 +325,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     queue: [],
     phase: 'year',
     lastFocus: null,
-    // Защиту наследнику ставит игра (если он — одна из первых protected_lives жизней), сама она не переходит.
+    // Защиту наследнику ставит игра (если он – одна из первых protected_lives жизней), сама она не переходит.
     settings: { ...prev.settings, protectedUntil: undefined },
   }
   hero.id = `h${prev.nextId++}`
@@ -335,8 +335,8 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.places = [parent.places[parent.places.length - 1] ?? parent.region]
   hero.cls = parent.cls
   hero.birthCls = parent.cls
-  // Деды наследника — родители умершего героя (для детей наследника это прадеды);
-  // у внука деды — сам умерший герой и его супруг.
+  // Деды наследника – родители умершего героя (для детей наследника это прадеды);
+  // у внука деды – сам умерший герой и его супруг.
   hero.ancestors =
     gen === 1 ? parent.npcs.filter((n) => n.role === 'father' || n.role === 'mother').map((n) => n.name) : [parent.name, ...parent.npcs.filter((n) => n.role === 'spouse').map((n) => n.name)]
   hero.religion = parent.religion
@@ -361,7 +361,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   if (parent.tags.includes('freedman') || parent.tags.includes('freeborn_heir')) hero.tags.push('freeborn_heir')
   // Царский род продолжается, пока наследник остаётся в знати.
   if (parent.tags.includes('royal') && hero.cls === 'noble') hero.tags.push('royal')
-  // Чужбина: ребёнок, привезённый из родной страны, — ещё немного чужой; рождённый здесь — здешний.
+  // Чужбина: ребёнок, привезённый из родной страны, – ещё немного чужой; рождённый здесь – здешний.
   const pa = parent.abroad
   if (pa && !pa.naturalized && child.birthYear < pa.since) {
     hero.abroad = { ...pa, integration: Math.max(pa.integration, 55), homesick: 20, refusals: 0, nextAsk: prev.year + 3, planned: false }
@@ -383,7 +383,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     return state
   }
 
-  // Родители: умерший герой и второй родитель, если он есть; братья и сёстры — остальные дети.
+  // Родители: умерший герой и второй родитель, если он есть; братья и сёстры – остальные дети.
   const parentNpc: Npc = {
     id: `n${state.nextId++}`,
     role: parent.sex === 'm' ? 'father' : 'mother',

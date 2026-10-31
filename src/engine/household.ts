@@ -1,4 +1,4 @@
-// Хозяйство героя: дом и животные. Меняются вместе с жизнью — разбогател и купил дом побольше или корову,
+// Хозяйство героя: дом и животные. Меняются вместе с жизнью – разбогател и купил дом побольше или корову,
 // задолжал и продал; к дому прибился пёс. Всё это видно на картинке и записывается в дневник.
 import { ERA_META } from '../content'
 import { chance, int, pick } from './rng'
@@ -65,7 +65,7 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
   const adult = hero.age >= era.stages.adult
   const free = hero.cls !== 'slave'
 
-  // Сгоревший дом: отстраиваются за год; если так и не взялись — через четыре года кое-как латают сами.
+  // Сгоревший дом: отстраиваются за год; если так и не взялись – через четыре года кое-как латают сами.
   const since = hero.homeSince ?? state.year
   if (hero.tags.includes('home_rebuilding') && state.year - since >= 1) {
     hero.tags = hero.tags.filter((t) => t !== 'home_rebuilding')
@@ -75,7 +75,7 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
     hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t))
     note(state, { key: 'diary.home_patched', topic: 'money', score: 14 })
   }
-  // Дом побольше — когда денег заметно больше, чем он стоит (не пока живут на пепелище).
+  // Дом побольше – когда денег заметно больше, чем он стоит (не пока живут на пепелище).
   if (adult && free && hero.home < 4 && !hero.tags.includes('home_damaged')) {
     const cost = HOME_COST[hero.home + 1]
     if (hero.money > cost * 1.6 && chance(state, 0.25)) {
@@ -119,8 +119,8 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
 }
 
 /**
- * Питомцы стареют: каждый доживает свой срок (собака 12–15, кошка 12–18, попугай и черепаха — дольше человека),
- * если раньше не случится беда (болезнь, волки, повозка; в нужде — чаще). Появляются они событиями (events_pets).
+ * Питомцы стареют: каждый доживает свой срок (собака 12–15, кошка 12–18, попугай и черепаха – дольше человека),
+ * если раньше не случится беда (болезнь, волки, повозка; в нужде – чаще). Появляются они событиями (events_pets).
  */
 function petsYear(state: GameState): void {
   const hero = state.hero
@@ -129,7 +129,7 @@ function petsYear(state: GameState): void {
     // Старые сохранения: питомцу без срока назначаем его сейчас.
     if (pet.dies === undefined) Object.assign(pet, makePet(state, pet.kind), { since: pet.since, name: pet.name })
     const d = petDef(pet.kind)!
-    // Ранняя беда: у собак и кошек чаще, у черепах и попугаев — редко.
+    // Ранняя беда: у собак и кошек чаще, у черепах и попугаев – редко.
     const early = d.life[1] >= 30 ? 0.004 : d.life[1] >= 10 ? 0.012 + (poor ? 0.03 : 0) : 0
     if (state.year < pet.dies! && !chance(state, early)) continue
     hero.animals = hero.animals.filter((a) => a !== pet)
