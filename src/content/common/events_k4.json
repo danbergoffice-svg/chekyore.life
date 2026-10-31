@@ -1,0 +1,279 @@
+[
+  {"id": "k4_hand_me_down", "type": "family", "age_range": [4, 9], "npc": "sibling", "npc_age": [9, 22], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "day", "people": 2, "props": ["loom"]},
+   "choices": [
+     {"id": "proud", "effects": [{"param": "happiness", "delta": 3}, {"npc_attitude": "npc", "delta": 6}, {"param": "self_esteem", "delta": 1}], "pattern": {"memory_future": -2}},
+     {"id": "beg_new", "risk_roll": {"param": "charisma", "success_chance_base": 0.4, "on_success": [{"param": "happiness", "delta": 5}, {"param": "self_esteem", "delta": 3}], "on_failure": [{"param": "happiness", "delta": -3}, {"param": "stress", "delta": 2}]}, "pattern": {"memory_future": 3}},
+     {"id": "mark", "effects": [{"skill": "craft", "delta": 2}, {"param": "happiness", "delta": 2}, {"param": "diligence", "delta": 1}], "pattern": {"craft_power": -2}}
+   ]},
+
+  {"id": "k4_protect_little", "type": "family", "age_range": [6, 10], "npc": "sibling", "npc_age": [2, 5], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "street", "time": "day", "people": 4, "props": ["tree"]},
+   "choices": [
+     {"id": "fight", "risk_roll": {"param": "strength", "success_chance_base": 0.45, "on_success": [{"param": "self_esteem", "delta": 5}, {"npc_attitude": "npc", "delta": 10}, {"param": "reputation", "delta": 2}, {"chance": 0.3, "effects": [{"add_trait": "brave"}]}], "on_failure": [{"param": "health", "delta": -3}, {"param": "self_esteem", "delta": -1}, {"npc_attitude": "npc", "delta": 8}]},
+      "delayed_effects": [{"after_years": [8, 14], "chance": 0.6, "trigger_event": "k4_protect_later"}], "pattern": {"craft_power": 2, "memory_future": 2}},
+     {"id": "grab_run", "effects": [{"npc_attitude": "npc", "delta": 4}, {"param": "stress", "delta": 2}, {"param": "self_esteem", "delta": -1}], "pattern": {"home_road": -2}},
+     {"id": "shame", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "reputation", "delta": 2}, {"npc_attitude": "npc", "delta": 6}, {"param": "charisma", "delta": 1}], "on_failure": [{"param": "happiness", "delta": -2}, {"param": "self_esteem", "delta": -2}]}, "pattern": {"faith_reason": 2}}
+   ]},
+  {"id": "k4_protect_later", "type": "family", "trigger_only": true, "age_range": [14, 35], "npc": "sibling", "base_weight": 1, "topic": "family",
+   "scene": {"place": "street", "time": "sunset", "people": 5, "props": ["tree"]},
+   "choices": [
+     {"id": "together", "risk_roll": {"param": "strength", "success_chance_base": 0.6, "on_success": [{"param": "reputation", "delta": 3}, {"npc_attitude": "npc", "delta": 10}, {"param": "self_esteem", "delta": 2}], "on_failure": [{"param": "health", "delta": -4}, {"npc_attitude": "npc", "delta": 6}]}, "pattern": {"memory_future": -2}},
+     {"id": "send_back", "effects": [{"npc_attitude": "npc", "delta": -3}, {"param": "self_esteem", "delta": 1}, {"param": "stress", "delta": 2}], "pattern": {"craft_power": 2}}
+   ]},
+
+  {"id": "k4_shared_punishment", "type": "family", "age_range": [5, 10], "npc": "sibling", "npc_age": [4, 15], "conditions": [{"has_npc": "father"}], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "sunset", "people": 2, "props": ["grain", "lamp"]},
+   "choices": [
+     {"id": "joke", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.5, "on_success": [{"npc_attitude": "npc", "delta": 10}, {"param": "happiness", "delta": 4}], "on_failure": [{"param": "stress", "delta": 3}, {"npc_attitude": "npc", "delta": 5}, {"npc_attitude": "father", "delta": -3}]}, "pattern": {"memory_future": 2}},
+     {"id": "silent", "effects": [{"param": "diligence", "delta": 3}, {"param": "happiness", "delta": -2}, {"npc_attitude": "father", "delta": 2}], "pattern": {"craft_power": 1}},
+     {"id": "more_share", "effects": [{"npc_attitude": "npc", "delta": 7}, {"param": "diligence", "delta": 2}, {"param": "self_esteem", "delta": 2}, {"param": "happiness", "delta": -1}], "pattern": {"memory_future": -2}}
+   ]},
+
+  {"id": "k4_sick_attention", "type": "family", "age_range": [4, 10], "npc": "sibling", "npc_age": [0, 12], "conditions": [{"has_npc": "mother"}], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 3, "props": ["bed", "lamp"]},
+   "choices": [
+     {"id": "help", "effects": [{"param": "diligence", "delta": 3}, {"npc_attitude": "npc", "delta": 8}, {"npc_attitude": "mother", "delta": 5}, {"param": "happiness", "delta": -1}, {"chance": 0.3, "effects": [{"add_trait": "kind"}]}], "pattern": {"memory_future": -2}},
+     {"id": "act_out", "risk_roll": {"param": "charisma", "success_chance_base": 0.4, "on_success": [{"param": "happiness", "delta": 5}, {"param": "loneliness", "delta": -4}], "on_failure": [{"param": "happiness", "delta": -4}, {"param": "loneliness", "delta": 4}, {"npc_attitude": "mother", "delta": -3}]}, "pattern": {"memory_future": 2}},
+     {"id": "alone", "effects": [{"param": "loneliness", "delta": 4}, {"param": "self_esteem", "delta": 1}, {"param": "risk_tolerance", "delta": 2}], "pattern": {"home_road": 2}}
+   ]},
+
+  {"id": "k4_show_off", "type": "family", "age_range": [4, 9], "npc": "father", "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "sunset", "people": 5, "props": ["table", "lamp"]},
+   "choices": [
+     {"id": "perform", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "self_esteem", "delta": 5}, {"param": "reputation", "delta": 2}, {"npc_attitude": "npc", "delta": 5}], "on_failure": [{"param": "self_esteem", "delta": -4}, {"param": "happiness", "delta": -1}, {"npc_attitude": "npc", "delta": -1}]}, "pattern": {"craft_power": 2}},
+     {"id": "hide", "effects": [{"param": "happiness", "delta": -1}, {"param": "self_esteem", "delta": -2}, {"param": "stress", "delta": 1}], "pattern": {"home_road": -1}},
+     {"id": "honest", "effects": [{"param": "reputation", "delta": 2}, {"param": "self_esteem", "delta": 2}, {"npc_attitude": "npc", "delta": -1}], "pattern": {"faith_reason": 2}}
+   ]},
+
+  {"id": "k4_parents_quarrel", "type": "family", "age_range": [4, 10], "conditions": [{"has_npc": "father"}, {"has_npc": "mother"}], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 3, "props": ["lamp", "moon"]},
+   "choices": [
+     {"id": "cover", "effects": [{"param": "stress", "delta": 3}, {"param": "loneliness", "delta": 2}], "pattern": {"home_road": 1}},
+     {"id": "go_out", "risk_roll": {"param": "charisma", "success_chance_base": 0.45, "on_success": [{"param": "stress", "delta": -2}, {"param": "happiness", "delta": 3}, {"npc_attitude": "father", "delta": 3}, {"npc_attitude": "mother", "delta": 3}], "on_failure": [{"param": "stress", "delta": 3}, {"param": "happiness", "delta": -2}]}, "pattern": {"memory_future": 2}},
+     {"id": "reconcile", "effects": [{"param": "happiness", "delta": 2}, {"param": "charisma", "delta": 1}, {"npc_attitude": "father", "delta": 4}, {"npc_attitude": "mother", "delta": 4}, {"chance": 0.3, "effects": [{"add_trait": "kind"}]}], "pattern": {"memory_future": -2}}
+   ]},
+
+  {"id": "k4_father_away", "type": "family", "age_range": [4, 10], "npc": "father", "npc_age": [22, 60], "classes": ["slave", "peasant", "craftsman", "trader"], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "road", "time": "dawn", "people": 3, "props": ["sun"]},
+   "choices": [
+     {"id": "promise", "effects": [{"param": "diligence", "delta": 4}, {"param": "stress", "delta": 3}, {"param": "self_esteem", "delta": 3}, {"npc_attitude": "npc", "delta": 5}, {"set_flag": "k4_promised_father"}],
+      "delayed_effects": [{"after_years": [1, 2], "chance": 0.85, "trigger_event": "k4_father_back"}], "pattern": {"home_road": -2}},
+     {"id": "gift", "effects": [{"param": "happiness", "delta": 3}, {"npc_attitude": "npc", "delta": 2}],
+      "delayed_effects": [{"after_years": [1, 2], "chance": 0.85, "trigger_event": "k4_father_back"}], "pattern": {"home_road": 2}},
+     {"id": "cling", "effects": [{"param": "loneliness", "delta": 4}, {"param": "happiness", "delta": -3}, {"npc_attitude": "npc", "delta": 6}],
+      "delayed_effects": [{"after_years": [1, 2], "chance": 0.85, "trigger_event": "k4_father_back"}], "pattern": {"memory_future": -2}}
+   ]},
+  {"id": "k4_father_back", "type": "family", "trigger_only": true, "age_range": [5, 12], "npc": "father", "base_weight": 1, "topic": "family",
+   "scene": {"place": "home", "time": "sunset", "people": 4, "props": ["fire"]},
+   "effects": [{"param": "money", "delta": 30}],
+   "choices": [
+     {"id": "hug", "effects": [{"param": "happiness", "delta": 6}, {"npc_attitude": "npc", "delta": 6}, {"param": "loneliness", "delta": -3}], "pattern": {"memory_future": -2}},
+     {"id": "shy", "effects": [{"param": "loneliness", "delta": 2}, {"npc_attitude": "npc", "delta": -2}, {"param": "happiness", "delta": 1}], "pattern": {"home_road": 1}},
+     {"id": "report", "requirements": [{"flag": "k4_promised_father"}], "effects": [{"param": "self_esteem", "delta": 4}, {"npc_attitude": "npc", "delta": 8}, {"param": "reputation", "delta": 1}, {"clear_flag": "k4_promised_father"}], "pattern": {"craft_power": 2}}
+   ]},
+
+  {"id": "k4_mother_secret", "type": "family", "age_range": [5, 10], "npc": "mother", "conditions": [{"has_npc": "father"}], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 2, "props": ["lamp"]},
+   "choices": [
+     {"id": "keep", "effects": [{"npc_attitude": "npc", "delta": 10}, {"param": "stress", "delta": 1}, {"set_flag": "k4_mother_stash"}],
+      "delayed_effects": [{"after_years": [6, 12], "chance": 0.7, "trigger_event": "k4_hidden_savings"}], "pattern": {"memory_future": -3}},
+     {"id": "tell", "effects": [{"npc_attitude": "npc", "delta": -10}, {"npc_attitude": "father", "delta": 4}, {"param": "self_esteem", "delta": -1}], "pattern": {"craft_power": 2}},
+     {"id": "ask", "risk_roll": {"param": "charisma", "success_chance_base": 0.5, "on_success": [{"param": "intellect", "delta": 2}, {"npc_attitude": "npc", "delta": 8}, {"set_flag": "k4_mother_stash"}], "on_failure": [{"npc_attitude": "npc", "delta": -2}, {"param": "stress", "delta": 2}]},
+      "delayed_effects": [{"after_years": [6, 12], "chance": 0.7, "trigger_event": "k4_hidden_savings"}], "pattern": {"faith_reason": 2}}
+   ]},
+  {"id": "k4_hidden_savings", "type": "family", "trigger_only": true, "age_range": [11, 40], "npc": "mother", "conditions": [{"flag": "k4_mother_stash"}], "base_weight": 1, "topic": "money",
+   "scene": {"place": "home", "time": "overcast", "people": 2, "props": ["lamp", "grain"]},
+   "choices": [
+     {"id": "food", "effects": [{"param": "health", "delta": 3}, {"param": "happiness", "delta": 3}, {"npc_attitude": "npc", "delta": 6}, {"param": "stress", "delta": -3}, {"clear_flag": "k4_mother_stash"}], "pattern": {"memory_future": -2}},
+     {"id": "invest", "effects": [{"param": "money", "delta": 50}, {"param": "stress", "delta": 2}, {"npc_attitude": "npc", "delta": 2}, {"clear_flag": "k4_mother_stash"}], "pattern": {"memory_future": 3}}
+   ]},
+
+  {"id": "k4_burnt_dish", "type": "family", "age_range": [6, 10], "npc": "mother", "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "day", "people": 2, "props": ["fire", "smoke"]},
+   "choices": [
+     {"id": "confess", "risk_roll": {"param": "diligence", "success_chance_base": 0.55, "on_success": [{"param": "happiness", "delta": 4}, {"param": "self_esteem", "delta": 3}, {"npc_attitude": "npc", "delta": 5}, {"param": "diligence", "delta": 1}], "on_failure": [{"param": "happiness", "delta": -1}, {"param": "self_esteem", "delta": -2}, {"npc_attitude": "npc", "delta": 2}]}, "pattern": {"memory_future": -2}},
+     {"id": "scrape", "risk_roll": {"param": "intellect", "success_chance_base": 0.45, "on_success": [{"param": "happiness", "delta": 2}, {"param": "risk_tolerance", "delta": 2}], "on_failure": [{"param": "happiness", "delta": -2}, {"param": "self_esteem", "delta": -2}, {"param": "reputation", "delta": -1}]}, "pattern": {"craft_power": 1}},
+     {"id": "blame_fire", "effects": [{"npc_attitude": "npc", "delta": -3}, {"param": "self_esteem", "delta": -1}, {"chance": 0.2, "effects": [{"add_trait": "cunning"}]}], "pattern": {"faith_reason": 1}}
+   ]},
+
+  {"id": "k4_lost_ring", "type": "family", "age_range": [6, 10], "conditions": [{"has_npc": "father"}], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "street", "time": "sunset", "people": 1, "props": ["tree"]},
+   "choices": [
+     {"id": "search", "risk_roll": {"param": "diligence", "success_chance_base": 0.4, "on_success": [{"param": "happiness", "delta": 4}, {"param": "diligence", "delta": 2}, {"param": "stress", "delta": -2}], "on_failure": [{"npc_attitude": "father", "delta": -6}, {"param": "happiness", "delta": -4}, {"param": "stress", "delta": 3}, {"param": "self_esteem", "delta": -2}]}, "pattern": {"craft_power": -2}},
+     {"id": "confess", "effects": [{"npc_attitude": "father", "delta": -3}, {"param": "self_esteem", "delta": 2}, {"param": "happiness", "delta": -3}], "pattern": {"memory_future": -2}},
+     {"id": "silent", "effects": [{"param": "stress", "delta": 5}, {"set_flag": "k4_ring_lost"}],
+      "delayed_effects": [{"after_years": [6, 15], "chance": 0.6, "trigger_event": "k4_ring_found"}], "pattern": {"memory_future": 2}}
+   ]},
+  {"id": "k4_ring_found", "type": "family", "trigger_only": true, "age_range": [12, 40], "conditions": [{"flag": "k4_ring_lost"}], "base_weight": 1, "topic": "family",
+   "scene": {"place": "street", "time": "day", "people": 2, "props": ["tree"]},
+   "choices": [
+     {"id": "confess", "effects": [{"param": "happiness", "delta": 4}, {"param": "stress", "delta": -5}, {"param": "reputation", "delta": 1}, {"param": "self_esteem", "delta": 2}, {"clear_flag": "k4_ring_lost"}], "pattern": {"memory_future": -3}},
+     {"id": "quiet", "effects": [{"param": "stress", "delta": -3}, {"param": "happiness", "delta": 2}, {"param": "money", "delta": -10}, {"clear_flag": "k4_ring_lost"}], "pattern": {"craft_power": 1}},
+     {"id": "let_go", "effects": [{"param": "stress", "delta": 2}, {"param": "reputation", "delta": 1}, {"clear_flag": "k4_ring_lost"}], "pattern": {"memory_future": 3}}
+   ]},
+
+  {"id": "k4_moving", "type": "family", "age_range": [3, 10], "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "base_weight": 2, "once": true, "topic": "life", "icon": "move",
+   "scene": {"place": "road", "time": "dawn", "people": 4, "props": ["sun", "tree"]},
+   "effects": [{"migrate": "@other"}],
+   "choices": [
+     {"id": "earth", "effects": [{"param": "faith", "delta": 2}, {"param": "happiness", "delta": -1}, {"param": "loneliness", "delta": 2}, {"set_flag": "k4_home_earth"}], "pattern": {"memory_future": -4}},
+     {"id": "goodbye", "effects": [{"param": "happiness", "delta": -2}, {"param": "charisma", "delta": 1}, {"param": "reputation", "delta": 1}], "pattern": {"home_road": 2}},
+     {"id": "hide", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.3, "on_success": [{"param": "happiness", "delta": 2}, {"param": "risk_tolerance", "delta": 2}], "on_failure": [{"param": "happiness", "delta": -3}, {"param": "self_esteem", "delta": -1}]}, "pattern": {"home_road": -3}}
+   ]},
+
+  {"id": "k4_lean_year", "type": "family", "age_range": [5, 10], "classes": ["peasant", "craftsman", "trader"], "base_weight": 3, "once": true, "topic": "money",
+   "scene": {"place": "home", "time": "overcast", "people": 3, "props": ["grain", "table"]},
+   "choices": [
+     {"id": "give", "effects": [{"param": "money", "delta": 8}, {"param": "happiness", "delta": -3}, {"param": "self_esteem", "delta": 4}, {"param": "reputation", "delta": 1}, {"chance": 0.3, "effects": [{"add_trait": "generous"}]}], "pattern": {"memory_future": 2}},
+     {"id": "hide", "effects": [{"param": "happiness", "delta": 1}, {"param": "stress", "delta": 3}], "pattern": {"memory_future": -2}},
+     {"id": "earn", "risk_roll": {"param": "diligence", "success_chance_base": 0.55, "on_success": [{"param": "diligence", "delta": 3}, {"param": "money", "delta": 5}, {"param": "self_esteem", "delta": 3}, {"param": "health", "delta": -1}], "on_failure": [{"param": "happiness", "delta": -2}, {"param": "stress", "delta": 1}]}, "pattern": {"craft_power": -2}}
+   ]},
+
+  {"id": "k4_sudden_luck", "type": "family", "age_range": [4, 10], "classes": ["peasant", "craftsman", "trader", "landowner"], "base_weight": 2, "once": true, "topic": "money",
+   "scene": {"place": "market", "time": "day", "people": 4, "props": ["table", "coins"]},
+   "effects": [{"param": "money", "delta": 40}],
+   "choices": [
+     {"id": "self", "effects": [{"param": "happiness", "delta": 6}, {"param": "self_esteem", "delta": 2}], "pattern": {"memory_future": 2}},
+     {"id": "share", "effects": [{"param": "reputation", "delta": 3}, {"param": "happiness", "delta": 3}, {"param": "charisma", "delta": 1}, {"param": "loneliness", "delta": -2}], "pattern": {"craft_power": 1}},
+     {"id": "save", "effects": [{"param": "money", "delta": 15}, {"param": "diligence", "delta": 2}, {"param": "happiness", "delta": -1}, {"chance": 0.3, "effects": [{"add_trait": "cautious"}]}], "pattern": {"memory_future": -2}}
+   ]},
+
+  {"id": "k4_guest", "type": "family", "age_range": [6, 10], "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "base_weight": 3, "once": true, "topic": "life",
+   "scene": {"place": "home", "time": "sunset", "people": 4, "props": ["lamp", "table"]},
+   "choices": [
+     {"id": "answer", "risk_roll": {"param": "intellect", "success_chance_base": 0.45, "on_success": [{"param": "intellect", "delta": 2}, {"param": "self_esteem", "delta": 4}, {"param": "reputation", "delta": 2}, {"set_flag": "k4_guest_liked"}], "on_failure": [{"param": "self_esteem", "delta": -2}, {"param": "happiness", "delta": -1}]},
+      "delayed_effects": [{"after_years": [8, 14], "chance": 0.7, "trigger_event": "k4_guest_patron"}], "pattern": {"faith_reason": 2}},
+     {"id": "silent", "effects": [{"param": "reputation", "delta": 1}, {"param": "diligence", "delta": 1}], "pattern": {"memory_future": -1}},
+     {"id": "ask", "effects": [{"param": "intellect", "delta": 2}, {"param": "happiness", "delta": 3}, {"param": "risk_tolerance", "delta": 1}], "pattern": {"home_road": 4}}
+   ]},
+  {"id": "k4_guest_patron", "type": "personal", "trigger_only": true, "age_range": [14, 26], "conditions": [{"flag": "k4_guest_liked"}, {"tag_absent": "enslaved"}], "base_weight": 1, "topic": "life", "icon": "find",
+   "scene": {"place": "home", "time": "day", "people": 3, "props": ["scroll"]},
+   "choices": [
+     {"id": "accept", "effects": [{"add_npc": "patron", "attitude": 40}, {"param": "reputation", "delta": 3}, {"param": "self_esteem", "delta": 2}, {"clear_flag": "k4_guest_liked"}], "pattern": {"home_road": 3, "craft_power": 3}},
+     {"id": "decline", "effects": [{"param": "happiness", "delta": 1}, {"param": "stress", "delta": -1}, {"clear_flag": "k4_guest_liked"}], "pattern": {"home_road": -3}}
+   ]},
+
+  {"id": "k4_old_kin_dying", "type": "family", "age_range": [5, 10], "sensitive": true, "base_weight": 2, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 2, "props": ["bed", "lamp"]},
+   "choices": [
+     {"id": "sit", "effects": [{"param": "happiness", "delta": -2}, {"param": "faith", "delta": 2}, {"param": "loneliness", "delta": -1}, {"chance": 0.25, "effects": [{"add_trait": "kind"}]}], "pattern": {"memory_future": -3}},
+     {"id": "bring", "effects": [{"param": "happiness", "delta": 1}, {"param": "charisma", "delta": 1}, {"chance": 0.2, "effects": [{"add_trait": "kind"}]}], "pattern": {"memory_future": -2}},
+     {"id": "afraid", "effects": [{"param": "stress", "delta": 3}, {"param": "loneliness", "delta": 2}, {"param": "self_esteem", "delta": -2}], "pattern": {"memory_future": 2}}
+   ]},
+
+  {"id": "k4_genealogy", "type": "family", "age_range": [6, 10], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 3, "props": ["fire"]},
+   "choices": [
+     {"id": "learn", "risk_roll": {"param": "intellect", "success_chance_base": 0.5, "on_success": [{"param": "intellect", "delta": 2}, {"param": "reputation", "delta": 3}, {"param": "self_esteem", "delta": 3}, {"set_flag": "k4_knows_lineage"}], "on_failure": [{"param": "self_esteem", "delta": -2}, {"param": "happiness", "delta": -1}]},
+      "delayed_effects": [{"after_years": [10, 20], "chance": 0.5, "trigger_event": "k4_lineage_later"}], "pattern": {"memory_future": -4}},
+     {"id": "story", "effects": [{"param": "intellect", "delta": 2}, {"param": "happiness", "delta": 3}], "pattern": {"memory_future": -2, "faith_reason": 1}},
+     {"id": "joke", "effects": [{"param": "happiness", "delta": 2}, {"param": "reputation", "delta": -1}, {"param": "charisma", "delta": 1}], "pattern": {"memory_future": 3}}
+   ]},
+  {"id": "k4_lineage_later", "type": "local", "trigger_only": true, "age_range": [16, 60], "conditions": [{"flag": "k4_knows_lineage"}], "base_weight": 1, "topic": "family",
+   "scene": {"place": "street", "time": "day", "people": 5, "props": ["tree"]},
+   "choices": [
+     {"id": "recite", "risk_roll": {"param": "intellect", "success_chance_base": 0.6, "on_success": [{"param": "reputation", "delta": 6}, {"param": "self_esteem", "delta": 3}, {"skill": "oratory", "delta": 2}], "on_failure": [{"param": "reputation", "delta": -2}, {"param": "stress", "delta": 3}]}, "pattern": {"memory_future": -3}},
+     {"id": "concede", "effects": [{"param": "reputation", "delta": 2}, {"param": "happiness", "delta": 1}], "pattern": {"memory_future": 3}}
+   ]},
+
+  {"id": "k4_night_fire", "type": "family", "age_range": [6, 10], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 1, "props": ["fire", "moon"]},
+   "choices": [
+     {"id": "awake", "risk_roll": {"param": "diligence", "success_chance_base": 0.5, "on_success": [{"param": "self_esteem", "delta": 4}, {"param": "diligence", "delta": 3}], "on_failure": [{"param": "self_esteem", "delta": -2}, {"param": "reputation", "delta": -1}, {"param": "happiness", "delta": -2}]}, "pattern": {"craft_power": -1}},
+     {"id": "bank", "risk_roll": {"param": "intellect", "success_chance_base": 0.55, "on_success": [{"param": "intellect", "delta": 2}, {"param": "happiness", "delta": 2}], "on_failure": [{"param": "self_esteem", "delta": -1}, {"param": "happiness", "delta": -2}]}, "pattern": {"faith_reason": 2}}
+   ]},
+
+  {"id": "k4_baby_minding", "type": "family", "age_range": [6, 10], "npc": "sibling", "npc_age": [0, 2], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "street", "time": "day", "people": 4, "props": ["tree"]},
+   "choices": [
+     {"id": "take_along", "risk_roll": {"param": "diligence", "success_chance_base": 0.5, "on_success": [{"param": "happiness", "delta": 5}, {"npc_attitude": "npc", "delta": 4}], "on_failure": [{"param": "happiness", "delta": -2}, {"param": "stress", "delta": 3}]}, "pattern": {"home_road": 2}},
+     {"id": "stay", "effects": [{"param": "diligence", "delta": 3}, {"npc_attitude": "npc", "delta": 6}, {"param": "happiness", "delta": -2}], "pattern": {"home_road": -2}},
+     {"id": "invite", "effects": [{"param": "charisma", "delta": 2}, {"param": "happiness", "delta": 3}, {"param": "loneliness", "delta": -2}], "pattern": {"craft_power": 1}}
+   ]},
+
+  {"id": "k4_family_meal", "type": "family", "age_range": [4, 10], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "home", "time": "sunset", "people": 5, "props": ["table", "lamp"]},
+   "choices": [
+     {"id": "put_back", "effects": [{"param": "reputation", "delta": 2}, {"param": "diligence", "delta": 1}, {"param": "happiness", "delta": -1}], "pattern": {"memory_future": -2}},
+     {"id": "eat_fast", "risk_roll": {"param": "risk_tolerance", "success_chance_base": 0.4, "on_success": [{"param": "happiness", "delta": 3}, {"param": "risk_tolerance", "delta": 2}], "on_failure": [{"param": "happiness", "delta": -3}, {"param": "self_esteem", "delta": -2}, {"param": "health", "delta": -1}]}, "pattern": {"memory_future": 3}},
+     {"id": "offer", "effects": [{"param": "charisma", "delta": 2}, {"param": "reputation", "delta": 3}, {"chance": 0.25, "effects": [{"add_trait": "generous"}]}], "pattern": {"memory_future": -2, "craft_power": 1}}
+   ]},
+
+  {"id": "k4_rivalry", "type": "family", "age_range": [5, 10], "npc": "sibling", "npc_age": [5, 15], "conditions": [{"has_npc": "father"}], "base_weight": 3, "once": true, "topic": "family",
+   "scene": {"place": "field", "time": "day", "people": 2, "props": ["tree", "sun"]},
+   "choices": [
+     {"id": "fair", "risk_roll": {"param": "strength", "success_chance_base": 0.45, "on_success": [{"param": "happiness", "delta": 5}, {"param": "self_esteem", "delta": 4}, {"npc_attitude": "father", "delta": 3}, {"npc_attitude": "npc", "delta": -3}], "on_failure": [{"param": "happiness", "delta": -3}, {"param": "self_esteem", "delta": -1}]}, "pattern": {"craft_power": -1}},
+     {"id": "cheat", "risk_roll": {"param": "intellect", "success_chance_base": 0.5, "on_success": [{"param": "happiness", "delta": 2}, {"param": "self_esteem", "delta": -1}, {"set_flag": "k4_cheated_sibling"}], "on_failure": [{"npc_attitude": "npc", "delta": -10}, {"npc_attitude": "father", "delta": -4}, {"param": "reputation", "delta": -1}]},
+      "delayed_effects": [{"after_years": [6, 15], "chance": 0.6, "trigger_event": "k4_rivalry_later"}], "pattern": {"craft_power": 3, "memory_future": 2}},
+     {"id": "give_up", "effects": [{"npc_attitude": "npc", "delta": 10}, {"param": "happiness", "delta": -1}, {"chance": 0.3, "effects": [{"add_trait": "kind"}]}], "pattern": {"memory_future": -2}}
+   ]},
+  {"id": "k4_rivalry_later", "type": "family", "trigger_only": true, "age_range": [11, 45], "npc": "sibling", "conditions": [{"flag": "k4_cheated_sibling"}], "base_weight": 1, "topic": "family",
+   "scene": {"place": "home", "time": "sunset", "people": 2, "props": ["lamp", "coins"]},
+   "choices": [
+     {"id": "give", "requirements": [{"param": "money", "op": ">=", "value": 40}], "effects": [{"param": "money", "delta": -40}, {"npc_attitude": "npc", "delta": 15}, {"param": "self_esteem", "delta": 2}, {"clear_flag": "k4_cheated_sibling"}], "pattern": {"memory_future": -2}},
+     {"id": "help_hands", "effects": [{"npc_attitude": "npc", "delta": 6}, {"param": "stress", "delta": -2}, {"param": "diligence", "delta": 1}, {"clear_flag": "k4_cheated_sibling"}], "pattern": {"craft_power": -1}},
+     {"id": "refuse", "effects": [{"npc_attitude": "npc", "delta": -10}, {"param": "stress", "delta": 2}, {"clear_flag": "k4_cheated_sibling"}], "pattern": {"craft_power": 2}}
+   ]},
+
+  {"id": "k4_m_doorpost", "type": "family", "moment": true, "once": true, "age_range": [3, 10], "npc": "father", "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "day", "people": 2},
+   "effects": [{"param": "happiness", "delta": 2}, {"npc_attitude": "npc", "delta": 2}, {"param": "self_esteem", "delta": 1}]},
+  {"id": "k4_m_combing", "type": "family", "moment": true, "once": true, "age_range": [3, 9], "npc": "mother", "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "day", "people": 2, "props": ["sun"]},
+   "effects": [{"param": "happiness", "delta": 2}, {"npc_attitude": "npc", "delta": 3}]},
+  {"id": "k4_m_secret_words", "type": "family", "moment": true, "once": true, "age_range": [4, 10], "npc": "sibling", "npc_age": [3, 14], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "day", "people": 2},
+   "effects": [{"npc_attitude": "npc", "delta": 4}, {"param": "happiness", "delta": 2}, {"param": "loneliness", "delta": -2}]},
+  {"id": "k4_m_one_bed", "type": "family", "moment": true, "once": true, "age_range": [3, 10], "npc": "sibling", "npc_age": [2, 16], "classes": ["slave", "peasant", "craftsman"], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 3, "props": ["bed", "moon"]},
+   "effects": [{"param": "loneliness", "delta": -2}, {"npc_attitude": "npc", "delta": 2}]},
+  {"id": "k4_m_father_song", "type": "family", "moment": true, "once": true, "age_range": [3, 10], "npc": "father", "base_weight": 3, "topic": "family",
+   "scene": {"place": "field", "time": "day", "people": 2, "props": ["sun"]},
+   "effects": [{"param": "happiness", "delta": 2}, {"npc_attitude": "npc", "delta": 2}]},
+  {"id": "k4_m_guests_first", "type": "family", "moment": true, "once": true, "age_range": [3, 10], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "sunset", "people": 5, "props": ["table", "lamp"]},
+   "effects": [{"param": "diligence", "delta": 1}, {"param": "happiness", "delta": -1}]},
+  {"id": "k4_m_years_by_troubles", "type": "local", "moment": true, "once": true, "age_range": [4, 10], "base_weight": 3, "topic": "life",
+   "scene": {"place": "street", "time": "sunset", "people": 2, "props": ["tree"]},
+   "effects": [{"param": "intellect", "delta": 1}, {"param": "happiness", "delta": 1}]},
+  {"id": "k4_m_parents_laugh", "type": "family", "moment": true, "once": true, "age_range": [3, 10], "npc": "father", "conditions": [{"has_npc": "mother"}], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 2, "props": ["lamp", "moon"]},
+   "effects": [{"param": "stress", "delta": -2}, {"param": "happiness", "delta": 2}]},
+  {"id": "k4_m_mother_asleep", "type": "family", "moment": true, "once": true, "age_range": [5, 10], "npc": "mother", "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 2, "props": ["lamp", "loom"]},
+   "effects": [{"npc_attitude": "npc", "delta": 4}, {"param": "diligence", "delta": 1}]},
+  {"id": "k4_m_father_bandage", "type": "family", "moment": true, "once": true, "age_range": [4, 10], "npc": "father", "base_weight": 3, "topic": "health",
+   "scene": {"place": "home", "time": "day", "people": 2},
+   "effects": [{"param": "health", "delta": -1}, {"npc_attitude": "npc", "delta": 4}]},
+  {"id": "k4_m_cousins", "type": "family", "moment": true, "once": true, "age_range": [3, 10], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 6, "props": ["moon", "fire"]},
+   "effects": [{"param": "happiness", "delta": 3}, {"param": "loneliness", "delta": -2}]},
+  {"id": "k4_m_your_name", "type": "family", "moment": true, "once": true, "age_range": [5, 10], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "sunset", "people": 3, "props": ["fire"]},
+   "effects": [{"param": "self_esteem", "delta": 2}]},
+  {"id": "k4_m_piggyback", "type": "family", "moment": true, "once": true, "age_range": [3, 7], "npc": "sibling", "npc_age": [10, 20], "base_weight": 3, "topic": "family",
+   "scene": {"place": "road", "time": "sunset", "people": 3, "props": ["sun"]},
+   "effects": [{"npc_attitude": "npc", "delta": 3}, {"param": "loneliness", "delta": -2}]},
+  {"id": "k4_m_father_silence", "type": "family", "moment": true, "once": true, "age_range": [5, 10], "npc": "father", "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "overcast", "people": 2},
+   "effects": [{"param": "diligence", "delta": 1}, {"param": "happiness", "delta": -2}, {"npc_attitude": "npc", "delta": -1}]},
+  {"id": "k4_m_mother_name", "type": "family", "moment": true, "once": true, "age_range": [4, 8], "npc": "mother", "base_weight": 3, "topic": "family",
+   "scene": {"place": "street", "time": "day", "people": 3},
+   "effects": [{"param": "intellect", "delta": 1}, {"npc_attitude": "npc", "delta": 2}]},
+  {"id": "k4_m_rich_aunt", "type": "family", "moment": true, "once": true, "age_range": [4, 10], "classes": ["peasant", "craftsman", "trader"], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "day", "people": 4},
+   "effects": [{"param": "happiness", "delta": 1}]},
+  {"id": "k4_m_riddles", "type": "family", "moment": true, "once": true, "age_range": [4, 10], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 4, "props": ["fire"]},
+   "effects": [{"param": "intellect", "delta": 1}, {"param": "happiness", "delta": 2}]},
+  {"id": "k4_m_sticky_raid", "type": "family", "moment": true, "once": true, "age_range": [4, 10], "npc": "sibling", "npc_age": [4, 14], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "day", "people": 2, "props": ["amphora"]},
+   "effects": [{"param": "happiness", "delta": 2}, {"npc_attitude": "npc", "delta": 3}]},
+  {"id": "k4_m_slave_mother", "type": "family", "moment": true, "once": true, "age_range": [3, 10], "npc": "mother", "classes": ["slave"], "base_weight": 3, "topic": "family",
+   "scene": {"place": "home", "time": "night", "people": 2, "props": ["lamp"]},
+   "effects": [{"param": "loneliness", "delta": 2}, {"npc_attitude": "npc", "delta": 3}]},
+  {"id": "k4_m_noble_father", "type": "family", "moment": true, "once": true, "age_range": [4, 10], "npc": "father", "classes": ["landowner", "noble"], "base_weight": 3, "topic": "family",
+   "scene": {"place": "palace", "time": "day", "people": 3},
+   "effects": [{"npc_attitude": "npc", "delta": 3}, {"param": "happiness", "delta": 2}, {"param": "self_esteem", "delta": -1}]}
+]
