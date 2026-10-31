@@ -1,0 +1,484 @@
+[
+  {
+    "id": "k5_herd_stray", "type": "personal", "age_range": [6, 10], "classes": ["peasant"], "not_eras": ["JPN", "MAY", "AMR"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "field", "time": "sunset", "people": 1, "props": ["goat", "tree", "sun"] },
+    "choices": [
+      { "id": "climb", "risk_roll": { "param": "strength", "success_chance_base": 0.55,
+          "on_success": [{ "skill": "farming", "delta": 2 }, { "param": "self_esteem", "delta": 3 }, { "param": "reputation", "delta": 2 }],
+          "on_failure": [{ "param": "health", "delta": -4 }, { "param": "stress", "delta": 3 }] },
+        "pattern": { "memory_future": 2 } },
+      { "id": "call", "effects": [{ "param": "stress", "delta": 2 }, { "param": "reputation", "delta": -1 }, { "param": "diligence", "delta": 1 }],
+        "pattern": { "memory_future": -2 } },
+      { "id": "salt", "risk_roll": { "param": "intellect", "success_chance_base": 0.5,
+          "on_success": [{ "skill": "farming", "delta": 3 }, { "param": "happiness", "delta": 3 }],
+          "on_failure": [{ "param": "money", "delta": -3 }, { "param": "stress", "delta": 3 }, { "param": "reputation", "delta": -1 }] },
+        "pattern": { "faith_reason": 2 } }
+    ]
+  },
+  {
+    "id": "k5_gleaning", "type": "personal", "age_range": [5, 9], "classes": ["peasant"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "field", "time": "day", "people": 4, "props": ["grain", "tree", "sun"] },
+    "choices": [
+      { "id": "ground", "effects": [{ "skill": "farming", "delta": 2 }, { "param": "diligence", "delta": 2 }, { "param": "money", "delta": 2 }],
+        "pattern": { "memory_future": -2 } },
+      { "id": "pinch", "risk_roll": { "success_chance_base": 0.55,
+          "on_success": [{ "param": "money", "delta": 5 }, { "param": "happiness", "delta": 2 }, { "param": "self_esteem", "delta": -1 }],
+          "on_failure": [{ "param": "health", "delta": -2 }, { "param": "stress", "delta": 5 }, { "param": "reputation", "delta": -3 }] },
+        "pattern": { "memory_future": 3 } },
+      { "id": "share", "effects": [{ "param": "happiness", "delta": 3 }, { "param": "reputation", "delta": 2 }, { "chance": 0.3, "effects": [{ "add_trait": "kind" }] }],
+        "pattern": { "memory_future": -1, "faith_reason": -2 } }
+    ]
+  },
+  {
+    "id": "k5_water_jar", "type": "personal", "age_range": [6, 9], "classes": ["peasant", "slave", "craftsman"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "street", "time": "dawn", "people": 1, "props": ["amphora", "sun"] },
+    "choices": [
+      { "id": "confess", "effects": [{ "param": "stress", "delta": 2 }, { "param": "self_esteem", "delta": 2 }, { "param": "reputation", "delta": 1 }],
+        "pattern": { "memory_future": -2 } },
+      { "id": "hide", "risk_roll": { "success_chance_base": 0.4,
+          "on_success": [{ "param": "happiness", "delta": 2 }, { "param": "self_esteem", "delta": -1 }],
+          "on_failure": [{ "param": "stress", "delta": 5 }, { "param": "reputation", "delta": -2 }, { "param": "health", "delta": -1 }] },
+        "pattern": { "memory_future": 2 } },
+      { "id": "carry", "effects": [{ "param": "diligence", "delta": 2 }, { "param": "health", "delta": -1 }, { "param": "happiness", "delta": 1 }],
+        "pattern": { "craft_power": -2 } }
+    ]
+  },
+  {
+    "id": "k5_field_talent", "type": "personal", "age_range": [7, 10], "classes": ["peasant"],
+    "base_weight": 3, "once": true, "topic": "life",
+    "weight_modifiers": [{ "if": { "trait": "curious" }, "multiply": 2 }],
+    "scene": { "place": "field", "time": "day", "people": 3, "props": ["grain", "tree"] },
+    "choices": [
+      { "id": "learn", "icon": "study",
+        "effects": [{ "skill": "literacy", "delta": 5 }, { "param": "intellect", "delta": 2 }, { "skill": "farming", "delta": -1 }, { "param": "stress", "delta": 2 },
+          { "add_tag": "schooled" }, { "add_npc": "mentor", "attitude": 30 }, { "set_flag": "k5_village_reader" }],
+        "delayed_effects": [{ "after_years": [8, 15], "chance": 0.6, "trigger_event": "k5_f_village_reader" }],
+        "pattern": { "faith_reason": 3, "home_road": 2 } },
+      { "id": "field", "effects": [{ "skill": "farming", "delta": 3 }, { "param": "diligence", "delta": 2 }, { "param": "happiness", "delta": -1 }],
+        "pattern": { "memory_future": -3, "craft_power": -2 } },
+      { "id": "evenings", "risk_roll": { "param": "diligence", "success_chance_base": 0.5,
+          "on_success": [{ "skill": "literacy", "delta": 3 }, { "skill": "farming", "delta": 1 }, { "param": "health", "delta": -1 }, { "set_flag": "k5_village_reader" }],
+          "on_failure": [{ "skill": "literacy", "delta": 1 }, { "param": "stress", "delta": 4 }, { "param": "health", "delta": -2 }] },
+        "delayed_effects": [{ "after_years": [8, 15], "chance": 0.6, "trigger_event": "k5_f_village_reader" }],
+        "pattern": { "faith_reason": 2 } }
+    ]
+  },
+  {
+    "id": "k5_f_village_reader", "type": "personal", "trigger_only": true, "age_range": [14, 70],
+    "conditions": [{ "flag": "k5_village_reader" }],
+    "base_weight": 1, "once": true, "topic": "life",
+    "scene": { "place": "street", "time": "day", "people": 5, "props": ["scroll", "grain"] },
+    "choices": [
+      { "id": "check", "risk_roll": { "param": "intellect", "success_chance_base": 0.55,
+          "on_success": [{ "param": "reputation", "delta": 8 }, { "param": "self_esteem", "delta": 4 }, { "param": "money", "delta": 10 }],
+          "on_failure": [{ "param": "reputation", "delta": -3 }, { "param": "stress", "delta": 5 }, { "param": "money", "delta": -8 }] },
+        "pattern": { "craft_power": 3, "memory_future": 2 } },
+      { "id": "quiet", "effects": [{ "param": "reputation", "delta": 3 }, { "param": "stress", "delta": 1 }, { "skill": "literacy", "delta": 2 }],
+        "pattern": { "craft_power": -2 } }
+    ]
+  },
+  {
+    "id": "k5_night_watch", "type": "personal", "age_range": [7, 10], "classes": ["peasant"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "field", "time": "night", "people": 1, "props": ["moon", "grain", "fire"] },
+    "choices": [
+      { "id": "awake", "risk_roll": { "param": "diligence", "success_chance_base": 0.5,
+          "on_success": [{ "skill": "farming", "delta": 2 }, { "param": "diligence", "delta": 2 }, { "param": "self_esteem", "delta": 3 }],
+          "on_failure": [{ "skill": "farming", "delta": 1 }, { "param": "stress", "delta": 3 }, { "param": "money", "delta": -4 }, { "param": "reputation", "delta": -1 }] },
+        "pattern": { "memory_future": -1 } },
+      { "id": "noise", "effects": [{ "param": "health", "delta": -1 }, { "skill": "farming", "delta": 1 }, { "param": "reputation", "delta": -1 }, { "param": "happiness", "delta": 1 }] },
+      { "id": "nap", "risk_roll": { "success_chance_base": 0.4,
+          "on_success": [{ "param": "happiness", "delta": 3 }, { "param": "health", "delta": 1 }],
+          "on_failure": [{ "param": "money", "delta": -6 }, { "param": "reputation", "delta": -3 }, { "param": "stress", "delta": 4 }] },
+        "pattern": { "memory_future": 2 } }
+    ]
+  },
+  {
+    "id": "k5_ruined_work", "type": "personal", "age_range": [6, 10], "classes": ["craftsman"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "workshop", "time": "day", "people": 1, "props": ["table", "fire"] },
+    "choices": [
+      { "id": "confess", "effects": [{ "param": "stress", "delta": 3 }, { "param": "self_esteem", "delta": 2 }, { "skill": "craft", "delta": 2 }, { "param": "reputation", "delta": 1 }],
+        "pattern": { "memory_future": -2 } },
+      { "id": "hide", "risk_roll": { "success_chance_base": 0.35,
+          "on_success": [{ "param": "happiness", "delta": 1 }, { "param": "self_esteem", "delta": -2 }],
+          "on_failure": [{ "param": "stress", "delta": 6 }, { "param": "reputation", "delta": -3 }, { "param": "health", "delta": -1 }] },
+        "pattern": { "memory_future": 2 } },
+      { "id": "redo", "risk_roll": { "param": "diligence", "success_chance_base": 0.4,
+          "on_success": [{ "skill": "craft", "delta": 5 }, { "param": "self_esteem", "delta": 5 }, { "chance": 0.3, "effects": [{ "add_trait": "ambitious" }] }],
+          "on_failure": [{ "skill": "craft", "delta": 2 }, { "param": "stress", "delta": 4 }, { "param": "money", "delta": -3 }] },
+        "pattern": { "craft_power": -3 } }
+    ]
+  },
+  {
+    "id": "k5_journeyman_trick", "type": "personal", "age_range": [7, 10], "classes": ["craftsman"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "workshop", "time": "sunset", "people": 2, "props": ["anvil", "fire"] },
+    "choices": [
+      { "id": "keep", "effects": [{ "skill": "craft", "delta": 4 }, { "set_flag": "k5_trick" }],
+        "delayed_effects": [{ "after_years": [10, 18], "chance": 0.6, "trigger_event": "k5_f_trick_pays" }],
+        "pattern": { "memory_future": 3 } },
+      { "id": "tell", "effects": [{ "param": "reputation", "delta": 2 }, { "skill": "craft", "delta": 1 }, { "param": "stress", "delta": 2 }, { "add_npc": "rival", "attitude": -30 }],
+        "pattern": { "memory_future": -3 } },
+      { "id": "try", "risk_roll": { "param": "intellect", "success_chance_base": 0.5,
+          "on_success": [{ "skill": "craft", "delta": 3 }, { "param": "happiness", "delta": 2 }, { "set_flag": "k5_trick" }],
+          "on_failure": [{ "param": "stress", "delta": 4 }, { "param": "money", "delta": -3 }, { "param": "reputation", "delta": -2 }] },
+        "delayed_effects": [{ "after_years": [10, 18], "chance": 0.6, "trigger_event": "k5_f_trick_pays" }],
+        "pattern": { "memory_future": 4 } }
+    ]
+  },
+  {
+    "id": "k5_f_trick_pays", "type": "personal", "trigger_only": true, "age_range": [16, 70], "classes": ["craftsman"],
+    "conditions": [{ "flag": "k5_trick" }],
+    "base_weight": 1, "once": true, "topic": "work",
+    "scene": { "place": "workshop", "time": "night", "people": 1, "props": ["lamp", "anvil"] },
+    "choices": [
+      { "id": "quick", "risk_roll": { "success_chance_base": 0.6,
+          "on_success": [{ "param": "money", "delta": 40 }, { "skill": "craft", "delta": 2 }, { "param": "reputation", "delta": 2 }],
+          "on_failure": [{ "param": "reputation", "delta": -5 }, { "param": "money", "delta": -10 }, { "param": "stress", "delta": 4 }] },
+        "pattern": { "memory_future": 3 } },
+      { "id": "old_way", "effects": [{ "param": "health", "delta": -3 }, { "param": "stress", "delta": 4 }, { "skill": "craft", "delta": 3 }, { "param": "reputation", "delta": 3 }, { "param": "money", "delta": 20 }],
+        "pattern": { "memory_future": -3 } }
+    ]
+  },
+  {
+    "id": "k5_first_tip", "type": "personal", "age_range": [6, 10], "classes": ["craftsman", "peasant", "trader"],
+    "base_weight": 3, "once": true, "topic": "money",
+    "scene": { "place": "street", "time": "day", "people": 2, "props": ["sun", "tree"] },
+    "choices": [
+      { "id": "stash", "effects": [{ "param": "money", "delta": 3 }, { "param": "happiness", "delta": 2 }, { "param": "self_esteem", "delta": 2 }],
+        "pattern": { "memory_future": 2 } },
+      { "id": "home", "effects": [{ "param": "money", "delta": 3 }, { "param": "reputation", "delta": 2 }, { "param": "happiness", "delta": 1 }, { "param": "diligence", "delta": 1 }],
+        "pattern": { "memory_future": -2, "craft_power": -1 } },
+      { "id": "treat", "effects": [{ "param": "happiness", "delta": 4 }, { "param": "loneliness", "delta": -3 }, { "chance": 0.3, "effects": [{ "add_trait": "generous" }] }],
+        "pattern": { "home_road": 1 } }
+    ]
+  },
+  {
+    "id": "k5_count_for_father", "type": "family", "npc": "father", "age_range": [6, 10], "classes": ["trader"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "market", "time": "sunset", "people": 3, "props": ["table", "grain"] },
+    "choices": [
+      { "id": "tell_father", "risk_roll": { "param": "charisma", "success_chance_base": 0.55,
+          "on_success": [{ "npc_attitude": "npc", "delta": 6 }, { "param": "reputation", "delta": 2 }, { "skill": "trade", "delta": 2 }],
+          "on_failure": [{ "npc_attitude": "npc", "delta": -5 }, { "param": "stress", "delta": 4 }] },
+        "pattern": { "faith_reason": -1 } },
+      { "id": "tell_buyer", "effects": [{ "param": "reputation", "delta": 3 }, { "npc_attitude": "npc", "delta": -6 }, { "param": "self_esteem", "delta": 3 }, { "set_flag": "k5_honest_child" }],
+        "delayed_effects": [{ "after_years": [10, 18], "chance": 0.6, "trigger_event": "k5_f_honest_child" }],
+        "pattern": { "memory_future": 3, "craft_power": -2 } },
+      { "id": "silent", "effects": [{ "skill": "trade", "delta": 3 }, { "param": "stress", "delta": 2 }, { "param": "self_esteem", "delta": -2 }],
+        "pattern": { "craft_power": 2 } }
+    ]
+  },
+  {
+    "id": "k5_f_honest_child", "type": "personal", "trigger_only": true, "moment": true, "age_range": [16, 70],
+    "conditions": [{ "flag": "k5_honest_child" }],
+    "base_weight": 1, "once": true, "topic": "money",
+    "scene": { "place": "market", "time": "day", "people": 3, "props": ["table", "cart"] },
+    "effects": [{ "param": "reputation", "delta": 5 }, { "skill": "trade", "delta": 3 }, { "param": "money", "delta": 30 }, { "add_npc": "patron", "attitude": 30 }, { "param": "happiness", "delta": 3 }]
+  },
+  {
+    "id": "k5_market_stranger", "type": "personal", "age_range": [7, 10], "classes": ["trader", "craftsman"],
+    "base_weight": 3, "once": true, "topic": "life",
+    "scene": { "place": "market", "time": "day", "people": 5, "props": ["table", "cart"] },
+    "choices": [
+      { "id": "errand", "effects": [{ "param": "diligence", "delta": 2 }, { "param": "reputation", "delta": 1 }, { "skill": "trade", "delta": 1 }],
+        "pattern": { "memory_future": -2 } },
+      { "id": "carry", "risk_roll": { "success_chance_base": 0.45,
+          "on_success": [{ "param": "money", "delta": 6 }, { "param": "happiness", "delta": 2 }, { "param": "risk_tolerance", "delta": 2 }],
+          "on_failure": [{ "param": "stress", "delta": 6 }, { "param": "reputation", "delta": -4 }, { "param": "health", "delta": -2 }] },
+        "pattern": { "memory_future": 4 } },
+      { "id": "report", "risk_roll": { "param": "charisma", "success_chance_base": 0.5,
+          "on_success": [{ "param": "reputation", "delta": 4 }, { "param": "self_esteem", "delta": 3 }, { "param": "happiness", "delta": 2 }],
+          "on_failure": [{ "param": "stress", "delta": 3 }, { "param": "happiness", "delta": -2 }] },
+        "pattern": { "craft_power": 2 } }
+    ]
+  },
+  {
+    "id": "k5_haggle_alone", "type": "personal", "age_range": [8, 10], "classes": ["trader"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "market", "time": "day", "people": 2, "props": ["table", "sun"] },
+    "choices": [
+      { "id": "hold", "risk_roll": { "param": "charisma", "success_chance_base": 0.5,
+          "on_success": [{ "skill": "trade", "delta": 4 }, { "param": "money", "delta": 4 }, { "param": "self_esteem", "delta": 3 }],
+          "on_failure": [{ "skill": "trade", "delta": 2 }, { "param": "stress", "delta": 2 }, { "param": "money", "delta": -1 }] },
+        "pattern": { "craft_power": 2 } },
+      { "id": "yield", "effects": [{ "skill": "trade", "delta": 1 }, { "param": "money", "delta": -3 }, { "param": "happiness", "delta": 1 }, { "param": "self_esteem", "delta": -1 }],
+        "pattern": { "craft_power": -2 } },
+      { "id": "gift", "risk_roll": { "param": "intellect", "success_chance_base": 0.55,
+          "on_success": [{ "skill": "trade", "delta": 5 }, { "param": "reputation", "delta": 3 }, { "param": "money", "delta": 2 }],
+          "on_failure": [{ "skill": "trade", "delta": 2 }, { "param": "money", "delta": -2 }] },
+        "pattern": { "memory_future": 2 } }
+    ]
+  },
+  {
+    "id": "k5_strict_tutor", "type": "personal", "age_range": [6, 10], "classes": ["landowner", "noble"],
+    "base_weight": 3, "once": true, "topic": "life",
+    "scene": { "place": "home", "time": "day", "people": 2, "props": ["scroll", "table", "sun"] },
+    "choices": [
+      { "id": "endure", "effects": [{ "skill": "literacy", "delta": 4 }, { "param": "diligence", "delta": 3 }, { "param": "stress", "delta": 3 }, { "param": "happiness", "delta": -2 }, { "set_flag": "k5_tutor_respect" }],
+        "delayed_effects": [{ "after_years": [12, 20], "chance": 0.55, "trigger_event": "k5_f_old_tutor" }],
+        "pattern": { "faith_reason": 2, "memory_future": -2 } },
+      { "id": "prank", "risk_roll": { "param": "intellect", "success_chance_base": 0.5,
+          "on_success": [{ "param": "happiness", "delta": 4 }, { "param": "self_esteem", "delta": 2 }, { "param": "reputation", "delta": -1 }],
+          "on_failure": [{ "param": "stress", "delta": 6 }, { "param": "health", "delta": -2 }, { "skill": "literacy", "delta": 1 }] },
+        "pattern": { "memory_future": 3 } },
+      { "id": "complain", "risk_roll": { "param": "charisma", "success_chance_base": 0.45,
+          "on_success": [{ "param": "stress", "delta": -3 }, { "param": "happiness", "delta": 2 }, { "skill": "literacy", "delta": 2 }],
+          "on_failure": [{ "param": "stress", "delta": 3 }, { "param": "self_esteem", "delta": -2 }] },
+        "pattern": { "craft_power": 2 } }
+    ]
+  },
+  {
+    "id": "k5_f_old_tutor", "type": "personal", "trigger_only": true, "age_range": [18, 75],
+    "conditions": [{ "flag": "k5_tutor_respect" }],
+    "base_weight": 1, "once": true, "topic": "life",
+    "scene": { "place": "home", "time": "overcast", "people": 2, "props": ["lamp", "scroll"] },
+    "choices": [
+      { "id": "take_in", "effects": [{ "param": "money", "delta": -30 }, { "param": "happiness", "delta": 4 }, { "param": "reputation", "delta": 3 }, { "add_npc": "mentor", "attitude": 50 }],
+        "pattern": { "memory_future": -3 } },
+      { "id": "alms", "effects": [{ "param": "money", "delta": -10 }, { "param": "happiness", "delta": 1 }],
+        "pattern": { "memory_future": -1 } },
+      { "id": "pretend", "effects": [{ "param": "self_esteem", "delta": -3 }, { "param": "stress", "delta": 2 }],
+        "pattern": { "memory_future": 3 } }
+    ]
+  },
+  {
+    "id": "k5_tenant_tally", "type": "personal", "age_range": [8, 10], "classes": ["landowner"],
+    "base_weight": 3, "once": true, "topic": "work",
+    "scene": { "place": "field", "time": "day", "people": 4, "props": ["grain", "cart", "scroll"] },
+    "choices": [
+      { "id": "write", "effects": [{ "skill": "management", "delta": 3 }, { "param": "diligence", "delta": 1 }, { "param": "happiness", "delta": -1 }],
+        "pattern": { "craft_power": 3 } },
+      { "id": "forgive", "risk_roll": { "success_chance_base": 0.5,
+          "on_success": [{ "param": "reputation", "delta": 3 }, { "param": "happiness", "delta": 3 }, { "set_flag": "k5_tenant_spared" }],
+          "on_failure": [{ "param": "stress", "delta": 5 }, { "param": "reputation", "delta": -2 }, { "skill": "management", "delta": 1 }] },
+        "delayed_effects": [{ "after_years": [8, 16], "chance": 0.6, "trigger_event": "k5_f_tenant_son" }],
+        "pattern": { "craft_power": -3, "memory_future": 2 } },
+      { "id": "ask", "risk_roll": { "param": "charisma", "success_chance_base": 0.5,
+          "on_success": [{ "skill": "management", "delta": 2 }, { "param": "reputation", "delta": 2 }, { "set_flag": "k5_tenant_spared" }],
+          "on_failure": [{ "skill": "management", "delta": 2 }, { "param": "self_esteem", "delta": -2 }] },
+        "delayed_effects": [{ "after_years": [8, 16], "chance": 0.6, "trigger_event": "k5_f_tenant_son" }],
+        "pattern": { "craft_power": -1 } }
+    ]
+  },
+  {
+    "id": "k5_f_tenant_son", "type": "personal", "trigger_only": true, "age_range": [16, 70],
+    "conditions": [{ "flag": "k5_tenant_spared" }],
+    "base_weight": 1, "once": true, "topic": "life",
+    "scene": { "place": "home", "time": "night", "people": 2, "props": ["moon", "lamp"] },
+    "choices": [
+      { "id": "stand", "risk_roll": { "param": "charisma", "success_chance_base": 0.55,
+          "on_success": [{ "param": "reputation", "delta": 6 }, { "param": "self_esteem", "delta": 4 }, { "skill": "management", "delta": 2 }],
+          "on_failure": [{ "param": "health", "delta": -6 }, { "money_pct": -10 }, { "param": "stress", "delta": 6 }] },
+        "pattern": { "home_road": -3, "craft_power": 2 } },
+      { "id": "hide", "effects": [{ "money_pct": -5 }, { "param": "stress", "delta": 3 }, { "param": "reputation", "delta": -1 }],
+        "pattern": { "home_road": 2 } }
+    ]
+  },
+  {
+    "id": "k5_judgment_seat", "type": "personal", "age_range": [8, 10], "classes": ["noble", "landowner"],
+    "base_weight": 3, "once": true, "topic": "life",
+    "scene": { "place": "palace", "time": "day", "people": 5, "props": ["banner", "table"] },
+    "choices": [
+      { "id": "silent", "effects": [{ "skill": "management", "delta": 2 }, { "param": "diligence", "delta": 2 }, { "param": "happiness", "delta": -1 }],
+        "pattern": { "memory_future": -2 } },
+      { "id": "speak", "risk_roll": { "param": "charisma", "success_chance_base": 0.45,
+          "on_success": [{ "param": "reputation", "delta": 4 }, { "param": "self_esteem", "delta": 4 }, { "skill": "management", "delta": 2 }, { "skill": "oratory", "delta": 2 }],
+          "on_failure": [{ "param": "stress", "delta": 4 }, { "param": "reputation", "delta": -1 }, { "param": "self_esteem", "delta": -2 }] },
+        "pattern": { "craft_power": 3, "faith_reason": 2 } },
+      { "id": "doze", "risk_roll": { "success_chance_base": 0.5,
+          "on_success": [{ "param": "happiness", "delta": 2 }, { "param": "health", "delta": 1 }],
+          "on_failure": [{ "param": "reputation", "delta": -3 }, { "param": "stress", "delta": 3 }] } }
+    ]
+  },
+  {
+    "id": "k5_etiquette", "type": "personal", "age_range": [6, 9], "classes": ["noble"],
+    "base_weight": 3, "once": true, "topic": "life",
+    "scene": { "place": "palace", "time": "day", "people": 4, "props": ["banner", "lamp"] },
+    "choices": [
+      { "id": "improvise", "risk_roll": { "param": "charisma", "success_chance_base": 0.5,
+          "on_success": [{ "param": "reputation", "delta": 3 }, { "param": "self_esteem", "delta": 3 }, { "skill": "oratory", "delta": 2 }],
+          "on_failure": [{ "param": "reputation", "delta": -2 }, { "param": "stress", "delta": 4 }, { "param": "happiness", "delta": -2 }] },
+        "pattern": { "memory_future": 3 } },
+      { "id": "bow", "effects": [{ "param": "reputation", "delta": 1 }, { "param": "stress", "delta": 2 }, { "param": "self_esteem", "delta": -1 }],
+        "pattern": { "memory_future": -2 } },
+      { "id": "prompt", "risk_roll": { "success_chance_base": 0.6,
+          "on_success": [{ "skill": "oratory", "delta": 1 }, { "param": "reputation", "delta": 2 }, { "param": "happiness", "delta": 1 }],
+          "on_failure": [{ "param": "reputation", "delta": -3 }, { "param": "happiness", "delta": -1 }, { "param": "stress", "delta": 3 }] } }
+    ]
+  },
+  {
+    "id": "k5_whispered_answers", "type": "personal", "age_range": [7, 10], "classes": ["noble", "landowner"],
+    "base_weight": 3, "once": true, "topic": "life",
+    "scene": { "place": "home", "time": "day", "people": 3, "props": ["scroll", "table"] },
+    "choices": [
+      { "id": "admit", "effects": [{ "param": "stress", "delta": 3 }, { "param": "self_esteem", "delta": 3 }, { "add_npc": "friend", "attitude": 50 }, { "set_flag": "k5_companion" }],
+        "delayed_effects": [{ "after_years": [10, 18], "chance": 0.6, "trigger_event": "k5_f_companion" }],
+        "pattern": { "craft_power": -3 } },
+      { "id": "blame", "effects": [{ "param": "self_esteem", "delta": -3 }, { "param": "stress", "delta": 1 }, { "param": "happiness", "delta": -1 }],
+        "pattern": { "craft_power": 3 } },
+      { "id": "both", "risk_roll": { "param": "charisma", "success_chance_base": 0.45,
+          "on_success": [{ "skill": "literacy", "delta": 2 }, { "param": "happiness", "delta": 3 }, { "add_npc": "friend", "attitude": 60 }, { "set_flag": "k5_companion" }],
+          "on_failure": [{ "param": "stress", "delta": 3 }, { "param": "self_esteem", "delta": -1 }] },
+        "delayed_effects": [{ "after_years": [10, 18], "chance": 0.6, "trigger_event": "k5_f_companion" }],
+        "pattern": { "craft_power": -2, "faith_reason": 2 } }
+    ]
+  },
+  {
+    "id": "k5_f_companion", "type": "personal", "trigger_only": true, "moment": true, "age_range": [17, 70],
+    "conditions": [{ "flag": "k5_companion" }],
+    "base_weight": 1, "once": true, "topic": "life",
+    "scene": { "place": "home", "time": "day", "people": 2, "props": ["scroll", "lamp"] },
+    "effects": [{ "param": "reputation", "delta": 3 }, { "skill": "management", "delta": 2 }, { "param": "happiness", "delta": 3 }, { "param": "loneliness", "delta": -2 }]
+  },
+  {
+    "id": "k5_slave_leftovers", "type": "personal", "age_range": [6, 10], "classes": ["slave"],
+    "base_weight": 3, "once": true, "sensitive": true, "topic": "life",
+    "scene": { "place": "home", "time": "night", "people": 5, "props": ["table", "lamp"] },
+    "choices": [
+      { "id": "save", "risk_roll": { "success_chance_base": 0.55,
+          "on_success": [{ "param": "happiness", "delta": 3 }, { "param": "loneliness", "delta": -3 }, { "param": "reputation", "delta": 2 }],
+          "on_failure": [{ "param": "health", "delta": -3 }, { "param": "stress", "delta": 5 }] },
+        "pattern": { "memory_future": -2 } },
+      { "id": "eat", "risk_roll": { "success_chance_base": 0.6,
+          "on_success": [{ "param": "health", "delta": 1 }, { "param": "happiness", "delta": 3 }],
+          "on_failure": [{ "param": "health", "delta": -3 }, { "param": "stress", "delta": 5 }] },
+        "pattern": { "memory_future": 2 } },
+      { "id": "refuse", "effects": [{ "param": "stress", "delta": 2 }, { "param": "self_esteem", "delta": -1 }, { "param": "diligence", "delta": 1 }],
+        "pattern": { "craft_power": -1 } }
+    ]
+  },
+  {
+    "id": "k5_slave_storeroom", "type": "personal", "age_range": [7, 10], "classes": ["slave"],
+    "base_weight": 3, "once": true, "sensitive": true, "topic": "work",
+    "scene": { "place": "home", "time": "night", "people": 2, "props": ["lamp", "amphora", "grain"] },
+    "choices": [
+      { "id": "learn", "icon": "study", "risk_roll": { "success_chance_base": 0.65,
+          "on_success": [{ "skill": "management", "delta": 4 }, { "param": "intellect", "delta": 2 }, { "add_npc": "mentor", "attitude": 40 }, { "set_flag": "k5_storeroom" }],
+          "on_failure": [{ "param": "health", "delta": -3 }, { "param": "stress", "delta": 5 }, { "skill": "management", "delta": 2 }, { "set_flag": "k5_storeroom" }] },
+        "delayed_effects": [{ "after_years": [8, 14], "chance": 0.6, "trigger_event": "k5_f_storeroom_keys" }],
+        "pattern": { "faith_reason": 2, "memory_future": 2 } },
+      { "id": "decline", "effects": [{ "param": "stress", "delta": -1 }, { "param": "happiness", "delta": -1 }, { "param": "self_esteem", "delta": -1 }],
+        "pattern": { "memory_future": -2 } }
+    ]
+  },
+  {
+    "id": "k5_f_storeroom_keys", "type": "personal", "trigger_only": true, "age_range": [15, 60], "classes": ["slave"],
+    "conditions": [{ "flag": "k5_storeroom" }],
+    "base_weight": 1, "once": true, "sensitive": true, "topic": "work",
+    "scene": { "place": "home", "time": "day", "people": 3, "props": ["amphora", "grain", "lamp"] },
+    "choices": [
+      { "id": "accept", "effects": [{ "skill": "management", "delta": 4 }, { "param": "reputation", "delta": 5 }, { "param": "happiness", "delta": 3 }, { "param": "stress", "delta": 3 }, { "param": "money", "delta": 10 }],
+        "pattern": { "craft_power": 3 } },
+      { "id": "feed", "risk_roll": { "success_chance_base": 0.5,
+          "on_success": [{ "param": "happiness", "delta": 5 }, { "param": "reputation", "delta": 6 }, { "param": "loneliness", "delta": -4 }, { "skill": "management", "delta": 2 }],
+          "on_failure": [{ "param": "health", "delta": -6 }, { "param": "stress", "delta": 8 }, { "param": "reputation", "delta": -4 }] },
+        "pattern": { "craft_power": -2, "memory_future": 3 } },
+      { "id": "decline", "effects": [{ "param": "stress", "delta": -2 }, { "param": "self_esteem", "delta": -2 }],
+        "pattern": { "memory_future": -2 } }
+    ]
+  },
+  {
+    "id": "k5_slave_errand", "type": "personal", "age_range": [6, 9], "classes": ["slave"],
+    "base_weight": 3, "once": true, "topic": "life",
+    "scene": { "place": "street", "time": "day", "people": 6, "props": ["sun", "tree"] },
+    "choices": [
+      { "id": "listen", "risk_roll": { "success_chance_base": 0.4,
+          "on_success": [{ "param": "happiness", "delta": 5 }, { "param": "intellect", "delta": 1 }],
+          "on_failure": [{ "param": "stress", "delta": 5 }, { "param": "health", "delta": -2 }] },
+        "pattern": { "home_road": 2, "memory_future": 2 } },
+      { "id": "run", "effects": [{ "param": "diligence", "delta": 2 }, { "param": "happiness", "delta": -2 }, { "param": "reputation", "delta": 1 }],
+        "pattern": { "home_road": -2 } },
+      { "id": "backwards", "risk_roll": { "success_chance_base": 0.6,
+          "on_success": [{ "param": "happiness", "delta": 3 }, { "param": "intellect", "delta": 1 }],
+          "on_failure": [{ "param": "health", "delta": -1 }, { "param": "stress", "delta": 2 }] } }
+    ]
+  },
+  {
+    "id": "k5_ink_spill", "type": "personal", "age_range": [6, 10], "classes": ["craftsman", "trader", "landowner", "noble"],
+    "needs": ["writing"], "not_eras": ["AMR"],
+    "conditions": [{ "any": [{ "tag": "schooled" }, { "classes": ["landowner", "noble"] }] }],
+    "base_weight": 3, "once": true, "topic": "life",
+    "scene": { "place": "school", "time": "day", "people": 1, "props": ["scroll", "table", "lamp"] },
+    "choices": [
+      { "id": "confess", "effects": [{ "param": "stress", "delta": 3 }, { "param": "self_esteem", "delta": 2 }, { "skill": "literacy", "delta": 1 }, { "param": "reputation", "delta": 1 }],
+        "pattern": { "memory_future": -2 } },
+      { "id": "redo", "risk_roll": { "param": "intellect", "success_chance_base": 0.4,
+          "on_success": [{ "skill": "literacy", "delta": 5 }, { "param": "self_esteem", "delta": 3 }, { "add_npc": "mentor", "attitude": 30 }],
+          "on_failure": [{ "skill": "literacy", "delta": 2 }, { "param": "stress", "delta": 5 }] },
+        "pattern": { "faith_reason": 3 } },
+      { "id": "deny", "risk_roll": { "success_chance_base": 0.3,
+          "on_success": [{ "param": "happiness", "delta": 1 }, { "param": "self_esteem", "delta": -2 }],
+          "on_failure": [{ "param": "stress", "delta": 5 }, { "param": "reputation", "delta": -3 }, { "param": "health", "delta": -1 }] },
+        "pattern": { "memory_future": 2 } }
+    ]
+  },
+
+  { "id": "k5_m_slave_sweep", "type": "personal", "moment": true, "once": true, "age_range": [5, 8], "classes": ["slave"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "home", "time": "dawn", "people": 2, "props": ["fire", "sun"] },
+    "effects": [{ "param": "diligence", "delta": 1 }, { "param": "happiness", "delta": 1 }, { "param": "stress", "delta": 1 }] },
+  { "id": "k5_m_slave_baby", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "classes": ["slave"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "home", "time": "night", "people": 2, "props": ["cradle", "lamp"] },
+    "effects": [{ "param": "diligence", "delta": 1 }, { "param": "happiness", "delta": 1 }, { "param": "health", "delta": -1 }] },
+  { "id": "k5_m_slave_feet", "type": "personal", "moment": true, "once": true, "sensitive": true, "age_range": [6, 10], "classes": ["slave"], "base_weight": 3, "topic": "life",
+    "scene": { "place": "home", "time": "sunset", "people": 3, "props": ["amphora", "lamp"] },
+    "effects": [{ "param": "self_esteem", "delta": 2 }, { "param": "happiness", "delta": 1 }] },
+  { "id": "k5_m_slave_quick", "type": "personal", "moment": true, "once": true, "age_range": [7, 10], "classes": ["slave"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "home", "time": "sunset", "people": 4, "props": ["table", "lamp"] },
+    "effects": [{ "param": "diligence", "delta": 1 }, { "param": "happiness", "delta": 2 }, { "param": "stress", "delta": -2 }] },
+  { "id": "k5_m_firewood", "type": "personal", "moment": true, "once": true, "age_range": [5, 8], "classes": ["peasant"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "home", "time": "sunset", "people": 2, "props": ["fire", "smoke"] },
+    "effects": [{ "param": "diligence", "delta": 1 }, { "param": "happiness", "delta": 2 }] },
+  { "id": "k5_m_weeding", "type": "personal", "moment": true, "once": true, "age_range": [6, 9], "classes": ["peasant"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "field", "time": "day", "people": 1, "props": ["grain", "sun"] },
+    "effects": [{ "skill": "farming", "delta": 2 }, { "param": "stress", "delta": 1 }, { "param": "happiness", "delta": -1 }] },
+  { "id": "k5_m_weather_signs", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "classes": ["peasant"], "base_weight": 3, "topic": "life",
+    "scene": { "place": "field", "time": "overcast", "people": 2, "props": ["rain", "tree"] },
+    "effects": [{ "skill": "farming", "delta": 2 }, { "param": "intellect", "delta": 1 }] },
+  { "id": "k5_m_harvest_basket", "type": "personal", "moment": true, "once": true, "age_range": [7, 10], "classes": ["peasant"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "field", "time": "sunset", "people": 4, "props": ["grain", "sun"] },
+    "effects": [{ "skill": "farming", "delta": 2 }, { "param": "self_esteem", "delta": 2 }] },
+  { "id": "k5_m_shavings", "type": "personal", "moment": true, "once": true, "age_range": [5, 8], "classes": ["craftsman"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "workshop", "time": "day", "people": 2, "props": ["table", "anvil"] },
+    "effects": [{ "skill": "craft", "delta": 2 }, { "param": "happiness", "delta": 2 }] },
+  { "id": "k5_m_first_sold", "type": "personal", "moment": true, "once": true, "age_range": [8, 10], "classes": ["craftsman"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "market", "time": "day", "people": 3, "props": ["table", "sun"] },
+    "effects": [{ "param": "self_esteem", "delta": 3 }, { "skill": "craft", "delta": 1 }, { "param": "happiness", "delta": 2 }] },
+  { "id": "k5_m_burned", "type": "personal", "moment": true, "once": true, "age_range": [5, 8], "classes": ["craftsman"], "base_weight": 3, "topic": "health",
+    "scene": { "place": "workshop", "time": "day", "people": 2, "props": ["fire", "anvil", "smoke"] },
+    "effects": [{ "param": "health", "delta": -2 }, { "skill": "craft", "delta": 1 }, { "chance": 0.3, "effects": [{ "add_trait": "cautious" }] }] },
+  { "id": "k5_m_tool_names", "type": "personal", "moment": true, "once": true, "age_range": [6, 9], "classes": ["craftsman"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "workshop", "time": "day", "people": 2, "props": ["table", "anvil"] },
+    "effects": [{ "skill": "craft", "delta": 2 }, { "param": "intellect", "delta": 1 }] },
+  { "id": "k5_m_weights", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "classes": ["trader"], "not_eras": ["AMR", "MAY"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "market", "time": "day", "people": 4, "props": ["table", "grain"] },
+    "effects": [{ "skill": "trade", "delta": 3 }, { "param": "self_esteem", "delta": 1 }] },
+  { "id": "k5_m_crying_wares", "type": "personal", "moment": true, "once": true, "age_range": [5, 8], "classes": ["trader"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "market", "time": "day", "people": 5, "props": ["table", "sun"] },
+    "effects": [{ "skill": "trade", "delta": 1 }, { "skill": "oratory", "delta": 1 }, { "param": "happiness", "delta": 2 }] },
+  { "id": "k5_m_foreign_words", "type": "personal", "moment": true, "once": true, "age_range": [7, 10], "classes": ["trader"], "base_weight": 3, "topic": "life",
+    "scene": { "place": "market", "time": "sunset", "people": 4, "props": ["cart", "table"] },
+    "effects": [{ "skill": "trade", "delta": 2 }, { "param": "intellect", "delta": 1 }, { "param": "happiness", "delta": 1 }] },
+  { "id": "k5_m_boundary_stones", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "classes": ["landowner"], "base_weight": 3, "topic": "work",
+    "scene": { "place": "field", "time": "day", "people": 2, "props": ["tree", "grain", "sun"] },
+    "effects": [{ "skill": "management", "delta": 2 }, { "param": "self_esteem", "delta": 1 }] },
+  { "id": "k5_m_own_name", "type": "personal", "moment": true, "once": true, "age_range": [6, 9], "classes": ["craftsman", "trader", "landowner", "noble"],
+    "needs": ["writing"], "not_eras": ["AMR"],
+    "conditions": [{ "any": [{ "tag": "schooled" }, { "classes": ["landowner", "noble"] }] }],
+    "base_weight": 3, "topic": "life",
+    "scene": { "place": "school", "time": "day", "people": 2, "props": ["scroll", "lamp"] },
+    "effects": [{ "skill": "literacy", "delta": 2 }, { "param": "happiness", "delta": 2 }, { "param": "self_esteem", "delta": 1 }] },
+  { "id": "k5_m_bows", "type": "personal", "moment": true, "once": true, "age_range": [5, 8], "classes": ["noble"], "base_weight": 3, "topic": "life",
+    "scene": { "place": "palace", "time": "day", "people": 2, "props": ["banner", "lamp"] },
+    "effects": [{ "param": "reputation", "delta": 1 }, { "param": "diligence", "delta": 1 }, { "param": "happiness", "delta": 1 }] },
+  { "id": "k5_m_ancestors", "type": "personal", "moment": true, "once": true, "age_range": [7, 10], "classes": ["noble"], "base_weight": 3, "topic": "life",
+    "scene": { "place": "palace", "time": "sunset", "people": 2, "props": ["scroll", "statue"] },
+    "effects": [{ "skill": "oratory", "delta": 1 }, { "param": "self_esteem", "delta": 1 }, { "param": "stress", "delta": 1 }] },
+  { "id": "k5_m_verses", "type": "personal", "moment": true, "once": true, "age_range": [6, 10], "classes": ["peasant", "craftsman", "trader", "landowner", "noble"], "base_weight": 3, "topic": "life",
+    "scene": { "place": "temple", "time": "day", "people": 5, "props": ["altar", "lamp"] },
+    "effects": [{ "param": "faith", "delta": 2 }, { "skill": "literacy", "delta": 1 }, { "param": "diligence", "delta": 1 }] }
+]
