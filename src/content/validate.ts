@@ -297,6 +297,10 @@ export function validateDreams(): string[] {
         const where = `${d.id}.q${si + 1}.${ii + 1}`
         if (input.kind === 'pick' || input.kind === 'order') {
           for (const a of [...input.answer, ...Object.values((input.kind === 'pick' && input.answer_by_era) || {}).flat()]) if (!input.options.includes(a)) bad.push(`${where}: ответ ${a} не среди вариантов`)
+          if (input.kind === 'pick') {
+            for (const a of [...(input.ok ?? []), ...(input.need ?? [])]) if (!input.options.includes(a)) bad.push(`${where}: ${a} (ok/need) не среди вариантов`)
+            for (const a of input.need ?? []) if (!input.answer.includes(a)) bad.push(`${where}: need ${a} не входит в ответ`)
+          }
           if (input.kind === 'pick' && input.options.length < 4) bad.push(`${where}: мало вариантов`)
           if (input.kind === 'order' && input.options.length <= input.answer.length) bad.push(`${where}: в порядке нет лишнего шага`)
         }

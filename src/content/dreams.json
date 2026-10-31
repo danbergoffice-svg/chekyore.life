@@ -950,7 +950,8 @@
                 "turnip",
                 "barley",
                 "clover"
-              ]
+              ],
+              "cyclic": true
             }
           ]
         },
@@ -989,7 +990,15 @@
                   "soy",
                   "peas"
                 ]
-              }
+              },
+              "ok": [
+                "clover",
+                "vetch",
+                "peas",
+                "beans",
+                "soy"
+              ],
+              "min": 1
             }
           ]
         },
@@ -2254,6 +2263,9 @@
                 "lodestone_needle",
                 "cork",
                 "water_bowl"
+              ],
+              "need": [
+                "lodestone_needle"
               ]
             }
           ]
@@ -2273,7 +2285,8 @@
               "answer": [
                 "iron_mine",
                 "ore_trader"
-              ]
+              ],
+              "min": 1
             }
           ]
         },

@@ -163,10 +163,10 @@ describe('Сон о будущем', () => {
   })
 
   it('мягкая проверка: один пропуск из трёх нужных и одна перестановка соседних шагов — верно; лишнее — ошибка', () => {
-    const legumes = dreamDef('rotation')!.steps[1].items[0]
-    expect(checkInput(legumes, ['clover', 'vetch'], {}, 'EUR')).toBe(true)
-    expect(checkInput(legumes, ['clover'], {}, 'EUR')).toBe(false)
-    expect(checkInput(legumes, ['clover', 'vetch', 'potato'], {}, 'EUR')).toBe(false)
+    const water = dreamDef('boiled_water')!.steps[0].items[0]
+    expect(checkInput(water, ['boil', 'settle'], {}, 'EUR')).toBe(true)
+    expect(checkInput(water, ['boil'], {}, 'EUR')).toBe(false)
+    expect(checkInput(water, ['boil', 'settle', 'filter_cloth', 'x'], {}, 'EUR')).toBe(false)
     const lenses = dreamDef('lenses')!.steps[1].items[0]
     expect(checkInput(lenses, [(lenses as { answer: string[] }).answer[0]], {}, 'EUR')).toBe(false)
     const lever = dreamDef('lever')!.steps[2].items[0] as { answer: string[] }
@@ -175,6 +175,25 @@ describe('Сон о будущем', () => {
     expect(checkInput(lever as never, [a[0], a[2], a[3], a[1], a[4]], {}, 'EUR')).toBe(false)
     expect(checkInput(lever as never, [a[1], a[0], a[3], a[2], a[4]], {}, 'EUR')).toBe(false)
     expect(checkInput(lever as never, [...a.slice(0, 4), 'jerk_rope'], {}, 'EUR')).toBe(false)
+  })
+
+  it('вопрос «что из этого»: хватает главного (need) или одного верного (min); чужие бобовые не ошибка (ok); севооборот по кругу', () => {
+    const legumes = dreamDef('rotation')!.steps[1].items[0]
+    expect(checkInput(legumes, ['clover'], {}, 'EUR')).toBe(true)
+    expect(checkInput(legumes, ['clover', 'vetch', 'peas', 'soy', 'beans'], {}, 'EUR')).toBe(true)
+    expect(checkInput(legumes, ['soy'], {}, 'EUR')).toBe(false)
+    expect(checkInput(legumes, ['clover', 'potato'], {}, 'EUR')).toBe(false)
+    expect(checkInput(legumes, ['beans'], {}, 'MAY')).toBe(true)
+    const needle = dreamDef('compass')!.steps[0].items[0]
+    expect(checkInput(needle, ['lodestone_needle'], {}, 'EUR')).toBe(true)
+    expect(checkInput(needle, ['cork', 'water_bowl'], {}, 'EUR')).toBe(false)
+    expect(checkInput(needle, ['lodestone_needle', 'copper_needle'], {}, 'EUR')).toBe(false)
+    expect(checkInput(dreamDef('compass')!.steps[1].items[0], ['ore_trader'], {}, 'EUR')).toBe(true)
+    const fields = dreamDef('rotation')!.steps[0].items[0]
+    expect(checkInput(fields, ['turnip', 'barley', 'clover', 'wheat'], {}, 'EUR')).toBe(true)
+    expect(checkInput(fields, ['clover', 'wheat', 'turnip', 'barley'], {}, 'EUR')).toBe(true)
+    expect(checkInput(fields, ['wheat', 'clover', 'barley', 'turnip'], {}, 'EUR')).toBe(false)
+    expect(checkInput(fields, ['wheat', 'turnip', 'barley', 'clover', 'fallow'], {}, 'EUR')).toBe(false)
   })
 
   it('защищённая жизнь: проваленный сон не убивает', () => {

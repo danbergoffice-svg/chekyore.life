@@ -145,13 +145,15 @@ export function parseNumber(raw: unknown): number {
   return Number(String(raw ?? '').replace(/\s/g, '').replace(',', '.'))
 }
 
-/** Верен ли ответ: pick — ровно нужное; ratio — каждая доля в допуске; order — нужные шаги по порядку; number — в допуске. */
+/** Верен ли ответ: pick — ровно нужное (или главное — need, или сколько-то — min; ok — не ошибка); ratio — каждая доля в допуске; order — нужные шаги по порядку (cyclic — с любого шага); number — в допуске. */
 export function checkInput(input: DreamInput, value: unknown, params: Record<string, number>, era: string): boolean {
   if (input.kind === 'pick') {
     // Лишнее — всегда ошибка (ловушки и анахронизмы); если нужных три и больше, один пропуск прощается — «почти всё».
     const want = new Set(expectedAnswer(input, params, era) as string[])
     const got = new Set(Array.isArray(value) ? (value as string[]) : [])
-    if ([...got].some((x) => !want.has(x))) return false
+    if ([...got].some((x) => !want.has(x) && !input.ok?.includes(x))) return false
+    if (input.need) return input.need.every((x) => got.has(x))
+    if (input.min) return [...got].filter((x) => want.has(x)).length >= input.min
     const missed = [...want].filter((x) => !got.has(x)).length
     return missed === 0 || (want.size >= 3 && missed === 1)
   }
@@ -161,9 +163,14 @@ export function checkInput(input: DreamInput, value: unknown, params: Record<str
   }
   if (input.kind === 'order') {
     // Лишний шаг должен быть выброшен; в порядке прощается одна перестановка соседних шагов (из четырёх и больше).
-    const got = Array.isArray(value) ? (value as string[]) : []
+    let got = Array.isArray(value) ? (value as string[]) : []
     const want = input.answer
     if (got.length !== want.length || !want.every((x) => got.includes(x))) return false
+    // По кругу: поворачиваем ответ игрока так, чтобы он начинался с того же шага.
+    if (input.cyclic) {
+      const i = got.indexOf(want[0])
+      got = [...got.slice(i), ...got.slice(0, i)]
+    }
     const wrong = got.map((x, i) => (x === want[i] ? -1 : i)).filter((i) => i >= 0)
     if (!wrong.length) return true
     return want.length >= 4 && wrong.length === 2 && wrong[1] === wrong[0] + 1

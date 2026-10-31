@@ -800,9 +800,20 @@ export type DreamTheme = 'medicine' | 'war' | 'trade' | 'farming' | 'building' |
 
 /** Один ввод игрока: отметить нужное (pick), доли (ratio), порядок (order), число (number). */
 export type DreamInput =
-  | { kind: 'pick'; options: string[]; answer: string[]; answer_by_era?: Record<string, string[]> }
+  | {
+      kind: 'pick'
+      options: string[]
+      answer: string[]
+      answer_by_era?: Record<string, string[]>
+      /** Не ошибка, но и не нужно (бобовые не из этого края). */
+      ok?: string[]
+      /** Достаточно отметить это (главное), остальное из ответа — по желанию. */
+      need?: string[]
+      /** Достаточно стольких верных из ответа (вопрос «что из этого…» в единственном числе). */
+      min?: number
+    }
   | { kind: 'ratio'; answer: Record<string, number>; tolerance: number }
-  | { kind: 'order'; options: string[]; answer: string[] }
+  | { kind: 'order'; options: string[]; answer: string[]; /** Порядок по кругу: можно начать с любого шага (севооборот). */ cyclic?: boolean }
   | { kind: 'number'; formula: string; unit?: string; /** Допуск: доля от ответа (0.03) или абсолютный (abs). */ tolerance?: number; abs?: number }
 
 /** Шаг сна: один или несколько вводов подряд; спор с мудрецом (debate) — два возражения, засчитывается, если верны оба. */
