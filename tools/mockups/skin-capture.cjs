@@ -25,13 +25,22 @@ const theme = process.env.THEME || 'dark'
   await addSkin()
   await p.evaluate(() => document.fonts.ready)
   await p.waitForTimeout(800)
+  // Барабан крупно: с запасом под арку сверху, рычаг справа и лоток снизу.
+  const drumShot = async (n) => {
+    const r = await p.$eval('.slot-machine', (e) => { e.scrollIntoView({ block: 'center' }); const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height } })
+    await p.waitForTimeout(150)
+    const y = Math.max(0, r.y - 74)
+    await p.screenshot({ path: path.join(DIR, 'out', `skin-${name}-${n}.png`), clip: { x: 0, y, width: 390, height: Math.min(844 - y, r.h + 74 + 40) } })
+  }
   const shot = (n, full) => p.screenshot({ path: path.join(DIR, 'out', `skin-${name}-${n}.png`), fullPage: !!full })
   await shot('menu')
+  await drumShot('drum')
   await shot('menu-full', true)
   await p.click('.lever')
   await p.waitForSelector('.spin-result', { timeout: 15000 })
   await p.waitForTimeout(500)
   await shot('spun')
+  await drumShot('drum-spun')
   if (process.env.STOP === 'spun') { console.log(name, 'ошибки:', errs.slice(0, 3)); await b.close(); return }
   await p.click('.spin-result .primary')
   await p.waitForSelector('.reveal')

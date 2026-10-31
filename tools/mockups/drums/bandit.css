@@ -1,0 +1,54 @@
+/* Однорукий бандит в стиле сайта: арка с лампами, корпус, стекло с окнами и линией выигрыша, табличка с прорезью,
+   лоток для монет, рычаг сбоку. Плоские цвета, бумажная кромка (var(--sheet)) вместо бликов металла. Цвета — переменные:
+   вариант задаёт --cab, --cab-2, --trim, --marq, --marq-2, --glass, --bulb. */
+html.skin .slot-machine { position: relative; margin: 62px 34px 30px 0; padding: 12px 12px 40px; border-radius: 4px 4px 14px 14px;
+  background: linear-gradient(90deg, var(--cab-2) 0 9px, var(--cab) 9px calc(100% - 9px), var(--cab-2) calc(100% - 9px));
+  box-shadow: 0 0 0 3px var(--trim), 0 0 0 6px var(--bg), 0 0 0 8px var(--sheet), 0 10px 0 6px rgba(0, 0, 0, 0.35); }
+/* Арка-вывеска над корпусом. */
+html.skin .slot-machine::before { content: ''; position: absolute; left: -3px; right: -3px; top: -56px; height: 56px; border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: radial-gradient(ellipse at 50% 100%, var(--marq-2) 0 46%, var(--marq) 47%); box-shadow: inset 0 0 0 3px var(--trim), 0 -2px 0 2px var(--sheet); }
+/* Лоток для монет. */
+html.skin .slot-machine::after { content: ''; position: absolute; left: 16%; right: 16%; bottom: -22px; height: 24px; background: var(--cab-2);
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%); box-shadow: none; opacity: 1; border: 0; }
+/* Лампы по дуге арки и знак в её середине. */
+html.skin .slot-lights { position: absolute; inset: 0; padding: 0; display: block; z-index: 2; pointer-events: none; }
+html.skin .slot-lights span { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #5a4a2a; box-shadow: 0 0 0 2px var(--sheet); }
+html.skin .slot-machine.idle .slot-lights span:nth-child(odd), html.skin .slot-machine.done .slot-lights span { background: var(--bulb); box-shadow: 0 0 0 2px var(--sheet), 0 0 10px var(--bulb); }
+@keyframes chase-map { 0%, 100% { background: #5a4a2a; } 40% { background: var(--bulb); box-shadow: 0 0 0 2px var(--sheet), 0 0 12px var(--bulb); } }
+html.skin .slot-lights::before { content: '✦  ✦  ✦'; white-space: pre; position: absolute; left: 0; right: 0; top: -30px; text-align: center; font-size: 16px; color: var(--sheet); letter-spacing: 2px; }
+/* Табличка с прорезью для монеты под стеклом. */
+html.skin .slot-lights::after { content: ''; position: absolute; left: 50%; bottom: 13px; width: 46px; height: 16px; margin-left: -23px; border-radius: 3px;
+  background: linear-gradient(var(--glass), var(--glass)) 50% 50% / 26px 4px no-repeat, var(--trim); box-shadow: 0 0 0 2px var(--sheet); }
+/* Стекло с окнами. */
+html.skin .slot-body { position: static; display: block; padding: 8px 8px 10px; border-radius: 8px; background: var(--glass); box-shadow: inset 0 0 0 3px var(--trim), 0 0 0 2px var(--sheet); }
+html.skin .reels { position: relative; gap: 6px; }
+html.skin .reel { position: relative; z-index: 1; }
+html.skin .reel-label { display: block; margin: 0 0 6px; padding: 0; background: none; clip-path: none; text-align: center; color: var(--sheet); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; }
+html.skin .reel-frame { transform: none !important; filter: none; }
+html.skin .reel-window { border-radius: 4px; clip-path: none; background: linear-gradient(180deg, #cfc2a4, var(--sheet) 30%, var(--sheet) 70%, #cfc2a4); box-shadow: inset 0 0 0 2px var(--bg); }
+html.skin .reel-window::after { border: 0; background: none; height: 60px; box-shadow: none; }
+html.skin .reel.stopped .reel-window::after { background: rgba(236, 208, 111, 0.4); mix-blend-mode: multiply; box-shadow: none; }
+html.skin .reel-item { color: var(--night); }
+html.skin .reel-item.win .reel-top { color: #9a3418; }
+/* Линия выигрыша: рамка выигрышной строки через все окна и стрелки по краям стекла. */
+html.skin .reels::before { content: ''; position: absolute; z-index: 2; left: -4px; right: -4px; top: calc(50% + 12px - 31px); height: 58px; border-top: 2px solid var(--payline); border-bottom: 2px solid var(--payline); pointer-events: none; }
+html.skin .reels::after { content: ''; position: absolute; z-index: 3; left: -13px; right: -13px; top: calc(50% + 12px - 8px); height: 16px; pointer-events: none; background: var(--payline);
+  clip-path: polygon(0 0, 10px 50%, 0 100%, 0 0, 100% 0, 100% 100%, calc(100% - 10px) 50%, 100% 0); }
+/* Рычаг снаружи справа: крепление на боку корпуса, стержень, шар. */
+html.skin .lever { position: absolute; right: -40px; top: 6px; width: 34px; height: 150px; }
+html.skin .lever-base { left: -2px; bottom: 22px; width: 18px; height: 36px; border-radius: 0 6px 6px 0; background: var(--trim); box-shadow: 0 0 0 2px var(--sheet); }
+html.skin .lever-rod { left: 14px; bottom: 38px; width: 6px; height: 92px; border-radius: 3px; background: var(--sheet); box-shadow: inset -2px 0 0 rgba(0, 0, 0, 0.18); }
+html.skin .lever-knob { left: 4px; top: 0; width: 26px; height: 26px; background: var(--ball); box-shadow: 0 0 0 2.5px var(--sheet), inset -4px -4px 0 rgba(0, 0, 0, 0.18); }
+@keyframes knob { 50% { transform: translateY(80px); } }
+html.skin .spin-button { margin-top: 6px; }
+html.skin .slot-lights span:nth-child(1) { left: calc(4.00% - 5px); top: -8.0px; }
+html.skin .slot-lights span:nth-child(2) { left: calc(6.25% - 5px); top: -20.4px; }
+html.skin .slot-lights span:nth-child(3) { left: calc(12.79% - 5px); top: -31.5px; }
+html.skin .slot-lights span:nth-child(4) { left: calc(22.96% - 5px); top: -40.4px; }
+html.skin .slot-lights span:nth-child(5) { left: calc(35.79% - 5px); top: -46.0px; }
+html.skin .slot-lights span:nth-child(6) { left: calc(50.00% - 5px); top: -48.0px; }
+html.skin .slot-lights span:nth-child(7) { left: calc(64.21% - 5px); top: -46.0px; }
+html.skin .slot-lights span:nth-child(8) { left: calc(77.04% - 5px); top: -40.4px; }
+html.skin .slot-lights span:nth-child(9) { left: calc(87.21% - 5px); top: -31.5px; }
+html.skin .slot-lights span:nth-child(10) { left: calc(93.75% - 5px); top: -20.4px; }
+html.skin .slot-lights span:nth-child(11) { left: calc(96.00% - 5px); top: -8.0px; }
