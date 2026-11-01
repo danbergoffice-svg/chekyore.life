@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Карточка «Поделиться»: 5 вариантов</title>
+    <style>
+      body { background: #111; color: #ccc; font: 14px sans-serif; margin: 12px; }
+      .row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+      canvas { width: 300px; height: auto; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="grid">загрузка…</div>
+    <script type="module">
+      // Пять вариантов карточки «Поделиться» (сторис 1080×1920) на настоящих жизнях: крупный детальный герой, сведения о нём
+      // и призыв «А сколько проживёшь ты?». ?seed=100&n=2&lang=ru. Снимает node tools/qa/share-variants.cjs.
+      import '@fontsource-variable/alegreya'
+      import { ERA_IDS, ERA_META, loadAllEras } from '../src/content/index.ts'
+      import { autoplay } from '../src/engine/game.ts'
+      import { newLife, rollBirth } from '../src/engine/life.ts'
+      import { createT, loadAllTexts } from '../src/i18n/index.ts'
+      import { lifeCardData } from '../src/ui/lifeCard.ts'
+      import { drawAvatar, AW, AH } from '../src/pixel/avatar.ts'
+      import { drawScene, W as SW, H as SH } from '../src/pixel/scene.ts'
+
+      const q = new URLSearchParams(location.search)
+      const lang = q.get('lang') || 'ru'
+      const n = Number(q.get('n') || 2)
+      const eras = await loadAllEras()
+      await loadAllTexts()
+      const quotes = (await import('../src/content/common/quotes.json')).default
+      await document.fonts.load("600 80px 'Thousands Letopis'")
+      await document.fonts.load("400 40px 'Alegreya Variable'")
+      await document.fonts.load("italic 400 40px 'Alegreya Variable'")
+      const T0 = createT(lang)
+      const CW = 1080, CH = 1920
+      const C = { night: '#16213a', deep: '#0f1729', sheet: '#f3ead7', ink: '#130904', muted: '#bfa987', terra: '#df6c4f', mustard: '#ecd06f', olive: '#6e7044', trim: '#d9b45a', cab: '#2a3f6e', glass: '#0b1220' }
+      const SERIF = "'Alegreya Variable', Georgia, serif"
+      const DISPLAY = "'Thousands Letopis', 'Alegreya Variable', serif"
+      const CTA = { ru: ['А сколько проживёшь ты?', 'Тысячи жизней · thousands.life'], en: ['How long would you live?', 'Thousands of Lives · thousands.life'] }[lang]
+
+      // ---------- Детальный портрет: пиксельный 32×40 → Scale2x дважды (128×160) + тёмная обводка и мягкий свет ----------
+      function avatarCanvas(input) {
+        const c = document.createElement('canvas'); c.width = AW; c.height = AH
+        drawAvatar(c.getContext('2d'), input, 0, 0, 1)
+        cutout(c)
+        return outline(scale2x(scale2x(c)))
+      }
+      // Фон портрета (стена дома, два тона) убираем заливкой от краёв: остаётся только фигура.
+      function cutout(c) {
+        const x = c.getContext('2d'); const img = x.getImageData(0, 0, AW, AH); const d = img.data
+        const key = (i) => `${d[i]},${d[i + 1]},${d[i + 2]}`
+        const bgs = new Set([key(0), key(((AH - 1) * AW) * 4), key((AW - 1) * 4), key(((AH - 1) * AW + AW - 1) * 4)])
+        const seen = new Uint8Array(AW * AH); const stack = []
+        for (let gx = 0; gx < AW; gx++) stack.push([gx, 0], [gx, AH - 1])
+        for (let gy = 0; gy < AH; gy++) stack.push([0, gy], [AW - 1, gy])
+        while (stack.length) {
+          const [gx, gy] = stack.pop()
+          if (gx < 0 || gy < 0 || gx >= AW || gy >= AH) continue
+          const k = gy * AW + gx
+          if (seen[k]) continue
+          seen[k] = 1
+          if (!bgs.has(key(k * 4))) continue
+          d[k * 4 + 3] = 0
+          stack.push([gx + 1, gy], [gx - 1, gy], [gx, gy + 1], [gx, gy - 1])
+        }
+        x.putImageData(img, 0, 0)
+      }
+      function scale2x(src) {
+        const w = src.width, h = src.height
+        const s = src.getContext('2d').getImageData(0, 0, w, h).data
+        const out = document.createElement('canvas'); out.width = w * 2; out.height = h * 2
+        const octx = out.getContext('2d'); const img = octx.createImageData(w * 2, h * 2); const d = img.data
+        const px = (x, y) => { x = Math.max(0, Math.min(w - 1, x)); y = Math.max(0, Math.min(h - 1, y)); const i = (y * w + x) * 4; return (s[i] << 24) | (s[i + 1] << 16) | (s[i + 2] << 8) | s[i + 3] }
+        const put = (x, y, v) => { const i = (y * w * 2 + x) * 4; d[i] = (v >>> 24) & 255; d[i + 1] = (v >>> 16) & 255; d[i + 2] = (v >>> 8) & 255; d[i + 3] = v & 255 }
+        for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+          const P = px(x, y), A = px(x, y - 1), B = px(x + 1, y), Cc = px(x - 1, y), D = px(x, y + 1)
+          let e0 = P, e1 = P, e2 = P, e3 = P
+          if (A !== D && Cc !== B) { e0 = Cc === A ? Cc : P; e1 = A === B ? B : P; e2 = Cc === D ? Cc : P; e3 = D === B ? B : P }
+          put(2 * x, 2 * y, e0); put(2 * x + 1, 2 * y, e1); put(2 * x, 2 * y + 1, e2); put(2 * x + 1, 2 * y + 1, e3)
+        }
+        octx.putImageData(img, 0, 0)
+        return out
+      }
+      function outline(src) {
+        const w = src.width, h = src.height, pad = 3
+        const out = document.createElement('canvas'); out.width = w + pad * 2; out.height = h + pad * 2
+        const o = out.getContext('2d')
+        const sh = document.createElement('canvas'); sh.width = w; sh.height = h
+        const s = sh.getContext('2d'); s.drawImage(src, 0, 0); s.globalCompositeOperation = 'source-in'; s.fillStyle = '#0b0805'; s.fillRect(0, 0, w, h)
+        for (const [dx, dy] of [[-2, 0], [2, 0], [0, -2], [0, 2], [-2, -2], [2, 2], [-2, 2], [2, -2]]) o.drawImage(sh, pad + dx, pad + dy)
+        o.drawImage(src, pad, pad)
+        // Свет слева сверху - объём, как у написанного портрета.
+        o.globalCompositeOperation = 'source-atop'
+        const g = o.createLinearGradient(0, 0, w, h); g.addColorStop(0, 'rgba(255,240,200,0.16)'); g.addColorStop(0.5, 'rgba(255,240,200,0)'); g.addColorStop(1, 'rgba(0,0,0,0.18)')
+        o.fillStyle = g; o.fillRect(0, 0, out.width, out.height)
+        return out
+      }
+      function sceneCanvas(d, seed) {
+        const c = document.createElement('canvas'); c.width = SW; c.height = SH
+        drawScene(c.getContext('2d'), { region: d.region, scene: d.scene, seed })
+        return c
+      }
+
+      // ---------- Помощники рисования ----------
+      function bg(ctx, color = C.night) {
+        ctx.fillStyle = color; ctx.fillRect(0, 0, CW, CH)
+        ctx.save(); ctx.globalAlpha = 0.045; ctx.strokeStyle = '#fff0c8'; ctx.lineWidth = 2
+        for (let x = -CH; x < CW + CH; x += 9) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + CH * 0.14, CH); ctx.stroke() }
+        ctx.restore()
+      }
+      function text(ctx, s, x, y, font, color, align = 'center', maxW = 960) {
+        ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align; ctx.textBaseline = 'alphabetic'
+        let size = parseFloat(font.match(/(\d+)px/)[1])
+        while (ctx.measureText(s).width > maxW && size > 18) { size -= 2; ctx.font = font.replace(/\d+px/, `${size}px`) }
+        ctx.fillText(s, x, y)
+      }
+      function wrap(ctx, s, x, y, maxW, lh, font, color, align = 'center', maxLines = 4) {
+        ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align
+        const words = s.split(/\s+/); let line = ''; const lines = []
+        for (const w of words) { const t = line ? `${line} ${w}` : w; if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w } else line = t }
+        if (line) lines.push(line)
+        lines.slice(0, maxLines).forEach((l, i) => ctx.fillText(l, x, y + i * lh))
+        return y + Math.min(lines.length, maxLines) * lh
+      }
+      function rough(ctx, x, y, w, h, color) {
+        ctx.fillStyle = color; ctx.beginPath()
+        ctx.moveTo(x + w * 0.006, y + h * 0.06); ctx.lineTo(x + w, y); ctx.lineTo(x + w * 0.986, y + h * 0.94); ctx.lineTo(x, y + h); ctx.closePath(); ctx.fill()
+      }
+      function ctaBand(ctx, y, dark = false) {
+        rough(ctx, 70, y, CW - 140, 150, dark ? C.ink : C.sheet)
+        text(ctx, CTA[0], CW / 2, y + 78, `600 60px ${DISPLAY}`, dark ? C.sheet : C.ink)
+        text(ctx, CTA[1], CW / 2, y + 128, `600 32px ${SERIF}`, dark ? C.mustard : '#8a3a1e')
+      }
+      function big(ctx, img, x, y, h) { ctx.imageSmoothingEnabled = false; const w = (img.width / img.height) * h; ctx.drawImage(img, x - w / 2, y, w, h); return w }
+
+      // ---------- 1. Портрет в раме ----------
+      function v1(ctx, d, L) {
+        bg(ctx)
+        const fx = 110, fy = 150, fw = CW - 220, fh = 1000
+        ctx.fillStyle = C.sheet; ctx.fillRect(fx - 18, fy - 18, fw + 36, fh + 36)
+        ctx.fillStyle = C.trim; ctx.fillRect(fx - 10, fy - 10, fw + 20, fh + 20)
+        ctx.fillStyle = C.glass; ctx.fillRect(fx, fy, fw, fh)
+        // Фон портрета - родные места героя, приглушённо.
+        const sc = sceneCanvas(d, d.seed); ctx.imageSmoothingEnabled = false
+        const sw = SH * fw / fh; ctx.globalAlpha = 0.55; ctx.drawImage(sc, (SW - sw) / 2, 0, sw, SH, fx, fy, fw, fh); ctx.globalAlpha = 1
+        const vg = ctx.createLinearGradient(0, fy, 0, fy + fh); vg.addColorStop(0, 'rgba(11,18,32,0.1)'); vg.addColorStop(1, 'rgba(11,18,32,0.75)'); ctx.fillStyle = vg; ctx.fillRect(fx, fy, fw, fh)
+        big(ctx, L.portrait, CW / 2, fy + 90, 900)
+        // Латунная табличка.
+        rough(ctx, 190, fy + fh - 40, CW - 380, 150, C.trim)
+        text(ctx, d.name, CW / 2, fy + fh + 40, `600 76px ${DISPLAY}`, C.ink, 'center', CW - 440)
+        text(ctx, L.years, CW / 2, fy + fh + 88, `600 34px ${SERIF}`, '#3a2a1c')
+        text(ctx, d.title, CW / 2, 1360, `600 52px ${DISPLAY}`, C.mustard)
+        text(ctx, L.place, CW / 2, 1414, `400 34px ${SERIF}`, C.muted)
+        wrap(ctx, d.hook, CW / 2, 1490, 900, 50, `italic 400 40px ${SERIF}`, C.sheet, 'center', 3)
+        ctaBand(ctx, 1690)
+      }
+      // ---------- 2. Карточка героя (как в ролевой игре) ----------
+      function v2(ctx, d, L) {
+        bg(ctx)
+        rough(ctx, 60, 90, CW - 120, 1500, C.sheet)
+        ctx.fillStyle = C.ink; ctx.fillRect(100, 140, 470, 600)
+        const sc = sceneCanvas(d, d.seed); ctx.imageSmoothingEnabled = false
+        ctx.globalAlpha = 0.5; ctx.drawImage(sc, (SW - SH * 470 / 600) / 2, 0, SH * 470 / 600, SH, 100, 140, 470, 600); ctx.globalAlpha = 1
+        big(ctx, L.portrait, 335, 180, 560)
+        text(ctx, d.name, 600, 220, `600 70px ${DISPLAY}`, C.ink, 'left', 400)
+        text(ctx, L.years, 600, 270, `600 32px ${SERIF}`, '#6a5440', 'left', 400)
+        wrap(ctx, L.place, 600, 320, 400, 40, `400 32px ${SERIF}`, '#6a5440', 'left', 2)
+        text(ctx, d.title, 600, 430, `600 46px ${DISPLAY}`, '#8a3a1e', 'left', 400)
+        // Крупные цифры.
+        const stats = (d.stats ?? []).slice(0, 3)
+        stats.forEach((s, i) => {
+          const y = 520 + i * 80
+          text(ctx, s.value, 600, y, `600 54px ${DISPLAY}`, C.ink, 'left', 150)
+          text(ctx, s.label, 760, y - 6, `400 26px ${SERIF}`, '#6a5440', 'left', 250)
+        })
+        // Полоски: прожито лет относительно 80, сила жизни.
+        ctx.fillStyle = C.ink; ctx.fillRect(100, 790, 880, 3)
+        text(ctx, lang === 'ru' ? 'ЧТО ВЫПАЛО НА ЖИЗНЬ' : 'WHAT LIFE DEALT', 100, 860, `700 30px ${SERIF}`, C.olive, 'left')
+        let y = wrap(ctx, `• ${d.hook}`, 100, 920, 880, 48, `400 38px ${SERIF}`, C.ink, 'left', 4)
+        if (d.hook2) y = wrap(ctx, `• ${d.hook2}`, 100, y + 20, 880, 48, `400 38px ${SERIF}`, C.ink, 'left', 3)
+        const qt = d.quotes[0]
+        if (qt) { y = wrap(ctx, qt.text, CW / 2, y + 70, 820, 46, `italic 400 36px ${SERIF}`, '#3a2a1c', 'center', 3); text(ctx, `- ${qt.author}`, CW / 2, y + 10, `600 30px ${SERIF}`, '#8a3a1e') }
+        // Лента портретов по возрастам - внизу карточки.
+        const ps = L.ages; const step = 880 / ps.length
+        ctx.fillStyle = C.ink; ctx.fillRect(100, 1330, 880, 3)
+        ps.forEach((p, i) => {
+          const cx = 100 + step * (i + 0.5)
+          big(ctx, p.img, cx, 1360, 150)
+          text(ctx, p.label, cx, 1550, `600 28px ${SERIF}`, '#6a5440', 'center', step - 10)
+        })
+        ctaBand(ctx, 1660, true)
+      }
+      // ---------- 3. Плакат: родные места во весь фон, герой крупно на переднем плане ----------
+      function v3(ctx, d, L) {
+        const sc = sceneCanvas(d, d.seed); ctx.imageSmoothingEnabled = false
+        const sw = SH * CW / 1300; ctx.drawImage(sc, (SW - sw) / 2, 0, sw, SH, 0, 0, CW, 1300)
+        const g = ctx.createLinearGradient(0, 700, 0, 1300); g.addColorStop(0, 'rgba(22,33,58,0)'); g.addColorStop(1, C.night); ctx.fillStyle = g; ctx.fillRect(0, 700, CW, 600)
+        ctx.fillStyle = C.night; ctx.fillRect(0, 1300, CW, CH - 1300)
+        // Рваный край бумаги.
+        ctx.fillStyle = C.sheet; ctx.beginPath(); ctx.moveTo(0, 1240)
+        for (let x = 0; x <= CW; x += 60) ctx.lineTo(x, 1240 + (x / 60) % 2 * 22)
+        ctx.lineTo(CW, 1262); ctx.lineTo(CW, 1290); ctx.lineTo(0, 1290); ctx.fill()
+        ctx.fillStyle = C.night; ctx.fillRect(0, 1288, CW, 20)
+        big(ctx, L.portrait, CW / 2, 330, 980)
+        ctx.shadowColor = 'rgba(0,0,0,0.75)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 4
+        text(ctx, d.name, CW / 2, 150, `600 110px ${DISPLAY}`, C.sheet, 'center', 960)
+        text(ctx, `${L.years} · ${L.place}`, CW / 2, 215, `600 36px ${SERIF}`, C.sheet, 'center', 960)
+        ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
+        text(ctx, d.title, CW / 2, 1400, `600 64px ${DISPLAY}`, C.mustard)
+        wrap(ctx, d.hook, CW / 2, 1480, 920, 50, `italic 400 40px ${SERIF}`, C.sheet, 'center', 3)
+        ctaBand(ctx, 1690)
+      }
+      // ---------- 4. Лента жизни: герой крупно и он же в разные годы ----------
+      function v4(ctx, d, L) {
+        bg(ctx)
+        text(ctx, d.name, CW / 2, 140, `600 96px ${DISPLAY}`, C.sheet)
+        text(ctx, `${L.years} · ${L.place}`, CW / 2, 200, `600 34px ${SERIF}`, C.muted)
+        ctx.fillStyle = C.deep; ctx.beginPath(); ctx.arc(CW / 2, 640, 380, 0, Math.PI * 2); ctx.fill()
+        ctx.strokeStyle = C.trim; ctx.lineWidth = 10; ctx.stroke()
+        big(ctx, L.portrait, CW / 2, 300, 700)
+        text(ctx, d.title, CW / 2, 1110, `600 56px ${DISPLAY}`, C.mustard)
+        // Лента возрастов.
+        const ps = L.ages; const step = (CW - 160) / ps.length
+        ctx.strokeStyle = C.sheet; ctx.setLineDash([4, 14]); ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(80, 1360); ctx.lineTo(CW - 80, 1360); ctx.stroke(); ctx.setLineDash([])
+        ps.forEach((p, i) => {
+          const cx = 80 + step * (i + 0.5)
+          rough(ctx, cx - 70, 1190, 140, 170, C.sheet)
+          big(ctx, p.img, cx, 1196, 150)
+          ctx.fillStyle = C.mustard; ctx.beginPath(); ctx.arc(cx, 1360, 12, 0, Math.PI * 2); ctx.fill()
+          text(ctx, p.label, cx, 1410, `600 30px ${SERIF}`, C.sheet, 'center', 140)
+        })
+        wrap(ctx, d.hook, CW / 2, 1500, 920, 48, `italic 400 38px ${SERIF}`, C.sheet, 'center', 3)
+        ctaBand(ctx, 1690)
+      }
+      // ---------- 5. Однорукий бандит: что выпало при рождении, и чем стала жизнь ----------
+      function v5(ctx, d, L) {
+        bg(ctx)
+        text(ctx, lang === 'ru' ? 'ВЫПАЛО ПРИ РОЖДЕНИИ' : 'BORN BY CHANCE', CW / 2, 110, `700 34px ${SERIF}`, C.mustard)
+        const mx = 120, my = 260, mw = CW - 260, mh = 520
+        ctx.fillStyle = C.sheet; ctx.beginPath(); ctx.ellipse(mx + mw / 2, my, mw / 2 + 10, 110, 0, Math.PI, 0); ctx.fill()
+        ctx.fillStyle = C.trim; ctx.beginPath(); ctx.ellipse(mx + mw / 2, my, mw / 2 + 2, 102, 0, Math.PI, 0); ctx.fill()
+        ctx.fillStyle = C.cab; ctx.beginPath(); ctx.ellipse(mx + mw / 2, my, mw * 0.33, 60, 0, Math.PI, 0); ctx.fill()
+        for (let i = 0; i < 11; i++) { const a = Math.PI * (0.06 + 0.88 * i / 10); const x = mx + mw / 2 - Math.cos(a) * (mw / 2 - 16), y = my - Math.sin(a) * 84; ctx.fillStyle = '#ffe08a'; ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fill() }
+        ctx.fillStyle = C.sheet; ctx.fillRect(mx - 10, my - 2, mw + 20, mh + 12); ctx.fillStyle = C.trim; ctx.fillRect(mx - 4, my + 2, mw + 8, mh + 2); ctx.fillStyle = C.cab; ctx.fillRect(mx + 4, my + 8, mw - 8, mh - 10)
+        ctx.fillStyle = C.glass; ctx.fillRect(mx + 30, my + 40, mw - 60, mh - 110)
+        const cols = [L.reel[0], L.reel[1], L.reel[2]]; const ww = (mw - 60 - 40) / 3
+        cols.forEach((s, i) => {
+          const x = mx + 40 + i * (ww + 10)
+          ctx.fillStyle = C.sheet; ctx.fillRect(x, my + 50, ww, mh - 130)
+          wrap(ctx, s, x + ww / 2, my + 50 + (mh - 130) / 2 + 8, ww - 16, 34, `600 26px ${DISPLAY}`, '#8a3a1e', 'center', 2)
+        })
+        // Линия выигрыша - рамкой вокруг выпавшей строки.
+        const cy = my + 50 + (mh - 130) / 2
+        ctx.strokeStyle = C.terra; ctx.lineWidth = 4
+        for (const yy of [cy - 46, cy + 46]) { ctx.beginPath(); ctx.moveTo(mx + 30, yy); ctx.lineTo(mx + mw - 30, yy); ctx.stroke() }
+        ctx.fillStyle = C.sheet; ctx.fillRect(mx + mw + 30, my - 40, 14, 320); ctx.fillStyle = C.terra; ctx.beginPath(); ctx.arc(mx + mw + 37, my - 50, 30, 0, Math.PI * 2); ctx.fill()
+        // Герой выходит из автомата - крупно.
+        ctx.fillStyle = C.sheet; ctx.beginPath(); ctx.ellipse(CW / 2, 1335, 300, 40, 0, 0, Math.PI * 2); ctx.globalAlpha = 0.12; ctx.fill(); ctx.globalAlpha = 1
+        big(ctx, L.portrait, CW / 2, 820, 520)
+        text(ctx, d.name, CW / 2, 1410, `600 84px ${DISPLAY}`, C.sheet)
+        text(ctx, `${L.livedLine}`, CW / 2, 1470, `600 40px ${SERIF}`, C.mustard)
+        wrap(ctx, d.hook, CW / 2, 1540, 900, 46, `italic 400 36px ${SERIF}`, C.sheet, 'center', 2)
+        ctaBand(ctx, 1690)
+      }
+
+      const grid = document.getElementById('grid'); grid.textContent = ''
+      let seed = Number(q.get('seed') || 100), made = 0
+      const want = ['f', 'm']
+      while (made < n && seed < 1000) {
+        const b = rollBirth(seed, 'population', ERA_IDS.map((id) => ERA_META[id]))
+        const era = eras[b.era]
+        const s = autoplay(newLife(era, { mode: 'full', mortality: 'soft', softenHeavy: false, livesBefore: 3 }, seed, undefined, b), era)
+        seed++
+        const life = s.family.lives[s.family.lives.length - 1]
+        if (!life || life.age < 35 || life.sex !== want[made % 2]) continue
+        made++
+        const t = (k, p = {}, o = {}) => T0(k, p, { sex: life.sex, region: life.region, religion: life.religion, ...o })
+        const d = lifeCardData(life, t, lang, { quotes, playerLine: '', site: 'thousands.life', scene: { place: 'landmark', time: 'sunset', people: 2, props: ['sun'] } })
+        const metaParts = d.meta.split(' · ')
+        const L = {
+          portrait: avatarCanvas(d.portraits[d.portraits.length - 1].input),
+          years: metaParts.slice(0, 2).join(' · '),
+          place: metaParts.slice(2).join(' · '),
+          ages: d.portraits.map((p) => ({ img: avatarCanvas(p.input), label: p.label })),
+          reel: [t(`era.${life.era}.short`), t(`class.${life.report.facts.birthCls ?? life.cls}.short`), t(`summary.sex.${life.sex}`)],
+          livedLine: lang === 'ru' ? `${life.sex === 'f' ? 'Прожила' : 'Прожил'} ${metaParts[0]}` : `Lived ${metaParts[0]}`,
+        }
+        const row = document.createElement('div'); row.className = 'row'
+        for (const fn of [v1, v2, v3, v4, v5]) {
+          const c = document.createElement('canvas'); c.width = CW; c.height = CH
+          fn(c.getContext('2d'), d, L); row.append(c)
+        }
+        grid.append(row)
+      }
+      document.body.dataset.ready = '1'
+    </script>
+  </body>
+</html>
