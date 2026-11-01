@@ -597,12 +597,12 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const byId = (id: string) => b.byId.get(id)
   const fits = (ev: EventDef) => quickFit(state, ev) && eligible(state, era, ev)
   // Первые жизни: события прошлых жизней и уже бывшие в этой не повторяются - если нового подходящего нет,
-  // в этот год такого события просто не будет (кроме истории рождения: она нужна всегда).
+  // в этот год такого события просто не будет (кроме истории рождения: она нужна всегда). Дальше (eventsSoft) - повтор можно.
   const before = state.settings.eventsSeen ? new Set(state.settings.eventsSeen) : null
   const fresh = (list: EventDef[], must = false): EventDef[] => {
     if (!before) return list
     const unseen = list.filter((e) => !before.has(e.id) && hero.seen[e.id] === undefined)
-    return unseen.length || !must ? unseen : list
+    return unseen.length || !(must || state.settings.eventsSoft) ? unseen : list
   }
 
   // 1. Отложенные последствия прошлых решений: только если обстоятельства решения не изменились,

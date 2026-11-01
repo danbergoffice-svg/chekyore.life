@@ -4,7 +4,7 @@ import { choose, currentEvent, dismiss, finishYear, startYear } from '../engine/
 import { continueWithHeir, heirs, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
-import type { GameState, LifeSummary } from '../engine/types'
+import type { GameSettings, GameState, LifeSummary } from '../engine/types'
 import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
@@ -62,6 +62,21 @@ function reloadOnceForUpdate(): boolean {
 
 // Vite сообщает, что не смог подгрузить часть сборки (обычно после обновления сайта).
 if (typeof window !== 'undefined') window.addEventListener('vite:preloadError', () => reloadOnceForUpdate())
+
+/**
+ * Неповторяющиеся жизни: первые unique_lives жизней строго (событие прошлых жизней - только если нового нет, иначе год без
+ * него), дальше мягко (нового нет - можно повтор). Детей - число, которого не было в последних жизнях.
+ */
+function uniqueSettings(memorial: LifeSummary[], seed: number): Partial<GameSettings> {
+  const limit = platform.flags.unique_lives ?? 0
+  if (!limit) return {}
+  const recent = memorial.slice(-9).filter((l) => l.age >= 25).map((l) => l.children)
+  return {
+    eventsSeen: [...new Set(memorial.flatMap((l) => (l.diary ?? []).map((d) => d.eventId).filter((id): id is string => !!id)))],
+    eventsSoft: memorial.length >= limit || undefined,
+    kidsTarget: pickKidsTarget(recent, ((h) => () => next(h))({ rng: (seed ^ 0x9e3779b9) >>> 0 })),
+  }
+}
 
 export function App() {
   const [prefs, setPrefsState] = useState<Prefs>(() => {
@@ -533,7 +548,6 @@ export function App() {
     if (gifts.includes('noble') && !pending.royal) used.push('noble')
     if (gifts.includes('country') && giftCountry && !fateCountry && pending.birth.era === giftCountry) used.push('country')
     for (const g of ['respins', 'health', 'dream', 'chest'] as const) if (gifts.includes(g)) used.push(g)
-    const unique = memorial.length < (platform.flags.unique_lives ?? 0)
     const settings = {
       mode: prefs.mode,
       mortality: prefs.mortality,
@@ -549,12 +563,7 @@ export function App() {
       // Истории рождения прошлых жизней (события первого года) - чтобы начало жизни не повторялось.
       birthSeen: [...new Set(memorial.flatMap((l) => (l.diary ?? []).filter((d) => d.age === 0 && d.eventId).map((d) => d.eventId!)))],
       // Первые жизни игрока уникальны: события прошлых жизней не повторяются, детей - своё число в каждой.
-      ...(unique
-        ? {
-            eventsSeen: [...new Set(memorial.flatMap((l) => (l.diary ?? []).map((d) => d.eventId).filter((id): id is string => !!id)))],
-            kidsTarget: pickKidsTarget(memorial.filter((l) => l.age >= 25).map((l) => l.children), ((h) => () => next(h))({ rng: (pending.seed ^ 0x9e3779b9) >>> 0 })),
-          }
-        : {}),
+      ...uniqueSettings(memorial, pending.seed),
     }
     const boons = { health: used.includes('health') ? HEALTH_GIFT : 0, wealth: used.includes('chest') ? CHEST_GIFT : 0 }
     const birth = boons.health || boons.wealth ? { ...pending.birth, boons } : pending.birth
@@ -718,13 +727,7 @@ export function App() {
     // Испытание считает годы этой жизни - с возраста, в котором наследник стал героем.
     game.current.settings.startAge = game.current.hero.age
     // Первые жизни уникальны и у наследника: события предка (и всех прошлых жизней) не повторяются, детей - своё число.
-    if (memorial.length < (platform.flags.unique_lives ?? 0)) {
-      game.current.settings.eventsSeen = [...new Set(memorial.flatMap((l) => (l.diary ?? []).map((d) => d.eventId).filter((id): id is string => !!id)))]
-      game.current.settings.kidsTarget = pickKidsTarget(memorial.filter((l) => l.age >= 25).map((l) => l.children), ((h) => () => next(h))({ rng: (game.current.rng ^ 0x9e3779b9) >>> 0 }))
-    } else {
-      game.current.settings.eventsSeen = undefined
-      game.current.settings.kidsTarget = undefined
-    }
+    Object.assign(game.current.settings, { eventsSeen: undefined, eventsSoft: undefined, kidsTarget: undefined }, uniqueSettings(memorial, game.current.rng))
     // Лестница снов - с учётом сна предка.
     const ladder = dreamLadder(memorial)
     game.current.settings.dreamLevel = ladder.level

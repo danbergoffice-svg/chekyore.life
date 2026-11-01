@@ -1,6 +1,6 @@
 // Уникальные первые жизни: N игроков по 10 жизней подряд (случайные страны) - с флагом unique_lives и без.
 // Считает, какая доля событий жизни уже была в прошлых жизнях игрока, и сколько разных чисел детей.
-// npx vite-node tools/unique.ts [игроков]
+// npx vite-node tools/unique.ts [игроков] [жизней, 10] - после 10-й жизни мягкий режим (eventsSoft), считается отдельно
 import { ERA_IDS, loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
 import { newLife, pickKidsTarget } from '../src/engine/life'
@@ -8,6 +8,8 @@ import { next } from '../src/engine/rng'
 import type { GameSettings, LifeSummary } from '../src/engine/types'
 
 const players = Number(process.argv[2] ?? 30)
+const LIVES = Number(process.argv[3] ?? 10)
+const late = { events: 0, repeats: 0, lives: 0 }
 const eras = await loadAllEras()
 for (const unique of [false, true]) {
   let events = 0
@@ -21,7 +23,7 @@ for (const unique of [false, true]) {
     const memorial: LifeSummary[] = []
     const kids: number[] = []
     const seen = new Set<string>()
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < LIVES; i++) {
       const seed = 1000 * p + i + 7
       const h = { rng: seed }
       const id = ERA_IDS[Math.floor(next(h) * ERA_IDS.length)]
@@ -29,7 +31,8 @@ for (const unique of [false, true]) {
       const settings: GameSettings = { mode: 'quick', mortality: 'soft', softenHeavy: false, livesBefore: i }
       if (unique) {
         settings.eventsSeen = [...new Set(memorial.flatMap((l) => l.diary.map((d) => d.eventId).filter((x): x is string => !!x)))]
-        settings.kidsTarget = pickKidsTarget(memorial.filter((l) => l.age >= 25).map((l) => l.children), ((k) => () => next(k))({ rng: (seed ^ 0x9e3779b9) >>> 0 }))
+        if (i >= 10) settings.eventsSoft = true
+        settings.kidsTarget = pickKidsTarget(memorial.slice(-9).filter((l) => l.age >= 25).map((l) => l.children), ((k) => () => next(k))({ rng: (seed ^ 0x9e3779b9) >>> 0 }))
       }
       const s = autoplay(newLife(era, settings, seed), era)
       const sum = s.family.lives[s.family.lives.length - 1]
@@ -38,7 +41,10 @@ for (const unique of [false, true]) {
       for (const d of sum.diary) if (d.eventId) byAge[d.age <= 10 ? 0 : d.age <= 20 ? 1 : d.age <= 40 ? 2 : 3]++
       const counts = new Map<string, number>()
       for (const e of ids) counts.set(e, (counts.get(e) ?? 0) + 1)
+      if (i >= 10) late.lives++
       for (const [e, n] of counts) {
+        if (i >= 10) { late.events += n; if (seen.has(e)) late.repeats += n }
+        if (i >= 10) continue
         events += n
         if (seen.has(e)) {
           repeats += n
@@ -53,6 +59,8 @@ for (const unique of [false, true]) {
     adultKids.push(kids)
   }
   console.log(unique ? 'С уникальностью' : 'Без уникальности')
+  if (late.lives) console.log(`  жизни 11-${LIVES}: событий на жизнь ${(late.events / late.lives).toFixed(1)}, уже были раньше ${((late.repeats / late.events) * 100).toFixed(1)}%`)
+  late.events = late.repeats = late.lives = 0
   if (process.env.TOP) {
     const typeOf = (id: string) => { for (const e of Object.values(eras)) { const ev = e.events.find((x) => x.id === id); if (ev) return `${ev.type}${ev.milestone ? '/milestone' : ''}${ev.global_chance !== undefined ? '/global' : ''}${ev.choices?.length ? '' : '/moment'}` } return '?' }
     const byType = new Map<string, number>()
