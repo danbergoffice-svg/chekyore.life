@@ -2,7 +2,8 @@
 // v2: не кэшируем HTML под видом скрипта (Cloudflare на отсутствующий файл отдаёт главную страницу),
 // при обновлении удаляем старые кэши.
 // v3: приёмник /api/ мимо кэша, flags.json - из сети (кэш только без сети).
-const CACHE = 'thousands-v3'
+// v4: новое оформление и шрифт «Летопись» 0.2 - старый кэш со старыми файлами удаляется при первом заходе.
+const CACHE = 'thousands-v4'
 
 self.addEventListener('install', () => self.skipWaiting())
 self.addEventListener('activate', (e) =>
