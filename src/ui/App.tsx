@@ -717,6 +717,14 @@ export function App() {
     game.current.settings.protectedUntil = protectedAge(memorial.length)
     // Испытание считает годы этой жизни - с возраста, в котором наследник стал героем.
     game.current.settings.startAge = game.current.hero.age
+    // Первые жизни уникальны и у наследника: события предка (и всех прошлых жизней) не повторяются, детей - своё число.
+    if (memorial.length < (platform.flags.unique_lives ?? 0)) {
+      game.current.settings.eventsSeen = [...new Set(memorial.flatMap((l) => (l.diary ?? []).map((d) => d.eventId).filter((id): id is string => !!id)))]
+      game.current.settings.kidsTarget = pickKidsTarget(memorial.filter((l) => l.age >= 25).map((l) => l.children), ((h) => () => next(h))({ rng: (game.current.rng ^ 0x9e3779b9) >>> 0 }))
+    } else {
+      game.current.settings.eventsSeen = undefined
+      game.current.settings.kidsTarget = undefined
+    }
     // Лестница снов - с учётом сна предка.
     const ladder = dreamLadder(memorial)
     game.current.settings.dreamLevel = ladder.level
