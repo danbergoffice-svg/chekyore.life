@@ -114,4 +114,25 @@ describe('Русские формы', () => {
     const bad = allKeys('ru').filter((k) => /ёл\{g(=\w+)?:\|/.test(rawText('ru', k)))
     expect(bad).toEqual([])
   })
+
+  it('к герою на «ты» - глаголы прошедшего времени с формой для девочки: «ты вернул{g:ся|ась}», а не «ты вернулся»', async () => {
+    // События только для мужчин (sex: m или условие sex: m) могут быть в мужском роде.
+    const maleOnly = new Set<string>()
+    for (const era of Object.values(await loadAllEras())) {
+      for (const ev of era.events) {
+        if (ev.sex === 'm' || (ev.conditions ?? []).some((c) => (c as { sex?: string }).sex === 'm')) maleOnly.add(ev.id)
+      }
+    }
+    const verb = /(?<![а-яёА-ЯЁ])[Тт]ы\s+(?:[а-яё]+\s+){0,2}?([а-яё]+(?:лся|л|шёл|вёл))(?![а-яё{◊])/
+    const notVerb = new Set(['мил', 'пыл', 'тыл', 'стол', 'пол', 'ил', 'угол', 'бал', 'вол', 'кол', 'зал', 'вал', 'стул', 'мул', 'мол', 'был'])
+    const bad = allKeys('ru').filter((k) => {
+      const id = k.startsWith('ev.') ? k.split('.')[1] : ''
+      if (maleOnly.has(id)) return false
+      // Готовые формы {g:…|…} убираем, чтобы не мешали; «ты и друг» - не про одного героя.
+      const s = rawText('ru', k).replace(/\{g(=\w+)?:[^|}]*\|[^}]*\}/g, '◊')
+      const m = s.match(verb)
+      return !!m && !notVerb.has(m[1]) && !/\b(и|с)\s/.test(m[0].slice(3, -m[1].length))
+    })
+    expect(bad).toEqual([])
+  })
 })

@@ -9,6 +9,9 @@ const dir = process.env.SHOTS || 'shots'
   const p = await ctx.newPage()
   const errs = []
   p.on('pageerror', (e) => errs.push(e.message))
+  // Тексты без пола героя (режим разработки, src/i18n): {g:…} взял бы мужскую форму.
+  const noSex = new Set()
+  p.on('console', (m) => { const x = m.text().match(/без пола героя: (\S+)/); if (x) noSex.add(x[1]) })
   const shot = (n, full) => p.screenshot({ path: `${dir}/skin-${n}.png`, fullPage: !!full })
   await p.goto('http://localhost:5174/?ab=a')
   await p.waitForSelector('.menu .slot-machine')
@@ -63,6 +66,7 @@ const dir = process.env.SHOTS || 'shots'
     await p.waitForTimeout(800)
     if (await p.$('.sheet')) await p.click('.sheet-done')
   }
+  console.log('без пола героя:', [...noSex])
   console.log({ errors: errs.slice(0, 5) })
   await b.close()
 })()

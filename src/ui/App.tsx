@@ -104,8 +104,10 @@ export function App() {
   const state = game.current
   const hero = state?.hero
   const ui = useMemo(
-    () => ({ t: createT(prefs.lang, hero ? { region: hero.region, religion: hero.religion } : {}), lang: prefs.lang }),
-    [prefs.lang, hero?.region, hero?.religion, loadedVersion],
+    // Пол героя - по умолчанию для всех текстов: {g:он|она} без явного пола иначе брал бы мужскую форму.
+    // Без текущего героя (меню, награды) - пол последнего прожитого.
+    () => ({ t: createT(prefs.lang, hero ? { region: hero.region, religion: hero.religion, sex: hero.sex } : { sex: memorial[memorial.length - 1]?.sex }), lang: prefs.lang }),
+    [prefs.lang, hero?.region, hero?.religion, hero?.sex, memorial, loadedVersion],
   )
   const era = state && isEraLoaded(state.hero.era) ? eraById(state.hero.era) : null
 

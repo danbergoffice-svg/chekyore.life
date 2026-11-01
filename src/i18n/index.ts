@@ -139,6 +139,7 @@ export function createT(lang: Lang, defaults: TextOptions = {}): T {
       return String(p)
     }
     // {g:мужская|женская} - по полу героя; {g=param:…|…} - по полу из параметра.
+    if (import.meta.env.DEV && o.sex === undefined && /\{g:/.test(s)) console.warn(`[i18n] без пола героя: ${key}`)
     s = s.replace(/\{g(?:=(\w+))?:([^|}]*)\|([^}]*)\}/g, (_, param: string | undefined, m: string, f: string) => {
       const sex = param ? params[param] : o.sex
       return sex === 'f' ? f : m
