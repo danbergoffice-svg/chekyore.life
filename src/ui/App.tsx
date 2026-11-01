@@ -167,7 +167,7 @@ export function App() {
     root.dataset.contrast = String(prefs.contrast)
     if (prefs.theme === 'auto') delete root.dataset.theme
     else root.dataset.theme = prefs.theme
-    document.title = ui.t('app.title')
+    document.title = `${ui.t('app.title')}: ${ui.t('menu.subtitle')}`
   }, [prefs, ui])
 
   // Новый экран - с начала (во вложенном окне прокручивается body, см. style.css html.framed).

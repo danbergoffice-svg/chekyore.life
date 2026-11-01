@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#16213a" />
-    <meta name="description" content="Симулятор одной жизни в случайной эпохе истории. A life simulator set in a random era of history." />
-    <title>Тысячи жизней</title>
+    <meta name="description" content="Тысячи жизней - бесплатная браузерная игра: родись в случайной стране и эпохе, от Древнего Египта и Рима до империи инков, и проживи одну жизнь, принимая решения. Thousands of Lives - a free browser life simulator set in a random era of history." />
+    <title>Тысячи жизней - симулятор жизни в истории | Thousands of Lives</title>
     <!-- Превью ссылки в соцсетях и мессенджерах. Картинки og-ru.png и og-en.png рисует tools/og.html (npm run dev → /tools/og.html?lang=en). -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Тысячи жизней" />
@@ -22,13 +22,44 @@
     <meta name="twitter:title" content="Тысячи жизней - проживи одну жизнь в истории" />
     <meta name="twitter:description" content="Родись в случайном месте истории - от Рима до империи инков. Thousands of Lives - a life in a random era of history." />
     <meta name="twitter:image" content="https://thousands.life/og-ru.png" />
+    <!-- Описание игры для поисковиков (schema.org). В сборке для порталов убирается (vite.config.ts). -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Тысячи жизней",
+        "alternateName": "Thousands of Lives",
+        "url": "https://thousands.life/",
+        "image": "https://thousands.life/og-ru.png",
+        "description": "Браузерная игра-симулятор жизни: родись в случайной стране и эпохе - Древний Египет, Рим, Византия, Русь, Средневековая Европа, исламский мир, Индия, Китай, Япония, Эфиопия, Западная Африка, майя, ацтеки и инки - и проживи одну жизнь, принимая решения.",
+        "genre": ["Life simulation", "Historical", "Text-based"],
+        "gamePlatform": "Web browser",
+        "applicationCategory": "Game",
+        "operatingSystem": "Any",
+        "inLanguage": ["ru", "en", "tr"],
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
     <link rel="canonical" href="https://thousands.life/" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <!-- Текст для поисковиков и для первых мгновений загрузки: игра заменяет его собой (main.tsx). -->
+      <main class="seo-intro">
+        <h1>Тысячи жизней</h1>
+        <p>Бесплатная браузерная игра-симулятор жизни. Барабан лотереи решает, где и когда ты родишься, в каком сословии и каким полом.
+          Дальше год за годом ты принимаешь решения: семья, ремесло, вера, болезни, войны и знаки судьбы - и проживаешь одну жизнь до конца.</p>
+        <p>13 стран и эпох: Древний Египет и Двуречье, Рим и Греция, Византия, Русь, Средневековая Европа, исламский мир, Индия,
+          Китай, Япония, Эфиопия, Западная Африка (Мали и Сонгай), майя, ацтеки и инки. Исторические справки, сны о будущем, наследники и награды.</p>
+        <h2>Thousands of Lives</h2>
+        <p>A free browser life simulator. A birth lottery decides where and when you are born, your station and sex - then you live
+          one whole life in history, year by year, making choices about family, work, faith, illness and war.</p>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

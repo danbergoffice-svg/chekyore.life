@@ -1,21 +1,34 @@
 /// <reference types="vitest/config" />
+import fs from 'node:fs'
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import type { Plugin } from 'vite'
 
 /**
  * Сборка для порталов (VITE_PLATFORM=crazygames): из index.html убираются Google Fonts, превью для соцсетей,
- * canonical, манифест и иконка «На главный экран», а в начало подключается SDK портала.
+ * canonical, описание для поисковиков, манифест и иконка «На главный экран», а в начало подключается SDK портала.
+ * Файлы только для сайта (robots.txt, sitemap.xml с адресом сайта) в сборку портала не попадают.
  */
+const SITE_ONLY = ['robots.txt', 'sitemap.xml']
 function portalHtml(platform: string | undefined): Plugin {
+  let outDir = 'dist'
   return {
     name: 'portal-html',
+    configResolved(config) {
+      outDir = path.resolve(config.root, config.build.outDir)
+    },
+    closeBundle() {
+      if (platform) for (const f of SITE_ONLY) fs.rmSync(path.join(outDir, f), { force: true })
+    },
     transformIndexHtml(html) {
       if (platform !== 'crazygames') return html
       return html
         .replace(/\s*<!--[^>]*соцсетях[\s\S]*?-->/g, '')
         .replace(/\s*<meta (property="og:|name="twitter:)[^>]*>/g, '')
         .replace(/\s*<link rel="(canonical|manifest|apple-touch-icon)"[^>]*>/g, '')
-        .replace('<html lang="ru">', '<html lang="en">')
+        .replace(/\s*<!--[^>]*поисковиков \(schema\.org\)[\s\S]*?<\/script>/, '')
+        .replace(/\s*<!-- Текст для поисковиков[\s\S]*?<\/main>/, '')
+        .replace(/<html lang="ru"/, '<html lang="en"')
         .replace(/<title>[^<]*<\/title>/, '<title>Thousands of Lives</title>')
         .replace(/<meta name="description" content="[^"]*"/, '<meta name="description" content="A life simulator set in a random era of history."')
         .replace('<title>', '<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>\n    <title>')

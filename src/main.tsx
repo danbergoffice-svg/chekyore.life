@@ -16,7 +16,10 @@ try {
 }
 
 initPlatform()
-render(<App />, document.getElementById('app')!)
+// В index.html внутри #app - текст для поисковиков и первых мгновений загрузки; игра рисуется на его месте.
+const root = document.getElementById('app')!
+root.textContent = ''
+render(<App />, root)
 
 // Офлайн-кэш - только на своём сайте: на порталах игру отдаёт их сервер.
 if (import.meta.env.PROD && platform.name === 'web' && 'serviceWorker' in navigator) {
