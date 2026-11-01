@@ -1080,6 +1080,7 @@
   "hook.lived_plain": "{n} yıl yaşadı",
   "card.child": "Bir çocuk doğdu - {cls}",
   "card.cta": "Kim olacaksın?",
+  "card.ask": "Sen ne kadar yaşardın?",
   "hook.widowed": "{n} yaşında dul kaldı",
   "hook.long_marriage": "Tek evlilikte {n} yıl",
   "hook.children_some": "{n} çocuk büyüttü",

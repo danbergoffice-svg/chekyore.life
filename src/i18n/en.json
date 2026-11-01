@@ -1080,6 +1080,7 @@
   "hook.lived_plain": "Lived {n} {p=n:year|years}",
   "card.child": "A child born {cls}",
   "card.cta": "Who will you be?",
+  "card.ask": "How long would you live?",
   "hook.widowed": "Widowed at {n}",
   "hook.long_marriage": "{n} years in one marriage",
   "hook.children_some": "Raised {n} children",

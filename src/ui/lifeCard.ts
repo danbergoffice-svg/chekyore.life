@@ -37,6 +37,9 @@ export function portraitAges(life: LifeSummary, max = 6): number[] {
   return ages.slice(-max)
 }
 
+/** Метка-хэштег: «Средневековая Европа» → «#СредневековаяЕвропа». */
+const hashtag = (s: string) => `#${s.replace(/[^\p{L}\p{N}]+(\p{L})?/gu, (_, ch: string | undefined) => (ch ? ch.toLocaleUpperCase() : '')).replace(/^\p{Ll}/u, (c) => c.toLocaleUpperCase())}`
+
 /** Годы жизни коротко: «1328–1415», «350–280 до н. э.». */
 function span(from: number, to: number, lang: Lang): string {
   if (lang === 'tr') return from < 0 && to < 0 ? `MÖ ${-from}-${-to}` : from < 0 ? `MÖ ${-from} - MS ${to}` : `${from}-${to}`
@@ -101,6 +104,11 @@ export function lifeCardData(
     portraits: ages.map((age, i) => ({ input: portraitInput(life, age, i === ages.length - 1), label: t('summary.portrait_age', { n: age }) })),
     playerLine: opts.playerLine ? (lang === 'ru' ? `«${opts.playerLine}»` : `“${opts.playerLine}”`) : '',
     cta: t('card.cta'),
+    ask: t('card.ask'),
+    ageLine: t('life.age', { n: life.age }),
+    years: span(life.birthYear, life.deathYear, lang),
+    place: `${t(`region.${life.region}`)}, ${t(`era.${life.era}.short`)}`,
+    tags: [t('app.title'), t(`region.${life.region}`), t(`era.${life.era}.short`).split(/[:(]/)[0]].map(hashtag),
     site: opts.site,
     region: life.region,
     seed: life.heroId,

@@ -1,9 +1,10 @@
 // Карточка для публикации рисуется на холсте прямо в браузере, ничего не отправляется на сервер.
-// Постер: сцена края, имя, главное дело жизни, самый яркий факт, афоризм известного человека с подписью,
-// лента портретов героя по возрастам и призыв «Кем будешь ты?».
+// Плакат (выбор владельца 01.11): родные места героя во весь фон, сам герой крупно на переднем плане, сверху на затенении -
+// имя и годы; внизу, как в профиле соцсети, - главное дело, три счётчика, яркий факт, метки-хэштеги и призыв
+// «А сколько проживёшь ты?». Форматы: сторис 1080×1920, квадрат 1080×1080, широкая 1200×630.
 
 import { drawScene, H, W } from '../pixel/scene'
-import { AH, AW, drawAvatar } from '../pixel/avatar'
+import { portraitHd } from '../pixel/portraitHd'
 import type { AvatarInput } from '../pixel/avatar'
 import type { SceneDef } from '../engine/types'
 
@@ -36,6 +37,14 @@ export interface CardData {
   /** Три крупные цифры: дети и внуки, сколько ровесников прожили меньше, богатство. */
   stats?: { value: string; label: string }[]
   cta: string
+  /** Призыв под карточкой: «А сколько проживёшь ты?». */
+  ask: string
+  /** «74 года», «1328–1415», «Лондон, Средневековая Европа» - по отдельности для плаката. */
+  ageLine: string
+  years: string
+  place: string
+  /** Метки-хэштеги: игра, край, страна. */
+  tags: string[]
   site: string
   region: string
   seed: string
@@ -43,7 +52,8 @@ export interface CardData {
 }
 
 // Тёмный постер - одинаково ярко смотрится в ленте при любой теме игры.
-const C = { paper: '#1b1511', paper2: '#2a211a', ink: '#f3e8d4', muted: '#ab9a82', accent: '#e08a5c', gold: '#d9ab5f', line: '#4a3d31' }
+// Синяя ночь и бумага - как в игре (src/skin.css).
+const C = { night: '#16213a', deep: '#0f1729', sheet: '#f3ead7', ink: '#130904', muted: '#bfa987', terra: '#df6c4f', mustard: '#ecd06f', sky: '#9fc1ff', link: '#8a3a1e' }
 const SERIF = "'Alegreya Variable', 'Alegreya', Georgia, serif"
 const DISPLAY = "'Thousands Letopis', 'Alegreya Variable', serif"
 
@@ -98,115 +108,129 @@ function sceneCanvas(d: CardData): HTMLCanvasElement {
 }
 
 /** Сцена заполняет полосу (видна нижняя часть - люди и земля), снизу растворяется в фоне. */
-function drawSceneBand(ctx: CanvasRenderingContext2D, d: CardData, x: number, y: number, w: number, h: number): void {
+/** Сцена края на прямоугольник (обрезка по центру, пиксели чёткие). */
+function drawSceneCover(ctx: CanvasRenderingContext2D, d: CardData, x: number, y: number, w: number, h: number): void {
   const scene = sceneCanvas(d)
   const k = Math.max(w / W, h / H)
-  const sw = Math.round(W * k)
-  const sh = Math.round(H * k)
+  const sw = w / k
+  const sh = h / k
   ctx.save()
-  ctx.beginPath()
-  ctx.rect(x, y, w, h)
-  ctx.clip()
   ctx.imageSmoothingEnabled = false
-  ctx.drawImage(scene, x + Math.round((w - sw) / 2), y + h - sh, sw, sh)
-  const g = ctx.createLinearGradient(0, y + h * 0.55, 0, y + h)
-  g.addColorStop(0, 'rgba(27,21,17,0)')
-  g.addColorStop(1, C.paper)
-  ctx.fillStyle = g
-  ctx.fillRect(x, y, w, h)
+  ctx.drawImage(scene, (W - sw) / 2, H - sh, sw, sh, x, y, w, h)
   ctx.restore()
 }
 
-function spaced(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, spacing: number, align: 'center' | 'left' = 'center'): void {
-  const chars = [...text]
-  const width = chars.reduce((s, ch) => s + ctx.measureText(ch).width, 0) + spacing * (chars.length - 1)
-  let cx = align === 'center' ? x - width / 2 : x
-  for (const ch of chars) {
-    ctx.fillText(ch, cx, y)
-    cx += ctx.measureText(ch).width + spacing
-  }
-}
-
-/** Лента портретов по возрастам: от детства до последнего года, под каждым - возраст. */
-function drawPortraits(ctx: CanvasRenderingContext2D, d: CardData, x: number, y: number, w: number, scale: number, labelPx: number): number {
-  const list = d.portraits
-  if (!list.length) return 0
-  const pw = AW * scale
-  const ph = AH * scale
-  const gap = list.length > 1 ? Math.min(scale * 10, (w - pw * list.length) / (list.length - 1)) : 0
-  const total = pw * list.length + gap * (list.length - 1)
-  let px = x + (w - total) / 2
-  // Нить жизни за портретами.
-  ctx.strokeStyle = C.line
-  ctx.lineWidth = Math.max(2, scale / 2)
+/** Герой крупно: портрет последнего года жизни, снизу по центру области. */
+function drawHero(ctx: CanvasRenderingContext2D, d: CardData, cx: number, bottom: number, h: number): void {
+  const last = d.portraits[d.portraits.length - 1]
+  if (!last) return
+  const img = portraitHd(last.input)
+  const w = (img.width / img.height) * h
+  ctx.save()
+  ctx.imageSmoothingEnabled = false
+  // Мягкая тень под фигурой.
+  ctx.fillStyle = 'rgba(0,0,0,0.35)'
   ctx.beginPath()
-  ctx.moveTo(px + pw / 2, y + ph / 2)
-  ctx.lineTo(px + total - pw / 2, y + ph / 2)
-  ctx.stroke()
-  ctx.textAlign = 'center'
-  ctx.font = `400 ${labelPx}px ${SERIF}`
-  list.forEach((p, i) => {
-    const last = i === list.length - 1
-    ctx.fillStyle = C.paper2
-    ctx.fillRect(px - scale, y - scale, pw + scale * 2, ph + scale * 2)
-    ctx.strokeStyle = last ? C.gold : C.line
-    ctx.lineWidth = Math.max(2, scale / 2)
-    ctx.strokeRect(px - scale, y - scale, pw + scale * 2, ph + scale * 2)
-    const a = document.createElement('canvas')
-    a.width = AW
-    a.height = AH
-    drawAvatar(a.getContext('2d')!, p.input)
-    ctx.imageSmoothingEnabled = false
-    ctx.drawImage(a, px, y, pw, ph)
-    ctx.fillStyle = last ? C.gold : C.muted
-    ctx.fillText(p.label, px + pw / 2, y + ph + scale + labelPx * 1.2)
-    px += pw + gap
-  })
-  ctx.textAlign = 'left'
-  return ph + scale + labelPx * 1.4
+  ctx.ellipse(cx, bottom - h * 0.01, w * 0.42, h * 0.035, 0, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.drawImage(img, cx - w / 2, bottom - h, w, h)
+  ctx.restore()
 }
 
-/** Мини-барабан «? ? ?» для призыва. */
-function drawReels(ctx: CanvasRenderingContext2D, x: number, y: number, h: number): number {
-  const w = h * 0.62
-  for (let i = 0; i < 3; i++) {
-    const rx = x + i * (w + h * 0.12)
-    ctx.fillStyle = '#f6efe2'
-    ctx.fillRect(rx, y, w, h)
-    ctx.strokeStyle = C.gold
-    ctx.lineWidth = Math.max(2, h / 24)
-    ctx.strokeRect(rx, y, w, h)
-    ctx.fillStyle = '#3a2a1e'
-    ctx.font = `700 ${Math.round(h * 0.55)}px ${SERIF}`
+/** Затенение сверху: под именем и годами текст читается на любом небе. */
+function topShade(ctx: CanvasRenderingContext2D, x: number, w: number, h: number): void {
+  const g = ctx.createLinearGradient(0, 0, 0, h)
+  g.addColorStop(0, 'rgba(8,12,26,0.88)')
+  g.addColorStop(0.6, 'rgba(8,12,26,0.55)')
+  g.addColorStop(1, 'rgba(8,12,26,0)')
+  ctx.fillStyle = g
+  ctx.fillRect(x, 0, w, h)
+}
+
+/** Рваный край бумаги между сценой и низом карточки. */
+function tornEdge(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, step: number): void {
+  ctx.fillStyle = C.sheet
+  ctx.beginPath()
+  ctx.moveTo(x, y + step * 0.6)
+  for (let i = 0, xx = x; xx <= x + w + step; i++, xx += step) ctx.lineTo(Math.min(xx, x + w), y + (i % 2 ? 0 : step * 0.6))
+  ctx.lineTo(x + w, y + step * 1.2)
+  ctx.lineTo(x, y + step * 1.2)
+  ctx.fill()
+  ctx.fillStyle = C.night
+  ctx.fillRect(x, y + step * 1.2 - 1, w, step)
+}
+
+/** Бумажная полоса с неровным краем (кнопка-призыв). */
+function strip(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, color: string): void {
+  ctx.fillStyle = color
+  ctx.beginPath()
+  ctx.moveTo(x + w * 0.006, y + h * 0.07)
+  ctx.lineTo(x + w, y)
+  ctx.lineTo(x + w * 0.988, y + h * 0.93)
+  ctx.lineTo(x, y + h)
+  ctx.closePath()
+  ctx.fill()
+}
+
+function line(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, font: (px: number) => string, size: number, color: string, maxW: number, align: CanvasTextAlign = 'center'): void {
+  fit(ctx, text, font, size, Math.round(size * 0.55), maxW)
+  ctx.fillStyle = color
+  ctx.textAlign = align
+  ctx.fillText(text, x, y)
+}
+
+/** Имя и «возраст · годы · край» поверх затенения. */
+function header(ctx: CanvasRenderingContext2D, d: CardData, cx: number, y: number, maxW: number, namePx: number, metaPx: number, align: CanvasTextAlign = 'center'): void {
+  ctx.save()
+  ctx.shadowColor = 'rgba(0,0,0,0.7)'
+  ctx.shadowBlur = namePx * 0.15
+  ctx.shadowOffsetY = 3
+  line(ctx, d.name, cx, y, (px) => `600 ${px}px ${DISPLAY}`, namePx, C.sheet, maxW, align)
+  line(ctx, `${d.ageLine} · ${d.years}`, cx, y + metaPx * 1.6, (px) => `600 ${px}px ${SERIF}`, metaPx, C.mustard, maxW, align)
+  line(ctx, d.place, cx, y + metaPx * 2.9, (px) => `500 ${px}px ${SERIF}`, Math.round(metaPx * 0.9), C.sheet, maxW, align)
+  ctx.restore()
+}
+
+/** Три счётчика, как в профиле соцсети: крупное число и подпись под ним. */
+function counters(ctx: CanvasRenderingContext2D, d: CardData, x: number, y: number, w: number, numPx: number, labelPx: number): void {
+  const stats = (d.stats ?? []).slice(0, 3)
+  if (!stats.length) return
+  const col = w / stats.length
+  stats.forEach((s, i) => {
+    const cx = x + col * (i + 0.5)
+    line(ctx, s.value, cx, y, (px) => `600 ${px}px ${DISPLAY}`, numPx, C.sheet, col - 16)
+    ctx.font = `500 ${labelPx}px ${SERIF}`
+    const ls = wrap(ctx, s.label, col - 24).slice(0, 2)
+    ctx.fillStyle = C.muted
     ctx.textAlign = 'center'
-    ctx.fillText('?', rx + w / 2, y + h * 0.7)
-  }
-  ctx.textAlign = 'left'
-  return 3 * w + 2 * h * 0.12
+    ls.forEach((l, j) => ctx.fillText(l, cx, y + labelPx * 1.5 + j * labelPx * 1.15))
+    if (i) {
+      ctx.fillStyle = 'rgba(243,234,215,0.18)'
+      ctx.fillRect(x + col * i, y - numPx * 0.8, 2, numPx * 0.8 + labelPx * 2.6)
+    }
+  })
 }
 
-interface Layout {
-  pad: number
-  sceneH: number
-  name: number
-  meta: number
-  title: number
-  hook: number
-  hookLines: number
-  hook2: number
-  quote: number
-  quoteLines: number
-  author: number
-  player: number
-  scale: number
-  label: number
-  cta: number
-  site: number
+/** Яркий факт абзацем (и второй, если влезает), курсивом. */
+function facts(ctx: CanvasRenderingContext2D, d: CardData, cx: number, y: number, maxW: number, px: number, maxLines: number, align: CanvasTextAlign = 'center'): number {
+  const text = d.hook2 && maxLines > 2 ? `${d.hook}. ${d.hook2}` : d.hook
+  const b = block(ctx, text, (p) => `italic 400 ${p}px ${SERIF}`, px, Math.round(px * 0.75), maxW, maxLines)
+  ctx.font = `italic 400 ${b.px}px ${SERIF}`
+  ctx.fillStyle = C.sheet
+  ctx.textAlign = align
+  b.lines.forEach((l, i) => ctx.fillText(l, cx, y + i * b.px * 1.3))
+  return y + b.lines.length * b.px * 1.3
 }
 
-const LAYOUT: Record<'square' | 'story', Layout> = {
-  story: { pad: 76, sceneH: 420, name: 124, meta: 36, title: 66, hook: 60, hookLines: 3, hook2: 38, quote: 56, quoteLines: 5, author: 36, player: 32, scale: 4.5, label: 28, cta: 52, site: 32 },
-  square: { pad: 56, sceneH: 230, name: 86, meta: 28, title: 44, hook: 42, hookLines: 2, hook2: 0, quote: 36, quoteLines: 3, author: 26, player: 0, scale: 2.5, label: 22, cta: 38, site: 26 },
+function hashtags(ctx: CanvasRenderingContext2D, d: CardData, cx: number, y: number, maxW: number, px: number, align: CanvasTextAlign = 'center'): void {
+  line(ctx, d.tags.join('  '), cx, y, (p) => `600 ${p}px ${SERIF}`, px, C.sky, maxW, align)
+}
+
+/** Призыв: бумажная полоса «А сколько проживёшь ты?» и под ним игра и сайт. */
+function ask(ctx: CanvasRenderingContext2D, d: CardData, x: number, y: number, w: number, h: number): void {
+  strip(ctx, x, y, w, h, C.sheet)
+  line(ctx, d.ask, x + w / 2, y + h * 0.52, (px) => `600 ${px}px ${DISPLAY}`, Math.round(h * 0.4), C.ink, w - 40)
+  line(ctx, `${d.brand} · ${d.site}`, x + w / 2, y + h * 0.83, (px) => `600 ${px}px ${SERIF}`, Math.round(h * 0.2), C.link, w - 40)
 }
 
 export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardData): void {
@@ -214,215 +238,70 @@ export function drawCard(canvas: HTMLCanvasElement, format: CardFormat, d: CardD
   canvas.width = cw
   canvas.height = ch
   const ctx = canvas.getContext('2d')!
-  ctx.fillStyle = C.paper
+  ctx.fillStyle = C.night
   ctx.fillRect(0, 0, cw, ch)
   ctx.textBaseline = 'alphabetic'
-  if (format === 'wide') return drawWide(ctx, cw, ch, d)
-
-  const L = LAYOUT[format]
-  const textW = cw - L.pad * 2
-  drawSceneBand(ctx, d, 0, 0, cw, L.sceneH)
-  // Подпись игры над сценой.
-  ctx.font = `600 ${Math.round(L.meta * 0.8)}px ${DISPLAY}`
-  ctx.fillStyle = 'rgba(243,232,212,0.92)'
-  ctx.shadowColor = 'rgba(0,0,0,0.55)'
-  ctx.shadowBlur = 8
-  spaced(ctx, d.brand.toLocaleUpperCase(document.documentElement.lang || undefined), cw / 2, Math.round(L.pad * 0.75), Math.round(L.meta * 0.25))
-  ctx.shadowBlur = 0
-
-  // Низ: призыв, над ним - лента портретов.
-  const footerH = Math.round(L.cta * 1.9)
-  const footerY = ch - L.pad - footerH
-  const reelsW = drawReels(ctx, L.pad, footerY + footerH * 0.08, Math.round(footerH * 0.84))
-  ctx.font = `600 ${L.cta}px ${DISPLAY}`
-  ctx.fillStyle = C.ink
-  ctx.fillText(d.cta, L.pad + reelsW + L.pad * 0.4, footerY + L.cta * 0.95)
-  ctx.font = `600 ${L.site}px ${SERIF}`
-  ctx.fillStyle = C.gold
-  ctx.fillText(d.site, L.pad + reelsW + L.pad * 0.4, footerY + L.cta * 0.95 + L.site * 1.35)
-  const stripH = AH * L.scale + L.scale + L.label * 1.4
-  const stripY = footerY - L.pad * 0.7 - stripH
-  drawPortraits(ctx, d, L.pad, stripY, textW, L.scale, L.label)
-
-  // Секции между сценой и лентой портретов: сначала меряем, потом делим свободное место поровну.
-  const top = L.sceneH - Math.round(L.name * 0.25)
-  const limit = stripY - Math.round(L.pad * 0.4)
-  type Section = { h: number; draw: (y: number) => void; optional?: boolean }
-  const sections: Section[] = []
-  const at = (text: string, font: string, color: string, y: number) => {
-    ctx.font = font
-    ctx.fillStyle = color
-    ctx.fillText(text, L.pad, y)
+  if (format === 'wide') {
+    // Слева - сцена и герой, справа - сведения и призыв.
+    const sw = 560
+    drawSceneCover(ctx, d, 0, 0, sw, ch)
+    drawHero(ctx, d, sw / 2, ch - 10, ch * 0.78)
+    const g = ctx.createLinearGradient(sw - 120, 0, sw, 0)
+    g.addColorStop(0, 'rgba(22,33,58,0)')
+    g.addColorStop(1, C.night)
+    ctx.fillStyle = g
+    ctx.fillRect(sw - 120, 0, 120, ch)
+    const x = sw + 30
+    const w = cw - x - 40
+    header(ctx, d, x, 84, w, 64, 26, 'left')
+    line(ctx, d.title, x, 214, (px) => `600 ${px}px ${DISPLAY}`, 40, C.mustard, w, 'left')
+    counters(ctx, d, x - 10, 290, w + 20, 40, 18)
+    facts(ctx, d, x, 392, w, 24, 2, 'left')
+    hashtags(ctx, d, x, 468, w, 20, 'left')
+    ask(ctx, d, x - 10, 498, w + 20, 104)
+    return
   }
-  // Имя и строка «возраст · годы · край».
-  const namePx = fit(ctx, d.name, (px) => `600 ${px}px ${DISPLAY}`, L.name, Math.round(L.name * 0.55), textW)
-  const metaPx = fit(ctx, d.meta, (px) => `400 ${px}px ${SERIF}`, L.meta, Math.round(L.meta * 0.7), textW)
-  sections.push({
-    h: namePx * 0.95 + metaPx * 1.5,
-    draw: (y) => {
-      at(d.name, `600 ${namePx}px ${DISPLAY}`, C.ink, y + namePx * 0.85)
-      at(d.meta, `400 ${metaPx}px ${SERIF}`, C.muted, y + namePx * 0.95 + metaPx * 1.25)
-    },
-  })
-  // Главное дело жизни и путь по сословию.
-  const titlePx = fit(ctx, d.title, (px) => `600 ${px}px ${DISPLAY}`, L.title, Math.round(L.title * 0.6), textW)
-  sections.push({
-    h: titlePx * 1.05 + (d.path ? L.meta * 1.4 : 0),
-    draw: (y) => {
-      at(d.title, `600 ${titlePx}px ${DISPLAY}`, C.accent, y + titlePx * 0.9)
-      if (d.path) at(d.path, `400 ${L.meta}px ${SERIF}`, C.muted, y + titlePx * 1.05 + L.meta * 1.15)
-    },
-  })
-  // Самый яркий факт - крупно, с золотой чертой слева; второй - помельче.
-  const hook = block(ctx, d.hook, (px) => `700 ${px}px ${SERIF}`, L.hook, Math.round(L.hook * 0.75), textW - L.pad * 0.2, L.hookLines)
-  const h2 = d.hook2 && L.hook2 ? block(ctx, d.hook2, (px) => `400 ${px}px ${SERIF}`, L.hook2, L.hook2, textW, 1) : null
-  const hookH = hook.lines.length * hook.px * 1.18
-  sections.push({
-    h: hookH + (h2 ? L.hook2 * 1.5 : 0),
-    draw: (y) => {
-      hook.lines.forEach((l, i) => at(l, `700 ${hook.px}px ${SERIF}`, C.ink, y + hook.px * (0.92 + i * 1.18)))
-      ctx.fillStyle = C.gold
-      ctx.fillRect(L.pad - Math.round(L.pad * 0.35), y + hook.px * 0.08, Math.max(4, L.scale * 1.5), hookH - hook.px * 0.12)
-      if (h2) at(h2.lines[0], `400 ${h2.px}px ${SERIF}`, C.muted, y + hookH + L.hook2 * 1.15)
-    },
-  })
-  // Три крупные цифры (только в «Истории»).
-  if (format === 'story' && d.stats?.length) {
-    const n = d.stats.length
-    const colW = textW / n
-    const valPx = Math.round(L.title * 1.05)
-    sections.push({
-      optional: true,
-      h: valPx + L.meta * 2.4,
-      draw: (y) => {
-        ctx.strokeStyle = C.line
-        ctx.lineWidth = 2
-        ctx.beginPath()
-        ctx.moveTo(L.pad, y)
-        ctx.lineTo(L.pad + textW, y)
-        ctx.moveTo(L.pad, y + valPx + L.meta * 2.4)
-        ctx.lineTo(L.pad + textW, y + valPx + L.meta * 2.4)
-        ctx.stroke()
-        ctx.textAlign = 'center'
-        d.stats!.forEach((st, i) => {
-          const cx = L.pad + colW * (i + 0.5)
-          ctx.font = `600 ${fit(ctx, st.value, (px) => `600 ${px}px ${DISPLAY}`, valPx, Math.round(valPx * 0.6), colW - 20)}px ${DISPLAY}`
-          ctx.fillStyle = i === 1 ? C.accent : C.ink
-          ctx.fillText(st.value, cx, y + valPx * 1.05)
-          ctx.font = `400 ${fit(ctx, st.label, (px) => `400 ${px}px ${SERIF}`, Math.round(L.meta * 0.8), 18, colW - 16)}px ${SERIF}`
-          ctx.fillStyle = C.muted
-          ctx.fillText(st.label, cx, y + valPx + L.meta * 1.6)
-          if (i) {
-            ctx.strokeStyle = C.line
-            ctx.beginPath()
-            ctx.moveTo(L.pad + colW * i, y + 14)
-            ctx.lineTo(L.pad + colW * i, y + valPx + L.meta * 2.4 - 14)
-            ctx.stroke()
-          }
-        })
-        ctx.textAlign = 'left'
-      },
-    })
-  }
-  // Афоризм: первый, что помещается; подпись автора золотом; строка игрока - помельче.
-  const quoteSection = (maxLines: number): Section | null => {
-    const quote = d.quotes.find((q) => {
-      ctx.font = `italic 400 ${L.quote}px ${SERIF}`
-      return wrap(ctx, q.text, textW).length <= maxLines
-    }) ?? d.quotes[0]
-    if (!quote) return null
-    const q = block(ctx, quote.text, (px) => `italic 400 ${px}px ${SERIF}`, L.quote, Math.round(L.quote * 0.8), textW, maxLines)
-    const player = d.playerLine && L.player ? block(ctx, d.playerLine, (px) => `italic 400 ${px}px ${SERIF}`, L.player, L.player, textW, 1) : null
-    const qH = q.lines.length * q.px * 1.25
-    return {
-      h: qH + L.author * 1.6 + (player ? L.player * 1.9 : 0),
-      draw: (y) => {
-        q.lines.forEach((l, i) => at(l, `italic 400 ${q.px}px ${SERIF}`, C.ink, y + q.px * (0.95 + i * 1.25)))
-        at(`- ${quote.author}`, `600 ${L.author}px ${SERIF}`, C.gold, y + qH + L.author * 1.15)
-        if (player) at(player.lines[0], `italic 400 ${player.px}px ${SERIF}`, C.muted, y + qH + L.author * 1.6 + L.player * 1.4)
-      },
+  const story = format === 'story'
+  const sceneH = story ? 1180 : 620
+  drawSceneCover(ctx, d, 0, 0, cw, sceneH)
+  const fade = ctx.createLinearGradient(0, sceneH * 0.55, 0, sceneH)
+  fade.addColorStop(0, 'rgba(22,33,58,0)')
+  fade.addColorStop(1, 'rgba(22,33,58,0.85)')
+  ctx.fillStyle = fade
+  ctx.fillRect(0, sceneH * 0.55, cw, sceneH * 0.45)
+  topShade(ctx, 0, cw, story ? 420 : 250)
+  drawHero(ctx, d, cw / 2, sceneH + (story ? 10 : 6), story ? 860 : 430)
+  header(ctx, d, cw / 2, story ? 150 : 92, cw - 120, story ? 112 : 70, story ? 38 : 26)
+  tornEdge(ctx, 0, sceneH - (story ? 18 : 12), cw, story ? 30 : 22)
+  // Низ - как профиль в соцсети: дело жизни, счётчики, факт, метки, призыв.
+  const pad = story ? 70 : 60
+  const w = cw - pad * 2
+  if (story) {
+    line(ctx, d.title, cw / 2, 1300, (px) => `600 ${px}px ${DISPLAY}`, 70, C.mustard, w)
+    counters(ctx, d, pad, 1410, w, 66, 26)
+    const y = facts(ctx, d, cw / 2, 1545, w, 38, 3)
+    // Свободное место до меток - афоризм под эту жизнь (первый, что влезает).
+    const room = 1680 - y
+    for (const q of d.quotes) {
+      ctx.font = `italic 400 30px ${SERIF}`
+      const ls = wrap(ctx, q.text, w - 40)
+      if ((ls.length + 1) * 40 > room) continue
+      ctx.fillStyle = C.muted
+      ctx.textAlign = 'center'
+      ls.forEach((l, i) => ctx.fillText(l, cw / 2, y + 30 + i * 40))
+      ctx.font = `600 26px ${SERIF}`
+      ctx.fillStyle = C.mustard
+      ctx.fillText(`- ${q.author}`, cw / 2, y + 30 + ls.length * 40)
+      break
     }
-  }
-  let lines = L.quoteLines
-  let quote = quoteSection(lines)
-  const used = () => sections.reduce((sum, x) => sum + x.h, 0) + (quote?.h ?? 0)
-  const minGap = Math.round(L.pad * 0.35)
-  // Не влезает - убираем необязательное, потом укорачиваем афоризм.
-  while (used() + minGap * (sections.length + 2) > limit - top) {
-    const opt = sections.findIndex((x) => x.optional)
-    if (opt >= 0) sections.splice(opt, 1)
-    else if (lines > 1) quote = quoteSection(--lines)
-    else break
-  }
-  if (quote) sections.push(quote)
-  const free = limit - top - sections.reduce((sum, x) => sum + x.h, 0)
-  const gap = Math.max(minGap, Math.min(Math.round(L.pad * 1.3), free / (sections.length + 1)))
-  // Остаток после равных промежутков - сверху, чтобы блок стоял по центру.
-  let y = top + Math.max(0, (free - gap * (sections.length - 1)) / 2 - gap * 0.6)
-  for (const sec of sections) {
-    sec.draw(Math.round(y))
-    y += sec.h + gap
-  }
-}
-
-/** «Ссылка» 1200×630: слева сцена и портреты, справа текст. */
-function drawWide(ctx: CanvasRenderingContext2D, cw: number, ch: number, d: CardData): void {
-  const pad = 44
-  const leftW = 520
-  drawSceneBand(ctx, d, 0, 0, leftW, Math.round((leftW * H) / W))
-  ctx.font = `600 22px ${DISPLAY}`
-  ctx.fillStyle = 'rgba(243,232,212,0.92)'
-  spaced(ctx, d.brand.toLocaleUpperCase(document.documentElement.lang || undefined), leftW / 2, 34, 5)
-  const portraits = { ...d, portraits: d.portraits.slice(-5) }
-  drawPortraits(ctx, portraits, pad, 240, leftW - pad * 2, 2, 18)
-  ctx.font = `600 34px ${DISPLAY}`
-  ctx.fillStyle = C.ink
-  ctx.fillText(d.cta, pad, ch - pad - 30)
-  ctx.font = `600 22px ${SERIF}`
-  ctx.fillStyle = C.gold
-  ctx.fillText(d.site, pad, ch - pad)
-
-  const x = leftW + pad
-  const w = cw - x - pad
-  let y = pad + 20
-  const namePx = fit(ctx, d.name, (px) => `600 ${px}px ${DISPLAY}`, 70, 40, w)
-  ctx.font = `600 ${namePx}px ${DISPLAY}`
-  ctx.fillStyle = C.ink
-  y += namePx * 0.6
-  ctx.fillText(d.name, x, y)
-  y += 36
-  ctx.font = `400 ${fit(ctx, d.meta, (px) => `400 ${px}px ${SERIF}`, 24, 18, w)}px ${SERIF}`
-  ctx.fillStyle = C.muted
-  ctx.fillText(d.meta, x, y)
-  y += 50
-  ctx.font = `600 ${fit(ctx, d.title, (px) => `600 ${px}px ${DISPLAY}`, 38, 26, w)}px ${DISPLAY}`
-  ctx.fillStyle = C.accent
-  ctx.fillText(d.title, x, y)
-  const hook = block(ctx, d.hook, (px) => `700 ${px}px ${SERIF}`, 32, 26, w, 2)
-  y += 14
-  for (const l of hook.lines) {
-    y += hook.px * 1.2
-    ctx.font = `700 ${hook.px}px ${SERIF}`
-    ctx.fillStyle = C.ink
-    ctx.fillText(l, x, y)
-  }
-  const quote = d.quotes.find((q) => {
-    ctx.font = `italic 400 28px ${SERIF}`
-    return wrap(ctx, q.text, w).length <= 3
-  }) ?? d.quotes[0]
-  if (quote) {
-    y += 30
-    const q = block(ctx, quote.text, (px) => `italic 400 ${px}px ${SERIF}`, 28, 22, w, 3)
-    for (const l of q.lines) {
-      y += q.px * 1.25
-      ctx.font = `italic 400 ${q.px}px ${SERIF}`
-      ctx.fillStyle = C.ink
-      ctx.fillText(l, x, y)
-    }
-    y += 34
-    ctx.font = `600 22px ${SERIF}`
-    ctx.fillStyle = C.gold
-    ctx.fillText(`- ${quote.author}`, x, y)
+    hashtags(ctx, d, cw / 2, 1712, w, 30)
+    ask(ctx, d, pad - 10, 1740, w + 20, 140)
+  } else {
+    line(ctx, d.title, cw / 2, 700, (px) => `600 ${px}px ${DISPLAY}`, 48, C.mustard, w)
+    counters(ctx, d, pad, 780, w, 46, 19)
+    facts(ctx, d, cw / 2, 880, w, 28, 1)
+    hashtags(ctx, d, cw / 2, 925, w, 22)
+    ask(ctx, d, pad - 10, 952, w + 20, 108)
   }
 }
 
