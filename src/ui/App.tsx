@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
-import { choose, currentEvent, dismiss, finishYear, startYear } from '../engine/game'
+import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
 import { continueWithHeir, heirs, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
@@ -9,6 +9,9 @@ import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
+import { goalGroup } from '../goal'
+import { goalMark, setGoal } from '../engine/goals'
+import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
@@ -155,7 +158,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0 })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags) })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -566,6 +569,8 @@ export function App() {
       birthSeen: [...new Set(memorial.flatMap((l) => (l.diary ?? []).filter((d) => d.age === 0 && d.eventId).map((d) => d.eventId!)))],
       // Первые жизни игрока уникальны: события прошлых жизней не повторяются, детей - своё число в каждой.
       ...uniqueSettings(memorial, pending.seed),
+      // Цель жизни: события с вариантом к цели выпадают чаще (только у игроков с целью).
+      goalWeight: goalGroup(platform.playerId(), platform.flags) > 0 ? platform.flags.goal_weight : undefined,
     }
     const boons = { health: used.includes('health') ? HEALTH_GIFT : 0, wealth: used.includes('chest') ? CHEST_GIFT : 0 }
     const birth = boons.health || boons.wealth ? { ...pending.birth, boons } : pending.birth
@@ -707,6 +712,21 @@ export function App() {
     rerender(0)
   }
 
+  // Цель жизни (docs/TZ_goal.md): выбор после лотереи (или «без цели»), смена в юности, цель родителя у наследника.
+  const onGoal = (c: GoalChoice, change: boolean) => {
+    const s = game.current
+    if (!s || !era) return
+    const st = lifeStats(s)
+    st.goalAsked = true
+    if (c.id) {
+      setGoal(s, era, c.id, { tier: c.tier, inherited: c.inherited, changed: change || undefined })
+      // Шаги, засчитанные сразу (у наследника - сделанные родителем), не объявляются заново.
+      st.goalSeen = s.hero.goal!.steps.length
+    }
+    persist()
+    rerender(0)
+  }
+
   const onChoose = (choiceId: string | null) => {
     if (!era) return
     const intro = game.current?.queue[0]
@@ -715,8 +735,13 @@ export function App() {
       dreamStart.current = Date.now()
     }
     const before = snapshot(game.current!)
+    // Метка варианта (если у героя цель): идут ли игроки за ▲ - и те, кто меток не видит.
+    const goal = game.current!.hero.goal
+    const ev = currentEvent(game.current!, era)
+    const picked = ev && goal ? eventChoices(game.current!, era, ev).find((c) => c.id === choiceId) : undefined
+    const mark = picked && goal ? (goalMark(goal.id, picked) ?? 'none') : undefined
     choose(game.current!, era, choiceId)
-    trackChoice(game.current!)
+    trackChoice(game.current!, mark ? { mark } : {})
     setChoiceChanges(changes(before, game.current!))
     afterTurn()
   }
@@ -750,6 +775,7 @@ export function App() {
     game.current.settings.dreamsSeen = ladder.seen
     // Дар «Вещий сон» был у предка, а не у наследника.
     game.current.settings.dreamSure = undefined
+    game.current.settings.goalWeight = goalGroup(platform.playerId(), platform.flags) > 0 ? platform.flags.goal_weight : undefined
     // Продолжение после конца хроники страны: с этого года - без исторических событий, вестей и справок.
     if (offChronicle.current && game.current.offChronicle === undefined) game.current.offChronicle = prevYear
     offChronicle.current = false
@@ -1019,6 +1045,7 @@ export function App() {
             yearSec={prefs.yearSec}
             sound={soundButton}
             onKids={onKids}
+            goal={{ group: goalGroup(platform.playerId(), platform.flags), onPick: onGoal }}
             dream={dreamProps}
           />
         )}

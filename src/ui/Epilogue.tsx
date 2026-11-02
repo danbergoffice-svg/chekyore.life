@@ -15,6 +15,7 @@ import type { AvatarInput } from '../pixel/avatar'
 import { portraitAges, portraitInput } from './lifeCard'
 import { diaryText, useUi } from './text'
 import { Icon } from './Icon'
+import { goalResult } from '../engine/goals'
 
 /** Текст записи для карточки: у решения - чем оно кончилось (если такой текст есть), иначе - строка дневника. */
 export function storyText(t: T, e: DiaryEntry, life: LifeSummary, lang: Lang): string {
@@ -74,6 +75,21 @@ export function storyCards(t: T, life: LifeSummary, era: EraDef, lang: Lang, ent
   const prof = life.profession ? t(`prof.${life.profession}`, {}, o) : t(`class.${classKey(life.cls, life.tags)}`, {}, o)
   const place = life.places.length > 1 ? life.places.map((p) => (hasKey(lang, `place.${p}`) ? t(`place.${p}`) : t(`region.${p}`))).join(' → ') : t(`region.${life.region}`)
   out.push({ id: 'life', tone: 'night', big: t('death.lived', { n: life.age }), text: `${prof}. ${place}, ${t(`era.${life.era}.short`)}.`, portraits: true })
+
+  // Цель жизни (docs/TZ_goal.md): исполнена, почти или нет - и шаги с возрастами.
+  const goal = life.goal
+  const res = goalResult(goal)
+  if (goal && res) {
+    const n = goal.steps.length
+    const steps = goal.steps.map((age, i) => `${t(`goal.${goal.id}.step.${i + 1}`, {}, o)} (${age})`).join(' · ')
+    out.push({
+      id: 'goal',
+      tone: res === 'done' ? 'sun' : res === 'none' ? 'cold' : 'olive',
+      label: `${t('story.goal')}: ${t(`goal.${goal.id}.title`, {}, o)}`,
+      big: t(`goal.result.${res}`, { n }, o),
+      text: steps || t(`goal.${goal.id}.wish`, {}, o),
+    })
+  }
 
   // Самый счастливый год - с картиной события.
   const hi = r.facts.happiestReason

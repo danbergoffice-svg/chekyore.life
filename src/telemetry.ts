@@ -23,13 +23,13 @@ export function trackLifeStart(state: GameState, lottery: string, isProtected: b
 }
 
 /** Выбор в событии: сразу после choose(), пока событие ещё в очереди с итогом. */
-export function trackChoice(state: GameState): void {
+export function trackChoice(state: GameState, extra: Record<string, string | number> = {}): void {
   const active = state.queue[0]
   if (!active?.outcome) return
   const s = lifeStats(state)
   s.choices++
   if (s.choices === 1) platform.track('first_choice', { sec_from_start: Math.round(s.sec) })
-  platform.track('choice_made', { event_id: active.eventId, option: active.outcome.choiceId, age: state.hero.age, success: active.outcome.result !== 'failure' })
+  platform.track('choice_made', { event_id: active.eventId, option: active.outcome.choiceId, age: state.hero.age, success: active.outcome.result !== 'failure', ...extra })
 }
 
 /** После каждого года: отметки возраста 5, 10, 15, 20, 30 … 70. */
@@ -46,6 +46,7 @@ export function trackYear(state: GameState): void {
 export function trackLifeEnd(state: GameState, life: LifeSummary): void {
   const s = lifeStats(state)
   platform.track('life_end', { age: life.age, cause: life.cause, region: life.region, era: life.era, sec_in_life: Math.round(s.sec), choices: s.choices, rescued: s.rescued, generation: life.generation })
+  if (life.goal) platform.track('goal_end', { goal: life.goal.id, steps: life.goal.steps.length, done: life.goal.steps.length >= 4 ? 1 : 0, age: life.age, tier: life.goal.tier, ...(life.goal.inherited ? { inherited: 1 } : {}), ...(life.goal.changed ? { changed: 1 } : {}) })
 }
 
 /** Параметры игрока в Метрике: сколько жизней, когда пришёл, лучший возраст. */

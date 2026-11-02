@@ -31,6 +31,11 @@
 | kids_offer | games, age | ранняя детская игра (src/kids/early.ts): какие три занятия предложены (id через запятую) |
 | kids_start | game, kind (toddler/puzzle), task, fresh | выбрал занятие; fresh=1 — раньше не играл |
 | kids_end | game, kind, task, stars, sec, mistakes, moves, hints, quit | итог: stars 0–3, quit=1 — «Убежать играть» / «Бросить» |
+| goal_offer | goals, mode, cls, inherit?, free? | цель жизни (docs/TZ_goal.md): какие карточки показаны; mode birth - при рождении (у наследника - в начале его жизни), change - смена в юности |
+| goal_pick | goal, tier, sec, inherited? | выбрана цель (goal none - «без цели», с 4-й жизни); tier 1–3 - спокойная/смелая/почти невозможная |
+| goal_change | goal, from, tier, sec | цель сменили на экране-главе в goal_change_age лет |
+| goal_step | goal, step, age | выполнен шаг цели (1–4) |
+| goal_end | goal, steps, done, age, tier, inherited?, changed? | итог цели при смерти героя |
 | fate_used | kind (high/country), era | награда за испытание потрачена: родился в знатной семье или в выбранной стране |
 | install_prompt / install_result / install_done | kind (prompt/ios) / accepted / — | «На главный экран»: нажал кнопку в карточке / ответ системного окна (Android) / игра установлена |
 | install_reward | via (prompt/home) | награда за установку получена: согласился в системном окне (Android) или впервые открыл игру с главного экрана |
@@ -86,3 +91,9 @@
 Деление — своё (`kidsGroup` в `src/kids/early.ts`, хеш id игрока, доля — флаг `kids_share`), не через `ab_buckets`,
 чтобы не смешиваться с идущим там опытом «высокое положение во второй жизни». Сравнивать группы по `age_milestone`
 5 и 20 и по возврату на следующий день. Принудительно: `?kids=1` / `?kids=0`.
+
+**Цель жизни (A/B).** Параметр контекста `goal`: 0 — без цели, 1 — цель без меток ▲▼, 2 — цель с метками. Деление — своё
+(`goalGroup` в `src/goal.ts`): доля `goal_share` с целью, внутри неё доля `goal_marks_share` с метками (по разным хешам id).
+У `choice_made` при цели — `mark: up|down|none` (метка выбранного варианта, считается и тем, кто меток не видит).
+Сравнивать «цель против без цели» (1 и 2 вместе против 0) по `first_choice`, `age_milestone` 20, `life_end` и второй
+жизни; «метки против без меток» (2 против 1) — так же и по `goal_end.done`. Принудительно: `?goal=0|1|2`.

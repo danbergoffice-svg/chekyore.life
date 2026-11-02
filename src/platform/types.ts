@@ -43,6 +43,16 @@ export interface Flags {
   kids_age: number
   /** Доля игроков, у которых ранняя игра есть (A/B по своему хешу id игрока, не по ab_buckets); 1 - у всех. */
   kids_share: number
+  /** Цель жизни (src/goal.ts, docs/TZ_goal.md): доля игроков с целью (свой хеш id); 0 - выключена. */
+  goal_share: number
+  /** Среди игроков с целью - доля тех, кто видит метки ▲▼ на вариантах (свой хеш). */
+  goal_marks_share: number
+  /** События, где есть вариант к цели, выпадают чаще во столько раз. */
+  goal_weight: number
+  /** Возраст, в котором можно один раз сменить цель (на экране-главе); 0 - нельзя. */
+  goal_change_age: number
+  /** С какой по счёту жизни можно жить без цели (четвёртая карточка). */
+  goal_free_from: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -66,6 +76,11 @@ export const DEFAULT_FLAGS: Flags = {
   unique_lives: 10,
   kids_age: 2,
   kids_share: 1,
+  goal_share: 0.5,
+  goal_marks_share: 0.5,
+  goal_weight: 1.5,
+  goal_change_age: 16,
+  goal_free_from: 4,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

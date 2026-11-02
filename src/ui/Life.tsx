@@ -12,7 +12,7 @@ import {
   riskChance,
   stageOf,
 } from '../engine/game'
-import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey } from '../engine/rules'
+import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey, scaledMoney } from '../engine/rules'
 import { isPet } from '../engine/pets'
 import LONGEVITY from '../content/longevity.json'
 import { ATTRIBUTES } from '../engine/types'
@@ -36,6 +36,11 @@ import { attitudeText, diaryText, feelings, useUi } from './text'
 import type { Change } from './text'
 import { Icon, IconText } from './Icon'
 import { EarlyGame } from '../kids/EarlyGame'
+import { GOAL_STEPS, goalMark } from '../engine/goals'
+import type { GoalId } from '../engine/goals'
+import type { GoalGroup } from '../goal'
+import { GoalBar, GoalPick } from './GoalPick'
+import type { GoalChoice } from './GoalPick'
 import { earlySeed, kidsOn, SEEN_KEY } from '../kids/early'
 import type { EarlyResult } from '../kids/early'
 
@@ -75,6 +80,8 @@ interface LifeProps {
   sound?: preact.ComponentChildren
   /** Ранняя детская игра сыграна (src/kids/early.ts): прибавка, запись, отметка в жизни. */
   onKids?: (r: EarlyResult) => void
+  /** Цель жизни (docs/TZ_goal.md): группа A/B игрока и выбор/смена цели. */
+  goal?: { group: GoalGroup; onPick: (c: GoalChoice, change: boolean) => void }
   /** Сон о будущем: ответы, подсказка, «Проснуться», закрыть итог. */
   dream?: { result: DreamResult | null; onAnswer: (value: unknown) => void; onHint: () => void; onWake: () => void; onClose: () => void }
 }
@@ -86,7 +93,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -131,7 +138,25 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   // Ранняя детская игра: раз за жизнь в kids_age лет (после 1–2 событий детства), у доли kids_share игроков.
   const f = platform.flags
   const kidsDue = !!onKids && state.phase === 'year' && f.kids_age > 0 && hero.age === f.kids_age && !lifeStats(state).kids && kidsOn(platform.playerId(), f)
-  const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue || adOpen || kidsDue
+  // Цель жизни: перед первым годом (после лотереи; у наследника - в начале его жизни), один раз за жизнь.
+  const goalDue = !!goal && goal.group > 0 && state.phase === 'year' && hero.alive && !hero.goal && !lifeStats(state).goalAsked
+  const [changing, setChanging] = useState(false)
+  const [goalOpen, setGoalOpen] = useState(false)
+  // Новый шаг к цели - строка на три секунды (и событие аналитики); шаги, сделанные до выбора цели, не объявляются.
+  const [goalToast, setGoalToast] = useState<string | null>(null)
+  const goalDone = hero.goal?.steps.length ?? 0
+  useEffect(() => {
+    const s = lifeStats(state)
+    const g = hero.goal
+    if (!g || goalDone <= (s.goalSeen ?? 0)) return
+    for (let n = (s.goalSeen ?? 0) + 1; n <= goalDone; n++) platform.track('goal_step', { goal: g.id, step: n, age: g.steps[n - 1] })
+    s.goalSeen = goalDone
+    const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
+    setGoalToast(goalDone >= GOAL_STEPS ? t('goal.toast_done', { goal: t(`goal.${g.id}.title`, {}, o) }, o) : t('goal.toast', { step: t(`goal.${g.id}.step.${goalDone}`, {}, o) }, o))
+    const id = setTimeout(() => setGoalToast(null), 3500)
+    return () => clearTimeout(id)
+  }, [goalDone, hero.goal?.id])
+  const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue || adOpen || kidsDue || goalDue
   // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
   // пауза без решения и уход с экрана жизни - остановка.
   const playing = (speed > 0 || modalOpen) && !chapterDue && !adOpen && state.phase !== 'dead'
@@ -216,6 +241,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
               {hero.tags.includes('ill') && <span class="warn"> · {t('life.ill', {}, o)}</span>}
             </p>
             <Bar label={t('attr.health')} value={hero.attrs.health} />
+            <GoalBar state={state} open={goalOpen} onToggle={() => setGoalOpen(!goalOpen)} />
             {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
             {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
             {hero.abroad && !hero.abroad.naturalized && <p class="hero-meta small muted">{t(hero.sex === 'f' ? 'life.foreigner_f' : 'life.foreigner', { year: formatYear(hero.abroad.since, lang) })}</p>}
@@ -431,7 +457,13 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         </section>
       )}
 
-      {kidsDue && onKids && (
+      {goalToast && (
+        <p class="goal-toast" role="status">
+          {goalToast}
+        </p>
+      )}
+      {goalDue && goal && <GoalPick state={state} mode="birth" onPick={(c) => goal.onPick(c, false)} />}
+      {kidsDue && onKids && !goalDue && (
         <div class="modal-backdrop">
           <div class="modal kids-modal" role="dialog" aria-modal="true">
             <EarlyGame
@@ -447,11 +479,22 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           </div>
         </div>
       )}
-      {chapterDue && !kidsDue && <Chapter state={state} era={era} onNext={closeChapter} />}
-      {modalOpen && !kidsDue && !chapterDue && !adOpen && dream && (state.dream || dream.result) ? (
+      {chapterDue && !kidsDue && changing && goal && (
+        <GoalPick
+          state={state}
+          mode="change"
+          onPick={(c) => {
+            setChanging(false)
+            goal.onPick(c, true)
+          }}
+          onKeep={() => setChanging(false)}
+        />
+      )}
+      {chapterDue && !kidsDue && !changing && <Chapter state={state} era={era} onNext={closeChapter} onChangeGoal={goal && goal.group > 0 && hero.goal && !hero.goal.changed && hero.age === platform.flags.goal_change_age && hero.goal.steps.length < GOAL_STEPS ? () => setChanging(true) : undefined} />}
+      {modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && dream && (state.dream || dream.result) ? (
         <DreamModal state={state} result={dream.result} onAnswer={dream.onAnswer} onHint={dream.onHint} onWake={dream.onWake} onClose={dream.onClose} />
       ) : (
-        modalOpen && !kidsDue && !chapterDue && !adOpen && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />
+        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} />
       )}
     </div>
   )
@@ -614,7 +657,7 @@ function Hint({ text, onClose, action }: { text: string; onClose: () => void; ac
 }
 
 /** Экран-глава: итог прожитого отрезка в 2–3 строках и «Дальше». */
-function Chapter({ state, era, onNext }: { state: GameState; era: EraDef; onNext: () => void }) {
+function Chapter({ state, era, onNext, onChangeGoal }: { state: GameState; era: EraDef; onNext: () => void; onChangeGoal?: () => void }) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -642,6 +685,18 @@ function Chapter({ state, era, onNext }: { state: GameState; era: EraDef; onNext
             <p class="muted">
               {t('chapter.best')} {diaryText(t, best, hero.sex, hero.region, hero.religion, lang)}
             </p>
+          )}
+          {hero.goal && (
+            <p class="goal-chapter">
+              {hero.goal.steps.length >= GOAL_STEPS
+                ? t('goal.chapter_done', { goal: t(`goal.${hero.goal.id}.title`, {}, o) }, o)
+                : t('goal.chapter', { goal: t(`goal.${hero.goal.id}.title`, {}, o), n: hero.goal.steps.length }, o)}
+            </p>
+          )}
+          {onChangeGoal && (
+            <button class="secondary" onClick={onChangeGoal}>
+              {t('goal.change')}
+            </button>
           )}
           <button class="primary" onClick={onNext} autoFocus>
             {t('chapter.next')}
@@ -826,9 +881,11 @@ interface EventProps {
   onChoose: (id: string | null) => void
   onDismiss: () => void
   changes: Change[]
+  /** Цель героя, если игрок в группе с метками ▲▼ (A/B goal_marks_share). */
+  marks?: GoalId
 }
 
-function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
+function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventProps) {
   const { t, lang } = useUi()
   const ev = currentEvent(state, era)
   const [noteOpen, setNoteOpen] = useState(false)
@@ -849,8 +906,9 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
   const v = active?.variant
   const label = (c: ChoiceDef) => (isName ? nameOf(c.id, lang) : isProfession ? t(`prof.${c.id}`, {}, o) : t(variantKey(lang, `ev.${ev.id}.${c.id}`, v), params, o))
   const cost = (c: ChoiceDef) => {
-    const m = (c.effects ?? []).reduce((sum, e) => sum + ('param' in e && e.param === 'money' && e.delta < 0 ? e.delta : 0), 0)
-    return m < 0 ? formatMoney(t, -m, coin) : null
+    // Цена - как её возьмёт движок: богатый платит больше написанного (scaledMoney).
+    const m = (c.effects ?? []).reduce((sum, e) => sum + ('param' in e && e.param === 'money' && e.delta < 0 ? scaledMoney(hero, era, e.delta) : 0), 0)
+    return m < 0 ? formatMoney(t, Math.round(-m), coin) : null
   }
   const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession && !isName ? variantKey(lang, `ev.${ev.id}.${outcome.choiceId}.${outcome.result}`, v) : null
   const resultText = resultKey && hasKey(lang, resultKey) ? t(resultKey, params, o) : null
@@ -889,11 +947,13 @@ function EventModal({ state, era, onChoose, onDismiss, changes }: EventProps) {
                 const ok = choiceAvailable(state, c)
                 const p = riskChance(state, c)
                 const price = cost(c)
+                const mark = marks && ok ? goalMark(marks, c) : null
                 return (
                   <button class="choice" disabled={!ok} onClick={() => onChoose(c.id)}>
                     <span>{label(c)}</span>
                     {isProfession && <span class="choice-desc">{t(`prof.${c.id}.desc`)}</span>}
                     <span class="choice-meta">
+                      {mark && <span class={`chip-static goal-mark ${mark}`}>{t(`event.mark.${mark}`)}</span>}
                       {price && <span class="chip-static">−{price}</span>}
                       {p !== null && <span class="chip-static">{t('event.chance', { n: Math.round(p * 100) })}</span>}
                       {!ok && <span class="chip-static">{t('event.locked')}</span>}

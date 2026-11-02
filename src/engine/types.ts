@@ -812,6 +812,9 @@ export interface LifeStats {
   chapters?: number[]
   /** Ранняя детская игра этой жизни: id сыгранной (src/kids/early.ts). */
   kids?: string
+  /** Цель жизни уже предложена (выбрана или «без цели»); сколько её шагов уже показано всплывающей строкой. */
+  goalAsked?: boolean
+  goalSeen?: number
 }
 
 // ---------- Сон о будущем (docs/TZ_dreams.md) ----------

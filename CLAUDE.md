@@ -87,7 +87,8 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   двух лет расходов - метка `deep_debt` («долговая яма», запись `diary.debt_deep`). Каждый год должнику с шансом приходят
   `debt_creditors` / `debt_pit` (шаг 1б в `rollEvents`). События долгов - `common/events_debt.json` (проигрыш в кости, долг
   ребёнка, ростовщик, пир богача). Замер - `npx vite-node tools/money.ts 400 [--no-debt-events]`.
-- Цель жизни (`docs/TZ_goal.md`, с 02.11 сделан движок; экран выбора, полоса, метки и A/B - следующий шаг): `src/engine/goals.ts`
+- Цель жизни (`docs/TZ_goal.md`, сделано 02.11): движок `src/engine/goals.ts`, A/B и карточки `src/goal.ts` (флаги `goal_*`, `?goal=0|1|2`),
+  экран выбора и полоса шагов `src/ui/GoalPick.tsx` (в `Life.tsx`: `goalDue`, всплывающий шаг, метки в `EventModal`, смена в `Chapter`), карточка итога в `Epilogue.tsx`;
   (12 целей по 4 шага, шаги по состоянию героя в конце года, `goalImpact` - метки ▲▼ из эффектов вариантов), `Hero.goal`,
   трудность «Спокойная/Смелая/Почти невозможная» - по доле исполнивших в симуляции `src/content/goal_tiers.json`
   (`npm run goals 400` после правок порогов или контента), тексты `goal.*` RU/EN/TR, тест `tests/goals.test.ts`.

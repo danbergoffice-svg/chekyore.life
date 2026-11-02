@@ -299,3 +299,13 @@ html.skin .people100 { display: grid; grid-template-columns: repeat(20, 1fr); ga
 html.skin .people100 span { height: 13px; border-radius: 6px 6px 2px 2px; background: var(--sheet); opacity: 0.85; }
 html.skin .people100 span.longer { background: #3a4b72; opacity: 1; }
 html.skin .people100 span.me { background: var(--terra); opacity: 1; box-shadow: 0 0 0 2px rgba(223, 108, 79, 0.35); }
+
+/* ---------- Цель жизни: карточки как варианты событий ---------- */
+html.skin .goal-card { border-radius: 0; border: 2px solid var(--night); background: transparent; color: var(--night); clip-path: var(--rough-b); }
+html.skin .goal-card:hover { background: var(--mustard); }
+html.skin .goal-card.none { border-style: dashed; }
+html.skin .goal-card.tier-3 .goal-tier { color: #b23f22; }
+html.skin .goal-step.done { background: var(--olive); border-color: var(--olive); color: var(--sheet); }
+html.skin .modal .goal-mark.up { color: #4f5a1d; border-color: #4f5a1d; }
+html.skin .modal .goal-mark.down { color: #b23f22; border-color: #b23f22; }
+html.skin .goal-toast { background: var(--mustard); clip-path: var(--rough-a); border-radius: 0; }
