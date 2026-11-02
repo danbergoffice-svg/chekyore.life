@@ -68,6 +68,8 @@ html.skin .spin-head .caps::before { content: ''; width: 10px; height: 10px; bor
 html.skin .spin-head { background: radial-gradient(circle, rgba(243, 234, 215, 0.5) 1.4px, transparent 2px) 0 50% / 10px 10px repeat-x; }
 html.skin .spin-head > * { background: var(--bg); padding-right: 8px; }
 html.skin .spin-head > *:last-child:not(:first-child) { padding: 0 0 0 8px; }
+/* Справа у автомата место под рычаг (margin 34px у .slot-machine): строка с «Дарами» кончается там же, где корпус, - иначе кнопка липнет к краю экрана. */
+html.skin .spin-head { padding-right: 34px; background-clip: content-box; }
 
 /* ---------- Барабан: тот же автомат, но из бумаги и картона ---------- */
 html.skin .slot-machine {
