@@ -82,6 +82,10 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   питомцы — `src/engine/pets.ts` + `src/content/pets.json`; дом сгорел — эффект `{"home": "burn|ruin|rebuild"}`, метки
   `home_damaged`…; переезд в другую страну — `src/engine/abroad.ts` + `src/content/routes.json` (пока Русь, Европа, Византия,
   Исламский мир; после переезда движок сам берёт страну героя — `eraNow`); долголетие — `npm run longevity`.
+- Положение в обществе (02.11): `statusOf` (0–100) делится на полосы `bandOf` в `rules.ts` - низы < 30, середина 30–54, верхи 55–84,
+  элита 85+ (с запасом 3 у границ, `BANDS`); `Hero.band` считается в конце года (`bandYear` в `game.ts`): подъём и падение взрослого -
+  запись `diary.band_up/down` и настроение; полоса - в шапке героя (`band.N`). Условие событий `{"status": [от, до]}`.
+  События положения - `common/events_status.json` (по 5 на полосу + поворотные `st_rise`/`st_fall`). Замер - `npx vite-node tools/status.ts 400`.
 - Деньги и долги (02.11): деньги событий растут с уровнем жизни (`moneyScale`/`scaledMoney` в `rules.ts`), расходы растут
   с обычным доходом занятия и с большой казной (`background` в `game.ts`), долг растёт на 8% в год (`DEBT_INTEREST`), долг больше
   двух лет расходов - метка `deep_debt` («долговая яма», запись `diary.debt_deep`). Каждый год должнику с шансом приходят

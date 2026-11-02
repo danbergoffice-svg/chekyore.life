@@ -24,6 +24,7 @@ import {
   awayNpcs,
   childName,
   moneyScale,
+  bandOf,
 } from './rules'
 import { householdYear } from './household'
 import { pets } from './pets'
@@ -1033,6 +1034,7 @@ function endYear(state: GameState, era: EraDef): void {
     return die(state, era)
   }
   recordYear(state, era)
+  bandYear(state, era)
   goalYear(state, era)
   bodyYear(state, era)
   hero.tags = hero.tags.filter((t) => t !== 'epidemic')
@@ -1042,6 +1044,23 @@ function endYear(state: GameState, era: EraDef): void {
   if (hero.age === era.stages.adult) note(state, { key: 'diary.stage_adult', topic: 'life' })
   if (hero.age === era.stages.old) note(state, { key: 'diary.stage_old', topic: 'life' })
   state.phase = 'year'
+}
+
+/**
+ * Полоса положения в обществе (низы, середина, верхи, элита) в конце года. Подъём и падение взрослого героя -
+ * запись в дневнике и настроение: подняться приятно, упасть - больно (сильнее, чем радость подъёма).
+ */
+function bandYear(state: GameState, era: EraDef): void {
+  const hero = state.hero
+  const prev = hero.band
+  const band = bandOf(statusOf(hero, era), prev)
+  hero.band = band
+  if (prev === undefined || band === prev || hero.age < era.stages.youth) return
+  const up = band > prev
+  changeParam(hero, 'happiness', up ? 6 : -10)
+  changeParam(hero, 'self_esteem', up ? 5 : -8)
+  if (!up) changeParam(hero, 'stress', 6)
+  note(state, { key: up ? 'diary.band_up' : 'diary.band_down', params: { band: { key: `band.${band}` } }, major: true, topic: 'life', icon: up ? 'find' : 'loss', score: up ? 35 : 30, mood: up ? 6 : -10 })
 }
 
 /** Сытость по сословию, пока герой сам не выбирает еду (дети, рабы). */

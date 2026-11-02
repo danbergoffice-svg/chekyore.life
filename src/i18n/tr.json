@@ -1273,5 +1273,12 @@
   "daily.tip.today": "Bugün alabilirsin.",
   "daily.tip.later": "Her gün girersen {n} gün sonra senin.",
   "drum.tip.gift": "Bu bir armağan - bu makarayı şimdiden belirliyor.",
-  "drum.tip.fate": "Bu sınavın ödülü - bu makarayı şimdiden belirliyor."
+  "drum.tip.fate": "Bu sınavın ödülü - bu makarayı şimdiden belirliyor.",
+  "band.0": "alt tabaka",
+  "band.1": "orta halli",
+  "band.2": "üst tabaka",
+  "band.3": "seçkinler",
+  "band.tip": "Toplumdaki konum: 100 üzerinden {n}",
+  "diary.band_up": "Toplumdaki yerin yükseldi: artık {band} arasındasın.",
+  "diary.band_down": "Toplumdaki yerin düştü: artık {band} arasındasın. Komşular artık seni başka türlü selamlıyor."
 }

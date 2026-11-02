@@ -1,0 +1,1890 @@
+[
+  {
+    "id": "st_low_bread",
+    "type": "personal",
+    "age_range": [
+      16,
+      80
+    ],
+    "conditions": [
+      {
+        "status": [
+          0,
+          29
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "grain",
+        "coins"
+      ]
+    },
+    "choices": [
+      {
+        "id": "beg",
+        "effects": [
+          {
+            "money_years": 0.2
+          },
+          {
+            "param": "reputation",
+            "delta": -3
+          },
+          {
+            "param": "self_esteem",
+            "delta": -4
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "work",
+        "effects": [
+          {
+            "money_years": 0.3
+          },
+          {
+            "param": "health",
+            "delta": -5
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      },
+      {
+        "id": "hunger",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -6
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          },
+          {
+            "param": "happiness",
+            "delta": -3
+          }
+        ]
+      }
+    ],
+    "classes": [
+      "slave",
+      "peasant",
+      "craftsman"
+    ]
+  },
+  {
+    "id": "st_low_corvee",
+    "type": "personal",
+    "age_range": [
+      16,
+      80
+    ],
+    "conditions": [
+      {
+        "status": [
+          0,
+          29
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "field",
+      "time": "overcast",
+      "people": 5,
+      "props": [
+        "cart",
+        "grain"
+      ]
+    },
+    "choices": [
+      {
+        "id": "obey",
+        "effects": [
+          {
+            "param": "health",
+            "delta": -6
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "id": "bribe",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 40
+          }
+        ],
+        "effects": [
+          {
+            "param": "money",
+            "delta": -40
+          },
+          {
+            "param": "stress",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "hide",
+        "risk_roll": {
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "health",
+              "delta": -8
+            },
+            {
+              "param": "reputation",
+              "delta": -6
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": 2
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman"
+    ]
+  },
+  {
+    "id": "st_low_mockery",
+    "type": "personal",
+    "age_range": [
+      16,
+      80
+    ],
+    "conditions": [
+      {
+        "status": [
+          0,
+          29
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "endure",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": -6
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2
+        }
+      },
+      {
+        "id": "answer",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.4,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 6
+            },
+            {
+              "param": "self_esteem",
+              "delta": 6
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "health",
+              "delta": -8
+            },
+            {
+              "param": "reputation",
+              "delta": -4
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 4
+        }
+      },
+      {
+        "id": "complain",
+        "risk_roll": {
+          "success_chance_base": 0.3,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 4
+            },
+            {
+              "param": "happiness",
+              "delta": 3
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "stress",
+              "delta": 5
+            },
+            {
+              "param": "self_esteem",
+              "delta": -3
+            }
+          ]
+        },
+        "pattern": {
+          "faith_reason": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "st_low_solidarity",
+    "type": "local",
+    "age_range": [
+      16,
+      80
+    ],
+    "conditions": [
+      {
+        "status": [
+          0,
+          29
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "yard",
+      "time": "sunset",
+      "people": 5,
+      "props": [
+        "fire",
+        "table"
+      ]
+    },
+    "choices": [
+      {
+        "id": "accept",
+        "effects": [
+          {
+            "money_years": 0.3
+          },
+          {
+            "param": "happiness",
+            "delta": 5
+          },
+          {
+            "param": "loneliness",
+            "delta": -5
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "share",
+        "effects": [
+          {
+            "money_years": -0.1
+          },
+          {
+            "param": "reputation",
+            "delta": 5
+          },
+          {
+            "param": "happiness",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "memory_future": -4
+        }
+      }
+    ],
+    "classes": [
+      "slave",
+      "peasant",
+      "craftsman"
+    ]
+  },
+  {
+    "id": "st_low_chance",
+    "type": "personal",
+    "age_range": [
+      14,
+      35
+    ],
+    "conditions": [
+      {
+        "status": [
+          0,
+          29
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "work",
+    "scene": {
+      "place": "workshop",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "anvil"
+      ]
+    },
+    "choices": [
+      {
+        "id": "take",
+        "effects": [
+          {
+            "skill": "craft",
+            "delta": 6
+          },
+          {
+            "money_years": 0.4
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "memory_future": 4
+        }
+      },
+      {
+        "id": "stay",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman"
+    ]
+  },
+  {
+    "id": "st_mid_elder",
+    "type": "personal",
+    "age_range": [
+      28,
+      70
+    ],
+    "conditions": [
+      {
+        "status": [
+          30,
+          54
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "work",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "accept",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "param": "stress",
+            "delta": 5
+          },
+          {
+            "money_years": -0.3
+          }
+        ],
+        "pattern": {
+          "craft_power": 5
+        }
+      },
+      {
+        "id": "decline",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -2
+          },
+          {
+            "param": "reputation",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_mid_envy",
+    "type": "personal",
+    "age_range": [
+      20,
+      75
+    ],
+    "conditions": [
+      {
+        "status": [
+          30,
+          54
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins"
+      ]
+    },
+    "choices": [
+      {
+        "id": "ignore",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": -3
+          },
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "confront",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 5
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "reputation",
+              "delta": -6
+            },
+            {
+              "param": "stress",
+              "delta": 4
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 3
+        }
+      },
+      {
+        "id": "gift",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -60
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_mid_friend_loan",
+    "type": "personal",
+    "age_range": [
+      20,
+      75
+    ],
+    "conditions": [
+      {
+        "status": [
+          30,
+          54
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "coins",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "lend",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -100
+          }
+        ],
+        "risk_roll": {
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "money",
+              "delta": 110
+            },
+            {
+              "npc_attitude": "npc",
+              "delta": 10
+            }
+          ],
+          "on_failure": [
+            {
+              "npc_attitude": "npc",
+              "delta": -10
+            },
+            {
+              "param": "stress",
+              "delta": 4
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "npc_attitude": "npc",
+            "delta": -12
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "npc": "friend"
+  },
+  {
+    "id": "st_mid_levy",
+    "type": "local",
+    "age_range": [
+      20,
+      80
+    ],
+    "conditions": [
+      {
+        "status": [
+          30,
+          54
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "scroll",
+        "coins"
+      ]
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "effects": [
+          {
+            "money_pct": -10
+          },
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "petition",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.4,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 5
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -15
+            },
+            {
+              "param": "reputation",
+              "delta": -3
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 3
+        }
+      },
+      {
+        "id": "hide",
+        "risk_roll": {
+          "success_chance_base": 0.6,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": 2
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -25
+            },
+            {
+              "param": "reputation",
+              "delta": -6
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": 3
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_mid_match",
+    "type": "family",
+    "age_range": [
+      32,
+      70
+    ],
+    "conditions": [
+      {
+        "status": [
+          30,
+          54
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 4,
+      "props": [
+        "table"
+      ]
+    },
+    "choices": [
+      {
+        "id": "accept",
+        "effects": [
+          {
+            "money_years": -0.6
+          },
+          {
+            "param": "reputation",
+            "delta": 6
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "decline",
+        "effects": [
+          {
+            "npc_attitude": "npc",
+            "delta": 8
+          },
+          {
+            "param": "reputation",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "npc": "child",
+    "npc_age": [
+      14,
+      24
+    ]
+  },
+  {
+    "id": "st_up_petitioners",
+    "type": "personal",
+    "age_range": [
+      22,
+      85
+    ],
+    "conditions": [
+      {
+        "status": [
+          55,
+          84
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 5,
+      "props": [
+        "coins",
+        "table"
+      ]
+    },
+    "choices": [
+      {
+        "id": "give",
+        "effects": [
+          {
+            "money_years": -0.4
+          },
+          {
+            "param": "reputation",
+            "delta": 6
+          },
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": -5
+          },
+          {
+            "param": "stress",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "craft_power": 3
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_up_office",
+    "type": "personal",
+    "age_range": [
+      25,
+      65
+    ],
+    "conditions": [
+      {
+        "status": [
+          55,
+          84
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "work",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "scroll",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "buy",
+        "effects": [
+          {
+            "money_years": -2
+          },
+          {
+            "param": "reputation",
+            "delta": 10
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          },
+          {
+            "add_tag": "office_holder"
+          }
+        ],
+        "pattern": {
+          "craft_power": 6
+        }
+      },
+      {
+        "id": "decline",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      }
+    ],
+    "classes": [
+      "trader",
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_up_rival",
+    "type": "personal",
+    "age_range": [
+      25,
+      70
+    ],
+    "conditions": [
+      {
+        "status": [
+          55,
+          84
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "work",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "fight",
+        "risk_roll": {
+          "param": "intellect",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 6
+            },
+            {
+              "money_years": 0.5
+            }
+          ],
+          "on_failure": [
+            {
+              "money_years": -1
+            },
+            {
+              "param": "reputation",
+              "delta": -6
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 5
+        }
+      },
+      {
+        "id": "deal",
+        "effects": [
+          {
+            "money_years": -0.3
+          },
+          {
+            "add_npc": "friend",
+            "attitude": 30
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      },
+      {
+        "id": "ignore",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "craft_power": -2
+        }
+      }
+    ],
+    "classes": [
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_up_robbers",
+    "type": "personal",
+    "age_range": [
+      20,
+      85
+    ],
+    "conditions": [
+      {
+        "status": [
+          55,
+          84
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "road",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "moon",
+        "horse"
+      ]
+    },
+    "choices": [
+      {
+        "id": "guard",
+        "effects": [
+          {
+            "money_years": -0.3
+          },
+          {
+            "param": "stress",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "trust",
+        "risk_roll": {
+          "success_chance_base": 0.6,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": -1
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -30
+            },
+            {
+              "param": "health",
+              "delta": -8
+            },
+            {
+              "param": "stress",
+              "delta": 6
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": 3
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_up_tutor",
+    "type": "family",
+    "age_range": [
+      28,
+      70
+    ],
+    "conditions": [
+      {
+        "status": [
+          55,
+          84
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "school",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "scroll",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "hire",
+        "effects": [
+          {
+            "money_years": -0.5
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          },
+          {
+            "param": "happiness",
+            "delta": 2
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 5
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3
+        }
+      },
+      {
+        "id": "no",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -1
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "npc": "child",
+    "npc_age": [
+      6,
+      13
+    ]
+  },
+  {
+    "id": "st_el_intrigue",
+    "type": "personal",
+    "age_range": [
+      20,
+      75
+    ],
+    "conditions": [
+      {
+        "status": [
+          85,
+          100
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "history",
+    "scene": {
+      "place": "palace",
+      "time": "night",
+      "people": 4,
+      "props": [
+        "lamp",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "join",
+        "risk_roll": {
+          "param": "intellect",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 10
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "reputation",
+              "delta": -12
+            },
+            {
+              "param": "stress",
+              "delta": 8
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 6
+        }
+      },
+      {
+        "id": "stay_out",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": -3
+          },
+          {
+            "param": "stress",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      },
+      {
+        "id": "warn",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 8
+            },
+            {
+              "add_npc": "patron",
+              "attitude": 40
+            }
+          ],
+          "on_failure": [
+            {
+              "add_npc": "rival",
+              "attitude": -40
+            },
+            {
+              "param": "stress",
+              "delta": 5
+            }
+          ]
+        },
+        "pattern": {
+          "faith_reason": 2
+        }
+      }
+    ],
+    "classes": [
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_el_duel",
+    "type": "personal",
+    "age_range": [
+      18,
+      50
+    ],
+    "conditions": [
+      {
+        "status": [
+          85,
+          100
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "yard",
+      "time": "dawn",
+      "people": 3,
+      "props": [
+        "shield"
+      ]
+    },
+    "choices": [
+      {
+        "id": "accept",
+        "risk_roll": {
+          "param": "strength",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 10
+            },
+            {
+              "param": "self_esteem",
+              "delta": 6
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "health",
+              "delta": -25
+            },
+            {
+              "param": "reputation",
+              "delta": -2
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 5
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": -10
+          },
+          {
+            "param": "self_esteem",
+            "delta": -6
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3
+        }
+      },
+      {
+        "id": "champion",
+        "effects": [
+          {
+            "money_years": -0.5
+          },
+          {
+            "param": "reputation",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      }
+    ],
+    "classes": [
+      "landowner",
+      "noble"
+    ],
+    "sex": "m"
+  },
+  {
+    "id": "st_el_endowment",
+    "type": "personal",
+    "age_range": [
+      30,
+      85
+    ],
+    "conditions": [
+      {
+        "status": [
+          85,
+          100
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "life",
+    "scene": {
+      "place": "temple",
+      "time": "day",
+      "people": 4,
+      "props": [
+        "altar",
+        "coins"
+      ]
+    },
+    "choices": [
+      {
+        "id": "endow",
+        "effects": [
+          {
+            "money_years": -1.5
+          },
+          {
+            "param": "reputation",
+            "delta": 10
+          },
+          {
+            "param": "faith",
+            "delta": 5
+          },
+          {
+            "param": "happiness",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "faith_reason": -4
+        }
+      },
+      {
+        "id": "small",
+        "effects": [
+          {
+            "money_years": -0.3
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "none",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": -4
+          }
+        ],
+        "pattern": {
+          "faith_reason": 3
+        }
+      }
+    ],
+    "classes": [
+      "trader",
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_el_disfavor",
+    "type": "personal",
+    "age_range": [
+      25,
+      80
+    ],
+    "conditions": [
+      {
+        "status": [
+          85,
+          100
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "history",
+    "scene": {
+      "place": "palace",
+      "time": "overcast",
+      "people": 3,
+      "props": [
+        "banner",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "gifts",
+        "effects": [
+          {
+            "money_years": -2
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "craft_power": 3
+        }
+      },
+      {
+        "id": "plead",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 3
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "reputation",
+              "delta": -15
+            },
+            {
+              "money_pct": -30
+            },
+            {
+              "param": "stress",
+              "delta": 8
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "leave",
+        "icon": "move",
+        "effects": [
+          {
+            "migrate": "@other"
+          },
+          {
+            "param": "reputation",
+            "delta": -5
+          },
+          {
+            "param": "stress",
+            "delta": -6
+          }
+        ],
+        "pattern": {
+          "home_road": 5
+        }
+      }
+    ],
+    "classes": [
+      "landowner",
+      "noble"
+    ]
+  },
+  {
+    "id": "st_el_alliance",
+    "type": "family",
+    "age_range": [
+      32,
+      75
+    ],
+    "conditions": [
+      {
+        "status": [
+          85,
+          100
+        ]
+      }
+    ],
+    "base_weight": 3,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "palace",
+      "time": "sunset",
+      "people": 5,
+      "props": [
+        "table",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "accept",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": 8
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": -6
+          },
+          {
+            "money_years": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -4
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": -4
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 10
+          }
+        ],
+        "pattern": {
+          "memory_future": 4
+        }
+      }
+    ],
+    "classes": [
+      "landowner",
+      "noble"
+    ],
+    "npc": "child",
+    "npc_age": [
+      14,
+      24
+    ]
+  },
+  {
+    "id": "st_rise",
+    "type": "personal",
+    "age_range": [
+      20,
+      50
+    ],
+    "conditions": [
+      {
+        "status": [
+          10,
+          75
+        ]
+      }
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "work",
+    "scene": {
+      "place": "market",
+      "time": "dawn",
+      "people": 3,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "risk",
+        "icon": "find",
+        "risk_roll": {
+          "param": "intellect",
+          "success_chance_base": 0.45,
+          "on_success": [
+            {
+              "class_up": 1,
+              "max": "landowner"
+            },
+            {
+              "money_years": 2
+            },
+            {
+              "param": "reputation",
+              "delta": 8
+            },
+            {
+              "param": "happiness",
+              "delta": 6
+            }
+          ],
+          "on_failure": [
+            {
+              "money_years": -2
+            },
+            {
+              "param": "stress",
+              "delta": 8
+            },
+            {
+              "param": "happiness",
+              "delta": -6
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": 6
+        }
+      },
+      {
+        "id": "decline",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "memory_future": -4
+        }
+      }
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader"
+    ],
+    "turning": true
+  },
+  {
+    "id": "st_fall",
+    "type": "personal",
+    "age_range": [
+      25,
+      70
+    ],
+    "conditions": [
+      {
+        "status": [
+          55,
+          100
+        ]
+      }
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "palace",
+      "time": "overcast",
+      "people": 4,
+      "props": [
+        "scroll",
+        "banner"
+      ]
+    },
+    "choices": [
+      {
+        "id": "fight",
+        "risk_roll": {
+          "param": "intellect",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 5
+            }
+          ],
+          "on_failure": [
+            {
+              "money_pct": -60
+            },
+            {
+              "param": "reputation",
+              "delta": -15
+            },
+            {
+              "param": "stress",
+              "delta": 10
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 5
+        }
+      },
+      {
+        "id": "settle",
+        "effects": [
+          {
+            "money_pct": -30
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          },
+          {
+            "param": "reputation",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "flee",
+        "icon": "move",
+        "effects": [
+          {
+            "migrate": "@other"
+          },
+          {
+            "money_pct": -40
+          },
+          {
+            "param": "reputation",
+            "delta": -8
+          }
+        ],
+        "pattern": {
+          "home_road": 6
+        }
+      }
+    ],
+    "classes": [
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "turning": true,
+    "icon": "loss"
+  }
+]

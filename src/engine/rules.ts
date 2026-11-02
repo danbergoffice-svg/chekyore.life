@@ -174,6 +174,11 @@ export function check(state: GameState, c: Condition): boolean {
   if ('religion_absent' in c) return !faithMatches(hero.religion, c.religion_absent)
   if ('minority' in c) return isMinority(state) === c.minority
   if ('region' in c) return c.region.includes(hero.region)
+  if ('status' in c) {
+    const meta = ERA_META[hero.era]
+    const v = meta ? statusOf(hero, meta) : 0
+    return v >= c.status[0] && v <= c.status[1]
+  }
   if ('any' in c) return c.any.some((x) => check(state, x))
   return false
 }
@@ -615,6 +620,22 @@ export function killNpc(state: GameState, npc: Npc): void {
     changeParam(hero, 'happiness', close ? -15 : -6)
     changeParam(hero, 'stress', close ? 10 : 4)
   }
+}
+
+/** Границы полос положения: низы, середина, верхи, элита (по замеру: ~25% / ~50% / ~17% / ~8% взрослых лет). */
+export const BANDS = [30, 55, 85]
+/** Запас, чтобы герой у самой границы не прыгал между полосами каждый год. */
+const BAND_MARGIN = 3
+
+/** Полоса положения: 0 - низы, 1 - середина, 2 - верхи, 3 - элита. С прежней полосой - с запасом у границ. */
+export function bandOf(status: number, prev?: number): number {
+  let band = BANDS.filter((b) => status >= b).length
+  if (prev !== undefined && band !== prev) {
+    // Подняться - только заметно выше границы, опуститься - заметно ниже.
+    if (band > prev && status < BANDS[band - 1] + BAND_MARGIN) band = prev
+    else if (band < prev && status >= BANDS[prev - 1] - BAND_MARGIN) band = prev
+  }
+  return band
 }
 
 /** Положение в обществе эпохи, 0–100: сословие или занятие (что выше), достаток относительно расходов и репутация. */

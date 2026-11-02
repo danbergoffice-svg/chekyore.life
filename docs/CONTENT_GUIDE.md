@@ -66,6 +66,8 @@ trade, craft, farming, military, medicine, management, oratory, seafaring.
 `{"flag": "x"}`, `{"flag_absent": "x"}`, `{"sex": "f"}`, `{"profession": ["farmer"]}`,
 `{"no_profession": true}`, `{"has_npc": "child", "age_min": 6, "age_max": 11}`,
 `{"no_npc": "spouse"}`, `{"classes": [...]}`, `{"age": [17, 46]}`, `{"any": [условия]}`.
+`{"status": [55, 100]}` — положение в обществе героя 0–100 (низы < 30, середина 30–54, верхи 55–84, элита 85+):
+события для богатых и бедных одного сословия пишем через него, а не через `classes`.
 
 Полезные теги героя: married, lives_in_city, rural, wealthy, enslaved, freedman, in_debt,
 schooled, philosophy, fugitive. Черты: cautious, ambitious, kind, hot_tempered, curious,

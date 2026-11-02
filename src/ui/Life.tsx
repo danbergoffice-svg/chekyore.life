@@ -12,7 +12,7 @@ import {
   riskChance,
   stageOf,
 } from '../engine/game'
-import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey, scaledMoney } from '../engine/rules'
+import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey, scaledMoney, statusOf } from '../engine/rules'
 import { isPet } from '../engine/pets'
 import LONGEVITY from '../content/longevity.json'
 import { ATTRIBUTES } from '../engine/types'
@@ -237,6 +237,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </p>
             <p class="hero-meta">
               {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')} · {formatMoney(t, hero.money, coin)}
+              {hero.band !== undefined && hero.age >= era.stages.youth && <span title={t('band.tip', { n: statusOf(hero, era) })}> · {t(`band.${hero.band}`)}</span>}
               {hero.money < 0 && <span class="warn"> · {t('life.debt')}</span>}
               {hero.tags.includes('ill') && <span class="warn"> · {t('life.ill', {}, o)}</span>}
             </p>

@@ -312,6 +312,8 @@ export type Condition =
   /** Вера героя в его краю - вера меньшинства (меньше четверти жителей). */
   | { minority: boolean }
   | { region: string[] }
+  /** Положение в обществе героя (statusOf, 0–100) в диапазоне [от, до]: низы < 30, середина 30–54, верхи 55–84, элита 85+. */
+  | { status: [number, number] }
   | { any: Condition[] }
 
 export type Effect =
@@ -635,6 +637,8 @@ export interface Hero {
   returned?: { year: number; years: number }
   /** Сон о будущем в этой жизни: какой и чем кончился. */
   dreamSeen?: { id: string; year: number; era?: string; score: number; outcome: DreamOutcome; known?: boolean; hint?: boolean; skipped?: boolean; params: Record<string, number> }
+  /** Полоса положения в обществе (bandOf): 0 - низы, 1 - середина, 2 - верхи, 3 - элита; меняется в конце года. */
+  band?: number
   /** Цель жизни (src/engine/goals.ts); нет - герой живёт без цели (старые сохранения, группа без цели в A/B). */
   goal?: HeroGoal
   /** Год, когда дом сгорел/разрушен или начали отстраиваться (метки home_burned, home_ruined, home_rebuilding). */
