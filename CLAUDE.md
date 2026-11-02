@@ -82,6 +82,15 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   питомцы — `src/engine/pets.ts` + `src/content/pets.json`; дом сгорел — эффект `{"home": "burn|ruin|rebuild"}`, метки
   `home_damaged`…; переезд в другую страну — `src/engine/abroad.ts` + `src/content/routes.json` (пока Русь, Европа, Византия,
   Исламский мир; после переезда движок сам берёт страну героя — `eraNow`); долголетие — `npm run longevity`.
+- Деньги и долги (02.11): деньги событий растут с уровнем жизни (`moneyScale`/`scaledMoney` в `rules.ts`), расходы растут
+  с обычным доходом занятия и с большой казной (`background` в `game.ts`), долг растёт на 8% в год (`DEBT_INTEREST`), долг больше
+  двух лет расходов - метка `deep_debt` («долговая яма», запись `diary.debt_deep`). Каждый год должнику с шансом приходят
+  `debt_creditors` / `debt_pit` (шаг 1б в `rollEvents`). События долгов - `common/events_debt.json` (проигрыш в кости, долг
+  ребёнка, ростовщик, пир богача). Замер - `npx vite-node tools/money.ts 400 [--no-debt-events]`.
+- Цель жизни (`docs/TZ_goal.md`, с 02.11 сделан движок; экран выбора, полоса, метки и A/B - следующий шаг): `src/engine/goals.ts`
+  (12 целей по 4 шага, шаги по состоянию героя в конце года, `goalImpact` - метки ▲▼ из эффектов вариантов), `Hero.goal`,
+  трудность «Спокойная/Смелая/Почти невозможная» - по доле исполнивших в симуляции `src/content/goal_tiers.json`
+  (`npm run goals 400` после правок порогов или контента), тексты `goal.*` RU/EN/TR, тест `tests/goals.test.ts`.
 - Сны о будущем (`docs/TZ_dreams.md`, **сделано**, этапы 1–4): движок — `src/engine/dreams.ts` (свой поток случайности
   `dreamRng`, не трогает остальную жизнь), формулы — `src/engine/formula.ts`, каталог — `src/content/dreams.json`, тексты —
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —

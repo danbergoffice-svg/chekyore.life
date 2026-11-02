@@ -403,10 +403,28 @@ function targets(state: GameState, role: NpcTarget, ctx: EffectContext): Npc[] {
 
 // ---------- Эффекты ----------
 
+/**
+ * Во сколько раз деньги событий больше для этого героя: суммы в контенте написаны для простых людей
+ * (годовой доход 150–330), а богатый за те же свадьбу, взятку или проигрыш платит больше. Уровень жизни - сословие
+ * или доход занятия (что выше); до полутора расходов ремесленника страны суммы как написаны, выше - растут.
+ */
+export function moneyScale(hero: Hero, era: EraDef | EraMeta): number {
+  const ref = era.classes.find((c) => c.id === 'craftsman')?.upkeep || 200
+  const prof = hero.profession ? era.professions.find((p) => p.id === hero.profession) : undefined
+  const level = Math.max(era.classes.find((c) => c.id === hero.cls)?.upkeep ?? 0, prof ? (prof.income[0] + prof.income[1]) / 2 : 0)
+  return Math.max(1, Math.min(8, level / (1.5 * ref)))
+}
+
+/** Деньги события для героя: траты растут с уровнем жизни (степень 0,75 - у знати примерно вчетверо), доходы - медленнее (корень). */
+export function scaledMoney(hero: Hero, era: EraDef | EraMeta, delta: number): number {
+  const k = moneyScale(hero, era)
+  return delta < 0 ? delta * k ** 0.75 : delta * Math.max(1, Math.sqrt(k))
+}
+
 export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | undefined, ctx: EffectContext = {}): void {
   const hero = state.hero
   for (const e of effects ?? []) {
-    if ('param' in e) changeParam(hero, e.param, e.delta)
+    if ('param' in e) changeParam(hero, e.param, e.param === 'money' ? scaledMoney(hero, era, e.delta) : e.delta)
     else if ('money_pct' in e) hero.money = Math.round(hero.money + (Math.max(hero.money, 0) * e.money_pct) / 100)
     else if ('skill' in e) changeSkill(hero, e.skill, e.delta)
     else if ('add_tag' in e) { if (!hero.tags.includes(e.add_tag)) hero.tags.push(e.add_tag) }

@@ -23,6 +23,7 @@ import {
   descentOf,
   awayNpcs,
   childName,
+  moneyScale,
 } from './rules'
 import { householdYear } from './household'
 import { pets } from './pets'
@@ -30,6 +31,7 @@ import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
 import { eraById, isEraLoaded } from '../content'
 import { eraEnding, summarize } from './life'
+import { eventHelpsGoal, goalYear } from './goals'
 import { PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
 import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
@@ -128,6 +130,11 @@ function lifestyleMortality(state: GameState, era: EraDef): number {
   return lifestyleDefs(state, era).reduce((m, def) => m * (lifestyleOption(state, def).mortality ?? 1), 1)
 }
 
+/** Лихва: долг растёт на 8% в год. */
+const DEBT_INTEREST = 1.08
+/** Долговая яма - долг больше стольких годовых расходов сословия. */
+const DEEP_DEBT = 2
+
 /** Фоновые процессы года. Возвращает новорождённых детей, чтобы им выбрали имена. */
 function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[] {
   const hero = state.hero
@@ -168,7 +175,15 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
     }
     // Земля и капитал приносят доход состоятельным семьям.
     const rent = hero.tags.includes('wealthy') && hero.money > 0 ? hero.money * 0.025 : 0
+    // Кто больше зарабатывает, тот и живёт шире: треть обычного дохода занятия сверх обычных расходов уходит на дом,
+    // слуг, одежду и подарки (по среднему доходу, а не по удаче года - иначе в плохой год сразу долг), а с большой казны -
+    // ещё процент в год (дом богача, челядь). Достаток остаётся, но растёт медленнее.
+    const base = upkeep
+    const usual = prof ? ((prof.income[0] + prof.income[1]) / 2) * (0.75 + (hero.skills[prof.skill] ?? 0) / 100) : 0
+    upkeep += 0.33 * Math.max(0, usual + rent - base) + 0.01 * Math.max(0, hero.money - 20 * Math.max(base, 100))
     hero.money = Math.round(hero.money + income + rent - upkeep)
+    // Долг растёт: заимодавцы берут лихву (8% в год) - так и попадают в долговую яму.
+    if (hero.money < 0) hero.money = Math.round(hero.money * DEBT_INTEREST)
 
     // Деньги и настроение: долг давит, достаток радует.
     const level = Math.max(cls?.upkeep ?? 0, 100)
@@ -177,13 +192,20 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
       const depth = Math.min(3, -hero.money / level)
       changeParam(hero, 'stress', 6 + depth * 4)
       changeParam(hero, 'happiness', -3 - depth * 2)
-      changeParam(hero, 'health', -1 - depth * 0.5)
+      changeParam(hero, 'health', -1 - depth)
       changeParam(hero, 'self_esteem', -2)
       if (!wasInDebt) {
         hero.tags.push('in_debt')
         note(state, { key: 'diary.debt_start', topic: 'money', icon: 'loss', score: 20, mood: -4, major: true })
       }
+      // Долговая яма: долг больше двух лет расходов - заимодавцы приходят за домом и свободой (события debt_*).
+      const deep = depth >= DEEP_DEBT
+      if (deep && !hero.tags.includes('deep_debt')) {
+        hero.tags.push('deep_debt')
+        note(state, { key: 'diary.debt_deep', topic: 'money', icon: 'loss', score: 30, mood: -6, major: true })
+      } else if (!deep) hero.tags = hero.tags.filter((t) => t !== 'deep_debt')
     } else {
+      hero.tags = hero.tags.filter((t) => t !== 'deep_debt')
       if (wasInDebt) {
         hero.tags = hero.tags.filter((t) => t !== 'in_debt')
         note(state, { key: 'diary.debt_paid', topic: 'money', score: 18, mood: 5 })
@@ -200,7 +222,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   // Пороки героя: пьянство, игра, маковый отвар - каждый год, пока не избавится.
   for (const vice of era.vices) {
     if (!hero.tags.includes(vice.tag)) continue
-    hero.money -= vice.cost ?? 0
+    hero.money -= Math.round((vice.cost ?? 0) * moneyScale(hero, era))
     applyEffects(state, era, vice.effects)
   }
 
@@ -394,6 +416,8 @@ export function expectedAge(state: GameState, era: EraDef): number {
 function eventWeight(state: GameState, ev: EventDef): number {
   let w = ev.base_weight
   for (const m of ev.weight_modifiers ?? []) if (check(state, m.if)) w *= m.multiply
+  const goal = state.hero.goal
+  if (goal && state.settings.goalWeight && eventHelpsGoal(goal.id, ev)) w *= state.settings.goalWeight
   return w
 }
 
@@ -659,6 +683,10 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     add(byId('ab_homesick'))
     hero.abroad!.nextAsk = state.year + 3
   }
+
+  // 1б. Долги: в долговой яме заимодавцы требуют решения через год, у обычного должника - иногда приходят к дверям.
+  const debtEv = hero.tags.includes('deep_debt') ? byId('debt_pit') : hero.tags.includes('in_debt') ? byId('debt_creditors') : undefined
+  if (debtEv && hero.age >= 16 && chance(state, hero.tags.includes('deep_debt') ? 0.5 : 0.25) && fits(debtEv)) add(debtEv)
 
   // 2. Исторические события в этом регионе и году (вне хроники их нет).
   for (const ev of state.offChronicle === undefined ? b.globals : []) {
@@ -1005,6 +1033,7 @@ function endYear(state: GameState, era: EraDef): void {
     return die(state, era)
   }
   recordYear(state, era)
+  goalYear(state, era)
   bodyYear(state, era)
   hero.tags = hero.tags.filter((t) => t !== 'epidemic')
   state.year = addYears(state.year, 1)
@@ -1053,6 +1082,7 @@ function die(state: GameState, era: EraDef): void {
   hero.deathYear ??= state.year
   hero.deathCause ??= pickCause(state, era)
   recordYear(state, era)
+  goalYear(state, era)
   note(state, { key: 'diary.died', params: { cause: { key: `cause.${hero.deathCause}` } }, major: true, topic: 'health', icon: 'death', score: 100 })
   // Хроника страны кончается: род ждёт продолжения в следующей эпохе (или «вне хроники» по желанию игрока).
   if (eraEnding(state)) note(state, { key: 'diary.era_end', params: { n: hero.generation, era: { key: `era.${hero.era}` } }, major: true, topic: 'history', icon: 'find', score: 60 })
@@ -1061,8 +1091,9 @@ function die(state: GameState, era: EraDef): void {
   state.family.lives.push(summarize(state, era))
 }
 
-/** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов). */
-export function autoplay(state: GameState, era: EraDef, maxYears = 130): GameState {
+/** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов).
+ *  pick - свой выбор варианта (калибровка целей): номер в options или null - как обычно, случайно. */
+export function autoplay(state: GameState, era: EraDef, maxYears = 130, pick?: (options: ChoiceDef[], state: GameState) => number | null): GameState {
   for (let i = 0; i < maxYears * 6 && state.phase !== 'dead'; i++) {
     // Переехал в другую страну - дальше её события (страна уже загружена: переезд открыт только в загруженные).
     if (state.hero.era !== era.id && isEraLoaded(state.hero.era)) era = eraById(state.hero.era)
@@ -1074,8 +1105,9 @@ export function autoplay(state: GameState, era: EraDef, maxYears = 130): GameSta
       const ev = currentEvent(state, era)!
       const options = eventChoices(state, era, ev).filter((c) => choiceAvailable(state, c))
       // Сон выбирается и решается своим потоком случайности - с ним и без него остальная жизнь одинакова.
-      const r = ev.id === 'dream_intro' ? dreamRng(state, 'auto_choice')() : next(state)
-      choose(state, era, options.length ? options[Math.floor(r * options.length)].id : null)
+      const own = pick && ev.id !== 'dream_intro' && options.length ? pick(options, state) : null
+      const r = own !== null ? 0 : ev.id === 'dream_intro' ? dreamRng(state, 'auto_choice')() : next(state)
+      choose(state, era, options.length ? options[own ?? Math.floor(r * options.length)].id : null)
       if (state.dream) {
         autoDream(state)
         resolveDream(state, eraNow(state, era))

@@ -1,3 +1,4 @@
+import type { HeroGoal } from './goals'
 import type { LifeReport } from './report'
 // Типы движка. Движок не содержит исторических данных: всё приходит из content/*.json.
 
@@ -634,6 +635,8 @@ export interface Hero {
   returned?: { year: number; years: number }
   /** Сон о будущем в этой жизни: какой и чем кончился. */
   dreamSeen?: { id: string; year: number; era?: string; score: number; outcome: DreamOutcome; known?: boolean; hint?: boolean; skipped?: boolean; params: Record<string, number> }
+  /** Цель жизни (src/engine/goals.ts); нет - герой живёт без цели (старые сохранения, группа без цели в A/B). */
+  goal?: HeroGoal
   /** Год, когда дом сгорел/разрушен или начали отстраиваться (метки home_burned, home_ruined, home_rebuilding). */
   homeSince?: number
   /** Телосложение −3…3 (худоба … полнота): меняется от еды, достатка и болезней; только для портрета. */
@@ -695,6 +698,8 @@ export interface LifeSummary {
   returned?: { year: number; years: number }
   /** Сон о будущем этой жизни. */
   dreamSeen?: Hero['dreamSeen']
+  /** Цель жизни и её шаги. */
+  goal?: HeroGoal
   /** Жизнь прожита вне хроники (после конца эпохи страны) - с этого года. */
   offChronicle?: number
   /** Для наград: режим смертности, была ли защита первой жизни, метки, навыки, животные на момент смерти. */
@@ -767,6 +772,8 @@ export interface GameSettings {
   blockedEvents?: string[]
   /** Защищённая жизнь (первые protected_lives): до этого возраста герой не умирает (смертельный исход → «выжил чудом»). Игроку не показывается. */
   protectedUntil?: number
+  /** Цель жизни: события, где есть вариант к цели, выпадают чаще во столько раз (флаг goal_weight). */
+  goalWeight?: number
 }
 
 export interface GameState {

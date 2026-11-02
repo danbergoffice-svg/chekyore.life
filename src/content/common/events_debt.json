@@ -1,0 +1,853 @@
+[
+  {
+    "id": "debt_creditors",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "conditions": [
+      {
+        "tag": "in_debt"
+      }
+    ],
+    "base_weight": 4,
+    "topic": "money",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "coins",
+        "table"
+      ]
+    },
+    "choices": [
+      {
+        "id": "sell",
+        "effects": [
+          {
+            "money_years": 1.5
+          },
+          {
+            "param": "happiness",
+            "delta": -5
+          },
+          {
+            "param": "self_esteem",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "memory_future": 3
+        }
+      },
+      {
+        "id": "work_off",
+        "effects": [
+          {
+            "money_years": 0.8
+          },
+          {
+            "param": "health",
+            "delta": -6
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      },
+      {
+        "id": "family",
+        "requirements": [
+          {
+            "any": [
+              {
+                "has_npc": "sibling"
+              },
+              {
+                "has_npc": "father"
+              },
+              {
+                "has_npc": "mother"
+              },
+              {
+                "has_npc": "child",
+                "age_min": 18
+              }
+            ]
+          }
+        ],
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "money_years": 1.2
+            },
+            {
+              "param": "happiness",
+              "delta": 2
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "reputation",
+              "delta": -4
+            },
+            {
+              "param": "happiness",
+              "delta": -4
+            }
+          ]
+        },
+        "pattern": {
+          "memory_future": -3
+        }
+      },
+      {
+        "id": "hide",
+        "risk_roll": {
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": -3
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "health",
+              "delta": -10
+            },
+            {
+              "param": "reputation",
+              "delta": -6
+            }
+          ]
+        },
+        "pattern": {
+          "home_road": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "debt_pit",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "conditions": [
+      {
+        "tag": "deep_debt"
+      }
+    ],
+    "base_weight": 6,
+    "topic": "money",
+    "icon": "loss",
+    "scene": {
+      "place": "street",
+      "time": "overcast",
+      "people": 4,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "bondage",
+        "effects": [
+          {
+            "money_years": 3
+          },
+          {
+            "add_tag": "debt_bond"
+          },
+          {
+            "param": "happiness",
+            "delta": -12
+          },
+          {
+            "param": "self_esteem",
+            "delta": -10
+          },
+          {
+            "param": "reputation",
+            "delta": -6
+          },
+          {
+            "param": "stress",
+            "delta": 5
+          }
+        ],
+        "pattern": {
+          "craft_power": -5
+        }
+      },
+      {
+        "id": "sell_all",
+        "effects": [
+          {
+            "money_years": 2.5
+          },
+          {
+            "param": "happiness",
+            "delta": -8
+          },
+          {
+            "param": "stress",
+            "delta": -4
+          }
+        ],
+        "pattern": {
+          "memory_future": 4
+        }
+      },
+      {
+        "id": "patron",
+        "effects": [
+          {
+            "add_npc": "patron",
+            "attitude": 20
+          },
+          {
+            "money_years": 2
+          },
+          {
+            "param": "self_esteem",
+            "delta": -6
+          },
+          {
+            "param": "reputation",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "craft_power": 3
+        }
+      },
+      {
+        "id": "flee",
+        "icon": "move",
+        "effects": [
+          {
+            "migrate": "@other"
+          },
+          {
+            "add_tag": "fugitive"
+          },
+          {
+            "money_years": 2.5
+          },
+          {
+            "param": "reputation",
+            "delta": -10
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          }
+        ],
+        "pattern": {
+          "home_road": 6
+        }
+      }
+    ]
+  },
+  {
+    "id": "debt_gambling_night",
+    "type": "personal",
+    "age_range": [
+      17,
+      65
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "conditions": [
+      {
+        "any": [
+          {
+            "tag": "gambler"
+          },
+          {
+            "param": "risk_tolerance",
+            "op": ">=",
+            "value": 55
+          }
+        ]
+      }
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "money",
+    "icon": "loss",
+    "storyline": "debt",
+    "scene": {
+      "place": "street",
+      "time": "night",
+      "people": 4,
+      "props": [
+        "coins",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "effects": [
+          {
+            "money_years": -2
+          },
+          {
+            "param": "stress",
+            "delta": 6
+          },
+          {
+            "param": "happiness",
+            "delta": -6
+          },
+          {
+            "chance": 0.25,
+            "effects": [
+              {
+                "add_tag": "gambler"
+              }
+            ]
+          }
+        ],
+        "pattern": {
+          "memory_future": -2
+        }
+      },
+      {
+        "id": "owe",
+        "effects": [
+          {
+            "money_years": -0.5
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          },
+          {
+            "chance": 0.25,
+            "effects": [
+              {
+                "add_tag": "gambler"
+              }
+            ]
+          }
+        ],
+        "pattern": {
+          "memory_future": 4
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              1,
+              3
+            ],
+            "chance": 1,
+            "trigger_event": "debt_gambling_due"
+          }
+        ]
+      },
+      {
+        "id": "refuse",
+        "risk_roll": {
+          "param": "strength",
+          "success_chance_base": 0.4,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": -8
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "health",
+              "delta": -15
+            },
+            {
+              "param": "reputation",
+              "delta": -8
+            },
+            {
+              "money_years": -1
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "debt_gambling_due",
+    "type": "personal",
+    "trigger_only": true,
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "base_weight": 1,
+    "topic": "money",
+    "storyline": "debt",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 3,
+      "props": [
+        "coins",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "effects": [
+          {
+            "money_years": -2.2
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ]
+      },
+      {
+        "id": "beg",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.4,
+          "on_success": [
+            {
+              "money_years": -1
+            },
+            {
+              "param": "stress",
+              "delta": -2
+            }
+          ],
+          "on_failure": [
+            {
+              "money_years": -2.5
+            },
+            {
+              "param": "health",
+              "delta": -8
+            }
+          ]
+        }
+      },
+      {
+        "id": "flee",
+        "icon": "move",
+        "effects": [
+          {
+            "migrate": "@other"
+          },
+          {
+            "add_tag": "fugitive"
+          },
+          {
+            "param": "reputation",
+            "delta": -8
+          },
+          {
+            "param": "stress",
+            "delta": 5
+          }
+        ],
+        "pattern": {
+          "home_road": 5
+        }
+      }
+    ]
+  },
+  {
+    "id": "debt_child_gambling",
+    "type": "family",
+    "npc": "child",
+    "npc_age": [
+      16,
+      45
+    ],
+    "age_range": [
+      34,
+      90
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "family",
+    "scene": {
+      "place": "home",
+      "time": "night",
+      "people": 2,
+      "props": [
+        "coins",
+        "lamp"
+      ]
+    },
+    "choices": [
+      {
+        "id": "take",
+        "effects": [
+          {
+            "money_years": -2
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": 20
+          },
+          {
+            "param": "stress",
+            "delta": 5
+          }
+        ],
+        "pattern": {
+          "memory_future": -4
+        }
+      },
+      {
+        "id": "half",
+        "effects": [
+          {
+            "money_years": -1
+          },
+          {
+            "npc_attitude": "npc",
+            "delta": -5
+          },
+          {
+            "chance": 0.4,
+            "effects": [
+              {
+                "npc_tag": "gambler"
+              }
+            ]
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "leave",
+        "effects": [
+          {
+            "npc_attitude": "npc",
+            "delta": -25
+          },
+          {
+            "param": "stress",
+            "delta": -2
+          },
+          {
+            "chance": 0.4,
+            "effects": [
+              {
+                "npc_away": "left"
+              }
+            ]
+          }
+        ],
+        "pattern": {
+          "memory_future": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "debt_moneylender",
+    "type": "personal",
+    "age_range": [
+      20,
+      60
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader"
+    ],
+    "conditions": [
+      {
+        "tag_absent": "in_debt"
+      },
+      {
+        "tag_absent": "wealthy"
+      }
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "money",
+    "storyline": "debt",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "take",
+        "effects": [
+          {
+            "money_years": 1.5
+          },
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "memory_future": 4
+        },
+        "delayed_effects": [
+          {
+            "after_years": [
+              3,
+              6
+            ],
+            "chance": 1,
+            "trigger_event": "debt_loan_due"
+          }
+        ]
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": 1
+          }
+        ],
+        "pattern": {
+          "memory_future": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "debt_loan_due",
+    "type": "personal",
+    "trigger_only": true,
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "base_weight": 1,
+    "topic": "money",
+    "storyline": "debt",
+    "scene": {
+      "place": "home",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "coins",
+        "scroll"
+      ]
+    },
+    "choices": [
+      {
+        "id": "repay",
+        "effects": [
+          {
+            "money_years": -2.3
+          },
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "id": "extend",
+        "effects": [
+          {
+            "money_years": -0.6
+          },
+          {
+            "param": "stress",
+            "delta": 5
+          }
+        ],
+        "delayed_effects": [
+          {
+            "after_years": [
+              2,
+              3
+            ],
+            "chance": 0.8,
+            "trigger_event": "debt_loan_due"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "debt_forgiven",
+    "type": "personal",
+    "moment": true,
+    "once": true,
+    "age_range": [
+      16,
+      90
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "conditions": [
+      {
+        "tag": "in_debt"
+      }
+    ],
+    "base_weight": 1,
+    "topic": "money",
+    "effects": [
+      {
+        "money_years": 2
+      },
+      {
+        "param": "happiness",
+        "delta": 6
+      },
+      {
+        "param": "stress",
+        "delta": -6
+      }
+    ],
+    "scene": {
+      "place": "home",
+      "time": "dawn",
+      "people": 1,
+      "props": [
+        "lamp"
+      ]
+    }
+  },
+  {
+    "id": "debt_rich_feast",
+    "type": "local",
+    "age_range": [
+      25,
+      75
+    ],
+    "classes": [
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "base_weight": 2,
+    "once": true,
+    "topic": "money",
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 6,
+      "props": [
+        "table",
+        "fire"
+      ]
+    },
+    "choices": [
+      {
+        "id": "lavish",
+        "effects": [
+          {
+            "money_years": -0.8
+          },
+          {
+            "param": "reputation",
+            "delta": 6
+          },
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "craft_power": 3
+        }
+      },
+      {
+        "id": "modest",
+        "effects": [
+          {
+            "money_years": -0.2
+          },
+          {
+            "param": "reputation",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "craft_power": -2
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "reputation",
+            "delta": -6
+          },
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "home_road": -2
+        }
+      }
+    ]
+  }
+]

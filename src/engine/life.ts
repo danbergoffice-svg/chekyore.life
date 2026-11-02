@@ -229,6 +229,7 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     offChronicle: state.offChronicle,
     erasLived: h.erasLived,
     dreamSeen: h.dreamSeen,
+    goal: h.goal,
     abroad: h.abroad,
     returned: h.returned,
     mortality: state.settings.mortality,

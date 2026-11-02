@@ -15,6 +15,7 @@
     "check": "vite-node tools/check.ts",
     "deadly": "vite-node tools/deadly.ts",
     "marriage": "vite-node tools/marriage-stats.ts",
+    "goals": "vite-node tools/goals.ts --",
     "music": "node tools/gen/music.mjs",
     "achievements": "vite-node tools/achievements.ts --",
     "dream-review": "vite-node tools/dream-review.ts",

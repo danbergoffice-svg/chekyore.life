@@ -72,9 +72,10 @@ describe('Сословие в итогах (B1)', () => {
   })
 
   it('положение в обществе растёт вместе с итоговым положением героя', () => {
-    for (const { e, s } of lives) {
+    for (const { s } of lives) {
       const f = s.family.lives[s.family.lives.length - 1].report.facts
-      expect(f.status).toBe(statusOf(s.hero, e))
+      // Итоги считаются по стране, где герой жил в конце (после переезда - по новой).
+      expect(f.status).toBe(statusOf(s.hero, ERAS[s.hero.era]))
       expect(f.percentile).toBeGreaterThanOrEqual(0)
       expect(f.percentile).toBeLessThanOrEqual(99)
     }
