@@ -11,7 +11,7 @@
 // IP-адреса не сохраняются: используются только для ограничения частоты запросов в памяти.
 
 import { admin, authorized, exportCsv, unauthorized } from './admin'
-import type { D1Database } from './stats'
+import { syncPlayers, type D1Database } from './stats'
 import { sendMessage, telegramWebhook, type Ctx } from './telegram'
 
 interface Env {
@@ -32,6 +32,7 @@ CREATE INDEX IF NOT EXISTS events_player ON events(player_id);
 CREATE INDEX IF NOT EXISTS events_ts ON events(ts);
 CREATE TABLE IF NOT EXISTS feedback (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, rating INTEGER, answers_json TEXT, contact TEXT, context_json TEXT);
 CREATE TABLE IF NOT EXISTS players (player_id TEXT PRIMARY KEY, first_ts INTEGER);
+CREATE INDEX IF NOT EXISTS players_first ON players(first_ts);
 CREATE TABLE IF NOT EXISTS counters (name TEXT PRIMARY KEY, value INTEGER NOT NULL, mark INTEGER NOT NULL, updated INTEGER NOT NULL);
 `
 
@@ -116,19 +117,8 @@ async function players(env: Env): Promise<number> {
   if (playersMemo && playersMemo.until > now) return playersMemo.n
   const db = env.DB!
   await ensureSchema(db)
-  const row = (await db.prepare("SELECT value, mark, updated FROM counters WHERE name = 'players'").all<{ value: number; mark: number; updated: number }>()).results[0]
-  let n = row ? Number(row.value) : 0
-  if (!row || now - Number(row.updated) >= PLAYERS_FRESH) {
-    const mark = row ? Number(row.mark) : 0
-    const top = Number((await db.prepare('SELECT COALESCE(MAX(id), 0) AS m FROM events').all<{ m: number }>()).results[0]?.m ?? 0)
-    await db.batch([
-      db.prepare('INSERT OR IGNORE INTO players (player_id, first_ts) SELECT player_id, MIN(ts) FROM events WHERE id > ?1 AND id <= ?2 AND player_id IS NOT NULL GROUP BY player_id').bind(mark, top),
-      db
-        .prepare("INSERT INTO counters (name, value, mark, updated) VALUES ('players', (SELECT COUNT(*) FROM players), ?1, ?2) ON CONFLICT(name) DO UPDATE SET value = excluded.value, mark = excluded.mark, updated = excluded.updated")
-        .bind(top, now),
-    ])
-    n = Number((await db.prepare("SELECT value FROM counters WHERE name = 'players'").all<{ value: number }>()).results[0]?.value ?? 0)
-  }
+  const row = (await db.prepare("SELECT value, updated FROM counters WHERE name = 'players'").all<{ value: number; updated: number }>()).results[0]
+  const n = row && now - Number(row.updated) < PLAYERS_FRESH ? Number(row.value) : await syncPlayers(db, now)
   playersMemo = { n, until: now + 2 * 6e4 }
   return n
 }
@@ -143,7 +133,7 @@ export default {
       if (!env.DB) return new Response('База D1 не подключена (привязка DB)', { status: 503 })
       try {
         await ensureSchema(env.DB)
-        return path === '/admin' ? await admin(req, env) : await exportCsv(req, env)
+        return path === '/admin' ? await adminCached(req, env, ctx) : await exportCsv(req, env)
       } catch (e) {
         return new Response('Ошибка базы: ' + String(e).slice(0, 300), { status: 500, headers: { 'content-type': 'text/plain; charset=utf-8' } })
       }
@@ -179,6 +169,27 @@ export default {
     }
     return json({ ok: false }, 404, headers)
   },
+}
+
+// Админка пересчитывает десятки запросов к D1 (бесплатно - 5 млн прочитанных строк в день на всё), поэтому готовая
+// страница 10 минут лежит в кэше Cloudflare (caches.default, только после проверки пароля); ?fresh=1 - пересчитать сразу.
+const ADMIN_CACHE_SEC = 600
+async function adminCached(req: Request, env: Env, ctx: Ctx): Promise<Response> {
+  const cache = (globalThis as { caches?: { default?: Cache } }).caches?.default
+  const url = new URL(req.url)
+  if (!cache) return admin(req, env)
+  const key = new Request(new URL('/admin?__cache', url).toString())
+  if (!url.searchParams.has('fresh')) {
+    const hit = await cache.match(key)
+    if (hit) return new Response(hit.body, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
+  }
+  const res = await admin(req, env)
+  if (res.ok) {
+    const html = await res.text()
+    ctx.waitUntil(cache.put(key, new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': `max-age=${ADMIN_CACHE_SEC}` } })))
+    return new Response(html, { headers: res.headers })
+  }
+  return res
 }
 
 function withHeaders(res: Response, headers: Record<string, string>): Response {

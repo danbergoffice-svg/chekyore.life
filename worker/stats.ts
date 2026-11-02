@@ -64,15 +64,20 @@ const FUNNEL_COLS = `COUNT(DISTINCT CASE WHEN name='app_open' THEN player_id END
   COUNT(DISTINCT CASE WHEN name='life_end' THEN player_id END) AS life_end,
   COUNT(DISTINCT CASE WHEN name='life_start' AND json_extract(params_json,'$.life_index')>=2 THEN player_id END) AS second_life`
 
+/** Только события шагов воронки: по индексу events_name_ts, а не все события периода. */
+const FUNNEL_WHERE = `name IN ('app_open','life_start','first_choice','age_milestone','life_end') AND ts >= ?1 AND ts < ?2`
+
+// Бесплатный D1 - 5 млн прочитанных строк в день на всё. Поэтому запросы читают только нужные события по индексу
+// (name, ts), «первый заход игрока» берут из таблицы players, а не из всей истории событий (syncPlayers).
 export const SQL = {
-  events: `SELECT COUNT(*) AS n FROM events WHERE ts >= ?1 AND ts < ?2`,
-  // Зашли: уникальные с app_open; новые - первое событие игрока вообще попало в этот период.
-  opened: `SELECT COUNT(*) AS opened, COALESCE(SUM(first_ts >= ?1), 0) AS new_players FROM (
-  SELECT o.player_id, (SELECT MIN(e.ts) FROM events e WHERE e.player_id = o.player_id) AS first_ts
-  FROM (SELECT DISTINCT player_id FROM events WHERE name='app_open' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL) o
-)`,
-  funnel: `SELECT ${FUNNEL_COLS} FROM events WHERE ts >= ?1 AND ts < ?2`,
-  funnelByDay: `SELECT ${DAY_SQL} AS day, ${FUNNEL_COLS} FROM events WHERE ts >= ?1 AND ts < ?2 GROUP BY day ORDER BY day DESC`,
+  // Была ли активность за период (1/0) - для «вчера активности не было»; первая же строка, без подсчёта всех.
+  events: `SELECT EXISTS (SELECT 1 FROM events WHERE ts >= ?1 AND ts < ?2) AS n`,
+  // Зашли: уникальные с app_open; новые - первое событие игрока вообще (players.first_ts) попало в этот период.
+  opened: `SELECT COUNT(*) AS opened, COALESCE(SUM(p.first_ts >= ?1), 0) AS new_players
+FROM (SELECT DISTINCT player_id FROM events WHERE name='app_open' AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL) o
+LEFT JOIN players p ON p.player_id = o.player_id`,
+  funnel: `SELECT ${FUNNEL_COLS} FROM events WHERE ${FUNNEL_WHERE}`,
+  funnelByDay: `SELECT ${DAY_SQL} AS day, ${FUNNEL_COLS} FROM events WHERE ${FUNNEL_WHERE} GROUP BY day ORDER BY day DESC`,
   exits: `SELECT COALESCE(json_extract(params_json,'$.screen'),'(нет)') AS screen, COUNT(*) AS n,
   ROUND(AVG(json_extract(params_json,'$.age')),1) AS avg_age,
   ROUND(AVG(json_extract(params_json,'$.sec_in_session'))/60.0,1) AS avg_session_min
@@ -89,26 +94,31 @@ FROM events WHERE name IN ('life_start','life_end') AND ts >= ?1 AND ts < ?2`,
 FROM events WHERE name IN ('life_start','life_end') AND ts >= ?1 AND ts < ?2 GROUP BY mode ORDER BY started DESC, mode LIMIT 10`,
   feedback: `SELECT COUNT(*) AS n, ROUND(AVG(rating),1) AS avg FROM feedback WHERE ts >= ?1 AND ts < ?2`,
   lastFeedback: `SELECT ts, rating, answers_json FROM feedback WHERE ts >= ?1 AND ts < ?2 ORDER BY ts DESC, id DESC LIMIT 1`,
-  playersByDay: `SELECT ${DAY_SQL} AS day, COUNT(DISTINCT player_id) AS players,
+  // Игроки дня - открывшие игру (app_open), без перебора всех событий.
+  playersByDay: `SELECT ${DAY_SQL} AS day, COUNT(DISTINCT CASE WHEN name='app_open' THEN player_id END) AS players,
   SUM(name='life_start') AS lives, SUM(name='life_end') AS deaths, SUM(name='feedback_sent') AS feedback
-FROM events WHERE ts >= ?1 AND ts < ?2 GROUP BY day ORDER BY day DESC`,
+FROM events WHERE name IN ('app_open','life_start','life_end','feedback_sent') AND ts >= ?1 AND ts < ?2 GROUP BY day ORDER BY day DESC`,
   choices: `SELECT json_extract(params_json,'$.event_id') AS event, COUNT(*) AS shown,
   ROUND(100.0*SUM(json_extract(params_json,'$.success'))/COUNT(*)) AS success_pct
 FROM events WHERE name='choice_made' AND ts >= ?1 AND ts < ?2 GROUP BY event ORDER BY shown DESC LIMIT 30`,
   // Сны о будущем: доля верных ответов по сну и шагу и самое частое неверное значение (docs/TZ_dreams.md).
-  dreamSteps: `WITH d AS (
+  // d читается из базы один раз (MATERIALIZED); самый частый неверный ответ - соединением, не подзапросом на каждую группу.
+  dreamSteps: `WITH d AS MATERIALIZED (
   SELECT json_extract(params_json,'$.dream') AS dream, json_extract(params_json,'$.step') AS step,
     json_extract(params_json,'$.correct') AS ok, json_extract(params_json,'$.value') AS value
   FROM events WHERE name='dream_step' AND ts >= ?1 AND ts < ?2 AND json_extract(params_json,'$.training') IS NULL
 ), w AS (
-  SELECT dream, step, value, COUNT(*) AS n, ROW_NUMBER() OVER (PARTITION BY dream, step ORDER BY COUNT(*) DESC) AS r
-  FROM d WHERE ok = 0 GROUP BY dream, step, value
+  SELECT dream, step, value || ' ×' || n AS top_wrong FROM (
+    SELECT dream, step, value, COUNT(*) AS n, ROW_NUMBER() OVER (PARTITION BY dream, step ORDER BY COUNT(*) DESC) AS r
+    FROM d WHERE ok = 0 GROUP BY dream, step, value
+  ) WHERE r = 1
+), g AS (
+  SELECT dream, step, COUNT(*) AS answers, ROUND(100.0*SUM(ok)/COUNT(*)) AS correct_pct FROM d GROUP BY dream, step
 )
-SELECT d.dream AS dream, d.step AS step, COUNT(*) AS answers, ROUND(100.0*SUM(d.ok)/COUNT(*)) AS correct_pct,
-  (SELECT value || ' ×' || n FROM w WHERE w.dream = d.dream AND w.step = d.step AND w.r = 1) AS top_wrong
-FROM d GROUP BY d.dream, d.step ORDER BY d.dream, d.step LIMIT 120`,
+SELECT g.dream AS dream, g.step AS step, g.answers AS answers, g.correct_pct AS correct_pct, w.top_wrong AS top_wrong
+FROM g LEFT JOIN w ON w.dream = g.dream AND w.step = g.step ORDER BY g.dream, g.step LIMIT 120`,
   // A/B второй жизни: игроки, начавшие вторую жизнь по лотерее (не наследником), по вариантам - дожили в ней до 20 и 40,
-  // начали третью жизнь, вернулись в другой день; средний возраст смерти во второй жизни.
+  // начали третью жизнь, вернулись в другой день (открыли или закрыли игру); средний возраст смерти во второй жизни.
   abSecondLife: `WITH s AS (
   SELECT player_id, MIN(ts) AS t2, MIN(COALESCE(json_extract(params_json,'$.ab'),'(нет)')) AS variant,
     MAX(COALESCE(json_extract(params_json,'$.high'),0)) AS high
@@ -117,7 +127,8 @@ FROM d GROUP BY d.dream, d.step ORDER BY d.dream, d.step LIMIT 120`,
     AND COALESCE(json_extract(params_json,'$.gifts'),'') = ''
     AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL
   GROUP BY player_id
-), e AS (SELECT player_id, ts, name, params_json FROM events WHERE ts >= ?1 AND player_id IN (SELECT player_id FROM s))
+), e AS (SELECT player_id, ts, name, params_json FROM events
+  WHERE name IN ('age_milestone','life_start','life_end','app_open','session_end') AND ts >= ?1 AND player_id IN (SELECT player_id FROM s))
 SELECT s.variant AS variant, COUNT(DISTINCT s.player_id) AS players, COUNT(DISTINCT CASE WHEN s.high = 1 THEN s.player_id END) AS high,
   COUNT(DISTINCT CASE WHEN e.name='age_milestone' AND json_extract(e.params_json,'$.life_index')=2 AND json_extract(e.params_json,'$.age')=20 THEN e.player_id END) AS age_20,
   COUNT(DISTINCT CASE WHEN e.name='age_milestone' AND json_extract(e.params_json,'$.life_index')=2 AND json_extract(e.params_json,'$.age')=40 THEN e.player_id END) AS age_40,
@@ -145,15 +156,11 @@ SELECT CASE WHEN spun = 1 THEN 'крутил, но не начал жизнь' W
   COUNT(*) AS players, SUM(sec <= 10) AS quick, CAST(ROUND(AVG(sec)) AS INTEGER) AS avg_sec,
   CAST(ROUND(AVG(scroll)) AS INTEGER) AS avg_scroll, CAST(ROUND(AVG(vh)) AS INTEGER) AS avg_vh
 FROM m GROUP BY what ORDER BY players DESC, what`,
-  // Когорты: день первого события игрока (?1…?2 - номера дней), возврат - любое событие ровно через 1 и 7 дней.
-  cohorts: `WITH f AS (
-  SELECT player_id, CAST((MIN(ts)/1000 + 10800)/86400 AS INTEGER) AS d0 FROM events WHERE player_id IS NOT NULL GROUP BY player_id
-), c AS (SELECT player_id, d0 FROM f WHERE d0 >= ?1 AND d0 <= ?2),
-a AS (SELECT DISTINCT player_id, ${DAYNUM_SQL} AS d FROM events WHERE ts >= ?3 AND player_id IN (SELECT player_id FROM c))
-SELECT c.d0 AS d0, COUNT(DISTINCT c.player_id) AS new_players,
-  COUNT(DISTINCT CASE WHEN a.d = c.d0 + 1 THEN c.player_id END) AS d1,
-  COUNT(DISTINCT CASE WHEN a.d = c.d0 + 7 THEN c.player_id END) AS d7
-FROM c LEFT JOIN a ON a.player_id = c.player_id GROUP BY c.d0 ORDER BY c.d0 DESC`,
+  // Когорты: новые игроки (players.first_ts от ?1 до ?2, мс) и дни, когда игроки открывали или закрывали игру (с ?1, мс;
+  // закрытие - чтобы сессия через полночь тоже считалась заходом в следующий день).
+  // Соединяются в JS (cohorts): соединение в SQL D1 считает как перебор пар строк.
+  cohortPlayers: `SELECT player_id, CAST((first_ts/1000 + 10800)/86400 AS INTEGER) AS d0 FROM players WHERE first_ts >= ?1 AND first_ts < ?2`,
+  cohortOpens: `SELECT DISTINCT player_id, ${DAYNUM_SQL} AS d FROM events WHERE name IN ('app_open','session_end') AND ts >= ?1 AND player_id IS NOT NULL`,
 }
 
 // ---------- Расчёт ----------
@@ -237,7 +244,31 @@ export function feedbackLine(answersJson: unknown, max = 200): string {
   return text.length > max ? text.slice(0, max - 1) + '…' : text
 }
 
-/** Все цифры сводки за период. */
+/** Таблица players (первое событие каждого игрока) догоняется по новым событиям: id больше отметки в counters.
+ *  Читает только новые строки событий; вызывать перед расчётами, где нужны новые игроки и когорты. Возвращает число игроков. */
+let playersReady = false
+export async function syncPlayers(db: D1Database, now = Date.now()): Promise<number> {
+  // Сводка (worker/digest) может прийти в базу раньше сайта - таблицы на этот случай.
+  if (!playersReady) {
+    await db.exec(
+      'CREATE TABLE IF NOT EXISTS players (player_id TEXT PRIMARY KEY, first_ts INTEGER); CREATE INDEX IF NOT EXISTS players_first ON players(first_ts); CREATE TABLE IF NOT EXISTS counters (name TEXT PRIMARY KEY, value INTEGER NOT NULL, mark INTEGER NOT NULL, updated INTEGER NOT NULL);',
+    )
+    playersReady = true
+  }
+  const row = (await db.prepare("SELECT value, mark FROM counters WHERE name = 'players'").all<{ value: number; mark: number }>()).results[0]
+  const mark = row ? Number(row.mark) : 0
+  const top = Number((await db.prepare('SELECT COALESCE(MAX(id), 0) AS m FROM events').all<{ m: number }>()).results[0]?.m ?? 0)
+  if (row && top <= mark) return Number(row.value)
+  await db.batch([
+    db.prepare('INSERT OR IGNORE INTO players (player_id, first_ts) SELECT player_id, MIN(ts) FROM events WHERE id > ?1 AND id <= ?2 AND player_id IS NOT NULL GROUP BY player_id').bind(mark, top),
+    db
+      .prepare("INSERT INTO counters (name, value, mark, updated) VALUES ('players', (SELECT COUNT(*) FROM players), ?1, ?2) ON CONFLICT(name) DO UPDATE SET value = excluded.value, mark = excluded.mark, updated = excluded.updated")
+      .bind(top, now),
+  ])
+  return Number((await db.prepare("SELECT value FROM counters WHERE name = 'players'").all<{ value: number }>()).results[0]?.value ?? 0)
+}
+
+/** Все цифры сводки за период (перед вызовом - syncPlayers, иначе новые игроки последних минут посчитаются вернувшимися). */
 export async function summary(db: D1Database, p: Period, exitsLimit = 5): Promise<Summary> {
   const q = (sql: string, ...extra: unknown[]) => db.prepare(sql).bind(p.from, p.to, ...extra).all()
   const [ev, op, fu, ex, li, mo, fb, last] = await Promise.all([
@@ -279,13 +310,24 @@ export interface CohortRow {
 /** Когорты по дню первого захода за n дней до today (включительно). Возврат, которого ещё не могло быть, - «-». */
 export async function cohorts(db: D1Database, today: number, n = 21): Promise<CohortRow[]> {
   const first = today - n + 1
-  const res = await db.prepare(SQL.cohorts).bind(first, today, dayStart(first + 1)).all()
-  const cell = (d0: number, k: number, v: number, total: number) => (d0 + k > today ? '-' : `${v} (${pct(v, total)})`)
-  return res.results.map((r) => {
+  const [c, a] = await Promise.all([
+    db.prepare(SQL.cohortPlayers).bind(dayStart(first), dayStart(today + 1)).all<{ player_id: string; d0: number }>(),
+    db.prepare(SQL.cohortOpens).bind(dayStart(first + 1)).all<{ player_id: string; d: number }>(),
+  ])
+  const opens = new Set(a.results.map((r) => `${r.player_id}:${num(r.d)}`))
+  const byDay = new Map<number, { total: number; d1: number; d7: number }>()
+  for (const r of c.results) {
     const d0 = num(r.d0)
-    const total = num(r.new_players)
-    return { day: dayIso(d0), new_players: total, d1: cell(d0, 1, num(r.d1), total), d7: cell(d0, 7, num(r.d7), total) }
-  })
+    const g = byDay.get(d0) ?? { total: 0, d1: 0, d7: 0 }
+    g.total++
+    if (opens.has(`${r.player_id}:${d0 + 1}`)) g.d1++
+    if (opens.has(`${r.player_id}:${d0 + 7}`)) g.d7++
+    byDay.set(d0, g)
+  }
+  const cell = (d0: number, k: number, v: number, total: number) => (d0 + k > today ? '-' : `${v} (${pct(v, total)})`)
+  return [...byDay]
+    .sort((x, y) => y[0] - x[0])
+    .map(([d0, g]) => ({ day: dayIso(d0), new_players: g.total, d1: cell(d0, 1, g.d1, g.total), d7: cell(d0, 7, g.d7, g.total) }))
 }
 
 // ---------- Форматирование для Telegram (parse_mode HTML) ----------
@@ -412,6 +454,7 @@ export const HELP = [
 
 /** Ежедневная сводка: вчера (по Стамбулу) с дельтой к позавчера. Её же шлёт команда /digest. */
 export async function digestMessage(db: D1Database, now: number): Promise<string> {
+  await syncPlayers(db, now)
   const y = dayOf(now) - 1
   const cur = await summary(db, period(y))
   if (!cur.events && !cur.feedback.n) return `<b>Тысячи жизней, вчера ${esc(dayLabel(y))}</b>\nВчера активности не было.`
@@ -425,6 +468,7 @@ export async function commandReply(db: D1Database | undefined, command: string, 
   if (command === '/help' || command === '/start') return HELP
   if (!['/stats', '/week', '/funnel', '/exits', '/digest'].includes(command)) return HELP
   if (!db) return 'База D1 не подключена к сайту (привязка DB) - считать не из чего.'
+  await syncPlayers(db, now)
   if (command === '/stats') {
     const [t, y] = await Promise.all([summary(db, period(today)), summary(db, period(today - 1))])
     return formatTwoDays(t, y)

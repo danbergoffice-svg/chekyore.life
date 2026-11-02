@@ -201,7 +201,7 @@ function oracle({ ev, fb }, p, exitsLimit = 5) {
   const lv = inP.filter((e) => e.name === 'life_start' || e.name === 'life_end')
   const modes = [...new Set(lv.map((e) => e.p.mode ?? '(нет)'))].map((m) => lives(lv.filter((e) => (e.p.mode ?? '(нет)') === m), m)).sort((a, b) => b.started - a.started || (a.mode < b.mode ? -1 : 1))
   const f = fb.filter((x) => x.ts >= p.from && x.ts < p.to)
-  return { events: inP.length, opened: openedSet.length, newPlayers, returning: openedSet.length - newPlayers, played: funnel.life_start, funnel, exits, lives: lives(lv, 'все'), modes, feedback: { n: f.length, avg: r1(avg(f.map((x) => x.rating))), lastRating: f.length ? f[f.length - 1].rating : null } }
+  return { events: inP.length ? 1 : 0, opened: openedSet.length, newPlayers, returning: openedSet.length - newPlayers, played: funnel.life_start, funnel, exits, lives: lives(lv, 'все'), modes, feedback: { n: f.length, avg: r1(avg(f.map((x) => x.rating))), lastRating: f.length ? f[f.length - 1].rating : null } }
 }
 const pick = (s) => ({ events: s.events, opened: s.opened, newPlayers: s.newPlayers, returning: s.returning, played: s.played, funnel: s.funnel, exits: s.exits, lives: s.lives, modes: s.modes, feedback: { n: s.feedback.n, avg: s.feedback.avg, lastRating: s.feedback.last?.rating ?? null } })
 

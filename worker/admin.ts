@@ -1,6 +1,6 @@
 // /admin - отчёты и отзывы, /admin/export - выгрузка CSV. Пароль ADMIN_PASSWORD (Basic, логин любой).
 // Цифры считаются тем же кодом, что и бот, и ежедневная сводка (worker/stats.ts), дни - по Стамбулу.
-import { cohorts, dayIso, dayOf, dayStart, digestMessage, esc, FUNNEL_STEPS, pct, period, SQL, summary, type D1Database } from './stats'
+import { cohorts, dayIso, dayOf, dayStart, digestMessage, esc, FUNNEL_STEPS, pct, period, SQL, summary, syncPlayers, type D1Database } from './stats'
 import { safeEqual } from './telegram'
 
 export interface AdminEnv {
@@ -43,6 +43,7 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
   const today = dayOf(now)
   const week = period(today, 7)
   const two = period(today, 14)
+  await syncPlayers(db, now)
   const all = (sql: string, p = week) => db.prepare(sql).bind(p.from, p.to).all().then((r) => r.results)
   const [fb, s, byDay, players, choices, dreams, cohortRows, digest, ab, daily, menuLeave] = await Promise.all([
     db.prepare("SELECT datetime(ts/1000 + 10800,'unixepoch') AS time, rating, answers_json, contact, context_json FROM feedback ORDER BY ts DESC LIMIT 100").all(),
@@ -102,7 +103,7 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
 table{border-collapse:collapse;font-size:13px}td,th{border:1px solid #d6c6aa;padding:4px 8px;text-align:left}th{background:#ebdfc8}.scroll{overflow-x:auto}
 article,.tg{background:#fbf6ec;border:1px solid #d6c6aa;border-radius:8px;padding:8px 12px;margin:8px 0}article p{margin:4px 0}.muted{color:#7d6b58;font-size:13px}
 .tg{white-space:pre-wrap;max-width:520px}.tg pre{margin:4px 0;font-size:13px;overflow-x:auto}</style></head>
-<body><h1>Тысячи жизней - отзывы и отчёты</h1><p class="muted">Дни считаются по Стамбулу (UTC+3). «7 дней» - сегодня и 6 дней до него, как в командах бота.</p>${csv}
+<body><h1>Тысячи жизней - отзывы и отчёты</h1><p class="muted">Дни считаются по Стамбулу (UTC+3). «7 дней» - сегодня и 6 дней до него, как в командах бота.<br>Посчитано в ${new Date(now + 10800e3).toISOString().slice(11, 16)} по Стамбулу; страница обновляется раз в 10 минут - <a href="/admin?fresh=1">пересчитать сейчас</a>.</p>${csv}
 <h2>Сводка за вчера - то же сообщение, что утром приходит в Telegram</h2><div class="tg">${digest}</div>
 ${reports.map((r) => `<h2>${esc(r.title)}</h2>${table(r.rows)}`).join('')}<h2>Отзывы (последние 100)</h2>${feedbackHtml}</body></html>`
   return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
