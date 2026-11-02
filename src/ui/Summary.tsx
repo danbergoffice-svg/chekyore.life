@@ -1,40 +1,23 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
-import { axisLabel, survivalTable } from '../engine/report'
+import { survivalTable } from '../engine/report'
 import { EXTERNAL, platform } from '../platform'
-import { classKey, npcAge, regionOf, roleKey } from '../engine/rules'
-import { AXES } from '../engine/types'
-import type { DiaryEntry, EraDef, Icon, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
-import { formatMoney, formatYear, hasKey, nameOf } from '../i18n'
+import { classKey, npcAge, roleKey } from '../engine/rules'
+import type { DiaryEntry, EraDef, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
+import { formatYear, nameOf } from '../i18n'
 import { dreamDef } from '../engine/dreams'
 import { Scene } from '../pixel/Scene'
-import { Avatar } from '../pixel/Avatar'
-import { lifeMarks } from '../pixel/avatar'
-import { BarList, LineChart, Numbers } from './charts'
 import { CARD_SIZES, cleanLine, drawCard } from './shareCard'
-import { lifeCardData, portraitAges, portraitInput } from './lifeCard'
+import { lifeCardData } from './lifeCard'
 import { QUOTES } from '../content/quotes'
 import type { CardFormat } from './shareCard'
 import { diaryText, useUi } from './text'
 import { Icon as Glyph } from './Icon'
+import { Farewell, StoryCards, storyCards, Tombstone } from './Epilogue'
+import { lifeHighlights } from '../engine/highlights'
 
 /** Адрес сайта - только в сборке для сайта; на порталах ссылок наружу нет. */
 const SITE_NAME = 'thousands.life'
 const SITE = `https://${SITE_NAME}`
-
-const ICON_GLYPH: Record<Icon, string> = {
-  birth: '●',
-  child: '◆',
-  wedding: '◎',
-  death: '■',
-  move: '➜',
-  loss: '▼',
-  find: '▲',
-  war: '⚑',
-  disaster: '✷',
-  freedom: '○',
-  study: '✎',
-  love: '♥\uFE0E',
-}
 
 /** Сцена для записи дневника: сцена события или подходящая по смыслу. */
 export function entryScene(e: DiaryEntry, era: EraDef): SceneDef {
@@ -80,11 +63,9 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
   // Старые записи мемориала без сословия при рождении показывают итоговое.
   const birthCls = classKey(r.facts.birthCls ?? life.cls, life.tags)
   const name = nameOf(life.name, lang)
-  const coin = regionOf(era, life.region).coin
   const [sharing, setSharing] = useState<false | 'life' | 'dream'>(false)
   const starred = life.starred ?? []
   const toggleStar = (i: number) => onUpdate({ ...life, starred: starred.includes(i) ? starred.filter((x) => x !== i) : [...starred, i] })
-  const line = (e: DiaryEntry) => diaryText(t, e, life.sex, life.region, life.religion, lang)
   const archetype = t(`archetype.${r.pattern.code}`)
   const act = (action: string, run: () => void) => () => {
     platform.track('summary_action', { action })
@@ -92,6 +73,13 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
     if (action === 'share_dream') platform.track('share_open', { what: 'dream' })
     run()
   }
+
+  // Яркие факты: первый - на надгробие.
+  const hooks = useMemo(() => lifeHighlights(life).filter((h) => !h.key.startsWith('hook.lived')).map((h) => t(h.key, h.params, o)), [life.heroId, lang])
+  const cards = useMemo(() => {
+    const quote = lifeCardData(life, t, lang, { quotes: QUOTES, playerLine: '', site: '', scene: { place: 'landmark', time: 'day', people: 3 } }).quotes[0]
+    return storyCards(t, life, era, lang, entryScene, quote)
+  }, [life.heroId, lang])
 
   const bio = r.biography.map((s) => {
     const params: Record<string, string | number | { key: string } | { name: string }> = { ...(s.params ?? {}), name, year: formatYear(life.birthYear, lang) }
@@ -101,106 +89,50 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
 
   return (
     <div class="screen summary">
-      {/* 1. Запись о смерти */}
-      <section class="block record-card" aria-labelledby="sum-name">
-        <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} still frame year={life.deathYear} />
+      {/* 1. Надгробие: портрет, имя, годы, главный факт жизни */}
+      <Tombstone life={life} epitaph={hooks[0] ?? ''} />
+      <section class="block record-card">
         <p class="eyebrow">{t('summary.record', { n: String(life.record ?? 1).padStart(6, '0') })}</p>
-        <h1 id="sum-name" class="hero-name big">{name}</h1>
-        <p class="muted">
-          {formatYear(life.birthYear, lang)} - {formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}
+        <p class="muted small">
+          {t(`era.${life.era}`)} · {t(`region.${life.region}`)} · {t(`class.${birthCls}`, {}, o)}
+          {birthCls !== classKey(life.cls, life.tags) ? ` → ${t(`class.${classKey(life.cls, life.tags)}`, {}, o)}` : ''}
         </p>
-        <p class="muted">
-          {t(`era.${life.era}`)} · {t(`region.${life.region}`)} · {t(`summary.sex.${life.sex}`)} · {t(`class.${birthCls}`, {}, o)}
-        </p>
-        <p class="muted small">{t('summary.cls_line', { born: { key: `class.${birthCls}` }, died: { key: `class.${classKey(life.cls, life.tags)}` } }, o)}</p>
         <p class="bio-text">{bio.join(' ')}</p>
-        <PortraitRibbon life={life} />
         {life.offChronicle !== undefined && <p class="small muted">{t('summary.off_chronicle', { year: formatYear(life.offChronicle, lang) })}</p>}
         {(life.erasLived?.length ?? 0) > 1 && <p class="small muted">{t('summary.path', { list: life.erasLived!.map((id) => t(`era.${id}`)).join(' → ') })}</p>}
-        <p>
-          <strong>{t('summary.cause')}:</strong> {t(`cause.${life.cause}`)}
-        </p>
-        <div class="note-box small">
-          <p>{t('summary.cmp_expected', { n: r.comparison.expected, adult: r.comparison.expectedAdult })}</p>
-          <p>
-            {r.comparison.difference > 0
-              ? t('summary.cmp_more', { name, n: r.comparison.difference }, o)
-              : r.comparison.difference < 0
-                ? t('summary.cmp_less', { n: -r.comparison.difference })
-                : t('summary.cmp_same')}{' '}
-            {t('summary.cmp_outlived', { n: r.comparison.outlivedBy }, o)}
-          </p>
-          {life.age >= 15 && (
-            // Сравнение со взрослыми: детская смертность занижает «среднюю жизнь», доживший до 15 жил дольше.
+        <details class="compare">
+          <summary class="small">{t('summary.compare')}</summary>
+          <div class="note-box small">
+            <p>{t('summary.cmp_expected', { n: r.comparison.expected, adult: r.comparison.expectedAdult })}</p>
             <p>
-              {life.age - r.comparison.expectedAdult > 0
-                ? t('summary.cmp_adult_more', { n: life.age, d: life.age - r.comparison.expectedAdult }, o)
-                : t('summary.cmp_adult_less', { n: life.age, d: r.comparison.expectedAdult - life.age }, o)}
+              {r.comparison.difference > 0
+                ? t('summary.cmp_more', { name, n: r.comparison.difference }, o)
+                : r.comparison.difference < 0
+                  ? t('summary.cmp_less', { n: -r.comparison.difference })
+                  : t('summary.cmp_same')}{' '}
+              {t('summary.cmp_outlived', { n: r.comparison.outlivedBy }, o)}
             </p>
-          )}
-          {r.comparison.causeShare !== null && <p>{t('summary.cmp_cause', { n: r.comparison.causeShare })}</p>}
-          <p class="confidence">{t('summary.source')}</p>
-        </div>
+            {life.age >= 15 && (
+              // Сравнение со взрослыми: детская смертность занижает «среднюю жизнь», доживший до 15 жил дольше.
+              <p>
+                {life.age - r.comparison.expectedAdult > 0
+                  ? t('summary.cmp_adult_more', { n: life.age, d: life.age - r.comparison.expectedAdult }, o)
+                  : t('summary.cmp_adult_less', { n: life.age, d: r.comparison.expectedAdult - life.age }, o)}
+              </p>
+            )}
+            {r.comparison.causeShare !== null && <p>{t('summary.cmp_cause', { n: r.comparison.causeShare })}</p>}
+            <p class="confidence">{t('summary.source')}</p>
+          </div>
+        </details>
       </section>
+
+      {/* 2. Жизнь в карточках: листаются как сторис */}
+      <StoryCards life={life} cards={cards} />
+
+      {/* 3. Слова у могилы, что осталось, 100 ровесников */}
+      <Farewell life={life} era={era} />
 
       {challenge}
-
-      {/* 2. Карточка фактов */}
-      <section class="block">
-        <h2 class="section-title">{t('facts.title')}</h2>
-        <dl class="facts">
-          <dt>{t('facts.education')}</dt>
-          <dd>{r.facts.education.map((s) => t(s.key, s.key === 'facts.edu.skill' ? { skill: t((s.params?.skill as { key: string }).key).toLocaleLowerCase(lang) } : s.params, o)).join(' ')}</dd>
-          <dt>{t('facts.work')}</dt>
-          <dd>{life.profession ? t(`prof.${life.profession}`, {}, o) : t('life.no_profession')}</dd>
-          <dt>{t('facts.status')}</dt>
-          <dd>{t('facts.status_value', { n: r.facts.percentile })}</dd>
-          <dt>{t('facts.partners')}</dt>
-          <dd>{r.facts.partners.length ? r.facts.partners.map((p) => t('facts.partner', { who: { name: p.name }, n: p.years })).join('; ') : t('facts.none')}</dd>
-          <dt>{t('facts.children')}</dt>
-          <dd>{t('facts.children_value', { n: r.facts.children, grand: r.facts.grandchildren })}</dd>
-          <dt>{t('facts.farewell')}</dt>
-          <dd>
-            {r.facts.farewell.length
-              ? r.facts.farewell
-                  .map((id) => life.npcs.find((n) => n.id === id))
-                  .filter((n): n is Npc => !!n)
-                  .map((n) => `${nameOf(n.name, lang)} (${t(`npc.${roleKey(life.npcs, n)}`, { sex: n.sex }).toLocaleLowerCase(lang)})`)
-                  .join(', ')
-              : t('facts.farewell_none')}
-          </dd>
-          {r.facts.happiestAge !== null && (
-            <>
-              <dt>{t('facts.happiest')}</dt>
-              <dd>
-                {t('facts.happiest_value', { n: r.facts.happiestAge })}
-                {r.facts.happiestReason !== null && life.diary[r.facts.happiestReason] ? ` - ${line(life.diary[r.facts.happiestReason])}` : ''}
-              </dd>
-            </>
-          )}
-          <dt>{t('facts.places', {}, o)}</dt>
-          <dd>{life.places.map((p) => (hasKey(lang, `place.${p}`) ? t(`place.${p}`) : t(`region.${p}`))).join(' → ')}</dd>
-          {r.facts.hobbies.length > 0 && (
-            <>
-              <dt>{t('facts.hobbies')}</dt>
-              <dd>{r.facts.hobbies.map((h) => t(`hobby.${h}`)).join(', ')}</dd>
-            </>
-          )}
-          <dt>{t('facts.wealth')}</dt>
-          <dd>{formatMoney(t, r.facts.wealth, coin)}</dd>
-        </dl>
-        {Object.keys(r.facts.timeUse).length > 0 && (
-          <>
-            <h3>{t('facts.timeuse')}</h3>
-            <BarList
-              label={t('facts.timeuse')}
-              items={Object.entries(r.facts.timeUse)
-                .sort((a, b) => b[1] - a[1])
-                .map(([k, v]) => ({ label: t(`timeuse.${k}`), value: v }))}
-            />
-          </>
-        )}
-      </section>
 
       {/* 2б. Сон о будущем: что приснилось, чем кончилось и как было на самом деле */}
       {life.dreamSeen && !life.dreamSeen.skipped && (
@@ -271,120 +203,8 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         </section>
       )}
 
-      {/* 3. Узор жизни */}
-      <section class="block">
-        <h2 class="section-title">{t('pattern.title')}</h2>
-        <p class="archetype">{archetype}</p>
-        <div class="axes">
-          {AXES.map((a) => {
-            const v = r.pattern.scores[a]
-            const side = t(`pattern.axis.${a}.${v > 0 ? 'right' : 'left'}`)
-            return (
-              <div class="axis">
-                <div class="axis-labels">
-                  <span>{t(`pattern.axis.${a}.left`)}</span>
-                  <span class="muted">{t(`pattern.label.${axisLabel(v)}`, { side })}</span>
-                  <span>{t(`pattern.axis.${a}.right`)}</span>
-                </div>
-                <div class="axis-track" role="meter" aria-valuemin={-100} aria-valuemax={100} aria-valuenow={v} aria-label={`${t(`pattern.axis.${a}.left`)} / ${t(`pattern.axis.${a}.right`)}`}>
-                  <span class="axis-mid" />
-                  <span class="axis-dot" style={{ left: `${(v + 100) / 2}%` }} />
-                </div>
-              </div>
-            )
-          })}
-        </div>
-        <p class="small muted">{t('pattern.disclaimer.no_best_life')}</p>
-      </section>
-
-      {/* 4. Карта жизни */}
-      <section class="block">
-        <h2 class="section-title">{t('map.title')}</h2>
-        <div class="lifemap" role="list">
-          {r.map.map((y) => (
-            <span
-              role="listitem"
-              class={`cell mood-${Math.min(4, Math.floor(y.happiness / 20))}${y.age === r.comparison.expected ? ' expected' : ''}`}
-              title={`${t('map.year', { n: y.age, mood: y.happiness })}${y.icons.length ? ` · ${y.icons.map((i) => t(`icon.${i}`)).join(', ')}` : ''}`}
-              aria-label={`${t('map.year', { n: y.age, mood: y.happiness })}${y.icons.length ? `, ${y.icons.map((i) => t(`icon.${i}`)).join(', ')}` : ''}`}
-            >
-              {y.icons.length ? ICON_GLYPH[y.icons[0]] : ''}
-            </span>
-          ))}
-        </div>
-        <p class="small muted">{t('map.legend')}</p>
-        <ul class="legend small">
-          {(Object.keys(ICON_GLYPH) as Icon[])
-            .filter((i) => r.map.some((y) => y.icons.includes(i)))
-            .map((i) => (
-              <li>
-                {ICON_GLYPH[i]} {t(`icon.${i}`)}
-              </li>
-            ))}
-        </ul>
-        <h3 class="small">{t('map.survival', {}, o)}</h3>
-        <LineChart label={t('map.survival', {}, o)} points={r.comparison.survival.slice(0, Math.max(life.age + 10, 60)).map((y, x) => ({ x, y }))} yMin={0} yMax={100} frameX={life.age} />
-      </section>
-
-      {/* 5. Моменты, которые стоит запомнить */}
-      <section class="block">
-        <h2 class="section-title">{t('moments.title')}</h2>
-        <ol class="moments">
-          {r.keyMoments
-            .filter((i) => life.diary[i])
-            .map((i) => {
-              const e = life.diary[i]
-              return (
-                <li>
-                  <Scene scene={entryScene(e, era)} region={life.region} seed={`${life.heroId}:${i}`} still />
-                  <p>
-                    <span class="diary-age">{t('diary.age', { n: e.age })}</span> {line(e)}
-                  </p>
-                </li>
-              )
-            })}
-        </ol>
-      </section>
-
       {/* 6. Полная запись жизни */}
       <FullRecord life={life} era={era} starred={starred} onStar={toggleStar} />
-
-      {/* 7. Графики - свёрнуты, чтобы итог читался быстро */}
-      <details class="block fold" onToggle={(e) => e.currentTarget.open && platform.track('tab_open', { tab: 'charts' })}>
-        <summary>
-          <h2 class="section-title">{t('charts.title')}</h2>
-        </summary>
-        <h3>{t('charts.status')}</h3>
-        <p class="small muted">{t('charts.status_desc')}</p>
-        <LineChart
-          label={t('charts.status')}
-          points={r.charts.status.map((p) => ({ x: p.age, y: p.value }))}
-          yMin={0}
-          yMax={100}
-          bands={r.charts.bands.map((b) => ({ from: b.from, to: b.to, label: t(`class.${b.cls}`, {}, o) }))}
-        />
-        <Numbers head={[t('charts.age'), t('charts.value')]} rows={r.charts.status.filter((_, i) => i % 5 === 0).map((p) => [p.age, p.value])} />
-        <h3>{t('charts.wealth')}</h3>
-        <LineChart
-          label={t('charts.wealth')}
-          points={r.charts.wealth.map((p) => ({ x: p.age, y: p.value }))}
-          marks={r.charts.wealth.filter((p) => p.reasons.length).map((p) => p.age)}
-          format={(v) => (Math.abs(v) >= 1000 ? `${Math.round(v / 100) / 10}k` : String(v))}
-        />
-        <Numbers
-          head={[t('charts.age'), t('charts.value'), t('charts.reasons')]}
-          rows={r.charts.wealth
-            .filter((p, i) => i % 5 === 0 || p.reasons.length)
-            .map((p) => [p.age, formatMoney(t, p.value, coin), p.reasons.map((i) => life.diary[i] && line(life.diary[i])).join('; ')])}
-        />
-        <h3>{t('charts.timeuse')}</h3>
-        <BarList
-          label={t('charts.timeuse')}
-          items={Object.entries(r.charts.timeUse)
-            .sort((a, b) => b[1] - a[1])
-            .map(([k, v]) => ({ label: t(`timeuse.${k}`), value: v }))}
-        />
-      </details>
 
       {/* 8. Связь с родом */}
       <FamilyLink life={life} />
@@ -686,23 +506,6 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
           </div>
         </div>
       </div>
-    </div>
-  )
-}
-
-/** Лента портретов: детство, юность, зрелость, старость - по истории героя, без хранения картинок. */
-function PortraitRibbon({ life }: { life: LifeSummary }) {
-  const { t } = useUi()
-  const shown = portraitAges(life, 5)
-  if (shown.length < 2) return null
-  return (
-    <div class="portrait-ribbon" role="list" aria-label={t('summary.portraits')}>
-      {shown.map((age, i) => (
-        <figure role="listitem">
-          <Avatar input={portraitInput(life, age, i === shown.length - 1)} label={t('life.portrait', { n: age })} />
-          <figcaption class="small muted">{t('summary.portrait_age', { n: age })}</figcaption>
-        </figure>
-      ))}
     </div>
   )
 }

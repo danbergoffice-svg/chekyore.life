@@ -240,7 +240,7 @@ export function validateEra(era: EraDef): string[] {
 export const SAMPLE_PARAMS = {
   n: 3, subject: 'x', title: 'x', npc: 'x', pet: 'x', kid: 'x', total: 9, dream: 'x', result: 'x', homeland: 'x', homeplace: 'x', country: 'x', i: 1, h: 1, a: 1, place: 'x', region: 'x', cls: 'x', parent: 'x', child: 'x', who: 'x', cause: 'x', year: 'x', money: 1, name: 'x', adult: 1, list: 'x', prof: 'x',
   grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x', born: 'x', died: 'x', focus: 'x', via: 'x', role: 'x',
-  gift: 'x', desc: 'x', to: 'x', count: '1 234',
+  gift: 'x', desc: 'x', to: 'x', count: '1 234', sum: 'x', m: 2,
 }
 
 /** Ключи, в которых после подстановки остались фигурные скобки. */
@@ -251,7 +251,7 @@ export function leftoverBraces(keys?: string[]): string[] {
       const t = createT(lang, { sex })
       // Числа снов о будущем ({wall}, {liters}…) - тоже параметры; {i:имя} - значки интерфейса (Icon.tsx), не скобки.
       const dreamParams = Object.fromEntries(DREAM_DEFS.flatMap((d) => [...Object.keys(d.params ?? {}), ...Object.keys(d.derived ?? {})]).map((k) => [k, 1]))
-      const params = { ...SAMPLE_PARAMS, ...dreamParams, sex, psex: sex, vsex: sex, npc_sex: sex }
+      const params = { ...SAMPLE_PARAMS, ...dreamParams, sex, psex: sex, vsex: sex, npc_sex: sex, s: sex }
       for (const k of keys ?? allKeys(lang)) if (hasKey(lang, k) && /[{}]/.test(t(k, params).replace(/\{i:\w+\}/g, ''))) out.push(`${lang}:${k}`)
     }
   }

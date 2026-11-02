@@ -248,3 +248,54 @@ html.skin .dream-modal .primary { background: var(--sheet); color: var(--night);
 html.skin .dream-modal .link { color: #a9b0ff; text-decoration-color: rgba(169, 176, 255, 0.5); }
 
 html.skin .player-chip { background: var(--sheet); color: var(--night); border-radius: 0; clip-path: var(--rough-b); font-weight: 700; }
+
+/* Экран после смерти (02.11): надгробие с портретом, карточки-факты листаются как сторис, слова у могилы, 100 ровесников. */
+html.skin .tomb { position: relative; padding-bottom: 4px; }
+html.skin .tomb .stone { position: relative; width: 84%; margin: -34px auto 0; padding: 16px 14px 18px; box-sizing: border-box; text-align: center;
+  background: linear-gradient(180deg, #d6cdb9, #b9af99); color: #2a2620; border-radius: 140px 140px 6px 6px;
+  box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.14), inset 0 2px 0 rgba(255, 255, 255, 0.35), 0 6px 0 #6f6656, 0 10px 18px rgba(0, 0, 0, 0.35); }
+html.skin .stone-portrait { width: 84px; height: 105px; margin: 0 auto 6px; padding: 4px; background: #e9e1cf; border-radius: 42px 42px 4px 4px; box-shadow: inset 0 0 0 2px #8c826d; }
+html.skin .stone-portrait canvas { width: 100% !important; height: 100% !important; image-rendering: pixelated; border-radius: 38px 38px 2px 2px; }
+html.skin .stone-name { font-family: var(--font-display); font-size: clamp(1.8rem, 9vw, 2.4rem); line-height: 1.05; margin: 4px 0 2px; color: #231d16; }
+html.skin .stone-years { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.03em; }
+html.skin .stone-age { margin: 0 0 8px; font-size: 14px; color: #5a5040; }
+html.skin .stone-epi { margin: 0 auto; max-width: 26ch; font-style: italic; font-size: 15px; line-height: 1.35; border-top: 1px solid rgba(42, 38, 32, 0.25); padding-top: 8px; }
+html.skin .summary details.compare { margin-top: 8px; }
+html.skin .summary details.compare > summary { cursor: pointer; color: var(--muted); }
+
+html.skin .stories { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 4px 16px 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+html.skin .stories::-webkit-scrollbar { display: none; }
+html.skin .story { flex: 0 0 82%; max-width: 340px; min-height: 360px; box-sizing: border-box; scroll-snap-align: center; display: flex; flex-direction: column; padding: 18px 18px 20px; clip-path: var(--rough-c); }
+html.skin .story canvas { width: 100% !important; height: auto !important; image-rendering: pixelated; }
+html.skin .story .scene-canvas, html.skin .story > canvas { margin-bottom: 10px; }
+html.skin .story-portraits { display: flex; gap: 6px; }
+html.skin .story-portraits canvas { width: 25% !important; height: auto !important; background: #e2d3b3; }
+html.skin .story-label { margin: auto 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
+html.skin .story-big { font-family: var(--font-display); font-size: 56px; line-height: 1; margin: 6px 0 8px; }
+html.skin .story-big.long { font-size: 34px; line-height: 1.1; }
+html.skin .story-label + .story-big, html.skin .story-big:first-child { margin-top: 6px; }
+html.skin .story > .story-big:first-of-type:not(:first-child) { margin-top: auto; }
+html.skin .story-text { margin: 0; font-size: 16px; line-height: 1.4; }
+html.skin .story-quote { margin: auto 0 10px; font-size: 21px; font-style: italic; line-height: 1.35; }
+html.skin .tone-night { background: #0f1729; color: var(--sheet); box-shadow: inset 0 0 0 2px #33456b; }
+html.skin .tone-sun { background: var(--mustard); color: var(--night); }
+html.skin .tone-cold { background: #3a4b72; color: var(--sheet); }
+html.skin .tone-terra { background: var(--terra); color: var(--night); }
+html.skin .tone-olive { background: var(--olive); color: var(--sheet); }
+html.skin .tone-sky { background: #9fc1ff; color: var(--night); }
+html.skin .tone-paper { background: var(--sheet); color: var(--night); }
+html.skin .story-dots { display: flex; gap: 5px; align-items: center; margin-top: 8px; }
+html.skin .story-dots span:not(.story-swipe) { width: 7px; height: 7px; border-radius: 50%; background: rgba(243, 234, 215, 0.25); }
+html.skin .story-dots span.on { background: var(--sheet); }
+html.skin .story-swipe { margin-left: auto; font-size: 13px; color: var(--muted); }
+
+html.skin .voice { display: flex; gap: 12px; margin: 0 0 14px; align-items: flex-start; }
+html.skin .voice canvas { width: 52px !important; height: 65px !important; flex: none; image-rendering: pixelated; background: #e2d3b3; }
+html.skin .voice blockquote { margin: 0; font-style: italic; line-height: 1.45; }
+html.skin .voice cite { display: block; margin-top: 4px; font-style: normal; font-size: 13px; color: var(--muted); }
+html.skin ul.remains { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
+html.skin ul.remains .icon { color: var(--mustard); margin-right: 4px; }
+html.skin .people100 { display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; margin-bottom: 8px; }
+html.skin .people100 span { height: 13px; border-radius: 6px 6px 2px 2px; background: var(--sheet); opacity: 0.85; }
+html.skin .people100 span.longer { background: #3a4b72; opacity: 1; }
+html.skin .people100 span.me { background: var(--terra); opacity: 1; box-shadow: 0 0 0 2px rgba(223, 108, 79, 0.35); }
