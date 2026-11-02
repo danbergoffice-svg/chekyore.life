@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru" class="skin">
+<head>
+<meta charset="utf-8" />
+<title>Детская мини-игра - макеты</title>
+<style>
+  body { margin: 0; padding: 24px; }
+  .kgrid { display: grid; grid-template-columns: repeat(5, 360px); gap: 26px 22px; }
+  .kcap { margin: 0 0 8px; font-family: var(--font-display); font-size: 22px; color: var(--mustard); }
+  .kphone { width: 360px; background: var(--bg); outline: 2px solid #33456b; border-radius: 20px; overflow: hidden; }
+  .kscene { position: relative; }
+  .kscene canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+  .kage { position: absolute; left: 10px; top: 8px; background: var(--night); color: var(--sheet); padding: 2px 8px; font-size: 12px; font-weight: 700; clip-path: var(--rough-b); }
+  .kbody { padding: 10px 14px 14px; }
+  .ktitle { font-family: var(--font-display); color: var(--sheet); font-size: 28px; margin: 2px 0 4px; }
+  .kstory { margin: 0 0 10px; font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+  .ktasks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+  .ktask { display: flex; flex-direction: column; gap: 2px; padding: 6px 7px; background: rgba(243, 234, 215, 0.08); border: 1px solid #33456b; border-radius: 6px; font-size: 11.5px; line-height: 1.25; color: var(--ink-2); }
+  .ktask.on { background: var(--sheet); color: var(--night); border-color: var(--sheet); }
+  .kdir { font-weight: 800; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .ktask:not(.on) .kdir { color: var(--mustard); }
+  .kreward { font-weight: 700; color: var(--terra); }
+  .ktask.on .kreward { color: #a8432a; }
+  .kboard { background: rgba(0, 0, 0, 0.22); border-radius: 10px; padding: 6px; }
+  .kboard svg { display: block; width: 100%; height: auto; font-family: var(--font); }
+  .krule { margin: 8px 0 6px; font-size: 13px; color: var(--muted); line-height: 1.35; }
+  .kfoot { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--ink-2); }
+  .kbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .kbtns button { min-height: 40px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="./kids.tsx"></script>
+</body>
+</html>
