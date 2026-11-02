@@ -20,7 +20,8 @@
     "dream-review": "vite-node tools/dream-review.ts",
     "size": "node tools/size.mjs",
     "art": "vite-node tools/art.ts",
-    "longevity": "vite-node tools/longevity.ts --"
+    "longevity": "vite-node tools/longevity.ts --",
+    "kids:page": "vite build -c tools/kids-page.config.ts && node tools/kids-page-inline.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
