@@ -518,3 +518,20 @@ export function playReels(reels: ReelTiming[]): void {
   const out = sfxTarget()
   if (out && ctx) reelsSound(ctx, out, ctx.currentTime + 0.02, reels)
 }
+
+/** Нота ранней детской игры: барабаны «Повтори», щелчок сбора, звон победы. Громкость - как у остальных звуков. */
+export function playNote(freq: number, ms = 220, type: OscillatorType = 'triangle'): void {
+  const out = sfxTarget()
+  if (!out || !ctx) return
+  const t = ctx.currentTime + 0.01
+  const o = ctx.createOscillator()
+  const g = ctx.createGain()
+  o.type = type
+  o.frequency.value = freq
+  g.gain.setValueAtTime(0.0001, t)
+  g.gain.exponentialRampToValueAtTime(0.6, t + 0.012)
+  g.gain.exponentialRampToValueAtTime(0.0001, t + ms / 1000)
+  o.connect(g).connect(out)
+  o.start(t)
+  o.stop(t + ms / 1000 + 0.03)
+}

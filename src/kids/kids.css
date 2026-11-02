@@ -33,3 +33,28 @@
 .kb-swatch.on { outline: 3px solid var(--mustard, #ecd06f); outline-offset: 2px; }
 .kb-arrows { display: grid; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 48px); gap: 6px; justify-content: center; margin-top: 8px; }
 .kb-arrows button { font-size: 22px; min-height: 0; padding: 0; }
+/* Ранние игры (2–4 года): появление, сбор, полёт в миску, качание, падение кубика, подсветка клеток. */
+.kt-pop { animation: kt-in 0.25s both; }
+.kt-got { animation: kt-got 0.26s both; }
+.kt-gone { animation: kt-gone 0.3s both; }
+.kt-in { animation: kt-in 0.25s both; }
+.kt-fly-a { animation: kt-fly-a 0.3s both; }
+.kt-fly-b { animation: kt-fly-b 0.3s both; }
+.kt-shake { animation: kt-shake 0.35s; }
+.kt-land { animation: kt-land 0.18s both; }
+.kt-fall { animation: kt-fall 0.6s ease-in both; }
+.kt-glow { animation: kt-glow 1.2s infinite; }
+.kids-pick { display: grid; gap: 8px; margin: 0 14px; }
+@keyframes kt-in { from { transform: scale(0.2); opacity: 0; } }
+@keyframes kt-got { to { transform: scale(1.35) translateY(-10px); opacity: 0; } }
+@keyframes kt-gone { to { transform: scale(0.2); opacity: 0; } }
+@keyframes kt-fly-a { to { transform: translate(-95px, 150px) scale(0.3); opacity: 0; } }
+@keyframes kt-fly-b { to { transform: translate(95px, 150px) scale(0.3); opacity: 0; } }
+@keyframes kt-shake { 25% { transform: translateX(-7px) rotate(-3deg); } 75% { transform: translateX(7px) rotate(3deg); } }
+@keyframes kt-land { from { transform: translateY(-14px); } }
+@keyframes kt-fall { to { transform: translateY(320px) rotate(35deg); opacity: 0.4; } }
+@keyframes kt-glow { 50% { opacity: 0.6; } }
+@media (prefers-reduced-motion: reduce) { .kt-pop, .kt-got, .kt-gone, .kt-in, .kt-fly-a, .kt-fly-b, .kt-shake, .kt-land, .kt-fall, .kt-glow { animation-duration: 0.01ms; } }
+/* Ранняя игра в жизни - поверх года, как экран-глава. */
+.modal.kids-modal { padding: 0; max-width: 480px; overflow-y: auto; max-height: calc(100dvh - 24px); }
+.modal.kids-modal .kids { padding-bottom: 18px; }

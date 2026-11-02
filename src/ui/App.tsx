@@ -7,7 +7,9 @@ import { newSeed, next } from '../engine/rng'
 import type { GameSettings, GameState, LifeSummary } from '../engine/types'
 import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
-import { tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
+import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
+import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
+import type { EarlyResult } from '../kids/early'
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
@@ -153,7 +155,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0 })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -691,6 +693,20 @@ export function App() {
     },
   }
 
+  // Ранняя детская игра (src/kids/early.ts): прибавка к качествам задания, запись в дневник, игра - в сыгранные.
+  const onKids = (r: EarlyResult) => {
+    const s = game.current
+    if (!s) return
+    const before = snapshot(s)
+    applyEarly(s, r)
+    lifeStats(s).kids = r.id
+    const seen = (platform.kvGet(SEEN_KEY) ?? '').split(',').filter(Boolean)
+    platform.kvSet(SEEN_KEY, [...seen, r.id].slice(-40).join(','))
+    setChoiceChanges(changes(before, s))
+    persist()
+    rerender(0)
+  }
+
   const onChoose = (choiceId: string | null) => {
     if (!era) return
     const intro = game.current?.queue[0]
@@ -1002,6 +1018,7 @@ export function App() {
             yearChanges={yearChanges}
             yearSec={prefs.yearSec}
             sound={soundButton}
+            onKids={onKids}
             dream={dreamProps}
           />
         )}

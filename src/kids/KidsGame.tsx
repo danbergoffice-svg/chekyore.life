@@ -4,7 +4,7 @@ import type { KidsLang, KidsPuzzle, Task } from './types'
 import { REWARD, starsFor, TASKS } from './types'
 import { makeRng } from './rng'
 import { kt, TASK_ICON } from './text'
-import { Scene } from '../pixel/Scene'
+import { Scene } from '../pixel/SceneView'
 import { Icon } from '../ui/Icon'
 import './kids.css'
 
@@ -26,12 +26,14 @@ interface Props {
   lang: KidsLang
   age?: number
   region?: string
+  /** Задание выбрано заранее (ранняя игра: выбор занятия - на общем экране). */
+  task?: Task
   onFinish: (r: KidsResult) => void
 }
 
-export function KidsGame({ puzzle, difficulty, seed, lang, age = 8, region, onFinish }: Props) {
+export function KidsGame({ puzzle, difficulty, seed, lang, age = 8, region, task: preset, onFinish }: Props) {
   const text = puzzle.text[lang] ?? puzzle.text.en
-  const [task, setTask] = useState<Task | null>(null)
+  const [task, setTask] = useState<Task | null>(preset ?? null)
   const level = useMemo(() => (task ? puzzle.logic.generate(difficulty, makeRng(seed ^ (TASKS.indexOf(task) * 7919)), task) : null), [task, difficulty, seed, puzzle.id])
   const [state, setState] = useState<unknown>(null)
   const [moves, setMoves] = useState(0)
@@ -75,9 +77,9 @@ export function KidsGame({ puzzle, difficulty, seed, lang, age = 8, region, onFi
     <div class="kids">
       <div class="kids-scene">
         <Scene scene={{ place: puzzle.place, time: 'day', people: 3 }} region={region ?? puzzle.region} seed={`kids-${puzzle.id}`} still />
-        <span class="kids-age">{kt(lang, 'age', { n: age })}</span>
+        <span class="kids-age">{ageLabel(lang, age)}</span>
       </div>
-      <h2 class="kids-title">{text.title}</h2>
+      <h2 class="kids-title">{preset ? text.tasks[TASKS.indexOf(preset)] : text.title}</h2>
 
       {!task && (
         <>
@@ -152,4 +154,9 @@ export function Stars({ n }: { n: number }) {
       ))}
     </span>
   )
+}
+
+/** «2 года · лето» / «8 лет · лето». */
+export function ageLabel(lang: KidsLang, age: number): string {
+  return kt(lang, lang === 'ru' && age % 10 >= 2 && age % 10 <= 4 && (age < 10 || age > 20) ? 'age_few' : 'age', { n: age })
 }

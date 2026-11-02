@@ -803,6 +803,8 @@ export interface LifeStats {
   milestones: number[]
   /** Показанные экраны-главы (возрасты). */
   chapters?: number[]
+  /** Ранняя детская игра этой жизни: id сыгранной (src/kids/early.ts). */
+  kids?: string
 }
 
 // ---------- Сон о будущем (docs/TZ_dreams.md) ----------

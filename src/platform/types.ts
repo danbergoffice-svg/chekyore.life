@@ -39,6 +39,10 @@ export interface Flags {
   art_strength: number
   /** Сколько первых жизней уникальны: события прошлых жизней не повторяются, у каждой своё число детей; 0 - выключено. */
   unique_lives: number
+  /** Ранняя детская игра (src/kids/early.ts): в каком возрасте героя (после 1–2 событий детства); 0 - выключена. */
+  kids_age: number
+  /** Доля игроков, у которых ранняя игра есть (A/B по своему хешу id игрока, не по ab_buckets); 1 - у всех. */
+  kids_share: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -60,6 +64,8 @@ export const DEFAULT_FLAGS: Flags = {
   portrait_style: 'painting',
   art_strength: 0.5,
   unique_lives: 10,
+  kids_age: 2,
+  kids_share: 1,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

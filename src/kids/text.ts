@@ -4,6 +4,7 @@ import type { KidsLang, Task } from './types'
 export const KIDS_TEXT: Record<KidsLang, Record<string, string>> = {
   ru: {
     age: '{n} лет · лето',
+    age_few: '{n} года · лето',
     choose: 'Чем займёшься этим летом?',
     'dir.body': 'Тело',
     'dir.mind': 'Ум',
@@ -22,6 +23,7 @@ export const KIDS_TEXT: Record<KidsLang, Record<string, string>> = {
     next: 'Дальше',
     again: 'Ещё раз',
     hint_used: 'с подсказкой - не больше двух звёзд',
+    run_off: 'Убежать играть',
   },
   en: {
     age: 'Age {n} · summer',
@@ -43,6 +45,7 @@ export const KIDS_TEXT: Record<KidsLang, Record<string, string>> = {
     next: 'Continue',
     again: 'Play again',
     hint_used: 'with a hint - two stars at most',
+    run_off: 'Run off to play',
   },
   tr: {
     age: '{n} yaş · yaz',
@@ -64,6 +67,7 @@ export const KIDS_TEXT: Record<KidsLang, Record<string, string>> = {
     next: 'Devam',
     again: 'Bir daha',
     hint_used: 'ipucuyla - en fazla iki yıldız',
+    run_off: 'Oynamaya kaç',
   },
 }
 

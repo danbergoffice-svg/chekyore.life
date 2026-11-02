@@ -23,11 +23,11 @@ import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
 import type { T } from '../i18n'
 import { platform } from '../platform'
 import { lifeStats } from '../telemetry'
-import { Scene } from '../pixel/Scene'
+import { Scene } from '../pixel/SceneView'
 import { Illustration } from '../pixel/Illustration'
 import { momentOf } from '../pixel/illustrations'
 import { moodFor, weatherFor } from '../pixel/season'
-import { Avatar } from '../pixel/Avatar'
+import { Avatar } from '../pixel/AvatarView'
 import { eventCast, eventRoles, familyCast } from './cast'
 import { DreamModal } from './Dream'
 import type { DreamResult } from './Dream'
@@ -35,6 +35,9 @@ import { entryScene } from './Summary'
 import { attitudeText, diaryText, feelings, useUi } from './text'
 import type { Change } from './text'
 import { Icon, IconText } from './Icon'
+import { EarlyGame } from '../kids/EarlyGame'
+import { earlySeed, kidsOn, SEEN_KEY } from '../kids/early'
+import type { EarlyResult } from '../kids/early'
 
 type Tab = 'life' | 'hero' | 'people' | 'diary'
 
@@ -70,6 +73,8 @@ interface LifeProps {
   yearSec?: number
   /** Кнопка музыки. */
   sound?: preact.ComponentChildren
+  /** Ранняя детская игра сыграна (src/kids/early.ts): прибавка, запись, отметка в жизни. */
+  onKids?: (r: EarlyResult) => void
   /** Сон о будущем: ответы, подсказка, «Проснуться», закрыть итог. */
   dream?: { result: DreamResult | null; onAnswer: (value: unknown) => void; onHint: () => void; onWake: () => void; onClose: () => void }
 }
@@ -81,7 +86,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, onSettings, choiceChanges, yearChanges, yearSec, sound, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -123,7 +128,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       bump((x) => x + 1)
     })
   }
-  const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue || adOpen
+  // Ранняя детская игра: раз за жизнь в kids_age лет (после 1–2 событий детства), у доли kids_share игроков.
+  const f = platform.flags
+  const kidsDue = !!onKids && state.phase === 'year' && f.kids_age > 0 && hero.age === f.kids_age && !lifeStats(state).kids && kidsOn(platform.playerId(), f)
+  const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue || adOpen || kidsDue
   // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
   // пауза без решения и уход с экрана жизни - остановка.
   const playing = (speed > 0 || modalOpen) && !chapterDue && !adOpen && state.phase !== 'dead'
@@ -423,11 +431,27 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         </section>
       )}
 
-      {chapterDue && <Chapter state={state} era={era} onNext={closeChapter} />}
-      {modalOpen && !chapterDue && !adOpen && dream && (state.dream || dream.result) ? (
+      {kidsDue && onKids && (
+        <div class="modal-backdrop">
+          <div class="modal kids-modal" role="dialog" aria-modal="true">
+            <EarlyGame
+              era={hero.era}
+              region={hero.region}
+              lang={lang}
+              age={hero.age}
+              livesBefore={state.settings.livesBefore ?? 0}
+              seen={(platform.kvGet(SEEN_KEY) ?? '').split(',').filter(Boolean)}
+              seed={earlySeed(hero.id)}
+              onFinish={onKids}
+            />
+          </div>
+        </div>
+      )}
+      {chapterDue && !kidsDue && <Chapter state={state} era={era} onNext={closeChapter} />}
+      {modalOpen && !kidsDue && !chapterDue && !adOpen && dream && (state.dream || dream.result) ? (
         <DreamModal state={state} result={dream.result} onAnswer={dream.onAnswer} onHint={dream.onHint} onWake={dream.onWake} onClose={dream.onClose} />
       ) : (
-        modalOpen && !chapterDue && !adOpen && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />
+        modalOpen && !kidsDue && !chapterDue && !adOpen && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} />
       )}
     </div>
   )
