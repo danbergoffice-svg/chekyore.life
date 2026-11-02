@@ -1268,5 +1268,10 @@
   "goal.result.done": "Исполнена",
   "goal.result.almost": "Почти: {n} из 4",
   "goal.result.partial": "{n} из 4",
-  "goal.result.none": "Не сбылась"
+  "goal.result.none": "Не сбылась",
+  "daily.tip.taken": "Уже получен.",
+  "daily.tip.today": "Можно забрать сегодня.",
+  "daily.tip.later": "Будет через {n} {p=n:день|дня|дней}, если заходить каждый день.",
+  "drum.tip.gift": "Это дар - он уже действует на барабан.",
+  "drum.tip.fate": "Это награда за испытание - она уже действует на барабан."
 }

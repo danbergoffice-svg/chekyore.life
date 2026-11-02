@@ -1268,5 +1268,10 @@
   "goal.result.done": "Gerçekleşti",
   "goal.result.almost": "Az kaldı: 4'te {n}",
   "goal.result.partial": "4'te {n}",
-  "goal.result.none": "Gerçekleşmedi"
+  "goal.result.none": "Gerçekleşmedi",
+  "daily.tip.taken": "Zaten alındı.",
+  "daily.tip.today": "Bugün alabilirsin.",
+  "daily.tip.later": "Her gün girersen {n} gün sonra senin.",
+  "drum.tip.gift": "Bu bir armağan - bu makarayı şimdiden belirliyor.",
+  "drum.tip.fate": "Bu sınavın ödülü - bu makarayı şimdiden belirliyor."
 }

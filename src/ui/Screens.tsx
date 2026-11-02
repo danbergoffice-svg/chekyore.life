@@ -9,6 +9,7 @@ import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/t
 import { formatMoney, formatYear, LANG_NAMES, LANGS as ALL_LANGS, LOCALE, nameOf, percent } from '../i18n'
 import type { Prefs } from '../storage'
 import { BIG_DAYS, GIFT_ICON, GIFTS } from '../daily'
+import { Tip } from './Tip'
 import type { Gift } from '../daily'
 import { EXTERNAL, platform } from '../platform'
 import { Scene } from '../pixel/SceneView'
@@ -284,13 +285,18 @@ export function DailyCard(props: { day: number; claimable: boolean; broken?: boo
       {!props.compact && <p class="small">{t('daily.lead')}</p>}
       <ol class="daily-days">
         {GIFTS.map((g, i) => (
-          <li
+          // Подсказка дара: наведение мышью или касание - что это за дар и когда он будет.
+          <Tip
+            as="li"
             class={[taken(i + 1) && 'taken', i + 1 === props.day && 'today', BIG_DAYS.includes(i + 1) && 'big'].filter(Boolean).join(' ')}
-            aria-label={`${t('daily.day', { n: i + 1 })}: ${t(`gift.${g}`)}`}
+            label={`${t('daily.day', { n: i + 1 })}: ${t(`gift.${g}`)}`}
+            title={`${t('daily.day', { n: i + 1 })} · ${t(`gift.${g}`)}`}
+            text={`${t(`gift.${g}.desc`)}. ${t(taken(i + 1) ? 'daily.tip.taken' : i + 1 === props.day ? 'daily.tip.today' : 'daily.tip.later', { n: i + 1 - props.day })}`}
+            align={i < 2 ? 'start' : i > 4 ? 'end' : 'center'}
           >
             <span class="daily-icon"><Icon name={GIFT_ICON[g]} /></span>
             <span class="daily-n" aria-hidden="true">{i + 1}</span>
-          </li>
+          </Tip>
         ))}
       </ol>
       {props.claimable ? (

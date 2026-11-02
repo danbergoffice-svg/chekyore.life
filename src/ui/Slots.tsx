@@ -9,6 +9,7 @@ import { Scene } from '../pixel/SceneView'
 import { useUi } from './text'
 import { Icon, IconText } from './Icon'
 import type { IconName } from './icons'
+import { Tip } from './Tip'
 
 /** Лотерея рождения: три барабана - где и когда, положение, пол. Игрок дёргает рычаг, барабаны останавливаются по очереди. */
 
@@ -22,6 +23,8 @@ interface Item {
 export interface ReelTag {
   icon: IconName
   text: string
+  /** Подсказка по наведению или касанию: какой дар решил этот барабан. */
+  tip?: { title: string; text: string }
 }
 
 const CLASS_ICON: Record<string, IconName> = { slave: 'chain', peasant: 'wheat', craftsman: 'hammer', trader: 'scales', landowner: 'house', noble: 'crown' }
@@ -91,11 +94,16 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
       <div class="reel-label">{props.label}</div>
       {/* Награда, которая уже решила этот барабан: «[замок] Византия», «[корона] Знать» - над краем окна. */}
       <div class="reel-frame">
-        {props.tag && (
-          <span class="reel-tag">
-            <Icon name={props.tag.icon} /> {props.tag.text}
-          </span>
-        )}
+        {props.tag &&
+          (props.tag.tip ? (
+            <Tip class="reel-tag" title={props.tag.tip.title} text={props.tag.tip.text}>
+              <Icon name={props.tag.icon} /> {props.tag.text}
+            </Tip>
+          ) : (
+            <span class="reel-tag">
+              <Icon name={props.tag.icon} /> {props.tag.text}
+            </span>
+          ))}
         <div class="reel-window" style={{ height: `${WINDOW}px` }}>
           {/* Соседние строки видны только у середины и плавно гаснут к краям окна, чтобы надписи не обрезались. */}
           <div class="reel-clip">

@@ -1268,5 +1268,10 @@
   "goal.result.done": "Fulfilled",
   "goal.result.almost": "Almost: {n} of 4",
   "goal.result.partial": "{n} of 4",
-  "goal.result.none": "Did not come true"
+  "goal.result.none": "Did not come true",
+  "daily.tip.taken": "Already received.",
+  "daily.tip.today": "Yours to claim today.",
+  "daily.tip.later": "Yours in {n} {p=n:day|days} if you visit every day.",
+  "drum.tip.gift": "This is a gift - it already sets this reel.",
+  "drum.tip.fate": "This is the trial reward - it already sets this reel."
 }

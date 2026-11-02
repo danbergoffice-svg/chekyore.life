@@ -900,9 +900,15 @@ export function App() {
   const drumTags = (royal?: boolean) => {
     const fateCountry = fatePick && fatePick !== 'high' ? fatePick : null
     const country = fateCountry ?? (gifts.includes('country') ? giftCountry : null)
+    // Подсказка на ярлыке: какой дар решил барабан (страна - по дару или за испытание; знать - по дару или за испытание).
+    const tip = (key: string, why: string) => ({ title: ui.t(key), text: `${ui.t(`${key}.desc`)}. ${ui.t(why)}` })
     return {
-      where: country ? { icon: 'lock' as const, text: ui.t(`era.${country}.short`) } : undefined,
-      status: royal ? { icon: 'crown' as const, text: ui.t('drum.tag.royal') } : gifts.includes('noble') || fatePick === 'high' ? { icon: 'crown' as const, text: ui.t('drum.tag.noble') } : undefined,
+      where: country ? { icon: 'lock' as const, text: ui.t(`era.${country}.short`), tip: tip('gift.country', fateCountry ? 'drum.tip.fate' : 'drum.tip.gift') } : undefined,
+      status: royal
+        ? { icon: 'crown' as const, text: ui.t('drum.tag.royal'), tip: tip('gift.royal', 'drum.tip.gift') }
+        : gifts.includes('noble') || fatePick === 'high'
+          ? { icon: 'crown' as const, text: ui.t('drum.tag.noble'), tip: tip('gift.noble', fatePick === 'high' ? 'drum.tip.fate' : 'drum.tip.gift') }
+          : undefined,
     }
   }
   const giftsSheet = giftsOpen && (
