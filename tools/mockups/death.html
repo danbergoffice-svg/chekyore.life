@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru" class="skin">
+<head>
+<meta charset="utf-8" />
+<title>Экран после смерти - 4 варианта</title>
+<style>
+  body { margin: 0; padding: 24px; }
+  .grid { display: flex; gap: 28px; align-items: flex-start; }
+  .col { width: 390px; flex: none; }
+  .cap { color: var(--ink); margin-bottom: 10px; min-height: 64px; }
+  .cap b { display: block; font-family: var(--font-display); font-size: 26px; color: var(--mustard); }
+  .cap span { font-size: 14px; color: var(--muted); }
+  .phone { position: relative; width: 390px; background: var(--bg); outline: 2px solid #33456b; border-radius: 22px; overflow: hidden; padding-bottom: 76px; }
+  .screen.mock { padding: 16px 16px 8px; max-width: none; margin: 0; }
+  .mock-actions { position: absolute !important; left: 0; right: 0; bottom: 0; }
+  .epitaph { font-style: italic; color: var(--ink-2); border-left: 3px solid var(--terra); padding-left: 10px; margin-top: 12px; }
+  .epitaph span { display: block; font-style: normal; color: var(--muted); font-size: 13px; margin-top: 4px; }
+  /* А */
+  .chapter-head { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+  .chapter-head canvas { width: 64px !important; height: 80px !important; image-rendering: pixelated; background: #e2d3b3; flex: none; }
+  .chapter-head .section-title { margin: 0; }
+  .chapter canvas.scene, .chapter .scene-wrap { margin-bottom: 8px; }
+  .chapter-line { margin: 6px 0; line-height: 1.45; }
+  /* Б */
+  .signs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 12px; }
+  .signs span { background: var(--sheet); color: var(--night); text-align: center; padding: 8px 2px 6px; font-size: 11px; line-height: 1.2; clip-path: var(--rough-b); }
+  .signs b { display: block; font-family: var(--font-display); font-size: 22px; }
+  .trail { position: relative; padding: 6px 0 6px; }
+  .trail::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 3px dashed var(--ochre); }
+  .stop { position: relative; display: flex; width: 50%; padding: 8px 0; box-sizing: border-box; }
+  .stop.l { padding-right: 26px; justify-content: flex-end; text-align: right; }
+  .stop.r { margin-left: 50%; padding-left: 26px; }
+  .stop .pin { position: absolute; top: 10px; width: 30px; height: 30px; border-radius: 50%; background: var(--mood, var(--ochre)); color: var(--night); display: grid; place-items: center; box-shadow: 0 0 0 3px var(--bg); }
+  .stop.l .pin { right: -16px; } .stop.r .pin { left: -15px; }
+  .stop-text { display: flex; flex-direction: column; gap: 2px; font-size: 14px; line-height: 1.35; }
+  .stop-age { color: var(--mood, var(--muted)); font-weight: 700; font-size: 12px; letter-spacing: 0.04em; }
+  .stop.end { width: 100%; margin: 6px 0 0; justify-content: center; text-align: center; padding-top: 44px; }
+  .stop.end .pin { left: calc(50% - 15px); top: 6px; background: var(--terra); }
+  /* В */
+  .stone-wrap { position: relative; }
+  .stone { margin: -40px auto 0; position: relative; width: 78%; background: #c9c0ad; color: #2a2620; text-align: center; padding: 18px 14px 16px; border-radius: 120px 120px 6px 6px; box-shadow: inset 0 -6px 0 rgba(0,0,0,.15), 0 6px 0 #6f6656; }
+  .stone-name { font-family: var(--font-display); font-size: 30px; margin: 6px 0 0; }
+  .stone-years { margin: 2px 0 8px; font-size: 14px; }
+  .stone-epi { font-style: italic; margin: 0; font-size: 15px; }
+  .voice { display: flex; gap: 10px; margin: 0 0 12px; align-items: flex-start; }
+  .voice canvas { width: 48px !important; height: 60px !important; image-rendering: pixelated; background: #e2d3b3; flex: none; }
+  .voice blockquote { margin: 0; font-style: italic; line-height: 1.4; }
+  .voice cite { display: block; font-style: normal; color: var(--muted); font-size: 13px; margin-top: 4px; }
+  ul.left { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .people100 { display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; }
+  .people100 span { height: 13px; border-radius: 6px 6px 2px 2px; background: var(--sheet); opacity: .85; }
+  .people100 span.longer { background: #3a4b72; opacity: 1; }
+  .people100 span.me { background: var(--terra); opacity: 1; }
+  /* Г */
+  .stories-dots { display: flex; gap: 4px; margin: 0 0 10px; }
+  .stories-dots span { flex: 1; height: 3px; background: rgba(243,234,215,.25); border-radius: 2px; }
+  .stories-dots span.on { background: var(--sheet); }
+  .story { min-height: 230px; padding: 22px 20px; margin: 0 0 12px; display: flex; flex-direction: column; justify-content: flex-end; border-radius: 4px; clip-path: var(--rough-c); }
+  .story canvas { image-rendering: pixelated; margin-bottom: auto; }
+  .story > canvas:first-child:not(.scene) { width: 120px !important; height: 150px !important; background: #e2d3b3; }
+  .story-big { font-family: var(--font-display); font-size: 64px; line-height: 1; margin: 16px 0 8px; }
+  .story-small { font-size: 16px; line-height: 1.4; margin: 0; }
+  .story-quote { font-size: 22px; font-style: italic; line-height: 1.35; margin: 0 0 10px; }
+  .tone-night { background: #0f1729; color: var(--sheet); box-shadow: inset 0 0 0 2px #33456b; }
+  .tone-sun { background: var(--mustard); color: var(--night); }
+  .tone-cold { background: #3a4b72; color: var(--sheet); }
+  .tone-terra { background: var(--terra); color: var(--night); }
+  .tone-olive { background: var(--olive); color: var(--sheet); }
+  .tone-paper { background: var(--sheet); color: var(--night); }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="./death.tsx"></script>
+</body>
+</html>
