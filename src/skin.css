@@ -159,7 +159,8 @@ html.skin .focus, html.skin .focus-chip, html.skin .person, html.skin .card { bo
 
 /* ---------- Окно события: бумажный лист на ночной карте ---------- */
 html.skin .modal-backdrop { background: rgba(19, 9, 4, 0.6); }
-html.skin .modal { --ink: #130904; --ink-2: #3a2a1c; --muted: #6a5440; --line: #c9b48c; --accent: #b23f22; --paper-2: #e8dcc2;
+/* Лист светлый в любой теме: тёмные --gold и --paper, иначе пометки и поля ввода светлым по светлому или тёмным по тёмному. */
+html.skin .modal { --ink: #130904; --ink-2: #3a2a1c; --muted: #6a5440; --line: #c9b48c; --accent: #b23f22; --paper-2: #e8dcc2; --paper: #fbf6ec; --card: #fbf6ec; --gold: #7a5418;
   background: var(--sheet); color: var(--night); border-radius: 0; clip-path: polygon(0 10px, 6% 0, 20% 8px, 37% 1px, 55% 9px, 71% 2px, 86% 8px, 100% 0, 100% 100%, 0 100%); padding-top: 6px; }
 html.skin .modal .art, html.skin .modal > .scene, html.skin .modal > .art-frame { border-radius: 0; margin: 10px 12px 0; width: calc(100% - 24px); clip-path: var(--rough-c); border: 0; }
 html.skin .modal h2, html.skin .modal h3 { color: var(--night); }
@@ -173,6 +174,7 @@ html.skin .choice:not(:disabled):hover { background: var(--mustard); border-colo
 html.skin .choice-desc { color: #6a5440; }
 html.skin .modal .primary { background: var(--night); color: var(--sheet); }
 html.skin .modal .note { background: #e8dcc2; border-radius: 0; clip-path: var(--rough-c); }
+html.skin .modal .eyebrow { color: #4f5a1d; }
 html.skin .modal .link { color: #8a3a1e; text-decoration-color: rgba(138, 58, 30, 0.45); }
 
 /* Сброс барабана из skin-map.css: варианты рисуют его заново. */
@@ -243,7 +245,7 @@ html.skin .slot-lights span:nth-child(11) { left: calc(94.99% - 4.5px); top: -15
 html.skin .slot-machine { --cab: #2a3f6e; --cab-2: #1b2a4d; --trim: #d9b45a; --marq: #d9b45a; --marq-2: #2a3f6e; --glass: #0b1220; --bulb: #ffe08a; --payline: #df6c4f; --ball: #df6c4f; }
 
 /* Сон о будущем остаётся «ночным»: свой тёмный лист со звёздной палитрой, не бумажный. */
-html.skin .modal.dream-modal { --ink: #e8e6f4; --ink-2: #c9cbe8; --muted: #a3a6c4; --line: #3a3f6a; --accent: #ffd27a; --paper-2: #232745;
+html.skin .modal.dream-modal { --ink: #e8e6f4; --ink-2: #c9cbe8; --muted: #a3a6c4; --line: #3a3f6a; --accent: #ffd27a; --paper-2: #232745; --paper: #1a1d36; --card: #232745; --gold: #ffd27a;
   background: #171a2e; color: #e8e6f4; }
 html.skin .dream-modal h2, html.skin .dream-modal h3 { color: #f4f2ff; }
 html.skin .dream-modal .primary { background: var(--sheet); color: var(--night); }

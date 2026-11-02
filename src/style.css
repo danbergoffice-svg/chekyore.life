@@ -425,7 +425,7 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 
 .modal.share { max-height: 96vh; }
 .field { display: grid; gap: 6px; margin-bottom: 10px; }
-.field input { padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); min-height: 44px; }
+.field input { padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); min-height: 44px; }
 .card-preview { display: block; width: 100%; max-height: 50vh; object-fit: contain; border: 1px solid var(--line); border-radius: 8px; margin: 8px 0; }
 .share-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .share-row a { text-decoration: none; }
@@ -887,3 +887,14 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .reel-tag.tip { pointer-events: auto; overflow: visible; }
 .reel-tag.tip .tip-bubble { bottom: auto; top: calc(100% + 8px); }
 .reel-tag.tip .tip-bubble::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: #130904; }
+
+/* Окно события: кто это (человек события) и раскрывающийся список близких - чтобы не путать брата с мужем. */
+.event-who { margin: -4px 0 10px; font-size: 0.9rem; color: var(--ink-2); }
+.modal .note .people { margin: 4px 0 8px; }
+.chip-static.lock { white-space: normal; text-align: left; }
+/* Дневник: запись события раскрывается касанием - полный текст и исход выбора. */
+.diary-open { all: unset; cursor: pointer; display: inline; }
+.diary-open:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.diary-full { display: block; margin-top: 6px; font-size: 0.92rem; color: var(--ink-2); }
+.modal .note .people { display: grid; gap: 6px; padding: 0; list-style: none; }
+.modal .note .person { padding: 6px 10px; }

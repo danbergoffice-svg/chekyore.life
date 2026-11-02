@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   availableFocuses,
   choiceAvailable,
+  lockReason,
   currentEvent,
   eventChoices,
   eventParams,
@@ -45,6 +46,11 @@ import { earlySeed, kidsOn, SEEN_KEY } from '../kids/early'
 import type { EarlyResult } from '../kids/early'
 
 type Tab = 'life' | 'hero' | 'people' | 'diary'
+
+/** Записи от новых лет к старым, но внутри года - по порядку: «заболел» выше «умер», а не наоборот. */
+function yearsBackward<T extends readonly [{ year: number }, number]>(list: T[]): T[] {
+  return [...list].sort((a, b) => b[0].year - a[0].year || a[1] - b[1])
+}
 
 /**
  * Длительность года на скорости ×1. Стандартная - из флагов (в детстве, до child_age лет, короче).
@@ -157,9 +163,20 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     return () => clearTimeout(id)
   }, [goalDone, hero.goal?.id])
   const modalOpen = (state.phase === 'running' && !!next && progress >= next.at) || chapterDue || adOpen || kidsDue || goalDue
+  // Смерть близкого (отец, мать, супруг, ребёнок) - отдельная карточка, время стоит, пока её не закроют: в ленте её легко
+  // пролистать. Старые сохранения не показывают прошлые утраты: отсчёт - с записи, на которой открыли жизнь.
+  const ls = lifeStats(state)
+  if (ls.lossSeen === undefined) ls.lossSeen = hero.diary.length
+  const lossAt = hero.alive && !modalOpen ? hero.diary.findIndex((d, i) => i >= (ls.lossSeen ?? 0) && d.icon === 'death' && d.major && visible(state, i, d, progress)) : -1
+  const loss = lossAt >= 0 ? hero.diary[lossAt] : null
+  const closeLoss = () => {
+    ls.lossSeen = lossAt + 1
+    bump((x) => x + 1)
+  }
+  const hold = modalOpen || !!loss
   // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
   // пауза без решения и уход с экрана жизни - остановка.
-  const playing = (speed > 0 || modalOpen) && !chapterDue && !adOpen && state.phase !== 'dead'
+  const playing = (speed > 0 || hold) && !chapterDue && !adOpen && state.phase !== 'dead'
   useEffect(() => {
     if (playing) platform.gameplayStart()
     else platform.gameplayStop()
@@ -167,12 +184,12 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   useEffect(() => () => platform.gameplayStop(), [])
 
   // Часы года. Ссылки на свежие значения, чтобы таймер не держал устаревшие.
-  const live = useRef({ state, progress, speed, modalOpen, selected, onStart, onFinish, yearSec })
-  live.current = { state, progress, speed, modalOpen, selected, onStart, onFinish, yearSec }
+  const live = useRef({ state, progress, speed, hold, selected, onStart, onFinish, yearSec })
+  live.current = { state, progress, speed, hold, selected, onStart, onFinish, yearSec }
   useEffect(() => {
     const id = setInterval(() => {
       const c = live.current
-      if (!c.speed || c.modalOpen || c.state.phase === 'dead') return
+      if (!c.speed || c.hold || c.state.phase === 'dead') return
       if (c.state.phase === 'year') {
         setProgress(0)
         c.onStart(c.selected)
@@ -199,11 +216,29 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     }
   }
 
+  // Дневник: только важное; раскрытые записи - полный текст события и чем кончился выбор.
+  const [onlyMajor, setOnlyMajor] = useState(false)
+  const [openRows, setOpenRows] = useState<number[]>([])
+  const fullText = (d: DiaryEntry): string[] | null => {
+    const v = typeof d.params?.v === 'number' ? d.params.v : undefined
+    const opts = { sex: hero.sex, region: d.reg ?? hero.region, religion: d.rel ?? hero.religion }
+    const params = { ...contextParams(opts.region, opts.religion, d.year), ...d.params }
+    const textKey = variantKey(lang, `ev.${d.eventId}.text`, v)
+    if (!hasKey(lang, textKey)) return null
+    const out = [t(textKey, params, opts)]
+    const choice = d.params?.choice
+    const result = d.params?.result
+    if (choice && typeof choice === 'object' && 'key' in choice && typeof result === 'string') {
+      const rk = variantKey(lang, `${choice.key}.${result}`, v)
+      if (hasKey(lang, rk)) out.push(t(rk, params, opts))
+    }
+    return out
+  }
   const stage = stageOf(state, era)
   const entries = hero.diary.map((d, i) => [d, i] as const).filter(([d, i]) => visible(state, i, d, progress) && !d.key.startsWith('diary.stage_'))
   // В ленте - справки только последнего года с ними, прошлые остаются во вкладке «Дневник».
   const primerYear = Math.max(-Infinity, ...entries.filter(([d]) => d.primer).map(([d]) => d.year))
-  const feed = entries.filter(([d]) => !d.primer || d.year === primerYear).slice(-14).reverse()
+  const feed = yearsBackward(entries.filter(([d]) => !d.primer || d.year === primerYear).slice(-14))
   // Вверху - дом героя: семья, животные и дом нужного размера; если в этом году случилось бедствие, оно видно на доме.
   const disaster = [...entries]
     .reverse()
@@ -442,18 +477,35 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           {entries.length === 0 ? (
             <p class="muted">{t('diary.empty')}</p>
           ) : (
+            <>
+            <div class="filters" role="group">
+              <button class={onlyMajor ? 'chip' : 'chip active'} aria-pressed={!onlyMajor} onClick={() => setOnlyMajor(false)}>{t('diary.all')}</button>
+              <button class={onlyMajor ? 'chip active' : 'chip'} aria-pressed={onlyMajor} onClick={() => setOnlyMajor(true)}>{t('diary.major_only')}</button>
+            </div>
             <ol class="diary">
-              {groupPrimers([...entries].reverse()).map((item) => {
+              {groupPrimers(yearsBackward(onlyMajor ? entries.filter(([d]) => d.major) : entries)).map((item) => {
                 if ('primers' in item) return <PrimerGroup key={item.key} ids={item.primers} o={o} />
                 const [d, i] = item
+                const full = d.eventId && d.key.startsWith('ev.') ? fullText(d) : null
+                const open = openRows.includes(i)
                 return (
                 <li key={i} class={`${d.major ? 'major' : ''} ${d.news ? 'news' : ''}`}>
                   <span class="diary-age">{t('diary.age', { n: d.age })}</span>
-                  <span>{diaryText(t, d, hero.sex, hero.region, hero.religion, lang)}</span>
+                  {full ? (
+                    <span>
+                      <button class="diary-open" aria-expanded={open} onClick={() => setOpenRows(open ? openRows.filter((x) => x !== i) : [...openRows, i])}>
+                        {diaryText(t, d, hero.sex, hero.region, hero.religion, lang)} <span class="muted">{open ? '▴' : '▾'}</span>
+                      </button>
+                      {open && full.map((p) => <span class="diary-full">{p}</span>)}
+                    </span>
+                  ) : (
+                    <span>{diaryText(t, d, hero.sex, hero.region, hero.religion, lang)}</span>
+                  )}
                 </li>
                 )
               })}
             </ol>
+            </>
           )}
         </section>
       )}
@@ -462,6 +514,19 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         <p class="goal-toast" role="status">
           {goalToast}
         </p>
+      )}
+      {loss && (
+        <div class="modal-backdrop">
+          <div class="modal loss-card" role="dialog" aria-modal="true" aria-labelledby="loss-title">
+            <div class="modal-body">
+              <p class="eyebrow">{t('event.loss')} · {t('diary.age', { n: loss.age })}</p>
+              <h2 id="loss-title">{diaryText(t, loss, hero.sex, hero.region, hero.religion, lang)}</h2>
+              <button class="primary" onClick={closeLoss} autoFocus>
+                {t('event.next')}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
       {goalDue && goal && <GoalPick state={state} mode="birth" onPick={(c) => goal.onPick(c, false)} />}
       {kidsDue && onKids && !goalDue && (
@@ -824,33 +889,36 @@ function maritalText(t: T, hero: Hero, lang: Lang, prefix: 'chapter' | 'marital'
   return t(key, params, o)
 }
 
-function People({ state }: { state: GameState }) {
+/** Роль, возраст, отношение, занятие - строкой; для вкладки «Люди» и для строки «кто это» в окне события. */
+function npcFacts(t: T, lang: Lang, n: Npc, year: number): string {
+  if (n.alive && n.away) return t(`people.away.${n.away.reason}`, { sex: n.sex, year: formatYear(n.away.since, lang) })
+  if (!n.alive) return t('npc.dead', { sex: n.sex, year: formatYear(n.deathYear ?? year, lang) })
+  return [
+    t('life.age', { n: Math.max(0, npcAge(n, year)) }),
+    attitudeText(t, n),
+    n.profession ? t(`prof.${n.profession}`, {}, { sex: n.sex }).toLocaleLowerCase(lang) : '',
+    n.married ? t('people.married', { sex: n.sex }) : '',
+    ...(n.tags ?? []).filter((tag) => hasKey(lang, `npctag.${tag}`)).map((tag) => t(`npctag.${tag}`, { sex: n.sex })),
+  ]
+    .filter(Boolean)
+    .join(' · ')
+}
+
+/** Люди героя; aliveOnly - только живые рядом (список «Близкие» в окне события). */
+function People({ state, aliveOnly }: { state: GameState; aliveOnly?: boolean }) {
   const { t, lang } = useUi()
   const hero = state.hero
   const alive = hero.npcs.filter((n) => n.alive && !n.away)
-  const far = hero.npcs.filter((n) => n.alive && n.away)
-  const dead = hero.npcs.filter((n) => !n.alive)
+  const far = aliveOnly ? [] : hero.npcs.filter((n) => n.alive && n.away)
+  const dead = aliveOnly ? [] : hero.npcs.filter((n) => !n.alive)
   const row = (n: Npc) => (
     <li class="person">
       <span class="person-role">{t(`npc.${roleKey(hero.npcs, n)}`, { sex: n.sex })}</span>
       <span class="person-name">{nameOf(n.name, lang)}</span>
-      <span class="muted">
-        {n.alive && n.away
-          ? t(`people.away.${n.away.reason}`, { sex: n.sex, year: formatYear(n.away.since, lang) })
-          : n.alive
-          ? [
-              t('life.age', { n: Math.max(0, npcAge(n, state.year)) }),
-              attitudeText(t, n),
-              n.profession ? t(`prof.${n.profession}`, {}, { sex: n.sex }).toLocaleLowerCase(lang) : '',
-              n.married ? t('people.married', { sex: n.sex }) : '',
-              ...(n.tags ?? []).filter((tag) => hasKey(lang, `npctag.${tag}`)).map((tag) => t(`npctag.${tag}`, { sex: n.sex })),
-            ]
-              .filter(Boolean)
-              .join(' · ')
-          : t('npc.dead', { sex: n.sex, year: formatYear(n.deathYear ?? state.year, lang) })}
-      </span>
+      <span class="muted">{npcFacts(t, lang, n, state.year)}</span>
     </li>
   )
+  if (aliveOnly) return alive.length ? <ul class="people">{alive.map(row)}</ul> : <p class="muted">{t('people.empty')}</p>
   return (
     <section class="panel">
       {hero.npcs.length === 0 && <p class="muted">{t('people.empty')}</p>}
@@ -890,6 +958,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
   const { t, lang } = useUi()
   const ev = currentEvent(state, era)
   const [noteOpen, setNoteOpen] = useState(false)
+  const [peopleOpen, setPeopleOpen] = useState(false)
   const offered = state.queue[0]?.dream
   useEffect(() => {
     if (offered && ev?.id === 'dream_intro' && !state.queue[0]?.outcome) platform.track('dream_offer', { dream: offered, era: state.hero.era, age: state.hero.age })
@@ -900,12 +969,17 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
   const coin = regionOf(era, hero.region).coin
   const active = state.queue[0]
   const outcome = active?.outcome
+  const who = active?.npcId ? hero.npcs.find((n) => n.id === active.npcId) : undefined
   const params = { ...contextParams(hero.region, hero.religion, state.year), ...(active ? eventParams(state, active) : {}) }
   const choices = eventChoices(state, era, ev)
   const isProfession = ev.dynamic === 'profession'
   const isName = ev.dynamic === 'name'
   const v = active?.variant
   const label = (c: ChoiceDef) => (isName ? nameOf(c.id, lang) : isProfession ? t(`prof.${c.id}`, {}, o) : t(variantKey(lang, `ev.${ev.id}.${c.id}`, v), params, o))
+  const lockText = (c: ChoiceDef) => {
+    const r = lockReason(state, c)
+    return r ? t(r.key, r.params, o) : t('event.locked')
+  }
   const cost = (c: ChoiceDef) => {
     // Цена - как её возьмёт движок: богатый платит больше написанного (scaledMoney).
     const m = (c.effects ?? []).reduce((sum, e) => sum + ('param' in e && e.param === 'money' && e.delta < 0 ? scaledMoney(hero, era, e.delta) : 0), 0)
@@ -923,6 +997,11 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
         <div class="modal-body">
           {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
           <h2 id="ev-title">{t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)}</h2>
+          {who && (
+            <p class="event-who">
+              <b>{nameOf(who.name, lang)}</b> - {t(`npc.${roleKey(hero.npcs, who)}`, { sex: who.sex }).toLocaleLowerCase(lang)} · {npcFacts(t, lang, who, state.year)}
+            </p>
+          )}
           <p class="event-text">{t(eventTextKey(ev, active?.variant), params, o)}</p>
 
           {ev.historian_note && (
@@ -936,6 +1015,15 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
                   {ev.confidence && <p class="confidence">{t(`event.confidence.${ev.confidence}`)}</p>}
                 </>
               )}
+            </div>
+          )}
+
+          {!outcome && choices.length > 1 && hero.npcs.some((n) => n.alive && !n.away) && (
+            <div class="note">
+              <button class="link" aria-expanded={peopleOpen} onClick={() => setPeopleOpen(!peopleOpen)}>
+                {t('event.people')} {peopleOpen ? '▴' : '▾'}
+              </button>
+              {peopleOpen && <People state={state} aliveOnly />}
             </div>
           )}
 
@@ -957,7 +1045,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
                       {mark && <span class={`chip-static goal-mark ${mark}`}>{t(`event.mark.${mark}`)}</span>}
                       {price && <span class="chip-static">−{price}</span>}
                       {p !== null && <span class="chip-static">{t('event.chance', { n: Math.round(p * 100) })}</span>}
-                      {!ok && <span class="chip-static">{t('event.locked')}</span>}
+                      {!ok && <span class="chip-static lock">{lockText(c)}</span>}
                     </span>
                   </button>
                 )

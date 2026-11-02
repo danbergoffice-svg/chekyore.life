@@ -33,9 +33,9 @@ import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, star
 import { eraById, isEraLoaded } from '../content'
 import { eraEnding, summarize } from './life'
 import { eventHelpsGoal, goalYear } from './goals'
-import { PRIMER_TOPICS } from './types'
+import { ATTRIBUTES, PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
-import type { ActiveEvent, ChoiceDef, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
+import type { ActiveEvent, ChoiceDef, Condition, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
 
 /** Через сколько лет одно и то же событие может повториться. */
 const COOLDOWN = 8
@@ -888,6 +888,34 @@ export function choiceAvailable(state: GameState, choice: ChoiceDef): boolean {
   // Второй брак при живом супруге рядом - нет (в игре нет многожёнства).
   if (addsSpouse(choice) && aliveNpcs(state.hero, 'spouse').length > 0) return false
   return checkAll(state, choice.requirements)
+}
+
+/** Почему вариант недоступен - первое невыполненное условие словами (ключ event.lock.*); null - доступен. */
+export function lockReason(state: GameState, choice: ChoiceDef): { key: string; params?: Record<string, TextParam> } | null {
+  if (addsSpouse(choice) && aliveNpcs(state.hero, 'spouse').length > 0) return { key: 'event.lock.married' }
+  const failed = (choice.requirements ?? []).find((c) => !check(state, c))
+  return failed ? conditionReason(failed) : null
+}
+
+function conditionReason(c: Condition): { key: string; params?: Record<string, TextParam> } {
+  if ('param' in c) {
+    if (c.param === 'money') return { key: 'event.lock.money' }
+    if ((ATTRIBUTES as readonly string[]).includes(c.param)) return { key: 'event.lock.need', params: { what: { key: `attr.${c.param}` }, n: c.value } }
+    if (c.param === 'reputation') return { key: 'event.lock.reputation' }
+  }
+  if ('skill' in c) return { key: 'event.lock.need', params: { what: { key: `skill.${c.skill}` }, n: c.value } }
+  if ('sex' in c) return { key: `event.lock.sex.${c.sex}` }
+  if ('classes' in c) return { key: 'event.lock.class' }
+  if ('age' in c) return { key: 'event.lock.age', params: { a: c.age[0], b: c.age[1] } }
+  if ('region' in c) return { key: 'event.lock.region' }
+  if ('religion' in c || 'religion_absent' in c) return { key: 'event.lock.faith' }
+  if ('has_npc' in c) return { key: 'event.lock.nobody' }
+  if ('no_npc' in c && c.no_npc === 'spouse') return { key: 'event.lock.married' }
+  if ('profession' in c || 'no_profession' in c) return { key: 'event.lock.profession' }
+  if ('status' in c) return { key: 'event.lock.status' }
+  // «Одно из»: первая причина, которую можно назвать словами.
+  if ('any' in c && c.any.length) return c.any.map(conditionReason).find((r) => r.key !== 'event.lock.other') ?? { key: 'event.lock.other' }
+  return { key: 'event.lock.other' }
 }
 
 /** Шанс успеха рискованного выбора с учётом параметра и склонности к риску. */
