@@ -1,0 +1,35 @@
+/* Детская мини-игра: экран и общие части досок. Доски рисуют SVG (.kb-svg) и сами ставят цвета. */
+.kids { max-width: 480px; margin: 0 auto; padding: 0 0 16px; color: var(--ink, #f3ead7); }
+.kids-scene { position: relative; }
+.kids-scene canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.kids-age { position: absolute; left: 10px; top: 8px; padding: 2px 8px; background: #16213a; color: #f3ead7; font-size: 12px; font-weight: 700; clip-path: var(--rough-b, none); }
+.kids-title { margin: 10px 14px 4px; font-family: var(--font-display, serif); font-size: 28px; line-height: 1.1; }
+.kids-story { margin: 0 14px 10px; font-size: 15px; line-height: 1.45; color: var(--ink-2, #e2d3b3); }
+.kids-choose { margin: 0 14px 8px; font-weight: 700; }
+.kids-tasks { display: grid; gap: 8px; margin: 0 14px; }
+.kids-task { display: grid; grid-template-columns: 1fr; gap: 2px; text-align: left; padding: 10px 12px; background: rgba(243, 234, 215, 0.08); color: inherit; border: 1px solid #33456b; border-radius: 8px; font: inherit; cursor: pointer; }
+.kids-task:hover, .kids-task:focus-visible { background: #f3ead7; color: #16213a; }
+.kids-dir { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mustard, #ecd06f); }
+.kids-task:hover .kids-dir, .kids-task:focus-visible .kids-dir { color: #8a3a1e; }
+.kids-label { font-size: 16px; font-weight: 700; }
+.kids-reward { font-size: 13px; color: var(--terra, #df6c4f); }
+.kids-rule { margin: 0 14px 8px; font-size: 14px; color: var(--muted, #bfa987); line-height: 1.4; }
+.kids-board { margin: 0 10px; padding: 6px; background: rgba(0, 0, 0, 0.22); border-radius: 10px; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.kb-svg { display: block; width: 100%; height: auto; font-family: var(--font, serif); }
+.kb-svg [role='button'], .kb-tile, .kb-tap { cursor: pointer; }
+.kb-hint { animation: kb-hint 0.9s ease-in-out 3; }
+@keyframes kb-hint { 50% { opacity: 0.35; } }
+.kids-foot { display: flex; justify-content: space-between; align-items: center; margin: 8px 14px 0; font-size: 14px; color: var(--ink-2, #e2d3b3); }
+.kids-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 14px 0; }
+.kids-result { margin: 16px 14px 0; text-align: center; display: grid; gap: 8px; justify-items: center; }
+.kids-win { font-family: var(--font-display, serif); font-size: 26px; margin: 0; }
+.kids-gain { margin: 0; font-weight: 700; color: var(--mustard, #ecd06f); }
+.kids-result .primary { min-width: 200px; }
+.kids-stars { display: inline-flex; gap: 6px; }
+.kids-stars svg { width: 40px; height: 40px; }
+/* Палитра под доской (выбор цвета, фишки). */
+.kb-palette { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 8px 0 2px; }
+.kb-swatch { width: 40px; height: 40px; border-radius: 8px; border: 2px solid rgba(0, 0, 0, 0.25); cursor: pointer; }
+.kb-swatch.on { outline: 3px solid var(--mustard, #ecd06f); outline-offset: 2px; }
+.kb-arrows { display: grid; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 48px); gap: 6px; justify-content: center; margin-top: 8px; }
+.kb-arrows button { font-size: 22px; min-height: 0; padding: 0; }

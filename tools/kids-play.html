@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru" class="skin">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Детские головоломки</title>
+<style>
+  body { margin: 0; }
+  .kp { max-width: 480px; margin: 0 auto; padding-bottom: 40px; }
+  .kp-head { position: sticky; top: 0; z-index: 5; padding: 10px 12px; background: #0f1729; display: grid; gap: 8px; border-bottom: 1px solid #33456b; }
+  .kp-head select { font: inherit; padding: 8px; background: #1f2c4a; color: #f3ead7; border: 1px solid #33456b; border-radius: 6px; }
+  .kp-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; color: #bfa987; font-size: 14px; }
+  .kp-row .chip { min-width: 36px; }
+  .kp-row .chip.on { background: #f3ead7; color: #16213a; }
+  .kp-log { margin: 20px 14px; color: #e2d3b3; font-size: 14px; }
+  .kp-log .kids-stars svg { width: 16px; height: 16px; vertical-align: -3px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="./kids-play.tsx"></script>
+</body>
+</html>
