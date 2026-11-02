@@ -761,7 +761,7 @@ div.hint .hint-x { background: none; border: 0; color: inherit; font: inherit; c
 .menu .spin { margin: 16px 0 6px; }
 .spin-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 34px; margin-bottom: 8px; }
 .spin-head .caps { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-.gifts-btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink-2); font-weight: 700; font-size: 15px; cursor: pointer; }
+.gifts-btn { flex: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink-2); font-weight: 700; font-size: 15px; cursor: pointer; }
 .gifts-btn.has { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 14%, var(--card)); color: var(--gold); }
 .gifts-btn .n { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; background: var(--gold); color: #1f1914; font-size: 12px; }
 .reel-frame { position: relative; }
