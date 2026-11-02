@@ -331,10 +331,10 @@ export function ancestorNamesOf(hero: Hero): string[] {
 }
 
 /** Имя новорождённого с учётом обычаев: в Китае нельзя имя предка, в Европе и Византии часто называют в честь деда. */
-export function childName(state: GameState, era: EraDef | EraMeta, sex: Sex): string {
+export function childName(state: GameState, era: EraDef | EraMeta, sex: Sex, also: string[] = []): string {
   const names = regionOf(era, state.hero.region).names[sex]
   const rule = ancestorRule(era, state.hero.region)
-  const ancestors = new Set(ancestorNamesOf(state.hero))
+  const ancestors = new Set([...ancestorNamesOf(state.hero), ...also])
   if (rule === 'prefer' && chance(state, 0.45)) {
     const own = names.filter((n) => ancestors.has(n.id))
     if (own.length) return pick(state, own).id
@@ -365,7 +365,7 @@ export function makeNpc(state: GameState, era: EraDef | EraMeta, role: NpcRole, 
   const npc: Npc = {
     id: `n${state.nextId++}`,
     role,
-    name: role === 'child' ? childName(state, era, s) : freshName(state, region.names[s]),
+    name: role === 'child' || role === 'grandchild' ? childName(state, era, s) : freshName(state, region.names[s]),
     sex: s,
     birthYear: birthYear ?? addYears(hero.birthYear, -int(state, a, b)),
     traits: [pick(state, era.traits)],

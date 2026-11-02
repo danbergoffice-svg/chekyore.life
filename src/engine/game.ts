@@ -22,6 +22,7 @@ import {
   ancestorNamesOf,
   descentOf,
   awayNpcs,
+  childName,
 } from './rules'
 import { householdYear } from './household'
 import { pets } from './pets'
@@ -277,6 +278,8 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
       applyEffects(state, era, [{ add_npc: 'grandchild', attitude: 50 }])
       const g = hero.npcs[before]
       g.parentId = child.id
+      // Внука нельзя назвать и именем его родителя (в Китае) - он станет героем-наследником со своими детьми.
+      if (ancestorRule(era, hero.region) === 'forbid') g.name = childName(state, era, g.sex, [child.name])
       note(state, { key: `diary.grandchild_born_${g.sex}`, params: { child: { name: g.name }, parent: { name: child.name } }, major: true, topic: 'family', icon: 'child', score: 30, mood: 6 })
       changeParam(hero, 'happiness', 5)
     }
@@ -292,6 +295,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
       applyEffects(state, era, [{ add_npc: 'grandchild', attitude: 50 }])
       const gg = hero.npcs[before]
       gg.parentId = g.id
+      if (ancestorRule(era, hero.region) === 'forbid') gg.name = childName(state, era, gg.sex, [g.name, hero.npcs.find((n) => n.id === g.parentId)?.name ?? ''])
       note(state, { key: `diary.great_grandchild_born_${gg.sex}`, params: { child: { name: gg.name }, parent: { name: g.name } }, major: true, topic: 'family', icon: 'child', score: 30, mood: 6 })
       changeParam(hero, 'happiness', 4)
     }
@@ -344,8 +348,21 @@ export function heroMortality(state: GameState, era: EraDef): number {
   if (hero.tags.includes('ill')) q *= 1.6
   for (const vice of era.vices) if (hero.tags.includes(vice.tag)) q *= vice.mortality ?? 1
   if (state.settings.mortality === 'soft' && hero.age < 15) q *= 0.25
+  q = Math.max(q, oldAgeFloor(era, hero.age))
   if (h <= 0) q = 1
   return Math.min(1, q)
+}
+
+/**
+ * Глубокая старость: после 80 лет врач, баня и богатство уже почти не помогают - смертность не ниже 70% табличной,
+ * а после последней строки таблицы (обычно 90) растёт ещё на 12% в год. Без этого знать доживала до 110–119.
+ */
+function oldAgeFloor(era: EraDef, age: number): number {
+  if (age < 80) return 0
+  const table = era.mortality.qx
+  const [last] = table[table.length - 1]
+  const extra = age > last ? 1.12 ** (age - last) : 1
+  return Math.min(1, qx(era, age) * extra * 0.7)
 }
 
 /**
@@ -364,7 +381,7 @@ export function expectedAge(state: GameState, era: EraDef): number {
   let alive = 1
   let years = 0
   for (let x = age; x < 110; x++) {
-    alive *= 1 - Math.min(1, qx(era, x) * cal * other * healthFactor(health))
+    alive *= 1 - Math.min(1, Math.max(qx(era, x) * cal * other * healthFactor(health), oldAgeFloor(era, x)))
     years += alive
     health += trend - (x >= 35 ? 0.5 : 0) - (x >= 50 ? 1 : 0) - (x >= 65 ? 1.5 : 0) + (x < 25 && health < 70 ? 1 : 0)
     health = Math.max(0, Math.min(100, health))
@@ -598,12 +615,17 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const fits = (ev: EventDef) => quickFit(state, ev) && eligible(state, era, ev)
   // Первые жизни: события прошлых жизней и уже бывшие в этой не повторяются - если нового подходящего нет,
   // в этот год такого события просто не будет (кроме истории рождения: она нужна всегда). Дальше (eventsSoft) - повтор можно.
+  // Если новых не было два года подряд (долгая прошлая жизнь в той же стране, наследник, жизнь вне хроники) -
+  // тоже можно повтор: пустые годы хуже повтора.
   const before = state.settings.eventsSeen ? new Set(state.settings.eventsSeen) : null
+  const soft = state.settings.eventsSoft || (state.quietYears ?? 0) >= 2
   const fresh = (list: EventDef[], must = false): EventDef[] => {
     if (!before) return list
     const unseen = list.filter((e) => !before.has(e.id) && hero.seen[e.id] === undefined)
-    return unseen.length || !(must || state.settings.eventsSoft) ? unseen : list
+    if (!unseen.length && list.length) starved = true
+    return unseen.length || !(must || soft) ? unseen : list
   }
+  let starved = false
 
   // 1. Отложенные последствия прошлых решений: только если обстоятельства решения не изменились,
   // только про того же человека; не больше одного в год на сюжетную линию и двух всего - остальные ждут год.
@@ -682,6 +704,8 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
     if (dream) picked.push({ eventId: intro.id, at: Math.round((0.2 + dreamRng(state, 'at')() * 0.6) * 100) / 100, dream: dream.id, outcome: null })
   }
 
+  // Год без событий из-за того, что всё подходящее уже было (а не просто тихий год), - копим; любое событие - сброс.
+  if (before) state.quietYears = picked.some((p) => p.eventId !== b.naming?.id) ? 0 : starved ? (state.quietYears ?? 0) + 1 : state.quietYears
   state.queue = picked.sort((a, b) => a.at - b.at)
   for (const p of picked) {
     hero.seen[p.eventId] = state.year

@@ -302,6 +302,36 @@ function familyOfDescendant(state: GameState, era: EraDef, prevHero: Hero, heir:
   }
 }
 
+/**
+ * Своя семья и дело наследника, если он уже взрослый: супруг (если был в браке), его дети и внуки, ремесло -
+ * переходят к нему как к герою. Раньше наследник 26+ лет начинал холостым, бездетным и без дела, а выбор ремесла
+ * (до 25 лет) и свадьба по возрасту ему уже не выпадали.
+ */
+function ownFamily(state: GameState, era: EraDef, prevHero: Hero, heir: Npc): void {
+  const hero = state.hero
+  const fits = (id?: string) => {
+    const p = era.professions.find((x) => x.id === id)
+    return p && !p.promotion_only && (!p.sex || p.sex === hero.sex) && (!p.classes || p.classes.includes(hero.cls)) && (!p.regions || p.regions.includes(hero.region)) && p.minAge <= hero.age ? p : undefined
+  }
+  // Дело: своё (им он уже занимается - даже если сословие родителя с тех пор сменилось), а если его не было - семейное.
+  const own = era.professions.find((x) => x.id === heir.profession && (!x.sex || x.sex === hero.sex))
+  const prof = own ?? (hero.age >= 16 ? fits(prevHero.profession ?? undefined) : undefined)
+  if (prof) {
+    hero.profession = prof.id
+    hero.skills[prof.skill] = Math.max(hero.skills[prof.skill] ?? 0, Math.min(55, 15 + (hero.age - 14) * 2))
+  }
+  if (heir.married) {
+    const spouse = makeNpc(state, era, 'spouse', undefined, undefined, 45)
+    spouse.since = addYears(state.year, -Math.max(0, Math.min(hero.age - era.marriageAge[hero.sex][0], int(state, 1, 15))))
+    if (!hero.tags.includes('married')) hero.tags.push('married')
+  }
+  // Его дети (внуки умершего героя) - теперь дети героя, их дети - внуки.
+  const kids = prevHero.npcs.filter((n) => n.role === 'grandchild' && n.parentId === heir.id)
+  const ids = new Set(kids.map((k) => k.id))
+  for (const k of kids) hero.npcs.push({ ...k, role: 'child', parentId: undefined, attitude: Math.max(k.attitude, 50) })
+  for (const g of prevHero.npcs) if (g.role === 'grandchild' && g.parentId && ids.has(g.parentId)) hero.npcs.push({ ...g })
+}
+
 /** Долгоживущие питомцы (попугай, черепаха) и все, кто живёт в доме, переходят к наследнику - запись в дневник. */
 function inheritPets(hero: Hero, year: number): void {
   for (const pet of hero.animals.filter((a) => isPet(a.kind) && (a.born ?? a.since) < hero.birthYear)) {
@@ -374,6 +404,8 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // Навыки, которые ребёнок успел получить в семье.
   for (const skill of era.skills) hero.skills[skill] = 0
   if (prof && hero.age >= 8) hero.skills[prof.skill] = Math.min(30, hero.age * 1.5)
+
+  ownFamily(state, era, parent, child)
 
   if (gen > 1) {
     familyOfDescendant(state, era, parent, child)

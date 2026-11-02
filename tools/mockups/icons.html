@@ -25,7 +25,6 @@
 <body>
 <div id="out"></div>
 <script type="module">
-import { ICONS, iconRects, iconSize } from '/src/ui/icons.ts'
 
 // Общие контуры 24×24: s - линия, f - замкнутая фигура
 const P = {
@@ -46,13 +45,6 @@ const NAMES = Object.keys(P)
 const RU = { gift: 'дар', crown: 'корона', heart: 'сердце', castle: 'замок', moon: 'луна', purse: 'кошель', target: 'цель', lock: 'замок', video: 'реклама', hourglass: 'часы', book: 'книга', person: 'игрок' }
 
 const svg = (inner, defs = '') => `<svg class="ic" viewBox="0 0 24 24">${defs}${inner}</svg>`
-
-// Сейчас: пиксели 9×9
-function pixel(n) {
-  const [w, h] = iconSize(n)
-  const r = iconRects(n).map((q) => `<rect x="${q.x}" y="${q.y}" width="${q.w}" height="1" fill="${q.fill.replace(/var\([^,]+, ?([^)]+)\)/, '$1').replace('currentColor', '#f3ead7')}"/>`).join('')
-  return `<svg class="ic" viewBox="-1 -1 ${Math.max(w, h) + 2} ${Math.max(w, h) + 2}" shape-rendering="crispEdges" style="color:#f3ead7">${r}</svg>`
-}
 
 // А. Линия: тонкий контур латунью, как значки на карте
 function line(n) {
@@ -80,7 +72,6 @@ function enamel(n) {
 }
 
 const STYLES = [
-  ['Сейчас - пиксели', 'Клетки 9×9: на маленьком размере «лесенка», мелкие детали теряются.', (n) => (ICONS[n] ? pixel(n) : '')],
   ['А. Линия', 'Тонкий латунный контур, как пометки на старой карте. Легкие, не спорят с текстом, хорошо видны в кнопках.', line],
   ['Б. Гравюра', 'Плотный силуэт, латунь с бликом и тёмный контур - как печать или жетон. Ярче всего на тёмном фоне.', engraved],
   ['В. Эмаль', 'Медальон: синяя эмаль в латунном ободе, как лампы барабана. Самые нарядные, но крупнее и тяжелее.', enamel],

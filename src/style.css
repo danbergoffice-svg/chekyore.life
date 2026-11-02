@@ -822,11 +822,11 @@ div.hint .hint-x { background: none; border: 0; color: inherit; font: inherit; c
 }
 
 
-/* Пиксельные значки вместо эмодзи (src/ui/icons.ts): стоят в строке, чёткие пиксели. */
-.icon { display: inline-block; vertical-align: -0.12em; flex: none; image-rendering: pixelated; }
-.reel-icon .icon { height: 15px !important; width: auto !important; }
+/* Значки-линии вместо эмодзи (src/ui/icons.ts): стоят в строке, цвет - цвет текста. */
+.icon { display: inline-block; vertical-align: -0.2em; flex: none; overflow: visible; }
+.reel-icon .icon { height: 16px !important; width: 16px !important; }
 .reel-icon { line-height: 0; color: #2b2119; }
-.ach-icon .icon, .daily-icon .icon, .gift-icon .icon { height: 1.2em !important; width: auto !important; }
+.ach-icon .icon, .daily-icon .icon, .gift-icon .icon { height: 1.4em !important; width: 1.4em !important; }
 
 /* Портал (CrazyGames): на телефоне долгое касание не выделяет текст и не показывает лупу; поля ввода - как обычно. */
 html.portal body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; }
