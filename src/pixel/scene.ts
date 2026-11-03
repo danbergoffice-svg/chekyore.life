@@ -15,8 +15,11 @@ import { climateOf, seasonLook, seasonName } from './season'
 import { artFor, artStrength, drawBackground, paletteMapper, stylize } from './art'
 import { detailHouses } from './detail'
 import { drawAnimal, NATIVE_ANIMALS } from './animals'
-import { buildHdStreet, hasHd, hdEnabled, HD_H, HD_W } from './hd'
+import { buildHdStreet, hasHd, hdEnabled, HD_H, HD_W, oilEnabled } from './hd'
 import type { HdLayers } from './hd'
+import { drawHdFigure, HD_SCALE } from './hdFigure'
+import { figureSheet } from './hdFigureOil'
+import type { FigureJob, FigureSheet } from './hdFigureOil'
 import type { ArtStyle } from './art'
 import type { SeasonLook, SeasonName } from './season'
 import type { SceneDef, SceneProp, ScenePlace, SceneTime } from '../engine/types'
@@ -1379,6 +1382,8 @@ function nativePx(ctx: Ctx): Px {
 /** Что движется в кадре: люди, животные, лодка. Рисуется каждый кадр поверх неподвижных слоёв. */
 interface Actor {
   draw: (ctx: Ctx, t: number) => void
+  /** Детальная сцена: рисуется прямо на холсте 960×300 (люди hdFigure.ts), а не в сетке 320×100. */
+  hd?: (ctx: Ctx, t: number) => void
 }
 
 /** Как стоит человек: переступает, работает (замах), покачивается в лодке. */
@@ -1399,6 +1404,11 @@ interface Build {
   /** Дома и проёмы для прорисовки в полном разрешении. */
   houses: { x: number; w: number; h: number; roof: RoofKind; style: string }[]
   openings: { x: number; y: number; w: number; h: number; kind: 'window' | 'door'; style: string }[]
+  /** Сцена с детальным фоном: люди - в полном разрешении. */
+  hd?: boolean
+  /** Люди детальной сцены для листа поз маслом (hdFigureOil.ts); лист появляется, когда все расставлены. */
+  hdJobs?: FigureJob[]
+  hdSheet?: { s: FigureSheet | null }
 }
 
 type RoofKind = 'tile' | 'shingle' | 'thatch' | 'flat'
@@ -1459,6 +1469,25 @@ function person(_px: Px, x: number, look: Look, r: () => number, k: number, smal
   const X = Math.round(x * S)
   const B = Math.round((base + 1) * S) - 1
   const prof = m?.profession
+  if (cur.hd) {
+    // Детальная сцена: человек плавными формами в точках 960×300.
+    const anim: Anim = opts.still ? 'still' : opts.anim ?? 'idle'
+    const phase = noise(X, B, cur.actors.length)
+    // Позы, которые бывают у этой анимации (poseAt): стоит и переступает, замах и удар, или одна.
+    const poses = anim === 'idle' ? [0, 1] : anim === 'work' ? [2, 3] : [0]
+    const job = (cur.hdJobs ??= []).push({ spec, k, prof, poses }) - 1
+    const holder = (cur.hdSheet ??= { s: null })
+    cur.actors.push({
+      draw: () => {},
+      hd: (ctx, t) => {
+        const pose = poseAt(anim, t, phase).pose
+        const x = X * HD_SCALE
+        const base = (B + 1) * HD_SCALE
+        if (!holder.s?.draw(ctx, job, pose, x, base)) drawHdFigure(ctx, x, base, spec, k, pose, prof)
+      },
+    })
+    return
+  }
   if (opts.still) {
     drawFigure(nativePx(cur.main), X, B, spec, k, 0, prof)
     return
@@ -1958,7 +1987,7 @@ function layer(): [HTMLCanvasElement, Ctx] {
 /** Ключ кэша: всё, от чего зависит неподвижная часть сцены (время года - восьмыми долями). */
 export function sceneKey(input: SceneInput): string {
   const season = input.season === undefined ? null : Math.floor(input.season * 8) % 8
-  return JSON.stringify([input.scene, input.region, input.seed, input.cast ?? null, season, input.weather ?? null, input.mood ?? null, input.art ?? 'half', input.year ?? null, artStrength(), hdEnabled()])
+  return JSON.stringify([input.scene, input.region, input.seed, input.cast ?? null, season, input.weather ?? null, input.mood ?? null, input.art ?? 'half', input.year ?? null, artStrength(), hdEnabled(), oilEnabled()])
 }
 
 /** Сцена из кэша или собранная заново (последние 24). */
@@ -2051,8 +2080,12 @@ function composeHd(target: Ctx, b: BuiltScene, hd: HdLayers, t: number): void {
   o.imageSmoothingEnabled = false
   drawFxMid(o, b.fx, t)
   colorMap = b.colors
-  for (const a of b.actors) a.draw(o, t)
+  for (const a of b.actors) if (!a.hd) a.draw(o, t)
   colorMap = null
+  up()
+  // Люди - в полном разрешении, поверх животных и воды.
+  for (const a of b.actors) a.hd?.(ctx, t)
+  o.clearRect(0, 0, W, H)
   o.drawImage(b.front, 0, 0)
   drawFxTop(o, b.fx, t)
   if (b.badge) {
@@ -2115,9 +2148,12 @@ function build(input: SceneInput): BuiltScene {
   const skyPx = scaledPx(skyX)
   const frontPx = scaledPx(frontX)
   // Детальный фон (пилот): улица Европы. Прежние небо, дома и земля не рисуются, люди и движение - как были.
-  const hd = outdoor && !scene.disaster && hdEnabled() && hasHd(place, look.style) ? buildHdStreet(`${seed}:${region}`, time, SKY[time]) : undefined
+  const hd = outdoor && !scene.disaster && hdEnabled() && hasHd(place, look.style) ? buildHdStreet(region, time, SKY[time]) : undefined
   sky(skyPx, time, r)
-  if (hd) fx.stars = []
+  if (hd) {
+    fx.stars = []
+    cur.hd = true
+  }
   const traditional = !hd && !!art && artMode === 'full' && outdoor && drawBackground(skyX, W, Math.round(GROUND * S), art, time === 'day' ? null : SKY[time][2])
   if (traditional) fx.stars = []
   const props = scene.props ?? []
@@ -2236,6 +2272,8 @@ function build(input: SceneInput): BuiltScene {
       else if (adult && cast.animals.includes('falcon') && (place === 'field' || place === 'road')) shoulder('falcon', x + 5, base - 6)
     }
   }
+  // Люди детальной сцены маслом: один лист поз на всю сцену (без WebGL2 - векторные).
+  if (hd && oilEnabled() && cur.hdJobs?.length && cur.hdSheet) cur.hdSheet.s = figureSheet(cur.hdJobs, fx.seed % 997)
   // Ночью у домов горят факелы.
   if (time === 'night' && ['street', 'market', 'palace', 'temple', 'landmark', 'harbor'].includes(place)) {
     for (const [i, b] of built.entries()) {

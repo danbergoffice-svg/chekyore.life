@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Детальные люди: Европа</title>
+    <style>
+      body { background: #15171a; color: #ccc; font: 13px sans-serif; margin: 16px; }
+      canvas { width: 100%; display: block; border-radius: 6px; background: #d8cfbe; }
+      h3 { margin: 14px 0 6px; font-weight: 500; color: #eee; }
+    </style>
+  </head>
+  <body>
+    <h3>Сословия, пол, возраст (позы: стоит, шаг, замах, удар)</h3>
+    <canvas id="lineup" width="960" height="300"></canvas>
+    <h3>Крупно (×3)</h3>
+    <canvas id="zoom" width="960" height="420"></canvas>
+    <h3>Маслом мастихином, крупно (×3)</h3>
+    <canvas id="oil" width="960" height="420"></canvas>
+    <h3>В игровом масштабе: слева вектор, справа масло</h3>
+    <canvas id="game" width="960" height="140" style="width:960px"></canvas>
+    <script type="module">
+      // Стенд пилота: люди детальной сцены (src/pixel/hdFigure.ts). Подписи - сословие и занятие.
+      import { drawHdFigure } from '../src/pixel/hdFigure.ts'
+      import { figureSheet } from '../src/pixel/hdFigureOil.ts'
+      const base = (o) => ({ h: 23, skin: '#e8c0a0', hair: '#3a2a1a', cloth: '#5a4a3a', trim: null, hat: null, hatColor: '#5a3a2a', beard: false, longHair: false, bald: false, accent: '#8a2a2a', ...o })
+      const people = [
+        ['крестьянин', base({ sex: 'm', age: 30, cls: 'peasant', cloth: '#7a6a4a', hat: 'cap', beard: true }), 'farmer'],
+        ['крестьянка', base({ sex: 'f', age: 28, cls: 'peasant', cloth: '#5a6a4a', longHair: true, hat: 'cover', hatColor: '#f0ebe0' }), undefined],
+        ['кузнец', base({ sex: 'm', age: 35, cls: 'craftsman', cloth: '#4a5a6a', beard: true, hair: '#2a2018' }), 'blacksmith'],
+        ['ткачиха', base({ sex: 'f', age: 22, cls: 'craftsman', cloth: '#8a2a2a', longHair: true, hair: '#8a5a2a' }), 'weaver'],
+        ['купец', base({ sex: 'm', age: 45, cls: 'trader', cloth: '#2f4f7a', hat: 'cap', hatColor: '#6a2a2a', beard: true }), 'merchant'],
+        ['рыцарь', base({ sex: 'm', age: 30, cls: 'noble', cloth: '#7a1e2a', hat: 'cap', hatColor: '#2a3a6a' }), 'knight'],
+        ['дама', base({ sex: 'f', age: 24, cls: 'noble', cloth: '#2a4a8a', longHair: true, hat: 'tall', hair: '#c8a060' }), undefined],
+        ['священник', base({ sex: 'm', age: 50, cls: 'peasant', hair: '#6a5a4a' }), 'priest'],
+        ['ребёнок', base({ sex: 'f', age: 6, h: 15, cls: 'peasant', cloth: '#a8875a', longHair: true, hair: '#c8a060' }), undefined],
+        ['мальчик', base({ sex: 'm', age: 12, h: 19, cls: 'craftsman', cloth: '#6a7a4a' }), undefined],
+        ['старик', base({ sex: 'm', age: 70, cls: 'peasant', cloth: '#6a5a4a', hair: '#c8c4bc', beard: true, hat: 'cover', hatColor: '#5a4a3a' }), undefined],
+        ['старуха', base({ sex: 'f', age: 68, cls: 'peasant', cloth: '#4a4a5a', hair: '#c8c4bc', longHair: true }), undefined],
+      ]
+      const lineup = document.getElementById('lineup').getContext('2d')
+      const zoom = document.getElementById('zoom').getContext('2d')
+      const draw = (t) => {
+        lineup.clearRect(0, 0, 960, 300)
+        lineup.fillStyle = '#8a8274'
+        lineup.fillRect(0, 220, 960, 80)
+        lineup.font = '12px sans-serif'
+        lineup.fillStyle = '#2a2420'
+        people.forEach(([label, f, prof], i) => {
+          const pose = [0, 1, 0, 0][Math.floor(t * 1.4 + i) % 4]
+          const work = prof === 'farmer' || prof === 'blacksmith' ? (Math.floor(t * 2.2) % 2 ? 2 : 3) : pose
+          drawHdFigure(lineup, 20 + i * 78, 220, { ...f, hero: i === 2 }, 0, work, prof)
+          lineup.fillStyle = '#2a2420'
+          lineup.font = '12px sans-serif'
+          lineup.fillText(label, 14 + i * 78, 240)
+        })
+        zoom.clearRect(0, 0, 960, 420)
+        zoom.save()
+        zoom.scale(3, 3)
+        zoom.fillStyle = '#8a8274'
+        zoom.fillRect(0, 120, 320, 30)
+        ;[0, 4, 5, 6].forEach((idx, j) => {
+          const [, f, prof] = people[idx]
+          drawHdFigure(zoom, 14 + j * 78, 120, f, 0, 0, prof)
+        })
+        zoom.restore()
+      }
+      // Маслом: те же четверо, лист поз один раз, кадр - готовая поза.
+      const pick = [0, 4, 5, 6]
+      const sheet = figureSheet(pick.map((i) => ({ spec: people[i][1], k: 0, prof: people[i][2], poses: [0] })), 7)
+      const oil = document.getElementById('oil').getContext('2d')
+      oil.save()
+      oil.scale(3, 3)
+      oil.fillStyle = '#8a8274'
+      oil.fillRect(0, 120, 320, 30)
+      pick.forEach((idx, j) => sheet ? sheet.draw(oil, j, 0, 14 + j * 78, 120) : drawHdFigure(oil, 14 + j * 78, 120, people[idx][1], 0, 0, people[idx][2]))
+      oil.restore()
+      const game = document.getElementById('game').getContext('2d')
+      game.fillStyle = '#8a8274'
+      game.fillRect(0, 110, 960, 30)
+      pick.forEach((idx, j) => {
+        drawHdFigure(game, 20 + j * 60, 110, people[idx][1], 0, 0, people[idx][2])
+        if (sheet) sheet.draw(game, j, 0, 500 + j * 60, 110)
+      })
+      let t = 0
+      draw(0)
+      setInterval(() => draw((t += 0.1)), 100)
+      document.body.dataset.ready = '1'
+    </script>
+  </body>
+</html>

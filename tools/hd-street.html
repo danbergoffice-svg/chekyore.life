@@ -20,7 +20,7 @@
       // Пилот детального фона: улица Европы. Слева - как сейчас, справа - новый фон; люди, дым и погода - те же.
       // ?region=paris&seed=a&anim=1
       import { buildScene, composeScene, sceneSize } from '../src/pixel/scene.ts'
-      import { setHd } from '../src/pixel/hd.ts'
+      import { setHd, setOil } from '../src/pixel/hd.ts'
       const q = new URLSearchParams(location.search)
       const region = q.get('region') || 'paris'
       const seed = q.get('seed') || 'pilot'
@@ -38,9 +38,14 @@
         const input = { scene: { place: 'street', time, people: 5 }, region, seed, cast, weather }
         const row = document.createElement('div')
         row.className = 'row'
+        // ?vs=old - прежняя пиксельная сцена против масла; по умолчанию - векторный фон против масла.
         const cell = (hd) => {
-          setHd(hd)
+          const vsOld = q.get('vs') === 'old'
+          setHd(vsOld ? hd : true)
+          setOil(hd)
+          const t0 = performance.now()
           const b = buildScene(input)
+          window.__ms = (window.__ms || []).concat(Math.round(performance.now() - t0))
           const c = document.createElement('canvas')
           ;[c.width, c.height] = sceneSize(b)
           if (!hd) c.className = 'old'
@@ -48,7 +53,7 @@
           live.push([c, b])
           const box = document.createElement('div')
           const p = document.createElement('p')
-          p.textContent = hd ? 'Новый фон' : 'Сейчас'
+          p.textContent = hd ? 'Масло мастихином' : q.get('vs') === 'old' ? 'Сейчас' : 'Векторный фон'
           box.append(c, p)
           return box
         }

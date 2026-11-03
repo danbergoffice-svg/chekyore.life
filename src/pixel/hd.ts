@@ -3,6 +3,8 @@
 // (дым, погода, огни) остаются прежними и кладутся поверх, увеличенными втрое (scene.ts, composeScene).
 // Включается ?hd=1 (сохраняется в localStorage), выключается ?hd=0.
 import type { SceneTime } from '../engine/types'
+import { DAB, paintImpasto, recorder } from './impasto/record'
+import type { Recorder } from './impasto/record'
 
 export const HD_W = 960
 export const HD_H = 300
@@ -43,6 +45,27 @@ export function hdEnabled(): boolean {
 export function setHd(on: boolean): void {
   enabled = on
 }
+
+let oil: boolean | null = null
+
+/** Масло мастихином поверх детального фона (impasto из Lemo-Opuscar): по умолчанию да, ?oil=0 - без него. */
+export function oilEnabled(): boolean {
+  if (oil !== null) return oil
+  try {
+    oil = (typeof location !== 'undefined' ? new URLSearchParams(location.search).get('oil') : null) !== '0'
+  } catch {
+    oil = true
+  }
+  return oil
+}
+
+export function setOil(on: boolean): void {
+  oil = on
+  HD_CACHE.clear()
+}
+
+/** Готовые слои по краю и времени суток: масло пишется долго (до секунды), второй раз - из памяти. */
+const HD_CACHE = new Map<string, HdLayers>()
 
 /** Есть ли детальный фон для этого места и стиля. */
 export function hasHd(place: string, style: string): boolean {
@@ -717,15 +740,34 @@ function grain(ctx: Ctx, seed: () => number) {
 
 /** Улица средневекового европейского города. bands - полосы неба времени суток (как у прежней сцены). */
 export function buildHdStreet(seed: string, time: SceneTime, bands: string[]): HdLayers {
+  const key = `${seed}:${time}:${oilEnabled() ? 1 : 0}`
+  const hit = HD_CACHE.get(key)
+  if (hit) return hit
+  const out = drawHdStreet(seed, time, bands)
+  HD_CACHE.set(key, out)
+  if (HD_CACHE.size > 12) HD_CACHE.delete(HD_CACHE.keys().next().value!)
+  return out
+}
+
+function drawHdStreet(seed: string, time: SceneTime, bands: string[]): HdLayers {
   const r = rng(`${seed}:hd:street`)
-  const [sky, skyX] = canvas()
+  const painted = oilEnabled()
+  // С маслом слои рисуются в рекордер: он ведёт карту фигур, по которой лягут мазки.
+  const layerOf = (): [HTMLCanvasElement, Ctx, Recorder | null] => {
+    if (!painted) return [...canvas(), null]
+    const rec = recorder(HD_W, HD_H)
+    return [rec.canvas, rec.ctx, rec]
+  }
+  const [sky, skyX, skyR] = layerOf()
+  skyR?.hint({ dir: 0, maxR: 30, hgt: 0.35, aj: 0.12, len: 1.6 })
   drawSky(skyX, bands, time, r)
   const [clouds, cloudX] = canvas(HD_W * 2, 160)
   drawClouds(cloudX, HD_W * 2, time, r)
-  const [far, farX] = canvas()
+  const [far, farX, farR] = layerOf()
+  farR?.hint({ dir: 0, maxR: 10, hgt: 0.5, aj: 0.2 })
   drawFar(farX, bands[Math.floor(bands.length * 0.7)], r)
   multiply(farX, time)
-  const [main, ctx] = canvas()
+  const [main, ctx, mainR] = layerOf()
   const glows: { x: number; y: number; w: number; h: number }[] = []
   const chimneys: { x: number; y: number }[] = []
   // Церковь в глубине справа, дома - рядом слева направо.
@@ -740,10 +782,19 @@ export function buildHdStreet(seed: string, time: SceneTime, bands: string[]): H
     drawHouse(ctx, { x, w, floors, gable: r() > 0.55 ? 'stepped' : 'pointed' }, r, glows, chimneys, time)
     x += w + 22 + Math.floor(r() * 16)
   }
+  mainR?.hint({ type: DAB, maxR: 5 })
   drawStreet(ctx, r, time, houses)
-  grain(ctx, r)
+  // Фактура «краски» нужна только векторному фону: у масла она своя, а шум сбил бы мазки.
+  if (!painted) grain(ctx, r)
   multiply(ctx, time)
-  glowWindows(ctx, glows, time)
+  if (skyR && farR && mainR) {
+    const n = seed.length
+    paintImpasto(skyR, { seed: n + 1, radii: [30, 16, 8], norm: 1.4 })
+    paintImpasto(farR, { seed: n + 2, radii: [10, 5, 2.6], norm: 2 })
+    paintImpasto(mainR, { seed: n + 3 })
+    // Свет окон - поверх мазков (как светящееся стекло), иначе ореол расплывается в подмалёвке пятнами.
+    glowWindows(mainR.ref.ctx, glows, time)
+  } else glowWindows(ctx, glows, time)
   // Для факелов у дверей (прежняя логика сцены) - дома в сетке 192.
   const k = 192 / HD_W
   const built = [...houses.map((h) => ({ x: Math.round(h.x * k), w: Math.round(h.w * k), top: Math.round(h.top * k) })), { x: Math.round(churchX * k), w: 40, top: 20 }]
