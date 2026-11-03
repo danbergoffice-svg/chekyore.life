@@ -41,6 +41,7 @@ import { GOAL_STEPS, goalMark } from '../engine/goals'
 import type { GoalId } from '../engine/goals'
 import type { GoalGroup } from '../goal'
 import { GoalBar, GoalPick } from './GoalPick'
+import { HudHeader, MilestoneChip, TimeBar } from './LifeHud'
 import type { GoalChoice } from './GoalPick'
 import { earlySeed, kidsOn, SEEN_KEY } from '../kids/early'
 import type { EarlyResult } from '../kids/early'
@@ -62,6 +63,8 @@ function yearMs(age: number, custom?: number): number {
   return (age <= f.child_age ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
 }
 const TICK_MS = 100
+/** Порядок подсказок: раньше - важнее. */
+const HINT_ORDER = ['speed', 'year_len', 'focus', 'hero']
 export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
 export type Speed = (typeof SPEEDS)[number]
 
@@ -81,6 +84,8 @@ interface LifeProps {
   frozen?: boolean
   /** Эксперимент X0: первые три события жизни - короткий текст, без справки и «Близких». */
   shortFirst?: boolean
+  /** Эксперимент XA: 'b' - компактная шапка, веха и нижняя панель времени (макет 06). */
+  layout?: 'a' | 'b'
   /** Открыть настройки из жизни («Назад» вернёт в жизнь). */
   onSettings?: () => void
   choiceChanges: Change[]
@@ -104,7 +109,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, layout, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -122,7 +127,15 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     const id = setInterval(() => setLifeSec((x) => x + 1), 1000)
     return () => clearInterval(id)
   }, [])
-  const hintFor = (id: string, when: boolean) => when && !hints.includes(id)
+  // Подсказки по одной (правка 10): из ожидающих показывается только первая, следующая - после «Понятно».
+  const hintWhen: Record<string, boolean> = {}
+  const hintFor = (id: string, when: boolean) => {
+    hintWhen[id] = when && !hints.includes(id)
+    return hintWhen[id] && HINT_ORDER.find((h) => hintWhen[h] ?? hintDue(h)) === id
+  }
+  const hintDue = (id: string) =>
+    !hints.includes(id) &&
+    (id === 'hero' ? hero.age >= 12 && tab === 'life' : id === 'speed' ? tab === 'life' && lifeSec >= 3 && hero.age < 2 : id === 'year_len' ? tab === 'life' && hero.age >= 2 && hero.age <= 6 : id === 'focus' ? hero.age >= 5 : false)
   const closeHint = (id: string) => {
     const next = [...hints, id]
     setHints(next)
@@ -258,9 +271,24 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const season = state.phase === 'running' ? progress : 0
   const kids = hero.npcs.filter((n) => n.role === 'child' && n.alive)
   const heroName = nameOf(hero.name, lang)
+  const b = layout === 'b'
 
   return (
-    <div class="life">
+    <div class={b ? 'life layout-b' : 'life'}>
+      {b ? (
+        <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} details={
+          <>
+            <p class="hero-meta">
+              {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}
+              {hero.band !== undefined && hero.age >= era.stages.youth && <span title={t('band.tip', { n: statusOf(hero, era) })}> · {t(`band.${hero.band}`)}</span>}
+            </p>
+            {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
+            {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
+            {hero.abroad && !hero.abroad.naturalized && <p class="hero-meta small muted">{t(hero.sex === 'f' ? 'life.foreigner_f' : 'life.foreigner', { year: formatYear(hero.abroad.since, lang) })}</p>}
+            <div class="hud-sound">{sound}</div>
+          </>
+        } />
+      ) : (
       <header class="hero-bar">
         <div class="hero-bar-row">
           <Avatar input={heroLook(hero)} label={t('life.portrait', { n: hero.age }, o)} />
@@ -290,6 +318,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           </div>
         </div>
       </header>
+      )}
 
       {hintFor('hero', hero.age >= 12) && tab === 'life' && <Hint text={t('hint.hero')} onClose={() => closeHint('hero')} />}
       {/* Вкладки и скорость - вверху и прилипают при прокрутке: скорость рядом с картинкой, а не под лентой.
@@ -305,7 +334,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </button>
           ))}
         </nav>
-        <div class="speed-bar">
+        {!b && <div class="speed-bar">
           <div class="speed" role="group" aria-label={t('life.speed')}>
             {SPEEDS.map((s) => (
               <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => {
@@ -326,9 +355,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </span>
           </div>
           {speed === 0 && <p class="small muted center paused-note">{t('life.paused')}</p>}
-        </div>
+        </div>}
       </div>
-      {tab === 'life' && hintFor('speed', lifeSec >= 3 && hero.age < 2) && <Hint text={t('hint.speed')} onClose={() => closeHint('speed')} />}
+      {tab === 'life' && hintFor('speed', lifeSec >= 3 && hero.age < 2) && <Hint text={t(b ? 'hint.speed_b' : 'hint.speed')} onClose={() => closeHint('speed')} />}
       {/* Первые годы жизни: длительность года меняется в настройках. */}
       {tab === 'life' && hintFor('year_len', hero.age >= 2 && hero.age <= 6) && (
         <Hint
@@ -346,6 +375,12 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         />
       )}
 
+      {b && tab === 'life' && (
+        <div class="hud-goal">
+          <GoalBar state={state} open={goalOpen} onToggle={() => setGoalOpen(!goalOpen)} />
+          <MilestoneChip state={state} era={era} />
+        </div>
+      )}
       {tab === 'life' && (
         <section class="panel">
           <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} year={state.year} ambient />
@@ -516,6 +551,19 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         </section>
       )}
 
+      {b && (
+        <TimeBar
+          speed={speed}
+          onSpeed={(s) => {
+            setSpeed(s as Speed)
+            platform.track('speed_change', { speed: s })
+          }}
+          progress={state.phase === 'running' ? progress : 0}
+          year={state.year}
+          onSkip={skip}
+          waiting={modalOpen}
+        />
+      )}
       {goalToast && (
         <p class="goal-toast" role="status">
           {goalToast}
@@ -796,7 +844,6 @@ function PrimerGroup({ ids, o }: { ids: string[]; o: { sex: Hero['sex']; region:
             <button class="primer-row" aria-expanded={open === id} onClick={() => read(id)}>
               <span class="primer-line">
                 <strong class="primer-title">{t(`primer.${id}.title`, {}, o)}</strong>
-                {open !== id && <span class="primer-peek">{'\u00a0— '}{t(`primer.${id}.text`, {}, o)}</span>}
               </span>
               <span class="primer-more">{open === id ? '−' : t('primer.read')}</span>
             </button>
@@ -1022,19 +1069,38 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short }: 
   const title = hasKey(lang, titleKey) ? t(titleKey, params, o) : ''
   return (
     <div class="modal-backdrop">
-      <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby={title ? 'ev-title' : undefined}>
+      <div class={`modal event-sheet ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby={title ? 'ev-title' : undefined}>
         <Illustration era={hero.era} moment={momentOf(ev)} label={title} fire={ev.scene?.disaster === 'fire'}>
           <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={title} />
         </Illustration>
         <div class="modal-body">
-          {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
-          {title && <h2 id="ev-title">{title}</h2>}
+          <div class="ev-head">
+            <div>
+              <p class="eyebrow">{ev.turning ? `${t('event.turning')} · ` : ''}{t('diary.age', { n: hero.age })}</p>
+              {title && <h2 id="ev-title">{title}</h2>}
+            </div>
+            {/* Справка историка - по кнопке «i» в заголовке (макет 07), раскрывается под текстом. */}
+            {ev.historian_note && !short && (
+              <button type="button" class="ev-info" aria-expanded={noteOpen} aria-label={t('event.note')} onClick={() => {
+                if (!noteOpen) platform.track('historian_open', {})
+                setNoteOpen(!noteOpen)
+              }}>
+                <Icon name="info" />
+              </button>
+            )}
+          </div>
           {who && (
             <p class="event-who">
               <b>{nameOf(who.name, lang)}</b>{'\u00a0— '}{t(`npc.${roleKey(hero.npcs, who)}`, { sex: who.sex }).toLocaleLowerCase(lang)} · {npcFacts(t, lang, who, state.year)}
             </p>
           )}
           <p class="event-text">{t(short && hasKey(lang, `ev.${ev.id}.short`) ? `ev.${ev.id}.short` : eventTextKey(ev, active?.variant), params, o)}</p>
+          {noteOpen && ev.historian_note && (
+            <div class="note">
+              <p>{t(`ev.${ev.id}.note`)}</p>
+              {ev.confidence && <p class="confidence">{t(`event.confidence.${ev.confidence}`)}</p>}
+            </div>
+          )}
 
           {/* Сначала решение, потом справка и близкие (правка 04): варианты видны сразу после текста. */}
           {!outcome && (
@@ -1063,6 +1129,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short }: 
             </div>
           )}
 
+          {!outcome && choices.length > 1 && <p class="ev-keys">{t('event.keys', { n: Math.min(4, choices.length) })}</p>}
           {outcome && (
             <div class="outcome">
               {outcome.result !== 'ok' && <p class={`result ${outcome.result}`}>{t(`event.${outcome.result}`)}</p>}
@@ -1073,22 +1140,6 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short }: 
             </div>
           )}
 
-          {ev.historian_note && !short && (
-            <div class="note">
-              <button class="link" aria-expanded={noteOpen} onClick={() => {
-                  if (!noteOpen) platform.track('historian_open', {})
-                  setNoteOpen(!noteOpen)
-                }}>
-                {t('event.note')} {noteOpen ? '▴' : '▾'}
-              </button>
-              {noteOpen && (
-                <>
-                  <p>{t(`ev.${ev.id}.note`)}</p>
-                  {ev.confidence && <p class="confidence">{t(`event.confidence.${ev.confidence}`)}</p>}
-                </>
-              )}
-            </div>
-          )}
 
           {!outcome && !short && choices.length > 1 && hero.npcs.some((n) => n.alive && !n.away) && (
             <div class="note">

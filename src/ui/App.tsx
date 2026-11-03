@@ -10,7 +10,7 @@ import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
-import { goalGroup, shortFirst } from '../goal'
+import { goalGroup, layoutB, shortFirst } from '../goal'
 import { goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
@@ -161,7 +161,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0 })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a' })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -1094,6 +1094,7 @@ export function App() {
             onKids={onKids}
             goal={{ group: goalGroup(platform.playerId(), platform.flags), onPick: onGoal }}
             shortFirst={shortFirst(platform.playerId(), platform.flags)}
+            layout={layoutB(platform.playerId(), platform.flags) ? 'b' : 'a'}
             dream={dreamProps}
           />
         )}

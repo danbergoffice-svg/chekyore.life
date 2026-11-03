@@ -30,6 +30,13 @@ export function shortFirst(playerId: string, flags: { short_first_share: number 
   return share(playerId, 'short_first', flags.short_first_share)
 }
 
+/** Эксперимент XA: новая раскладка экрана жизни; ?layout=a|b - проверить руками. */
+export function layoutB(playerId: string, flags: { layout_share: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('layout') : null
+  if (forced === 'a' || forced === 'b') return forced === 'b'
+  return share(playerId, 'layout', flags.layout_share)
+}
+
 /** Незаконченная цель родителя, которую может взять наследник. */
 export function inheritable(state: GameState): (HeroGoal & { from: string }) | null {
   const prev = state.family.lives[state.family.lives.length - 1]

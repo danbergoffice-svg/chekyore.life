@@ -117,7 +117,7 @@ html.skin .lever-rod { background: var(--night); width: 5px; box-shadow: 0 0 0 1
 html.skin .lever-knob { background: var(--terra); box-shadow: 0 0 0 2.5px var(--sheet), 0 3px 0 rgba(19, 9, 4, 0.5); }
 html.skin .lever-base { border-radius: 14px 14px 2px 2px; background: var(--olive); box-shadow: 0 0 0 2px var(--sheet); }
 /* «Крути» - главная бумажная полоса со стрелкой. */
-html.skin .spin-button { position: relative; font-size: 1.1rem; transform: rotate(-0.6deg); }
+html.skin .spin-button { position: relative; font-size: 1.1rem; }
 html.skin .spin-button::after { content: ' →'; font-weight: 800; }
 html.skin .spin-result .scene { clip-path: var(--rough-c); border-radius: 0; }
 html.skin .spin-result .lead { color: var(--ink-2); }
@@ -172,7 +172,7 @@ html.skin .choice::before { counter-increment: opt; content: counter(opt); posit
   background: var(--night); color: var(--sheet); font-weight: 800; font-size: 13px; clip-path: polygon(0 6%, 100% 0, 94% 100%, 4% 94%); }
 /* Жёлтый - только наведение мышью и фокус с клавиатуры (правка 09): на телефоне :hover «залипал» после тапа,
    и в следующем окне вариант под пальцем (обычно последний) стоял жёлтым, будто его советуют. */
-@media (hover: hover) { html.skin .choice:not(:disabled):hover { background: var(--mustard); border-color: var(--night); transform: rotate(-0.8deg); } }
+@media (hover: hover) { html.skin .choice:not(:disabled):hover { background: var(--mustard); border-color: var(--night); } }
 html.skin .choice:not(:disabled):focus-visible { background: var(--mustard); border-color: var(--night); }
 html.skin .choice-desc { color: #6a5440; }
 html.skin .modal .primary { background: var(--night); color: var(--sheet); }

@@ -56,6 +56,8 @@ export interface Flags {
   /** Эксперимент X0 (ТЗ редизайна, правка 01): доля игроков, у которых первые три события жизни короткие (текст .short),
    *  без «Справки историка» и «Близких» (свой хеш id); 0 - у всех как было. */
   short_first_share: number
+  /** Эксперимент XA (этап 2): доля игроков с новой раскладкой экрана жизни - компактная шапка и нижняя панель времени. */
+  layout_share: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -85,6 +87,7 @@ export const DEFAULT_FLAGS: Flags = {
   goal_change_age: 16,
   goal_free_from: 4,
   short_first_share: 0.5,
+  layout_share: 0.5,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

@@ -932,3 +932,65 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .sticky-cta .primary { width: 100%; }
 .new-life-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
 .new-life-row .new-life-btn { margin-top: 0; flex: 1; }
+
+/* Этап 2, рукав XA «b» (макет 06): шапка 64 px, полоса здоровья 4 px, цель и веха под вкладками, нижняя панель времени. */
+.layout-b { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+.hud { position: sticky; top: 0; z-index: 6; background: #10162a; margin: 0 -16px; }
+.hud-row { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 12px 0 16px; }
+.hud-portrait { flex: none; width: 48px; height: 48px; padding: 0; border: 1px solid #3a4670; border-radius: 8px; overflow: hidden; background: #d8c7a3; cursor: pointer; }
+.hud-portrait .avatar { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+.hud-info { flex: 1; min-width: 0; }
+.hud-name { margin: 0; font-size: 19px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hud-meta { margin: 2px 0 0; font-size: 14px; color: #c3cae0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+.hud-menu { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid #3a4670; border-radius: 10px; background: #1f2945; color: inherit; cursor: pointer; }
+.hud-health { height: 4px; background: #2a3558; }
+.hud-health span { display: block; height: 4px; background: #d0674b; transition: width 0.25s ease-out; }
+.hud.ill .hud-health span { background: #e08a52; }
+.hud-details { padding: 8px 16px 12px; border-bottom: 1px solid #2a3558; }
+.hud-details .hero-meta { margin: 2px 0; }
+.hud-sound { margin-top: 6px; }
+.layout-b .life-top { top: 68px; }
+.hud-goal { display: grid; gap: 8px; padding: 10px 0 4px; }
+.hud-goal .goal-bar { margin: 0; }
+.milestone-chip { justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin: 0; padding: 4px 12px; border-radius: 999px; background: #2a3558; font-size: 14px; animation: pulse-in 0.6s ease-out; }
+.milestone-chip .icon { color: #e6c25c; }
+@keyframes pulse-in { 0% { transform: scale(0.94); box-shadow: 0 0 0 0 rgba(230, 194, 92, 0.6); } 100% { transform: none; box-shadow: 0 0 0 10px rgba(230, 194, 92, 0); } }
+
+.time-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; display: flex; align-items: center; gap: 12px; height: 72px; padding: 0 16px env(safe-area-inset-bottom); background: #10162a; border-top: 1px solid #2a3558; box-sizing: content-box; max-width: 40rem; margin: 0 auto; }
+.time-bar.waiting { opacity: 0.55; pointer-events: none; }
+.time-play { flex: none; width: 52px; height: 52px; border-radius: 999px; border: 0; background: #e6c25c; color: #1c1a17; display: grid; place-items: center; cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.time-mid { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.time-line { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; color: #c3cae0; font-variant-numeric: tabular-nums; }
+.time-speed { border: 0; background: none; padding: 0; color: inherit; font: inherit; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.time-track { height: 6px; border-radius: 999px; background: #2a3558; overflow: hidden; }
+.time-track span { display: block; height: 6px; background: #f3ecdc; border-radius: 999px; }
+.time-skip { flex: none; height: 52px; padding: 0 14px; display: inline-flex; align-items: center; gap: 6px; border-radius: 12px; border: 1px solid #3a4670; background: #1f2945; color: #f3ecdc; font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; }
+.speed-pop { position: absolute; left: 12px; bottom: calc(100% + 8px); display: flex; gap: 6px; padding: 8px; border-radius: 12px; background: #1f2945; border: 1px solid #3a4670; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); }
+.speed-pop .chip { min-width: 48px; min-height: 44px; }
+
+/* Окно события - нижний лист (макет 07): картинка 120 px (96 px на низких экранах), справка - по «i». */
+.modal.event-sheet .art, .modal.event-sheet > .scene, .modal.event-sheet > .art-frame { height: 120px; overflow: hidden; }
+.modal.event-sheet .art canvas, .modal.event-sheet .art img, .modal.event-sheet > .scene canvas { width: 100%; height: 120px; object-fit: cover; }
+@media (max-height: 720px) {
+  .modal.event-sheet .art, .modal.event-sheet > .scene, .modal.event-sheet > .art-frame, .modal.event-sheet .art canvas, .modal.event-sheet .art img, .modal.event-sheet > .scene canvas { height: 96px; }
+}
+.modal.event-sheet { max-height: 92dvh; overflow-y: auto; }
+.ev-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ev-head .eyebrow { margin: 0 0 2px; }
+.ev-head h2 { margin: 0; }
+.ev-info { flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--card); color: inherit; cursor: pointer; }
+.event-sheet .event-text { font-size: 18px; line-height: 1.55; }
+.ev-keys { display: none; margin: 10px 0 0; text-align: center; font-size: 13px; color: var(--muted); }
+@media (hover: hover) and (pointer: fine) { .ev-keys { display: block; } }
+@media (max-height: 720px) {
+  .event-sheet .modal-body { padding-top: 10px; padding-bottom: 10px; }
+  .event-sheet .event-text { font-size: 16.5px; line-height: 1.45; margin: 6px 0 10px; }
+  .event-sheet .event-who { margin: 2px 0; font-size: 14px; }
+  .event-sheet .choices { gap: 6px; }
+  .event-sheet .choice { padding-top: 8px; padding-bottom: 8px; gap: 2px; }
+  .event-sheet .choice-meta { gap: 4px; }
+  .modal.event-sheet { max-height: 97dvh; }
+  .event-sheet .choice { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; }
+  .event-sheet .ev-head .eyebrow { display: none; }
+  .modal.event-sheet .art, .modal.event-sheet > .scene, .modal.event-sheet > .art-frame, .modal.event-sheet .art canvas, .modal.event-sheet .art img, .modal.event-sheet > .scene canvas { height: 88px; }
+}
