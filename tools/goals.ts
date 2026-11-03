@@ -1,14 +1,15 @@
 // Калибровка целей жизни (docs/TZ_goal.md): N рождений по лотерее «как в жизни», каждая подходящая цель
-// проживается дважды - случайный выбор и «всегда ▲» (вариант с наибольшим вкладом в цель).
-// Пишет src/content/goal_tiers.json: доля исполнивших (среднее двух способов) по сословию и в целом.
+// проживается дважды - случайно и «как игрок, идущий к цели»: фокус года из goal.focus, в событиях - вариант ▲
+// с наибольшим вкладом. Трудность - по второму способу: так играет тот, кто выбрал цель всерьёз.
+// Пишет src/content/goal_tiers.json: доля исполнивших по сословию и в целом.
 // npx vite-node tools/goals.ts [рождений, 300] [--dry - не записывать]
 import { writeFileSync } from 'node:fs'
 import { ERA_IDS, ERA_META, loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
-import { GOALS, GOAL_STEPS, goalFits, goalImpact, setGoal, tierOf } from '../src/engine/goals'
+import { GOALS, GOAL_STEPS, goalDef, goalFits, goalImpact, setGoal, tierOf } from '../src/engine/goals'
 import type { GoalId } from '../src/engine/goals'
 import { newLife, rollBirth } from '../src/engine/life'
-import type { ChoiceDef, GameState } from '../src/engine/types'
+import type { ChoiceDef, FocusDef, GameState } from '../src/engine/types'
 
 const N = Number(process.argv[2] ?? 300)
 const dry = process.argv.includes('--dry')
@@ -23,6 +24,11 @@ const greedy = (options: ChoiceDef[], state: GameState): number | null => {
     if (v > bestV) [best, bestV] = [i, v]
   })
   return best >= 0 ? best : null
+}
+
+const toGoal = (focuses: FocusDef[], state: GameState): string | null => {
+  const want = goalDef(state.hero.goal!.id).focus
+  return want.find((id) => focuses.some((f) => f.id === id)) ?? null
 }
 
 type Acc = { lives: number; done: [number, number]; steps: [number, number]; first: number[]; reach: number[] }
@@ -44,7 +50,7 @@ for (let i = 0; i < N; i++) {
     ;[undefined, greedy].forEach((pick, p) => {
       const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false, protectedUntil: 20, livesBefore: 1, goalWeight: 1.5 }, seed, undefined, birth)
       setGoal(s, era, g.id)
-      autoplay(s, era, 130, pick)
+      autoplay(s, era, 130, pick, pick ? toGoal : undefined)
       const goal = s.hero.goal!
       for (const k of keys) {
         const a = get(k)
@@ -63,7 +69,7 @@ const out: Record<string, Record<string, number>> = {}
 console.log('цель|сословие            жизней  случайно  по ▲   шагов сл/▲   1-й шаг (медиана)  слово   по ▲ дошли до шагов 1/2/3')
 for (const [k, a] of [...acc].sort()) {
   const [id, cls] = k.split('|')
-  const rate = (a.done[0] + a.done[1]) / 2 / Math.max(1, a.lives)
+  const rate = a.done[1] / Math.max(1, a.lives)
   if (a.lives >= 8) (out[id] ??= {})[cls] = Math.round(rate * 100) / 100
   const first = a.first.sort((x, y) => x - y)[Math.floor(a.first.length / 2)] ?? '-'
   console.log(`${k.padEnd(26)} ${String(a.lives).padStart(5)}  ${pct(a.done[0], a.lives)}     ${pct(a.done[1], a.lives)}   ${(a.steps[0] / a.lives).toFixed(1)}/${(a.steps[1] / a.lives).toFixed(1)}       ${String(first).padStart(3)}            ${tierOf(rate)}       ${a.reach.slice(1, 4).map((x) => pct(x, a.lives)).join('/')}`)

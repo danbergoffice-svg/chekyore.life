@@ -1,95 +1,95 @@
 {
   "freedom": {
-    "all": 0.4,
-    "slave": 0.4
+    "all": 0.46,
+    "slave": 0.46
   },
   "rise": {
-    "all": 0.19,
-    "craftsman": 0.21,
-    "peasant": 0.13,
-    "trader": 0.38
+    "all": 0.16,
+    "craftsman": 0.1,
+    "peasant": 0.18,
+    "trader": 0.13
   },
   "wealth": {
-    "all": 0.13,
-    "craftsman": 0.13,
-    "landowner": 0.12,
-    "noble": 0.08,
-    "peasant": 0.13,
-    "trader": 0.15
+    "all": 0.16,
+    "craftsman": 0.19,
+    "landowner": 0.06,
+    "noble": 0,
+    "peasant": 0.14,
+    "trader": 0.31
   },
   "keep": {
-    "all": 0.5,
-    "landowner": 0.52,
-    "noble": 0.46
+    "all": 0.54,
+    "landowner": 0.59,
+    "noble": 0.44
   },
   "family": {
-    "all": 0.52,
-    "craftsman": 0.51,
-    "landowner": 0.57,
-    "noble": 0.58,
-    "peasant": 0.51,
-    "slave": 0.47,
-    "trader": 0.56
+    "all": 0.54,
+    "craftsman": 0.55,
+    "landowner": 0.65,
+    "noble": 0.67,
+    "peasant": 0.56,
+    "slave": 0.33,
+    "trader": 0.49
   },
   "long": {
-    "all": 0.3,
-    "craftsman": 0.35,
-    "landowner": 0.43,
-    "noble": 0.29,
-    "peasant": 0.26,
-    "slave": 0.23,
-    "trader": 0.32
+    "all": 0.49,
+    "craftsman": 0.6,
+    "landowner": 0.59,
+    "noble": 0.56,
+    "peasant": 0.44,
+    "slave": 0.46,
+    "trader": 0.49
   },
   "master": {
-    "all": 0.14,
-    "craftsman": 0.18,
-    "landowner": 0.33,
-    "peasant": 0.05,
-    "slave": 0.03,
-    "trader": 0.38
+    "all": 0.11,
+    "craftsman": 0.1,
+    "landowner": 0.29,
+    "peasant": 0.07,
+    "slave": 0.08,
+    "trader": 0.21
   },
   "learning": {
-    "all": 0.12,
-    "craftsman": 0.19,
-    "landowner": 0.22,
-    "noble": 0.25,
-    "peasant": 0.05,
-    "trader": 0.2
-  },
-  "glory": {
-    "all": 0.25,
-    "craftsman": 0.28,
-    "landowner": 0.41,
-    "noble": 0.5,
-    "peasant": 0.2,
-    "slave": 0.05,
-    "trader": 0.34
-  },
-  "faith": {
-    "all": 0.27,
-    "craftsman": 0.29,
-    "landowner": 0.43,
-    "noble": 0.42,
-    "peasant": 0.23,
-    "slave": 0.19,
+    "all": 0.32,
+    "craftsman": 0.33,
+    "landowner": 0.59,
+    "noble": 0.44,
+    "peasant": 0.27,
     "trader": 0.36
   },
+  "glory": {
+    "all": 0.41,
+    "craftsman": 0.36,
+    "landowner": 0.65,
+    "noble": 0.78,
+    "peasant": 0.4,
+    "slave": 0.13,
+    "trader": 0.49
+  },
+  "faith": {
+    "all": 0.26,
+    "craftsman": 0.29,
+    "landowner": 0.35,
+    "noble": 0.56,
+    "peasant": 0.23,
+    "slave": 0.17,
+    "trader": 0.26
+  },
   "world": {
-    "all": 0.05,
-    "craftsman": 0.03,
-    "landowner": 0.05,
-    "noble": 0.04,
-    "peasant": 0.06,
-    "slave": 0.02,
-    "trader": 0.02
+    "all": 0.02,
+    "craftsman": 0,
+    "landowner": 0.06,
+    "noble": 0,
+    "peasant": 0.02,
+    "slave": 0.04,
+    "trader": 0.05
   },
   "love": {
-    "all": 0.18,
-    "craftsman": 0.15,
-    "landowner": 0.19,
-    "noble": 0.25,
-    "peasant": 0.18,
-    "slave": 0.11,
-    "trader": 0.21
+    "all": 0.23,
+    "craftsman": 0.28,
+    "landowner": 0.18,
+    "noble": 0.33,
+    "peasant": 0.22,
+    "slave": 0.29,
+    "trader": 0.18
   }
 }

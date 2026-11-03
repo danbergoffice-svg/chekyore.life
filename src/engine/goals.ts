@@ -48,6 +48,8 @@ interface GoalDef {
   notClasses?: string[]
   steps: [(c: Ctx) => boolean, (c: Ctx) => boolean, (c: Ctx) => boolean, (c: Ctx) => boolean]
   weigh: Weigh
+  /** Фокусы года, которыми игрок идёт к цели (по убыванию пользы): по ним играет бот калибровки. */
+  focus: string[]
 }
 
 export const GOAL_STEPS = 4
@@ -57,9 +59,14 @@ const OFFICE = ['official', 'magistrate', 'officer', 'knight', 'druzhinnik', 'la
 const HOLY = ['priest', 'monk']
 const HOLY_TAGS = ['vowed', 'hajji', 'on_hajj', 'sufi', 'initiated', 'eur_beguine']
 
+/** Дальняя дорога без переезда: хадж, плавание в Индию. */
+const FAR_TAGS = ['hajji', 'india_voyage']
 const has = (h: Hero, tag: string) => h.tags.includes(tag)
 const children = (h: Hero) => h.npcs.filter((n) => n.role === 'child')
 const adultKids = (c: Ctx) => children(c.hero).filter((n) => n.alive && c.state.year - n.birthYear >= 15).length
+/** Сколько разных мест повидал герой (возврат в прежнее место - не новое). */
+const placesSeen = (h: Hero) => new Set(h.places).size
+const yearsAbroad = (c: Ctx) => (c.hero.abroad ? c.state.year - c.hero.abroad.since : 0)
 const skillOfWork = (c: Ctx) => {
   const prof = c.era.professions.find((p) => p.id === c.hero.profession)
   return prof ? (c.hero.skills[prof.skill] ?? 0) : 0
@@ -93,20 +100,22 @@ export const GOALS: GoalDef[] = [
       (c) => c.hero.hidden.reputation >= 0 || c.hero.profession !== null,
       (c) => c.hero.money >= 2 * c.upkeep || c.rank > 0,
       (c) => c.hero.cls !== 'slave' && !has(c.hero, 'enslaved'),
-      (c) => c.rank > 0 && (c.hero.money >= 5 * c.upkeep || c.hero.home >= 2),
+      (c) => c.rank > 0 && c.hero.money >= 10 * c.upkeep && c.hero.home >= 2,
     ],
     weigh: sum(rank(3), tag({ freedman: 3, fugitive: 1, mukataba: 2, enslaved: -3 }), money(0.5), param({ reputation: 0.1 })),
+    focus: ['work', 'savings'],
   },
   {
     id: 'rise',
     notClasses: ['noble', 'landowner', 'slave'],
     steps: [
       (c) => c.hero.profession !== null,
-      (c) => c.hero.money >= 4 * c.upkeep,
+      (c) => c.hero.money >= 6 * c.upkeep,
       (c) => c.rank > c.birthRank || c.hero.home >= 3,
-      (c) => (c.rank > c.birthRank || c.hero.home >= 3) && c.hero.money >= 10 * c.upkeep,
+      (c) => c.rank > c.birthRank && c.hero.money >= 12 * c.upkeep,
     ],
     weigh: sum(rank(3), money(1), work(0.5), tag({ enslaved: -3, in_debt: -1, wealthy: 1 }), param({ reputation: 0.05 }), home(1)),
+    focus: ['work', 'trade', 'savings'],
   },
   {
     id: 'wealth',
@@ -118,6 +127,7 @@ export const GOALS: GoalDef[] = [
       (c) => c.hero.money >= 25 * c.upkeep,
     ],
     weigh: sum(money(1.5), rank(1), tag({ in_debt: -1.5, wealthy: 2, gambler: -1 }), home(1.5)),
+    focus: ['trade', 'savings', 'work'],
   },
   {
     id: 'keep',
@@ -129,6 +139,7 @@ export const GOALS: GoalDef[] = [
       (c) => c.hero.age >= 40 && c.rank >= c.birthRank && c.hero.npcs.some((n) => n.role === 'grandchild'),
     ],
     weigh: sum(rank(2), family({ spouse: 1, child: 1, loseChild: 1 }), money(0.5), param({ reputation: 0.05 }), tag({ in_debt: -1 })),
+    focus: ['family', 'work'],
   },
   {
     id: 'family',
@@ -139,33 +150,37 @@ export const GOALS: GoalDef[] = [
       (c) => adultKids(c) >= 2 || c.hero.npcs.some((n) => n.role === 'grandchild'),
     ],
     weigh: sum(family({ spouse: 1.5, child: 1.5, loseSpouse: 1, loseChild: 1.5 })),
+    focus: ['family'],
   },
   {
     id: 'long',
     steps: [(c) => c.hero.age >= 30, (c) => c.hero.age >= 40, (c) => c.hero.age >= 50, (c) => c.hero.age >= 60],
     weigh: sum(param({ health: 0.12, stress: -0.05 }), tag({ ill: -1, drinker: -1, opium: -1.5 })),
+    focus: ['health', 'rest'],
   },
   {
     id: 'master',
     notClasses: ['noble'],
     steps: [
-      (c) => c.hero.profession !== null,
-      (c) => skillOfWork(c) >= 30,
-      (c) => skillOfWork(c) >= 45,
-      (c) => skillOfWork(c) >= 60,
+      (c) => c.hero.profession !== null && skillOfWork(c) >= 35,
+      (c) => skillOfWork(c) >= 65,
+      (c) => skillOfWork(c) >= 90 && c.hero.hidden.reputation >= 15,
+      (c) => skillOfWork(c) >= 100 && c.hero.hidden.reputation >= 40 && c.hero.age >= 35,
     ],
     weigh: sum(work(1), param({ diligence: 0.1 }), (e) => ('skill' in e && 'delta' in e ? e.delta / 8 : 0)),
+    focus: ['work', 'help_family'],
   },
   {
     id: 'learning',
     notClasses: ['slave'],
     steps: [
-      (c) => c.hero.attrs.intellect >= 55,
+      (c) => c.hero.attrs.intellect >= 60,
       (c) => has(c.hero, 'schooled') || SCHOLAR.includes(c.hero.profession ?? ''),
-      (c) => c.hero.attrs.intellect >= 68,
-      (c) => c.hero.attrs.intellect >= 80 || (!!c.hero.dreamSeen && c.hero.dreamSeen.outcome !== 'failure' && !c.hero.dreamSeen.skipped),
+      (c) => c.hero.attrs.intellect >= 85 && SCHOLAR.includes(c.hero.profession ?? ''),
+      (c) => (c.hero.attrs.intellect >= 95 && c.hero.age >= 45 && c.hero.hidden.reputation >= 30) || (!!c.hero.dreamSeen && c.hero.dreamSeen.outcome !== 'failure' && !c.hero.dreamSeen.skipped),
     ],
     weigh: sum(param({ intellect: 0.15 }), tag({ schooled: 1.5, philosophy: 1, juren: 2 }), work(1, SCHOLAR), (e) => ('dream_start' in e ? 1 : 0)),
+    focus: ['study', 'learn'],
   },
   {
     id: 'glory',
@@ -176,6 +191,7 @@ export const GOALS: GoalDef[] = [
       (c) => c.hero.hidden.reputation >= 60,
     ],
     weigh: sum(param({ reputation: 0.15 }), work(1, OFFICE), tag({ arrested: -2, criminal: -2, public_figure: 2, outlaw: -2 }), rank(1)),
+    focus: ['service', 'work'],
   },
   {
     id: 'faith',
@@ -186,16 +202,18 @@ export const GOALS: GoalDef[] = [
       (c) => c.hero.age >= 55 && c.hero.hidden.faith >= 90,
     ],
     weigh: sum(param({ faith: 0.12, reputation: 0.03 }), work(1.5, HOLY), tag({ vowed: 2, hajji: 2, on_hajj: 1.5, sufi: 1.5, drinker: -0.5, gambler: -0.5 })),
+    focus: ['religion'],
   },
   {
     id: 'world',
     steps: [
-      (c) => c.hero.places.length >= 2,
-      (c) => c.hero.places.length >= 3 || (c.hero.erasLived?.length ?? 0) >= 2 || !!c.hero.abroad,
-      (c) => c.hero.places.length >= 4 || (c.hero.erasLived?.length ?? 0) >= 2 || !!c.hero.abroad,
-      (c) => !!c.hero.returned || c.hero.abroad?.naturalized !== undefined || c.hero.places.length >= 5,
+      (c) => placesSeen(c.hero) >= 2,
+      (c) => placesSeen(c.hero) >= 3 || !!c.hero.abroad || !!c.hero.returned || FAR_TAGS.some((t) => has(c.hero, t)),
+      (c) => placesSeen(c.hero) >= 4 || yearsAbroad(c) >= 2 || !!c.hero.returned || (c.hero.erasLived?.length ?? 0) >= 2 || (placesSeen(c.hero) >= 3 && FAR_TAGS.some((t) => has(c.hero, t))),
+      (c) => !!c.hero.returned || c.hero.abroad?.naturalized !== undefined || placesSeen(c.hero) >= 5,
     ],
     weigh: sum(travel(1.5), tag({ india_voyage: 2, on_hajj: 1, exile: 0.5 }), work(1, ['sailor', 'merchant', 'shipowner', 'translator', 'soldier'])),
+    focus: ['trade', 'service'],
   },
   {
     id: 'love',
@@ -206,6 +224,7 @@ export const GOALS: GoalDef[] = [
       (c) => marriedYears(c) >= 25,
     ],
     weigh: sum(family({ spouse: 2, loseSpouse: 2 }), (e) => ('npc_attitude' in e && (e.npc_attitude === 'spouse' || e.npc_attitude === 'npc') ? e.delta / 15 : 0)),
+    focus: ['family'],
   },
 ]
 

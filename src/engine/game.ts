@@ -1140,13 +1140,21 @@ function die(state: GameState, era: EraDef): void {
 
 /** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов).
  *  pick - свой выбор варианта (калибровка целей): номер в options или null - как обычно, случайно. */
-export function autoplay(state: GameState, era: EraDef, maxYears = 130, pick?: (options: ChoiceDef[], state: GameState) => number | null): GameState {
+export function autoplay(
+  state: GameState,
+  era: EraDef,
+  maxYears = 130,
+  pick?: (options: ChoiceDef[], state: GameState) => number | null,
+  pickFocus?: (focuses: FocusDef[], state: GameState) => string | null,
+): GameState {
   for (let i = 0; i < maxYears * 6 && state.phase !== 'dead'; i++) {
     // Переехал в другую страну - дальше её события (страна уже загружена: переезд открыт только в загруженные).
     if (state.hero.era !== era.id && isEraLoaded(state.hero.era)) era = eraById(state.hero.era)
     if (state.phase === 'year') {
       const focuses = availableFocuses(state, era)
-      const f = focuses.length ? focuses[Math.floor(next(state) * focuses.length)].id : null
+      // Свой выбор фокуса не трогает поток случайности - иначе жизнь с ним и без него разойдётся с первого года.
+      const r = focuses.length ? next(state) : 0
+      const f = focuses.length ? (pickFocus?.(focuses, state) ?? focuses[Math.floor(r * focuses.length)].id) : null
       startYear(state, era, f)
     } else if (state.queue.length > 0) {
       const ev = currentEvent(state, era)!
