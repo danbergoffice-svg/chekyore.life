@@ -996,7 +996,8 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   const decision = choices.length > 1
   const mood = Math.round(hero.hidden.happiness - moodBefore)
   const entry: Omit<DiaryEntry, 'year' | 'age'> = {
-    key: `ev.${ev.id}.title`,
+    // У момента нет заголовка - в дневник идёт его текст (момент мог открыться окном из очереди старого сохранения).
+    key: ev.moment ? eventTextKey(ev, active.variant) : `ev.${ev.id}.title`,
     params: {
       ...params,
       ...(active.variant ? { v: active.variant } : {}),

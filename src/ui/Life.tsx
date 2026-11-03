@@ -988,15 +988,18 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
   const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession && !isName ? variantKey(lang, `ev.${ev.id}.${outcome.choiceId}.${outcome.result}`, v) : null
   const resultText = resultKey && hasKey(lang, resultKey) ? t(resultKey, params, o) : null
 
+  // У момента жизни заголовка нет: если он всё же попал в окно (очередь старого сохранения), служебный ключ не показываем.
+  const titleKey = variantKey(lang, `ev.${ev.id}.title`, v)
+  const title = hasKey(lang, titleKey) ? t(titleKey, params, o) : ''
   return (
     <div class="modal-backdrop">
-      <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="ev-title">
-        <Illustration era={hero.era} moment={momentOf(ev)} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} fire={ev.scene?.disaster === 'fire'}>
-          <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)} />
+      <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby={title ? 'ev-title' : undefined}>
+        <Illustration era={hero.era} moment={momentOf(ev)} label={title} fire={ev.scene?.disaster === 'fire'}>
+          <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={title} />
         </Illustration>
         <div class="modal-body">
           {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
-          <h2 id="ev-title">{t(variantKey(lang, `ev.${ev.id}.title`, v), params, o)}</h2>
+          {title && <h2 id="ev-title">{title}</h2>}
           {who && (
             <p class="event-who">
               <b>{nameOf(who.name, lang)}</b> - {t(`npc.${roleKey(hero.npcs, who)}`, { sex: who.sex }).toLocaleLowerCase(lang)} · {npcFacts(t, lang, who, state.year)}
