@@ -225,7 +225,8 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .life-top { position: sticky; top: 0; z-index: 3; background: var(--paper); box-shadow: 0 1px 0 var(--line); }
 .life-top .tabs { position: static; }
 .speed-bar { padding: 8px 16px 6px; display: grid; gap: 4px; }
-.speed-bar .speed .chip { min-height: 40px; }
+.speed-bar .speed { gap: 4px; }
+.speed-bar .speed .chip { min-height: 40px; min-width: 0; max-width: 56px; flex: 1 1 0; padding-inline: 0; }
 .speed-bar .year-clock { margin: 0; }
 .speed-bar .paused-note { margin: 0; font-size: 0.8rem; }
 .tab { background: none; border: 0; padding: 12px 4px; cursor: pointer; color: var(--muted); border-bottom: 3px solid transparent; min-height: 48px; }

@@ -62,7 +62,7 @@ function yearMs(age: number, custom?: number): number {
   return (age <= f.child_age ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
 }
 const TICK_MS = 100
-export const SPEEDS = [0, 1, 2, 4, 10] as const
+export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
 export type Speed = (typeof SPEEDS)[number]
 
 interface LifeProps {
@@ -306,7 +306,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
                 setSpeed(s)
                 platform.track('speed_change', { speed: s })
               }}>
-                {s === 0 ? <Icon name="pause" /> : `×${s}`}
+                {s === 0 ? <Icon name="pause" /> : s === 0.5 ? '×½' : `×${s}`}
               </button>
             ))}
             <button class="chip" onClick={skip} aria-label={t('life.skip')} title={t('life.skip')}>

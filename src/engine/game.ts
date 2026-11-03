@@ -58,6 +58,9 @@ export function stageOf(state: GameState, era: EraDef): 'infancy' | 'childhood' 
 
 // ---------- Ход года ----------
 
+const FAMILY_ICONS = ['birth', 'child', 'wedding', 'death']
+const familyChange = (d: DiaryEntry) => d.topic === 'family' && !!d.icon && FAMILY_ICONS.includes(d.icon)
+
 /**
  * Начать год с выбранным фокусом. Всё, что случится за год, рассчитывается сразу, но показывается
  * постепенно: у событий есть момент `at` (доля года), у записей дневника - `state.reveal`.
@@ -82,7 +85,13 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   if (!hero.alive) return die(state, era)
   rollEvents(state, era, births)
   if (!hero.alive) return die(state, era)
-  for (let i = firstEntry; i < hero.diary.length; i++) if (!hero.diary[i].primer) state.reveal[i] = Math.round((0.05 + next(state) * 0.85) * 100) / 100
+  // Рождения, смерти и свадьбы в семье видны на вкладке семьи с начала года - и в ленте они в самом начале года,
+  // иначе семья уже изменилась, а весть приходит через полгода.
+  for (let i = firstEntry; i < hero.diary.length; i++) {
+    if (hero.diary[i].primer) continue
+    const r = next(state)
+    state.reveal[i] = Math.round((familyChange(hero.diary[i]) ? 0.03 + r * 0.05 : 0.05 + r * 0.85) * 100) / 100
+  }
   // Справки - равномерно по году, чтобы было время прочитать.
   let nth = 0
   for (let i = firstEntry; i < hero.diary.length; i++) if (hero.diary[i].primer) state.reveal[i] = 0.06 + 0.23 * nth++
@@ -631,7 +640,8 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const hero = state.hero
   const picked: ActiveEvent[] = []
   // 0. Новорождённым выбирают имя.
-  if (b.naming) for (const baby of births) picked.push({ ...activate(state, b.naming), npcId: baby.id, npcName: baby.name, npcSex: baby.sex })
+  // Имя младенцу - в начале года: малыш уже на вкладке семьи.
+  if (b.naming) for (const baby of births) picked.push({ ...activate(state, b.naming), at: 0.06, npcId: baby.id, npcName: baby.name, npcSex: baby.sex })
   const has = (ev: EventDef) => picked.some((p) => p.eventId === ev.id)
   const add = (ev: EventDef | undefined, from?: number, npcId?: string) => {
     if (ev && !has(ev)) picked.push(activate(state, ev, from, npcId))
