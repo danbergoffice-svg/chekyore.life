@@ -6,9 +6,9 @@ import { TASKS } from '../src/kids/types'
 const SEEDS = Number(process.env.KIDS_SEEDS ?? 12)
 
 describe('Детские головоломки', () => {
-  it('у каждой из 13 стран - своя', () => {
+  it('у каждой из 14 стран - своя', () => {
     expect(new Set(KIDS_PUZZLES.map((p) => p.era)).size).toBe(KIDS_PUZZLES.length)
-    if (!process.env.KIDS_ONLY) expect(KIDS_PUZZLES.length).toBe(13)
+    if (!process.env.KIDS_ONLY) expect(KIDS_PUZZLES.length).toBe(14)
   })
   const only = process.env.KIDS_ONLY?.split(',')
   for (const p of KIDS_PUZZLES.filter((x) => !only || only.includes(x.id))) {

@@ -1,5 +1,6 @@
 import { ERA_META, eraById, isEraLoaded, RELIGION_BY_ID } from '../content'
 import { MAX_PETS, makePet, petPossible, pets, randomPet } from './pets'
+import { herdEffect } from './household'
 import { ABROAD_PARAMS, abroadChoice, canEmigrate, emigrate, naturalize, returnHome } from './abroad'
 import type { AbroadParam } from './abroad'
 import { chance, int, pick, weighted } from './rng'
@@ -260,6 +261,11 @@ export function contextParams(region: string, religion: string, year: number): R
 /** Столица страны в этот год; если столиц несколько (ацтеки и инки), - та, что в той же культуре, что и край. */
 export function capitalFor(era: EraMeta, here: RegionDef, year: number): RegionDef | undefined {
   const isCapital = (r: RegionDef) => (r.capital ? year >= r.capital[0] && year <= r.capital[1] : !!r.tags?.includes('capital') && year >= r.years[0] && year <= r.years[1])
+  // Свой порядок столиц края (монголы: Каракорум, потом Ханбалык, потом снова степь).
+  for (const id of here.capitals ?? []) {
+    const r = era.regions.find((x) => x.id === id)
+    if (r && isCapital(r)) return r
+  }
   const all = era.regions.filter(isCapital)
   return all.find((r) => r.scene?.style === here.scene?.style) ?? all[0]
 }
@@ -535,6 +541,8 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       }
     } else if ('home' in e) {
       homeEffect(state, e.home)
+    } else if ('herd' in e) {
+      herdEffect(state, e.herd)
     } else if ('add_pet' in e) {
       const kind = e.add_pet === '@any' ? randomPet(state) : e.add_pet === '@stray' ? randomPet(state, ['dog', 'cat']) : petPossible(state, e.add_pet) ? e.add_pet : undefined
       if (kind && pets(state).length < MAX_PETS) {

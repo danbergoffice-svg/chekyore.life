@@ -159,6 +159,16 @@ export const ART: Record<string, ArtStyle> = {
     frameColors: ['#c0302a', '#e0b030', '#2a7a3a'],
     prompt: 'in the manner of an Ethiopian church painting and Ge’ez manuscript: large almond eyes, bold outline, red, yellow and green, banded background',
   },
+  mongol: {
+    tradition: 'войлочные аппликации и вышивка, иллюстрации «Джами ат-таварих», поздние монгольские танки',
+    palette: ['#3a5a8a', '#2a3a6a', '#8a2a3a', '#c0503a', '#d0602a', '#c9a34a', '#e0c070', '#ece6d6', '#d8ccb0', '#a8a070', '#948c5e', '#5a7a4a', '#4a6a5a', '#6a3a6a', '#5a4030', '#1e1a18', '#7ab0e0'],
+    outline: 'brown',
+    texture: 'weave',
+    background: 'blue',
+    frame: 'clouds',
+    frameColors: ['#3a5a8a', '#c9a34a', '#ece6d6'],
+    prompt: 'in the manner of Mongol felt appliqué and Ilkhanid manuscript painting (Jami al-Tawarikh): wide blue sky, white yurts, horsemen in profile, cloud-scroll border, felt texture',
+  },
   sahel: {
     tradition: 'глиняная архитектура, ткань боголан, рукописи Тимбукту',
     palette: ['#b8865a', '#946a44', '#c0905e', '#a8784c', '#d8b07a', '#6a4a2a', '#3a2a1a', '#f2eee2', '#e0b030', '#c0503a', '#3a5a9a', '#2a2a4a', '#8a6a4a', '#e8d4b0', '#5a3a20', '#c49c68', '#88bbe7'],

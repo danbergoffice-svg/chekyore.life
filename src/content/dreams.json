@@ -21,7 +21,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -212,7 +213,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "params": {
         "die": [
@@ -352,7 +354,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "params": {
         "liters": [
@@ -492,7 +495,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "region_tags": [
         "port"
@@ -637,7 +641,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -786,7 +791,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "params": {
         "wounded": [
@@ -923,7 +929,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "params": {
         "sacks": [
@@ -1078,7 +1085,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -1217,7 +1225,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -1361,7 +1370,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -1524,7 +1534,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -1666,7 +1677,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -1816,7 +1828,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -1953,7 +1966,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -2091,7 +2105,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "region_tags": [
         "port"
@@ -2228,7 +2243,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -2367,7 +2383,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -2517,7 +2534,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -2649,7 +2667,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {
@@ -2778,7 +2797,8 @@
         "ETH",
         "MAY",
         "AMR",
-        "CHN"
+        "CHN",
+        "MNG"
       ],
       "known_in": [
         {

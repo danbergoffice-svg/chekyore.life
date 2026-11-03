@@ -1,0 +1,1079 @@
+[
+ {
+  "id": "n_mng_khabul",
+  "year": 1150,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_ambaghai",
+  "year": 1151,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_song_jin",
+  "year": 1153,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_jerusalem",
+  "year": 1155,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_sanjar",
+  "year": 1157,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_hotula",
+  "year": 1158,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_kiev_mongols",
+  "year": 1160,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_caishi",
+  "year": 1161,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_temujin_born",
+  "year": 1162,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_kara_khitai",
+  "year": 1165,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kereit",
+  "year": 1167,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_tatars_jin",
+  "year": 1168,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_yesugei_poison",
+  "year": 1171,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_saladin",
+  "year": 1174,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_naimans",
+  "year": 1175,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_temujin_captive",
+  "year": 1177,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_japan_genpei",
+  "year": 1180,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_begter",
+  "year": 1182,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_borte",
+  "year": 1184,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "onon"
+  ]
+ },
+ {
+  "id": "n_mng_song_south",
+  "year": 1185,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_jerusalem_fall",
+  "year": 1187,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_temujin_khan",
+  "year": 1189,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_kamakura",
+  "year": 1192,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yellow_river",
+  "year": 1194,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_merkits",
+  "year": 1195,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_khwarazm_rise",
+  "year": 1198,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_richard",
+  "year": 1199,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_jamukha_gurkhan",
+  "year": 1200,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "onon"
+  ]
+ },
+ {
+  "id": "n_mng_tatars_end",
+  "year": 1202,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_constantinople",
+  "year": 1204,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_jamukha_death",
+  "year": 1205,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_delhi_sultanate",
+  "year": 1206,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_forest_peoples",
+  "year": 1207,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_uyghurs",
+  "year": 1209,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_karluks",
+  "year": 1211,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_children",
+  "year": 1213,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_magna_carta",
+  "year": 1215,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_subutai_merkits",
+  "year": 1216,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kara_khitai_fall",
+  "year": 1218,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_otrar_news",
+  "year": 1219,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "n_mng_bukhara",
+  "year": 1220,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "n_mng_jalal",
+  "year": 1221,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_changchun",
+  "year": 1222,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_muqali",
+  "year": 1223,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_jochi",
+  "year": 1225,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_xixia_end",
+  "year": 1227,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ogedei",
+  "year": 1229,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yelu",
+  "year": 1231,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_korea",
+  "year": 1232,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_jin_fall",
+  "year": 1234,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_samarkand_return",
+  "year": 1235,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_bulgar",
+  "year": 1236,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kozelsk",
+  "year": 1238,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "n_mng_kiev",
+  "year": 1240,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "n_mng_ogedei_death_news",
+  "year": 1241,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ice_battle",
+  "year": 1242,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kose_dag",
+  "year": 1243,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_jerusalem_khwarazm",
+  "year": 1244,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_guyuk",
+  "year": 1246,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yaroslav",
+  "year": 1246,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_carpini_home",
+  "year": 1247,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_guyuk_death",
+  "year": 1248,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_louis",
+  "year": 1250,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_oghul",
+  "year": 1251,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_sorghaghtani",
+  "year": 1252,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_nevsky",
+  "year": 1253,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_dali",
+  "year": 1253,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_batu_death",
+  "year": 1255,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_alamut",
+  "year": 1256,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_berke_islam",
+  "year": 1257,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_baghdad_news",
+  "year": 1258,
+  "confidence": "disputed",
+  "exclude_regions": [
+   "tabriz",
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "n_mng_mongke_death",
+  "year": 1259,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_aleppo",
+  "year": 1260,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_byzantium_back",
+  "year": 1261,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_nevsky_death",
+  "year": 1263,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ariq_surrender",
+  "year": 1264,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_hulegu_death",
+  "year": 1265,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_berke_death",
+  "year": 1266,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_phagpa",
+  "year": 1269,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_talas",
+  "year": 1269,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_polo_set_out",
+  "year": 1271,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_japan1274",
+  "year": 1274,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_hangzhou",
+  "year": 1276,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_baybars",
+  "year": 1277,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yamen",
+  "year": 1279,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "khanbaliq"
+  ]
+ },
+ {
+  "id": "n_mng_homs",
+  "year": 1281,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tabriz"
+  ]
+ },
+ {
+  "id": "n_mng_ahmad",
+  "year": 1282,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_vietnam",
+  "year": 1285,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_chabi_death",
+  "year": 1286,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_nayan",
+  "year": 1287,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_sauma",
+  "year": 1287,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_tula_ulus",
+  "year": 1290,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_acre",
+  "year": 1291,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_java",
+  "year": 1292,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_khubilai_death",
+  "year": 1294,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_polo_home",
+  "year": 1295,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ghazan_reforms",
+  "year": 1297,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_nogai",
+  "year": 1299,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_osman",
+  "year": 1299,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_khaidu",
+  "year": 1301,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_marj",
+  "year": 1303,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_peace",
+  "year": 1304,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_montecorvino",
+  "year": 1307,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_sultaniyya",
+  "year": 1310,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_mansa_musa",
+  "year": 1312,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_exams",
+  "year": 1315,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_mikhail",
+  "year": 1318,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_odoric",
+  "year": 1321,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_shidebala",
+  "year": 1323,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ibn_battuta_set",
+  "year": 1325,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_war_two_capitals",
+  "year": 1328,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kalita",
+  "year": 1331,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_abusaid",
+  "year": 1335,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "tabriz"
+  ]
+ },
+ {
+  "id": "n_mng_vijayanagar",
+  "year": 1336,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_issyk_kul",
+  "year": 1338,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_toghto",
+  "year": 1340,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_janibek",
+  "year": 1342,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_tana",
+  "year": 1343,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_chagatai_split",
+  "year": 1347,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_europe_plague",
+  "year": 1348,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yellow_dykes",
+  "year": 1351,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "khanbaliq"
+  ]
+ },
+ {
+  "id": "n_mng_toghto_fall",
+  "year": 1355,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_janibek_death",
+  "year": 1357,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_troubles",
+  "year": 1360,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "sarai"
+  ]
+ },
+ {
+  "id": "n_mng_zhu",
+  "year": 1363,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_red_shangdu",
+  "year": 1366,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ming",
+  "year": 1368,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "khanbaliq"
+  ]
+ },
+ {
+  "id": "n_mng_toghon_death",
+  "year": 1370,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_timur_rise",
+  "year": 1370,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_tula",
+  "year": 1372,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_koke",
+  "year": 1375,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_tokhtamysh_rise",
+  "year": 1377,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_vozha",
+  "year": 1378,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_karakorum_fire",
+  "year": 1380,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "n_mng_tokhtamysh_tabriz",
+  "year": 1385,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_buir",
+  "year": 1388,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "n_mng_kondurcha",
+  "year": 1391,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_joseon",
+  "year": 1393,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yelets",
+  "year": 1395,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_delhi",
+  "year": 1398,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_vorskla",
+  "year": 1399,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ankara",
+  "year": 1402,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_oirat_rise",
+  "year": 1403,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_timur_death",
+  "year": 1405,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_zheng_he",
+  "year": 1405,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_edigei_moscow",
+  "year": 1408,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yongle",
+  "year": 1410,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_grunwald",
+  "year": 1410,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_arughtai",
+  "year": 1415,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_edigei_death",
+  "year": 1419,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_beijing",
+  "year": 1421,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yongle_death",
+  "year": 1424,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_uzbeks",
+  "year": 1428,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_arughtai_death",
+  "year": 1434,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kazan",
+  "year": 1438,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_crimea",
+  "year": 1441,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_esen_hami",
+  "year": 1443,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_vasily_captive",
+  "year": 1445,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kasimov",
+  "year": 1452,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_constantinople_fall",
+  "year": 1453,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_esen_death",
+  "year": 1454,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kazakh",
+  "year": 1459,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_ottoman_crimea",
+  "year": 1460,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_beg_arslan",
+  "year": 1466,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_manduul_death",
+  "year": 1470,
+  "confidence": "reconstructed",
+  "exclude_regions": [
+   "onon"
+  ]
+ },
+ {
+  "id": "n_mng_caffa",
+  "year": 1475,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ugra_news",
+  "year": 1480,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "sarai"
+  ]
+ },
+ {
+  "id": "n_mng_akhmat_death",
+  "year": 1481,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_dayan_young",
+  "year": 1483,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_kazan_moscow",
+  "year": 1487,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_columbus",
+  "year": 1492,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_portuguese",
+  "year": 1498,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_shaybani",
+  "year": 1500,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_horde_end_news",
+  "year": 1502,
+  "confidence": "confirmed",
+  "exclude_regions": [
+   "sarai"
+  ]
+ },
+ {
+  "id": "n_mng_safavids",
+  "year": 1507,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_ming_wall",
+  "year": 1508,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_shaybani_death",
+  "year": 1510,
+  "confidence": "disputed"
+ },
+ {
+  "id": "n_mng_chaldiran",
+  "year": 1514,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_cairo",
+  "year": 1517,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_crimea_moscow",
+  "year": 1521,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_babur",
+  "year": 1526,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_vienna",
+  "year": 1529,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_bodi",
+  "year": 1532,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_darayisun",
+  "year": 1540,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_altan_ordos",
+  "year": 1542,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_tsar",
+  "year": 1547,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kazan_fall",
+  "year": 1552,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_astrakhan",
+  "year": 1556,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_tsogt",
+  "year": 1557,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_fireguns",
+  "year": 1560,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_hohhot",
+  "year": 1566,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_horse_markets",
+  "year": 1571,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_moscow_burned",
+  "year": 1571,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_tumen_khan",
+  "year": 1576,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_abtai",
+  "year": 1580,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_altan_death",
+  "year": 1582,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_yermak",
+  "year": 1582,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_dalai_death",
+  "year": 1588,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_fourth_dalai",
+  "year": 1589,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_imjin",
+  "year": 1592,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_kanjur",
+  "year": 1596,
+  "confidence": "reconstructed"
+ },
+ {
+  "id": "n_mng_imjin_end",
+  "year": 1598,
+  "confidence": "confirmed"
+ },
+ {
+  "id": "n_mng_jurchen",
+  "year": 1599,
+  "confidence": "confirmed"
+ }
+]

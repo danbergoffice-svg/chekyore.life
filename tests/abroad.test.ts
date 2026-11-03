@@ -40,8 +40,9 @@ describe('Переезд в другую страну (п. 11)', () => {
     expect(moved / adults).toBeLessThan(0.1)
   }, 600000)
 
+  // Китай связан только с монголами (Каракорум, Юань, беглецы в степь) - в остальные страны дорог из него нет.
   it('в Америку и из неё - никогда; майя и Древний мир - только внутри своей страны', () => {
-    for (const id of ['AMR', 'MAY', 'E03', 'ANE', 'CHN', 'JPN']) {
+    for (const id of ['AMR', 'MAY', 'E03', 'ANE', 'JPN']) {
       const s = newLife(eras[id], { mode: 'quick', mortality: 'soft', softenHeavy: false }, 3)
       s.hero.age = 30
       expect(canEmigrate(s, '@any'), id).toBe(false)

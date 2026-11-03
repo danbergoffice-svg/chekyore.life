@@ -1,0 +1,536 @@
+[
+ {
+  "id": "mng_fc_name",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 2,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire",
+    "cradle"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "protect",
+    "effects": [
+     {
+      "param": "risk_tolerance",
+      "delta": -1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       7
+      ],
+      "chance": 1,
+      "trigger_event": "mng_fc_name_protect"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "first_seen",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       10,
+       15
+      ],
+      "chance": 1,
+      "trigger_event": "mng_fc_name_seen"
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "grandfather",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       8,
+       13
+      ],
+      "chance": 1,
+      "trigger_event": "mng_fc_name_elder"
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ],
+  "others": [
+   "child"
+  ]
+ },
+ {
+  "id": "mng_fc_name_protect",
+  "type": "family",
+  "trigger_only": true,
+  "moment": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 4
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_name_seen",
+  "type": "family",
+  "trigger_only": true,
+  "moment": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 4
+   },
+   {
+    "param": "reputation",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_name_elder",
+  "type": "family",
+  "trigger_only": true,
+  "moment": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -3
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_cord",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 2,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "fire",
+    "cradle"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "choices": [
+   {
+    "id": "pouch",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       10
+      ],
+      "chance": 1,
+      "trigger_event": "mng_fc_cord_pouch"
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "hearth",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       14,
+       20
+      ],
+      "chance": 1,
+      "trigger_event": "mng_fc_cord_hearth"
+     }
+    ],
+    "pattern": {
+     "home_road": -4
+    }
+   },
+   {
+    "id": "nothing",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_cord_pouch",
+  "type": "family",
+  "trigger_only": true,
+  "moment": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": 3
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_cord_hearth",
+  "type": "family",
+  "trigger_only": true,
+  "moment": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "loneliness",
+    "delta": -4
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_foal",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 3,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "horse"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "foal",
+    "effects": [
+     {
+      "skill": "farming",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       9
+      ],
+      "chance": 1,
+      "trigger_event": "mng_fc_foal_grown"
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "lamb",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 1
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       8,
+       12
+      ],
+      "chance": 1,
+      "trigger_event": "mng_fc_lamb_herd"
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_foal_grown",
+  "type": "family",
+  "trigger_only": true,
+  "moment": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "herd": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_lamb_herd",
+  "type": "family",
+  "trigger_only": true,
+  "moment": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "goat"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 3
+   },
+   {
+    "herd": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_captive_mother",
+  "type": "family",
+  "first_choice": true,
+  "age_range": [
+   0,
+   0
+  ],
+  "base_weight": 4,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire",
+    "cradle"
+   ]
+  },
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "classes": [
+   "slave"
+  ],
+  "sensitive": true,
+  "choices": [
+   {
+    "id": "her_tongue",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": -2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       10,
+       15
+      ],
+      "chance": 1,
+      "trigger_event": "mng_fc_tongue"
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "masters",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_fc_tongue",
+  "type": "family",
+  "trigger_only": true,
+  "moment": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "cart"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   }
+  ]
+ }
+]

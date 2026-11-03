@@ -166,7 +166,7 @@ function lookFor(style: string, input: AvatarInput, st: Stage, p: Palette, r: ()
   const rich = !slave && (cls === 'noble' || cls === 'landowner')
   const poor = slave || cls === 'peasant'
   const light = style === 'gothic' || style === 'russian'
-  const base = light ? pickOf(r, LIGHT_HAIR) : style === 'sahel' || style === 'ethiopian' || style === 'maya' || style === 'aztec' || style === 'andean' || style === 'japanese' || style === 'chinese' ? pickOf(r, BLACK_HAIR) : pickOf(r, DARK_HAIR)
+  const base = light ? pickOf(r, LIGHT_HAIR) : style === 'sahel' || style === 'ethiopian' || style === 'maya' || style === 'aztec' || style === 'andean' || style === 'japanese' || style === 'chinese' || style === 'mongol' ? pickOf(r, BLACK_HAIR) : pickOf(r, DARK_HAIR)
   // Ткань: у знати - яркая с золотом, у бедняков - тусклая, у рабов - неокрашенная.
   const dye = pickOf(r, p.clothes)
   const cloth = slave ? '#a89878' : poor ? mix(dye, '#8f826c', 0.45) : dye
@@ -323,6 +323,24 @@ function lookFor(style: string, input: AvatarInput, st: Stage, p: Palette, r: ()
       }
       if (st === 'infant') L.hat = 'bonnet'
       L.beard = beardOf([['full', 7], ['long', 2], ['short', 1]])
+      break
+    case 'mongol':
+      // Дэли с запахом направо, кушак; у знати - шапка с меховой опушкой.
+      L.neck = 'cross'
+      L.belt = pickOf(r, ['#c9a34a', '#a83a2f', '#3a7a5a'])
+      L.cloth = slave ? '#a89878' : cloth
+      L.trim = rich ? p.accent : mix(cloth, '#000000', 0.25)
+      if (f) {
+        L.hair = 'braids'
+        if (married && !kid) L.hat = rich ? 'fur' : 'felt'
+        L.hatColor = rich ? '#a83a2f' : '#6a5a4a'
+      } else {
+        L.hair = kid ? 'tufts' : 'braids'
+        if (grown || st === 'teen') L.hat = rich ? 'fur' : chooseOf(r, [['felt', 4], [null, 2]])
+        L.hatColor = rich ? pickOf(r, ['#a83a2f', '#3a5a8a', '#c9a34a']) : '#6a5a4a'
+      }
+      if (st === 'infant') L.hat = 'bonnet'
+      L.beard = beardOf([['moustache', 5], ['goatee', 3], ['none', 2]])
       break
     case 'maya':
     case 'aztec':

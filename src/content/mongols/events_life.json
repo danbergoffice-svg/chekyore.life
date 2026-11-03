@@ -1,0 +1,3302 @@
+[
+ {
+  "id": "mng_d_dzud",
+  "type": "personal",
+  "base_weight": 3,
+  "topic": "money",
+  "age_range": [
+   16,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 2,
+   "props": [
+    "goat"
+   ]
+  },
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "icon": "disaster",
+  "choices": [
+   {
+    "id": "far_pasture",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "herd": 2
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      },
+      {
+       "skill": "farming",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "herd": -0.6
+      },
+      {
+       "param": "health",
+       "delta": -10
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "slaughter",
+    "effects": [
+     {
+      "herd": -0.4
+     },
+     {
+      "param": "money",
+      "delta": 90
+     },
+     {
+      "param": "happiness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -3,
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "ask_noyan",
+    "effects": [
+     {
+      "herd": -0.15
+     },
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     },
+     {
+      "add_tag": "in_debt"
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       6
+      ],
+      "chance": 0.6,
+      "trigger_event": "mng_d_dzud_debt"
+     }
+    ],
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_dzud_debt",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "horse",
+    "effects": [
+     {
+      "herd": -0.2
+     },
+     {
+      "remove_tag": "in_debt"
+     },
+     {
+      "param": "happiness",
+      "delta": -3
+     }
+    ]
+   },
+   {
+    "id": "work",
+    "effects": [
+     {
+      "remove_tag": "in_debt"
+     },
+     {
+      "skill": "farming",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     },
+     {
+      "param": "diligence",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_d_anda",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   10,
+   30
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "fire"
+   ]
+  },
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "swear",
+    "effects": [
+     {
+      "add_npc": "friend",
+      "attitude": 75
+     },
+     {
+      "param": "loneliness",
+      "delta": -8
+     },
+     {
+      "param": "happiness",
+      "delta": 5
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       14
+      ],
+      "chance": 0.75,
+      "trigger_event": "mng_d_anda_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": -3,
+     "home_road": 2
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ],
+  "others": [
+   "sibling"
+  ]
+ },
+ {
+  "id": "mng_d_anda_later",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "conditions": [
+   {
+    "has_npc": "friend"
+   }
+  ],
+  "choices": [
+   {
+    "id": "ride",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "npc_attitude": "friend",
+       "delta": 20
+      },
+      {
+       "skill": "military",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "npc_attitude": "friend",
+       "delta": 15
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -6
+     },
+     {
+      "npc_attitude": "friend",
+      "delta": -40
+     },
+     {
+      "param": "self_esteem",
+      "delta": -4
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_d_bride",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "family",
+  "age_range": [
+   16,
+   26
+  ],
+  "scene": {
+   "place": "road",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "horse",
+    "moon"
+   ]
+  },
+  "sex": "m",
+  "conditions": [
+   {
+    "no_npc": "spouse"
+   }
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "craftsman"
+  ],
+  "icon": "wedding",
+  "choices": [
+   {
+    "id": "steal",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "add_npc": "spouse",
+       "attitude": 55
+      },
+      {
+       "add_tag": "married"
+      },
+      {
+       "param": "reputation",
+       "delta": 3
+      },
+      {
+       "param": "happiness",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      },
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "param": "money",
+       "delta": -60
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 5,
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "kalym",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 40
+     }
+    ],
+    "effects": [
+     {
+      "herd": -0.5
+     },
+     {
+      "add_npc": "spouse",
+      "attitude": 65
+     },
+     {
+      "add_tag": "married"
+     },
+     {
+      "param": "happiness",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ],
+  "others": [
+   "father",
+   "spouse"
+  ]
+ },
+ {
+  "id": "mng_d_yasa_water",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   12,
+   60
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "years": [
+   1206,
+   1600
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "bathe",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "health",
+       "delta": 2
+      },
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "param": "money",
+       "delta": -50
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 4,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "endure",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_stray_horse",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   14,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 1,
+   "props": [
+    "horse"
+   ]
+  },
+  "years": [
+   1206,
+   1600
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "return",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "faith",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "keep",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "herd": 1
+      },
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -200
+      },
+      {
+       "param": "reputation",
+       "delta": -12
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4,
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_pasture",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   18,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse"
+   ]
+  },
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "sex": "m",
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "herd": 1
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -14
+      },
+      {
+       "herd": -0.2
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "yield",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     },
+     {
+      "chance": 0.4,
+      "effects": [
+       {
+        "herd": -0.15
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "home_road": 4,
+     "craft_power": -3
+    }
+   },
+   {
+    "id": "noyan",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -50
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     },
+     {
+      "chance": 0.7,
+      "effects": [
+       {
+        "param": "happiness",
+        "delta": 3
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": -2,
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_horse_thieves",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "money",
+  "age_range": [
+   16,
+   60
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "horse",
+    "moon"
+   ]
+  },
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "sex": "m",
+  "choices": [
+   {
+    "id": "chase",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "military",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "herd": -0.3
+      },
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4,
+     "home_road": 3
+    }
+   },
+   {
+    "id": "track",
+    "effects": [
+     {
+      "skill": "farming",
+      "delta": 2
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "herd": -0.2
+       }
+      ]
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_wrestling",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   16,
+   35
+  ],
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "enter",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "self_esteem",
+       "delta": 8
+      },
+      {
+       "param": "money",
+       "delta": 60
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -8
+      },
+      {
+       "param": "self_esteem",
+       "delta": -4
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.5,
+      "trigger_event": "mng_d_wrestling_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "watch",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_wrestling_later",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "set_class": "landowner"
+      },
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "money",
+       "delta": 150
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    }
+   },
+   {
+    "id": "no",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -4
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_d_archery",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   14,
+   50
+  ],
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "shoot",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 7
+      },
+      {
+       "skill": "military",
+       "delta": 4
+      },
+      {
+       "param": "money",
+       "delta": 40
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "self_esteem",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "skip",
+    "pattern": {
+     "home_road": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_nerge",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   14,
+   45
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "years": [
+   1190,
+   1600
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "hold",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "military",
+       "delta": 5
+      },
+      {
+       "param": "money",
+       "delta": 50
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      },
+      {
+       "param": "reputation",
+       "delta": -4
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3,
+     "home_road": 2
+    }
+   },
+   {
+    "id": "let_pass",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -12
+      },
+      {
+       "param": "money",
+       "delta": -60
+      },
+      {
+       "param": "stress",
+       "delta": 8
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": -3,
+     "faith_reason": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_sick_child",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "health",
+  "age_range": [
+   18,
+   60
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "bed"
+   ]
+  },
+  "npc": "child",
+  "npc_age": [
+   1,
+   9
+  ],
+  "sensitive": true,
+  "icon": "loss",
+  "choices": [
+   {
+    "id": "shaman",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "npc_attitude": "npc",
+       "delta": 6
+      },
+      {
+       "param": "happiness",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "kill_npc": "npc"
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "stress",
+       "delta": 15
+      }
+     ]
+    }
+   },
+   {
+    "id": "physician",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 120
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.8,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "kill_npc": "npc"
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "stress",
+       "delta": 15
+      }
+     ]
+    }
+   },
+   {
+    "id": "kumis",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "kill_npc": "npc"
+      },
+      {
+       "param": "happiness",
+       "delta": -25
+      },
+      {
+       "param": "stress",
+       "delta": 15
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_orphan",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "family",
+  "age_range": [
+   20,
+   55
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "years": [
+   1180,
+   1600
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "adopt",
+    "effects": [
+     {
+      "add_npc": "child",
+      "attitude": 60
+     },
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "param": "happiness",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "refuse",
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "others": [
+   "child",
+   "mother"
+  ]
+ },
+ {
+  "id": "mng_d_feud",
+  "type": "personal",
+  "base_weight": 5,
+  "topic": "life",
+  "age_range": [
+   18,
+   50
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "horse"
+   ]
+  },
+  "years": [
+   1150,
+   1205
+  ],
+  "regions": [
+   "onon"
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "icon": "war",
+  "sensitive": true,
+  "choices": [
+   {
+    "id": "revenge",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "herd": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "chance": 0.2,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       10
+      ],
+      "chance": 0.5,
+      "trigger_event": "mng_d_feud_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 5,
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "price",
+    "effects": [
+     {
+      "herd": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "craft_power": -2,
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "forgive",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": -5
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_feud_later",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire"
+   ]
+  },
+  "icon": "war",
+  "choices": [
+   {
+    "id": "defend",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "herd": -0.35
+      },
+      {
+       "param": "health",
+       "delta": -10
+      }
+     ]
+    }
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "herd": -0.2
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_d_captive_master",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "money",
+  "age_range": [
+   20,
+   60
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "anvil"
+   ]
+  },
+  "years": [
+   1211,
+   1300
+  ],
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "sensitive": true,
+  "choices": [
+   {
+    "id": "take",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       9
+      ],
+      "chance": 0.7,
+      "trigger_event": "mng_d_captive_later"
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "free",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "craft_power": -3,
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2,
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_captive_later",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "anvil",
+    "fire"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "herd": 5
+     },
+     {
+      "param": "money",
+      "delta": 100
+     }
+    ]
+   },
+   {
+    "id": "free",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": 60
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_d_slave_flight",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   14,
+   45
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "moon",
+    "horse"
+   ]
+  },
+  "classes": [
+   "slave"
+  ],
+  "sensitive": true,
+  "icon": "freedom",
+  "choices": [
+   {
+    "id": "run",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.35,
+     "on_success": [
+      {
+       "set_class": "peasant"
+      },
+      {
+       "remove_tag": "enslaved"
+      },
+      {
+       "set_profession": "laborer"
+      },
+      {
+       "param": "happiness",
+       "delta": 15
+      },
+      {
+       "add_tag": "fugitive"
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "param": "stress",
+       "delta": 12
+      },
+      {
+       "param": "self_esteem",
+       "delta": -5
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 6
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_paiza_demand",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "money",
+  "age_range": [
+   18,
+   70
+  ],
+  "scene": {
+   "place": "yard",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "years": [
+   1220,
+   1370
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "choices": [
+   {
+    "id": "give",
+    "effects": [
+     {
+      "herd": -0.15
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "herd": -0.3
+      },
+      {
+       "param": "reputation",
+       "delta": -6
+      },
+      {
+       "param": "health",
+       "delta": -6
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3,
+     "memory_future": 2
+    }
+   },
+   {
+    "id": "complain",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "herd": 1
+       },
+       {
+        "param": "reputation",
+        "delta": 4
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_ortaq",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "money",
+  "age_range": [
+   20,
+   60
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins",
+    "scroll"
+   ]
+  },
+  "years": [
+   1206,
+   1370
+  ],
+  "classes": [
+   "trader",
+   "craftsman",
+   "landowner"
+  ],
+  "choices": [
+   {
+    "id": "accept",
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 400
+      },
+      {
+       "skill": "trade",
+       "delta": 6
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -200
+      },
+      {
+       "add_tag": "in_debt"
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "refuse",
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_drinking",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   18,
+   60
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "classes": [
+   "landowner",
+   "noble",
+   "trader"
+  ],
+  "choices": [
+   {
+    "id": "drink",
+    "risk_roll": {
+     "param": "health",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "happiness",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -8
+      },
+      {
+       "add_tag": "drinker"
+      },
+      {
+       "param": "reputation",
+       "delta": -3
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "pour",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2,
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_gamble",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   16,
+   60
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble",
+   "craftsman"
+  ],
+  "choices": [
+   {
+    "id": "play",
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "herd": 2
+      },
+      {
+       "param": "happiness",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "herd": -0.3
+      },
+      {
+       "chance": 0.4,
+       "effects": [
+        {
+         "add_tag": "gambler"
+        }
+       ]
+      },
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "no",
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_daughter_match",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "family",
+  "age_range": [
+   32,
+   65
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "table"
+   ]
+  },
+  "npc": "child",
+  "npc_age": [
+   14,
+   18
+  ],
+  "choices": [
+   {
+    "id": "noyan",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": -15
+     }
+    ],
+    "pattern": {
+     "craft_power": 4,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "heart",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 15
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   }
+  ],
+  "others": [
+   "father"
+  ]
+ },
+ {
+  "id": "mng_d_lightning",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   12,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 3,
+   "props": [
+    "rain",
+    "fire"
+   ]
+  },
+  "religions": [
+   "tengri"
+  ],
+  "choices": [
+   {
+    "id": "fires",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -20
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "ignore",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_ongon",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   16,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire",
+    "statue"
+   ]
+  },
+  "religions": [
+   "tengri"
+  ],
+  "choices": [
+   {
+    "id": "feed",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -10
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "neglect",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": -3
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "param": "health",
+        "delta": -4
+       },
+       {
+        "param": "stress",
+        "delta": 4
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": 3,
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_shaman_call",
+  "type": "personal",
+  "base_weight": 5,
+  "topic": "life",
+  "age_range": [
+   14,
+   30
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 1,
+   "props": [
+    "moon",
+    "fire"
+   ]
+  },
+  "religions": [
+   "tengri"
+  ],
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "shaman"
+     },
+     {
+      "param": "faith",
+      "delta": 10
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "loneliness",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -6,
+     "memory_future": -3
+    }
+   },
+   {
+    "id": "refuse",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      },
+      {
+       "add_tag": "ill"
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_nestorian",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   16,
+   70
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll",
+    "lamp"
+   ]
+  },
+  "religions": [
+   "tengri"
+  ],
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1150,
+   1370
+  ],
+  "choices": [
+   {
+    "id": "baptize",
+    "effects": [
+     {
+      "set_religion": "christian"
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4,
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "both",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 1
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 2
+    }
+   },
+   {
+    "id": "no",
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_islam_horde",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   14,
+   70
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp"
+   ]
+  },
+  "religions": [
+   "tengri"
+  ],
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1313,
+   1502
+  ],
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "old_way",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -3
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_lamas",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "life",
+  "age_range": [
+   14,
+   80
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "religions": [
+   "tengri"
+  ],
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1578,
+   1600
+  ],
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "buddhist"
+     },
+     {
+      "param": "faith",
+      "delta": 5
+     },
+     {
+      "param": "intellect",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2,
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "shaman",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_son_to_monastery",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "family",
+  "age_range": [
+   30,
+   70
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "npc": "child",
+  "npc_age": [
+   7,
+   12
+  ],
+  "religions": [
+   "buddhist"
+  ],
+  "regions": [
+   "onon"
+  ],
+  "choices": [
+   {
+    "id": "give",
+    "effects": [
+     {
+      "npc_profession": "lama"
+     },
+     {
+      "npc_away": "monastery"
+     },
+     {
+      "param": "faith",
+      "delta": 6
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "happiness",
+      "delta": -3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "memory_future": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_faith_debate",
+  "type": "personal",
+  "base_weight": 10,
+  "topic": "life",
+  "age_range": [
+   18,
+   70
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "regions": [
+   "karakorum"
+  ],
+  "years": [
+   1250,
+   1262
+  ],
+  "historian_note": true,
+  "confidence": "confirmed",
+  "choices": [
+   {
+    "id": "christian",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "set_religion": "christian"
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "muslim",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "set_religion": "islam"
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "buddhist",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 2
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "set_religion": "buddhist"
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2
+    }
+   },
+   {
+    "id": "drink",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_chinese_ways",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   12,
+   40
+  ],
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "regions": [
+   "khanbaliq"
+  ],
+  "classes": [
+   "landowner",
+   "noble",
+   "trader",
+   "craftsman"
+  ],
+  "choices": [
+   {
+    "id": "classics",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 8
+     },
+     {
+      "param": "intellect",
+      "delta": 3
+     },
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       6,
+       12
+      ],
+      "chance": 0.6,
+      "trigger_event": "mng_d_classics_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": 5,
+     "faith_reason": 3
+    }
+   },
+   {
+    "id": "steppe",
+    "effects": [
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -5,
+     "craft_power": 2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_classics_later",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "life",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "years": [
+   1315,
+   1368
+  ],
+  "choices": [
+   {
+    "id": "sit",
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "set_profession": "official"
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "self_esteem",
+       "delta": -4
+      }
+     ]
+    }
+   },
+   {
+    "id": "skip"
+   }
+  ],
+  "others": [
+   "child"
+  ]
+ },
+ {
+  "id": "mng_d_ransom",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   20,
+   70
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  },
+  "regions": [
+   "sarai"
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "years": [
+   1261,
+   1480
+  ],
+  "sensitive": true,
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": 2
+    }
+   },
+   {
+    "id": "free",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "faith_reason": -2,
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "craft_power": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_vykhod",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   20,
+   50
+  ],
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "horse",
+    "cart"
+   ]
+  },
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1257,
+   1330
+  ],
+  "sex": "m",
+  "classes": [
+   "landowner",
+   "peasant",
+   "noble"
+  ],
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      },
+      {
+       "param": "reputation",
+       "delta": 4
+      },
+      {
+       "skill": "management",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      },
+      {
+       "chance": 0.15,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5,
+     "home_road": 4
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_serve_moscow",
+  "type": "personal",
+  "base_weight": 6,
+  "topic": "life",
+  "age_range": [
+   18,
+   45
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1420,
+   1502
+  ],
+  "sex": "m",
+  "classes": [
+   "landowner",
+   "noble",
+   "peasant"
+  ],
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "emigrate": "RUS",
+      "reason": "service",
+      "family": "all"
+     },
+     {
+      "skill": "military",
+      "delta": 4
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 8,
+     "memory_future": 6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_mv_karakorum",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   17,
+   45
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "cart",
+    "horse"
+   ]
+  },
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1235,
+   1370
+  ],
+  "classes": [
+   "peasant",
+   "craftsman",
+   "trader",
+   "landowner"
+  ],
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "karakorum"
+     },
+     {
+      "skill": "trade",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 4
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_mv_west",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   16,
+   40
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "cart",
+    "horse",
+    "banner"
+   ]
+  },
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1242,
+   1300
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble",
+   "craftsman"
+  ],
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "sarai"
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "risk_tolerance",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 7,
+     "memory_future": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_mv_khanbaliq",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   16,
+   45
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "cart",
+    "banner"
+   ]
+  },
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1264,
+   1350
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ],
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "khanbaliq"
+     },
+     {
+      "skill": "literacy",
+      "delta": 2
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": 6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -4,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_mv_ilkhan",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   16,
+   40
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1253,
+   1300
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "tabriz"
+     },
+     {
+      "skill": "military",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 7,
+     "memory_future": 5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_d_mv_home",
+  "type": "personal",
+  "base_weight": 2,
+  "topic": "life",
+  "age_range": [
+   25,
+   70
+  ],
+  "scene": {
+   "place": "road",
+   "time": "sunset",
+   "people": 3,
+   "props": [
+    "cart",
+    "horse"
+   ]
+  },
+  "regions": [
+   "karakorum",
+   "khanbaliq",
+   "sarai",
+   "tabriz"
+  ],
+  "years": [
+   1240,
+   1600
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble",
+   "craftsman"
+  ],
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "migrate": "onon"
+     },
+     {
+      "param": "happiness",
+      "delta": 5
+     },
+     {
+      "param": "loneliness",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -6,
+     "memory_future": -6
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "loneliness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   }
+  ]
+ }
+]

@@ -100,6 +100,8 @@ const STYLE_PALETTE: Record<string, Palette> = {
   andean: { stone: '#a8a090', stoneDark: '#7f786a', wall: '#9a9284', roof: '#c4a860', ground: '#8a8a6a', groundLine: '#767656', clothes: ['#b83a3a', '#e0b030', '#2a4a8a', '#f2ead8', '#4a2a2a'], skin: SKIN_BROWN, accent: '#e0b030' },
   sahel: { stone: '#b8865a', stoneDark: '#946a44', wall: '#c0905e', roof: '#a8784c', ground: '#d8b07a', groundLine: '#c49c68', clothes: ['#f2eee2', '#3a5a9a', '#e0b030', '#c0503a', '#2a2a4a'], skin: SKIN_DARK, accent: '#7a5a3a' },
   ethiopian: { stone: '#a8664a', stoneDark: '#7f4a34', wall: '#c09a6a', roof: '#b8a060', ground: '#8a7a5a', groundLine: '#766846', clothes: ['#f2eee2', '#f2eee2', '#e8dcc0', '#3a6a4a', '#c0503a'], skin: SKIN_DARK, accent: '#c9a34a' },
+  // Степь: белый войлок юрт, оранжевые двери, синие и вишнёвые дэли.
+  mongol: { stone: '#e8e2d2', stoneDark: '#b8ae98', wall: '#ece6d6', roof: '#ddd5c0', ground: '#a8a070', groundLine: '#948c5e', clothes: ['#3a5a8a', '#8a2a3a', '#c9a34a', '#4a6a5a', '#6a3a6a'], skin: SKIN_EAST, accent: '#d0602a' },
 }
 
 /** Холмы за городом по типу пейзажа. */
@@ -126,6 +128,7 @@ const HATS: Record<string, Hat[]> = {
   russian: ['cap', null, null],
   gothic: ['cap', null, null, null],
   ethiopian: ['veil', null, null],
+  mongol: ['cap', 'cap', null],
 }
 
 export interface Look {
@@ -601,6 +604,22 @@ function styledHouse(px: Px, look: Look, x: number, w: number, k: number, r: () 
       px(cx, GROUND - h - 12, 1, 3, shade('#5a4030', k))
       return rec(h, 'thatch', cx - 8, 16)
     }
+    case 'mongol': {
+      // Юрта: белая войлочная стена, купол, оранжевая дверь, верёвки-обвязки, дымоход над тоно.
+      const yw = Math.min(w, 18 + Math.floor(r() * 6))
+      const yx = Math.round(cx - yw / 2)
+      const h = 7
+      const felt = shade(r() > 0.25 ? p.wall : '#d8ccb0', k)
+      px(yx, GROUND - h, yw, h, felt)
+      for (let i = 0; i < 5; i++) px(yx + 1 + i, GROUND - h - 1 - i, yw - 2 - i * 2, 1, shade(p.roof, k - (i === 4 ? 0.06 : 0)))
+      px(cx - 2, GROUND - h - 6, 4, 1, shade(p.stoneDark, k))
+      px(yx, GROUND - h + 2, yw, 1, shade('#8a6a4a', k))
+      px(yx + 2, GROUND - h - 1, yw - 4, 1, shade('#8a6a4a', k + 0.05))
+      px(cx - 2, GROUND - 5, 4, 5, shade(p.accent, k))
+      if (lit) light(cx - 1, GROUND - 4, 2, 3)
+      cur.chimneys.push(cx)
+      return rec(h, 'flat', yx, yw)
+    }
     case 'maya':
     case 'aztec':
     case 'andean': {
@@ -787,6 +806,37 @@ function landmark(px: Px, look: Look, region: string, k: number, r: () => number
       tree(px, look, 170, k, r)
       return
     }
+    case 'mongol': {
+      farHills(px, { ...look, land: 'steppe' }, k, r, true)
+      if (region === 'karakorum') {
+        // Каракорум: глинобитная стена, дворец Тумэн-Амгалан под черепицей, каменная черепаха.
+        px(30, GROUND - 10, 132, 10, c('#c8b08a'))
+        crenels(px, 30, 132, GROUND - 10, c('#c8b08a'))
+        px(70, GROUND - 24, 52, 14, c('#a8402e'))
+        curvedRoof(px, 70, 52, GROUND - 25, c('#3a6a5a'), true)
+        px(14, GROUND - 5, 12, 5, c('#8a8478'))
+        px(24, GROUND - 4, 4, 3, c('#8a8478'))
+        px(18, GROUND - 16, 3, 11, c('#9a9488'))
+        for (const x of [136, 156]) styledHouse(px, look, x - 9, 18, k, r, false)
+      } else if (region === 'sarai') {
+        // Сарай на Волге: глиняный город, мечеть с куполом, юрты по окраинам.
+        px(56, GROUND - 14, 80, 14, c('#c8a878'))
+        dome(px, 96, GROUND - 14, 10, c('#3f8fa8'), c('#d8b040'))
+        minaret(px, 128, 32, c('#c8a878'), c('#3f8fa8'))
+        for (const x of [20, 160]) styledHouse(px, look, x - 9, 18, k, r, false)
+      } else {
+        // Ставка в степи: большая юрта хана, туг с хвостами, ряд юрт.
+        for (const x of [24, 52, 140, 168]) styledHouse(px, look, x - 9, 18, k, r, false)
+        const big = c(p.wall)
+        px(76, GROUND - 12, 40, 12, big)
+        for (let i = 0; i < 8; i++) px(78 + i, GROUND - 13 - i, 36 - i * 2, 1, c(p.roof))
+        px(92, GROUND - 6, 8, 6, c(p.accent))
+        px(124, GROUND - 34, 1, 34, c('#5a4030'))
+        for (let i = 0; i < 4; i++) px(122 + i, GROUND - 32 + i * 2, 1, 8, c('#efe8d8'))
+        disc(px, 124, GROUND - 35, 1, c('#d8b040'))
+      }
+      return
+    }
     case 'ethiopian': {
       // Плосковерхие горы-амбы, высеченная в скале церковь-крест, тукули.
       const rock = c('#8a6a5a', 0.05)
@@ -896,6 +946,15 @@ function sanctuary(px: Px, look: Look, k: number, r: () => number) {
       disc(px, 96, GROUND - 28, 6, c('#e0b030'))
       return
     }
+    case 'mongol': {
+      // Обо: каменная груда на холме, шест с синими лентами-хадаками, костёр шамана.
+      farHills(px, { ...look, land: 'steppe' }, k, r)
+      for (let i = 0; i < 10; i++) px(80 + i * 1.5, GROUND - 2 - i * 2, 32 - i * 3, 2, c(i % 2 ? '#8a8478' : '#a09a8c'))
+      px(96, GROUND - 40, 1, 20, c('#5a4030'))
+      for (const [dx, col] of [[-6, '#3f6fb8'], [4, '#e8e0d0'], [-3, '#d8b040'], [6, '#3f6fb8']] as const) px(96 + Math.min(0, dx), GROUND - 36 + Math.abs(dx), Math.abs(dx), 1, c(col))
+      px(140, GROUND - 3, 8, 3, c('#6a6460'))
+      return
+    }
     case 'ethiopian': {
       // Круглая церковь под соломенной крышей с крестом.
       const cx = 96
@@ -957,6 +1016,20 @@ function palace(px: Px, look: Look, region: string, k: number, r: () => number) 
       }
       const domeC = look.style === 'indian' ? c(p.stone) : look.style === 'ethiopian' ? c(p.stoneDark) : c(p.accent)
       for (const dx of [40, 96, 152]) dome(px, dx, GROUND - 22, dx === 96 ? 10 : 6, domeC, c('#d8b040'))
+      return
+    }
+    case 'mongol': {
+      // Орда: золотой шатёр хана на помосте, стражи-туги, юрты жён по бокам.
+      px(40, GROUND - 4, 112, 4, c('#8a6a4a'))
+      px(62, GROUND - 20, 68, 16, c('#e0c070'))
+      for (let i = 0; i < 12; i++) px(64 + i * 1.5, GROUND - 21 - i, 64 - i * 3, 1, c('#d8b040', -(i % 3) * 0.03))
+      px(90, GROUND - 12, 12, 8, c('#a83a2f'))
+      for (const x of [56, 136]) {
+        px(x, GROUND - 36, 1, 32, c('#5a4030'))
+        for (let i = 0; i < 3; i++) px(x - 1 + i, GROUND - 34 + i * 2, 1, 7, c('#efe8d8'))
+      }
+      for (const x of [22, 170]) styledHouse(px, look, x - 9, 18, k, r, false)
+      void region
       return
     }
     case 'maya':
@@ -1099,6 +1172,7 @@ const GOODS: Record<string, string[]> = {
   andean: ['#8a6a4a', '#b83a3a', '#e0b030', '#efe2c8'], // картофель, ткани
   sahel: ['#f2eee2', '#e0b030', '#c0503a', '#3a5a9a'], // соль, золото, ткани
   ethiopian: ['#d8b060', '#c0503a', '#f2eee2', '#5a6a3a'],
+  mongol: ['#efe8d8', '#8a6a4a', '#c9a34a', '#3a5a8a'], // войлок, кожи, сыр-ааруул, ткани
 }
 
 /** Крупный прилавок на переднем плане: столбы, полосатый навес, прилавок с товаром. Продавца рисуют до прилавка. */
@@ -1130,7 +1204,7 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
   switch (place) {
     case 'yard':
       if (look.land !== 'mountains' && look.land !== 'snow') farHills(px, look, k, r)
-      if (seasonNow) cropStrip(px, k, seasonNow.crop)
+      if (seasonNow && look.style !== 'mongol') cropStrip(px, k, seasonNow.crop)
       if (seasonNow) broadTree(px, look, 176, k)
       else tree(px, look, 176, k, r)
       burnt = burned
@@ -1168,15 +1242,29 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
     case 'bath': {
       // Интерьер: стена, окно, пол.
       const s = look.style
-      const wallByStyle: Record<string, string> = { russian: '#9a6a44', japanese: '#e8dcc0', chinese: '#e2d4b8', sahel: '#c49a6a', ethiopian: '#c49a6a', andean: '#a8a090', maya: '#e0d4b0', aztec: '#e6dcc4', gothic: '#d8ccb0', islamic: '#ece0c6' }
+      const wallByStyle: Record<string, string> = { mongol: '#e6dcc4', russian: '#9a6a44', japanese: '#e8dcc0', chinese: '#e2d4b8', sahel: '#c49a6a', ethiopian: '#c49a6a', andean: '#a8a090', maya: '#e0d4b0', aztec: '#e6dcc4', gothic: '#d8ccb0', islamic: '#ece0c6' }
       const wall = place === 'bath' ? '#c9d6d8' : place === 'workshop' ? '#b98d64' : wallByStyle[s] ?? '#e7d3ad'
       // Дом по достатку: лачуга темнее и без окна, палаты светлее.
       const tier = place === 'home' ? home : 2
       const wk = k * 0.6 + (tier === 0 ? -0.18 : tier >= 4 ? 0.06 : 0)
       px(0, 0, LW, GROUND, shade(wall, wk))
       if (s === 'russian') for (let y = 2; y < GROUND; y += 3) px(0, y, LW, 1, shade(wall, k * 0.6 - 0.12))
+      if (s === 'mongol' && place === 'home') {
+        // Юрта изнутри: решётка-хана по стенам, жерди-уни к кругу тоно, очаг посередине.
+        const lat = shade('#a8784a', k * 0.6)
+        for (let x = -GROUND; x < LW; x += 6) for (let y = 14; y < GROUND - 2; y++) {
+          const a = x + (y - 14)
+          const b = x + GROUND - (y - 14)
+          if (a >= 0 && a < LW) px(a, y, 1, 1, lat)
+          if (b >= 0 && b < LW) px(b, y, 1, 1, lat)
+        }
+        for (let x = 0; x < LW; x += 10) for (let y = 0; y < 14; y++) px(Math.round(x + ((96 - x) * (14 - y)) / 14 * 0.6), y, 1, 1, shade('#c0503a', k * 0.6))
+        px(86, 0, 20, 3, shade('#5a4030', k * 0.6))
+        px(90, GROUND - 8, 12, 6, shade('#3a3a3a', k * 0.6))
+        px(94, 0, 3, GROUND - 8, shade('#5a5a5a', k * 0.6 - 0.1))
+      }
       px(0, GROUND - 2, LW, 2, shade('#8a6a4a', k * 0.6))
-      if (place !== 'bath' && tier > 0) {
+      if (place !== 'bath' && tier > 0 && !(s === 'mongol' && place === 'home')) {
         const glass = time === 'night' ? '#1f294c' : time === 'sunset' ? '#e8a070' : '#8ec0e6'
         if (s === 'japanese' || s === 'chinese') {
           // Решётчатое окно с бумагой.
@@ -1219,7 +1307,10 @@ function backdrop(px: Px, place: ScenePlace, region: string, time: SceneTime, lo
     case 'field': {
       if (look.land !== 'mountains' && look.land !== 'snow') farHills(px, look, k, r)
       const s = look.style
-      if (s === 'andean') {
+      if (s === 'mongol') {
+        // Степь: ковыль до горизонта, без пашни.
+        for (let x = 0; x < LW; x += 3) px(x, GROUND - 2 - ((x * 7) % 3), 1, 2 + ((x * 7) % 3), shade('#b8b070', k))
+      } else if (s === 'andean') {
         for (let i = 0; i < 4; i++) px(i * 14, GROUND - 16 + i * 4, LW, 4, shade('#7f9a5a', k - (i % 2) * 0.06))
       } else if (s === 'maya' || s === 'aztec') {
         px(0, GROUND - 4, LW, 4, shade('#6f8a4a', k))

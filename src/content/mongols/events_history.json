@@ -1,0 +1,2627 @@
+[
+ {
+  "id": "mng_h_dalan",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   12,
+   120
+  ],
+  "global_chance": 0.3,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1187,
+   1190
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "temujin",
+    "effects": [
+     {
+      "set_flag": "family_temujin"
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "jamukha",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_tatars",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   50
+  ],
+  "global_chance": 0.6,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1196,
+   1196
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "herd": 1
+      },
+      {
+       "param": "money",
+       "delta": 60
+      },
+      {
+       "skill": "military",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -14
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ]
+   }
+  ],
+  "others": [
+   "father"
+  ]
+ },
+ {
+  "id": "mng_h_baljuna",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   15,
+   60
+  ],
+  "global_chance": 0.55,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1203,
+   1203
+  ],
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "horse"
+   ]
+  },
+  "sex": "m",
+  "choices": [
+   {
+    "id": "drink",
+    "effects": [
+     {
+      "set_flag": "family_baljuna"
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       6
+      ],
+      "chance": 1,
+      "trigger_event": "mng_h_baljuna_reward"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": -6
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_baljuna_reward",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "history",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "set_class": "landowner"
+   },
+   {
+    "herd": 4
+   },
+   {
+    "param": "reputation",
+    "delta": 10
+   },
+   {
+    "param": "money",
+    "delta": 200
+   }
+  ]
+ },
+ {
+  "id": "mng_h_naimans",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   12,
+   120
+  ],
+  "global_chance": 0.4,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1204,
+   1205
+  ],
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_kurultai1206",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.85,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1206,
+   1206
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "icon": "find",
+  "choices": [
+   {
+    "id": "swear",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "self_esteem",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 3
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   },
+   {
+    "id": "grumble",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_xixia",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   50
+  ],
+  "global_chance": 0.3,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1209,
+   1210
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 120
+      },
+      {
+       "herd": 1
+      },
+      {
+       "skill": "military",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay"
+   }
+  ],
+  "others": [
+   "child"
+  ]
+ },
+ {
+  "id": "mng_h_jin",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   50
+  ],
+  "global_chance": 0.3,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1211,
+   1215
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "horse",
+    "fire"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "herd": 2
+      },
+      {
+       "skill": "military",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      },
+      {
+       "chance": 0.15,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_otrar",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   50
+  ],
+  "global_chance": 0.4,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1219,
+   1221
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "fire"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      },
+      {
+       "herd": 2
+      },
+      {
+       "skill": "military",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "chance": 0.18,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       3
+      ],
+      "chance": 0.4,
+      "trigger_event": "mng_d_captive_master"
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "home_road": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_kalka",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.35,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1223,
+   1223
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_chinggis_death",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   5,
+   120
+  ],
+  "global_chance": 0.85,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1227,
+   1227
+  ],
+  "scene": {
+   "place": "tomb",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "icon": "death",
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": -3
+   },
+   {
+    "param": "faith",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "mng_h_karakorum_built",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   14,
+   65
+  ],
+  "global_chance": 0.4,
+  "regions": [
+   "karakorum",
+   "onon"
+  ],
+  "years": [
+   1235,
+   1236
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "cart"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "avoid",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_h_yam",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   15,
+   45
+  ],
+  "global_chance": 0.4,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1234,
+   1236
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "classes": [
+   "peasant",
+   "craftsman",
+   "landowner"
+  ],
+  "choices": [
+   {
+    "id": "serve",
+    "requirements": [
+     {
+      "sex": "m"
+     }
+    ],
+    "effects": [
+     {
+      "set_profession": "yam_rider"
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "herd": -0.2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_h_batu_west",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   45
+  ],
+  "global_chance": 0.4,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1236,
+   1240
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "horse",
+    "fire"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 280
+      },
+      {
+       "herd": 2
+      },
+      {
+       "skill": "military",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "chance": 0.15,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "delayed_effects": [
+     {
+      "after_years": [
+       1,
+       4
+      ],
+      "chance": 0.3,
+      "trigger_event": "mng_d_mv_west"
+     }
+    ],
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "stay"
+   }
+  ]
+ },
+ {
+  "id": "mng_h_legnica",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.35,
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "years": [
+   1241,
+   1242
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_mongke_purge",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   18,
+   80
+  ],
+  "global_chance": 0.4,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1251,
+   1252
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "banner",
+    "lamp"
+   ]
+  },
+  "classes": [
+   "landowner",
+   "noble"
+  ],
+  "choices": [
+   {
+    "id": "bow",
+    "effects": [
+     {
+      "herd": -0.15
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "herd": -0.5
+      },
+      {
+       "param": "stress",
+       "delta": 10
+      }
+     ]
+    }
+   }
+  ],
+  "others": [
+   "grandchild"
+  ]
+ },
+ {
+  "id": "mng_h_census",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   90
+  ],
+  "global_chance": 0.3,
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ],
+  "years": [
+   1252,
+   1259
+  ],
+  "scene": {
+   "place": "yard",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "choices": [
+   {
+    "id": "honest",
+    "effects": [
+     {
+      "herd": -0.1
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "happiness",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "herd": -0.25
+      },
+      {
+       "param": "reputation",
+       "delta": -5
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_baghdad",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   55
+  ],
+  "global_chance": 0.55,
+  "regions": [
+   "tabriz",
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1258,
+   1258
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "scroll"
+   ]
+  },
+  "sensitive": true,
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "loot",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 500
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "books",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "param": "intellect",
+      "delta": 3
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "faith_reason": 6,
+     "memory_future": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_ain_jalut",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.85,
+  "regions": [
+   "tabriz"
+  ],
+  "years": [
+   1260,
+   1260
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_civil_war",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   80
+  ],
+  "global_chance": 0.35,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1260,
+   1264
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "ariq",
+    "effects": [
+     {
+      "param": "health",
+      "delta": -4
+     },
+     {
+      "param": "reputation",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -5
+    }
+   },
+   {
+    "id": "khubilai",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 60
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ],
+  "others": [
+   "sibling"
+  ]
+ },
+ {
+  "id": "mng_h_berke",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   50
+  ],
+  "global_chance": 0.6,
+  "regions": [
+   "sarai",
+   "tabriz"
+  ],
+  "years": [
+   1262,
+   1264
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 150
+      },
+      {
+       "skill": "military",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_h_yuan",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.5,
+  "regions": [
+   "khanbaliq",
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1271,
+   1272
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "mng_h_xiangyang",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   50
+  ],
+  "global_chance": 0.6,
+  "regions": [
+   "khanbaliq"
+  ],
+  "years": [
+   1268,
+   1273
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "fire"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 180
+      },
+      {
+       "skill": "craft",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -14
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay"
+   }
+  ]
+ },
+ {
+  "id": "mng_h_japan",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   45
+  ],
+  "global_chance": 0.5,
+  "regions": [
+   "khanbaliq"
+  ],
+  "years": [
+   1274,
+   1281
+  ],
+  "scene": {
+   "place": "sea",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "boat",
+    "rain"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "skill": "seafaring",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "chance": 0.45,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 6
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_h_marco",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   12,
+   90
+  ],
+  "global_chance": 0.15,
+  "regions": [
+   "khanbaliq"
+  ],
+  "years": [
+   1275,
+   1291
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "classes": [
+   "trader",
+   "landowner",
+   "noble",
+   "craftsman"
+  ],
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   }
+  ]
+ },
+ {
+  "id": "mng_h_ghazan",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   12,
+   90
+  ],
+  "global_chance": 0.6,
+  "regions": [
+   "tabriz"
+  ],
+  "years": [
+   1295,
+   1296
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "lamp"
+   ]
+  },
+  "conditions": [
+   {
+    "religion_absent": [
+     "islam"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "convert",
+    "effects": [
+     {
+      "set_religion": "islam"
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "faith",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_h_rashid",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   10,
+   120
+  ],
+  "global_chance": 0.5,
+  "regions": [
+   "tabriz"
+  ],
+  "years": [
+   1318,
+   1318
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "faith",
+    "delta": -1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_ilkhan_end",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   80
+  ],
+  "global_chance": 0.4,
+  "regions": [
+   "tabriz"
+  ],
+  "years": [
+   1335,
+   1338
+  ],
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "cart",
+    "horse"
+   ]
+  },
+  "choices": [
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "east",
+    "effects": [
+     {
+      "migrate": "onon"
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    },
+    "icon": "move"
+   }
+  ],
+  "others": [
+   "child"
+  ]
+ },
+ {
+  "id": "mng_h_uzbek",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   10,
+   120
+  ],
+  "global_chance": 0.6,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1313,
+   1314
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_tver",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   50
+  ],
+  "global_chance": 0.45,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1327,
+   1328
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 250
+      },
+      {
+       "herd": 1
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -20
+      },
+      {
+       "chance": 0.15,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay"
+   }
+  ]
+ },
+ {
+  "id": "mng_h_great_trouble",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   10,
+   120
+  ],
+  "global_chance": 0.2,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1359,
+   1380
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   },
+   {
+    "money_pct": -10
+   }
+  ]
+ },
+ {
+  "id": "mng_h_kulikovo",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   55
+  ],
+  "global_chance": 0.55,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1380,
+   1380
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "dawn",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "chance": 0.3,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay",
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_tokhtamysh",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   55
+  ],
+  "global_chance": 0.5,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1382,
+   1382
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "fire",
+    "horse"
+   ]
+  },
+  "sensitive": true,
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "guard",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_h_timur",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   90
+  ],
+  "global_chance": 0.55,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1395,
+   1396
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "fire",
+    "horse"
+   ]
+  },
+  "icon": "disaster",
+  "sensitive": true,
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "money_pct": -50
+     },
+     {
+      "herd": -0.4
+     },
+     {
+      "param": "stress",
+      "delta": 8
+     }
+    ],
+    "pattern": {
+     "home_road": 5
+    }
+   },
+   {
+    "id": "hide",
+    "risk_roll": {
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 6
+      },
+      {
+       "home": "burn"
+      }
+     ],
+     "on_failure": [
+      {
+       "set_class": "slave"
+      },
+      {
+       "add_tag": "enslaved"
+      },
+      {
+       "set_profession": "household_slave"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_ugra",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   10,
+   120
+  ],
+  "global_chance": 0.55,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1480,
+   1480
+  ],
+  "scene": {
+   "place": "river",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "mng_h_sarai_end",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.6,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1502,
+   1502
+  ],
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 5,
+   "props": [
+    "cart",
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 4
+   },
+   {
+    "money_pct": -25
+   }
+  ]
+ },
+ {
+  "id": "mng_h_red_turbans",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   10,
+   120
+  ],
+  "global_chance": 0.2,
+  "regions": [
+   "khanbaliq"
+  ],
+  "years": [
+   1351,
+   1366
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   },
+   {
+    "money_pct": -10
+   }
+  ]
+ },
+ {
+  "id": "mng_h_flight1368",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   90
+  ],
+  "global_chance": 0.7,
+  "regions": [
+   "khanbaliq"
+  ],
+  "years": [
+   1368,
+   1368
+  ],
+  "scene": {
+   "place": "road",
+   "time": "night",
+   "people": 6,
+   "props": [
+    "cart",
+    "horse",
+    "fire"
+   ]
+  },
+  "icon": "move",
+  "choices": [
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "migrate": "onon"
+     },
+     {
+      "money_pct": -40
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ],
+    "pattern": {
+     "home_road": 6,
+     "memory_future": -5
+    },
+    "icon": "move"
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -4
+     },
+     {
+      "set_religion": "majority"
+     }
+    ],
+    "pattern": {
+     "memory_future": 6
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_h_karakorum_burned",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.25,
+  "regions": [
+   "onon",
+   "karakorum"
+  ],
+  "years": [
+   1380,
+   1388
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "fire",
+    "horse"
+   ]
+  },
+  "icon": "war",
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 4
+   },
+   {
+    "herd": -0.2
+   },
+   {
+    "param": "happiness",
+    "delta": -3
+   }
+  ]
+ },
+ {
+  "id": "mng_h_tumu",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.5,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1449,
+   1449
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_mandukhai",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   15,
+   55
+  ],
+  "global_chance": 0.25,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1475,
+   1485
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 8
+      },
+      {
+       "skill": "military",
+       "delta": 4
+      },
+      {
+       "herd": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay"
+   }
+  ]
+ },
+ {
+  "id": "mng_h_dayan",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "reconstructed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.5,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1510,
+   1510
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "mng_h_altan_beijing",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   16,
+   50
+  ],
+  "global_chance": 0.45,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1550,
+   1550
+  ],
+  "scene": {
+   "place": "battle",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "fire"
+   ]
+  },
+  "sex": "m",
+  "icon": "war",
+  "choices": [
+   {
+    "id": "go",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.65,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 200
+      },
+      {
+       "herd": 1
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "chance": 0.12,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay"
+   }
+  ]
+ },
+ {
+  "id": "mng_h_dalai",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   8,
+   120
+  ],
+  "global_chance": 0.6,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1578,
+   1578
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_erdene_zuu",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   10,
+   120
+  ],
+  "global_chance": 0.5,
+  "regions": [
+   "onon"
+  ],
+  "years": [
+   1585,
+   1586
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "statue",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "give",
+    "effects": [
+     {
+      "herd": -0.1
+     },
+     {
+      "param": "faith",
+      "delta": 4
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "look",
+    "effects": [
+     {
+      "param": "intellect",
+      "delta": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_h_ibn_battuta",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   10,
+   120
+  ],
+  "global_chance": 0.3,
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1333,
+   1334
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "coins"
+   ]
+  },
+  "classes": [
+   "trader",
+   "landowner",
+   "noble",
+   "craftsman"
+  ],
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "self_esteem",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_rubruck",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "confirmed",
+  "age_range": [
+   10,
+   120
+  ],
+  "global_chance": 0.3,
+  "regions": [
+   "karakorum"
+  ],
+  "years": [
+   1253,
+   1255
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_h_plague_yuan",
+  "type": "global_historical",
+  "base_weight": 1,
+  "topic": "history",
+  "historian_note": true,
+  "confidence": "disputed",
+  "age_range": [
+   5,
+   120
+  ],
+  "global_chance": 0.2,
+  "regions": [
+   "khanbaliq",
+   "karakorum"
+  ],
+  "years": [
+   1331,
+   1334
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 4,
+   "props": [
+    "smoke"
+   ]
+  },
+  "icon": "disaster",
+  "effects": [
+   {
+    "param": "health",
+    "delta": -4
+   },
+   {
+    "param": "stress",
+    "delta": 4
+   },
+   {
+    "money_pct": -15
+   }
+  ]
+ }
+]

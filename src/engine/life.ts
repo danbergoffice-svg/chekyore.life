@@ -284,7 +284,21 @@ export function inheritanceShare(state: GameState, era: EraDef, child: Npc): num
   const kids = heirs(state)
   const money = Math.max(0, state.hero.money)
   // Наследник на родине делит имущество по её обычаю: края уехавшего героя в этой стране может не быть.
-  if ((era.regions.find((r) => r.id === state.hero.region)?.inheritance ?? era.inheritance) === 'sons_first') {
+  const custom = era.regions.find((r) => r.id === state.hero.region)?.inheritance ?? era.inheritance
+  if (custom === 'youngest_hearth') {
+    // Степной обычай: младший сын - отчигин, «хранитель очага» - получает отцовскую юрту и двойную долю,
+    // старшие сыновья - по доле стада, дочерям - приданое.
+    const sons = kids.filter((k) => k.sex === 'm')
+    if (sons.length > 0) {
+      const daughters = kids.length - sons.length
+      const dowry = Math.round(money * 0.1)
+      if (child.sex === 'f') return dowry
+      const share = (money - dowry * daughters) / (sons.length + 1)
+      const youngest = sons.reduce((a, b) => (b.birthYear > a.birthYear ? b : a))
+      return Math.round(child.id === youngest.id ? share * 2 : share)
+    }
+  }
+  if (custom === 'sons_first') {
     const sons = kids.filter((k) => k.sex === 'm')
     if (sons.length > 0) {
       // Сыновья делят имущество, дочерям - приданое примерно в десятую часть.

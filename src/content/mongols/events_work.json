@@ -1,0 +1,1528 @@
+[
+ {
+  "id": "mng_j_stallion",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "horse"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "herder"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "buy",
+    "requirements": [
+     {
+      "param": "money",
+      "op": ">=",
+      "value": 150
+     }
+    ],
+    "effects": [
+     {
+      "param": "money",
+      "delta": -150
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       6
+      ],
+      "chance": 0.8,
+      "trigger_event": "mng_j_stallion_later"
+     }
+    ],
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "own",
+    "effects": [
+     {
+      "skill": "farming",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_j_stallion_later",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 500
+     },
+     {
+      "param": "reputation",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "herd": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "happiness",
+      "delta": 6
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_shearing",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   14,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "goat"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "herder",
+     "laborer"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "sell",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 80
+     },
+     {
+      "skill": "trade",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "felt",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "npc_attitude": "spouse",
+      "delta": 4
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_wolves",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   14,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon",
+    "goat"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "herder",
+     "field_slave",
+     "laborer"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.55,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 5
+      },
+      {
+       "param": "self_esteem",
+       "delta": 5
+      },
+      {
+       "param": "money",
+       "delta": 30
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "herd": -0.2
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 3
+    }
+   },
+   {
+    "id": "fire",
+    "effects": [
+     {
+      "herd": -0.1
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_blizzard_ride",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   14,
+   60
+  ],
+  "scene": {
+   "place": "road",
+   "time": "overcast",
+   "people": 1,
+   "props": [
+    "horse"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "yam_rider"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "ride",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 80
+      },
+      {
+       "param": "reputation",
+       "delta": 6
+      },
+      {
+       "skill": "management",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -18
+      },
+      {
+       "chance": 0.08,
+       "effects": [
+        {
+         "kill": "mng_frost"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "home_road": 4
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -4
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_j_yam_horses",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   60
+  ],
+  "scene": {
+   "place": "yard",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "horse"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "yam_rider"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "own",
+    "effects": [
+     {
+      "herd": -0.2
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "bribe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     }
+    ],
+    "risk_roll": {
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": -2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "money",
+       "delta": -80
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": 3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_j_keshig_night",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   50
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "moon"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "keshig"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "stop",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "add_npc": "rival",
+        "attitude": -40
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "let",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     },
+     {
+      "chance": 0.35,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": -15
+       },
+       {
+        "param": "money",
+        "delta": -200
+       }
+      ]
+     }
+    ],
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ],
+  "others": [
+   "sibling"
+  ]
+ },
+ {
+  "id": "mng_j_soldier_arban",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   45
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "shield"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "soldier"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "drill",
+    "effects": [
+     {
+      "skill": "military",
+      "delta": 5
+     },
+     {
+      "param": "strength",
+      "delta": 2
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       9
+      ],
+      "chance": 0.55,
+      "trigger_event": "mng_j_promote_officer"
+     }
+    ]
+   },
+   {
+    "id": "ease",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 2
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_promote_officer",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "camp",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "officer"
+     },
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ]
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_officer_spoils",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   22,
+   60
+  ],
+  "scene": {
+   "place": "camp",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "coins",
+    "fire"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "officer"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "fair",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 8
+     },
+     {
+      "param": "money",
+      "delta": 150
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       4,
+       10
+      ],
+      "chance": 0.45,
+      "trigger_event": "mng_j_promote_mingghan"
+     }
+    ]
+   },
+   {
+    "id": "more",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 400
+     },
+     {
+      "param": "reputation",
+      "delta": -8
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "param": "money",
+        "delta": -500
+       },
+       {
+        "param": "reputation",
+        "delta": -10
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_promote_mingghan",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "sex": "m",
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "mingghan"
+     },
+     {
+      "set_class": "noble"
+     },
+     {
+      "param": "reputation",
+      "delta": 12
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ]
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_falcon",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   14,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "falconer"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "khan",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 250
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "add_npc": "patron",
+      "attitude": 40
+     }
+    ]
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "skill": "farming",
+      "delta": 3
+     },
+     {
+      "param": "happiness",
+      "delta": 5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_bow_commission",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   70
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "anvil"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "bowyer",
+     "artisan"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "slow",
+    "effects": [
+     {
+      "skill": "craft",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     },
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "fast",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 220
+     },
+     {
+      "chance": 0.35,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": -10
+       },
+       {
+        "param": "money",
+        "delta": -150
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_rain_rite",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "fire",
+    "sun"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "shaman"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "rite",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      },
+      {
+       "param": "money",
+       "delta": 80
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -4
+    }
+   },
+   {
+    "id": "honest",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": -2
+     },
+     {
+      "param": "faith",
+      "delta": -1
+     }
+    ],
+    "pattern": {
+     "faith_reason": 4
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_j_shaman_vs_lama",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   20,
+   80
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "fire",
+    "scroll"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "shaman"
+    ]
+   }
+  ],
+  "years": [
+   1578,
+   1600
+  ],
+  "regions": [
+   "onon"
+  ],
+  "choices": [
+   {
+    "id": "contest",
+    "risk_roll": {
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 10
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -10
+      },
+      {
+       "set_religion": "buddhist"
+      }
+     ]
+    },
+    "pattern": {
+     "faith_reason": -3,
+     "memory_future": -4
+    }
+   },
+   {
+    "id": "yield",
+    "effects": [
+     {
+      "set_religion": "buddhist"
+     },
+     {
+      "param": "faith",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": 5
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_j_caravan_robbed",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   18,
+   70
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "cart",
+    "coins"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "merchant"
+    ]
+   }
+  ],
+  "years": [
+   1206,
+   1370
+  ],
+  "choices": [
+   {
+    "id": "yasa",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 300
+      },
+      {
+       "param": "reputation",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "money",
+       "delta": -150
+      },
+      {
+       "param": "stress",
+       "delta": 6
+      }
+     ]
+    },
+    "pattern": {
+     "memory_future": -2
+    }
+   },
+   {
+    "id": "ransom",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -120
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_darkhan_forge",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   70
+  ],
+  "scene": {
+   "place": "workshop",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "anvil",
+    "fire"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "artisan"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "skill": "craft",
+      "delta": 4
+     },
+     {
+      "param": "money",
+      "delta": 200
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ]
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_census_scribe",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   16,
+   70
+  ],
+  "scene": {
+   "place": "school",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "scribe",
+     "official"
+    ]
+   }
+  ],
+  "years": [
+   1250,
+   1400
+  ],
+  "choices": [
+   {
+    "id": "honest",
+    "effects": [
+     {
+      "skill": "literacy",
+      "delta": 3
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "delayed_effects": [
+     {
+      "after_years": [
+       3,
+       8
+      ],
+      "chance": 0.5,
+      "trigger_event": "mng_j_scribe_promote"
+     }
+    ]
+   },
+   {
+    "id": "bribe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 150
+     },
+     {
+      "chance": 0.3,
+      "effects": [
+       {
+        "param": "reputation",
+        "delta": -12
+       },
+       {
+        "param": "money",
+        "delta": -200
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_scribe_promote",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "once": true,
+  "topic": "work",
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "choices": [
+   {
+    "id": "go",
+    "effects": [
+     {
+      "set_profession": "official"
+     },
+     {
+      "param": "reputation",
+      "delta": 5
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "stay"
+   }
+  ]
+ },
+ {
+  "id": "mng_j_baskak_rise",
+  "type": "personal",
+  "base_weight": 8,
+  "topic": "work",
+  "age_range": [
+   25,
+   60
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "scroll",
+    "banner"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "official",
+     "officer",
+     "soldier",
+     "landholder",
+     "keshig"
+    ]
+   }
+  ],
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1257,
+   1330
+  ],
+  "sex": "m",
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "set_profession": "baskak"
+     },
+     {
+      "param": "money",
+      "delta": 300
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ],
+    "pattern": {
+     "craft_power": 6
+    }
+   },
+   {
+    "id": "refuse",
+    "pattern": {
+     "craft_power": -3
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_j_baskak_tver",
+  "type": "personal",
+  "base_weight": 8,
+  "topic": "work",
+  "age_range": [
+   25,
+   70
+  ],
+  "scene": {
+   "place": "street",
+   "time": "overcast",
+   "people": 6,
+   "props": [
+    "fire",
+    "banner"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "baskak"
+    ]
+   }
+  ],
+  "years": [
+   1257,
+   1360
+  ],
+  "choices": [
+   {
+    "id": "force",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 400
+      },
+      {
+       "param": "reputation",
+       "delta": -6
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -25
+      },
+      {
+       "chance": 0.3,
+       "effects": [
+        {
+         "kill": "war"
+        }
+       ]
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 5
+    }
+   },
+   {
+    "id": "soft",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "reputation",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ]
+ },
+ {
+  "id": "mng_j_felt_order",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   14,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "loom"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "weaver"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "accept",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 120
+     },
+     {
+      "skill": "craft",
+      "delta": 4
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   },
+   {
+    "id": "kin",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": 3
+     },
+     {
+      "param": "loneliness",
+      "delta": -3
+     },
+     {
+      "chance": 0.5,
+      "effects": [
+       {
+        "param": "money",
+        "delta": 40
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mng_j_matron_camp",
+  "type": "personal",
+  "base_weight": 4,
+  "topic": "work",
+  "age_range": [
+   18,
+   70
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "banner"
+   ]
+  },
+  "conditions": [
+   {
+    "profession": [
+     "matron"
+    ]
+   }
+  ],
+  "choices": [
+   {
+    "id": "decide",
+    "effects": [
+     {
+      "skill": "management",
+      "delta": 5
+     },
+     {
+      "param": "reputation",
+      "delta": 6
+     }
+    ],
+    "risk_roll": {
+     "param": "intellect",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "herd": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "herd": -0.2
+      }
+     ]
+    },
+    "pattern": {
+     "craft_power": 4
+    }
+   },
+   {
+    "id": "wait",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "craft_power": -2
+    }
+   }
+  ],
+  "others": [
+   "spouse"
+  ]
+ }
+]

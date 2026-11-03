@@ -22,6 +22,8 @@ function livestock(state: GameState): string[] {
   const style = region?.scene?.style ?? ''
   if (style === 'maya' || style === 'aztec') return ['turkey']
   if (style === 'andean') return ['llama']
+  // Кочевники: стадо вместо двора - овцы и козы, коровы и яки, волы под кибитки, верблюды, кони.
+  if (style === 'mongol') return ['sheep', 'goat', 'cow', 'ox', 'camel', 'horse']
   const out = ['chickens', 'goat']
   if (style !== 'islamic' && style !== 'sahel') out.push('pig')
   out.push('sheep', 'cow', 'ox', 'donkey')
@@ -39,7 +41,11 @@ export function initHousehold(state: GameState): void {
   hero.home = HOME_BY_CLASS[hero.cls] ?? 1
   hero.animals = []
   const stock = livestock(state)
-  if (hero.cls === 'peasant') {
+  if (hero.cls === 'peasant' && stock.includes('camel') && stock[0] === 'sheep') {
+    // Арат: овцы и конь - без них в степи не прожить.
+    hero.animals.push({ kind: 'sheep', since: state.year }, { kind: 'horse', since: state.year })
+    if (chance(state, 0.5)) hero.animals.push({ kind: 'goat', since: state.year })
+  } else if (hero.cls === 'peasant') {
     hero.animals.push({ kind: stock[0], since: state.year })
     if (stock.length > 1 && chance(state, 0.5)) hero.animals.push({ kind: stock[1], since: state.year })
   }
@@ -104,7 +110,8 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
   if (adult && free && rural(state) && hero.money > 0) {
     const stock = livestock(state).filter((k) => (ANIMAL_COST[k] ?? 0) * 2.5 < hero.money)
     const herd = hero.animals.filter((a) => !isPet(a.kind)).length
-    if (stock.length && herd < 4 && chance(state, 0.18)) {
+    const nomads = livestock(state)[0] === 'sheep'
+    if (stock.length && herd < (nomads ? 6 : 4) && chance(state, nomads ? 0.3 : 0.18)) {
       // Сначала то, чего ещё нет, и подороже: курица → коза → корова → лошадь.
       const owned = new Set(hero.animals.map((a) => a.kind))
       const fresh = stock.filter((k) => !owned.has(k))
@@ -116,6 +123,30 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
     }
   }
   petsYear(state)
+}
+
+/**
+ * Стадо прибыло или пало (эффект `herd`): n ≥ 1 - столько голов скота прибавилось (приплод, добыча, подарок),
+ * −1 < n < 0 - пала такая доля стада (джут, мор, угон). Питомцев не трогает.
+ */
+export function herdEffect(state: GameState, n: number): void {
+  const hero = state.hero
+  hero.animals ??= []
+  const stock = livestock(state)
+  if (n >= 1) {
+    for (let i = 0; i < Math.round(n); i++) hero.animals.push({ kind: pick(state, stock.slice(0, 3).concat('horse')), since: state.year })
+    note(state, { key: 'diary.herd_gain', params: { n: Math.round(n) }, topic: 'money', score: 16, mood: 4 })
+    changeParam(hero, 'happiness', 3)
+    return
+  }
+  const herd = hero.animals.filter((a) => !isPet(a.kind))
+  const lost = Math.min(herd.length, Math.ceil(herd.length * Math.min(1, -n)))
+  if (!lost) return
+  const gone = new Set(herd.slice(-lost))
+  hero.animals = hero.animals.filter((a) => !gone.has(a))
+  note(state, { key: 'diary.herd_loss', params: { n: lost }, topic: 'money', icon: 'loss', score: 22, mood: -6 })
+  changeParam(hero, 'happiness', -4)
+  changeParam(hero, 'stress', 4)
 }
 
 /**

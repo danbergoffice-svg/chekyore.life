@@ -1,4 +1,4 @@
-// Обёртки стран для ранних игр: одна механика - 13 историй. card - название занятия на карточке и заголовок игры.
+// Обёртки стран для ранних игр: одна механика - 14 историй. card - название занятия на карточке и заголовок игры.
 import type { KidsLang } from '../types'
 import type { ThingKind } from './art'
 
@@ -117,6 +117,16 @@ export const SKINS: Record<string, EraSkin> = {
     cups: { box: 'basket', pet: 'chick', card: l('Прятки с цыплёнком', 'Hide-and-seek with the chick', 'Civcivle saklambaç') },
     rhythm: { colors: ['#c4302a', '#d9b13a', '#4f7a34'], card: l('Барабан с отцом', 'The drum with father', 'Babanla davul') },
     path: { animal: 'goat', color: '#7a6250', obstacle: 'bush', card: l('Привести козлёнка домой', 'Bring the kid goat home', 'Oğlağı eve getir') },
+  },
+  MNG: {
+    field: '#b8bf7e',
+    collect: { thing: 'stone', color: '#efe8d8', card: l('Ааруул на крыше юрты', 'Curds drying on the yurt', 'Çadırın damında kurut') },
+    sort: { thing: 'bean', a: '#efe8d8', b: '#8a5a34', card: l('Белые и бурые косточки-шагай', 'White and brown shagai bones', 'Ak ve kahverengi şagay aşıkları') },
+    tower: { wall: '#e6dcc4', card: l('Юрта из войлочных кубиков', 'A yurt of felt blocks', 'Keçe bloklardan çadır') },
+    pairs: { things: [['star', '#ecd06f'], ['flower', '#c0503a'], ['leaf', '#3a5a8a']], card: l('Узоры на войлоке', 'Patterns on the felt', 'Keçedeki desenler') },
+    cups: { box: 'basket', pet: 'pup', card: l('Прятки со щенком-банхаром', 'Hide-and-seek with the bankhar pup', 'Banhar yavrusuyla saklambaç') },
+    rhythm: { colors: ['#3a5a8a', '#c0503a', '#ecd06f'], card: l('Бубен на празднике', 'The festival drum', 'Bayram davulu') },
+    path: { animal: 'goat', color: '#efe8d8', obstacle: 'stone', card: l('Привести ягнёнка к юрте', 'Bring the lamb to the yurt', 'Kuzuyu çadıra getir') },
   },
   WAF: {
     field: '#dcc08a',

@@ -1,0 +1,222 @@
+[
+ {
+  "id": "mng_p_world",
+  "topic": "world"
+ },
+ {
+  "id": "mng_p_world_clans",
+  "topic": "world",
+  "years": [
+   1150,
+   1205
+  ]
+ },
+ {
+  "id": "mng_p_world_chinggis",
+  "topic": "world",
+  "years": [
+   1206,
+   1227
+  ]
+ },
+ {
+  "id": "mng_p_world_empire",
+  "topic": "world",
+  "years": [
+   1228,
+   1259
+  ]
+ },
+ {
+  "id": "mng_p_world_uluses",
+  "topic": "world",
+  "years": [
+   1260,
+   1368
+  ]
+ },
+ {
+  "id": "mng_p_world_north",
+  "topic": "world",
+  "years": [
+   1369,
+   1600
+  ]
+ },
+ {
+  "id": "mng_p_society",
+  "topic": "society"
+ },
+ {
+  "id": "mng_p_society_yuan",
+  "topic": "society",
+  "regions": [
+   "khanbaliq"
+  ]
+ },
+ {
+  "id": "mng_p_society_slave",
+  "topic": "society",
+  "classes": [
+   "slave"
+  ]
+ },
+ {
+  "id": "mng_p_birth",
+  "topic": "birth"
+ },
+ {
+  "id": "mng_p_childhood",
+  "topic": "childhood"
+ },
+ {
+  "id": "mng_p_childhood_city",
+  "topic": "childhood",
+  "regions": [
+   "khanbaliq",
+   "tabriz",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "mng_p_home",
+  "topic": "home"
+ },
+ {
+  "id": "mng_p_home_move",
+  "topic": "home",
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_p_food",
+  "topic": "food"
+ },
+ {
+  "id": "mng_p_clothes",
+  "topic": "clothes"
+ },
+ {
+  "id": "mng_p_faith",
+  "topic": "faith"
+ },
+ {
+  "id": "mng_p_faith_many",
+  "topic": "faith",
+  "years": [
+   1206,
+   1370
+  ],
+  "regions": [
+   "karakorum"
+  ]
+ },
+ {
+  "id": "mng_p_faith_islam",
+  "topic": "faith",
+  "religions": [
+   "islam"
+  ],
+  "regions": [
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_p_faith_buddhist",
+  "topic": "faith",
+  "religions": [
+   "buddhist"
+  ]
+ },
+ {
+  "id": "mng_p_work",
+  "topic": "work"
+ },
+ {
+  "id": "mng_p_work_city",
+  "topic": "work",
+  "regions": [
+   "karakorum",
+   "sarai",
+   "khanbaliq",
+   "tabriz"
+  ]
+ },
+ {
+  "id": "mng_p_place_onon",
+  "topic": "place",
+  "regions": [
+   "onon"
+  ]
+ },
+ {
+  "id": "mng_p_place_karakorum",
+  "topic": "place",
+  "regions": [
+   "karakorum"
+  ]
+ },
+ {
+  "id": "mng_p_place_khanbaliq",
+  "topic": "place",
+  "regions": [
+   "khanbaliq"
+  ]
+ },
+ {
+  "id": "mng_p_place_sarai",
+  "topic": "place",
+  "regions": [
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_p_place_tabriz",
+  "topic": "place",
+  "regions": [
+   "tabriz"
+  ]
+ },
+ {
+  "id": "mng_p_place",
+  "topic": "place"
+ },
+ {
+  "id": "mng_p_law",
+  "topic": "law"
+ },
+ {
+  "id": "mng_p_health",
+  "topic": "health"
+ },
+ {
+  "id": "mng_p_women",
+  "topic": "women"
+ },
+ {
+  "id": "mng_p_leisure",
+  "topic": "leisure"
+ },
+ {
+  "id": "mng_p_knowledge",
+  "topic": "knowledge"
+ },
+ {
+  "id": "mng_p_war",
+  "topic": "war"
+ },
+ {
+  "id": "mng_p_war_yoke",
+  "topic": "war",
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1243,
+   1480
+  ]
+ }
+]

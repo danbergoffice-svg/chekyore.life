@@ -12,7 +12,7 @@ import { REWARD, TASKS } from './types'
 export const PUZZLE_TIER: Record<string, 1 | 2 | 3> = {
   tables: 1, manuscripts: 1, harbor: 1, ice: 1, canals: 1,
   mosaic: 2, rangoli: 2, gebeta: 2, garden: 2,
-  scales: 3, maya: 3, quipu: 3, knights: 3,
+  scales: 3, maya: 3, quipu: 3, knights: 3, herd: 2,
 }
 /** С какой жизни (сколько жизней уже прожито) головоломка этой трудности попадает в выбор. */
 export const TIER_FROM: Record<1 | 2 | 3, number> = { 1: 0, 2: 2, 3: 4 }

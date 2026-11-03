@@ -1,0 +1,1922 @@
+[
+ {
+  "id": "mng_m_first_saddle",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   3,
+   5
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   },
+   {
+    "param": "risk_tolerance",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_lambs",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   9
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "goat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 2
+   },
+   {
+    "skill": "farming",
+    "delta": 2
+   }
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "slave"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_argal",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   9
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 1
+  },
+  "effects": [
+   {
+    "param": "diligence",
+    "delta": 1
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   }
+  ],
+  "classes": [
+   "peasant",
+   "slave",
+   "craftsman"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_shagai",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   11
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "lamp"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "mng_m_toono",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   1,
+   5
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire",
+    "moon"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_m_mares",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   12
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 3,
+   "props": [
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "slave"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_white_month",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   3,
+   12
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 5,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 4
+   },
+   {
+    "param": "loneliness",
+    "delta": -3
+   }
+  ]
+ },
+ {
+  "id": "mng_m_child_jockey",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   11
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 3
+   },
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "risk_tolerance",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_wolf_cub",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   11
+  ],
+  "scene": {
+   "place": "field",
+   "time": "sunset",
+   "people": 1
+  },
+  "effects": [
+   {
+    "param": "risk_tolerance",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_ovoo_stone",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   10
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 3
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "religions": [
+   "tengri"
+  ]
+ },
+ {
+  "id": "mng_m_threshold",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   2,
+   6
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": -1
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_m_five_arrows",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   3,
+   9
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "mng_m_move_camel",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   2,
+   8
+  ],
+  "scene": {
+   "place": "road",
+   "time": "dawn",
+   "people": 4,
+   "props": [
+    "cart",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_spring_lambs",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   3,
+   10
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire",
+    "goat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "skill": "farming",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_first_haircut",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   2,
+   4
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_marmots",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   14
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "military",
+    "delta": 2
+   },
+   {
+    "param": "strength",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_branding",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   9,
+   15
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "fire",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "farming",
+    "delta": 2
+   },
+   {
+    "param": "diligence",
+    "delta": 1
+   }
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_felt_making",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   60
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "loneliness",
+    "delta": -3
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_summer_camp",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "age_range": [
+   1,
+   80
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "horse",
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "health",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_winter_camp",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "age_range": [
+   1,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 1
+   },
+   {
+    "param": "loneliness",
+    "delta": -1
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_milk_sky",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "religions": [
+   "tengri"
+  ]
+ },
+ {
+  "id": "mng_m_bard",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "loneliness",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "mng_m_chinese_pot",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   12,
+   70
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "trade",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "mng_m_caravan",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "road",
+   "time": "sunset",
+   "people": 5,
+   "props": [
+    "cart"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "years": [
+   1206,
+   1370
+  ]
+ },
+ {
+  "id": "mng_m_silver_tree",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 4,
+  "topic": "life",
+  "age_range": [
+   6,
+   60
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "intellect",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "karakorum"
+  ],
+  "years": [
+   1254,
+   1262
+  ]
+ },
+ {
+  "id": "mng_m_two_quarters",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   70
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "cart"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "karakorum"
+  ]
+ },
+ {
+  "id": "mng_m_stone_turtle",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   14
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "karakorum"
+  ]
+ },
+ {
+  "id": "mng_m_paper_money",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   70
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "trade",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "khanbaliq"
+  ]
+ },
+ {
+  "id": "mng_m_canal_barges",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "harbor",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "boat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "khanbaliq"
+  ],
+  "years": [
+   1293,
+   1368
+  ]
+ },
+ {
+  "id": "mng_m_observatory",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   60
+  ],
+  "scene": {
+   "place": "landmark",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon",
+    "statue"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 3
+   },
+   {
+    "skill": "literacy",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "khanbaliq"
+  ],
+  "years": [
+   1279,
+   1368
+  ],
+  "classes": [
+   "craftsman",
+   "trader",
+   "landowner",
+   "noble"
+  ]
+ },
+ {
+  "id": "mng_m_shangdu",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "khanbaliq"
+  ],
+  "classes": [
+   "landowner",
+   "noble",
+   "slave",
+   "craftsman"
+  ]
+ },
+ {
+  "id": "mng_m_sarai_bazaar",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "market",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "coins"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "trade",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "sarai"
+  ],
+  "sensitive": true
+ },
+ {
+  "id": "mng_m_volga_ice",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   70
+  ],
+  "scene": {
+   "place": "river",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "cart",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "risk_tolerance",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_azan",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   80
+  ],
+  "scene": {
+   "place": "street",
+   "time": "dawn",
+   "people": 3
+  },
+  "effects": [
+   {
+    "param": "faith",
+    "delta": 1
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "sarai"
+  ],
+  "years": [
+   1313,
+   1502
+  ]
+ },
+ {
+  "id": "mng_m_tiles",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   70
+  ],
+  "scene": {
+   "place": "temple",
+   "time": "day",
+   "people": 4
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "tabriz"
+  ]
+ },
+ {
+  "id": "mng_m_ujan",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   4,
+   70
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "horse",
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "tabriz"
+  ],
+  "classes": [
+   "landowner",
+   "noble",
+   "slave",
+   "peasant"
+  ]
+ },
+ {
+  "id": "mng_m_poets",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   14,
+   80
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "lamp",
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   },
+   {
+    "skill": "oratory",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "tabriz"
+  ],
+  "classes": [
+   "trader",
+   "landowner",
+   "noble"
+  ]
+ },
+ {
+  "id": "mng_m_grandkids_tales",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   55,
+   100
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": -4
+   }
+  ],
+  "conditions": [
+   {
+    "has_npc": "grandchild"
+   }
+  ]
+ },
+ {
+  "id": "mng_m_dowry_yurt",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   14,
+   22
+  ],
+  "scene": {
+   "place": "road",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "cart",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": 2
+   }
+  ],
+  "others": [
+   "spouse"
+  ]
+ },
+ {
+  "id": "mng_m_aaruul",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   3,
+   12
+  ],
+  "scene": {
+   "place": "yard",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_dust_storm",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   3,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 2
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": -1
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum"
+  ]
+ },
+ {
+  "id": "mng_m_horse_name",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   30
+  ],
+  "scene": {
+   "place": "field",
+   "time": "sunset",
+   "people": 1,
+   "props": [
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 3
+   },
+   {
+    "param": "loneliness",
+    "delta": -3
+   }
+  ],
+  "classes": [
+   "peasant",
+   "landowner",
+   "noble"
+  ]
+ },
+ {
+  "id": "mng_m_archery_boys",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   11
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "shield"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "military",
+    "delta": 2
+   },
+   {
+    "param": "self_esteem",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_m_khadag",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 4,
+   "props": [
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "reputation",
+    "delta": 1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_m_night_guard",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   12,
+   30
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "moon",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "strength",
+    "delta": 1
+   },
+   {
+    "param": "stress",
+    "delta": 1
+   },
+   {
+    "skill": "military",
+    "delta": 1
+   }
+  ],
+  "sex": "m",
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_sheep_count",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   30,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "sunset",
+   "people": 2,
+   "props": [
+    "goat"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "skill": "farming",
+    "delta": 1
+   }
+  ],
+  "classes": [
+   "peasant",
+   "landowner"
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_foreign_envoys",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   70
+  ],
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner",
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 2
+   }
+  ],
+  "regions": [
+   "karakorum"
+  ],
+  "years": [
+   1245,
+   1260
+  ]
+ },
+ {
+  "id": "mng_m_throat_song",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   80
+  ],
+  "scene": {
+   "place": "field",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "fire"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "stress",
+    "delta": -2
+   }
+  ]
+ },
+ {
+  "id": "mng_m_boiled_lamb",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   5,
+   80
+  ],
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 5,
+   "props": [
+    "fire",
+    "table"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "health",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_m_lost_in_fog",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   8,
+   40
+  ],
+  "scene": {
+   "place": "field",
+   "time": "overcast",
+   "people": 1,
+   "props": [
+    "horse"
+   ]
+  },
+  "effects": [
+   {
+    "param": "stress",
+    "delta": 3
+   },
+   {
+    "param": "risk_tolerance",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "onon",
+   "karakorum",
+   "sarai"
+  ]
+ },
+ {
+  "id": "mng_m_tamga_seal",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   14,
+   60
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   },
+   {
+    "skill": "literacy",
+    "delta": 2
+   }
+  ],
+  "years": [
+   1204,
+   1600
+  ]
+ },
+ {
+  "id": "mng_m_khutulun_wrestle",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   12,
+   30
+  ],
+  "scene": {
+   "place": "arena",
+   "time": "day",
+   "people": 6,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "self_esteem",
+    "delta": 2
+   },
+   {
+    "param": "happiness",
+    "delta": 2
+   }
+  ],
+  "years": [
+   1270,
+   1600
+  ],
+  "others": [
+   "child"
+  ]
+ },
+ {
+  "id": "mng_m_kumis_hangover",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   16,
+   60
+  ],
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 2
+  },
+  "effects": [
+   {
+    "param": "health",
+    "delta": -1
+   },
+   {
+    "param": "happiness",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_m_eagle",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   10,
+   60
+  ],
+  "scene": {
+   "place": "field",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "sun"
+   ]
+  },
+  "effects": [
+   {
+    "param": "happiness",
+    "delta": 2
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ]
+ },
+ {
+  "id": "mng_m_nomad_school",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   6,
+   12
+  ],
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "scroll"
+   ]
+  },
+  "effects": [
+   {
+    "skill": "literacy",
+    "delta": 3
+   },
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "classes": [
+   "landowner",
+   "noble",
+   "trader",
+   "craftsman"
+  ],
+  "years": [
+   1204,
+   1600
+  ]
+ },
+ {
+  "id": "mng_m_mongol_china_bride",
+  "type": "personal",
+  "moment": true,
+  "once": true,
+  "base_weight": 3,
+  "topic": "life",
+  "age_range": [
+   14,
+   40
+  ],
+  "scene": {
+   "place": "palace",
+   "time": "day",
+   "people": 5,
+   "props": [
+    "banner"
+   ]
+  },
+  "effects": [
+   {
+    "param": "intellect",
+    "delta": 1
+   }
+  ],
+  "regions": [
+   "khanbaliq"
+  ],
+  "sex": "f"
+ }
+]

@@ -1,0 +1,20 @@
+{
+ "era.MNG": "Moğollar: Bozkır ve Büyük İmparatorluk",
+ "era.MNG.years": "1150 - 1600",
+ "era.MNG.short": "Moğollar",
+ "region.onon": "Onon ve Kerülen",
+ "region.karakorum": "Karakurum",
+ "region.khanbaliq": "Hanbalık",
+ "region.sarai": "Saray",
+ "region.tabriz": "Tebriz",
+ "region.onon.intro": "Onon ve Kerülen ırmakları arasındaki Moğol yurdu. Burada obalar yılda dört kez çadırlarını ve sürülerini taşır, boylar birbirine düşman olur ya da kardeşlik andı içer, her şeyin üstünde de Sonsuz Mavi Gök durur. Cengiz Han buradan çıktı, torunları da bütün seferlerden sonra buraya döndü.",
+ "region.karakorum.intro": "Orhun vadisindeki imparatorluk başkenti: kerpiç sur, hanın sarayı, Müslüman tüccarların ve Çinli ustaların mahalleleri, yan yana bir kilise, camiler ve Buda tapınakları. Dünyanın her yerinden ulaklar buraya dörtnala gelir, surların çevresinde ise yine at sürüleri otlar.",
+ "region.khanbaliq.intro": "Kubilay'ın eski Zhongdu'nun yerine kurduğu büyük başkent, Çincesiyle Dadu. Dümdüz caddeler, kâğıt para, Yangzi'ye kadar uzanan kanal ve her milletten bir milyon tebaa. Moğollar burada yöneten millettir, ama onlar da yavaş yavaş ipeğe ve taş evlere alışıyor.",
+ "region.sarai.intro": "Cuci Ulusu'nun, yani Altın Orda'nın başkenti, aşağı İdil boyunda. Rus'tan kürklerin, Kırım'dan kölelerin, Çin'den ipeğin geldiği camili, çarşılı bir kerpiç şehir. Rus knezleri hükümdarlık yarlığı almak için buraya gelir, orda ise her bahar bozkıra göçer.",
+ "region.tabriz.intro": "Hülagü soyunun, İran'ın Moğol ilhanlarının başkenti. Fars ustaları çinili camiler yapar, vezir Reşidüddin bir dünya tarihi yazar, Moğol beyleri ise her yaz çadırlarıyla dağların serin yaylalarına çıkar.",
+ "region.onon.in": "Onon boyunda",
+ "region.karakorum.in": "Karakurum'da",
+ "region.khanbaliq.in": "Hanbalık'ta",
+ "region.sarai.in": "Saray'da",
+ "region.tabriz.in": "Tebriz'de"
+}

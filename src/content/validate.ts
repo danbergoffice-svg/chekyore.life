@@ -8,7 +8,7 @@ import { PRIMER_TOPICS, SCENE_PLACES, SCENE_PROPS, SCENE_TIMES, TOPICS } from '.
 import type { Condition, Effect, EraDef, EventDef } from '../engine/types'
 import { ERA_META, RELIGION_BY_ID, RELIGIONS } from '.'
 
-export const STYLES = ['roman', 'greek', 'egyptian', 'chinese', 'japanese', 'indian', 'islamic', 'gothic', 'byzantine', 'russian', 'mesopotamian', 'maya', 'aztec', 'andean', 'sahel', 'ethiopian']
+export const STYLES = ['roman', 'greek', 'egyptian', 'chinese', 'japanese', 'indian', 'islamic', 'gothic', 'byzantine', 'russian', 'mesopotamian', 'maya', 'aztec', 'andean', 'sahel', 'ethiopian', 'mongol']
 export const FEATURES = ['sea', 'horses', 'coins', 'wine', 'writing', 'iron', 'baths', 'olive', 'camels', 'slavery', 'paper', 'printing', 'gunpowder', 'tea', 'rice', 'llamas', 'elephants', 'monsoon', 'snow', 'river']
 const religionWords = new Set(RELIGIONS.flatMap((r) => [r.id, r.group, ...(r.tags ?? [])]))
 

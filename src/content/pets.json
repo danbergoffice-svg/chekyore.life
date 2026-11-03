@@ -22,7 +22,8 @@
         "ethiopian",
         "maya",
         "aztec",
-        "andean"
+        "andean",
+        "mongol"
       ],
       "weight": 5,
       "price": 0
@@ -46,7 +47,8 @@
         "gothic",
         "russian",
         "sahel",
-        "ethiopian"
+        "ethiopian",
+        "mongol"
       ],
       "weight": 4,
       "price": 0,
@@ -202,7 +204,8 @@
         "ethiopian",
         "maya",
         "aztec",
-        "andean"
+        "andean",
+        "mongol"
       ],
       "weight": 0.8,
       "price": 0,
@@ -268,7 +271,8 @@
         "byzantine",
         "chinese",
         "japanese",
-        "indian"
+        "indian",
+        "mongol"
       ],
       "classes": [
         "landowner",
@@ -706,6 +710,52 @@
           "id": "pet_and_d_1",
           "ru": "Уаман",
           "en": "Waman"
+        }
+      ]
+    },
+    "mongol": {
+      "dog": [
+        {
+          "id": "pet_mng_d_0",
+          "ru": "Арслан",
+          "en": "Arslan"
+        },
+        {
+          "id": "pet_mng_d_1",
+          "ru": "Хасар",
+          "en": "Khasar"
+        },
+        {
+          "id": "pet_mng_d_2",
+          "ru": "Бар",
+          "en": "Bar"
+        },
+        {
+          "id": "pet_mng_d_3",
+          "ru": "Банхар",
+          "en": "Bankhar"
+        },
+        {
+          "id": "pet_mng_d_4",
+          "ru": "Хара",
+          "en": "Khara"
+        },
+        {
+          "id": "pet_mng_d_5",
+          "ru": "Цагаан",
+          "en": "Tsagaan"
+        }
+      ],
+      "cat": [
+        {
+          "id": "pet_mng_c_0",
+          "ru": "Мянга",
+          "en": "Myanga"
+        },
+        {
+          "id": "pet_mng_c_1",
+          "ru": "Шар",
+          "en": "Shar"
         }
       ]
     }

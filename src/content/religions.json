@@ -18,5 +18,6 @@
   { "id": "maya_gods", "group": "mesoamerican", "tags": ["sacrifice", "calendar", "idols"] },
   { "id": "aztec_gods", "group": "mesoamerican", "tags": ["sacrifice", "calendar", "idols"] },
   { "id": "andean", "group": "andean", "tags": ["sacrifice", "ancestors", "spirits"] },
-  { "id": "african_traditional", "group": "african", "tags": ["ancestors", "spirits", "sacrifice"] }
+  { "id": "african_traditional", "group": "african", "tags": ["ancestors", "spirits", "sacrifice"] },
+  { "id": "tengri", "group": "steppe", "tags": ["spirits", "ancestors", "sacrifice"] }
 ]

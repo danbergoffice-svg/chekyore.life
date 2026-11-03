@@ -65,6 +65,8 @@ export type ScholarClimate = 'welcoming' | 'neutral' | 'hostile'
 
 export interface RegionDef {
   id: string
+  /** Столицы для этого края по порядку: первая, что столица в этот год (иначе - столица того же стиля). */
+  capitals?: string[]
   weight: number
   /** Правило имён предков; если не задано - правило страны, по умолчанию 'allow'. */
   ancestorNames?: AncestorNames
@@ -75,7 +77,7 @@ export interface RegionDef {
   names: { m: Name[]; f: Name[] }
   tags?: string[]
   /** Как делится наследство; по умолчанию - как задано для эпохи. */
-  inheritance?: 'equal' | 'sons_first'
+  inheritance?: 'equal' | 'sons_first' | 'youngest_hearth'
   /** Где живёт семья после свадьбы: у родителей мужа (по умолчанию), отдельно, у родителей жены. */
   household?: Household
   scholar_climate?: ScholarClimate
@@ -94,7 +96,7 @@ export interface RegionDef {
 /** Как рисовать регион: палитра и набор построек. */
 export interface RegionScene {
   /** Архитектурный стиль: roman, greek, egyptian, chinese, japanese, indian, islamic, gothic, byzantine, russian,
-   *  mesopotamian, maya, aztec, andean, sahel, ethiopian. */
+   *  mesopotamian, maya, aztec, andean, sahel, ethiopian, mongol. */
   style: string
   /** Климат для времён года и погоды на картинке: temperate (снежная зима), mediterranean, arid, tropical
    *  (сезон дождей), monsoon, highland. */
@@ -223,7 +225,7 @@ export interface EraMeta {
   marriageAge: { m: [number, number]; f: [number, number] }
   /** Средняя продолжительность жизни для сравнения на итоговой карточке. */
   lifeExpectancy: number
-  inheritance: 'equal' | 'sons_first'
+  inheritance: 'equal' | 'sons_first' | 'youngest_hearth'
   household?: Household
   /** Как в стране относятся к учёным и новым знаниям (для снов о будущем). */
   scholar_climate?: ScholarClimate
@@ -362,6 +364,8 @@ export type Effect =
   | { money_years: number }
   /** Дом героя: сгорел, разрушен (на ступень меньше, стоит повреждённым) или отстраивается. */
   | { home: 'burn' | 'ruin' | 'rebuild' }
+  /** Скот: n ≥ 1 - прибавилось голов, −1 < n < 0 - пала такая доля стада. */
+  | { herd: number }
   | { chance: number; effects: Effect[] }
 
 export interface WeightModifier {

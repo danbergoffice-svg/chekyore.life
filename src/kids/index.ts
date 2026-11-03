@@ -2,7 +2,7 @@
 // Каждая игра - файл src/kids/<Имя>Board.tsx с экспортом `<id>Puzzle: KidsPuzzle` (логика - src/kids/<id>.ts).
 import type { KidsPuzzle } from './types'
 
-const ORDER = ['ANE', 'E03', 'MAY', 'AMR', 'CHN', 'JPN', 'IND', 'ISL', 'BYZ', 'EUR', 'RUS', 'ETH', 'WAF']
+const ORDER = ['ANE', 'E03', 'MAY', 'AMR', 'CHN', 'JPN', 'IND', 'ISL', 'BYZ', 'EUR', 'RUS', 'ETH', 'WAF', 'MNG']
 const mods = import.meta.glob<Record<string, unknown>>('./*Board.tsx', { eager: true })
 
 export const KIDS_PUZZLES: KidsPuzzle[] = Object.values(mods)

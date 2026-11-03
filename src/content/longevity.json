@@ -67,6 +67,11 @@
       "adult": 51,
       "careful": 61.1,
       "bonus": 10
+    },
+    "MNG": {
+      "adult": 52,
+      "careful": 57.1,
+      "bonus": 5
     }
   }
 }

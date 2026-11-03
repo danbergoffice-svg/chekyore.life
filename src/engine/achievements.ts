@@ -243,6 +243,8 @@ export const ACHIEVEMENTS: AchDef[] = [
   profAch('porcelain', 'CHN', 'porcelain_maker'),
   profAch('debtera', 'ETH', 'debtera'),
   profAch('rock_church', 'ETH', 'church_carver'),
+  profAch('yam_courier', 'MNG', 'yam_rider'),
+  profAch('mingghan', 'MNG', 'mingghan'),
   profAch('knight', 'EUR', 'knight'),
   profAch('cathedral', 'EUR', 'cathedral_mason'),
   profAch('mahout', 'IND', 'mahout'),
