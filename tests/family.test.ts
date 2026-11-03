@@ -125,6 +125,22 @@ describe('Отложенные последствия (п. 5)', () => {
     expect(triggerStats.cancelled.npc_dead).toBe(before + 1)
   })
 
+  it('отложенный момент не открывается окном, а сразу попадает в ленту (03.11: «ev.k1_sibling_defends.title»)', async () => {
+    const { startYear } = await import('../src/engine/game')
+    const s = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 516), era)
+    s.hero.alive = true
+    s.phase = 'year'
+    const ev = era.events.find((e) => e.id === 'k1_sibling_defends')!
+    expect(ev?.moment && ev.trigger_only).toBe(true)
+    const sib = npc(s, 'sibling', 'm', s.year - 14, true)
+    s.hero.age = 8
+    s.hero.flags.push('k1_sib_guard')
+    s.hero.triggers = [{ eventId: ev.id, year: s.year, chance: 1, npcId: sib.id }]
+    startYear(s, era, null)
+    expect(s.queue.some((q) => q.eventId === ev.id)).toBe(false)
+    expect(s.hero.diary.some((d) => d.eventId === ev.id && d.key === 'ev.k1_sibling_defends.text')).toBe(true)
+  })
+
   it('2000 жизней: никто не живёт с двумя супругами сразу', () => {
     let bigamy = 0
     for (let i = 0; i < 2000; i += 13) {

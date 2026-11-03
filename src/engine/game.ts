@@ -672,7 +672,10 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
       continue
     }
     if (chance(state, t.chance) && eligible(state, era, ev, true)) {
-      add(ev, t.from, t.npcId)
+      // Момент (без заголовка и выбора) не открывается окном, а сразу записывается в ленту - как и прочие моменты.
+      // Раньше отложенный момент вставал в очередь событий и показывал ключ «ev.….title» (отзыв игрока 03.11).
+      if (ev.moment) playMoment(state, era, ev, t.npcId)
+      else add(ev, t.from, t.npcId)
       fired++
       if (t.line) lines.add(t.line)
     }
@@ -761,23 +764,29 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   for (let i = 0; i < momentCount && hero.alive; i++) {
     const ev = weighted(state, fresh(moments.filter((m) => hero.seen[m.id] !== state.year)), (e) => eventWeight(state, e))
     if (!ev) break
-    hero.seen[ev.id] = state.year
-    if (ev.group) hero.seen[`@${ev.group}`] = state.year
-    const active = activate(state, ev)
-    const mood = hero.hidden.happiness
-    applyEffects(state, era, ev.effects, { npcId: active.npcId })
-    addPattern(hero, ev.pattern)
-    note(state, {
-      key: eventTextKey(ev, active.variant),
-      params: eventParams(state, active),
-      topic: topicOf(ev),
-      icon: ev.icon,
-      eventId: ev.id,
-      mood: Math.round(hero.hidden.happiness - mood),
-      major: !!ev.icon,
-      score: 6 + Math.abs(hero.hidden.happiness - mood) + (ev.icon ? 15 : 0) + (active.npcId ? 5 : 0),
-    })
+    playMoment(state, era, ev)
   }
+}
+
+/** Момент жизни: происходит сам - последствия и строка в ленте, без окна. npcId - про кого (отложенный момент). */
+function playMoment(state: GameState, era: EraDef, ev: EventDef, npcId?: string): void {
+  const hero = state.hero
+  hero.seen[ev.id] = state.year
+  if (ev.group) hero.seen[`@${ev.group}`] = state.year
+  const active = activate(state, ev, undefined, npcId)
+  const mood = hero.hidden.happiness
+  applyEffects(state, era, ev.effects, { npcId: active.npcId })
+  addPattern(hero, ev.pattern)
+  note(state, {
+    key: eventTextKey(ev, active.variant),
+    params: eventParams(state, active),
+    topic: topicOf(ev),
+    icon: ev.icon,
+    eventId: ev.id,
+    mood: Math.round(hero.hidden.happiness - mood),
+    major: !!ev.icon,
+    score: 6 + Math.abs(hero.hidden.happiness - mood) + (ev.icon ? 15 : 0) + (active.npcId ? 5 : 0),
+  })
 }
 
 /** Сколько тем справки на возраст: 0 лет - темы 1–4, 1 год - 5–8, 2 - 9–12, 3 - 13–16. */
