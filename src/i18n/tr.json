@@ -1274,6 +1274,8 @@
   "goal.inherit": "{name} başladığını tamamla: 4 adımın {n} tanesi yapıldı.",
   "goal.steps_label": "Amaca adımlar",
   "goal.bar": "Amaç",
+  "goal.next": "Sıradaki: {step}",
+  "goal.bar_done": "Hedefe ulaşıldı",
   "goal.progress": "Yapılan adımlar: 4'te {n}",
   "goal.toast": "Amaca bir adım: {step}",
   "goal.toast_done": "Hayat amacı gerçekleşti: {goal}!",

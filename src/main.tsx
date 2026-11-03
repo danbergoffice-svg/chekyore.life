@@ -1,5 +1,6 @@
 import { render } from 'preact'
 import { initPlatform, platform } from './platform'
+import { applyTheme, savedTheme } from './theme'
 import { App } from './ui/App'
 // Шрифты лежат в сборке (внешних запросов нет): Alegreya - основной текст, «Летопись» - крупные надписи (style.css).
 import '@fontsource-variable/alegreya/wght.css'
@@ -15,6 +16,7 @@ try {
   document.documentElement.classList.add('framed')
 }
 
+applyTheme(savedTheme())
 initPlatform()
 // В index.html внутри #app - текст для поисковиков и первых мгновений загрузки; игра рисуется на его месте.
 const root = document.getElementById('app')!

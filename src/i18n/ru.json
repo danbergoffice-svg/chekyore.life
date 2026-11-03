@@ -1274,6 +1274,8 @@
   "goal.inherit": "Доделать за {name}: шагов уже сделано {n} из 4.",
   "goal.steps_label": "Шаги к цели",
   "goal.bar": "Цель",
+  "goal.next": "Дальше: {step}",
+  "goal.bar_done": "Цель исполнена",
   "goal.progress": "Шагов сделано: {n} из 4",
   "goal.toast": "Шаг к цели: {step}",
   "goal.toast_done": "Цель жизни исполнена: {goal}!",

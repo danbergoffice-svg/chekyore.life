@@ -7,6 +7,7 @@ import type { GameState } from '../engine/types'
 import { nameOf } from '../i18n'
 import { platform } from '../platform'
 import { goalOffers, inheritable } from '../goal'
+import { Icon } from './Icon'
 import { useUi } from './text'
 
 export interface GoalChoice {
@@ -85,7 +86,8 @@ export function GoalPick({ state, mode, onPick, onKeep }: Props) {
   )
 }
 
-/** Полоса цели на экране жизни: название и четыре шага; касание раскрывает названия шагов. */
+/** Полоса цели на экране жизни (вариант Б, решение владельца 03.11): флажок, название, следующий шаг, шкала из четырёх
+ * отрезков; касание раскрывает все шаги с возрастом выполнения. */
 export function GoalBar({ state, open, onToggle }: { state: GameState; open: boolean; onToggle: () => void }) {
   const { t } = useUi()
   const hero = state.hero
@@ -93,15 +95,19 @@ export function GoalBar({ state, open, onToggle }: { state: GameState; open: boo
   if (!goal) return null
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
   const done = goal.steps.length
+  const finished = done >= GOAL_STEPS
   return (
-    <div class={done >= GOAL_STEPS ? 'goal-bar done' : 'goal-bar'}>
-      <button class="goal-bar-row" aria-expanded={open} onClick={onToggle}>
-        <span class="goal-bar-label">{t('goal.bar')}</span>
-        <span class="goal-bar-title">{t(`goal.${goal.id}.title`, {}, o)}</span>
-        <span class="goal-dots" role="meter" aria-valuemin={0} aria-valuemax={GOAL_STEPS} aria-valuenow={done} aria-label={t('goal.progress', { n: done })}>
-          {Array.from({ length: GOAL_STEPS }, (_, i) => (
-            <span class={i < done ? 'on' : ''} />
-          ))}
+    <div class={finished ? 'goal-bar done' : 'goal-bar'}>
+      <button class="goal-bar-row" aria-expanded={open} aria-label={`${t('goal.bar')}: ${t(`goal.${goal.id}.title`, {}, o)}. ${t('goal.progress', { n: done })}`} onClick={onToggle}>
+        <Icon name="target" class="goal-bar-icon" size={1.3} />
+        <span class="goal-bar-text">
+          <span class="goal-bar-title">{t(`goal.${goal.id}.title`, {}, o)}</span>
+          <span class="goal-bar-next">{finished ? t('goal.bar_done') : t('goal.next', { step: { key: `goal.${goal.id}.step.${done + 1}` } }, o)}</span>
+          <span class="goal-segs" aria-hidden="true">
+            {Array.from({ length: GOAL_STEPS }, (_, i) => (
+              <span class={i < done ? 'on' : ''} />
+            ))}
+          </span>
         </span>
       </button>
       {open && (

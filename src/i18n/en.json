@@ -1274,6 +1274,8 @@
   "goal.inherit": "Finish what {name} began: {n} of 4 steps already done.",
   "goal.steps_label": "Steps to the goal",
   "goal.bar": "Goal",
+  "goal.next": "Next: {step}",
+  "goal.bar_done": "Goal fulfilled",
   "goal.progress": "Steps done: {n} of 4",
   "goal.toast": "A step towards your goal: {step}",
   "goal.toast_done": "Life goal fulfilled: {goal}!",

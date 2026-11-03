@@ -1,3 +1,4 @@
+import { applyTheme } from '../theme'
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
@@ -187,6 +188,7 @@ export function App() {
     root.dataset.contrast = String(prefs.contrast)
     if (prefs.theme === 'auto') delete root.dataset.theme
     else root.dataset.theme = prefs.theme
+    applyTheme(prefs.theme)
     document.title = `${ui.t('app.title')}: ${ui.t('menu.subtitle')}`
   }, [prefs, ui])
 

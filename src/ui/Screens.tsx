@@ -604,7 +604,12 @@ export function Settings(props: {
         onChange={(font) => props.onPrefs({ ...p, font })}
         options={(['s', 'm', 'l'] as const).map((f) => ({ id: f, label: t(`settings.font.${f}`) }))}
       />
-      {/* Тема (светлая/тёмная) убрана: оформление «синяя ночь» одно на всех (src/skin.css). */}
+      <Choice
+        title={t('settings.theme')}
+        value={p.theme}
+        onChange={(theme) => props.onPrefs({ ...p, theme })}
+        options={(['auto', 'light', 'dark'] as const).map((id) => ({ id, label: t(`settings.theme.${id}`) }))}
+      />
       <Choice
         title={t('settings.year')}
         value={String(p.yearSec ?? 0)}
