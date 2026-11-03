@@ -141,7 +141,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         <section class="block dream-block">
           <h2 class="section-title">{t('dream.title_block')}</h2>
           <p>
-            <strong>{t(`dream.${life.dreamSeen.id}.title`)}</strong> - {t(`dream.result.${life.dreamSeen.outcome}`)} · {t('dream.score', { n: life.dreamSeen.score })}
+            <strong>{t(`dream.${life.dreamSeen.id}.title`)}</strong>{'\u00a0— '}{t(`dream.result.${life.dreamSeen.outcome}`)} · {t('dream.score', { n: life.dreamSeen.score })}
           </p>
           <p class="small">{t(`dream.${life.dreamSeen.id}.truth`)}</p>
           <button class="secondary" onClick={act('share_dream', () => setSharing('dream'))}>{t('share.dream.button')}</button>
@@ -160,7 +160,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
                     <span class="ach-icon"><Glyph name="medal" /></span>
                     <span>
                       <strong>{t(`ach.${id}.title`, {}, o)}</strong>
-                      <span class="muted small"> - {t(`ach.${id}.desc`, {}, o)}</span>
+                      <span class="muted small">{'\u00a0— '}{t(`ach.${id}.desc`, {}, o)}</span>
                     </span>
                   </li>
                 ))}
@@ -176,7 +176,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
                     <span class="ach-icon"><Glyph name="hourglass" /></span>
                     <span>
                       <strong>{t(`ach.${id}.title`, {}, o)}</strong>
-                      <span class="muted small"> - {t(`ach.${id}.desc`, {}, o)}</span>
+                      <span class="muted small">{'\u00a0— '}{t(`ach.${id}.desc`, {}, o)}</span>
                       <span class="ach-bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
                         <span style={{ width: `${Math.round(progress * 100)}%` }} />
                       </span>
@@ -195,7 +195,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
                     <span class="ach-icon"><Glyph name="target" /></span>
                     <span>
                       <strong>{t(`ach.${id}.title`, {}, o)}</strong>
-                      <span class="muted small"> - {t(`ach.${id}.hint`, {}, o)}</span>
+                      <span class="muted small">{'\u00a0— '}{t(`ach.${id}.hint`, {}, o)}</span>
                     </span>
                   </li>
                 ))}
@@ -258,7 +258,7 @@ export function EarlyDeath({ life, era, onAgain, onFull, challenge }: { life: Li
         <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} still frame year={life.deathYear} />
         <h1 id="early-name" class="hero-name big">{name}</h1>
         <p class="muted">
-          {formatYear(life.birthYear, lang)} - {formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}
+          {formatYear(life.birthYear, lang)}–{formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}
         </p>
         <p>
           <strong>{t('summary.cause')}:</strong> {t(`cause.${life.cause}`)}
@@ -321,7 +321,7 @@ function FullRecord({ life, era, starred, onStar }: { life: LifeSummary; era: Er
                     {led.length > 0 && (
                       <span class="led-to">
                         {' '}
-                        {t('record.led_to')} {led.map(([c]) => `${t('diary.age', { n: c.age })} - ${line(c)}`).join('; ')}
+                        {t('record.led_to')} {led.map(([c]) => `${t('diary.age', { n: c.age })}\u00a0— ${line(c)}`).join('; ')}
                       </span>
                     )}
                     {ev?.historian_note && (
@@ -410,7 +410,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
   const clean = cleanLine(draft)
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   const name = nameOf(life.name, lang)
-  const years = `${formatYear(life.birthYear, lang)} - ${formatYear(life.deathYear, lang)}`
+  const years = `${formatYear(life.birthYear, lang)}–${formatYear(life.deathYear, lang)}`
   const ds = what === 'dream' ? life.dreamSeen : undefined
   // Карточка: главное дело жизни, самый яркий факт, афоризм под эту жизнь, портреты по возрастам.
   const card = useMemo(
@@ -429,7 +429,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
   const quote = card.quotes[0]
   const baseText = ds
     ? `${headline} ${t('share.dream.ask')}`
-    : t('share.text', { name, years, archetype: `${card.title}. ${card.hook}${quote ? `. ${quote.text} - ${quote.author}` : ''}` })
+    : t('share.text', { name, years, archetype: `${card.title}. ${card.hook}${quote ? `. ${quote.text}\u00a0— ${quote.author}` : ''}` })
   const shareText = EXTERNAL ? `${baseText} ${SITE}` : baseText
 
   useEffect(() => {
@@ -488,7 +488,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
               </button>
             ))}
           </div>
-          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={[`${name}, ${years}`, card.title, card.hook, quote && `${quote.text} - ${quote.author}`].filter(Boolean).map((x) => String(x).replace(/[.!?…]+$/, '')).join('. ')} />
+          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={[`${name}, ${years}`, card.title, card.hook, quote && `${quote.text}\u00a0— ${quote.author}`].filter(Boolean).map((x) => String(x).replace(/[.!?…]+$/, '')).join('. ')} />
           <p class="small muted">{t('share.privacy')}</p>
           <div class="stack">
             {EXTERNAL && 'share' in navigator && <button class="primary" onClick={systemShare}>{t('share.system')}</button>}

@@ -170,7 +170,10 @@ html.skin .choices { counter-reset: opt; gap: 9px; }
 html.skin .choice { position: relative; padding-left: 46px; border-radius: 0; border: 2px solid var(--night); background: transparent; color: var(--night); }
 html.skin .choice::before { counter-increment: opt; content: counter(opt); position: absolute; left: 12px; top: 12px; width: 22px; height: 22px; display: grid; place-items: center;
   background: var(--night); color: var(--sheet); font-weight: 800; font-size: 13px; clip-path: polygon(0 6%, 100% 0, 94% 100%, 4% 94%); }
-html.skin .choice:not(:disabled):hover { background: var(--mustard); border-color: var(--night); transform: rotate(-0.8deg); }
+/* Жёлтый - только наведение мышью и фокус с клавиатуры (правка 09): на телефоне :hover «залипал» после тапа,
+   и в следующем окне вариант под пальцем (обычно последний) стоял жёлтым, будто его советуют. */
+@media (hover: hover) { html.skin .choice:not(:disabled):hover { background: var(--mustard); border-color: var(--night); transform: rotate(-0.8deg); } }
+html.skin .choice:not(:disabled):focus-visible { background: var(--mustard); border-color: var(--night); }
 html.skin .choice-desc { color: #6a5440; }
 html.skin .modal .primary { background: var(--night); color: var(--sheet); }
 html.skin .modal .note { background: #e8dcc2; border-radius: 0; clip-path: var(--rough-c); }
@@ -380,3 +383,10 @@ html.skin[data-skin='day'] ul.remains .icon { color: var(--sky-gold); }
 html.skin[data-skin='day'] .people100 span { background: #9aabc4; opacity: 1; }
 html.skin[data-skin='day'] .people100 span.longer { background: #16213a; }
 html.skin[data-skin='day'] .gifts-btn .n { color: var(--sheet); }
+
+/* Контраст на светлом листе окна (правка 17): плюсы и минусы итога, подписи детской игры - не ниже 4,5:1. */
+html.skin .modal .changes .up { color: #4a5a12; }
+html.skin .modal .changes .down { color: #a3341c; }
+html.skin .modal .kids-dir { color: #6b4a12; }
+html.skin .modal .kids-reward { color: #a3341c; }
+html.skin .menu-topbar .lang-switch button.active { background: #b5462b; }

@@ -70,12 +70,17 @@ interface LifeProps {
   era: EraDef
   onStart: (focus: string | null) => void
   onFinish: () => void
-  onChoose: (choiceId: string | null) => void
+  /** ms - сколько окно события было открыто до выбора (аналитика). */
+  onChoose: (choiceId: string | null, ms?: number) => void
   onDismiss: () => void
   onLifestyle: (category: string, option: string) => void
   /** На чужбине: «Задумать возвращение». */
   onPlanReturn?: () => void
   onMenu: () => void
+  /** Поверх жизни открыто меню-лист: время стоит. */
+  frozen?: boolean
+  /** Эксперимент X0: первые три события жизни - короткий текст, без справки и «Близких». */
+  shortFirst?: boolean
   /** Открыть настройки из жизни («Назад» вернёт в жизнь). */
   onSettings?: () => void
   choiceChanges: Change[]
@@ -99,7 +104,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -176,7 +181,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const hold = modalOpen || !!loss
   // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
   // пауза без решения и уход с экрана жизни - остановка.
-  const playing = (speed > 0 || hold) && !chapterDue && !adOpen && state.phase !== 'dead'
+  const playing = (speed > 0 || hold) && !chapterDue && !adOpen && !frozen && state.phase !== 'dead'
   useEffect(() => {
     if (playing) platform.gameplayStart()
     else platform.gameplayStop()
@@ -184,12 +189,12 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   useEffect(() => () => platform.gameplayStop(), [])
 
   // Часы года. Ссылки на свежие значения, чтобы таймер не держал устаревшие.
-  const live = useRef({ state, progress, speed, hold, selected, onStart, onFinish, yearSec })
-  live.current = { state, progress, speed, hold, selected, onStart, onFinish, yearSec }
+  const live = useRef({ state, progress, speed, hold, selected, onStart, onFinish, yearSec, frozen })
+  live.current = { state, progress, speed, hold, selected, onStart, onFinish, yearSec, frozen }
   useEffect(() => {
     const id = setInterval(() => {
       const c = live.current
-      if (!c.speed || c.hold || c.state.phase === 'dead') return
+      if (!c.speed || c.hold || c.frozen || c.state.phase === 'dead') return
       if (c.state.phase === 'year') {
         setProgress(0)
         c.onStart(c.selected)
@@ -208,6 +213,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
   /** Перемотать к следующему событию или к концу года. */
   const skip = () => {
+    platform.track('next_event_click', {})
     if (state.phase === 'year') return onStart(selected)
     if (next) setProgress(next.at)
     else {
@@ -407,7 +413,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <ul class="plain">{feelings(t, hero).map((f) => <li>{f}</li>)}</ul>
           <p class="small">
             <strong>{t('reveal.faith')}:</strong> <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
-            <span class="muted"> - {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+            <span class="muted">{'\u00a0— '}{t(`religion.${hero.religion}.desc`, {}, o)}</span>
           </p>
           <p class="small">
             <strong>{t('hero.family')}:</strong> {maritalText(t, hero, lang, 'marital')}
@@ -560,7 +566,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       {modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && dream && (state.dream || dream.result) ? (
         <DreamModal state={state} result={dream.result} onAnswer={dream.onAnswer} onHint={dream.onHint} onWake={dream.onWake} onClose={dream.onClose} />
       ) : (
-        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} />
+        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} short={!!shortFirst && lifeStats(state).choices < 3} />
       )}
     </div>
   )
@@ -790,7 +796,7 @@ function PrimerGroup({ ids, o }: { ids: string[]; o: { sex: Hero['sex']; region:
             <button class="primer-row" aria-expanded={open === id} onClick={() => read(id)}>
               <span class="primer-line">
                 <strong class="primer-title">{t(`primer.${id}.title`, {}, o)}</strong>
-                {open !== id && <span class="primer-peek"> - {t(`primer.${id}.text`, {}, o)}</span>}
+                {open !== id && <span class="primer-peek">{'\u00a0— '}{t(`primer.${id}.text`, {}, o)}</span>}
               </span>
               <span class="primer-more">{open === id ? '−' : t('primer.read')}</span>
             </button>
@@ -947,14 +953,15 @@ function People({ state, aliveOnly }: { state: GameState; aliveOnly?: boolean })
 interface EventProps {
   state: GameState
   era: EraDef
-  onChoose: (id: string | null) => void
+  onChoose: (id: string | null, ms?: number) => void
+  short?: boolean
   onDismiss: () => void
   changes: Change[]
   /** Цель героя, если игрок в группе с метками ▲▼ (A/B goal_marks_share). */
   marks?: GoalId
 }
 
-function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventProps) {
+function EventModal({ state, era, onChoose, onDismiss, changes, marks, short }: EventProps) {
   const { t, lang } = useUi()
   const ev = currentEvent(state, era)
   const [noteOpen, setNoteOpen] = useState(false)
@@ -963,6 +970,18 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
   useEffect(() => {
     if (offered && ev?.id === 'dream_intro' && !state.queue[0]?.outcome) platform.track('dream_offer', { dream: offered, era: state.hero.era, age: state.hero.age })
   }, [offered])
+  // Клавиатура: 1–4 выбирают вариант, Enter - «Далее» после итога (доступность, критерии ТЗ).
+  const keys = useRef<(e: KeyboardEvent) => void>(() => {})
+  // Когда окно этого события открылось: время до выбора уходит в choice_made.ms_to_choice.
+  const shown = useRef({ id: '', at: 0 })
+  const eventKey = `${state.queue[0]?.eventId}:${state.queue[0]?.at}:${state.year}`
+  if (shown.current.id !== eventKey) shown.current = { id: eventKey, at: Date.now() }
+  const pick = (id: string | null) => onChoose(id, Date.now() - shown.current.at)
+  useEffect(() => {
+    const h = (e: KeyboardEvent) => keys.current(e)
+    window.addEventListener('keydown', h)
+    return () => window.removeEventListener('keydown', h)
+  }, [])
   if (!ev) return null
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -988,6 +1007,16 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
   const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession && !isName ? variantKey(lang, `ev.${ev.id}.${outcome.choiceId}.${outcome.result}`, v) : null
   const resultText = resultKey && hasKey(lang, resultKey) ? t(resultKey, params, o) : null
 
+  keys.current = (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement)?.tagName === 'INPUT') return
+    if (state.queue[0]?.outcome) return
+    const n = Number(e.key)
+    const c = choices[n - 1]
+    if (n >= 1 && n <= 4 && c && choiceAvailable(state, c)) {
+      e.preventDefault()
+      pick(c.id)
+    }
+  }
   // У момента жизни заголовка нет: если он всё же попал в окно (очередь старого сохранения), служебный ключ не показываем.
   const titleKey = variantKey(lang, `ev.${ev.id}.title`, v)
   const title = hasKey(lang, titleKey) ? t(titleKey, params, o) : ''
@@ -1002,38 +1031,16 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
           {title && <h2 id="ev-title">{title}</h2>}
           {who && (
             <p class="event-who">
-              <b>{nameOf(who.name, lang)}</b> - {t(`npc.${roleKey(hero.npcs, who)}`, { sex: who.sex }).toLocaleLowerCase(lang)} · {npcFacts(t, lang, who, state.year)}
+              <b>{nameOf(who.name, lang)}</b>{'\u00a0— '}{t(`npc.${roleKey(hero.npcs, who)}`, { sex: who.sex }).toLocaleLowerCase(lang)} · {npcFacts(t, lang, who, state.year)}
             </p>
           )}
-          <p class="event-text">{t(eventTextKey(ev, active?.variant), params, o)}</p>
+          <p class="event-text">{t(short && hasKey(lang, `ev.${ev.id}.short`) ? `ev.${ev.id}.short` : eventTextKey(ev, active?.variant), params, o)}</p>
 
-          {ev.historian_note && (
-            <div class="note">
-              <button class="link" aria-expanded={noteOpen} onClick={() => setNoteOpen(!noteOpen)}>
-                {t('event.note')} {noteOpen ? '▴' : '▾'}
-              </button>
-              {noteOpen && (
-                <>
-                  <p>{t(`ev.${ev.id}.note`)}</p>
-                  {ev.confidence && <p class="confidence">{t(`event.confidence.${ev.confidence}`)}</p>}
-                </>
-              )}
-            </div>
-          )}
-
-          {!outcome && choices.length > 1 && hero.npcs.some((n) => n.alive && !n.away) && (
-            <div class="note">
-              <button class="link" aria-expanded={peopleOpen} onClick={() => setPeopleOpen(!peopleOpen)}>
-                {t('event.people')} {peopleOpen ? '▴' : '▾'}
-              </button>
-              {peopleOpen && <People state={state} aliveOnly />}
-            </div>
-          )}
-
+          {/* Сначала решение, потом справка и близкие (правка 04): варианты видны сразу после текста. */}
           {!outcome && (
             <div class="choices">
               {choices.length === 0 && (
-                <button class="primary" onClick={() => onChoose(null)}>{t('event.ok')}</button>
+                <button class="primary" onClick={() => pick(null)}>{t('event.ok')}</button>
               )}
               {choices.map((c) => {
                 const ok = choiceAvailable(state, c)
@@ -1041,7 +1048,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
                 const price = cost(c)
                 const mark = marks && ok ? goalMark(marks, c) : null
                 return (
-                  <button class="choice" disabled={!ok} onClick={() => onChoose(c.id)}>
+                  <button class="choice" disabled={!ok} onClick={() => pick(c.id)}>
                     <span>{label(c)}</span>
                     {isProfession && <span class="choice-desc">{t(`prof.${c.id}.desc`)}</span>}
                     <span class="choice-meta">
@@ -1063,6 +1070,35 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
               {outcome.rescued !== undefined && hero.diary[outcome.rescued] && <p>{diaryText(t, hero.diary[outcome.rescued], hero.sex, hero.region, hero.religion, lang)}</p>}
               {changes.length > 0 && <ChangeList changes={changes} coin={coin} />}
               <button class="primary" onClick={onDismiss} autoFocus>{t('event.next')}</button>
+            </div>
+          )}
+
+          {ev.historian_note && !short && (
+            <div class="note">
+              <button class="link" aria-expanded={noteOpen} onClick={() => {
+                  if (!noteOpen) platform.track('historian_open', {})
+                  setNoteOpen(!noteOpen)
+                }}>
+                {t('event.note')} {noteOpen ? '▴' : '▾'}
+              </button>
+              {noteOpen && (
+                <>
+                  <p>{t(`ev.${ev.id}.note`)}</p>
+                  {ev.confidence && <p class="confidence">{t(`event.confidence.${ev.confidence}`)}</p>}
+                </>
+              )}
+            </div>
+          )}
+
+          {!outcome && !short && choices.length > 1 && hero.npcs.some((n) => n.alive && !n.away) && (
+            <div class="note">
+              <button class="link" aria-expanded={peopleOpen} onClick={() => {
+                  if (!peopleOpen) platform.track('people_open', {})
+                  setPeopleOpen(!peopleOpen)
+                }}>
+                {t('event.people')} {peopleOpen ? '▴' : '▾'}
+              </button>
+              {peopleOpen && <People state={state} aliveOnly />}
             </div>
           )}
         </div>

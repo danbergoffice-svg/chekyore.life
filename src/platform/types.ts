@@ -53,6 +53,9 @@ export interface Flags {
   goal_change_age: number
   /** С какой по счёту жизни можно жить без цели (четвёртая карточка). */
   goal_free_from: number
+  /** Эксперимент X0 (ТЗ редизайна, правка 01): доля игроков, у которых первые три события жизни короткие (текст .short),
+   *  без «Справки историка» и «Близких» (свой хеш id); 0 - у всех как было. */
+  short_first_share: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -81,6 +84,7 @@ export const DEFAULT_FLAGS: Flags = {
   goal_weight: 1.5,
   goal_change_age: 16,
   goal_free_from: 4,
+  short_first_share: 0.5,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

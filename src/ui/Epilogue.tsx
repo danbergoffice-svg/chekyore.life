@@ -43,7 +43,7 @@ export function Tombstone({ life, epitaph }: { life: LifeSummary; epitaph: strin
         </div>
         <h1 id="sum-name" class="stone-name">{name}</h1>
         <p class="stone-years">
-          {formatYear(life.birthYear, lang)} - {formatYear(life.deathYear, lang)}
+          {formatYear(life.birthYear, lang)}–{formatYear(life.deathYear, lang)}
         </p>
         <p class="stone-age">{t('death.lived', { n: life.age })}</p>
         {epitaph && <p class="stone-epi">{epitaph}</p>}

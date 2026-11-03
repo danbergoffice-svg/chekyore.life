@@ -10,13 +10,15 @@ import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
-import { goalGroup } from '../goal'
+import { goalGroup, shortFirst } from '../goal'
 import { goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
+import { MenuSheet } from './MenuSheet'
+import type { MenuTarget } from './MenuSheet'
 import { About, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsSheet, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { CHEST_GIFT, dailyNext, dayKey, GIFT_ICON, GIFTS, HEALTH_GIFT, RESPIN_GIFT, spendGifts } from '../daily'
 import type { Gift } from '../daily'
@@ -159,7 +161,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags) })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0 })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -167,7 +169,7 @@ export function App() {
       } catch {
         referrer = ''
       }
-      platform.track('app_open', { referrer, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()) })
+      platform.track('app_open', { referrer, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()), vw: window.innerWidth, vh: window.innerHeight })
       trackUserParams(lives)
       if (game.current) await ensure(game.current.hero.era, prefs.lang, game.current.hero.erasLived)
       setScreen('menu')
@@ -594,6 +596,7 @@ export function App() {
     }
     if (Object.keys(spent).length) setPrefs({ ...prefs, ...spent })
     setPending(null)
+    setDrumOpen(false)
     setYearChanges([])
     setScreen('reveal')
     persist()
@@ -729,7 +732,7 @@ export function App() {
     rerender(0)
   }
 
-  const onChoose = (choiceId: string | null) => {
+  const onChoose = (choiceId: string | null, ms?: number) => {
     if (!era) return
     const intro = game.current?.queue[0]
     if (intro?.dream && currentEvent(game.current!, era)?.id === 'dream_intro') {
@@ -743,7 +746,7 @@ export function App() {
     const picked = ev && goal ? eventChoices(game.current!, era, ev).find((c) => c.id === choiceId) : undefined
     const mark = picked && goal ? (goalMark(goal.id, picked) ?? 'none') : undefined
     choose(game.current!, era, choiceId)
-    trackChoice(game.current!, mark ? { mark } : {})
+    trackChoice(game.current!, { ...(mark ? { mark } : {}), ...(ms !== undefined ? { ms_to_choice: ms } : {}) })
     setChoiceChanges(changes(before, game.current!))
     afterTurn()
   }
@@ -825,6 +828,25 @@ export function App() {
   }
 
   const toMenu = () => setScreen('menu')
+  /** Меню-лист поверх жизни (правка 02): разделы, открытые из него, по «Назад» возвращают в жизнь. */
+  const [lifeMenu, setLifeMenu] = useState(false)
+  const backTo = useRef<'menu' | 'life'>('menu')
+  const goBack = () => {
+    const to = backTo.current
+    if (to === 'life' && game.current && game.current.phase !== 'dead') return setScreen('life')
+    backTo.current = 'menu'
+    toMenu()
+  }
+  /** Барабан на главной при живом герое свёрнут в «Начать другую жизнь» (правка 03): раскрывается после подтверждения. */
+  const [drumOpen, setDrumOpen] = useState(false)
+  const newLifeConfirmed = (from: 'menu' | 'sheet') => {
+    platform.track('new_life_confirm', { had_active: game.current && game.current.phase !== 'dead' ? 1 : 0, from })
+    backTo.current = 'menu'
+    setLifeMenu(false)
+    setDrumOpen(true)
+    setScreen('menu')
+    setDrumFocus((n) => n + 1)
+  }
   /** Откуда открыты настройки: из жизни «Назад» возвращает в жизнь. */
   const [settingsFrom, setSettingsFrom] = useState<'menu' | 'life'>('menu')
 
@@ -971,8 +993,12 @@ export function App() {
           <Menu
             current={state}
             slot={slotMachine}
+            drumOpen={drumOpen}
+            gifts={giftsButton}
+            onNewLife={() => newLifeConfirmed('menu')}
             onContinue={() => {
               if (!state) return
+              platform.track('continue_click', {})
               const go = () => setScreen(state.phase === 'dead' ? 'death' : 'life')
               if (isEraLoaded(state.hero.era)) go()
               else ensure(state.hero.era, prefs.lang, state.hero.erasLived).then(() => isEraLoaded(state.hero.era) && go())
@@ -1034,6 +1060,7 @@ export function App() {
             state={state}
             era={era}
             onStart={() => setScreen('life')}
+            howTo={memorial.length < 2 ? (['plain', 'goal', 'marks'] as const)[goalGroup(platform.playerId(), platform.flags)] : undefined}
             note={challengeOn && memorial.length >= 1 ? ui.t('challenge.note', { n: challengeAge, m: challengeAge + 1 }) : undefined}
           />
         )}
@@ -1051,7 +1078,11 @@ export function App() {
               planReturn(game.current)
               persist()
             }}
-            onMenu={toMenu}
+            onMenu={() => {
+              platform.track('menu_open', { from: 'life' })
+              setLifeMenu(true)
+            }}
+            frozen={lifeMenu}
             onSettings={() => {
               setSettingsFrom('life')
               setScreen('settings')
@@ -1062,7 +1093,23 @@ export function App() {
             sound={soundButton}
             onKids={onKids}
             goal={{ group: goalGroup(platform.playerId(), platform.flags), onPick: onGoal }}
+            shortFirst={shortFirst(platform.playerId(), platform.flags)}
             dream={dreamProps}
+          />
+        )}
+        {screen === 'life' && lifeMenu && state && state.phase !== 'dead' && (
+          <MenuSheet
+            hero={{ name: state.hero.name, age: state.hero.age }}
+            onClose={() => setLifeMenu(false)}
+            feedback={EXTERNAL}
+            go={(to: MenuTarget) => {
+              setLifeMenu(false)
+              backTo.current = 'life'
+              if (to === 'settings') setSettingsFrom('life')
+              if (to === 'feedback') openFeedback('life')
+              else setScreen(to)
+            }}
+            onNewLife={() => newLifeConfirmed('sheet')}
           />
         )}
         {screen === 'death' && state && era && lastLife && !fullSummary && lastLife.age < 15 && memorial.length > 1 && (
@@ -1136,7 +1183,7 @@ export function App() {
             canContinue={false}
             onAgain={() => startNew()}
             onMemorial={() => setScreen('memorial')}
-            onMenu={toMenu}
+            onMenu={goBack}
             onUpdate={onUpdateLife}
           />
         )}
@@ -1145,22 +1192,22 @@ export function App() {
           <Memorial
             memorial={memorial}
             onOpen={openPast}
-            onBack={toMenu}
+            onBack={goBack}
           />
         )}
         {screen === 'settings' && <Settings prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
           const back = settingsFrom
           setSettingsFrom('menu')
           if (back === 'life' && game.current && game.current.phase !== 'dead') setScreen('life')
-          else toMenu()
+          else goBack()
         }} />}
-        {screen === 'about' && <About onBack={toMenu} />}
+        {screen === 'about' && <About onBack={goBack} />}
         {achToast && (
           <p class="toast ach-toast" role="status" onClick={() => setAchToast(null)}>
             <Icon name="medal" /> {ui.t('ach.toast')} <strong>{ui.t(`ach.${achToast}.title`)}</strong>
           </p>
         )}
-        {screen === 'awards' && <Awards earned={earned} memorial={memorial} onBack={toMenu} onTrain={startTraining} />}
+        {screen === 'awards' && <Awards earned={earned} memorial={memorial} onBack={goBack} onTrain={startTraining} />}
         {screen === 'awards' && trainingProps && <DreamModal {...trainingProps} />}
         {soundHint && (
           <p class="toast" role="status" onClick={() => setSoundHint(false)}>

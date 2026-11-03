@@ -72,8 +72,15 @@ function common(): Record<string, unknown> {
   return { platform: 'web', lang: context.lang ?? '', build: BUILD, ab: abBucket(), session_id: session, player_id: player, ...context }
 }
 
-/** События-счётчики: имя → поле, по которому считать (session_end.tabs = {life: 5, hero: 2}, .speeds). */
-const AGGREGATED: Record<string, string> = { tab_open: 'tab', speed_change: 'speed' }
+/** События-счётчики: имя → [поле, по которому считать ('' - просто сколько раз), поле в session_end]:
+ *  session_end.tabs = {life: 5, hero: 2}, .speeds = {0: 3, 0.5: 1}, .next_events = {'': 4}. */
+const AGGREGATED: Record<string, [string, string]> = {
+  tab_open: ['tab', 'tabs'],
+  speed_change: ['speed', 'speeds'],
+  next_event_click: ['', 'next_events'],
+  historian_open: ['', 'historian'],
+  people_open: ['', 'people'],
+}
 let counts: Record<string, Record<string, number>> = {}
 
 function flush(beacon = false): void {
@@ -172,14 +179,13 @@ export const webPlatform: Platform = {
     // а их было почти треть всех событий. Копятся счётчиками и уходят одним полем в session_end.
     const agg = AGGREGATED[event]
     if (agg) {
-      const v = String(params[agg] ?? '')
+      const v = agg[0] ? String(params[agg[0]] ?? '') : ''
       const c = (counts[event] ??= {})
       c[v] = (c[v] ?? 0) + 1
       return
     }
     if (event === 'session_end') {
-      if (counts.tab_open) params = { ...params, tabs: counts.tab_open }
-      if (counts.speed_change) params = { ...params, speeds: counts.speed_change }
+      for (const [name, [, field]] of Object.entries(AGGREGATED)) if (counts[name]) params = { ...params, [field]: counts[name] }
       counts = {}
     }
     const full = { ...common(), ...params }

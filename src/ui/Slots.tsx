@@ -104,7 +104,7 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
               <Icon name={props.tag.icon} /> {props.tag.text}
             </span>
           ))}
-        <div class="reel-window" style={{ height: `${WINDOW}px` }}>
+        <div class="reel-window" aria-hidden="true" style={{ height: `${WINDOW}px` }}>
           {/* Соседние строки видны только у середины и плавно гаснут к краям окна, чтобы надписи не обрезались. */}
           <div class="reel-clip">
             <div
@@ -291,9 +291,12 @@ export function SlotMachine(props: {
       {phase !== 'idle' && phase !== 'done' && <p class="muted center small">{t('spin.wait')}</p>}
       {phase === 'done' && (
         <div class="spin-result" ref={result}>
-          <Scene scene={{ place: 'landmark', time: 'dawn', people: 2, props: ['sun'] }} region={birth.region} seed={`spin:${props.seed}`} label={t(`region.${birth.region}`)} />
-          <p class="lead center">
-            {t('spin.result', { cls: { key: `class.${birth.royal ? 'royal' : birth.cls}.family` }, region: { key: `region.${birth.region}` }, era: { key: `era.${birth.era}` }, year: formatYear(birth.year, lang) }, o)}
+          {/* Итог сразу под окнами барабана, без картинки: кнопка «Узнать свою семью» - в том же экране (правка 14).
+              Край и год - отдельной строкой: в описании семьи город бывает назван, и он не повторяется подряд (правка 20). */}
+          <p class="lead center" aria-live="polite">
+            <strong>{t('spin.result', { cls: { key: `class.${birth.royal ? 'royal' : birth.cls}.family` } }, o)}</strong>
+            <br />
+            <span class="muted">{t('spin.result.where', { region: { key: `region.${birth.region}` }, year: formatYear(birth.year, lang) }, o)}</span>
           </p>
           {!props.error && (
             <button class="primary" onClick={props.onDone} disabled={!props.ready}>

@@ -13,7 +13,7 @@ function hash(s: string): number {
   for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619)
   return h >>> 0
 }
-const share = (id: string, salt: string, p: number) => p >= 1 || (p > 0 && hash(`${id}:${salt}`) / 4294967296 < p)
+export const share = (id: string, salt: string, p: number) => p >= 1 || (p > 0 && hash(`${id}:${salt}`) / 4294967296 < p)
 
 /** Группа игрока: доля goal_share с целью, среди них goal_marks_share - с метками; ?goal=0|1|2 - проверить руками. */
 export function goalGroup(playerId: string, flags: { goal_share: number; goal_marks_share: number }): GoalGroup {
@@ -21,6 +21,13 @@ export function goalGroup(playerId: string, flags: { goal_share: number; goal_ma
   if (forced === '0' || forced === '1' || forced === '2') return Number(forced) as GoalGroup
   if (!share(playerId, 'goal', flags.goal_share)) return 0
   return share(playerId, 'marks', flags.goal_marks_share) ? 2 : 1
+}
+
+/** Эксперимент X0: короткие первые события жизни; ?short=0|1 - проверить руками. */
+export function shortFirst(playerId: string, flags: { short_first_share: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('short') : null
+  if (forced === '0' || forced === '1') return forced === '1'
+  return share(playerId, 'short_first', flags.short_first_share)
 }
 
 /** Незаконченная цель родителя, которую может взять наследник. */
