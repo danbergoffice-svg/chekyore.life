@@ -2,7 +2,7 @@ import { applyTheme } from '../theme'
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
-import { continueWithHeir, heirs, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
+import { continueWithHeir, heirHome, heirs, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
 import type { GameSettings, GameState, LifeSummary } from '../engine/types'
@@ -763,6 +763,13 @@ export function App() {
 
   const onHeir = (childId: string) => {
     if (!era) return
+    // Наследник остался на родине - сначала загрузить ту страну.
+    const child = heirs(game.current!).find((n) => n.id === childId)
+    const home = child && heirHome(game.current!, child)
+    if (home && !isEraLoaded(home.era)) {
+      ensure(home.era).then(() => isEraLoaded(home.era) && onHeir(childId))
+      return
+    }
     const prevYear = game.current!.year
     game.current = continueWithHeir(game.current!, era, childId)
     // Наследник - тоже одна из первых защищённых жизней (обычно вторая): до 20 лет не погибает.

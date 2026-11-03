@@ -281,6 +281,14 @@ export function resolveRegion(state: GameState, era: EraMeta, target: string): s
 
 // ---------- Персонажи ----------
 
+/** Где герой родился: era и region меняются при переезде, а первые страна и место пути - нет. */
+export function birthPlace(h: { era: string; region: string; places?: string[]; erasLived?: string[] }): { era: string; region: string } {
+  const era = h.erasLived?.[0] ?? h.era
+  const first = h.places?.[0]
+  const region = first && ERA_META[era]?.regions.some((r) => r.id === first) ? first : h.region
+  return { era, region }
+}
+
 /** Слово для сословия: знать с отметкой royal (награда за главный экран и её наследники) - «царская семья». */
 export function classKey(cls: string, tags?: string[]): string {
   return cls === 'noble' && tags?.includes('royal') ? 'royal' : cls

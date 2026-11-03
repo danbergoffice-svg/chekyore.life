@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { survivalTable } from '../engine/report'
 import { EXTERNAL, platform } from '../platform'
-import { classKey, npcAge, roleKey } from '../engine/rules'
+import { birthPlace, classKey, npcAge, roleKey } from '../engine/rules'
 import type { DiaryEntry, EraDef, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
 import { formatYear, nameOf } from '../i18n'
 import { dreamDef } from '../engine/dreams'
@@ -62,6 +62,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   // Старые записи мемориала без сословия при рождении показывают итоговое.
   const birthCls = classKey(r.facts.birthCls ?? life.cls, life.tags)
+  const born = birthPlace(life)
   const name = nameOf(life.name, lang)
   const [sharing, setSharing] = useState<false | 'life' | 'dream'>(false)
   const starred = life.starred ?? []
@@ -94,7 +95,8 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
       <section class="block record-card">
         <p class="eyebrow">{t('summary.record', { n: String(life.record ?? 1).padStart(6, '0') })}</p>
         <p class="muted small">
-          {t(`era.${life.era}`)} · {t(`region.${life.region}`)} · {t(`class.${birthCls}`, {}, o)}
+          {t(`era.${born.era}`)} · {t(`region.${born.region}`)}
+          {born.region !== life.region ? ` → ${born.era !== life.era ? `${t(`era.${life.era}`)} · ` : ''}${t(`region.${life.region}`)}` : ''} · {t(`class.${birthCls}`, {}, o)}
           {birthCls !== classKey(life.cls, life.tags) ? ` → ${t(`class.${classKey(life.cls, life.tags)}`, {}, o)}` : ''}
         </p>
         <p class="bio-text">{bio.join(' ')}</p>

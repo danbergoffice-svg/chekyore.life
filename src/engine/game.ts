@@ -894,16 +894,23 @@ export function choiceAvailable(state: GameState, choice: ChoiceDef): boolean {
 export function lockReason(state: GameState, choice: ChoiceDef): { key: string; params?: Record<string, TextParam> } | null {
   if (addsSpouse(choice) && aliveNpcs(state.hero, 'spouse').length > 0) return { key: 'event.lock.married' }
   const failed = (choice.requirements ?? []).find((c) => !check(state, c))
-  return failed ? conditionReason(failed) : null
+  return failed ? conditionReason(state, failed) : null
 }
 
-function conditionReason(c: Condition): { key: string; params?: Record<string, TextParam> } {
+/** Метки, о которых можно сказать словами: есть метка → ключ event.lock.tag.*, нет → event.lock.no_tag.*. */
+const LOCK_TAGS = ['enslaved', 'married', 'lives_in_city', 'in_debt']
+
+function conditionReason(state: GameState, c: Condition): { key: string; params?: Record<string, TextParam> } {
   if ('param' in c) {
+    const have = Math.round(getParam(state.hero, c.param))
     if (c.param === 'money') return { key: 'event.lock.money' }
-    if ((ATTRIBUTES as readonly string[]).includes(c.param)) return { key: 'event.lock.need', params: { what: { key: `attr.${c.param}` }, n: c.value } }
+    if ((ATTRIBUTES as readonly string[]).includes(c.param)) return { key: 'event.lock.need', params: { what: { key: `attr.${c.param}` }, n: c.value, have } }
     if (c.param === 'reputation') return { key: 'event.lock.reputation' }
+    if (c.param === 'homesick') return { key: 'event.lock.homesick' }
   }
-  if ('skill' in c) return { key: 'event.lock.need', params: { what: { key: `skill.${c.skill}` }, n: c.value } }
+  if ('skill' in c) return { key: 'event.lock.need', params: { what: { key: `skill.${c.skill}` }, n: c.value, have: Math.round(state.hero.skills[c.skill] ?? 0) } }
+  if ('tag' in c && LOCK_TAGS.includes(c.tag)) return { key: `event.lock.tag.${c.tag}` }
+  if ('tag_absent' in c && LOCK_TAGS.includes(c.tag_absent)) return { key: `event.lock.no_tag.${c.tag_absent}` }
   if ('sex' in c) return { key: `event.lock.sex.${c.sex}` }
   if ('classes' in c) return { key: 'event.lock.class' }
   if ('age' in c) return { key: 'event.lock.age', params: { a: c.age[0], b: c.age[1] } }
@@ -914,7 +921,7 @@ function conditionReason(c: Condition): { key: string; params?: Record<string, T
   if ('profession' in c || 'no_profession' in c) return { key: 'event.lock.profession' }
   if ('status' in c) return { key: 'event.lock.status' }
   // «Одно из»: первая причина, которую можно назвать словами.
-  if ('any' in c && c.any.length) return c.any.map(conditionReason).find((r) => r.key !== 'event.lock.other') ?? { key: 'event.lock.other' }
+  if ('any' in c && c.any.length) return c.any.map((x) => conditionReason(state, x)).find((r) => r.key !== 'event.lock.other') ?? { key: 'event.lock.other' }
   return { key: 'event.lock.other' }
 }
 

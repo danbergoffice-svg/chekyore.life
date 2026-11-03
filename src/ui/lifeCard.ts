@@ -4,7 +4,7 @@ import { ERA_FOLDER, ERA_META } from '../content'
 import { dreamDef } from '../engine/dreams'
 import { lifeHighlights, lifeThemes, outlivedShare, rankQuotes } from '../engine/highlights'
 import type { Quote } from '../engine/highlights'
-import { classKey } from '../engine/rules'
+import { birthPlace, classKey } from '../engine/rules'
 import type { Lang, LifeSummary, SceneDef } from '../engine/types'
 import { LOCALE, nameOf, percent } from '../i18n'
 import type { T } from '../i18n'
@@ -91,11 +91,12 @@ export function lifeCardData(
     { value: percent(outlivedShare(life), lang), label: t('card.stat.outlived') },
     ...(coin ? [{ value: wealth.toLocaleString(LOCALE[lang]), label: t(`coin.${coin}`, { n: wealth }) }] : []),
   ]
+  const born = birthPlace(life)
   return {
     brand: t('app.title'),
     stats,
     name: nameOf(life.name, lang),
-    meta: `${t('life.age', { n: life.age })} · ${span(life.birthYear, life.deathYear, lang)} · ${t(`region.${life.region}`)}, ${t(`era.${life.era}.short`)}`,
+    meta: `${t('life.age', { n: life.age })} · ${span(life.birthYear, life.deathYear, lang)} · ${t(`region.${born.region}`)}, ${t(`era.${born.era}.short`)}`,
     title,
     path,
     hook,
@@ -107,8 +108,8 @@ export function lifeCardData(
     ask: t('card.ask'),
     ageLine: t('life.age', { n: life.age }),
     years: span(life.birthYear, life.deathYear, lang),
-    place: `${t(`region.${life.region}`)}, ${t(`era.${life.era}.short`)}`,
-    tags: [t('app.title'), t(`region.${life.region}`), t(`era.${life.era}.short`).split(/[:(]/)[0]].map(hashtag),
+    place: `${t(`region.${born.region}`)}, ${t(`era.${born.era}.short`)}`,
+    tags: [t('app.title'), t(`region.${born.region}`), t(`era.${born.era}.short`).split(/[:(]/)[0]].map(hashtag),
     site: opts.site,
     region: life.region,
     seed: life.heroId,

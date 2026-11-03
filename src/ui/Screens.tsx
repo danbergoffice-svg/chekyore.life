@@ -2,7 +2,7 @@ import type { ComponentChildren } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { heirs, inheritanceShare } from '../engine/life'
 import { ACHIEVEMENTS } from '../engine/achievements'
-import { classKey, descentOf, regionOf, roleKey, yearsBetween } from '../engine/rules'
+import { birthPlace, classKey, descentOf, regionOf, roleKey, yearsBetween } from '../engine/rules'
 import { ERA_IDS, ERA_META } from '../content'
 import STATS from '../content/stats.json'
 import type { EraDef, GameState, Lang, LifeSummary, SceneDef } from '../engine/types'
@@ -552,7 +552,7 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
               <li>
                 <button class="tree-row" onClick={() => props.onOpen(l.heroId)}>
                   <span class="muted">
-                    {t('memorial.generation', { n: l.generation })} · {t(`region.${l.region}`)} · {t(`archetype.${l.report.pattern.code}`)}
+                    {t('memorial.generation', { n: l.generation })} · {t(`region.${birthPlace(l).region}`)} · {t(`archetype.${l.report.pattern.code}`)}
                   </span>
                   <span>
                     {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} - {formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}

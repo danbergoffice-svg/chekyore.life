@@ -5,7 +5,7 @@ import { initHousehold } from './household'
 import { isPet } from './pets'
 import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
-import type { AttrId, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
+import type { AttrId, AwayReason, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
 
 export const SAVE_VERSION = 5
 
@@ -256,20 +256,35 @@ export function eraEnding(state: GameState): boolean {
  * Кто может продолжить род: живые дети, которые рядом (не уехали); если детей нет - внуки,
  * если и внуков нет - правнуки. Внутри колена - по старшинству.
  */
+/** Кто вдали от героя, но может продолжить род: оставшийся на родине, когда герой уехал на чужбину
+ * (род продолжается там). Уехавший неизвестно куда, проданный, сосланный, ушедший в монастырь - нет. */
+const HEIR_AWAY: AwayReason[] = ['homeland']
+
 export function heirs(state: GameState): Npc[] {
   const npcs = state.hero.npcs
   for (const gen of [1, 2, 3]) {
-    const list = npcs.filter((n) => n.alive && !n.away && descentOf(npcs, n) === gen).sort((a, b) => a.birthYear - b.birthYear)
+    const list = npcs.filter((n) => n.alive && (!n.away || HEIR_AWAY.includes(n.away.reason)) && descentOf(npcs, n) === gen).sort((a, b) => a.birthYear - b.birthYear)
     if (list.length) return list
   }
   return []
+}
+
+/** Где живёт наследник, оставшийся на родине, когда герой уехал на чужбину; null - там же, где герой. */
+export function heirHome(state: GameState, child: Npc): { era: string; region: string } | null {
+  const home = state.hero.abroad?.homeland
+  if (!home) return null
+  // Внук или правнук - там же, где его родитель (ребёнок героя).
+  let n: Npc | undefined = child
+  while (n && n.role !== 'child') n = state.hero.npcs.find((x) => x.id === n!.parentId)
+  return n?.away?.reason === 'homeland' ? home : null
 }
 
 /** Доля наследства, которую получит этот ребёнок. */
 export function inheritanceShare(state: GameState, era: EraDef, child: Npc): number {
   const kids = heirs(state)
   const money = Math.max(0, state.hero.money)
-  if ((regionOf(era, state.hero.region).inheritance ?? era.inheritance) === 'sons_first') {
+  // Наследник на родине делит имущество по её обычаю: края уехавшего героя в этой стране может не быть.
+  if ((era.regions.find((r) => r.id === state.hero.region)?.inheritance ?? era.inheritance) === 'sons_first') {
     const sons = kids.filter((k) => k.sex === 'm')
     if (sons.length > 0) {
       // Сыновья делят имущество, дочерям - приданое примерно в десятую часть.
@@ -347,6 +362,10 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   if (parent.era !== era.id && isEraLoaded(parent.era)) era = eraById(parent.era)
   const child = heirs(prev).find((n) => n.id === childId)
   if (!child) throw new Error('Heir not found')
+  // Наследник остался на родине: род продолжается там (страну загружает интерфейс заранее).
+  const left = heirHome(prev, child)
+  const home = left && isEraLoaded(left.era) ? left : null
+  if (home) era = eraById(home.era)
   const gen = descentOf(parent.npcs, child)
 
   const hero = emptyHero(parent.seed)
@@ -361,11 +380,12 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   }
   hero.id = `h${prev.nextId++}`
   state.nextId = prev.nextId
-  hero.era = parent.era
-  hero.region = parent.region
-  hero.places = [parent.places[parent.places.length - 1] ?? parent.region]
-  hero.cls = parent.cls
-  hero.birthCls = parent.cls
+  hero.era = home ? era.id : parent.era
+  hero.region = home ? home.region : parent.region
+  hero.places = home ? [home.region] : [parent.places[parent.places.length - 1] ?? parent.region]
+  // Сословие чужбины может не найтись на родине - тогда то, в котором родился родитель.
+  hero.cls = era.classes.some((c) => c.id === parent.cls) ? parent.cls : (parent.birthCls ?? era.classes[0].id)
+  hero.birthCls = hero.cls
   // Деды наследника - родители умершего героя (для детей наследника это прадеды);
   // у внука деды - сам умерший герой и его супруг.
   hero.ancestors =
@@ -394,7 +414,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   if (parent.tags.includes('royal') && hero.cls === 'noble') hero.tags.push('royal')
   // Чужбина: ребёнок, привезённый из родной страны, - ещё немного чужой; рождённый здесь - здешний.
   const pa = parent.abroad
-  if (pa && !pa.naturalized && child.birthYear < pa.since) {
+  if (pa && !home && !pa.naturalized && child.birthYear < pa.since) {
     hero.abroad = { ...pa, integration: Math.max(pa.integration, 55), homesick: 20, refusals: 0, nextAsk: prev.year + 3, planned: false }
   }
   hero.erasLived = [hero.era]

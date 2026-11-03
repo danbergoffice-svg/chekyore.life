@@ -246,7 +246,7 @@
   "dream.eratosthenes.failure": "The sages mocked you: \"The Earth is flat as a pancake, anyone can see that.\"",
   "dream.eratosthenes.death": "You were accused of heresy. The trial was short.",
   "dream.eratosthenes.known": "Here they've long known the Earth is round; you only repeated the ancients.",
-  "dream.eratosthenes.truth": "Eratosthenes in Egypt around 240 BC compared noon shadows in Syene and Alexandria (7.2°, 5,000 stadia) and got a circumference of about 40,000 km - nearly exact. Aristotle had already noted the Earth's round shadow on the Moon.",
+  "dream.eratosthenes.truth": "Eratosthenes in Egypt around 240 BC compared noon shadows in Syene and Alexandria: 7.2° (1/50 of a circle) over 5,000 stadia - 250,000 stadia in all. Depending on the stadion, that is 39,000 to 46,000 km; the true circumference is 40,075 km. Aristotle had already noted the Earth’s round shadow on the Moon.",
   "dream.eratosthenes.opt.pole": "a pole",
   "dream.eratosthenes.opt.same_noon": "noon on the same day",
   "dream.eratosthenes.opt.caravan_distance": "the distance by caravan or by paces",

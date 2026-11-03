@@ -72,4 +72,22 @@ describe('Переезд в другую страну (п. 11)', () => {
       expect(next.hero.era).toBe('BYZ')
     }
   })
+
+  it('взрослые дети, оставшиеся на родине, продолжают род там (раньше «живых детей не осталось»)', () => {
+    const s = newLife(eras.RUS, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 21)
+    s.year = 1300
+    s.hero.region = 'novgorod'
+    s.hero.age = 50
+    const son = { ...s.hero.npcs[0], id: 'son1', role: 'child' as const, sex: 'm' as const, birthYear: 1275, alive: true, married: true, away: undefined, parentId: undefined }
+    s.hero.npcs.push(son)
+    expect(emigrate(s, 'BYZ', 'trade', 'sons')).toBe(true)
+    expect(s.hero.alive).toBe(true)
+    expect(s.hero.npcs.find((n) => n.id === 'son1')?.away?.reason).toBe('homeland')
+    s.hero.alive = false
+    expect(heirs(s).map((n) => n.id)).toContain('son1')
+    const next = continueWithHeir(s, eras.BYZ, 'son1')
+    expect(next.hero.era).toBe('RUS')
+    expect(next.hero.region).toBe('novgorod')
+    expect(next.hero.abroad).toBeUndefined()
+  })
 })
