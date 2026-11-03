@@ -66,6 +66,15 @@ describe('Контент', () => {
     expect([...en].filter((k) => !ru.has(k))).toEqual([])
   })
 
+  it('у каждого сна есть название в «Школьной программе» на всех языках', () => {
+    const dreams = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/content/dreams.json'), 'utf8'))
+    const ids: string[] = (Array.isArray(dreams) ? dreams : dreams.dreams).map((d: { id: string }) => d.id)
+    for (const lang of ['ru', 'en', 'tr'] as const) {
+      const keys = new Set(allKeys(lang))
+      expect(ids.filter((id) => !keys.has(`school.${id}`)), lang).toEqual([])
+    }
+  })
+
   it('после подстановки не остаётся фигурных скобок', () => {
     expect(leftoverBraces()).toEqual([])
   })
