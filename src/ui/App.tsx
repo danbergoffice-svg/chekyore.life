@@ -873,7 +873,8 @@ export function App() {
       saveGame(game.current)
     }
   }
-  const lastLife = state?.phase === 'dead' ? memorial.find((l) => l.heroId === state.hero.id) ?? state.family.lives[state.family.lives.length - 1] : null
+  // Итог только что умершего героя - его собственная запись (последняя в семье), а не первая с тем же id в мемориале.
+  const lastLife = state?.phase === 'dead' ? ([...memorial].reverse().find((l) => l.heroId === state.hero.id) ?? state.family.lives[state.family.lives.length - 1]) : null
   const openedLife = memorial.find((l) => l.heroId === opened)
   const openedEra = openedLife && isEraLoaded(openedLife.era) ? eraById(openedLife.era) : null
 

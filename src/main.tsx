@@ -2,6 +2,7 @@ import { render } from 'preact'
 import { initPlatform, platform } from './platform'
 import { applyTheme, savedTheme } from './theme'
 import { App } from './ui/App'
+import { CrashGuard, watchErrors } from './ui/Crash'
 // Шрифты лежат в сборке (внешних запросов нет): Alegreya - основной текст, «Летопись» - крупные надписи (style.css).
 import '@fontsource-variable/alegreya/wght.css'
 import '@fontsource-variable/alegreya/wght-italic.css'
@@ -21,7 +22,27 @@ initPlatform()
 // В index.html внутри #app - текст для поисковиков и первых мгновений загрузки; игра рисуется на его месте.
 const root = document.getElementById('app')!
 root.textContent = ''
-render(<App />, root)
+watchErrors()
+render(
+  <CrashGuard text={crashText()}>
+    <App />
+  </CrashGuard>,
+  root,
+)
+
+/** Тексты экрана ошибки - без словарей игры (они могли и сломаться): язык из настроек или браузера. */
+function crashText() {
+  let lang = ''
+  try {
+    lang = JSON.parse(localStorage.getItem('thousands.prefs') ?? '{}').lang ?? ''
+  } catch {
+    // нет настроек
+  }
+  lang ||= navigator.language.slice(0, 2)
+  if (lang === 'ru') return { title: 'Что-то пошло не так', body: 'Игра споткнулась. Жизнь сохранена - нажмите, чтобы продолжить.', button: 'Продолжить' }
+  if (lang === 'tr') return { title: 'Bir şeyler ters gitti', body: 'Oyun takıldı. Hayatın kaydedildi - devam etmek için dokun.', button: 'Devam et' }
+  return { title: 'Something went wrong', body: 'The game stumbled. Your life is saved - tap to continue.', button: 'Continue' }
+}
 
 // Офлайн-кэш - только на своём сайте: на порталах игру отдаёт их сервер.
 if (import.meta.env.PROD && platform.name === 'web' && 'serviceWorker' in navigator) {

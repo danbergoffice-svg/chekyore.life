@@ -65,7 +65,9 @@ export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose, t
       if (input.kind === 'pick') return (want as string[]).map(opt).join(', ')
       if (input.kind === 'order') return (want as string[]).map(opt).join(' → ')
       if (input.kind === 'ratio') return Object.entries(want as Record<string, number>).map(([k, v]) => `${opt(k)} ${percent(v, lang as Lang)}`).join(', ')
-      return `${fmt(want as number, lang)} ${unit(input.unit)}`.trim()
+      // Градусы и проценты - без пробела: 45°, 84%.
+      const u = unit(input.unit)
+      return u === '°' || u === '%' ? `${fmt(want as number, lang)}${u}` : `${fmt(want as number, lang)} ${u}`.trim()
     }
     const text = result.outcome === 'partial' && d.known ? `dream.${d.id}.known` : `dream.${d.id}.${result.outcome}`
     return (
@@ -75,7 +77,7 @@ export function DreamModal({ state, result, onAnswer, onHint, onWake, onClose, t
             <p class="eyebrow">{t(training ? 'dream.training' : 'dream.title_block')}</p>
             <h2 id="dream-title">{t(`dream.${d.id}.title`)}</h2>
             <p class="dream-result">
-              {t('dream.score', { n: d.score ?? 0 })} · <strong>{t(`dream.result.${result.outcome}`)}</strong>
+              {t('dream.score', { n: d.score ?? 0 })} · <strong>{t(result.outcome === 'partial' && d.known ? 'dream.result.known' : `dream.result.${result.outcome}`)}</strong>
             </p>
             <p>{training ? t('dream.training.result', { n: d.score ?? 0 }) : t(text, params, o)}</p>
             <div class="dream-truth">

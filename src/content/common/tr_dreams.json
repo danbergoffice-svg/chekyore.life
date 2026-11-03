@@ -437,6 +437,7 @@
   "dream.result.partial": "kısmi başarı",
   "dream.result.failure": "başarısızlık",
   "dream.result.death": "ölüm",
+  "dream.result.known": "burada zaten biliniyor",
   "dream.score": "Doğru adımlar: {n} / 3",
   "dream.truth_title": "Gerçekte nasıldı",
   "dream.answers": "Doğru cevaplar",

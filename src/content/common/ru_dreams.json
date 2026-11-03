@@ -410,6 +410,7 @@
   "dream.result.partial": "частичный успех",
   "dream.result.failure": "провал",
   "dream.result.death": "гибель",
+  "dream.result.known": "это здесь уже знают",
   "dream.score": "Верных шагов: {n} из 3",
   "dream.truth_title": "Как было на самом деле",
   "dream.answers": "Верные ответы",

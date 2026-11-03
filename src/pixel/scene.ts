@@ -15,6 +15,8 @@ import { climateOf, seasonLook, seasonName } from './season'
 import { artFor, artStrength, drawBackground, paletteMapper, stylize } from './art'
 import { detailHouses } from './detail'
 import { drawAnimal, NATIVE_ANIMALS } from './animals'
+import { buildHdStreet, hasHd, hdEnabled, HD_H, HD_W } from './hd'
+import type { HdLayers } from './hd'
 import type { ArtStyle } from './art'
 import type { SeasonLook, SeasonName } from './season'
 import type { SceneDef, SceneProp, ScenePlace, SceneTime } from '../engine/types'
@@ -1940,6 +1942,8 @@ export interface BuiltScene {
   place: ScenePlace
   time: SceneTime
   mood?: SceneMood
+  /** Детальный фон 960×300 (пилот hd.ts): тогда холст сцены втрое больше, люди и движение - поверх, увеличенные. */
+  hd?: HdLayers
 }
 
 const CACHE = new Map<string, BuiltScene>()
@@ -1954,7 +1958,7 @@ function layer(): [HTMLCanvasElement, Ctx] {
 /** Ключ кэша: всё, от чего зависит неподвижная часть сцены (время года - восьмыми долями). */
 export function sceneKey(input: SceneInput): string {
   const season = input.season === undefined ? null : Math.floor(input.season * 8) % 8
-  return JSON.stringify([input.scene, input.region, input.seed, input.cast ?? null, season, input.weather ?? null, input.mood ?? null, input.art ?? 'half', input.year ?? null, artStrength()])
+  return JSON.stringify([input.scene, input.region, input.seed, input.cast ?? null, season, input.weather ?? null, input.mood ?? null, input.art ?? 'half', input.year ?? null, artStrength(), hdEnabled()])
 }
 
 /** Сцена из кэша или собранная заново (последние 24). */
@@ -1979,6 +1983,7 @@ export function drawScene(ctx: CanvasRenderingContext2D, input: SceneInput, t = 
 
 /** Кадр: слои складываются, поверх - движение. */
 export function composeScene(ctx: CanvasRenderingContext2D, b: BuiltScene, t: number): void {
+  if (b.hd) return composeHd(ctx, b, b.hd, t)
   ctx.imageSmoothingEnabled = false
   ctx.clearRect(0, 0, W, H)
   ctx.drawImage(b.sky, 0, 0)
@@ -1998,6 +2003,70 @@ export function composeScene(ctx: CanvasRenderingContext2D, b: BuiltScene, t: nu
     ctx.fillStyle = '#f2ead8'
     ctx.font = "700 11px 'Alegreya Variable', Georgia, serif"
     ctx.fillText(b.badge.text, b.badge.x, b.badge.y)
+  }
+}
+
+/** Размер холста сцены: детальный фон - 960×300, прежняя сцена - 320×100. */
+export function sceneSize(b: BuiltScene): [number, number] {
+  return b.hd ? [HD_W, HD_H] : [W, H]
+}
+
+let overlay: [HTMLCanvasElement, Ctx] | null = null
+let hdOut: [HTMLCanvasElement, Ctx] | null = null
+
+/** Кадр детальной сцены: фон в полном разрешении, люди и движение - в прежней сетке, увеличенные втрое. */
+function composeHd(target: Ctx, b: BuiltScene, hd: HdLayers, t: number): void {
+  overlay ??= layer()
+  const [oc, o] = overlay
+  // Холст другого размера (карточка для соцсетей, стенд) - сначала в свой холст 960×300, потом уменьшить.
+  let ctx = target
+  if (target.canvas.width !== HD_W || target.canvas.height !== HD_H) {
+    if (!hdOut) {
+      const c = document.createElement('canvas')
+      c.width = HD_W
+      c.height = HD_H
+      hdOut = [c, c.getContext('2d')!]
+    }
+    ctx = hdOut[1]
+  }
+  const up = () => {
+    ctx.imageSmoothingEnabled = false
+    ctx.drawImage(oc, 0, 0, HD_W, HD_H)
+    ctx.imageSmoothingEnabled = true
+  }
+  ctx.imageSmoothingEnabled = true
+  ctx.clearRect(0, 0, HD_W, HD_H)
+  ctx.drawImage(hd.sky, 0, 0)
+  // Облака плывут по ветру, полоса вдвое шире кадра повторяется.
+  const cw = hd.clouds.width
+  const shift = ((((t * 4 * (b.fx.wind >= 0 ? 1 : -1)) % cw) + cw) % cw)
+  ctx.drawImage(hd.clouds, -shift, 0)
+  ctx.drawImage(hd.clouds, cw - shift, 0)
+  o.clearRect(0, 0, W, H)
+  drawFxBack(o, b.fx, t)
+  up()
+  ctx.drawImage(hd.far, Math.round(Math.sin(t / 9) * 6), 0)
+  ctx.drawImage(hd.main, 0, 0)
+  o.clearRect(0, 0, W, H)
+  o.imageSmoothingEnabled = false
+  drawFxMid(o, b.fx, t)
+  colorMap = b.colors
+  for (const a of b.actors) a.draw(o, t)
+  colorMap = null
+  o.drawImage(b.front, 0, 0)
+  drawFxTop(o, b.fx, t)
+  if (b.badge) {
+    o.fillStyle = 'rgba(20,16,12,0.7)'
+    o.fillRect(b.badge.x - 2, b.badge.y - 10, 20, 13)
+    o.fillStyle = '#f2ead8'
+    o.font = "700 11px 'Alegreya Variable', Georgia, serif"
+    o.fillText(b.badge.text, b.badge.x, b.badge.y)
+  }
+  up()
+  if (ctx !== target) {
+    target.imageSmoothingEnabled = true
+    target.clearRect(0, 0, target.canvas.width, target.canvas.height)
+    target.drawImage(hdOut![0], 0, 0, target.canvas.width, target.canvas.height)
   }
 }
 
@@ -2045,20 +2114,28 @@ function build(input: SceneInput): BuiltScene {
   const px = scaledPx(ctx)
   const skyPx = scaledPx(skyX)
   const frontPx = scaledPx(frontX)
+  // Детальный фон (пилот): улица Европы. Прежние небо, дома и земля не рисуются, люди и движение - как были.
+  const hd = outdoor && !scene.disaster && hdEnabled() && hasHd(place, look.style) ? buildHdStreet(`${seed}:${region}`, time, SKY[time]) : undefined
   sky(skyPx, time, r)
-  const traditional = !!art && artMode === 'full' && outdoor && drawBackground(skyX, W, Math.round(GROUND * S), art, time === 'day' ? null : SKY[time][2])
+  if (hd) fx.stars = []
+  const traditional = !hd && !!art && artMode === 'full' && outdoor && drawBackground(skyX, W, Math.round(GROUND * S), art, time === 'day' ? null : SKY[time][2])
   if (traditional) fx.stars = []
   const props = scene.props ?? []
   // В ненастье солнца не видно.
-  if (props.includes('sun') && outdoor && !(input.weather && ['rain', 'snow', 'storm', 'fog'].includes(input.weather))) prop(skyPx, 'sun', 0, time, p, 0, r)
+  if (!hd && props.includes('sun') && outdoor && !(input.weather && ['rain', 'snow', 'storm', 'fog'].includes(input.weather))) prop(skyPx, 'sun', 0, time, p, 0, r)
   if (props.includes('moon')) prop(skyPx, 'moon', 0, time, p, 0, r)
   if (outdoor && !traditional) {
-    fx.clouds = { ...CLOUDS[time] }
+    if (!hd) fx.clouds = { ...CLOUDS[time] }
     if (time !== 'night' && !props.includes('rain') && place !== 'battle') fx.birds = 1 + Math.floor(noise(fx.seed, 2, 2) * 3)
   }
   if (input.weather !== undefined) fx.weather = input.weather ?? undefined
-  backdrop(px, place, region, time, look, r, cast?.home ?? 2, !scene.disaster && cast?.homeState === 'burned')
-  ground(px, place, p, time, r, look.style)
+  if (hd) {
+    built = hd.built
+    for (const c of hd.chimneys) fx.smoke.push({ x: Math.round((c.x * W) / HD_W), y: Math.round((c.y * H) / HD_H), size: 1 })
+  } else {
+    backdrop(px, place, region, time, look, r, cast?.home ?? 2, !scene.disaster && cast?.homeState === 'burned')
+    ground(px, place, p, time, r, look.style)
+  }
   const k = SHADE[time]
   if (scene.disaster) disasterOverlay(ctx, px, scene.disaster, SKY[time][3], r)
   else if (place === 'yard' && cast?.homeState) homeDamage(ctx, px, cast.homeState, k, r)
@@ -2195,7 +2272,7 @@ function build(input: SceneInput): BuiltScene {
     ctx.putImageData(img, 0, 0)
   }
   if (seasonNow || mood === 'epidemic') finishSeason(cur, seasonNow, mood === 'epidemic')
-  if (art && ak > 0) {
+  if (art && ak > 0 && !hd) {
     // Фактура и контур стиля - по готовым слоям построек и гор.
     for (const layerCtx of [ctx, farX]) {
       const img = layerCtx.getImageData(0, 0, W, H)
@@ -2219,7 +2296,7 @@ function build(input: SceneInput): BuiltScene {
   }
   // Не поместившиеся близкие - подписью «+N» справа от семьи, выше голов.
   const badge = cast?.more ? { x: Math.round(Math.min(LW - 14, start + span + 4) * S), y: Math.round((base - 15) * S), text: `+${cast.more}` } : undefined
-  return { sky: skyC, far: farC, main: mainC, front: frontC, actors: cur.actors, fx, badge, place, time, mood, colors }
+  return { sky: skyC, far: farC, main: mainC, front: frontC, actors: cur.actors, fx, badge, place, time, mood, colors, hd }
 }
 
 // ---------- Промпт для настоящей иллюстрации ----------

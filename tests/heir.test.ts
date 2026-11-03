@@ -49,3 +49,28 @@ describe('Глубокая старость', () => {
     expect(q105).toBeGreaterThan(q95)
   })
 })
+
+describe('id наследников (03.11: у разных семей повторялись h1, h2…)', () => {
+  it('наследники разных семей получают разные id; старые повторы в мемориале переименовываются', async () => {
+    const { uniqueHeroIds } = await import('../src/storage')
+    const era = ERAS.EUR
+    const ids = new Set<string>()
+    for (let i = 0; i < 60 && ids.size < 6; i++) {
+      const s = autoplay(newLife(era, soft, 7300 + i), era)
+      const h = heirs(s)[0]
+      if (!h) continue
+      const next = continueWithHeir(s, era, h.id)
+      expect(ids.has(next.hero.id)).toBe(false)
+      ids.add(next.hero.id)
+    }
+    expect(ids.size).toBe(6)
+    const a = { heroId: 'h11', name: 'Аббас' } as never
+    const b = { heroId: 'h11', name: 'Герон' } as never
+    const memorial = [a, b] as { heroId: string }[]
+    const game = { phase: 'year', hero: { id: 'h11' }, family: { id: 'fz' } } as never
+    uniqueHeroIds(game, memorial as never)
+    expect(memorial[0].heroId).not.toBe(memorial[1].heroId)
+    expect(memorial[1].heroId).toBe('h11')
+    expect((game as { hero: { id: string } }).hero.id).not.toBe('h11')
+  })
+})

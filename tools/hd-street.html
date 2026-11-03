@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Детальный фон: до и после</title>
+    <style>
+      body { background: #15171a; color: #ccc; font: 14px sans-serif; margin: 16px; }
+      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+      canvas { width: 100%; display: block; border-radius: 6px; }
+      canvas.old { image-rendering: pixelated; }
+      p { margin: 4px 0 0; }
+      h3 { margin: 0 0 6px; font-weight: 500; color: #eee; }
+      @media (max-width: 700px) { .row { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div id="list"></div>
+    <script type="module">
+      // Пилот детального фона: улица Европы. Слева - как сейчас, справа - новый фон; люди, дым и погода - те же.
+      // ?region=paris&seed=a&anim=1
+      import { buildScene, composeScene, sceneSize } from '../src/pixel/scene.ts'
+      import { setHd } from '../src/pixel/hd.ts'
+      const q = new URLSearchParams(location.search)
+      const region = q.get('region') || 'paris'
+      const seed = q.get('seed') || 'pilot'
+      const cast = { members: [
+        { role: 'hero', sex: 'm', age: 30, seed: 'h1', cls: 'craftsman', happiness: 60 },
+        { role: 'spouse', sex: 'f', age: 27, seed: 'h2', cls: 'craftsman', happiness: 60 },
+        { role: 'child', sex: 'f', age: 6, seed: 'h3', cls: 'craftsman', happiness: 60 },
+      ], animals: ['dog'] }
+      const rows = [
+        ['day', 'День', null], ['dawn', 'Рассвет', null], ['sunset', 'Закат', null], ['night', 'Ночь', null], ['overcast', 'Дождь', 'rain'],
+      ]
+      const list = document.getElementById('list')
+      const live = []
+      for (const [time, title, weather] of rows) {
+        const input = { scene: { place: 'street', time, people: 5 }, region, seed, cast, weather }
+        const row = document.createElement('div')
+        row.className = 'row'
+        const cell = (hd) => {
+          setHd(hd)
+          const b = buildScene(input)
+          const c = document.createElement('canvas')
+          ;[c.width, c.height] = sceneSize(b)
+          if (!hd) c.className = 'old'
+          composeScene(c.getContext('2d'), b, 0)
+          live.push([c, b])
+          const box = document.createElement('div')
+          const p = document.createElement('p')
+          p.textContent = hd ? 'Новый фон' : 'Сейчас'
+          box.append(c, p)
+          return box
+        }
+        const h = document.createElement('h3')
+        h.textContent = title
+        list.append(h)
+        row.append(cell(false), cell(true))
+        list.append(row)
+      }
+      if (q.get('anim') !== '0') {
+        let t = 0
+        setInterval(() => {
+          t += 0.1
+          for (const [c, b] of live) composeScene(c.getContext('2d'), b, t)
+        }, 100)
+      }
+      document.body.dataset.ready = '1'
+    </script>
+  </body>
+</html>

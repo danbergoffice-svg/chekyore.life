@@ -378,7 +378,8 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     // Защиту наследнику ставит игра (если он - одна из первых protected_lives жизней), сама она не переходит.
     settings: { ...prev.settings, protectedUntil: undefined },
   }
-  hero.id = `h${prev.nextId++}`
+  // id наследника - с семьёй: счётчик nextId у каждой семьи свой, без неё id повторялись (storage.uniqueHeroIds).
+  hero.id = `h${prev.family.id.replace(/^f/, '')}-${prev.nextId++}`
   state.nextId = prev.nextId
   hero.era = home ? era.id : parent.era
   hero.region = home ? home.region : parent.region

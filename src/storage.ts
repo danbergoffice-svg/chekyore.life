@@ -66,6 +66,22 @@ function migrate(game: GameState | undefined): GameState | null {
   return game
 }
 
+/**
+ * До 03.11.2026 наследник получал id h1, h2… от счётчика своей семьи - у разных семей id повторялись, и мемориал,
+ * итог жизни и награды находили чужую запись (Аббас вместо Герона, итог не той страны - пустой экран).
+ * Повторы в мемориале переименовываются (последняя запись - самая свежая - сохраняет id: на неё ссылается текущая
+ * игра); живой герой с чужим id получает свой.
+ */
+export function uniqueHeroIds(game: GameState | null, memorial: LifeSummary[]): void {
+  const seen = new Set<string>()
+  for (let i = memorial.length - 1; i >= 0; i--) {
+    const l = memorial[i]
+    if (seen.has(l.heroId)) l.heroId = `${l.heroId}~${i}`
+    seen.add(l.heroId)
+  }
+  if (game && game.phase !== 'dead' && seen.has(game.hero.id)) game.hero.id = `${game.hero.id}~${game.family.id}`
+}
+
 /** Жизни из первой беты без итогового отчёта открыть нельзя - их пропускаем. */
 function cleanMemorial(memorial: LifeSummary[] | undefined): LifeSummary[] {
   return (memorial ?? []).filter((l) => l && typeof l === 'object' && 'report' in l && Array.isArray(l.diary))
@@ -73,7 +89,9 @@ function cleanMemorial(memorial: LifeSummary[] | undefined): LifeSummary[] {
 
 export async function loadSave(): Promise<SaveFile> {
   const [game, memorial] = await Promise.all([get<GameState>('game'), get<LifeSummary[]>('memorial')])
-  return { version: SAVE_VERSION, game: migrate(game), memorial: cleanMemorial(memorial) }
+  const out = { version: SAVE_VERSION, game: migrate(game), memorial: cleanMemorial(memorial) }
+  uniqueHeroIds(out.game, out.memorial)
+  return out
 }
 
 export function saveGame(game: GameState | null): Promise<void> {
@@ -118,7 +136,9 @@ export function parseSaveFile(text: string): SaveFile | null {
   try {
     const data = JSON.parse(text) as SaveFile
     if (!Array.isArray(data.memorial)) return null
-    return { version: SAVE_VERSION, game: migrate(data.game ?? undefined), memorial: cleanMemorial(data.memorial) }
+    const out = { version: SAVE_VERSION, game: migrate(data.game ?? undefined), memorial: cleanMemorial(data.memorial) }
+    uniqueHeroIds(out.game, out.memorial)
+    return out
   } catch {
     return null
   }

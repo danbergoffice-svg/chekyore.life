@@ -410,6 +410,7 @@
   "dream.result.partial": "partial success",
   "dream.result.failure": "failure",
   "dream.result.death": "death",
+  "dream.result.known": "already known here",
   "dream.score": "Correct steps: {n} of 3",
   "dream.truth_title": "How it really was",
   "dream.answers": "Correct answers",

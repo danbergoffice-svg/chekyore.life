@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'preact/hooks'
 import type { SceneDef } from '../engine/types'
-import { buildScene, composeScene, H, lookOf, W } from './scene'
+import { buildScene, composeScene, H, lookOf, sceneSize, W } from './scene'
 import { frameImage } from './art'
 import type { BuiltScene, Cast, SceneMood } from './scene'
 import type { Weather } from './fx'
@@ -68,6 +68,13 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
     const ctx = canvas?.getContext('2d')
     if (!canvas || !ctx) return
     const built = buildScene(input)
+    // Детальный фон - холст втрое больше и рисуется плавно.
+    const [cw, ch] = sceneSize(built)
+    if (canvas.width !== cw || canvas.height !== ch) {
+      canvas.width = cw
+      canvas.height = ch
+    }
+    canvas.classList.toggle('hd', !!built.hd)
     composeScene(ctx, built, t.current)
     const amb = ambient ? pushAmbience(ambienceOf(built)) : 0
     if (still || reducedMotion()) return () => amb && popAmbience(amb)

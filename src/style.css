@@ -351,6 +351,7 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 
 /* Пиксельные сцены */
 .scene { display: block; width: 100%; aspect-ratio: 16 / 5; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; background: var(--paper-2); }
+.scene.hd { image-rendering: auto; }
 .panel > .scene { margin-bottom: 12px; }
 .modal > .scene { border-radius: 16px 16px 0 0; }
 /* Рисованная иллюстрация момента (G3): 256×144, 16:9. */
@@ -901,3 +902,5 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .diary-full { display: block; margin-top: 6px; font-size: 0.92rem; color: var(--ink-2); }
 .modal .note .people { display: grid; gap: 6px; padding: 0; list-style: none; }
 .modal .note .person { padding: 6px 10px; }
+
+.screen.crash { display: grid; gap: 12px; justify-items: center; text-align: center; padding: 80px 20px; }
