@@ -418,20 +418,22 @@ function targets(state: GameState, role: NpcTarget, ctx: EffectContext): Npc[] {
 
 /**
  * Во сколько раз деньги событий больше для этого героя: суммы в контенте написаны для простых людей
- * (годовой доход 150–330), а богатый за те же свадьбу, взятку или проигрыш платит больше. Уровень жизни - сословие
- * или доход занятия (что выше); до полутора расходов ремесленника страны суммы как написаны, выше - растут.
+ * (годовые расходы ремесленника страны), а богатый за те же свадьбу, взятку или проигрыш платит больше.
+ * Уровень жизни - что выше: расходы сословия, обычный доход занятия (с мастерством) или десятая часть казны,
+ * чтобы у богача с тысячами в сундуке выбор в событии тоже что-то значил. Ниже расходов ремесленника - как написано.
  */
 export function moneyScale(hero: Hero, era: EraDef | EraMeta): number {
   const ref = era.classes.find((c) => c.id === 'craftsman')?.upkeep || 200
   const prof = hero.profession ? era.professions.find((p) => p.id === hero.profession) : undefined
-  const level = Math.max(era.classes.find((c) => c.id === hero.cls)?.upkeep ?? 0, prof ? (prof.income[0] + prof.income[1]) / 2 : 0)
-  return Math.max(1, Math.min(8, level / (1.5 * ref)))
+  const usual = prof ? ((prof.income[0] + prof.income[1]) / 2) * (0.75 + (hero.skills?.[prof.skill] ?? 0) / 100) : 0
+  const level = Math.max(era.classes.find((c) => c.id === hero.cls)?.upkeep ?? 0, usual, Math.max(0, hero.money ?? 0) * 0.1)
+  return Math.max(1, Math.min(20, level / ref))
 }
 
-/** Деньги события для героя: траты растут с уровнем жизни (степень 0,75 - у знати примерно вчетверо), доходы - медленнее (корень). */
+/** Деньги события для героя: траты - почти в меру уровня жизни (степень 0,9), доходы - медленнее (0,8), чтобы богатство не росло само. */
 export function scaledMoney(hero: Hero, era: EraDef | EraMeta, delta: number): number {
   const k = moneyScale(hero, era)
-  return delta < 0 ? delta * k ** 0.75 : delta * Math.max(1, Math.sqrt(k))
+  return delta < 0 ? delta * k ** 0.9 : delta * k ** 0.8
 }
 
 export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | undefined, ctx: EffectContext = {}): void {

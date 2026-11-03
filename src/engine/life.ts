@@ -336,16 +336,17 @@ function ownFamily(state: GameState, era: EraDef, prevHero: Hero, heir: Npc): vo
     hero.profession = prof.id
     hero.skills[prof.skill] = Math.max(hero.skills[prof.skill] ?? 0, Math.min(55, 15 + (hero.age - 14) * 2))
   }
-  if (heir.married) {
-    const spouse = makeNpc(state, era, 'spouse', undefined, undefined, 45)
-    spouse.since = addYears(state.year, -Math.max(0, Math.min(hero.age - era.marriageAge[hero.sex][0], int(state, 1, 15))))
-    if (!hero.tags.includes('married')) hero.tags.push('married')
-  }
   // Его дети (внуки умершего героя) - теперь дети героя, их дети - внуки.
   const kids = prevHero.npcs.filter((n) => n.role === 'grandchild' && n.parentId === heir.id)
   const ids = new Set(kids.map((k) => k.id))
   for (const k of kids) hero.npcs.push({ ...k, role: 'child', parentId: undefined, attitude: Math.max(k.attitude, 50) })
   for (const g of prevHero.npcs) if (g.role === 'grandchild' && g.parentId && ids.has(g.parentId)) hero.npcs.push({ ...g })
+  // Супруг - после детей: его имя не должно совпасть с именем ребёнка или внука (в Китае - имя предка).
+  if (heir.married) {
+    const spouse = makeNpc(state, era, 'spouse', undefined, undefined, 45)
+    spouse.since = addYears(state.year, -Math.max(0, Math.min(hero.age - era.marriageAge[hero.sex][0], int(state, 1, 15))))
+    if (!hero.tags.includes('married')) hero.tags.push('married')
+  }
 }
 
 /** Долгоживущие питомцы (попугай, черепаха) и все, кто живёт в доме, переходят к наследнику - запись в дневник. */
