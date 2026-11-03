@@ -557,8 +557,11 @@ function drawMarks(px: Px, g: Geo, skin: string, input: AvatarInput, st: Stage):
   const x0 = CX - g.headW / 2
   const T = g.top
   if (input.scar && st !== 'toddler' && st !== 'child') {
-    const c = mix(skin, '#8a3a34', 0.45)
-    for (let i = 0; i < 4; i++) px(x0 + g.headW - 3 + (i % 2), T + 4 + i, 1, 1, c)
+    // Заживший рубец на скуле - светлая косая черта ниже глаза с тенью (красная черта от глаза вниз читалась как кровь).
+    const c = mix(skin, '#f3dccb', 0.5)
+    px(x0 + g.headW - 2, T + 7, 1, 1, c)
+    px(x0 + g.headW - 3, T + 8, 1, 1, c)
+    px(x0 + g.headW - 3, T + 7, 1, 1, shade(skin, -0.1))
   }
   if (input.pox) {
     const c = shade(skin, -0.14)

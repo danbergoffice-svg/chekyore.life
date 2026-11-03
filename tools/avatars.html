@@ -14,7 +14,7 @@
   <body>
     <div id="grid"></div>
     <script type="module">
-      // Галерея портретов: ?regions=rome,kyoto&ages=0,3,8,14,25,45,70&sex=m,f&body=0&cls=peasant
+      // Галерея портретов: ?regions=rome,kyoto&ages=0,3,8,14,25,45,70&sex=m,f&body=0&cls=peasant&scar
       import { drawAvatar, AW, AH } from '../src/pixel/avatar.ts'
       const q = new URLSearchParams(location.search)
       const list = (k, d) => (q.get(k) || d).split(',')
@@ -31,7 +31,7 @@
         for (const age of ages) {
           const cell = document.createElement('div'); cell.className = 'cell'
           const c = document.createElement('canvas'); c.width = AW; c.height = AH
-          drawAvatar(c.getContext('2d'), { region, sex, age, seed: `${region}${sex}${q.get('seed') || ''}`, cls, body, married: age >= 16, happiness: Number(q.get('happy') || 55), ill: q.has('ill'), dead: q.has('dead') })
+          drawAvatar(c.getContext('2d'), { region, sex, age, seed: `${region}${sex}${q.get('seed') || ''}`, cls, body, married: age >= 16, happiness: Number(q.get('happy') || 55), ill: q.has('ill'), dead: q.has('dead'), scar: q.has('scar') })
           const p = document.createElement('p'); p.textContent = age
           cell.append(c, p); row.append(cell)
         }

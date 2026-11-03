@@ -66,6 +66,9 @@ const children = (h: Hero) => h.npcs.filter((n) => n.role === 'child')
 const adultKids = (c: Ctx) => children(c.hero).filter((n) => n.alive && c.state.year - n.birthYear >= 15).length
 /** Сколько разных мест повидал герой (возврат в прежнее место - не новое). */
 const placesSeen = (h: Hero) => new Set(h.places).size
+/** Поездки без переезда: паломничества, хадж, плавание, караван, поездка на лечение (выбор «отправиться»). */
+const JOURNEY = /^ev\.(?:(?:a_voyage|f_pilgrimage_\w+|f_healing_shrine|ane_d_caravan|may_d_salt_trip|isl_d_hajj|byz_d_pilgrimage|byz_mv_silk_road|chn_f_pilgrimage|chn_j_junk_voyage|rus_d_pilgrimage|eur_d_pilgrimage|eth_zeila_caravan|jpn_d_ise|ind_d_pilgrimage|ind_d_hajj|waf_d_hajj)\.(?:go|go_poor)|c_h_cough\.voyage|isl_t_sea_voyage\.sail|waf_h_musa_hajj\.join|jpn_t_ming_voyage\.(?:big|small))$/
+const journeys = (h: Hero) => h.diary.filter((d) => { const ch = d.params?.choice; return !!ch && typeof ch === 'object' && 'key' in ch && JOURNEY.test(ch.key) }).length
 const yearsAbroad = (c: Ctx) => (c.hero.abroad ? c.state.year - c.hero.abroad.since : 0)
 const skillOfWork = (c: Ctx) => {
   const prof = c.era.professions.find((p) => p.id === c.hero.profession)
@@ -207,10 +210,10 @@ export const GOALS: GoalDef[] = [
   {
     id: 'world',
     steps: [
-      (c) => placesSeen(c.hero) >= 2,
-      (c) => placesSeen(c.hero) >= 3 || !!c.hero.abroad || !!c.hero.returned || FAR_TAGS.some((t) => has(c.hero, t)),
-      (c) => placesSeen(c.hero) >= 4 || yearsAbroad(c) >= 2 || !!c.hero.returned || (c.hero.erasLived?.length ?? 0) >= 2 || (placesSeen(c.hero) >= 3 && FAR_TAGS.some((t) => has(c.hero, t))),
-      (c) => !!c.hero.returned || c.hero.abroad?.naturalized !== undefined || placesSeen(c.hero) >= 5,
+      (c) => placesSeen(c.hero) >= 2 || journeys(c.hero) >= 1,
+      (c) => placesSeen(c.hero) >= 3 || !!c.hero.abroad || !!c.hero.returned || FAR_TAGS.some((t) => has(c.hero, t)) || journeys(c.hero) >= 2,
+      (c) => placesSeen(c.hero) >= 4 || yearsAbroad(c) >= 2 || !!c.hero.returned || (c.hero.erasLived?.length ?? 0) >= 2 || (placesSeen(c.hero) >= 3 && FAR_TAGS.some((t) => has(c.hero, t))) || journeys(c.hero) >= 3 || (journeys(c.hero) >= 2 && placesSeen(c.hero) >= 2),
+      (c) => !!c.hero.returned || c.hero.abroad?.naturalized !== undefined || placesSeen(c.hero) >= 5 || (journeys(c.hero) >= 3 && placesSeen(c.hero) >= 3),
     ],
     weigh: sum(travel(1.5), tag({ india_voyage: 2, on_hajj: 1, exile: 0.5 }), work(1, ['sailor', 'merchant', 'shipowner', 'translator', 'soldier'])),
     focus: ['trade', 'service'],
