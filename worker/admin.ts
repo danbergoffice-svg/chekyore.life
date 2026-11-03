@@ -117,9 +117,9 @@ const COLUMNS = {
 } as const
 const EXPORT_SQL = {
   events: `SELECT id, datetime(ts/1000 + 10800,'unixepoch') AS time_istanbul, ts, player_id, session_id, name, params_json, platform, build
-FROM events WHERE ts >= ?1 AND (ts > ?1 OR id > ?2) ORDER BY ts, id LIMIT ?3`,
+FROM events WHERE id > ?2 AND ts >= ?1 ORDER BY id LIMIT ?3`,
   feedback: `SELECT id, datetime(ts/1000 + 10800,'unixepoch') AS time_istanbul, ts, player_id, rating, answers_json, contact, context_json
-FROM feedback WHERE ts >= ?1 AND (ts > ?1 OR id > ?2) ORDER BY ts, id LIMIT ?3`,
+FROM feedback WHERE id > ?2 AND ts >= ?1 ORDER BY id LIMIT ?3`,
 }
 
 /** Ячейка CSV: кавычки по необходимости; текст, похожий на формулу (=, +, -, @), - с апострофом, чтобы Excel его не исполнял. */
@@ -141,17 +141,17 @@ export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> 
   const from = dayStart(today - days + 1)
   const cols = COLUMNS[name]
   const lines: string[] = [cols.join(sep)]
-  let lastTs = from
+  const lastTs = from
   let lastId = 0
   let total = 0
-  // Страницами по 5000 строк по времени (индекс events_ts), продолжение - после последней пары (ts, id); всего не больше 50 000.
+  // Страницами по 5000 строк по номеру строки (id растёт со временем записи; индекса по времени больше нет -
+  // он удваивал запись каждого события в D1), продолжение - после последнего id; всего не больше 50 000.
   while (total < EXPORT_LIMIT) {
     const take = Math.min(PAGE, EXPORT_LIMIT - total)
     const rows = (await env.DB!.prepare(EXPORT_SQL[name]).bind(lastTs, lastId, take).all()).results
     for (const r of rows) lines.push(cols.map((c) => cell(r[c], sep)).join(sep))
     total += rows.length
     if (rows.length < take) break
-    lastTs = Number(rows[rows.length - 1].ts)
     lastId = Number(rows[rows.length - 1].id)
   }
   const file = `thousands-${name}-${dayIso(today - days + 1)}_${dayIso(today)}.csv`

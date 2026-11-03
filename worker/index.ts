@@ -28,8 +28,8 @@ const ORIGINS = [/^https:\/\/(www\.)?thousands\.life$/, /^https:\/\/[a-z0-9-]+\.
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, session_id TEXT, name TEXT NOT NULL, params_json TEXT, platform TEXT, build TEXT);
 CREATE INDEX IF NOT EXISTS events_name_ts ON events(name, ts);
-CREATE INDEX IF NOT EXISTS events_player ON events(player_id);
-CREATE INDEX IF NOT EXISTS events_ts ON events(ts);
+DROP INDEX IF EXISTS events_player;
+DROP INDEX IF EXISTS events_ts;
 CREATE TABLE IF NOT EXISTS feedback (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, rating INTEGER, answers_json TEXT, contact TEXT, context_json TEXT);
 CREATE TABLE IF NOT EXISTS players (player_id TEXT PRIMARY KEY, first_ts INTEGER);
 CREATE INDEX IF NOT EXISTS players_first ON players(first_ts);

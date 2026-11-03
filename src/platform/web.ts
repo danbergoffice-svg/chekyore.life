@@ -72,6 +72,10 @@ function common(): Record<string, unknown> {
   return { platform: 'web', lang: context.lang ?? '', build: BUILD, ab: abBucket(), session_id: session, player_id: player, ...context }
 }
 
+/** События-счётчики: имя → поле, по которому считать (session_end.tabs = {life: 5, hero: 2}, .speeds). */
+const AGGREGATED: Record<string, string> = { tab_open: 'tab', speed_change: 'speed' }
+let counts: Record<string, Record<string, number>> = {}
+
 function flush(beacon = false): void {
   if (!queue.length || !import.meta.env.PROD) return
   const batch = queue.splice(0, 50)
@@ -164,6 +168,20 @@ export const webPlatform: Platform = {
   setSessionFlag,
 
   track(event, params = {}) {
+    // Частые мелочи (вкладки, скорость) не пишутся строкой каждая: бесплатная D1 - 100 тысяч записей в сутки,
+    // а их было почти треть всех событий. Копятся счётчиками и уходят одним полем в session_end.
+    const agg = AGGREGATED[event]
+    if (agg) {
+      const v = String(params[agg] ?? '')
+      const c = (counts[event] ??= {})
+      c[v] = (c[v] ?? 0) + 1
+      return
+    }
+    if (event === 'session_end') {
+      if (counts.tab_open) params = { ...params, tabs: counts.tab_open }
+      if (counts.speed_change) params = { ...params, speeds: counts.speed_change }
+      counts = {}
+    }
     const full = { ...common(), ...params }
     if (!RECEIVER_ONLY.has(event)) window.ym?.(COUNTER_ID, 'reachGoal', event, full)
     queue.push({ name: event, ts: Date.now(), ...full })
