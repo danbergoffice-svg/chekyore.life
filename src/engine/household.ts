@@ -5,6 +5,7 @@ import { chance, int, pick } from './rng'
 import { isPet, makePet, petDef, pets, randomPet } from './pets'
 import { changeParam, HOME_TAGS, note } from './rules'
 import type { EraDef, EraMeta, GameState } from './types'
+import { diceYear } from './dice'
 
 /** Сколько стоит перебраться в дом этого размера. */
 const HOME_COST = [0, 150, 500, 1500, 5000]
@@ -61,6 +62,7 @@ export function initHousehold(state: GameState): void {
 /** Год хозяйства: покупки, продажи, питомцы. Вызывается после того, как посчитаны доходы и расходы. */
 export function householdYear(state: GameState, era: EraDef | EraMeta): void {
   const hero = state.hero
+  diceYear(state)
   if (hero.home === undefined || !hero.animals) initHousehold(state)
   const adult = hero.age >= era.stages.adult
   const free = hero.cls !== 'slave'

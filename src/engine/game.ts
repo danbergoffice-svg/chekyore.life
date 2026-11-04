@@ -36,6 +36,24 @@ import { eventHelpsGoal, goalYear } from './goals'
 import { ATTRIBUTES, PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
 import type { ActiveEvent, ChoiceDef, Condition, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
+import { applyDice, diceStakes, fateGame, pickOpponent } from './dice'
+import type { DiceResult } from './dice'
+
+/** Без мини-игры (бот, тесты): партия на любую из доступных ставок, после проигрыша - отыграться (каждый второй раз, до трёх партий). */
+function botDice(state: GameState, era: EraDef): DiceResult[] {
+  const out: DiceResult[] = []
+  for (let i = 0; i < 3; i++) {
+    const stakes = diceStakes(state, era)
+    const r = { ...fateGame(state, stakes[Math.floor(next(state) * stakes.length)], pickOpponent(() => next(state))), chase: i > 0 }
+    applyDice(state, era, r)
+    out.push({ ...r, applied: true })
+    if (r.won || next(state) < 0.5) break
+  }
+  return out
+}
+
+/** Выборы события костей, которые разыгрываются партией. */
+const DICE_PLAY = ['play', 'road', 'chase']
 
 /** Через сколько лет одно и то же событие может повториться. */
 const COOLDOWN = 8
@@ -540,7 +558,8 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   const last = hero.seen[ev.id]
   if (last !== undefined && (ev.once || ev.milestone || ev.global_chance !== undefined)) return false
   if (ev.group && hero.seen[`@${ev.group}`] !== undefined) return false
-  if (last !== undefined && !ignoreTiming && state.year - last < COOLDOWN) return false
+  // Кости зовут чаще: игрок садится за стол хоть каждый год.
+  if (last !== undefined && !ignoreTiming && state.year - last < (ev.dynamic === 'dice' ? 2 : COOLDOWN)) return false
   if (ev.npc && npcCandidates(state, ev).length === 0) return false
   if (ev.pet && !pets(state).some((p) => p.kind === ev.pet)) return false
   if (ev.effects && addsSpouse({ id: '', effects: ev.effects }) && aliveNpcs(hero, 'spouse').length > 0) return false
@@ -613,7 +632,7 @@ function buckets(era: EraDef): Buckets {
       globals: ev.filter((e) => !e.moment && e.global_chance !== undefined),
       milestones: ev.filter((e) => !e.moment && e.milestone),
       turning: ev.filter((e) => !e.moment && e.turning && !e.trigger_only),
-      regular: ev.filter((e) => !e.moment && !e.trigger_only && !e.milestone && !e.turning && !e.dynamic && !e.first_choice && e.global_chance === undefined),
+      regular: ev.filter((e) => !e.moment && !e.trigger_only && !e.milestone && !e.turning && (!e.dynamic || e.dynamic === 'dice') && !e.first_choice && e.global_chance === undefined),
       firstChoice: ev.filter((e) => e.first_choice),
       moments: ev.filter((e) => e.moment && !e.trigger_only && !e.turning),
     }
@@ -656,7 +675,8 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const soft = state.settings.eventsSoft || (state.quietYears ?? 0) >= 2
   const fresh = (list: EventDef[], must = false): EventDef[] => {
     if (!before) return list
-    const unseen = list.filter((e) => !before.has(e.id) && hero.seen[e.id] === undefined)
+    // Кости - сквозная линия (как долги): приглашения и тяга повторяются, иначе азарт не может затянуть.
+    const unseen = list.filter((e) => e.dynamic === 'dice' || (!before.has(e.id) && hero.seen[e.id] === undefined))
     if (!unseen.length && list.length) starved = true
     return unseen.length || !(must || soft) ? unseen : list
   }
@@ -979,6 +999,14 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     applyEffects(state, era, choice.effects, ctx)
     addPattern(hero, choice.pattern)
     era = eraNow(state, era)
+    // Кости: итоги партий пришли из мини-игры; без неё (бот, тесты) - одна партия «на волю судьбы» на любую из доступных ставок.
+    if (ev.dynamic === 'dice' && DICE_PLAY.includes(choice.id)) {
+      const list = active.dice?.length ? active.dice : botDice(state, era)
+      for (const r of list) if (!r.applied) applyDice(state, era, r)
+      active.dice = list.map((r) => ({ ...r, applied: true }))
+      const net = list.reduce((n, r) => n + (r.won && !r.caught ? r.stake.amount : -r.stake.amount), 0)
+      result = net >= 0 ? 'success' : 'failure'
+    }
     if (choice.risk_roll) {
       const success = chance(state, riskChance(state, choice)!)
       result = success ? 'success' : 'failure'

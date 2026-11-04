@@ -362,6 +362,8 @@ export type Effect =
   | { money_years: number }
   /** Дом героя: сгорел, разрушен (на ступень меньше, стоит повреждённым) или отстраивается. */
   | { home: 'burn' | 'ruin' | 'rebuild' }
+  /** Кости: азарт меняется на delta (зарок, ультиматум - минус). */
+  | { dice_lust: number }
   | { chance: number; effects: Effect[] }
 
 export interface WeightModifier {
@@ -461,7 +463,8 @@ export interface EventDef {
   /** Эффекты самого события, применяются при любом выборе. */
   effects?: Effect[]
   /** Варианты выбора собираются движком: 'profession' - доступные профессии. */
-  dynamic?: 'profession' | 'name'
+  /** dice - партия в кости (ui/DiceGame): выбор play разыгрывается мини-игрой. */
+  dynamic?: 'profession' | 'name' | 'dice'
   /** Если выборов нет, показывается одна кнопка «Далее». */
   choices?: ChoiceDef[]
   historian_note?: boolean
@@ -621,6 +624,8 @@ export interface Hero {
   diary: DiaryEntry[]
   /** Срез состояния в конце каждого прожитого года. */
   history: YearRecord[]
+  /** Кости: мастерство, азарт, слава игрока по краям, позор (engine/dice.ts). */
+  dice?: import('./dice').DiceStats
   /** Накопленный счёт по осям «Узора жизни». */
   pattern: Record<Axis, number>
   /** Где жил герой: ключи мест в текстах. */
@@ -731,6 +736,8 @@ export interface ActiveEvent {
   npcSex?: Sex
   /** Сон о будущем, который снится в этом окне (событие dream_intro). */
   dream?: string
+  /** Партии в кости этого окна (событие dynamic dice): итоги от мини-игры. */
+  dice?: import('./dice').DiceResult[]
   /** Питомец события: вид и кличка (если есть). */
   petKind?: string
   petName?: string

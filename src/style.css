@@ -1013,3 +1013,29 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .tour-btns .link { color: #6b4a2a; min-height: 44px; }
 .tour-btns .primary { background: #1c1a17; color: #f3ecdc; }
 @media (prefers-reduced-motion: reduce) { .tour-spot { transition: none; } }
+
+/* Кости: стол, кости с точками, ставки по уровням. */
+.dice { display: grid; gap: 10px; margin-top: 8px; }
+.dice-stats { margin: 0; color: var(--muted); }
+.dice-result { margin: 0; font-weight: 700; font-size: 1.05rem; }
+.dice-result.win { color: #3c6b1f; }
+.dice-result.lose { color: #a3341c; }
+.dice-opp { margin: 0; }
+.dice-stakes { display: grid; gap: 8px; }
+.dice-stake { min-height: 48px; padding: 8px 12px; text-align: left; border: 2px solid var(--ink); border-radius: 8px; background: var(--card); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
+.dice-stake.lvl3 { border-color: #8a5a1a; }
+.dice-stake.lvl4, .dice-stake.lvl5 { border-color: #a3341c; color: #7a2412; }
+.dice-score { margin: 0; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.dice-board { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dice-side { display: grid; justify-items: center; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; }
+.dice-who { font-weight: 700; font-size: 0.9rem; }
+.dice-pair { display: flex; gap: 8px; }
+.dice-sum { font-size: 1.3rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.die { width: 44px; height: 44px; padding: 5px; box-sizing: border-box; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); background: #fffaf0; border: 2px solid #1c1a17; border-radius: 9px; box-shadow: 0 2px 0 #1c1a17; }
+.die .pip { border-radius: 50%; margin: 2px; }
+.die .pip.on { background: #1c1a17; }
+.die.rolling { animation: die-roll 0.45s ease-out; }
+@keyframes die-roll { 0% { transform: rotate(0) scale(1); } 40% { transform: rotate(160deg) scale(0.85); } 100% { transform: rotate(360deg) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .die.rolling { animation: none; } }
+.dice-actions { display: grid; gap: 8px; }
+.danger-soft { color: #a3341c; border-color: #a3341c; }

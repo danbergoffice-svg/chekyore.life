@@ -6,6 +6,7 @@ import { isPet } from './pets'
 import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
 import type { AttrId, AwayReason, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
+import { diceInherit } from './dice'
 
 export const SAVE_VERSION = 5
 
@@ -429,6 +430,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   if (prof && hero.age >= 8) hero.skills[prof.skill] = Math.min(30, hero.age * 1.5)
 
   ownFamily(state, era, parent, child)
+  diceInherit(state, parent)
 
   if (gen > 1) {
     familyOfDescendant(state, era, parent, child)

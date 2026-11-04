@@ -1,0 +1,863 @@
+[
+ {
+  "id": "dice_table",
+  "type": "personal",
+  "age_range": [
+   16,
+   75
+  ],
+  "conditions": [
+   {
+    "tag_absent": "gambler"
+   },
+   {
+    "tag_absent": "dice_lust20"
+   },
+   {
+    "tag_absent": "dice_fame60"
+   },
+   {
+    "flag_absent": "v_quit_dice"
+   },
+   {
+    "tag_absent": "enslaved"
+   }
+  ],
+  "base_weight": 8,
+  "topic": "money",
+  "dynamic": "dice",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "play",
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "self_esteem",
+      "delta": 1
+     }
+    ],
+    "pattern": {
+     "memory_future": -1
+    }
+   }
+  ],
+  "weight_modifiers": [
+   {
+    "if": {
+     "tag": "dice_player"
+    },
+    "multiply": 2
+   },
+   {
+    "if": {
+     "age": [
+      60,
+      120
+     ]
+    },
+    "multiply": 0.33
+   }
+  ]
+ },
+ {
+  "id": "dice_again",
+  "type": "personal",
+  "age_range": [
+   16,
+   78
+  ],
+  "conditions": [
+   {
+    "any": [
+     {
+      "tag": "gambler"
+     },
+     {
+      "tag": "dice_lust20"
+     }
+    ]
+   },
+   {
+    "tag_absent": "dice_lust50"
+   },
+   {
+    "tag_absent": "dice_fame60"
+   },
+   {
+    "tag_absent": "enslaved"
+   }
+  ],
+  "base_weight": 80,
+  "topic": "money",
+  "dynamic": "dice",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "play",
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "decline",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "memory_future": -2
+    }
+   }
+  ],
+  "weight_modifiers": [
+   {
+    "if": {
+     "age": [
+      60,
+      120
+     ]
+    },
+    "multiply": 0.33
+   }
+  ]
+ },
+ {
+  "id": "dice_pull",
+  "type": "personal",
+  "age_range": [
+   16,
+   80
+  ],
+  "conditions": [
+   {
+    "tag": "dice_lust50"
+   },
+   {
+    "tag_absent": "dice_fame60"
+   },
+   {
+    "tag_absent": "enslaved"
+   }
+  ],
+  "base_weight": 140,
+  "topic": "money",
+  "dynamic": "dice",
+  "scene": {
+   "place": "street",
+   "time": "sunset",
+   "people": 4,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "play",
+    "pattern": {
+     "memory_future": 4
+    }
+   },
+   {
+    "id": "resist",
+    "requirements": [
+     {
+      "tag_absent": "dice_lust80"
+     }
+    ],
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": -4
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     },
+     {
+      "dice_lust": -3
+     }
+    ],
+    "pattern": {
+     "memory_future": -3
+    }
+   }
+  ],
+  "weight_modifiers": [
+   {
+    "if": {
+     "age": [
+      60,
+      120
+     ]
+    },
+    "multiply": 0.33
+   }
+  ]
+ },
+ {
+  "id": "dice_refused",
+  "type": "personal",
+  "age_range": [
+   16,
+   80
+  ],
+  "conditions": [
+   {
+    "tag": "dice_fame60"
+   },
+   {
+    "tag_absent": "dice_fame90"
+   },
+   {
+    "tag_absent": "enslaved"
+   }
+  ],
+  "base_weight": 60,
+  "topic": "money",
+  "dynamic": "dice",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "road",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -15
+     },
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ],
+    "pattern": {
+     "home_road": 3
+    }
+   },
+   {
+    "id": "home",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": -2
+     },
+     {
+      "dice_lust": -2
+     }
+    ],
+    "pattern": {
+     "home_road": -2
+    }
+   }
+  ],
+  "weight_modifiers": [
+   {
+    "if": {
+     "age": [
+      60,
+      120
+     ]
+    },
+    "multiply": 0.33
+   }
+  ]
+ },
+ {
+  "id": "dice_banned",
+  "type": "personal",
+  "age_range": [
+   16,
+   80
+  ],
+  "conditions": [
+   {
+    "tag": "dice_fame90"
+   }
+  ],
+  "base_weight": 10,
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "day",
+   "people": 3,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lie_low",
+    "effects": [
+     {
+      "param": "happiness",
+      "delta": -3
+     },
+     {
+      "dice_lust": -6
+     }
+    ]
+   },
+   {
+    "id": "bribe",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     },
+     {
+      "param": "reputation",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "dice_robbed",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "money",
+  "icon": "loss",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "param": "self_esteem",
+       "delta": 4
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -15
+      },
+      {
+       "money_pct": -50
+      }
+     ]
+    }
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "money_pct": -30
+     },
+     {
+      "param": "stress",
+      "delta": 4
+     }
+    ]
+   },
+   {
+    "id": "run",
+    "risk_roll": {
+     "param": "risk_tolerance",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "stress",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "money_pct": -60
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "dice_unpaid",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "forgive",
+    "effects": [
+     {
+      "param": "reputation",
+      "delta": 4
+     },
+     {
+      "param": "self_esteem",
+      "delta": -2
+     }
+    ]
+   },
+   {
+    "id": "fight",
+    "risk_roll": {
+     "param": "strength",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 80
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "health",
+       "delta": -12
+      }
+     ]
+    }
+   },
+   {
+    "id": "court",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -30
+     }
+    ],
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "money",
+       "delta": 110
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "dice_accused",
+  "type": "personal",
+  "trigger_only": true,
+  "base_weight": 1,
+  "topic": "money",
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "swear",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.5,
+     "on_success": [
+      {
+       "param": "reputation",
+       "delta": 2
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "reputation",
+       "delta": -8
+      }
+     ]
+    }
+   },
+   {
+    "id": "pay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -60
+     }
+    ]
+   },
+   {
+    "id": "leave",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 4
+     },
+     {
+      "dice_lust": -5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "dice_envy",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "sibling",
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 2,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "lend",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -80
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     }
+    ]
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -15
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "dice_creditor",
+  "type": "personal",
+  "trigger_only": true,
+  "conditions": [
+   {
+    "tag": "in_debt"
+   }
+  ],
+  "base_weight": 1,
+  "sensitive": true,
+  "topic": "money",
+  "icon": "loss",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 3,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "work",
+    "effects": [
+     {
+      "param": "money",
+      "delta": 100
+     },
+     {
+      "param": "health",
+      "delta": -6
+     },
+     {
+      "param": "stress",
+      "delta": 6
+     }
+    ]
+   },
+   {
+    "id": "flee",
+    "effects": [
+     {
+      "migrate": "@other"
+     },
+     {
+      "param": "reputation",
+      "delta": -6
+     },
+     {
+      "param": "stress",
+      "delta": 5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "dice_reproach",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "spouse",
+  "base_weight": 1,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "promise",
+    "effects": [
+     {
+      "dice_lust": -15
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 5
+     }
+    ]
+   },
+   {
+    "id": "shrug",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -12
+     },
+     {
+      "param": "happiness",
+      "delta": -2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "dice_spouse_leaves",
+  "type": "family",
+  "trigger_only": true,
+  "npc": "spouse",
+  "base_weight": 1,
+  "sensitive": true,
+  "topic": "family",
+  "icon": "loss",
+  "scene": {
+   "place": "home",
+   "time": "dawn",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "beg",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.4,
+     "on_success": [
+      {
+       "dice_lust": -25
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": 5
+      }
+     ],
+     "on_failure": [
+      {
+       "npc_away": "left",
+       "who": "npc"
+      }
+     ]
+    }
+   },
+   {
+    "id": "let_go",
+    "effects": [
+     {
+      "npc_away": "left",
+      "who": "npc"
+     },
+     {
+      "param": "happiness",
+      "delta": -8
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "dice_ultimatum",
+  "type": "family",
+  "npc": "spouse",
+  "age_range": [
+   20,
+   70
+  ],
+  "conditions": [
+   {
+    "tag": "gambler"
+   },
+   {
+    "tag": "dice_shame"
+   }
+  ],
+  "base_weight": 30,
+  "topic": "family",
+  "scene": {
+   "place": "home",
+   "time": "night",
+   "people": 2,
+   "props": [
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "quit",
+    "effects": [
+     {
+      "dice_lust": -40
+     },
+     {
+      "set_flag": "v_quit_dice"
+     },
+     {
+      "remove_tag": "gambler"
+     },
+     {
+      "npc_attitude": "npc",
+      "delta": 10
+     }
+    ]
+   },
+   {
+    "id": "refuse",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": -20
+     },
+     {
+      "chance": 0.4,
+      "effects": [
+       {
+        "npc_away": "left",
+        "who": "npc"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "dice_old_quit",
+  "type": "personal",
+  "age_range": [
+   60,
+   95
+  ],
+  "conditions": [
+   {
+    "tag": "gambler"
+   }
+  ],
+  "once": true,
+  "base_weight": 6,
+  "topic": "money",
+  "scene": {
+   "place": "home",
+   "time": "day",
+   "people": 1,
+   "props": [
+    "coins"
+   ]
+  },
+  "choices": [
+   {
+    "id": "quit",
+    "effects": [
+     {
+      "dice_lust": -30
+     },
+     {
+      "set_flag": "v_quit_dice"
+     },
+     {
+      "param": "happiness",
+      "delta": 2
+     }
+    ]
+   },
+   {
+    "id": "keep",
+    "effects": [
+     {
+      "param": "stress",
+      "delta": 2
+     }
+    ]
+   }
+  ]
+ }
+]

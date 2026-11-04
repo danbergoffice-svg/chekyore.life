@@ -43,6 +43,9 @@ import type { GoalGroup } from '../goal'
 import { GoalBar, GoalPick } from './GoalPick'
 import { HudHeader, MilestoneChip, TimeBar } from './LifeHud'
 import { Tour } from './Tour'
+import { DiceGame } from './DiceGame'
+import { diceStakes } from '../engine/dice'
+import type { DiceResult } from '../engine/dice'
 import type { GoalChoice } from './GoalPick'
 import { earlySeed, kidsOn, SEEN_KEY } from '../kids/early'
 import type { EarlyResult } from '../kids/early'
@@ -64,6 +67,8 @@ function yearMs(age: number, custom?: number): number {
   return (age <= f.child_age ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
 }
 const TICK_MS = 100
+/** Выборы события костей, которые открывают стол с мини-игрой. */
+const DICE_TABLE = ['play', 'road']
 /** Порядок подсказок: раньше - важнее. */
 const HINT_ORDER = ['speed', 'year_len', 'focus', 'hero']
 export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
@@ -87,6 +92,8 @@ interface LifeProps {
   shortFirst?: boolean
   /** Эксперимент XA: 'b' - компактная шапка, веха и нижняя панель времени (макет 06). */
   layout?: 'a' | 'b'
+  /** Кости: партия сыграна - записать сразу. */
+  onDiceGame?: (r: DiceResult) => void
   /** Меняется - открыть обучение заново («Как играть» в меню). */
   tourNonce?: number
   /** Открыть настройки из жизни («Назад» вернёт в жизнь). */
@@ -112,7 +119,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -660,7 +667,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       {modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && dream && (state.dream || dream.result) ? (
         <DreamModal state={state} result={dream.result} onAnswer={dream.onAnswer} onHint={dream.onHint} onWake={dream.onWake} onClose={dream.onClose} />
       ) : (
-        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} short={!!shortFirst && lifeStats(state).choices < 3} />
+        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} short={!!shortFirst && lifeStats(state).choices < 3} onDiceGame={onDiceGame} />
       )}
     </div>
   )
@@ -1048,17 +1055,20 @@ interface EventProps {
   era: EraDef
   onChoose: (id: string | null, ms?: number) => void
   short?: boolean
+  onDiceGame?: (r: DiceResult) => void
   onDismiss: () => void
   changes: Change[]
   /** Цель героя, если игрок в группе с метками ▲▼ (A/B goal_marks_share). */
   marks?: GoalId
 }
 
-function EventModal({ state, era, onChoose, onDismiss, changes, marks, short }: EventProps) {
+function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, onDiceGame }: EventProps) {
   const { t, lang } = useUi()
   const ev = currentEvent(state, era)
   const [noteOpen, setNoteOpen] = useState(false)
   const [peopleOpen, setPeopleOpen] = useState(false)
+  // Кости: какой выбор открыл стол (play / road); null - выбор ещё не сделан.
+  const [table, setTable] = useState<string | null>(null)
   const offered = state.queue[0]?.dream
   useEffect(() => {
     if (offered && ev?.id === 'dream_intro' && !state.queue[0]?.outcome) platform.track('dream_offer', { dream: offered, era: state.hero.era, age: state.hero.age })
@@ -1069,7 +1079,10 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short }: 
   const shown = useRef({ id: '', at: 0 })
   const eventKey = `${state.queue[0]?.eventId}:${state.queue[0]?.at}:${state.year}`
   if (shown.current.id !== eventKey) shown.current = { id: eventKey, at: Date.now() }
-  const pick = (id: string | null) => onChoose(id, Date.now() - shown.current.at)
+  const pick = (id: string | null) => {
+    if (ev?.dynamic === 'dice' && id && DICE_TABLE.includes(id) && onDiceGame) return setTable(id)
+    onChoose(id, Date.now() - shown.current.at)
+  }
   useEffect(() => {
     const h = (e: KeyboardEvent) => keys.current(e)
     window.addEventListener('keydown', h)
@@ -1102,7 +1115,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short }: 
 
   keys.current = (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement)?.tagName === 'INPUT') return
-    if (state.queue[0]?.outcome) return
+    if (state.queue[0]?.outcome || table) return
     const n = Number(e.key)
     const c = choices[n - 1]
     if (n >= 1 && n <= 4 && c && choiceAvailable(state, c)) {
@@ -1149,7 +1162,21 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short }: 
           )}
 
           {/* Сначала решение, потом справка и близкие (правка 04): варианты видны сразу после текста. */}
-          {!outcome && (
+          {!outcome && table && onDiceGame && (
+            <DiceGame
+              state={state}
+              stakes={diceStakes(state, era)}
+              coin={coin}
+              onGame={onDiceGame}
+              onDone={() => {
+                const played = !!state.queue[0]?.dice?.length
+                const id = table
+                setTable(null)
+                if (played) onChoose(id, Date.now() - shown.current.at)
+              }}
+            />
+          )}
+          {!outcome && !table && (
             <div class="choices">
               {choices.length === 0 && (
                 <button class="primary" onClick={() => pick(null)}>{t('event.ok')}</button>

@@ -1,5 +1,5 @@
 // Первые жизни игрока уникальны (флаг unique_lives): события прошлых жизней не повторяются (кроме узлов жизни -
-// имя ребёнку, ремесло, свадьба, вход в сон, заимодавцы у должника), а детей в каждой жизни - своё число.
+// имя ребёнку, ремесло, свадьба, вход в сон, заимодавцы у должника, кости), а детей в каждой жизни - своё число.
 import { describe, expect, it } from 'vitest'
 import { loadEra } from '../src/content'
 import { autoplay } from '../src/engine/game'
@@ -7,7 +7,7 @@ import { newLife, pickKidsTarget } from '../src/engine/life'
 import type { GameSettings, LifeSummary } from '../src/engine/types'
 
 const era = await loadEra('RUS')
-const STRUCTURAL = /^(birth_naming|profession_choice|dream_intro|marriage_.*|ab_homesick|d_grief_year|debt_creditors|debt_pit)$/
+const STRUCTURAL = /^(birth_naming|profession_choice|dream_intro|marriage_.*|ab_homesick|d_grief_year|debt_creditors|debt_pit|dice_table|dice_again|dice_pull|dice_refused)$/
 
 describe('Уникальные первые жизни', () => {
   it('события прошлых жизней не повторяются', () => {

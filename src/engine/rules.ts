@@ -5,6 +5,7 @@ import type { AbroadParam } from './abroad'
 import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
 import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
+import { diceEffect } from './dice'
 
 // ---------- Годы ----------
 // Года хранятся исторически: -44 - это 44 г. до н.э., нулевого года нет.
@@ -246,6 +247,8 @@ export function rollReligion(state: GameState, region: RegionDef, year: number, 
 export function contextParams(region: string, religion: string, year: number): Record<string, { key: string }> {
   const p: Record<string, { key: string }> = {}
   if (religion) p.faith = { key: `religion.${religion}` }
+  // Кости: название игры - по краю и стране (dice.game.<край> или dice.game.<страна>).
+  p.game = { key: 'dice.game' }
   const era = Object.values(ERA_META).find((e) => e.regions.some((r) => r.id === region))
   const def = era?.regions.find((r) => r.id === region)
   if (!era || !def) return p
@@ -535,6 +538,8 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       }
     } else if ('home' in e) {
       homeEffect(state, e.home)
+    } else if ('dice_lust' in e) {
+      diceEffect(hero, e.dice_lust)
     } else if ('add_pet' in e) {
       const kind = e.add_pet === '@any' ? randomPet(state) : e.add_pet === '@stray' ? randomPet(state, ['dog', 'cat']) : petPossible(state, e.add_pet) ? e.add_pet : undefined
       if (kind && pets(state).length < MAX_PETS) {

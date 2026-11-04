@@ -394,3 +394,7 @@ html.skin .modal .kids-reward { color: #a3341c; }
 html.skin .menu-topbar .lang-switch button.active { background: #b5462b; }
 html.skin .tour-card .link { color: #6b4a2a; text-decoration-color: rgba(107, 74, 42, 0.5); }
 html.skin .tour-card .primary { background: #1c1a17; color: #f3ecdc; }
+/* Кости на светлом листе окна: вторичные кнопки тёмные (по умолчанию они для тёмного фона). */
+html.skin .dice .secondary { color: #130904; border-color: rgba(19, 9, 4, 0.5); }
+html.skin .dice .secondary.danger-soft { color: #a3341c; border-color: #a3341c; }
+html.skin .dice .link { color: #8a3a1e; text-decoration-color: rgba(138, 58, 30, 0.45); }

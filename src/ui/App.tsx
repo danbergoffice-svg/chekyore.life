@@ -17,6 +17,8 @@ import type { EarlyResult } from '../kids/early'
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
 import type { Prefs } from '../storage'
 import { Life } from './Life'
+import { applyDice } from '../engine/dice'
+import type { DiceResult } from '../engine/dice'
 import { MenuSheet } from './MenuSheet'
 import type { MenuTarget } from './MenuSheet'
 import { About, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsSheet, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
@@ -732,6 +734,17 @@ export function App() {
     rerender(0)
   }
 
+  const diceBefore = useRef<ReturnType<typeof snapshot> | null>(null)
+  const onDiceGame = (r: DiceResult) => {
+    const g = game.current
+    if (!g || !era) return
+    diceBefore.current ??= snapshot(g)
+    applyDice(g, era, r)
+    const active = g.queue[0]
+    if (active) active.dice = [...(active.dice ?? []), { ...r, applied: true }]
+    persist()
+    rerender(0)
+  }
   const onChoose = (choiceId: string | null, ms?: number) => {
     if (!era) return
     const intro = game.current?.queue[0]
@@ -739,7 +752,9 @@ export function App() {
       platform.track(choiceId === 'try' ? 'dream_start' : 'dream_skip', { dream: intro.dream })
       dreamStart.current = Date.now()
     }
-    const before = snapshot(game.current!)
+    // Кости: партии уже записаны по ходу игры - изменения считаются от состояния до первой партии.
+    const before = diceBefore.current ?? snapshot(game.current!)
+    diceBefore.current = null
     // Метка варианта (если у героя цель): идут ли игроки за ▲ - и те, кто меток не видит.
     const goal = game.current!.hero.goal
     const ev = currentEvent(game.current!, era)
@@ -1085,6 +1100,7 @@ export function App() {
             }}
             frozen={lifeMenu}
             tourNonce={tourNonce}
+            onDiceGame={onDiceGame}
             onSettings={() => {
               setSettingsFrom('life')
               setScreen('settings')
