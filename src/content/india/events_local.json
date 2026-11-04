@@ -3347,33 +3347,6 @@
   "choices": [
    {
     "id": "big",
-    "risk_roll": {
-     "success_chance_base": 0.45,
-     "on_success": [
-      {
-       "param": "money",
-       "delta": 100
-      },
-      {
-       "param": "happiness",
-       "delta": 4
-      }
-     ],
-     "on_failure": [
-      {
-       "param": "money",
-       "delta": -80
-      },
-      {
-       "chance": 0.4,
-       "effects": [
-        {
-         "add_tag": "gambler"
-        }
-       ]
-      }
-     ]
-    },
     "pattern": {
      "memory_future": 4
     }
@@ -3403,6 +3376,11 @@
      "memory_future": -2
     }
    }
+  ],
+  "dynamic": "dice",
+  "dice_play": [
+   "big",
+   "small"
   ]
  },
  {

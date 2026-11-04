@@ -7,7 +7,7 @@ import { newLife, pickKidsTarget } from '../src/engine/life'
 import type { GameSettings, LifeSummary } from '../src/engine/types'
 
 const era = await loadEra('RUS')
-const STRUCTURAL = /^(birth_naming|profession_choice|dream_intro|marriage_.*|ab_homesick|d_grief_year|debt_creditors|debt_pit|dice_table|dice_again|dice_pull|dice_refused)$/
+const STRUCTURAL = /^(birth_naming|profession_choice|dream_intro|marriage_.*|ab_homesick|d_grief_year|debt_creditors|debt_pit|dice_.*|v_dice_first|chn_d_gambling|ind_d_diwali_dice|v_dice_saturnalia)$/
 
 describe('Уникальные первые жизни', () => {
   it('события прошлых жизней не повторяются', () => {

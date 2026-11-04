@@ -465,6 +465,8 @@ export interface EventDef {
   /** Варианты выбора собираются движком: 'profession' - доступные профессии. */
   /** dice - партия в кости (ui/DiceGame): выбор play разыгрывается мини-игрой. */
   dynamic?: 'profession' | 'name' | 'dice'
+  /** Кости: какие выборы открывают стол (по умолчанию play, road, chase). */
+  dice_play?: string[]
   /** Если выборов нет, показывается одна кнопка «Далее». */
   choices?: ChoiceDef[]
   historian_note?: boolean

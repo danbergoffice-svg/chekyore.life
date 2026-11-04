@@ -2,7 +2,7 @@ import { applyTheme } from '../theme'
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
-import { continueWithHeir, heirHome, heirs, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
+import { chronicleSuccessor, continueWithHeir, heirHome, heirs, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
 import type { GameSettings, GameState, LifeSummary } from '../engine/types'
@@ -18,6 +18,7 @@ import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAch
 import type { Prefs } from '../storage'
 import { Life } from './Life'
 import { applyDice } from '../engine/dice'
+import { FESTIVE } from '../engine/game'
 import type { DiceResult } from '../engine/dice'
 import { MenuSheet } from './MenuSheet'
 import type { MenuTarget } from './MenuSheet'
@@ -739,8 +740,9 @@ export function App() {
     const g = game.current
     if (!g || !era) return
     diceBefore.current ??= snapshot(g)
-    applyDice(g, era, r)
     const active = g.queue[0]
+    if (active && FESTIVE.includes(active.eventId)) r = { ...r, festive: true }
+    applyDice(g, era, r)
     if (active) active.dice = [...(active.dice ?? []), { ...r, applied: true }]
     persist()
     rerender(0)
@@ -786,6 +788,12 @@ export function App() {
     const home = child && heirHome(game.current!, child)
     if (home && !isEraLoaded(home.era)) {
       ensure(home.era).then(() => isEraLoaded(home.era) && onHeir(childId))
+      return
+    }
+    // Хроника края кончается и история уводит семью в другую страну (Константинополь → Стамбул) - загрузить её.
+    const next = !home && chronicleSuccessor(game.current!)
+    if (next && !isEraLoaded(next.era)) {
+      ensure(next.era).then(() => isEraLoaded(next.era) && onHeir(childId))
       return
     }
     const prevYear = game.current!.year

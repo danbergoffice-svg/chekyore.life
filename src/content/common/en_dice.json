@@ -119,5 +119,14 @@
   "dice.game.MAY": "bul",
   "dice.game.RUS": "zern",
   "dice.game.WAF": "cowrie shells",
-  "dice.game.MNG": "shagai"
+  "dice.game.MNG": "shagai",
+  "ev.dice_spouse_table.title": "Come with me",
+  "ev.dice_spouse_table.text": "{npc} is off again to where they play {game}, and calls you along: \"Come with me, you'll bring me luck.\"",
+  "ev.dice_spouse_table.join": "Go and sit at the table together",
+  "ev.dice_spouse_table.stop": "Talk them into staying home",
+  "ev.dice_spouse_table.stay": "Let them go alone",
+  "ev.dice_spouse_table.join.success": "You came back together, laughing, with a full purse.",
+  "ev.dice_spouse_table.join.failure": "You both lost. Neither spoke on the way home.",
+  "ev.dice_spouse_table.stop.success": "{npc} stayed. The pull seems to have let go.",
+  "ev.dice_spouse_table.stop.failure": "{npc} slammed the door and went to play."
 }

@@ -57,42 +57,6 @@
             "value": 30
           }
         ],
-        "risk_roll": {
-          "param": "risk_tolerance",
-          "success_chance_base": 0.5,
-          "on_success": [
-            {
-              "param": "money",
-              "delta": 40
-            },
-            {
-              "param": "happiness",
-              "delta": 5
-            },
-            {
-              "chance": 0.35,
-              "effects": [
-                {
-                  "add_tag": "gambler"
-                }
-              ]
-            }
-          ],
-          "on_failure": [
-            {
-              "param": "money",
-              "delta": -30
-            },
-            {
-              "chance": 0.35,
-              "effects": [
-                {
-                  "add_tag": "gambler"
-                }
-              ]
-            }
-          ]
-        },
         "pattern": {
           "memory_future": 3
         }
@@ -113,6 +77,10 @@
           "memory_future": -1
         }
       }
+    ],
+    "dynamic": "dice",
+    "dice_play": [
+      "coins"
     ]
   },
   {

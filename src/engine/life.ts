@@ -248,9 +248,41 @@ export function chronicleEnd(state: GameState): number {
   return Math.min(meta?.years[1] ?? Infinity, region?.years[1] ?? Infinity)
 }
 
-/** Наследник прожил бы большую часть жизни после конца хроники: род «ждёт продолжения» (п. 9 ТЗ v3). */
+/**
+ * Куда история уводит семью, когда хроника края кончается (отзыв владельца 05.11): после монголов из Багдада бегут
+ * в Дамаск и Каир, двор Сун уходит из Кайфэна в Ханчжоу, Константинополь становится Стамбулом. Только переходы,
+ * у которых есть историческая причина; где продолжения в игре нет (Европа после 1500, ацтеки, майя) - хроника кончается.
+ */
+const SUCCESSORS: Record<string, { era?: string; to: string[] }> = {
+  baghdad: { to: ['damascus', 'cairo'] },
+  cordoba: { to: ['cairo', 'damascus'] },
+  kaifeng: { to: ['hangzhou'] },
+  thessalonica: { to: ['constantinople'] },
+  nicaea: { to: ['constantinople', 'trebizond'] },
+  constantinople: { era: 'ISL', to: ['istanbul'] },
+  trebizond: { era: 'ISL', to: ['istanbul'] },
+  kamakura: { to: ['kyoto'] },
+  kiev: { to: ['vladimir', 'novgorod'] },
+  vladimir: { to: ['moscow'] },
+  palenque: { to: ['tikal', 'calakmul'] },
+  copan: { to: ['tikal', 'calakmul'] },
+}
+
+/** Край, куда переберётся семья, если хроника здешнего края кончится раньше, чем через `ahead` лет (или уже кончилась). */
+export function chronicleSuccessor(state: GameState, ahead = 20): { era: string; region: string; from: string } | null {
+  const hero = state.hero
+  if (state.offChronicle !== undefined || state.year + ahead <= chronicleEnd(state)) return null
+  const s = SUCCESSORS[hero.region]
+  if (!s) return null
+  const era = ERA_META[s.era ?? hero.era]
+  const region = s.to.map((id) => era?.regions.find((r) => r.id === id)).find((r) => r && r.years[0] <= state.year + ahead && Math.min(r.years[1], era.years[1]) > state.year)
+  return region ? { era: era.id, region: region.id, from: hero.region } : null
+}
+
+/** Наследник прожил бы большую часть жизни после конца хроники: род «ждёт продолжения» (п. 9 ТЗ v3) - если только
+ *  история не уводит семью в край, где хроника продолжается (chronicleSuccessor). */
 export function eraEnding(state: GameState): boolean {
-  return state.offChronicle === undefined && heirs(state).length > 0 && state.year + 20 > chronicleEnd(state)
+  return state.offChronicle === undefined && heirs(state).length > 0 && state.year + 20 > chronicleEnd(state) && !chronicleSuccessor(state)
 }
 
 /**
@@ -368,6 +400,10 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   const left = heirHome(prev, child)
   const home = left && isEraLoaded(left.era) ? left : null
   if (home) era = eraById(home.era)
+  // Хроника края кончается - семья перебирается туда, где история продолжается (страну загружает интерфейс заранее).
+  const next = !home ? chronicleSuccessor(prev) : null
+  const moved = next && isEraLoaded(next.era) ? next : null
+  if (moved) era = eraById(moved.era)
   const gen = descentOf(parent.npcs, child)
 
   const hero = emptyHero(parent.seed)
@@ -383,9 +419,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // id наследника - с семьёй: счётчик nextId у каждой семьи свой, без неё id повторялись (storage.uniqueHeroIds).
   hero.id = `h${prev.family.id.replace(/^f/, '')}-${prev.nextId++}`
   state.nextId = prev.nextId
-  hero.era = home ? era.id : parent.era
-  hero.region = home ? home.region : parent.region
-  hero.places = home ? [home.region] : [parent.places[parent.places.length - 1] ?? parent.region]
+  hero.era = home || moved ? era.id : parent.era
+  hero.region = home ? home.region : moved ? moved.region : parent.region
+  hero.places = home ? [home.region] : moved ? [moved.region] : [parent.places[parent.places.length - 1] ?? parent.region]
   // Сословие чужбины может не найтись на родине - тогда то, в котором родился родитель.
   hero.cls = era.classes.some((c) => c.id === parent.cls) ? parent.cls : (parent.birthCls ?? era.classes[0].id)
   hero.birthCls = hero.cls
@@ -430,6 +466,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   if (prof && hero.age >= 8) hero.skills[prof.skill] = Math.min(30, hero.age * 1.5)
 
   ownFamily(state, era, parent, child)
+  if (moved) {
+    hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.chronicle_move', params: { why: { key: `chronicle.why.${moved.from}` }, to: { key: `region.${moved.region}` } }, reg: hero.region, rel: hero.religion, major: true, topic: 'history', icon: 'move', score: 60 })
+  }
   diceInherit(state, parent)
 
   if (gen > 1) {

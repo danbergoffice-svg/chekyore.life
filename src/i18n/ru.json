@@ -1398,5 +1398,18 @@
   "dice.stake.son": "Сына {who}: в услужение на семь лет",
   "dice.stake.daughter": "Дочь {who}: замуж за выигравшего",
   "dice.stake.wife": "Жену {who}: уйдёт к родне с позором",
-  "dice.stake.self": "{g:Самого|Саму} себя: в кабалу"
+  "dice.stake.self": "{g:Самого|Саму} себя: в кабалу",
+  "diary.chronicle_move": "{why}. Семья перебралась: теперь её дом - {to}.",
+  "chronicle.why.baghdad": "Багдад так и не оправился после монгольского разорения",
+  "chronicle.why.cordoba": "Кордову взяли кастильцы, мечеть стала собором",
+  "chronicle.why.kaifeng": "Кайфэн у чжурчжэней, двор Сун ушёл на юг",
+  "chronicle.why.thessalonica": "Фессалонику взяли османы",
+  "chronicle.why.nicaea": "Никея сдалась османам",
+  "chronicle.why.constantinople": "Константинополь пал - теперь это Стамбул, город султана",
+  "chronicle.why.trebizond": "Трапезунд взяли османы",
+  "chronicle.why.kamakura": "сёгунат Камакура пал, власть ушла в Киото",
+  "chronicle.why.kiev": "Киев так и не поднялся после Батыева разорения",
+  "chronicle.why.vladimir": "Владимир уступил первенство Москве",
+  "chronicle.why.palenque": "Паленке опустел, люди ушли",
+  "chronicle.why.copan": "Копан опустел, люди ушли"
 }

@@ -1398,5 +1398,18 @@
   "dice.stake.son": "Oğlun {who}: yedi yıl hizmete",
   "dice.stake.daughter": "Kızın {who}: kazananla evlenir",
   "dice.stake.wife": "Karın {who}: utançla ailesine döner",
-  "dice.stake.self": "Kendin: kul olarak"
+  "dice.stake.self": "Kendin: kul olarak",
+  "diary.chronicle_move": "{why}. Aile taşındı: artık yuvası {to}.",
+  "chronicle.why.baghdad": "Bağdat Moğol yağmasından sonra bir daha kendine gelemedi",
+  "chronicle.why.cordoba": "Kastilyalılar Kurtuba’yı aldı, cami katedral oldu",
+  "chronicle.why.kaifeng": "Kaifeng Jurçenlerin elinde, Song sarayı güneye çekildi",
+  "chronicle.why.thessalonica": "Osmanlılar Selanik’i aldı",
+  "chronicle.why.nicaea": "İznik Osmanlılara teslim oldu",
+  "chronicle.why.constantinople": "Konstantinopolis düştü, artık sultanın şehri İstanbul",
+  "chronicle.why.trebizond": "Osmanlılar Trabzon’u aldı",
+  "chronicle.why.kamakura": "Kamakura şogunluğu yıkıldı, güç Kyoto’ya geçti",
+  "chronicle.why.kiev": "Kiev, Batu’nun yağmasından sonra bir daha toparlanamadı",
+  "chronicle.why.vladimir": "Vladimir üstünlüğü Moskova’ya bıraktı",
+  "chronicle.why.palenque": "Palenque boşaldı, insanlar gitti",
+  "chronicle.why.copan": "Copán boşaldı, insanlar gitti"
 }

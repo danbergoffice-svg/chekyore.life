@@ -1398,5 +1398,18 @@
   "dice.stake.son": "Your son {who}: into service for seven years",
   "dice.stake.daughter": "Your daughter {who}: married to the winner",
   "dice.stake.wife": "Your wife {who}: back to her kin in shame",
-  "dice.stake.self": "Yourself: into bondage"
+  "dice.stake.self": "Yourself: into bondage",
+  "diary.chronicle_move": "{why}. The family has moved: home is now {to}.",
+  "chronicle.why.baghdad": "Baghdad never recovered from the Mongol sack",
+  "chronicle.why.cordoba": "The Castilians took Córdoba, and the mosque became a cathedral",
+  "chronicle.why.kaifeng": "Kaifeng is in Jurchen hands, and the Song court has gone south",
+  "chronicle.why.thessalonica": "The Ottomans took Thessalonica",
+  "chronicle.why.nicaea": "Nicaea surrendered to the Ottomans",
+  "chronicle.why.constantinople": "Constantinople has fallen - now it is Istanbul, the sultan’s city",
+  "chronicle.why.trebizond": "The Ottomans took Trebizond",
+  "chronicle.why.kamakura": "The Kamakura shogunate fell, and power moved to Kyoto",
+  "chronicle.why.kiev": "Kiev never rose again after Batu’s sack",
+  "chronicle.why.vladimir": "Vladimir gave way to Moscow",
+  "chronicle.why.palenque": "Palenque has emptied, the people have left",
+  "chronicle.why.copan": "Copán has emptied, the people have left"
 }

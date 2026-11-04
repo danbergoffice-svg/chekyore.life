@@ -859,5 +859,87 @@
     ]
    }
   ]
+ },
+ {
+  "id": "dice_spouse_table",
+  "type": "family",
+  "npc": "spouse",
+  "npc_tag": "gambler",
+  "age_range": [
+   20,
+   70
+  ],
+  "conditions": [
+   {
+    "tag": "married"
+   },
+   {
+    "tag_absent": "enslaved"
+   }
+  ],
+  "base_weight": 6,
+  "topic": "family",
+  "dynamic": "dice",
+  "dice_play": [
+   "join"
+  ],
+  "scene": {
+   "place": "street",
+   "time": "night",
+   "people": 4,
+   "props": [
+    "coins",
+    "lamp"
+   ]
+  },
+  "choices": [
+   {
+    "id": "join",
+    "effects": [
+     {
+      "npc_attitude": "npc",
+      "delta": 4
+     }
+    ],
+    "pattern": {
+     "memory_future": 3
+    }
+   },
+   {
+    "id": "stop",
+    "risk_roll": {
+     "param": "charisma",
+     "success_chance_base": 0.45,
+     "on_success": [
+      {
+       "npc_untag": "gambler"
+      },
+      {
+       "npc_attitude": "npc",
+       "delta": -3
+      }
+     ],
+     "on_failure": [
+      {
+       "npc_attitude": "npc",
+       "delta": -8
+      }
+     ]
+    }
+   },
+   {
+    "id": "stay",
+    "effects": [
+     {
+      "param": "money",
+      "delta": -40
+     },
+     {
+      "param": "stress",
+      "delta": 3
+     }
+    ]
+   }
+  ]
  }
 ]

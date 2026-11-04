@@ -119,5 +119,14 @@
   "dice.game.MAY": "bul",
   "dice.game.RUS": "zern",
   "dice.game.WAF": "kauri kabukları",
-  "dice.game.MNG": "şagay"
+  "dice.game.MNG": "şagay",
+  "ev.dice_spouse_table.title": "Benimle gel",
+  "ev.dice_spouse_table.text": "{npc} yine {game} oynanan yere gidiyor ve seni de çağırıyor: «Birlikte gidelim, bana şans getirirsin.»",
+  "ev.dice_spouse_table.join": "Gidip birlikte masaya otur",
+  "ev.dice_spouse_table.stop": "Evde kalmaya ikna et",
+  "ev.dice_spouse_table.stay": "Bırak tek başına gitsin",
+  "ev.dice_spouse_table.join.success": "İkiniz gülerek, dolu bir keseyle döndünüz.",
+  "ev.dice_spouse_table.join.failure": "İkiniz de kaybettiniz. Eve dönerken kimse konuşmadı.",
+  "ev.dice_spouse_table.stop.success": "{npc} kaldı. Tutku geçmiş gibi.",
+  "ev.dice_spouse_table.stop.failure": "{npc} kapıyı çarpıp oynamaya gitti."
 }

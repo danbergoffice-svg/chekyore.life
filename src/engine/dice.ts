@@ -56,6 +56,8 @@ export interface DiceResult {
   opponent: Opponent
   /** Уже записана (мини-игра записывает партию сразу, choose её не повторяет). */
   applied?: boolean
+  /** Праздник, когда играть можно открыто: штрафа за саму игру нет. */
+  festive?: boolean
 }
 
 /** Порог азарта для уровня ставки (ТЗ, лестница ставок). */
@@ -216,7 +218,9 @@ export function applyDice(state: GameState, era: EraDef | EraMeta, r: DiceResult
   }
 
   // Где кости запрещены или осуждаются - за игру саму по себе можно поплатиться.
-  if (flavor.law === 'banned' && chance(state, 0.2)) {
+  if (r.festive) {
+    // Сатурналии, ночь Дивали: играют все и открыто.
+  } else if (flavor.law === 'banned' && chance(state, 0.2)) {
     hero.money -= Math.round(base * 0.5)
     hero.hidden.reputation = clamp(hero.hidden.reputation - 5)
     note(state, { key: 'diary.dice_law.banned', params, topic: 'money', score: 12, mood: -4 })

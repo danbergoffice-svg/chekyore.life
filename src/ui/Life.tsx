@@ -1080,7 +1080,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const eventKey = `${state.queue[0]?.eventId}:${state.queue[0]?.at}:${state.year}`
   if (shown.current.id !== eventKey) shown.current = { id: eventKey, at: Date.now() }
   const pick = (id: string | null) => {
-    if (ev?.dynamic === 'dice' && id && DICE_TABLE.includes(id) && onDiceGame) return setTable(id)
+    if (ev?.dynamic === 'dice' && id && (ev.dice_play ?? DICE_TABLE).includes(id) && onDiceGame) return setTable(id)
     onChoose(id, Date.now() - shown.current.at)
   }
   useEffect(() => {

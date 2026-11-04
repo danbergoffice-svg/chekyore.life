@@ -119,5 +119,14 @@
   "dice.game.MAY": "бул",
   "dice.game.RUS": "зернь",
   "dice.game.WAF": "раковины каури",
-  "dice.game.MNG": "шагай"
+  "dice.game.MNG": "шагай",
+  "ev.dice_spouse_table.title": "Пойдём со мной",
+  "ev.dice_spouse_table.text": "{npc} снова собирается туда, где играют в {game}, и зовёт тебя: «Пойдём вместе, ты принесёшь мне удачу».",
+  "ev.dice_spouse_table.join": "Пойти и сесть к столу вместе",
+  "ev.dice_spouse_table.stop": "Уговорить остаться дома",
+  "ev.dice_spouse_table.stay": "Отпустить одного - пусть играет",
+  "ev.dice_spouse_table.join.success": "Вы вернулись вдвоём, смеясь, с полным кошельком.",
+  "ev.dice_spouse_table.join.failure": "Вы проиграли вдвоём. По дороге домой оба молчали.",
+  "ev.dice_spouse_table.stop.success": "{npc} остал{g=npc_sex:ся|ась}. Кажется, тяга отпустила.",
+  "ev.dice_spouse_table.stop.failure": "{npc} хлопнул{g=npc_sex:|а} дверью и {g=npc_sex:ушёл|ушла} играть."
 }

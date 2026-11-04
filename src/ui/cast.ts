@@ -8,7 +8,7 @@ import { toolFor } from '../pixel/figures'
 import type { Cast, CastMember } from '../pixel/scene'
 
 /** Сколько человек помещается на картинке; остальные - подписью «+N». */
-const MAX_PEOPLE = 8
+const MAX_PEOPLE = 12
 
 /** Места, где на картинке вся семья, а не только герой и человек события. */
 const FAMILY_PLACES = ['home', 'yard', 'market']

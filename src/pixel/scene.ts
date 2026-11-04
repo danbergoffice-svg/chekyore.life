@@ -2193,7 +2193,7 @@ function build(input: SceneInput): BuiltScene {
     } else prop(px, kind, xs[i], time, p, k, r)
   })
   // Близкие героя стоят первыми; остальные места - прохожие. Во дворе и дома чужих нет.
-  let members = cast?.members.slice(0, 8) ?? []
+  let members = cast?.members.slice(0, 12) ?? []
   const private_ = place === 'yard' || place === 'home'
   let extras = private_ && cast ? (place === 'home' && cast.home === 4 ? 1 : 0) : Math.max(0, (scene.people ?? 2) - members.length)
   // Мор: улицы пустеют.
@@ -2230,9 +2230,10 @@ function build(input: SceneInput): BuiltScene {
       members = []
     }
   }
-  let n = Math.min(water ? 2 : 8, members.length + extras)
-  let span = n > 1 ? Math.min(place === 'yard' || place === 'market' ? 70 : 110, n * 13) : 0
-  let start = (place === 'yard' ? 108 : 96) - span / 2
+  // До 12 человек: большая семья теснее (шаг 13 точек, у 8+ - 10), во дворе справа остаётся место для скотины.
+  let n = Math.min(water ? 2 : 12, members.length + extras)
+  let span = n > 1 ? Math.min(place === 'yard' || place === 'market' ? 100 : 120, n * (n > 7 ? 10 : 13)) : 0
+  let start = (place === 'yard' ? (n > 7 ? 100 : 108) : 96) - span / 2
   if (place === 'yard' && cast) {
     // Животные во дворе - справа от семьи.
     let ax = start + span + 12

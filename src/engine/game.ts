@@ -31,7 +31,7 @@ import { pets } from './pets'
 import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
 import { eraById, isEraLoaded } from '../content'
-import { eraEnding, summarize } from './life'
+import { chronicleSuccessor, eraEnding, summarize } from './life'
 import { eventHelpsGoal, goalYear } from './goals'
 import { ATTRIBUTES, PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
@@ -40,17 +40,20 @@ import { applyDice, diceStakes, fateGame, pickOpponent } from './dice'
 import type { DiceResult } from './dice'
 
 /** Без мини-игры (бот, тесты): партия на любую из доступных ставок, после проигрыша - отыграться (каждый второй раз, до трёх партий). */
-function botDice(state: GameState, era: EraDef): DiceResult[] {
+function botDice(state: GameState, era: EraDef, festive: boolean): DiceResult[] {
   const out: DiceResult[] = []
   for (let i = 0; i < 3; i++) {
     const stakes = diceStakes(state, era)
-    const r = { ...fateGame(state, stakes[Math.floor(next(state) * stakes.length)], pickOpponent(() => next(state))), chase: i > 0 }
+    const r = { ...fateGame(state, stakes[Math.floor(next(state) * stakes.length)], pickOpponent(() => next(state))), chase: i > 0, festive }
     applyDice(state, era, r)
     out.push({ ...r, applied: true })
     if (r.won || next(state) < 0.5) break
   }
   return out
 }
+
+/** Праздники, когда кости разрешены: Сатурналии, ночь Дивали. */
+export const FESTIVE = ['v_dice_saturnalia', 'ind_d_diwali_dice']
 
 /** Выборы события костей, которые разыгрываются партией. */
 const DICE_PLAY = ['play', 'road', 'chase']
@@ -98,6 +101,13 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   }
   if (hero.profession && hero.age >= era.stages.youth) addPattern(hero, era.patternWeights.profession[hero.profession])
   applyLifestyle(state, era)
+  // Хроника края кончилась при жизни героя - семья перебирается туда, где история продолжается (в своей стране).
+  const moved = chronicleSuccessor(state, 0)
+  if (moved && moved.era === hero.era) {
+    hero.region = moved.region
+    if (hero.places[hero.places.length - 1] !== moved.region) hero.places.push(moved.region)
+    note(state, { key: 'diary.chronicle_move', params: { why: { key: `chronicle.why.${moved.from}` }, to: { key: `region.${moved.region}` } }, major: true, topic: 'history', icon: 'move', score: 60 })
+  }
   const births = background(state, era, focus)
   householdYear(state, era)
   if (!hero.alive) return die(state, era)
@@ -1000,8 +1010,8 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     addPattern(hero, choice.pattern)
     era = eraNow(state, era)
     // Кости: итоги партий пришли из мини-игры; без неё (бот, тесты) - одна партия «на волю судьбы» на любую из доступных ставок.
-    if (ev.dynamic === 'dice' && DICE_PLAY.includes(choice.id)) {
-      const list = active.dice?.length ? active.dice : botDice(state, era)
+    if (ev.dynamic === 'dice' && (ev.dice_play ?? DICE_PLAY).includes(choice.id)) {
+      const list = active.dice?.length ? active.dice : botDice(state, era, FESTIVE.includes(ev.id))
       for (const r of list) if (!r.applied) applyDice(state, era, r)
       active.dice = list.map((r) => ({ ...r, applied: true }))
       const net = list.reduce((n, r) => n + (r.won && !r.caught ? r.stake.amount : -r.stake.amount), 0)
