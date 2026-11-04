@@ -18,6 +18,7 @@ import { heroLook } from './Life'
 import { VolumeSlider } from './Sound'
 import { useUi } from './text'
 import { Icon, IconText } from './Icon'
+import { SocialLinks } from './Social'
 
 /** Языки этой сборки: на портале может быть только часть (CrazyGames - английский). */
 const LANGS = platform.languages ?? ALL_LANGS
@@ -164,6 +165,12 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
         <button class="link" onClick={() => go('about')}>{t('menu.nav.about')}</button>
         {EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
       </nav>
+      {EXTERNAL && (
+        <>
+          <p class="small muted center social-title">{t('social.title')}</p>
+          <SocialLinks from="menu" />
+        </>
+      )}
       {players !== null && <p class="small center players-note">{t('menu.players', { n: players, count: players.toLocaleString(LOCALE[lang]) })}</p>}
       <p class="small muted center beta-note">{t('beta.notice')}</p>
     </div>

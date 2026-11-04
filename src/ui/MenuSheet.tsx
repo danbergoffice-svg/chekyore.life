@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'preact/hooks'
 import { useUi } from './text'
 import { Icon } from './Icon'
+import { SocialLinks } from './Social'
 
 export type MenuTarget = 'settings' | 'memorial' | 'awards' | 'about' | 'feedback' | 'tour'
 
@@ -49,6 +50,7 @@ export function MenuSheet(props: {
               {item('about', 'menu.nav.about')}
               {props.feedback && item('feedback', 'menu.nav.feedback')}
             </nav>
+            {props.feedback && <SocialLinks from="sheet" compact />}
             <button type="button" class="secondary menu-sheet-new" onClick={() => setConfirm(true)}>
               {t('menu.new_life')}
             </button>
