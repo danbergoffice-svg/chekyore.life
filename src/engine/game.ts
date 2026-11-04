@@ -60,6 +60,8 @@ const DICE_PLAY = ['play', 'road', 'chase']
 
 /** Через сколько лет одно и то же событие может повториться. */
 const COOLDOWN = 8
+/** Сколько лет между любыми двумя столами с костями. */
+const DICE_GAP = 2
 
 // ---------- Годовой фокус ----------
 
@@ -568,8 +570,11 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   const last = hero.seen[ev.id]
   if (last !== undefined && (ev.once || ev.milestone || ev.global_chance !== undefined)) return false
   if (ev.group && hero.seen[`@${ev.group}`] !== undefined) return false
-  // Кости зовут чаще: игрок садится за стол хоть каждый год.
+  // Кости зовут чаще других событий, но не чаще раза в два года на все столы вместе (отзыв владельца 05.11:
+  // иначе кости становятся постоянными).
   if (last !== undefined && !ignoreTiming && state.year - last < (ev.dynamic === 'dice' ? 2 : COOLDOWN)) return false
+  const lastDice = hero.seen['@dice']
+  if (ev.dynamic === 'dice' && lastDice !== undefined && !ignoreTiming && state.year - lastDice < DICE_GAP) return false
   if (ev.npc && npcCandidates(state, ev).length === 0) return false
   if (ev.pet && !pets(state).some((p) => p.kind === ev.pet)) return false
   if (ev.effects && addsSpouse({ id: '', effects: ev.effects }) && aliveNpcs(hero, 'spouse').length > 0) return false
@@ -781,8 +786,9 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   state.queue = picked.sort((a, b) => a.at - b.at)
   for (const p of picked) {
     hero.seen[p.eventId] = state.year
-    const group = byId(p.eventId)?.group
-    if (group) hero.seen[`@${group}`] = state.year
+    const ev = byId(p.eventId)
+    if (ev?.group) hero.seen[`@${ev.group}`] = state.year
+    if (ev?.dynamic === 'dice') hero.seen['@dice'] = state.year
   }
 
   // Историческая справка в первые годы: младенцу ещё нечего решать - игрок узнаёт свой мир.

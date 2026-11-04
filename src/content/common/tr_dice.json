@@ -128,5 +128,7 @@
   "ev.dice_spouse_table.join.success": "İkiniz gülerek, dolu bir keseyle döndünüz.",
   "ev.dice_spouse_table.join.failure": "İkiniz de kaybettiniz. Eve dönerken kimse konuşmadı.",
   "ev.dice_spouse_table.stop.success": "{npc} kaldı. Tutku geçmiş gibi.",
-  "ev.dice_spouse_table.stop.failure": "{npc} kapıyı çarpıp oynamaya gitti."
+  "ev.dice_spouse_table.stop.failure": "{npc} kapıyı çarpıp oynamaya gitti.",
+  "ev.dice_pull.resist.success": "Dayandın. Akşam evde geçti, tutku biraz gevşedi.",
+  "ev.dice_pull.resist.failure": "Evde kaldın ama bütün gece yalnızca zarı düşündün."
 }

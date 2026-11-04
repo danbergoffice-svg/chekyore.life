@@ -39,7 +39,9 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   const [rerolls, setRerolls] = useState(0)
   const [cheated, setCheated] = useState(false)
   const [last, setLast] = useState<DiceResult | null>(null)
-  const [rolling, setRolling] = useState(false)
+  // Кто сейчас бросает: его кости крутятся и мелькают гранями (у соперника - тоже).
+  const [rolling, setRolling] = useState<'me' | 'them' | null>(null)
+  const [, flick] = useState(0)
 
   const freeRerolls = (d.skill >= SKILL.reroll ? 1 : 0) + (hero.tags.includes('lucky_dice') ? 1 : 0)
   const score = (who: 'me' | 'them') => rounds.filter((r) => r.them && sum(r.me) !== sum(r.them) && (who === 'me' ? sum(r.me) > sum(r.them) : sum(r.me) < sum(r.them))).length
@@ -73,15 +75,17 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     }
     finish({ stake: s, won: me > them, cheated: false, caught: false, exposed: false, fate: true, chase, opponent })
   }
-  const shake = (then: () => void) => {
-    setRolling(true)
+  const shake = (who: 'me' | 'them', then: () => void) => {
+    setRolling(who)
+    const id = setInterval(() => flick((n) => n + 1), 70)
     setTimeout(() => {
-      setRolling(false)
+      clearInterval(id)
+      setRolling(null)
       then()
     }, 450)
   }
-  const throwMine = () => shake(() => setRounds([...rounds, { me: [die(), die()] }]))
-  const reroll = () => shake(() => {
+  const throwMine = () => shake('me', () => setRounds([...rounds, { me: [die(), die()] }]))
+  const reroll = () => shake('me', () => {
     setRerolls(rerolls + 1)
     setRounds([...rounds.slice(0, -1), { me: [die(), die()] }])
   })
@@ -91,7 +95,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     setCheated(true)
     setRounds([...rounds.slice(0, -1), { me }])
   }
-  const throwTheirs = () => shake(() => {
+  const throwTheirs = () => shake('them', () => {
     const crooked = opponent === 'cheat' && Math.random() < 0.6
     const them: Pair = crooked ? [Math.max(die(), die()), Math.max(die(), die())] : [die(), die()]
     const next = [...rounds.slice(0, -1), { ...cur, them, theyCheated: crooked }]
@@ -152,24 +156,24 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
       <div class="dice-board">
         <div class="dice-side">
           <span class="dice-who">{nameOf(hero.name, lang)}</span>
-          <span class="dice-pair">{cur ? cur.me.map((v) => <Die v={v} rolling={rolling && waitingThem} />) : <><Die v={1} /><Die v={1} /></>}</span>
+          <span class="dice-pair">{rolling === 'me' ? <><Die v={die()} rolling /><Die v={die()} rolling /></> : cur ? cur.me.map((v) => <Die v={v} />) : <><Die v={1} /><Die v={1} /></>}</span>
           {cur && <span class="dice-sum">{sum(cur.me)}</span>}
         </div>
         <div class="dice-side">
           <span class="dice-who">{t(`dice.opp_short.${oppKey}`)}</span>
-          <span class="dice-pair">{cur?.them ? cur.them.map((v) => <Die v={v} />) : <><Die v={1} rolling={rolling && !!cur && !waitingThem} /><Die v={1} rolling={rolling && !!cur && !waitingThem} /></>}</span>
+          <span class="dice-pair">{rolling === 'them' ? <><Die v={die()} rolling /><Die v={die()} rolling /></> : cur?.them ? cur.them.map((v) => <Die v={v} />) : <><Die v={1} /><Die v={1} /></>}</span>
           {cur?.them && <span class="dice-sum">{sum(cur.them)}</span>}
         </div>
       </div>
       {cur?.them && sum(cur.me) === sum(cur.them) && <p class="small center">{t('dice.tie')}</p>}
       <div class="dice-actions">
         {(!cur || cur.them) && score('me') < 2 && score('them') < 2 && (
-          <button type="button" class="primary" disabled={rolling} onClick={throwMine}>{t('dice.throw')}</button>
+          <button type="button" class="primary" disabled={!!rolling} onClick={throwMine}>{t('dice.throw')}</button>
         )}
         {waitingThem && (
           <>
-            <button type="button" class="primary" disabled={rolling} onClick={throwTheirs}>{t('dice.their_turn')}</button>
-            {rerolls < freeRerolls && <button type="button" class="secondary" disabled={rolling} onClick={reroll}>{t('dice.reroll')}</button>}
+            <button type="button" class="primary" disabled={!!rolling} onClick={throwTheirs}>{t('dice.their_turn')}</button>
+            {rerolls < freeRerolls && <button type="button" class="secondary" disabled={!!rolling} onClick={reroll}>{t('dice.reroll')}</button>}
             {d.skill >= SKILL.cheat && !cheated && Math.min(...cur.me) < 6 && <button type="button" class="secondary danger-soft" onClick={cheat}>{t('dice.cheat')}</button>}
           </>
         )}

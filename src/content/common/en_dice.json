@@ -128,5 +128,7 @@
   "ev.dice_spouse_table.join.success": "You came back together, laughing, with a full purse.",
   "ev.dice_spouse_table.join.failure": "You both lost. Neither spoke on the way home.",
   "ev.dice_spouse_table.stop.success": "{npc} stayed. The pull seems to have let go.",
-  "ev.dice_spouse_table.stop.failure": "{npc} slammed the door and went to play."
+  "ev.dice_spouse_table.stop.failure": "{npc} slammed the door and went to play.",
+  "ev.dice_pull.resist.success": "You held out. The evening passed at home, and the pull eased a little.",
+  "ev.dice_pull.resist.failure": "You stayed home, but all night you thought only of dice."
 }

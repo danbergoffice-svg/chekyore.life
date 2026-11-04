@@ -128,5 +128,7 @@
   "ev.dice_spouse_table.join.success": "Вы вернулись вдвоём, смеясь, с полным кошельком.",
   "ev.dice_spouse_table.join.failure": "Вы проиграли вдвоём. По дороге домой оба молчали.",
   "ev.dice_spouse_table.stop.success": "{npc} остал{g=npc_sex:ся|ась}. Кажется, тяга отпустила.",
-  "ev.dice_spouse_table.stop.failure": "{npc} хлопнул{g=npc_sex:|а} дверью и {g=npc_sex:ушёл|ушла} играть."
+  "ev.dice_spouse_table.stop.failure": "{npc} хлопнул{g=npc_sex:|а} дверью и {g=npc_sex:ушёл|ушла} играть.",
+  "ev.dice_pull.resist.success": "Ты {g:устоял|устояла}. Вечер прошёл дома, и тяга чуть отпустила.",
+  "ev.dice_pull.resist.failure": "Ты {g:остался|осталась} дома, но всю ночь думал{g:|а} только о костях."
 }

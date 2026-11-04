@@ -184,11 +184,6 @@
    },
    {
     "id": "resist",
-    "requirements": [
-     {
-      "tag_absent": "dice_lust80"
-     }
-    ],
     "effects": [
      {
       "param": "happiness",
@@ -204,6 +199,29 @@
     ],
     "pattern": {
      "memory_future": -3
+    },
+    "risk_roll": {
+     "param": "diligence",
+     "success_chance_base": 0.6,
+     "on_success": [
+      {
+       "dice_lust": -4
+      },
+      {
+       "param": "self_esteem",
+       "delta": 3
+      }
+     ],
+     "on_failure": [
+      {
+       "param": "stress",
+       "delta": 5
+      },
+      {
+       "param": "happiness",
+       "delta": -3
+      }
+     ]
     }
    }
   ],
