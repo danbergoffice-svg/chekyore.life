@@ -763,7 +763,7 @@ div.hint .hint-x { background: none; border: 0; color: inherit; font: inherit; c
 .menu .spin { margin: 16px 0 6px; }
 .spin-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 34px; margin-bottom: 8px; }
 .spin-head .caps { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-.gifts-btn { flex: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink-2); font-weight: 700; font-size: 15px; cursor: pointer; }
+.gifts-btn { flex: none; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 34px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink-2); font-weight: 700; font-size: 15px; cursor: pointer; }
 .gifts-btn.has { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 14%, var(--card)); color: var(--gold); }
 .gifts-btn .n { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; background: var(--gold); color: #1f1914; font-size: 12px; }
 .reel-frame { position: relative; }
@@ -994,3 +994,22 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
   .event-sheet .ev-head .eyebrow { display: none; }
   .modal.event-sheet .art, .modal.event-sheet > .scene, .modal.event-sheet > .art-frame, .modal.event-sheet .art canvas, .modal.event-sheet .art img, .modal.event-sheet > .scene canvas { height: 88px; }
 }
+/* Кнопка скорости внизу крупнее (отзыв владельца 04.11): цель касания 44 px, шрифт 15 px. */
+.time-speed { min-height: 44px; min-width: 64px; padding: 0 12px; border: 1px solid #3a4670; border-radius: 10px; background: #1f2945; color: #f3ecdc; font-size: 15px; font-weight: 700; text-decoration: none; }
+.time-mid { align-items: center; }
+.time-line { align-items: center; }
+/* Сон «по порядку»: строку можно тянуть. */
+.dream-order li { touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.dream-order li.dragging { cursor: grabbing; outline: 2px solid var(--gold); outline-offset: 1px; opacity: 0.9; }
+.dream-grip { flex: none; color: var(--muted); letter-spacing: -2px; margin-right: 6px; }
+/* Обучение: подсветка элемента и карточка рядом. */
+.tour { position: fixed; inset: 0; z-index: 50; }
+.tour-spot { position: fixed; border-radius: 12px; box-shadow: 0 0 0 9999px rgba(8, 10, 20, 0.72); outline: 2px solid #e6c25c; transition: all 0.25s ease-out; pointer-events: none; }
+.tour-card { position: fixed; left: 16px; right: 16px; max-width: 26rem; margin: 0 auto; padding: 14px 16px; border-radius: 12px; background: #f3ecdc; color: #1c1a17; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45); }
+.tour-card h2 { margin: 0 0 6px; font-size: 1.25rem; color: #1c1a17; }
+.tour-card p { margin: 0 0 10px; }
+.tour-n { font-size: 13px; color: #6b5f45; margin: 0 0 4px !important; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
+.tour-btns { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.tour-btns .link { color: #6b4a2a; min-height: 44px; }
+.tour-btns .primary { background: #1c1a17; color: #f3ecdc; }
+@media (prefers-reduced-motion: reduce) { .tour-spot { transition: none; } }

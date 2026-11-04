@@ -67,7 +67,9 @@ html.skin .spin-head .caps { display: inline-flex; align-items: center; gap: 8px
 html.skin .spin-head .caps::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--mustard); box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--sheet); }
 html.skin .spin-head { background: radial-gradient(circle, rgba(243, 234, 215, 0.5) 1.4px, transparent 2px) 0 50% / 10px 10px repeat-x; }
 html.skin .spin-head > * { background: var(--bg); padding-right: 8px; }
-html.skin .spin-head > *:last-child:not(:first-child) { padding: 0 0 0 8px; }
+html.skin .spin-head > *:last-child:not(:first-child):not(.gifts-btn) { padding: 0 0 0 8px; }
+/* «Дары» - своя кнопка с рамкой: правило выше снимало ей правый отступ, и без цифры надпись прижималась к краю. */
+html.skin .spin-head > .gifts-btn { padding: 0 13px; margin-left: 8px; }
 /* Справа у автомата место под рычаг (margin 34px у .slot-machine): строка с «Дарами» кончается там же, где корпус, - иначе кнопка липнет к краю экрана. */
 html.skin .spin-head { padding-right: 34px; background-clip: content-box; }
 
@@ -390,3 +392,5 @@ html.skin .modal .changes .down { color: #a3341c; }
 html.skin .modal .kids-dir { color: #6b4a12; }
 html.skin .modal .kids-reward { color: #a3341c; }
 html.skin .menu-topbar .lang-switch button.active { background: #b5462b; }
+html.skin .tour-card .link { color: #6b4a2a; text-decoration-color: rgba(107, 74, 42, 0.5); }
+html.skin .tour-card .primary { background: #1c1a17; color: #f3ecdc; }

@@ -830,6 +830,7 @@ export function App() {
   const toMenu = () => setScreen('menu')
   /** Меню-лист поверх жизни (правка 02): разделы, открытые из него, по «Назад» возвращают в жизнь. */
   const [lifeMenu, setLifeMenu] = useState(false)
+  const [tourNonce, setTourNonce] = useState(0)
   const backTo = useRef<'menu' | 'life'>('menu')
   const goBack = () => {
     const to = backTo.current
@@ -1083,6 +1084,7 @@ export function App() {
               setLifeMenu(true)
             }}
             frozen={lifeMenu}
+            tourNonce={tourNonce}
             onSettings={() => {
               setSettingsFrom('life')
               setScreen('settings')
@@ -1105,6 +1107,7 @@ export function App() {
             feedback={EXTERNAL}
             go={(to: MenuTarget) => {
               setLifeMenu(false)
+              if (to === 'tour') return setTourNonce((n) => n + 1)
               backTo.current = 'life'
               if (to === 'settings') setSettingsFrom('life')
               if (to === 'feedback') openFeedback('life')

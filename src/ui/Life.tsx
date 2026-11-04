@@ -42,6 +42,7 @@ import type { GoalId } from '../engine/goals'
 import type { GoalGroup } from '../goal'
 import { GoalBar, GoalPick } from './GoalPick'
 import { HudHeader, MilestoneChip, TimeBar } from './LifeHud'
+import { Tour } from './Tour'
 import type { GoalChoice } from './GoalPick'
 import { earlySeed, kidsOn, SEEN_KEY } from '../kids/early'
 import type { EarlyResult } from '../kids/early'
@@ -86,6 +87,8 @@ interface LifeProps {
   shortFirst?: boolean
   /** Эксперимент XA: 'b' - компактная шапка, веха и нижняя панель времени (макет 06). */
   layout?: 'a' | 'b'
+  /** Меняется - открыть обучение заново («Как играть» в меню). */
+  tourNonce?: number
   /** Открыть настройки из жизни («Назад» вернёт в жизнь). */
   onSettings?: () => void
   choiceChanges: Change[]
@@ -109,7 +112,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, layout, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -127,11 +130,13 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     const id = setInterval(() => setLifeSec((x) => x + 1), 1000)
     return () => clearInterval(id)
   }, [])
+  // Пока идёт обучение, подсказок нет.
+  const tourOn = useRef(false)
   // Подсказки по одной (правка 10): из ожидающих показывается только первая, следующая - после «Понятно».
   const hintWhen: Record<string, boolean> = {}
   const hintFor = (id: string, when: boolean) => {
     hintWhen[id] = when && !hints.includes(id)
-    return hintWhen[id] && HINT_ORDER.find((h) => hintWhen[h] ?? hintDue(h)) === id
+    return !tourOn.current && hintWhen[id] && HINT_ORDER.find((h) => hintWhen[h] ?? hintDue(h)) === id
   }
   const hintDue = (id: string) =>
     !hints.includes(id) &&
@@ -191,7 +196,26 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     ls.lossSeen = lossAt + 1
     bump((x) => x + 1)
   }
-  const hold = modalOpen || !!loss
+  // Обучение: один раз в первой жизни, после выбора цели и без открытых окон; из меню - заново.
+  const [tour, setTour] = useState(false)
+  useEffect(() => {
+    if (tourNonce) setTour(true)
+  }, [tourNonce])
+  const tourDue = !tour && (state.settings.livesBefore ?? 0) === 0 && !platform.kvGet('thousands.tour') && !modalOpen && !loss && !goalDue && hero.alive
+  useEffect(() => {
+    if (tourDue) setTour(true)
+  }, [tourDue])
+  const endTour = (step: number, skipped: boolean) => {
+    setTour(false)
+    platform.kvSet('thousands.tour', '1')
+    platform.track('tour_end', { step: step + 1, skipped: skipped ? 1 : 0 })
+    // Подсказки о скорости и о герое обучение уже показало.
+    const next = [...new Set([...hints, 'speed', 'hero'])]
+    setHints(next)
+    platform.kvSet('thousands.hints', next.join(','))
+  }
+  const hold = modalOpen || !!loss || tour
+  tourOn.current = tour || tourDue
   // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
   // пауза без решения и уход с экрана жизни - остановка.
   const playing = (speed > 0 || hold) && !chapterDue && !adOpen && !frozen && state.phase !== 'dead'
@@ -237,6 +261,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
   // Дневник: только важное; раскрытые записи - полный текст события и чем кончился выбор.
   const [onlyMajor, setOnlyMajor] = useState(false)
+  // Вести мира за годы жизни героя - отдельным списком по кнопке (отзыв 04.11), с первого года, а не с шести лет.
+  const [worldOpen, setWorldOpen] = useState(false)
+  const worldNews = era.news.filter((n) => n.year >= hero.birthYear && n.year <= state.year && !n.exclude_regions?.includes(hero.region)).sort((a, b) => b.year - a.year)
   const [openRows, setOpenRows] = useState<number[]>([])
   const fullText = (d: DiaryEntry): string[] | null => {
     const v = typeof d.params?.v === 'number' ? d.params.v : undefined
@@ -522,7 +549,25 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <div class="filters" role="group">
               <button class={onlyMajor ? 'chip' : 'chip active'} aria-pressed={!onlyMajor} onClick={() => setOnlyMajor(false)}>{t('diary.all')}</button>
               <button class={onlyMajor ? 'chip active' : 'chip'} aria-pressed={onlyMajor} onClick={() => setOnlyMajor(true)}>{t('diary.major_only')}</button>
+              {worldNews.length > 0 && (
+                <button class={worldOpen ? 'chip active' : 'chip'} aria-expanded={worldOpen} onClick={() => {
+                  if (!worldOpen) platform.track('tab_open', { tab: 'world_news' })
+                  setWorldOpen(!worldOpen)
+                }}>
+                  {t('diary.world', { n: worldNews.length })}
+                </button>
+              )}
             </div>
+            {worldOpen && (
+              <ol class="diary world-news">
+                {worldNews.map((n) => (
+                  <li class="news">
+                    <span class="diary-age">{formatYear(n.year, lang)}</span>
+                    <span>{t(`news.${n.id}`, contextParams(hero.region, hero.religion, n.year), o)}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
             <ol class="diary">
               {groupPrimers(yearsBackward(onlyMajor ? entries.filter(([d]) => d.major) : entries)).map((item) => {
                 if ('primers' in item) return <PrimerGroup key={item.key} ids={item.primers} o={o} />
@@ -564,6 +609,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           waiting={modalOpen}
         />
       )}
+      {tour && !modalOpen && <Tour onEnd={endTour} />}
       {goalToast && (
         <p class="goal-toast" role="status">
           {goalToast}

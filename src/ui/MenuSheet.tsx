@@ -5,7 +5,7 @@ import { useEffect, useState } from 'preact/hooks'
 import { useUi } from './text'
 import { Icon } from './Icon'
 
-export type MenuTarget = 'settings' | 'memorial' | 'awards' | 'about' | 'feedback'
+export type MenuTarget = 'settings' | 'memorial' | 'awards' | 'about' | 'feedback' | 'tour'
 
 export function MenuSheet(props: {
   /** Имя и возраст героя - для подтверждения «Новой жизни». */
@@ -42,6 +42,7 @@ export function MenuSheet(props: {
               <Icon name="play" /> {t('menu.continue')}
             </button>
             <nav class="menu-sheet-list">
+              {item('tour', 'menu.tour')}
               {item('settings', 'menu.nav.settings')}
               {item('memorial', 'menu.nav.memorial')}
               {item('awards', 'menu.nav.awards')}

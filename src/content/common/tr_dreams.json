@@ -423,7 +423,7 @@
   "dream.hint": "Ders kitabına göz at",
   "dream.hint_used": "İpucu",
   "dream.pick_hint": "Gereken her şeyi işaretle - kaç tane olduğu söylenmiyor.",
-  "dream.order_hint": "Oklarla sırala; fazlasını çıkar.",
+  "dream.order_hint": "Sıraya koy: satırı sürükle ya da oklarla taşı; fazlasını çıkar.",
   "dream.removed": "Çıkarıldı",
   "dream.ratio_sum": "Toplam: %{n}",
   "dream.number_ph": "Sayı",
