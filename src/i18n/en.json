@@ -1412,5 +1412,6 @@
   "chronicle.why.vladimir": "Vladimir gave way to Moscow",
   "chronicle.why.palenque": "Palenque has emptied, the people have left",
   "chronicle.why.copan": "Copán has emptied, the people have left",
-  "social.title": "Official channels"
+  "social.title": "Official channels",
+  "memorial.continue_confirm": "The life of {name} is under way. If you continue another family line, you cannot come back to it. Continue?"
 }

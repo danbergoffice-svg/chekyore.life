@@ -241,6 +241,62 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
   }
 }
 
+/**
+ * Продолжить род из мемориала (отзыв владельца 05.11). Мемориал хранит итог жизни, а не всё состояние игры: умерший
+ * герой собирается заново по итогу - близкие, деньги, края, метки, навыки, скот, цель. Этого хватает, чтобы выбрать
+ * наследника и передать ему жизнь (continueWithHeir). Род продолжается с года смерти героя.
+ */
+export function stateFromMemorial(era: EraDef, life: LifeSummary, memorial: LifeSummary[], settings: GameSettings): GameState {
+  const seed = [...life.heroId].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) | 0, 7) >>> 0
+  const s = newLife(era, settings, seed)
+  const h = s.hero
+  Object.assign(h, {
+    id: life.heroId,
+    name: life.name,
+    sex: life.sex,
+    era: life.era,
+    region: life.region,
+    cls: life.cls,
+    religion: life.religion ?? h.religion,
+    profession: life.profession,
+    birthYear: life.birthYear,
+    deathYear: life.deathYear,
+    deathCause: life.cause,
+    age: life.age,
+    alive: false,
+    generation: life.generation,
+    money: life.money,
+    diary: life.diary,
+    npcs: structuredClone(life.npcs),
+    history: life.history,
+    places: life.places,
+    traits: life.traits,
+    tags: life.tags ?? [],
+    skills: { ...h.skills, ...life.skills },
+    animals: life.animals ?? [],
+    abroad: life.abroad,
+    returned: life.returned,
+    erasLived: life.erasLived ?? [life.era],
+    goal: life.goal,
+    dreamSeen: life.dreamSeen,
+  })
+  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [] }
+  s.year = life.deathYear
+  s.offChronicle = life.offChronicle
+  s.phase = 'dead'
+  s.queue = []
+  // Новые люди и наследник получают id, которых ещё не было в этом роду.
+  const nums = [...life.npcs.map((n) => n.id), ...s.family.lives.map((l) => l.heroId)].map((id) => Number(/(\d+)$/.exec(id)?.[1] ?? 0))
+  s.nextId = Math.max(0, ...nums) + 1
+  return s
+}
+
+/** Можно ли продолжить род этой жизни из мемориала: она последняя в своём роду и род не продолжается сейчас в игре. */
+export function memorialCanContinue(life: LifeSummary, memorial: LifeSummary[], current: GameState | null): boolean {
+  if (current && current.family.id === life.familyId && current.phase !== 'dead') return false
+  return !memorial.some((l) => l.familyId === life.familyId && l.generation > life.generation)
+}
+
 /** Год, когда кончается хроника края героя (годы страны или края, что раньше). */
 export function chronicleEnd(state: GameState): number {
   const meta = ERA_META[state.hero.era]

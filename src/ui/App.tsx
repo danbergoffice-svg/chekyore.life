@@ -2,7 +2,7 @@ import { applyTheme } from '../theme'
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
-import { chronicleSuccessor, continueWithHeir, heirHome, heirs, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
+import { chronicleSuccessor, continueWithHeir, heirHome, heirs, memorialCanContinue, stateFromMemorial, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
 import type { GameSettings, GameState, LifeSummary } from '../engine/types'
@@ -923,6 +923,11 @@ export function App() {
   const lastLife = state?.phase === 'dead' ? ([...memorial].reverse().find((l) => l.heroId === state.hero.id) ?? state.family.lives[state.family.lives.length - 1]) : null
   const openedLife = memorial.find((l) => l.heroId === opened)
   const openedEra = openedLife && isEraLoaded(openedLife.era) ? eraById(openedLife.era) : null
+  // Род из мемориала можно продолжить, если эта жизнь - последняя в роду и у неё остались наследники.
+  const pastHeirs = useMemo(
+    () => !!openedLife && !!openedEra && memorialCanContinue(openedLife, memorial, state) && heirs(stateFromMemorial(openedEra, openedLife, memorial, { mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy })).length > 0,
+    [openedLife?.heroId, openedEra?.id, memorial.length, state?.family.id, state?.phase],
+  )
 
   // «Дары» (макет A): всё, что меняет следующую жизнь, - в одной панели; кнопка над барабаном показывает, сколько ждёт.
   const [giftsOpen, setGiftsOpen] = useState(false)
@@ -1208,7 +1213,16 @@ export function App() {
           <Summary
             life={openedLife}
             era={openedEra}
-            canContinue={false}
+            canContinue={pastHeirs}
+            onContinue={() => {
+              // Сейчас идёт другая жизнь - её не продолжить, если взять род из мемориала.
+              if (state && state.phase !== 'dead' && !window.confirm(ui.t('memorial.continue_confirm', { name: { name: state.hero.name } }))) return
+              platform.track('memorial_continue', { gen: openedLife.generation })
+              game.current = stateFromMemorial(openedEra, openedLife, memorial, { ...(state?.settings ?? game.current?.settings ?? {}), mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy } as GameSettings)
+              offChronicle.current = false
+              persist()
+              setScreen('heirs')
+            }}
             onAgain={() => startNew()}
             onMemorial={() => setScreen('memorial')}
             onMenu={goBack}
