@@ -509,7 +509,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           )}
           <p class="small">
             <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)}
-            {hero.rent && <> ({t('hero.rent', { sum: formatMoney(t, rentPerMonth(hero.rent), coin) })})</>} · <strong>{t('hero.animals')}:</strong>{' '}
+            {hero.rent && <> ({t('hero.rent', { sum: formatMoney(t, rentPerMonth(hero.rent), coin) })})</>}
+            {!!hero.land && <> · <strong>{t('hero.land')}:</strong> {t('hero.land_n', { n: hero.land })}</>}
+            {!!hero.slaves && <> · <strong>{t('hero.slaves')}:</strong> {hero.slaves}</>} · <strong>{t('hero.animals')}:</strong>{' '}
             {hero.animals?.length
               ? hero.animals
                   .map((a) =>

@@ -32,7 +32,9 @@ import { householdYear } from './household'
 import { pets } from './pets'
 import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
-import { eraById, isEraLoaded } from '../content'
+import { ERA_META, eraById, isEraLoaded } from '../content'
+import { estateOffers, estatePrice } from './estate'
+import type { EstateKind } from './estate'
 import { chronicleSuccessor, eraEnding, summarize } from './life'
 import { eventHelpsGoal, goalYear } from './goals'
 import { ATTRIBUTES, PRIMER_TOPICS } from './types'
@@ -602,10 +604,24 @@ function activate(state: GameState, ev: EventDef, from?: number, npcId?: string)
   }
 }
 
+/** Параметры текста событий хозяйства: цена в монете края, следующий дом, сколько наделов и рабов. */
+function estateParams(state: GameState, eventId: string): Record<string, TextParam> {
+  const hero = state.hero
+  const kind = ESTATE_EVENTS[eventId] ?? 'land'
+  const price = estatePrice(state, kind)
+  const coin = ERA_META[hero.era]?.regions.find((r) => r.id === hero.region)?.coin ?? 'coin'
+  return { price: price.toLocaleString(), n: price, coin: { key: `coin.${coin}` }, home: { key: `home.${Math.min(4, (hero.home ?? 1) + 1)}` }, land: hero.land ?? 0, slaves: hero.slaves ?? 0 }
+}
+
+/** События-предложения о покупке: какое владение предлагает каждое. */
+const ESTATE_EVENTS: Record<string, EstateKind> = { estate_home: 'home', estate_land: 'land', estate_slaves: 'slaves' }
+
 /** Параметры текста события: имя и пол персонажа, о котором оно. */
-export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName'>): Record<string, TextParam> {
+export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName'> & { eventId?: string }): Record<string, TextParam> {
   // Питомец: по кличке, а если клички нет - «попугай», «черепаха».
   const pet: Record<string, TextParam> = active.petKind ? { pet: active.petName ? { name: active.petName } : { key: `pet.${active.petKind}` } } : {}
+  // Хозяйство: {price} {coin} - цена покупки, {home} - какой дом купить, {land} и {slaves} - сколько уже есть.
+  if (active.eventId?.startsWith('estate_')) Object.assign(pet, estateParams(state, active.eventId))
   // На чужбине: {homeland} - родная страна, {homeplace} - родной край.
   const a = state.hero.abroad
   if (a) Object.assign(pet, { homeland: { key: `era.${a.homeland.era}` }, homeplace: { key: `region.${a.homeland.region}` } })
@@ -738,6 +754,13 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   // 1б. Долги: в долговой яме заимодавцы требуют решения через год, у обычного должника - иногда приходят к дверям.
   const debtEv = hero.tags.includes('deep_debt') ? byId('debt_pit') : hero.tags.includes('in_debt') ? byId('debt_creditors') : undefined
   if (debtEv && hero.age >= 16 && chance(state, hero.tags.includes('deep_debt') ? 0.5 : 0.25) && fits(debtEv)) add(debtEv)
+
+  // 1в. Хозяйство: денег стало заметно больше, чем стоит покупка, - предложение купить дом побольше, землю или рабов
+  // (выбором, а не тихим переездом). Одно предложение в год, по очереди того, чего не хватает.
+  if (!debtEv && hero.alive) {
+    const offer = estateOffers(state).map((k) => byId(`estate_${k}`)).find((ev) => ev && fits(ev))
+    if (offer && chance(state, 0.4)) add(offer)
+  }
 
   // 2. Исторические события в этом регионе и году (вне хроники их нет).
   for (const ev of state.offChronicle === undefined ? b.globals : []) {

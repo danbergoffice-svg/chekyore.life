@@ -6,6 +6,7 @@ import type { EraDef, EraMeta, GameState, Hero } from './types'
 import { chance, int, next } from './rng'
 import { addYears, aliveNpcs, note, npcAge, sendAway } from './rules'
 import { HOME_COST, rentPerMonth, startRent } from './household'
+import { landPrice, loseEstate, slavePrice } from './estate'
 
 export interface DiceStats {
   skill: number
@@ -28,7 +29,7 @@ export interface DiceStats {
   lastYear?: number
 }
 
-export type StakeKind = 'coins' | 'purse' | 'animal' | 'house' | 'land' | 'son' | 'daughter' | 'wife' | 'self'
+export type StakeKind = 'coins' | 'purse' | 'animal' | 'house' | 'land' | 'slave' | 'son' | 'daughter' | 'wife' | 'self'
 
 export interface Stake {
   level: 1 | 2 | 3 | 4 | 5
@@ -121,7 +122,11 @@ export function diceStakes(state: GameState, era: EraDef | EraMeta): Stake[] {
     if (animal) out.push({ level: 3, kind: 'animal', amount: Math.round(r * ANIMAL_VALUE[animal.kind]), animal: animal.kind })
     // Свой дом (не съёмный) - по его цене, как при покупке.
     if ((hero.home ?? 1) >= 2 && !hero.rent) out.push({ level: 3, kind: 'house', amount: HOME_COST[Math.min(4, hero.home)] })
-    if (hero.cls === 'landowner' || hero.cls === 'noble') out.push({ level: 3, kind: 'land', amount: Math.round(r * 10) })
+    // Земля: свой надел - по цене надела; у землевладельца и знати без купленных наделов - родовая земля сословия.
+    if (hero.land) out.push({ level: 3, kind: 'land', amount: landPrice(state) })
+    else if (hero.cls === 'landowner' || hero.cls === 'noble') out.push({ level: 3, kind: 'land', amount: Math.round(r * 10) })
+    // Невольник - по его цене на здешнем рынке.
+    if (hero.slaves) out.push({ level: 3, kind: 'slave', amount: slavePrice(state) })
   }
   if (d.lust >= STAKE_LUST[4] && hero.money <= 0) {
     const kids = aliveNpcs(hero, 'child').filter((n) => !n.away)
@@ -250,10 +255,15 @@ function loseStake(state: GameState, s: Stake, params: Record<string, { key: str
     rent = { home: { key: `home.${hero.home}` }, rent: rentPerMonth(hero.rent!) }
     d.ruined = true
   }
-  if (s.kind === 'land') {
+  if (s.kind === 'land' && hero.land) {
+    // Проигран один надел: остальная земля и сословие остаются.
+    loseEstate(state, 'land', 1)
+    d.ruined = true
+  } else if (s.kind === 'land') {
     hero.cls = hero.cls === 'noble' ? 'landowner' : 'peasant'
     d.ruined = true
   }
+  if (s.kind === 'slave') loseEstate(state, 'slaves', 1)
   // Семья - исторически: сына отдают в услужение, дочь выдают за выигравшего, жена уходит к родне с позором.
   if (npc && s.kind === 'son') sendAway(state, npc, 'service')
   if (npc && s.kind === 'daughter') {

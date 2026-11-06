@@ -351,6 +351,8 @@ export function Farewell({ life, era }: { life: LifeSummary; era: EraDef }) {
         <h2 class="section-title">{t('remains.title')}</h2>
         <ul class="remains">
           <li><Icon name="house" /> {t('remains.home')}</li>
+          {!!life.land && <li><Icon name="wheat" /> {t('remains.land', { n: life.land })}</li>}
+          {!!life.slaves && <li><Icon name="chain" /> {t('remains.slaves', { n: life.slaves })}</li>}
           <li><Icon name="purse" /> {r.facts.wealth > 0 ? t('remains.money', { sum: formatMoney(t, r.facts.wealth, coin) }) : r.facts.wealth < 0 ? t('remains.debts') : t('remains.nothing')}</li>
           <li><Icon name="heart" /> {kidsAlive || grand ? t('remains.kids', { n: kidsAlive, m: grand }) : t('remains.no_kids')}</li>
           <li><Icon name="hammer" /> {t('remains.trade', { prof: life.profession ? t(`prof.${life.profession}`, {}, o) : t('life.no_profession') })}</li>

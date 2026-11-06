@@ -6,6 +6,7 @@ import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
 import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
 import { diceEffect } from './dice'
+import { buyEstate, canBuy, loseEstate } from './estate'
 
 // ---------- Годы ----------
 // Года хранятся исторически: -44 - это 44 г. до н.э., нулевого года нет.
@@ -175,6 +176,9 @@ export function check(state: GameState, c: Condition): boolean {
   if ('religion_absent' in c) return !faithMatches(hero.religion, c.religion_absent)
   if ('minority' in c) return isMinority(state) === c.minority
   if ('region' in c) return c.region.includes(hero.region)
+  if ('can_buy' in c) return canBuy(state, c.can_buy)
+  if ('land_min' in c) return (hero.land ?? 0) >= c.land_min
+  if ('slaves_min' in c) return (hero.slaves ?? 0) >= c.slaves_min
   if ('status' in c) {
     const meta = ERA_META[hero.era]
     const v = meta ? statusOf(hero, meta) : 0
@@ -564,6 +568,10 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       }
     } else if ('home' in e) {
       homeEffect(state, e.home)
+    } else if ('buy' in e) {
+      buyEstate(state, e.buy, e.n ?? 1)
+    } else if ('lose_estate' in e) {
+      loseEstate(state, e.lose_estate, e.n, e.refund ?? 0)
     } else if ('dice_lust' in e) {
       diceEffect(hero, e.dice_lust)
     } else if ('add_pet' in e) {

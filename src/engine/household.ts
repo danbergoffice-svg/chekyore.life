@@ -6,6 +6,7 @@ import { isPet, makePet, petDef, pets, randomPet } from './pets'
 import { changeParam, HOME_TAGS, note } from './rules'
 import type { EraDef, EraMeta, GameState } from './types'
 import { diceYear } from './dice'
+import { estateYear } from './estate'
 
 /** Сколько стоит перебраться в дом этого размера (и во сколько его ставят на кон в кости). */
 export const HOME_COST = [0, 150, 500, 1500, 5000]
@@ -130,19 +131,11 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
     hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t))
     note(state, { key: 'diary.home_patched', topic: 'money', score: 14 })
   }
-  // Съёмное жильё: своего дома нет - не купить побольше и не продать.
-  const renting = !!hero.rent
+  // Съёмное жильё: своего дома нет - платят за съём, разбогатев - выкупают.
   rentYear(state, adult, free)
-  // Дом побольше - когда денег заметно больше, чем он стоит (не пока живут на пепелище).
-  if (!renting && adult && free && hero.home < 4 && !hero.tags.includes('home_damaged')) {
-    const cost = HOME_COST[hero.home + 1]
-    if (hero.money > cost * 1.6 && chance(state, 0.25)) {
-      hero.money -= cost
-      hero.home += 1
-      changeParam(hero, 'happiness', 6)
-      note(state, { key: 'diary.home_up', params: { home: { key: `home.${hero.home}` } }, major: true, topic: 'money', icon: 'move', score: 30, mood: 6 })
-    }
-  }
+  // Дом побольше теперь покупают выбором в событии estate_home (его предлагает rollEvents, когда денег хватает с запасом).
+  // Земля и рабы: доход за год, продажа в долгах.
+  estateYear(state)
   // В долгах приходится продавать: сначала скот, потом дом.
   if (adult && hero.money < 0) {
     const stock = hero.animals.filter((a) => !isPet(a.kind))

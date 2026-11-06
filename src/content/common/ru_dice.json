@@ -92,6 +92,7 @@
   "diary.dice_lost.animal": "Проиграл{g:|а} в {game} {animal}.",
   "diary.dice_lost.house": "Проиграл{g:|а} в {game} дом. Своего угла больше нет: семья снимает жильё — {home}, {rent} в месяц.",
   "diary.dice_lost.land": "Проиграл{g:|а} в {game} свою землю. Теперь работать на чужой.",
+  "diary.dice_lost.slave": "Проиграл{g:|а} в {game} невольника — он уходит к выигравшему.",
   "diary.dice_lost.son": "Проиграл{g:|а} в {game} сына: {who} уходит в услужение к выигравшему на семь лет.",
   "diary.dice_lost.daughter": "Проиграл{g:|а} в {game} дочь: {who} выдана замуж за выигравшего.",
   "diary.dice_lost.wife": "Проиграл{g:|а} в {game} жену: {who} ушла к своей родне, и все знают почему.",

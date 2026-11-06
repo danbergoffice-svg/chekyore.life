@@ -238,6 +238,10 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     tags: h.tags,
     skills: h.skills,
     animals: h.animals,
+    home: h.home,
+    rent: h.rent,
+    land: h.land,
+    slaves: h.slaves,
   }
 }
 
@@ -274,6 +278,11 @@ export function stateFromMemorial(era: EraDef, life: LifeSummary, memorial: Life
     tags: life.tags ?? [],
     skills: { ...h.skills, ...life.skills },
     animals: life.animals ?? [],
+    // Хозяйство: старые записи мемориала его не хранят - тогда дом по сословию (как при рождении), без земли и рабов.
+    home: life.home ?? h.home,
+    rent: life.rent,
+    land: life.land,
+    slaves: life.slaves,
     abroad: life.abroad,
     returned: life.returned,
     erasLived: life.erasLived ?? [life.era],
@@ -369,6 +378,23 @@ export function heirHome(state: GameState, child: Npc): { era: string; region: s
 }
 
 /** Доля наследства, которую получит этот ребёнок. */
+/**
+ * Доля наследника в земле и рабах: где наследуют сыновья - всё хозяйство остаётся сыну (дочь при братьях не получает),
+ * где делят поровну - каждому ребёнку его часть (округляя в пользу того, кто остаётся в доме).
+ */
+export function estateShare(state: GameState, era: EraDef, child: Npc): { land: number; slaves: number } {
+  const hero = state.hero
+  const land = hero.land ?? 0
+  const slaves = hero.slaves ?? 0
+  if (!land && !slaves) return { land: 0, slaves: 0 }
+  const kids = heirs(state)
+  if ((era.regions.find((r) => r.id === hero.region)?.inheritance ?? era.inheritance) === 'sons_first' && kids.some((k) => k.sex === 'm')) {
+    return child.sex === 'm' ? { land, slaves } : { land: 0, slaves: 0 }
+  }
+  const n = Math.max(1, kids.length)
+  return { land: Math.ceil(land / n), slaves: Math.ceil(slaves / n) }
+}
+
 export function inheritanceShare(state: GameState, era: EraDef, child: Npc): number {
   const kids = heirs(state)
   const money = Math.max(0, state.hero.money)
@@ -491,6 +517,10 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // Съёмное жильё переходит наследнику вместе с платой, своего дома у него нет.
   hero.rent = parent.rent ? { ...parent.rent } : undefined
   hero.animals = (parent.animals ?? []).map((a) => ({ ...a }))
+  // Земля и рабы - по обычаю наследования (estateShare); наследник на чужой родине их не получает - они остались там.
+  const share = left ? { land: 0, slaves: 0 } : estateShare(prev, era, child)
+  if (share.land) hero.land = share.land
+  if (share.slaves) hero.slaves = share.slaves
   hero.generation = parent.generation + 1
   hero.name = child.name
   hero.sex = child.sex
@@ -529,11 +559,16 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   }
   diceInherit(state, parent)
 
+  // Что из хозяйства досталось наследнику - строкой в дневник сразу после записи о наследстве.
+  const estateNote = () => {
+    if (hero.land || hero.slaves) hero.diary.push({ year: prev.year, age: hero.age, key: `diary.estate_inherited_${hero.land && hero.slaves ? 'both' : hero.land ? 'land' : 'slaves'}`, params: { land: hero.land ?? 0, slaves: hero.slaves ?? 0 }, reg: hero.region, rel: hero.religion, topic: 'money', score: 30 })
+  }
   if (gen > 1) {
     familyOfDescendant(state, era, parent, child)
     inheritPets(hero, prev.year)
     const via = parent.npcs.find((n) => n.id === child.parentId)
     hero.diary.push({ year: prev.year, age: hero.age, key: gen === 2 ? 'diary.heir_grand' : 'diary.heir_great', params: { parent: { name: parent.name }, psex: parent.sex, via: { name: via?.name ?? '' }, vsex: via?.sex ?? 'm', money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
+    estateNote()
     return state
   }
 
@@ -556,6 +591,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   }
   inheritPets(hero, prev.year)
   hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
+  estateNote()
   return state
 }
 

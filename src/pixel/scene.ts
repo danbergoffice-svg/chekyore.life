@@ -978,36 +978,528 @@ function palace(px: Px, look: Look, region: string, k: number, r: () => number) 
   }
 }
 
-/** Дом семьи героя по размеру: 0 - лачуга, 1 - хижина, 2 - дом, 3 - большой дом с пристройкой, 4 - усадьба за оградой. */
+// ---------- Дом семьи героя по достатку ----------
+
+/** Окно дома героя: тёмное или горит вечером; учитывается в прорисовке (detailHouses). */
+function homeWindow(px: Px, look: Look, x: number, y: number, w: number, h: number, k: number, lit: boolean, r: () => number) {
+  const col = lit && r() > 0.35 ? '#e8c96a' : shade('#3a2a20', k)
+  px(x, y, w, h, col)
+  if (col === '#e8c96a') light(x, y, w, h)
+  cur.openings.push({ ...nrect(x, y, w, h), kind: 'window', style: look.style })
+}
+
+/** Постройка для пожара и прорисовки: занимает место и получает фактуру стен по стилю края. */
+function homeRec(look: Look, x: number, w: number, h: number, roof: RoofKind, base = GROUND) {
+  built.push({ x, w, top: base - h })
+  if (base === GROUND) cur.houses.push({ x, w, h, roof, style: look.style })
+}
+
+/** Трапеция-пилон или шатёр: ширина сужается кверху. */
+function taper(px: Px, x: number, w: number, base: number, h: number, c: string, inset = 0.25) {
+  for (let i = 0; i < h; i++) {
+    const d = Math.floor(i * inset)
+    px(x + d, base - 1 - i, Math.max(1, w - d * 2), 1, c)
+  }
+}
+
+/** Стиль края, сведённый к семействам построек. */
+function homeFamily(style: string): string {
+  if (style === 'roman' || style === 'greek') return 'classical'
+  if (style === 'egyptian' || style === 'mesopotamian') return 'mud'
+  if (style === 'maya' || style === 'aztec') return 'meso'
+  return style
+}
+
+/** 0 - лачуга: шалаш-навес из жердей; на Руси и в снегах - землянка, в пустыне - тростниковый навес. */
+function shack(px: Px, look: Look, k: number, r: () => number) {
+  const c = (hex: string, d = 0) => shade(hex, k + d)
+  const desert = look.land === 'desert' || ['mud', 'islamic', 'sahel'].includes(homeFamily(look.style))
+  built.push({ x: 18, w: 22, top: GROUND - 10 })
+  if (look.style === 'russian' || look.land === 'snow') {
+    // Землянка: земляной горб с дерновой крышей и низкая дверца.
+    for (let i = 0; i < 7; i++) px(18 + i, GROUND - 1 - i, 22 - i * 2, 1, c(i > 4 ? '#6a7a44' : '#6a5a40', -(i % 2) * 0.04))
+    px(26, GROUND - 4, 5, 4, c('#2a2018'))
+    px(25, GROUND - 5, 7, 1, c('#5a4030'))
+    return
+  }
+  const pole = c('#7a5a3a')
+  const mat = c(desert ? '#c8ac70' : look.style === 'maya' || look.style === 'aztec' ? '#a8a050' : '#9a8050')
+  px(20, GROUND - 9, 1, 9, pole)
+  px(38, GROUND - 6, 1, 6, pole)
+  for (let i = 0; i < 22; i++) px(18 + i, GROUND - 10 + Math.floor(i / 6), 1, 2, i % 3 ? mat : c(desert ? '#b0945a' : '#86703e'))
+  // Стенка из циновки или плетня с одной стороны.
+  for (let y = GROUND - 7; y < GROUND; y += 2) px(21, y, 6, 1, c(desert ? '#b8995e' : '#7a6440'))
+  px(28, GROUND - 6, 9, 6, c('#2e241c'))
+  // Очаг-камни и горшок у входа.
+  px(42, GROUND - 1, 5, 1, c('#7a7068'))
+  px(43, GROUND - 3, 3, 2, c('#8a5a3a'))
+  void r
+}
+
+/** 1 - хижина: одна комната, низкие стены из глины, плетня, камня или брёвен, без окон или с одним. */
+function cottage(px: Px, look: Look, k: number, r: () => number, lit: boolean) {
+  const c = (hex: string, d = 0) => shade(hex, k + d)
+  const p = look.p
+  const dark = c('#3a2a20')
+  const x = 16
+  const w = 24
+  const thatch = c(look.land === 'desert' ? '#c4a466' : '#b09a5a')
+  switch (homeFamily(look.style)) {
+    case 'classical':
+    case 'byzantine': {
+      // Домик из бутового камня под низкой черепицей.
+      px(x, GROUND - 9, w, 9, c(p.stoneDark, -0.05))
+      for (let i = 0; i < 6; i++) px(x + 2 + Math.floor(r() * (w - 4)), GROUND - 2 - Math.floor(r() * 6), 2, 1, c(p.stone, -0.1))
+      gable(px, x - 1, w + 2, GROUND - 10, c(p.roof, -0.05), 0.3)
+      door(px, x + 7, 6, dark)
+      homeWindow(px, look, x + 16, GROUND - 7, 2, 2, k, lit, r)
+      return homeRec(look, x, w, 9, 'tile')
+    }
+    case 'mud':
+    case 'islamic': {
+      // Глинобитный куб с плоской крышей из пальмовых жердей - концы торчат из стены.
+      px(x, GROUND - 8, w - 2, 8, c('#b8915e'))
+      px(x - 1, GROUND - 9, w, 1, c('#8a6a42'))
+      for (let bx = x + 1; bx < x + w - 2; bx += 4) px(bx, GROUND - 8, 1, 1, c('#5a4028'))
+      door(px, x + 6, 6, dark)
+      return homeRec(look, x, w - 2, 8, 'flat')
+    }
+    case 'sahel':
+    case 'ethiopian': {
+      // Круглая глиняная хижина с конусом соломы.
+      const cx = x + 11
+      px(cx - 7, GROUND - 7, 14, 7, c(look.style === 'sahel' ? '#b8865a' : p.wall))
+      for (let i = 0; i < 9; i++) px(cx - 9 + i, GROUND - 8 - i, 18 - i * 2, 1, c(p.roof, -(i % 2) * 0.05))
+      px(cx, GROUND - 19, 1, 2, c('#5a4030'))
+      door(px, cx, 5, dark)
+      return homeRec(look, cx - 7, 14, 7, 'thatch')
+    }
+    case 'indian':
+    case 'chinese': {
+      // Мазанка под соломенной кровлей.
+      px(x + 1, GROUND - 8, w - 2, 8, c(look.style === 'chinese' ? '#b8a07a' : '#c8a070'))
+      gable(px, x - 1, w + 2, GROUND - 9, thatch, 0.45)
+      door(px, x + 8, 6, dark)
+      homeWindow(px, look, x + 16, GROUND - 6, 2, 2, k, lit, r)
+      return homeRec(look, x + 1, w - 2, 8, 'thatch')
+    }
+    case 'japanese':
+    case 'gothic': {
+      // Деревенский дом под высокой соломой: минка или крестьянский дом из плетня и глины.
+      const wall = look.style === 'japanese' ? c('#6a4a30') : c('#d0c0a0')
+      px(x + 1, GROUND - 7, w - 2, 7, wall)
+      if (look.style === 'gothic') {
+        px(x + 1, GROUND - 7, 1, 7, c('#5a3a24'))
+        px(x + w - 2, GROUND - 7, 1, 7, c('#5a3a24'))
+      }
+      gable(px, x - 2, w + 4, GROUND - 8, thatch, 0.85)
+      door(px, x + 7, 5, dark)
+      homeWindow(px, look, x + 15, GROUND - 5, 2, 2, k, lit, r)
+      return homeRec(look, x + 1, w - 2, 7, 'thatch')
+    }
+    case 'russian': {
+      // Курная изба: низкий сруб, одно волоковое окошко, дым из-под стрехи.
+      px(x + 2, GROUND - 8, w - 4, 8, c(p.wall))
+      for (let y = GROUND - 7; y < GROUND; y += 2) px(x + 2, y, w - 4, 1, c(p.wall, -0.12))
+      gable(px, x, w, GROUND - 9, c(p.roof), 0.8)
+      homeWindow(px, look, x + 10, GROUND - 6, 2, 1, k, lit, r)
+      cur.chimneys.push(x + 14)
+      return homeRec(look, x + 2, w - 4, 8, 'shingle')
+    }
+    case 'meso': {
+      // Овальный дом из жердей, обмазанных белой глиной, под высокой пальмовой соломой.
+      px(x + 2, GROUND - 7, w - 4, 7, c(p.wall))
+      gable(px, x - 1, w + 2, GROUND - 8, thatch, 1)
+      px(x + 10, GROUND - 6, 4, 6, dark)
+      return homeRec(look, x + 2, w - 4, 7, 'thatch')
+    }
+    case 'andean': {
+      // Хижина из нетёсаного камня под соломой ичу.
+      px(x + 1, GROUND - 8, w - 2, 8, c(p.stone))
+      for (let y = GROUND - 6; y < GROUND; y += 3) for (let sx = x + 2 + (y % 2) * 2; sx < x + w - 2; sx += 5) px(sx, y, 1, 1, c(p.stoneDark))
+      gable(px, x - 1, w + 2, GROUND - 9, thatch, 0.8)
+      px(x + 10, GROUND - 6, 3, 6, dark)
+      return homeRec(look, x + 1, w - 2, 8, 'thatch')
+    }
+  }
+  styledHouse(px, look, x, w, k, r, lit)
+}
+
+/**
+ * Большой дом (3) и главный дом усадьбы (4): в два этажа, с балконом, эркером, крыльцом или верандой по стилю края.
+ * rich - главный дом усадьбы: шире, богаче убранство, свой «венец» (купол, шатёр, вторая крыша).
+ */
+function bigHouse(px: Px, look: Look, x: number, w: number, k: number, r: () => number, lit: boolean, rich: boolean) {
+  const c = (hex: string, d = 0) => shade(hex, k + d)
+  const p = look.p
+  const dark = c('#3a2a20')
+  const cx = Math.round(x + w / 2)
+  const wins = (y: number, n: number, ww = 3, wh = 3) => {
+    for (let i = 0; i < n; i++) homeWindow(px, look, Math.round(x + ((i + 1) * w) / (n + 1)) - Math.floor(ww / 2), y, ww, wh, k, lit, r)
+  }
+  const n = rich ? 4 : 3
+  switch (look.style) {
+    case 'roman':
+    case 'greek': {
+      // Домус в два этажа: красная черепица, ряд окон наверху; у усадьбы - портик с колоннами.
+      const h = 19
+      const wall = c(look.style === 'greek' ? '#efe9da' : rich ? '#e6d6b8' : p.wall)
+      px(x, GROUND - h, w, h, wall)
+      px(x, GROUND - 10, w, 1, c(p.stoneDark))
+      gable(px, x - 2, w + 4, GROUND - h - 1, c(p.roof), 0.25)
+      wins(GROUND - h + 3, n, 3, 3)
+      if (rich) {
+        // Портик: фронтон и колонны перед входом.
+        const px0 = cx - 12
+        px(px0, GROUND - 11, 24, 2, c(p.stone))
+        gable(px, px0, 24, GROUND - 12, c(p.stone), 0.3)
+        for (let i = 0; i < 5; i++) px(px0 + 1 + i * 5, GROUND - 9, 2, 9, c(p.stone, 0.05))
+        door(px, cx, 7, dark)
+      } else door(px, cx, 7, dark, true)
+      return homeRec(look, x, w, h, 'tile')
+    }
+    case 'byzantine': {
+      const h = 20
+      px(x, GROUND - h, w, h, c(p.wall))
+      px(x, GROUND - 10, w, 1, c(p.stoneDark))
+      px(x, GROUND - h + 4, w, 1, c(p.wall, -0.15))
+      gable(px, x - 2, w + 4, GROUND - h - 1, c(p.roof), 0.28)
+      wins(GROUND - h + 6, n, 2, 3)
+      // Деревянный балкон-эксостис на втором этаже.
+      px(x + 3, GROUND - 11, w - 6, 1, c('#6a4a30'))
+      for (let bx = x + 3; bx < x + w - 3; bx += 3) px(bx, GROUND - 13, 1, 2, c('#6a4a30'))
+      door(px, cx, 7, dark, true)
+      if (rich) dome(px, cx, GROUND - h - 3, 6, c(p.accent), c('#d8b040'))
+      return homeRec(look, x, w, h, 'tile')
+    }
+    case 'egyptian':
+    case 'mesopotamian': {
+      // Дом в два этажа из сырца: на крыше навес, в Египте - ловушка ветра; у богатых - колонны лотосом у входа.
+      const h = 17
+      px(x, GROUND - h, w, h, c(p.wall))
+      px(x - 1, GROUND - h - 1, w + 2, 1, c(p.stoneDark))
+      if (look.style === 'mesopotamian') crenels(px, x, w, GROUND - h - 1, c(p.stoneDark))
+      wins(GROUND - h + 3, n, 3, 2)
+      door(px, cx, 7, dark)
+      // Навес на крыше.
+      px(x + 3, GROUND - h - 6, 1, 5, c('#6a4a2a'))
+      px(x + 14, GROUND - h - 6, 1, 5, c('#6a4a2a'))
+      px(x + 2, GROUND - h - 7, 14, 1, c('#c9b48a'))
+      if (look.style === 'egyptian') {
+        // Ловушка ветра (малькаф).
+        px(x + w - 8, GROUND - h - 6, 5, 6, c(p.wall, -0.04))
+        px(x + w - 8, GROUND - h - 6, 5, 1, c(p.stoneDark))
+      }
+      if (rich) for (const ox of [-8, 6]) {
+        px(cx + ox, GROUND - 10, 2, 10, c(p.stone, 0.05))
+        px(cx + ox - 1, GROUND - 11, 4, 1, c('#5a8a5a'))
+      }
+      return homeRec(look, x, w, h, 'flat')
+    }
+    case 'islamic': {
+      // Дом вокруг двора: глухой низ, наверху эркер-машрабия, арка входа; у богатых - купол и айван.
+      const h = 18
+      px(x, GROUND - h, w, h, c(p.wall))
+      px(x - 1, GROUND - h - 1, w + 2, 1, c(p.stoneDark))
+      for (let i = x; i < x + w; i += 5) px(i, GROUND - h - 2, 2, 1, c(p.stoneDark))
+      for (const mx of rich ? [x + 4, x + w - 13] : [x + w - 13]) {
+        px(mx, GROUND - h + 3, 9, 6, c('#7a5232'))
+        for (let i = 0; i < 4; i++) px(mx + 1 + i * 2, GROUND - h + 4, 1, 4, c('#4a3020'))
+      }
+      if (!rich) homeWindow(px, look, x + 5, GROUND - h + 4, 3, 3, k, lit, r)
+      // Арка входа.
+      px(cx - 4, GROUND - 9, 8, 9, c(p.stoneDark))
+      px(cx - 3, GROUND - 8, 6, 8, dark)
+      px(cx - 2, GROUND - 9, 4, 1, dark)
+      cur.openings.push({ ...nrect(cx - 3, GROUND - 8, 6, 8), kind: 'door', style: '' })
+      if (rich) {
+        dome(px, cx, GROUND - h - 2, 7, c(p.accent), c('#d8b040'))
+        px(cx - 8, GROUND - h - 2, 16, 1, c(p.stoneDark))
+      }
+      return homeRec(look, x, w, h, 'flat')
+    }
+    case 'indian': {
+      // Хавели: два этажа, резной балкон-джхарокха над входом, на крыше беседки-чхатри.
+      const h = 18
+      px(x, GROUND - h, w, h, c(p.wall))
+      px(x - 1, GROUND - h - 1, w + 2, 1, c(p.stoneDark))
+      px(x, GROUND - 10, w, 1, c(p.stoneDark))
+      wins(GROUND - h + 3, n, 2, 3)
+      // Джхарокха.
+      px(cx - 5, GROUND - 16, 10, 6, c(p.stone))
+      px(cx - 4, GROUND - 15, 8, 4, dark)
+      dome(px, cx, GROUND - 17, 3, c(p.stone), c(p.stone))
+      door(px, cx, 7, dark, true)
+      for (const ch of rich ? [x + 5, cx, x + w - 5] : [x + w - 6]) {
+        px(ch - 3, GROUND - h - 5, 1, 4, c(p.stone))
+        px(ch + 3, GROUND - h - 5, 1, 4, c(p.stone))
+        dome(px, ch, GROUND - h - 5, 3, c(p.stone), c(p.stone))
+      }
+      return homeRec(look, x, w, h, 'flat')
+    }
+    case 'chinese': {
+      // Зал на каменном цоколе с красными столбами; у богатых - двойная крыша.
+      const h = rich ? 15 : 13
+      px(x - 2, GROUND - 2, w + 4, 2, c(p.stone))
+      px(x, GROUND - h, w, h - 2, c(p.wall))
+      for (let i = 0; i <= 4; i++) px(x + Math.round((i * (w - 2)) / 4), GROUND - h, 2, h - 2, c('#a8402e'))
+      homeWindow(px, look, x + 5, GROUND - h + 3, 4, 4, k, lit, r)
+      homeWindow(px, look, x + w - 9, GROUND - h + 3, 4, 4, k, lit, r)
+      door(px, cx, 7, c('#7a2a20'))
+      curvedRoof(px, x, w, GROUND - h - 1, c(p.roof), true)
+      if (rich) {
+        px(x + 6, GROUND - h - 10, w - 12, 5, c('#a8402e'))
+        curvedRoof(px, x + 6, w - 12, GROUND - h - 11, c(p.roof), true)
+      }
+      return homeRec(look, x, w, h, 'tile')
+    }
+    case 'japanese': {
+      // Большой дом под тяжёлой черепицей, веранда-энгава; у богатых - второй ярус кровли.
+      const h = 13
+      px(x - 1, GROUND - 2, w + 2, 2, c('#6a4a30'))
+      px(x, GROUND - h, w, h - 2, c('#6a4a30'))
+      for (let px0 = x + 2; px0 < x + w - 4; px0 += 6) px(px0, GROUND - h + 2, 4, h - 5, c('#efe6d2'))
+      homeWindow(px, look, cx - 2, GROUND - 9, 4, 7, k, lit, r)
+      curvedRoof(px, x, w, GROUND - h - 1, c(p.roof), true)
+      if (rich) {
+        px(x + 8, GROUND - h - 9, w - 16, 4, c('#efe6d2'))
+        curvedRoof(px, x + 8, w - 16, GROUND - h - 10, c(p.roof), true)
+      }
+      return homeRec(look, x, w, h, 'tile')
+    }
+    case 'gothic': {
+      // Высокий фахверк с выступающим вторым этажом; у богатых - каменная башня с зубцами.
+      const h = 20
+      px(x, GROUND - 10, w, 10, c(p.wall))
+      px(x - 2, GROUND - h, w + 4, 10, c(p.wall))
+      const beam = c('#5a3a24')
+      px(x - 2, GROUND - 11, w + 4, 1, beam)
+      px(x - 2, GROUND - h, w + 4, 1, beam)
+      for (let bx = x - 2; bx <= x + w + 1; bx += 6) px(bx, GROUND - h, 1, 10, beam)
+      for (let bx = x; bx < x + w; bx += 8) px(bx, GROUND - 10, 1, 10, beam)
+      wins(GROUND - h + 3, n, 3, 4)
+      homeWindow(px, look, x + 3, GROUND - 7, 3, 3, k, lit, r)
+      door(px, x + w - 6, 7, dark)
+      gable(px, x - 3, w + 6, GROUND - h - 1, c(p.roof), 0.75)
+      if (rich) {
+        const tx = x + w - 2
+        px(tx, GROUND - 32, 12, 32, c(p.stone))
+        crenels(px, tx, 12, GROUND - 32, c(p.stone))
+        homeWindow(px, look, tx + 5, GROUND - 26, 2, 4, k, lit, r)
+        homeWindow(px, look, tx + 5, GROUND - 16, 2, 4, k, lit, r)
+        built.push({ x: tx, w: 12, top: GROUND - 32 })
+      }
+      return homeRec(look, x - 2, w + 4, h, 'tile')
+    }
+    case 'russian': {
+      // Изба на подклете с резными наличниками и крыльцом; у богатых - терем с шатром и светлица.
+      const h = 18
+      const log = c(p.wall)
+      px(x, GROUND - h, w, h, log)
+      for (let y = GROUND - h + 1; y < GROUND; y += 2) px(x, y, w, 1, c(p.wall, -0.12))
+      for (let i = 0; i < n; i++) {
+        const wx = Math.round(x + ((i + 1) * w) / (n + 1)) - 2
+        px(wx - 1, GROUND - h + 3, 6, 6, c('#e8dcc0'))
+        homeWindow(px, look, wx, GROUND - h + 4, 4, 4, k, lit, r)
+      }
+      // Крыльцо со ступенями.
+      px(x + w, GROUND - 8, 6, 1, c('#6a4a30'))
+      for (let i = 0; i < 4; i++) px(x + w + i * 2, GROUND - 7 + i * 2, 2, 1, c('#6a4a30'))
+      px(x + w + 5, GROUND - 12, 1, 4, c('#6a4a30'))
+      gable(px, x - 2, w + 4, GROUND - h - 1, c(p.roof), 0.75)
+      // Конёк-охлупень.
+      px(cx - 1, GROUND - h - 1 - Math.ceil(((w + 4) / 2) * 0.75), 3, 1, c('#e8dcc0'))
+      if (rich) {
+        // Терем: светлица над домом под шатровой кровлей.
+        const tx = x + 4
+        px(tx, GROUND - h - 12, 10, 12, log)
+        homeWindow(px, look, tx + 3, GROUND - h - 9, 4, 3, k, lit, r)
+        taper(px, tx - 1, 12, GROUND - h - 12, 12, c(p.roof), 0.5)
+        px(tx + 5, GROUND - h - 27, 1, 3, c('#d8b040'))
+        built.push({ x: tx, w: 10, top: GROUND - h - 24 })
+      }
+      return homeRec(look, x, w, h, 'shingle')
+    }
+    case 'sahel': {
+      // Дом в два этажа из глины: торчат балки-тороны, по фасаду - пилястры с навершиями.
+      const h = 19
+      px(x, GROUND - h, w, h, c(p.wall))
+      for (let pxx = x; pxx <= x + w - 2; pxx += Math.max(4, Math.floor((w - 2) / 4))) {
+        px(pxx, GROUND - h - 4, 2, h + 4, c(p.wall, -0.06))
+        px(pxx, GROUND - h - 5, 2, 1, c(p.wall, -0.06))
+      }
+      for (let ty = GROUND - h + 3; ty < GROUND - 3; ty += 6) for (let tx = x + 3; tx < x + w - 2; tx += 5) px(tx, ty, 1, 1, c('#5a3a20'))
+      wins(GROUND - h + 5, n - 1, 2, 3)
+      door(px, cx, 8, dark)
+      return homeRec(look, x, w, h, 'flat')
+    }
+    case 'ethiopian': {
+      // Каменный дом-хидмо в два этажа; у богатых - круглые башни с куполами, как в Гондэре.
+      const h = 18
+      px(x, GROUND - h, w, h, c(p.stone))
+      for (let y = GROUND - h + 2; y < GROUND; y += 4) px(x, y, w, 1, c(p.stoneDark))
+      px(x - 1, GROUND - h - 1, w + 2, 1, c(p.stoneDark))
+      wins(GROUND - h + 4, n, 3, 3)
+      door(px, cx, 7, dark, true)
+      if (rich) for (const tx of [x - 6, x + w - 2]) {
+        px(tx, GROUND - h - 8, 8, h + 8, c(p.stone, 0.03))
+        dome(px, tx + 4, GROUND - h - 9, 4, c(p.stone, 0.05), c(p.stoneDark))
+        built.push({ x: tx, w: 8, top: GROUND - h - 12 })
+      }
+      return homeRec(look, x, w, h, 'flat')
+    }
+    case 'maya':
+    case 'aztec':
+    case 'andean': {
+      if (look.style === 'andean') {
+        // Дом из тёсаного камня с трапециевидными нишами и высокой соломой.
+        const h = 13
+        px(x, GROUND - h, w, h, c(p.stone))
+        for (let y = GROUND - h + 2; y < GROUND; y += 3) for (let sx = x + (y % 2) * 3; sx < x + w; sx += 6) px(sx, y, 1, 1, c(p.stoneDark))
+        for (let i = 0; i < n; i++) taper(px, Math.round(x + ((i + 1) * w) / (n + 1)) - 2, 5, GROUND - 3, 6, dark, 0.2)
+        gable(px, x - 2, w + 4, GROUND - h - 1, c(p.roof), 0.7)
+        return homeRec(look, x, w, h, 'thatch')
+      }
+      // Дом на платформе со ступенями: белёные стены, расписной пояс, плоская крыша; у знати - гребень на крыше.
+      const base = GROUND - 5
+      px(x - 4, base, w + 8, 5, c(p.stone))
+      px(cx - 4, base, 8, 5, c(p.stoneDark))
+      for (let i = 0; i < 5; i += 2) px(cx - 4, base + i, 8, 1, c(p.stone, 0.06))
+      const h = 12
+      px(x, base - h, w, h, c(p.wall))
+      px(x, base - h, w, 2, c(p.accent))
+      px(x - 1, base - h - 1, w + 2, 1, c(p.stoneDark))
+      for (let i = 0; i < n; i++) {
+        const dx = Math.round(x + ((i + 1) * w) / (n + 1)) - 2
+        px(dx, base - 7, 4, 7, dark)
+      }
+      if (rich) {
+        // Гребень на крыше (у майя) или ряд зубцов (у ацтеков).
+        if (look.style === 'maya') {
+          px(cx - 8, base - h - 8, 16, 7, c(p.stone))
+          for (let i = 0; i < 3; i++) px(cx - 6 + i * 5, base - h - 7, 2, 4, c(p.stoneDark))
+        } else for (let i = x; i < x + w; i += 4) px(i, base - h - 3, 2, 2, c(p.stone))
+      }
+      built.push({ x, w, top: base - h })
+      return
+    }
+  }
+  styledHouse(px, look, x, w, k, r, lit)
+}
+
+/** Ограда усадьбы по стилю края: каменная, глинобитная с зубцами, частокол, белая стена с черепицей. Ворота - в gate. */
+function estateWall(px: Px, look: Look, x0: number, x1: number, gate: number, k: number) {
+  const c = (hex: string, d = 0) => shade(hex, k + d)
+  const p = look.p
+  const seg = (a: number, b: number) => {
+    if (b <= a) return
+    switch (look.style) {
+      case 'russian':
+        // Частокол из заострённых брёвен.
+        for (let x = a; x < b; x += 2) {
+          px(x, GROUND - 9, 2, 9, c(p.wall, (x % 4) * 0.02))
+          px(x, GROUND - 10, 1, 1, c(p.wall))
+        }
+        return
+      case 'japanese':
+      case 'chinese':
+        // Белёная (в Китае - серая) стена под черепичным гребнем.
+        px(a, GROUND - 8, b - a, 8, c(look.style === 'japanese' ? '#efe6d2' : '#a8a49a'))
+        px(a - 1, GROUND - 9, b - a + 2, 2, c(p.roof))
+        return
+      case 'egyptian':
+      case 'mesopotamian':
+      case 'sahel':
+      case 'islamic':
+        px(a, GROUND - 8, b - a, 8, c(p.wall, -0.04))
+        for (let x = a; x < b - 1; x += 4) px(x, GROUND - 10, 2, 2, c(p.wall, -0.04))
+        return
+      case 'gothic':
+      case 'ethiopian':
+      case 'andean':
+        px(a, GROUND - 8, b - a, 8, c(p.stone, -0.04))
+        for (let y = GROUND - 6; y < GROUND; y += 3) for (let sx = a + (y % 2) * 2; sx < b; sx += 5) px(sx, y, 1, 1, c(p.stoneDark))
+        if (look.style === 'gothic') crenels(px, a, b - a, GROUND - 8, c(p.stone, -0.04))
+        return
+      default:
+        // Низкая белёная ограда с карнизом: виллу с портиком и дом на платформе видно поверх неё.
+        px(a, GROUND - 4, b - a, 4, c(p.stone, -0.03))
+        px(a, GROUND - 5, b - a, 1, c(p.stoneDark))
+    }
+  }
+  seg(x0, gate - 5)
+  seg(gate + 5, x1)
+  // Ворота: столбы, проём и крыша или арка над ними.
+  const post = c(look.style === 'russian' || look.style === 'japanese' ? '#5a3a24' : p.stoneDark)
+  px(gate - 6, GROUND - 13, 2, 13, post)
+  px(gate + 4, GROUND - 13, 2, 13, post)
+  px(gate - 4, GROUND - 10, 8, 10, c('#5a3a24', -0.1))
+  if (look.style === 'chinese' || look.style === 'japanese') curvedRoof(px, gate - 6, 12, GROUND - 14, c(p.roof))
+  else if (look.style === 'egyptian') {
+    // Пилоны.
+    taper(px, gate - 13, 8, GROUND, 18, c(p.stone), 0.12)
+    taper(px, gate + 5, 8, GROUND, 18, c(p.stone), 0.12)
+  } else if (look.style === 'russian') gable(px, gate - 7, 14, GROUND - 14, c(p.roof), 0.6)
+  else if (look.style === 'islamic' || look.style === 'indian' || look.style === 'byzantine') dome(px, gate, GROUND - 14, 5, post, post)
+  else px(gate - 7, GROUND - 14, 14, 2, post)
+}
+
+/**
+ * Дом семьи героя по достатку - пять заметно разных домов в стиле края:
+ * 0 - лачуга-навес или землянка, 1 - хижина в одну комнату, 2 - дом, 3 - большой дом в два этажа с пристройкой и садом,
+ * 4 - усадьба за оградой с воротами, главным домом (купол, шатёр, башня, двойная крыша), флигелем и деревьями.
+ */
 function familyHome(px: Px, look: Look, tier: number, k: number, r: () => number, lit: boolean) {
   const fence = shade('#7a5a3a', k)
-  if (tier <= 0) {
-    if (burnt) return styledHouse(px, look, 20, 20, k, r, lit)
-    // Лачуга: жерди и низкий навес.
-    built.push({ x: 20, w: 20, top: GROUND - 10 })
-    px(22, GROUND - 8, 1, 8, fence)
-    px(38, GROUND - 6, 1, 6, fence)
-    for (let i = 0; i < 20; i++) px(20 + i, GROUND - 9 + Math.floor(i / 7), 1, 2, shade('#9a8050', k))
-    px(24, GROUND - 5, 10, 5, shade('#3a2a20', k))
+  if (burnt) {
+    // Сгоревший дом - остов по размеру прежнего; ограда усадьбы уцелела.
+    const plan: [number, number][][] = [[[18, 22]], [[16, 24]], [[14, 32]], [[8, 36], [50, 20]], [[22, 52], [82, 26]]]
+    if (tier >= 4) estateWall(px, look, 2, 150, 120, k)
+    for (const [x, w] of plan[Math.max(0, Math.min(4, tier))]) styledHouse(px, look, x, w, k, r, lit)
     return
   }
-  if (tier === 1) return styledHouse(px, look, 18, 22, k, r, lit)
-  if (tier === 2) return styledHouse(px, look, 14, 32, k, r, lit)
+  if (tier <= 0) return shack(px, look, k, r)
+  if (tier === 1) return cottage(px, look, k, r, lit)
+  if (tier === 2) {
+    if (look.style === 'ethiopian') {
+      // Большой тукуль на каменном цоколе и рядом малый - кухня и амбар.
+      const c = (hex: string, d = 0) => shade(hex, k + d)
+      px(12, GROUND - 3, 26, 3, c(look.p.stone))
+      px(14, GROUND - 11, 22, 8, c(look.p.wall))
+      for (let i = 0; i < 12; i++) px(11 + i, GROUND - 12 - i, 28 - i * 2, 1, c(look.p.roof, -(i % 2) * 0.05))
+      px(25, GROUND - 26, 1, 3, c('#5a4030'))
+      door(px, 25, 7, c('#3a2a20'))
+      homeWindow(px, look, 31, GROUND - 9, 2, 2, k, lit, r)
+      homeRec(look, 14, 22, 11, 'thatch')
+      styledHouse(px, look, 36, 18, k, r, lit)
+      return
+    }
+    styledHouse(px, look, 14, 32, k, r, lit)
+    // Поленница и плетень у дома.
+    px(48, GROUND - 3, 8, 3, shade('#8a6a44', k))
+    for (let x = 48; x < 56; x += 2) px(x, GROUND - 3, 1, 1, shade('#c9a26a', k))
+    for (let x = 58; x < 66; x += 2) px(x, GROUND - 4, 1, 4, fence)
+    px(58, GROUND - 3, 8, 1, fence)
+    return
+  }
   if (tier === 3) {
-    styledHouse(px, look, 8, 34, k, r, lit)
-    styledHouse(px, look, 44, 22, k, r, lit)
-    for (let x = 68; x < 84; x += 3) px(x, GROUND - 5, 1, 5, fence)
-    px(68, GROUND - 4, 16, 1, fence)
+    bigHouse(px, look, 8, 36, k, r, lit, false)
+    styledHouse(px, look, 50, 20, k, r, lit)
+    // Огород за плетнём и плодовое дерево.
+    for (let x = 74; x < 92; x += 3) px(x, GROUND - 5, 1, 5, fence)
+    px(74, GROUND - 4, 18, 1, fence)
+    for (let x = 75; x < 91; x += 4) px(x, GROUND - 2, 2, 2, shade('#5a8a3a', k))
+    tree(px, look, 92, k, r)
     return
   }
-  // Усадьба: ограда, главный дом, флигель и деревья.
-  const wall = shade(look.p.stone, k)
-  px(4, GROUND - 8, 92, 8, wall)
-  px(4, GROUND - 9, 92, 1, shade(look.p.stoneDark, k))
-  tree(px, look, 6, k, r)
-  styledHouse(px, look, 18, 42, k, r, lit)
-  styledHouse(px, look, 64, 24, k, r, lit)
-  px(46, GROUND - 7, 6, 7, shade('#4a3020', k))
+  // Усадьба: деревья сада за оградой, главный дом, флигель, ворота.
+  tree(px, look, 2, k, r)
+  tree(px, look, 136, k, r)
+  bigHouse(px, look, 22, 52, k, r, lit, true)
+  styledHouse(px, look, 82, 26, k, r, lit)
+  estateWall(px, look, 2, 150, 120, k)
+  // Над стеной видна крона сада.
+  tree(px, look, 112, k, r)
 }
 
 /** Обстановка жилья по достатку: 0 - лачуга с соломой, 1 - лавка у стены, 2 - сундук и полка с посудой,

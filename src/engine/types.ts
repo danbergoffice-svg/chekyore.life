@@ -312,6 +312,10 @@ export type Condition =
   /** Вера героя в его краю - вера меньшинства (меньше четверти жителей). */
   | { minority: boolean }
   | { region: string[] }
+  /** Хозяйство (engine/estate.ts): можно купить дом побольше, надел земли, раба; наделов или рабов не меньше n. */
+  | { can_buy: 'home' | 'land' | 'slaves' }
+  | { land_min: number }
+  | { slaves_min: number }
   /** Положение в обществе героя (statusOf, 0–100) в диапазоне [от, до]: низы < 30, середина 30–54, верхи 55–84, элита 85+. */
   | { status: [number, number] }
   | { any: Condition[] }
@@ -362,6 +366,9 @@ export type Effect =
   | { money_years: number }
   /** Дом героя: сгорел, разрушен (на ступень меньше, стоит повреждённым) или отстраивается. */
   | { home: 'burn' | 'ruin' | 'rebuild' }
+  /** Хозяйство: купить (дом - следующий по размеру, n наделов или рабов) или потерять n (refund - доля цены деньгами). */
+  | { buy: 'home' | 'land' | 'slaves'; n?: number }
+  | { lose_estate: 'land' | 'slaves'; n: number; refund?: number }
   /** Кости: азарт меняется на delta (зарок, ультиматум - минус). */
   | { dice_lust: number }
   | { chance: number; effects: Effect[] }
@@ -636,6 +643,9 @@ export interface Hero {
   lifestyle: Record<string, string>
   /** Дом семьи: 0 - лачуга, 1 - хижина, 2 - дом, 3 - большой дом, 4 - усадьба. */
   home: number
+  /** Свои наделы земли и рабы (engine/estate.ts); нет поля - нет владений. */
+  land?: number
+  slaves?: number
   /** На чужбине: откуда, с какого года, вживание, принятие, тоска. */
   abroad?: Abroad
   /** Страны, где жил герой (для текстов дневника и пути рода). */
@@ -725,6 +735,11 @@ export interface LifeSummary {
   tags?: string[]
   skills?: Record<string, number>
   animals?: Animal[]
+  /** Хозяйство на момент смерти: дом, съёмное жильё, наделы, рабы - для итога и продолжения рода из мемориала. */
+  home?: number
+  rent?: Hero['rent']
+  land?: number
+  slaves?: number
 }
 
 export interface Family {

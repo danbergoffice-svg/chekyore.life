@@ -92,6 +92,7 @@
   "diary.dice_lost.animal": "{game} oyununda {animal} kaybettin.",
   "diary.dice_lost.house": "{game} oyununda evi kaybettin. Artık kendi evin yok: aile kirada oturuyor — {home}, ayda {rent}.",
   "diary.dice_lost.land": "{game} oyununda toprağını kaybettin. Artık başkasının toprağında çalışacaksın.",
+  "diary.dice_lost.slave": "{game} oyununda bir köle kaybettin: kazanana gidiyor.",
   "diary.dice_lost.son": "{game} oyununda oğlunu kaybettin: {who} yedi yıllığına kazananın hizmetine giriyor.",
   "diary.dice_lost.daughter": "{game} oyununda kızını kaybettin: {who} kazananla evlendirildi.",
   "diary.dice_lost.wife": "{game} oyununda karını kaybettin: {who} ailesinin yanına döndü, herkes de nedenini biliyor.",

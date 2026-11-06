@@ -2,6 +2,7 @@
 // (вживание, принятие, тоска), желание вернуться раз в три года, возвращение и натурализация.
 // Маршруты - src/content/routes.json: только реальные пути своего времени; в Америку - никогда.
 import { ERA_META, isEraLoaded } from '../content'
+import { landPrice, slavePrice } from './estate'
 import ROUTES from '../content/routes.json'
 import { chance, int, weighted } from './rng'
 import { aliveNpcs, changeParam, clamp, HOME_TAGS, isMinority, isProtected, note, rescue, sendAway } from './rules'
@@ -85,6 +86,10 @@ export function emigrate(state: GameState, spec: string, reason: EmigrationReaso
   let money = hero.money
   for (const a of hero.animals ?? []) if (!isPet(a.kind)) money += (STOCK_PRICE[a.kind] ?? 30) * 0.5
   hero.animals = (hero.animals ?? []).filter((a) => isPet(a.kind) && (a.kind === 'dog' || a.kind === 'cat' || a.kind === 'parrot' || a.kind === 'songbird' || family === 'all'))
+  // Землю и невольников с собой не увезти: продают по цене здешнего рынка (вместе с прочим - с потерей).
+  money += (hero.land ?? 0) * landPrice(state) + (hero.slaves ?? 0) * slavePrice(state)
+  hero.land = undefined
+  hero.slaves = undefined
   money = money > 0 ? money * (far ? 0.6 : 0.75) : money
   hero.money = Math.round(money - (far ? 120 : 40))
   hero.home = Math.min(hero.home ?? 1, hero.money > 600 ? 2 : 1)
