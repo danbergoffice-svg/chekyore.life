@@ -8,7 +8,7 @@ import type { EraDef, EraMeta, GameState } from './types'
 import { diceYear } from './dice'
 
 /** Сколько стоит перебраться в дом этого размера. */
-const HOME_COST = [0, 150, 500, 1500, 5000]
+export const HOME_COST = [0, 150, 500, 1500, 5000]
 /** Дом при рождении по сословию. */
 const HOME_BY_CLASS: Record<string, number> = { slave: 0, peasant: 1, craftsman: 2, trader: 2, landowner: 3, noble: 4 }
 

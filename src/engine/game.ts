@@ -32,11 +32,11 @@ import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
 import { eraById, isEraLoaded } from '../content'
 import { chronicleSuccessor, eraEnding, summarize } from './life'
-import { eventHelpsGoal, goalYear } from './goals'
+import { ensureGoal, eventHelpsGoal, goalYear } from './goals'
 import { ATTRIBUTES, PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
 import type { ActiveEvent, ChoiceDef, Condition, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
-import { applyDice, diceStakes, fateGame, pickOpponent } from './dice'
+import { applyDice, canRansom, diceRefuse, diceStakes, fateGame, pickOpponent } from './dice'
 import type { DiceResult } from './dice'
 
 /** Без мини-игры (бот, тесты): партия на любую из доступных ставок, после проигрыша - отыграться (каждый второй раз, до трёх партий). */
@@ -44,7 +44,9 @@ function botDice(state: GameState, era: EraDef, festive: boolean): DiceResult[] 
   const out: DiceResult[] = []
   for (let i = 0; i < 3; i++) {
     const stakes = diceStakes(state, era)
-    const r = { ...fateGame(state, stakes[Math.floor(next(state) * stakes.length)], pickOpponent(() => next(state))), chase: i > 0, festive }
+    const r: DiceResult = { ...fateGame(state, stakes[Math.floor(next(state) * stakes.length)], pickOpponent(() => next(state))), chase: i > 0, festive }
+    // Проиграл скотину - откупается деньгами, если их вдвое больше её цены.
+    if (!r.won && canRansom(state.hero, r.stake) && state.hero.money >= r.stake.amount * 2) r.ransom = true
     applyDice(state, era, r)
     out.push({ ...r, applied: true })
     if (r.won || next(state) < 0.5) break
@@ -57,6 +59,8 @@ export const FESTIVE = ['v_dice_saturnalia', 'ind_d_diwali_dice']
 
 /** Выборы события костей, которые разыгрываются партией. */
 const DICE_PLAY = ['play', 'road', 'chase']
+/** Выборы события костей, которые не партия, но и не отказ (Сатурналии: сыграть на орехи). */
+const DICE_NOT_REFUSAL = ['nuts']
 
 /** Через сколько лет одно и то же событие может повториться. */
 const COOLDOWN = 8
@@ -94,6 +98,8 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   if (state.phase !== 'year') throw new Error(`startYear in phase ${state.phase}`)
   const hero = state.hero
   state.reveal = {}
+  // Цели нет (не выбрал, бот, наследник без выбора) - первая из предложенных.
+  ensureGoal(state, era)
   const firstEntry = hero.diary.length
   const focus = availableFocuses(state, era).find((f) => f.id === focusId) ?? null
   state.lastFocus = focus?.id ?? null
@@ -575,6 +581,8 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   if (last !== undefined && !ignoreTiming && state.year - last < (ev.dynamic === 'dice' ? 2 : COOLDOWN)) return false
   const lastDice = hero.seen['@dice']
   if (ev.dynamic === 'dice' && lastDice !== undefined && !ignoreTiming && state.year - lastDice < DICE_GAP) return false
+  // Трижды подряд отказался от костей - завязал: столов больше не предлагают.
+  if (ev.dynamic === 'dice' && hero.dice?.quit) return false
   if (ev.npc && npcCandidates(state, ev).length === 0) return false
   if (ev.pet && !pets(state).some((p) => p.kind === ev.pet)) return false
   if (ev.effects && addsSpouse({ id: '', effects: ev.effects }) && aliveNpcs(hero, 'spouse').length > 0) return false
@@ -1022,6 +1030,9 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
       active.dice = list.map((r) => ({ ...r, applied: true }))
       const net = list.reduce((n, r) => n + (r.won && !r.caught ? r.stake.amount : -r.stake.amount), 0)
       result = net >= 0 ? 'success' : 'failure'
+    } else if (ev.dynamic === 'dice' && !DICE_NOT_REFUSAL.includes(choice.id)) {
+      // Не стал играть: третий отказ подряд - завязал (engine/dice.ts, diceRefuse).
+      diceRefuse(state)
     }
     if (choice.risk_roll) {
       const success = chance(state, riskChance(state, choice)!)

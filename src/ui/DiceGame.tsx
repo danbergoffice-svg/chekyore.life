@@ -2,9 +2,10 @@
 // Мастерство открывает приёмы: 20 - видно характер соперника, 40 - переброс, 60 - подменить кость (могут поймать),
 // 80 - видно чужое жульничество. После проигрыша - «Отыграться» (азарт растёт вдвое). «Положиться на судьбу» -
 // партия без мини-игры. Каждая партия сразу записывается (onGame), чтобы следующая ставка считалась от новых денег.
+// На кнопке ставки - что ставишь (с ценой) и сколько получишь при выигрыше; проиграл скотину - можно откупиться деньгами.
 import { useMemo, useState } from 'preact/hooks'
 import type { GameState } from '../engine/types'
-import { catchChance, diceOf, pickOpponent, SKILL, STAKE_LUST } from '../engine/dice'
+import { canRansom, catchChance, diceOf, pickOpponent, SKILL, STAKE_LUST } from '../engine/dice'
 import type { DiceResult, Opponent, Stake } from '../engine/dice'
 import { formatMoney, nameOf } from '../i18n'
 import { useUi } from './text'
@@ -39,6 +40,8 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   const [rerolls, setRerolls] = useState(0)
   const [cheated, setCheated] = useState(false)
   const [last, setLast] = useState<DiceResult | null>(null)
+  // Проиграл скотину, а деньги есть: отдать её или откупиться её ценой.
+  const [ransom, setRansom] = useState<DiceResult | null>(null)
   // Кто сейчас бросает: его кости крутятся и мелькают гранями (у соперника - тоже).
   const [rolling, setRolling] = useState<'me' | 'them' | null>(null)
   const [, flick] = useState(0)
@@ -59,12 +62,20 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     setCheated(false)
     setLast(null)
   }
-  const finish = (r: DiceResult) => {
+  const record = (r: DiceResult) => {
+    setRansom(null)
     props.onGame(r)
     setLast(r)
     setGames((n) => n + 1)
     setStake(null)
     setChase(false)
+  }
+  const finish = (r: DiceResult) => {
+    if (!(r.won && !r.caught) && canRansom(hero, r.stake)) {
+      setStake(null)
+      return setRansom(r)
+    }
+    record(r)
   }
   const fate = (s: Stake) => {
     let me = die() + die()
@@ -112,6 +123,22 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   const oppKey = d.skill >= SKILL.read ? opponent : 'unknown'
   const locked = ([2, 3, 4, 5] as const).find((l) => d.lust < STAKE_LUST[l])
 
+  // Скотина проиграна: отдать её победителю или заплатить её цену.
+  if (ransom) {
+    const money = formatMoney(t, ransom.stake.amount, props.coin)
+    const animal = { key: `animal.${ransom.stake.animal ?? 'horse'}` }
+    return (
+      <div class="dice">
+        {ransom.caught && <p class="dice-result lose">{t('dice.caught')}</p>}
+        <p class="dice-result lose" aria-live="polite">{t('dice.ransom.ask', { animal, money }, o)}</p>
+        <div class="dice-ransom">
+          <button type="button" class="secondary" onClick={() => record({ ...ransom, ransom: false })}>{t('dice.ransom.give', { animal }, o)}</button>
+          <button type="button" class="primary" onClick={() => record({ ...ransom, ransom: true })}>{t('dice.ransom.pay', { money }, o)}</button>
+        </div>
+      </div>
+    )
+  }
+
   // Итог партии и что дальше: ещё партию, отыграться или встать из-за стола.
   if (!stake) {
     const canMore = games < MAX_GAMES && props.stakes.length > 0
@@ -120,7 +147,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
         <p class="dice-stats small">{t('dice.stats', { s: d.skill, l: d.lust })}</p>
         {last && (
           <p class={`dice-result ${last.won && !last.caught ? 'win' : 'lose'}`} aria-live="polite">
-            {last.caught ? t('dice.caught') : last.exposed ? t('dice.exposed') : last.won ? t('dice.won', { money: formatMoney(t, last.stake.amount, props.coin) }, o) : t('dice.lost', { what: stakeLabel(last.stake) }, o)}
+            {last.caught ? t('dice.caught') : last.exposed ? t('dice.exposed') : last.won ? t('dice.won', { money: formatMoney(t, last.stake.amount, props.coin) }, o) : last.ransom ? t('dice.ransom.paid', { money: formatMoney(t, last.stake.amount, props.coin) }, o) : t('dice.lost', { what: stakeLabel(last.stake) }, o)}
           </p>
         )}
         {canMore && (
@@ -133,7 +160,8 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
                   if (last && !last.won) setChase(true)
                   start(s)
                 }}>
-                  {stakeLabel(s)}
+                  <span>{stakeLabel(s)}</span>
+                  <span class="dice-win">{t('dice.stake.win', { money: formatMoney(t, s.amount, props.coin) })}</span>
                 </button>
               ))}
             </div>

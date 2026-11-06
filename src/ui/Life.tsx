@@ -69,6 +69,18 @@ function yearMs(age: number, custom?: number): number {
 const TICK_MS = 100
 /** Выборы события костей, которые открывают стол с мини-игрой. */
 const DICE_TABLE = ['play', 'road']
+
+/**
+ * Кнопки выбора события включаются через полторы секунды (пакет 1, 06.11): игроки случайно нажимали в событие,
+ * которое всплыло в ту же секунду, когда они переключали фокус года. Без задержки - в тестах, под автоматом
+ * (navigator.webdriver, скрипты tools/qa) и с ?delay=0.
+ */
+const CHOICE_DELAY = (() => {
+  if (import.meta.env?.MODE === 'test') return 0
+  if (typeof navigator !== 'undefined' && navigator.webdriver) return 0
+  if (typeof location !== 'undefined' && /[?&]delay=0\b/.test(location.search)) return 0
+  return 1500
+})()
 /** Порядок подсказок: раньше - важнее. */
 const HINT_ORDER = ['speed', 'year_len', 'focus', 'hero']
 export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
@@ -1079,7 +1091,16 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const shown = useRef({ id: '', at: 0 })
   const eventKey = `${state.queue[0]?.eventId}:${state.queue[0]?.at}:${state.year}`
   if (shown.current.id !== eventKey) shown.current = { id: eventKey, at: Date.now() }
+  // Кнопки выбора оживают через CHOICE_DELAY после того, как событие появилось.
+  const [armedKey, setArmedKey] = useState(CHOICE_DELAY ? '' : eventKey)
+  const armed = !CHOICE_DELAY || armedKey === eventKey
+  useEffect(() => {
+    if (!CHOICE_DELAY || armedKey === eventKey) return
+    const id = setTimeout(() => setArmedKey(eventKey), CHOICE_DELAY)
+    return () => clearTimeout(id)
+  }, [eventKey])
   const pick = (id: string | null) => {
+    if (!armed) return
     if (ev?.dynamic === 'dice' && id && (ev.dice_play ?? DICE_TABLE).includes(id) && onDiceGame) return setTable(id)
     onChoose(id, Date.now() - shown.current.at)
   }
@@ -1115,7 +1136,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
 
   keys.current = (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement)?.tagName === 'INPUT') return
-    if (state.queue[0]?.outcome || table) return
+    if (state.queue[0]?.outcome || table || !armed) return
     const n = Number(e.key)
     const c = choices[n - 1]
     if (n >= 1 && n <= 4 && c && choiceAvailable(state, c)) {
@@ -1177,9 +1198,10 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
             />
           )}
           {!outcome && !table && (
-            <div class="choices">
+            <div class={`choices ${armed ? '' : 'arming'}`} style={{ '--arm': `${CHOICE_DELAY}ms` }} aria-busy={!armed}>
+              {!armed && <span class="choices-arm" aria-hidden="true" />}
               {choices.length === 0 && (
-                <button class="primary" onClick={() => pick(null)}>{t('event.ok')}</button>
+                <button class="primary" aria-disabled={!armed} onClick={() => pick(null)}>{t('event.ok')}</button>
               )}
               {choices.map((c) => {
                 const ok = choiceAvailable(state, c)
@@ -1187,7 +1209,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
                 const price = cost(c)
                 const mark = marks && ok ? goalMark(marks, c) : null
                 return (
-                  <button class="choice" disabled={!ok} onClick={() => pick(c.id)}>
+                  <button class="choice" disabled={!ok} aria-disabled={!armed || undefined} onClick={() => pick(c.id)}>
                     <span>{label(c)}</span>
                     {isProfession && <span class="choice-desc">{t(`prof.${c.id}.desc`)}</span>}
                     <span class="choice-meta">

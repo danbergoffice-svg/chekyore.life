@@ -1,9 +1,8 @@
 // Цель жизни в интерфейсе (docs/TZ_goal.md): кому она есть (A/B), какие карточки показать, наследство цели.
 // Движок целей - src/engine/goals.ts; здесь только то, что зависит от игрока и флагов.
-import { GOAL_STEPS, offerGoals } from './engine/goals'
+import { GOAL_STEPS, heroGoalOffers } from './engine/goals'
 import type { GoalOffer, HeroGoal } from './engine/goals'
 import type { GameState } from './engine/types'
-import { makeRng } from './kids/rng'
 
 /** 0 - без цели, 1 - цель без меток ▲▼, 2 - цель с метками. */
 export type GoalGroup = 0 | 1 | 2
@@ -46,5 +45,5 @@ export function inheritable(state: GameState): (HeroGoal & { from: string }) | n
 
 /** Карточки целей героя (зерно - от героя: после перезагрузки те же). */
 export function goalOffers(state: GameState, exclude: string[] = []): GoalOffer[] {
-  return offerGoals(state.hero, makeRng(hash(`${state.hero.id}:goal:${exclude.join(',')}`)), exclude as GoalOffer['id'][])
+  return heroGoalOffers(state.hero, exclude as GoalOffer['id'][])
 }

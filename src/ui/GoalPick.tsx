@@ -1,5 +1,5 @@
 // Выбор цели жизни (docs/TZ_goal.md): после лотереи рождения, у наследника - в начале его жизни, в юности - смена.
-// Три карточки (спокойная, смелая, почти невозможная), у наследника - «Доделать за …», с goal_free_from-й жизни - «Без цели».
+// Три карточки (спокойная, смелая, почти невозможная), у наследника - «Доделать за …», «Без цели» больше нет: цель есть у каждого героя (engine/goals.ts, ensureGoal).
 import { useEffect, useRef } from 'preact/hooks'
 import { GOAL_STEPS } from '../engine/goals'
 import type { GoalId, GoalOffer, GoalTier } from '../engine/goals'
@@ -31,10 +31,9 @@ export function GoalPick({ state, mode, onPick, onKeep }: Props) {
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
   const offers: GoalOffer[] = goalOffers(state, mode === 'change' && hero.goal ? [hero.goal.id] : [])
   const heir = mode === 'birth' ? inheritable(state) : null
-  const free = mode === 'birth' && (state.settings.livesBefore ?? 0) + 1 >= platform.flags.goal_free_from
   const opened = useRef(Date.now())
   useEffect(() => {
-    platform.track('goal_offer', { goals: offers.map((g) => g.id).join(','), mode, cls: hero.cls, ...(heir ? { inherit: heir.id } : {}), ...(free ? { free: 1 } : {}) })
+    platform.track('goal_offer', { goals: offers.map((g) => g.id).join(','), mode, cls: hero.cls, ...(heir ? { inherit: heir.id } : {}) })
   }, [])
   const pick = (c: GoalChoice) => {
     platform.track(mode === 'change' ? 'goal_change' : 'goal_pick', { goal: c.id ?? 'none', tier: c.tier ?? 0, sec: Math.round((Date.now() - opened.current) / 1000), ...(c.inherited ? { inherited: c.inherited.length } : {}), ...(mode === 'change' ? { from: hero.goal?.id } : {}) })
@@ -68,12 +67,6 @@ export function GoalPick({ state, mode, onPick, onKeep }: Props) {
           <div class="goal-cards">
             {heir && card(heir.id, null, heir.steps.length, () => pick({ id: heir.id, tier: heir.tier, inherited: heir.steps }), t('goal.inherit', { name: { name: nameOf(heir.from, lang) }, n: heir.steps.length }))}
             {offers.map((g) => card(g.id, g.tier, 0, () => pick({ id: g.id, tier: g.tier })))}
-            {free && (
-              <button class="goal-card none" onClick={() => pick({ id: null })}>
-                <span class="goal-title">{t('goal.none')}</span>
-                <span class="goal-wish">{t('goal.none.desc')}</span>
-              </button>
-            )}
           </div>
           {onKeep && (
             <button class="secondary" onClick={onKeep}>

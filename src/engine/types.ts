@@ -787,6 +787,8 @@ export interface GameSettings {
   protectedUntil?: number
   /** Цель жизни: события, где есть вариант к цели, выпадают чаще во столько раз (флаг goal_weight). */
   goalWeight?: number
+  /** Контрольная группа A/B (goal_share): жизнь без цели. Всем остальным цель назначается всегда (ensureGoal). */
+  noGoal?: boolean
 }
 
 export interface GameState {
