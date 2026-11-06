@@ -417,6 +417,32 @@ function targets(state: GameState, role: NpcTarget, ctx: EffectContext): Npc[] {
   return aliveNpcs(state.hero, role)
 }
 
+// ---------- Торговля ----------
+
+/** Мастерство торговли 0…1: до 50 навыка - как у всех, к 100 торговец почти не прогорает. */
+export function tradeMastery(hero: Hero): number {
+  return clamp(((hero.skills?.trade ?? 0) - 50) / 50, 0, 1)
+}
+
+const isMoney = (e: Effect): e is { param: 'money'; delta: number } => 'param' in e && e.param === 'money'
+
+/**
+ * Деньги торговли по мастерству (фокус «торговля» и рискованные сделки на навыке торговли):
+ * убыток реже (на максимуме - в 5 раз) и меньше (в 2,5 раза), прибыль чаще и крупнее (в 1,4 раза).
+ */
+export function tradeEffects(hero: Hero, effects: Effect[] | undefined): Effect[] | undefined {
+  const m = tradeMastery(hero)
+  if (!m || !effects) return effects
+  return effects.map((e) => {
+    if (isMoney(e)) return { ...e, delta: e.delta < 0 ? e.delta * (1 - 0.6 * m) : e.delta * (1 + 0.4 * m) }
+    if ('chance' in e && e.effects.some(isMoney)) {
+      const loss = e.effects.some((x) => isMoney(x) && x.delta < 0)
+      return { ...e, chance: loss ? e.chance * (1 - 0.8 * m) : Math.min(1, e.chance + 0.15 * m), effects: tradeEffects(hero, e.effects)! }
+    }
+    return e
+  })
+}
+
 // ---------- Эффекты ----------
 
 /**

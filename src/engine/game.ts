@@ -24,6 +24,8 @@ import {
   awayNpcs,
   childName,
   moneyScale,
+  tradeEffects,
+  tradeMastery,
   bandOf,
 } from './rules'
 import { householdYear } from './household'
@@ -98,7 +100,7 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   const focus = availableFocuses(state, era).find((f) => f.id === focusId) ?? null
   state.lastFocus = focus?.id ?? null
   if (focus) {
-    applyEffects(state, era, focus.effects)
+    applyEffects(state, era, focus.id === 'trade' ? tradeEffects(hero, focus.effects) : focus.effects)
     addPattern(hero, era.patternWeights.focus[focus.id])
   }
   if (hero.profession && hero.age >= era.stages.youth) addPattern(hero, era.patternWeights.profession[hero.profession])
@@ -985,6 +987,11 @@ export function riskChance(state: GameState, choice: ChoiceDef): number | null {
   const roll = choice.risk_roll
   if (!roll) return null
   const value = roll.param ? getParam(state.hero, roll.param) : 50
+  // Опытный торговец сделку почти не проваливает: сверху до +15% и потолок 97%.
+  if (roll.param === 'trade') {
+    const m = tradeMastery(state.hero)
+    return Math.max(0.05, Math.min(0.95 + 0.02 * m, roll.success_chance_base + (value - 50) / 200 + 0.15 * m))
+  }
   return Math.max(0.05, Math.min(0.95, roll.success_chance_base + (value - 50) / 200))
 }
 
@@ -1026,7 +1033,9 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     if (choice.risk_roll) {
       const success = chance(state, riskChance(state, choice)!)
       result = success ? 'success' : 'failure'
-      applyEffects(state, era, success ? choice.risk_roll.on_success : choice.risk_roll.on_failure, ctx)
+      const out = success ? choice.risk_roll.on_success : choice.risk_roll.on_failure
+      // Провал сделки у мастера торговли - небольшой убыток.
+      applyEffects(state, era, choice.risk_roll.param === 'trade' && !success ? tradeEffects(hero, out) : out, ctx)
     }
     for (const d of choice.delayed_effects ?? []) {
       triggers.push({ eventId: d.trigger_event, year: addYears(state.year, int(state, d.after_years[0], d.after_years[1])), chance: d.chance })

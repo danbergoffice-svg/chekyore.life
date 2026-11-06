@@ -488,6 +488,8 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.religion = parent.religion
   // Наследник остаётся в родительском доме и с тем же хозяйством.
   hero.home = parent.home ?? 1
+  // Съёмное жильё переходит наследнику вместе с платой, своего дома у него нет.
+  hero.rent = parent.rent ? { ...parent.rent } : undefined
   hero.animals = (parent.animals ?? []).map((a) => ({ ...a }))
   hero.generation = parent.generation + 1
   hero.name = child.name

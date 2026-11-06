@@ -15,6 +15,7 @@ import {
 } from '../engine/game'
 import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey, scaledMoney, statusOf } from '../engine/rules'
 import { isPet } from '../engine/pets'
+import { rentPerMonth } from '../engine/household'
 import LONGEVITY from '../content/longevity.json'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Lang, Npc, SceneTime } from '../engine/types'
@@ -507,7 +508,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </div>
           )}
           <p class="small">
-            <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)} · <strong>{t('hero.animals')}:</strong>{' '}
+            <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)}
+            {hero.rent && <> ({t('hero.rent', { sum: formatMoney(t, rentPerMonth(hero.rent), coin) })})</>} · <strong>{t('hero.animals')}:</strong>{' '}
             {hero.animals?.length
               ? hero.animals
                   .map((a) =>

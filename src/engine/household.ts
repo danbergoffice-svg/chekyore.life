@@ -7,8 +7,10 @@ import { changeParam, HOME_TAGS, note } from './rules'
 import type { EraDef, EraMeta, GameState } from './types'
 import { diceYear } from './dice'
 
-/** Сколько стоит перебраться в дом этого размера. */
-const HOME_COST = [0, 150, 500, 1500, 5000]
+/** Сколько стоит перебраться в дом этого размера (и во сколько его ставят на кон в кости). */
+export const HOME_COST = [0, 150, 500, 1500, 5000]
+/** Съём за год - такая доля цены жилья; в столице и порту дороже, в деревне дешевле. */
+const RENT_RATE = 0.12
 /** Дом при рождении по сословию. */
 const HOME_BY_CLASS: Record<string, number> = { slave: 0, peasant: 1, craftsman: 2, trader: 2, landowner: 3, noble: 4 }
 
@@ -33,6 +35,57 @@ function livestock(state: GameState): string[] {
 
 
 const rural = (state: GameState) => state.hero.tags.includes('rural') || ['peasant', 'landowner'].includes(state.hero.cls)
+
+/** Плата за съём жилья этого уровня за год - по уровню жилья и краю. */
+export function rentPerYear(state: GameState, level: number): number {
+  const tags = ERA_META[state.hero.era]?.regions.find((r) => r.id === state.hero.region)?.tags ?? []
+  const k = tags.includes('capital') ? 1.4 : tags.includes('port') ? 1.2 : rural(state) ? 0.7 : 1
+  return Math.max(12, Math.round(HOME_COST[Math.max(1, Math.min(4, level))] * RENT_RATE * k))
+}
+
+/** Остался без своего дома (проиграл): снимает жильё на ступень скромнее. */
+export function startRent(state: GameState, lost: number): void {
+  const hero = state.hero
+  const level = Math.max(1, lost - 1)
+  hero.home = level
+  hero.rent = { level, perYear: rentPerYear(state, level), since: state.year, lost }
+  hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t))
+}
+
+/** Аренда в месяц для интерфейса: годовая плата / 12. */
+export const rentPerMonth = (rent: { perYear: number }) => Math.max(1, Math.round(rent.perYear / 12))
+
+/** Купить дом и съехать со съёмного: свой прежний (выкупить) или новый того же размера, что снимали. */
+function buyOut(state: GameState, level: number, key: string): void {
+  const hero = state.hero
+  hero.money -= HOME_COST[level]
+  hero.home = level
+  hero.rent = undefined
+  hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t))
+  changeParam(hero, 'happiness', 8)
+  note(state, { key, params: { home: { key: `home.${level}` } }, major: true, topic: 'money', icon: 'move', score: 30, mood: 7 })
+}
+
+/** Год на съёмном: платим раз в год; разбогатели - выкупаем свой дом или покупаем новый, в долгах - съезжаем поскромнее. */
+function rentYear(state: GameState, adult: boolean, free: boolean): void {
+  const hero = state.hero
+  const r = hero.rent
+  if (!r) return
+  // Плата - по тому, что снимают сейчас и где: после пожара или переезда в другой край она другая.
+  r.level = Math.max(1, hero.home)
+  r.perYear = rentPerYear(state, r.level)
+  hero.money -= r.perYear
+  if (!adult || !free) return
+  if (hero.money > HOME_COST[r.lost] * 1.6 && chance(state, 0.35)) buyOut(state, r.lost, 'diary.rent_bought_back')
+  else if (hero.money > HOME_COST[r.level] * 1.6 && chance(state, 0.25)) buyOut(state, r.level, 'diary.rent_bought')
+  else if (hero.money < -200 && r.level > 1 && chance(state, 0.3)) {
+    r.level -= 1
+    r.perYear = rentPerYear(state, r.level)
+    hero.home = r.level
+    changeParam(hero, 'happiness', -4)
+    note(state, { key: 'diary.rent_down', params: { home: { key: `home.${r.level}` }, money: rentPerMonth(r) }, topic: 'money', icon: 'loss', score: 20, mood: -4 })
+  }
+}
 
 /** Начальное хозяйство семьи при рождении. */
 export function initHousehold(state: GameState): void {
@@ -77,8 +130,11 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
     hero.tags = hero.tags.filter((t) => !HOME_TAGS.includes(t))
     note(state, { key: 'diary.home_patched', topic: 'money', score: 14 })
   }
+  // Съёмное жильё: своего дома нет - не купить побольше и не продать.
+  const renting = !!hero.rent
+  rentYear(state, adult, free)
   // Дом побольше - когда денег заметно больше, чем он стоит (не пока живут на пепелище).
-  if (adult && free && hero.home < 4 && !hero.tags.includes('home_damaged')) {
+  if (!renting && adult && free && hero.home < 4 && !hero.tags.includes('home_damaged')) {
     const cost = HOME_COST[hero.home + 1]
     if (hero.money > cost * 1.6 && chance(state, 0.25)) {
       hero.money -= cost
@@ -95,7 +151,7 @@ export function householdYear(state: GameState, era: EraDef | EraMeta): void {
       hero.animals = hero.animals.filter((a) => a !== sold)
       hero.money += Math.round((ANIMAL_COST[sold.kind] ?? 30) * 0.7)
       note(state, { key: 'diary.animal_sold', params: { animal: { key: `animal.${sold.kind}` } }, topic: 'money', icon: 'loss', score: 14, mood: -3 })
-    } else if (hero.home > 0 && hero.money < -200 && chance(state, 0.3)) {
+    } else if (!hero.rent && hero.home > 0 && hero.money < -200 && chance(state, 0.3)) {
       hero.home -= 1
       hero.money += Math.round(HOME_COST[hero.home + 1] * 0.6)
       changeParam(hero, 'happiness', -6)

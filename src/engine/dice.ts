@@ -5,6 +5,7 @@
 import type { EraDef, EraMeta, GameState, Hero } from './types'
 import { chance, int, next } from './rng'
 import { addYears, aliveNpcs, note, npcAge, sendAway } from './rules'
+import { HOME_COST, rentPerMonth, startRent } from './household'
 
 export interface DiceStats {
   skill: number
@@ -118,7 +119,8 @@ export function diceStakes(state: GameState, era: EraDef | EraMeta): Stake[] {
   if (d.lust >= STAKE_LUST[3]) {
     const animal = [...(hero.animals ?? [])].filter((a) => ANIMAL_VALUE[a.kind]).sort((a, b) => ANIMAL_VALUE[b.kind] - ANIMAL_VALUE[a.kind])[0]
     if (animal) out.push({ level: 3, kind: 'animal', amount: Math.round(r * ANIMAL_VALUE[animal.kind]), animal: animal.kind })
-    if ((hero.home ?? 1) >= 2) out.push({ level: 3, kind: 'house', amount: Math.round(r * 3 * (hero.home ?? 1)) })
+    // Свой дом (не съёмный) - по его цене, как при покупке.
+    if ((hero.home ?? 1) >= 2 && !hero.rent) out.push({ level: 3, kind: 'house', amount: HOME_COST[Math.min(4, hero.home)] })
     if (hero.cls === 'landowner' || hero.cls === 'noble') out.push({ level: 3, kind: 'land', amount: Math.round(r * 10) })
   }
   if (d.lust >= STAKE_LUST[4] && hero.money <= 0) {
@@ -241,8 +243,11 @@ function loseStake(state: GameState, s: Stake, params: Record<string, { key: str
     const i = (hero.animals ?? []).findIndex((a) => a.kind === s.animal)
     if (i >= 0) hero.animals.splice(i, 1)
   }
+  // Дом проигран: своего больше нет, семья снимает жильё поскромнее и платит за него каждый год.
+  let rent: Record<string, number | { key: string }> = {}
   if (s.kind === 'house') {
-    hero.home = Math.max(1, (hero.home ?? 1) - 1)
+    startRent(state, hero.home ?? 2)
+    rent = { home: { key: `home.${hero.home}` }, rent: rentPerMonth(hero.rent!) }
     d.ruined = true
   }
   if (s.kind === 'land') {
@@ -268,7 +273,7 @@ function loseStake(state: GameState, s: Stake, params: Record<string, { key: str
     hero.tags = hero.tags.filter((t) => t !== 'in_debt' && t !== 'deep_debt')
     d.ruined = true
   }
-  note(state, { key: `diary.dice_lost.${s.kind}`, params: { ...params, ...who, money: s.amount, animal: { key: `animal.${s.animal ?? 'horse'}` } }, topic: 'money', icon: 'loss', score: 10 + 8 * s.level, mood: -3 * s.level, major: s.level >= 3 })
+  note(state, { key: `diary.dice_lost.${s.kind}`, params: { ...params, ...who, ...rent, money: s.amount, animal: { key: `animal.${s.animal ?? 'horse'}` } }, topic: 'money', icon: 'loss', score: 10 + 8 * s.level, mood: -3 * s.level, major: s.level >= 3 })
 }
 
 function schedule(state: GameState, eventId: string, years: number, p = 0.8): void {

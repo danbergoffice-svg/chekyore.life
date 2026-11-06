@@ -90,7 +90,7 @@
   "diary.dice_lost.coins": "Lost at {game}: −{money}.",
   "diary.dice_lost.purse": "Lost your whole purse at {game}: −{money}.",
   "diary.dice_lost.animal": "Lost your {animal} at {game}.",
-  "diary.dice_lost.house": "Lost the house at {game}. The family moves somewhere humbler.",
+  "diary.dice_lost.house": "Lost the house at {game}. No home of your own now: the family rents — {home}, {rent} a month.",
   "diary.dice_lost.land": "Lost your land at {game}. Now you work someone else's.",
   "diary.dice_lost.son": "Lost your son at {game}: {who} goes into the winner's service for seven years.",
   "diary.dice_lost.daughter": "Lost your daughter at {game}: {who} is married to the winner.",
