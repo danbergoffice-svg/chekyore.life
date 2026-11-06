@@ -91,12 +91,13 @@ const ICONS: Record<string, { grid: string[]; colors: Record<string, string> }> 
   },
 }
 
-export const CHANNELS = [
+// В сборке для CrazyGames список пуст на этапе сборки: портал проверяет, что в коде нет внешних адресов.
+export const CHANNELS: { id: string; url: string; name: string }[] = import.meta.env.VITE_PLATFORM === 'crazygames' ? [] : [
   { id: 'reddit', url: 'https://www.reddit.com/r/Thousands_of_lives/', name: 'Reddit' },
   { id: 'instagram', url: 'https://www.instagram.com/thousands.life_game/', name: 'Instagram' },
   { id: 'telegram', url: 'https://t.me/thousands_of_lives_game', name: 'Telegram' },
   { id: 'tiktok', url: 'https://www.tiktok.com/@thousands_of_lives', name: 'TikTok' },
-] as const
+]
 
 export function PixelIcon({ id, size = 32 }: { id: string; size?: number }) {
   const icon = ICONS[id]
