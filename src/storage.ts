@@ -73,6 +73,11 @@ export function migrate(game: GameState | undefined): GameState | null {
     for (const n of game.hero.npcs) if (n.role === 'child') initializeChild(game, n)
     game.version = 7
   }
+  // 7 → 8: семейное имущество (Family.estate) - пустой реестр; дом, скот, наделы и рабы остаются у героя как были.
+  if (game.version === 7) {
+    game.family.estate ??= { assets: [], debts: 0 }
+    game.version = 8
+  }
   if (game.version !== SAVE_VERSION) return null
   return game
 }

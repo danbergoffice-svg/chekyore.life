@@ -1,0 +1,143 @@
+// Имущество рода на вкладке «Герой» (src/engine/estate.ts, inheritance.ts): активы, покупка, улучшение, залог,
+// продажа и завещание. Ничего не всплывает само - итоги года и раздел наследства идут записями в дневник.
+import { useState } from 'preact/hooks'
+import ASSETS from '../content/assets.json'
+import { acquireAsset, assetDef, assetLock, assetPrice, canImprove, estateValue, heroShare, improveAsset, improveCost, pledgeAsset, redeemAsset, saleValue, sellAsset } from '../engine/estate'
+import { createWill, customDistribution, validateWill } from '../engine/inheritance'
+import { heirs } from '../engine/life'
+import { regionOf } from '../engine/rules'
+import type { Asset, AssetType, EraDef, GameState } from '../engine/types'
+import { formatMoney, formatYear, nameOf } from '../i18n'
+import { useUi } from './text'
+
+const TYPES = ASSETS.types.map((t) => t.id as AssetType)
+
+export function Estate({ state, era, onChange }: { state: GameState; era: EraDef; onChange: () => void }) {
+  const { t, lang } = useUi()
+  const coin = regionOf(era, state.hero.region).coin
+  const money = (n: number) => formatMoney(t, n, coin)
+  const estate = state.family.estate
+  const assets = (estate?.assets ?? []).filter((a) => heroShare(state, a) > 0)
+  const offers = TYPES.filter((ty) => {
+    const lock = assetLock(state, ty)
+    return !lock || lock === 'estate.lock.money'
+  })
+  const adult = state.hero.age >= era.stages.adult
+  if (!adult && !assets.length) return null
+  const act = (fn: () => unknown) => {
+    fn()
+    onChange()
+  }
+  return (
+    <section class="estate">
+      <h2 class="section-title">{t('estate.title')}</h2>
+      <p class="small muted">{t('estate.hint')}</p>
+      {assets.length === 0 ? (
+        <p class="small">{t('estate.empty')}</p>
+      ) : (
+        <>
+          <p class="small">
+            {t('estate.worth', { money: money(estateValue(state)) })}
+            {estate?.debts ? ` · ${t('estate.debts', { money: money(estate.debts) })}` : ''}
+          </p>
+          <ul class="kids">
+            {assets.map((a) => (
+              <AssetRow state={state} a={a} money={money} act={act} />
+            ))}
+          </ul>
+        </>
+      )}
+      {adult && offers.length > 0 && (
+        <div class="choice-row">
+          <span class="small">{t('estate.buy')}</span>
+          {offers.map((ty) => (
+            <button type="button" class="option small" disabled={!!assetLock(state, ty)} onClick={() => act(() => acquireAsset(state, { type: ty }))}>
+              <span class="option-label">{t(`asset.${ty}`)}</span>
+              <span class="option-desc">{t('estate.buy.desc', { money: money(assetPrice(state, ty)), income: money(Math.round(assetPrice(state, ty) * (assetDef(ty)!.income - assetDef(ty)!.maintenance))) })}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      {assets.length > 0 && adult && <WillEditor state={state} era={era} onChange={onChange} lang={lang} />}
+    </section>
+  )
+}
+
+function AssetRow({ state, a, money, act }: { state: GameState; a: Asset; money: (n: number) => string; act: (fn: () => unknown) => void }) {
+  const { t } = useUi()
+  const share = heroShare(state, a)
+  return (
+    <li class="person child-card">
+      <span class="person-name cap">{t(`asset.${a.type}`)}</span>
+      <span class="muted small">
+        {t('estate.info', { money: money(Math.round(a.income * share)), cost: money(Math.round(a.maintenance * share)), n: a.condition })}
+        {share < 1 ? ` · ${t('estate.share', { n: Math.round(share * 100) })}` : ''}
+        {a.pledged ? ` · ${t('estate.pledged', { money: money(a.pledged) })}` : ''}
+      </span>
+      <span class="choice-row">
+        {(a.level ?? 0) < ASSETS.improve.maxLevel && (
+          <button type="button" class="option small" disabled={!canImprove(state, a)} onClick={() => act(() => improveAsset(state, a.id))}>
+            {t('estate.improve', { money: money(improveCost(a)) })}
+          </button>
+        )}
+        {a.pledged ? (
+          <button type="button" class="option small" disabled={state.hero.money < a.pledged} onClick={() => act(() => redeemAsset(state, a.id))}>
+            {t('estate.redeem', { money: money(a.pledged) })}
+          </button>
+        ) : (
+          <button type="button" class="option small" onClick={() => act(() => pledgeAsset(state, a.id))}>
+            {t('estate.pledge', { money: money(Math.round(a.value * ASSETS.pledge.share * share)) })}
+          </button>
+        )}
+        <button type="button" class="option small" onClick={() => act(() => sellAsset(state, a.id))}>
+          {t('estate.sell', { money: money(Math.max(0, saleValue(state, a) - (a.pledged ?? 0))) })}
+        </button>
+      </span>
+    </li>
+  )
+}
+
+function WillEditor({ state, era, onChange, lang }: { state: GameState; era: EraDef; onChange: () => void; lang: string }) {
+  const { t } = useUi()
+  const kids = heirs(state)
+  const assets = (state.family.estate?.assets ?? []).filter((a) => heroShare(state, a) > 0)
+  const custom = Object.fromEntries(customDistribution(state, era, kids).map((d) => [d.assetId, d.beneficiaryId]))
+  const will = state.family.estate?.will?.by === state.hero.id ? state.family.estate.will : undefined
+  const [pick, setPick] = useState<Record<string, string>>(() => Object.fromEntries((will?.distributions ?? []).map((d) => [d.assetId, d.beneficiaryId])))
+  const [error, setError] = useState('')
+  if (!kids.length) return null
+  const chosen = (a: Asset) => pick[a.id] ?? custom[a.id] ?? kids[0].id
+  const save = () => {
+    const distributions = assets.map((a) => ({ assetId: a.id, beneficiaryId: chosen(a), share: heroShare(state, a) }))
+    const v = validateWill(state, era, { createdYear: state.year, by: state.hero.id, distributions }, kids)
+    if (!v.ok) {
+      setError(t(v.errors.includes('custom_forbids') ? 'estate.will.error.custom_forbids' : 'estate.will.error.other'))
+      return
+    }
+    createWill(state, era, distributions, kids)
+    setError('')
+    onChange()
+  }
+  return (
+    <div class="will">
+      <h3 class="section-title">{t('estate.will.title')}</h3>
+      <p class="small muted">{t('estate.will.hint')}</p>
+      {will && <p class="small">{t('estate.will.made', { year: formatYear(will.createdYear, lang as never) })}</p>}
+      <ul class="plain">
+        {assets.map((a) => (
+          <li class="small">
+            <span class="cap">{t(`asset.${a.type}`)}</span>{' → '}
+            <select value={chosen(a)} onChange={(e) => setPick({ ...pick, [a.id]: (e.target as HTMLSelectElement).value })}>
+              {kids.map((k) => (
+                <option value={k.id}>{nameOf(k.name, lang as never)}</option>
+              ))}
+            </select>
+            <span class="muted">{' '}{t('estate.will.custom', { who: nameOf(kids.find((k) => k.id === custom[a.id])?.name ?? '', lang as never) })}</span>
+          </li>
+        ))}
+      </ul>
+      {error && <p class="small warn">{error}</p>}
+      <button type="button" class="option small" onClick={save}>{t('estate.will.make')}</button>
+    </div>
+  )
+}

@@ -233,6 +233,8 @@ export interface EraMeta {
   vices: ViceDef[]
   /** Обучение детей в этой стране: какие направления закрыты, свои правила для направлений (поверх общих). */
   education?: { exclude?: EducationPath[]; tracks?: Partial<Record<EducationPath, Partial<EducationTrackDef>>> }
+  /** Семейные активы, которых в этой стране не бывает. */
+  assets?: { exclude?: AssetType[] }
 }
 
 /** Страна со всем контентом: общий слой + местные события и вести. Загружается, когда нужна. */
@@ -811,6 +813,8 @@ export interface LifeSummary {
   tags?: string[]
   skills?: Record<string, number>
   animals?: Animal[]
+  /** Семейное имущество на момент смерти (до раздела) - для итога и продолжения рода из мемориала. */
+  estateSnapshot?: Estate
   /** Хозяйство на момент смерти: дом, съёмное жильё, наделы, рабы - для итога и продолжения рода из мемориала. */
   home?: number
   rent?: Hero['rent']
@@ -823,6 +827,48 @@ export interface Family {
   /** Предки текущего героя, по порядку поколений. */
   lives: LifeSummary[]
   flags: string[]
+  /** Семейное имущество (src/engine/estate.ts): переживает смену поколений. Нет - сохранение до версии 8. */
+  estate?: Estate
+}
+
+/** Вид семейного актива. Наделы земли пока считаются в Hero.land (совместимость), здесь - хозяйства и дела. */
+export type AssetType = 'land' | 'house' | 'farm' | 'workshop' | 'shop' | 'warehouse'
+
+export interface Asset {
+  id: string
+  type: AssetType
+  name: string
+  region: string
+  acquiredYear: number
+  /** Цена сейчас (растёт с улучшениями). */
+  value: number
+  /** Доход и содержание за год при полной сохранности. */
+  income: number
+  maintenance: number
+  /** Сохранность 0–100: ветшает каждый год, улучшение возвращает к 100. */
+  condition: number
+  /** Ступень улучшения 0–3. */
+  level?: number
+  /** Доли владения: id героя или родственника → доля (в сумме не больше 1). */
+  ownerShares: Record<string, number>
+  /** Заложено: сколько должны под этот актив (10% в год). */
+  pledged?: number
+}
+
+export interface Estate {
+  assets: Asset[]
+  /** Долг под залог (сумма pledged по активам). */
+  debts: number
+  will?: Will
+  /** Что ушло другим наследникам при разделе: для хроники рода. */
+  passed?: { year: number; assetId: string; type: AssetType; to: string }[]
+}
+
+export interface Will {
+  createdYear: number
+  /** Кто составил (id героя): чужое завещание (прошлого поколения) не действует. */
+  by?: string
+  distributions: { assetId: string; beneficiaryId: string; share: number }[]
 }
 
 export interface ActiveEvent {

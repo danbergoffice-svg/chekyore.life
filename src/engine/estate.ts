@@ -10,7 +10,8 @@ import { ERA_META } from '../content'
 import { HOME_COST } from './household'
 import { chance, int } from './rng'
 import { changeParam, faithMatches, HOME_TAGS, note } from './rules'
-import type { GameState, Hero } from './types'
+import ASSETS from '../content/assets.json'
+import type { Asset, AssetType, Estate, GameState, Hero } from './types'
 
 /** Больше стольких наделов и рабов у героя не бывает (иначе это уже не семья, а поместье знати). */
 export const LAND_MAX = 5
@@ -136,6 +137,8 @@ export function estateOffers(state: GameState): EstateKind[] {
 
 /** Год владений: доход с земли по урожаю, работа рабов; в долгах - продают; где рабства нет - отпускают. */
 export function estateYear(state: GameState): void {
+  // Семейные активы - в том же годовом расчёте (не отдельно, чтобы не посчитать доход дважды).
+  assetsYear(state)
   const hero = state.hero
   const land = hero.land ?? 0
   const slaves = hero.slaves ?? 0
@@ -168,4 +171,174 @@ export function estateYear(state: GameState): void {
 /** Вера смотрит на рабство по-своему: ислам и христианство поощряют освобождение - совесть отзывается сильнее. */
 export function manumissionPraised(state: GameState): boolean {
   return faithMatches(state.hero.religion, ['islamic', 'christian', 'jewish'])
+}
+
+// ---------- Семейные активы (ТЗ семейной системы, этап 3) ----------
+// Хозяйства, мастерские, лавки, склады и доходные дома - в Family.estate: имущество рода, а не одного героя.
+// Покупка, продажа, улучшение, залог; доход и содержание раз в год (assetsYear из estateYear - один годовой расчёт).
+// Дом, скот, наделы и рабы остаются в Hero (совместимость, п. 4.6 ТЗ). Правила - src/content/assets.json.
+
+type AssetDef = { id: AssetType; cost: number; income: number; maintenance: number; classes: string[]; needs?: string[]; notRural?: boolean }
+const A = ASSETS as typeof ASSETS & { types: AssetDef[] }
+
+/** Слушатель для аналитики (src/telemetry.ts). */
+type EstateEvent = 'asset_acquired' | 'asset_sold' | 'will_created' | 'inheritance_distributed'
+type EstateListener = (kind: EstateEvent, state: GameState, params: Record<string, string | number>) => void
+let estateListener: EstateListener | undefined
+export function onEstateEvent(fn: EstateListener | undefined): void {
+  estateListener = fn
+}
+export const emitEstate = (kind: EstateEvent, state: GameState, params: Record<string, string | number>) => estateListener?.(kind, state, params)
+
+export function initializeEstate(state: GameState): Estate {
+  state.family.estate ??= { assets: [], debts: 0 }
+  return state.family.estate
+}
+
+export const assetDef = (type: AssetType) => A.types.find((t) => t.id === type)
+
+/** Доля героя в активе (0–1). */
+export const heroShare = (state: GameState, a: Asset) => a.ownerShares[state.hero.id] ?? 0
+
+/** Цена нового актива этого вида в здешнем краю. */
+export function assetPrice(state: GameState, type: AssetType): number {
+  const def = assetDef(type)
+  return def ? Math.round(def.cost * regionK(state)) : 0
+}
+
+/** Почему сейчас нельзя купить (ключ текста) или undefined. */
+export function assetLock(state: GameState, type: AssetType): string | undefined {
+  const hero = state.hero
+  const def = assetDef(type)
+  const meta = ERA_META[hero.era]
+  if (!def || meta?.assets?.exclude?.includes(type)) return 'estate.lock.era'
+  if (def.needs && !def.needs.some((f) => meta?.features.includes(f))) return 'estate.lock.era'
+  if (def.notRural && regionTags(state).includes('rural')) return 'estate.lock.rural'
+  if (!def.classes.includes(hero.cls) || !free(hero)) return 'estate.lock.class'
+  if (hero.age < (meta?.stages.adult ?? 16)) return 'estate.lock.young'
+  if ((state.family.estate?.assets.length ?? 0) >= A.max) return 'estate.lock.max'
+  if (hero.money < assetPrice(state, type)) return 'estate.lock.money'
+  return undefined
+}
+
+const regionTags = (state: GameState) => ERA_META[state.hero.era]?.regions.find((r) => r.id === state.hero.region)?.tags ?? []
+
+/** Купить актив: деньги уходят, актив записан на героя целиком. */
+export function acquireAsset(state: GameState, input: { type: AssetType; name?: string }): Asset | undefined {
+  if (assetLock(state, input.type)) return undefined
+  const def = assetDef(input.type)!
+  const estate = initializeEstate(state)
+  const value = assetPrice(state, input.type)
+  const asset: Asset = {
+    id: `a${state.nextId++}`,
+    type: input.type,
+    name: input.name ?? input.type,
+    region: state.hero.region,
+    acquiredYear: state.year,
+    value,
+    income: Math.round(value * def.income),
+    maintenance: Math.round(value * def.maintenance),
+    condition: 100,
+    level: 0,
+    ownerShares: { [state.hero.id]: 1 },
+  }
+  state.hero.money -= value
+  estate.assets.push(asset)
+  note(state, { key: 'diary.asset_bought', params: { what: { key: `asset.${asset.type}` }, money: value }, topic: 'money', icon: 'find', score: 24, mood: 3, major: true })
+  emitEstate('asset_acquired', state, { type: asset.type, value })
+  return asset
+}
+
+/** Сколько дадут при продаже доли героя: от половины до девяти десятых цены по сохранности, за вычетом залога. */
+export function saleValue(state: GameState, a: Asset): number {
+  const k = A.sale.base + A.sale.condition * (a.condition / 100)
+  return Math.round(a.value * k * heroShare(state, a))
+}
+
+export function sellAsset(state: GameState, assetId: string): number {
+  const estate = state.family.estate
+  const a = estate?.assets.find((x) => x.id === assetId)
+  if (!estate || !a || heroShare(state, a) <= 0) return 0
+  const got = saleValue(state, a) - (a.pledged ?? 0)
+  state.hero.money += got
+  estate.assets = estate.assets.filter((x) => x !== a)
+  syncDebts(estate)
+  note(state, { key: 'diary.asset_sold', params: { what: { key: `asset.${a.type}` }, money: Math.max(0, got) }, topic: 'money', score: 18 })
+  emitEstate('asset_sold', state, { type: a.type, value: got })
+  return got
+}
+
+export const improveCost = (a: Asset) => Math.round(a.value * A.improve.cost)
+export const canImprove = (state: GameState, a: Asset) => (a.level ?? 0) < A.improve.maxLevel && state.hero.money >= improveCost(a) && heroShare(state, a) > 0
+
+/** Улучшить: плата - треть цены; сохранность 100, цена и доход выше. */
+export function improveAsset(state: GameState, assetId: string): boolean {
+  const a = state.family.estate?.assets.find((x) => x.id === assetId)
+  if (!a || !canImprove(state, a)) return false
+  state.hero.money -= improveCost(a)
+  a.level = (a.level ?? 0) + 1
+  a.condition = 100
+  a.value = Math.round(a.value * A.improve.value)
+  a.income = Math.round(a.income * (1 + A.improve.income))
+  note(state, { key: 'diary.asset_improved', params: { what: { key: `asset.${a.type}` } }, topic: 'money', score: 14, mood: 2 })
+  return true
+}
+
+/** Заложить: половина цены деньгами сейчас, 10% в год, в долгах могут забрать. */
+export function pledgeAsset(state: GameState, assetId: string): number {
+  const estate = state.family.estate
+  const a = estate?.assets.find((x) => x.id === assetId)
+  if (!estate || !a || a.pledged || heroShare(state, a) <= 0) return 0
+  const loan = Math.round(a.value * A.pledge.share * heroShare(state, a))
+  a.pledged = loan
+  state.hero.money += loan
+  syncDebts(estate)
+  note(state, { key: 'diary.asset_pledged', params: { what: { key: `asset.${a.type}` }, money: loan }, topic: 'money', score: 16 })
+  return loan
+}
+
+/** Выкупить залог. */
+export function redeemAsset(state: GameState, assetId: string): boolean {
+  const estate = state.family.estate
+  const a = estate?.assets.find((x) => x.id === assetId)
+  if (!estate || !a?.pledged || state.hero.money < a.pledged) return false
+  state.hero.money -= a.pledged
+  a.pledged = undefined
+  syncDebts(estate)
+  return true
+}
+
+function syncDebts(estate: Estate): void {
+  estate.debts = estate.assets.reduce((s, a) => s + (a.pledged ?? 0), 0)
+}
+
+/** Цена всего семейного имущества в реестре (доля героя), за вычетом залогов. */
+export function estateValue(state: GameState): number {
+  return (state.family.estate?.assets ?? []).reduce((s, a) => s + Math.round(a.value * heroShare(state, a)) - (a.pledged ?? 0), 0)
+}
+
+/** Год активов: доход по удаче и сохранности (доля героя), содержание, ветшание, проценты по залогу, изъятие в долгах. */
+export function assetsYear(state: GameState): void {
+  const estate = state.family.estate
+  if (!estate?.assets.length) return
+  const hero = state.hero
+  let net = 0
+  for (const a of estate.assets) {
+    const share = heroShare(state, a)
+    const luck = int(state, A.harvest[0], A.harvest[1]) / 10
+    const shape = a.condition < A.poorBelow ? 0.5 : 0.6 + 0.4 * (a.condition / 100)
+    net += Math.round(a.income * luck * shape * share) - Math.round(a.maintenance * share)
+    if (a.pledged) net -= Math.round(a.pledged * A.pledge.interest)
+    a.condition = Math.max(0, a.condition - int(state, A.wear[0], A.wear[1]))
+  }
+  hero.money += net
+  // В долгах заимодавец забирает заложенное.
+  const pledged = estate.assets.find((a) => a.pledged)
+  if (pledged && hero.money < 0 && chance(state, A.pledge.seizeChance)) {
+    estate.assets = estate.assets.filter((a) => a !== pledged)
+    hero.money += Math.max(0, saleValue(state, pledged) - pledged.pledged!) // остаток после долга - семье
+    note(state, { key: 'diary.asset_seized', params: { what: { key: `asset.${pledged.type}` } }, topic: 'money', icon: 'loss', score: 26, mood: -5, major: true })
+    changeParam(hero, 'happiness', -5)
+  }
+  syncDebts(estate)
 }

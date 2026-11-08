@@ -105,6 +105,10 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   Этап 2 — дети: `src/engine/children.ts` (воспитание раз в год, учёба платная, отказ подростка, `childOutcome` → дело по
   направлению, навык наследнику), правила — `src/content/education.json` + `EraMeta.education` (exclude/tracks), поля `Npc.education/upbringing`
   (сохранение v7), UI — `src/ui/Children.tsx` на вкладке «Близкие», события `child_education_*`/`child_upbringing_changed`. Тест — `tests/children.test.ts`.
+  Этап 3 — имущество рода: реестр `Family.estate` (хозяйство, мастерская, лавка, доходный дом, склад) в `src/engine/estate.ts`
+  (покупка, продажа, улучшение, залог; `assetsYear` внутри `estateYear` — один годовой расчёт), завещание и раздел —
+  `src/engine/inheritance.ts` (`estateForHeir` в `continueWithHeir`), правила — `src/content/assets.json`, `EraMeta.assets.exclude`;
+  дом/скот/наделы/рабы остаются в Hero (п. 4.6). Сохранение v8, `LifeSummary.estateSnapshot`. UI — `src/ui/Estate.tsx` на вкладке «Герой». Тест — `tests/inheritance.test.ts`.
 - Сны о будущем (`docs/TZ_dreams.md`, **сделано**, этапы 1–4): движок — `src/engine/dreams.ts` (свой поток случайности
   `dreamRng`, не трогает остальную жизнь), формулы — `src/engine/formula.ts`, каталог — `src/content/dreams.json`, тексты —
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —

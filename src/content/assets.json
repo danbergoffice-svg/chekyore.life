@@ -1,0 +1,27 @@
+{
+  "_doc": "Семейные активы (src/engine/estate.ts): цена без поправки на край, доход и содержание - доли цены в год. classes - сословие героя; needs - хоть что-то из features страны; notRural - не в деревенском крае. Отличия стран - поле assets в era.json (exclude).",
+  "types": [
+    { "id": "farm", "cost": 700, "income": 0.12, "maintenance": 0.03, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"] },
+    { "id": "workshop", "cost": 500, "income": 0.14, "maintenance": 0.04, "classes": ["craftsman", "trader", "landowner", "noble"] },
+    { "id": "shop", "cost": 600, "income": 0.13, "maintenance": 0.03, "classes": ["craftsman", "trader", "landowner", "noble"], "notRural": true },
+    { "id": "house", "cost": 650, "income": 0.1, "maintenance": 0.02, "classes": ["craftsman", "trader", "landowner", "noble"], "notRural": true },
+    { "id": "warehouse", "cost": 900, "income": 0.11, "maintenance": 0.025, "classes": ["trader", "landowner", "noble"], "needs": ["sea", "river"] }
+  ],
+  "max": 6,
+  "harvest": [6, 14],
+  "wear": [2, 6],
+  "poorBelow": 30,
+  "improve": { "cost": 0.3, "value": 1.15, "income": 0.15, "maxLevel": 3 },
+  "sale": { "base": 0.5, "condition": 0.4 },
+  "pledge": { "share": 0.5, "interest": 0.1, "seizeChance": 0.4 },
+  "inheritance": {
+    "customs": {
+      "equal": { "disinherit": true },
+      "sons_first": { "disinherit": true },
+      "youngest_hearth": { "disinherit": false }
+    },
+    "disputeChance": 0.5,
+    "disputeCost": 0.05,
+    "disputeAttitude": -30
+  }
+}

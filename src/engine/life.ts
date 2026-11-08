@@ -1,5 +1,6 @@
 import { ERA_META, eraById, isEraLoaded } from '../content'
 import { educationSkill } from './children'
+import { estateForHeir } from './inheritance'
 import { bell, chance, int, pick, weighted } from './rng'
 import { addYears, clamp, classKey, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
@@ -9,7 +10,7 @@ import { ATTRIBUTES } from './types'
 import type { AttrId, AwayReason, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
 import { diceInherit } from './dice'
 
-export const SAVE_VERSION = 7
+export const SAVE_VERSION = 8
 
 /** Где, когда и кем родиться: результат лотереи рождения. */
 export interface Birth {
@@ -142,7 +143,7 @@ export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: num
     version: SAVE_VERSION,
     year: 0,
     hero,
-    family: family ?? { id: '', lives: [], flags: [] },
+    family: family ?? { id: '', lives: [], flags: [], estate: { assets: [], debts: 0 } },
     rng: seed,
     phase: 'year',
     queue: [],
@@ -243,6 +244,7 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     rent: h.rent,
     land: h.land,
     slaves: h.slaves,
+    estateSnapshot: state.family.estate?.assets.length ? structuredClone(state.family.estate) : undefined,
   }
 }
 
@@ -290,7 +292,7 @@ export function stateFromMemorial(era: EraDef, life: LifeSummary, memorial: Life
     goal: life.goal,
     dreamSeen: life.dreamSeen,
   })
-  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [] }
+  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [], estate: life.estateSnapshot ? structuredClone(life.estateSnapshot) : { assets: [], debts: 0 } }
   s.year = life.deathYear
   s.offChronicle = life.offChronicle
   s.phase = 'dead'
@@ -580,6 +582,8 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // Что из хозяйства досталось наследнику - строкой в дневник сразу после записи о наследстве.
   const estateNote = () => {
     if (hero.land || hero.slaves) hero.diary.push({ year: prev.year, age: hero.age, key: `diary.estate_inherited_${hero.land && hero.slaves ? 'both' : hero.land ? 'land' : 'slaves'}`, params: { land: hero.land ?? 0, slaves: hero.slaves ?? 0 }, reg: hero.region, rel: hero.religion, topic: 'money', score: 30 })
+    // Семейные активы - по завещанию или обычаю (inheritance.ts).
+    estateForHeir(prev, state, era, heirs(prev), child.id)
   }
   if (gen > 1) {
     familyOfDescendant(state, era, parent, child)

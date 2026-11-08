@@ -4,6 +4,12 @@ import type { GameState, LifeStats } from './engine/types'
 import { platform } from './platform'
 import { onEmotion } from './engine/emotions'
 import { onChildEvent } from './engine/children'
+import { onEstateEvent } from './engine/estate'
+
+// Имущество: покупка, продажа, завещание, раздел наследства.
+onEstateEvent((kind, state, params) => {
+  platform.track(kind, { ...params, age: state.hero.age, region: state.hero.region, generation: state.hero.generation })
+})
 
 // Дети: выбор учёбы и воспитания (действия игрока), окончание и отказ.
 onChildEvent((kind, child, state, extra = {}) => {

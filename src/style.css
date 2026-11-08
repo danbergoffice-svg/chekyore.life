@@ -1069,3 +1069,8 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .child-card .choice-row { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; align-items: center; margin-top: 4px; }
 .child-card .option.small { padding: 4px 10px; min-height: 36px; }
 .child-card .option.small .option-desc { display: block; font-size: 0.8em; }
+
+/* Имущество рода (src/ui/Estate.tsx). */
+.estate .choice-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+.estate .will select { max-width: 60vw; font: inherit; }
+.estate .warn { color: var(--danger, #c0392b); }
