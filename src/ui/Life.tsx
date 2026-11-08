@@ -344,9 +344,13 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     seenUpTo.current = lastVisible + 1
     if (!found) return
     setPlaque(found)
+  }, [lastVisible])
+  // Плашка висит 5 секунд, пока не открыто окно события (под окном её не видно - ждёт).
+  useEffect(() => {
+    if (!plaque || modalOpen) return
     const id = setTimeout(() => setPlaque(null), 5000)
     return () => clearTimeout(id)
-  }, [lastVisible])
+  }, [plaque, modalOpen])
   // Вверху - дом героя: семья, животные и дом нужного размера; если в этом году случилось бедствие, оно видно на доме.
   const disaster = [...entries]
     .reverse()
@@ -381,7 +385,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   )
   return (
     <div class={b ? 'life layout-b' : 'life'}>
-      {plaqueView}
+      {!modalOpen && plaqueView}
       {b ? (
         <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} details={
           <>
