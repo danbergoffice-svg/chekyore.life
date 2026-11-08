@@ -69,8 +69,13 @@ const WEBHOOK = 'whsec_Test-42'
 const CHAT = '777'
 let tgMode = 'ok'
 const sent = []
+const mails = []
 globalThis.fetch = async (url, init) => {
   const u = String(url)
+  if (u === 'https://api.resend.com/emails') {
+    mails.push({ auth: init.headers.authorization, body: JSON.parse(init.body) })
+    return new Response(JSON.stringify({ id: 'm1' }), { status: 200 })
+  }
   if (!u.startsWith('https://api.telegram.org/')) throw new Error('неожиданный запрос ' + u)
   if (tgMode === 'throw') throw new TypeError('fetch failed')
   sent.push({ url: u, body: JSON.parse(init.body) })
@@ -496,6 +501,57 @@ check('INTEGER и REAL дают одинаковые сообщения', JSON.s
   const lens = sent.map((x) => x.body.text.length)
   check('длинные данные: все ответы ≤ 4000 и в HTML', sent.length === 4 && sent.every((x) => x.body.text.length <= 4000 && x.body.parse_mode === 'HTML'), lens.join(','))
   console.log('длина ответов /stats /week /exits /digest на «мусорных» данных:', lens.join(', '))
+}
+
+// 9б. Аккаунты: вход по ссылке на почту (Resend), сохранения, рассылка, удаление; из России - нет
+{
+  const mod = await load(files.worker)
+  const DB = makeD1(false)
+  const env = { DB, RESEND_API_KEY: 're_test_key', SITE_URL: 'https://thousands.life', ASSETS: { fetch: async () => new Response('static') } }
+  let n = 0
+  const req = (path, init = {}, country = 'TR') => {
+    const headers = new Headers(init.headers)
+    headers.set('cf-connecting-ip', '10.9.0.' + ++n)
+    headers.set('cf-ipcountry', country)
+    headers.set('origin', 'https://thousands.life')
+    if (init.body && !headers.has('content-type')) headers.set('content-type', 'application/json')
+    return mod.default.fetch(new Request('https://thousands.life' + path, { ...init, headers }), env, ctx)
+  }
+  let r = await req('/api/account/geo')
+  check('аккаунт: geo из Турции - не RU', (await r.json()).ru === false)
+  r = await req('/api/account/geo', {}, 'RU')
+  check('аккаунт: geo из России - RU', (await r.json()).ru === true)
+  r = await req('/api/account/start', { method: 'POST', body: JSON.stringify({ email: 'Player@Example.com', player_id: 'p-acc', lang: 'ru', newsletter: true }) }, 'RU')
+  check('аккаунт: из России вход не работает (403), письма нет', r.status === 403 && mails.length === 0)
+  r = await req('/api/account/start', { method: 'POST', body: JSON.stringify({ email: 'не почта', lang: 'ru' }) })
+  check('аккаунт: плохая почта - 400', r.status === 400)
+  r = await req('/api/account/start', { method: 'POST', body: JSON.stringify({ email: 'Player@Example.com', player_id: 'p-acc', lang: 'ru', newsletter: true }) })
+  const mail = mails[mails.length - 1]
+  const link = /https:\/\/thousands\.life\/\?login=([0-9a-f]{48})/.exec(mail?.body.text ?? '')
+  check('аккаунт: письмо ушло через Resend с ключом и ссылкой входа', r.status === 200 && mail?.auth === 'Bearer re_test_key' && mail.body.to[0] === 'player@example.com' && !!link && /Тысячи жизней/.test(mail.body.subject))
+  check('аккаунт: токен в базе только хешем', !DB.sql.prepare('SELECT token_hash FROM login_tokens').all().some((x) => x.token_hash === link?.[1]))
+  r = await req('/api/account/verify', { method: 'POST', body: JSON.stringify({ token: link?.[1] }) })
+  const v = await r.json()
+  check('аккаунт: вход по ссылке - сессия, почта, согласие на рассылку', r.status === 200 && /^[0-9a-f]{48}$/.test(v.session) && v.email === 'player@example.com' && v.newsletter === true)
+  r = await req('/api/account/verify', { method: 'POST', body: JSON.stringify({ token: link?.[1] }) })
+  check('аккаунт: ссылка одноразовая', r.status === 410)
+  const bearer = { authorization: 'Bearer ' + v.session }
+  r = await req('/api/account/data', { method: 'PUT', headers: bearer, body: JSON.stringify({ memorial: [{ heroId: 'h1' }], achievements: [{ id: 'a' }] }) })
+  check('аккаунт: сохранение данных', r.status === 200)
+  r = await req('/api/account/data', { headers: bearer })
+  const d = await r.json()
+  check('аккаунт: данные читаются', d.data?.memorial?.[0]?.heroId === 'h1' && d.newsletter === true)
+  r = await req('/api/account/data', { headers: { authorization: 'Bearer ' + '0'.repeat(48) } })
+  check('аккаунт: чужая сессия - 401', r.status === 401)
+  r = await req('/api/account/newsletter', { method: 'POST', headers: bearer, body: JSON.stringify({ subscribe: false }) })
+  check('аккаунт: отписка от рассылки', (await r.json()).newsletter === false && DB.sql.prepare("SELECT newsletter FROM accounts WHERE email = 'player@example.com'").all()[0].newsletter === 0)
+  DB.sql.prepare("INSERT INTO events (ts, player_id, name) VALUES (1, 'p-acc', 'app_open')").run()
+  r = await req('/api/account', { method: 'DELETE', headers: bearer, body: JSON.stringify({ player_id: 'p-acc' }) })
+  const left = ['accounts', 'sessions', 'login_tokens'].map((t) => DB.sql.prepare(`SELECT COUNT(*) AS n FROM ${t}`).all()[0].n).reduce((a, b) => a + b, 0)
+  const ev = DB.sql.prepare("SELECT COUNT(*) AS n FROM events WHERE player_id = 'p-acc'").all()[0].n
+  check('аккаунт: удаление стирает аккаунт, входы и события игрока', r.status === 200 && left === 0 && ev === 0, `${left} строк, ${ev} событий`)
+  r = await req('/api/account/data', { headers: bearer })
+  check('аккаунт: после удаления сессия не работает', r.status === 401)
 }
 
 // 10. Секреты не попадают в логи; SQL без подстановки чисел в текст запроса

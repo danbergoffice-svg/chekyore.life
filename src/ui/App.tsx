@@ -24,6 +24,8 @@ import { MenuSheet } from './MenuSheet'
 import type { MenuTarget } from './MenuSheet'
 import { Chronicle } from './Chronicle'
 import { redeemPromo } from '../promo'
+import { ACCOUNT_ON, accountAvailable, mergeData, pullData, pushData, session, verifyLogin } from '../account'
+import { AccountModal, AccountSection } from './Account'
 import { checkFamilyGoal } from '../engine/dynasty'
 import { About, PromoModal, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsSheet, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { CHEST_GIFT, dailyNext, dayKey, GIFT_ICON, GIFTS, HEALTH_GIFT, RESPIN_GIFT, spendGifts } from '../daily'
@@ -363,6 +365,12 @@ export function App() {
       setMemorial(next)
       saveMemorial(next)
       grant(checkLife(life, next, have()), life.heroId)
+      pushAccount(next)
+      // После первой жизни - предложить сохранить достижения (один раз; свой сайт, не Россия, ещё не вошёл).
+      if (next.length === 1 && accountAvail && !session() && !prefs.accountAsked) {
+        setPrefs({ ...prefs, accountAsked: true })
+        window.setTimeout(() => setAccountOpen('prompt'), 2500)
+      }
       // Цель рода исполнена - сундук-дар на следующую жизнь и плашка.
       if (checkFamilyGoal(s)) {
         setPrefs({ ...prefs, gifts: [...(prefs.gifts ?? []), 'chest'] })
@@ -412,6 +420,48 @@ export function App() {
   const [giftCountry, setGiftCountry] = useState<string | null>(() => prefs.promoCountry ?? null)
   const [promoOpen, setPromoOpen] = useState(false)
   const [familyGoalToast, setFamilyGoalToast] = useState<string | null>(null)
+  // Аккаунт (src/account.ts): доступен ли (свой сайт, не Россия), окно входа, подписка, плашка после входа.
+  const [accountAvail, setAccountAvail] = useState(false)
+  const [accountOpen, setAccountOpen] = useState<'prompt' | 'settings' | null>(null)
+  const [accountNews, setAccountNews] = useState(false)
+  const [accountToast, setAccountToast] = useState<string | null>(null)
+  const [, setAccountTick] = useState(0)
+  const refreshAccount = () => {
+    setAccountTick((n) => n + 1)
+    pullData().then((r) => r && setAccountNews(r.newsletter))
+  }
+  /** Сохранения на сервер (если вошёл): мемориал и награды. */
+  const pushAccount = (mem: LifeSummary[]) => {
+    if (session()) pushData({ memorial: mem, achievements: earnedRef.current })
+  }
+  useEffect(() => {
+    if (!ACCOUNT_ON) return
+    accountAvailable().then(setAccountAvail)
+    const token = new URLSearchParams(location.search).get('login')
+    if (!token) {
+      if (session()) refreshAccount()
+      return
+    }
+    // Вход по ссылке из письма: объединить сохранения устройства и сервера, убрать токен из адреса.
+    history.replaceState(null, '', location.pathname)
+    verifyLogin(token).then(async (v) => {
+      if (!v.ok) return setAccountToast('account.login_failed')
+      platform.track('account_verified', {})
+      const remote = await pullData()
+      // Сохранения устройства - прямо из хранилища (экран мог ещё не дочитать их).
+      const [local, localAch] = await Promise.all([loadSave(), loadAchievements()])
+      const merged = mergeData({ memorial: local.memorial, achievements: localAch }, remote?.data ?? null)
+      earnedRef.current = merged.achievements
+      setEarned(merged.achievements)
+      saveAchievements(merged.achievements)
+      setMemorial(merged.memorial)
+      saveMemorial(merged.memorial)
+      setAccountNews(remote?.newsletter ?? !!v.newsletter)
+      await pushData(merged)
+      setAccountToast('account.login_ok')
+      window.setTimeout(() => setAccountToast(null), 5000)
+    })
+  }, [])
   /** Спецключ из меню: null - применён, иначе код ошибки (текст promo.error.*). */
   const applyPromo = (code: string): string | null => {
     const r = redeemPromo(code, prefs.promoUsed)
@@ -1280,11 +1330,17 @@ export function App() {
             <Icon name="trophy" /> {ui.t('fgoal.done', { goal: { key: `fgoal.${familyGoalToast}` } })}
           </p>
         )}
+        {accountOpen && <AccountModal prompt={accountOpen === 'prompt'} onClose={() => setAccountOpen(null)} />}
+        {accountToast && (
+          <p class="toast ach-toast" role="status" onClick={() => setAccountToast(null)}>
+            {ui.t(accountToast)}
+          </p>
+        )}
         {promoOpen && <PromoModal onApply={applyPromo} onClose={() => setPromoOpen(false)} />}
         {screen === 'chronicle' && chronicleId && (
           <Chronicle memorial={memorial} familyId={chronicleId} onOpen={openPast} onBack={() => setScreen('memorial')} />
         )}
-        {screen === 'settings' && <Settings prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
+        {screen === 'settings' && <Settings account={accountAvail ? <AccountSection newsletter={accountNews} onOpen={() => setAccountOpen('settings')} onChanged={refreshAccount} /> : undefined} prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
           const back = settingsFrom
           setSettingsFrom('menu')
           if (back === 'life' && game.current && game.current.phase !== 'dead') setScreen('life')

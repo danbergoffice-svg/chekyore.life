@@ -697,7 +697,7 @@ function FamilyGoalPick({ state, era, onChange }: { state: GameState; era: EraDe
         {offers.map((g) => (
           <button type="button" class="option" onClick={() => { setFamilyGoal(state, g); platform.track('family_goal_pick', { goal: g.id, target: g.target }); onChange() }}>
             <span class="option-label">{t(`fgoal.${g.id}`)}</span>
-            <span class="option-desc">{t(`fgoal.${g.id}.desc`, { n: g.target, cls: { key: `class.${RANKS[g.target] ?? 'noble'}` } })}</span>
+            <span class="option-desc">{t(`fgoal.${g.id}.desc`, { n: g.target, cls: { key: `class.${RANKS[g.target] ?? 'noble'}.short` } })}</span>
           </button>
         ))}
       </div>
@@ -732,6 +732,8 @@ export function Settings(props: {
   onExport: () => void
   onImport: (file: File) => Promise<boolean>
   onBack: () => void
+  /** Раздел аккаунта (только свой сайт и не Россия). */
+  account?: ComponentChildren
 }) {
   const { t } = useUi()
   const p = props.prefs
@@ -741,6 +743,7 @@ export function Settings(props: {
     <div class="screen">
       <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
       <h1>{t('settings.title')}</h1>
+      {props.account}
       {LANGS.length > 1 && <Choice title={t('settings.language')} value={p.lang} onChange={(lang) => props.onPrefs({ ...p, lang })} options={LANGS.map((l) => ({ id: l, label: LANG_NAMES[l] }))} />}
       <fieldset class="choice-group">
         <legend>{t('settings.music')}</legend>

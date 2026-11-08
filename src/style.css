@@ -1109,3 +1109,6 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .chronicle-title { display: flex; gap: 10px; align-items: center; }
 .family-goal-pick .choice-row, .house-pick { margin-bottom: 12px; }
 .family-goal-pick .choice-row { display: grid; gap: 8px; }
+
+.check { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; }
+.account .choice-row, .account-section .choice-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }

@@ -5,16 +5,18 @@
 //   HEAD|GET /api/time  - время сервера (заголовок Date и {now});
 //   GET /api/players    - сколько всего игроков заходило в игру ({n}; пересчёт не чаще раза в 10 минут);
 //   POST /api/telegram  - webhook бота: команды /stats /week /funnel /exits /digest /help (worker/telegram.ts);
+//   /api/account*       - аккаунты: вход по ссылке на почту, сохранения, рассылка, удаление (worker/account.ts);
 //   GET /admin          - отзывы и отчёты, пароль ADMIN_PASSWORD (логин любой) (worker/admin.ts);
 //   GET /admin/export   - CSV для Excel/Google Таблиц (?table=events|feedback&days=N).
 // Цифры для админки, бота и ежедневной сводки (worker/digest/) считает один модуль - worker/stats.ts.
 // IP-адреса не сохраняются: используются только для ограничения частоты запросов в памяти.
 
 import { admin, authorized, exportCsv, unauthorized } from './admin'
+import { account, type AccountEnv } from './account'
 import { syncPlayers, type D1Database } from './stats'
 import { sendMessage, telegramWebhook, type Ctx } from './telegram'
 
-interface Env {
+interface Env extends AccountEnv {
   ASSETS: { fetch(req: Request): Promise<Response> }
   DB?: D1Database
   ADMIN_PASSWORD?: string
@@ -60,7 +62,7 @@ function limited(ip: string, max = 60): boolean {
 function cors(req: Request): Record<string, string> {
   const origin = req.headers.get('origin') ?? ''
   if (!ORIGINS.some((r) => r.test(origin))) return {}
-  return { 'access-control-allow-origin': origin, 'access-control-allow-methods': 'POST, GET, HEAD, OPTIONS', 'access-control-allow-headers': 'content-type', vary: 'origin' }
+  return { 'access-control-allow-origin': origin, 'access-control-allow-methods': 'POST, GET, HEAD, PUT, DELETE, OPTIONS', 'access-control-allow-headers': 'content-type, authorization', vary: 'origin' }
 }
 
 function json(data: unknown, status = 200, headers: Record<string, string> = {}): Response {
@@ -154,6 +156,16 @@ export default {
       if (limited(ip)) return json({ ok: false, error: 'rate' }, 429, headers)
       try {
         return json({ ok: true, n: await players(env) }, 200, { ...headers, 'cache-control': 'public, max-age=300' })
+      } catch (e) {
+        return json({ ok: false, error: String(e).slice(0, 200) }, 500, headers)
+      }
+    }
+    // Аккаунты: вход по ссылке на почту, сохранения, рассылка, удаление (worker/account.ts).
+    if (path === '/api/account' || path.startsWith('/api/account/')) {
+      if (limited(ip, path === '/api/account/start' ? 5 : 30)) return json({ ok: false, error: 'rate' }, 429, headers)
+      try {
+        if (env.DB) await ensureSchema(env.DB)
+        return await account(req, env, path, (data, status = 200) => json(data, status, headers))
       } catch (e) {
         return json({ ok: false, error: String(e).slice(0, 200) }, 500, headers)
       }

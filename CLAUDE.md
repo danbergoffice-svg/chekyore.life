@@ -122,6 +122,13 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
 - Спецключи: `src/promo.ts` (хеши ключей; MONGOL2026, ROYAL2026), меню → «Ключ». Фокус «Тяга к путешествиям» (`travelYear`, событие
   `travel_work`, `migrate: '@visited'`). Смена дела: `careerOptions`/`changeCareer`, `novice` (доход 50/65/80%). Беременность: `Hero.expecting`.
   Плашки семейных вестей: `plaqueKind` в Life.tsx, `GameState.plaqueMuted`. События с `every: N` - регулярные (экзамены Китая).
+- Род (09.11): имя и герб — `src/content/houses.json` + `src/ui/Arms.tsx` (20 гербов SVG), выбор на экране наследников после двух
+  жизней; цель рода — `src/engine/dynasty.ts` (`familyGoalOffers` по первой жизни, `checkFamilyGoal` → дар «Сундук»); наследник по обычаю —
+  `customHeir`, выбор другого: обида брата/сестры, пересуды. Тест — `tests/dynasty.test.ts`.
+- Аккаунты: `worker/account.ts` (вход по ссылке на почту через Resend: секрет `RESEND_API_KEY`, отправитель `MAIL_FROM`, по умолчанию
+  hello@thousands.life — домен должен быть подтверждён в Resend; адрес ссылки `SITE_URL`), из России (cf-ipcountry=RU) — нет; клиент
+  `src/account.ts`, `src/ui/Account.tsx` (окно после первой жизни, раздел в настройках, политика конфиденциальности, удаление данных).
+  Подписчики — админка → CSV «подписчики рассылки». Проверки — `npm run test:worker` (раздел 9б).
 - Сны о будущем (`docs/TZ_dreams.md`, **сделано**, этапы 1–4): движок — `src/engine/dreams.ts` (свой поток случайности
   `dreamRng`, не трогает остальную жизнь), формулы — `src/engine/formula.ts`, каталог — `src/content/dreams.json`, тексты —
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —

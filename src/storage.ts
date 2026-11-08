@@ -36,6 +36,8 @@ export interface Prefs {
   gifts?: Gift[]
   /** Спецключи (src/promo.ts): хеши уже применённых; страна дара «страна по выбору», выданного ключом. */
   promoUsed?: string[]
+  /** Окно «сохранить достижения» после первой жизни уже показывали. */
+  accountAsked?: boolean
   promoCountry?: string
   /** День, когда панель «Дары» сама открылась (раз в день, если ждёт дар дня). */
   dailyShown?: string

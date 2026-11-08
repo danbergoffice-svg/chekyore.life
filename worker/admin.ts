@@ -97,7 +97,7 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     : '<p class="muted">Отзывов пока нет.</p>'
   const link = (t: string, days: number, label: string, sep = '') => `<a href="/admin/export?table=${t}&amp;days=${days}${sep ? '&amp;sep=comma' : ''}">${label}</a>`
   const csv = `<p class="csv">Скачать CSV - события: ${link('events', 1, 'сегодня')} · ${link('events', 7, '7 дней')} · ${link('events', 30, '30 дней')} · ${link('events', 90, '90 дней')};
-отзывы: ${link('feedback', 30, '30 дней')} · ${link('feedback', 365, 'год')}.<br><span class="muted">Файлы для Excel (разделитель «;»). Для Google Таблиц: ${link('events', 30, 'события 30 дней', 'comma')} · ${link('feedback', 365, 'отзывы за год', 'comma')} (разделитель «,»). Не больше ${EXPORT_LIMIT.toLocaleString('ru-RU')} строк.</span></p>`
+отзывы: ${link('feedback', 30, '30 дней')} · ${link('feedback', 365, 'год')}; подписчики рассылки: ${link('subscribers', 3650, 'все')}.<br><span class="muted">Файлы для Excel (разделитель «;»). Для Google Таблиц: ${link('events', 30, 'события 30 дней', 'comma')} · ${link('feedback', 365, 'отзывы за год', 'comma')} (разделитель «,»). Не больше ${EXPORT_LIMIT.toLocaleString('ru-RU')} строк.</span></p>`
   const html = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Тысячи жизней - админка</title>
 <style>body{font:15px/1.45 system-ui,sans-serif;margin:16px;max-width:1100px;color:#2b2119;background:#f6efe2}h1{font-size:22px}h2{font-size:17px;margin-top:28px}
 table{border-collapse:collapse;font-size:13px}td,th{border:1px solid #d6c6aa;padding:4px 8px;text-align:left}th{background:#ebdfc8}.scroll{overflow-x:auto}
@@ -134,7 +134,15 @@ function cell(v: unknown, sep: string): string {
 export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> {
   const url = new URL(req.url)
   const name = url.searchParams.get('table')
-  if (name !== 'events' && name !== 'feedback') return new Response('table=events или table=feedback', { status: 400 })
+  // Подписчики рассылки (worker/account.ts): только согласившиеся, без сохранений игры.
+  if (name === 'subscribers') {
+    await env.DB!.exec("CREATE TABLE IF NOT EXISTS accounts (email TEXT PRIMARY KEY, player_id TEXT, created INTEGER NOT NULL, newsletter INTEGER NOT NULL DEFAULT 0, consent_ts INTEGER, lang TEXT, data_json TEXT, updated INTEGER);")
+    const rows = (await env.DB!.prepare("SELECT email, lang, datetime(consent_ts/1000 + 10800,'unixepoch') AS consent FROM accounts WHERE newsletter = 1 ORDER BY consent_ts").all<Record<string, unknown>>()).results
+    const sep = url.searchParams.get('sep') === 'comma' ? ',' : ';'
+    const lines = [['email', 'lang', 'consent_istanbul'].join(sep), ...rows.map((r) => [r.email, r.lang, r.consent].map((v) => cell(v, sep)).join(sep))]
+    return new Response('\ufeff' + lines.join('\r\n') + '\r\n', { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="thousands-subscribers.csv"', 'cache-control': 'no-store' } })
+  }
+  if (name !== 'events' && name !== 'feedback') return new Response('table=events, feedback или subscribers', { status: 400 })
   const days = Math.max(1, Math.min(3650, Math.floor(Number(url.searchParams.get('days') ?? 7)) || 7))
   const sep = url.searchParams.get('sep') === 'comma' ? ',' : ';'
   const today = dayOf(Date.now())
