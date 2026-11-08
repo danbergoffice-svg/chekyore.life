@@ -468,6 +468,10 @@ export function App() {
     if (!r.ok) return r.error
     setPrefs({ ...prefs, gifts: [...(prefs.gifts ?? []), r.reward.gift], promoUsed: [...(prefs.promoUsed ?? []), r.hash], ...(r.reward.country ? { promoCountry: r.reward.country } : {}) })
     if (r.reward.country) setGiftCountry(r.reward.country)
+    // Жизнь у барабана готовится заранее (при открытии меню) - перевыбрать её с даром ключа, иначе ярлык «Монголы»
+    // висел, а выпадала прежняя страна (жалоба владельца 09.11).
+    if (r.reward.country) rollPending(undefined, r.reward.country)
+    else if (r.reward.gift === 'royal') rollPending(undefined, chosenCountry(), 0, fatePick, true)
     platform.track('promo_redeemed', { gift: r.reward.gift, ...(r.reward.country ? { country: r.reward.country } : {}) })
     return null
   }
