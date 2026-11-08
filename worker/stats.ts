@@ -17,6 +17,46 @@ export interface D1Database {
   exec(sql: string): Promise<unknown>
 }
 
+/**
+ * D1 выполняет запросы одной базы по одному. Отчёты запускали ~20 тяжёлых запросов разом (Promise.all), и D1
+ * отвечал «D1 DB is overloaded. Too many resources consumed within a 10 second window» (08.11, /admin).
+ * Обёртка ставит все запросы в очередь (следующий - после конца предыдущего) и повторяет запрос при перегрузке
+ * с паузой 1, 2, 4 с. Код отчётов при этом не меняется: Promise.all просто ждёт очередь.
+ */
+export function serialDb(db: D1Database, pauses = [1000, 2000, 4000]): D1Database {
+  let tail: Promise<unknown> = Promise.resolve()
+  const overloaded = (e: unknown) => /overloaded|too many resources|D1_ERROR.*(busy|timeout)/i.test(String(e))
+  const queue = <T>(run: () => Promise<T>): Promise<T> => {
+    const attempt = async (): Promise<T> => {
+      for (let i = 0; ; i++) {
+        try {
+          return await run()
+        } catch (e) {
+          if (i >= pauses.length || !overloaded(e)) throw e
+          await new Promise((r) => setTimeout(r, pauses[i]))
+        }
+      }
+    }
+    const next = tail.then(attempt, attempt)
+    tail = next.catch(() => null)
+    return next
+  }
+  const wrap = (st: D1Prepared): D1Prepared => ({
+    bind: (...values: unknown[]) => wrap(st.bind(...values)),
+    run: () => queue(() => st.run()),
+    all: <T = Record<string, unknown>>() => queue(() => st.all<T>()),
+    // Для batch нужен исходный объект D1.
+    get raw() {
+      return st
+    },
+  } as D1Prepared)
+  return {
+    prepare: (sql: string) => wrap(db.prepare(sql)),
+    batch: (statements: D1Prepared[]) => queue(() => db.batch(statements.map((x) => (x as D1Prepared & { raw?: D1Prepared }).raw ?? x))),
+    exec: (sql: string) => queue(() => db.exec(sql)),
+  }
+}
+
 export const DAY = 864e5
 /** Сдвиг Стамбула от UTC: +3 часа. */
 export const TZ_SHIFT = 3 * 36e5
@@ -468,6 +508,7 @@ export async function commandReply(db: D1Database | undefined, command: string, 
   if (command === '/help' || command === '/start') return HELP
   if (!['/stats', '/week', '/funnel', '/exits', '/digest'].includes(command)) return HELP
   if (!db) return 'База D1 не подключена к сайту (привязка DB) - считать не из чего.'
+  db = serialDb(db)
   await syncPlayers(db, now)
   if (command === '/stats') {
     const [t, y] = await Promise.all([summary(db, period(today)), summary(db, period(today - 1))])

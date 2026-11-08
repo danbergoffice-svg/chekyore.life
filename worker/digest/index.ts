@@ -2,7 +2,7 @@
 // за вчера с дельтой к позавчера. Цифры считает тот же модуль, что /admin и бот (worker/stats.ts).
 // Деплой и секреты - docs/BACKEND.md, раздел «Telegram: бот и утренняя сводка».
 //   POST /run (заголовок Authorization: Bearer <TELEGRAM_WEBHOOK_SECRET>) - отправить сводку сейчас, для проверки.
-import { digestMessage, type D1Database } from '../stats'
+import { digestMessage, serialDb, type D1Database } from '../stats'
 import { safeEqual, sendMessage } from '../telegram'
 
 interface Env {
@@ -25,7 +25,7 @@ async function runDigest(env: Env, now: number): Promise<string> {
   }
   let text: string
   try {
-    text = await digestMessage(env.DB, now)
+    text = await digestMessage(serialDb(env.DB), now)
   } catch (e) {
     await sendMessage(env, 'Утренняя сводка не посчиталась: ошибка базы. Подробности - в логах thousands-digest.', false)
     throw e

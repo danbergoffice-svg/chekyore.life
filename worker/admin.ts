@@ -1,6 +1,6 @@
 // /admin - отчёты и отзывы, /admin/export - выгрузка CSV. Пароль ADMIN_PASSWORD (Basic, логин любой).
 // Цифры считаются тем же кодом, что и бот, и ежедневная сводка (worker/stats.ts), дни - по Стамбулу.
-import { cohorts, dayIso, dayOf, dayStart, digestMessage, esc, FUNNEL_STEPS, pct, period, SQL, summary, syncPlayers, type D1Database } from './stats'
+import { cohorts, dayIso, dayOf, dayStart, digestMessage, esc, FUNNEL_STEPS, pct, period, serialDb, SQL, summary, syncPlayers, type D1Database } from './stats'
 import { safeEqual } from './telegram'
 
 export interface AdminEnv {
@@ -38,7 +38,8 @@ function table(rows: Record<string, unknown>[]): string {
 }
 
 export async function admin(req: Request, env: AdminEnv): Promise<Response> {
-  const db = env.DB!
+  // Запросы по очереди, а не разом: иначе D1 «overloaded» (stats.serialDb).
+  const db = serialDb(env.DB!)
   const now = Date.now()
   const today = dayOf(now)
   const week = period(today, 7)
@@ -145,6 +146,7 @@ export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> 
   if (name !== 'events' && name !== 'feedback') return new Response('table=events, feedback или subscribers', { status: 400 })
   const days = Math.max(1, Math.min(3650, Math.floor(Number(url.searchParams.get('days') ?? 7)) || 7))
   const sep = url.searchParams.get('sep') === 'comma' ? ',' : ';'
+  const db = serialDb(env.DB!)
   const today = dayOf(Date.now())
   const from = dayStart(today - days + 1)
   const cols = COLUMNS[name]
@@ -159,7 +161,7 @@ export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> 
   // он удваивал запись каждого события в D1), продолжение - после последнего id; всего не больше 50 000 (самых свежих).
   while (total < EXPORT_LIMIT) {
     const take = Math.min(PAGE, EXPORT_LIMIT - total)
-    const rows = (await env.DB!.prepare(EXPORT_SQL[name]).bind(lastTs, lastId, take).all()).results
+    const rows = (await db.prepare(EXPORT_SQL[name]).bind(lastTs, lastId, take).all()).results
     for (const r of rows) lines.push(cols.map((c) => cell(r[c], sep)).join(sep))
     total += rows.length
     if (rows.length < take) break

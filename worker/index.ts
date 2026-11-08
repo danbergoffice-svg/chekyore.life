@@ -195,10 +195,22 @@ async function adminCached(req: Request, env: Env, ctx: Ctx): Promise<Response> 
     const hit = await cache.match(key)
     if (hit) return new Response(hit.body, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
   }
-  const res = await admin(req, env)
+  // Последняя удачная страница хранится ещё неделю: если D1 перегружен, лучше показать её с пометкой, чем ошибку.
+  const staleKey = new Request(new URL('/admin?__stale', url).toString())
+  let res: Response
+  try {
+    res = await admin(req, env)
+  } catch (e) {
+    const stale = await cache.match(staleKey)
+    if (!stale) throw e
+    const note = `<p style="background:#fff3cd;color:#664d03;padding:8px 12px;border-radius:6px">База сейчас перегружена (${String(e).slice(0, 160).replace(/[<>&]/g, '')}). Показана последняя удачная сводка, см. время в заголовке. Обновите страницу через минуту.</p>`
+    const html = (await stale.text()).replace(/<body([^>]*)>/, (m) => m + note)
+    return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
+  }
   if (res.ok) {
     const html = await res.text()
-    ctx.waitUntil(cache.put(key, new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': `max-age=${ADMIN_CACHE_SEC}` } })))
+    const put = (k: Request, sec: number) => cache.put(k, new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': `max-age=${sec}` } }))
+    ctx.waitUntil(Promise.all([put(key, ADMIN_CACHE_SEC), put(staleKey, 7 * 86400)]))
     return new Response(html, { headers: res.headers })
   }
   return res
