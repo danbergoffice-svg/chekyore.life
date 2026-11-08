@@ -1,4 +1,5 @@
 import { ERA_META, eraById, isEraLoaded } from '../content'
+import { educationSkill } from './children'
 import { bell, chance, int, pick, weighted } from './rng'
 import { addYears, clamp, classKey, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
@@ -8,7 +9,7 @@ import { ATTRIBUTES } from './types'
 import type { AttrId, AwayReason, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
 import { diceInherit } from './dice'
 
-export const SAVE_VERSION = 6
+export const SAVE_VERSION = 7
 
 /** Где, когда и кем родиться: результат лотереи рождения. */
 export interface Birth {
@@ -566,6 +567,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // Навыки, которые ребёнок успел получить в семье.
   for (const skill of era.skills) hero.skills[skill] = 0
   if (prof && hero.age >= 8) hero.skills[prof.skill] = Math.min(30, hero.age * 1.5)
+  // Учёба, которую дал родитель.
+  const edu = educationSkill(era, child)
+  if (edu) hero.skills[edu.skill] = Math.max(hero.skills[edu.skill] ?? 0, edu.value)
 
   ownFamily(state, era, parent, child)
   if (moved) {

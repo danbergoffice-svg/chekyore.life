@@ -46,6 +46,8 @@ export function emotionalImpact(state: GameState, npc: Npc, ctx: EmotionContext 
   v *= 1 + Math.max(-100, Math.min(100, npc.attitude)) / 200
   if (ctx.cause) v *= g.cause[ctx.cause] ?? 1
   if (ctx.far) v *= g.far
+  // Не утихшие прежние утраты делают новую тяжелее (до +30%).
+  v *= 1 + Math.min(R.previous.max, emotionalLoad(hero) / R.previous.per)
   return Math.max(0, Math.min(100, v))
 }
 
@@ -59,6 +61,8 @@ export function rememberEmotion(state: GameState, type: EmotionalEventType, npc:
   if (ctx.cause) m.cause = ctx.cause
   changeParam(hero, 'happiness', Math.round(intensity * R.apply.happiness))
   changeParam(hero, 'stress', Math.round(intensity * R.apply.stress))
+  // Вдовство - ещё и одиночество.
+  if (npc.role === 'spouse') changeParam(hero, 'loneliness', Math.round(intensity * R.apply.spouseLoneliness))
   const list = (hero.emotionalMemories ??= [])
   list.push(m)
   // Старые утихшие воспоминания не копим без конца.
@@ -73,6 +77,10 @@ export function rememberEmotion(state: GameState, type: EmotionalEventType, npc:
 /** Раз в год: живые воспоминания тянут счастье вниз и затухают; угасшие - отпускают. */
 export function emotionsYear(state: GameState): void {
   const hero = state.hero
+  // Поддержка семьи: рядом супруг или дети - горе отпускает быстрее; совсем один - дольше и тоскливее.
+  const near = hero.npcs.some((n) => n.alive && !n.away && (n.role === 'spouse' || n.role === 'child' || n.role === 'mother' || n.role === 'father'))
+  const grieving = (hero.emotionalMemories ?? []).some((m) => m.resolved === undefined && m.year < state.year && m.current >= R.linger.from)
+  if (grieving && !near) changeParam(hero, 'loneliness', R.linger.aloneLoneliness)
   for (const m of hero.emotionalMemories ?? []) {
     if (m.resolved !== undefined || m.year >= state.year) continue
     if (m.current >= R.linger.from) {
@@ -82,6 +90,7 @@ export function emotionsYear(state: GameState): void {
     let rate = (R.decay as Record<string, unknown>)[m.type] as number | undefined
     rate = (rate ?? 0.7) * traitMult(hero, R.decay.traits)
     if (hero.hidden.faith > R.decay.faith.above) rate *= R.decay.faith.mult
+    rate *= near ? R.decay.support : R.decay.alone
     m.current = Math.round(m.current * Math.min(0.98, rate) * 10) / 10
     if (m.current < R.resolve.below || state.year - m.year >= R.resolve.years) resolveEmotion(state, m)
   }

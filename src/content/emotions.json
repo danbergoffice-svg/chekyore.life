@@ -1,12 +1,35 @@
 {
   "_doc": "Правила эмоциональной памяти (src/engine/emotions.ts). Сила 0-100 = база по родству x множители; память затухает раз в год.",
   "grief": {
-    "base": { "spouse": 75, "child": 80, "father": 60, "mother": 62, "sibling": 42, "grandchild": 45, "friend": 35 },
+    "base": {
+      "spouse": 75,
+      "child": 80,
+      "father": 60,
+      "mother": 62,
+      "sibling": 42,
+      "grandchild": 45,
+      "friend": 35
+    },
     "infantAge": 2,
     "infant": 0.6,
-    "parentWhileYoung": { "age": 16, "mult": 1.3 },
-    "parentWhenOld": { "age": 45, "mult": 0.75 },
-    "heroAge": [{ "under": 5, "mult": 0.5 }, { "under": 12, "mult": 0.8 }],
+    "parentWhileYoung": {
+      "age": 16,
+      "mult": 1.3
+    },
+    "parentWhenOld": {
+      "age": 45,
+      "mult": 0.75
+    },
+    "heroAge": [
+      {
+        "under": 5,
+        "mult": 0.5
+      },
+      {
+        "under": 12,
+        "mult": 0.8
+      }
+    ],
     "cause": {
       "old_age": 0.7,
       "illness": 1,
@@ -23,18 +46,56 @@
       "execution": 1.35
     },
     "far": 0.5,
-    "traits": { "kind": 1.2, "generous": 1.1, "hot_tempered": 1.1, "reserved": 0.85, "brave": 0.9, "cunning": 0.9, "ambitious": 0.9 },
+    "traits": {
+      "kind": 1.2,
+      "generous": 1.1,
+      "hot_tempered": 1.1,
+      "reserved": 0.85,
+      "brave": 0.9,
+      "cunning": 0.9,
+      "ambitious": 0.9
+    },
     "jitter": 0.1
   },
-  "apply": { "happiness": -0.2, "stress": 0.13 },
-  "linger": { "from": 20, "happiness": -0.06, "stress": 0.04 },
+  "apply": {
+    "happiness": -0.2,
+    "stress": 0.13,
+    "spouseLoneliness": 0.15
+  },
+  "linger": {
+    "from": 20,
+    "happiness": -0.06,
+    "stress": 0.04,
+    "aloneLoneliness": 2
+  },
   "decay": {
     "grief": 0.7,
     "grief_far": 0.6,
-    "traits": { "kind": 1.06, "pious": 0.92, "reserved": 0.95 },
-    "faith": { "above": 60, "mult": 0.92 }
+    "traits": {
+      "kind": 1.06,
+      "pious": 0.92,
+      "reserved": 0.95
+    },
+    "faith": {
+      "above": 60,
+      "mult": 0.92
+    },
+    "support": 0.95,
+    "alone": 1.05
   },
-  "resolve": { "below": 8, "years": 25 },
-  "diaryRoles": ["spouse", "child", "father", "mother"],
-  "keep": 40
+  "resolve": {
+    "below": 8,
+    "years": 25
+  },
+  "diaryRoles": [
+    "spouse",
+    "child",
+    "father",
+    "mother"
+  ],
+  "keep": 40,
+  "previous": {
+    "per": 300,
+    "max": 0.3
+  }
 }

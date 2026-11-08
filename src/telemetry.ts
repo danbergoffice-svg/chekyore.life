@@ -3,6 +3,12 @@ import type { LifeSummary } from './engine/types'
 import type { GameState, LifeStats } from './engine/types'
 import { platform } from './platform'
 import { onEmotion } from './engine/emotions'
+import { onChildEvent } from './engine/children'
+
+// Дети: выбор учёбы и воспитания (действия игрока), окончание и отказ.
+onChildEvent((kind, child, state, extra = {}) => {
+  platform.track(`child_${kind}`, { ...extra, child_age: state.year - child.birthYear, age: state.hero.age, region: state.hero.region })
+})
 
 // Эмоциональная память (engine/emotions.ts): след появился и утих.
 onEmotion((kind, m, state) => {

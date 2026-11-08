@@ -231,6 +231,8 @@ export interface EraMeta {
   scholar_climate?: ScholarClimate
   lifestyle: LifestyleDef[]
   vices: ViceDef[]
+  /** Обучение детей в этой стране: какие направления закрыты, свои правила для направлений (поверх общих). */
+  education?: { exclude?: EducationPath[]; tracks?: Partial<Record<EducationPath, Partial<EducationTrackDef>>> }
 }
 
 /** Страна со всем контентом: общий слой + местные события и вести. Загружается, когда нужна. */
@@ -504,6 +506,52 @@ export interface EmotionalMemory {
   resolved?: number
 }
 
+/** Направление обучения ребёнка (src/engine/children.ts, src/content/education.json). */
+export type EducationPath = 'craft' | 'trade' | 'military' | 'religion' | 'science' | 'art' | 'agriculture' | 'medicine' | 'management'
+
+/** Обучение ребёнка: путь, уровень 0–3 по окончании, прогресс 0–1, годы начала/окончания/отказа. */
+export interface ChildEducation {
+  path?: EducationPath
+  level: number
+  progress: number
+  startedYear?: number
+  completedYear?: number
+  /** Бросил учёбу (не принял выбор родителей). */
+  refusedYear?: number
+  /** Год, когда не хватило денег платить (учёба стояла). */
+  unpaidYear?: number
+}
+
+/** Воспитание 0–100: ласка, строгость, свобода, поддержка семьи; год последней перемены (одна в год). */
+export interface ChildUpbringing {
+  affection: number
+  discipline: number
+  autonomy: number
+  support: number
+  changedYear?: number
+  /** Характер уже сложился под воспитанием (в 14 лет). */
+  formed?: boolean
+}
+
+/** Направление обучения в эпохе (общие правила - src/content/education.json, отличия страны - EraMeta.education). */
+export interface EducationTrackDef {
+  id: EducationPath
+  /** Навык, который даёт обучение (наследнику-герою). */
+  skill: string
+  /** С какого по какой возраст можно начать. */
+  ages: [number, number]
+  years: number
+  /** Плата в год - доля расходов сословия семьи (upkeep). */
+  cost: number
+  classes: string[]
+  sex?: Sex
+  /** Что должно быть в стране (EraMeta.features): writing, coins… */
+  needs?: string[]
+  regions?: string[]
+  /** Дела, к которым ведёт обучение (если в стране есть); нет - любые дела с тем же навыком. */
+  professions?: string[]
+}
+
 export interface Npc {
   id: string
   role: NpcRole
@@ -527,6 +575,9 @@ export interface Npc {
   tags?: string[]
   /** Уехал или ушёл из семьи (в другой край, в монастырь, на службу, продан): в событиях и дома его нет. */
   away?: NpcAway
+  /** Детям героя: обучение и воспитание (src/engine/children.ts); нет поля - старое сохранение, заводится при первом годе. */
+  education?: ChildEducation
+  upbringing?: ChildUpbringing
 }
 
 export interface NpcAway {

@@ -30,6 +30,7 @@ import {
 } from './rules'
 import { householdYear } from './household'
 import { emotionsYear } from './emotions'
+import { childOutcome, childrenYear } from './children'
 import { pets } from './pets'
 import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
@@ -117,6 +118,8 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   applyLifestyle(state, era)
   // Старые утраты тянут вниз и затухают - раз в год, до новых событий года.
   emotionsYear(state)
+  // Дети: воспитание и учёба (плата за год, окончание, отказ подростка).
+  childrenYear(state, era)
   // Хроника края кончилась при жизни героя - семья перебирается туда, где история продолжается (в своей стране).
   const moved = chronicleSuccessor(state, 0)
   if (moved && moved.era === hero.era) {
@@ -327,7 +330,13 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   for (const child of aliveNpcs(hero, 'child')) {
     const a = npcAge(child, state.year)
     const opts = { who: { name: child.name }, sex: child.sex }
-    if (!child.profession && a >= 13 && a <= 18 && chance(state, 0.4)) {
+    // Учится - дело выберет после учёбы; окончил - по своему направлению (и туда, куда без учёбы не берут).
+    const outcome = child.profession ? undefined : childOutcome(state, child, era)
+    if (outcome && a >= 13 && a <= 24 && chance(state, 0.6)) {
+      child.profession = pick(state, outcome.professions).id
+      note(state, { key: 'diary.child_trade_edu', params: { ...opts, prof: { key: `prof.${child.profession}.as`, sex: child.sex } }, topic: 'family', score: 24, mood: 3, major: true })
+      changeParam(hero, 'happiness', 3)
+    } else if (outcome === undefined && !child.profession && a >= 13 && a <= 18 && chance(state, 0.4)) {
       const trades = era.professions.filter(
         (p) =>
           !p.promotion_only &&

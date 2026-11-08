@@ -1105,6 +1105,7 @@ export function App() {
             onChoose={onChoose}
             onDismiss={onDismiss}
             onLifestyle={onLifestyle}
+            onFamily={persist}
             onPlanReturn={() => {
               if (!game.current) return
               planReturn(game.current)

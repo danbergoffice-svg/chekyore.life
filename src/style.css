@@ -1063,3 +1063,9 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .dice-stake { display: flex; flex-direction: column; gap: 2px; }
 .dice-stake .dice-win { font-weight: 400; font-size: 14px; color: var(--muted); }
 .dice-ransom { display: grid; gap: 8px; }
+
+/* Дети: воспитание и учёба (src/ui/Children.tsx). */
+.child-card { flex-wrap: wrap; gap: 4px 8px; }
+.child-card .choice-row { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; align-items: center; margin-top: 4px; }
+.child-card .option.small { padding: 4px 10px; min-height: 36px; }
+.child-card .option.small .option-desc { display: block; font-size: 0.8em; }

@@ -102,6 +102,9 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   (`rememberEmotion` из `killNpc`, `emotionsYear` раз в год в `startYear`, `resolveEmotion`), правила — `src/content/emotions.json`,
   память — `Hero.emotionalMemories` (сохранение v6), удар — только в `hidden.happiness/stress`; у NPC — `deathCause`
   (`killNpc(state, npc, cause?)`, эффект `kill_npc` + `cause`). Аналитика `emotional_event_*` копится в session_end. Тест — `tests/emotions.test.ts`.
+  Этап 2 — дети: `src/engine/children.ts` (воспитание раз в год, учёба платная, отказ подростка, `childOutcome` → дело по
+  направлению, навык наследнику), правила — `src/content/education.json` + `EraMeta.education` (exclude/tracks), поля `Npc.education/upbringing`
+  (сохранение v7), UI — `src/ui/Children.tsx` на вкладке «Близкие», события `child_education_*`/`child_upbringing_changed`. Тест — `tests/children.test.ts`.
 - Сны о будущем (`docs/TZ_dreams.md`, **сделано**, этапы 1–4): движок — `src/engine/dreams.ts` (свой поток случайности
   `dreamRng`, не трогает остальную жизнь), формулы — `src/engine/formula.ts`, каталог — `src/content/dreams.json`, тексты —
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —

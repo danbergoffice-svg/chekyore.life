@@ -38,6 +38,7 @@ import { attitudeText, diaryText, feelings, useUi } from './text'
 import type { Change } from './text'
 import { Icon, IconText } from './Icon'
 import { EarlyGame } from '../kids/EarlyGame'
+import { Children } from './Children'
 import { GOAL_STEPS, goalMark } from '../engine/goals'
 import type { GoalId } from '../engine/goals'
 import type { GoalGroup } from '../goal'
@@ -97,6 +98,8 @@ interface LifeProps {
   onChoose: (choiceId: string | null, ms?: number) => void
   onDismiss: () => void
   onLifestyle: (category: string, option: string) => void
+  /** Воспитание и учёба детей поменялись: сохранить и перерисовать. */
+  onFamily?: () => void
   /** На чужбине: «Задумать возвращение». */
   onPlanReturn?: () => void
   onMenu: () => void
@@ -133,7 +136,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -562,7 +565,12 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         </section>
       )}
 
-      {tab === 'people' && <People state={state} />}
+      {tab === 'people' && (
+        <>
+          <Children state={state} era={era} onChange={() => onFamily?.()} />
+          <People state={state} />
+        </>
+      )}
 
       {tab === 'diary' && (
         <section class="panel">

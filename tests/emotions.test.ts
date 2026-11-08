@@ -128,6 +128,36 @@ describe('Память и затухание (2.7)', () => {
     expect(Object.keys(s.hero.hidden).sort()).toEqual(keys)
   })
 
+  it('смерть супруга: вдовство (нет метки married), одиночество растёт, память о супруге', () => {
+    const s = life()
+    s.hero.tags.push('married')
+    const l0 = s.hero.hidden.loneliness
+    killNpc(s, npc(s, 'spouse', 50), 'fever')
+    expect(s.hero.tags).not.toContain('married')
+    expect(s.hero.hidden.loneliness).toBeGreaterThan(l0)
+    expect(s.hero.emotionalMemories![0].role).toBe('spouse')
+  })
+
+  it('прежнее неутихшее горе делает новое тяжелее; рядом семья - утешение быстрее', () => {
+    const s = life()
+    const n = npc(s, 'sibling')
+    const before = emotionalImpact(s, n)
+    rememberEmotion(s, 'grief', npc(s, 'child', 80))
+    expect(emotionalImpact(s, n)).toBeGreaterThan(before)
+    const years = (withFamily: boolean) => {
+      const x = life(9)
+      if (withFamily) npc(x, 'spouse', 60)
+      const m = rememberEmotion(x, 'grief', npc(x, 'friend', 60))!
+      m.intensity = m.current = 70
+      while (m.resolved === undefined) {
+        x.year++
+        emotionsYear(x)
+      }
+      return m.resolved - m.year
+    }
+    expect(years(true)).toBeLessThanOrEqual(years(false))
+  })
+
   it('смерть вдали - grief_far и слабее', () => {
     const s = life()
     const near = npc(s, 'father', 30)

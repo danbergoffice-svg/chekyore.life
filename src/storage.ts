@@ -1,5 +1,6 @@
 // Сохранения игры и настройки поверх модуля platform. Схема версионируется (SAVE_VERSION), старые сохранения мигрируют.
 import { SAVE_VERSION } from './engine/life'
+import { initializeChild } from './engine/children'
 import type { Earned } from './engine/achievements'
 import type { Lottery } from './engine/life'
 import type { GameState, Lang, LifeSummary } from './engine/types'
@@ -66,6 +67,11 @@ export function migrate(game: GameState | undefined): GameState | null {
   if (game.version === 5) {
     game.hero.emotionalMemories ??= []
     game.version = 6
+  }
+  // 6 → 7: воспитание и обучение детей - детям героя заводятся пустые профили (без случайности, жизнь идёт как шла).
+  if (game.version === 6) {
+    for (const n of game.hero.npcs) if (n.role === 'child') initializeChild(game, n)
+    game.version = 7
   }
   if (game.version !== SAVE_VERSION) return null
   return game
