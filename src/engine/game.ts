@@ -547,8 +547,23 @@ export function expectedAge(state: GameState, era: EraDef): number {
 
 // ---------- События ----------
 
+/** События, где родной впадает в порок (пьянство, игра, мак): отмечены один раз на событие. */
+const VICE_TAG = /"npc_tag":\s*"(?:drinker|gambler|opium|wine|races|dice_\w*)"/
+const addsVice = new WeakMap<EventDef, boolean>()
+const isViceEvent = (ev: EventDef) => {
+  let v = addsVice.get(ev)
+  if (v === undefined) addsVice.set(ev, (v = VICE_TAG.test(JSON.stringify(ev))))
+  return v
+}
+/** Пороки у родных - реже, и чем больше их уже в семье, тем реже новые (отзыв игрока 08.11: «каждый родной спивается»). */
+const VICE_TAGS = ['drinker', 'gambler', 'opium']
+
 function eventWeight(state: GameState, ev: EventDef): number {
   let w = ev.base_weight
+  if (isViceEvent(ev)) {
+    const already = state.hero.npcs.filter((n) => n.alive && n.tags?.some((t) => VICE_TAGS.includes(t))).length
+    w *= 0.5 * Math.pow(0.35, already)
+  }
   for (const m of ev.weight_modifiers ?? []) if (check(state, m.if)) w *= m.multiply
   const goal = state.hero.goal
   if (goal && state.settings.goalWeight && eventHelpsGoal(goal.id, ev)) w *= state.settings.goalWeight
@@ -741,6 +756,7 @@ interface Buckets {
   naming?: EventDef
   globals: EventDef[]
   milestones: EventDef[]
+  periodic: EventDef[]
   turning: EventDef[]
   regular: EventDef[]
   firstChoice: EventDef[]
@@ -758,6 +774,7 @@ function buckets(era: EraDef): Buckets {
       naming: ev.find((e) => e.dynamic === 'name'),
       globals: ev.filter((e) => !e.moment && e.global_chance !== undefined),
       milestones: ev.filter((e) => !e.moment && e.milestone),
+      periodic: ev.filter((e) => !e.moment && !e.trigger_only && e.every),
       turning: ev.filter((e) => !e.moment && e.turning && !e.trigger_only),
       regular: ev.filter((e) => !e.moment && !e.trigger_only && !e.milestone && !e.turning && (!e.dynamic || e.dynamic === 'dice') && !e.first_choice && e.global_chance === undefined),
       firstChoice: ev.filter((e) => e.first_choice),
@@ -864,6 +881,12 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   // 3. Возрастная развилка (не больше одной в год).
   add(b.milestones.find(fits))
 
+  // 3б. Регулярные события (every: N лет): экзамен в Китае раз в три года, пока герой - кандидат (отзыв игрока 05.11).
+  for (const ev of b.periodic) {
+    const last = hero.seen[ev.id]
+    if ((last === undefined || state.year - last >= ev.every!) && fits(ev)) add(ev)
+  }
+
   // 3а. Поворотный момент: примерно раз в 7–12 лет что-то круто меняет жизнь.
   if (hero.age >= 14 && hero.age - hero.lastTurning >= 7 && chance(state, 0.3)) {
     const turning = weighted(state, fresh(b.turning.filter((ev) => !has(ev) && fits(ev))), (e) => eventWeight(state, e))
@@ -911,7 +934,7 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   }
 
   // Историческая справка в первые годы: младенцу ещё нечего решать - игрок узнаёт свой мир.
-  if (hero.generation === 1 && hero.age * PRIMERS_PER_YEAR < PRIMER_TOPICS.length && state.offChronicle === undefined) {
+  if (hero.generation === 1 && !state.settings.primersOff && hero.age * PRIMERS_PER_YEAR < PRIMER_TOPICS.length && state.offChronicle === undefined) {
     for (const p of primersForYear(state, era)) note(state, { key: `primer.${p.id}.title`, primer: p.id, topic: 'history', score: 2 })
   }
 
@@ -1055,8 +1078,11 @@ export function nameChoices(state: GameState, era: EraDef): ChoiceDef[] {
   if (rule === 'forbid') for (const a of ancestors) used.add(a)
   let h = 0
   for (const ch of npc.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
-  const ids = new Set<string>([npc.name])
-  if (rule === 'prefer') {
+  // «Другие имена»: каждый раз - следующая тройка (без случайности: поток жизни не меняется).
+  const shift = state.queue[0]?.nameShift ?? 0
+  h = (h + shift * 7) >>> 0
+  const ids = new Set<string>(shift ? [] : [npc.name])
+  if (rule === 'prefer' && !shift) {
     const own = names.filter((n) => ancestors.has(n.id) && n.id !== state.hero.name)
     if (own.length) ids.add(own[h % own.length].id)
   }
@@ -1065,6 +1091,12 @@ export function nameChoices(state: GameState, era: EraDef): ChoiceDef[] {
     if (!used.has(id)) ids.add(id)
   }
   return [...ids].map((id) => ({ id, effects: [] }))
+}
+
+/** «Другие имена» в окне имени ребёнка. */
+export function rerollNames(state: GameState): void {
+  const q = state.queue[0]
+  if (q) q.nameShift = (q.nameShift ?? 0) + 1
 }
 
 /** Варианты выбора текущего события. Пустой список - информационное событие с кнопкой «Далее». */

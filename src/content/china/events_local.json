@@ -5929,7 +5929,7 @@
     "once": false,
     "base_weight": 8,
     "topic": "work",
-    "id": "chn_j_exam_prefecture",
+    "id": "chn_j_exam_prefecture", "every": 3,
     "age_range": [
       16,
       45
@@ -6045,7 +6045,7 @@
     "once": false,
     "base_weight": 8,
     "topic": "work",
-    "id": "chn_j_exam_capital",
+    "id": "chn_j_exam_capital", "every": 3,
     "age_range": [
       20,
       55

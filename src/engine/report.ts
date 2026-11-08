@@ -281,7 +281,10 @@ function happiest(hero: Hero): { age: number | null; reason: number | null } {
   if (hero.history.length === 0) return { age: null, reason: null }
   const best = hero.history.reduce((a, b) => (b.happiness > a.happiness ? b : a))
   const sameYear = hero.diary.map((d, i) => [d, i] as const).filter(([d]) => d.age === best.age && (d.mood ?? 0) > 0)
-  const reason = sameYear.sort((a, b) => (b[0].mood ?? 0) - (a[0].mood ?? 0))[0]?.[1] ?? null
+  // Причина - самое весомое из радостей года: свадьба, ребёнок, успех важнее питомца (отзыв игрока 08.11: «самый
+  // счастливый год - потому что завёл черепаху»).
+  const weight = (d: DiaryEntry) => ((d.mood ?? 0) + (d.major ? 6 : 0) + (d.score ?? 0) / 10) * (/pet|animal/.test(d.key) ? 0.3 : 1)
+  const reason = sameYear.sort((a, b) => weight(b[0]) - weight(a[0]))[0]?.[1] ?? null
   return { age: best.age, reason }
 }
 

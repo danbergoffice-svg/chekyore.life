@@ -581,6 +581,8 @@ export function App() {
       softenHeavy: prefs.softenHeavy,
       protectedUntil,
       livesBefore: memorial.length,
+      // Справки «А знаете ли вы» - только в первой жизни в этой стране (отзыв игроков 08.11: «справки сыплются»).
+      primersOff: memorial.some((l) => (l.erasLived ?? [l.era]).includes(pending.birth.era)) || undefined,
       blockedEvents: platform.blockedEvents,
       dreamChance: platform.flags.dream_chance,
       dreamFirstBy: platform.flags.dream_first_by,

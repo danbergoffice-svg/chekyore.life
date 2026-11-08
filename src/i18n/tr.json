@@ -1350,7 +1350,7 @@
   "menu.new_life.go": "Yenisine başla",
   "menu.goal": "Hedef: {goal}",
   "menu.promise": "Rastgele bir ülkede ve çağda tek bir hayat. Yaklaşık 20 dakikada: seç, risk al, bir mirasçı bırak.",
-  "howto.title": "Nasıl oynanır",
+  "howto.title": "Nasıl işliyor",
   "howto.time": "Zaman kendi akar, yıl yıl. Duraklatma ve hız resmin üstündeki çubukta.",
   "howto.choices": "Bir şey olduğunda oyun durur ve sana sorar. Seçimlerin kaderini değiştirir.",
   "howto.goal": "İlk yılında bir hayat hedefi seçersin: adımları ekranın üstünde görünür.",
@@ -1648,5 +1648,14 @@
   "career.novice": "İşte acemisin: gelir şimdilik normalin %{n}'i.",
   "career.hint": "İşini beş yılda bir değiştirebilirsin. İlk yıl gelirin yarısı, sonra daha fazlası; gelir beceriyle artar.",
   "career.change": "Şuna geç:",
-  "career.wait": "İşini {year} yılından itibaren değiştirebilirsin."
+  "career.wait": "İşini {year} yılından itibaren değiştirebilirsin.",
+  "event.more_names": "Başka isimler",
+  "hero.money": "Para",
+  "hero.in_debt": "borçlu",
+  "plaque.mute": "bu hayatta bunları gösterme",
+  "howto.focus": "Yılın odağı, kahramanın yılı neye harcadığıdır: iş para ve beceri, eğitim okuma yazma ve akıl, aile sıcak ilişkiler getirir; dinlenme ve inanç gerginliği azaltır, yolculuk ufku açar. Her yıl değiştirebilirsin.",
+  "howto.attrs": "Sağlık, güç, akıl, çalışkanlık ve çekicilik seçimlerle ve odakla büyür ve riskli işlerin sonucunu belirler: düğmedeki şans bunlara bağlıdır.",
+  "howto.feelings": "Ruh hâli (mutluluk, kaygı, yalnızlık, özsaygı) yukarıda kelimelerle görünür. Kayıplar yıllarca yas bırakır; aile yanındaysa daha çabuk geçer.",
+  "howto.money": "Para: işinin geliri eksi sınıfının ve yaşam tarzının giderleri. Borç yılda %8 büyür; borçta hayvanlar, ev ve mülkler satılır. Aile mülkü ve işler çalışmanın üstüne gelir getirir.",
+  "howto.family": "Aile: çocuklar büyür, okur, evlenir; kahraman ölünce mirasçı devam eder: para, ev ve mülk yerel geleneğe ya da vasiyete göre geçer."
 }

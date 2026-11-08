@@ -414,6 +414,8 @@ export interface ChoiceDef {
 export type EventType = 'personal' | 'family' | 'local' | 'global_historical' | 'dream'
 
 export interface EventDef {
+  /** Регулярное: выпадает раз в столько лет, пока подходит (экзамены). */
+  every?: number
   id: string
   type: EventType
   regions?: string[]
@@ -930,6 +932,8 @@ export interface Will {
 
 export interface ActiveEvent {
   eventId: string
+  /** Окно имени ребёнка: сколько раз просили «другие имена». */
+  nameShift?: number
   /** Когда в течение года показать событие: доля года 0…1. */
   at: number
   /** Персонаж, о котором событие, и его имя на момент события (если он уйдёт или умрёт, текст не сломается). */
@@ -955,6 +959,8 @@ export interface ActiveEvent {
 export type Phase = 'year' | 'running' | 'dead'
 
 export interface GameSettings {
+  /** Игрок уже жил в этой стране: исторических справок первых лет не будет. */
+  primersOff?: boolean
   mode: 'quick' | 'full'
   mortality: 'soft' | 'historical'
   softenHeavy: boolean
@@ -992,6 +998,8 @@ export interface GameSettings {
 }
 
 export interface GameState {
+  /** Вести, которые игрок попросил не показывать плашкой в этой жизни (death, wedding, grandchild…). */
+  plaqueMuted?: string[]
   version: number
   year: number
   hero: Hero

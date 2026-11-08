@@ -163,7 +163,8 @@ export const ACHIEVEMENTS: AchDef[] = [
     group: 'heart',
     test: (l) => {
       const c = choiceKeys(l)
-      return (c.has('ev.fc_betrothal.refuse') || c.has('ev.mar_betrothal.ask') || c.has('ev.mar_betrothal_m.ask') || c.has('ev.mar_betrothal.hide') || c.has('ev.mar_betrothal_m.hide')) && partners(l).length > 0
+      // «Расспросить» - не отказ (жалоба игрока 08.11: «я согласился, а награда - за отказ»).
+      return (c.has('ev.fc_betrothal.refuse') || c.has('ev.mar_betrothal.hide') || c.has('ev.mar_betrothal_m.hide')) && partners(l).length > 0
     },
   },
   { id: 'golden_wedding', group: 'heart', test: (l) => partners(l).some((p) => p.years >= 50), progress: (l) => Math.min(1, Math.max(0, ...partners(l).map((p) => p.years)) / 50) },

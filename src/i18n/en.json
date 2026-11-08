@@ -1350,7 +1350,7 @@
   "menu.new_life.go": "Start a new one",
   "menu.goal": "Goal: {goal}",
   "menu.promise": "One life in a random country and age. In about 20 minutes: choose, take risks, leave an heir.",
-  "howto.title": "How to play",
+  "howto.title": "How it works",
   "howto.time": "Time runs by itself, year after year. Pause and speed are on the bar above the picture.",
   "howto.choices": "When something happens, the game stops and asks you. Your choices change your fate.",
   "howto.goal": "In your first year you pick a life goal: its steps are shown at the top of the screen.",
@@ -1648,5 +1648,14 @@
   "career.novice": "New at the trade: income is {n}% of usual for now.",
   "career.hint": "You can change your work once in five years. The first year brings half the income, then more; income grows with skill.",
   "career.change": "Change to:",
-  "career.wait": "You can change your work from {year}."
+  "career.wait": "You can change your work from {year}.",
+  "event.more_names": "Other names",
+  "hero.money": "Money",
+  "hero.in_debt": "in debt",
+  "plaque.mute": "don't show these this life",
+  "howto.focus": "Focus of the year is what the hero spends the year on: work brings money and skill, study brings letters and wit, family warms relations, rest and faith ease stress, travel broadens the mind. You can change it any year.",
+  "howto.attrs": "Health, strength, wit, diligence and charm grow with choices and focus and decide how risky moves end: the chance on a button depends on them.",
+  "howto.feelings": "Wellbeing - happiness, anxiety, loneliness, self-respect - is shown in words above. Losses leave grief for years; family nearby helps it pass sooner.",
+  "howto.money": "Money: your trade's income minus the costs of your class and way of life. Debt grows 8% a year - in debt livestock, house and holdings get sold. Family property and ventures earn on top of work.",
+  "howto.family": "The family: children grow, study and marry; after the hero's death an heir carries on - with money, house and property by local custom or by will."
 }

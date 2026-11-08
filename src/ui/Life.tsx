@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   availableFocuses,
+  rerollNames,
   careerOptions,
   changeCareer,
   CHANGE_EVERY,
@@ -20,6 +21,7 @@ import {
 import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey, scaledMoney, statusOf } from '../engine/rules'
 import { isPet } from '../engine/pets'
 import { rentPerMonth } from '../engine/household'
+import { estatePrice } from '../engine/estate'
 import LONGEVITY from '../content/longevity.json'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Lang, Npc, SceneTime } from '../engine/types'
@@ -133,6 +135,16 @@ interface LifeProps {
   goal?: { group: GoalGroup; onPick: (c: GoalChoice, change: boolean) => void }
   /** Сон о будущем: ответы, подсказка, «Проснуться», закрыть итог. */
   dream?: { result: DreamResult | null; onAnswer: (value: unknown) => void; onHint: () => void; onWake: () => void; onClose: () => void }
+}
+
+/** Какие вести показывать плашкой (вид - для «не показывать такое в этой жизни»). */
+function plaqueKind(key: string): string | null {
+  if (key.startsWith('diary.death_')) return 'death'
+  if (key === 'diary.child_married') return 'wedding'
+  if (key.startsWith('diary.grandchild_born') || key.startsWith('diary.great_grandchild_born')) return 'grandchild'
+  if (key === 'diary.expecting' || key === 'diary.expecting_self') return 'expecting'
+  if (key.startsWith('diary.edu_done') || key === 'diary.edu_refused') return 'school'
+  return null
 }
 
 /** Видна ли запись дневника: записи текущего года появляются по ходу года. */
@@ -315,6 +327,26 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   // В ленте - справки только последнего года с ними, прошлые остаются во вкладке «Дневник».
   const primerYear = Math.max(-Infinity, ...entries.filter(([d]) => d.primer).map(([d]) => d.year))
   const feed = yearsBackward(entries.filter(([d]) => !d.primer || d.year === primerYear).slice(-14))
+  // Плашка семейной вести: заметно, на несколько секунд, без остановки времени; «не показывать такое в этой жизни»
+  // (отзыв игрока 08.11: свадьбы детей, внуки и смерть сестры терялись в ленте).
+  const seenUpTo = useRef(hero.diary.length)
+  const [plaque, setPlaque] = useState<{ index: number; kind: string } | null>(null)
+  const lastVisible = entries.length ? entries[entries.length - 1][1] : -1
+  useEffect(() => {
+    if (lastVisible < seenUpTo.current) return
+    const muted = state.plaqueMuted ?? []
+    let found: { index: number; kind: string } | null = null
+    for (const [d, i] of entries) {
+      if (i < seenUpTo.current) continue
+      const kind = plaqueKind(d.key)
+      if (kind && !muted.includes(kind)) found = { index: i, kind }
+    }
+    seenUpTo.current = lastVisible + 1
+    if (!found) return
+    setPlaque(found)
+    const id = setTimeout(() => setPlaque(null), 5000)
+    return () => clearTimeout(id)
+  }, [lastVisible])
   // Вверху - дом героя: семья, животные и дом нужного размера; если в этом году случилось бедствие, оно видно на доме.
   const disaster = [...entries]
     .reverse()
@@ -330,8 +362,26 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const heroName = nameOf(hero.name, lang)
   const b = layout === 'b'
 
+  const plaqueEntry = plaque ? hero.diary[plaque.index] : undefined
+  const plaqueView = plaqueEntry && (
+    <div class="plaque" role="status">
+      <span>{diaryText(t, plaqueEntry, hero.sex, hero.region, hero.religion, lang)}</span>
+      <button
+        type="button"
+        class="link small"
+        onClick={() => {
+          state.plaqueMuted = [...(state.plaqueMuted ?? []), plaque!.kind]
+          setPlaque(null)
+          onFamily?.()
+        }}
+      >
+        {t('plaque.mute')}
+      </button>
+    </div>
+  )
   return (
     <div class={b ? 'life layout-b' : 'life'}>
+      {plaqueView}
       {b ? (
         <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} details={
           <>
@@ -501,6 +551,17 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'hero' && (
         <section class="panel">
+          {/* Деньги - первой строкой (отзыв игрока 03.11: «не нашёл, где моё богатство»). */}
+          <p class="hero-money"><strong>{t('hero.money')}:</strong> {formatMoney(t, hero.money, coin)}{hero.money < 0 ? ` · ${t('hero.in_debt')}` : ''}</p>
+          {/* Как устроена жизнь героя (отзывы игроков 03–08.11: «не понимаю, что значат параметры и фокус»). */}
+          <details class="howto small">
+            <summary>{t('howto.title')}</summary>
+            <p>{t('howto.focus')}</p>
+            <p>{t('howto.attrs')}</p>
+            <p>{t('howto.feelings')}</p>
+            <p>{t('howto.money')}</p>
+            <p>{t('howto.family')}</p>
+          </details>
           <h2 class="section-title">{t('hero.feelings')}</h2>
           <ul class="plain">{feelings(t, hero).map((f) => <li>{f}</li>)}</ul>
           <p class="small">
@@ -1164,6 +1225,8 @@ interface EventProps {
 }
 
 function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, onDiceGame }: EventProps) {
+  // «Другие имена»: окно перерисовывается само, состояние меняет движок (rerollNames).
+  const [, redrawNames] = useState(0)
   const { t, lang } = useUi()
   const ev = currentEvent(state, era)
   const [noteOpen, setNoteOpen] = useState(false)
@@ -1217,7 +1280,9 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   }
   const cost = (c: ChoiceDef) => {
     // Цена - как её возьмёт движок: богатый платит больше написанного (scaledMoney).
-    const m = (c.effects ?? []).reduce((sum, e) => sum + ('param' in e && e.param === 'money' && e.delta < 0 ? scaledMoney(hero, era, e.delta) : 0), 0)
+    // Покупка владений - полная цена за все наделы или рабов разом (отзыв игрока 08.11: «показана цена только за один»).
+    const buy = (e: Effect) => ('buy' in e ? -estatePrice(state, e.buy) * ('n' in e && e.buy !== 'home' ? Math.max(1, e.n ?? 1) : 1) : 0)
+    const m = (c.effects ?? []).reduce((sum, e) => sum + ('param' in e && e.param === 'money' && e.delta < 0 ? scaledMoney(hero, era, e.delta) : 0) + buy(e), 0)
     return m < 0 ? formatMoney(t, Math.round(-m), coin) : null
   }
   const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession && !isName ? variantKey(lang, `ev.${ev.id}.${outcome.choiceId}.${outcome.result}`, v) : null
@@ -1313,6 +1378,18 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
             </div>
           )}
 
+          {!outcome && isName && (
+            <button
+              type="button"
+              class="link"
+              onClick={() => {
+                rerollNames(state)
+                redrawNames((n) => n + 1)
+              }}
+            >
+              {t('event.more_names')}
+            </button>
+          )}
           {!outcome && choices.length > 1 && <p class="ev-keys">{t('event.keys', { n: Math.min(4, choices.length) })}</p>}
           {outcome && (
             <div class="outcome">

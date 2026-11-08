@@ -1084,3 +1084,14 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .story-nav { display: flex; justify-content: center; gap: 24px; font-size: 1.4em; }
 
 .promo-input { width: 100%; font: inherit; font-size: 1.1em; padding: 8px 10px; letter-spacing: 0.08em; text-transform: uppercase; margin: 8px 0; }
+
+.hero-money { font-size: 1.15em; margin: 4px 0 10px; }
+
+/* Плашка семейной вести (Life.tsx): заметно, без остановки времени. */
+.plaque { position: fixed; z-index: 45; left: 50%; top: 72px; transform: translateX(-50%); width: min(520px, calc(100vw - 32px)); display: grid; gap: 4px; padding: 10px 14px; border-radius: 10px; background: var(--card); color: var(--ink); border: 2px solid var(--gold); box-shadow: var(--shadow); animation: plaque-in 0.25s ease-out; }
+.plaque .link { justify-self: end; }
+@keyframes plaque-in { from { opacity: 0; transform: translate(-50%, -8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+.howto { margin: 0 0 10px; }
+.howto > summary { cursor: pointer; font-weight: 700; }
+.howto p { margin: 6px 0; }
