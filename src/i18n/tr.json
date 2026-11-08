@@ -1618,5 +1618,6 @@
   "dynasty.peace.title": "Kavgasız",
   "dynasty.peace.desc": "{n} vasiyet itirazsız uygulandı",
   "dynasty.rise.title": "Yükselen soy",
-  "dynasty.rise.desc": "bir torun kurucunun sınıfının üstüne çıktı"
+  "dynasty.rise.desc": "bir torun kurucunun sınıfının üstüne çıktı",
+  "dice.accept": "Sessiz kal, sonucu kabul et"
 }

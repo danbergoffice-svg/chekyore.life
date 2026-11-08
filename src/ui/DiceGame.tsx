@@ -39,6 +39,8 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   const [rounds, setRounds] = useState<Round[]>([])
   const [rerolls, setRerolls] = useState(0)
   const [cheated, setCheated] = useState(false)
+  // Партия решена, но герой заметил жульничество соперника: ждём, обвинит ли он.
+  const [decided, setDecided] = useState<DiceResult | null>(null)
   const [last, setLast] = useState<DiceResult | null>(null)
   // Проиграл скотину, а деньги есть: отдать её или откупиться её ценой.
   const [ransom, setRansom] = useState<DiceResult | null>(null)
@@ -60,6 +62,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     setRounds([])
     setRerolls(0)
     setCheated(false)
+    setDecided(null)
     setLast(null)
   }
   const record = (r: DiceResult) => {
@@ -115,10 +118,22 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     const theirs = next.filter((r) => r.them && sum(r.me) < sum(r.them!)).length
     if (mine >= 2 || theirs >= 2) {
       const caught = cheated && Math.random() < catchChance(hero, opponent)
-      setTimeout(() => finish({ stake: stake!, won: mine >= 2, cheated, caught, exposed: false, fate: false, chase, opponent }), 700)
+      const result: DiceResult = { stake: stake!, won: mine >= 2, cheated, caught, exposed: false, fate: false, chase, opponent }
+      // Заметил жульничество в решающем броске - партия ждёт: обвинить или принять итог (раньше итог сам закрывал
+      // окно через 0,7 с и кнопка «Обвинить» только мелькала).
+      if (crooked && d.skill >= SKILL.spot) setDecided(result)
+      else setTimeout(() => finish(result), 700)
     }
   })
-  const expose = () => finish({ stake: stake!, won: true, cheated, caught: false, exposed: true, fate: false, chase, opponent })
+  const expose = () => {
+    setDecided(null)
+    finish({ stake: stake!, won: true, cheated, caught: false, exposed: true, fate: false, chase, opponent })
+  }
+  const accept = () => {
+    const r = decided
+    setDecided(null)
+    if (r) finish(r)
+  }
 
   const oppKey = d.skill >= SKILL.read ? opponent : 'unknown'
   const locked = ([2, 3, 4, 5] as const).find((l) => d.lust < STAKE_LUST[l])
@@ -206,6 +221,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
           </>
         )}
         {cur?.theyCheated && d.skill >= SKILL.spot && <button type="button" class="secondary" onClick={expose}>{t('dice.expose')}</button>}
+        {decided && <button type="button" class="primary" onClick={accept}>{t('dice.accept')}</button>}
       </div>
       {cur?.theyCheated && d.skill >= SKILL.spot && <p class="small warn">{t('dice.spotted')}</p>}
     </div>

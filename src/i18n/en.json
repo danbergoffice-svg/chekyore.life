@@ -1618,5 +1618,6 @@
   "dynasty.peace.title": "No feuds",
   "dynasty.peace.desc": "{n} wills carried out without disputes",
   "dynasty.rise.title": "Rose in the world",
-  "dynasty.rise.desc": "a descendant rose above the founder's class"
+  "dynasty.rise.desc": "a descendant rose above the founder's class",
+  "dice.accept": "Keep quiet and accept the result"
 }
