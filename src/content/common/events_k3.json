@@ -11,7 +11,7 @@
       {"id": "remind", "effects": [{"param": "self_esteem", "delta": 2}, {"param": "happiness", "delta": -2}, {"param": "reputation", "delta": -1}], "pattern": {"craft_power": 2}}
     ]},
 
-  {"id": "k3_nickname", "type": "personal", "age_range": [5, 9], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 5},
+  {"id": "k3_nickname", "variants": 11, "type": "personal", "age_range": [5, 9], "base_weight": 3, "once": true, "topic": "life", "scene": {"place": "street", "time": "day", "people": 5},
     "choices": [
       {"id": "own_it", "effects": [{"param": "reputation", "delta": 3}, {"param": "loneliness", "delta": -3}, {"param": "self_esteem", "delta": 1}, {"set_flag": "k3_nickname_kept"}], "delayed_effects": [{"after_years": [15, 30], "chance": 0.5, "trigger_event": "k3_nickname_sticks"}], "pattern": {"memory_future": -2}},
       {"id": "fight", "risk_roll": {"param": "strength", "success_chance_base": 0.35, "on_success": [{"param": "reputation", "delta": 3}, {"param": "self_esteem", "delta": 3}], "on_failure": [{"param": "health", "delta": -3}, {"param": "self_esteem", "delta": -3}, {"param": "reputation", "delta": -1}]}, "pattern": {"craft_power": 2}},
