@@ -1633,5 +1633,13 @@
   "diary.child_looks_spouse": "{child} takes after {who}, the neighbours say.",
   "diary.child_looks_elder": "{child} looks just like {g=wsex:grandfather|grandmother} {who} - the family is amazed.",
   "diary.child_looks_neighbor": "Somehow {child} looks like the neighbour. The street whispers; at home - silence.",
-  "diary.travel_trip": "You travelled to {place}: new streets, strange accents, different market prices."
+  "diary.travel_trip": "You travelled to {place}: new streets, strange accents, different market prices.",
+  "menu.nav.promo": "Key",
+  "promo.title": "Special key",
+  "promo.hint": "We give keys to our followers. The gift goes to your next life; each key works once.",
+  "promo.apply": "Apply",
+  "promo.ok": "Key accepted: the gift is waiting at the reels.",
+  "promo.error.unknown": "No such key. Check the letters and digits.",
+  "promo.error.used": "This key has already been used.",
+  "promo.error.empty": "Enter a key."
 }

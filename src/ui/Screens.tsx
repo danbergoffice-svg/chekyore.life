@@ -44,6 +44,7 @@ interface MenuProps {
   /** Кнопка «Дары»: при свёрнутом барабане - рядом с «Начать другую жизнь». */
   gifts?: ComponentChildren
   onFeedback: () => void
+  onPromo?: () => void
   onLang: (lang: Lang) => void
   go: (s: 'memorial' | 'settings' | 'about' | 'awards') => void
   /** Кнопка музыки. */
@@ -58,7 +59,7 @@ let playersSeen: number | null = null
 
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
  *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, - в «Об игре». */
-export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, onFeedback, onLang, go, sound }: MenuProps) {
+export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, onFeedback, onPromo, onLang, go, sound }: MenuProps) {
   const { t, lang } = useUi()
   const [confirmNew, setConfirmNew] = useState(false)
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
@@ -164,6 +165,7 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
         <button class="link" onClick={() => go('settings')}>{t('menu.nav.settings')}</button>
         <button class="link" onClick={() => go('about')}>{t('menu.nav.about')}</button>
         {EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
+        {onPromo && <button class="link" onClick={onPromo}>{t('menu.nav.promo')}</button>}
       </nav>
       {EXTERNAL && (
         <>
@@ -622,6 +624,40 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
 
 /** Варианты длительности года в настройках: 0 - стандартная, остальное - секунды, до минуты. */
 const YEAR_SECS = [0, 20, 30, 45, 60]
+
+/** Ввод спецключа: дар на следующую жизнь (один раз). */
+export function PromoModal(props: { onApply: (code: string) => string | null; onClose: () => void }) {
+  const { t } = useUi()
+  const [code, setCode] = useState('')
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null)
+  const apply = () => {
+    const err = props.onApply(code)
+    setMsg(err ? { ok: false, text: t(`promo.error.${err}`) } : { ok: true, text: t('promo.ok') })
+    if (!err) setCode('')
+  }
+  return (
+    <div class="modal-backdrop" onClick={(e) => e.target === e.currentTarget && props.onClose()}>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="promo-title">
+        <h2 id="promo-title">{t('promo.title')}</h2>
+        <p class="small muted">{t('promo.hint')}</p>
+        <input
+          class="promo-input"
+          value={code}
+          maxLength={40}
+          autocomplete="off"
+          onInput={(e) => setCode((e.target as HTMLInputElement).value)}
+          onKeyDown={(e) => e.key === 'Enter' && apply()}
+          aria-label={t('promo.title')}
+        />
+        {msg && <p class={msg.ok ? 'small' : 'small warn'} role="status">{msg.text}</p>}
+        <div class="choice-row">
+          <button class="primary" disabled={!code.trim()} onClick={apply}>{t('promo.apply')}</button>
+          <button class="link" onClick={props.onClose}>{t('common.close')}</button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function Settings(props: {
   prefs: Prefs

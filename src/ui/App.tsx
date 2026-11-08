@@ -23,7 +23,8 @@ import type { DiceResult } from '../engine/dice'
 import { MenuSheet } from './MenuSheet'
 import type { MenuTarget } from './MenuSheet'
 import { Chronicle } from './Chronicle'
-import { About, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsSheet, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
+import { redeemPromo } from '../promo'
+import { About, PromoModal, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsSheet, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { CHEST_GIFT, dailyNext, dayKey, GIFT_ICON, GIFTS, HEALTH_GIFT, RESPIN_GIFT, spendGifts } from '../daily'
 import type { Gift } from '../daily'
 import { Awards } from './Awards'
@@ -399,7 +400,18 @@ export function App() {
     today && memorial.length >= 1 ? <DailyCard day={dailyNow?.day ?? prefs.daily?.day ?? 1} claimable={!!dailyNow} broken={dailyNow?.broken} onClaim={claimDaily} /> : undefined
   // Дар «Страна по выбору» (дар первого дня и награда за отзыв): страну игрок выбирает у барабана; не выбрал - дар ждёт
   // следующей жизни.
-  const [giftCountry, setGiftCountry] = useState<string | null>(null)
+  // Страна дара: выбранная игроком или выданная спецключом (prefs.promoCountry переживает перезагрузку).
+  const [giftCountry, setGiftCountry] = useState<string | null>(() => prefs.promoCountry ?? null)
+  const [promoOpen, setPromoOpen] = useState(false)
+  /** Спецключ из меню: null - применён, иначе код ошибки (текст promo.error.*). */
+  const applyPromo = (code: string): string | null => {
+    const r = redeemPromo(code, prefs.promoUsed)
+    if (!r.ok) return r.error
+    setPrefs({ ...prefs, gifts: [...(prefs.gifts ?? []), r.reward.gift], promoUsed: [...(prefs.promoUsed ?? []), r.hash], ...(r.reward.country ? { promoCountry: r.reward.country } : {}) })
+    if (r.reward.country) setGiftCountry(r.reward.country)
+    platform.track('promo_redeemed', { gift: r.reward.gift, ...(r.reward.country ? { country: r.reward.country } : {}) })
+    return null
+  }
   const [giftCountryOpen, setGiftCountryOpen] = useState(false)
   const chosenCountry = () => (gifts.includes('country') && giftCountry) || null
   const royalWanted = prefs.royal === 'ready' || gifts.includes('royal')
@@ -592,7 +604,10 @@ export function App() {
     // Награды потрачены: за испытание (если игрок что-то выбрал; «жребий» её не тратит), за главный экран и дары за вход.
     const spent: Partial<Prefs> = {}
     if (used.length) spent.gifts = spendGifts(gifts, used)
-    if (used.includes('country')) setGiftCountry(null)
+    if (used.includes('country')) {
+      setGiftCountry(null)
+      spent.promoCountry = undefined
+    }
     if (prefs.fate === 'ready' && fatePick) {
       spent.fate = 'used'
       platform.track('fate_used', { kind: fatePick === 'high' ? 'high' : 'country', era: game.current.hero.era })
@@ -1039,6 +1054,7 @@ export function App() {
               else ensure(state.hero.era, prefs.lang, state.hero.erasLived).then(() => isEraLoaded(state.hero.era) && go())
             }}
             onFeedback={() => openFeedback('menu')}
+            onPromo={() => setPromoOpen(true)}
             onLang={(lang) => setPrefs({ ...prefs, lang })}
             go={setScreen}
             sound={soundButton}
@@ -1248,6 +1264,7 @@ export function App() {
             onBack={goBack}
           />
         )}
+        {promoOpen && <PromoModal onApply={applyPromo} onClose={() => setPromoOpen(false)} />}
         {screen === 'chronicle' && chronicleId && (
           <Chronicle memorial={memorial} familyId={chronicleId} onOpen={openPast} onBack={() => setScreen('memorial')} />
         )}

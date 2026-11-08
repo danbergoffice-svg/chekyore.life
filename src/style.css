@@ -1082,3 +1082,5 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .home-badge { border: 1px solid currentColor; border-radius: 8px; padding: 0 6px; opacity: 0.8; }
 
 .story-nav { display: flex; justify-content: center; gap: 24px; font-size: 1.4em; }
+
+.promo-input { width: 100%; font: inherit; font-size: 1.1em; padding: 8px 10px; letter-spacing: 0.08em; text-transform: uppercase; margin: 8px 0; }

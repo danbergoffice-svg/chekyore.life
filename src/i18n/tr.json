@@ -1633,5 +1633,13 @@
   "diary.child_looks_spouse": "Komşular {child} için tıpkı {who} diyor.",
   "diary.child_looks_elder": "{child}, {g=wsex:dedesi|ninesi} {who} gibi; aile şaşkın.",
   "diary.child_looks_neighbor": "{child} nedense komşuya benziyor. Mahalle fısıldaşıyor, evde sessizlik.",
-  "diary.travel_trip": "{place} yolculuğu: yeni sokaklar, başka ağızlar, başka pazar fiyatları."
+  "diary.travel_trip": "{place} yolculuğu: yeni sokaklar, başka ağızlar, başka pazar fiyatları.",
+  "menu.nav.promo": "Anahtar",
+  "promo.title": "Özel anahtar",
+  "promo.hint": "Anahtarları takipçilerimize veriyoruz. Hediye bir sonraki hayatına gider; her anahtar bir kez çalışır.",
+  "promo.apply": "Uygula",
+  "promo.ok": "Anahtar kabul edildi: hediye seni makinede bekliyor.",
+  "promo.error.unknown": "Böyle bir anahtar yok. Harfleri ve rakamları kontrol et.",
+  "promo.error.used": "Bu anahtar zaten kullanıldı.",
+  "promo.error.empty": "Bir anahtar gir."
 }
