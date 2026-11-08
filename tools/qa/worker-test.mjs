@@ -485,6 +485,8 @@ check('INTEGER и REAL дают одинаковые сообщения', JSON.s
   check('CSV: не больше 50 000 строк, без повторов на границах страниц, пометка x-truncated', lines.length === 50000 && ids.size === 50000 && r.headers.get('x-truncated') === '1', `${lines.length} строк, ${ids.size} разных id, ${r.headers.get('x-truncated')}`)
   const tss = lines.map((l) => Number(l.split(';')[2]))
   check('CSV: строки по времени', tss.every((t, i) => !i || t >= tss[i - 1]))
+  const maxId = DB.sql.prepare('SELECT MAX(id) AS m FROM events').get().m
+  check('CSV: при переполнении - самые свежие строки (последняя в базе - в файле)', ids.has(String(maxId)), `последний id ${maxId}`)
   console.log(`CSV 50 000 строк: ${Date.now() - t0} мс`)
   sent.length = 0
   for (const cmd of ['/stats', '/week', '/exits', '/digest']) {

@@ -144,8 +144,11 @@ export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> 
   const lastTs = from
   let lastId = 0
   let total = 0
+  // Строк больше лимита - отдаём самые свежие: начинаем с 50 000-й строки с конца (по первичному ключу, без индекса по времени).
+  const edge = (await env.DB!.prepare(`SELECT id FROM ${name} ORDER BY id DESC LIMIT 1 OFFSET ?1`).bind(EXPORT_LIMIT - 1).all()).results[0]
+  if (edge) lastId = Math.max(0, Number(edge.id) - 1)
   // Страницами по 5000 строк по номеру строки (id растёт со временем записи; индекса по времени больше нет -
-  // он удваивал запись каждого события в D1), продолжение - после последнего id; всего не больше 50 000.
+  // он удваивал запись каждого события в D1), продолжение - после последнего id; всего не больше 50 000 (самых свежих).
   while (total < EXPORT_LIMIT) {
     const take = Math.min(PAGE, EXPORT_LIMIT - total)
     const rows = (await env.DB!.prepare(EXPORT_SQL[name]).bind(lastTs, lastId, take).all()).results
