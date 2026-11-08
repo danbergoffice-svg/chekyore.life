@@ -5,7 +5,7 @@
 import type { EraDef, EraMeta, GameState, Hero } from './types'
 import { chance, int, next } from './rng'
 import { addYears, aliveNpcs, note, npcAge, sendAway } from './rules'
-import { HOME_COST, rentPerMonth, startRent } from './household'
+import { ANIMAL_COST, HOME_COST, rentPerMonth, startRent } from './household'
 import { landPrice, loseEstate, slavePrice } from './estate'
 
 export interface DiceStats {
@@ -27,7 +27,14 @@ export interface DiceStats {
   ruined?: boolean
   /** Последний год партии: азарт без игры понемногу остывает. */
   lastYear?: number
+  /** Сколько раз подряд отказался сесть за стол (сыгранная партия обнуляет). */
+  refused?: number
+  /** Трижды подряд отказался - завязал: кости больше не предлагают (метка dice_quit). */
+  quit?: boolean
 }
+
+/** После стольких отказов подряд герой завязывает с костями. */
+export const DICE_QUIT_AFTER = 3
 
 export type StakeKind = 'coins' | 'purse' | 'animal' | 'house' | 'land' | 'slave' | 'son' | 'daughter' | 'wife' | 'self'
 
@@ -60,6 +67,8 @@ export interface DiceResult {
   applied?: boolean
   /** Праздник, когда играть можно открыто: штрафа за саму игру нет. */
   festive?: boolean
+  /** Проиграл скотину, но откупился её ценой деньгами. */
+  ransom?: boolean
 }
 
 /** Порог азарта для уровня ставки (ТЗ, лестница ставок). */
@@ -106,8 +115,10 @@ export function diceOf(hero: Hero): DiceStats {
 const clamp = (x: number) => Math.max(0, Math.min(100, x))
 const ref = (era: EraDef | EraMeta) => Math.max(100, era.classes.find((c) => c.id === 'craftsman')?.upkeep ?? 200)
 
-/** Самая ценная скотина героя (на кону - конь, верблюд, вол…). */
-const ANIMAL_VALUE: Record<string, number> = { horse: 3, camel: 3, ox: 2, cow: 2, buffalo: 2, llama: 1.5, donkey: 1.2, mule: 1.5, goat: 0.6, sheep: 0.6, pig: 0.8 }
+/** Скотина на кону (не куры и не питомцы) - по рыночной цене (ANIMAL_COST). */
+const animalCost = (kind: string) => ANIMAL_COST[kind] ?? 0
+/** Дом на кону - по цене такого дома (HOME_COST). */
+export const houseCost = (home: number) => HOME_COST[Math.max(0, Math.min(HOME_COST.length - 1, home))]
 
 /** Ставки, которые герою доступны сейчас (по азарту, деньгам и тому, что у него есть). */
 export function diceStakes(state: GameState, era: EraDef | EraMeta): Stake[] {
@@ -118,10 +129,10 @@ export function diceStakes(state: GameState, era: EraDef | EraMeta): Stake[] {
   const out: Stake[] = [{ level: 1, kind: 'coins', amount: Math.max(Math.round(r * 0.3), Math.round(Math.max(0, hero.money) * 0.1)) }]
   if (d.lust >= STAKE_LUST[2] && hero.money > out[0].amount) out.push({ level: 2, kind: 'purse', amount: hero.money })
   if (d.lust >= STAKE_LUST[3]) {
-    const animal = [...(hero.animals ?? [])].filter((a) => ANIMAL_VALUE[a.kind]).sort((a, b) => ANIMAL_VALUE[b.kind] - ANIMAL_VALUE[a.kind])[0]
-    if (animal) out.push({ level: 3, kind: 'animal', amount: Math.round(r * ANIMAL_VALUE[animal.kind]), animal: animal.kind })
+    const animal = [...(hero.animals ?? [])].filter((a) => animalCost(a.kind) >= 30).sort((a, b) => animalCost(b.kind) - animalCost(a.kind))[0]
+    if (animal) out.push({ level: 3, kind: 'animal', amount: animalCost(animal.kind), animal: animal.kind })
     // Свой дом (не съёмный) - по его цене, как при покупке.
-    if ((hero.home ?? 1) >= 2 && !hero.rent) out.push({ level: 3, kind: 'house', amount: HOME_COST[Math.min(4, hero.home)] })
+    if ((hero.home ?? 1) >= 2 && !hero.rent) out.push({ level: 3, kind: 'house', amount: houseCost(hero.home) })
     // Земля: свой надел - по цене надела; у землевладельца и знати без купленных наделов - родовая земля сословия.
     if (hero.land) out.push({ level: 3, kind: 'land', amount: landPrice(state) })
     else if (hero.cls === 'landowner' || hero.cls === 'noble') out.push({ level: 3, kind: 'land', amount: Math.round(r * 10) })
@@ -179,6 +190,7 @@ export function applyDice(state: GameState, era: EraDef | EraMeta, r: DiceResult
   const before = Math.max(base, hero.money)
   d.games++
   d.lastYear = state.year
+  d.refused = 0
   if (r.fate) d.fate++
   d.maxStake = Math.max(d.maxStake, r.stake.level)
   const won = r.won && !r.caught
@@ -203,7 +215,7 @@ export function applyDice(state: GameState, era: EraDef | EraMeta, r: DiceResult
       schedule(state, list[Math.floor(next(state) * list.length)], 1)
     }
   } else {
-    loseStake(state, r.stake, params)
+    loseStake(state, r.stake, params, r.ransom)
     d.net -= r.stake.amount
     if (r.stake.level >= 2) d.shame += r.stake.level - 1
     for (const n of aliveNpcs(hero, 'spouse')) n.attitude = Math.max(-100, n.attitude - 4 * r.stake.level)
@@ -238,13 +250,23 @@ export function applyDice(state: GameState, era: EraDef | EraMeta, r: DiceResult
   syncTags(hero)
 }
 
-function loseStake(state: GameState, s: Stake, params: Record<string, { key: string }>): void {
+/** Можно ли откупиться от проигранной скотины её ценой деньгами. */
+export const canRansom = (hero: Hero, s: Stake) => s.kind === 'animal' && hero.money >= s.amount
+
+function loseStake(state: GameState, s: Stake, params: Record<string, { key: string }>, ransom = false): void {
   const hero = state.hero
   const d = diceOf(hero)
   const npc = s.npcId ? hero.npcs.find((n) => n.id === s.npcId) : undefined
   const who: Record<string, { name: string }> = npc ? { who: { name: npc.name } } : {}
+  let key = `diary.dice_lost.${s.kind}`
+  let n = 0
   if (s.kind === 'coins' || s.kind === 'purse') hero.money -= s.amount
   if (s.kind === 'animal' && s.animal) {
+    if (ransom && canRansom(hero, s)) {
+      hero.money -= s.amount
+      note(state, { key: 'diary.dice_lost.animal_ransom', params: { ...params, money: s.amount, animal: { key: `animal.${s.animal}` } }, topic: 'money', icon: 'loss', score: 20, mood: -6 })
+      return
+    }
     const i = (hero.animals ?? []).findIndex((a) => a.kind === s.animal)
     if (i >= 0) hero.animals.splice(i, 1)
   }
@@ -270,7 +292,17 @@ function loseStake(state: GameState, s: Stake, params: Record<string, { key: str
     npc.married = true
     sendAway(state, npc, 'married_far')
   }
-  if (npc && s.kind === 'wife') sendAway(state, npc, 'left')
+  // Жена: 50 на 50 - уходит одна (дети остаются с отцом) или забирает малых детей; взрослые остаются в роду.
+  if (npc && s.kind === 'wife') {
+    sendAway(state, npc, 'left', true)
+    const small = aliveNpcs(hero, 'child').filter((c) => !c.away && npcAge(c, state.year) < WIFE_TAKES_UNDER)
+    if (small.length && chance(state, 0.5)) {
+      for (const kid of small) sendAway(state, kid, 'left', true)
+      key = 'diary.dice_lost.wife_kids'
+      who.list = { name: small.map((k) => k.name).join(', ') }
+      n = small.length
+    } else if (small.length) key = 'diary.dice_lost.wife_stay'
+  }
   if (s.kind === 'son' || s.kind === 'daughter' || s.kind === 'wife') {
     d.ruined = true
     hero.hidden.reputation = clamp(hero.hidden.reputation - 10)
@@ -283,7 +315,27 @@ function loseStake(state: GameState, s: Stake, params: Record<string, { key: str
     hero.tags = hero.tags.filter((t) => t !== 'in_debt' && t !== 'deep_debt')
     d.ruined = true
   }
-  note(state, { key: `diary.dice_lost.${s.kind}`, params: { ...params, ...who, ...rent, money: s.amount, animal: { key: `animal.${s.animal ?? 'horse'}` } }, topic: 'money', icon: 'loss', score: 10 + 8 * s.level, mood: -3 * s.level, major: s.level >= 3 })
+  note(state, { key, params: { ...params, ...who, ...rent, n, money: s.amount, animal: { key: `animal.${s.animal ?? 'horse'}` } }, topic: 'money', icon: 'loss', score: 10 + 8 * s.level, mood: -3 * s.level, major: s.level >= 3 })
+}
+
+/** Малых детей (до этого возраста) проигранная в кости жена может забрать с собой. */
+export const WIFE_TAKES_UNDER = 14
+
+/**
+ * Отказ сесть за стол (в событии костей выбрал не играть; «Назад» у стола без единой партии - тоже).
+ * Третий отказ подряд - завязал: метка dice_quit, запись в дневник, события костей больше не выпадают.
+ */
+export function diceRefuse(state: GameState): void {
+  const hero = state.hero
+  const d = diceOf(hero)
+  if (d.quit) return
+  d.refused = (d.refused ?? 0) + 1
+  if (d.refused < DICE_QUIT_AFTER) return
+  d.quit = true
+  d.lust = Math.min(d.lust, 10)
+  hero.tags = hero.tags.filter((t) => t !== 'gambler')
+  note(state, { key: 'diary.dice_quit', params: { game: { key: 'dice.game' } }, topic: 'money', score: 22, mood: 3, major: true })
+  syncTags(hero)
 }
 
 function schedule(state: GameState, eventId: string, years: number, p = 0.8): void {
@@ -306,6 +358,7 @@ function syncTags(hero: Hero): void {
     ...(fame >= 60 ? ['dice_fame60'] : []),
     ...(fame >= 90 ? ['dice_fame90'] : []),
     ...(d.shame >= 3 ? ['dice_shame'] : []),
+    ...(d.quit ? ['dice_quit'] : []),
   ])
   hero.tags = hero.tags.filter((t) => !t.startsWith('dice_') || want.has(t) || t === 'dice_legend' || t === 'lucky_dice')
   for (const t of want) if (!hero.tags.includes(t)) hero.tags.push(t)
@@ -318,12 +371,12 @@ export function diceYear(state: GameState): void {
   if (!d) return
   for (const k of Object.keys(d.fame)) d.fame[k] = Math.round(d.fame[k] * 0.75)
   let cool = d.lastYear === state.year ? 0 : 1
-  if (hero.flags.includes('v_quit_dice')) cool += 8
+  if (hero.flags.includes('v_quit_dice') || d.quit) cool += 8
   if (hero.age >= 60) cool += 2
   if (hero.tags.includes('ill')) cool += 2
   d.lust = clamp(d.lust - cool)
   // Игрок по старым событиям (v_dice_*) без зарока - азарт не ниже 30: стол его зовёт.
-  if (hero.tags.includes('gambler') && !hero.flags.includes('v_quit_dice')) d.lust = Math.max(d.lust, 30)
+  if (hero.tags.includes('gambler') && !hero.flags.includes('v_quit_dice') && !d.quit) d.lust = Math.max(d.lust, 30)
   if (hero.flags.includes('v_quit_dice') && d.lust < 30) hero.tags = hero.tags.filter((t) => t !== 'gambler')
   syncTags(hero)
 }

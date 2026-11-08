@@ -1050,3 +1050,16 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .social-links.compact { display: flex; justify-content: flex-start; margin: 10px 0 2px; max-width: none; }
 .social-links.compact a { min-width: 48px; justify-content: center; padding: 0; }
 .pixel-icon { image-rendering: pixelated; flex: none; }
+
+/* Пакет 1: кнопки выбора события оживают через полторы секунды - полоска над ними наполняется, кнопки проступают. */
+.choices.arming { position: relative; }
+.choices.arming > button { opacity: 0.45; pointer-events: none; }
+.choices > button { transition: opacity 0.25s ease-out; }
+.choices-arm { position: absolute; top: -7px; left: 0; right: 0; height: 3px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.choices-arm::after { content: ''; position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); animation: choices-arm var(--arm, 1500ms) linear forwards; }
+@keyframes choices-arm { to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .choices-arm::after { animation: none; transform: scaleX(1); opacity: 0.5; } }
+/* Ставка в кости: что ставишь (с ценой) и сколько получишь при выигрыше. */
+.dice-stake { display: flex; flex-direction: column; gap: 2px; }
+.dice-stake .dice-win { font-weight: 400; font-size: 14px; color: var(--muted); }
+.dice-ransom { display: grid; gap: 8px; }

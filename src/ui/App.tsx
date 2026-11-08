@@ -11,7 +11,7 @@ import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
 import { goalGroup, layoutB, shortFirst } from '../goal'
-import { goalMark, setGoal } from '../engine/goals'
+import { ensureGoal, goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
 import { clearAll, loadAchievements, loadPrefs, loadSave, parseSaveFile, saveAchievements, saveGame, saveMemorial, savePrefs } from '../storage'
@@ -578,6 +578,8 @@ export function App() {
       ...uniqueSettings(memorial, pending.seed),
       // Цель жизни: события с вариантом к цели выпадают чаще (только у игроков с целью).
       goalWeight: goalGroup(platform.playerId(), platform.flags) > 0 ? platform.flags.goal_weight : undefined,
+      // Контрольная группа без цели; всем остальным цель назначается всегда (ensureGoal).
+      noGoal: goalGroup(platform.playerId(), platform.flags) === 0 || undefined,
     }
     const boons = { health: used.includes('health') ? HEALTH_GIFT : 0, wealth: used.includes('chest') ? CHEST_GIFT : 0 }
     const birth = boons.health || boons.wealth ? { ...pending.birth, boons } : pending.birth
@@ -726,11 +728,11 @@ export function App() {
     if (!s || !era) return
     const st = lifeStats(s)
     st.goalAsked = true
-    if (c.id) {
-      setGoal(s, era, c.id, { tier: c.tier, inherited: c.inherited, changed: change || undefined })
-      // Шаги, засчитанные сразу (у наследника - сделанные родителем), не объявляются заново.
-      st.goalSeen = s.hero.goal!.steps.length
-    }
+    if (c.id) setGoal(s, era, c.id, { tier: c.tier, inherited: c.inherited, changed: change || undefined })
+    // Цель есть всегда: не выбрал - первая из предложенных.
+    else ensureGoal(s, era)
+    // Шаги, засчитанные сразу (у наследника - сделанные родителем), не объявляются заново.
+    st.goalSeen = s.hero.goal?.steps.length ?? 0
     persist()
     rerender(0)
   }
@@ -811,6 +813,7 @@ export function App() {
     // Дар «Вещий сон» был у предка, а не у наследника.
     game.current.settings.dreamSure = undefined
     game.current.settings.goalWeight = goalGroup(platform.playerId(), platform.flags) > 0 ? platform.flags.goal_weight : undefined
+    game.current.settings.noGoal = goalGroup(platform.playerId(), platform.flags) === 0 || undefined
     // Продолжение после конца хроники страны: с этого года - без исторических событий, вестей и справок.
     if (offChronicle.current && game.current.offChronicle === undefined) game.current.offChronicle = prevYear
     offChronicle.current = false

@@ -1,9 +1,10 @@
 // Кости (engine/dice.ts): лестница ставок по азарту, что теряется при проигрыше, жульничество, наследство.
 import { describe, expect, it } from 'vitest'
 import { loadEra } from '../src/content'
-import { autoplay } from '../src/engine/game'
+import { autoplay, choose, eligible } from '../src/engine/game'
 import { continueWithHeir, heirs, newLife } from '../src/engine/life'
-import { applyDice, diceOf, diceStakes, diceYear } from '../src/engine/dice'
+import { applyDice, DICE_QUIT_AFTER, diceOf, diceRefuse, diceStakes, diceYear, WIFE_TAKES_UNDER } from '../src/engine/dice'
+import { ANIMAL_COST, HOME_COST } from '../src/engine/household'
 import type { DiceResult, Stake } from '../src/engine/dice'
 import { makeNpc } from '../src/engine/rules'
 
@@ -99,5 +100,106 @@ describe('Кости', () => {
       const h = continueWithHeir(s, era, kid.id)
       expect(h.hero.tags).toContain(tag)
     }
+  })
+
+  it('трижды подряд отказался от стола - завязал: метка, дневник, события костей больше не выпадают; партия обнуляет счёт', () => {
+    const s = adult(21)
+    const table = era.events.find((e) => e.id === 'dice_table')!
+    const decline = () => {
+      s.queue = [{ eventId: 'dice_table', at: 0.5, outcome: null }]
+      choose(s, era, 'decline')
+      s.queue = []
+    }
+    decline()
+    decline()
+    expect(diceOf(s.hero).refused).toBe(2)
+    // Сыгранная партия - счёт отказов заново.
+    s.hero.money = 1000
+    applyDice(s, era, play(diceStakes(s, era)[0], true))
+    expect(diceOf(s.hero).refused).toBe(0)
+    for (let i = 0; i < DICE_QUIT_AFTER; i++) decline()
+    const d = diceOf(s.hero)
+    expect(d.quit).toBe(true)
+    expect(s.hero.tags).toContain('dice_quit')
+    expect(s.hero.diary.filter((e) => e.key === 'diary.dice_quit')).toHaveLength(1)
+    expect(eligible(s, era, table, true)).toBe(false)
+    // Метка не слетает с годами и азарт больше не держит у стола.
+    diceYear(s)
+    expect(s.hero.tags).toContain('dice_quit')
+    expect(s.hero.tags).not.toContain('gambler')
+    // «Назад» у стола без партии - тот же отказ: diceRefuse после завязки ничего не ломает.
+    diceRefuse(s)
+    expect(s.hero.diary.filter((e) => e.key === 'diary.dice_quit')).toHaveLength(1)
+  })
+
+  it('в автоигре отказы считаются, завязавший больше не садится за стол', () => {
+    let quit = 0
+    for (let seed = 1; seed <= 40; seed++) {
+      const s = autoplay(newLife(era, base, 300 + seed), era, 90, (opts) => {
+        const i = opts.findIndex((c) => ['decline', 'resist', 'home', 'watch', 'stop', 'stay', 'refuse'].includes(c.id))
+        return i >= 0 ? i : null
+      })
+      const d = s.hero.dice
+      if (!d?.quit) continue
+      quit++
+      const at = s.hero.diary.find((e) => e.key === 'diary.dice_quit')
+      expect(at).toBeTruthy()
+      // Само третье «нет» записывается в тот же год; дальше столов нет.
+      const after = s.hero.diary.filter((e) => e.year > at!.year && e.eventId && era.events.find((x) => x.id === e.eventId)?.dynamic === 'dice')
+      expect(after).toEqual([])
+    }
+    expect(quit).toBeGreaterThan(0)
+  })
+
+  it('у каждой ставки цена: дом - по HOME_COST, скотина - по ANIMAL_COST, земля и семья - не ноль', () => {
+    const s = adult(22)
+    const d = diceOf(s.hero)
+    d.lust = 75
+    s.hero.money = 0
+    s.hero.home = 3
+    s.hero.cls = 'landowner'
+    s.hero.animals = [{ kind: 'goat', since: s.year }, { kind: 'horse', since: s.year }, { kind: 'chickens', since: s.year }]
+    makeNpc(s, era, 'child', 'm', s.year - 12)
+    const stakes = diceStakes(s, era)
+    expect(stakes.find((x) => x.kind === 'house')!.amount).toBe(HOME_COST[3])
+    const animal = stakes.find((x) => x.kind === 'animal')!
+    expect(animal.animal).toBe('horse')
+    expect(animal.amount).toBe(ANIMAL_COST.horse)
+    for (const k of ['land', 'son'] as const) expect(stakes.find((x) => x.kind === k)!.amount).toBeGreaterThan(0)
+  })
+
+  it('проиграл скотину: можно откупиться её ценой, если хватает денег', () => {
+    const s = adult(23)
+    s.hero.animals = [{ kind: 'cow', since: s.year }]
+    s.hero.money = 500
+    const stake: Stake = { level: 3, kind: 'animal', amount: ANIMAL_COST.cow, animal: 'cow' }
+    applyDice(s, era, play(stake, false, { ransom: true }))
+    expect(s.hero.animals.map((a) => a.kind)).toEqual(['cow'])
+    expect(s.hero.money).toBe(500 - ANIMAL_COST.cow)
+    expect(s.hero.diary.some((e) => e.key === 'diary.dice_lost.animal_ransom')).toBe(true)
+    // Денег не хватает - скотину уводят, даже если хотел откупиться.
+    s.hero.money = 10
+    applyDice(s, era, play(stake, false, { ransom: true }))
+    expect(s.hero.animals).toEqual([])
+    expect(s.hero.money).toBe(10)
+  })
+
+  it('проиграл жену: 50 на 50 - один с детьми или она уводит малых; взрослые сыновья остаются в роду', () => {
+    const seen = new Set<string>()
+    for (let seed = 30; seed < 60; seed++) {
+      const s = adult(seed)
+      s.hero.sex = 'm'
+      const wife = makeNpc(s, era, 'spouse', 'f', s.year - 30)
+      const small = makeNpc(s, era, 'child', 'f', s.year - 5)
+      const grown = makeNpc(s, era, 'child', 'm', s.year - (WIFE_TAKES_UNDER + 2))
+      applyDice(s, era, play({ level: 4, kind: 'wife', amount: 300, npcId: wife.id }, false))
+      expect(wife.away).toBeTruthy()
+      expect(grown.away).toBeUndefined()
+      const key = [...s.hero.diary].reverse().find((e) => e.key.startsWith('diary.dice_lost.wife'))!.key
+      seen.add(key)
+      if (key === 'diary.dice_lost.wife_kids') expect(small.away).toBeTruthy()
+      else expect(small.away).toBeUndefined()
+    }
+    expect([...seen].sort()).toEqual(['diary.dice_lost.wife_kids', 'diary.dice_lost.wife_stay'])
   })
 })

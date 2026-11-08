@@ -71,6 +71,8 @@ describe('Цель у всех игроков (жалоба 08.11)', () => {
   it('год идёт, цель не выбрана - окно открыто; выбор без цели (с 4-й жизни) больше не спрашивается', () => {
     const era = ERAS.E03
     const s = autoplay(newLife(era, quick, 21, undefined, undefined), era, 2)
+    // Бот (autoplay) получает цель сам; игрок, которого ещё не спросили, - нет.
+    delete s.hero.goal
     s.phase = 'running'
     expect(goalDue(s, 1)).toBe(true)
     expect(goalDue(s, 0)).toBe(false)

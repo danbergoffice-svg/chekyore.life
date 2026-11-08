@@ -5,6 +5,7 @@
 // Тексты: goal.<id>.title, goal.<id>.wish, goal.<id>.step.1–4, goal.tier.1–3, diary.goal_step, diary.goal_done.
 import tiers from '../content/goal_tiers.json'
 import { aliveNpcs, note } from './rules'
+import { makeRng } from '../kids/rng'
 import type { ChoiceDef, Effect, EraDef, EraMeta, EventDef, GameState, Hero, ParamId } from './types'
 
 export type GoalId = 'freedom' | 'rise' | 'wealth' | 'keep' | 'family' | 'long' | 'master' | 'learning' | 'glory' | 'faith' | 'world' | 'love'
@@ -286,6 +287,30 @@ export function offerGoals(hero: Hero, r: () => number, exclude: GoalId[] = []):
   }
   for (const g of shuffled) if (picked.length < 3 && !picked.includes(g)) picked.push(g)
   return picked.slice(0, 3).sort((a, b) => a.tier - b.tier)
+}
+
+function hash(s: string): number {
+  let h = 2166136261
+  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619)
+  return h >>> 0
+}
+
+/** Карточки целей героя: зерно - от героя (после перезагрузки те же), поток случайности жизни не трогает. */
+export function heroGoalOffers(hero: Hero, exclude: GoalId[] = []): GoalOffer[] {
+  return offerGoals(hero, makeRng(hash(`${hero.id}:goal:${exclude.join(',')}`)), exclude)
+}
+
+/**
+ * Цель есть у каждого героя (пакет 1, 06.11): не выбрал (пропуск, бот, наследник, переезд хроники, род из мемориала) -
+ * достаётся первая из предложенных. Только контрольная группа A/B (settings.noGoal) живёт без цели.
+ */
+export function ensureGoal(state: GameState, era: EraDef | EraMeta): boolean {
+  const hero = state.hero
+  if (hero.goal || !hero.alive || state.settings.noGoal) return false
+  const first = heroGoalOffers(hero)[0]
+  if (!first) return false
+  setGoal(state, era, first.id, { tier: first.tier })
+  return true
 }
 
 /** Назначить цель (выбор игрока, смена в юности, наследник). Уже выполненные сейчас шаги засчитываются сразу. */

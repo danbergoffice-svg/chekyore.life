@@ -3,8 +3,8 @@ import { describe, expect, it } from 'vitest'
 import { ERA_IDS, ERA_META, loadAllEras } from '../src/content'
 import tiers from '../src/content/goal_tiers.json'
 import { autoplay } from '../src/engine/game'
-import { GOALS, GOAL_STEPS, goalFits, goalImpact, goalMark, goalResult, offerGoals, setGoal } from '../src/engine/goals'
-import { newLife, rollBirth } from '../src/engine/life'
+import { ensureGoal, GOALS, GOAL_STEPS, goalFits, goalImpact, goalMark, goalResult, heroGoalOffers, offerGoals, setGoal } from '../src/engine/goals'
+import { continueWithHeir, heirs, newLife, rollBirth, stateFromMemorial, summarize } from '../src/engine/life'
 import { makeRng } from '../src/kids/rng'
 import type { ChoiceDef } from '../src/engine/types'
 import { allKeys } from '../src/i18n'
@@ -77,9 +77,39 @@ describe('Цель жизни', () => {
 
   it('без цели жизнь не меняется: тот же seed - та же жизнь', () => {
     const era = ERAS.EUR
-    const a = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 4242), era)
-    const b = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false, goalWeight: 1.5 }, 4242), era)
+    // Без цели - контрольная группа A/B (noGoal): остальным цель назначается всегда.
+    const a = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false, noGoal: true }, 4242), era)
+    const b = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false, noGoal: true, goalWeight: 1.5 }, 4242), era)
     expect(b.hero.age).toBe(a.hero.age)
     expect(b.hero.diary.map((d) => d.key)).toEqual(a.hero.diary.map((d) => d.key))
+  })
+
+  it('цель есть всегда: бот, наследник, род из мемориала; не выбрал - первая из предложенных; контрольная группа - без цели', () => {
+    const era = ERAS.EUR
+    const settings = { mode: 'quick' as const, mortality: 'soft' as const, softenHeavy: false }
+    for (let seed = 1; seed <= 6; seed++) {
+      // Бот: цель появляется с первого года - первая из карточек героя.
+      const s = newLife(era, settings, 500 + seed)
+      const first = heroGoalOffers(s.hero)[0]
+      const lived = autoplay(s, era, 1)
+      expect(lived.hero.goal?.id).toBe(first.id)
+      // Наследник (и переезд хроники - тот же путь): своя цель с первого года.
+      const old = autoplay(newLife(era, { ...settings, protectedUntil: 70 }, 600 + seed), era, 130)
+      const kids = heirs(old)
+      if (!kids.length) continue
+      const heir = continueWithHeir(old, era, kids[0].id)
+      expect(heir.hero.goal).toBeUndefined()
+      autoplay(heir, era, 1)
+      expect(heir.hero.goal).toBeTruthy()
+      // Род из мемориала: у наследника тоже будет цель.
+      const life = summarize(old, era)
+      const back = stateFromMemorial(era, life, [life], settings)
+      const next = continueWithHeir(back, era, heirs(back)[0].id)
+      expect(ensureGoal(next, era)).toBe(true)
+      expect(next.hero.goal?.id).toBe(heroGoalOffers(next.hero)[0].id)
+    }
+    // Контрольная группа A/B: без цели.
+    const control = autoplay(newLife(era, { ...settings, noGoal: true }, 77), era, 3)
+    expect(control.hero.goal).toBeUndefined()
   })
 })
