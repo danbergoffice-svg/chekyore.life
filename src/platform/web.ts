@@ -80,6 +80,9 @@ const AGGREGATED: Record<string, [string, string]> = {
   next_event_click: ['', 'next_events'],
   historian_open: ['', 'historian'],
   people_open: ['', 'people'],
+  // Эмоциональная память: за жизнь их бывает с десяток - считаем по родству, одним полем в session_end.
+  emotional_event_created: ['role', 'emotions'],
+  emotional_event_resolved: ['role', 'emotions_resolved'],
 }
 let counts: Record<string, Record<string, number>> = {}
 

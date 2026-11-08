@@ -98,6 +98,10 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   (12 целей по 4 шага, шаги по состоянию героя в конце года, `goalImpact` - метки ▲▼ из эффектов вариантов), `Hero.goal`,
   трудность «Спокойная/Смелая/Почти невозможная» - по доле исполнивших в симуляции `src/content/goal_tiers.json`
   (`npm run goals 400` после правок порогов или контента), тексты `goal.*` RU/EN/TR, тест `tests/goals.test.ts`.
+- Семейная система (ТЗ «техническая декомпозиция семейной системы», 08.11), этап 1 — эмоции: `src/engine/emotions.ts`
+  (`rememberEmotion` из `killNpc`, `emotionsYear` раз в год в `startYear`, `resolveEmotion`), правила — `src/content/emotions.json`,
+  память — `Hero.emotionalMemories` (сохранение v6), удар — только в `hidden.happiness/stress`; у NPC — `deathCause`
+  (`killNpc(state, npc, cause?)`, эффект `kill_npc` + `cause`). Аналитика `emotional_event_*` копится в session_end. Тест — `tests/emotions.test.ts`.
 - Сны о будущем (`docs/TZ_dreams.md`, **сделано**, этапы 1–4): движок — `src/engine/dreams.ts` (свой поток случайности
   `dreamRng`, не трогает остальную жизнь), формулы — `src/engine/formula.ts`, каталог — `src/content/dreams.json`, тексты —
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —

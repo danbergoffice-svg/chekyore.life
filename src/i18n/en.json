@@ -132,6 +132,7 @@
   "diary.away_married_far": "{who} married in a distant land and stayed there.",
   "diary.returned": "{who} came home after a long separation.",
   "diary.death_far": "News came from afar: {role} {who} died in a foreign land.",
+  "diary.grief_eased": "Time heals: {role} {who} is still remembered, but the pain of loss has eased.",
   "rel.father": "your father",
   "rel.mother": "your mother",
   "rel.spouse": "your {g=sex:husband|wife}",

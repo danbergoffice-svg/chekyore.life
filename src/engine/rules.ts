@@ -8,6 +8,7 @@ import { ATTRIBUTES, HIDDEN } from './types'
 import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
 import { diceEffect } from './dice'
 import { buyEstate, canBuy, loseEstate } from './estate'
+import { rememberEmotion } from './emotions'
 
 // ---------- Годы ----------
 // Года хранятся исторически: -44 - это 44 г. до н.э., нулевого года нет.
@@ -547,7 +548,7 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       }
     } else if ('kill_npc' in e) {
       const npc = targets(state, e.kill_npc, ctx)[0]
-      if (npc) killNpc(state, npc)
+      if (npc) killNpc(state, npc, e.cause)
     } else if ('kill' in e) {
       if (hero.alive && isProtected(state)) rescue(state, e.kill)
       else if (hero.alive) {
@@ -650,16 +651,17 @@ function homeEffect(state: GameState, kind: 'burn' | 'ruin' | 'rebuild'): void {
   note(state, { key: kind === 'burn' ? 'diary.home_burned' : 'diary.home_ruined', topic: 'money', icon: 'disaster', score: 32, mood: -8, major: true })
 }
 
-export function killNpc(state: GameState, npc: Npc): void {
+export function killNpc(state: GameState, npc: Npc, cause?: string): void {
   const hero = state.hero
   npc.alive = false
   npc.deathYear = state.year
+  if (cause) npc.deathCause = cause
   if (npc.role === 'spouse' && !npc.away) hero.tags = hero.tags.filter((t) => t !== 'married')
   if (npc.away) {
     // Умер вдали: только весть, горе тише.
     if (KIN.includes(npc.role) && npc.away.reason !== 'divorced') {
       note(state, { key: 'diary.death_far', params: { who: { name: npc.name }, sex: npc.sex, role: { key: `rel.${npc.role}`, sex: npc.sex } }, topic: 'family', icon: 'death', score: 18, mood: -6, major: npc.role === 'child' })
-      changeParam(hero, 'happiness', -6)
+      rememberEmotion(state, 'grief_far', npc, { cause, far: true })
     }
     return
   }
@@ -674,8 +676,8 @@ export function killNpc(state: GameState, npc: Npc): void {
       score: close ? 35 : 15,
       mood: close ? -15 : -6,
     })
-    changeParam(hero, 'happiness', close ? -15 : -6)
-    changeParam(hero, 'stress', close ? 10 : 4)
+    // Удар по счастью и стрессу - по силе горя (родство, возраст, характер, отношения, причина).
+    rememberEmotion(state, 'grief', npc, { cause })
   }
 }
 

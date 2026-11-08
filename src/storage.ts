@@ -53,7 +53,7 @@ const put = (key: string, value: unknown) => platform.save(key, value)
 
 const OLD_FAITH: Record<string, string> = { rome: 'roman_gods', athens: 'roman_gods', egypt: 'egyptian_gods' }
 
-/** Миграции сохранений между версиями. 3 → 4: у героя появилась вера. */
+/** Миграции сохранений между версиями. 3 → 4: у героя появилась вера. Мемориал не версионируется и не теряется. */
 export function migrate(game: GameState | undefined): GameState | null {
   if (!game || typeof game !== 'object') return null
   if (game.version === 3) {
@@ -62,6 +62,11 @@ export function migrate(game: GameState | undefined): GameState | null {
   }
   // 4 → 5: сон о будущем (поле dream, hero.dreamSeen) - в старых жизнях сна не было, менять нечего.
   if (game.version === 4) game.version = 5
+  // 5 → 6: эмоциональная память (hero.emotionalMemories) - у старых жизней пустая; родные, умершие раньше, без причины смерти.
+  if (game.version === 5) {
+    game.hero.emotionalMemories ??= []
+    game.version = 6
+  }
   if (game.version !== SAVE_VERSION) return null
   return game
 }

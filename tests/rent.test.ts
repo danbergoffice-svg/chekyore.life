@@ -71,9 +71,11 @@ describe('Проигранный дом и аренда', () => {
   it('аренду списывают раз в год', () => {
     const s = adult(4)
     loseHouse(s, 2)
-    s.hero.money = 300
+    expect(s.hero.rent).toBeDefined()
+    // Меньше цены самой дешёвой хижины - выкупать не на что, только платить.
+    s.hero.money = HOME_COST[1] - 1
     householdYear(s, era)
-    expect(s.hero.money).toBe(300 - s.hero.rent!.perYear)
+    expect(s.hero.money).toBe(HOME_COST[1] - 1 - s.hero.rent!.perYear)
   })
 
   it('появились деньги - выкупает свой дом, и аренда кончается', () => {

@@ -8,7 +8,7 @@ import { ATTRIBUTES } from './types'
 import type { AttrId, AwayReason, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
 import { diceInherit } from './dice'
 
-export const SAVE_VERSION = 5
+export const SAVE_VERSION = 6
 
 /** Где, когда и кем родиться: результат лотереи рождения. */
 export interface Birth {

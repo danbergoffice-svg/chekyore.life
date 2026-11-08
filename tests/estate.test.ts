@@ -206,8 +206,9 @@ describe('Кости, наследство, мемориал', () => {
 
   it('наследник получает землю и рабов по обычаю края; в итоге и мемориале они сохраняются', () => {
     let s: GameState = autoplay(newLife(E03, base, 600), E03)
-    for (let i = 0; i < 40 && !heirs(s).length; i++) s = autoplay(newLife(E03, base, 601 + i), E03)
-    const kid = heirs(s)[0]
+    // Наследник-сын: в краях, где землю наследуют сыновья, дочь при братьях её не получает.
+    for (let i = 0; i < 40 && !heirs(s).some((k) => k.sex === 'm'); i++) s = autoplay(newLife(E03, base, 601 + i), E03)
+    const kid = heirs(s).find((k) => k.sex === 'm')!
     expect(kid).toBeDefined()
     s.hero.land = 4
     s.hero.slaves = 3

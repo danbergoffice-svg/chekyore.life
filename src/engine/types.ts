@@ -487,6 +487,23 @@ export interface EventDef {
 
 // ---------- Состояние игры ----------
 
+/** Тип эмоционального следа (src/engine/emotions.ts): горе о близком рядом или весть о смерти вдали. */
+export type EmotionalEventType = 'grief' | 'grief_far'
+
+/** Эмоциональная память героя: сила при событии, текущая (затухает раз в год), год, когда утихла. */
+export interface EmotionalMemory {
+  type: EmotionalEventType
+  year: number
+  npcId?: string
+  role?: NpcRole
+  name?: string
+  sex?: Sex
+  cause?: string
+  intensity: number
+  current: number
+  resolved?: number
+}
+
 export interface Npc {
   id: string
   role: NpcRole
@@ -497,6 +514,8 @@ export interface Npc {
   attitude: number
   alive: boolean
   deathYear?: number
+  /** Причина смерти (id из cause.*: illness, accident, old_age, childbirth…); нет - смерть до 08.11.2026 или неизвестна. */
+  deathCause?: string
   /** С какого года рядом (для супругов - год свадьбы). */
   since?: number
   /** Для внуков: id ребёнка героя. */
@@ -674,6 +693,8 @@ export interface Hero {
   body?: number
   /** Животные хозяйства и домашние любимцы. */
   animals: Animal[]
+  /** Эмоциональная память (src/engine/emotions.ts); нет поля - сохранение до версии 6 или ещё нечего помнить. */
+  emotionalMemories?: EmotionalMemory[]
   /** Возраст последнего поворотного момента. */
   lastTurning: number
   deathYear?: number

@@ -132,6 +132,7 @@
   "diary.away_married_far": "{who} uzak bir diyarda evlendi ve orada kaldı.",
   "diary.returned": "{who} uzun bir ayrılıktan sonra eve döndü.",
   "diary.death_far": "Uzaklardan haber geldi: {role} {who} yabancı bir diyarda öldü.",
+  "diary.grief_eased": "Zaman iyileştiriyor: {role} {who} hâlâ akılda, ama kaybın acısı dindi.",
   "rel.father": "baban",
   "rel.mother": "annen",
   "rel.spouse": "eşin",

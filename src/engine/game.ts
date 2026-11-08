@@ -29,6 +29,7 @@ import {
   bandOf,
 } from './rules'
 import { householdYear } from './household'
+import { emotionsYear } from './emotions'
 import { pets } from './pets'
 import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
@@ -107,6 +108,8 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   }
   if (hero.profession && hero.age >= era.stages.youth) addPattern(hero, era.patternWeights.profession[hero.profession])
   applyLifestyle(state, era)
+  // Старые утраты тянут вниз и затухают - раз в год, до новых событий года.
+  emotionsYear(state)
   // Хроника края кончилась при жизни героя - семья перебирается туда, где история продолжается (в своей стране).
   const moved = chronicleSuccessor(state, 0)
   if (moved && moved.era === hero.era) {
@@ -307,7 +310,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
         const risk = era.mortality.childbirth * (state.settings.mortality === 'soft' ? 0.5 : 1) * (hero.tags.includes('clean_births') ? 0.5 : 1)
         if (chance(state, risk)) {
           if (hero.sex === 'f') applyEffects(state, era, [{ kill: 'childbirth' }])
-          else killNpc(state, spouse)
+          else killNpc(state, spouse, 'childbirth')
         }
       }
     }
@@ -371,9 +374,14 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   // Новорождённых в год рождения не трогаем: иначе имя выбирают ребёнку, которого в ленте уже нет.
   for (const npc of hero.npcs) {
     if (!npc.alive || npc.birthYear === state.year) continue
-    if (chance(state, npcMortality(state, era, npc))) killNpc(state, npc)
+    if (chance(state, npcMortality(state, era, npc))) killNpc(state, npc, naturalCause(npcAge(npc, state.year)))
   }
   return births.filter((b) => b.alive)
+}
+
+/** Причина «естественной» смерти родного по возрасту: младенец - детская хворь, старик - старость, иначе болезнь. */
+function naturalCause(age: number): string {
+  return age < 5 ? 'infant_illness' : age >= 60 ? 'old_age' : 'illness'
 }
 
 function npcMortality(state: GameState, era: EraDef, npc: Npc): number {

@@ -2,6 +2,14 @@
 import type { LifeSummary } from './engine/types'
 import type { GameState, LifeStats } from './engine/types'
 import { platform } from './platform'
+import { onEmotion } from './engine/emotions'
+
+// Эмоциональная память (engine/emotions.ts): след появился и утих.
+onEmotion((kind, m, state) => {
+  const params = { type: m.type, role: m.role ?? '', intensity: m.intensity, cause: m.cause ?? '', age: state.hero.age, region: state.hero.region }
+  if (kind === 'created') platform.track('emotional_event_created', params)
+  else platform.track('emotional_event_resolved', { ...params, years: (m.resolved ?? state.year) - m.year })
+})
 
 const MILESTONES = [5, 10, 15, 20, 30, 40, 50, 60, 70]
 
