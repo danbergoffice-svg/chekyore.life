@@ -75,3 +75,133 @@ describe('Торговля и мастерство', () => {
     expect(riskChance(s, choice)).toBeCloseTo(0.55)
   })
 })
+
+// ---------- Рынок и личная торговля (ТЗ семейной системы, этап 4, п. 5.6) ----------
+import { loadAllEras } from '../src/content'
+import { buyGoods, buyPrice, capacity, initializeTrade, marketGoods, marketPrice, onTradeEvent, sellGoods, sellPrice, stockOf, tradeYear } from '../src/engine/trade'
+import { acquireAsset, initializeEstate } from '../src/engine/estate'
+import { SAVE_VERSION } from '../src/engine/life'
+import { migrate } from '../src/storage'
+import type { EraDef, GameState } from '../src/engine/types'
+
+const ALL = await loadAllEras()
+
+function merchant(e: EraDef, seed = 5, money = 5000): GameState {
+  const s = newLife(e, base, seed)
+  s.hero.age = 30
+  s.hero.cls = 'trader'
+  s.hero.money = money
+  s.hero.skills.trade = 0
+  s.hero.region = e.regions.find((r) => !(r.tags ?? []).includes('rural'))!.id
+  initializeTrade(s)
+  initializeEstate(s)
+  return s
+}
+
+describe('Рынок (5.6)', () => {
+  it('товары по стране: вино - где вино, какао - у майя и ацтеков, шёлк - где пути шёлка', () => {
+    const ids = (id: string) => marketGoods(ALL[id]).map((g) => g.id)
+    expect(ids('EUR')).toContain('wine')
+    expect(ids('MNG')).not.toContain('wine')
+    expect(ids('AMR')).toContain('cacao')
+    expect(ids('EUR')).not.toContain('cacao')
+    expect(ids('CHN')).toContain('silk')
+    for (const id of Object.keys(ALL)) expect(ids(id).length, id).toBeGreaterThanOrEqual(3)
+  })
+
+  it('нельзя купить без денег и сверх места; нельзя продать больше, чем есть', () => {
+    const s = merchant(era, 5, 10)
+    expect(buyGoods(s, 'cloth', 5).error).toBe('no_money')
+    s.hero.money = 1e6
+    expect(buyGoods(s, 'grain', capacity(s) + 1).error).toBe('no_space')
+    expect(buyGoods(s, 'grain', 0).error).toBe('bad_quantity')
+    expect(buyGoods(s, 'grain', 20).ok).toBe(true)
+    expect(buyGoods(s, 'salt', 1).error).toBe('no_space')
+    expect(sellGoods(s, 'grain', 21).error).toBe('no_stock')
+    expect(sellGoods(s, 'salt', 1).error).toBe('no_stock')
+    expect(buyGoods(s, 'cacao', 1).error).toBe('no_good')
+    const kid = merchant(era)
+    kid.hero.age = 10
+    expect(buyGoods(kid, 'salt', 1).error).toBe('young')
+  })
+
+  it('склад и лавка рода дают место под запас', () => {
+    const s = merchant(era, 5, 1e5)
+    const before = capacity(s)
+    acquireAsset(s, { type: 'shop' })
+    expect(capacity(s)).toBeGreaterThan(before)
+  })
+
+  it('прибыль считается от средней цены закупки; изменение цены не меняет совершённую сделку', () => {
+    const s = merchant(era, 5, 1e5)
+    const p1 = buyPrice(s, 'cloth')
+    expect(buyGoods(s, 'cloth', 4).money).toBe(p1 * 4)
+    s.year++
+    const p2 = buyPrice(s, 'cloth')
+    buyGoods(s, 'cloth', 6)
+    const avg = (p1 * 4 + p2 * 6) / 10
+    expect(s.family.trade!.inventory.goods[0].averagePrice).toBeCloseTo(avg, 6)
+    s.year++
+    const sp = sellPrice(s, 'cloth')
+    const r = sellGoods(s, 'cloth', 10)
+    expect(r.money).toBe(sp * 10)
+    expect(r.profit).toBe(Math.round(sp * 10 - avg * 10))
+    expect(s.family.trade!.profit).toBe(r.profit)
+  })
+
+  it('цена года одна и та же при повторном взгляде и не тратит поток случайности; одинаковый род - одинаковые цены', () => {
+    const a = merchant(era, 7)
+    const b = merchant(era, 7)
+    const rng = a.rng
+    for (let i = 0; i < 20; i++) marketPrice(a, 'iron')
+    expect(a.rng).toBe(rng)
+    expect(marketPrice(a, 'iron')).toBe(marketPrice(b, 'iron'))
+    a.year++
+    const prices = new Set(Array.from({ length: 30 }, (_, i) => marketPrice({ ...a, year: a.year + i } as GameState, 'iron')))
+    expect(prices.size).toBeGreaterThan(5)
+  })
+
+  it('торговля - не бесконечные деньги: купить и тут же продать - убыток; 200 лет случайной торговли - без взрыва денег', () => {
+    for (const good of ['grain', 'cloth', 'iron', 'wine']) {
+      const s = merchant(era, 5, 1e5)
+      buyGoods(s, good, 10)
+      expect(sellGoods(s, good, 10).profit!).toBeLessThan(0)
+    }
+    // Простая стратегия: дёшево (ниже базовой) - купить, дорого - продать; запас портится.
+    const s = merchant(era, 9, 2000)
+    s.hero.skills.trade = 100
+    for (let y = 0; y < 200; y++) {
+      s.year++
+      tradeYear(s)
+      for (const g of marketGoods(era)) {
+        const p = marketPrice(s, g.id)
+        if (p < g.price * 0.85) buyGoods(s, g.id, Math.min(5, Math.floor((capacity(s) - s.family.trade!.inventory.goods.reduce((x, i) => x + i.quantity, 0)) / 2)) || 1)
+        else if (p > g.price * 1.15 && stockOf(s, g.id)) sellGoods(s, g.id, stockOf(s, g.id))
+      }
+    }
+    // С навыком 100 за 200 лет - доход есть, но в пределах нескольких десятков тысяч, не миллионы.
+    expect(s.hero.money).toBeLessThan(200000)
+  })
+
+  it('запас портится; аналитика сделок', () => {
+    const got: string[] = []
+    onTradeEvent((k) => got.push(k))
+    const s = merchant(era, 5, 1e5)
+    buyGoods(s, 'grain', 20)
+    for (let y = 0; y < 5; y++) tradeYear(s)
+    expect(stockOf(s, 'grain')).toBeLessThan(20)
+    sellGoods(s, 'grain', stockOf(s, 'grain'))
+    onTradeEvent(undefined)
+    expect(got).toEqual(['trade_started', 'trade_completed'])
+  })
+
+  it(`старое сохранение без торговли: миграция до ${SAVE_VERSION}, пустой запас`, () => {
+    const s = autoplay(newLife(era, base, 3), era, 10)
+    const old = JSON.parse(JSON.stringify(s)) as GameState
+    old.version = 8
+    delete old.family.trade
+    const m = migrate(old)!
+    expect(m.version).toBe(SAVE_VERSION)
+    expect(m.family.trade).toEqual({ inventory: { goods: [], capacity: 20 }, businesses: [] })
+  })
+})

@@ -78,6 +78,11 @@ export function migrate(game: GameState | undefined): GameState | null {
     game.family.estate ??= { assets: [], debts: 0 }
     game.version = 8
   }
+  // 8 → 9: торговля и дела рода - пустой запас, дел нет.
+  if (game.version === 8) {
+    game.family.trade ??= { inventory: { goods: [], capacity: 20 }, businesses: [] }
+    game.version = 9
+  }
   if (game.version !== SAVE_VERSION) return null
   return game
 }

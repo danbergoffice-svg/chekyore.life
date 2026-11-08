@@ -109,6 +109,11 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   (покупка, продажа, улучшение, залог; `assetsYear` внутри `estateYear` — один годовой расчёт), завещание и раздел —
   `src/engine/inheritance.ts` (`estateForHeir` в `continueWithHeir`), правила — `src/content/assets.json`, `EraMeta.assets.exclude`;
   дом/скот/наделы/рабы остаются в Hero (п. 4.6). Сохранение v8, `LifeSummary.estateSnapshot`. UI — `src/ui/Estate.tsx` на вкладке «Герой». Тест — `tests/inheritance.test.ts`.
+  Этап 4 — торговля и дела: рынок `src/engine/trade.ts` (товары по features страны — `src/content/goods.json`; цена года — хеш
+  род/край/год/товар, поток случайности не тратит; разница торговца, запас портится в `tradeYear`), товарищества `src/engine/business.ts`
+  (`src/content/business.json`: артель, торговый дом, караван, морская торговля; форма по стране — societas, мудараба, артель…;
+  компаньоны с долями, `businessYear`, ссоры, разорение, `closeBusiness`). Хранятся в `Family.trade` (сохранение v9, `LifeSummary.tradeSnapshot`),
+  переходят наследнику. UI — `src/ui/Trade.tsx` на вкладке «Герой». Тесты — `tests/trade.test.ts` (рынок), `tests/business.test.ts`.
 - Сны о будущем (`docs/TZ_dreams.md`, **сделано**, этапы 1–4): движок — `src/engine/dreams.ts` (свой поток случайности
   `dreamRng`, не трогает остальную жизнь), формулы — `src/engine/formula.ts`, каталог — `src/content/dreams.json`, тексты —
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —

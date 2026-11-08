@@ -815,6 +815,8 @@ export interface LifeSummary {
   animals?: Animal[]
   /** Семейное имущество на момент смерти (до раздела) - для итога и продолжения рода из мемориала. */
   estateSnapshot?: Estate
+  /** Торговый запас и дела рода на момент смерти. */
+  tradeSnapshot?: FamilyTrade
   /** Хозяйство на момент смерти: дом, съёмное жильё, наделы, рабы - для итога и продолжения рода из мемориала. */
   home?: number
   rent?: Hero['rent']
@@ -829,6 +831,55 @@ export interface Family {
   flags: string[]
   /** Семейное имущество (src/engine/estate.ts): переживает смену поколений. Нет - сохранение до версии 8. */
   estate?: Estate
+  /** Торговый запас и предприятия рода (src/engine/trade.ts, business.ts). Нет - сохранение до версии 9. */
+  trade?: FamilyTrade
+}
+
+export interface TradeGood {
+  id: string
+  quantity: number
+  /** Средняя цена закупки за меру (для прибыли). */
+  averagePrice: number
+}
+
+export interface TradeInventory {
+  goods: TradeGood[]
+  capacity: number
+}
+
+export interface BusinessPartner {
+  npcId: string
+  /** Имя на момент вступления (если человек уйдёт или умрёт, строка не сломается). */
+  name?: string
+  share: number
+  role: string
+}
+
+export interface Business {
+  id: string
+  type: string
+  name: string
+  region: string
+  /** Капитал товарищества сейчас и при основании. */
+  capital: number
+  initial?: number
+  /** Компаньоны; доля героя = 1 − сумма их долей. Ключ героя - не нужен: дело всегда рода. */
+  partners: BusinessPartner[]
+  inventory: TradeInventory
+  /** Итог прошлого года: доход и расходы всего дела. */
+  income: number
+  expenses: number
+  reputation: number
+  active: boolean
+  foundedYear?: number
+  closedYear?: number
+}
+
+export interface FamilyTrade {
+  inventory: TradeInventory
+  businesses: Business[]
+  /** Итог личной торговли за всё время рода (прибыль минус убыток). */
+  profit?: number
 }
 
 /** Вид семейного актива. Наделы земли пока считаются в Hero.land (совместимость), здесь - хозяйства и дела. */

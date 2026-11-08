@@ -1,0 +1,25 @@
+{
+  "_doc": "Рынок (src/engine/trade.ts). Товар есть в стране, если у неё есть хоть что-то из needs (features) или она в eras. price - базовая цена за меру; spoil - доля, что портится или пропадает за год в запасе; local - край с этой меткой дешевле (свой товар), import - товар издалека: в порту дешевле, в глубинке дороже.",
+  "goods": [
+    { "id": "grain", "price": 10, "spoil": 0.12, "local": "rural" },
+    { "id": "salt", "price": 16, "spoil": 0.02 },
+    { "id": "cloth", "price": 26, "spoil": 0.04 },
+    { "id": "wine", "price": 30, "spoil": 0.06, "needs": ["wine"] },
+    { "id": "olive_oil", "price": 28, "spoil": 0.05, "needs": ["olive"] },
+    { "id": "rice", "price": 12, "spoil": 0.1, "needs": ["rice"], "local": "rural" },
+    { "id": "tea", "price": 40, "spoil": 0.06, "needs": ["tea"] },
+    { "id": "iron", "price": 36, "spoil": 0.01, "needs": ["iron"] },
+    { "id": "paper", "price": 32, "spoil": 0.03, "needs": ["paper"] },
+    { "id": "furs", "price": 60, "spoil": 0.04, "needs": ["snow"] },
+    { "id": "horses", "price": 120, "spoil": 0.08, "needs": ["horses"] },
+    { "id": "spices", "price": 80, "spoil": 0.03, "needs": ["sea", "camels"], "import": true },
+    { "id": "silk", "price": 95, "spoil": 0.02, "needs": ["paper", "camels"], "import": true },
+    { "id": "cacao", "price": 34, "spoil": 0.05, "eras": ["AMR", "MAY"] },
+    { "id": "obsidian", "price": 22, "spoil": 0, "eras": ["AMR", "MAY"] }
+  ],
+  "shock": [0.7, 1.4],
+  "region": { "capital": 1.2, "local": 0.8, "importPort": 0.85, "importInland": 1.15 },
+  "spread": { "base": 0.1, "perSkill": 0.0008, "min": 0.04 },
+  "capacity": { "base": 20, "warehouse": 40, "shop": 10 },
+  "maxBuy": 50
+}

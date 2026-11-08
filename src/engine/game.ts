@@ -31,6 +31,8 @@ import {
 import { householdYear } from './household'
 import { emotionsYear } from './emotions'
 import { childOutcome, childrenYear } from './children'
+import { tradeYear } from './trade'
+import { businessYear } from './business'
 import { pets } from './pets'
 import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
@@ -120,6 +122,9 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   emotionsYear(state)
   // Дети: воспитание и учёба (плата за год, окончание, отказ подростка).
   childrenYear(state, era)
+  // Торговля и дела рода: запас портится, товарищества приносят прибыль или убыток.
+  tradeYear(state)
+  businessYear(state)
   // Хроника края кончилась при жизни героя - семья перебирается туда, где история продолжается (в своей стране).
   const moved = chronicleSuccessor(state, 0)
   if (moved && moved.era === hero.era) {

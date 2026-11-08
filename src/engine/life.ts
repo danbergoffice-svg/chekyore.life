@@ -10,7 +10,7 @@ import { ATTRIBUTES } from './types'
 import type { AttrId, AwayReason, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
 import { diceInherit } from './dice'
 
-export const SAVE_VERSION = 8
+export const SAVE_VERSION = 9
 
 /** Где, когда и кем родиться: результат лотереи рождения. */
 export interface Birth {
@@ -143,7 +143,7 @@ export function newLife(era: EraDef | EraMeta, settings: GameSettings, seed: num
     version: SAVE_VERSION,
     year: 0,
     hero,
-    family: family ?? { id: '', lives: [], flags: [], estate: { assets: [], debts: 0 } },
+    family: family ?? { id: '', lives: [], flags: [], estate: { assets: [], debts: 0 }, trade: { inventory: { goods: [], capacity: 20 }, businesses: [] } },
     rng: seed,
     phase: 'year',
     queue: [],
@@ -245,6 +245,7 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     land: h.land,
     slaves: h.slaves,
     estateSnapshot: state.family.estate?.assets.length ? structuredClone(state.family.estate) : undefined,
+    tradeSnapshot: state.family.trade && (state.family.trade.businesses.length || state.family.trade.inventory.goods.length) ? structuredClone(state.family.trade) : undefined,
   }
 }
 
@@ -292,7 +293,7 @@ export function stateFromMemorial(era: EraDef, life: LifeSummary, memorial: Life
     goal: life.goal,
     dreamSeen: life.dreamSeen,
   })
-  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [], estate: life.estateSnapshot ? structuredClone(life.estateSnapshot) : { assets: [], debts: 0 } }
+  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [], estate: life.estateSnapshot ? structuredClone(life.estateSnapshot) : { assets: [], debts: 0 }, trade: life.tradeSnapshot ? structuredClone(life.tradeSnapshot) : { inventory: { goods: [], capacity: 20 }, businesses: [] } }
   s.year = life.deathYear
   s.offChronicle = life.offChronicle
   s.phase = 'dead'
@@ -584,6 +585,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     if (hero.land || hero.slaves) hero.diary.push({ year: prev.year, age: hero.age, key: `diary.estate_inherited_${hero.land && hero.slaves ? 'both' : hero.land ? 'land' : 'slaves'}`, params: { land: hero.land ?? 0, slaves: hero.slaves ?? 0 }, reg: hero.region, rel: hero.religion, topic: 'money', score: 30 })
     // Семейные активы - по завещанию или обычаю (inheritance.ts).
     estateForHeir(prev, state, era, heirs(prev), child.id)
+    // Дела рода (товарищества) и торговый запас остаются роду - ведёт их наследник.
+    const deals = (prev.family.trade?.businesses ?? []).filter((b) => b.active).length
+    if (deals) hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.inherit_business', params: { n: deals }, reg: hero.region, rel: hero.religion, topic: 'money', score: 26 })
   }
   if (gen > 1) {
     familyOfDescendant(state, era, parent, child)

@@ -5,6 +5,12 @@ import { platform } from './platform'
 import { onEmotion } from './engine/emotions'
 import { onChildEvent } from './engine/children'
 import { onEstateEvent } from './engine/estate'
+import { onTradeEvent } from './engine/trade'
+import { onBusinessEvent } from './engine/business'
+
+// Торговля и дела рода.
+onTradeEvent((kind, state, params) => platform.track(kind, { ...params, age: state.hero.age, region: state.hero.region }))
+onBusinessEvent((kind, state, params) => platform.track(kind, { ...params, age: state.hero.age, region: state.hero.region, generation: state.hero.generation }))
 
 // Имущество: покупка, продажа, завещание, раздел наследства.
 onEstateEvent((kind, state, params) => {

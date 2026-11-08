@@ -1,0 +1,32 @@
+{
+  "_doc": "Предприятия (src/engine/business.ts). capital - наименьший вклад; return - средний доход на капитал за год (до расходов), expenses - доля капитала на расходы; needs - хоть что-то из features страны; skill - навык героя, который поднимает доход. forms - как такое товарищество называлось в стране (текст business.form.<id>).",
+  "types": [
+    { "id": "artel", "capital": 300, "return": 0.2, "expenses": 0.08, "skill": "craft", "classes": ["peasant", "craftsman", "trader", "landowner"] },
+    { "id": "trading_house", "capital": 800, "return": 0.24, "expenses": 0.1, "skill": "trade", "classes": ["craftsman", "trader", "landowner", "noble"] },
+    { "id": "caravan", "capital": 1200, "return": 0.32, "expenses": 0.12, "skill": "trade", "needs": ["camels", "horses", "llamas"], "classes": ["trader", "landowner", "noble"] },
+    { "id": "shipping", "capital": 1500, "return": 0.34, "expenses": 0.13, "skill": "seafaring", "needs": ["sea"], "classes": ["trader", "landowner", "noble"] }
+  ],
+  "forms": {
+    "E03": "societas",
+    "ANE": "tamkarum",
+    "BYZ": "chreokoinonia",
+    "ISL": "mudaraba",
+    "EUR": "compagnia",
+    "RUS": "artel",
+    "MNG": "ortogh",
+    "CHN": "hang",
+    "JPN": "za",
+    "IND": "shreni",
+    "WAF": "jula",
+    "ETH": "guild",
+    "AMR": "pochteca",
+    "MAY": "pochteca"
+  },
+  "luck": [4, 16],
+  "skillBonus": 0.004,
+  "reputation": { "start": 30, "good": 3, "bad": -5 },
+  "bankrupt": 0.3,
+  "conflict": { "chance": 0.06, "attitudeBelow": 20 },
+  "maxActive": 3,
+  "partnerMinAge": 16
+}

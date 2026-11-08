@@ -40,6 +40,7 @@ import { Icon, IconText } from './Icon'
 import { EarlyGame } from '../kids/EarlyGame'
 import { Children } from './Children'
 import { Estate } from './Estate'
+import { Trade } from './Trade'
 import { GOAL_STEPS, goalMark } from '../engine/goals'
 import type { GoalId } from '../engine/goals'
 import type { GoalGroup } from '../goal'
@@ -551,6 +552,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           )}
           <Lifestyle state={state} era={era} coin={coin} onChange={onLifestyle} />
           <Estate state={state} era={era} onChange={() => onFamily?.()} />
+          <Trade state={state} era={era} onChange={() => onFamily?.()} />
           <h2 class="section-title">{t('hero.traits')}</h2>
           <p>{hero.traits.map((tr) => t(`trait.${tr}`)).join(', ')}</p>
           <h2 class="section-title">{t('hero.skills')}</h2>
