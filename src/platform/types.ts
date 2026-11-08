@@ -88,7 +88,7 @@ export const DEFAULT_FLAGS: Flags = {
   goal_change_age: 16,
   goal_free_from: 4,
   short_first_share: 0.5,
-  layout_share: 0.5,
+  layout_share: 1,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'
