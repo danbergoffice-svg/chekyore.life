@@ -54,7 +54,7 @@ const put = (key: string, value: unknown) => platform.save(key, value)
 const OLD_FAITH: Record<string, string> = { rome: 'roman_gods', athens: 'roman_gods', egypt: 'egyptian_gods' }
 
 /** Миграции сохранений между версиями. 3 → 4: у героя появилась вера. */
-function migrate(game: GameState | undefined): GameState | null {
+export function migrate(game: GameState | undefined): GameState | null {
   if (!game || typeof game !== 'object') return null
   if (game.version === 3) {
     game.hero.religion ??= OLD_FAITH[game.hero.region] ?? 'roman_gods'

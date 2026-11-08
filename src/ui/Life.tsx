@@ -41,6 +41,7 @@ import { EarlyGame } from '../kids/EarlyGame'
 import { GOAL_STEPS, goalMark } from '../engine/goals'
 import type { GoalId } from '../engine/goals'
 import type { GoalGroup } from '../goal'
+import { goalDue as isGoalDue } from '../goal'
 import { GoalBar, GoalPick } from './GoalPick'
 import { HudHeader, MilestoneChip, TimeBar } from './LifeHud'
 import { Tour } from './Tour'
@@ -175,8 +176,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   // Ранняя детская игра: раз за жизнь в kids_age лет (после 1–2 событий детства), у доли kids_share игроков.
   const f = platform.flags
   const kidsDue = !!onKids && state.phase === 'year' && f.kids_age > 0 && hero.age === f.kids_age && !lifeStats(state).kids && kidsOn(platform.playerId(), f)
-  // Цель жизни: перед первым годом (после лотереи; у наследника - в начале его жизни), один раз за жизнь.
-  const goalDue = !!goal && goal.group > 0 && state.phase === 'year' && hero.alive && !hero.goal && !lifeStats(state).goalAsked
+  // Цель жизни: перед первым годом (после лотереи; у наследника - в начале его жизни; в старом сохранении - сразу), один раз за жизнь.
+  const goalDue = !!goal && isGoalDue(state, goal.group)
   const [changing, setChanging] = useState(false)
   const [goalOpen, setGoalOpen] = useState(false)
   // Новый шаг к цели - строка на три секунды (и событие аналитики); шаги, сделанные до выбора цели, не объявляются.

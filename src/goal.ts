@@ -37,6 +37,20 @@ export function layoutB(playerId: string, flags: { layout_share: number }): bool
   return share(playerId, 'layout', flags.layout_share)
 }
 
+/**
+ * Пора спросить цель: у героя её нет и в этой жизни ещё не спрашивали. Раньше - только между годами (phase 'year'),
+ * и старое сохранение посреди года (жизнь начата до появления целей, 02.11) оставалось без цели до конца года;
+ * теперь окно открывается сразу и останавливает время, как любое событие.
+ */
+export function goalDue(state: GameState, group: GoalGroup): boolean {
+  // Счётчики жизни (telemetry.lifeStats) - у прошлого героя свои: его «уже спрашивали» к наследнику не относится.
+  const asked = state.stats?.heroId === state.hero.id && !!state.stats.goalAsked
+  return group > 0 && state.phase !== 'dead' && state.hero.alive && !state.hero.goal && !asked
+}
+
+/** Цель видна в интерфейсе: полоса цели (GoalBar) в шапке/над лентой и строка в карточке «Продолжить». */
+export const goalShown = (state: GameState): boolean => !!state.hero.goal
+
 /** Незаконченная цель родителя, которую может взять наследник. */
 export function inheritable(state: GameState): (HeroGoal & { from: string }) | null {
   const prev = state.family.lives[state.family.lives.length - 1]

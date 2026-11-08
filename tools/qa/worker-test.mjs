@@ -253,9 +253,10 @@ async function suite(realBinds) {
   check('/api/events 200 и n=2', r.status === 200 && evRes.n === 2, JSON.stringify(evRes))
   check('/api/events CORS', r.headers.get('access-control-allow-origin') === 'https://thousands.life')
   const idx = DB.sql.prepare("SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='events' ORDER BY name").all().map((x) => x.name)
-  same('индексы events (старые + events_ts)', idx, ['events_name_ts', 'events_player', 'events_ts'])
+  // С 3e3dc50 оставлен один индекс (name, ts): лишние индексы удваивали записи в D1.
+  same('индексы events: только events_name_ts', idx, ['events_name_ts'])
   const plan = DB.sql.prepare("EXPLAIN QUERY PLAN SELECT COUNT(*) FROM events WHERE ts >= 1 AND ts < 2").all().map((x) => x.detail).join(' | ')
-  check('запрос по периоду идёт по индексу ts', /events_ts/.test(plan), plan)
+  check('запрос по периоду идёт по индексу', /USING (COVERING )?INDEX events_name_ts/.test(plan), plan)
   seed(DB)
 
   sent.length = 0

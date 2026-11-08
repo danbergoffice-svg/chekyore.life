@@ -81,7 +81,8 @@ export const DEFAULT_FLAGS: Flags = {
   unique_lives: 10,
   kids_age: 2,
   kids_share: 1,
-  goal_share: 0.8,
+  // 08.11: цель у всех (жалобы игроков «цели нет» - это была контрольная группа 20%); 0.8 вернёт A/B.
+  goal_share: 1,
   goal_marks_share: 0.5,
   goal_weight: 1.5,
   goal_change_age: 16,
