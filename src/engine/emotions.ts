@@ -46,6 +46,8 @@ export function emotionalImpact(state: GameState, npc: Npc, ctx: EmotionContext 
   v *= 1 + Math.max(-100, Math.min(100, npc.attitude)) / 200
   if (ctx.cause) v *= g.cause[ctx.cause] ?? 1
   if (ctx.far) v *= g.far
+  // Близость: жил под одной крышей - тяжелее; своим домом в том же краю (женатый брат, замужняя дочь) - легче.
+  else if (npc.role === 'sibling' || npc.role === 'child' || npc.role === 'grandchild') v *= npc.married ? g.proximity.apart : g.proximity.home
   // Не утихшие прежние утраты делают новую тяжелее (до +30%).
   v *= 1 + Math.min(R.previous.max, emotionalLoad(hero) / R.previous.per)
   return Math.max(0, Math.min(100, v))

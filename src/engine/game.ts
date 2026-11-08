@@ -232,7 +232,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
     let income = 0
     if (prof) {
       income = int(state, prof.income[0], prof.income[1]) * (0.75 + (hero.skills[prof.skill] ?? 0) / 100)
-      income *= (focus?.incomeMultiplier ?? 1) * abroadIncome
+      income *= (focus?.incomeMultiplier ?? 1) * abroadIncome * novice(state)
       // Сил к старости меньше - доход падает постепенно: с наступлением старости на пятую часть, через 10 лет - на 40%.
       if (age >= era.stages.old + 10) income *= 0.6
       else if (old) income *= 0.8
@@ -993,6 +993,35 @@ export function primersForYear(state: GameState, era: EraDef): PrimerDef[] {
 export function currentEvent(state: GameState, era: EraDef): EventDef | null {
   const active = state.queue[0]
   return active ? era.events.find((e) => e.id === active.eventId) ?? null : null
+}
+
+/** Новичок в новом деле: в год смены - половина дохода, потом 65%, 80%, с четвёртого года - полный (и растёт с навыком). */
+const NOVICE = [0.5, 0.65, 0.8]
+export function novice(state: GameState): number {
+  const since = state.hero.professionSince
+  if (since === undefined) return 1
+  return NOVICE[state.year - since] ?? 1
+}
+
+/** Не чаще раза в столько лет можно сменить дело самому (вкладка «Герой»). */
+export const CHANGE_EVERY = 5
+
+/** Дела, на которые можно перейти сейчас (кроме нынешнего); пусто - менять рано или не на что. */
+export function careerOptions(state: GameState, era: EraDef): ChoiceDef[] {
+  const hero = state.hero
+  if (!hero.profession || hero.age < era.stages.adult || hero.age >= 55 || hero.cls === 'slave') return []
+  if (hero.professionSince !== undefined && state.year - hero.professionSince < CHANGE_EVERY) return []
+  return professionChoices(state, era).filter((c) => c.id !== hero.profession)
+}
+
+/** Сменить дело: навык нового - не меньше 8, доход первые годы ниже (novice). */
+export function changeCareer(state: GameState, era: EraDef, id: string): boolean {
+  const choice = careerOptions(state, era).find((c) => c.id === id)
+  if (!choice) return false
+  const from = state.hero.profession
+  applyEffects(state, era, choice.effects)
+  note(state, { key: 'diary.career_changed', params: { from: { key: `prof.${from}` }, prof: { key: `prof.${id}` } }, topic: 'work', icon: 'move', score: 30, major: true })
+  return true
 }
 
 export function professionChoices(state: GameState, era: EraDef): ChoiceDef[] {

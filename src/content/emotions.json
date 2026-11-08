@@ -55,7 +55,11 @@
       "cunning": 0.9,
       "ambitious": 0.9
     },
-    "jitter": 0.1
+    "jitter": 0.1,
+    "proximity": {
+      "home": 1.1,
+      "apart": 0.85
+    }
   },
   "apply": {
     "happiness": -0.2,

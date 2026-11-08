@@ -1641,5 +1641,12 @@
   "promo.ok": "Key accepted: the gift is waiting at the reels.",
   "promo.error.unknown": "No such key. Check the letters and digits.",
   "promo.error.used": "This key has already been used.",
-  "promo.error.empty": "Enter a key."
+  "promo.error.empty": "Enter a key.",
+  "diary.career_changed": "You changed your life's work: from {from} to {prof}. The first years will be lean, but the road ahead is open.",
+  "career.title": "Life's work",
+  "career.now": "Now: {prof}",
+  "career.novice": "New at the trade: income is {n}% of usual for now.",
+  "career.hint": "You can change your work once in five years. The first year brings half the income, then more; income grows with skill.",
+  "career.change": "Change to:",
+  "career.wait": "You can change your work from {year}."
 }

@@ -1641,5 +1641,12 @@
   "promo.ok": "Anahtar kabul edildi: hediye seni makinede bekliyor.",
   "promo.error.unknown": "Böyle bir anahtar yok. Harfleri ve rakamları kontrol et.",
   "promo.error.used": "Bu anahtar zaten kullanıldı.",
-  "promo.error.empty": "Bir anahtar gir."
+  "promo.error.empty": "Bir anahtar gir.",
+  "diary.career_changed": "Hayat işini değiştirdin: {from} yerine artık {prof}. İlk yıllar zor geçecek ama yol açık.",
+  "career.title": "Hayat işi",
+  "career.now": "Şimdi: {prof}",
+  "career.novice": "İşte acemisin: gelir şimdilik normalin %{n}'i.",
+  "career.hint": "İşini beş yılda bir değiştirebilirsin. İlk yıl gelirin yarısı, sonra daha fazlası; gelir beceriyle artar.",
+  "career.change": "Şuna geç:",
+  "career.wait": "İşini {year} yılından itibaren değiştirebilirsin."
 }

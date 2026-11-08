@@ -491,6 +491,8 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
     else if ('add_trait' in e) { if (!hero.traits.includes(e.add_trait)) hero.traits.push(e.add_trait) }
     else if ('set_class' in e) hero.cls = e.set_class
     else if ('set_profession' in e) {
+      // Смена дела (не первое): новичок - доход первые годы ниже (game.ts novice).
+      if (hero.profession && hero.profession !== e.set_profession) hero.professionSince = state.year
       hero.profession = e.set_profession
       // Монахи и монахини дают обет безбрачия: свадебные события их обходят.
       if (e.set_profession === 'monk' && !hero.tags.includes('vowed')) hero.tags.push('vowed')

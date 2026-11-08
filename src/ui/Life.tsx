@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   availableFocuses,
+  careerOptions,
+  changeCareer,
+  CHANGE_EVERY,
+  novice,
   choiceAvailable,
   lockReason,
   currentEvent,
@@ -551,6 +555,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </>
           )}
           <Lifestyle state={state} era={era} coin={coin} onChange={onLifestyle} />
+          <Career state={state} era={era} onChange={() => onFamily?.()} />
           <Estate state={state} era={era} onChange={() => onFamily?.()} />
           <Trade state={state} era={era} onChange={() => onFamily?.()} />
           <h2 class="section-title">{t('hero.traits')}</h2>
@@ -962,6 +967,36 @@ function ChildRow({ child, year, all }: { child: Npc; year: number; all: Npc[] }
       <span class="person-name">{nameOf(child.name, lang)}</span>
       <span class="muted">{bits.join(' · ')}</span>
     </li>
+  )
+}
+
+/** Дело жизни: нынешнее, «новичок» после смены и смена дела (раз в пять лет). */
+function Career({ state, era, onChange }: { state: GameState; era: EraDef; onChange: () => void }) {
+  const { t, lang } = useUi()
+  const hero = state.hero
+  if (!hero.profession || hero.age < era.stages.adult) return null
+  const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
+  const options = careerOptions(state, era)
+  const k = novice(state)
+  return (
+    <section class="estate career">
+      <h2 class="section-title">{t('career.title')}</h2>
+      <p class="small">{t('career.now', { prof: { key: `prof.${hero.profession}` } }, o)}</p>
+      {k < 1 && <p class="small warn">{t('career.novice', { n: Math.round(k * 100) })}</p>}
+      <p class="small muted">{t('career.hint')}</p>
+      {options.length > 0 ? (
+        <div class="choice-row">
+          <span class="small">{t('career.change')}</span>
+          {options.map((c) => (
+            <button type="button" class="option small" onClick={() => changeCareer(state, era, c.id) && onChange()}>
+              {t(`prof.${c.id}`, {}, o)}
+            </button>
+          ))}
+        </div>
+      ) : (
+        hero.professionSince !== undefined && hero.age < 55 && <p class="small muted">{t('career.wait', { year: formatYear(hero.professionSince + CHANGE_EVERY, lang) })}</p>
+      )}
+    </section>
   )
 }
 
