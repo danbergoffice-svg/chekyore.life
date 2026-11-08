@@ -503,7 +503,9 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       note(state, { key: 'diary.moved', params: { place: { key: `place.${e.move}` } }, major: true, topic: 'life', icon: 'move', score: 30 })
     } else if ('npc_profession' in e) {
       const npc = hero.npcs.find((n) => n.id === ctx.npcId)
-      if (npc) npc.profession = e.npc_profession
+      // Дело - только если подходит по полу (дочь не станет священником там, где это мужское служение).
+      const def = era.professions.find((p) => p.id === e.npc_profession)
+      if (npc && (!def?.sex || def.sex === npc.sex)) npc.profession = e.npc_profession
     } else if ('npc_tag' in e || 'npc_untag' in e) {
       const npc = hero.npcs.find((n) => n.id === ctx.npcId)
       if (npc) {

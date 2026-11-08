@@ -1,6 +1,6 @@
 // Дети героя на вкладке «Люди»: воспитание (раз в год) и учёба (src/engine/children.ts). Не всплывает само -
 // игрок заходит сюда, когда хочет; итоги учёбы и отказы приходят записями в дневник.
-import { availableEducation, canUpbring, educationCost, isStudying, setChildEducation, trackOf, upbringStyle, UPBRINGING_STYLES } from '../engine/children'
+import { availableEducation, canUpbring, decideMatch, educationCost, isStudying, matchCost, setChildEducation, trackOf, upbringStyle, UPBRINGING_STYLES } from '../engine/children'
 import { npcAge, regionOf } from '../engine/rules'
 import type { EducationPath, EraDef, GameState, Npc } from '../engine/types'
 import { formatMoney, nameOf } from '../i18n'
@@ -8,11 +8,17 @@ import { useUi } from './text'
 
 export function Children({ state, era, onChange }: { state: GameState; era: EraDef; onChange: () => void }) {
   const { t } = useUi()
-  const kids = state.hero.npcs.filter((n) => n.role === 'child' && n.alive && !n.away && npcAge(n, state.year) < 25)
-  if (!kids.length) return state.hero.age >= 16 ? <section class="panel children"><p class="small muted">{t('children.none')}</p></section> : null
+  const kids = state.hero.npcs.filter((n) => n.role === 'child' && n.alive && !n.away && (npcAge(n, state.year) < 25 || !!n.match))
+  // «Детей пока нет» - только если их правда нет; взрослые дети без сватовства - просто без панели.
+  const any = state.hero.npcs.some((n) => n.role === 'child' && n.alive)
+  if (!kids.length) return state.hero.age >= 16 && !any ? <section class="panel children"><p class="small muted">{t('children.none')}</p></section> : null
   return (
     <section class="panel children">
       <h2 class="section-title">{t('children.title')}</h2>
+      {/* Сватовство - первым: его ждут с решением. */}
+      {kids.filter((k) => k.match).map((k) => (
+        <MatchCard key={`m${k.id}`} state={state} era={era} child={k} onChange={onChange} />
+      ))}
       <p class="small muted">{t('children.hint')}</p>
       <ul class="kids">
         {kids.map((k) => (
@@ -89,5 +95,38 @@ function ChildCard({ state, era, child, onChange }: { state: GameState; era: Era
         </span>
       )}
     </li>
+  )
+}
+
+function MatchCard({ state, era, child, onChange }: { state: GameState; era: EraDef; child: Npc; onChange: () => void }) {
+  const { t, lang } = useUi()
+  const m = child.match!
+  const coin = regionOf(era, state.hero.region).coin
+  const cost = matchCost(state, era, child, m.kind)
+  return (
+    <div class="match-card">
+      <p>
+        <strong>{nameOf(child.name, lang)}</strong> · {t(`children.match.kind.${m.kind}`)}
+      </p>
+      <p class="small">{t('children.match', { suitor: { name: m.suitor }, from: { key: `match.from.${m.cls}` } })}</p>
+      <p class="small muted">
+        {[
+          cost > 0 ? t('children.match.dowry', { money: formatMoney(t, cost, coin) }) : cost < 0 ? t('children.match.gain', { money: formatMoney(t, -cost, coin) }) : '',
+          m.kind !== 'equal' ? t(`children.match.hint.${m.kind}`).replace(/\.$/, '') : '',
+          t('children.match.wait', { sex: child.sex }).replace(/\.$/, ''),
+        ]
+          .filter(Boolean)
+          .join('. ')}
+        .
+      </p>
+      <span class="choice-row">
+        <button type="button" class="option small" disabled={cost > 0 && state.hero.money < cost} onClick={() => decideMatch(state, era, child.id, true) !== undefined && onChange()}>
+          {t('children.match.accept')}
+        </button>
+        <button type="button" class="option small" onClick={() => decideMatch(state, era, child.id, false) !== undefined && onChange()}>
+          {t('children.match.refuse')}
+        </button>
+      </span>
+    </div>
   )
 }

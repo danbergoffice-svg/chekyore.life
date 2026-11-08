@@ -2,7 +2,7 @@ import { ERA_META, eraById, isEraLoaded } from '../content'
 import { educationSkill } from './children'
 import { estateForHeir } from './inheritance'
 import { bell, chance, int, pick, weighted } from './rng'
-import { addYears, clamp, classKey, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
+import { addYears, ancestorRule, childName, clamp, classKey, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
 import { isPet } from './pets'
 import { buildReport } from './report'
@@ -489,6 +489,14 @@ function inheritPets(hero: Hero, year: number): void {
   }
 }
 
+/** Где имя предка запрещено (Китай): дети наследника, названные ещё при прошлом герое, не носят имени деда или прадеда. */
+function noAncestorNames(state: GameState, era: EraDef): void {
+  if (ancestorRule(era, state.hero.region) !== 'forbid') return
+  const hero = state.hero
+  const bad = new Set([hero.name, ...(hero.ancestors ?? []), ...hero.npcs.filter((n) => n.role === 'father' || n.role === 'mother').map((n) => n.name)])
+  for (const c of hero.npcs.filter((n) => n.role === 'child' && bad.has(n.name))) c.name = childName(state, era, c.sex, [...bad])
+}
+
 /** Продолжение рода: наследник становится новым героем, время идёт дальше. */
 export function continueWithHeir(prev: GameState, era: EraDef, childId: string): GameState {
   const parent = prev.hero
@@ -595,6 +603,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     const via = parent.npcs.find((n) => n.id === child.parentId)
     hero.diary.push({ year: prev.year, age: hero.age, key: gen === 2 ? 'diary.heir_grand' : 'diary.heir_great', params: { parent: { name: parent.name }, psex: parent.sex, via: { name: via?.name ?? '' }, vsex: via?.sex ?? 'm', money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
     estateNote()
+    noAncestorNames(state, era)
     return state
   }
 
@@ -618,6 +627,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   inheritPets(hero, prev.year)
   hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
   estateNote()
+  noAncestorNames(state, era)
   return state
 }
 

@@ -556,6 +556,18 @@ export interface EducationTrackDef {
   professions?: string[]
 }
 
+/** Сватовство: по любви, равная партия, выгодная. */
+export type MatchKind = 'love' | 'equal' | 'rich'
+
+/** К ребёнку сватаются: год, вид партии, имя, пол и сословие жениха или невесты. */
+export interface ChildMatch {
+  year: number
+  kind: MatchKind
+  suitor: string
+  sex: Sex
+  cls: string
+}
+
 export interface Npc {
   id: string
   role: NpcRole
@@ -582,6 +594,8 @@ export interface Npc {
   /** Детям героя: обучение и воспитание (src/engine/children.ts); нет поля - старое сохранение, заводится при первом годе. */
   education?: ChildEducation
   upbringing?: ChildUpbringing
+  /** Сватовство, которое ждёт решения (src/engine/children.ts). */
+  match?: ChildMatch
 }
 
 export interface NpcAway {

@@ -140,7 +140,7 @@ interface LifeProps {
 /** Какие вести показывать плашкой (вид - для «не показывать такое в этой жизни»). */
 function plaqueKind(key: string): string | null {
   if (key.startsWith('diary.death_')) return 'death'
-  if (key === 'diary.child_married') return 'wedding'
+  if (key === 'diary.child_married' || key.startsWith('diary.match_')) return 'wedding'
   if (key.startsWith('diary.grandchild_born') || key.startsWith('diary.great_grandchild_born')) return 'grandchild'
   if (key === 'diary.expecting' || key === 'diary.expecting_self') return 'expecting'
   if (key.startsWith('diary.edu_done') || key === 'diary.edu_refused') return 'school'

@@ -1,0 +1,25 @@
+{
+  "_doc": "Сватовство детей героя (src/engine/children.ts). Каждый год, пока ребёнок в брачном возрасте и не женат, с вероятностью offerChance к нему сватаются. kind - какая партия: love - по любви (ниже по положению), equal - равная, rich - выгоднее (выше, приданое больше). weights - по сословию семьи. dowry - приданое дочери (доля годовых расходов сословия), sons - что получает семья сына (доля). Без решения игрока через год ребёнок решает сам.",
+  "offerChance": 0.35,
+  "weights": {
+    "slave": { "love": 3, "equal": 4, "rich": 0 },
+    "peasant": { "love": 3, "equal": 4, "rich": 1 },
+    "craftsman": { "love": 2, "equal": 4, "rich": 2 },
+    "trader": { "love": 2, "equal": 3, "rich": 3 },
+    "landowner": { "love": 2, "equal": 3, "rich": 2 },
+    "noble": { "love": 1, "equal": 4, "rich": 2 }
+  },
+  "dowry": { "love": 0.2, "equal": 0.6, "rich": 1.5 },
+  "sons": { "love": 0, "equal": 0.2, "rich": 0.6 },
+  "accept": {
+    "love": { "attitude": 15, "reputation": -3 },
+    "equal": { "attitude": 2, "reputation": 1 },
+    "rich": { "attitude": 0, "reputation": 4 }
+  },
+  "refuse": {
+    "love": { "attitude": -20, "elope": 0.3 },
+    "equal": { "attitude": -3, "elope": 0 },
+    "rich": { "attitude": -2, "elope": 0 }
+  },
+  "autoAfter": 1
+}

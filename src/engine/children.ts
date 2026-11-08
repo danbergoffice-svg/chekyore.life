@@ -4,9 +4,10 @@
 // не попасть: писец, лекарь), а став наследником - навык. Правила - src/content/education.json и поле education страны.
 // Случайность - только rng.ts; детей, которых не учат, расчёт не трогает (поток случайностей прежний).
 import RULES from '../content/education.json'
-import { chance } from './rng'
-import { changeParam, note, npcAge } from './rules'
-import type { ChildEducation, ChildUpbringing, EducationPath, EducationTrackDef, EraDef, EraMeta, GameState, Npc, ProfessionDef } from './types'
+import MAR from '../content/marriage.json'
+import { chance, pick as pickOne, weighted as weightedOne } from './rng'
+import { changeParam, note, npcAge, sendAway } from './rules'
+import type { MatchKind, ChildEducation, ChildUpbringing, EducationPath, EducationTrackDef, EraDef, EraMeta, GameState, Npc, ProfessionDef } from './types'
 
 const TRACKS = RULES.tracks as EducationTrackDef[]
 type Style = keyof typeof RULES.upbringing.styles
@@ -217,4 +218,90 @@ export function educationSkill(era: EraMeta, child: Npc): { skill: string; value
   const track = trackOf(era, e?.path)
   if (!e || !track || !(e.completedYear || e.progress > 0)) return undefined
   return { skill: track.skill, value: Math.round(e.completedYear ? 10 + e.level * RULES.skillPerLevel : e.progress * RULES.skillPerLevel) }
+}
+
+// ---------- Сватовство (отзывы игроков 05–08.11: «хочу выбирать, за кого выходят дети - с настоящим выбором») ----------
+// К ребёнку в брачном возрасте сватаются: по любви (ниже по положению), равная партия, выгодная (выше, приданое больше).
+// Игрок соглашается или отказывает в панели «Дети»; отказ любви может кончиться побегом. Не решил за год - ребёнок
+// решает сам (как раньше: управление детьми не обязательно). Правила - src/content/marriage.json.
+
+const M = MAR as typeof MAR & { weights: Record<string, Record<MatchKind, number>> }
+const RANK = ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble']
+
+type MatchEvent = 'match_offered' | 'match_decided'
+let matchListener: ((kind: MatchEvent, child: Npc, state: GameState, params: Record<string, string | number>) => void) | undefined
+export function onMatchEvent(fn: typeof matchListener): void {
+  matchListener = fn
+}
+
+/** Сословие жениха или невесты по виду партии: на ступень ниже, такое же, на ступень выше (в пределах страны). */
+function suitorClass(era: EraDef | EraMeta, cls: string, kind: MatchKind): string {
+  const have = RANK.filter((c) => era.classes.some((x) => x.id === c))
+  const i = Math.max(0, have.indexOf(cls))
+  const j = kind === 'love' ? Math.max(0, i - 1) : kind === 'rich' ? Math.min(have.length - 1, i + 1) : i
+  return have[j] ?? cls
+}
+
+/** Приданое (дочь) или выкуп (сын, со знаком минус - семья получает): сколько стоит партия деньгами. */
+export function matchCost(state: GameState, era: EraDef | EraMeta, child: Npc, kind: MatchKind): number {
+  const upkeep = Math.max(80, era.classes.find((c) => c.id === state.hero.cls)?.upkeep ?? 150)
+  return Math.round(child.sex === 'f' ? upkeep * M.dowry[kind] : -upkeep * M.sons[kind])
+}
+
+/** Год сватовства для ребёнка (из background вместо прежней тихой свадьбы). Возвращает true, если ребёнок женился. */
+export function matchYear(state: GameState, era: EraDef | EraMeta, child: Npc, age: number): boolean {
+  const [m0, m1] = era.marriageAge[child.sex]
+  if (child.married || child.away || !child.alive) return false
+  const m = child.match
+  if (m) {
+    // Не решили за год - решает сам: любовь - женится по любви, иначе соглашается на сватовство.
+    if (state.year - m.year >= M.autoAfter) return decideMatch(state, era, child.id, true, true)
+    return false
+  }
+  if (age < m0 || age > m1 + 6 || isStudying(child)) return false
+  if (!chance(state, M.offerChance)) return false
+  const w = M.weights[state.hero.cls] ?? M.weights.peasant
+  const kind = weightedOne(state, ['love', 'equal', 'rich'] as MatchKind[], (k) => w[k])!
+  const sex = child.sex === 'm' ? 'f' : 'm'
+  const names = era.regions.find((r) => r.id === state.hero.region)?.names[sex] ?? []
+  const suitor = names.length ? pickOne(state, names).id : ''
+  child.match = { year: state.year, kind, suitor, sex, cls: suitorClass(era, state.hero.cls, kind) }
+  note(state, { key: `diary.match_offer_${kind}`, params: { who: { name: child.name }, sex: child.sex, suitor: { name: suitor }, ssex: sex, from: { key: `match.from.${child.match.cls}` } }, topic: 'family', icon: 'wedding', score: 20 })
+  matchListener?.('match_offered', child, state, { kind })
+  return false
+}
+
+/**
+ * Решение о сватовстве: согласие - свадьба (приданое или выкуп, отношения, слава); отказ - обида, при любви - может
+ * сбежать к любимому. auto - решил сам ребёнок (игрок не успел).
+ */
+export function decideMatch(state: GameState, era: EraDef | EraMeta, childId: string, accept: boolean, auto = false): boolean {
+  const hero = state.hero
+  const child = hero.npcs.find((n) => n.id === childId)
+  const m = child?.match
+  if (!child || !m) return false
+  const opts = { who: { name: child.name }, sex: child.sex, suitor: { name: m.suitor }, ssex: m.sex }
+  child.match = undefined
+  matchListener?.('match_decided', child, state, { kind: m.kind, accept: accept ? 1 : 0, auto: auto ? 1 : 0 })
+  if (accept) {
+    const a = M.accept[m.kind]
+    hero.money -= matchCost(state, era, child, m.kind)
+    child.attitude = Math.max(-100, Math.min(100, child.attitude + a.attitude))
+    changeParam(hero, 'reputation', a.reputation)
+    changeParam(hero, 'happiness', 4)
+    child.married = true
+    note(state, { key: auto ? `diary.match_auto_${m.kind}` : `diary.match_wed_${m.kind}`, params: opts, topic: 'family', icon: 'wedding', score: 28, mood: 4, major: true })
+    return true
+  }
+  const r = M.refuse[m.kind]
+  child.attitude = Math.max(-100, child.attitude + r.attitude)
+  if (r.elope && chance(state, r.elope)) {
+    child.married = true
+    sendAway(state, child, 'left', true)
+    changeParam(hero, 'happiness', -6)
+    note(state, { key: 'diary.match_eloped', params: opts, topic: 'family', icon: 'wedding', score: 34, mood: -6, major: true })
+    return true
+  }
+  note(state, { key: `diary.match_refused_${m.kind}`, params: opts, topic: 'family', score: 16, mood: -1 })
+  return false
 }

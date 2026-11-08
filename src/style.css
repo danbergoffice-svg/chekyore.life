@@ -1095,3 +1095,7 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .howto { margin: 0 0 10px; }
 .howto > summary { cursor: pointer; font-weight: 700; }
 .howto p { margin: 6px 0; }
+
+.match-card { border: 2px solid var(--gold); border-radius: 10px; padding: 8px 12px; margin: 6px 0 10px; }
+.match-card p { margin: 2px 0; }
+.match-card .choice-row { display: flex; gap: 8px; margin-top: 6px; }

@@ -30,7 +30,7 @@ import {
 } from './rules'
 import { householdYear } from './household'
 import { emotionsYear } from './emotions'
-import { childOutcome, childrenYear } from './children'
+import { childOutcome, childrenYear, matchYear } from './children'
 import { tradeYear } from './trade'
 import { businessYear } from './business'
 import { pets } from './pets'
@@ -385,19 +385,17 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
         changeParam(hero, 'happiness', 2)
       }
     }
-    const [m0, m1] = era.marriageAge[child.sex]
-    if (!child.married && a >= m0 && a <= m1 + 6 && chance(state, 0.3)) {
-      child.married = true
-      note(state, { key: 'diary.child_married', params: opts, topic: 'family', icon: 'wedding', score: 28, mood: 4, major: true })
-      changeParam(hero, 'happiness', 4)
-    }
+    // Свадьба - через сватовство: игрок выбирает в панели «Дети», не решил за год - ребёнок решает сам.
+    matchYear(state, era, child, a)
     if (child.married && a >= 18 && a <= 42 && chance(state, 0.14)) {
       const before = hero.npcs.length
       applyEffects(state, era, [{ add_npc: 'grandchild', attitude: 50 }])
       const g = hero.npcs[before]
       g.parentId = child.id
       // Внука нельзя назвать и именем его родителя (в Китае) - он станет героем-наследником со своими детьми.
-      if (ancestorRule(era, hero.region) === 'forbid') g.name = childName(state, era, g.sex, [child.name])
+      // ...и именем деда или прадеда: герой, его супруг и его родители - тоже предки внука.
+      const elders = hero.npcs.filter((n) => ['spouse', 'father', 'mother'].includes(n.role)).map((n) => n.name)
+      if (ancestorRule(era, hero.region) === 'forbid') g.name = childName(state, era, g.sex, [child.name, hero.name, ...elders])
       note(state, { key: `diary.grandchild_born_${g.sex}`, params: { child: { name: g.name }, parent: { name: child.name } }, major: true, topic: 'family', icon: 'child', score: 30, mood: 6 })
       changeParam(hero, 'happiness', 5)
     }
@@ -413,7 +411,7 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
       applyEffects(state, era, [{ add_npc: 'grandchild', attitude: 50 }])
       const gg = hero.npcs[before]
       gg.parentId = g.id
-      if (ancestorRule(era, hero.region) === 'forbid') gg.name = childName(state, era, gg.sex, [g.name, hero.npcs.find((n) => n.id === g.parentId)?.name ?? ''])
+      if (ancestorRule(era, hero.region) === 'forbid') gg.name = childName(state, era, gg.sex, [g.name, hero.npcs.find((n) => n.id === g.parentId)?.name ?? '', hero.name, ...hero.npcs.filter((n) => n.role === 'spouse').map((n) => n.name)])
       note(state, { key: `diary.great_grandchild_born_${gg.sex}`, params: { child: { name: gg.name }, parent: { name: g.name } }, major: true, topic: 'family', icon: 'child', score: 30, mood: 6 })
       changeParam(hero, 'happiness', 4)
     }
@@ -1081,7 +1079,8 @@ export function nameChoices(state: GameState, era: EraDef): ChoiceDef[] {
   // «Другие имена»: каждый раз - следующая тройка (без случайности: поток жизни не меняется).
   const shift = state.queue[0]?.nameShift ?? 0
   h = (h + shift * 7) >>> 0
-  const ids = new Set<string>(shift ? [] : [npc.name])
+  // Имя, данное при рождении, - первым, если оно не запрещено (в Китае - не имя предка) и не занято.
+  const ids = new Set<string>(shift || used.has(npc.name) ? [] : [npc.name])
   if (rule === 'prefer' && !shift) {
     const own = names.filter((n) => ancestors.has(n.id) && n.id !== state.hero.name)
     if (own.length) ids.add(own[h % own.length].id)

@@ -3,7 +3,7 @@ import type { LifeSummary } from './engine/types'
 import type { GameState, LifeStats } from './engine/types'
 import { platform } from './platform'
 import { onEmotion } from './engine/emotions'
-import { onChildEvent } from './engine/children'
+import { onChildEvent, onMatchEvent } from './engine/children'
 import { onEstateEvent } from './engine/estate'
 import { onTradeEvent } from './engine/trade'
 import { onBusinessEvent } from './engine/business'
@@ -16,6 +16,8 @@ onBusinessEvent((kind, state, params) => platform.track(kind, { ...params, age: 
 onEstateEvent((kind, state, params) => {
   platform.track(kind, { ...params, age: state.hero.age, region: state.hero.region, generation: state.hero.generation })
 })
+
+onMatchEvent((kind, child, state, params) => platform.track(`child_${kind}`, { ...params, child_age: state.year - child.birthYear, region: state.hero.region }))
 
 // Дети: выбор учёбы и воспитания (действия игрока), окончание и отказ.
 onChildEvent((kind, child, state, extra = {}) => {
