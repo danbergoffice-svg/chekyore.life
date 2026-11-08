@@ -579,7 +579,7 @@ export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: str
   )
 }
 
-export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: string) => void; onBack: () => void }) {
+export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: string) => void; onChronicle?: (familyId: string) => void; onBack: () => void }) {
   const { t, lang } = useUi()
   const families = new Map<string, LifeSummary[]>()
   for (const l of props.memorial) families.set(l.familyId, [...(families.get(l.familyId) ?? []), l])
@@ -593,6 +593,11 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
           <h2 class="section-title">
             {t('memorial.family')} {nameOf(lives[0].name, lang)} · {t('memorial.lives', { n: lives.length })}
           </h2>
+          {props.onChronicle && (
+            <button class="secondary small" onClick={() => props.onChronicle!(id)}>
+              {t('chronicle.open')}
+            </button>
+          )}
           <ol class="tree">
             {lives.map((l) => (
               <li>

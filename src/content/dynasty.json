@@ -1,0 +1,33 @@
+{
+  "_doc": "Достижения рода (src/engine/chronicle.ts). kind - что считаем по всем жизням рода в мемориале, n - сколько нужно. Тексты dynasty.<id>.title / .desc.",
+  "achievements": [
+    { "id": "gens3", "kind": "generations", "n": 3 },
+    { "id": "gens5", "kind": "generations", "n": 5 },
+    { "id": "gens10", "kind": "generations", "n": 10 },
+    { "id": "century", "kind": "span", "n": 100 },
+    { "id": "two_centuries", "kind": "span", "n": 200 },
+    { "id": "wanderers", "kind": "countries", "n": 2 },
+    { "id": "elders", "kind": "elders", "n": 2 },
+    { "id": "learned", "kind": "educated", "n": 3 },
+    { "id": "heirloom", "kind": "asset_generations", "n": 3 },
+    { "id": "merchants", "kind": "business_years", "n": 30 },
+    { "id": "peace", "kind": "wills_no_dispute", "n": 2 },
+    { "id": "rise", "kind": "rise", "n": 1 }
+  ],
+  "eventKeys": [
+    "diary.death_child", "diary.death_spouse", "diary.death_father", "diary.death_mother", "diary.death_far",
+    "diary.edu_done", "diary.edu_refused", "diary.child_trade_edu",
+    "diary.business_founded", "diary.business_bankrupt",
+    "diary.asset_bought", "diary.asset_seized",
+    "diary.will_made", "diary.inherit_dispute",
+    "diary.emigrated", "diary.returned_home", "diary.chronicle_move", "diary.estate_landowner"
+  ],
+  "propertyKeys": [
+    "diary.asset_bought", "diary.asset_sold", "diary.asset_improved", "diary.asset_pledged", "diary.asset_seized",
+    "diary.inherit_assets", "diary.inherit_assets_will", "diary.inherit_passed", "diary.inherit_dispute", "diary.inherit_business",
+    "diary.business_founded", "diary.business_closed", "diary.business_bankrupt",
+    "diary.estate_bought", "diary.estate_inherited", "diary.estate_sold", "diary.home_up"
+  ],
+  "eventsPerLife": 4,
+  "elderAge": 70
+}

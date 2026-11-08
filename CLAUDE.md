@@ -114,6 +114,9 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   (`src/content/business.json`: артель, торговый дом, караван, морская торговля; форма по стране — societas, мудараба, артель…;
   компаньоны с долями, `businessYear`, ссоры, разорение, `closeBusiness`). Хранятся в `Family.trade` (сохранение v9, `LifeSummary.tradeSnapshot`),
   переходят наследнику. UI — `src/ui/Trade.tsx` на вкладке «Герой». Тесты — `tests/trade.test.ts` (рынок), `tests/business.test.ts`.
+  Этап 5 — хроника рода: `src/engine/chronicle.ts` (`familyChronicle` по записям мемориала: поколения, главное, история имущества,
+  достижения рода из `src/content/dynasty.json`; только чтение), экран `src/ui/Chronicle.tsx` (кнопка «Хроника рода» у рода в мемориале)
+  и карточка рода для публикации на холсте `drawCard`. События `chronicle_open`, `share_open/share_done` с `what: family`. Тест — `tests/chronicle.family.test.ts`.
 - Сны о будущем (`docs/TZ_dreams.md`, **сделано**, этапы 1–4): движок — `src/engine/dreams.ts` (свой поток случайности
   `dreamRng`, не трогает остальную жизнь), формулы — `src/engine/formula.ts`, каталог — `src/content/dreams.json`, тексты —
   `common/ru_dreams.json`/`en_dreams.json`, экран — `src/ui/Dream.tsx`, награды группы `dream` и «Школьная программа» —

@@ -22,6 +22,7 @@ import { FESTIVE } from '../engine/game'
 import type { DiceResult } from '../engine/dice'
 import { MenuSheet } from './MenuSheet'
 import type { MenuTarget } from './MenuSheet'
+import { Chronicle } from './Chronicle'
 import { About, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsSheet, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { CHEST_GIFT, dailyNext, dayKey, GIFT_ICON, GIFTS, HEALTH_GIFT, RESPIN_GIFT, spendGifts } from '../daily'
 import type { Gift } from '../daily'
@@ -44,7 +45,7 @@ import { EarlyDeath, Summary } from './Summary'
 import { changes, snapshot, UiContext } from './text'
 import type { Change, Snapshot } from './text'
 
-type Screen = 'loading' | 'menu' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'past' | 'settings' | 'about' | 'awards'
+type Screen = 'loading' | 'menu' | 'feedback' | 'reveal' | 'life' | 'death' | 'heirs' | 'memorial' | 'chronicle' | 'past' | 'settings' | 'about' | 'awards'
 
 const defaultPrefs: Prefs = {
   lang: platform.lang(),
@@ -97,6 +98,8 @@ export function App() {
   })
   const [screen, setScreen] = useState<Screen>('loading')
   const [memorial, setMemorial] = useState<LifeSummary[]>([])
+  // Хроника рода: какой род открыт (из мемориала).
+  const [chronicleId, setChronicleId] = useState<string | null>(null)
   const [earned, setEarned] = useState<Earned[]>([])
   const earnedRef = useRef<Earned[]>([])
   /** Игрок решил продолжить род после конца хроники страны. */
@@ -1238,8 +1241,15 @@ export function App() {
           <Memorial
             memorial={memorial}
             onOpen={openPast}
+            onChronicle={(id) => {
+              setChronicleId(id)
+              setScreen('chronicle')
+            }}
             onBack={goBack}
           />
+        )}
+        {screen === 'chronicle' && chronicleId && (
+          <Chronicle memorial={memorial} familyId={chronicleId} onOpen={openPast} onBack={() => setScreen('memorial')} />
         )}
         {screen === 'settings' && <Settings prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
           const back = settingsFrom
