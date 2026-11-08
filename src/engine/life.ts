@@ -1,6 +1,7 @@
 import { ERA_META, eraById, isEraLoaded } from '../content'
 import { educationSkill } from './children'
 import { estateForHeir } from './inheritance'
+import { customHeir } from './dynasty'
 import { bell, chance, int, pick, weighted } from './rng'
 import { addYears, ancestorRule, childName, clamp, classKey, descentOf, HOME_TAGS, makeNpc, regionOf, rollReligion, yearsBetween } from './rules'
 import { initHousehold } from './household'
@@ -245,6 +246,8 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     land: h.land,
     slaves: h.slaves,
     estateSnapshot: state.family.estate?.assets.length ? structuredClone(state.family.estate) : undefined,
+    house: state.family.house,
+    familyGoal: state.family.goal ? { ...state.family.goal } : undefined,
     tradeSnapshot: state.family.trade && (state.family.trade.businesses.length || state.family.trade.inventory.goods.length) ? structuredClone(state.family.trade) : undefined,
   }
 }
@@ -293,7 +296,7 @@ export function stateFromMemorial(era: EraDef, life: LifeSummary, memorial: Life
     goal: life.goal,
     dreamSeen: life.dreamSeen,
   })
-  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [], estate: life.estateSnapshot ? structuredClone(life.estateSnapshot) : { assets: [], debts: 0 }, trade: life.tradeSnapshot ? structuredClone(life.tradeSnapshot) : { inventory: { goods: [], capacity: 20 }, businesses: [] } }
+  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [], house: life.house, goal: life.familyGoal ? { ...life.familyGoal } : undefined, estate: life.estateSnapshot ? structuredClone(life.estateSnapshot) : { assets: [], debts: 0 }, trade: life.tradeSnapshot ? structuredClone(life.tradeSnapshot) : { inventory: { goods: [], capacity: 20 }, businesses: [] } }
   s.year = life.deathYear
   s.offChronicle = life.offChronicle
   s.phase = 'dead'
@@ -625,6 +628,16 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
     if (n.role === 'child' && n.id !== child.id && n.alive) hero.npcs.push({ ...n, role: 'sibling', attitude: 30 })
   }
   inheritPets(hero, prev.year)
+  // Наследник не по обычаю (не старший сын, у степняков - не младший): обойдённый обижен, в краях строгого обычая
+  // люди судачат (просьба владельца 09.11: выбор наследника с последствиями).
+  const custom = customHeir(heirs(prev), era, parent.region)
+  const passed = custom && custom.id !== child.id ? hero.npcs.find((n) => n.id === custom.id) : undefined
+  if (passed) {
+    passed.attitude = Math.max(-100, passed.attitude - 25)
+    const strict = (era.regions.find((r) => r.id === parent.region)?.inheritance ?? era.inheritance) !== 'equal'
+    if (strict) hero.hidden.reputation = Math.max(0, hero.hidden.reputation - 4)
+    hero.diary.push({ year: prev.year, age: hero.age, key: strict ? 'diary.heir_not_custom_strict' : 'diary.heir_not_custom', params: { who: { name: passed.name }, sex: passed.sex }, reg: hero.region, rel: hero.religion, topic: 'family', score: 26, major: strict })
+  }
   hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
   estateNote()
   noAncestorNames(state, era)

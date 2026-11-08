@@ -1,0 +1,25 @@
+{
+  "_doc": "Имена родов и гербы (src/engine/dynasty.ts, src/ui/Arms.tsx). Выбор - когда род прожил две жизни. charge - фигура на щите, field - цвет поля, ink - цвет фигуры. Имя - тексты house.<id>.",
+  "houses": [
+    { "id": "sun", "charge": "sun", "field": "#2f4f8f", "ink": "#e8c44a" },
+    { "id": "moon", "charge": "moon", "field": "#1f2b4d", "ink": "#e9e4d4" },
+    { "id": "star", "charge": "star", "field": "#7a1f2b", "ink": "#e8c44a" },
+    { "id": "tower", "charge": "tower", "field": "#3e6b3a", "ink": "#e9e4d4" },
+    { "id": "key", "charge": "key", "field": "#6b3a7a", "ink": "#e8c44a" },
+    { "id": "wheel", "charge": "wheel", "field": "#8a5a2b", "ink": "#e9e4d4" },
+    { "id": "wheat", "charge": "wheat", "field": "#2f6f6a", "ink": "#e8c44a" },
+    { "id": "oak", "charge": "tree", "field": "#d9c48a", "ink": "#2f5a2b" },
+    { "id": "mountain", "charge": "mountain", "field": "#4a6fa5", "ink": "#e9e4d4" },
+    { "id": "river", "charge": "waves", "field": "#e9e4d4", "ink": "#2f5f9a" },
+    { "id": "fish", "charge": "fish", "field": "#2f5f9a", "ink": "#e9e4d4" },
+    { "id": "falcon", "charge": "bird", "field": "#b23a2b", "ink": "#e9e4d4" },
+    { "id": "horseshoe", "charge": "horseshoe", "field": "#3a3a3a", "ink": "#d9d9d9" },
+    { "id": "sword", "charge": "sword", "field": "#7a1f2b", "ink": "#e9e4d4" },
+    { "id": "cup", "charge": "cup", "field": "#2f4f8f", "ink": "#e8c44a" },
+    { "id": "ship", "charge": "ship", "field": "#9fc1e8", "ink": "#3a2a1a" },
+    { "id": "crown", "charge": "crown", "field": "#5a2b6b", "ink": "#e8c44a" },
+    { "id": "rose", "charge": "rose", "field": "#e9e4d4", "ink": "#b23a2b" },
+    { "id": "hammer", "charge": "hammer", "field": "#5a6b3a", "ink": "#e9e4d4" },
+    { "id": "flame", "charge": "flame", "field": "#2a2a3a", "ink": "#e8803a" }
+  ]
+}

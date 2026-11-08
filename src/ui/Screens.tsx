@@ -1,5 +1,7 @@
 import type { ComponentChildren } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
+import { canNameHouse, customHeir, familyGoalOffers, setFamilyGoal, setHouse } from '../engine/dynasty'
+import { Arms, HOUSE_LIST } from './Arms'
 import { heirs, inheritanceShare } from '../engine/life'
 import { ACHIEVEMENTS } from '../engine/achievements'
 import { birthPlace, classKey, descentOf, regionOf, roleKey, yearsBetween } from '../engine/rules'
@@ -16,7 +18,7 @@ import { Scene } from '../pixel/SceneView'
 import { Avatar } from '../pixel/AvatarView'
 import { heroLook } from './Life'
 import { VolumeSlider } from './Sound'
-import { useUi } from './text'
+import { attitudeText, useUi } from './text'
 import { Icon, IconText } from './Icon'
 import { SocialLinks } from './Social'
 
@@ -540,17 +542,25 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
   )
 }
 
-export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: string) => void; onBack: () => void }) {
+export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: string) => void; onBack: () => void; onFamily?: () => void }) {
   const { t, lang } = useUi()
   const coin = regionOf(props.era, props.state.hero.region).coin
   const npcs = props.state.hero.npcs
   const list = heirs(props.state)
   const gen = list.length ? descentOf(npcs, list[0]) : 1
+  const custom = customHeir(list, props.era, props.state.hero.region)
+  const [, redraw] = useState(0)
+  const changed = () => {
+    redraw((n) => n + 1)
+    props.onFamily?.()
+  }
   return (
     <div class="screen">
       <button class="link back" onClick={props.onBack}>← {t('common.back')}</button>
       <h1>{t('heirs.title')}</h1>
       <p class="lead">{t(gen === 3 ? 'heirs.lead_great' : gen === 2 ? 'heirs.lead_grand' : 'heirs.lead')}</p>
+      {list.length > 0 && <FamilyGoalPick state={props.state} era={props.era} onChange={changed} />}
+      {list.length > 0 && canNameHouse(props.state) && <HousePick state={props.state} onChange={changed} />}
       <ul class="cards">
         {list.map((k) => {
           const age = yearsBetween(k.birthYear, props.state.year)
@@ -560,6 +570,7 @@ export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: str
             <li class="card">
               <h2>
                 {nameOf(k.name, lang)} <span class="muted">· {t(`npc.${roleKey(npcs, k)}`, { sex: k.sex })}</span>
+                {custom?.id === k.id && list.length > 1 && <span class="small home-badge"> {t('heirs.custom')}</span>}
               </h2>
               {via && (
                 <p class="muted small">
@@ -569,9 +580,15 @@ export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: str
               <p class="muted">
                 {t('heirs.age', { n: age })} · {k.traits.map((tr) => t(`trait.${tr}`)).join(', ')}
               </p>
+              <p class="muted small">
+                {[k.profession ? t(`prof.${k.profession}`, {}, { sex: k.sex }) : '', attitudeText(t, k), k.education?.completedYear ? t('people.more.edu_done', { path: t(`children.path.${k.education.path}`), sex: k.sex }) : '']
+                  .filter(Boolean)
+                  .join(' · ')}
+              </p>
               <p>
                 {t('heirs.share')}: {formatMoney(t, inheritanceShare(props.state, props.era, k), coin)}
               </p>
+              {custom && custom.id !== k.id && list.length > 1 && <p class="small warn">{t('heirs.not_custom', { who: nameOf(custom.name, lang) })}</p>}
               <button class="primary" onClick={() => props.onChoose(k.id)}>{t('heirs.choose', { sex: k.sex })}</button>
             </li>
           )
@@ -593,7 +610,14 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
       {[...families.entries()].reverse().map(([id, lives]) => (
         <section class="family" key={id}>
           <h2 class="section-title">
-            {t('memorial.family')} {nameOf(lives[0].name, lang)} · {t('memorial.lives', { n: lives.length })}
+            {lives[lives.length - 1].house ? (
+              <>
+                <Arms id={lives[lives.length - 1].house} size={26} /> {t(`house.${lives[lives.length - 1].house}`)}
+              </>
+            ) : (
+              <>{t('memorial.family')} {nameOf(lives[0].name, lang)}</>
+            )}{' '}
+            · {t('memorial.lives', { n: lives.length })}
           </h2>
           {props.onChronicle && (
             <button class="secondary small" onClick={() => props.onChronicle!(id)}>
@@ -656,6 +680,48 @@ export function PromoModal(props: { onApply: (code: string) => string | null; on
         </div>
       </div>
     </div>
+  )
+}
+
+/** Цель рода: после первой прожитой жизни - три на выбор, по тому, что оставил герой. */
+function FamilyGoalPick({ state, era, onChange }: { state: GameState; era: EraDef; onChange: () => void }) {
+  const { t } = useUi()
+  const lives = state.family.lives
+  if (state.family.goal || lives.length !== 1) return null
+  const offers = familyGoalOffers(lives[0], era)
+  return (
+    <section class="block family-goal-pick">
+      <h2 class="section-title">{t('fgoal.pick')}</h2>
+      <p class="small muted">{t('fgoal.pick_hint')}</p>
+      <div class="choice-row">
+        {offers.map((g) => (
+          <button type="button" class="option" onClick={() => { setFamilyGoal(state, g); platform.track('family_goal_pick', { goal: g.id, target: g.target }); onChange() }}>
+            <span class="option-label">{t(`fgoal.${g.id}`)}</span>
+            <span class="option-desc">{t(`fgoal.${g.id}.desc`, { n: g.target, cls: { key: `class.${RANKS[g.target] ?? 'noble'}` } })}</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  )
+}
+const RANKS = ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble']
+
+/** Имя рода и герб: после двух прожитых жизней - 20 на выбор. */
+function HousePick({ state, onChange }: { state: GameState; onChange: () => void }) {
+  const { t } = useUi()
+  return (
+    <section class="block house-pick">
+      <h2 class="section-title">{t('house.pick')}</h2>
+      <p class="small muted">{t('house.pick_hint')}</p>
+      <div class="house-grid">
+        {HOUSE_LIST.map((h) => (
+          <button type="button" class="house-option" onClick={() => { if (setHouse(state, h.id)) { platform.track('house_pick', { house: h.id }); onChange() } }}>
+            <Arms id={h.id} size={44} label={t(`house.${h.id}`)} />
+            <span class="small">{t(`house.${h.id}`)}</span>
+          </button>
+        ))}
+      </div>
+    </section>
   )
 }
 

@@ -835,6 +835,9 @@ export interface LifeSummary {
   tags?: string[]
   skills?: Record<string, number>
   animals?: Animal[]
+  /** Имя рода и герб на момент смерти; цель рода. */
+  house?: string
+  familyGoal?: FamilyGoal
   /** Семейное имущество на момент смерти (до раздела) - для итога и продолжения рода из мемориала. */
   estateSnapshot?: Estate
   /** Торговый запас и дела рода на момент смерти. */
@@ -853,8 +856,21 @@ export interface Family {
   flags: string[]
   /** Семейное имущество (src/engine/estate.ts): переживает смену поколений. Нет - сохранение до версии 8. */
   estate?: Estate
+  /** Имя рода и герб (src/content/houses.json): выбирают, когда род прожил две жизни. */
+  house?: string
+  /** Цель рода (src/engine/dynasty.ts): выбирают после первой жизни. */
+  goal?: FamilyGoal
   /** Торговый запас и предприятия рода (src/engine/trade.ts, business.ts). Нет - сохранение до версии 9. */
   trade?: FamilyTrade
+}
+
+/** Цель рода: что измеряем (familyMeasure), сколько нужно, с какого поколения, когда исполнена. */
+export interface FamilyGoal {
+  id: string
+  kind: string
+  target: number
+  since: number
+  done?: number
 }
 
 export interface TradeGood {

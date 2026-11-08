@@ -12,6 +12,7 @@ import { CARD_SIZES, drawCard } from './shareCard'
 import type { CardData, CardFormat } from './shareCard'
 import { lifeCardData } from './lifeCard'
 import { diaryText, useUi } from './text'
+import { Arms } from './Arms'
 
 const SITE_NAME = 'thousands.life'
 const SITE = `https://${SITE_NAME}`
@@ -31,6 +32,7 @@ export function Chronicle({ memorial, familyId, onOpen, onBack }: { memorial: Li
   }, [familyId])
   if (!c.generations.length) return null
   const last = memorial.find((l) => l.heroId === c.generations[c.generations.length - 1].heroId)!
+  const house = last.house
   const line = (e: ChronicleEntry) => (
     <li>
       <span class="diary-age">{formatYear(e.year, lang)}</span>
@@ -43,7 +45,10 @@ export function Chronicle({ memorial, familyId, onOpen, onBack }: { memorial: Li
   return (
     <div class="screen chronicle">
       <button class="link back" onClick={onBack}>← {t('common.back')}</button>
-      <h1>{t('chronicle.title', { name: nameOf(c.founder, lang) })}</h1>
+      <h1 class="chronicle-title">
+        {house && <Arms id={house} size={40} label={t(`house.${house}`)} />}
+        {house ? t(`house.${house}`) : t('chronicle.title', { name: nameOf(c.founder, lang) })}
+      </h1>
       <p class="small">
         {t('chronicle.summary', { gens: c.generations.length, years: c.span, n: c.descendants, countries: c.countries.map((e) => t(`era.${e}`)).join(', ') })}
       </p>
@@ -120,7 +125,7 @@ function familyCard(c: ChronicleData, last: LifeSummary, memorial: LifeSummary[]
   const end = c.generations[c.generations.length - 1]
   return {
     ...base,
-    name: t('chronicle.card.name', { name: nameOf(c.founder, lang) }),
+    name: last.house ? t(`house.${last.house}`) : t('chronicle.card.name', { name: nameOf(c.founder, lang) }),
     meta: `${formatYear(first.birthYear, lang)}–${formatYear(end.deathYear, lang)}`,
     title: t('chronicle.card.title', { gens: c.generations.length }),
     path: c.countries.length > 1 ? c.countries.map((e) => t(`era.${e}`)).join(' → ') : undefined,

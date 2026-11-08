@@ -136,6 +136,16 @@ export function familyChronicle(memorial: LifeSummary[], familyId: string): Chro
   }
 }
 
+/** Мера по всем жизням рода (для достижений и цели рода): см. measure. */
+export function familyMeasure(kind: string, lives: LifeSummary[]): number {
+  if (!lives.length) return 0
+  const c = familyChronicle(lives, lives[0].familyId)
+  if (kind === 'wealth') return c.peakWealth
+  if (kind === 'descendants') return c.descendants
+  if (kind === 'rank') return Math.max(...lives.map((l) => rank(l.cls)))
+  return measure(kind, familyLives(lives, lives[0].familyId), c.generations, c.span, c.countries.length)
+}
+
 function measure(kind: string, lives: LifeSummary[], gens: GenerationCard[], span: number, countries: number): number {
   const all = lives.flatMap((l) => l.diary ?? [])
   switch (kind) {

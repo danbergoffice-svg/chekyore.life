@@ -45,6 +45,8 @@ import type { Change } from './text'
 import { Icon, IconText } from './Icon'
 import { EarlyGame } from '../kids/EarlyGame'
 import { Children } from './Children'
+import { Arms } from './Arms'
+import { familyGoalProgress } from '../engine/dynasty'
 import { Estate } from './Estate'
 import { Trade } from './Trade'
 import { GOAL_STEPS, goalMark } from '../engine/goals'
@@ -555,6 +557,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'hero' && (
         <section class="panel">
+          <FamilyLine state={state} />
           {/* Деньги - первой строкой (отзыв игрока 03.11: «не нашёл, где моё богатство»). */}
           <p class="hero-money"><strong>{t('hero.money')}:</strong> {formatMoney(t, hero.money, coin)}{hero.money < 0 ? ` · ${t('hero.in_debt')}` : ''}</p>
           {/* Как устроена жизнь героя (отзывы игроков 03–08.11: «не понимаю, что значат параметры и фокус»). */}
@@ -1032,6 +1035,28 @@ function ChildRow({ child, year, all }: { child: Npc; year: number; all: Npc[] }
       <span class="person-name">{nameOf(child.name, lang)}</span>
       <span class="muted">{bits.join(' · ')}</span>
     </li>
+  )
+}
+
+/** Род: имя и герб, цель рода и сколько уже сделано. */
+function FamilyLine({ state }: { state: GameState }) {
+  const { t } = useUi()
+  const f = state.family
+  if (!f.house && !f.goal) return null
+  const g = f.goal
+  const have = g ? Math.min(g.target, familyGoalProgress(g, f.lives)) : 0
+  return (
+    <div class="family-line">
+      {f.house && <Arms id={f.house} size={32} label={t(`house.${f.house}`)} />}
+      <div>
+        {f.house && <strong>{t(`house.${f.house}`)}</strong>}
+        {g && (
+          <p class="small">
+            {t('fgoal.line_label')} - {t(`fgoal.${g.id}`)}: {g.done !== undefined ? t('fgoal.done_short') : t('fgoal.progress', { have: g.kind === 'rank' ? have : Math.round(have), need: g.target })}
+          </p>
+        )}
+      </div>
+    </div>
   )
 }
 

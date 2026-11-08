@@ -24,6 +24,7 @@ import { MenuSheet } from './MenuSheet'
 import type { MenuTarget } from './MenuSheet'
 import { Chronicle } from './Chronicle'
 import { redeemPromo } from '../promo'
+import { checkFamilyGoal } from '../engine/dynasty'
 import { About, PromoModal, ChallengeCard, CountryModal, DailyCard, FatePicker, GiftsSheet, Heirs, InstallCard, Memorial, Menu, Reveal, Settings, SetupModal } from './Screens'
 import { CHEST_GIFT, dailyNext, dayKey, GIFT_ICON, GIFTS, HEALTH_GIFT, RESPIN_GIFT, spendGifts } from '../daily'
 import type { Gift } from '../daily'
@@ -362,6 +363,13 @@ export function App() {
       setMemorial(next)
       saveMemorial(next)
       grant(checkLife(life, next, have()), life.heroId)
+      // Цель рода исполнена - сундук-дар на следующую жизнь и плашка.
+      if (checkFamilyGoal(s)) {
+        setPrefs({ ...prefs, gifts: [...(prefs.gifts ?? []), 'chest'] })
+        setFamilyGoalToast(s.family.goal!.id)
+        window.setTimeout(() => setFamilyGoalToast(null), 6000)
+        platform.track('family_goal_done', { goal: s.family.goal!.id, generation: s.hero.generation })
+      }
       trackLifeEnd(s, life)
       platform.setContext({ life_index: next.length + 1 })
       trackUserParams(next)
@@ -403,6 +411,7 @@ export function App() {
   // Страна дара: выбранная игроком или выданная спецключом (prefs.promoCountry переживает перезагрузку).
   const [giftCountry, setGiftCountry] = useState<string | null>(() => prefs.promoCountry ?? null)
   const [promoOpen, setPromoOpen] = useState(false)
+  const [familyGoalToast, setFamilyGoalToast] = useState<string | null>(null)
   /** Спецключ из меню: null - применён, иначе код ошибки (текст promo.error.*). */
   const applyPromo = (code: string): string | null => {
     const r = redeemPromo(code, prefs.promoUsed)
@@ -1254,7 +1263,7 @@ export function App() {
             onUpdate={onUpdateLife}
           />
         )}
-        {screen === 'heirs' && state && era && <Heirs state={state} era={era} onChoose={onHeir} onBack={() => setScreen('death')} />}
+        {screen === 'heirs' && state && era && <Heirs state={state} era={era} onChoose={onHeir} onBack={() => setScreen('death')} onFamily={persist} />}
         {screen === 'memorial' && (
           <Memorial
             memorial={memorial}
@@ -1265,6 +1274,11 @@ export function App() {
             }}
             onBack={goBack}
           />
+        )}
+        {familyGoalToast && (
+          <p class="toast ach-toast" role="status" onClick={() => setFamilyGoalToast(null)}>
+            <Icon name="trophy" /> {ui.t('fgoal.done', { goal: { key: `fgoal.${familyGoalToast}` } })}
+          </p>
         )}
         {promoOpen && <PromoModal onApply={applyPromo} onClose={() => setPromoOpen(false)} />}
         {screen === 'chronicle' && chronicleId && (
