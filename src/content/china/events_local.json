@@ -2102,29 +2102,6 @@
     "choices": [
       {
         "id": "play",
-        "risk_roll": {
-          "success_chance_base": 0.45,
-          "on_success": [
-            {
-              "param": "money",
-              "delta": 40
-            },
-            {
-              "param": "happiness",
-              "delta": 3
-            }
-          ],
-          "on_failure": [
-            {
-              "param": "money",
-              "delta": -40
-            },
-            {
-              "param": "stress",
-              "delta": 3
-            }
-          ]
-        },
         "effects": [
           {
             "chance": 0.3,
@@ -2151,6 +2128,10 @@
           "memory_future": -2
         }
       }
+    ],
+    "dynamic": "dice",
+    "dice_play": [
+      "play"
     ]
   },
   {

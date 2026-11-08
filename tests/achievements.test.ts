@@ -80,6 +80,8 @@ describe('Конец эпохи (п. 9)', () => {
     const { applyEffects } = await import('../src/engine/rules')
     const { startYear } = await import('../src/engine/game')
     const s = newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 77)
+    // Москва: хроника кончается вместе со страной, дальше истории в игре нет (у Киева есть - во Владимир).
+    s.hero.region = 'moscow'
     s.year = chronicleEnd(s) - 10
     applyEffects(s, era, [{ add_npc: 'child', attitude: 50 }])
     s.hero.npcs[s.hero.npcs.length - 1].birthYear = s.year - 20

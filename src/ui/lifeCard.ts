@@ -81,7 +81,7 @@ export function lifeCardData(
   if (ds) {
     const subject = t(`share.dream.subject.${dreamDef(ds.id)?.subject ?? 'math'}`)
     hook = t(`share.dream.${ds.outcome === 'partial' && ds.known ? 'known' : ds.outcome}`, { subject }, o)
-    hook2 = `${t(`dream.${ds.id}.title`)} - ${t(`dream.result.${ds.outcome}`)}`
+    hook2 = `${t(`dream.${ds.id}.title`)}\u00a0— ${t(`dream.result.${ds.outcome}`)}`
   }
   // Три крупные цифры: семья, сколько ровесников прожили меньше, богатство в монетах края.
   const coin = ERA_META[life.era]?.regions.find((r) => r.id === life.region)?.coin

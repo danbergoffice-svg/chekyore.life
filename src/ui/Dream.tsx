@@ -1,7 +1,7 @@
 // Экран сна о будущем (docs/TZ_dreams.md): три шага с вводом - отметить нужное, доли, порядок, число;
 // спор с мудрецом; подсказка «Заглянуть в учебник»; в конце - итог и карточка «Как было на самом деле».
 // Верно ли ответил игрок, видно только в конце. Вариантов «один из четырёх» нет.
-import { useEffect, useMemo, useState } from 'preact/hooks'
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { dreamDef, expectedAnswer } from '../engine/dreams'
 import { LOCALE, percent } from '../i18n'
 import type { DreamInput, DreamOutcome, DreamState, GameState, Lang } from '../engine/types'
@@ -167,6 +167,9 @@ function DreamInputView({ input, seed, picked, opt, unit, onDone }: { input: Dre
   const parts = input.kind === 'ratio' ? picked : []
   const [ratio, setRatio] = useState<Record<string, string>>({})
   useEffect(() => setOrder(options), [options])
+  const list = useRef<HTMLOListElement>(null)
+  const dragging = useRef<string | null>(null)
+  const [drag, setDrag] = useState<string | null>(null)
 
   if (input.kind === 'pick') {
     const toggle = (k: string) => setSel(sel.includes(k) ? sel.filter((x) => x !== k) : [...sel, k])
@@ -210,14 +213,42 @@ function DreamInputView({ input, seed, picked, opt, unit, onDone }: { input: Dre
       ;[next[i], next[j]] = [next[j], next[i]]
       setOrder(next)
     }
+    // Перетаскивание (отзыв 04.11): тянуть строку пальцем или мышью; стрелки остаются - для клавиатуры и диктора.
+    const drop = (e: PointerEvent) => {
+      const k = dragging.current
+      if (!k || !list.current) return
+      // Новое место - сколько других строк выше пальца (по их середине).
+      const rows = ([...list.current.children] as HTMLElement[]).filter((_, i) => order[i] !== k)
+      const at = rows.filter((r) => { const b = r.getBoundingClientRect(); return b.top + b.height / 2 < e.clientY }).length
+      const next = order.filter((x) => x !== k)
+      next.splice(at, 0, k)
+      if (next.join() !== order.join()) setOrder(next)
+    }
     return (
       <div class="dream-input">
         <p class="small muted">{t('dream.order_hint')}</p>
-        <ol class="dream-order">
+        <ol class="dream-order" ref={list} onPointerMove={(e) => dragging.current && drop(e)}>
           {order.map((k) => {
             const off = removed.includes(k)
             return (
-              <li class={off ? 'off' : ''}>
+              <li
+                class={`${off ? 'off' : ''} ${drag === k ? 'dragging' : ''}`}
+                onPointerDown={(e) => {
+                  if (off || (e.target as HTMLElement).closest('button')) return
+                  dragging.current = k
+                  setDrag(k)
+                  ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
+                }}
+                onPointerUp={() => {
+                  dragging.current = null
+                  setDrag(null)
+                }}
+                onPointerCancel={() => {
+                  dragging.current = null
+                  setDrag(null)
+                }}
+              >
+                <span class="dream-grip" aria-hidden="true">⋮⋮</span>
                 <span class="dream-order-text">{opt(k)}</span>
                 <span class="dream-order-btns">
                   <button type="button" class="chip" aria-label="↑" disabled={off} onClick={() => move(k, -1)}>↑</button>

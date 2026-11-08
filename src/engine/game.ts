@@ -24,21 +24,48 @@ import {
   awayNpcs,
   childName,
   moneyScale,
+  tradeEffects,
+  tradeMastery,
   bandOf,
 } from './rules'
 import { householdYear } from './household'
 import { pets } from './pets'
 import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
-import { eraById, isEraLoaded } from '../content'
-import { eraEnding, summarize } from './life'
+import { ERA_META, eraById, isEraLoaded } from '../content'
+import { estateOffers, estatePrice } from './estate'
+import type { EstateKind } from './estate'
+import { chronicleSuccessor, eraEnding, summarize } from './life'
 import { eventHelpsGoal, goalYear } from './goals'
 import { ATTRIBUTES, PRIMER_TOPICS } from './types'
 import type { PrimerDef } from './types'
 import type { ActiveEvent, ChoiceDef, Condition, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
+import { applyDice, diceStakes, fateGame, pickOpponent } from './dice'
+import type { DiceResult } from './dice'
+
+/** Без мини-игры (бот, тесты): партия на любую из доступных ставок, после проигрыша - отыграться (каждый второй раз, до трёх партий). */
+function botDice(state: GameState, era: EraDef, festive: boolean): DiceResult[] {
+  const out: DiceResult[] = []
+  for (let i = 0; i < 3; i++) {
+    const stakes = diceStakes(state, era)
+    const r = { ...fateGame(state, stakes[Math.floor(next(state) * stakes.length)], pickOpponent(() => next(state))), chase: i > 0, festive }
+    applyDice(state, era, r)
+    out.push({ ...r, applied: true })
+    if (r.won || next(state) < 0.5) break
+  }
+  return out
+}
+
+/** Праздники, когда кости разрешены: Сатурналии, ночь Дивали. */
+export const FESTIVE = ['v_dice_saturnalia', 'ind_d_diwali_dice']
+
+/** Выборы события костей, которые разыгрываются партией. */
+const DICE_PLAY = ['play', 'road', 'chase']
 
 /** Через сколько лет одно и то же событие может повториться. */
 const COOLDOWN = 8
+/** Сколько лет между любыми двумя столами с костями. */
+const DICE_GAP = 2
 
 // ---------- Годовой фокус ----------
 
@@ -75,11 +102,18 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   const focus = availableFocuses(state, era).find((f) => f.id === focusId) ?? null
   state.lastFocus = focus?.id ?? null
   if (focus) {
-    applyEffects(state, era, focus.effects)
+    applyEffects(state, era, focus.id === 'trade' ? tradeEffects(hero, focus.effects) : focus.effects)
     addPattern(hero, era.patternWeights.focus[focus.id])
   }
   if (hero.profession && hero.age >= era.stages.youth) addPattern(hero, era.patternWeights.profession[hero.profession])
   applyLifestyle(state, era)
+  // Хроника края кончилась при жизни героя - семья перебирается туда, где история продолжается (в своей стране).
+  const moved = chronicleSuccessor(state, 0)
+  if (moved && moved.era === hero.era) {
+    hero.region = moved.region
+    if (hero.places[hero.places.length - 1] !== moved.region) hero.places.push(moved.region)
+    note(state, { key: 'diary.chronicle_move', params: { why: { key: `chronicle.why.${moved.from}` }, to: { key: `region.${moved.region}` } }, major: true, topic: 'history', icon: 'move', score: 60 })
+  }
   const births = background(state, era, focus)
   householdYear(state, era)
   if (!hero.alive) return die(state, era)
@@ -540,7 +574,11 @@ export function eligible(state: GameState, era: EraDef, ev: EventDef, ignoreTimi
   const last = hero.seen[ev.id]
   if (last !== undefined && (ev.once || ev.milestone || ev.global_chance !== undefined)) return false
   if (ev.group && hero.seen[`@${ev.group}`] !== undefined) return false
-  if (last !== undefined && !ignoreTiming && state.year - last < COOLDOWN) return false
+  // Кости зовут чаще других событий, но не чаще раза в два года на все столы вместе (отзыв владельца 05.11:
+  // иначе кости становятся постоянными).
+  if (last !== undefined && !ignoreTiming && state.year - last < (ev.dynamic === 'dice' ? 2 : COOLDOWN)) return false
+  const lastDice = hero.seen['@dice']
+  if (ev.dynamic === 'dice' && lastDice !== undefined && !ignoreTiming && state.year - lastDice < DICE_GAP) return false
   if (ev.npc && npcCandidates(state, ev).length === 0) return false
   if (ev.pet && !pets(state).some((p) => p.kind === ev.pet)) return false
   if (ev.effects && addsSpouse({ id: '', effects: ev.effects }) && aliveNpcs(hero, 'spouse').length > 0) return false
@@ -566,10 +604,24 @@ function activate(state: GameState, ev: EventDef, from?: number, npcId?: string)
   }
 }
 
+/** Параметры текста событий хозяйства: цена в монете края, следующий дом, сколько наделов и рабов. */
+function estateParams(state: GameState, eventId: string): Record<string, TextParam> {
+  const hero = state.hero
+  const kind = ESTATE_EVENTS[eventId] ?? 'land'
+  const price = estatePrice(state, kind)
+  const coin = ERA_META[hero.era]?.regions.find((r) => r.id === hero.region)?.coin ?? 'coin'
+  return { price: price.toLocaleString(), n: price, coin: { key: `coin.${coin}` }, home: { key: `home.${Math.min(4, (hero.home ?? 1) + 1)}` }, land: hero.land ?? 0, slaves: hero.slaves ?? 0 }
+}
+
+/** События-предложения о покупке: какое владение предлагает каждое. */
+const ESTATE_EVENTS: Record<string, EstateKind> = { estate_home: 'home', estate_land: 'land', estate_slaves: 'slaves' }
+
 /** Параметры текста события: имя и пол персонажа, о котором оно. */
-export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName'>): Record<string, TextParam> {
+export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName'> & { eventId?: string }): Record<string, TextParam> {
   // Питомец: по кличке, а если клички нет - «попугай», «черепаха».
   const pet: Record<string, TextParam> = active.petKind ? { pet: active.petName ? { name: active.petName } : { key: `pet.${active.petKind}` } } : {}
+  // Хозяйство: {price} {coin} - цена покупки, {home} - какой дом купить, {land} и {slaves} - сколько уже есть.
+  if (active.eventId?.startsWith('estate_')) Object.assign(pet, estateParams(state, active.eventId))
   // На чужбине: {homeland} - родная страна, {homeplace} - родной край.
   const a = state.hero.abroad
   if (a) Object.assign(pet, { homeland: { key: `era.${a.homeland.era}` }, homeplace: { key: `region.${a.homeland.region}` } })
@@ -613,7 +665,7 @@ function buckets(era: EraDef): Buckets {
       globals: ev.filter((e) => !e.moment && e.global_chance !== undefined),
       milestones: ev.filter((e) => !e.moment && e.milestone),
       turning: ev.filter((e) => !e.moment && e.turning && !e.trigger_only),
-      regular: ev.filter((e) => !e.moment && !e.trigger_only && !e.milestone && !e.turning && !e.dynamic && !e.first_choice && e.global_chance === undefined),
+      regular: ev.filter((e) => !e.moment && !e.trigger_only && !e.milestone && !e.turning && (!e.dynamic || e.dynamic === 'dice') && !e.first_choice && e.global_chance === undefined),
       firstChoice: ev.filter((e) => e.first_choice),
       moments: ev.filter((e) => e.moment && !e.trigger_only && !e.turning),
     }
@@ -656,7 +708,8 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   const soft = state.settings.eventsSoft || (state.quietYears ?? 0) >= 2
   const fresh = (list: EventDef[], must = false): EventDef[] => {
     if (!before) return list
-    const unseen = list.filter((e) => !before.has(e.id) && hero.seen[e.id] === undefined)
+    // Кости - сквозная линия (как долги): приглашения и тяга повторяются, иначе азарт не может затянуть.
+    const unseen = list.filter((e) => e.dynamic === 'dice' || (!before.has(e.id) && hero.seen[e.id] === undefined))
     if (!unseen.length && list.length) starved = true
     return unseen.length || !(must || soft) ? unseen : list
   }
@@ -701,6 +754,13 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   // 1б. Долги: в долговой яме заимодавцы требуют решения через год, у обычного должника - иногда приходят к дверям.
   const debtEv = hero.tags.includes('deep_debt') ? byId('debt_pit') : hero.tags.includes('in_debt') ? byId('debt_creditors') : undefined
   if (debtEv && hero.age >= 16 && chance(state, hero.tags.includes('deep_debt') ? 0.5 : 0.25) && fits(debtEv)) add(debtEv)
+
+  // 1в. Хозяйство: денег стало заметно больше, чем стоит покупка, - предложение купить дом побольше, землю или рабов
+  // (выбором, а не тихим переездом). Одно предложение в год, по очереди того, чего не хватает.
+  if (!debtEv && hero.alive) {
+    const offer = estateOffers(state).map((k) => byId(`estate_${k}`)).find((ev) => ev && fits(ev))
+    if (offer && chance(state, 0.4)) add(offer)
+  }
 
   // 2. Исторические события в этом регионе и году (вне хроники их нет).
   for (const ev of state.offChronicle === undefined ? b.globals : []) {
@@ -751,8 +811,9 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   state.queue = picked.sort((a, b) => a.at - b.at)
   for (const p of picked) {
     hero.seen[p.eventId] = state.year
-    const group = byId(p.eventId)?.group
-    if (group) hero.seen[`@${group}`] = state.year
+    const ev = byId(p.eventId)
+    if (ev?.group) hero.seen[`@${ev.group}`] = state.year
+    if (ev?.dynamic === 'dice') hero.seen['@dice'] = state.year
   }
 
   // Историческая справка в первые годы: младенцу ещё нечего решать - игрок узнаёт свой мир.
@@ -949,6 +1010,11 @@ export function riskChance(state: GameState, choice: ChoiceDef): number | null {
   const roll = choice.risk_roll
   if (!roll) return null
   const value = roll.param ? getParam(state.hero, roll.param) : 50
+  // Опытный торговец сделку почти не проваливает: сверху до +15% и потолок 97%.
+  if (roll.param === 'trade') {
+    const m = tradeMastery(state.hero)
+    return Math.max(0.05, Math.min(0.95 + 0.02 * m, roll.success_chance_base + (value - 50) / 200 + 0.15 * m))
+  }
   return Math.max(0.05, Math.min(0.95, roll.success_chance_base + (value - 50) / 200))
 }
 
@@ -979,10 +1045,20 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     applyEffects(state, era, choice.effects, ctx)
     addPattern(hero, choice.pattern)
     era = eraNow(state, era)
+    // Кости: итоги партий пришли из мини-игры; без неё (бот, тесты) - одна партия «на волю судьбы» на любую из доступных ставок.
+    if (ev.dynamic === 'dice' && (ev.dice_play ?? DICE_PLAY).includes(choice.id)) {
+      const list = active.dice?.length ? active.dice : botDice(state, era, FESTIVE.includes(ev.id))
+      for (const r of list) if (!r.applied) applyDice(state, era, r)
+      active.dice = list.map((r) => ({ ...r, applied: true }))
+      const net = list.reduce((n, r) => n + (r.won && !r.caught ? r.stake.amount : -r.stake.amount), 0)
+      result = net >= 0 ? 'success' : 'failure'
+    }
     if (choice.risk_roll) {
       const success = chance(state, riskChance(state, choice)!)
       result = success ? 'success' : 'failure'
-      applyEffects(state, era, success ? choice.risk_roll.on_success : choice.risk_roll.on_failure, ctx)
+      const out = success ? choice.risk_roll.on_success : choice.risk_roll.on_failure
+      // Провал сделки у мастера торговли - небольшой убыток.
+      applyEffects(state, era, choice.risk_roll.param === 'trade' && !success ? tradeEffects(hero, out) : out, ctx)
     }
     for (const d of choice.delayed_effects ?? []) {
       triggers.push({ eventId: d.trigger_event, year: addYears(state.year, int(state, d.after_years[0], d.after_years[1])), chance: d.chance })

@@ -314,6 +314,10 @@ export type Condition =
   /** Вера героя в его краю - вера меньшинства (меньше четверти жителей). */
   | { minority: boolean }
   | { region: string[] }
+  /** Хозяйство (engine/estate.ts): можно купить дом побольше, надел земли, раба; наделов или рабов не меньше n. */
+  | { can_buy: 'home' | 'land' | 'slaves' }
+  | { land_min: number }
+  | { slaves_min: number }
   /** Положение в обществе героя (statusOf, 0–100) в диапазоне [от, до]: низы < 30, середина 30–54, верхи 55–84, элита 85+. */
   | { status: [number, number] }
   | { any: Condition[] }
@@ -366,6 +370,11 @@ export type Effect =
   | { home: 'burn' | 'ruin' | 'rebuild' }
   /** Скот: n ≥ 1 - прибавилось голов, −1 < n < 0 - пала такая доля стада. */
   | { herd: number }
+  /** Хозяйство: купить (дом - следующий по размеру, n наделов или рабов) или потерять n (refund - доля цены деньгами). */
+  | { buy: 'home' | 'land' | 'slaves'; n?: number }
+  | { lose_estate: 'land' | 'slaves'; n: number; refund?: number }
+  /** Кости: азарт меняется на delta (зарок, ультиматум - минус). */
+  | { dice_lust: number }
   | { chance: number; effects: Effect[] }
 
 export interface WeightModifier {
@@ -465,7 +474,10 @@ export interface EventDef {
   /** Эффекты самого события, применяются при любом выборе. */
   effects?: Effect[]
   /** Варианты выбора собираются движком: 'profession' - доступные профессии. */
-  dynamic?: 'profession' | 'name'
+  /** dice - партия в кости (ui/DiceGame): выбор play разыгрывается мини-игрой. */
+  dynamic?: 'profession' | 'name' | 'dice'
+  /** Кости: какие выборы открывают стол (по умолчанию play, road, chase). */
+  dice_play?: string[]
   /** Если выборов нет, показывается одна кнопка «Далее». */
   choices?: ChoiceDef[]
   historian_note?: boolean
@@ -625,6 +637,8 @@ export interface Hero {
   diary: DiaryEntry[]
   /** Срез состояния в конце каждого прожитого года. */
   history: YearRecord[]
+  /** Кости: мастерство, азарт, слава игрока по краям, позор (engine/dice.ts). */
+  dice?: import('./dice').DiceStats
   /** Накопленный счёт по осям «Узора жизни». */
   pattern: Record<Axis, number>
   /** Где жил герой: ключи мест в текстах. */
@@ -633,6 +647,9 @@ export interface Hero {
   lifestyle: Record<string, string>
   /** Дом семьи: 0 - лачуга, 1 - хижина, 2 - дом, 3 - большой дом, 4 - усадьба. */
   home: number
+  /** Свои наделы земли и рабы (engine/estate.ts); нет поля - нет владений. */
+  land?: number
+  slaves?: number
   /** На чужбине: откуда, с какого года, вживание, принятие, тоска. */
   abroad?: Abroad
   /** Страны, где жил герой (для текстов дневника и пути рода). */
@@ -645,6 +662,12 @@ export interface Hero {
   band?: number
   /** Цель жизни (src/engine/goals.ts); нет - герой живёт без цели (старые сохранения, группа без цели в A/B). */
   goal?: HeroGoal
+  /**
+   * Съёмное жильё: проиграл свой дом (в кости) и снимает. level - какое жильё снимает (как home), perYear - плата за год
+   * (зависит от жилья и края, в интерфейсе - в месяц), since - с какого года, lost - какой дом был свой (его можно выкупить).
+   * Нет поля - живут в своём доме.
+   */
+  rent?: { level: number; perYear: number; since: number; lost: number }
   /** Год, когда дом сгорел/разрушен или начали отстраиваться (метки home_burned, home_ruined, home_rebuilding). */
   homeSince?: number
   /** Телосложение −3…3 (худоба … полнота): меняется от еды, достатка и болезней; только для портрета. */
@@ -716,6 +739,11 @@ export interface LifeSummary {
   tags?: string[]
   skills?: Record<string, number>
   animals?: Animal[]
+  /** Хозяйство на момент смерти: дом, съёмное жильё, наделы, рабы - для итога и продолжения рода из мемориала. */
+  home?: number
+  rent?: Hero['rent']
+  land?: number
+  slaves?: number
 }
 
 export interface Family {
@@ -735,6 +763,8 @@ export interface ActiveEvent {
   npcSex?: Sex
   /** Сон о будущем, который снится в этом окне (событие dream_intro). */
   dream?: string
+  /** Партии в кости этого окна (событие dynamic dice): итоги от мини-игры. */
+  dice?: import('./dice').DiceResult[]
   /** Питомец события: вид и кличка (если есть). */
   petKind?: string
   petName?: string

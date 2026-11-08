@@ -245,7 +245,7 @@ describe('Питомцы (п. 12)', () => {
     const eras = await loadAllEras()
     let withPet = 0
     let lives = 0
-    for (const e of Object.values(eras)) {
+    for (const e of Object.keys(eras).sort().map((id) => eras[id])) {
       for (let k = 0; k < 40; k++, lives++) {
         const s = autoplay(newLife(e, { mode: 'quick', mortality: 'soft', softenHeavy: false }, 60000 + lives), e)
         const style = ERA_META[e.id].regions.find((r) => r.id === s.hero.places[0])?.scene?.style ?? ''
@@ -254,7 +254,9 @@ describe('Питомцы (п. 12)', () => {
         for (const d of got) {
           const kind = (d.params!.animal as { key: string }).key.slice(4)
           // Питомец мог появиться в другом краю той же страны после переезда - проверяем страну целиком.
-          const styles = new Set(ERA_META[e.id].regions.map((r) => r.scene?.style))
+          // На чужбине (запись сделана в другом краю) - стиль того края.
+          const abroadReg = d.reg && !ERA_META[e.id].regions.some((r) => r.id === d.reg)
+          const styles = new Set(abroadReg ? Object.values(ERA_META).flatMap((m) => m.regions.filter((r) => r.id === d.reg).map((r) => r.scene?.style)) : ERA_META[e.id].regions.map((r) => r.scene?.style))
           expect(petDef(kind)!.styles.some((st) => styles.has(st)), `${e.id} ${kind}`).toBe(true)
         }
         for (const a of s.hero.animals.filter((a) => isPet(a.kind) && a.dies !== undefined)) {
@@ -265,7 +267,8 @@ describe('Питомцы (п. 12)', () => {
         void style
       }
     }
-    expect(withPet / lives).toBeGreaterThan(0.35)
+    // С монголами (кочевники, питомцев реже - ~22%) общая доля около 0.34.
+    expect(withPet / lives).toBeGreaterThan(0.3)
     expect(withPet / lives).toBeLessThan(0.75)
     // Хомяков, кошек в Америке - нет.
     const amr = await (async () => (await import('../src/engine/pets')).petPossible)()

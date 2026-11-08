@@ -43,7 +43,7 @@ export function Tombstone({ life, epitaph }: { life: LifeSummary; epitaph: strin
         </div>
         <h1 id="sum-name" class="stone-name">{name}</h1>
         <p class="stone-years">
-          {formatYear(life.birthYear, lang)} - {formatYear(life.deathYear, lang)}
+          {formatYear(life.birthYear, lang)}–{formatYear(life.deathYear, lang)}
         </p>
         <p class="stone-age">{t('death.lived', { n: life.age })}</p>
         {epitaph && <p class="stone-epi">{epitaph}</p>}
@@ -351,6 +351,8 @@ export function Farewell({ life, era }: { life: LifeSummary; era: EraDef }) {
         <h2 class="section-title">{t('remains.title')}</h2>
         <ul class="remains">
           <li><Icon name="house" /> {t('remains.home')}</li>
+          {!!life.land && <li><Icon name="wheat" /> {t('remains.land', { n: life.land })}</li>}
+          {!!life.slaves && <li><Icon name="chain" /> {t('remains.slaves', { n: life.slaves })}</li>}
           <li><Icon name="purse" /> {r.facts.wealth > 0 ? t('remains.money', { sum: formatMoney(t, r.facts.wealth, coin) }) : r.facts.wealth < 0 ? t('remains.debts') : t('remains.nothing')}</li>
           <li><Icon name="heart" /> {kidsAlive || grand ? t('remains.kids', { n: kidsAlive, m: grand }) : t('remains.no_kids')}</li>
           <li><Icon name="hammer" /> {t('remains.trade', { prof: life.profession ? t(`prof.${life.profession}`, {}, o) : t('life.no_profession') })}</li>

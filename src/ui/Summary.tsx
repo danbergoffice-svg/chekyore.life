@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { survivalTable } from '../engine/report'
 import { EXTERNAL, platform } from '../platform'
-import { birthPlace, classKey, npcAge, roleKey } from '../engine/rules'
+import { birthPlace, classKey, npcAge, regionOf, roleKey } from '../engine/rules'
 import type { DiaryEntry, EraDef, LifeSummary, Npc, SceneDef, Topic } from '../engine/types'
-import { formatYear, nameOf } from '../i18n'
+import { formatMoney, formatYear, nameOf } from '../i18n'
+import { LineChart } from './charts'
 import { dreamDef } from '../engine/dreams'
 import { Scene } from '../pixel/SceneView'
 import { CARD_SIZES, cleanLine, drawCard } from './shareCard'
@@ -141,7 +142,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
         <section class="block dream-block">
           <h2 class="section-title">{t('dream.title_block')}</h2>
           <p>
-            <strong>{t(`dream.${life.dreamSeen.id}.title`)}</strong> - {t(`dream.result.${life.dreamSeen.outcome}`)} · {t('dream.score', { n: life.dreamSeen.score })}
+            <strong>{t(`dream.${life.dreamSeen.id}.title`)}</strong>{'\u00a0— '}{t(`dream.result.${life.dreamSeen.outcome}`)} · {t('dream.score', { n: life.dreamSeen.score })}
           </p>
           <p class="small">{t(`dream.${life.dreamSeen.id}.truth`)}</p>
           <button class="secondary" onClick={act('share_dream', () => setSharing('dream'))}>{t('share.dream.button')}</button>
@@ -160,7 +161,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
                     <span class="ach-icon"><Glyph name="medal" /></span>
                     <span>
                       <strong>{t(`ach.${id}.title`, {}, o)}</strong>
-                      <span class="muted small"> - {t(`ach.${id}.desc`, {}, o)}</span>
+                      <span class="muted small">{'\u00a0— '}{t(`ach.${id}.desc`, {}, o)}</span>
                     </span>
                   </li>
                 ))}
@@ -176,7 +177,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
                     <span class="ach-icon"><Glyph name="hourglass" /></span>
                     <span>
                       <strong>{t(`ach.${id}.title`, {}, o)}</strong>
-                      <span class="muted small"> - {t(`ach.${id}.desc`, {}, o)}</span>
+                      <span class="muted small">{'\u00a0— '}{t(`ach.${id}.desc`, {}, o)}</span>
                       <span class="ach-bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
                         <span style={{ width: `${Math.round(progress * 100)}%` }} />
                       </span>
@@ -195,7 +196,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
                     <span class="ach-icon"><Glyph name="target" /></span>
                     <span>
                       <strong>{t(`ach.${id}.title`, {}, o)}</strong>
-                      <span class="muted small"> - {t(`ach.${id}.hint`, {}, o)}</span>
+                      <span class="muted small">{'\u00a0— '}{t(`ach.${id}.hint`, {}, o)}</span>
                     </span>
                   </li>
                 ))}
@@ -207,6 +208,9 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
 
       {/* 6. Полная запись жизни */}
       <FullRecord life={life} era={era} starred={starred} onStar={toggleStar} />
+
+      {/* 7. Графики - свёрнуты, чтобы итог читался быстро (вернули по отзыву 04.11). */}
+      <LifeCharts life={life} era={era} />
 
       {/* 8. Связь с родом */}
       <FamilyLink life={life} />
@@ -258,7 +262,7 @@ export function EarlyDeath({ life, era, onAgain, onFull, challenge }: { life: Li
         <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} still frame year={life.deathYear} />
         <h1 id="early-name" class="hero-name big">{name}</h1>
         <p class="muted">
-          {formatYear(life.birthYear, lang)} - {formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}
+          {formatYear(life.birthYear, lang)}–{formatYear(life.deathYear, lang)} · {t('death.lived', { n: life.age })}
         </p>
         <p>
           <strong>{t('summary.cause')}:</strong> {t(`cause.${life.cause}`)}
@@ -321,7 +325,7 @@ function FullRecord({ life, era, starred, onStar }: { life: LifeSummary; era: Er
                     {led.length > 0 && (
                       <span class="led-to">
                         {' '}
-                        {t('record.led_to')} {led.map(([c]) => `${t('diary.age', { n: c.age })} - ${line(c)}`).join('; ')}
+                        {t('record.led_to')} {led.map(([c]) => `${t('diary.age', { n: c.age })}\u00a0— ${line(c)}`).join('; ')}
                       </span>
                     )}
                     {ev?.historian_note && (
@@ -410,7 +414,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
   const clean = cleanLine(draft)
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   const name = nameOf(life.name, lang)
-  const years = `${formatYear(life.birthYear, lang)} - ${formatYear(life.deathYear, lang)}`
+  const years = `${formatYear(life.birthYear, lang)}–${formatYear(life.deathYear, lang)}`
   const ds = what === 'dream' ? life.dreamSeen : undefined
   // Карточка: главное дело жизни, самый яркий факт, афоризм под эту жизнь, портреты по возрастам.
   const card = useMemo(
@@ -429,7 +433,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
   const quote = card.quotes[0]
   const baseText = ds
     ? `${headline} ${t('share.dream.ask')}`
-    : t('share.text', { name, years, archetype: `${card.title}. ${card.hook}${quote ? `. ${quote.text} - ${quote.author}` : ''}` })
+    : t('share.text', { name, years, archetype: `${card.title}. ${card.hook}${quote ? `. ${quote.text}\u00a0— ${quote.author}` : ''}` })
   const shareText = EXTERNAL ? `${baseText} ${SITE}` : baseText
 
   useEffect(() => {
@@ -488,7 +492,7 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
               </button>
             ))}
           </div>
-          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={[`${name}, ${years}`, card.title, card.hook, quote && `${quote.text} - ${quote.author}`].filter(Boolean).map((x) => String(x).replace(/[.!?…]+$/, '')).join('. ')} />
+          <canvas ref={canvas} class="card-preview" style={{ aspectRatio: `${w} / ${h}` }} role="img" aria-label={[`${name}, ${years}`, card.title, card.hook, quote && `${quote.text}\u00a0— ${quote.author}`].filter(Boolean).map((x) => String(x).replace(/[.!?…]+$/, '')).join('. ')} />
           <p class="small muted">{t('share.privacy')}</p>
           <div class="stack">
             {EXTERNAL && 'share' in navigator && <button class="primary" onClick={systemShare}>{t('share.system')}</button>}
@@ -509,5 +513,43 @@ function ShareDialog({ what, life, era, archetype, onClose, onUpdate }: { what: 
         </div>
       </div>
     </div>
+  )
+}
+
+/** Графики жизни: положение (с сословиями фоном), достаток, здоровье и счастье по годам. Свёрнуты. */
+function LifeCharts({ life, era }: { life: LifeSummary; era: EraDef }) {
+  const { t } = useUi()
+  const o = { sex: life.sex, region: life.region, religion: life.religion }
+  const r = life.report
+  const coin = regionOf(era, life.region).coin
+  const by = (k: 'health' | 'happiness') => life.history.map((y) => ({ x: y.age, y: Math.round(y[k]) }))
+  if (life.history.length < 3) return null
+  return (
+    <details class="block fold" onToggle={(e) => e.currentTarget.open && platform.track('tab_open', { tab: 'charts' })}>
+      <summary>
+        <h2 class="section-title">{t('charts.title')}</h2>
+      </summary>
+      <h3>{t('charts.status')}</h3>
+      <p class="small muted">{t('charts.status_desc')}</p>
+      <LineChart
+        label={t('charts.status')}
+        points={r.charts.status.map((p) => ({ x: p.age, y: p.value }))}
+        yMin={0}
+        yMax={100}
+        bands={r.charts.bands.map((b) => ({ from: b.from, to: b.to, label: t(`class.${b.cls}`, {}, o) }))}
+      />
+      <h3>{t('charts.wealth')}</h3>
+      <LineChart
+        label={t('charts.wealth')}
+        points={r.charts.wealth.map((p) => ({ x: p.age, y: p.value }))}
+        marks={r.charts.wealth.filter((p) => p.reasons.length).map((p) => p.age)}
+        format={(v) => (Math.abs(v) >= 1000 ? `${Math.round(v / 100) / 10}k` : String(v))}
+      />
+      <p class="small muted">{t('charts.wealth_end', { money: formatMoney(t, life.history[life.history.length - 1].money, coin) })}</p>
+      <h3>{t('charts.health')}</h3>
+      <LineChart label={t('charts.health')} points={by('health')} yMin={0} yMax={100} />
+      <h3>{t('charts.happiness')}</h3>
+      <LineChart label={t('charts.happiness')} points={by('happiness')} yMin={0} yMax={100} />
+    </details>
   )
 }

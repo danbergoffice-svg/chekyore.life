@@ -6,6 +6,7 @@ import { isPet } from './pets'
 import { buildReport } from './report'
 import { ATTRIBUTES } from './types'
 import type { AttrId, AwayReason, DiaryEntry, EraDef, EraMeta, Family, GameSettings, GameState, Hero, LifeSummary, Npc, RegionDef, Sex } from './types'
+import { diceInherit } from './dice'
 
 export const SAVE_VERSION = 5
 
@@ -237,7 +238,72 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     tags: h.tags,
     skills: h.skills,
     animals: h.animals,
+    home: h.home,
+    rent: h.rent,
+    land: h.land,
+    slaves: h.slaves,
   }
+}
+
+/**
+ * Продолжить род из мемориала (отзыв владельца 05.11). Мемориал хранит итог жизни, а не всё состояние игры: умерший
+ * герой собирается заново по итогу - близкие, деньги, края, метки, навыки, скот, цель. Этого хватает, чтобы выбрать
+ * наследника и передать ему жизнь (continueWithHeir). Род продолжается с года смерти героя.
+ */
+export function stateFromMemorial(era: EraDef, life: LifeSummary, memorial: LifeSummary[], settings: GameSettings): GameState {
+  const seed = [...life.heroId].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) | 0, 7) >>> 0
+  const s = newLife(era, settings, seed)
+  const h = s.hero
+  Object.assign(h, {
+    id: life.heroId,
+    name: life.name,
+    sex: life.sex,
+    era: life.era,
+    region: life.region,
+    cls: life.cls,
+    religion: life.religion ?? h.religion,
+    profession: life.profession,
+    birthYear: life.birthYear,
+    deathYear: life.deathYear,
+    deathCause: life.cause,
+    age: life.age,
+    alive: false,
+    generation: life.generation,
+    money: life.money,
+    diary: life.diary,
+    npcs: structuredClone(life.npcs),
+    history: life.history,
+    places: life.places,
+    traits: life.traits,
+    tags: life.tags ?? [],
+    skills: { ...h.skills, ...life.skills },
+    animals: life.animals ?? [],
+    // Хозяйство: старые записи мемориала его не хранят - тогда дом по сословию (как при рождении), без земли и рабов.
+    home: life.home ?? h.home,
+    rent: life.rent,
+    land: life.land,
+    slaves: life.slaves,
+    abroad: life.abroad,
+    returned: life.returned,
+    erasLived: life.erasLived ?? [life.era],
+    goal: life.goal,
+    dreamSeen: life.dreamSeen,
+  })
+  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [] }
+  s.year = life.deathYear
+  s.offChronicle = life.offChronicle
+  s.phase = 'dead'
+  s.queue = []
+  // Новые люди и наследник получают id, которых ещё не было в этом роду.
+  const nums = [...life.npcs.map((n) => n.id), ...s.family.lives.map((l) => l.heroId)].map((id) => Number(/(\d+)$/.exec(id)?.[1] ?? 0))
+  s.nextId = Math.max(0, ...nums) + 1
+  return s
+}
+
+/** Можно ли продолжить род этой жизни из мемориала: она последняя в своём роду и род не продолжается сейчас в игре. */
+export function memorialCanContinue(life: LifeSummary, memorial: LifeSummary[], current: GameState | null): boolean {
+  if (current && current.family.id === life.familyId && current.phase !== 'dead') return false
+  return !memorial.some((l) => l.familyId === life.familyId && l.generation > life.generation)
 }
 
 /** Год, когда кончается хроника края героя (годы страны или края, что раньше). */
@@ -247,9 +313,41 @@ export function chronicleEnd(state: GameState): number {
   return Math.min(meta?.years[1] ?? Infinity, region?.years[1] ?? Infinity)
 }
 
-/** Наследник прожил бы большую часть жизни после конца хроники: род «ждёт продолжения» (п. 9 ТЗ v3). */
+/**
+ * Куда история уводит семью, когда хроника края кончается (отзыв владельца 05.11): после монголов из Багдада бегут
+ * в Дамаск и Каир, двор Сун уходит из Кайфэна в Ханчжоу, Константинополь становится Стамбулом. Только переходы,
+ * у которых есть историческая причина; где продолжения в игре нет (Европа после 1500, ацтеки, майя) - хроника кончается.
+ */
+const SUCCESSORS: Record<string, { era?: string; to: string[] }> = {
+  baghdad: { to: ['damascus', 'cairo'] },
+  cordoba: { to: ['cairo', 'damascus'] },
+  kaifeng: { to: ['hangzhou'] },
+  thessalonica: { to: ['constantinople'] },
+  nicaea: { to: ['constantinople', 'trebizond'] },
+  constantinople: { era: 'ISL', to: ['istanbul'] },
+  trebizond: { era: 'ISL', to: ['istanbul'] },
+  kamakura: { to: ['kyoto'] },
+  kiev: { to: ['vladimir', 'novgorod'] },
+  vladimir: { to: ['moscow'] },
+  palenque: { to: ['tikal', 'calakmul'] },
+  copan: { to: ['tikal', 'calakmul'] },
+}
+
+/** Край, куда переберётся семья, если хроника здешнего края кончится раньше, чем через `ahead` лет (или уже кончилась). */
+export function chronicleSuccessor(state: GameState, ahead = 20): { era: string; region: string; from: string } | null {
+  const hero = state.hero
+  if (state.offChronicle !== undefined || state.year + ahead <= chronicleEnd(state)) return null
+  const s = SUCCESSORS[hero.region]
+  if (!s) return null
+  const era = ERA_META[s.era ?? hero.era]
+  const region = s.to.map((id) => era?.regions.find((r) => r.id === id)).find((r) => r && r.years[0] <= state.year + ahead && Math.min(r.years[1], era.years[1]) > state.year)
+  return region ? { era: era.id, region: region.id, from: hero.region } : null
+}
+
+/** Наследник прожил бы большую часть жизни после конца хроники: род «ждёт продолжения» (п. 9 ТЗ v3) - если только
+ *  история не уводит семью в край, где хроника продолжается (chronicleSuccessor). */
 export function eraEnding(state: GameState): boolean {
-  return state.offChronicle === undefined && heirs(state).length > 0 && state.year + 20 > chronicleEnd(state)
+  return state.offChronicle === undefined && heirs(state).length > 0 && state.year + 20 > chronicleEnd(state) && !chronicleSuccessor(state)
 }
 
 /**
@@ -280,6 +378,23 @@ export function heirHome(state: GameState, child: Npc): { era: string; region: s
 }
 
 /** Доля наследства, которую получит этот ребёнок. */
+/**
+ * Доля наследника в земле и рабах: где наследуют сыновья - всё хозяйство остаётся сыну (дочь при братьях не получает),
+ * где делят поровну - каждому ребёнку его часть (округляя в пользу того, кто остаётся в доме).
+ */
+export function estateShare(state: GameState, era: EraDef, child: Npc): { land: number; slaves: number } {
+  const hero = state.hero
+  const land = hero.land ?? 0
+  const slaves = hero.slaves ?? 0
+  if (!land && !slaves) return { land: 0, slaves: 0 }
+  const kids = heirs(state)
+  if ((era.regions.find((r) => r.id === hero.region)?.inheritance ?? era.inheritance) === 'sons_first' && kids.some((k) => k.sex === 'm')) {
+    return child.sex === 'm' ? { land, slaves } : { land: 0, slaves: 0 }
+  }
+  const n = Math.max(1, kids.length)
+  return { land: Math.ceil(land / n), slaves: Math.ceil(slaves / n) }
+}
+
 export function inheritanceShare(state: GameState, era: EraDef, child: Npc): number {
   const kids = heirs(state)
   const money = Math.max(0, state.hero.money)
@@ -381,6 +496,10 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   const left = heirHome(prev, child)
   const home = left && isEraLoaded(left.era) ? left : null
   if (home) era = eraById(home.era)
+  // Хроника края кончается - семья перебирается туда, где история продолжается (страну загружает интерфейс заранее).
+  const next = !home ? chronicleSuccessor(prev) : null
+  const moved = next && isEraLoaded(next.era) ? next : null
+  if (moved) era = eraById(moved.era)
   const gen = descentOf(parent.npcs, child)
 
   const hero = emptyHero(parent.seed)
@@ -396,9 +515,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // id наследника - с семьёй: счётчик nextId у каждой семьи свой, без неё id повторялись (storage.uniqueHeroIds).
   hero.id = `h${prev.family.id.replace(/^f/, '')}-${prev.nextId++}`
   state.nextId = prev.nextId
-  hero.era = home ? era.id : parent.era
-  hero.region = home ? home.region : parent.region
-  hero.places = home ? [home.region] : [parent.places[parent.places.length - 1] ?? parent.region]
+  hero.era = home || moved ? era.id : parent.era
+  hero.region = home ? home.region : moved ? moved.region : parent.region
+  hero.places = home ? [home.region] : moved ? [moved.region] : [parent.places[parent.places.length - 1] ?? parent.region]
   // Сословие чужбины может не найтись на родине - тогда то, в котором родился родитель.
   hero.cls = era.classes.some((c) => c.id === parent.cls) ? parent.cls : (parent.birthCls ?? era.classes[0].id)
   hero.birthCls = hero.cls
@@ -409,7 +528,13 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.religion = parent.religion
   // Наследник остаётся в родительском доме и с тем же хозяйством.
   hero.home = parent.home ?? 1
+  // Съёмное жильё переходит наследнику вместе с платой, своего дома у него нет.
+  hero.rent = parent.rent ? { ...parent.rent } : undefined
   hero.animals = (parent.animals ?? []).map((a) => ({ ...a }))
+  // Земля и рабы - по обычаю наследования (estateShare); наследник на чужой родине их не получает - они остались там.
+  const share = left ? { land: 0, slaves: 0 } : estateShare(prev, era, child)
+  if (share.land) hero.land = share.land
+  if (share.slaves) hero.slaves = share.slaves
   hero.generation = parent.generation + 1
   hero.name = child.name
   hero.sex = child.sex
@@ -443,12 +568,21 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   if (prof && hero.age >= 8) hero.skills[prof.skill] = Math.min(30, hero.age * 1.5)
 
   ownFamily(state, era, parent, child)
+  if (moved) {
+    hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.chronicle_move', params: { why: { key: `chronicle.why.${moved.from}` }, to: { key: `region.${moved.region}` } }, reg: hero.region, rel: hero.religion, major: true, topic: 'history', icon: 'move', score: 60 })
+  }
+  diceInherit(state, parent)
 
+  // Что из хозяйства досталось наследнику - строкой в дневник сразу после записи о наследстве.
+  const estateNote = () => {
+    if (hero.land || hero.slaves) hero.diary.push({ year: prev.year, age: hero.age, key: `diary.estate_inherited_${hero.land && hero.slaves ? 'both' : hero.land ? 'land' : 'slaves'}`, params: { land: hero.land ?? 0, slaves: hero.slaves ?? 0 }, reg: hero.region, rel: hero.religion, topic: 'money', score: 30 })
+  }
   if (gen > 1) {
     familyOfDescendant(state, era, parent, child)
     inheritPets(hero, prev.year)
     const via = parent.npcs.find((n) => n.id === child.parentId)
     hero.diary.push({ year: prev.year, age: hero.age, key: gen === 2 ? 'diary.heir_grand' : 'diary.heir_great', params: { parent: { name: parent.name }, psex: parent.sex, via: { name: via?.name ?? '' }, vsex: via?.sex ?? 'm', money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
+    estateNote()
     return state
   }
 
@@ -471,6 +605,7 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   }
   inheritPets(hero, prev.year)
   hero.diary.push({ year: prev.year, age: hero.age, key: 'diary.heir', params: { parent: { name: parent.name }, psex: parent.sex, money: hero.money }, reg: hero.region, rel: hero.religion, major: true, topic: 'family', icon: 'birth', score: 100 })
+  estateNote()
   return state
 }
 

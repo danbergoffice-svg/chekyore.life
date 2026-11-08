@@ -1418,78 +1418,12 @@
     "choices": [
       {
         "id": "small",
-        "risk_roll": {
-          "param": "risk_tolerance",
-          "success_chance_base": 0.5,
-          "on_success": [
-            {
-              "param": "money",
-              "delta": 30
-            },
-            {
-              "param": "happiness",
-              "delta": 4
-            },
-            {
-              "chance": 0.4,
-              "effects": [
-                {
-                  "add_tag": "gambler"
-                }
-              ]
-            }
-          ],
-          "on_failure": [
-            {
-              "param": "money",
-              "delta": -20
-            },
-            {
-              "chance": 0.3,
-              "effects": [
-                {
-                  "add_tag": "gambler"
-                }
-              ]
-            }
-          ]
-        },
         "pattern": {
           "memory_future": 3
         }
       },
       {
         "id": "big",
-        "risk_roll": {
-          "param": "risk_tolerance",
-          "success_chance_base": 0.4,
-          "on_success": [
-            {
-              "param": "money",
-              "delta": 120
-            },
-            {
-              "param": "happiness",
-              "delta": 6
-            },
-            {
-              "add_tag": "gambler"
-            }
-          ],
-          "on_failure": [
-            {
-              "param": "money",
-              "delta": -80
-            },
-            {
-              "param": "stress",
-              "delta": 5
-            },
-            {
-              "add_tag": "gambler"
-            }
-          ]
-        },
         "pattern": {
           "memory_future": 5
         }
@@ -1507,7 +1441,12 @@
         }
       }
     ],
-    "variants": 16
+    "variants": 16,
+    "dynamic": "dice",
+    "dice_play": [
+      "small",
+      "big"
+    ]
   },
   {
     "id": "v_dice_bigwin",

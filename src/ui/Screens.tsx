@@ -18,6 +18,7 @@ import { heroLook } from './Life'
 import { VolumeSlider } from './Sound'
 import { useUi } from './text'
 import { Icon, IconText } from './Icon'
+import { SocialLinks } from './Social'
 
 /** Языки этой сборки: на портале может быть только часть (CrazyGames - английский). */
 const LANGS = platform.languages ?? ALL_LANGS
@@ -37,6 +38,11 @@ interface MenuProps {
   /** Барабан лотереи рождения - сразу под названием игры, на первом экране. */
   slot: ComponentChildren
   onContinue: () => void
+  /** Барабан раскрыт, хотя герой жив: игрок подтвердил «Начать другую жизнь». */
+  drumOpen?: boolean
+  onNewLife?: () => void
+  /** Кнопка «Дары»: при свёрнутом барабане - рядом с «Начать другую жизнь». */
+  gifts?: ComponentChildren
   onFeedback: () => void
   onLang: (lang: Lang) => void
   go: (s: 'memorial' | 'settings' | 'about' | 'awards') => void
@@ -52,8 +58,9 @@ let playersSeen: number | null = null
 
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
  *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, - в «Об игре». */
-export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound }: MenuProps) {
+export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, onFeedback, onLang, go, sound }: MenuProps) {
   const { t, lang } = useUi()
+  const [confirmNew, setConfirmNew] = useState(false)
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
   useEffect(() => {
     const id = setInterval(() => setShot((x) => (x + 1) % SHOWCASE.length), 5000)
@@ -113,22 +120,42 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
       <div class="title-block">
         {/* Длинное название (Thousands of Lives) - мельче, чтобы в одну строку на любом телефоне. */}
         <h1 class={`game-title ${t('app.title').length > 14 ? 'long' : ''}`}>{t('app.title')}</h1>
-        <p class="lead">{t('menu.subtitle')}</p>
+        <p class="lead">{t('menu.promise')}</p>
       </div>
 
-      {slot}
-
+      {/* Герой жив - сначала «Продолжить» (правка 03): раньше барабан стоял выше, и рывок рычага молча заменял жизнь.
+          Барабан свёрнут в «Начать другую жизнь» и раскрывается только после подтверждения. */}
       {playing && hero && (
-        <button class="continue-card" onClick={onContinue}>
+        <button class="continue-card big" onClick={onContinue}>
           <Avatar input={heroLook(hero)} label={t('life.portrait', { n: hero.age })} />
           <span class="continue-text">
             <strong>{t('menu.continue')}</strong>
             <span>
               {nameOf(hero.name, lang)} · {t('life.age', { n: hero.age })} · {t(`region.${hero.region}`)} · {formatYear(current!.year, lang)}
             </span>
+            {hero.goal && <span class="small">{t('menu.goal', { goal: { key: `goal.${hero.goal.id}.title` } })}</span>}
           </span>
           <span class="continue-go" aria-hidden="true">›</span>
         </button>
+      )}
+
+      {playing && !drumOpen && onNewLife ? (
+        confirmNew ? (
+          <div class="note-box new-life-confirm" role="alertdialog" aria-labelledby="new-life-q">
+            <p id="new-life-q">{t('menu.new_life.confirm', { name: { name: hero!.name } })}</p>
+            <div class="row-buttons">
+              <button class="primary" autoFocus onClick={() => setConfirmNew(false)}>{t('menu.new_life.keep')}</button>
+              <button class="danger" onClick={onNewLife}>{t('menu.new_life.go')}</button>
+            </div>
+          </div>
+        ) : (
+          <div class="new-life-row">
+            <button class="secondary new-life-btn" onClick={() => setConfirmNew(true)}>{t('menu.new_life')}</button>
+            {gifts}
+          </div>
+        )
+      ) : (
+        slot
       )}
 
       <nav class="menu-nav">
@@ -138,6 +165,12 @@ export function Menu({ current, slot, onContinue, onFeedback, onLang, go, sound 
         <button class="link" onClick={() => go('about')}>{t('menu.nav.about')}</button>
         {EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
       </nav>
+      {EXTERNAL && (
+        <>
+          <p class="small muted center social-title">{t('social.title')}</p>
+          <SocialLinks from="menu" />
+        </>
+      )}
       {players !== null && <p class="small center players-note">{t('menu.players', { n: players, count: players.toLocaleString(LOCALE[lang]) })}</p>}
       <p class="small muted center beta-note">{t('beta.notice')}</p>
     </div>
@@ -374,7 +407,7 @@ export function GiftsSheet(props: {
                   <span class="gift-icon"><Icon name={GIFT_ICON[g]} /></span>
                   <span>
                     <b>{t(`gift.${g}`)}</b>
-                    <span class="muted small"> - {t(`gift.${g}.desc`)}</span>
+                    <span class="muted small">{'\u00a0— '}{t(`gift.${g}.desc`)}</span>
                   </span>
                 </li>
               ))}
@@ -436,7 +469,7 @@ export function FatePicker(props: { pick: string | null; onPick: (kind: 'high' |
   )
 }
 
-export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void; note?: string }) {
+export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void; note?: string; howTo?: 'marks' | 'goal' | 'plain' }) {
   const { t, lang } = useUi()
   const hero = props.state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -466,7 +499,7 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
         <dt>{t('reveal.faith')}</dt>
         <dd>
           <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
-          <span class="muted small"> - {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+          <span class="muted small">{'\u00a0— '}{t(`religion.${hero.religion}.desc`, {}, o)}</span>
         </dd>
         <dt>{t('reveal.family')}</dt>
         <dd>
@@ -485,9 +518,22 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
           </>
         )}
       </dl>
+      {/* Как играть - три строки в первых жизнях (правка 13): 22% новичков уходили на первом году, не сделав выбора. */}
+      {props.howTo && (
+        <section class="how-to" aria-labelledby="how-to-title">
+          <h2 id="how-to-title" class="caps">{t('howto.title')}</h2>
+          <ol>
+            <li>{t('howto.time')}</li>
+            <li>{t('howto.choices')}</li>
+            <li>{t(`howto.${props.howTo}`)}</li>
+          </ol>
+        </section>
+      )}
       <p class="intro">{t(`region.${hero.region}.intro`)}</p>
       {props.note && <p class="challenge-note"><Icon name="trophy" /> {props.note}</p>}
-      <button class="primary" onClick={props.onStart}>{t('reveal.start')}</button>
+      <div class="sticky-cta">
+        <button class="primary" onClick={props.onStart}>{t('reveal.start')}</button>
+      </div>
     </div>
   )
 }
@@ -555,7 +601,7 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
                     {t('memorial.generation', { n: l.generation })} · {t(`region.${birthPlace(l).region}`)} · {t(`archetype.${l.report.pattern.code}`)}
                   </span>
                   <span>
-                    {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)} - {formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}
+                    {nameOf(l.name, lang)} · {formatYear(l.birthYear, lang)}–{formatYear(l.deathYear, lang)} · {t('death.lived', { n: l.age })}
                   </span>
                   {/* Род дошёл до конца хроники страны и ждёт следующей эпохи. */}
                   {l === lives[lives.length - 1] && l.diary.some((d) => d.key === 'diary.era_end') && <span class="small era-badge">{t('era_end.badge')}</span>}

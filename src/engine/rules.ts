@@ -6,6 +6,8 @@ import type { AbroadParam } from './abroad'
 import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
 import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
+import { diceEffect } from './dice'
+import { buyEstate, canBuy, loseEstate } from './estate'
 
 // ---------- Годы ----------
 // Года хранятся исторически: -44 - это 44 г. до н.э., нулевого года нет.
@@ -175,6 +177,9 @@ export function check(state: GameState, c: Condition): boolean {
   if ('religion_absent' in c) return !faithMatches(hero.religion, c.religion_absent)
   if ('minority' in c) return isMinority(state) === c.minority
   if ('region' in c) return c.region.includes(hero.region)
+  if ('can_buy' in c) return canBuy(state, c.can_buy)
+  if ('land_min' in c) return (hero.land ?? 0) >= c.land_min
+  if ('slaves_min' in c) return (hero.slaves ?? 0) >= c.slaves_min
   if ('status' in c) {
     const meta = ERA_META[hero.era]
     const v = meta ? statusOf(hero, meta) : 0
@@ -247,6 +252,8 @@ export function rollReligion(state: GameState, region: RegionDef, year: number, 
 export function contextParams(region: string, religion: string, year: number): Record<string, { key: string }> {
   const p: Record<string, { key: string }> = {}
   if (religion) p.faith = { key: `religion.${religion}` }
+  // Кости: название игры - по краю и стране (dice.game.<край> или dice.game.<страна>).
+  p.game = { key: 'dice.game' }
   const era = Object.values(ERA_META).find((e) => e.regions.some((r) => r.id === region))
   const def = era?.regions.find((r) => r.id === region)
   if (!era || !def) return p
@@ -420,6 +427,32 @@ function targets(state: GameState, role: NpcTarget, ctx: EffectContext): Npc[] {
   return aliveNpcs(state.hero, role)
 }
 
+// ---------- Торговля ----------
+
+/** Мастерство торговли 0…1: до 50 навыка - как у всех, к 100 торговец почти не прогорает. */
+export function tradeMastery(hero: Hero): number {
+  return clamp(((hero.skills?.trade ?? 0) - 50) / 50, 0, 1)
+}
+
+const isMoney = (e: Effect): e is { param: 'money'; delta: number } => 'param' in e && e.param === 'money'
+
+/**
+ * Деньги торговли по мастерству (фокус «торговля» и рискованные сделки на навыке торговли):
+ * убыток реже (на максимуме - в 5 раз) и меньше (в 2,5 раза), прибыль чаще и крупнее (в 1,4 раза).
+ */
+export function tradeEffects(hero: Hero, effects: Effect[] | undefined): Effect[] | undefined {
+  const m = tradeMastery(hero)
+  if (!m || !effects) return effects
+  return effects.map((e) => {
+    if (isMoney(e)) return { ...e, delta: e.delta < 0 ? e.delta * (1 - 0.6 * m) : e.delta * (1 + 0.4 * m) }
+    if ('chance' in e && e.effects.some(isMoney)) {
+      const loss = e.effects.some((x) => isMoney(x) && x.delta < 0)
+      return { ...e, chance: loss ? e.chance * (1 - 0.8 * m) : Math.min(1, e.chance + 0.15 * m), effects: tradeEffects(hero, e.effects)! }
+    }
+    return e
+  })
+}
+
 // ---------- Эффекты ----------
 
 /**
@@ -543,6 +576,12 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       homeEffect(state, e.home)
     } else if ('herd' in e) {
       herdEffect(state, e.herd)
+    } else if ('buy' in e) {
+      buyEstate(state, e.buy, e.n ?? 1)
+    } else if ('lose_estate' in e) {
+      loseEstate(state, e.lose_estate, e.n, e.refund ?? 0)
+    } else if ('dice_lust' in e) {
+      diceEffect(hero, e.dice_lust)
     } else if ('add_pet' in e) {
       const kind = e.add_pet === '@any' ? randomPet(state) : e.add_pet === '@stray' ? randomPet(state, ['dog', 'cat']) : petPossible(state, e.add_pet) ? e.add_pet : undefined
       if (kind && pets(state).length < MAX_PETS) {

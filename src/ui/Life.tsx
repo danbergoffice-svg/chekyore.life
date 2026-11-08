@@ -15,6 +15,7 @@ import {
 } from '../engine/game'
 import { checkAll, contextParams, maritalStatus, npcAge, regionOf, roleKey, scaledMoney, statusOf } from '../engine/rules'
 import { isPet } from '../engine/pets'
+import { rentPerMonth } from '../engine/household'
 import LONGEVITY from '../content/longevity.json'
 import { ATTRIBUTES } from '../engine/types'
 import type { ChoiceDef, DiaryEntry, EraDef, Effect, FocusDef, GameState, Hero, Lang, Npc, SceneTime } from '../engine/types'
@@ -40,7 +41,13 @@ import { EarlyGame } from '../kids/EarlyGame'
 import { GOAL_STEPS, goalMark } from '../engine/goals'
 import type { GoalId } from '../engine/goals'
 import type { GoalGroup } from '../goal'
+import { goalDue as isGoalDue } from '../goal'
 import { GoalBar, GoalPick } from './GoalPick'
+import { HudHeader, MilestoneChip, TimeBar } from './LifeHud'
+import { Tour } from './Tour'
+import { DiceGame } from './DiceGame'
+import { diceStakes } from '../engine/dice'
+import type { DiceResult } from '../engine/dice'
 import type { GoalChoice } from './GoalPick'
 import { earlySeed, kidsOn, SEEN_KEY } from '../kids/early'
 import type { EarlyResult } from '../kids/early'
@@ -62,6 +69,10 @@ function yearMs(age: number, custom?: number): number {
   return (age <= f.child_age ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
 }
 const TICK_MS = 100
+/** Выборы события костей, которые открывают стол с мини-игрой. */
+const DICE_TABLE = ['play', 'road']
+/** Порядок подсказок: раньше - важнее. */
+const HINT_ORDER = ['speed', 'year_len', 'focus', 'hero']
 export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
 export type Speed = (typeof SPEEDS)[number]
 
@@ -70,12 +81,23 @@ interface LifeProps {
   era: EraDef
   onStart: (focus: string | null) => void
   onFinish: () => void
-  onChoose: (choiceId: string | null) => void
+  /** ms - сколько окно события было открыто до выбора (аналитика). */
+  onChoose: (choiceId: string | null, ms?: number) => void
   onDismiss: () => void
   onLifestyle: (category: string, option: string) => void
   /** На чужбине: «Задумать возвращение». */
   onPlanReturn?: () => void
   onMenu: () => void
+  /** Поверх жизни открыто меню-лист: время стоит. */
+  frozen?: boolean
+  /** Эксперимент X0: первые три события жизни - короткий текст, без справки и «Близких». */
+  shortFirst?: boolean
+  /** Эксперимент XA: 'b' - компактная шапка, веха и нижняя панель времени (макет 06). */
+  layout?: 'a' | 'b'
+  /** Кости: партия сыграна - записать сразу. */
+  onDiceGame?: (r: DiceResult) => void
+  /** Меняется - открыть обучение заново («Как играть» в меню). */
+  tourNonce?: number
   /** Открыть настройки из жизни («Назад» вернёт в жизнь). */
   onSettings?: () => void
   choiceChanges: Change[]
@@ -99,7 +121,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -117,7 +139,17 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     const id = setInterval(() => setLifeSec((x) => x + 1), 1000)
     return () => clearInterval(id)
   }, [])
-  const hintFor = (id: string, when: boolean) => when && !hints.includes(id)
+  // Пока идёт обучение, подсказок нет.
+  const tourOn = useRef(false)
+  // Подсказки по одной (правка 10): из ожидающих показывается только первая, следующая - после «Понятно».
+  const hintWhen: Record<string, boolean> = {}
+  const hintFor = (id: string, when: boolean) => {
+    hintWhen[id] = when && !hints.includes(id)
+    return !tourOn.current && hintWhen[id] && HINT_ORDER.find((h) => hintWhen[h] ?? hintDue(h)) === id
+  }
+  const hintDue = (id: string) =>
+    !hints.includes(id) &&
+    (id === 'hero' ? hero.age >= 12 && tab === 'life' : id === 'speed' ? tab === 'life' && lifeSec >= 3 && hero.age < 2 : id === 'year_len' ? tab === 'life' && hero.age >= 2 && hero.age <= 6 : id === 'focus' ? hero.age >= 5 : false)
   const closeHint = (id: string) => {
     const next = [...hints, id]
     setHints(next)
@@ -144,8 +176,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   // Ранняя детская игра: раз за жизнь в kids_age лет (после 1–2 событий детства), у доли kids_share игроков.
   const f = platform.flags
   const kidsDue = !!onKids && state.phase === 'year' && f.kids_age > 0 && hero.age === f.kids_age && !lifeStats(state).kids && kidsOn(platform.playerId(), f)
-  // Цель жизни: перед первым годом (после лотереи; у наследника - в начале его жизни), один раз за жизнь.
-  const goalDue = !!goal && goal.group > 0 && state.phase === 'year' && hero.alive && !hero.goal && !lifeStats(state).goalAsked
+  // Цель жизни: перед первым годом (после лотереи; у наследника - в начале его жизни; в старом сохранении - сразу), один раз за жизнь.
+  const goalDue = !!goal && isGoalDue(state, goal.group)
   const [changing, setChanging] = useState(false)
   const [goalOpen, setGoalOpen] = useState(false)
   // Новый шаг к цели - строка на три секунды (и событие аналитики); шаги, сделанные до выбора цели, не объявляются.
@@ -173,10 +205,29 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     ls.lossSeen = lossAt + 1
     bump((x) => x + 1)
   }
-  const hold = modalOpen || !!loss
+  // Обучение: один раз в первой жизни, после выбора цели и без открытых окон; из меню - заново.
+  const [tour, setTour] = useState(false)
+  useEffect(() => {
+    if (tourNonce) setTour(true)
+  }, [tourNonce])
+  const tourDue = !tour && (state.settings.livesBefore ?? 0) === 0 && !platform.kvGet('thousands.tour') && !modalOpen && !loss && !goalDue && hero.alive
+  useEffect(() => {
+    if (tourDue) setTour(true)
+  }, [tourDue])
+  const endTour = (step: number, skipped: boolean) => {
+    setTour(false)
+    platform.kvSet('thousands.tour', '1')
+    platform.track('tour_end', { step: step + 1, skipped: skipped ? 1 : 0 })
+    // Подсказки о скорости и о герое обучение уже показало.
+    const next = [...new Set([...hints, 'speed', 'hero'])]
+    setHints(next)
+    platform.kvSet('thousands.hints', next.join(','))
+  }
+  const hold = modalOpen || !!loss || tour
+  tourOn.current = tour || tourDue
   // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
   // пауза без решения и уход с экрана жизни - остановка.
-  const playing = (speed > 0 || hold) && !chapterDue && !adOpen && state.phase !== 'dead'
+  const playing = (speed > 0 || hold) && !chapterDue && !adOpen && !frozen && state.phase !== 'dead'
   useEffect(() => {
     if (playing) platform.gameplayStart()
     else platform.gameplayStop()
@@ -184,12 +235,12 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   useEffect(() => () => platform.gameplayStop(), [])
 
   // Часы года. Ссылки на свежие значения, чтобы таймер не держал устаревшие.
-  const live = useRef({ state, progress, speed, hold, selected, onStart, onFinish, yearSec })
-  live.current = { state, progress, speed, hold, selected, onStart, onFinish, yearSec }
+  const live = useRef({ state, progress, speed, hold, selected, onStart, onFinish, yearSec, frozen })
+  live.current = { state, progress, speed, hold, selected, onStart, onFinish, yearSec, frozen }
   useEffect(() => {
     const id = setInterval(() => {
       const c = live.current
-      if (!c.speed || c.hold || c.state.phase === 'dead') return
+      if (!c.speed || c.hold || c.frozen || c.state.phase === 'dead') return
       if (c.state.phase === 'year') {
         setProgress(0)
         c.onStart(c.selected)
@@ -208,6 +259,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
   /** Перемотать к следующему событию или к концу года. */
   const skip = () => {
+    platform.track('next_event_click', {})
     if (state.phase === 'year') return onStart(selected)
     if (next) setProgress(next.at)
     else {
@@ -218,6 +270,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
   // Дневник: только важное; раскрытые записи - полный текст события и чем кончился выбор.
   const [onlyMajor, setOnlyMajor] = useState(false)
+  // Вести мира за годы жизни героя - отдельным списком по кнопке (отзыв 04.11), с первого года, а не с шести лет.
+  const [worldOpen, setWorldOpen] = useState(false)
+  const worldNews = era.news.filter((n) => n.year >= hero.birthYear && n.year <= state.year && !n.exclude_regions?.includes(hero.region)).sort((a, b) => b.year - a.year)
   const [openRows, setOpenRows] = useState<number[]>([])
   const fullText = (d: DiaryEntry): string[] | null => {
     const v = typeof d.params?.v === 'number' ? d.params.v : undefined
@@ -252,9 +307,24 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const season = state.phase === 'running' ? progress : 0
   const kids = hero.npcs.filter((n) => n.role === 'child' && n.alive)
   const heroName = nameOf(hero.name, lang)
+  const b = layout === 'b'
 
   return (
-    <div class="life">
+    <div class={b ? 'life layout-b' : 'life'}>
+      {b ? (
+        <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} details={
+          <>
+            <p class="hero-meta">
+              {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}
+              {hero.band !== undefined && hero.age >= era.stages.youth && <span title={t('band.tip', { n: statusOf(hero, era) })}> · {t(`band.${hero.band}`)}</span>}
+            </p>
+            {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
+            {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
+            {hero.abroad && !hero.abroad.naturalized && <p class="hero-meta small muted">{t(hero.sex === 'f' ? 'life.foreigner_f' : 'life.foreigner', { year: formatYear(hero.abroad.since, lang) })}</p>}
+            <div class="hud-sound">{sound}</div>
+          </>
+        } />
+      ) : (
       <header class="hero-bar">
         <div class="hero-bar-row">
           <Avatar input={heroLook(hero)} label={t('life.portrait', { n: hero.age }, o)} />
@@ -284,6 +354,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           </div>
         </div>
       </header>
+      )}
 
       {hintFor('hero', hero.age >= 12) && tab === 'life' && <Hint text={t('hint.hero')} onClose={() => closeHint('hero')} />}
       {/* Вкладки и скорость - вверху и прилипают при прокрутке: скорость рядом с картинкой, а не под лентой.
@@ -299,7 +370,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </button>
           ))}
         </nav>
-        <div class="speed-bar">
+        {!b && <div class="speed-bar">
           <div class="speed" role="group" aria-label={t('life.speed')}>
             {SPEEDS.map((s) => (
               <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => {
@@ -320,9 +391,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </span>
           </div>
           {speed === 0 && <p class="small muted center paused-note">{t('life.paused')}</p>}
-        </div>
+        </div>}
       </div>
-      {tab === 'life' && hintFor('speed', lifeSec >= 3 && hero.age < 2) && <Hint text={t('hint.speed')} onClose={() => closeHint('speed')} />}
+      {tab === 'life' && hintFor('speed', lifeSec >= 3 && hero.age < 2) && <Hint text={t(b ? 'hint.speed_b' : 'hint.speed')} onClose={() => closeHint('speed')} />}
       {/* Первые годы жизни: длительность года меняется в настройках. */}
       {tab === 'life' && hintFor('year_len', hero.age >= 2 && hero.age <= 6) && (
         <Hint
@@ -340,6 +411,12 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         />
       )}
 
+      {b && tab === 'life' && (
+        <div class="hud-goal">
+          <GoalBar state={state} open={goalOpen} onToggle={() => setGoalOpen(!goalOpen)} />
+          <MilestoneChip state={state} era={era} />
+        </div>
+      )}
       {tab === 'life' && (
         <section class="panel">
           <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} year={state.year} ambient />
@@ -407,7 +484,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           <ul class="plain">{feelings(t, hero).map((f) => <li>{f}</li>)}</ul>
           <p class="small">
             <strong>{t('reveal.faith')}:</strong> <span class="cap">{t(`religion.${hero.religion}`, {}, o)}</span>
-            <span class="muted"> - {t(`religion.${hero.religion}.desc`, {}, o)}</span>
+            <span class="muted">{'\u00a0— '}{t(`religion.${hero.religion}.desc`, {}, o)}</span>
           </p>
           <p class="small">
             <strong>{t('hero.family')}:</strong> {maritalText(t, hero, lang, 'marital')}
@@ -432,7 +509,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </div>
           )}
           <p class="small">
-            <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)} · <strong>{t('hero.animals')}:</strong>{' '}
+            <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)}
+            {hero.rent && <> ({t('hero.rent', { sum: formatMoney(t, rentPerMonth(hero.rent), coin) })})</>}
+            {!!hero.land && <> · <strong>{t('hero.land')}:</strong> {t('hero.land_n', { n: hero.land })}</>}
+            {!!hero.slaves && <> · <strong>{t('hero.slaves')}:</strong> {hero.slaves}</>} · <strong>{t('hero.animals')}:</strong>{' '}
             {hero.animals?.length
               ? hero.animals
                   .map((a) =>
@@ -481,7 +561,25 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <div class="filters" role="group">
               <button class={onlyMajor ? 'chip' : 'chip active'} aria-pressed={!onlyMajor} onClick={() => setOnlyMajor(false)}>{t('diary.all')}</button>
               <button class={onlyMajor ? 'chip active' : 'chip'} aria-pressed={onlyMajor} onClick={() => setOnlyMajor(true)}>{t('diary.major_only')}</button>
+              {worldNews.length > 0 && (
+                <button class={worldOpen ? 'chip active' : 'chip'} aria-expanded={worldOpen} onClick={() => {
+                  if (!worldOpen) platform.track('tab_open', { tab: 'world_news' })
+                  setWorldOpen(!worldOpen)
+                }}>
+                  {t('diary.world', { n: worldNews.length })}
+                </button>
+              )}
             </div>
+            {worldOpen && (
+              <ol class="diary world-news">
+                {worldNews.map((n) => (
+                  <li class="news">
+                    <span class="diary-age">{formatYear(n.year, lang)}</span>
+                    <span>{t(`news.${n.id}`, contextParams(hero.region, hero.religion, n.year), o)}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
             <ol class="diary">
               {groupPrimers(yearsBackward(onlyMajor ? entries.filter(([d]) => d.major) : entries)).map((item) => {
                 if ('primers' in item) return <PrimerGroup key={item.key} ids={item.primers} o={o} />
@@ -510,6 +608,20 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         </section>
       )}
 
+      {b && (
+        <TimeBar
+          speed={speed}
+          onSpeed={(s) => {
+            setSpeed(s as Speed)
+            platform.track('speed_change', { speed: s })
+          }}
+          progress={state.phase === 'running' ? progress : 0}
+          year={state.year}
+          onSkip={skip}
+          waiting={modalOpen}
+        />
+      )}
+      {tour && !modalOpen && <Tour onEnd={endTour} />}
       {goalToast && (
         <p class="goal-toast" role="status">
           {goalToast}
@@ -560,7 +672,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       {modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && dream && (state.dream || dream.result) ? (
         <DreamModal state={state} result={dream.result} onAnswer={dream.onAnswer} onHint={dream.onHint} onWake={dream.onWake} onClose={dream.onClose} />
       ) : (
-        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} />
+        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} short={!!shortFirst && lifeStats(state).choices < 3} onDiceGame={onDiceGame} />
       )}
     </div>
   )
@@ -790,7 +902,6 @@ function PrimerGroup({ ids, o }: { ids: string[]; o: { sex: Hero['sex']; region:
             <button class="primer-row" aria-expanded={open === id} onClick={() => read(id)}>
               <span class="primer-line">
                 <strong class="primer-title">{t(`primer.${id}.title`, {}, o)}</strong>
-                {open !== id && <span class="primer-peek"> - {t(`primer.${id}.text`, {}, o)}</span>}
               </span>
               <span class="primer-more">{open === id ? '−' : t('primer.read')}</span>
             </button>
@@ -947,22 +1058,41 @@ function People({ state, aliveOnly }: { state: GameState; aliveOnly?: boolean })
 interface EventProps {
   state: GameState
   era: EraDef
-  onChoose: (id: string | null) => void
+  onChoose: (id: string | null, ms?: number) => void
+  short?: boolean
+  onDiceGame?: (r: DiceResult) => void
   onDismiss: () => void
   changes: Change[]
   /** Цель героя, если игрок в группе с метками ▲▼ (A/B goal_marks_share). */
   marks?: GoalId
 }
 
-function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventProps) {
+function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, onDiceGame }: EventProps) {
   const { t, lang } = useUi()
   const ev = currentEvent(state, era)
   const [noteOpen, setNoteOpen] = useState(false)
   const [peopleOpen, setPeopleOpen] = useState(false)
+  // Кости: какой выбор открыл стол (play / road); null - выбор ещё не сделан.
+  const [table, setTable] = useState<string | null>(null)
   const offered = state.queue[0]?.dream
   useEffect(() => {
     if (offered && ev?.id === 'dream_intro' && !state.queue[0]?.outcome) platform.track('dream_offer', { dream: offered, era: state.hero.era, age: state.hero.age })
   }, [offered])
+  // Клавиатура: 1–4 выбирают вариант, Enter - «Далее» после итога (доступность, критерии ТЗ).
+  const keys = useRef<(e: KeyboardEvent) => void>(() => {})
+  // Когда окно этого события открылось: время до выбора уходит в choice_made.ms_to_choice.
+  const shown = useRef({ id: '', at: 0 })
+  const eventKey = `${state.queue[0]?.eventId}:${state.queue[0]?.at}:${state.year}`
+  if (shown.current.id !== eventKey) shown.current = { id: eventKey, at: Date.now() }
+  const pick = (id: string | null) => {
+    if (ev?.dynamic === 'dice' && id && (ev.dice_play ?? DICE_TABLE).includes(id) && onDiceGame) return setTable(id)
+    onChoose(id, Date.now() - shown.current.at)
+  }
+  useEffect(() => {
+    const h = (e: KeyboardEvent) => keys.current(e)
+    window.addEventListener('keydown', h)
+    return () => window.removeEventListener('keydown', h)
+  }, [])
   if (!ev) return null
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -988,52 +1118,73 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
   const resultKey = outcome && outcome.choiceId !== 'ok' && !isProfession && !isName ? variantKey(lang, `ev.${ev.id}.${outcome.choiceId}.${outcome.result}`, v) : null
   const resultText = resultKey && hasKey(lang, resultKey) ? t(resultKey, params, o) : null
 
+  keys.current = (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement)?.tagName === 'INPUT') return
+    if (state.queue[0]?.outcome || table) return
+    const n = Number(e.key)
+    const c = choices[n - 1]
+    if (n >= 1 && n <= 4 && c && choiceAvailable(state, c)) {
+      e.preventDefault()
+      pick(c.id)
+    }
+  }
   // У момента жизни заголовка нет: если он всё же попал в окно (очередь старого сохранения), служебный ключ не показываем.
   const titleKey = variantKey(lang, `ev.${ev.id}.title`, v)
   const title = hasKey(lang, titleKey) ? t(titleKey, params, o) : ''
   return (
     <div class="modal-backdrop">
-      <div class={`modal ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby={title ? 'ev-title' : undefined}>
+      <div class={`modal event-sheet ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby={title ? 'ev-title' : undefined}>
         <Illustration era={hero.era} moment={momentOf(ev)} label={title} fire={ev.scene?.disaster === 'fire'}>
           <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={title} />
         </Illustration>
         <div class="modal-body">
-          {ev.turning && <p class="eyebrow">{t('event.turning')}</p>}
-          {title && <h2 id="ev-title">{title}</h2>}
+          <div class="ev-head">
+            <div>
+              <p class="eyebrow">{ev.turning ? `${t('event.turning')} · ` : ''}{t('diary.age', { n: hero.age })}</p>
+              {title && <h2 id="ev-title">{title}</h2>}
+            </div>
+            {/* Справка историка - по кнопке «i» в заголовке (макет 07), раскрывается под текстом. */}
+            {ev.historian_note && !short && (
+              <button type="button" class="ev-info" aria-expanded={noteOpen} aria-label={t('event.note')} onClick={() => {
+                if (!noteOpen) platform.track('historian_open', {})
+                setNoteOpen(!noteOpen)
+              }}>
+                <Icon name="info" />
+              </button>
+            )}
+          </div>
           {who && (
             <p class="event-who">
-              <b>{nameOf(who.name, lang)}</b> - {t(`npc.${roleKey(hero.npcs, who)}`, { sex: who.sex }).toLocaleLowerCase(lang)} · {npcFacts(t, lang, who, state.year)}
+              <b>{nameOf(who.name, lang)}</b>{'\u00a0— '}{t(`npc.${roleKey(hero.npcs, who)}`, { sex: who.sex }).toLocaleLowerCase(lang)} · {npcFacts(t, lang, who, state.year)}
             </p>
           )}
-          <p class="event-text">{t(eventTextKey(ev, active?.variant), params, o)}</p>
-
-          {ev.historian_note && (
+          <p class="event-text">{t(short && hasKey(lang, `ev.${ev.id}.short`) ? `ev.${ev.id}.short` : eventTextKey(ev, active?.variant), params, o)}</p>
+          {noteOpen && ev.historian_note && (
             <div class="note">
-              <button class="link" aria-expanded={noteOpen} onClick={() => setNoteOpen(!noteOpen)}>
-                {t('event.note')} {noteOpen ? '▴' : '▾'}
-              </button>
-              {noteOpen && (
-                <>
-                  <p>{t(`ev.${ev.id}.note`)}</p>
-                  {ev.confidence && <p class="confidence">{t(`event.confidence.${ev.confidence}`)}</p>}
-                </>
-              )}
+              <p>{t(`ev.${ev.id}.note`)}</p>
+              {ev.confidence && <p class="confidence">{t(`event.confidence.${ev.confidence}`)}</p>}
             </div>
           )}
 
-          {!outcome && choices.length > 1 && hero.npcs.some((n) => n.alive && !n.away) && (
-            <div class="note">
-              <button class="link" aria-expanded={peopleOpen} onClick={() => setPeopleOpen(!peopleOpen)}>
-                {t('event.people')} {peopleOpen ? '▴' : '▾'}
-              </button>
-              {peopleOpen && <People state={state} aliveOnly />}
-            </div>
+          {/* Сначала решение, потом справка и близкие (правка 04): варианты видны сразу после текста. */}
+          {!outcome && table && onDiceGame && (
+            <DiceGame
+              state={state}
+              stakes={diceStakes(state, era)}
+              coin={coin}
+              onGame={onDiceGame}
+              onDone={() => {
+                const played = !!state.queue[0]?.dice?.length
+                const id = table
+                setTable(null)
+                if (played) onChoose(id, Date.now() - shown.current.at)
+              }}
+            />
           )}
-
-          {!outcome && (
+          {!outcome && !table && (
             <div class="choices">
               {choices.length === 0 && (
-                <button class="primary" onClick={() => onChoose(null)}>{t('event.ok')}</button>
+                <button class="primary" onClick={() => pick(null)}>{t('event.ok')}</button>
               )}
               {choices.map((c) => {
                 const ok = choiceAvailable(state, c)
@@ -1041,7 +1192,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
                 const price = cost(c)
                 const mark = marks && ok ? goalMark(marks, c) : null
                 return (
-                  <button class="choice" disabled={!ok} onClick={() => onChoose(c.id)}>
+                  <button class="choice" disabled={!ok} onClick={() => pick(c.id)}>
                     <span>{label(c)}</span>
                     {isProfession && <span class="choice-desc">{t(`prof.${c.id}.desc`)}</span>}
                     <span class="choice-meta">
@@ -1056,6 +1207,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
             </div>
           )}
 
+          {!outcome && choices.length > 1 && <p class="ev-keys">{t('event.keys', { n: Math.min(4, choices.length) })}</p>}
           {outcome && (
             <div class="outcome">
               {outcome.result !== 'ok' && <p class={`result ${outcome.result}`}>{t(`event.${outcome.result}`)}</p>}
@@ -1063,6 +1215,19 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks }: EventPr
               {outcome.rescued !== undefined && hero.diary[outcome.rescued] && <p>{diaryText(t, hero.diary[outcome.rescued], hero.sex, hero.region, hero.religion, lang)}</p>}
               {changes.length > 0 && <ChangeList changes={changes} coin={coin} />}
               <button class="primary" onClick={onDismiss} autoFocus>{t('event.next')}</button>
+            </div>
+          )}
+
+
+          {!outcome && !short && choices.length > 1 && hero.npcs.some((n) => n.alive && !n.away) && (
+            <div class="note">
+              <button class="link" aria-expanded={peopleOpen} onClick={() => {
+                  if (!peopleOpen) platform.track('people_open', {})
+                  setPeopleOpen(!peopleOpen)
+                }}>
+                {t('event.people')} {peopleOpen ? '▴' : '▾'}
+              </button>
+              {peopleOpen && <People state={state} aliveOnly />}
             </div>
           )}
         </div>

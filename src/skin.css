@@ -67,7 +67,9 @@ html.skin .spin-head .caps { display: inline-flex; align-items: center; gap: 8px
 html.skin .spin-head .caps::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--mustard); box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--sheet); }
 html.skin .spin-head { background: radial-gradient(circle, rgba(243, 234, 215, 0.5) 1.4px, transparent 2px) 0 50% / 10px 10px repeat-x; }
 html.skin .spin-head > * { background: var(--bg); padding-right: 8px; }
-html.skin .spin-head > *:last-child:not(:first-child) { padding: 0 0 0 8px; }
+html.skin .spin-head > *:last-child:not(:first-child):not(.gifts-btn) { padding: 0 0 0 8px; }
+/* «Дары» - своя кнопка с рамкой: правило выше снимало ей правый отступ, и без цифры надпись прижималась к краю. */
+html.skin .spin-head > .gifts-btn { padding: 0 13px; margin-left: 8px; }
 /* Справа у автомата место под рычаг (margin 34px у .slot-machine): строка с «Дарами» кончается там же, где корпус, - иначе кнопка липнет к краю экрана. */
 html.skin .spin-head { padding-right: 34px; background-clip: content-box; }
 
@@ -117,7 +119,7 @@ html.skin .lever-rod { background: var(--night); width: 5px; box-shadow: 0 0 0 1
 html.skin .lever-knob { background: var(--terra); box-shadow: 0 0 0 2.5px var(--sheet), 0 3px 0 rgba(19, 9, 4, 0.5); }
 html.skin .lever-base { border-radius: 14px 14px 2px 2px; background: var(--olive); box-shadow: 0 0 0 2px var(--sheet); }
 /* «Крути» - главная бумажная полоса со стрелкой. */
-html.skin .spin-button { position: relative; font-size: 1.1rem; transform: rotate(-0.6deg); }
+html.skin .spin-button { position: relative; font-size: 1.1rem; }
 html.skin .spin-button::after { content: ' →'; font-weight: 800; }
 html.skin .spin-result .scene { clip-path: var(--rough-c); border-radius: 0; }
 html.skin .spin-result .lead { color: var(--ink-2); }
@@ -170,7 +172,10 @@ html.skin .choices { counter-reset: opt; gap: 9px; }
 html.skin .choice { position: relative; padding-left: 46px; border-radius: 0; border: 2px solid var(--night); background: transparent; color: var(--night); }
 html.skin .choice::before { counter-increment: opt; content: counter(opt); position: absolute; left: 12px; top: 12px; width: 22px; height: 22px; display: grid; place-items: center;
   background: var(--night); color: var(--sheet); font-weight: 800; font-size: 13px; clip-path: polygon(0 6%, 100% 0, 94% 100%, 4% 94%); }
-html.skin .choice:not(:disabled):hover { background: var(--mustard); border-color: var(--night); transform: rotate(-0.8deg); }
+/* Жёлтый - только наведение мышью и фокус с клавиатуры (правка 09): на телефоне :hover «залипал» после тапа,
+   и в следующем окне вариант под пальцем (обычно последний) стоял жёлтым, будто его советуют. */
+@media (hover: hover) { html.skin .choice:not(:disabled):hover { background: var(--mustard); border-color: var(--night); } }
+html.skin .choice:not(:disabled):focus-visible { background: var(--mustard); border-color: var(--night); }
 html.skin .choice-desc { color: #6a5440; }
 html.skin .modal .primary { background: var(--night); color: var(--sheet); }
 html.skin .modal .note { background: #e8dcc2; border-radius: 0; clip-path: var(--rough-c); }
@@ -380,3 +385,16 @@ html.skin[data-skin='day'] ul.remains .icon { color: var(--sky-gold); }
 html.skin[data-skin='day'] .people100 span { background: #9aabc4; opacity: 1; }
 html.skin[data-skin='day'] .people100 span.longer { background: #16213a; }
 html.skin[data-skin='day'] .gifts-btn .n { color: var(--sheet); }
+
+/* Контраст на светлом листе окна (правка 17): плюсы и минусы итога, подписи детской игры - не ниже 4,5:1. */
+html.skin .modal .changes .up { color: #4a5a12; }
+html.skin .modal .changes .down { color: #a3341c; }
+html.skin .modal .kids-dir { color: #6b4a12; }
+html.skin .modal .kids-reward { color: #a3341c; }
+html.skin .menu-topbar .lang-switch button.active { background: #b5462b; }
+html.skin .tour-card .link { color: #6b4a2a; text-decoration-color: rgba(107, 74, 42, 0.5); }
+html.skin .tour-card .primary { background: #1c1a17; color: #f3ecdc; }
+/* Кости на светлом листе окна: вторичные кнопки тёмные (по умолчанию они для тёмного фона). */
+html.skin .dice .secondary { color: #130904; border-color: rgba(19, 9, 4, 0.5); }
+html.skin .dice .secondary.danger-soft { color: #a3341c; border-color: #a3341c; }
+html.skin .dice .link { color: #8a3a1e; text-decoration-color: rgba(138, 58, 30, 0.45); }

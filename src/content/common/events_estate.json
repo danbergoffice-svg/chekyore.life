@@ -1,0 +1,682 @@
+[
+  {
+    "id": "estate_home",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "conditions": [
+      {
+        "can_buy": "home"
+      }
+    ],
+    "base_weight": 1,
+    "trigger_only": true,
+    "topic": "money",
+    "icon": "move",
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "buy",
+        "effects": [
+          {
+            "buy": "home"
+          }
+        ],
+        "pattern": {
+          "home_road": -2
+        }
+      },
+      {
+        "id": "save",
+        "effects": [
+          {
+            "param": "stress",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "estate_land",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "conditions": [
+      {
+        "can_buy": "land"
+      }
+    ],
+    "base_weight": 1,
+    "trigger_only": true,
+    "topic": "money",
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "grain"
+      ]
+    },
+    "choices": [
+      {
+        "id": "buy",
+        "effects": [
+          {
+            "buy": "land",
+            "n": 1
+          }
+        ],
+        "pattern": {
+          "home_road": -3
+        }
+      },
+      {
+        "id": "buy_two",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 1100
+          }
+        ],
+        "effects": [
+          {
+            "buy": "land",
+            "n": 2
+          }
+        ],
+        "pattern": {
+          "home_road": -4
+        }
+      },
+      {
+        "id": "save",
+        "pattern": {
+          "home_road": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "estate_slaves",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "classes": [
+      "peasant",
+      "craftsman",
+      "trader",
+      "landowner",
+      "noble"
+    ],
+    "conditions": [
+      {
+        "can_buy": "slaves"
+      }
+    ],
+    "base_weight": 1,
+    "trigger_only": true,
+    "sensitive": true,
+    "topic": "money",
+    "scene": {
+      "place": "market",
+      "time": "day",
+      "people": 5
+    },
+    "choices": [
+      {
+        "id": "buy",
+        "effects": [
+          {
+            "buy": "slaves",
+            "n": 1
+          }
+        ],
+        "pattern": {
+          "craft_power": 3
+        }
+      },
+      {
+        "id": "buy_two",
+        "requirements": [
+          {
+            "param": "money",
+            "op": ">=",
+            "value": 700
+          }
+        ],
+        "effects": [
+          {
+            "buy": "slaves",
+            "n": 2
+          }
+        ],
+        "pattern": {
+          "craft_power": 4
+        }
+      },
+      {
+        "id": "refuse",
+        "effects": [
+          {
+            "param": "self_esteem",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "craft_power": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "estate_drought",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "conditions": [
+      {
+        "land_min": 1
+      }
+    ],
+    "base_weight": 3,
+    "topic": "money",
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 2,
+      "props": [
+        "sun"
+      ]
+    },
+    "choices": [
+      {
+        "id": "sell",
+        "effects": [
+          {
+            "lose_estate": "land",
+            "n": 1,
+            "refund": 0.6
+          },
+          {
+            "param": "happiness",
+            "delta": -4
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      },
+      {
+        "id": "endure",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -60
+          },
+          {
+            "param": "stress",
+            "delta": 5
+          }
+        ],
+        "pattern": {
+          "home_road": -2
+        }
+      },
+      {
+        "id": "water",
+        "risk_roll": {
+          "param": "diligence",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "money_years": 0.3
+            },
+            {
+              "skill": "farming",
+              "delta": 4
+            }
+          ],
+          "on_failure": [
+            {
+              "param": "money",
+              "delta": -80
+            },
+            {
+              "param": "health",
+              "delta": -5
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "estate_land_claim",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "conditions": [
+      {
+        "land_min": 1
+      }
+    ],
+    "base_weight": 1.5,
+    "topic": "money",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "court",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.45,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 4
+            },
+            {
+              "param": "self_esteem",
+              "delta": 3
+            }
+          ],
+          "on_failure": [
+            {
+              "lose_estate": "land",
+              "n": 1
+            },
+            {
+              "param": "money",
+              "delta": -50
+            },
+            {
+              "param": "reputation",
+              "delta": -3
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "pay",
+        "effects": [
+          {
+            "param": "money",
+            "delta": -120
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "memory_future": 1
+        }
+      },
+      {
+        "id": "yield",
+        "effects": [
+          {
+            "lose_estate": "land",
+            "n": 1
+          },
+          {
+            "param": "happiness",
+            "delta": -5
+          },
+          {
+            "param": "self_esteem",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "craft_power": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "estate_harvest",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "conditions": [
+      {
+        "land_min": 1
+      }
+    ],
+    "base_weight": 2,
+    "moment": true,
+    "topic": "money",
+    "effects": [
+      {
+        "money_years": 0.2
+      },
+      {
+        "param": "happiness",
+        "delta": 3
+      }
+    ],
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 3,
+      "props": [
+        "grain"
+      ]
+    }
+  },
+  {
+    "id": "estate_runaway",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "conditions": [
+      {
+        "slaves_min": 1
+      }
+    ],
+    "base_weight": 3,
+    "sensitive": true,
+    "topic": "money",
+    "scene": {
+      "place": "road",
+      "time": "night",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "chase",
+        "risk_roll": {
+          "param": "strength",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "stress",
+              "delta": 3
+            },
+            {
+              "param": "faith",
+              "delta": -2
+            }
+          ],
+          "on_failure": [
+            {
+              "lose_estate": "slaves",
+              "n": 1
+            },
+            {
+              "param": "health",
+              "delta": -4
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 3
+        }
+      },
+      {
+        "id": "let_go",
+        "effects": [
+          {
+            "lose_estate": "slaves",
+            "n": 1
+          },
+          {
+            "param": "self_esteem",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "craft_power": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "estate_revolt",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "conditions": [
+      {
+        "slaves_min": 3
+      }
+    ],
+    "base_weight": 1,
+    "sensitive": true,
+    "topic": "money",
+    "scene": {
+      "place": "yard",
+      "time": "night",
+      "people": 5,
+      "props": [
+        "fire"
+      ]
+    },
+    "choices": [
+      {
+        "id": "harsh",
+        "risk_roll": {
+          "param": "strength",
+          "success_chance_base": 0.55,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": -2
+            },
+            {
+              "param": "stress",
+              "delta": 6
+            },
+            {
+              "param": "faith",
+              "delta": -3
+            }
+          ],
+          "on_failure": [
+            {
+              "lose_estate": "slaves",
+              "n": 2
+            },
+            {
+              "param": "health",
+              "delta": -15
+            },
+            {
+              "home": "burn"
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": 4
+        }
+      },
+      {
+        "id": "talk",
+        "risk_roll": {
+          "param": "charisma",
+          "success_chance_base": 0.5,
+          "on_success": [
+            {
+              "param": "reputation",
+              "delta": 3
+            },
+            {
+              "param": "stress",
+              "delta": -2
+            }
+          ],
+          "on_failure": [
+            {
+              "lose_estate": "slaves",
+              "n": 2
+            },
+            {
+              "param": "money",
+              "delta": -60
+            }
+          ]
+        },
+        "pattern": {
+          "craft_power": -1
+        }
+      },
+      {
+        "id": "free",
+        "effects": [
+          {
+            "lose_estate": "slaves",
+            "n": 2
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          },
+          {
+            "param": "faith",
+            "delta": 3
+          },
+          {
+            "param": "happiness",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "craft_power": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "estate_freedom",
+    "type": "personal",
+    "age_range": [
+      16,
+      90
+    ],
+    "conditions": [
+      {
+        "slaves_min": 1
+      }
+    ],
+    "base_weight": 2,
+    "sensitive": true,
+    "topic": "life",
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "free",
+        "effects": [
+          {
+            "lose_estate": "slaves",
+            "n": 1
+          },
+          {
+            "param": "happiness",
+            "delta": 5
+          },
+          {
+            "param": "faith",
+            "delta": 4
+          },
+          {
+            "param": "reputation",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "faith_reason": -2
+        }
+      },
+      {
+        "id": "ransom",
+        "effects": [
+          {
+            "lose_estate": "slaves",
+            "n": 1,
+            "refund": 0.8
+          },
+          {
+            "param": "happiness",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      },
+      {
+        "id": "keep",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": -2
+          },
+          {
+            "param": "faith",
+            "delta": -2
+          },
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      }
+    ]
+  }
+]

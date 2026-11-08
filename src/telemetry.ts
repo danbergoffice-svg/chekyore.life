@@ -45,7 +45,10 @@ export function trackYear(state: GameState): void {
 
 export function trackLifeEnd(state: GameState, life: LifeSummary): void {
   const s = lifeStats(state)
-  platform.track('life_end', { age: life.age, cause: life.cause, region: life.region, era: life.era, sec_in_life: Math.round(s.sec), choices: s.choices, rescued: s.rescued, generation: life.generation })
+  // Кости: сколько партий, до какой ставки дошёл, сколько «на волю судьбы», разорился ли (ТЗ, что смотреть на тестах).
+  const dice = state.hero.dice
+  const diceParams = dice?.games ? { dice_games: dice.games, dice_max_stake: dice.maxStake, dice_fate: dice.fate, dice_ruined: dice.ruined ? 1 : 0, dice_net: Math.round(dice.net) } : {}
+  platform.track('life_end', { age: life.age, cause: life.cause, region: life.region, era: life.era, sec_in_life: Math.round(s.sec), choices: s.choices, rescued: s.rescued, generation: life.generation, ...diceParams })
   if (life.goal) platform.track('goal_end', { goal: life.goal.id, steps: life.goal.steps.length, done: life.goal.steps.length >= 4 ? 1 : 0, age: life.age, tier: life.goal.tier, ...(life.goal.inherited ? { inherited: 1 } : {}), ...(life.goal.changed ? { changed: 1 } : {}) })
 }
 
