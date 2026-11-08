@@ -32,7 +32,8 @@ export function AccountModal({ prompt, onClose }: { prompt?: boolean; onClose: (
       platform.track('account_start', { newsletter: news ? 1 : 0, prompt: prompt ? 1 : 0 })
     } else {
       setState('error')
-      setError(t(`account.error.${r.error === 'email' ? 'email' : r.error === 'region' ? 'region' : 'other'}`))
+      // Причина отказа почты (например, домен не подтверждён в Resend) - мелко, чтобы было что прислать разработчику.
+      setError(`${t(`account.error.${r.error === 'email' ? 'email' : r.error === 'region' ? 'region' : 'other'}`)}${r.detail ? ` (${r.detail})` : r.error && r.error !== 'email' && r.error !== 'region' ? ` (${r.error})` : ''}`)
     }
   }
   return (

@@ -64,8 +64,9 @@ const MAIL: Record<string, { subject: string; text: (link: string) => string }> 
   },
 }
 
-async function sendLoginMail(env: AccountEnv, email: string, link: string, lang: string): Promise<boolean> {
-  if (!env.RESEND_API_KEY) return false
+/** Отправка письма: ok или причина отказа Resend (без ключа и адресов) - чтобы её было видно в ответе и в логах. */
+async function sendLoginMail(env: AccountEnv, email: string, link: string, lang: string): Promise<{ ok: boolean; detail?: string }> {
+  if (!env.RESEND_API_KEY) return { ok: false, detail: 'no key' }
   const m = MAIL[lang] ?? MAIL.en
   const text = m.text(link)
   const html = `<p>${text.split('\n\n').map((p) => p.replace(/\n/g, '<br>').replace(link, `<a href="${link}">${link}</a>`)).join('</p><p>')}</p>`
@@ -73,8 +74,12 @@ async function sendLoginMail(env: AccountEnv, email: string, link: string, lang:
     method: 'POST',
     headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
     body: JSON.stringify({ from: env.MAIL_FROM ?? 'Thousands of Lives <hello@thousands.life>', to: [email], subject: m.subject, text, html }),
-  })
-  return res.ok
+  }).catch((e) => new Response(JSON.stringify({ message: String(e) }), { status: 599 }))
+  if (res.ok) return { ok: true }
+  const body = (await res.json().catch(() => null)) as { message?: string; name?: string } | null
+  const detail = `resend ${res.status}: ${(body?.message ?? body?.name ?? '').slice(0, 200)}`
+  console.log('account mail failed', detail)
+  return { ok: false, detail }
 }
 
 type Json = (data: unknown, status?: number) => Response
@@ -114,7 +119,8 @@ export async function account(req: Request, env: AccountEnv, path: string, json:
       .run()
     const site = (env.SITE_URL ?? new URL(req.url).origin).replace(/\/$/, '')
     const sent = await sendLoginMail(env, email, `${site}/?login=${token}`, lang)
-    return sent ? json({ ok: true }) : json({ ok: false, error: 'mail' }, 502)
+    // Отказ почты - 424, а не 5xx: Cloudflare подменяет 5xx своей страницей, и причина терялась.
+    return sent.ok ? json({ ok: true }) : json({ ok: false, error: 'mail', detail: sent.detail }, 424)
   }
 
   if (path === '/api/account/verify' && req.method === 'POST') {

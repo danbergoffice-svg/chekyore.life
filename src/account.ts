@@ -54,8 +54,8 @@ export async function accountAvailable(): Promise<boolean> {
   return !!r?.ok && !r.ru
 }
 
-export async function startLogin(email: string, lang: string, newsletter: boolean, playerId: string): Promise<{ ok: boolean; error?: string }> {
-  const r = await call<{ ok: boolean; error?: string }>('/start', { method: 'POST', body: JSON.stringify({ email, lang, newsletter, player_id: playerId }) })
+export async function startLogin(email: string, lang: string, newsletter: boolean, playerId: string): Promise<{ ok: boolean; error?: string; detail?: string }> {
+  const r = await call<{ ok: boolean; error?: string; detail?: string }>('/start', { method: 'POST', body: JSON.stringify({ email, lang, newsletter, player_id: playerId }) })
   return r ?? { ok: false, error: 'network' }
 }
 
