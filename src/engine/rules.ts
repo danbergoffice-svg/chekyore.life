@@ -5,7 +5,7 @@ import { ABROAD_PARAMS, abroadChoice, canEmigrate, emigrate, naturalize, returnH
 import type { AbroadParam } from './abroad'
 import { chance, int, pick, weighted } from './rng'
 import { ATTRIBUTES, HIDDEN } from './types'
-import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex } from './types'
+import type { AncestorNames, AttrId, AwayReason, Condition, DiaryEntry, EraDef, EraMeta, Effect, GameState, Hero, HiddenId, Npc, NpcRole, NpcTarget, Op, ParamId, PatternDelta, RegionDef, Sex, TextParam } from './types'
 import { diceEffect } from './dice'
 import { buyEstate, canBuy, loseEstate } from './estate'
 import { rememberEmotion } from './emotions'
@@ -651,6 +651,11 @@ function homeEffect(state: GameState, kind: 'burn' | 'ruin' | 'rebuild'): void {
   note(state, { key: kind === 'burn' ? 'diary.home_burned' : 'diary.home_ruined', topic: 'money', icon: 'disaster', score: 32, mood: -8, major: true })
 }
 
+/** Возраст и причина смерти для записи в дневник (diaryText допишет их к тексту). */
+function deathParams(state: GameState, npc: Npc): Record<string, TextParam> {
+  return { dage: Math.max(0, npcAge(npc, state.year)), ...(npc.deathCause ? { dcause: { key: `cause.${npc.deathCause}`, sex: npc.sex } } : {}) }
+}
+
 export function killNpc(state: GameState, npc: Npc, cause?: string): void {
   const hero = state.hero
   npc.alive = false
@@ -660,7 +665,7 @@ export function killNpc(state: GameState, npc: Npc, cause?: string): void {
   if (npc.away) {
     // Умер вдали: только весть, горе тише.
     if (KIN.includes(npc.role) && npc.away.reason !== 'divorced') {
-      note(state, { key: 'diary.death_far', params: { who: { name: npc.name }, sex: npc.sex, role: { key: `rel.${npc.role}`, sex: npc.sex } }, topic: 'family', icon: 'death', score: 18, mood: -6, major: npc.role === 'child' })
+      note(state, { key: 'diary.death_far', params: { who: { name: npc.name }, sex: npc.sex, role: { key: `rel.${npc.role}`, sex: npc.sex }, ...deathParams(state, npc) }, topic: 'family', icon: 'death', score: 18, mood: -6, major: npc.role === 'child' })
       rememberEmotion(state, 'grief_far', npc, { cause, far: true })
     }
     return
@@ -669,7 +674,7 @@ export function killNpc(state: GameState, npc: Npc, cause?: string): void {
     const close = ['father', 'mother', 'spouse', 'child'].includes(npc.role)
     note(state, {
       key: `diary.death_${npc.role}`,
-      params: { who: { name: npc.name }, sex: npc.sex },
+      params: { who: { name: npc.name }, sex: npc.sex, ...deathParams(state, npc) },
       major: close && (npc.role !== 'child' || npcAge(npc, state.year) > 1),
       topic: 'family',
       icon: 'death',

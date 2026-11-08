@@ -1619,5 +1619,12 @@
   "dynasty.peace.desc": "{n} завещания исполнены без споров",
   "dynasty.rise.title": "Выбились в люди",
   "dynasty.rise.desc": "потомок поднялся выше сословия основателя",
-  "dice.accept": "Промолчать и принять итог"
+  "dice.accept": "Промолчать и принять итог",
+  "diary.death_tail": " - {n} {p=n:год|года|лет}.",
+  "diary.death_tail_cause": " - {n} {p=n:год|года|лет}, причина: {cause}.",
+  "people.at_home": "в твоём доме",
+  "people.more.born": "родил{g=sex:ся|ась} в {year}",
+  "people.more.edu_done": "{g=sex:учился|училась}: {path}",
+  "people.more.edu_now": "учится: {path}",
+  "people.more.kids": "детей: {n}"
 }

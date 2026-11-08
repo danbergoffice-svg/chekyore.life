@@ -28,7 +28,13 @@ export function diaryText(t: T, e: DiaryEntry, sex: Hero['sex'], region: string,
     if (e.params?.result === 'failure') s += ` (${t('diary.failure')})`
     return s
   }
-  return t(variantKey(lang, e.key, e.params?.v), params, opts)
+  const s = t(variantKey(lang, e.key, e.params?.v), params, opts)
+  // Смерть близкого: возраст и причина (записи до 09.11 их не хранят).
+  if (e.key.startsWith('diary.death_') && typeof e.params?.dage === 'number') {
+    const tail = t(e.params.dcause ? 'diary.death_tail_cause' : 'diary.death_tail', { n: e.params.dage, cause: e.params.dcause ?? '' }, opts)
+    return `${s.replace(/[.!]$/, '')}${tail}`
+  }
+  return s
 }
 
 const band = (v: number, edges: number[]) => edges.filter((e) => v >= e).length

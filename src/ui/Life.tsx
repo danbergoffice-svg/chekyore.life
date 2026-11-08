@@ -1025,9 +1025,39 @@ function maritalText(t: T, hero: Hero, lang: Lang, prefix: 'chapter' | 'marital'
 }
 
 /** Роль, возраст, отношение, занятие - строкой; для вкладки «Люди» и для строки «кто это» в окне события. */
+/** Живёт под одной крышей с героем: супруг, неженатые дети, родители и братья-сёстры, пока герой молод. */
+function livesWithHero(hero: Hero, n: Npc, year: number): boolean {
+  if (!n.alive || n.away) return false
+  if (n.role === 'spouse') return true
+  if (n.role === 'child') return !n.married
+  if (n.role === 'father' || n.role === 'mother') return hero.age < 25 || year - n.birthYear >= 60
+  if (n.role === 'sibling') return hero.age < 18 && !n.married
+  return false
+}
+
+/** Подробности о человеке: год рождения, черты, учёба, дети. */
+function npcMore(t: T, lang: Lang, all: Npc[], n: Npc): string {
+  const kids = all.filter((x) => x.parentId === n.id).length
+  const e = n.education
+  const edu = e?.completedYear ? t('people.more.edu_done', { path: t(`children.path.${e.path}`), sex: n.sex }) : e?.startedYear && !e.refusedYear ? t('people.more.edu_now', { path: t(`children.path.${e.path}`) }) : ''
+  return [
+    t('people.more.born', { year: formatYear(n.birthYear, lang), sex: n.sex }),
+    n.traits.length ? n.traits.map((tr) => t(`trait.${tr}`)).join(', ') : '',
+    edu,
+    kids ? t('people.more.kids', { n: kids }) : '',
+  ]
+    .filter(Boolean)
+    .join(' · ')
+}
+
 function npcFacts(t: T, lang: Lang, n: Npc, year: number): string {
   if (n.alive && n.away) return t(`people.away.${n.away.reason}`, { sex: n.sex, year: formatYear(n.away.since, lang) })
-  if (!n.alive) return t('npc.dead', { sex: n.sex, year: formatYear(n.deathYear ?? year, lang) })
+  if (!n.alive) {
+    const died = t('npc.dead', { sex: n.sex, year: formatYear(n.deathYear ?? year, lang) })
+    const age = n.deathYear !== undefined ? t('life.age', { n: Math.max(0, n.deathYear - n.birthYear) }) : ''
+    const cause = n.deathCause ? t(`cause.${n.deathCause}`, {}, { sex: n.sex }) : ''
+    return [died, age, cause].filter(Boolean).join(' · ')
+  }
   return [
     t('life.age', { n: Math.max(0, npcAge(n, year)) }),
     attitudeText(t, n),
@@ -1046,11 +1076,18 @@ function People({ state, aliveOnly }: { state: GameState; aliveOnly?: boolean })
   const alive = hero.npcs.filter((n) => n.alive && !n.away)
   const far = aliveOnly ? [] : hero.npcs.filter((n) => n.alive && n.away)
   const dead = aliveOnly ? [] : hero.npcs.filter((n) => !n.alive)
+  // Нажать на человека - подробности (отзыв игроков 03–08.11: «хочу нажать на родственника», «кто живёт со мной»).
   const row = (n: Npc) => (
     <li class="person">
-      <span class="person-role">{t(`npc.${roleKey(hero.npcs, n)}`, { sex: n.sex })}</span>
-      <span class="person-name">{nameOf(n.name, lang)}</span>
-      <span class="muted">{npcFacts(t, lang, n, state.year)}</span>
+      <details class="person-more">
+        <summary>
+          <span class="person-role">{t(`npc.${roleKey(hero.npcs, n)}`, { sex: n.sex })}</span>
+          <span class="person-name">{nameOf(n.name, lang)}</span>
+          {livesWithHero(hero, n, state.year) && <span class="small home-badge">{t('people.at_home')}</span>}
+          <span class="muted">{npcFacts(t, lang, n, state.year)}</span>
+        </summary>
+        <span class="small">{npcMore(t, lang, hero.npcs, n)}</span>
+      </details>
     </li>
   )
   if (aliveOnly) return alive.length ? <ul class="people">{alive.map(row)}</ul> : <p class="muted">{t('people.empty')}</p>

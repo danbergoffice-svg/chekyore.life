@@ -1074,3 +1074,11 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .estate .choice-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
 .estate .will select { max-width: 60vw; font: inherit; }
 .estate .warn { color: var(--danger, #c0392b); }
+
+/* Близкие: нажать - подробности; метка «в твоём доме». */
+.person-more > summary { list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; gap: 2px 8px; align-items: baseline; }
+.person-more > summary::-webkit-details-marker { display: none; }
+.person-more[open] > summary { margin-bottom: 4px; }
+.home-badge { border: 1px solid currentColor; border-radius: 8px; padding: 0 6px; opacity: 0.8; }
+
+.story-nav { display: flex; justify-content: center; gap: 24px; font-size: 1.4em; }

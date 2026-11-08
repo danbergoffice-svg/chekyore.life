@@ -1619,5 +1619,12 @@
   "dynasty.peace.desc": "{n} vasiyet itirazsız uygulandı",
   "dynasty.rise.title": "Yükselen soy",
   "dynasty.rise.desc": "bir torun kurucunun sınıfının üstüne çıktı",
-  "dice.accept": "Sessiz kal, sonucu kabul et"
+  "dice.accept": "Sessiz kal, sonucu kabul et",
+  "diary.death_tail": " - {n} yaşında.",
+  "diary.death_tail_cause": " - {n} yaşında, sebep: {cause}.",
+  "people.at_home": "senin evinde",
+  "people.more.born": "{year} doğumlu",
+  "people.more.edu_done": "eğitimi: {path}",
+  "people.more.edu_now": "okuyor: {path}",
+  "people.more.kids": "çocuk: {n}"
 }

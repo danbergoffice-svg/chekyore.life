@@ -1619,5 +1619,12 @@
   "dynasty.peace.desc": "{n} wills carried out without disputes",
   "dynasty.rise.title": "Rose in the world",
   "dynasty.rise.desc": "a descendant rose above the founder's class",
-  "dice.accept": "Keep quiet and accept the result"
+  "dice.accept": "Keep quiet and accept the result",
+  "diary.death_tail": " - aged {n}.",
+  "diary.death_tail_cause": " - aged {n}, cause: {cause}.",
+  "people.at_home": "in your home",
+  "people.more.born": "born {year}",
+  "people.more.edu_done": "schooled: {path}",
+  "people.more.edu_now": "in school: {path}",
+  "people.more.kids": "children: {n}"
 }

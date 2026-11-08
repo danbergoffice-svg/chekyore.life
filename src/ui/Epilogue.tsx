@@ -1,7 +1,7 @@
 // Экран после смерти (выбор владельца 02.11 - смесь вариантов «Прощание» и «Истории», макеты tools/mockups/death.html):
 // сверху надгробие с портретом и годами, ниже - яркие карточки-факты (листаются как сторис), слова родных у могилы,
 // что осталось после героя и 100 ровесников человечками вместо графика.
-import { useState } from 'preact/hooks'
+import { useRef, useState } from 'preact/hooks'
 import type { DiaryEntry, EraDef, LifeSummary, Npc, SceneDef } from '../engine/types'
 import { AXES } from '../engine/types'
 import { classKey, npcAge, regionOf, roleKey } from '../engine/rules'
@@ -210,9 +210,23 @@ export function StoryCards({ life, cards }: { life: LifeSummary; cards: Story[] 
   const { t, lang } = useUi()
   const [at, setAt] = useState(0)
   const ages = portraitAges(life, 4)
+  const box = useRef<HTMLDivElement>(null)
+  // На компьютере листать пальцем нечем: стрелки и клавиши ← → (отзыв игрока 08.11).
+  const go = (d: number) => {
+    const el = box.current
+    if (!el) return
+    const w = ((el.firstElementChild as HTMLElement | null)?.offsetWidth ?? 300) + 10
+    el.scrollTo({ left: Math.max(0, Math.min(cards.length - 1, at + d)) * w, behavior: 'smooth' })
+  }
   return (
     <section class="block stories-block" aria-label={t('story.cards')}>
       <div
+        ref={box}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowRight') go(1)
+          if (e.key === 'ArrowLeft') go(-1)
+        }}
         class="stories"
         onScroll={(e) => {
           const el = e.currentTarget
@@ -251,6 +265,10 @@ export function StoryCards({ life, cards }: { life: LifeSummary; cards: Story[] 
             )}
           </article>
         ))}
+      </div>
+      <div class="story-nav">
+        <button type="button" class="link" disabled={at <= 0} aria-label="←" onClick={() => go(-1)}>←</button>
+        <button type="button" class="link" disabled={at >= cards.length - 1} aria-label="→" onClick={() => go(1)}>→</button>
       </div>
       <div class="story-dots" aria-hidden="true">
         {cards.map((_, i) => (
