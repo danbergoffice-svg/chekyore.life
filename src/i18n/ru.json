@@ -1626,5 +1626,11 @@
   "people.more.born": "родил{g=sex:ся|ась} в {year}",
   "people.more.edu_done": "{g=sex:учился|училась}: {path}",
   "people.more.edu_now": "учится: {path}",
-  "people.more.kids": "детей: {n}"
+  "people.more.kids": "детей: {n}",
+  "diary.expecting": "{who} ждёт ребёнка - к следующему году в доме прибавится.",
+  "diary.expecting_self": "Ты ждёшь ребёнка - к следующему году в доме прибавится.",
+  "diary.child_looks_you": "{child} - {g=sex:вылитый|вылитая} ты: те же глаза, тот же нос.",
+  "diary.child_looks_spouse": "{child} - {g=sex:весь|вся} в {g=wsex:отца|мать}, говорят соседи: {who}, да и только.",
+  "diary.child_looks_elder": "{child} - копия {g=wsex:деда|бабки}, {who}: родня ахает.",
+  "diary.child_looks_neighbor": "{child} почему-то похож{g=sex:|а} на соседа. Соседи шепчутся, дома тишина."
 }

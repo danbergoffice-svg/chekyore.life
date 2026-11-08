@@ -1626,5 +1626,11 @@
   "people.more.born": "{year} doğumlu",
   "people.more.edu_done": "eğitimi: {path}",
   "people.more.edu_now": "okuyor: {path}",
-  "people.more.kids": "çocuk: {n}"
+  "people.more.kids": "çocuk: {n}",
+  "diary.expecting": "{who} çocuk bekliyor; gelecek yıl hane büyüyecek.",
+  "diary.expecting_self": "Çocuk bekliyorsun; gelecek yıl hane büyüyecek.",
+  "diary.child_looks_you": "{child} tıpkı sana benziyor.",
+  "diary.child_looks_spouse": "Komşular {child} için tıpkı {who} diyor.",
+  "diary.child_looks_elder": "{child}, {g=wsex:dedesi|ninesi} {who} gibi; aile şaşkın.",
+  "diary.child_looks_neighbor": "{child} nedense komşuya benziyor. Mahalle fısıldaşıyor, evde sessizlik."
 }

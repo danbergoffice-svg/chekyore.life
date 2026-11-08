@@ -746,6 +746,8 @@ export interface Hero {
   body?: number
   /** Животные хозяйства и домашние любимцы. */
   animals: Animal[]
+  /** Ждут ребёнка: год зачатия (роды - на следующий год). */
+  expecting?: number
   /** Эмоциональная память (src/engine/emotions.ts); нет поля - сохранение до версии 6 или ещё нечего помнить. */
   emotionalMemories?: EmotionalMemory[]
   /** Возраст последнего поворотного момента. */

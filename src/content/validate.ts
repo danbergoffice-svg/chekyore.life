@@ -252,7 +252,7 @@ export function leftoverBraces(keys?: string[]): string[] {
       const t = createT(lang, { sex })
       // Числа снов о будущем ({wall}, {liters}…) - тоже параметры; {i:имя} - значки интерфейса (Icon.tsx), не скобки.
       const dreamParams = Object.fromEntries(DREAM_DEFS.flatMap((d) => [...Object.keys(d.params ?? {}), ...Object.keys(d.derived ?? {})]).map((k) => [k, 1]))
-      const params = { ...SAMPLE_PARAMS, ...dreamParams, sex, psex: sex, vsex: sex, npc_sex: sex, s: sex }
+      const params = { ...SAMPLE_PARAMS, ...dreamParams, sex, psex: sex, vsex: sex, npc_sex: sex, s: sex, wsex: sex }
       for (const k of keys ?? allKeys(lang)) if (hasKey(lang, k) && /[{}]/.test(t(k, params).replace(/\{i:\w+\}/g, ''))) out.push(`${lang}:${k}`)
     }
   }

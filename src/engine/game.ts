@@ -147,16 +147,32 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   // Справки - равномерно по году, чтобы было время прочитать.
   let nth = 0
   for (let i = firstEntry; i < hero.diary.length; i++) if (hero.diary[i].primer) state.reveal[i] = 0.06 + 0.23 * nth++
+  // Окно имени - в самом начале года, вместе с другими вестями семьи: малыш уже виден на вкладке семьи и в сцене,
+  // и раньше весть о рождении приходила позже (отзыв владельца 09.11).
+  let early = 0
+  for (const q of state.queue) {
+    const ev = era.events.find((e) => e.id === q.eventId)
+    if (ev?.dynamic === 'name') q.at = Math.min(q.at, 0.005 + 0.005 * early++)
+  }
+  state.queue.sort((a, b) => a.at - b.at)
   // Запись о рождении появляется вместе с окном выбора имени, а не раньше.
+  let born = -1
   for (const q of state.queue) {
     const ev = era.events.find((e) => e.id === q.eventId)
     if (ev?.dynamic !== 'name') continue
+    born = Math.max(born, q.at + 0.005)
     const baby = hero.npcs.find((n) => n.id === q.npcId)
     for (let i = firstEntry; i < hero.diary.length; i++) {
       const child = hero.diary[i].params?.child
       if (baby && hero.diary[i].key.startsWith('diary.child_born') && child && typeof child === 'object' && 'name' in child && child.name === baby.name) state.reveal[i] = Math.min(1, q.at + 0.005)
     }
   }
+  // Жена умерла в родах - весть сразу после рождения ребёнка, а не раньше него.
+  if (born >= 0)
+    for (let i = firstEntry; i < hero.diary.length; i++) {
+      const c = hero.diary[i].params?.dcause
+      if (hero.diary[i].key === 'diary.death_spouse' && c && typeof c === 'object' && 'key' in c && c.key === 'cause.childbirth') state.reveal[i] = Math.min(1, born + 0.01)
+    }
   state.phase = 'running'
 }
 
@@ -303,30 +319,41 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   changeParam(hero, 'happiness', Math.sign(55 - hero.hidden.happiness) * 2)
   changeParam(hero, 'stress', Math.sign(20 - hero.hidden.stress) * 2)
 
-  // Рождение детей.
+  // Рождение детей: в один год - весть «ждём ребёнка», в следующий - роды (отзыв владельца 09.11).
   const spouse = aliveNpcs(hero, 'spouse')[0]
-  if (hero.tags.includes('married') && spouse) {
+  const due = hero.expecting !== undefined && hero.expecting < state.year
+  if (due) hero.expecting = undefined
+  if (due && hero.tags.includes('married') && spouse) {
+    const born = hero.npcs.length
+    applyEffects(state, era, [{ add_npc: 'child', attitude: 50 }])
+    const baby = hero.npcs[born]
+    if (baby) {
+      births.push(baby)
+      changeParam(hero, 'happiness', 8)
+      resemblance(state, baby, spouse)
+    }
+    // Сон о чистых руках: в семье, где моют руки щёлоком и кипятят ткани, горячка при родах вдвое реже.
+    const risk = era.mortality.childbirth * (state.settings.mortality === 'soft' ? 0.5 : 1) * (hero.tags.includes('clean_births') ? 0.5 : 1)
+    if (chance(state, risk)) {
+      if (hero.sex === 'f') applyEffects(state, era, [{ kill: 'childbirth' }])
+      else killNpc(state, spouse, 'childbirth')
+    }
+  } else if (!due && hero.expecting === undefined && hero.tags.includes('married') && spouse) {
     const motherAge = hero.sex === 'f' ? age : npcAge(spouse, state.year)
-    if (motherAge >= 15 && motherAge <= 44) {
+    if (motherAge >= 15 && motherAge <= 43) {
       let p = 0.28 + (focus?.id === 'family' ? 0.12 : 0) - (motherAge > 38 ? 0.12 : 0)
       // Первые жизни: у каждой своё число детей - до цели чаще, после почти никогда.
       const target = state.settings.kidsTarget
       if (target !== undefined) {
-        const born = hero.npcs.filter((n) => n.role === 'child').length
+        const born = hero.npcs.filter((n) => n.role === 'child').length + (hero.expecting !== undefined ? 1 : 0)
         // Сколько ещё нужно за оставшиеся годы - столько и шанс (с запасом на неудачные годы).
         const left = Math.max(1, 45 - motherAge)
         p = born >= target ? p * 0.06 : Math.min(0.85, Math.max(p, ((target - born) / left) * 1.6))
       }
       if (chance(state, p)) {
-        applyEffects(state, era, [{ add_npc: 'child', attitude: 50 }])
-        births.push(hero.npcs[hero.npcs.length - 1])
-        changeParam(hero, 'happiness', 8)
-        // Сон о чистых руках: в семье, где моют руки щёлоком и кипятят ткани, горячка при родах вдвое реже.
-        const risk = era.mortality.childbirth * (state.settings.mortality === 'soft' ? 0.5 : 1) * (hero.tags.includes('clean_births') ? 0.5 : 1)
-        if (chance(state, risk)) {
-          if (hero.sex === 'f') applyEffects(state, era, [{ kill: 'childbirth' }])
-          else killNpc(state, spouse, 'childbirth')
-        }
+        hero.expecting = state.year
+        note(state, { key: hero.sex === 'f' ? 'diary.expecting_self' : 'diary.expecting', params: { who: { name: spouse.name } }, topic: 'family', icon: 'child', score: 14, mood: 3 })
+        changeParam(hero, 'happiness', 3)
       }
     }
   }
@@ -403,6 +430,24 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
 /** Причина «естественной» смерти родного по возрасту: младенец - детская хворь, старик - старость, иначе болезнь. */
 function naturalCause(age: number): string {
   return age < 5 ? 'infant_illness' : age >= 60 ? 'old_age' : 'illness'
+}
+
+/** На кого похож новорождённый: на героя, на супруга, на деда или бабку - а изредка на соседа. */
+function resemblance(state: GameState, baby: Npc, spouse: Npc): void {
+  const hero = state.hero
+  const elder = hero.npcs.filter((n) => n.role === 'father' || n.role === 'mother')
+  const opts: { kind: string; w: number; who?: Npc }[] = [
+    { kind: 'you', w: 40 },
+    { kind: 'spouse', w: 40, who: spouse },
+    ...(elder.length ? [{ kind: 'elder', w: 16, who: elder[Math.floor(next(state) * elder.length)] }] : []),
+    { kind: 'neighbor', w: 4 },
+  ]
+  const o = weighted(state, opts, (x) => x.w)!
+  note(state, { key: `diary.child_looks_${o.kind}`, params: { child: { name: baby.name }, sex: baby.sex, ...(o.who ? { who: { name: o.who.name }, wsex: o.who.sex } : {}) }, topic: 'family', score: o.kind === 'neighbor' ? 16 : 8 })
+  if (o.kind === 'neighbor') {
+    changeParam(hero, 'stress', 3)
+    if (hero.sex === 'm') spouse.attitude = Math.max(-100, spouse.attitude - 5)
+  }
 }
 
 function npcMortality(state: GameState, era: EraDef, npc: Npc): number {

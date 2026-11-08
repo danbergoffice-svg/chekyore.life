@@ -1626,5 +1626,11 @@
   "people.more.born": "born {year}",
   "people.more.edu_done": "schooled: {path}",
   "people.more.edu_now": "in school: {path}",
-  "people.more.kids": "children: {n}"
+  "people.more.kids": "children: {n}",
+  "diary.expecting": "{who} is with child - by next year the household will grow.",
+  "diary.expecting_self": "You are with child - by next year the household will grow.",
+  "diary.child_looks_you": "{child} is the spitting image of you.",
+  "diary.child_looks_spouse": "{child} takes after {who}, the neighbours say.",
+  "diary.child_looks_elder": "{child} looks just like {g=wsex:grandfather|grandmother} {who} - the family is amazed.",
+  "diary.child_looks_neighbor": "Somehow {child} looks like the neighbour. The street whispers; at home - silence."
 }

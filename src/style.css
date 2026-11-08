@@ -889,7 +889,7 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .tip-bubble.start::after { left: 18px; }
 .tip-bubble.end { left: auto; right: 0; transform: none; }
 .tip-bubble.end::after { left: auto; right: 12px; }
-.reel-tag.tip { pointer-events: auto; overflow: visible; }
+.reel-tag.tip { position: absolute; pointer-events: auto; overflow: visible; }
 .reel-tag.tip .tip-bubble { bottom: auto; top: calc(100% + 8px); }
 .reel-tag.tip .tip-bubble::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: #130904; }
 
