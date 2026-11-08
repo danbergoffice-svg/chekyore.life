@@ -1632,5 +1632,6 @@
   "diary.child_looks_you": "{child} is the spitting image of you.",
   "diary.child_looks_spouse": "{child} takes after {who}, the neighbours say.",
   "diary.child_looks_elder": "{child} looks just like {g=wsex:grandfather|grandmother} {who} - the family is amazed.",
-  "diary.child_looks_neighbor": "Somehow {child} looks like the neighbour. The street whispers; at home - silence."
+  "diary.child_looks_neighbor": "Somehow {child} looks like the neighbour. The street whispers; at home - silence.",
+  "diary.travel_trip": "You travelled to {place}: new streets, strange accents, different market prices."
 }

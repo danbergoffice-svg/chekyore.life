@@ -1632,5 +1632,6 @@
   "diary.child_looks_you": "{child} tıpkı sana benziyor.",
   "diary.child_looks_spouse": "Komşular {child} için tıpkı {who} diyor.",
   "diary.child_looks_elder": "{child}, {g=wsex:dedesi|ninesi} {who} gibi; aile şaşkın.",
-  "diary.child_looks_neighbor": "{child} nedense komşuya benziyor. Mahalle fısıldaşıyor, evde sessizlik."
+  "diary.child_looks_neighbor": "{child} nedense komşuya benziyor. Mahalle fısıldaşıyor, evde sessizlik.",
+  "diary.travel_trip": "{place} yolculuğu: yeni sokaklar, başka ağızlar, başka pazar fiyatları."
 }

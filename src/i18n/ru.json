@@ -1632,5 +1632,6 @@
   "diary.child_looks_you": "{child} - {g=sex:вылитый|вылитая} ты: те же глаза, тот же нос.",
   "diary.child_looks_spouse": "{child} - {g=sex:весь|вся} в {g=wsex:отца|мать}, говорят соседи: {who}, да и только.",
   "diary.child_looks_elder": "{child} - копия {g=wsex:деда|бабки}, {who}: родня ахает.",
-  "diary.child_looks_neighbor": "{child} почему-то похож{g=sex:|а} на соседа. Соседи шепчутся, дома тишина."
+  "diary.child_looks_neighbor": "{child} почему-то похож{g=sex:|а} на соседа. Соседи шепчутся, дома тишина.",
+  "diary.travel_trip": "Ты {g:съездил|съездила} в {place}: новые улицы, чужой говор, другие цены на рынке."
 }

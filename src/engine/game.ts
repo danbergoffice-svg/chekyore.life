@@ -116,6 +116,7 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
     applyEffects(state, era, focus.id === 'trade' ? tradeEffects(hero, focus.effects) : focus.effects)
     addPattern(hero, era.patternWeights.focus[focus.id])
   }
+  if (focus?.id === 'travel') travelYear(state, era)
   if (hero.profession && hero.age >= era.stages.youth) addPattern(hero, era.patternWeights.profession[hero.profession])
   applyLifestyle(state, era)
   // Старые утраты тянут вниз и затухают - раз в год, до новых событий года.
@@ -432,6 +433,21 @@ function naturalCause(age: number): string {
   return age < 5 ? 'infant_illness' : age >= 60 ? 'old_age' : 'illness'
 }
 
+/**
+ * Год путешествий: поездка в другой край своей страны (запись в дневник - засчитывается цели «Путешественник»),
+ * иногда - предложение остаться там на работе (событие travel_work, метка travel_offer).
+ */
+function travelYear(state: GameState, era: EraDef): void {
+  const hero = state.hero
+  hero.tags = hero.tags.filter((t) => t !== 'travel_offer')
+  const open = era.regions.filter((r) => r.id !== hero.region && state.year >= r.years[0] && state.year <= r.years[1])
+  if (!open.length) return
+  const to = pick(state, open).id
+  hero.lastTrip = to
+  note(state, { key: 'diary.travel_trip', params: { place: { key: `region.${to}` } }, topic: 'life', icon: 'move', score: 14, mood: 2 })
+  if (hero.age >= 18 && hero.cls !== 'slave' && chance(state, 0.3)) hero.tags.push('travel_offer')
+}
+
 /** На кого похож новорождённый: на героя, на супруга, на деда или бабку - а изредка на соседа. */
 function resemblance(state: GameState, baby: Npc, spouse: Npc): void {
   const hero = state.hero
@@ -698,6 +714,8 @@ export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' 
   const pet: Record<string, TextParam> = active.petKind ? { pet: active.petName ? { name: active.petName } : { key: `pet.${active.petKind}` } } : {}
   // Хозяйство: {price} {coin} - цена покупки, {home} - какой дом купить, {land} и {slaves} - сколько уже есть.
   if (active.eventId?.startsWith('estate_')) Object.assign(pet, estateParams(state, active.eventId))
+  // Работа в краю, куда ездил: {place} - этот край.
+  if (active.eventId === 'travel_work' && state.hero.lastTrip) pet.place = { key: `region.${state.hero.lastTrip}` }
   // На чужбине: {homeland} - родная страна, {homeplace} - родной край.
   const a = state.hero.abroad
   if (a) Object.assign(pet, { homeland: { key: `era.${a.homeland.era}` }, homeplace: { key: `region.${a.homeland.region}` } })

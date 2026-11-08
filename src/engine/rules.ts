@@ -285,6 +285,8 @@ export function resolveRegion(state: GameState, era: EraMeta, target: string): s
   if (!target.startsWith('@')) return open.some((r) => r.id === target) ? target : undefined
   const tag = target.slice(1)
   if (tag === 'other') return [...open].sort((a, b) => b.weight - a.weight)[0]?.id
+  // Край, куда герой ездил в этом году (фокус «Тяга к путешествиям»).
+  if (tag === 'visited') return open.some((r) => r.id === state.hero.lastTrip) ? state.hero.lastTrip : undefined
   if (tag === 'capital') {
     const home = era.regions.find((r) => r.id === here)
     const capital = home && capitalFor(era, home, state.year)

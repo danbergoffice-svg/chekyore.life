@@ -1,0 +1,59 @@
+[
+  {
+    "id": "travel_work",
+    "type": "personal",
+    "age_range": [
+      16,
+      65
+    ],
+    "base_weight": 60,
+    "conditions": [
+      {
+        "tag": "travel_offer"
+      }
+    ],
+    "topic": "work",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "move",
+        "effects": [
+          {
+            "migrate": "@visited"
+          },
+          {
+            "remove_tag": "travel_offer"
+          },
+          {
+            "param": "happiness",
+            "delta": 3
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "id": "home",
+        "effects": [
+          {
+            "remove_tag": "travel_offer"
+          },
+          {
+            "param": "happiness",
+            "delta": 2
+          },
+          {
+            "param": "loneliness",
+            "delta": -2
+          }
+        ]
+      }
+    ]
+  }
+]

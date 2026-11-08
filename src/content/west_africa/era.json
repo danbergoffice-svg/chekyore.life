@@ -2719,6 +2719,46 @@
           "delta": 1
         }
       ]
+    },
+    {
+      "id": "travel",
+      "ages": [
+        16,
+        65
+      ],
+      "conditions": [
+        {
+          "classes": [
+            "peasant",
+            "craftsman",
+            "trader",
+            "landowner",
+            "noble"
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "param": "happiness",
+          "delta": 4
+        },
+        {
+          "param": "stress",
+          "delta": -3
+        },
+        {
+          "param": "intellect",
+          "delta": 1
+        },
+        {
+          "param": "loneliness",
+          "delta": 2
+        },
+        {
+          "param": "money",
+          "delta": -40
+        }
+      ]
     }
   ],
   "mortality": {

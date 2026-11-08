@@ -375,5 +375,11 @@
   "diary.rescued.other.4": "Uzun süre takatsiz yattın, sonra kalktın. Biri dua edip seni geri getirdi diyorlar.",
   "diary.rescued.other.5": "Felaket son anda yön değiştirdi. Yaşıyorsun, gerçi eskisinden zayıfsın.",
   "primer.common_p_lifespan.title": "İnsanlar ne kadar yaşardı",
-  "primer.common_p_lifespan.text": "“Eskiden herkes otuzunda ölürdü” derler. Öyle değil. Doğumda beklenen yaşam süresi çocuk ölümleri yüzünden 25–35 yıldı: her üç çocuktan biri beş yaşına varamıyordu. Ama yirmisine ulaşan biri ortalama 50–55 yaşına kadar, pek çoğu da yetmişine ve daha ötesine kadar yaşardı. Yeterli yiyecek, temiz su, sıcaklık, hamam, huzur ve iyi bir şifacı ömre yıllar katardı - tıpkı bugün olduğu gibi. Tahminler Coale-Demeny model yaşam tablolarına ve tarihsel demografi çalışmalarına dayanır (bkz. “Veriler ve kaynaklar hakkında”)."
+  "primer.common_p_lifespan.text": "“Eskiden herkes otuzunda ölürdü” derler. Öyle değil. Doğumda beklenen yaşam süresi çocuk ölümleri yüzünden 25–35 yıldı: her üç çocuktan biri beş yaşına varamıyordu. Ama yirmisine ulaşan biri ortalama 50–55 yaşına kadar, pek çoğu da yetmişine ve daha ötesine kadar yaşardı. Yeterli yiyecek, temiz su, sıcaklık, hamam, huzur ve iyi bir şifacı ömre yıllar katardı - tıpkı bugün olduğu gibi. Tahminler Coale-Demeny model yaşam tablolarına ve tarihsel demografi çalışmalarına dayanır (bkz. “Veriler ve kaynaklar hakkında”).",
+  "focus.travel": "Gezme tutkusu",
+  "focus.travel.desc": "Kendi ülkeni gör: para tutar ama keyif verir, ufkunu açar; başka yerde iş çıkabilir",
+  "ev.travel_work.title": "Yeni bir yerde iş",
+  "ev.travel_work.text": "{place} hoşuna gitti; oradaki bir usta seni izleyip kalmanı önerdi: iş çok, el az. Evde eski duvarlar ve tanıdık yüzler bekliyor.",
+  "ev.travel_work.move": "Oraya taşın",
+  "ev.travel_work.home": "Hikâyelerle eve dön"
 }

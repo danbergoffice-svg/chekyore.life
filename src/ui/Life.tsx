@@ -725,7 +725,7 @@ export function heroLook(hero: Hero): AvatarInput {
 }
 
 /** Порядок кнопок фокуса: самые частые - первыми. */
-const FOCUS_ORDER = ['play', 'learn', 'help_family', 'work', 'study', 'family', 'health', 'rest', 'religion', 'trade', 'savings', 'service']
+const FOCUS_ORDER = ['play', 'learn', 'help_family', 'work', 'study', 'family', 'health', 'rest', 'religion', 'trade', 'travel', 'savings', 'service']
 const FOCUS_CHIPS = 6
 
 /**
