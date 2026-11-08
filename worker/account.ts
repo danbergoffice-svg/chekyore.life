@@ -64,6 +64,22 @@ const MAIL: Record<string, { subject: string; text: (link: string) => string }> 
   },
 }
 
+const DEFAULT_FROM = 'Thousands of Lives <hello@thousands.life>'
+
+/**
+ * Отправитель из MAIL_FROM в виде, который принимает Resend («Имя <почта>» или «почта»): без кавычек и обратных
+ * кавычек по краям, без лишних пробелов; не нашлось почты - отправитель по умолчанию (09.11: Resend отклонял `from`).
+ */
+export function senderFrom(raw?: string): string {
+  const s = (raw ?? '').trim().replace(/^[`'"«“]+|[`'"»”]+$/g, '').trim()
+  const m = /^(.*?)<\s*([^\s<>@]+@[^\s<>@]+\.[^\s<>@]+)\s*>$/.exec(s)
+  if (m) {
+    const name = m[1].trim().replace(/^[`'"«“]+|[`'"»”]+$/g, '').trim()
+    return name ? `${name} <${m[2]}>` : m[2]
+  }
+  return /^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/.test(s) ? s : DEFAULT_FROM
+}
+
 /** Отправка письма: ok или причина отказа Resend (без ключа и адресов) - чтобы её было видно в ответе и в логах. */
 async function sendLoginMail(env: AccountEnv, email: string, link: string, lang: string): Promise<{ ok: boolean; detail?: string }> {
   if (!env.RESEND_API_KEY) return { ok: false, detail: 'no key' }
@@ -73,7 +89,7 @@ async function sendLoginMail(env: AccountEnv, email: string, link: string, lang:
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
-    body: JSON.stringify({ from: env.MAIL_FROM ?? 'Thousands of Lives <hello@thousands.life>', to: [email], subject: m.subject, text, html }),
+    body: JSON.stringify({ from: senderFrom(env.MAIL_FROM), to: [email], subject: m.subject, text, html }),
   }).catch((e) => new Response(JSON.stringify({ message: String(e) }), { status: 599 }))
   if (res.ok) return { ok: true }
   const body = (await res.json().catch(() => null)) as { message?: string; name?: string } | null

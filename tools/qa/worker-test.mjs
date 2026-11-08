@@ -20,6 +20,7 @@ const files = {
   worker: process.argv[2] ? resolve(process.argv[2]) : await bundle('worker/index.ts', 'worker.mjs'),
   digest: await bundle('worker/digest/index.ts', 'digest.mjs'),
   stats: await bundle('worker/stats.ts', 'stats.mjs'),
+  account: await bundle('worker/account.ts', 'account.mjs'),
 }
 let instance = 0
 const load = (file) => import(pathToFileURL(file).href + '?i=' + ++instance)
@@ -552,6 +553,19 @@ check('INTEGER и REAL дают одинаковые сообщения', JSON.s
   check('аккаунт: удаление стирает аккаунт, входы и события игрока', r.status === 200 && left === 0 && ev === 0, `${left} строк, ${ev} событий`)
   r = await req('/api/account/data', { headers: bearer })
   check('аккаунт: после удаления сессия не работает', r.status === 401)
+}
+
+// 9в. Отправитель письма из MAIL_FROM: очистка от кавычек, запасной адрес
+{
+  const { senderFrom } = await load(files.account)
+  const cases = [
+    [undefined, 'Thousands of Lives <hello@thousands.life>'],
+    ['`Тысячи жизней <hello@thousands.life>`', 'Тысячи жизней <hello@thousands.life>'],
+    ['"Тысячи жизней" <hello@thousands.life>', 'Тысячи жизней <hello@thousands.life>'],
+    ['  hello@thousands.life  ', 'hello@thousands.life'],
+    ['Тысячи жизней', 'Thousands of Lives <hello@thousands.life>'],
+  ]
+  check('MAIL_FROM: адрес отправителя чистится, испорченный - по умолчанию', cases.every(([a, b]) => senderFrom(a) === b), cases.map(([a]) => senderFrom(a)).join(' | '))
 }
 
 // 10. Секреты не попадают в логи; SQL без подстановки чисел в текст запроса
