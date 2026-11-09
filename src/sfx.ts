@@ -115,3 +115,29 @@ export function reelsSound(c: BaseAudioContext, out: Out, at: number, reels: Ree
   const ding = last + 0.08
   for (const [fr, v] of [[1320, 0.07], [1980, 0.04], [2640, 0.02]] as const) tone(c, out, ding, { f0: fr, vol: v, decay: 0.9 })
 }
+
+// ---------- Перелом сорокалетия: шар Плинко ----------
+
+/** Шар стукнулся о латунный колышек: короткий звонкий щелчок, чуть выше с каждым рядом (row 0–7). */
+export function pegSound(c: BaseAudioContext, out: Out, at: number, row: number): void {
+  const f = 1900 + row * 70 + Math.random() * 120
+  burst(c, out, at, { freq: f * 1.6, q: 6, vol: 0.18, decay: 0.018 })
+  tone(c, out, at, { f0: f, f1: f * 0.92, type: 'triangle', vol: 0.12, decay: 0.07 })
+}
+
+/** Шар упал в лунку: стук о дно и звук исхода - звон удачи, мягкий тон смешанного, глухой удар беды. */
+export function landSound(c: BaseAudioContext, out: Out, at: number, cat: 'clean' | 'mixed' | 'neg'): void {
+  burst(c, out, at, { freq: 700, type: 'lowpass', vol: 0.4, decay: 0.06 })
+  tone(c, out, at, { f0: 180, f1: 90, vol: 0.35, decay: 0.12 })
+  const t = at + 0.08
+  if (cat === 'clean') {
+    for (const [i, f] of [784, 988, 1175, 1568].entries()) tone(c, out, t + i * 0.07, { f0: f, type: 'triangle', vol: 0.16, decay: 0.7 })
+  } else if (cat === 'mixed') {
+    tone(c, out, t, { f0: 587, type: 'sine', vol: 0.16, decay: 0.6 })
+    tone(c, out, t + 0.09, { f0: 740, type: 'sine', vol: 0.12, decay: 0.6 })
+  } else {
+    tone(c, out, t, { f0: 110, f1: 70, vol: 0.5, decay: 0.5 })
+    tone(c, out, t + 0.02, { f0: 233, f1: 220, type: 'triangle', vol: 0.12, decay: 0.8 })
+    tone(c, out, t + 0.02, { f0: 277, f1: 262, type: 'triangle', vol: 0.1, decay: 0.8 })
+  }
+}

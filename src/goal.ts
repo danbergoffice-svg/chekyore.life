@@ -61,3 +61,10 @@ export function inheritable(state: GameState): (HeroGoal & { from: string }) | n
 export function goalOffers(state: GameState, exclude: string[] = []): GoalOffer[] {
   return heroGoalOffers(state.hero, exclude as GoalOffer['id'][])
 }
+
+/** Эксперимент XC: перелом сорокалетия (engine/crisis.ts); ?crisis=0|1 - проверить руками. */
+export function crisisOn(playerId: string, flags: { crisis_share?: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('crisis') : null
+  if (forced === '0' || forced === '1') return forced === '1'
+  return share(playerId, 'crisis', flags.crisis_share ?? 0)
+}

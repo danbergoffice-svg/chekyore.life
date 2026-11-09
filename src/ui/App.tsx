@@ -10,7 +10,7 @@ import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
-import { goalGroup, layoutB, shortFirst } from '../goal'
+import { crisisOn, goalGroup, layoutB, shortFirst } from '../goal'
 import { ensureGoal, goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
@@ -163,6 +163,8 @@ export function App() {
       game.current = save.game && ERA_META[save.game.hero.era] ? save.game : null
       // Сборка для портала без части событий (PEGI 12): и в сохранённой жизни их больше нет.
       if (game.current && platform.blockedEvents) game.current.settings.blockedEvents = platform.blockedEvents
+      // A/B перелома - и для жизни, начатой до него: группа игрока, а не сохранения.
+      if (game.current) game.current.settings.crisis = crisisOn(platform.playerId(), platform.flags) || undefined
       const lives = save.memorial.filter((l) => ERA_META[l.era])
       setMemorial(lives)
       // Награды: сохранённые плюс те, что положены задним числом по уже прожитым жизням.
@@ -171,7 +173,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a' })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0 })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -660,6 +662,8 @@ export function App() {
       goalWeight: goalGroup(platform.playerId(), platform.flags) > 0 ? platform.flags.goal_weight : undefined,
       // Контрольная группа без цели; всем остальным цель назначается всегда (ensureGoal).
       noGoal: goalGroup(platform.playerId(), platform.flags) === 0 || undefined,
+      // A/B: перелом сорокалетия (engine/crisis.ts).
+      crisis: crisisOn(platform.playerId(), platform.flags) || undefined,
     }
     const boons = { health: used.includes('health') ? HEALTH_GIFT : 0, wealth: used.includes('chest') ? CHEST_GIFT : 0 }
     const birth = boons.health || boons.wealth ? { ...pending.birth, boons } : pending.birth
@@ -897,6 +901,7 @@ export function App() {
     game.current.settings.dreamSure = undefined
     game.current.settings.goalWeight = goalGroup(platform.playerId(), platform.flags) > 0 ? platform.flags.goal_weight : undefined
     game.current.settings.noGoal = goalGroup(platform.playerId(), platform.flags) === 0 || undefined
+    game.current.settings.crisis = crisisOn(platform.playerId(), platform.flags) || undefined
     // Продолжение после конца хроники страны: с этого года - без исторических событий, вестей и справок.
     if (offChronicle.current && game.current.offChronicle === undefined) game.current.offChronicle = prevYear
     offChronicle.current = false
@@ -1202,6 +1207,7 @@ export function App() {
             frozen={lifeMenu}
             tourNonce={tourNonce}
             onDiceGame={onDiceGame}
+            onCrisisSave={persist}
             onSettings={() => {
               setSettingsFrom('life')
               setScreen('settings')

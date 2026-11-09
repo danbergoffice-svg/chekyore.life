@@ -481,7 +481,7 @@ export interface EventDef {
   effects?: Effect[]
   /** Варианты выбора собираются движком: 'profession' - доступные профессии. */
   /** dice - партия в кости (ui/DiceGame): выбор play разыгрывается мини-игрой. */
-  dynamic?: 'profession' | 'name' | 'dice'
+  dynamic?: 'profession' | 'name' | 'dice' | 'crisis'
   /** Кости: какие выборы открывают стол (по умолчанию play, road, chase). */
   dice_play?: string[]
   /** Если выборов нет, показывается одна кнопка «Далее». */
@@ -774,6 +774,8 @@ export interface Hero {
   emotionalMemories?: EmotionalMemory[]
   /** Возраст последнего поворотного момента. */
   lastTurning: number
+  /** Перелом сорокалетия (engine/crisis.ts): в каком возрасте, выбран ли, чем кончился; skipped - не случился до 45. */
+  crisis?: { age: number; offered?: number; done?: boolean; skipped?: boolean; stance?: string; slot?: string; second?: string; result?: string }
   deathYear?: number
   deathCause?: string
   seed: number
@@ -976,6 +978,8 @@ export interface ActiveEvent {
   dream?: string
   /** Партии в кости этого окна (событие dynamic dice): итоги от мини-игры. */
   dice?: import('./dice').DiceResult[]
+  /** Перелом сорокалетия этого окна (событие dynamic crisis): шары и исходы (engine/crisis.ts). */
+  crisis?: import('./crisis').CrisisRecord
   /** Питомец события: вид и кличка (если есть). */
   petKind?: string
   petName?: string
@@ -1027,6 +1031,8 @@ export interface GameSettings {
   goalWeight?: number
   /** Контрольная группа A/B (goal_share): жизнь без цели. Всем остальным цель назначается всегда (ensureGoal). */
   noGoal?: boolean
+  /** A/B (crisis_share): в этой жизни есть перелом сорокалетия (engine/crisis.ts). */
+  crisis?: boolean
 }
 
 export interface GameState {

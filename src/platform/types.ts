@@ -58,6 +58,8 @@ export interface Flags {
   short_first_share: number
   /** Эксперимент XA (этап 2): доля игроков с новой раскладкой экрана жизни - компактная шапка и нижняя панель времени. */
   layout_share: number
+  /** Эксперимент XC (10.11.2026): доля игроков с переломом сорокалетия (engine/crisis.ts), свой хеш id; 0 - выключен. */
+  crisis_share: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -89,6 +91,8 @@ export const DEFAULT_FLAGS: Flags = {
   goal_free_from: 4,
   short_first_share: 0.5,
   layout_share: 1,
+  // Перелом сорокалетия - A/B 50 на 50 (10.11.2026).
+  crisis_share: 0.5,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

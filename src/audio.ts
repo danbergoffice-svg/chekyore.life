@@ -5,7 +5,7 @@
 // Начинает после первого касания или клавиши (раньше браузеры звук не пускают), молчит, пока вкладка скрыта,
 // идёт реклама или платформа просит выключить звук. Грузится только тот трек, который нужен сейчас.
 import { platform } from './platform'
-import { leverSound, reelsSound } from './sfx'
+import { landSound, leverSound, pegSound, reelsSound } from './sfx'
 import type { ReelTiming } from './sfx'
 
 type Ctx = AudioContext
@@ -534,4 +534,16 @@ export function playNote(freq: number, ms = 220, type: OscillatorType = 'triangl
   o.connect(g).connect(out)
   o.start(t)
   o.stop(t + ms / 1000 + 0.03)
+}
+
+/** Перелом: шар стукнулся о колышек ряда row (0–7). */
+export function playPeg(row: number): void {
+  const out = sfxTarget()
+  if (out && ctx) pegSound(ctx, out, ctx.currentTime + 0.005, row)
+}
+
+/** Перелом: шар упал в лунку - звук по категории исхода. */
+export function playLand(cat: 'clean' | 'mixed' | 'neg'): void {
+  const out = sfxTarget()
+  if (out && ctx) landSound(ctx, out, ctx.currentTime + 0.01, cat)
 }

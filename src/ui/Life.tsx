@@ -58,6 +58,8 @@ import { GoalBar, GoalPick } from './GoalPick'
 import { HudHeader, MilestoneChip, TimeBar } from './LifeHud'
 import { Tour } from './Tour'
 import { DiceGame } from './DiceGame'
+import { CrisisBoard } from './CrisisBoard'
+import type { StanceId } from '../engine/crisis'
 import { diceStakes } from '../engine/dice'
 import type { DiceResult } from '../engine/dice'
 import type { GoalChoice } from './GoalPick'
@@ -122,6 +124,8 @@ interface LifeProps {
   layout?: 'a' | 'b'
   /** Кости: партия сыграна - записать сразу. */
   onDiceGame?: (r: DiceResult) => void
+  /** Перелом: шар брошен - сохранить игру (исход уже выбран движком). */
+  onCrisisSave?: () => void
   /** Меняется - открыть обучение заново («Как играть» в меню). */
   tourNonce?: number
   /** Открыть настройки из жизни («Назад» вернёт в жизнь). */
@@ -157,7 +161,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -771,7 +775,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       {modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && dream && (state.dream || dream.result) ? (
         <DreamModal state={state} result={dream.result} onAnswer={dream.onAnswer} onHint={dream.onHint} onWake={dream.onWake} onClose={dream.onClose} />
       ) : (
-        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} short={!!shortFirst && lifeStats(state).choices < 3} onDiceGame={onDiceGame} />
+        modalOpen && !kidsDue && !chapterDue && !adOpen && !goalDue && <EventModal state={state} era={era} onChoose={onChoose} onDismiss={onDismiss} changes={choiceChanges} marks={goal?.group === 2 ? hero.goal?.id : undefined} short={!!shortFirst && lifeStats(state).choices < 3} onDiceGame={onDiceGame} onCrisisSave={onCrisisSave} />
       )}
     </div>
   )
@@ -1251,13 +1255,14 @@ interface EventProps {
   onChoose: (id: string | null, ms?: number) => void
   short?: boolean
   onDiceGame?: (r: DiceResult) => void
+  onCrisisSave?: () => void
   onDismiss: () => void
   changes: Change[]
   /** Цель героя, если игрок в группе с метками ▲▼ (A/B goal_marks_share). */
   marks?: GoalId
 }
 
-function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, onDiceGame }: EventProps) {
+function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, onDiceGame, onCrisisSave }: EventProps) {
   // «Другие имена»: окно перерисовывается само, состояние меняет движок (rerollNames).
   const [, redrawNames] = useState(0)
   const { t, lang } = useUi()
@@ -1266,6 +1271,12 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const [peopleOpen, setPeopleOpen] = useState(false)
   // Кости: какой выбор открыл стол (play / road); null - выбор ещё не сделан.
   const [table, setTable] = useState<string | null>(null)
+  // Перелом: какая тактика открыла доску; шар уже брошен (сохранение посреди перелома) - доска сразу открыта.
+  const [crisisStance, setCrisisStance] = useState<StanceId | null>(() => state.queue[0]?.crisis?.stance ?? null)
+  const crisisKey = state.queue[0]?.eventId === 'crisis_turn' ? `${state.year}:${state.queue[0]?.at}` : ''
+  useEffect(() => {
+    if (crisisKey && !state.queue[0]?.outcome && !state.queue[0]?.crisis) platform.track('crisis_offer', { age: state.hero.age, era: state.hero.era, cls: state.hero.cls })
+  }, [crisisKey])
   const offered = state.queue[0]?.dream
   useEffect(() => {
     if (offered && ev?.id === 'dream_intro' && !state.queue[0]?.outcome) platform.track('dream_offer', { dream: offered, era: state.hero.era, age: state.hero.age })
@@ -1287,6 +1298,10 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const pick = (id: string | null) => {
     if (!armed) return
     if (ev?.dynamic === 'dice' && id && (ev.dice_play ?? DICE_TABLE).includes(id) && onDiceGame) return setTable(id)
+    if (ev?.dynamic === 'crisis' && id && onCrisisSave) {
+      platform.track('crisis_stance', { stance: id })
+      return setCrisisStance(id as StanceId)
+    }
     onChoose(id, Date.now() - shown.current.at)
   }
   useEffect(() => {
@@ -1323,7 +1338,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
 
   keys.current = (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement)?.tagName === 'INPUT') return
-    if (state.queue[0]?.outcome || table || !armed) return
+    if (state.queue[0]?.outcome || table || crisisStance || !armed) return
     const n = Number(e.key)
     const c = choices[n - 1]
     if (n >= 1 && n <= 4 && c && choiceAvailable(state, c)) {
@@ -1384,7 +1399,21 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
               }}
             />
           )}
-          {!outcome && !table && (
+          {!outcome && crisisStance && onCrisisSave && (
+            <CrisisBoard
+              state={state}
+              era={era}
+              stance={crisisStance}
+              coin={coin}
+              onSave={onCrisisSave}
+              onDone={() => {
+                const id = state.queue[0]?.crisis?.stance ?? crisisStance
+                setCrisisStance(null)
+                onChoose(id, Date.now() - shown.current.at)
+              }}
+            />
+          )}
+          {!outcome && !table && !crisisStance && (
             <div class={`choices ${armed ? '' : 'arming'}`} style={{ '--arm': `${CHOICE_DELAY}ms` }} aria-busy={!armed}>
               {!armed && <span class="choices-arm" aria-hidden="true" />}
               {choices.length === 0 && (
@@ -1423,7 +1452,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
               {t('event.more_names')}
             </button>
           )}
-          {!outcome && choices.length > 1 && <p class="ev-keys">{t('event.keys', { n: Math.min(4, choices.length) })}</p>}
+          {!outcome && !crisisStance && choices.length > 1 && <p class="ev-keys">{t('event.keys', { n: Math.min(4, choices.length) })}</p>}
           {outcome && (
             <div class="outcome">
               {outcome.result !== 'ok' && <p class={`result ${outcome.result}`}>{t(`event.${outcome.result}`)}</p>}
@@ -1435,7 +1464,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
           )}
 
 
-          {!outcome && !short && choices.length > 1 && hero.npcs.some((n) => n.alive && !n.away) && (
+          {!outcome && !crisisStance && !short && choices.length > 1 && hero.npcs.some((n) => n.alive && !n.away) && (
             <div class="note">
               <button class="link" aria-expanded={peopleOpen} onClick={() => {
                   if (!peopleOpen) platform.track('people_open', {})

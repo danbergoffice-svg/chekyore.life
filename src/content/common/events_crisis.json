@@ -1,0 +1,21 @@
+[
+  {
+    "id": "crisis_turn",
+    "type": "personal",
+    "age_range": [
+      35,
+      45
+    ],
+    "trigger_only": true,
+    "once": true,
+    "turning": true,
+    "dynamic": "crisis",
+    "topic": "life",
+    "base_weight": 1,
+    "scene": {
+      "place": "home",
+      "time": "sunset",
+      "people": 2
+    }
+  }
+]

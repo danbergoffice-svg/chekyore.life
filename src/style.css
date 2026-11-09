@@ -1117,3 +1117,23 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 
 .check { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; }
 .account .choice-row, .account-section .choice-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+
+/* ---------- Перелом сорокалетия: доска Плинко (src/ui/CrisisBoard.tsx) ---------- */
+.crisis { display: grid; gap: 10px; margin-top: 6px; }
+.crisis-stakes { display: flex; flex-wrap: wrap; gap: 6px; }
+.crisis-hint { margin: 0; }
+.crisis-board { width: 100%; max-width: 420px; margin: 0 auto; }
+.crisis-canvas { display: block; width: 100%; height: clamp(300px, 52vh, 420px); }
+.crisis-board.second .crisis-canvas { height: clamp(260px, 42vh, 360px); }
+.crisis-result { background: #fff7e2; border: 2px solid #d8b860; border-radius: 10px; padding: 10px 12px; color: var(--ink); }
+.crisis-result h3 { font-family: var(--font-display); margin: 0 0 4px; }
+.crisis-result p { margin: 0 0 6px; }
+.crisis-result .changes { margin: 4px 0 0; }
+.crisis-actions { display: grid; gap: 8px; }
+.crisis-actions .secondary { text-align: left; }
+.crisis-actions .choice-desc { display: block; font-size: 13px; opacity: 0.8; }
+.crisis-gamble { border-color: #8e3b22; color: #8e3b22; }
+:root[data-theme='dark'] .crisis-result { background: #2a221b; color: var(--ink); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .crisis-result { background: #2a221b; color: var(--ink); }
+}

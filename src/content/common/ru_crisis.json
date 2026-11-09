@@ -1,0 +1,20 @@
+{
+  "ev.crisis_turn.title": "Перелом",
+  "ev.crisis_turn.text": "Тебе {age} {p=age:год|года|лет}. Сверстники уходят один за другим, дети выросли, спина по утрам напоминает о годах. Как жить дальше — так же, как {g:жил|жила}, или иначе?",
+  "ev.crisis_turn.start_over": "Начать заново",
+  "ev.crisis_turn.seek_freedom": "Искать волю",
+  "ev.crisis_turn.hold_on": "Держаться за своё",
+  "ev.crisis_turn.seek_meaning": "Искать смысл",
+  "ev.crisis_turn.start_over.success": "Ты выходишь из перелома {g:другим человеком|другой женщиной}.",
+  "ev.crisis_turn.start_over.failure": "Новое начало дорого обошлось.",
+  "ev.crisis_turn.seek_freedom.success": "Воля стала ближе.",
+  "ev.crisis_turn.seek_freedom.failure": "Цепи держат крепче, чем казалось.",
+  "ev.crisis_turn.hold_on.success": "Своё ты удержал{g:|а}.",
+  "ev.crisis_turn.hold_on.failure": "Держаться пришлось из последних сил.",
+  "ev.crisis_turn.seek_meaning.success": "Что-то важное ты всё-таки нашёл.",
+  "ev.crisis_turn.seek_meaning.failure": "Ответа нет — только вопросы.",
+  "diary.crisis": "Перелом сорокалетия: {slot}.",
+  "diary.crisis.family": "Перелом сорокалетия: {slot}. Опора на близких — {outcome}.",
+  "diary.crisis.home": "Перелом сорокалетия: {slot}. Хозяйство заложено — {outcome}.",
+  "diary.crisis.gamble": "Перелом сорокалетия: {slot}. Рискнул{g:|а} ещё раз — {outcome}."
+}

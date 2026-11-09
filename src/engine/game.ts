@@ -47,6 +47,8 @@ import type { PrimerDef } from './types'
 import type { ActiveEvent, ChoiceDef, Condition, DiaryEntry, EraDef, EventDef, FocusDef, GameState, LifestyleDef, LifestyleOption, Npc, PendingTrigger, TextParam, Topic, TriggerDepend, TriggerSnapshot } from './types'
 import { applyDice, canRansom, diceRefuse, diceStakes, fateGame, pickOpponent } from './dice'
 import type { DiceResult } from './dice'
+import { applyCrisis, botCrisis, crisisDue, crisisStances, STANCES } from './crisis'
+import type { StanceId } from './crisis'
 
 /** Без мини-игры (бот, тесты): партия на любую из доступных ставок, после проигрыша - отыграться (каждый второй раз, до трёх партий). */
 function botDice(state: GameState, era: EraDef, festive: boolean): DiceResult[] {
@@ -728,6 +730,8 @@ export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' 
   if (active.eventId?.startsWith('estate_')) Object.assign(pet, estateParams(state, active.eventId))
   // Работа в краю, куда ездил: {place} - этот край.
   if (active.eventId === 'travel_work' && state.hero.lastTrip) pet.place = { key: `region.${state.hero.lastTrip}` }
+  // Перелом: {age} - возраст героя.
+  if (active.eventId === 'crisis_turn') pet.age = state.hero.age
   // На чужбине: {homeland} - родная страна, {homeplace} - родной край.
   const a = state.hero.abroad
   if (a) Object.assign(pet, { homeland: { key: `era.${a.homeland.era}` }, homeplace: { key: `region.${a.homeland.region}` } })
@@ -882,6 +886,15 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   for (const ev of b.periodic) {
     const last = hero.seen[ev.id]
     if ((last === undefined || state.year - last >= ev.every!) && fits(ev)) add(ev)
+  }
+
+  // 3в. Перелом сорокалетия (A/B, engine/crisis.ts): раз за жизнь в назначенный год 36–44; он же поворотный момент года.
+  // В год другой мини-игры (кости, сон) перелом сдвигается на год.
+  const crisisEv = b.byId.get('crisis_turn')
+  if (crisisEv && crisisDue(state, !!state.dream || picked.some((p) => p.dream || b.byId.get(p.eventId)?.dynamic === 'dice'))) {
+    add(crisisEv)
+    hero.crisis!.offered = state.year
+    hero.lastTurning = hero.age
   }
 
   // 3а. Поворотный момент: примерно раз в 7–12 лет что-то круто меняет жизнь.
@@ -1101,6 +1114,7 @@ export function rerollNames(state: GameState): void {
 export function eventChoices(state: GameState, era: EraDef, ev: EventDef): ChoiceDef[] {
   if (ev.dynamic === 'profession') return professionChoices(state, era)
   if (ev.dynamic === 'name') return nameChoices(state, era)
+  if (ev.dynamic === 'crisis') return crisisChoices(state)
   return ev.choices ?? []
 }
 
@@ -1115,6 +1129,19 @@ function addsSpouse(choice: ChoiceDef): boolean {
     weds.set(choice, v)
   }
   return v
+}
+
+/** Перелом: тактики героя - варианты окна; тактика закрыта, если какой-то её ставке меньше 10. */
+const crisisCache = new Map<string, ChoiceDef>()
+function crisisChoices(state: GameState): ChoiceDef[] {
+  return crisisStances(state).map((id) => {
+    let c = crisisCache.get(id)
+    if (!c) {
+      c = { id, requirements: STANCES[id].stakes.map((p) => ({ param: p, op: '>=' as const, value: 10 })) }
+      crisisCache.set(id, c)
+    }
+    return c
+  })
 }
 
 export function choiceAvailable(state: GameState, choice: ChoiceDef): boolean {
@@ -1214,6 +1241,9 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
       active.dice = list.map((r) => ({ ...r, applied: true }))
       const net = list.reduce((n, r) => n + (r.won && !r.caught ? r.stake.amount : -r.stake.amount), 0)
       result = net >= 0 ? 'success' : 'failure'
+    } else if (ev.dynamic === 'crisis') {
+      // Перелом: шары брошены в окне (active.crisis); без окна (бот, тесты) - один шар и «Принять».
+      result = applyCrisis(state, active.crisis ?? botCrisis(state, era, choice.id as StanceId))
     } else if (ev.dynamic === 'dice' && !DICE_NOT_REFUSAL.includes(choice.id)) {
       // Не стал играть: третий отказ подряд - завязал (engine/dice.ts, diceRefuse).
       diceRefuse(state)

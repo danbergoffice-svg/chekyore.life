@@ -37,6 +37,18 @@ const medieval = (era: string) => !ANCIENT.includes(era)
 
 // ---------- Что известно о жизни ----------
 
+const hasTag = (l: LifeSummary, tag: string) => (l.tags ?? []).includes(tag)
+/** Сколькими тактиками перелома пройдено за все жизни («искать волю» раба считается за «начать заново»). */
+function crisisStances(all: LifeSummary[]): number {
+  const got = new Set<string>()
+  for (const l of all)
+    for (const t of l.tags ?? []) {
+      if (t === 'crisis_stance_seek_freedom' || t === 'crisis_stance_start_over') got.add('start_over')
+      else if (t === 'crisis_stance_hold_on' || t === 'crisis_stance_seek_meaning') got.add(t)
+    }
+  return got.size
+}
+
 function choiceKeys(life: LifeSummary): Set<string> {
   const out = new Set<string>()
   for (const d of life.diary) {
@@ -217,6 +229,18 @@ export const ACHIEVEMENTS: AchDef[] = [
   { id: 'dream_no_hint', group: 'dream', test: (l) => breakthrough(l) && !l.dreamSeen!.hint && !!dreamDef(l.dreamSeen!.id)?.debate },
   { id: 'dream_known', group: 'dream', test: (l) => (dreamOf(l)?.score ?? 0) >= 3 && !!l.dreamSeen!.known },
   { id: 'secret_dream_boom', group: 'dream', secret: true, test: (l) => dreamOf(l)?.outcome === 'death' },
+  // Перелом сорокалетия (engine/crisis.ts, A/B crisis_share): метки героя crisis_*.
+  { id: 'crisis_survived', group: 'fate', test: (l) => hasTag(l, 'crisis_done'), live: (s) => s.hero.tags.includes('crisis_done') },
+  { id: 'crisis_second_wind', group: 'fate', test: (l) => hasTag(l, 'crisis_second_wind'), live: (s) => s.hero.tags.includes('crisis_second_wind') },
+  { id: 'crisis_shoulder', group: 'heart', test: (l) => hasTag(l, 'crisis_family_strong'), live: (s) => s.hero.tags.includes('crisis_family_strong') },
+  { id: 'crisis_double', group: 'fate', test: (l) => hasTag(l, 'crisis_gamble_double'), live: (s) => s.hero.tags.includes('crisis_gamble_double') },
+  { id: 'crisis_bust', group: 'fate', secret: true, test: (l) => hasTag(l, 'crisis_gamble_bust'), live: (s) => s.hero.tags.includes('crisis_gamble_bust') },
+  {
+    id: 'crisis_all_stances',
+    group: 'fate',
+    test: (_, all) => crisisStances(all) >= 3,
+    progress: (_, all) => Math.min(1, crisisStances(all) / 3),
+  },
   {
     id: 'three_lands',
     group: 'blood',
