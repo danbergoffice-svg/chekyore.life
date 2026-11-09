@@ -403,6 +403,7 @@ async function suite(realBinds) {
   check('/admin: ушли из меню — по игроку, без начавших жизнь', /Ушли из меню/.test(html) && html.includes('<td>видел кнопку «Крути», не крутил</td><td>1</td><td>0</td><td>24</td><td>120</td><td>664</td>') && !html.includes('крутил, но не начал жизнь'), html.match(/<td>[^<]*(?:барабан|кнопку|крутил)[^<]*<\/td>.*?<\/tr>/g))
   check('/admin: отчёт по снам — доля верных и частый неверный ответ', html.includes('<td>eratosthenes</td><td>3</td><td>3</td><td>33</td><td>3 ×2</td>'))
   check('/admin: ссылки CSV', /href="\/admin\/export\?table=events&amp;days=7"/.test(html) && /table=feedback/.test(html))
+  check('/admin: кнопки «Скачать всё» и скрипт частей', /data-all="events"/.test(html) && /data-all="feedback"/.test(html) && html.includes('days=all&after='))
   const fy = sy.funnel
   check('/admin: строка вчера в «Воронке по дням» = цифрам сводки', html.includes(`<tr><td>${S.dayIso(Y)}</td><td>${fy.app_open}</td><td>${fy.life_start}</td><td>${fy.first_choice}</td><td>${fy.age_20}</td><td>${fy.life_end}</td><td>${fy.second_life}</td></tr>`))
   check('/admin: воронка 7 дней = /funnel', S.FUNNEL_STEPS.every(([k, label]) => html.includes(`<td>${label}</td><td>${k}</td><td>${ow.funnel[k]}</td>`)))
@@ -452,6 +453,22 @@ async function suite(realBinds) {
   r = await call('/admin/export?table=feedback&days=30', { headers: auth })
   const sc = parseCsv((await r.text()).replace(/^\uFEFF/, ''), ';')
   same('CSV: Excel-разделитель «;», колонок столько же', sc.every((x) => x.length === 8), true)
+
+  // «Скачать всё»: days=all, части после id (after) без заголовка (head=0), x-last-id для следующей части.
+  r = await call('/admin/export?table=events&days=all', { headers: auth })
+  const allCsv = parseCsv((await r.text()).replace(/^\uFEFF/, ''), ';')
+  const allN = DB.sql.prepare('SELECT COUNT(*) AS n FROM events').get().n
+  same('CSV всё: строк = всех событий', allCsv.length - 1, allN)
+  check('CSV всё: имя файла', /thousands-events-all_\d{4}-\d\d-\d\d\.csv/.test(r.headers.get('content-disposition') ?? ''))
+  const lastId = DB.sql.prepare('SELECT MAX(id) AS m FROM events').get().m
+  same('CSV всё: x-last-id = последний id', r.headers.get('x-last-id'), String(lastId))
+  const mid = Number(allCsv[Math.floor(allCsv.length / 2)][0])
+  r = await call(`/admin/export?table=events&days=all&after=${mid}&head=0`, { headers: auth })
+  const tail = await r.text()
+  check('CSV часть: без BOM и заголовка', !tail.startsWith('\uFEFF') && !tail.startsWith('id;'))
+  same('CSV часть: строки после after', parseCsv(tail, ';').length, DB.sql.prepare('SELECT COUNT(*) AS n FROM events WHERE id > ?').get(mid).n)
+  r = await call(`/admin/export?table=events&days=all&after=${lastId}&head=0`, { headers: auth })
+  check('CSV часть после последнего id: пусто, не обрезано', (await r.text()) === '' && r.headers.get('x-truncated') === '0')
 
   // 8. Пустая база: «Вчера активности не было»
   const emptyMod = await load(files.digest)

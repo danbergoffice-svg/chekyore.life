@@ -98,7 +98,11 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     : '<p class="muted">Отзывов пока нет.</p>'
   const link = (t: string, days: number, label: string, sep = '') => `<a href="/admin/export?table=${t}&amp;days=${days}${sep ? '&amp;sep=comma' : ''}">${label}</a>`
   const csv = `<p class="csv">Скачать CSV - события: ${link('events', 1, 'сегодня')} · ${link('events', 7, '7 дней')} · ${link('events', 30, '30 дней')} · ${link('events', 90, '90 дней')};
-отзывы: ${link('feedback', 30, '30 дней')} · ${link('feedback', 365, 'год')}; подписчики рассылки: ${link('subscribers', 3650, 'все')}.<br><span class="muted">Файлы для Excel (разделитель «;»). Для Google Таблиц: ${link('events', 30, 'события 30 дней', 'comma')} · ${link('feedback', 365, 'отзывы за год', 'comma')} (разделитель «,»). Не больше ${EXPORT_LIMIT.toLocaleString('ru-RU')} строк.</span></p>`
+отзывы: ${link('feedback', 30, '30 дней')} · ${link('feedback', 365, 'год')}; подписчики рассылки: ${link('subscribers', 3650, 'все')}.<br><span class="muted">Файлы для Excel (разделитель «;»). Для Google Таблиц: ${link('events', 30, 'события 30 дней', 'comma')} · ${link('feedback', 365, 'отзывы за год', 'comma')} (разделитель «,»). Не больше ${EXPORT_LIMIT.toLocaleString('ru-RU')} строк.</span></p>
+<p class="csv"><b>Скачать всё без ограничений:</b> <button type="button" data-all="events">все события</button> <button type="button" data-all="feedback">все отзывы</button>
+<label class="muted"><input type="checkbox" id="all-comma"> для Google Таблиц (разделитель «,»)</label> <span id="all-status" class="muted"></span><br>
+<span class="muted">Файл собирается частями по ${EXPORT_LIMIT.toLocaleString('ru-RU')} строк прямо в браузере - не закрывайте страницу, пока идёт загрузка. Excel открывает до 1 048 576 строк, Google Таблицы - до 10 млн ячеек (около 1,1 млн строк событий).</span></p>
+<script>${ALL_SCRIPT}</script>`
   const html = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Тысячи жизней - админка</title>
 <style>body{font:15px/1.45 system-ui,sans-serif;margin:16px;max-width:1100px;color:#2b2119;background:#f6efe2}h1{font-size:22px}h2{font-size:17px;margin-top:28px}
 table{border-collapse:collapse;font-size:13px}td,th{border:1px solid #d6c6aa;padding:4px 8px;text-align:left}th{background:#ebdfc8}.scroll{overflow-x:auto}
@@ -109,6 +113,44 @@ article,.tg{background:#fbf6ec;border:1px solid #d6c6aa;border-radius:8px;paddin
 ${reports.map((r) => `<h2>${esc(r.title)}</h2>${table(r.rows)}`).join('')}<h2>Отзывы (последние 100)</h2>${feedbackHtml}</body></html>`
   return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
 }
+
+/**
+ * «Скачать всё»: один запрос к Worker отдаёт не больше EXPORT_LIMIT строк (память и время Worker ограничены, каждая
+ * прочитанная строка - из бесплатной квоты D1). Страница забирает выгрузку частями (after = последний id прошлой
+ * части, head=0 - без заголовка) с паузой между ними и склеивает их в один файл у себя.
+ */
+const ALL_SCRIPT = `
+document.querySelectorAll('[data-all]').forEach(function (b) {
+  b.addEventListener('click', async function () {
+    var table = b.getAttribute('data-all'), comma = document.getElementById('all-comma').checked
+    var status = document.getElementById('all-status'), parts = [], after = 0, rows = 0, first = true
+    document.querySelectorAll('[data-all]').forEach(function (x) { x.disabled = true })
+    try {
+      for (;;) {
+        var r = await fetch('/admin/export?table=' + table + '&days=all&after=' + after + (first ? '' : '&head=0') + (comma ? '&sep=comma' : ''), { credentials: 'same-origin' })
+        if (!r.ok) throw new Error(r.status + ' ' + (await r.text()).slice(0, 200))
+        var n = Number(r.headers.get('x-rows') || 0)
+        parts.push(await r.blob())
+        rows += n
+        after = Number(r.headers.get('x-last-id') || after)
+        first = false
+        status.textContent = 'Скачано строк: ' + rows.toLocaleString('ru-RU') + '…'
+        if (r.headers.get('x-truncated') !== '1' || n === 0) break
+        await new Promise(function (ok) { setTimeout(ok, 400) })
+      }
+      var a = document.createElement('a')
+      a.href = URL.createObjectURL(new Blob(parts, { type: 'text/csv;charset=utf-8' }))
+      a.download = 'thousands-' + table + '-all_' + new Date().toISOString().slice(0, 10) + '.csv'
+      document.body.appendChild(a); a.click(); a.remove()
+      status.textContent = 'Готово, строк: ' + rows.toLocaleString('ru-RU') + '.'
+    } catch (e) {
+      status.textContent = 'Ошибка (скачано строк: ' + rows.toLocaleString('ru-RU') + '): ' + e.message + '. Нажмите ещё раз через минуту.'
+    } finally {
+      document.querySelectorAll('[data-all]').forEach(function (x) { x.disabled = false })
+    }
+  })
+})
+`
 
 // ---------- CSV ----------
 
@@ -144,19 +186,27 @@ export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> 
     return new Response('\ufeff' + lines.join('\r\n') + '\r\n', { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="thousands-subscribers.csv"', 'cache-control': 'no-store' } })
   }
   if (name !== 'events' && name !== 'feedback') return new Response('table=events, feedback или subscribers', { status: 400 })
-  const days = Math.max(1, Math.min(3650, Math.floor(Number(url.searchParams.get('days') ?? 7)) || 7))
+  // days=all - за всё время (для кнопки «Скачать всё», которая забирает выгрузку частями).
+  const all = url.searchParams.get('days') === 'all'
+  const days = all ? 0 : Math.max(1, Math.min(3650, Math.floor(Number(url.searchParams.get('days') ?? 7)) || 7))
+  // Продолжение: after - последний id прошлой части; head=0 - без заголовка и BOM (часть приклеивается к файлу).
+  const after = Math.max(0, Math.floor(Number(url.searchParams.get('after') ?? 0)) || 0)
+  const head = url.searchParams.get('head') !== '0'
   const sep = url.searchParams.get('sep') === 'comma' ? ',' : ';'
   const db = serialDb(env.DB!)
   const today = dayOf(Date.now())
-  const from = dayStart(today - days + 1)
+  const from = all ? 0 : dayStart(today - days + 1)
   const cols = COLUMNS[name]
-  const lines: string[] = [cols.join(sep)]
+  const lines: string[] = head ? [cols.join(sep)] : []
   const lastTs = from
-  let lastId = 0
+  let lastId = after
   let total = 0
   // Строк больше лимита - отдаём самые свежие: начинаем с 50 000-й строки с конца (по первичному ключу, без индекса по времени).
-  const edge = (await env.DB!.prepare(`SELECT id FROM ${name} ORDER BY id DESC LIMIT 1 OFFSET ?1`).bind(EXPORT_LIMIT - 1).all()).results[0]
-  if (edge) lastId = Math.max(0, Number(edge.id) - 1)
+  // «Скачать всё» (days=all) идёт с начала частями, поэтому так - только для обычных ссылок.
+  if (!all) {
+    const edge = (await db.prepare(`SELECT id FROM ${name} ORDER BY id DESC LIMIT 1 OFFSET ?1`).bind(EXPORT_LIMIT - 1).all()).results[0]
+    if (edge) lastId = Math.max(0, Number(edge.id) - 1)
+  }
   // Страницами по 5000 строк по номеру строки (id растёт со временем записи; индекса по времени больше нет -
   // он удваивал запись каждого события в D1), продолжение - после последнего id; всего не больше 50 000 (самых свежих).
   while (total < EXPORT_LIMIT) {
@@ -164,18 +214,20 @@ export async function exportCsv(req: Request, env: AdminEnv): Promise<Response> 
     const rows = (await db.prepare(EXPORT_SQL[name]).bind(lastTs, lastId, take).all()).results
     for (const r of rows) lines.push(cols.map((c) => cell(r[c], sep)).join(sep))
     total += rows.length
+    if (rows.length) lastId = Number(rows[rows.length - 1].id)
     if (rows.length < take) break
-    lastId = Number(rows[rows.length - 1].id)
   }
-  const file = `thousands-${name}-${dayIso(today - days + 1)}_${dayIso(today)}.csv`
+  const file = all ? `thousands-${name}-all_${dayIso(today)}.csv` : `thousands-${name}-${dayIso(today - days + 1)}_${dayIso(today)}.csv`
   // BOM в начале - чтобы Excel открыл UTF-8 без кракозябр.
-  return new Response('﻿' + lines.join('\r\n') + '\r\n', {
+  const body = lines.length ? (head ? '﻿' : '') + lines.join('\r\n') + '\r\n' : ''
+  return new Response(body, {
     headers: {
       'content-type': 'text/csv; charset=utf-8',
       'content-disposition': `attachment; filename="${file}"`,
       'cache-control': 'no-store',
       'x-rows': String(total),
       'x-truncated': total >= EXPORT_LIMIT ? '1' : '0',
+      'x-last-id': String(lastId),
     },
   })
 }
