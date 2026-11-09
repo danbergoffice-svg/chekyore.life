@@ -1768,5 +1768,7 @@
   "diary.npc_ill": "{role} {who} has fallen gravely ill: {ill}. No one knows how it will end.",
   "diary.npc_recovered": "The illness has passed: {role} {who} is back on their feet.",
   "diary.npc_healed": "You nursed {g=sex:him|her} back to health: {role} {who} has recovered. The neighbours are talking about your skill.",
-  "diary.self_healed": "You treated yourself and recovered: a healer’s knowledge came in handy."
+  "diary.self_healed": "You treated yourself and recovered: a healer’s knowledge came in handy.",
+  "focus_short.travel": "Travel",
+  "dice.ignore": "Say nothing and play on"
 }

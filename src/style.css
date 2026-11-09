@@ -1084,6 +1084,11 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .story-nav { display: flex; justify-content: center; gap: 24px; font-size: 1.4em; }
 
 .promo-input { width: 100%; font: inherit; font-size: 1.1em; padding: 8px 10px; letter-spacing: 0.08em; text-transform: uppercase; margin: 8px 0; }
+/* Поля ключа и почты: всегда светлый фон и тёмный текст (раньше в тёмной теме светлый текст шёл по белому полю браузера). */
+.promo-input { background: #fbf6ec; color: #2b2119; caret-color: #2b2119; border: 1px solid #c9b896; border-radius: 8px; min-height: 44px; box-sizing: border-box; -webkit-text-fill-color: #2b2119; }
+.promo-input::placeholder { color: #8a7864; -webkit-text-fill-color: #8a7864; opacity: 1; }
+.promo-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.account-email { text-transform: none; letter-spacing: normal; }
 
 .hero-money { font-size: 1.15em; margin: 4px 0 10px; }
 

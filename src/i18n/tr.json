@@ -1768,5 +1768,7 @@
   "diary.npc_ill": "{role} {who} ağır hastalandı: {ill}. Sonunun ne olacağını kimse bilmiyor.",
   "diary.npc_recovered": "Hastalık geçti: {role} {who} yeniden ayağa kalktı.",
   "diary.npc_healed": "Onu sen iyileştirdin: {role} {who} sağlığına kavuştu. Komşular ustalığını konuşuyor.",
-  "diary.self_healed": "Kendini kendin tedavi ettin ve iyileştin: hekimlik bilgisi işe yaradı."
+  "diary.self_healed": "Kendini kendin tedavi ettin ve iyileştin: hekimlik bilgisi işe yaradı.",
+  "focus_short.travel": "Gezi",
+  "dice.ignore": "Sesini çıkarma, oyuna devam et"
 }

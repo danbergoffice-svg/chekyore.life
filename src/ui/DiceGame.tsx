@@ -41,6 +41,9 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   const [cheated, setCheated] = useState(false)
   // Партия решена, но герой заметил жульничество соперника: ждём, обвинит ли он.
   const [decided, setDecided] = useState<DiceResult | null>(null)
+  // Герой заметил жульничество в любом броске: партия ждёт, пока он не обвинит соперника или не промолчит
+  // (раньше «Уличить» стояла рядом с «Бросить» и пропадала от привычного нажатия на бросок).
+  const [spotWait, setSpotWait] = useState(false)
   const [last, setLast] = useState<DiceResult | null>(null)
   // Проиграл скотину, а деньги есть: отдать её или откупиться её ценой.
   const [ransom, setRansom] = useState<DiceResult | null>(null)
@@ -63,6 +66,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     setRerolls(0)
     setCheated(false)
     setDecided(null)
+    setSpotWait(false)
     setLast(null)
   }
   const record = (r: DiceResult) => {
@@ -114,6 +118,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     const them: Pair = crooked ? [Math.max(die(), die()), Math.max(die(), die())] : [die(), die()]
     const next = [...rounds.slice(0, -1), { ...cur, them, theyCheated: crooked }]
     setRounds(next)
+    if (crooked && d.skill >= SKILL.spot) setSpotWait(true)
     const mine = next.filter((r) => r.them && sum(r.me) > sum(r.them!)).length
     const theirs = next.filter((r) => r.them && sum(r.me) < sum(r.them!)).length
     if (mine >= 2 || theirs >= 2) {
@@ -127,11 +132,13 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   })
   const expose = () => {
     setDecided(null)
+    setSpotWait(false)
     finish({ stake: stake!, won: true, cheated, caught: false, exposed: true, fate: false, chase, opponent })
   }
   const accept = () => {
     const r = decided
     setDecided(null)
+    setSpotWait(false)
     if (r) finish(r)
   }
 
@@ -210,7 +217,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
       </div>
       {cur?.them && sum(cur.me) === sum(cur.them) && <p class="small center">{t('dice.tie')}</p>}
       <div class="dice-actions">
-        {(!cur || cur.them) && score('me') < 2 && score('them') < 2 && (
+        {(!cur || cur.them) && score('me') < 2 && score('them') < 2 && !spotWait && (
           <button type="button" class="primary" disabled={!!rolling} onClick={throwMine}>{t('dice.throw')}</button>
         )}
         {waitingThem && (
@@ -220,10 +227,10 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
             {d.skill >= SKILL.cheat && !cheated && Math.min(...cur.me) < 6 && <button type="button" class="secondary danger-soft" onClick={cheat}>{t('dice.cheat')}</button>}
           </>
         )}
-        {cur?.theyCheated && d.skill >= SKILL.spot && <button type="button" class="secondary" onClick={expose}>{t('dice.expose')}</button>}
-        {decided && <button type="button" class="primary" onClick={accept}>{t('dice.accept')}</button>}
+        {spotWait && <button type="button" class="primary" onClick={expose}>{t('dice.expose')}</button>}
+        {spotWait && <button type="button" class="secondary" onClick={accept}>{t(decided ? 'dice.accept' : 'dice.ignore')}</button>}
       </div>
-      {cur?.theyCheated && d.skill >= SKILL.spot && <p class="small warn">{t('dice.spotted')}</p>}
+      {spotWait && <p class="small warn">{t('dice.spotted')}</p>}
     </div>
   )
 }
