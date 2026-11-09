@@ -1,3 +1,4 @@
+import { mourning } from '../engine/emotions'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   availableFocuses,
@@ -422,6 +423,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
               {hero.band !== undefined && hero.age >= era.stages.youth && <span title={t('band.tip', { n: statusOf(hero, era) })}> · {t(`band.${hero.band}`)}</span>}
               {hero.money < 0 && <span class="warn"> · {t('life.debt')}</span>}
               {hero.tags.includes('ill') && <span class="warn"> · {t('life.ill', {}, o)}</span>}
+              {mourning(hero) && <span class="warn" title={t('life.grief_tip')}> · {t('life.grief')}</span>}
             </p>
             <Bar label={t('attr.health')} value={hero.attrs.health} />
             <GoalBar state={state} open={goalOpen} onToggle={() => setGoalOpen(!goalOpen)} />
@@ -1188,6 +1190,8 @@ function npcFacts(t: T, lang: Lang, n: Npc, year: number): string {
     attitudeText(t, n),
     n.profession ? t(`prof.${n.profession}`, {}, { sex: n.sex }).toLocaleLowerCase(lang) : '',
     n.married ? t('people.married', { sex: n.sex }) : '',
+    // Тяжёлая болезнь - с названием («больна: чахотка», engine/illness.ts).
+    n.ill ? t('npc.ill', { sex: n.sex, ill: { key: `cause.${n.ill.cause}`, sex: n.sex } }) : '',
     ...(n.tags ?? []).filter((tag) => hasKey(lang, `npctag.${tag}`)).map((tag) => t(`npctag.${tag}`, { sex: n.sex })),
   ]
     .filter(Boolean)

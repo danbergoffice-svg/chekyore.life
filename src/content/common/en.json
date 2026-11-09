@@ -381,5 +381,12 @@
   "ev.travel_work.title": "Work in a new place",
   "ev.travel_work.text": "You liked {place}, and a local master, having watched you work, offered you a place: plenty of work, not enough hands. At home, the old walls and familiar faces are waiting.",
   "ev.travel_work.move": "Move there",
-  "ev.travel_work.home": "Go home with stories"
+  "ev.travel_work.home": "Go home with stories",
+  "cause.consumption": "consumption",
+  "cause.pox": "smallpox",
+  "cause.flux": "the bloody flux",
+  "cause.chest": "a chest fever",
+  "cause.wound": "a festering wound",
+  "cause.heart": "a failing heart",
+  "cause.stroke": "a stroke"
 }

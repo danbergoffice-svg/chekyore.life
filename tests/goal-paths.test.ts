@@ -70,7 +70,7 @@ describe('Цель у всех игроков (жалоба 08.11)', () => {
 
   it('год идёт, цель не выбрана - окно открыто; выбор без цели (с 4-й жизни) больше не спрашивается', () => {
     const era = ERAS.E03
-    const s = autoplay(newLife(era, quick, 21, undefined, undefined), era, 2)
+    const s = autoplay(newLife(era, { ...quick, protectedUntil: 90 }, 21, undefined, undefined), era, 2)
     // Бот (autoplay) получает цель сам; игрок, которого ещё не спросили, - нет.
     delete s.hero.goal
     s.phase = 'running'
@@ -169,7 +169,7 @@ describe('Цель у всех игроков (жалоба 08.11)', () => {
   it('старое сохранение без поля goal (до 02.11): проходит миграцию, и окно цели открывается даже посреди года', () => {
     const era = ERAS.E03
     // Первый сид, где герой дожил до 25 (поток случайностей меняется с новыми системами).
-    let s = autoplay(newLife(era, quick, 33), era, 25)
+    let s = autoplay(newLife(era, { ...quick, protectedUntil: 90 }, 33), era, 25)
     for (let seed = 34; !s.hero.alive; seed++) s = autoplay(newLife(era, quick, seed), era, 25)
     const old = JSON.parse(JSON.stringify(s)) as GameState & { stats?: Record<string, unknown> }
     delete (old.hero as { goal?: unknown }).goal

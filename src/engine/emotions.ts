@@ -113,3 +113,8 @@ export function resolveEmotion(state: GameState, m: EmotionalMemory): void {
 export function emotionalLoad(hero: Hero): number {
   return (hero.emotionalMemories ?? []).reduce((s, m) => s + (m.resolved === undefined ? m.current : 0), 0)
 }
+
+/** В трауре: есть неутихшее горе, которое ещё тянет счастье вниз (то же, что в emotionsYear). Видно в шапке героя. */
+export function mourning(hero: Hero): boolean {
+  return (hero.emotionalMemories ?? []).some((m) => m.resolved === undefined && m.type.startsWith('grief') && m.current >= R.linger.from)
+}

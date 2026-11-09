@@ -1,3 +1,4 @@
+import { healing, npcHealthYear, selfHealYear } from './illness'
 import { chance, int, next, pick, weighted } from './rng'
 import {
   addPattern,
@@ -121,6 +122,7 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   applyLifestyle(state, era)
   // Старые утраты тянут вниз и затухают - раз в год, до новых событий года.
   emotionsYear(state)
+  selfHealYear(state)
   // Дети: воспитание и учёба (плата за год, окончание, отказ подростка).
   childrenYear(state, era)
   // Торговля и дела рода: запас портится, товарищества приносят прибыль или убыток.
@@ -421,14 +423,10 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
   // Новорождённых в год рождения не трогаем: иначе имя выбирают ребёнку, которого в ленте уже нет.
   for (const npc of hero.npcs) {
     if (!npc.alive || npc.birthYear === state.year) continue
-    if (chance(state, npcMortality(state, era, npc))) killNpc(state, npc, naturalCause(npcAge(npc, state.year)))
+    // Сначала болезнь с названием, через год - смерть или выздоровление; внезапно - младенцы, роды, несчастный случай (engine/illness.ts).
+    npcHealthYear(state, npc, npcMortality(state, era, npc))
   }
   return births.filter((b) => b.alive)
-}
-
-/** Причина «естественной» смерти родного по возрасту: младенец - детская хворь, старик - старость, иначе болезнь. */
-function naturalCause(age: number): string {
-  return age < 5 ? 'infant_illness' : age >= 60 ? 'old_age' : 'illness'
 }
 
 /**
@@ -499,7 +497,8 @@ export function heroMortality(state: GameState, era: EraDef): number {
   if (hero.money > 1000) q *= 0.85
   if (hero.tags.includes('in_debt')) q *= 1.15
   if (hero.tags.includes('epidemic')) q *= 2
-  if (hero.tags.includes('ill')) q *= 1.6
+  // Больной врач лечит себя сам: болезнь опасна для него меньше.
+  if (hero.tags.includes('ill')) q *= 1.6 - 0.5 * healing(hero)
   for (const vice of era.vices) if (hero.tags.includes(vice.tag)) q *= vice.mortality ?? 1
   if (state.settings.mortality === 'soft' && hero.age < 15) q *= 0.25
   q = Math.max(q, oldAgeFloor(era, hero.age))
@@ -1169,7 +1168,16 @@ export function riskChance(state: GameState, choice: ChoiceDef): number | null {
     const m = tradeMastery(state.hero)
     return Math.max(0.05, Math.min(0.95 + 0.02 * m, roll.success_chance_base + (value - 50) / 200 + 0.15 * m))
   }
-  return Math.max(0.05, Math.min(0.95, roll.success_chance_base + (value - 50) / 200))
+  // Врач в делах о здоровье (риск смерти, болезни, увечья - своих или близких): до +25% и потолок 97%.
+  const heal = healthRisk(roll) ? healing(state.hero) : 0
+  return Math.max(0.05, Math.min(0.95 + 0.02 * heal, roll.success_chance_base + (value - 50) / 200 + 0.25 * heal))
+}
+
+/** Рискованный выбор о здоровье: провал убивает, ранит или приносит болезнь герою или близкому. */
+export function healthRisk(roll: NonNullable<ChoiceDef['risk_roll']>): boolean {
+  return (roll.on_failure ?? []).some(
+    (e) => 'kill' in e || 'kill_npc' in e || ('add_tag' in e && e.add_tag === 'ill') || ('npc_tag' in e && e.npc_tag === 'sick') || ('param' in e && e.param === 'health' && 'delta' in e && e.delta < 0),
+  )
 }
 
 /** Сделать выбор в текущем событии. id = null для информационного события. */

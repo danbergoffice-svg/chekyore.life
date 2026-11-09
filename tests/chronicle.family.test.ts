@@ -16,6 +16,8 @@ function dynasty(era: EraDef, seed: number, gens: number): LifeSummary[] {
   let s: GameState = newLife(era, opts, seed)
   let first = true
   for (let g = 0; g < gens; g++) {
+    // Род мог переехать (эмиграция, конец хроники края): дальше - правила страны, где живёт герой.
+    era = ERAS[s.hero.era as keyof typeof ERAS] ?? era
     s = autoplay(s, era, 130, undefined, (_f, st: GameState) => {
       if (first && st.hero.age >= 25) {
         st.hero.cls = 'trader'
@@ -24,6 +26,8 @@ function dynasty(era: EraDef, seed: number, gens: number): LifeSummary[] {
       }
       return null
     })
+    // За жизнь герой мог уехать в другую страну - итог по правилам той, где он умер.
+    era = ERAS[s.hero.era as keyof typeof ERAS] ?? era
     const life = summarize(s, era)
     memorial.push(life)
     s.family = { ...s.family, lives: [...s.family.lives, life] }

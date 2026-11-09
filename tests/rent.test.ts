@@ -79,15 +79,26 @@ describe('Проигранный дом и аренда', () => {
   })
 
   it('появились деньги - выкупает свой дом, и аренда кончается', () => {
-    const s = adult(5)
-    loseHouse(s, 3)
-    for (let i = 0; i < 40 && s.hero.rent; i++) {
-      s.hero.money = HOME_COST[3] * 2
-      householdYear(s, era)
+    // Хватает на прежний дом - чаще выкупают его (35% в год), иначе бывает, что берут жильё поскромнее (25%):
+    // смотрим несколько жизней, а не одну случайную.
+    let back = 0
+    let s = adult(5)
+    for (let seed = 5; seed < 25; seed++) {
+      s = adult(seed)
+      loseHouse(s, 3)
+      const level = s.hero.rent!.level
+      for (let i = 0; i < 40 && s.hero.rent; i++) {
+        s.hero.money = HOME_COST[3] * 2
+        householdYear(s, era)
+      }
+      expect(s.hero.rent).toBeUndefined()
+      expect([3, level]).toContain(s.hero.home)
+      if (s.hero.diary.some((d) => d.key === 'diary.rent_bought_back')) {
+        expect(s.hero.home).toBe(3)
+        back++
+      }
     }
-    expect(s.hero.rent).toBeUndefined()
-    expect(s.hero.home).toBe(3)
-    expect(s.hero.diary.some((d) => d.key === 'diary.rent_bought_back')).toBe(true)
+    expect(back).toBeGreaterThan(5)
     // Свой дом - больше не платит.
     s.hero.money = 300
     householdYear(s, era)

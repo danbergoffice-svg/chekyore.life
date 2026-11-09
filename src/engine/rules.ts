@@ -667,6 +667,7 @@ export function killNpc(state: GameState, npc: Npc, cause?: string): void {
   npc.alive = false
   npc.deathYear = state.year
   if (cause) npc.deathCause = cause
+  npc.ill = undefined
   if (npc.role === 'spouse' && !npc.away) hero.tags = hero.tags.filter((t) => t !== 'married')
   if (npc.away) {
     // Умер вдали: только весть, горе тише.

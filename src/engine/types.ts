@@ -591,6 +591,8 @@ export interface Npc {
   tags?: string[]
   /** Уехал или ушёл из семьи (в другой край, в монастырь, на службу, продан): в событиях и дома его нет. */
   away?: NpcAway
+  /** Тяжело болен (engine/illness.ts): чем (ключ cause.*) и с какого года; через год - смерть или выздоровление. */
+  ill?: { cause: string; since: number }
   /** Детям героя: обучение и воспитание (src/engine/children.ts); нет поля - старое сохранение, заводится при первом годе. */
   education?: ChildEducation
   upbringing?: ChildUpbringing

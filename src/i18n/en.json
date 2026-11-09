@@ -1760,5 +1760,13 @@
   "account.privacy.why": "Why. Email - to sign you in and restore saves on another device; with your consent - for emails with news and bonus codes. Statistics - to make the game better. We do not sell your data or share it for advertising.",
   "account.privacy.who": "Who processes it. The site and database run on Cloudflare; emails are sent by Resend.",
   "account.privacy.keep": "How long. Until you delete the data yourself. A sign-in link lives 30 minutes and works once.",
-  "account.privacy.delete": "Your rights. Unsubscribe and delete your email, server saves and your statistics in Settings with 'Delete my data'. Questions - via Feedback in the menu."
+  "account.privacy.delete": "Your rights. Unsubscribe and delete your email, server saves and your statistics in Settings with 'Delete my data'. Questions - via Feedback in the menu.",
+  "rel.friend": "your friend",
+  "npc.ill": "ill: {ill}",
+  "life.grief": "in mourning",
+  "life.grief_tip": "Grief for someone close has not eased yet: joy fades and worry builds.",
+  "diary.npc_ill": "{role} {who} has fallen gravely ill: {ill}. No one knows how it will end.",
+  "diary.npc_recovered": "The illness has passed: {role} {who} is back on their feet.",
+  "diary.npc_healed": "You nursed {g=sex:him|her} back to health: {role} {who} has recovered. The neighbours are talking about your skill.",
+  "diary.self_healed": "You treated yourself and recovered: a healer’s knowledge came in handy."
 }

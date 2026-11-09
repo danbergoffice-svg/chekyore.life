@@ -381,5 +381,12 @@
   "ev.travel_work.title": "Yeni bir yerde iş",
   "ev.travel_work.text": "{place} hoşuna gitti; oradaki bir usta seni izleyip kalmanı önerdi: iş çok, el az. Evde eski duvarlar ve tanıdık yüzler bekliyor.",
   "ev.travel_work.move": "Oraya taşın",
-  "ev.travel_work.home": "Hikâyelerle eve dön"
+  "ev.travel_work.home": "Hikâyelerle eve dön",
+  "cause.consumption": "verem",
+  "cause.pox": "çiçek hastalığı",
+  "cause.flux": "kanlı ishal",
+  "cause.chest": "göğüs hastalığı",
+  "cause.wound": "iltihaplanan bir yara",
+  "cause.heart": "kalp hastalığı",
+  "cause.stroke": "felç"
 }

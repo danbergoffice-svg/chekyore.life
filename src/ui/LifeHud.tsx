@@ -1,5 +1,6 @@
 // Экран жизни по макету 06 (ТЗ редизайна, этап 2; эксперимент XA): компактная шапка героя, чип ближайшей вехи и
 // нижняя панель времени в зоне большого пальца. Старая раскладка остаётся у рукава «a» (Life.tsx).
+import { mourning } from '../engine/emotions'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import type { ComponentChildren } from 'preact'
 import type { EraDef, GameState } from '../engine/types'
@@ -36,6 +37,7 @@ export function HudHeader(props: {
             {formatYear(props.state.year, lang)} · {t(`region.${hero.region}`)} · {formatMoney(t, hero.money, props.coin)}
             {hero.money < 0 && <span class="warn"> · {t('life.debt')}</span>}
             {ill && <span class="warn"> · {t('life.ill', {}, { sex: hero.sex })}</span>}
+            {mourning(hero) && <span class="warn" title={t('life.grief_tip')}> · {t('life.grief')}</span>}
           </p>
         </div>
         <button type="button" class="hud-menu" aria-label={t('life.menu')} onClick={props.onMenu}>
