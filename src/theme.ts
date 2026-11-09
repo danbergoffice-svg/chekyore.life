@@ -17,9 +17,12 @@ light?.addEventListener?.('change', () => current === 'auto' && applyTheme('auto
 /** Тема из сохранённых настроек - до загрузки игры. */
 export function savedTheme(): Prefs['theme'] {
   try {
-    const t = JSON.parse(localStorage.getItem('thousands.prefs') ?? '{}').theme
-    return t === 'light' || t === 'dark' ? t : 'auto'
+    // Нет сохранённой темы - новый игрок: тёмная (как defaultPrefs в App.tsx), чтобы до загрузки не мелькала светлая.
+    const raw = localStorage.getItem('thousands.prefs')
+    if (!raw) return 'dark'
+    const t = JSON.parse(raw).theme
+    return t === 'light' || t === 'dark' || t === 'auto' ? t : 'dark'
   } catch {
-    return 'auto'
+    return 'dark'
   }
 }

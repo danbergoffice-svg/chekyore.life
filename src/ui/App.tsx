@@ -55,7 +55,8 @@ const defaultPrefs: Prefs = {
   lang: platform.lang(),
   font: 'm',
   contrast: false,
-  theme: 'auto',
+  // 10.11.2026: новым игрокам - тёмная тема; светлая и «как в системе» - в настройках.
+  theme: 'dark',
   // Первая жизнь - с настройками по умолчанию: быстрая, мягкая смертность, «как в жизни», без тяжёлых сцен.
   mode: 'quick',
   mortality: 'soft',
