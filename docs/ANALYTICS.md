@@ -3,6 +3,7 @@
 Игра шлёт события только через `platform.track(name, params)` (`src/platform/`), игровые счётчики —
 `src/telemetry.ts`. Каждое событие уходит в Яндекс Метрику (цель `reachGoal`) и в свой приёмник
 (`docs/BACKEND.md`). `choice_made`, `dream_step` и `menu_leave` — только в свой приёмник, чтобы не засорять Метрику.
+Метки рекламы: `app_open` несёт `utm_source`, `utm_medium`, `utm_campaign` из адреса; первый источник игрока запоминается и идёт во все события как `utm` (общий параметр).
 
 Общие параметры каждого события: `platform, lang, build, ab, life_index, mode, session_id, player_id`.
 Параметры посетителя (userParams): `lives_total, first_seen, best_age`.
@@ -14,12 +15,17 @@
 | respin | n, era, cls, ad | перекрутил барабан после результата (n — какая по счёту перекрутка; era, cls — что выпало до неё; ad=1 — за рекламу, только CrazyGames) |
 | first_choice | sec_from_start | первый выбор в жизни |
 | age_milestone | age, sec_in_life | 5, 10, 15, 20, 30, 40, 50, 60, 70 лет |
-| choice_made | event_id, option, age, success | любой выбор (только свой приёмник) |
+| choice_made | event_id, option, age, success, historical (1 - историческое событие) | любой выбор (только свой приёмник) |
 | speed_change | speed | смена скорости |
 | tab_open | tab | вкладки жизни, «Читать» справку, графики и запись в итогах; `settings_from_hint` — открыл настройки из подсказки о длительности года |
-| session_end | screen, age, sec_in_session | вкладку скрыли/закрыли (sendBeacon) |
+| session_end | screen, age, sec_in_session + счётчики: tabs, speeds, …, events_shown {тип: n}, event_queue {длина очереди: n}, year_windows {окон в году: лет}, losses {родство: n} | вкладку скрыли/закрыли (sendBeacon); при закрытии без ухода в фон - pagehide |
 | menu_leave | sec, drum, button, spun, gifts, scroll, vw, vh, lives, hero, played | вкладку скрыли/закрыли на главном экране (только свой приёмник): sec — секунд в меню с прошлого показа; drum — какая часть барабана была видна (максимум, %); button — кнопка «Крути» была видна целиком; spun — дёргал рычаг; gifts — открывал «Дары»; scroll — насколько прокрутил страницу (px); vw, vh — размер окна; lives — прожитых жизней; hero — есть незаконченная жизнь; played — уже играл в этот заход. Отчёт «Ушли из меню» в `/admin` |
-| life_end | age, cause, region, era, sec_in_life, choices, rescued, generation | смерть героя |
+| life_end | age, cause, region, era, sec_in_life, choices, rescued, generation, heirs (сколько наследников на итоге) | смерть героя |
+| event_shown | event_id, type (historical, dice, crisis, profession, name, estate, debt, dream, personal, family, local), age, queue_len | окно события открылось - **счётчиком** в session_end (events_shown, event_queue), строк в D1 нет (аудит 10.11) |
+| year_windows | n (0–9) | конец года: сколько окон было в этом году - счётчиком в session_end.year_windows |
+| loss_shown | npc_role, is_death | карточка утраты (только смерть близкого; болезнь окна не открывает) - счётчиком в session_end.losses |
+| notices_toggle | on | игрок скрыл или вернул строку вестей |
+| js_error | kind (render, window, promise, cross - «Script error.» чужого скрипта, chunk - пропал кусок сборки, перезагрузка), msg, stack, where (файл:строка:столбец), screen | ошибка; не больше 5 за сессию |
 | summary_action | action: heir/reborn/share/memorial/menu | кнопки итогов |
 | share_open / share_done | what (life/dream) / what, format, method | «Поделиться» жизнью или сном |
 | feedback_sent | rating | отзыв отправлен |
