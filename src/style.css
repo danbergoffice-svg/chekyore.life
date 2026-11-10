@@ -1129,7 +1129,7 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .crisis-board { width: 100%; max-width: 420px; margin: 0 auto; }
 .crisis-canvas { display: block; width: 100%; height: clamp(300px, 52vh, 420px); }
 .crisis-board.second .crisis-canvas { height: clamp(260px, 42vh, 360px); }
-.crisis-result { background: #fff7e2; border: 2px solid #d8b860; border-radius: 10px; padding: 10px 12px; color: var(--ink); }
+.crisis-result { background: #fff7e2; border: 2px solid #d8b860; border-radius: 10px; padding: 10px 12px; color: #1f140c; }
 .crisis-result h3 { font-family: var(--font-display); margin: 0 0 4px; }
 .crisis-result p { margin: 0 0 6px; }
 .crisis-result .changes { margin: 4px 0 0; }
@@ -1137,10 +1137,9 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .crisis-actions .secondary { text-align: left; }
 .crisis-actions .choice-desc { display: block; font-size: 13px; opacity: 0.8; }
 .crisis-gamble { border-color: #8e3b22; color: #8e3b22; }
-:root[data-theme='dark'] .crisis-result { background: #2a221b; color: var(--ink); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .crisis-result { background: #2a221b; color: var(--ink); }
-}
+/* Окно события - светлый лист в любой теме: итог «Перелома» тоже светлый (в тёмной теме был тёмный фон под тёмным
+   текстом, отзыв 10.11). */
+.crisis-result { background: #fff7e2; color: #1f140c; }
 .choice-desc.goal-closes { color: var(--down); }
 
 /* Строка вестей под шапкой (Life.tsx, отзыв владельца 10.11): прилипает вместе с вкладками, ничего не закрывает.
