@@ -3227,6 +3227,21 @@
       },
       {
         "id": "return_home",
+        "requirements": [
+          {
+            "any": [
+              {
+                "has_npc": "father"
+              },
+              {
+                "has_npc": "mother"
+              },
+              {
+                "has_npc": "sibling"
+              }
+            ]
+          }
+        ],
         "effects": [
           {
             "money_pct": -50
@@ -3598,6 +3613,9 @@
           {
             "skill": "literacy",
             "delta": 5
+          },
+          {
+            "set_flag": "family_school"
           }
         ],
         "pattern": {

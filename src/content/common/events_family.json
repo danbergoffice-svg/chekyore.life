@@ -4856,5 +4856,67 @@
       ]
     },
     "variants": 16
+  },
+  {
+    "id": "f_ancestor_school",
+    "type": "family",
+    "once": true,
+    "age_range": [
+      6,
+      13
+    ],
+    "conditions": [
+      {
+        "any": [
+          {
+            "flag": "family_waqf"
+          },
+          {
+            "flag": "family_school"
+          }
+        ]
+      }
+    ],
+    "base_weight": 8,
+    "topic": "family",
+    "scene": {
+      "place": "street",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "study",
+        "effects": [
+          {
+            "skill": "literacy",
+            "delta": 8
+          },
+          {
+            "param": "reputation",
+            "delta": 2
+          },
+          {
+            "param": "happiness",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "memory_future": 2
+        }
+      },
+      {
+        "id": "play",
+        "effects": [
+          {
+            "param": "happiness",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "memory_future": -1
+        }
+      }
+    ]
   }
 ]

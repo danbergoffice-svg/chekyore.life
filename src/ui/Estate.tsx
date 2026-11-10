@@ -53,7 +53,7 @@ export function Estate({ state, era, onChange }: { state: GameState; era: EraDef
           <span class="small">{t('estate.buy')}</span>
           {offers.map((ty) => (
             <button type="button" class="option small" disabled={!!assetLock(state, ty)} onClick={() => act(() => acquireAsset(state, { type: ty }))}>
-              <span class="option-label">{t(`asset.${ty}`)}</span>
+              <span class="option-label">{t(`asset.${ty}`, {}, { region: state.hero.region })}</span>
               <span class="option-desc">{t('estate.buy.desc', { money: money(assetPrice(state, ty)), income: money(Math.round(assetPrice(state, ty) * (assetDef(ty)!.income - assetDef(ty)!.maintenance))) })}</span>
             </button>
           ))}
@@ -89,7 +89,7 @@ function AssetRow({ state, a, money, act }: { state: GameState; a: Asset; money:
   const share = heroShare(state, a)
   return (
     <li class="person child-card">
-      <span class="person-name cap">{t(`asset.${a.type}`)}</span>
+      <span class="person-name cap">{t(`asset.${a.type}`, {}, { region: state.hero.region })}</span>
       <span class="muted small">
         {t('estate.info', { money: money(Math.round(a.income * share)), cost: money(Math.round(a.maintenance * share)), n: a.condition })}
         {share < 1 ? ` · ${t('estate.share', { n: Math.round(share * 100) })}` : ''}
@@ -147,7 +147,7 @@ function WillEditor({ state, era, onChange, lang }: { state: GameState; era: Era
       <ul class="plain">
         {assets.map((a) => (
           <li class="small">
-            <span class="cap">{t(`asset.${a.type}`)}</span>{' → '}
+            <span class="cap">{t(`asset.${a.type}`, {}, { region: state.hero.region })}</span>{' → '}
             <select value={chosen(a)} onChange={(e) => setPick({ ...pick, [a.id]: (e.target as HTMLSelectElement).value })}>
               {kids.map((k) => (
                 <option value={k.id}>{nameOf(k.name, lang as never)}</option>

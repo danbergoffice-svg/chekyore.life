@@ -2,10 +2,10 @@
   "_doc": "Семейные активы (src/engine/estate.ts): цена без поправки на край, доход и содержание - доли цены в год. classes - сословие героя; needs - хоть что-то из features страны; notRural - не в деревенском крае. Отличия стран - поле assets в era.json (exclude).",
   "types": [
     { "id": "farm", "cost": 700, "income": 0.12, "maintenance": 0.03, "classes": ["peasant", "craftsman", "trader", "landowner", "noble"] },
-    { "id": "workshop", "cost": 500, "income": 0.14, "maintenance": 0.04, "classes": ["craftsman", "trader", "landowner", "noble"] },
-    { "id": "shop", "cost": 600, "income": 0.13, "maintenance": 0.03, "classes": ["craftsman", "trader", "landowner", "noble"], "notRural": true },
-    { "id": "house", "cost": 650, "income": 0.1, "maintenance": 0.02, "classes": ["craftsman", "trader", "landowner", "noble"], "notRural": true },
-    { "id": "warehouse", "cost": 900, "income": 0.11, "maintenance": 0.025, "classes": ["trader", "landowner", "noble"], "needs": ["sea", "river"] }
+    { "id": "workshop", "cost": 500, "income": 0.14, "maintenance": 0.04, "classes": ["craftsman", "trader", "landowner", "noble"], "notNomad": true },
+    { "id": "shop", "cost": 600, "income": 0.13, "maintenance": 0.03, "classes": ["craftsman", "trader", "landowner", "noble"], "notRural": true, "notNomad": true },
+    { "id": "house", "cost": 650, "income": 0.1, "maintenance": 0.02, "classes": ["craftsman", "trader", "landowner", "noble"], "notRural": true, "notNomad": true },
+    { "id": "warehouse", "cost": 900, "income": 0.11, "maintenance": 0.025, "classes": ["trader", "landowner", "noble"], "needs": ["sea", "river"], "notNomad": true }
   ],
   "max": 6,
   "harvest": [6, 14],

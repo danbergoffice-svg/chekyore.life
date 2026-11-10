@@ -117,8 +117,11 @@ export function maritalStatus(hero: Hero): Marital {
   if (now) return { kind: all.length > 1 ? 'remarried' : 'married', spouse: now, count: all.length, widowed }
   const last = all[all.length - 1]
   if (!last) return { kind: hero.tags.includes('vowed') ? 'vowed' : 'never', count: 0, widowed: 0 }
-  if (last.away) return { kind: 'divorced', spouse: last, since: last.away.since, count: all.length, widowed }
-  return { kind: 'widowed', spouse: last, since: last.deathYear, count: all.length, widowed }
+  // Развод - только по причине «развод». Муж уехал (на службу, на родину) и жив - брак не расторгнут; умер там - вдова
+  // (раньше умерший вдали муж делал героиню «в разводе», отзыв 10.11).
+  if (last.away?.reason === 'divorced') return { kind: 'divorced', spouse: last, since: last.away.since, count: all.length, widowed }
+  if (last.alive && last.away) return { kind: all.length > 1 ? 'remarried' : 'married', spouse: last, count: all.length, widowed }
+  return { kind: 'widowed', spouse: last, since: last.deathYear, count: all.length, widowed: last.away ? widowed + 1 : widowed }
 }
 
 /** Живые и рядом: уехавшие (`away`) в событиях, дома и в наследстве не участвуют. */

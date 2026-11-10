@@ -410,5 +410,11 @@
   "ev.c_h_back.walks": "Daha çok yürü, daha az otur",
   "ev.c_h_back.walks.ok": "Topal komşunun öğüdü en iyisi çıktı: yürü. Yürüyorsun - ve belin gün geçtikçe daha minnettar.",
   "ev.c_h_back.rest": "Uzan ve kalkma",
-  "ev.c_h_back.rest.ok": "Bir hafta tavana bakarak geçirdin. Bel düzeldi; tembellik ise galiba kaldı."
+  "ev.c_h_back.rest.ok": "Bir hafta tavana bakarak geçirdin. Bel düzeldi; tembellik ise galiba kaldı.",
+  "ev.f_ancestor_school.title": "Atanın okulu",
+  "ev.f_ancestor_school.text": "Okulun kapısının üstüne atanın adı kazınmış: vaktiyle bir hocanın ve öğrencilerin evinin parasını o vermiş. Hoca hangi aileden geldiğini öğrenince seni parasız okumaya çağırıyor.",
+  "ev.f_ancestor_school.study": "Parasız oku",
+  "ev.f_ancestor_school.study.ok": "Mahallenin yetimleriyle yan yana harf yazıyorsun. Hoca serttir ama kurucunun ailesine saygı gösterir, komşular da bunu görür.",
+  "ev.f_ancestor_school.play": "Arkadaşlarına kaç",
+  "ev.f_ancestor_school.play.ok": "Hoca iç çekti: kurucunun ailesinden daha ciddi çocuklar da çıkmıştı. Yine de yerini senin için tutuyor."
 }

@@ -410,5 +410,11 @@
   "ev.c_h_back.walks.ok": "The lame neighbor's advice turned out best: walk. You walk - and your back grows more grateful by the day.",
   "ev.c_h_back.rest": "Lie down and stay down",
   "ev.c_h_back.rest.ok": "You spent a week staring at the ceiling. The back got better; the laziness, it seems, has stayed.",
-  "ev.c_h_quack.text": "A trader at the market shouts that his potion cures fever, baldness, toothache and unrequited love. You didn't buy any, but you enjoyed listening - the show was better than any troupe of players."
+  "ev.c_h_quack.text": "A trader at the market shouts that his potion cures fever, baldness, toothache and unrequited love. You didn't buy any, but you enjoyed listening - the show was better than any troupe of players.",
+  "ev.f_ancestor_school.title": "An ancestor's school",
+  "ev.f_ancestor_school.text": "Your ancestor's name is carved over the school door: long ago he paid for a teacher and a house for pupils. The teacher learns which family you come from and invites you to study for free.",
+  "ev.f_ancestor_school.study": "Study for free",
+  "ev.f_ancestor_school.study.ok": "You sit over your letters beside the orphans of the quarter. The teacher is strict, but respectful to the founder's family, and the neighbors notice.",
+  "ev.f_ancestor_school.play": "Run off to your friends",
+  "ev.f_ancestor_school.play.ok": "The teacher sighs: the founder's family has had more serious children. Still, he keeps a place for you."
 }

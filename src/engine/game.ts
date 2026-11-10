@@ -719,6 +719,9 @@ function estateParams(state: GameState, eventId: string): Record<string, TextPar
   return { price: price.toLocaleString(), n: price, coin: { key: `coin.${coin}` }, home: { key: `home.${Math.min(4, (hero.home ?? 1) + 1)}` }, land: hero.land ?? 0, slaves: hero.slaves ?? 0 }
 }
 
+/** Подкидыш бездетному: с какого возраста и шанс в год (объект - чтобы прогон мог сравнить «с» и «без»). */
+export const FOUNDLING = { from: 28, chance: 0.12 }
+
 /** События-предложения о покупке: какое владение предлагает каждое. */
 const ESTATE_EVENTS: Record<string, EstateKind> = { estate_home: 'home', estate_land: 'land', estate_slaves: 'slaves' }
 
@@ -872,6 +875,13 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   if (!debtEv && hero.alive) {
     const offer = estateOffers(state).map((k) => byId(`estate_${k}`)).find((ev) => ev && fits(ev))
     if (offer && chance(state, 0.4)) add(offer)
+  }
+
+  // 1г. Бездетный взрослый (решение владельца 10.11, №4): подкидыш у ворот - чтобы род мог продолжиться через приёмного
+  // ребёнка (он обычный наследник). Своим шагом, мимо фильтра уникальности первых жизней; раз за жизнь (once).
+  if (!debtEv && hero.alive && hero.age >= FOUNDLING.from && !hero.npcs.some((n) => n.role === 'child')) {
+    const f = byId('a_foundling')
+    if (f && hero.seen[f.id] === undefined && fits(f) && chance(state, FOUNDLING.chance)) add(f)
   }
 
   // 2. Исторические события в этом регионе и году (вне хроники их нет).
@@ -1144,15 +1154,27 @@ function crisisChoices(state: GameState): ChoiceDef[] {
   })
 }
 
-export function choiceAvailable(state: GameState, choice: ChoiceDef): boolean {
+/** Супруги, которые останутся после самого события: «Вдовство» убивает мужа эффектом события, а он применяется
+ *  в момент выбора - до этого муж формально жив, и «Выйти за компаньона» было закрыто «ты замужем» (отзыв 10.11). */
+function spousesAfterEvent(state: GameState, ev?: EventDef): number {
+  const spouses = aliveNpcs(state.hero, 'spouse')
+  if (!ev?.effects?.length) return spouses.length
+  const npcId = state.queue[0]?.npcId
+  const gone = (t: string) => (t === 'spouse' ? spouses.map((n) => n.id) : t === 'npc' && npcId ? [npcId] : [])
+  const leaving = new Set(ev.effects.flatMap((e) => ('kill_npc' in e ? gone(e.kill_npc) : 'remove_npc' in e ? gone(e.remove_npc) : 'npc_away' in e ? gone(e.who ?? 'npc') : [])))
+  return spouses.filter((n) => !leaving.has(n.id)).length
+}
+
+/** ev - событие, в котором этот выбор (его собственные эффекты применятся вместе с выбором). */
+export function choiceAvailable(state: GameState, choice: ChoiceDef, ev?: EventDef): boolean {
   // Второй брак при живом супруге рядом - нет (в игре нет многожёнства).
-  if (addsSpouse(choice) && aliveNpcs(state.hero, 'spouse').length > 0) return false
+  if (addsSpouse(choice) && spousesAfterEvent(state, ev) > 0) return false
   return checkAll(state, choice.requirements)
 }
 
 /** Почему вариант недоступен - первое невыполненное условие словами (ключ event.lock.*); null - доступен. */
-export function lockReason(state: GameState, choice: ChoiceDef): { key: string; params?: Record<string, TextParam> } | null {
-  if (addsSpouse(choice) && aliveNpcs(state.hero, 'spouse').length > 0) return { key: 'event.lock.married' }
+export function lockReason(state: GameState, choice: ChoiceDef, ev?: EventDef): { key: string; params?: Record<string, TextParam> } | null {
+  if (addsSpouse(choice) && spousesAfterEvent(state, ev) > 0) return { key: 'event.lock.married' }
   const failed = (choice.requirements ?? []).find((c) => !check(state, c))
   return failed ? conditionReason(state, failed) : null
 }
@@ -1215,7 +1237,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
   if (!active || !ev || active.outcome) throw new Error('No event to choose in')
   const choices = eventChoices(state, era, ev)
   const choice = choices.find((c) => c.id === choiceId)
-  if (choices.length > 0 && (!choice || !choiceAvailable(state, choice))) throw new Error(`Bad choice ${choiceId}`)
+  if (choices.length > 0 && (!choice || !choiceAvailable(state, choice, ev))) throw new Error(`Bad choice ${choiceId}`)
 
   // Сон о будущем: «Попробовать вспомнить» открывает мини-игру, «Это просто сон» - второго сна не будет.
   if (ev.id === 'dream_intro' && active.dream) {
@@ -1458,7 +1480,7 @@ export function autoplay(
       startYear(state, era, f)
     } else if (state.queue.length > 0) {
       const ev = currentEvent(state, era)!
-      const options = eventChoices(state, era, ev).filter((c) => choiceAvailable(state, c))
+      const options = eventChoices(state, era, ev).filter((c) => choiceAvailable(state, c, ev))
       // Сон выбирается и решается своим потоком случайности - с ним и без него остальная жизнь одинакова.
       const own = pick && ev.id !== 'dream_intro' && options.length ? pick(options, state) : null
       const r = own !== null ? 0 : ev.id === 'dream_intro' ? dreamRng(state, 'auto_choice')() : next(state)

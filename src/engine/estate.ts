@@ -148,8 +148,8 @@ export function estateWorth(hero: Hero, state?: GameState): number {
   return (hero.rent ? 0 : HOME_COST[Math.max(0, Math.min(4, hero.home ?? 0))]) + Math.round((hero.land ?? 0) * LAND_COST * k + (hero.slaves ?? 0) * SLAVE_COST * k)
 }
 
-/** Повторы окон покупки (решение владельца 10.11, MEC-038): «Дом побольше» - один раз за жизнь (дальше дом
- *  перестраивают на вкладке «Герой» → «Имущество»), «Земля на продажу» - не чаще раза в LAND_GAP лет и не после
+/** Повторы окон покупки (решение владельца 10.11, MEC-038): «Дом побольше» - один раз за жизнь и ещё раз после
+ *  подъёма в положении (дом перестраивают и сами - вкладка «Герой» → «Имущество»), «Земля на продажу» - не чаще раза в LAND_GAP лет и не после
  *  LAND_REFUSALS отказов подряд. */
 export const LAND_GAP = 8
 export const LAND_REFUSALS = 3
@@ -157,7 +157,14 @@ export const LAND_REFUSALS = 3
 /** Можно ли сейчас прислать окно-предложение (без проверки денег). */
 export function offerAllowed(state: GameState, kind: EstateKind): boolean {
   const hero = state.hero
-  if (kind === 'home') return hero.seen.estate_home === undefined
+  // Поднялся в положении (стал землевладельцем, вошёл в «верхи») - новый повод, а не повтор (отзыв 10.11: в Индии
+  // «верхи» с тысячей в сундуке всю жизнь в хижине).
+  // Снова - только если дом теперь ниже положения: середине - «дом», верхам - «большой дом», элите - усадьба.
+  if (kind === 'home') {
+    if (hero.seen.estate_home === undefined) return true
+    const band = hero.band ?? 0
+    return hero.homeAskedBand !== undefined && band > hero.homeAskedBand && (hero.home ?? 1) < band + 1
+  }
   if (kind === 'land') {
     const last = hero.seen.estate_land
     return (hero.landRefused ?? 0) < LAND_REFUSALS && (last === undefined || state.year - last >= LAND_GAP)
@@ -167,8 +174,9 @@ export function offerAllowed(state: GameState, kind: EstateKind): boolean {
 
 /** Ответ на окно-предложение: отказы от земли подряд копятся, покупка обнуляет счёт. */
 export function offerAnswered(state: GameState, eventId: string, choiceId: string | null): void {
-  if (eventId !== 'estate_land') return
   const hero = state.hero
+  if (eventId === 'estate_home') hero.homeAskedBand = hero.band ?? 0
+  if (eventId !== 'estate_land') return
   hero.landRefused = choiceId === 'buy' ? 0 : (hero.landRefused ?? 0) + 1
 }
 
@@ -224,7 +232,7 @@ export function manumissionPraised(state: GameState): boolean {
 // Покупка, продажа, улучшение, залог; доход и содержание раз в год (assetsYear из estateYear - один годовой расчёт).
 // Дом, скот, наделы и рабы остаются в Hero (совместимость, п. 4.6 ТЗ). Правила - src/content/assets.json.
 
-type AssetDef = { id: AssetType; cost: number; income: number; maintenance: number; classes: string[]; needs?: string[]; notRural?: boolean }
+type AssetDef = { id: AssetType; cost: number; income: number; maintenance: number; classes: string[]; needs?: string[]; notRural?: boolean; notNomad?: boolean }
 const A = ASSETS as typeof ASSETS & { types: AssetDef[] }
 
 /** Слушатель для аналитики (src/telemetry.ts). */
@@ -260,6 +268,8 @@ export function assetLock(state: GameState, type: AssetType): string | undefined
   if (!def || meta?.assets?.exclude?.includes(type)) return 'estate.lock.era'
   if (def.needs && !def.needs.some((f) => meta?.features.includes(f))) return 'estate.lock.era'
   if (def.notRural && regionTags(state).includes('rural')) return 'estate.lock.rural'
+  // Кочевья (степь Онона): ни мастерской, ни лавки, ни доходного дома, ни склада - богатство в стаде (отзыв 10.11).
+  if (def.notNomad && regionTags(state).includes('nomad')) return 'estate.lock.nomad'
   if (!def.classes.includes(hero.cls) || !free(hero)) return 'estate.lock.class'
   if (hero.age < (meta?.stages.adult ?? 16)) return 'estate.lock.young'
   if ((state.family.estate?.assets.length ?? 0) >= A.max) return 'estate.lock.max'

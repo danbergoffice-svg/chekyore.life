@@ -69,8 +69,9 @@ describe('Окна покупок без повторов (MEC-038)', () => {
     expect(s.hero.landRefused).toBe(LAND_REFUSALS)
   })
 
-  it('в прогоне жизней: «Дом побольше» не больше раза у героя, земля - с промежутком от 8 лет и не больше 3 отказов подряд', () => {
+  it('в прогоне жизней: «Дом побольше» раз и снова только после подъёма, земля - с промежутком от 8 лет и не больше 3 отказов подряд', () => {
     let homes = 0
+    let repeats = 0
     let lands = 0
     for (let i = 0; i < 120; i++) {
       const era = ERAS[(['E03', 'RUS', 'CHN', 'EUR', 'ISL'] as const)[i % 5]]
@@ -81,7 +82,9 @@ describe('Окна покупок без повторов (MEC-038)', () => {
       const land = at('estate_land')
       homes += home.length
       lands += land.length
-      expect(home.length, `жизнь ${i}`).toBeLessThanOrEqual(1)
+      // Раз за жизнь и ещё раз после каждого подъёма в положении (полос четыре).
+      expect(home.length, `жизнь ${i}`).toBeLessThanOrEqual(4)
+      if (home.length > 1) repeats++
       for (let k = 1; k < land.length; k++) expect(land[k].year - land[k - 1].year).toBeGreaterThanOrEqual(LAND_GAP)
       let run = 0
       for (const d of land) {
@@ -92,6 +95,8 @@ describe('Окна покупок без повторов (MEC-038)', () => {
     }
     // Окна покупок не пропали совсем.
     expect(homes).toBeGreaterThan(0)
+    // Повторы - редкость: только у тех, кто поднялся.
+    expect(repeats).toBeLessThan(40)
     expect(lands).toBeGreaterThan(0)
   }, 300000)
 })

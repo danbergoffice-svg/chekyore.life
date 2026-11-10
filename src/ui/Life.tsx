@@ -1354,7 +1354,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const v = active?.variant
   const label = (c: ChoiceDef) => (isName ? nameOf(c.id, lang) : isProfession ? t(`prof.${c.id}`, {}, o) : t(variantKey(lang, `ev.${ev.id}.${c.id}`, v), params, o))
   const lockText = (c: ChoiceDef) => {
-    const r = lockReason(state, c)
+    const r = lockReason(state, c, ev)
     return r ? t(r.key, r.params, o) : t('event.locked')
   }
   const cost = (c: ChoiceDef) => {
@@ -1372,7 +1372,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
     if (state.queue[0]?.outcome || table || crisisStance || !armed) return
     const n = Number(e.key)
     const c = choices[n - 1]
-    if (n >= 1 && n <= 4 && c && choiceAvailable(state, c)) {
+    if (n >= 1 && n <= 4 && c && choiceAvailable(state, c, ev)) {
       e.preventDefault()
       pick(c.id)
     }
@@ -1451,7 +1451,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
                 <button class="primary" aria-disabled={!armed} onClick={() => pick(null)}>{t('event.ok')}</button>
               )}
               {choices.map((c) => {
-                const ok = choiceAvailable(state, c)
+                const ok = choiceAvailable(state, c, ev)
                 const p = riskChance(state, c)
                 const price = cost(c)
                 const mark = marks && ok ? goalMark(marks, c) : null
