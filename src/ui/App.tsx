@@ -471,7 +471,9 @@ export function App() {
   const applyPromo = (code: string): string | null => {
     const r = redeemPromo(code, prefs.promoUsed)
     if (!r.ok) return r.error
-    setPrefs({ ...prefs, gifts: [...(prefs.gifts ?? []), r.reward.gift], promoUsed: [...(prefs.promoUsed ?? []), r.hash], ...(r.reward.country ? { promoCountry: r.reward.country } : {}) })
+    // Ключ без ограничений не записывается в использованные; один и тот же дар не копится (один на следующую жизнь).
+    const has = (prefs.gifts ?? []).includes(r.reward.gift)
+    setPrefs({ ...prefs, gifts: r.reward.reusable && has ? prefs.gifts : [...(prefs.gifts ?? []), r.reward.gift], promoUsed: r.reward.reusable ? prefs.promoUsed : [...(prefs.promoUsed ?? []), r.hash], ...(r.reward.country ? { promoCountry: r.reward.country } : {}) })
     if (r.reward.country) setGiftCountry(r.reward.country)
     // Жизнь у барабана готовится заранее (при открытии меню) - перевыбрать её с даром ключа, иначе ярлык «Монголы»
     // висел, а выпадала прежняя страна (жалоба владельца 09.11).

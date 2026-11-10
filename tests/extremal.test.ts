@@ -13,13 +13,18 @@ const metas = ERA_IDS.map((id) => ERA_META[id])
 const quick: GameSettings = { mode: 'quick', mortality: 'soft', softenHeavy: false }
 
 describe('Ключ «Экстримал»', () => {
-  it('ЭКСТРИМАЛ и EXTREMAL дают дар «самое раннее время», один раз', () => {
+  it('ЭКСТРИМАЛ и EXTREMAL дают дар «самое раннее время», без ограничений', () => {
     for (const code of ['Экстримал', 'ЭКСТРИМАЛ', 'extremal', ' Экс-тримал ']) {
       const r = redeemPromo(code)
       expect(r.ok && r.reward.gift).toBe('earliest')
     }
+    // Ключ без ограничений: и после использования принимается снова.
     const r = redeemPromo('Экстримал')
-    expect(r.ok && redeemPromo('Экстримал', [r.hash])).toEqual({ ok: false, error: 'used' })
+    expect(r.ok && r.reward.reusable).toBe(true)
+    expect(r.ok && redeemPromo('Экстримал', [r.hash]).ok).toBe(true)
+    // Обычные ключи - по-прежнему один раз.
+    const m = redeemPromo('MONGOL2026')
+    expect(m.ok && redeemPromo('MONGOL2026', [m.hash])).toEqual({ ok: false, error: 'used' })
     for (const lang of ['ru', 'en', 'tr'] as const) {
       expect(hasKey(lang, 'gift.earliest') && hasKey(lang, 'gift.earliest.desc')).toBe(true)
       expect(createT(lang)('gift.earliest.desc')).not.toMatch(/\{/)

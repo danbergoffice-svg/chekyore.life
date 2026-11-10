@@ -1,20 +1,22 @@
 // Спецключи для подписчиков (меню → «Ключ»): код даёт дар один раз на игрока (на этом устройстве - сервера у ключей нет).
 // В коде игры лежат не сами ключи, а их хеши: подсмотреть ключ в файлах страницы нельзя. Новый ключ: посчитать
 // promoHash('КОД') и добавить строку в PROMO. Ключи (09.11.2026): MONGOL2026 - жизнь у монголов, ROYAL2026 - царский род;
-// (10.11) ЭКСТРИМАЛ / EXTREMAL - рождение в самом раннем времени игры, для самой долгой династии.
+// (10.11) ЭКСТРИМАЛ / EXTREMAL - рождение в самом раннем времени игры, для самой долгой династии; без ограничений.
 import type { Gift } from './daily'
 
 export interface PromoReward {
   gift: Gift
   /** Для дара «страна по выбору» - сразу эта страна. */
   country?: string
+  /** Ключ без ограничений: вводить можно сколько угодно раз (дар на следующую жизнь не копится - один за раз). */
+  reusable?: boolean
 }
 
 const PROMO: Record<string, PromoReward> = {
   '1olad07': { gift: 'country', country: 'MNG' },
   '1c3t20i': { gift: 'royal' },
-  '1ulpjy': { gift: 'earliest' },
-  '502yxx': { gift: 'earliest' },
+  '1ulpjy': { gift: 'earliest', reusable: true },
+  '502yxx': { gift: 'earliest', reusable: true },
 }
 
 /** Код без пробелов и дефисов, заглавными (турецкая i - как латинская). */
@@ -33,6 +35,6 @@ export function redeemPromo(code: string, used: string[] = []): PromoResult {
   const hash = promoHash(code)
   const reward = PROMO[hash]
   if (!reward) return { ok: false, error: 'unknown' }
-  if (used.includes(hash)) return { ok: false, error: 'used' }
+  if (used.includes(hash) && !reward.reusable) return { ok: false, error: 'used' }
   return { ok: true, hash, reward }
 }
