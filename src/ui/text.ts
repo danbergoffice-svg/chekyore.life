@@ -23,7 +23,8 @@ export function diaryText(t: T, e: DiaryEntry, sex: Hero['sex'], region: string,
     const v = e.params?.v
     let s = t(variantKey(lang, e.key, v), params, opts)
     const choice = e.params?.choice
-    if (choice && typeof choice === 'object' && 'key' in choice && choice.key !== 'ui.ok') s += `\u00a0— ${t(variantKey(lang, choice.key, v), {}, opts)}`
+    // Текст выбора - с теми же параметрами, что в окне: «Купить (120 денариев)», а не «Купить ({price} {coin})» (D-01).
+    if (choice && typeof choice === 'object' && 'key' in choice && choice.key !== 'ui.ok') s += `\u00a0— ${t(variantKey(lang, choice.key, v), params, opts)}`
     if (e.params?.result === 'success') s += ` (${t('diary.success')})`
     if (e.params?.result === 'failure') s += ` (${t('diary.failure')})`
     return s
