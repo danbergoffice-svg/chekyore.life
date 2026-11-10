@@ -790,6 +790,13 @@ export function Settings(props: {
           <span class="option-desc">{t('setup.soften.desc')}</span>
         </span>
       </label>
+      <label class="toggle">
+        <input type="checkbox" checked={p.notices !== false} onChange={(e) => props.onPrefs({ ...p, notices: e.currentTarget.checked })} />
+        <span>
+          <span class="option-label">{t('settings.notices')}</span>
+          <span class="option-desc">{t('settings.notices.desc')}</span>
+        </span>
+      </label>
 
       <h2 class="section-title">{t('settings.saves')}</h2>
       <p class="small muted">{t('settings.saves.desc')}</p>

@@ -405,3 +405,13 @@ export function goalMark(id: GoalId, choice: ChoiceDef): GoalMark {
 export function eventHelpsGoal(id: GoalId, ev: EventDef, choices: ChoiceDef[] = ev.choices ?? []): boolean {
   return choices.some((c) => goalImpact(id, c) >= MARK_AT)
 }
+
+/** Цели, для которых нужен брак: обет безбрачия (дело «монах/монахиня») их закрывает, если супруга ещё нет. */
+const NEEDS_MARRIAGE: GoalId[] = ['family', 'love', 'keep']
+
+/** Выбор дела закроет цель героя (MEC-049, аудит 10.11: «монахиня» при цели «Большая семья» - 0 из 4 без предупреждения). */
+export function professionClosesGoal(hero: Hero, profession: string): boolean {
+  const goal = hero.goal?.id
+  if (!goal || !NEEDS_MARRIAGE.includes(goal) || profession !== 'monk') return false
+  return !hero.npcs.some((n) => n.role === 'spouse' && n.alive && !n.away)
+}

@@ -1108,6 +1108,20 @@ export function App() {
     />
   ) : null
 
+  // Вести на экране жизни идут в строку под шапкой (Life.tsx), а не всплывающей плашкой поверх панели управления.
+  const noticesOn = prefs.notices !== false
+  const inLifeBar = noticesOn && screen === 'life'
+  const lifeNotice = !inLifeBar
+    ? null
+    : achToast
+      ? { id: `ach:${achToast}`, text: <><Icon name="medal" /> {ui.t('ach.toast')} <strong>{ui.t(`ach.${achToast}.title`)}</strong></>, onClose: () => setAchToast(null) }
+      : royalToast
+        ? { id: 'royal', text: <><Icon name="crown" /> {ui.t('royal.toast')}</>, onClose: () => setRoyalToast(false) }
+        : giftToast
+          ? { id: `gift:${giftToast}`, text: <><Icon name={GIFT_ICON[giftToast]} /> {ui.t('daily.toast', { gift: { key: `gift.${giftToast}` } })}</>, onClose: () => setGiftToast(null) }
+          : challengeToast
+            ? { id: 'challenge', text: <><Icon name="trophy" /> {ui.t('challenge.toast')}</>, onClose: () => setChallengeToast(false) }
+            : null
   return (
     <UiContext.Provider value={ui}>
       <main class="app">
@@ -1228,6 +1242,12 @@ export function App() {
             shortFirst={shortFirst(platform.playerId(), platform.flags)}
             layout={layoutB(platform.playerId(), platform.flags) ? 'b' : 'a'}
             dream={dreamProps}
+            notices={noticesOn}
+            onNotices={(on) => {
+              setPrefs({ ...prefs, notices: on })
+              platform.track('notices_toggle', { on: on ? 1 : 0 })
+            }}
+            notice={lifeNotice}
           />
         )}
         {screen === 'life' && lifeMenu && state && state.phase !== 'dead' && (
@@ -1364,7 +1384,7 @@ export function App() {
           else goBack()
         }} />}
         {screen === 'about' && <About onBack={goBack} />}
-        {achToast && (
+        {achToast && !inLifeBar && (
           <p class="toast ach-toast" role="status" onClick={() => setAchToast(null)}>
             <Icon name="medal" /> {ui.t('ach.toast')} <strong>{ui.t(`ach.${achToast}.title`)}</strong>
           </p>
@@ -1381,17 +1401,17 @@ export function App() {
             {ui.t('feedback.thanks')}
           </p>
         )}
-        {challengeToast && (
+        {challengeToast && !inLifeBar && (
           <p class="toast ach-toast" role="status" onClick={() => setChallengeToast(false)}>
             <Icon name="trophy" /> {ui.t('challenge.toast')}
           </p>
         )}
-        {giftToast && (
+        {giftToast && !inLifeBar && (
           <p class="toast ach-toast" role="status" onClick={() => setGiftToast(null)}>
             <Icon name={GIFT_ICON[giftToast]} /> {ui.t('daily.toast', { gift: { key: `gift.${giftToast}` } })}
           </p>
         )}
-        {royalToast && (
+        {royalToast && !inLifeBar && (
           <p class="toast ach-toast" role="status" onClick={() => setRoyalToast(false)}>
             <Icon name="crown" /> {ui.t('royal.toast')}
           </p>

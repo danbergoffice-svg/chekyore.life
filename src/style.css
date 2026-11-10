@@ -1080,6 +1080,10 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .person-more > summary::-webkit-details-marker { display: none; }
 .person-more[open] > summary { margin-bottom: 4px; }
 .home-badge { border: 1px solid currentColor; border-radius: 8px; padding: 0 6px; opacity: 0.8; }
+/* Болезнь близкого - отметка в «Близких» вместо окна (решение владельца 10.11). */
+.ill-badge { border: 1px solid currentColor; color: var(--down); border-radius: 8px; padding: 0 6px; }
+.estate-home { margin: 6px 0 10px; }
+.ev-note { margin: 6px 0 0; }
 
 .story-nav { display: flex; justify-content: center; gap: 24px; font-size: 1.4em; }
 
@@ -1137,3 +1141,14 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .crisis-result { background: #2a221b; color: var(--ink); }
 }
+.choice-desc.goal-closes { color: var(--down); }
+
+/* Строка вестей под шапкой (Life.tsx, отзыв владельца 10.11): прилипает вместе с вкладками, ничего не закрывает.
+   Свежая весть - ярче; потом остаётся бледной до следующей. ✕ - скрыть (вернуть в настройках). */
+.notice-bar { display: flex; align-items: center; gap: 8px; min-height: 30px; padding: 4px 8px 4px 12px; border-bottom: 1px solid var(--line); font-size: 0.85rem; line-height: 1.25; color: var(--muted, inherit); }
+.notice-bar.fresh { color: var(--ink); background: color-mix(in srgb, var(--gold) 22%, transparent); }
+.notice-bar .notice-text { flex: 1; min-width: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.notice-bar .notice-text svg { width: 1em; height: 1em; vertical-align: -0.12em; }
+.notice-bar .notice-mute { flex: none; white-space: nowrap; font-size: 0.78rem; }
+.notice-bar .notice-x { flex: none; min-width: 32px; min-height: 30px; border: 0; background: none; color: inherit; font: inherit; opacity: 0.7; cursor: pointer; }
+.notice-bar .notice-x:hover { opacity: 1; }

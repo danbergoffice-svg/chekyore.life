@@ -38,7 +38,7 @@ import { pets } from './pets'
 import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
 import { ERA_META, eraById, isEraLoaded } from '../content'
-import { estateOffers, estatePrice } from './estate'
+import { estateOffers, estatePrice, offerAnswered } from './estate'
 import type { EstateKind } from './estate'
 import { chronicleSuccessor, eraEnding, summarize } from './life'
 import { ensureGoal, eventHelpsGoal, goalYear } from './goals'
@@ -1260,6 +1260,7 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     }
   }
   active.outcome = { choiceId: choice?.id ?? 'ok', result }
+  offerAnswered(state, ev.id, choice?.id ?? null)
   const rescued = hero.diary.findIndex((d, i) => i >= diaryBefore && d.key.startsWith('diary.rescued.'))
   if (rescued >= 0) active.outcome.rescued = rescued
   if (ev.dynamic === 'name' && choice) {
