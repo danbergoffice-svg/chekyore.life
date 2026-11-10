@@ -23,6 +23,11 @@ const safe = <T,>(fn: () => T, fallback: T): T => {
 }
 export const session = () => safe(() => localStorage.getItem(SESSION_KEY), null)
 export const accountEmail = () => safe(() => localStorage.getItem(EMAIL_KEY), null)
+const PENDING_KEY = 'thousands.account_pending'
+/** Почта, на которую последний раз просили ссылку (если ещё не вошёл): подставляется в форму при повторном входе. */
+export const pendingEmail = () => safe(() => localStorage.getItem(PENDING_KEY), null) ?? ''
+export const rememberPending = (email: string | null) =>
+  safe(() => (email ? localStorage.setItem(PENDING_KEY, email) : localStorage.removeItem(PENDING_KEY)), undefined)
 function remember(token: string | null, email: string | null) {
   safe(() => {
     if (token) localStorage.setItem(SESSION_KEY, token)
@@ -61,7 +66,10 @@ export async function startLogin(email: string, lang: string, newsletter: boolea
 
 export async function verifyLogin(token: string): Promise<{ ok: boolean; email?: string; newsletter?: boolean; error?: string }> {
   const r = await call<{ ok: boolean; session?: string; email?: string; newsletter?: boolean; error?: string }>('/verify', { method: 'POST', body: JSON.stringify({ token }) })
-  if (r?.ok && r.session) remember(r.session, r.email ?? null)
+  if (r?.ok && r.session) {
+    remember(r.session, r.email ?? null)
+    rememberPending(null)
+  }
   return r ?? { ok: false, error: 'network' }
 }
 

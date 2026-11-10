@@ -1751,7 +1751,7 @@
   "account.delete_confirm": "Evet, kalıcı olarak sil: e-posta, sunucudaki kayıtlar ve istatistiklerim",
   "account.deleted": "Tamam: verilerin sunucudan silindi. Bu tarayıcıdaki kayıtlar duruyor.",
   "account.login_ok": "Giriş yapıldı: hayatlar ve ödüller sunucuda saklandı.",
-  "account.login_failed": "Giriş bağlantısının süresi dolmuş ya da kullanılmış. Ayarlardan yenisini iste.",
+  "account.login_failed": "Giriş bağlantısının süresi dolmuş ya da kullanılmış. Yenisini isteyin: menü → Giriş.",
   "account.error.email": "E-posta adresini kontrol et.",
   "account.error.region": "Bölgende giriş kullanılamıyor.",
   "account.error.other": "Olmadı; biraz sonra tekrar dene.",
@@ -1879,5 +1879,10 @@
   "crisis.s2.family.rupture": "Kopuş",
   "crisis.s2.home.strong": "Kurtardı",
   "crisis.s2.home.partial": "Kısmen",
-  "crisis.s2.home.fail": "Boşuna"
+  "crisis.s2.home.fail": "Boşuna",
+  "menu.nav.account": "Giriş",
+  "account.no_mail": "E-posta gelmedi mi? Spam ve Promosyonlar klasörüne bakın — ya da yeniden gönderin.",
+  "account.resend": "Yeniden gönder",
+  "account.resend_wait": "Yeniden gönder ({n} sn sonra)",
+  "account.other_email": "Başka e-posta"
 }

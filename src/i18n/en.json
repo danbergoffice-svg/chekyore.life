@@ -1751,7 +1751,7 @@
   "account.delete_confirm": "Yes, delete for good: email, server saves and my statistics",
   "account.deleted": "Done: your data is deleted from the server. Saves in this browser remain.",
   "account.login_ok": "Signed in: lives and awards are saved on the server.",
-  "account.login_failed": "The sign-in link has expired or was already used. Request a new one in Settings.",
+  "account.login_failed": "The sign-in link has expired or was already used. Ask for a new one: menu → Sign in.",
   "account.error.email": "Check the email address.",
   "account.error.region": "Sign-in is not available in your region.",
   "account.error.other": "That didn't work - please try again a little later.",
@@ -1879,5 +1879,10 @@
   "crisis.s2.family.rupture": "Rupture",
   "crisis.s2.home.strong": "Saved",
   "crisis.s2.home.partial": "Partly",
-  "crisis.s2.home.fail": "In vain"
+  "crisis.s2.home.fail": "In vain",
+  "menu.nav.account": "Sign in",
+  "account.no_mail": "No email? Check Spam and Promotions — or send it again.",
+  "account.resend": "Send again",
+  "account.resend_wait": "Send again (in {n} s)",
+  "account.other_email": "Different email"
 }

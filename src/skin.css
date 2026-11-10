@@ -397,4 +397,7 @@ html.skin .tour-card .primary { background: #1c1a17; color: #f3ecdc; }
 /* Кости на светлом листе окна: вторичные кнопки тёмные (по умолчанию они для тёмного фона). */
 html.skin .dice .secondary { color: #130904; border-color: rgba(19, 9, 4, 0.5); }
 html.skin .dice .secondary.danger-soft { color: #a3341c; border-color: #a3341c; }
+/* Окно входа по почте - на бумаге, как стол костей: тёмный текст и пунктир («Отправить ещё раз»). */
+html.skin .modal.account .secondary { color: #130904; border-color: rgba(19, 9, 4, 0.5); }
+html.skin .modal.account .secondary:disabled { opacity: 0.55; }
 html.skin .dice .link { color: #8a3a1e; text-decoration-color: rgba(138, 58, 30, 0.45); }

@@ -1,7 +1,7 @@
 // Аккаунт: форма входа по ссылке на почту (после первой жизни и из настроек), политика конфиденциальности,
 // рассылка, выход и удаление своих данных (src/account.ts).
-import { useState } from 'preact/hooks'
-import { accountEmail, deleteAccount, logout, session, setNewsletter, startLogin } from '../account'
+import { useEffect, useState } from 'preact/hooks'
+import { accountEmail, deleteAccount, logout, pendingEmail, rememberPending, session, setNewsletter, startLogin } from '../account'
 import { platform } from '../platform'
 import { useUi } from './text'
 
@@ -20,16 +20,26 @@ export function Privacy() {
 /** Форма входа: почта → письмо со ссылкой. prompt - после первой жизни (с призывом сохранить достижения). */
 export function AccountModal({ prompt, onClose }: { prompt?: boolean; onClose: () => void }) {
   const { t, lang } = useUi()
-  const [email, setEmail] = useState('')
+  // Уже просили ссылку - адрес подставлен: письмо не дошло или ссылка устарела - можно просто отправить ещё раз.
+  const [email, setEmail] = useState(pendingEmail)
   const [news, setNews] = useState(true)
   const [state, setState] = useState<'idle' | 'busy' | 'sent' | 'error'>('idle')
   const [error, setError] = useState('')
-  const send = async () => {
+  // Повторная отправка - не чаще раза в 30 секунд (обратный отсчёт на кнопке).
+  const [wait, setWait] = useState(0)
+  useEffect(() => {
+    if (wait <= 0) return
+    const id = setTimeout(() => setWait(wait - 1), 1000)
+    return () => clearTimeout(id)
+  }, [wait])
+  const send = async (again = false) => {
     setState('busy')
     const r = await startLogin(email.trim(), lang, news, platform.playerId())
     if (r.ok) {
       setState('sent')
-      platform.track('account_start', { newsletter: news ? 1 : 0, prompt: prompt ? 1 : 0 })
+      setWait(30)
+      rememberPending(email.trim())
+      platform.track('account_start', { newsletter: news ? 1 : 0, prompt: prompt ? 1 : 0, again: again ? 1 : 0 })
     } else {
       setState('error')
       // Причина отказа почты (например, домен не подтверждён в Resend) - мелко, чтобы было что прислать разработчику.
@@ -42,7 +52,16 @@ export function AccountModal({ prompt, onClose }: { prompt?: boolean; onClose: (
         <h2 id="account-title">{t(prompt ? 'account.prompt.title' : 'account.title')}</h2>
         <p class="small">{t(prompt ? 'account.prompt.text' : 'account.text')}</p>
         {state === 'sent' ? (
-          <p role="status">{t('account.sent', { email: email.trim() })}</p>
+          <>
+            <p role="status">{t('account.sent', { email: email.trim() })}</p>
+            <p class="small muted">{t('account.no_mail')}</p>
+            <div class="choice-row">
+              <button class="secondary" disabled={wait > 0} onClick={() => send(true)}>
+                {wait > 0 ? t('account.resend_wait', { n: wait }) : t('account.resend')}
+              </button>
+              <button class="link" onClick={() => setState('idle')}>{t('account.other_email')}</button>
+            </div>
+          </>
         ) : (
           <>
             <input class="promo-input account-email" type="email" autocomplete="email" placeholder={t('account.email')} value={email} onInput={(e) => setEmail((e.target as HTMLInputElement).value)} onKeyDown={(e) => e.key === 'Enter' && email.includes('@') && send()} aria-label={t('account.email')} />
@@ -56,7 +75,7 @@ export function AccountModal({ prompt, onClose }: { prompt?: boolean; onClose: (
         )}
         <div class="choice-row">
           {state !== 'sent' && (
-            <button class="primary" disabled={state === 'busy' || !email.includes('@')} onClick={send}>
+            <button class="primary" disabled={state === 'busy' || !email.includes('@')} onClick={() => send()}>
               {t('account.send')}
             </button>
           )}

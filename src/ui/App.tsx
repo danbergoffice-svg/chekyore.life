@@ -1126,6 +1126,10 @@ export function App() {
             }}
             onFeedback={() => openFeedback('menu')}
             onPromo={() => setPromoOpen(true)}
+            onAccount={accountAvail && !session() ? () => {
+              platform.track('account_open', { from: 'menu' })
+              setAccountOpen('settings')
+            } : undefined}
             onLang={(lang) => setPrefs({ ...prefs, lang })}
             go={setScreen}
             sound={soundButton}

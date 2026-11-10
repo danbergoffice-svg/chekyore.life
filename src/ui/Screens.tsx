@@ -47,6 +47,8 @@ interface MenuProps {
   gifts?: ComponentChildren
   onFeedback: () => void
   onPromo?: () => void
+  /** Вход по почте (аккаунт): пока игрок не вошёл - пункт меню «Войти». */
+  onAccount?: () => void
   onLang: (lang: Lang) => void
   go: (s: 'memorial' | 'settings' | 'about' | 'awards') => void
   /** Кнопка музыки. */
@@ -61,7 +63,7 @@ let playersSeen: number | null = null
 
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
  *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, - в «Об игре». */
-export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, onFeedback, onPromo, onLang, go, sound }: MenuProps) {
+export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, onFeedback, onPromo, onAccount, onLang, go, sound }: MenuProps) {
   const { t, lang } = useUi()
   const [confirmNew, setConfirmNew] = useState(false)
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
@@ -168,6 +170,7 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
         <button class="link" onClick={() => go('about')}>{t('menu.nav.about')}</button>
         {EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
         {onPromo && <button class="link" onClick={onPromo}>{t('menu.nav.promo')}</button>}
+        {onAccount && <button class="link" onClick={onAccount}>{t('menu.nav.account')}</button>}
       </nav>
       {EXTERNAL && (
         <>
