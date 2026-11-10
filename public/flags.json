@@ -31,5 +31,6 @@
   "goal_marks_share": 0.5,
   "goal_weight": 1.5,
   "goal_change_age": 16,
-  "goal_free_from": 4
+  "goal_free_from": 4,
+  "crisis_share": 0.5
 }
