@@ -1049,6 +1049,9 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .social-links a:hover { border-color: var(--gold); }
 .social-links.compact { display: flex; justify-content: flex-start; margin: 10px 0 2px; max-width: none; }
 .social-links.compact a { min-width: 48px; justify-content: center; padding: 0; }
+/* Поддержать проект (Boosty) - под каналами, во всю ширину их ряда. */
+.support-link { display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 26rem; min-height: 48px; margin: 10px auto 0; padding: 0 14px; border: 1px solid #f15f2c; border-radius: 10px; color: inherit; font-weight: 700; text-decoration: none; }
+.support-link:hover { background: color-mix(in srgb, #f15f2c 14%, transparent); }
 .pixel-icon { image-rendering: pixelated; flex: none; }
 
 /* Пакет 1: кнопки выбора события оживают через полторы секунды - полоска над ними наполняется, кнопки проступают. */
@@ -1151,3 +1154,6 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .notice-bar .notice-mute { flex: none; white-space: nowrap; font-size: 0.78rem; }
 .notice-bar .notice-x { flex: none; min-width: 32px; min-height: 30px; border: 0; background: none; color: inherit; font: inherit; opacity: 0.7; cursor: pointer; }
 .notice-bar .notice-x:hover { opacity: 1; }
+
+/* Настройки: «Расскажи об игре подробнее» - кнопка с пояснением. */
+.settings-tour { display: grid; gap: 2px; width: 100%; margin: 14px 0 4px; text-align: left; }

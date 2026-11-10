@@ -206,6 +206,8 @@ function biography(h: Hero): DiaryEntry[] {
 /** Сводка прожитой жизни для мемориала и родословной. */
 export function summarize(state: GameState, era: EraDef): LifeSummary {
   const h = state.hero
+  // Переехал в другую страну - отчёт по ней (её края, сословия); передали страну рождения - берём нынешнюю.
+  if (h.era !== era.id && isEraLoaded(h.era)) era = eraById(h.era)
   return {
     heroId: h.id,
     familyId: state.family.id,

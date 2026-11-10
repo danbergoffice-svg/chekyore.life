@@ -1377,7 +1377,16 @@ export function App() {
         {screen === 'chronicle' && chronicleId && (
           <Chronicle memorial={memorial} familyId={chronicleId} onOpen={openPast} onBack={() => setScreen('memorial')} />
         )}
-        {screen === 'settings' && <Settings account={accountAvail ? <AccountSection newsletter={accountNews} onOpen={() => setAccountOpen('settings')} onChanged={refreshAccount} /> : undefined} prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
+        {screen === 'settings' && <Settings onTour={() => {
+          // Обучение заново и подсказки вкладок снова (настройки 10.11); идёт в жизни - вернуться в неё, иначе - с новой жизнью.
+          platform.kvSet('thousands.hints', '')
+          platform.kvSet('thousands.tour', '')
+          platform.track('tour_again', { from: settingsFrom })
+          setTourNonce((n) => n + 1)
+          setSettingsFrom('menu')
+          if (game.current && game.current.phase !== 'dead') setScreen('life')
+          else goBack()
+        }} account={accountAvail ? <AccountSection newsletter={accountNews} onOpen={() => setAccountOpen('settings')} onChanged={refreshAccount} /> : undefined} prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
           const back = settingsFrom
           setSettingsFrom('menu')
           if (back === 'life' && game.current && game.current.phase !== 'dead') setScreen('life')

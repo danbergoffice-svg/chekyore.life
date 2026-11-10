@@ -89,6 +89,28 @@ const ICONS: Record<string, { grid: string[]; colors: Record<string, string> }> 
       '..kkkkkkkkkkkk..',
     ],
   },
+  boosty: {
+    // Оранжевый квадрат с белой «B», как у Boosty.
+    colors: { o: '#f15f2c', l: '#f68b3c', d: '#c7461a', w: '#ffffff' },
+    grid: [
+      '..llllllllllll..',
+      '.lllllloooooooo.',
+      'lllooooooooooooo',
+      'lllwwwwwwwoooood',
+      'llowwwwwwwwooood',
+      'ooowwoooooowwood',
+      'ooowwoooooowwood',
+      'ooowwwwwwwwwoodd',
+      'ooowwwwwwwwwwodd',
+      'ooowwooooooowwdd',
+      'ooowwooooooowwdd',
+      'ooowwwwwwwwwwwdd',
+      'ooowwwwwwwwwwddd',
+      'oooooooooooodddd',
+      '.oooooooodddddd.',
+      '..dddddddddddd..',
+    ],
+  },
 }
 
 // В сборке для CrazyGames список пуст на этапе сборки: портал проверяет, что в коде нет внешних адресов.
@@ -129,5 +151,19 @@ export function SocialLinks({ from, compact = false }: { from: 'menu' | 'sheet';
         </a>
       ))}
     </nav>
+  )
+}
+
+/** Поддержать проект (Boosty): внизу меню, только на сайте. */
+export const SUPPORT_URL = import.meta.env.VITE_PLATFORM === 'crazygames' ? '' : 'https://boosty.to/afterall/donate'
+
+export function SupportLink({ from }: { from: 'menu' | 'sheet' }) {
+  const { t } = useUi()
+  if (!SUPPORT_URL) return null
+  return (
+    <a class="support-link" href={SUPPORT_URL} target="_blank" rel="noopener noreferrer" onClick={() => platform.track('support_click', { from })}>
+      <PixelIcon id="boosty" />
+      <span>{t('support.boosty')}</span>
+    </a>
   )
 }

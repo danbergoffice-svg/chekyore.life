@@ -66,6 +66,9 @@
     "stress": 0.13,
     "spouseLoneliness": 0.15
   },
+  "mourning": {
+    "from": 40
+  },
   "linger": {
     "from": 20,
     "happiness": -0.06,
@@ -73,8 +76,8 @@
     "aloneLoneliness": 2
   },
   "decay": {
-    "grief": 0.7,
-    "grief_far": 0.6,
+    "grief": 0.6,
+    "grief_far": 0.5,
     "traits": {
       "kind": 1.06,
       "pious": 0.92,

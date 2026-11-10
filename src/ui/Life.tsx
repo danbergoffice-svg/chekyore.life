@@ -1,4 +1,4 @@
-import { mourning } from '../engine/emotions'
+import { mourning, mourningLeft } from '../engine/emotions'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   availableFocuses,
@@ -99,7 +99,7 @@ const CHOICE_DELAY = (() => {
   return 1500
 })()
 /** Порядок подсказок: раньше - важнее. */
-const HINT_ORDER = ['speed', 'year_len', 'focus', 'hero']
+const HINT_ORDER = ['speed', 'year_len', 'focus', 'hero', 'tab_life']
 export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
 export type Speed = (typeof SPEEDS)[number]
 
@@ -195,7 +195,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   }
   const hintDue = (id: string) =>
     !hints.includes(id) &&
-    (id === 'hero' ? hero.age >= 12 && tab === 'life' : id === 'speed' ? tab === 'life' && lifeSec >= 3 && hero.age < 2 : id === 'year_len' ? tab === 'life' && hero.age >= 2 && hero.age <= 6 : id === 'focus' ? hero.age >= 5 : false)
+    (id === 'hero' ? hero.age >= 12 && tab === 'life' : id === 'speed' ? tab === 'life' && lifeSec >= 3 && hero.age < 2 : id === 'year_len' ? tab === 'life' && hero.age >= 2 && hero.age <= 6 : id === 'focus' ? hero.age >= 5 : id === 'tab_life' ? tab === 'life' && hero.age >= 3 : false)
+  // Подсказки вкладок (просьба владельца 10.11): при первом открытии вкладки - что здесь за что отвечает; ✕ - навсегда.
+  const tabHint = (id: string) => !tourOn.current && !hints.includes(id)
   const closeHint = (id: string) => {
     const next = [...hints, id]
     setHints(next)
@@ -430,6 +432,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
               {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}
               {hero.band !== undefined && hero.age >= era.stages.youth && <span title={t('band.tip', { n: statusOf(hero, era) })}> · {t(`band.${hero.band}`)}</span>}
             </p>
+            {mourning(hero) && <p class="hero-meta small warn grief-left">{t('life.grief_left', { n: Math.max(1, mourningLeft(state)) }, o)}</p>}
             {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
             {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
             {hero.abroad && !hero.abroad.naturalized && <p class="hero-meta small muted">{t(hero.sex === 'f' ? 'life.foreigner_f' : 'life.foreigner', { year: formatYear(hero.abroad.since, lang) })}</p>}
@@ -461,6 +464,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </p>
             <Bar label={t('attr.health')} value={hero.attrs.health} />
             <GoalBar state={state} open={goalOpen} onToggle={() => setGoalOpen(!goalOpen)} />
+            {mourning(hero) && <p class="hero-meta small warn grief-left">{t('life.grief_left', { n: Math.max(1, mourningLeft(state)) }, o)}</p>}
             {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
             {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
             {hero.abroad && !hero.abroad.naturalized && <p class="hero-meta small muted">{t(hero.sex === 'f' ? 'life.foreigner_f' : 'life.foreigner', { year: formatYear(hero.abroad.since, lang) })}</p>}
@@ -507,6 +511,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           {speed === 0 && <p class="small muted center paused-note">{t('life.paused')}</p>}
         </div>}
       </div>
+      {tab === 'life' && hintFor('tab_life', hero.age >= 3) && <Hint text={t(b ? 'hint.tab_life_b' : 'hint.tab_life')} onClose={() => closeHint('tab_life')} />}
       {tab === 'life' && hintFor('speed', lifeSec >= 3 && hero.age < 2) && <Hint text={t(b ? 'hint.speed_b' : 'hint.speed')} onClose={() => closeHint('speed')} />}
       {/* Первые годы жизни: длительность года меняется в настройках. */}
       {tab === 'life' && hintFor('year_len', hero.age >= 2 && hero.age <= 6) && (
@@ -594,6 +599,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'hero' && (
         <section class="panel">
+          {tabHint('tab_hero') && <Hint text={t('hint.tab_hero', {}, o)} onClose={() => closeHint('tab_hero')} />}
           <FamilyLine state={state} />
           {/* Деньги - первой строкой (отзыв игрока 03.11: «не нашёл, где моё богатство»). */}
           <p class="hero-money"><strong>{t('hero.money')}:</strong> {formatMoney(t, hero.money, coin)}{hero.money < 0 ? ` · ${t('hero.in_debt')}` : ''}</p>
@@ -681,6 +687,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'people' && (
         <>
+          {tabHint('tab_people') && <Hint text={t('hint.tab_people', {}, o)} onClose={() => closeHint('tab_people')} />}
           <Children state={state} era={era} onChange={() => onFamily?.()} />
           <People state={state} />
         </>
@@ -688,6 +695,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'diary' && (
         <section class="panel">
+          {tabHint('tab_diary') && <Hint text={t('hint.tab_diary', {}, o)} onClose={() => closeHint('tab_diary')} />}
           {entries.length === 0 ? (
             <p class="muted">{t('diary.empty')}</p>
           ) : (
