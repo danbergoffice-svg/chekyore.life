@@ -84,7 +84,7 @@ async function events(req: Request, env: Env): Promise<Response> {
     .map((e) => {
       const { name, ts, player_id, session_id, platform, build, ...params } = e
       const time = typeof ts === 'number' && Math.abs(ts - now) < 7 * 864e5 ? ts : now
-      return stmt.bind(time, str(player_id), str(session_id), name, JSON.stringify(params).slice(0, 2000), str(platform, 16), str(build, 32))
+      return stmt.bind(time, str(player_id), str(session_id), name, JSON.stringify(params).slice(0, 4000), str(platform, 16), str(build, 32))
     })
   if (rows.length) await db.batch(rows)
   return json({ ok: true, n: rows.length })

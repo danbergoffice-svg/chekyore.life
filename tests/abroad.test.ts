@@ -1,5 +1,6 @@
 // ТЗ v3, п. 11: переезд в другую страну - только по реальным маршрутам, тоска раз в три года, натурализация.
 import { describe, expect, it } from 'vitest'
+import { breathe } from './breathe'
 import { loadAllEras } from '../src/content'
 import ROUTES from '../src/content/routes.json'
 import { canEmigrate, emigrate, returnHome } from '../src/engine/abroad'
@@ -10,12 +11,13 @@ const eras = await loadAllEras()
 const open = new Set((ROUTES.routes as { from: string; to: string }[]).map((r) => `${r.from}>${r.to}`))
 
 describe('Переезд в другую страну (п. 11)', () => {
-  it('1200 жизней: только открытые маршруты, уезжает 2–10% взрослых, «вернуться?» - раз в три года (или через год, если «подумать»)', () => {
+  it('1200 жизней: только открытые маршруты, уезжает 2–10% взрослых, «вернуться?» - раз в три года (или через год, если «подумать»)', async () => {
     let adults = 0
     let moved = 0
     let n = 0
     for (const id of ['RUS', 'EUR', 'BYZ', 'ISL']) {
       for (let i = 0; i < 300; i++) {
+        if (i % 20 === 0) await breathe()
         const s = autoplay(newLife(eras[id], { mode: 'quick', mortality: 'soft', softenHeavy: false }, 500000 + n++), eras[id])
         if (s.hero.age < 18) continue
         adults++

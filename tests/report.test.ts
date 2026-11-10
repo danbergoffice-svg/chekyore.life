@@ -49,9 +49,11 @@ describe('Итоги жизни', () => {
   })
 
   it('отчёт строится быстро', () => {
-    const t = performance.now()
+    // Время процессора (D-05): под нагрузкой часы идут, а процессор отдан другим.
+    const t = process.cpuUsage()
     for (const s of lives.slice(0, 50)) buildReport(s, era)
-    expect((performance.now() - t) / 50).toBeLessThan(20)
+    const used = process.cpuUsage(t)
+    expect((used.user + used.system) / 1000 / 50).toBeLessThan(20)
   })
 })
 

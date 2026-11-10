@@ -8,7 +8,7 @@ import { newSeed, next } from '../engine/rng'
 import type { GameSettings, GameState, LifeSummary } from '../engine/types'
 import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
-import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
+import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear, utmParams } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
 import { crisisOn, goalGroup, layoutB, shortFirst } from '../goal'
 import { ensureGoal, goalMark, setGoal } from '../engine/goals'
@@ -182,7 +182,9 @@ export function App() {
       } catch {
         referrer = ''
       }
-      platform.track('app_open', { referrer, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()), vw: window.innerWidth, vh: window.innerHeight })
+      const { first: utmFirst, ...utm } = utmParams(location.search)
+      if (utmFirst) platform.setContext({ utm: utmFirst })
+      platform.track('app_open', { referrer, ...utm, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()), vw: window.innerWidth, vh: window.innerHeight })
       trackUserParams(lives)
       if (game.current) await ensure(game.current.hero.era, prefs.lang, game.current.hero.erasLived)
       setScreen('menu')
@@ -853,7 +855,7 @@ export function App() {
     const picked = ev && goal ? eventChoices(game.current!, era, ev).find((c) => c.id === choiceId) : undefined
     const mark = picked && goal ? (goalMark(goal.id, picked) ?? 'none') : undefined
     choose(game.current!, era, choiceId)
-    trackChoice(game.current!, { ...(mark ? { mark } : {}), ...(ms !== undefined ? { ms_to_choice: ms } : {}) })
+    trackChoice(game.current!, { historical: ev?.type === 'global_historical' ? 1 : 0, ...(mark ? { mark } : {}), ...(ms !== undefined ? { ms_to_choice: ms } : {}) })
     setChoiceChanges(changes(before, game.current!))
     afterTurn()
   }

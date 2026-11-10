@@ -1,5 +1,6 @@
 // Эмоциональная память (src/engine/emotions.ts, ТЗ семейной системы, этап 1 и пункт 2.7) и причина смерти родных (этап 0).
 import { describe, expect, it } from 'vitest'
+import { breathe } from './breathe'
 import { ERA_IDS, loadAllEras } from '../src/content'
 import { emotionalImpact, emotionalLoad, emotionsYear, onEmotion, rememberEmotion, resolveEmotion } from '../src/engine/emotions'
 import { autoplay, startYear } from '../src/engine/game'
@@ -255,11 +256,12 @@ describe('Память и затухание (2.7)', () => {
     expect(s.hero.emotionalMemories!.length).toBeLessThanOrEqual(40)
   })
 
-  it('600 жизней по всем странам без ошибок; горе есть, счастье в рамках', () => {
+  it('600 жизней по всем странам без ошибок; горе есть, счастье в рамках', async () => {
     let withGrief = 0
     let lives = 0
     for (const id of ERA_IDS)
       for (let k = 0; k < Math.ceil(600 / ERA_IDS.length); k++, lives++) {
+        if (k % 10 === 0) await breathe()
         const s = autoplay(newLife(ERAS[id], opts, 5000 + lives), ERAS[id])
         const mem: EmotionalMemory[] = s.hero.emotionalMemories ?? []
         if (mem.length) withGrief++

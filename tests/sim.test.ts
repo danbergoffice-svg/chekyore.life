@@ -59,7 +59,8 @@ describe('Симуляция', () => {
       expect(h.mean).toBeLessThan(era.lifeExpectancy + 5)
       const s = await run(era, soft, 200)
       expect(s.adult).toBeGreaterThan(0.65)
-    })
+      // 600 жизней: под нагрузкой (D-05) - дольше минуты.
+    }, 300000)
 
     it(`${era.id}: род продолжается через наследника`, async () => {
       let continued = 0

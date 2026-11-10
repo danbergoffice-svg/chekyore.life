@@ -1,5 +1,6 @@
 // ТЗ v3: наследники-внуки и правнуки (п. 3).
 import { describe, expect, it } from 'vitest'
+import { breathe } from './breathe'
 import { loadEra } from '../src/content'
 import { autoplay } from '../src/engine/game'
 import { continueWithHeir, heirs, newLife } from '../src/engine/life'
@@ -141,9 +142,10 @@ describe('Отложенные последствия (п. 5)', () => {
     expect(s.hero.diary.some((d) => d.eventId === ev.id && d.key === 'ev.k1_sibling_defends.text')).toBe(true)
   })
 
-  it('2000 жизней: никто не живёт с двумя супругами сразу', () => {
+  it('2000 жизней: никто не живёт с двумя супругами сразу', async () => {
     let bigamy = 0
     for (let i = 0; i < 2000; i += 13) {
+      if (i % 260 === 0) await breathe()
       const s = autoplay(newLife(era, { mode: 'full', mortality: 'soft', softenHeavy: false }, 40000 + i), era)
       if (s.hero.npcs.filter((x) => x.role === 'spouse' && x.alive && !x.away).length > 1) bigamy++
     }

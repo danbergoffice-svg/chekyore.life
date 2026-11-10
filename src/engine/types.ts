@@ -1078,6 +1078,9 @@ export interface LifeStats {
   goalSeen?: number
   /** Утраты близких до этой записи дневника уже показаны карточкой (номер записи). */
   lossSeen?: number
+  /** Сколько окон событий открылось в текущем году (для year_windows) и чей это год. */
+  yearWin?: number
+  yearWinAge?: number
 }
 
 // ---------- Сон о будущем (docs/TZ_dreams.md) ----------

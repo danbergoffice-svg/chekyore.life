@@ -1,5 +1,6 @@
 /// <reference types="vitest/config" />
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { defineConfig } from 'vite'
 import type { Plugin } from 'vite'
@@ -57,5 +58,14 @@ export default defineConfig({
     },
   },
   // Симуляционные прогоны тысяч жизней идут дольше обычных тестов.
-  test: { testTimeout: 60000 },
+  // D-05 (аудит 10.11): под нагрузкой (браузер, dev-сервер) воркеры vitest не успевали ответить главному процессу
+  // («Timeout calling onTaskUpdate»). Отдельные процессы вместо потоков и не больше половины ядер - запас процессору.
+  test: {
+    testTimeout: 60000,
+    hookTimeout: 120000,
+    teardownTimeout: 30000,
+    pool: 'forks',
+    maxWorkers: Math.max(2, Math.floor(os.availableParallelism() / 2)),
+    minWorkers: 1,
+  },
 })

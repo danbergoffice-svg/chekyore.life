@@ -31,7 +31,7 @@ import { lifeMarks } from '../pixel/avatar'
 import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
 import type { T } from '../i18n'
 import { platform } from '../platform'
-import { lifeStats } from '../telemetry'
+import { lifeStats, trackEventShown, trackLossShown } from '../telemetry'
 import { Scene } from '../pixel/SceneView'
 import { Illustration } from '../pixel/Illustration'
 import { momentOf } from '../pixel/illustrations'
@@ -241,6 +241,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   if (ls.lossSeen === undefined) ls.lossSeen = hero.diary.length
   const lossAt = hero.alive && !modalOpen ? hero.diary.findIndex((d, i) => i >= (ls.lossSeen ?? 0) && d.icon === 'death' && d.major && visible(state, i, d, progress)) : -1
   const loss = lossAt >= 0 ? hero.diary[lossAt] : null
+  const lossRole = loss ? ((loss.params?.role as { key?: string } | undefined)?.key ?? '').replace(/^rel\./, '') : ''
+  useEffect(() => {
+    if (loss) trackLossShown(lossRole || 'other')
+  }, [lossAt])
   const closeLoss = () => {
     ls.lossSeen = lossAt + 1
     bump((x) => x + 1)
@@ -1287,6 +1291,10 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const shown = useRef({ id: '', at: 0 })
   const eventKey = `${state.queue[0]?.eventId}:${state.queue[0]?.at}:${state.year}`
   if (shown.current.id !== eventKey) shown.current = { id: eventKey, at: Date.now() }
+  // Окно открылось (аналитика event_shown; итог того же события - не новое окно).
+  useEffect(() => {
+    if (ev && !state.queue[0]?.outcome) trackEventShown(state, ev)
+  }, [eventKey])
   // Кнопки выбора оживают через CHOICE_DELAY после того, как событие появилось.
   const [armedKey, setArmedKey] = useState(CHOICE_DELAY ? '' : eventKey)
   const armed = !CHOICE_DELAY || armedKey === eventKey
