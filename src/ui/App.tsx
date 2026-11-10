@@ -2,7 +2,7 @@ import { applyTheme } from '../theme'
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
-import { chronicleSuccessor, continueWithHeir, heirHome, heirs, memorialCanContinue, stateFromMemorial, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
+import { chronicleSuccessor, continueWithHeir, earliestBirth, earliestStart, heirHome, heirs, memorialCanContinue, stateFromMemorial, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
 import type { GameSettings, GameState, LifeSummary } from '../engine/types'
@@ -490,7 +490,9 @@ export function App() {
     const seed = newSeed()
     // Награда за испытание: страна по выбору - вместо жребия страны.
     const fateCountry = fate && fate !== 'high' ? fate : undefined
-    const rolled = rollBirth(seed, lottery, (fateCountry ? [fateCountry] : country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
+    // Дар ключа «Экстримал»: самое раннее время игры (страна по выбору и за испытание - сильнее).
+    const earliest = gifts.includes('earliest') && !fateCountry && !country
+    const rolled = earliest ? earliestBirth(seed, ERA_IDS.map((id) => ERA_META[id])) : rollBirth(seed, lottery, (fateCountry ? [fateCountry] : country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
     // A/B второй жизни (флаг ab_buckets, только сайт): a - положение как выпало, b - сразу высокое (знать или
     // землевладельцы), где бы ни родился. Обе вторые жизни защищены до 20 лет. Смотрим, кто дольше остаётся в игре.
     // Награда «знатная семья» за испытание и дар четвёртого дня - так же.
@@ -552,6 +554,11 @@ export function App() {
       setFatePick(null)
       rollPending(prefs.lottery, chosenCountry(), 0, null, true)
     } else if (!royalWanted && gifts.includes('noble') && !pending.high) rollPending(prefs.lottery, chosenCountry(), 0)
+    else if (gifts.includes('earliest') && !chosenCountry() && !(fatePick && fatePick !== 'high')) {
+      // Ключ «Экстримал» введён, когда барабан уже заряжен: перезарядить самым ранним временем.
+      const first = earliestStart(ERA_IDS.map((id) => ERA_META[id]))
+      if (pending.birth.era !== first.era || pending.birth.year !== (first.year || 1)) rollPending(prefs.lottery, null, 0, fatePick)
+    }
   }, [screen, pending, royalWanted, prefs.gifts])
   const installCardFor = (compact = false) =>
     showInstall ? (
@@ -643,6 +650,8 @@ export function App() {
     if (gifts.includes('noble') && !pending.royal) used.push('noble')
     if (gifts.includes('country') && giftCountry && !fateCountry && pending.birth.era === giftCountry) used.push('country')
     for (const g of ['respins', 'health', 'dream', 'chest'] as const) if (gifts.includes(g)) used.push(g)
+    const first = earliestStart(ERA_IDS.map((id) => ERA_META[id]))
+    if (gifts.includes('earliest') && pending.birth.era === first.era && pending.birth.year === (first.year || 1)) used.push('earliest')
     const settings = {
       mode: prefs.mode,
       mortality: prefs.mortality,
@@ -1055,10 +1064,15 @@ export function App() {
   const drumTags = (royal?: boolean) => {
     const fateCountry = fatePick && fatePick !== 'high' ? fatePick : null
     const country = fateCountry ?? (gifts.includes('country') ? giftCountry : null)
+    const earliest = !country && gifts.includes('earliest') ? earliestStart(ERA_IDS.map((id) => ERA_META[id])).era : null
     // Подсказка на ярлыке: какой дар решил барабан (страна - по дару или за испытание; знать - по дару или за испытание).
     const tip = (key: string, why: string) => ({ title: ui.t(key), text: `${ui.t(`${key}.desc`)}. ${ui.t(why)}` })
     return {
-      where: country ? { icon: 'lock' as const, text: ui.t(`era.${country}.short`), tip: tip('gift.country', fateCountry ? 'drum.tip.fate' : 'drum.tip.gift') } : undefined,
+      where: country
+        ? { icon: 'lock' as const, text: ui.t(`era.${country}.short`), tip: tip('gift.country', fateCountry ? 'drum.tip.fate' : 'drum.tip.gift') }
+        : earliest
+          ? { icon: 'lock' as const, text: ui.t(`era.${earliest}.short`), tip: tip('gift.earliest', 'drum.tip.gift') }
+          : undefined,
       status: royal
         ? { icon: 'crown' as const, text: ui.t('drum.tag.royal'), tip: tip('gift.royal', 'drum.tip.gift') }
         : gifts.includes('noble') || fatePick === 'high'

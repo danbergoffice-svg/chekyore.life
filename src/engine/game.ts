@@ -719,6 +719,9 @@ function estateParams(state: GameState, eventId: string): Record<string, TextPar
   return { price: price.toLocaleString(), n: price, coin: { key: `coin.${coin}` }, home: { key: `home.${Math.min(4, (hero.home ?? 1) + 1)}` }, land: hero.land ?? 0, slaves: hero.slaves ?? 0 }
 }
 
+/** Исторические события: во сколько раз чаще, пока в жизни их ещё не было, и с какого возраста героя. */
+export const HISTORY_BOOST = { mult: 3, from: 6 }
+
 /** Подкидыш бездетному: с какого возраста и шанс в год (объект - чтобы прогон мог сравнить «с» и «без»). */
 export const FOUNDLING = { from: 28, chance: 0.12 }
 
@@ -885,8 +888,11 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   }
 
   // 2. Исторические события в этом регионе и году (вне хроники их нет).
+  // Пока в этой жизни истории ещё не было - подходящее событие втрое вероятнее (просьба владельца 10.11: у трети
+  // взрослых героев за всю жизнь не случалось ни одного исторического события). Окна событий те же.
+  const noHistoryYet = hero.age >= HISTORY_BOOST.from && !b.globals.some((ev) => hero.seen[ev.id] !== undefined)
   for (const ev of state.offChronicle === undefined ? b.globals : []) {
-    if (fits(ev) && chance(state, ev.global_chance!)) add(ev)
+    if (fits(ev) && chance(state, Math.min(1, ev.global_chance! * (noHistoryYet ? HISTORY_BOOST.mult : 1)))) add(ev)
   }
 
   // 3. Возрастная развилка (не больше одной в год).

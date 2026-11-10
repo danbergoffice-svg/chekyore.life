@@ -1122,6 +1122,8 @@
   "gift.chest.short": "Wealth ×3",
   "gift.royal": "Royal family",
   "gift.royal.desc": "your next life begins in the royal family",
+  "gift.earliest": "The earliest time",
+  "gift.earliest.desc": "your next life begins at the very start of the game's history - the Ancient Near East, 1550 BC: the longest road ahead for a dynasty",
   "gift.royal.short": "Royal family",
   "royal.note.daily": "Day 7 gift: this life begins in the royal family. The rest is up to chance.",
   "hook.great_grand": "Became a great-{g:grandfather|grandmother}",

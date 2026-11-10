@@ -1122,6 +1122,8 @@
   "gift.chest.short": "Servet ×3",
   "gift.royal": "Hükümdar ailesi",
   "gift.royal.desc": "bir sonraki hayatın hükümdar ailesinde başlar",
+  "gift.earliest": "En erken zaman",
+  "gift.earliest.desc": "bir sonraki hayatın oyunun tarihinin en başında, MÖ 1550'de Eski Doğu'da başlar: bir hanedan için önünde en uzun yol var",
   "gift.royal.short": "Hükümdar ailesi",
   "royal.note.daily": "7. gün hediyesi: bu hayat hükümdar ailesinde başlıyor. Gerisi şansa kalmış.",
   "hook.great_grand": "{g:Büyük dede|Büyük nine} oldu",
