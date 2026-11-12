@@ -68,3 +68,22 @@ export function crisisOn(playerId: string, flags: { crisis_share?: number }): bo
   if (forced === '0' || forced === '1') return forced === '1'
   return share(playerId, 'crisis', flags.crisis_share ?? 0)
 }
+
+/** Эксперимент XM: новая музыка (public/music/v2); ?music=old|new - проверить руками. */
+export function musicNew(playerId: string, flags: { music_share?: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('music') : null
+  if (forced === 'old' || forced === 'new') return forced === 'new'
+  return share(playerId, 'music', flags.music_share ?? 0)
+}
+
+/** Новые треки (12.11.2026): у Египта свой, у империи ацтеков и инков нового нет - там играет старый. */
+const MUSIC_V2 = new Set(['menu', 'ane', 'e03', 'byz', 'chn', 'eth', 'eur', 'ind', 'isl', 'jpn', 'may', 'mng', 'rus', 'waf'])
+const EGYPT = new Set(['egypt', 'thebes', 'memphis'])
+
+/** Какой трек играть: 'menu' или id страны; в группе новой музыки - 'v2/<id>' (Египет - 'v2/egy'). */
+export function musicTrack(era: string | null, region: string | undefined, fresh: boolean): string {
+  const id = era ? era.toLowerCase() : 'menu'
+  if (!fresh) return id
+  if (era && region && EGYPT.has(region)) return 'v2/egy'
+  return MUSIC_V2.has(id) ? `v2/${id}` : id
+}

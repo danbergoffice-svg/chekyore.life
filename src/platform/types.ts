@@ -60,6 +60,9 @@ export interface Flags {
   layout_share: number
   /** Эксперимент XC (10.11.2026): доля игроков с переломом сорокалетия (engine/crisis.ts), свой хеш id; 0 - выключен. */
   crisis_share: number
+  /** Эксперимент XM (12.11.2026): доля игроков с новой музыкой (public/music/v2, src/goal.ts musicNew), свой хеш id;
+   *  0 - у всех старая. По умолчанию 0: сборки порталов (CrazyGames, Яндекс) остаются со старой, сайт берёт долю из flags.json. */
+  music_share: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -93,6 +96,7 @@ export const DEFAULT_FLAGS: Flags = {
   layout_share: 1,
   // Перелом сорокалетия - A/B 50 на 50 (10.11.2026).
   crisis_share: 0.5,
+  music_share: 0,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

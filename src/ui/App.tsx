@@ -10,7 +10,7 @@ import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear, utmParams } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
-import { crisisOn, goalGroup, layoutB, shortFirst } from '../goal'
+import { crisisOn, goalGroup, layoutB, musicNew, musicTrack, shortFirst } from '../goal'
 import { ensureGoal, goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
@@ -174,7 +174,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0 })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old' })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -238,10 +238,12 @@ export function App() {
   }, [])
   useEffect(() => setSound(soundOn, volume), [soundOn, volume])
   const heroEra = state?.hero.era
+  const heroRegion = state?.hero.region
   useEffect(() => {
     const inLife = screen === 'reveal' || screen === 'life' || screen === 'death' || screen === 'heirs'
-    if (screen !== 'loading') setMusic(inLife && heroEra ? heroEra.toLowerCase() : 'menu')
-  }, [screen, heroEra])
+    // A/B XM: половина игроков слышит новую музыку (src/goal.ts musicNew, флаг music_share).
+    if (screen !== 'loading') setMusic(musicTrack(inLife && heroEra ? heroEra : null, heroRegion, musicNew(platform.playerId(), platform.flags)))
+  }, [screen, heroEra, heroRegion])
 
   // Переезд в другую страну: её события и тексты. Соседние страны (куда можно уехать) подгружаются заранее,
   // пока герой подрастает, - переезд предлагается только в уже загруженные.
