@@ -174,9 +174,9 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
       </nav>
       {EXTERNAL && (
         <>
-          <p class="small muted center social-title">{t('social.title')}</p>
-          <SocialLinks from="menu" />
           <SupportLink from="menu" />
+          <p class="small muted center social-title">{t('social.title')}</p>
+          <SocialLinks from="menu" compact />
         </>
       )}
       {players !== null && <p class="small center players-note">{t('menu.players', { n: players, count: players.toLocaleString(LOCALE[lang]) })}</p>}

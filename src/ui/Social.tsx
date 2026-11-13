@@ -136,7 +136,7 @@ export function PixelIcon({ id, size = 32 }: { id: string; size?: number }) {
 export function SocialLinks({ from, compact = false }: { from: 'menu' | 'sheet'; compact?: boolean }) {
   const { t } = useUi()
   return (
-    <nav class={`social-links ${compact ? 'compact' : ''}`} aria-label={t('social.title')}>
+    <nav class={`social-links ${compact ? 'compact' : ''} from-${from}`} aria-label={t('social.title')}>
       {CHANNELS.map((c) => (
         <a
           href={c.url}

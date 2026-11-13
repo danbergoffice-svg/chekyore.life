@@ -1049,8 +1049,11 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .social-links a:hover { border-color: var(--gold); }
 .social-links.compact { display: flex; justify-content: flex-start; margin: 10px 0 2px; max-width: none; }
 .social-links.compact a { min-width: 48px; justify-content: center; padding: 0; }
+/* Главное меню: четыре значка в одну линию по центру, без подписей (13.11). */
+.social-links.compact.from-menu { justify-content: center; gap: 12px; margin: 6px auto 0; }
+.social-links.compact.from-menu a { width: 56px; min-height: 56px; }
 /* Поддержать проект (Boosty) - под каналами, во всю ширину их ряда. */
-.support-link { display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 26rem; min-height: 48px; margin: 10px auto 0; padding: 0 14px; border: 1px solid #f15f2c; border-radius: 10px; color: inherit; font-weight: 700; text-decoration: none; }
+.support-link { display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 26rem; min-height: 48px; margin: 18px auto 0; padding: 0 14px; border: 1px solid #f15f2c; border-radius: 10px; color: inherit; font-weight: 700; text-decoration: none; }
 .support-link:hover { background: color-mix(in srgb, #f15f2c 14%, transparent); }
 .pixel-icon { image-rendering: pixelated; flex: none; }
 
