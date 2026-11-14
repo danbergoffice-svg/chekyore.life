@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { breathe } from './breathe'
 import { KIDS_PUZZLES } from '../src/kids'
 import { makeRng } from '../src/kids/rng'
 import { TASKS } from '../src/kids/types'
@@ -21,14 +22,17 @@ describe('Детские головоломки', () => {
           expect(`${t.title} ${t.story} ${t.rule} ${t.tasks.join(' ')}`).not.toMatch(/—/)
         }
       })
-      it('каждый уровень решаем: эталон решает, длина = par, подсказки доводят до конца', () => {
+      it('каждый уровень решаем: эталон решает, длина = par, подсказки доводят до конца', async () => {
         for (let d = 1; d <= 5; d++) {
           for (const task of TASKS) {
+            await breathe()
             for (let i = 0; i < SEEDS; i++) {
               const seed = 1000 * d + 31 * i + TASKS.indexOf(task)
-              const t0 = performance.now()
+              // Время процессора, а не часов: под нагрузкой (D-05) настенное время растёт, а работа генератора та же.
+              const t0 = process.cpuUsage()
               const level = p.logic.generate(d, makeRng(seed), task)
-              const ms = performance.now() - t0
+              const used = process.cpuUsage(t0)
+              const ms = (used.user + used.system) / 1000
               const where = `${p.id} d=${d} ${task} seed=${seed}`
               expect(ms, `${where}: генерация ${Math.round(ms)} мс`).toBeLessThan(1500)
               expect(p.logic.solved(level.start), `${where}: уже решено`).toBe(false)
@@ -56,7 +60,8 @@ describe('Детские головоломки', () => {
             }
           }
         }
-      })
+        // Под нагрузкой (D-05) - дольше минуты.
+      }, 300000)
     })
   }
 })

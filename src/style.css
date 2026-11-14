@@ -1051,6 +1051,12 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .social-links a:hover { border-color: var(--gold); }
 .social-links.compact { display: flex; justify-content: flex-start; margin: 10px 0 2px; max-width: none; }
 .social-links.compact a { min-width: 48px; justify-content: center; padding: 0; }
+/* Главное меню: четыре значка в одну линию по центру, без подписей (13.11). */
+.social-links.compact.from-menu { justify-content: center; gap: 12px; margin: 6px auto 0; }
+.social-links.compact.from-menu a { width: 56px; min-height: 56px; }
+/* Поддержать проект (Boosty) - под каналами, во всю ширину их ряда. */
+.support-link { display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 26rem; min-height: 48px; margin: 18px auto 0; padding: 0 14px; border: 1px solid #f15f2c; border-radius: 10px; color: inherit; font-weight: 700; text-decoration: none; }
+.support-link:hover { background: color-mix(in srgb, #f15f2c 14%, transparent); }
 .pixel-icon { image-rendering: pixelated; flex: none; }
 
 /* Пакет 1: кнопки выбора события оживают через полторы секунды - полоска над ними наполняется, кнопки проступают. */
@@ -1082,6 +1088,10 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .person-more > summary::-webkit-details-marker { display: none; }
 .person-more[open] > summary { margin-bottom: 4px; }
 .home-badge { border: 1px solid currentColor; border-radius: 8px; padding: 0 6px; opacity: 0.8; }
+/* Болезнь близкого - отметка в «Близких» вместо окна (решение владельца 10.11). */
+.ill-badge { border: 1px solid currentColor; color: var(--down); border-radius: 8px; padding: 0 6px; }
+.estate-home { margin: 6px 0 10px; }
+.ev-note { margin: 6px 0 0; }
 
 .story-nav { display: flex; justify-content: center; gap: 24px; font-size: 1.4em; }
 
@@ -1127,7 +1137,7 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .crisis-board { width: 100%; max-width: 420px; margin: 0 auto; }
 .crisis-canvas { display: block; width: 100%; height: clamp(300px, 52vh, 420px); }
 .crisis-board.second .crisis-canvas { height: clamp(260px, 42vh, 360px); }
-.crisis-result { background: #fff7e2; border: 2px solid #d8b860; border-radius: 10px; padding: 10px 12px; color: var(--ink); }
+.crisis-result { background: #fff7e2; border: 2px solid #d8b860; border-radius: 10px; padding: 10px 12px; color: #1f140c; }
 .crisis-result h3 { font-family: var(--font-display); margin: 0 0 4px; }
 .crisis-result p { margin: 0 0 6px; }
 .crisis-result .changes { margin: 4px 0 0; }
@@ -1135,7 +1145,20 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .crisis-actions .secondary { text-align: left; }
 .crisis-actions .choice-desc { display: block; font-size: 13px; opacity: 0.8; }
 .crisis-gamble { border-color: #8e3b22; color: #8e3b22; }
-:root[data-theme='dark'] .crisis-result { background: #2a221b; color: var(--ink); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .crisis-result { background: #2a221b; color: var(--ink); }
-}
+/* Окно события - светлый лист в любой теме: итог «Перелома» тоже светлый (в тёмной теме был тёмный фон под тёмным
+   текстом, отзыв 10.11). */
+.crisis-result { background: #fff7e2; color: #1f140c; }
+.choice-desc.goal-closes { color: var(--down); }
+
+/* Строка вестей под шапкой (Life.tsx, отзыв владельца 10.11): прилипает вместе с вкладками, ничего не закрывает.
+   Свежая весть - ярче; потом остаётся бледной до следующей. ✕ - скрыть (вернуть в настройках). */
+.notice-bar { display: flex; align-items: center; gap: 8px; min-height: 30px; padding: 4px 8px 4px 12px; border-bottom: 1px solid var(--line); font-size: 0.85rem; line-height: 1.25; color: var(--muted, inherit); }
+.notice-bar.fresh { color: var(--ink); background: color-mix(in srgb, var(--gold) 22%, transparent); }
+.notice-bar .notice-text { flex: 1; min-width: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.notice-bar .notice-text svg { width: 1em; height: 1em; vertical-align: -0.12em; }
+.notice-bar .notice-mute { flex: none; white-space: nowrap; font-size: 0.78rem; }
+.notice-bar .notice-x { flex: none; min-width: 32px; min-height: 30px; border: 0; background: none; color: inherit; font: inherit; opacity: 0.7; cursor: pointer; }
+.notice-bar .notice-x:hover { opacity: 1; }
+
+/* Настройки: «Расскажи об игре подробнее» - кнопка с пояснением. */
+.settings-tour { display: grid; gap: 2px; width: 100%; margin: 14px 0 4px; text-align: left; }

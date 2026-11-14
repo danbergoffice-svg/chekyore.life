@@ -20,7 +20,8 @@ describe('Уникальные первые жизни', () => {
       const s = autoplay(newLife(era, settings, 500 + i), era)
       const life = s.family.lives[s.family.lives.length - 1]
       for (const d of life.diary) {
-        if (!d.eventId || STRUCTURAL.test(d.eventId)) continue
+        // Последствие решения этой жизни (causedBy) - часть её сюжета, его фильтр уникальности не трогает.
+        if (!d.eventId || STRUCTURAL.test(d.eventId) || d.causedBy !== undefined) continue
         total++
         if (eventsSeen.includes(d.eventId)) repeats++
       }

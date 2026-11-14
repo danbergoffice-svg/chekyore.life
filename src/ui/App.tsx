@@ -2,15 +2,15 @@ import { applyTheme } from '../theme'
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
 import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
-import { chronicleSuccessor, continueWithHeir, heirHome, heirs, memorialCanContinue, stateFromMemorial, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
+import { chronicleSuccessor, continueWithHeir, earliestBirth, earliestStart, heirHome, heirs, memorialCanContinue, stateFromMemorial, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
 import type { GameSettings, GameState, LifeSummary } from '../engine/types'
 import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
-import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear } from '../telemetry'
+import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear, utmParams } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
-import { crisisOn, goalGroup, layoutB, shortFirst } from '../goal'
+import { crisisOn, goalGroup, layoutB, musicNew, musicTrack, shortFirst } from '../goal'
 import { ensureGoal, goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
@@ -174,7 +174,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0 })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old' })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -182,7 +182,9 @@ export function App() {
       } catch {
         referrer = ''
       }
-      platform.track('app_open', { referrer, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()), vw: window.innerWidth, vh: window.innerHeight })
+      const { first: utmFirst, ...utm } = utmParams(location.search)
+      if (utmFirst) platform.setContext({ utm: utmFirst })
+      platform.track('app_open', { referrer, ...utm, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()), vw: window.innerWidth, vh: window.innerHeight })
       trackUserParams(lives)
       if (game.current) await ensure(game.current.hero.era, prefs.lang, game.current.hero.erasLived)
       setScreen('menu')
@@ -236,10 +238,12 @@ export function App() {
   }, [])
   useEffect(() => setSound(soundOn, volume), [soundOn, volume])
   const heroEra = state?.hero.era
+  const heroRegion = state?.hero.region
   useEffect(() => {
     const inLife = screen === 'reveal' || screen === 'life' || screen === 'death' || screen === 'heirs'
-    if (screen !== 'loading') setMusic(inLife && heroEra ? heroEra.toLowerCase() : 'menu')
-  }, [screen, heroEra])
+    // A/B XM: половина игроков слышит новую музыку (src/goal.ts musicNew, флаг music_share).
+    if (screen !== 'loading') setMusic(musicTrack(inLife && heroEra ? heroEra : null, heroRegion, musicNew(platform.playerId(), platform.flags)))
+  }, [screen, heroEra, heroRegion])
 
   // Переезд в другую страну: её события и тексты. Соседние страны (куда можно уехать) подгружаются заранее,
   // пока герой подрастает, - переезд предлагается только в уже загруженные.
@@ -469,7 +473,9 @@ export function App() {
   const applyPromo = (code: string): string | null => {
     const r = redeemPromo(code, prefs.promoUsed)
     if (!r.ok) return r.error
-    setPrefs({ ...prefs, gifts: [...(prefs.gifts ?? []), r.reward.gift], promoUsed: [...(prefs.promoUsed ?? []), r.hash], ...(r.reward.country ? { promoCountry: r.reward.country } : {}) })
+    // Ключ без ограничений не записывается в использованные; один и тот же дар не копится (один на следующую жизнь).
+    const has = (prefs.gifts ?? []).includes(r.reward.gift)
+    setPrefs({ ...prefs, gifts: r.reward.reusable && has ? prefs.gifts : [...(prefs.gifts ?? []), r.reward.gift], promoUsed: r.reward.reusable ? prefs.promoUsed : [...(prefs.promoUsed ?? []), r.hash], ...(r.reward.country ? { promoCountry: r.reward.country } : {}) })
     if (r.reward.country) setGiftCountry(r.reward.country)
     // Жизнь у барабана готовится заранее (при открытии меню) - перевыбрать её с даром ключа, иначе ярлык «Монголы»
     // висел, а выпадала прежняя страна (жалоба владельца 09.11).
@@ -488,7 +494,9 @@ export function App() {
     const seed = newSeed()
     // Награда за испытание: страна по выбору - вместо жребия страны.
     const fateCountry = fate && fate !== 'high' ? fate : undefined
-    const rolled = rollBirth(seed, lottery, (fateCountry ? [fateCountry] : country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
+    // Дар ключа «Экстримал»: самое раннее время игры (страна по выбору и за испытание - сильнее).
+    const earliest = gifts.includes('earliest') && !fateCountry && !country
+    const rolled = earliest ? earliestBirth(seed, ERA_IDS.map((id) => ERA_META[id])) : rollBirth(seed, lottery, (fateCountry ? [fateCountry] : country ? [country] : ERA_IDS).map((id) => ERA_META[id]))
     // A/B второй жизни (флаг ab_buckets, только сайт): a - положение как выпало, b - сразу высокое (знать или
     // землевладельцы), где бы ни родился. Обе вторые жизни защищены до 20 лет. Смотрим, кто дольше остаётся в игре.
     // Награда «знатная семья» за испытание и дар четвёртого дня - так же.
@@ -550,6 +558,11 @@ export function App() {
       setFatePick(null)
       rollPending(prefs.lottery, chosenCountry(), 0, null, true)
     } else if (!royalWanted && gifts.includes('noble') && !pending.high) rollPending(prefs.lottery, chosenCountry(), 0)
+    else if (gifts.includes('earliest') && !chosenCountry() && !(fatePick && fatePick !== 'high')) {
+      // Ключ «Экстримал» введён, когда барабан уже заряжен: перезарядить самым ранним временем.
+      const first = earliestStart(ERA_IDS.map((id) => ERA_META[id]))
+      if (pending.birth.era !== first.era || pending.birth.year !== (first.year || 1)) rollPending(prefs.lottery, null, 0, fatePick)
+    }
   }, [screen, pending, royalWanted, prefs.gifts])
   const installCardFor = (compact = false) =>
     showInstall ? (
@@ -641,6 +654,8 @@ export function App() {
     if (gifts.includes('noble') && !pending.royal) used.push('noble')
     if (gifts.includes('country') && giftCountry && !fateCountry && pending.birth.era === giftCountry) used.push('country')
     for (const g of ['respins', 'health', 'dream', 'chest'] as const) if (gifts.includes(g)) used.push(g)
+    const first = earliestStart(ERA_IDS.map((id) => ERA_META[id]))
+    if (gifts.includes('earliest') && pending.birth.era === first.era && pending.birth.year === (first.year || 1)) used.push('earliest')
     const settings = {
       mode: prefs.mode,
       mortality: prefs.mortality,
@@ -853,7 +868,7 @@ export function App() {
     const picked = ev && goal ? eventChoices(game.current!, era, ev).find((c) => c.id === choiceId) : undefined
     const mark = picked && goal ? (goalMark(goal.id, picked) ?? 'none') : undefined
     choose(game.current!, era, choiceId)
-    trackChoice(game.current!, { ...(mark ? { mark } : {}), ...(ms !== undefined ? { ms_to_choice: ms } : {}) })
+    trackChoice(game.current!, { historical: ev?.type === 'global_historical' ? 1 : 0, ...(mark ? { mark } : {}), ...(ms !== undefined ? { ms_to_choice: ms } : {}) })
     setChoiceChanges(changes(before, game.current!))
     afterTurn()
   }
@@ -1053,10 +1068,15 @@ export function App() {
   const drumTags = (royal?: boolean) => {
     const fateCountry = fatePick && fatePick !== 'high' ? fatePick : null
     const country = fateCountry ?? (gifts.includes('country') ? giftCountry : null)
+    const earliest = !country && gifts.includes('earliest') ? earliestStart(ERA_IDS.map((id) => ERA_META[id])).era : null
     // Подсказка на ярлыке: какой дар решил барабан (страна - по дару или за испытание; знать - по дару или за испытание).
     const tip = (key: string, why: string) => ({ title: ui.t(key), text: `${ui.t(`${key}.desc`)}. ${ui.t(why)}` })
     return {
-      where: country ? { icon: 'lock' as const, text: ui.t(`era.${country}.short`), tip: tip('gift.country', fateCountry ? 'drum.tip.fate' : 'drum.tip.gift') } : undefined,
+      where: country
+        ? { icon: 'lock' as const, text: ui.t(`era.${country}.short`), tip: tip('gift.country', fateCountry ? 'drum.tip.fate' : 'drum.tip.gift') }
+        : earliest
+          ? { icon: 'lock' as const, text: ui.t(`era.${earliest}.short`), tip: tip('gift.earliest', 'drum.tip.gift') }
+          : undefined,
       status: royal
         ? { icon: 'crown' as const, text: ui.t('drum.tag.royal'), tip: tip('gift.royal', 'drum.tip.gift') }
         : gifts.includes('noble') || fatePick === 'high'
@@ -1106,6 +1126,20 @@ export function App() {
     />
   ) : null
 
+  // Вести на экране жизни идут в строку под шапкой (Life.tsx), а не всплывающей плашкой поверх панели управления.
+  const noticesOn = prefs.notices !== false
+  const inLifeBar = noticesOn && screen === 'life'
+  const lifeNotice = !inLifeBar
+    ? null
+    : achToast
+      ? { id: `ach:${achToast}`, text: <><Icon name="medal" /> {ui.t('ach.toast')} <strong>{ui.t(`ach.${achToast}.title`)}</strong></>, onClose: () => setAchToast(null) }
+      : royalToast
+        ? { id: 'royal', text: <><Icon name="crown" /> {ui.t('royal.toast')}</>, onClose: () => setRoyalToast(false) }
+        : giftToast
+          ? { id: `gift:${giftToast}`, text: <><Icon name={GIFT_ICON[giftToast]} /> {ui.t('daily.toast', { gift: { key: `gift.${giftToast}` } })}</>, onClose: () => setGiftToast(null) }
+          : challengeToast
+            ? { id: 'challenge', text: <><Icon name="trophy" /> {ui.t('challenge.toast')}</>, onClose: () => setChallengeToast(false) }
+            : null
   return (
     <UiContext.Provider value={ui}>
       <main class="app">
@@ -1226,6 +1260,12 @@ export function App() {
             shortFirst={shortFirst(platform.playerId(), platform.flags)}
             layout={layoutB(platform.playerId(), platform.flags) ? 'b' : 'a'}
             dream={dreamProps}
+            notices={noticesOn}
+            onNotices={(on) => {
+              setPrefs({ ...prefs, notices: on })
+              platform.track('notices_toggle', { on: on ? 1 : 0 })
+            }}
+            notice={lifeNotice}
           />
         )}
         {screen === 'life' && lifeMenu && state && state.phase !== 'dead' && (
@@ -1355,14 +1395,23 @@ export function App() {
         {screen === 'chronicle' && chronicleId && (
           <Chronicle memorial={memorial} familyId={chronicleId} onOpen={openPast} onBack={() => setScreen('memorial')} />
         )}
-        {screen === 'settings' && <Settings account={accountAvail ? <AccountSection newsletter={accountNews} onOpen={() => setAccountOpen('settings')} onChanged={refreshAccount} /> : undefined} prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
+        {screen === 'settings' && <Settings onTour={() => {
+          // Обучение заново и подсказки вкладок снова (настройки 10.11); идёт в жизни - вернуться в неё, иначе - с новой жизнью.
+          platform.kvSet('thousands.hints', '')
+          platform.kvSet('thousands.tour', '')
+          platform.track('tour_again', { from: settingsFrom })
+          setTourNonce((n) => n + 1)
+          setSettingsFrom('menu')
+          if (game.current && game.current.phase !== 'dead') setScreen('life')
+          else goBack()
+        }} account={accountAvail ? <AccountSection newsletter={accountNews} onOpen={() => setAccountOpen('settings')} onChanged={refreshAccount} /> : undefined} prefs={prefs} onPrefs={setPrefs} onReset={onReset} onExport={onExport} onImport={onImport} onBack={() => {
           const back = settingsFrom
           setSettingsFrom('menu')
           if (back === 'life' && game.current && game.current.phase !== 'dead') setScreen('life')
           else goBack()
         }} />}
         {screen === 'about' && <About onBack={goBack} />}
-        {achToast && (
+        {achToast && !inLifeBar && (
           <p class="toast ach-toast" role="status" onClick={() => setAchToast(null)}>
             <Icon name="medal" /> {ui.t('ach.toast')} <strong>{ui.t(`ach.${achToast}.title`)}</strong>
           </p>
@@ -1379,17 +1428,17 @@ export function App() {
             {ui.t('feedback.thanks')}
           </p>
         )}
-        {challengeToast && (
+        {challengeToast && !inLifeBar && (
           <p class="toast ach-toast" role="status" onClick={() => setChallengeToast(false)}>
             <Icon name="trophy" /> {ui.t('challenge.toast')}
           </p>
         )}
-        {giftToast && (
+        {giftToast && !inLifeBar && (
           <p class="toast ach-toast" role="status" onClick={() => setGiftToast(null)}>
             <Icon name={GIFT_ICON[giftToast]} /> {ui.t('daily.toast', { gift: { key: `gift.${giftToast}` } })}
           </p>
         )}
-        {royalToast && (
+        {royalToast && !inLifeBar && (
           <p class="toast ach-toast" role="status" onClick={() => setRoyalToast(false)}>
             <Icon name="crown" /> {ui.t('royal.toast')}
           </p>

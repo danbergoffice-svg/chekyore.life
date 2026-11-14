@@ -63,6 +63,8 @@ function initMetrika(): void {
   window.ym = ym
   const script = document.createElement('script')
   script.async = true
+  // crossorigin: ошибки внутри Метрики приходят с текстом и стеком, а не «Script error.» (mc.yandex.ru отдаёт CORS *).
+  script.crossOrigin = 'anonymous'
   script.src = `https://mc.yandex.ru/metrika/tag.js?id=${COUNTER_ID}`
   document.head.appendChild(script)
   ym(COUNTER_ID, 'init', { ssr: true, webvisor: true, clickmap: true, referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true })
@@ -74,7 +76,7 @@ function common(): Record<string, unknown> {
 
 /** События-счётчики: имя → [поле, по которому считать ('' - просто сколько раз), поле в session_end]:
  *  session_end.tabs = {life: 5, hero: 2}, .speeds = {0: 3, 0.5: 1}, .next_events = {'': 4}. */
-const AGGREGATED: Record<string, [string, string]> = {
+export const AGGREGATED: Record<string, [string, string] | [string, string][]> = {
   tab_open: ['tab', 'tabs'],
   speed_change: ['speed', 'speeds'],
   next_event_click: ['', 'next_events'],
@@ -86,8 +88,46 @@ const AGGREGATED: Record<string, [string, string]> = {
   // Сделки на рынке бывают десятками за жизнь - счётчиком по товару.
   trade_started: ['good', 'trades_buy'],
   trade_completed: ['good', 'trades_sell'],
+  // Аудит 10.11, очередь 0: окна событий - по типу и по длине очереди в момент показа; сколько окон было в году
+  // (гистограмма: {0: 12, 1: 20, 3: 4} - медиана и p90 считаются сразу); окна утраты - по родству.
+  event_shown: [
+    ['type', 'events_shown'],
+    ['queue_len', 'event_queue'],
+  ],
+  year_windows: ['n', 'year_windows'],
+  loss_shown: ['npc_role', 'losses'],
+}
+
+/** Пары [поле события, поле session_end] для счётчика. */
+const aggOf = (event: string): [string, string][] | undefined => {
+  const a = AGGREGATED[event]
+  return a === undefined ? undefined : Array.isArray(a[0]) ? (a as [string, string][]) : [a as [string, string]]
+}
+
+/** Счётчики, накопленные с прошлого session_end (сбрасываются при выдаче). */
+export function takeCounts(counts: Record<string, Record<string, number>>): Record<string, Record<string, number>> {
+  const out: Record<string, Record<string, number>> = {}
+  for (const [key, c] of Object.entries(counts)) {
+    const [event, field] = key.split('|')
+    if (aggOf(event)?.some(([, f]) => f === field)) out[field] = { ...(out[field] ?? {}), ...c }
+  }
+  return out
+}
+
+/** Учесть событие-счётчик; false - событие не счётчик. */
+export function countEvent(counts: Record<string, Record<string, number>>, event: string, params: Record<string, unknown>): boolean {
+  const agg = aggOf(event)
+  if (!agg) return false
+  for (const [by, field] of agg) {
+    const v = by ? String(params[by] ?? '') : ''
+    const c = (counts[`${event}|${field}`] ??= {})
+    c[v] = (c[v] ?? 0) + 1
+  }
+  return true
 }
 let counts: Record<string, Record<string, number>> = {}
+/** session_end уже записан, а вкладка с тех пор не возвращалась (закрытие после ухода в фон - без второго session_end). */
+let ended = false
 
 function flush(beacon = false): void {
   if (!queue.length || !import.meta.env.PROD) return
@@ -160,8 +200,14 @@ export const webPlatform: Platform = {
     setInterval(() => flush(), 10000)
     document.addEventListener('visibilitychange', () => {
       // Сначала игра записывает session_end, затем очередь уходит через sendBeacon.
+      if (document.visibilityState === 'visible') ended = false
       for (const h of pauseHandlers) h(document.visibilityState === 'hidden')
       if (document.visibilityState === 'hidden') flush(true)
+    })
+    // Закрытие вкладки без ухода в фон (часть браузеров): счётчики не должны пропасть.
+    window.addEventListener('pagehide', () => {
+      if (!ended) for (const h of pauseHandlers) h(true)
+      flush(true)
     })
     retryFeedback()
   },
@@ -183,16 +229,11 @@ export const webPlatform: Platform = {
   track(event, params = {}) {
     // Частые мелочи (вкладки, скорость) не пишутся строкой каждая: бесплатная D1 - 100 тысяч записей в сутки,
     // а их было почти треть всех событий. Копятся счётчиками и уходят одним полем в session_end.
-    const agg = AGGREGATED[event]
-    if (agg) {
-      const v = agg[0] ? String(params[agg[0]] ?? '') : ''
-      const c = (counts[event] ??= {})
-      c[v] = (c[v] ?? 0) + 1
-      return
-    }
+    if (countEvent(counts, event, params)) return
     if (event === 'session_end') {
-      for (const [name, [, field]] of Object.entries(AGGREGATED)) if (counts[name]) params = { ...params, [field]: counts[name] }
+      params = { ...params, ...takeCounts(counts) }
       counts = {}
+      ended = true
     }
     const full = { ...common(), ...params }
     if (!RECEIVER_ONLY.has(event)) window.ym?.(COUNTER_ID, 'reachGoal', event, full)

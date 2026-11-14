@@ -2,7 +2,7 @@
 // продажа и завещание. Ничего не всплывает само - итоги года и раздел наследства идут записями в дневник.
 import { useState } from 'preact/hooks'
 import ASSETS from '../content/assets.json'
-import { acquireAsset, assetDef, assetLock, assetPrice, canImprove, estateValue, heroShare, improveAsset, improveCost, pledgeAsset, redeemAsset, saleValue, sellAsset } from '../engine/estate'
+import { acquireAsset, assetDef, assetLock, assetPrice, canImprove, estatePrice, estateValue, heroShare, homeUpgradeLock, improveAsset, improveCost, pledgeAsset, redeemAsset, saleValue, sellAsset, upgradeHome } from '../engine/estate'
 import { createWill, customDistribution, validateWill } from '../engine/inheritance'
 import { heirs } from '../engine/life'
 import { regionOf } from '../engine/rules'
@@ -32,6 +32,7 @@ export function Estate({ state, era, onChange }: { state: GameState; era: EraDef
     <section class="estate">
       <h2 class="section-title">{t('estate.title')}</h2>
       <p class="small muted">{t('estate.hint')}</p>
+      {adult && <HomeRow state={state} money={money} act={act} />}
       {assets.length === 0 ? (
         <p class="small">{t('estate.empty')}</p>
       ) : (
@@ -52,7 +53,7 @@ export function Estate({ state, era, onChange }: { state: GameState; era: EraDef
           <span class="small">{t('estate.buy')}</span>
           {offers.map((ty) => (
             <button type="button" class="option small" disabled={!!assetLock(state, ty)} onClick={() => act(() => acquireAsset(state, { type: ty }))}>
-              <span class="option-label">{t(`asset.${ty}`)}</span>
+              <span class="option-label">{t(`asset.${ty}`, {}, { region: state.hero.region })}</span>
               <span class="option-desc">{t('estate.buy.desc', { money: money(assetPrice(state, ty)), income: money(Math.round(assetPrice(state, ty) * (assetDef(ty)!.income - assetDef(ty)!.maintenance))) })}</span>
             </button>
           ))}
@@ -63,12 +64,32 @@ export function Estate({ state, era, onChange }: { state: GameState; era: EraDef
   )
 }
 
+/** Свой дом: окно «Дом побольше» приходит раз за жизнь (решение владельца 10.11), дальше дом перестраивают здесь. */
+function HomeRow({ state, money, act }: { state: GameState; money: (n: number) => string; act: (fn: () => unknown) => void }) {
+  const { t } = useUi()
+  const hero = state.hero
+  const o = { sex: hero.sex }
+  const lock = homeUpgradeLock(state)
+  const now = hero.rent ? t('estate.home_rent', {}, o) : t(`home.${Math.max(0, Math.min(4, hero.home ?? 1))}`)
+  return (
+    <div class="estate-home">
+      <p class="small">{t('estate.home', { home: now })}</p>
+      {lock !== 'estate.home_lock.max' && lock !== 'estate.home_lock.rent' && lock !== 'estate.home_lock.adult' && (
+        <button type="button" class="option small" disabled={!!lock} onClick={() => act(() => upgradeHome(state))}>
+          <span class="option-label">{t('estate.home_up', { home: t(`home.${Math.min(4, (hero.home ?? 1) + 1)}`) })}</span>
+          <span class="option-desc">{lock ? `${money(estatePrice(state, 'home'))} · ${t('estate.home_lock.money')}` : money(estatePrice(state, 'home'))}</span>
+        </button>
+      )}
+    </div>
+  )
+}
+
 function AssetRow({ state, a, money, act }: { state: GameState; a: Asset; money: (n: number) => string; act: (fn: () => unknown) => void }) {
   const { t } = useUi()
   const share = heroShare(state, a)
   return (
     <li class="person child-card">
-      <span class="person-name cap">{t(`asset.${a.type}`)}</span>
+      <span class="person-name cap">{t(`asset.${a.type}`, {}, { region: state.hero.region })}</span>
       <span class="muted small">
         {t('estate.info', { money: money(Math.round(a.income * share)), cost: money(Math.round(a.maintenance * share)), n: a.condition })}
         {share < 1 ? ` · ${t('estate.share', { n: Math.round(share * 100) })}` : ''}
@@ -126,7 +147,7 @@ function WillEditor({ state, era, onChange, lang }: { state: GameState; era: Era
       <ul class="plain">
         {assets.map((a) => (
           <li class="small">
-            <span class="cap">{t(`asset.${a.type}`)}</span>{' → '}
+            <span class="cap">{t(`asset.${a.type}`, {}, { region: state.hero.region })}</span>{' → '}
             <select value={chosen(a)} onChange={(e) => setPick({ ...pick, [a.id]: (e.target as HTMLSelectElement).value })}>
               {kids.map((k) => (
                 <option value={k.id}>{nameOf(k.name, lang as never)}</option>

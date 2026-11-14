@@ -5,9 +5,10 @@
 import type { IconName } from './ui/icons'
 
 export const GIFTS = ['country', 'respins', 'health', 'noble', 'dream', 'chest', 'royal'] as const
-export type Gift = (typeof GIFTS)[number]
+/** Дары лестницы входа (по дню серии) и дары только по спецключу: earliest - самое раннее время игры. */
+export type Gift = (typeof GIFTS)[number] | 'earliest'
 
-export const GIFT_ICON: Record<Gift, IconName> = { country: 'globe', respins: 'reels', health: 'heart', noble: 'castle', dream: 'moon', chest: 'purse', royal: 'crown' }
+export const GIFT_ICON: Record<Gift, IconName> = { country: 'globe', respins: 'reels', health: 'heart', noble: 'castle', dream: 'moon', chest: 'purse', royal: 'crown', earliest: 'hourglass' }
 /** Сильные дни лестницы - выделены в календаре. */
 export const BIG_DAYS = [1, 4, 7]
 /** Сила даров: перекрутки сверх флага respins, здоровье с рождения, во сколько раз богаче семья. */

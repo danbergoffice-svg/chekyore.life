@@ -77,10 +77,22 @@ export function rememberEmotion(state: GameState, type: EmotionalEventType, npc:
 }
 
 /** Раз в год: живые воспоминания тянут счастье вниз и затухают; угасшие - отпускают. */
+/** Рядом супруг, дети или родители: горе отпускает быстрее. */
+const closeNear = (hero: Hero) => hero.npcs.some((n) => n.alive && !n.away && (n.role === 'spouse' || n.role === 'child' || n.role === 'mother' || n.role === 'father'))
+
+/** Доля силы памяти, что остаётся через год: по виду горя, характеру, вере и поддержке семьи. */
+function decayRate(hero: Hero, m: EmotionalMemory, near: boolean): number {
+  let rate = (R.decay as Record<string, unknown>)[m.type] as number | undefined
+  rate = (rate ?? 0.7) * traitMult(hero, R.decay.traits)
+  if (hero.hidden.faith > R.decay.faith.above) rate *= R.decay.faith.mult
+  rate *= near ? R.decay.support : R.decay.alone
+  return Math.min(0.98, rate)
+}
+
 export function emotionsYear(state: GameState): void {
   const hero = state.hero
   // Поддержка семьи: рядом супруг или дети - горе отпускает быстрее; совсем один - дольше и тоскливее.
-  const near = hero.npcs.some((n) => n.alive && !n.away && (n.role === 'spouse' || n.role === 'child' || n.role === 'mother' || n.role === 'father'))
+  const near = closeNear(hero)
   const grieving = (hero.emotionalMemories ?? []).some((m) => m.resolved === undefined && m.year < state.year && m.current >= R.linger.from)
   if (grieving && !near) changeParam(hero, 'loneliness', R.linger.aloneLoneliness)
   for (const m of hero.emotionalMemories ?? []) {
@@ -89,11 +101,7 @@ export function emotionsYear(state: GameState): void {
       changeParam(hero, 'happiness', Math.round(m.current * R.linger.happiness))
       changeParam(hero, 'stress', Math.round(m.current * R.linger.stress))
     }
-    let rate = (R.decay as Record<string, unknown>)[m.type] as number | undefined
-    rate = (rate ?? 0.7) * traitMult(hero, R.decay.traits)
-    if (hero.hidden.faith > R.decay.faith.above) rate *= R.decay.faith.mult
-    rate *= near ? R.decay.support : R.decay.alone
-    m.current = Math.round(m.current * Math.min(0.98, rate) * 10) / 10
+    m.current = Math.round(m.current * decayRate(hero, m, near) * 10) / 10
     if (m.current < R.resolve.below || state.year - m.year >= R.resolve.years) resolveEmotion(state, m)
   }
 }
@@ -116,5 +124,26 @@ export function emotionalLoad(hero: Hero): number {
 
 /** В трауре: есть неутихшее горе, которое ещё тянет счастье вниз (то же, что в emotionsYear). Видно в шапке героя. */
 export function mourning(hero: Hero): boolean {
-  return (hero.emotionalMemories ?? []).some((m) => m.resolved === undefined && m.type.startsWith('grief') && m.current >= R.linger.from)
+  return (hero.emotionalMemories ?? []).some((m) => m.resolved === undefined && m.type.startsWith('grief') && m.current >= R.mourning.from)
+}
+
+/** Сколько ещё лет траура (метка «в трауре» в шапке): по самому сильному горю и той же скорости затухания, что в
+ *  emotionsYear. 0 - не в трауре. Оценка: если умрёт ещё кто-то, срок вырастет. */
+export function mourningLeft(state: GameState): number {
+  const hero = state.hero
+  const near = closeNear(hero)
+  let years = 0
+  for (const m of hero.emotionalMemories ?? []) {
+    if (m.resolved !== undefined || !m.type.startsWith('grief') || m.current < R.mourning.from) continue
+    const rate = decayRate(hero, m, near)
+    let c = m.current
+    let n = 0
+    while (c >= R.mourning.from && n < 30) {
+      c = Math.round(c * rate * 10) / 10
+      n++
+    }
+    // В год смерти память ещё не затухает: траур длится и весь этот год.
+    years = Math.max(years, n + (m.year >= state.year ? 1 : 0))
+  }
+  return years
 }

@@ -1,4 +1,4 @@
-import { mourning } from '../engine/emotions'
+import { mourning, mourningLeft } from '../engine/emotions'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   availableFocuses,
@@ -31,7 +31,8 @@ import { lifeMarks } from '../pixel/avatar'
 import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
 import type { T } from '../i18n'
 import { platform } from '../platform'
-import { lifeStats } from '../telemetry'
+import { lifeStats, trackEventShown, trackLossShown } from '../telemetry'
+import { isLossCard } from '../engine/illness'
 import { Scene } from '../pixel/SceneView'
 import { Illustration } from '../pixel/Illustration'
 import { momentOf } from '../pixel/illustrations'
@@ -50,7 +51,7 @@ import { Arms } from './Arms'
 import { familyGoalProgress } from '../engine/dynasty'
 import { Estate } from './Estate'
 import { Trade } from './Trade'
-import { GOAL_STEPS, goalMark } from '../engine/goals'
+import { GOAL_STEPS, goalMark, professionClosesGoal } from '../engine/goals'
 import type { GoalId } from '../engine/goals'
 import type { GoalGroup } from '../goal'
 import { goalDue as isGoalDue } from '../goal'
@@ -98,7 +99,7 @@ const CHOICE_DELAY = (() => {
   return 1500
 })()
 /** Порядок подсказок: раньше - важнее. */
-const HINT_ORDER = ['speed', 'year_len', 'focus', 'hero']
+const HINT_ORDER = ['speed', 'year_len', 'focus', 'hero', 'tab_life']
 export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
 export type Speed = (typeof SPEEDS)[number]
 
@@ -142,6 +143,11 @@ interface LifeProps {
   goal?: { group: GoalGroup; onPick: (c: GoalChoice, change: boolean) => void }
   /** Сон о будущем: ответы, подсказка, «Проснуться», закрыть итог. */
   dream?: { result: DreamResult | null; onAnswer: (value: unknown) => void; onHint: () => void; onWake: () => void; onClose: () => void }
+  /** Строка вестей под шапкой (отзыв владельца 10.11: всплывающие плашки закрывали панель управления). false - скрыта. */
+  notices?: boolean
+  onNotices?: (on: boolean) => void
+  /** Весть от игры (награда, дар): в строке вестей вместо всплывающей плашки. */
+  notice?: { id: string; text: preact.ComponentChildren; onClose: () => void } | null
 }
 
 /** Какие вести показывать плашкой (вид - для «не показывать такое в этой жизни»). */
@@ -161,7 +167,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream }: LifeProps) {
+export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream, notices = true, onNotices, notice }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -189,7 +195,9 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   }
   const hintDue = (id: string) =>
     !hints.includes(id) &&
-    (id === 'hero' ? hero.age >= 12 && tab === 'life' : id === 'speed' ? tab === 'life' && lifeSec >= 3 && hero.age < 2 : id === 'year_len' ? tab === 'life' && hero.age >= 2 && hero.age <= 6 : id === 'focus' ? hero.age >= 5 : false)
+    (id === 'hero' ? hero.age >= 12 && tab === 'life' : id === 'speed' ? tab === 'life' && lifeSec >= 3 && hero.age < 2 : id === 'year_len' ? tab === 'life' && hero.age >= 2 && hero.age <= 6 : id === 'focus' ? hero.age >= 5 : id === 'tab_life' ? tab === 'life' && hero.age >= 3 : false)
+  // Подсказки вкладок (просьба владельца 10.11): при первом открытии вкладки - что здесь за что отвечает; ✕ - навсегда.
+  const tabHint = (id: string) => !tourOn.current && !hints.includes(id)
   const closeHint = (id: string) => {
     const next = [...hints, id]
     setHints(next)
@@ -239,8 +247,12 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   // пролистать. Старые сохранения не показывают прошлые утраты: отсчёт - с записи, на которой открыли жизнь.
   const ls = lifeStats(state)
   if (ls.lossSeen === undefined) ls.lossSeen = hero.diary.length
-  const lossAt = hero.alive && !modalOpen ? hero.diary.findIndex((d, i) => i >= (ls.lossSeen ?? 0) && d.icon === 'death' && d.major && visible(state, i, d, progress)) : -1
+  const lossAt = hero.alive && !modalOpen ? hero.diary.findIndex((d, i) => i >= (ls.lossSeen ?? 0) && isLossCard(d) && visible(state, i, d, progress)) : -1
   const loss = lossAt >= 0 ? hero.diary[lossAt] : null
+  const lossRole = loss ? ((loss.params?.role as { key?: string } | undefined)?.key ?? '').replace(/^rel\./, '') : ''
+  useEffect(() => {
+    if (loss) trackLossShown(lossRole || 'other')
+  }, [lossAt])
   const closeLoss = () => {
     ls.lossSeen = lossAt + 1
     bump((x) => x + 1)
@@ -374,25 +386,45 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const b = layout === 'b'
 
   const plaqueEntry = plaque ? hero.diary[plaque.index] : undefined
-  const plaqueView = plaqueEntry && (
-    <div class="plaque" role="status">
-      <span>{diaryText(t, plaqueEntry, hero.sex, hero.region, hero.religion, lang)}</span>
-      <button
-        type="button"
-        class="link small"
-        onClick={() => {
-          state.plaqueMuted = [...(state.plaqueMuted ?? []), plaque!.kind]
-          setPlaque(null)
-          onFamily?.()
-        }}
-      >
-        {t('plaque.mute')}
+  // Строка вестей: что сейчас свежего - весть игры (награда), шаг к цели, семейная весть. Пока свежих нет, видна
+  // последняя (бледнее): строка не прыгает и не закрывает ни вкладки, ни скорость, ни окно события.
+  const fresh: { id: string; text: preact.ComponentChildren; mute?: () => void; close?: () => void } | null = notice
+    ? { id: `n:${notice.id}`, text: notice.text, close: notice.onClose }
+    : goalToast
+      ? { id: `g:${goalToast}`, text: goalToast, close: () => setGoalToast(null) }
+      : plaqueEntry
+        ? {
+            id: `p:${plaque!.index}`,
+            text: diaryText(t, plaqueEntry, hero.sex, hero.region, hero.religion, lang),
+            close: () => setPlaque(null),
+            mute: () => {
+              state.plaqueMuted = [...(state.plaqueMuted ?? []), plaque!.kind]
+              setPlaque(null)
+              onFamily?.()
+            },
+          }
+        : null
+  const [lastNotice, setLastNotice] = useState<preact.ComponentChildren>(null)
+  useEffect(() => {
+    if (fresh) setLastNotice(fresh.text)
+  }, [fresh?.id])
+  const noticeBar = notices && (
+    <div class={`notice-bar ${fresh ? 'fresh' : ''}`} role="status" aria-live="polite">
+      <span class="notice-text" onClick={fresh?.close}>
+        {fresh?.text ?? lastNotice ?? <span class="muted">{t('notice.empty')}</span>}
+      </span>
+      {fresh?.mute && (
+        <button type="button" class="link small notice-mute" onClick={fresh.mute} title={t('plaque.mute')}>
+          {t('notice.mute')}
+        </button>
+      )}
+      <button type="button" class="notice-x" onClick={() => onNotices?.(false)} aria-label={t('notice.hide')} title={t('notice.hide')}>
+        ✕
       </button>
     </div>
   )
   return (
     <div class={b ? 'life layout-b' : 'life'}>
-      {!modalOpen && plaqueView}
       {b ? (
         <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} details={
           <>
@@ -400,6 +432,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
               {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}
               {hero.band !== undefined && hero.age >= era.stages.youth && <span title={t('band.tip', { n: statusOf(hero, era) })}> · {t(`band.${hero.band}`)}</span>}
             </p>
+            {mourning(hero) && <p class="hero-meta small warn grief-left">{t('life.grief_left', { n: Math.max(1, mourningLeft(state)) }, o)}</p>}
             {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
             {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
             {hero.abroad && !hero.abroad.naturalized && <p class="hero-meta small muted">{t(hero.sex === 'f' ? 'life.foreigner_f' : 'life.foreigner', { year: formatYear(hero.abroad.since, lang) })}</p>}
@@ -431,6 +464,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             </p>
             <Bar label={t('attr.health')} value={hero.attrs.health} />
             <GoalBar state={state} open={goalOpen} onToggle={() => setGoalOpen(!goalOpen)} />
+            {mourning(hero) && <p class="hero-meta small warn grief-left">{t('life.grief_left', { n: Math.max(1, mourningLeft(state)) }, o)}</p>}
             {hero.age >= 12 && <p class="hero-meta small">{t('life.expected', { n: expectedAge(state, era) })}</p>}
             {state.offChronicle !== undefined && <p class="hero-meta small muted">{t('life.off_chronicle', { year: formatYear(state.offChronicle, lang) })}</p>}
             {hero.abroad && !hero.abroad.naturalized && <p class="hero-meta small muted">{t(hero.sex === 'f' ? 'life.foreigner_f' : 'life.foreigner', { year: formatYear(hero.abroad.since, lang) })}</p>}
@@ -443,6 +477,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
       {/* Вкладки и скорость - вверху и прилипают при прокрутке: скорость рядом с картинкой, а не под лентой.
           Время идёт на любой вкладке, поэтому скорость и пауза - тоже на всех. */}
       <div class="life-top">
+        {noticeBar}
         <nav class="tabs" role="tablist">
           {(['life', 'hero', 'people', 'diary'] as Tab[]).map((id) => (
             <button role="tab" aria-selected={tab === id} class={tab === id ? 'tab active' : 'tab'} onClick={() => {
@@ -476,6 +511,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
           {speed === 0 && <p class="small muted center paused-note">{t('life.paused')}</p>}
         </div>}
       </div>
+      {tab === 'life' && hintFor('tab_life', hero.age >= 3) && <Hint text={t(b ? 'hint.tab_life_b' : 'hint.tab_life')} onClose={() => closeHint('tab_life')} />}
       {tab === 'life' && hintFor('speed', lifeSec >= 3 && hero.age < 2) && <Hint text={t(b ? 'hint.speed_b' : 'hint.speed')} onClose={() => closeHint('speed')} />}
       {/* Первые годы жизни: длительность года меняется в настройках. */}
       {tab === 'life' && hintFor('year_len', hero.age >= 2 && hero.age <= 6) && (
@@ -563,6 +599,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'hero' && (
         <section class="panel">
+          {tabHint('tab_hero') && <Hint text={t('hint.tab_hero', {}, o)} onClose={() => closeHint('tab_hero')} />}
           <FamilyLine state={state} />
           {/* Деньги - первой строкой (отзыв игрока 03.11: «не нашёл, где моё богатство»). */}
           <p class="hero-money"><strong>{t('hero.money')}:</strong> {formatMoney(t, hero.money, coin)}{hero.money < 0 ? ` · ${t('hero.in_debt')}` : ''}</p>
@@ -650,6 +687,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'people' && (
         <>
+          {tabHint('tab_people') && <Hint text={t('hint.tab_people', {}, o)} onClose={() => closeHint('tab_people')} />}
           <Children state={state} era={era} onChange={() => onFamily?.()} />
           <People state={state} />
         </>
@@ -657,6 +695,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
 
       {tab === 'diary' && (
         <section class="panel">
+          {tabHint('tab_diary') && <Hint text={t('hint.tab_diary', {}, o)} onClose={() => closeHint('tab_diary')} />}
           {entries.length === 0 ? (
             <p class="muted">{t('diary.empty')}</p>
           ) : (
@@ -725,11 +764,6 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         />
       )}
       {tour && !modalOpen && <Tour onEnd={endTour} />}
-      {goalToast && (
-        <p class="goal-toast" role="status">
-          {goalToast}
-        </p>
-      )}
       {loss && (
         <div class="modal-backdrop">
           <div class="modal loss-card" role="dialog" aria-modal="true" aria-labelledby="loss-title">
@@ -1217,6 +1251,7 @@ function People({ state, aliveOnly }: { state: GameState; aliveOnly?: boolean })
           <span class="person-role">{t(`npc.${roleKey(hero.npcs, n)}`, { sex: n.sex })}</span>
           <span class="person-name">{nameOf(n.name, lang)}</span>
           {livesWithHero(hero, n, state.year) && <span class="small home-badge">{t('people.at_home')}</span>}
+          {n.alive && n.ill && <span class="small ill-badge">{t('people.ill_badge', { sex: n.sex })}</span>}
           <span class="muted">{npcFacts(t, lang, n, state.year)}</span>
         </summary>
         <span class="small">{npcMore(t, lang, hero.npcs, n)}</span>
@@ -1287,6 +1322,10 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const shown = useRef({ id: '', at: 0 })
   const eventKey = `${state.queue[0]?.eventId}:${state.queue[0]?.at}:${state.year}`
   if (shown.current.id !== eventKey) shown.current = { id: eventKey, at: Date.now() }
+  // Окно открылось (аналитика event_shown; итог того же события - не новое окно).
+  useEffect(() => {
+    if (ev && !state.queue[0]?.outcome) trackEventShown(state, ev)
+  }, [eventKey])
   // Кнопки выбора оживают через CHOICE_DELAY после того, как событие появилось.
   const [armedKey, setArmedKey] = useState(CHOICE_DELAY ? '' : eventKey)
   const armed = !CHOICE_DELAY || armedKey === eventKey
@@ -1323,7 +1362,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const v = active?.variant
   const label = (c: ChoiceDef) => (isName ? nameOf(c.id, lang) : isProfession ? t(`prof.${c.id}`, {}, o) : t(variantKey(lang, `ev.${ev.id}.${c.id}`, v), params, o))
   const lockText = (c: ChoiceDef) => {
-    const r = lockReason(state, c)
+    const r = lockReason(state, c, ev)
     return r ? t(r.key, r.params, o) : t('event.locked')
   }
   const cost = (c: ChoiceDef) => {
@@ -1341,7 +1380,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
     if (state.queue[0]?.outcome || table || crisisStance || !armed) return
     const n = Number(e.key)
     const c = choices[n - 1]
-    if (n >= 1 && n <= 4 && c && choiceAvailable(state, c)) {
+    if (n >= 1 && n <= 4 && c && choiceAvailable(state, c, ev)) {
       e.preventDefault()
       pick(c.id)
     }
@@ -1420,7 +1459,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
                 <button class="primary" aria-disabled={!armed} onClick={() => pick(null)}>{t('event.ok')}</button>
               )}
               {choices.map((c) => {
-                const ok = choiceAvailable(state, c)
+                const ok = choiceAvailable(state, c, ev)
                 const p = riskChance(state, c)
                 const price = cost(c)
                 const mark = marks && ok ? goalMark(marks, c) : null
@@ -1428,6 +1467,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
                   <button class="choice" disabled={!ok} aria-disabled={!armed || undefined} onClick={() => pick(c.id)}>
                     <span>{label(c)}</span>
                     {isProfession && <span class="choice-desc">{t(`prof.${c.id}.desc`)}</span>}
+                    {isProfession && hero.goal && professionClosesGoal(hero, c.id) && <span class="choice-desc goal-closes">{t('event.goal_closes', { goal: t(`goal.${hero.goal.id}.title`, {}, o) }, o)}</span>}
                     <span class="choice-meta">
                       {mark && <span class={`chip-static goal-mark ${mark}`}>{t(`event.mark.${mark}`)}</span>}
                       {price && <span class="chip-static">−{price}</span>}
@@ -1452,6 +1492,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
               {t('event.more_names')}
             </button>
           )}
+          {!outcome && ev.id === 'estate_home' && <p class="small muted ev-note">{t('event.home_once')}</p>}
           {!outcome && !crisisStance && choices.length > 1 && <p class="ev-keys">{t('event.keys', { n: Math.min(4, choices.length) })}</p>}
           {outcome && (
             <div class="outcome">

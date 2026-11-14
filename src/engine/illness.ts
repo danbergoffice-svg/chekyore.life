@@ -6,7 +6,7 @@
 // Врач (healing) выхаживает своих чаще и лечит себя сам.
 import { changeParam, clamp, killNpc, note, npcAge } from './rules'
 import { chance, weighted } from './rng'
-import type { GameState, Hero, Npc } from './types'
+import type { DiaryEntry, GameState, Hero, Npc } from './types'
 
 /** Доля болезней, кончающихся смертью, без врача в доме. */
 export const ILL_DEATH = 0.6
@@ -92,4 +92,10 @@ export function selfHealYear(state: GameState): void {
   if (!hero.tags.includes('ill') || heal < 0.3 || !chance(state, 0.45 * heal)) return
   hero.tags = hero.tags.filter((t) => t !== 'ill')
   note(state, { key: 'diary.self_healed', topic: 'health', icon: 'find', score: 22, mood: 6 })
+}
+
+/** Карточка утраты (окно, время стоит): только смерть близкого. Болезнь - строка в ленте и отметка «болен» в «Близких»
+ *  (решение владельца 10.11, MEC-044/093): тревожная весть не прерывает год, окно - только если близкий умер. */
+export function isLossCard(d: DiaryEntry): boolean {
+  return d.icon === 'death' && !!d.major && d.key !== 'diary.npc_ill'
 }

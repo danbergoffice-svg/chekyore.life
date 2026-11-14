@@ -403,3 +403,23 @@ html.skin .dice .secondary.danger-soft { color: #a3341c; border-color: #a3341c; 
 html.skin .modal.account .secondary { color: #130904; border-color: rgba(19, 9, 4, 0.5); }
 html.skin .modal.account .secondary:disabled { opacity: 0.55; }
 html.skin .dice .link { color: #8a3a1e; text-decoration-color: rgba(138, 58, 30, 0.45); }
+
+/* ---------- Единый стиль второстепенных кнопок (13.11) ----------
+   Главная кнопка - бумажная полоска с неровным краем (.primary). Второстепенные - прямые углы и пунктир, как .secondary;
+   раньше .danger, «Поддержать проект» и значки каналов оставались со скруглёнными системными рамками. */
+html.skin .danger { border-radius: 0; border: 2px dashed rgba(223, 108, 79, 0.75); background: transparent; color: var(--terra); font-weight: 700; }
+html.skin .danger:not(:disabled):hover { background: rgba(223, 108, 79, 0.12); }
+html.skin .file-button { border-radius: 0; border: 2px dashed rgba(243, 234, 215, 0.45); color: var(--sheet); }
+html.skin .support-link { border-radius: 0; border: 2px dashed rgba(241, 95, 44, 0.75); }
+html.skin .support-link:hover { background: rgba(241, 95, 44, 0.12); }
+/* Значки каналов - квадратные бумажные плашки, как кнопка звука в шапке. */
+html.skin .social-links a { border: 0; border-radius: 0; background: rgba(243, 234, 215, 0.1); clip-path: var(--rough-a); }
+html.skin .social-links a:hover { background: rgba(243, 234, 215, 0.2); }
+
+/* Перелив по кнопке «Крутить барабан»: светлая полоса пробегает раз в несколько секунд. */
+html.skin .spin-button { position: relative; overflow: hidden; }
+html.skin .spin-button::before { content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 45%; pointer-events: none;
+  background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0) 20%, rgba(255, 250, 225, 0.85) 50%, rgba(255, 255, 255, 0) 80%, transparent 100%);
+  transform: skewX(-18deg); animation: spin-shine 3.6s ease-in-out 1.2s infinite; }
+@keyframes spin-shine { 0% { left: -60%; } 38%, 100% { left: 130%; } }
+@media (prefers-reduced-motion: reduce) { html.skin .spin-button::before { animation: none; display: none; } }

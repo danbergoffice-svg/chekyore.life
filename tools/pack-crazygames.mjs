@@ -23,6 +23,8 @@ if (!fs.existsSync(path.join(DIR, 'index.html'))) {
   process.exit(1)
 }
 for (const f of DROP) fs.rmSync(path.join(DIR, f), { force: true })
+// Новая музыка (A/B XM) идёт только на сайте: на портале music_share = 0, а 30 МБ не влезли бы в лимит.
+fs.rmSync(path.join(DIR, 'music', 'v2'), { recursive: true, force: true })
 
 const files = []
 const walk = (dir) => {

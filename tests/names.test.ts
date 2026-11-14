@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { breathe } from './breathe'
 import { loadAllEras } from '../src/content'
 import { autoplay } from '../src/engine/game'
 import { continueWithHeir, heirs, newLife } from '../src/engine/life'
@@ -27,10 +28,11 @@ function dynasty(era: EraDef, seed: number): GameState[] {
 }
 
 describe('Имена предков (B2)', () => {
-  it('в Китае ребёнка не называют именем родителя, деда или прадеда', () => {
+  it('в Китае ребёнка не называют именем родителя, деда или прадеда', async () => {
     const era = byFolder('forbid')
     let kids = 0
     for (let i = 0; i < 60; i++) {
+      if (i % 5 === 0) await breathe()
       for (const s of dynasty(era, 300 + i)) {
         const bad = forbidden(s)
         for (const c of s.hero.npcs.filter((n) => n.role === 'child')) {
@@ -42,11 +44,12 @@ describe('Имена предков (B2)', () => {
     expect(kids).toBeGreaterThan(50)
   })
 
-  it('где принято, детей нередко называют в честь предков', () => {
+  it('где принято, детей нередко называют в честь предков', async () => {
     const era = byFolder('prefer')
     let kids = 0
     let honoured = 0
     for (let i = 0; i < 60; i++) {
+      if (i % 5 === 0) await breathe()
       for (const s of dynasty(era, 700 + i)) {
         const names = forbidden(s)
         for (const c of s.hero.npcs.filter((n) => n.role === 'child')) {

@@ -50,6 +50,26 @@ function pickPlace(h: { rng: number }, era: EraMeta | EraDef): { region: RegionD
   return { region, year }
 }
 
+/** Самое раннее время игры (ключ «Экстримал»): страна и год, с которых начинается самая ранняя хроника. */
+export function earliestStart(eras: EraMeta[]): { era: string; year: number } {
+  let best = { era: eras[0].id, year: Infinity }
+  for (const e of eras) for (const r of birthRegions(e)) if (r.years[0] < best.year) best = { era: e.id, year: r.years[0] }
+  return best
+}
+
+/** Рождение в самом раннем году игры: край - среди открытых в этот год (по весам), сословие и пол - жребием. Впереди
+ *  вся хроника страны - самая долгая дорога для династии. */
+export function earliestBirth(seed: number, eras: EraMeta[]): Birth {
+  const start = earliestStart(eras)
+  const era = eras.find((e) => e.id === start.era)!
+  const h = { rng: (seed ^ 0x51ed270b) >>> 0 }
+  const open = birthRegions(era).filter((r) => r.years[0] <= start.year)
+  const region = weighted(h, open, (r) => r.weight)!
+  const classes = era.classes.filter((c) => (region.classWeights[c.id] ?? 0) > 0)
+  const cls = weighted(h, classes, (c) => region.classWeights[c.id])!.id
+  return { era: era.id, region: region.id, year: start.year || 1, cls, sex: chance(h, 0.5) ? 'm' : 'f' }
+}
+
 /** Лотерея рождения. Отдельный поток случайных чисел, чтобы жизнь от того же seed не менялась. */
 export function rollBirth(seed: number, lottery: Lottery, eras: EraMeta[]): Birth {
   const h = { rng: (seed ^ 0x5bd1e995) >>> 0 }
@@ -206,6 +226,8 @@ function biography(h: Hero): DiaryEntry[] {
 /** Сводка прожитой жизни для мемориала и родословной. */
 export function summarize(state: GameState, era: EraDef): LifeSummary {
   const h = state.hero
+  // Переехал в другую страну - отчёт по ней (её края, сословия); передали страну рождения - берём нынешнюю.
+  if (h.era !== era.id && isEraLoaded(h.era)) era = eraById(h.era)
   return {
     heroId: h.id,
     familyId: state.family.id,

@@ -258,6 +258,26 @@ async function suite(realBinds) {
   const evRes = await r.json()
   check('/api/events 200 и n=2', r.status === 200 && evRes.n === 2, JSON.stringify(evRes))
   check('/api/events CORS', r.headers.get('access-control-allow-origin') === 'https://thousands.life')
+  // Аудит 10.11, очередь 0: новые поля доходят в session_end целиком (счётчики окон, утрат, источник), длинная строка
+  // до 4000 знаков не обрезается в битый JSON; новые поля choice_made и life_end пишутся как есть - одной строкой на событие.
+  {
+    const big = Object.fromEntries(Array.from({ length: 120 }, (_, i) => [`good_${i}`, i]))
+    const se = { name: 'session_end', ts: now, player_id: 'api_q0', session_id: 'sq', platform: 'web', build: 'b', screen: 'life', utm: 'telegram', events_shown: { dice: 3, historical: 1 }, event_queue: { 0: 3, 2: 1 }, year_windows: { 0: 10, 2: 4 }, losses: { mother: 1 }, trades_buy: big, trades_sell: big }
+    const extra = [
+      { name: 'choice_made', ts: now, player_id: 'api_q0', session_id: 'sq', event_id: 'g_x', historical: 1 },
+      { name: 'life_end', ts: now, player_id: 'api_q0', session_id: 'sq', heirs: 2 },
+      { name: 'app_open', ts: now, player_id: 'api_q0', session_id: 'sq', utm_source: 'telegram', utm_medium: 'post' },
+    ]
+    const len = JSON.stringify(se).length
+    const rq = await post('/api/events', { events: [se, ...extra] })
+    check('очередь 0: /api/events принял 4 события', rq.status === 200 && (await rq.json()).n === 4)
+    const rows = DB.sql.prepare("SELECT name, params_json FROM events WHERE player_id = 'api_q0'").all()
+    const p = Object.fromEntries(rows.map((x) => [x.name, JSON.parse(x.params_json)]))
+    check(`очередь 0: session_end (${len} знаков) цел`, len > 2000 && p.session_end?.events_shown?.dice === 3 && p.session_end?.year_windows?.['2'] === 4 && p.session_end?.losses?.mother === 1 && p.session_end?.utm === 'telegram' && p.session_end?.trades_sell?.good_119 === 119)
+    check('очередь 0: historical, heirs, utm_source', p.choice_made?.historical === 1 && p.life_end?.heirs === 2 && p.app_open?.utm_source === 'telegram')
+    // Убрать за собой: дальше отчёты сверяются с JS-расчётом по остальным событиям.
+    DB.sql.prepare("DELETE FROM events WHERE player_id = 'api_q0'").run()
+  }
   const idx = DB.sql.prepare("SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='events' ORDER BY name").all().map((x) => x.name)
   // С 3e3dc50 оставлен один индекс (name, ts): лишние индексы удваивали записи в D1.
   same('индексы events: только events_name_ts', idx, ['events_name_ts'])

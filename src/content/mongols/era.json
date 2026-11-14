@@ -465,7 +465,10 @@
         "style": "mongol",
         "land": "steppe",
         "prompt": "The Onon and Kherlen valleys: endless green steppe under a huge blue sky, white felt yurts with orange doors, herds of horses and sheep, a stone ovoo cairn with blue silk scarves on a hill"
-      }
+      },
+      "tags": [
+        "nomad"
+      ]
     },
     {
       "id": "karakorum",

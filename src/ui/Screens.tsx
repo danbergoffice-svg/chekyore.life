@@ -20,7 +20,7 @@ import { heroLook } from './Life'
 import { VolumeSlider } from './Sound'
 import { attitudeText, useUi } from './text'
 import { Icon, IconText } from './Icon'
-import { SocialLinks } from './Social'
+import { SocialLinks, SupportLink } from './Social'
 
 /** Языки этой сборки: на портале может быть только часть (CrazyGames - английский). */
 const LANGS = platform.languages ?? ALL_LANGS
@@ -166,8 +166,9 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
       </nav>
       {EXTERNAL && (
         <>
+          <SupportLink from="menu" />
           <p class="small muted center social-title">{t('social.title')}</p>
-          <SocialLinks from="menu" />
+          <SocialLinks from="menu" compact />
         </>
       )}
       {players !== null && <p class="small center players-note">{t('menu.players', { n: players, count: players.toLocaleString(LOCALE[lang]) })}</p>}
@@ -768,6 +769,8 @@ export function Settings(props: {
   onExport: () => void
   onImport: (file: File) => Promise<boolean>
   onBack: () => void
+  /** «Расскажи об игре подробнее»: обучение заново и подсказки вкладок снова. */
+  onTour?: () => void
   /** Раздел аккаунта (только свой сайт и не Россия). */
   account?: ComponentChildren
 }) {
@@ -823,6 +826,20 @@ export function Settings(props: {
           <span class="option-desc">{t('setup.soften.desc')}</span>
         </span>
       </label>
+      <label class="toggle">
+        <input type="checkbox" checked={p.notices !== false} onChange={(e) => props.onPrefs({ ...p, notices: e.currentTarget.checked })} />
+        <span>
+          <span class="option-label">{t('settings.notices')}</span>
+          <span class="option-desc">{t('settings.notices.desc')}</span>
+        </span>
+      </label>
+
+      {props.onTour && (
+        <button class="secondary settings-tour" onClick={props.onTour}>
+          {t('settings.tour')}
+          <span class="option-desc">{t('settings.tour.desc')}</span>
+        </button>
+      )}
 
       <h2 class="section-title">{t('settings.saves')}</h2>
       <p class="small muted">{t('settings.saves.desc')}</p>
