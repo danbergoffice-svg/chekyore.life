@@ -53,7 +53,7 @@
   "ev.c_grand_spoil.build.E03": "Satın alma - arabayı birlikte yapın",
   "ev.c_grand_spoil.build.ok.E03": "Araba eğri çıktı, ama onların. {npc} onu herkese gösteriyor: “{g:Dedemle|Ninemle} yaptık!”",
   "ev.c_grand_spoil.spoil.ok.E03": "Araba yatağının altında saklı, çörek de oracıkta yendi. Bu sizin ortak sırrınız.",
-  "ev.c_grand_spoil.text.E03": "Torunun {npc} fısıltıyla bir ballı çörek - ve bir oyuncak savaş arabası istiyor. Anne babası şımartmayı kesinlikle yasakladı.",
+  "ev.c_grand_spoil.text.E03": "{g=npc_sex:Erkek torunun|Kız torunun} {npc} fısıltıyla bir ballı çörek - ve bir oyuncak savaş arabası istiyor. Anne babası şımartmayı kesinlikle yasakladı.",
   "ev.c_grand_craft_later.text.E03": "{npc} neredeyse büyüdü ve senden iyi şeyler yapıyor. Bir gün her şeyin ikinizin yaptığı o eğri arabayla başladığını itiraf etti.",
   "ev.c_grand_craft_later.title.E03": "Eğri Araba",
   "ev.c_h_wound.honey.E03": "Eskiler gibi şarapla yıka, balla sar",

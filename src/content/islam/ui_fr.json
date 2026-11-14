@@ -1,0 +1,20 @@
+{
+  "era.ISL": "Le monde islamique : de Bagdad à Istanbul",
+  "era.ISL.years": "ap. J.-C. 750 - 1600",
+  "era.ISL.short": "monde islamique",
+  "region.baghdad": "Bagdad",
+  "region.damascus": "Damas",
+  "region.cairo": "Caire",
+  "region.cordoba": "Córdoba",
+  "region.istanbul": "Istanbul",
+  "region.baghdad.intro": "La ville ronde des califes, sur le Tigre, est l'une des plus grandes villes de la Terre. Papier, soie et livres circulent de tous les coins du monde, et la Maison de la Sagesse traduit les Grecs et les Indiens. Pourtant, ici les gens rixent, passent la faim et un jour devront faire face aux Mongols.",
+  "region.damascus.intro": "Ancienne ville dans l'oasis verte des Ghouta, sous la montagne de Qasiyun. L'ancienne capitale omeyyide maintient le commerce, les vergers et les célèbres métiers, tandis que les armées y passent de nouveau et de nouveau : croisés, mongols, Tamerlan, Ottomans.",
+  "region.cairo.intro": "Fondée par les Fatimides sur les bords du Nil, le Caire devient la capitale des sultans et la ville la plus peuplée du monde islamique. La vie suit les crues du fleuve, des étudiants affluent vers l'al-Azhar et les Coptes prient dans leurs anciennes églises.",
+  "region.cordoba.intro": "La capitale de l'al-Andalus, sur le Guadalquivir : une mosquée aux arches rouges et blanches, des rues pavées, des bibliothèques et des jardins d'orangers. Musulmans, chrétiens mozarabs et juifs vivent côte à côte tandis que des rois chrétiens avancent du nord.",
+  "region.istanbul.intro": "Autrefois Constantinople, désormais la capitale des sultans ottomans. Janissaries, le Grand Bazar, des navires sur le Horn d'Or, les mosquées de Sinan sur les collines. Musulmans, Grecs, Arméniens et Juifs font ensemble d'Istanbul l'une des villes les plus riches du monde.",
+  "region.baghdad.in": "à Bagdad",
+  "region.damascus.in": "à Damas",
+  "region.cairo.in": "au Caire",
+  "region.cordoba.in": "à Córdoba",
+  "region.istanbul.in": "à Istanbul"
+}

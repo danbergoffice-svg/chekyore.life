@@ -1,6 +1,6 @@
 {
-  "coin.deben": "deben bakır",
-  "coin.shekel": "şekel gümüş",
+  "coin.deben": "{p=n:deben|deben} bakır",
+  "coin.shekel": "{p=n:şekel|şekel} gümüş",
   "class.slave.ANE": "esir çocuğu, kulluk içinde",
   "class.peasant.ANE": "tapınak toprağında çalışan çiftçi ailesi",
   "class.craftsman.ANE": "zanaatkâr çocuğu",

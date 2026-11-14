@@ -1,5 +1,5 @@
 {
-  "coin.jpn_mon": "mon",
+  "coin.jpn_mon": "{p=n:mon|mon}",
   "class.slave.JPN": "bağlı hizmetkâr (genin)",
   "class.slave.short.JPN": "Genin",
   "class.slave.family.JPN": "bağlı hizmetkârlardan bir ailede",

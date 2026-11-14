@@ -43,6 +43,8 @@ const hashtag = (s: string) => `#${s.replace(/[^\p{L}\p{N}]+(\p{L})?/gu, (_, ch:
 /** Годы жизни коротко: «1328–1415», «350–280 до н. э.». */
 function span(from: number, to: number, lang: Lang): string {
   if (lang === 'tr') return from < 0 && to < 0 ? `MÖ ${-from}-${-to}` : from < 0 ? `MÖ ${-from} - MS ${to}` : `${from}-${to}`
+  if (lang === 'fr') return from < 0 && to < 0 ? `${-from}-${-to} av. J.-C.` : from < 0 ? `${-from} av. J.-C. - ${to} ap. J.-C.` : `${from}-${to}`
+  if (lang === 'es') return from < 0 && to < 0 ? `${-from}-${-to} a. C.` : from < 0 ? `${-from} a. C. - ${to} d. C.` : `${from}-${to}`
   const bc = lang === 'ru' ? ' до н. э.' : ' BC'
   if (from < 0 && to < 0) return `${-from}-${-to}${bc}`
   if (from < 0) return lang === 'ru' ? `${-from} до н. э. - ${to} н. э.` : `${-from} BC - AD ${to}`

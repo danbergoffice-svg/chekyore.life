@@ -1,0 +1,14 @@
+{
+  "era.E03": "Antiquité classique",
+  "era.E03.years": "500 av. J.-C. - 200 ap. J.-C.",
+  "region.rome": "Rome",
+  "region.athens": "Athènes",
+  "region.egypt": "Égypte",
+  "region.rome.intro": "Rome grandit d'une ville sur le Tibre en capitale d'un empire. La famille, les protecteurs et l'argent décident de tout, et les pauvres vivent dans des blocs de logements ténus appelés insulae.",
+  "region.athens.intro": "Athènes est une ville de l'assemblée, du théâtre et des philosophes. Mais seuls les citoyens masculins votent, et beaucoup de ses habitants sont esclaves ou étrangers.",
+  "region.egypt.intro": "L'Égypte vit au rythme des crues du Nil. Des rois grecs, puis des Romains, perçoivent des millions de fermiers, tandis que des savants du monde entier travaillent à Alexandrie.",
+  "region.rome.in": "à Rome",
+  "region.athens.in": "à Athènes",
+  "region.egypt.in": "en Égypte",
+  "era.E03.short": "Rome et Grèce"
+}

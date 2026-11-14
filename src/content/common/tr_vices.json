@@ -456,7 +456,7 @@
   "ev.v_rel_child_wine_later.cover": "Elâlemin önünde onu koru",
   "ev.v_rel_child_wine_later.cover.ok": "Komşulara “{npc} biraz rahatsız” dedin. Komşular başını salladı. Komşular biliyordu.",
   "ev.v_rel_sibling_drink.title": "Kan Bağı",
-  "ev.v_rel_sibling_drink.text": "Kardeşin {npc} kapıda - yüzü şiş, sırtında başkasının pelerini, ağzı içki kokuyor. Biraz para istiyor, “yarına kadar”.",
+  "ev.v_rel_sibling_drink.text": "{g=npc_sex:Erkek kardeşin|Kız kardeşin} {npc} kapıda - yüzü şiş, sırtında başkasının pelerini, ağzı içki kokuyor. Biraz para istiyor, “yarına kadar”.",
   "ev.v_rel_sibling_drink.give": "Parayı ver",
   "ev.v_rel_sibling_drink.give.ok": "“Yarına kadar” sonsuza dek uzadı. Parayı verirken bunu biliyordun.",
   "ev.v_rel_sibling_drink.takein": "Onu yanına al, içkiden uzak tut",

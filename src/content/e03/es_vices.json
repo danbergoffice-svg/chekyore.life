@@ -1,0 +1,21 @@
+{
+  "ev.v_dice_saturnalia.title": "Saturnalia",
+  "ev.v_dice_saturnalia.text": "¡Saturnalia! Durante una semana, el mundo está al revés: los patrones sirven a sus esclavos en la mesa, todos llevan un gorro de lana y se pueden tirar los dados al aire sin temor a los ediles. Toda la familia juega con nueces - y algunos ya con monedas.",
+  "ev.v_dice_saturnalia.nuts": "Jugar por nueces y reír",
+  "ev.v_dice_saturnalia.nuts.ok": "Perdiste un saco de nueces y volviste a ganar todo. No habías reído así en años.",
+  "ev.v_dice_saturnalia.coins": "Jugar por monedas",
+  "ev.v_dice_saturnalia.coins.success": "Durante la semana de la fiesta, ganaste más de lo que ganarías en un mes. ¡Vaya, la Saturnalia es tan corta…",
+  "ev.v_dice_saturnalia.coins.failure": "La fiesta terminó, y con ella también tu dinero. Pero ahora sabes qué olor tiene la fiebre.",
+  "ev.v_dice_saturnalia.watch": "Ver jugar a los demás",
+  "ev.v_dice_saturnalia.watch.ok": "Te sentaste junto al brasier viendo cómo el juego convertía a los hombres soñolientos en niños. Superó a cualquier espectáculo de la ciudad.",
+  "ev.v_dice_aedile.title": "El raid",
+  "ev.v_dice_aedile.text": "En mitad de un juego, los hombres del edil entran bruscamente a la popina. Jugar a los dados fuera de la Saturnalia significa una grave multa - y la vergüenza se extiende por todo el barrio.",
+  "ev.v_dice_aedile.pay": "Pagar la multa",
+  "ev.v_dice_aedile.pay.ok": "Pagaste. Peor, tu nombre quedó escrito, y al día siguiente toda la calle lo sabía.",
+  "ev.v_dice_aedile.bribe": "Pasarle una moneda al guardia",
+  "ev.v_dice_aedile.bribe.success": "El guardia se comportó como si nunca hubieras estado allí. Tiene una memoria conveniente, la suya.",
+  "ev.v_dice_aedile.bribe.failure": "El guardia resultó ser honrado - una rareza en esta ciudad. Ahora pagas la multa y la tentativa de soborno.",
+  "ev.v_dice_aedile.run": "Huir por el patio trasero",
+  "ev.v_dice_aedile.run.success": "Salteaste la valla y desapareciste en las callejuelas. El corazón le latía fuerte.",
+  "ev.v_dice_aedile.run.failure": "Te atraparon en la valla y te tumbaste justo a los pies de los guardias. Una multa, rasguños y rugidos de risas."
+}

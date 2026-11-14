@@ -1,8 +1,8 @@
 {
-  "ev.w_old_grandchild_lap.text": "Torunun {npc} kurt masalının ortasında kucağında uyuyakaldı. Kıpırdamaya korkarak hava kararana kadar öyle oturdun.",
+  "ev.w_old_grandchild_lap.text": "{g=npc_sex:Erkek torunun|Kız torunun} {npc} kurt masalının ortasında kucağında uyuyakaldı. Kıpırdamaya korkarak hava kararana kadar öyle oturdun.",
   "ev.w_old_first_word.text": "{npc} ilk kez “{g:Dede|Nine}” dedi - ve hemen kâseni istedi. Bütün aile evde bir dâhi olduğu konusunda hemfikir.",
-  "ev.w_old_needle.text": "Gözlerin eskisi gibi değil. Artık iğnene ipliği torunun {npc} geçiriyor, sana büyük bir lütufta bulunuyormuş havasıyla.",
-  "ev.w_old_grandchild_wedding.text": "Torunun {npc} evlendi. Düğünde yalnızca bir kez dans ettin, ama öyle ki konuklar bütün yıl bundan söz etti.",
+  "ev.w_old_needle.text": "Gözlerin eskisi gibi değil. Artık iğnene ipliği {g=npc_sex:erkek torunun|kız torunun} {npc} geçiriyor, sana büyük bir lütufta bulunuyormuş havasıyla.",
+  "ev.w_old_grandchild_wedding.text": "{g=npc_sex:Erkek torunun|Kız torunun} {npc} evlendi. Düğünde yalnızca bir kez dans ettin, ama öyle ki konuklar bütün yıl bundan söz etti.",
   "ev.w_old_joints.text.1": "Dizlerin artık yağmuru her falcıdan iyi haber veriyor. Komşular önce güldü; şimdi çamaşır asmanın güvenli olup olmadığını sana soruyorlar.",
   "ev.w_old_joints.text.2": "Bütün hayatın boyunca düşünmeden koşarak çıktığın merdiven birden uzadı. Basamakları saydın ve her beşincisinde dinlendin.",
   "ev.w_old_teeth.text": "Bir diş daha gitti. Artık en sevdiğin yemek lapa, cevizleri de taşla kırıyor ve bizim zamanımızda cevizler daha yumuşaktı diye söyleniyorsun.",

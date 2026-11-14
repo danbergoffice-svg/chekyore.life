@@ -752,9 +752,11 @@ div.hint .hint-x { background: none; border: 0; color: inherit; font: inherit; c
 .menu-topbar .grow { flex: 1; }
 .menu-topbar .badge { height: 32px; display: inline-flex; align-items: center; padding: 0 12px; background: rgba(28, 22, 16, 0.42); color: #f5ead6; border-color: rgba(255, 240, 210, 0.3); backdrop-filter: blur(6px); }
 .menu-topbar .sound-button { width: 34px; height: 34px; background: rgba(28, 22, 16, 0.42); color: #f5ead6; border-color: rgba(255, 240, 210, 0.3); backdrop-filter: blur(6px); }
-.menu-topbar .lang-switch { margin: 0; padding: 3px; gap: 2px; border-radius: 999px; background: rgba(28, 22, 16, 0.42); border: 1px solid rgba(255, 240, 210, 0.3); backdrop-filter: blur(6px); }
-.menu-topbar .lang-switch button { border: 0; background: none; color: #f5ead6; padding: 3px 9px; font-size: 13px; }
-.menu-topbar .lang-switch button.active { background: #f5ead6; color: #2b2119; }
+.menu-topbar .lang-switch { position: relative; margin: 0; padding: 0; gap: 0; background: none; border: 0; }
+.menu-topbar .lang-current { height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(255, 240, 210, 0.3); background: rgba(28, 22, 16, 0.42); color: #f5ead6; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; backdrop-filter: blur(6px); }
+.lang-menu { position: absolute; top: calc(100% + 6px); right: 0; z-index: 6; margin: 0; padding: 4px; list-style: none; min-width: 168px; background: #f5ead6; color: #2b2119; border-radius: 12px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35); }
+.lang-menu button { display: block; width: 100%; text-align: left; border: 0; background: none; color: inherit; font: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+.lang-menu button.active { background: #2b2119; color: #f5ead6; }
 .menu .title-block { position: relative; z-index: 2; margin: -46px 0 0; text-align: center; }
 .menu .game-title { margin: 0; font-size: clamp(2rem, 10vw, 2.7rem); line-height: 1.02; white-space: nowrap; }
 .menu .game-title.long { font-size: clamp(1.55rem, 8vw, 2.3rem); }

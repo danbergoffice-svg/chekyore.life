@@ -1,0 +1,21 @@
+{
+  "ev.v_dice_saturnalia.title": "Saturnalia",
+  "ev.v_dice_saturnalia.text": "Saturnalia ! Pendant une semaine, le monde est renversé : les maîtres servent leurs esclaves à la table, tout le monde porte un bonnet de laine, et on peut jeter les dés en plein air sans craindre les édiles. Tout le foyer joue avec des noix - et certains déjà avec des pièces.",
+  "ev.v_dice_saturnalia.nuts": "Jouer avec des noix et rire",
+  "ev.v_dice_saturnalia.nuts.ok": "Vous avez perdu un sac de noix et tout a été remis en ordre. Vous n'avez pas ri comme ça depuis des âges.",
+  "ev.v_dice_saturnalia.coins": "Jouer avec des pièces",
+  "ev.v_dice_saturnalia.coins.success": "Pendant la semaine de la fête, vous avez gagné plus que ce que vous gagnerez en un mois. Hélas, la Saturnalie est si courte…",
+  "ev.v_dice_saturnalia.coins.failure": "La fête est finie, et vos finances aussi. Mais maintenant vous savez ce que ressent la fièvre.",
+  "ev.v_dice_saturnalia.watch": "Regarder les autres jouer",
+  "ev.v_dice_saturnalia.watch.ok": "Vous êtes {g:resté|restée} près du brasier en observant le jeu faire passer des hommes raisonnables en enfants. Cela a surpassé tout spectacle de la ville.",
+  "ev.v_dice_aedile.title": "Le raid",
+  "ev.v_dice_aedile.text": "Au milieu d'un jeu, les hommes de l'édile pénètrent la popina. Jouer aux dés en dehors de la Saturnalie signifie une lourde amende - et la honte se répand dans tout le quartier.",
+  "ev.v_dice_aedile.pay": "Payez l'amende",
+  "ev.v_dice_aedile.pay.ok": "Vous avez payé. Pire, votre nom a été inscrit, et dès le lendemain toute la rue le savait.",
+  "ev.v_dice_aedile.bribe": "Donner une pièce à l'agent",
+  "ev.v_dice_aedile.bribe.success": "L'agent s'est comporté comme si vous n'existiez jamais. L'agent a une si bonne mémoire.",
+  "ev.v_dice_aedile.bribe.failure": "L'agent s'est révélé honnête - une rareté dans cette ville. Maintenant vous payez l'amende et la tentative de corruption.",
+  "ev.v_dice_aedile.run": "S'enfuir par le jardin derrière",
+  "ev.v_dice_aedile.run.success": "Vous avez franchi la clôture et disparu dans les ruelles. Votre cœur battait en route.",
+  "ev.v_dice_aedile.run.failure": "Vous êtes pris à la clôture et tombé juste aux pieds des gardes. Une amende, des griffes et des gloussements."
+}

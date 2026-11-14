@@ -1,0 +1,13 @@
+{
+  "ev.d_t_bondage.title": "Le serment",
+  "ev.d_t_bondage.text": "Au terme d'un emprunt, {npc} est désormais lié pour servir dans la maison du créancier jusqu'à ce que tous les drachmas soient payés. Le scribe du nom ne fait que s'écraser les épaules : les documents sont en ordre.",
+  "ev.d_t_bondage.pay": "Racher la dette",
+  "ev.d_t_bondage.pay.ok": "Vous avez déposé l'argent devant le créancier et pris le contrat. Il fut déchiré là-même, devant les témoins.",
+  "ev.d_t_bondage.petition": "Pétitionner le stratège",
+  "ev.d_t_bondage.petition.success": "Le stratège lut la pétition et jugea les termes comme somptueux. {npc} rentra chez lui le jour même.",
+  "ev.d_t_bondage.petition.failure": "La pétition attendit en archive un an et revint rejetée. Les scribes durent être payés à chaque ligne.",
+  "ev.d_t_bondage.share": "Travailler la dette ensemble",
+  "ev.d_t_bondage.share.ok": "Vous avez pris la moitié du travail vous-même : après votre propre champ, celui du créancier. Votre dos fait mal, mais la durée est divisée par deux.",
+  "ev.d_t_bondage.leave": "Chacun répond de ses propres dettes",
+  "ev.d_t_bondage.leave.ok": "{npc} ne dit pas un mot à vous pendant que {g=npc_sex:he was|she was} led away."
+}

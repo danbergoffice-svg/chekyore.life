@@ -106,7 +106,7 @@
   "ev.k1_weaning.keep": "Ne kadar istersen emzir: süt her lapadan iyidir",
   "ev.k1_weaning.keep.ok": "Neredeyse üç yaşına kadar emdin, komşu kadınlar da başlarını iki yana salladı. Ama komşu çocuklarından belirgin biçimde daha az hastalandın.",
   "ev.k1_sibling_guard.title": "Kıskançlık",
-  "ev.k1_sibling_guard.text": "Kardeşin {npc} kıskanıyor: sen geldiğinden beri ona kimse bakmıyor. Dün beşiği “yanlışlıkla” öyle salladı ki az kalsın yere uçuyordun.",
+  "ev.k1_sibling_guard.text": "{g=npc_sex:Erkek kardeşin|Kız kardeşin} {npc} kıskanıyor: sen geldiğinden beri ona kimse bakmıyor. Dün beşiği “yanlışlıkla” öyle salladı ki az kalsın yere uçuyordun.",
   "ev.k1_sibling_guard.guard": "Ona önemli bir görev ver: seni korumak",
   "ev.k1_sibling_guard.guard.success": "{npc} görevi ciddiye aldı: sinekleri, köpekleri, komşuları kovaladı, kimsenin sana izinsiz dokunmasına izin vermedi. Kıskançlıktan eser kalmadı - artık sen onun malıydın.",
   "ev.k1_sibling_guard.guard.failure": "Bekçilikte hiç işe yaramadı: bir saat geçmeden {npc} oyuna kaçtı, seni sineklerin bakımına bıraktı.",

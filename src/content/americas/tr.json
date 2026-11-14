@@ -1,6 +1,6 @@
 {
-  "coin.cloth": "top kumaş",
-  "class.slave.AMR": "tlacotli, yani köle",
+  "coin.cloth": "{p=n:top kumaş|top kumaş}",
+  "class.slave.AMR": "{g:tlacotli, yani köle|tlacotli, yani cariye}",
   "class.peasant.AMR": "macehualli, yani halktan biri",
   "class.craftsman.AMR": "zanaatkâr bir aileden",
   "class.trader.AMR": "uzak yol tüccarları olan bir pochteca ailesinden",
@@ -259,7 +259,7 @@
   "lifestyle.baths.sometimes.desc.quito": "Bayram günleri kaplıcalar",
   "religion.aztec_gods.texcoco": "Aztek tanrıları ve Tloque Nahuaque",
   "religion.catholic.AMR": "İspanyolların dini",
-  "coin.cacao.AMR": "avuç kakao",
+  "coin.cacao.AMR": "{p=n:avuç kakao|avuç kakao}",
   "prof.chinampa_farmer.desc": "Göl çamurundan ve sazdan yapılmış tarhlar: su yükselmezse yılda üç hasat.",
   "prof.mita_builder.desc": "Devlete karşı iş yükümlülüğün: yollar, köprüler, teraslar ve kaleler. Ağır iş, ama devlet ambarlarından doyuruluyorsun.",
   "prof.amanteca.desc": "Amantecalar, efendiler ve tanrılar için ketzal ve sinekkuşu tüylerinden kalkanlar, pelerinler ve başlıklar yapar.",

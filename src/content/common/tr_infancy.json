@@ -25,7 +25,7 @@
   "ev.inf_m_goose.text.IND": "Avluda bir horoz kanat çırparak üstüne atıldı - alev gibi ibikli, azgın bir horoz. Avaz avaz ağlayarak bütün avluyu koşa koşa kaçtın ve o günden beri horozlardan uzak duruyorsun.",
   "ev.inf_m_thunderstorm.text": "Bir gece öyle şiddetli bir fırtına koptu ki duvarlar sarsıldı. Yorganın altına büzüldün; büyüklerden biri de sabaha kadar yanında oturup bunun sadece göğün homurdanması olduğunu anlattı.",
   "ev.inf_m_first_tooth.text": "İlk dişin çıktı. Evdeki herkes parmağıyla yoklamak istedi ve hepsi sağlam bir diş olduğuna karar verdi.",
-  "ev.inf_m_sibling_jealous.text": "Kardeşin {npc} önce sana içerledi: sen geldiğinden beri kimse başka birine ilgi göstermiyordu. Bir keresinde seni çimdikledi - sen ağlamaya başlayınca korktu ve seni avutmak için çırpındı.",
+  "ev.inf_m_sibling_jealous.text": "{g=npc_sex:Erkek kardeşin|Kız kardeşin} {npc} önce sana içerledi: sen geldiğinden beri kimse başka birine ilgi göstermiyordu. Bir keresinde seni çimdikledi - sen ağlamaya başlayınca korktu ve seni avutmak için çırpındı.",
   "ev.inf_m_shoulders.text": "Baban {npc} seni omuzlarına aldı ve dünya birden kocaman oldu: damlar, ocak dumanları, yeryüzünün ta kıyısına uzanan bir yol. Saçlarına sımsıkı tutundun ve inmek istemedin.",
   "ev.inf_m_evil_eye.text": "Bir komşu seni biraz fazla uzun övünce bileğine hemen nazarlık bağlandı. Bebeği yüksek sesle övmek belayı çağırmaktır - bunu herkes bilir.",
   "ev.inf_m_evil_eye.text.islamic": "Boynuna minicik bir hamsa eli asıldı, seni öven herkes de “maşallah” demek zorundaydı - nazar değmesin diye.",

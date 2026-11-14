@@ -159,7 +159,7 @@
   "class.landowner.short": "Toprak sahipleri",
   "class.noble.short": "Soylular",
   "class.royal.short": "Kraliyet ailesi",
-  "coin.cacao": "avuç kakao",
+  "coin.cacao": "{p=n:avuç kakao|avuç kakao}",
   "cause.drowning": "boğuldu",
   "prof.monk": "{g:Keşiş|Rahibe}",
   "prof.monk.as": "{g:keşiş|rahibe}",

@@ -3,7 +3,7 @@ import type { LifeReport } from './report'
 // Типы движка. Движок не содержит исторических данных: всё приходит из content/*.json.
 
 export type Sex = 'm' | 'f'
-export type Lang = 'ru' | 'en' | 'tr'
+export type Lang = 'ru' | 'en' | 'tr' | 'fr' | 'es'
 
 export const ATTRIBUTES = ['health', 'intellect', 'strength', 'charisma', 'diligence', 'risk_tolerance'] as const
 export const HIDDEN = ['happiness', 'stress', 'loneliness', 'reputation', 'self_esteem', 'faith'] as const

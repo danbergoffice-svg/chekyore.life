@@ -1,5 +1,5 @@
 {
-  "coin.cowrie": "kauri dizisi",
+  "coin.cowrie": "{p=n:kauri dizisi|kauri dizisi}",
   "class.slave.WAF": "köle",
   "class.slave.short.WAF": "Köleler",
   "class.slave.family.WAF": "jon denen ev kölelerinden bir ailede",

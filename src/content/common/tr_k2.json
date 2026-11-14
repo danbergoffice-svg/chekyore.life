@@ -9,7 +9,6 @@
   "ev.k2_sweet_pot.ask.failure": "“Bayram için,” dediler. Günleri parmaklarınla saydın, parmakların yetmedi.",
   "ev.k2_sweet_pot.wait": "Bayramı bekle",
   "ev.k2_sweet_pot.wait.ok": "Her gün rafın önüne gidip sadece baktın. Bayramda en büyük parçayı sana verdiler - sabrın için.",
-
   "ev.k2_haircut.title": "Küçük berber",
   "ev.k2_haircut.text": "Büyüklerin iplik kestiği keskin bıçağı buldun ve saçlarının gözüne girdiğine, artık gitmeleri gerektiğine karar verdin. Etrafta kimse yok.",
   "ev.k2_haircut.cut": "Perçemini kendin kes",
@@ -20,7 +19,6 @@
   "ev.k2_haircut.dog.failure": "Köpek dayanmadı. Bir korku ve bir çizikle kurtuldun, bıçağı da elinden temelli aldılar.",
   "ev.k2_haircut.put_back": "Bıçağı yerine koy",
   "ev.k2_haircut.put_back.ok": "Bıçağı bulduğun yere koydun, düzgün dursun diye bir de hizaladın. Saçların gözüne girmeye devam etti ama vicdanın rahattı.",
-
   "ev.k2_hide_basket.title": "Sepetin içinde",
   "ev.k2_hide_basket.text": "Herkes seni arasın diye köşedeki büyük sepete girdin. Önce neşeyle seslendiler, sonra telaşla, şimdi de biri komşulara koştu bile.",
   "ev.k2_hide_basket.come_out": "Çık ve “Buradayım!” de",
@@ -28,7 +26,6 @@
   "ev.k2_hide_basket.stay": "Sessiz otur - arasınlar",
   "ev.k2_hide_basket.stay.success": "Seni hapşırığından buldular. Büyükler önce kemiklerin çıtırdayacak kadar sıkı sarıldı, ancak sonra azarladı.",
   "ev.k2_hide_basket.stay.failure": "Sepette uyuyakaldın; bütün sokak hava kararana kadar seni hendeklerde, arka bahçelerde aradı. Bulduklarında kimse gülmedi - bu da her dayaktan beterdi.",
-
   "ev.k2_watering.title": "Küçük yardımcı",
   "ev.k2_watering.text": "Sabah büyükler koca bir küpü suyla doldurup işlerine gittiler. Sen de yardım etmeye karar verdin ve avludaki her şeyi suladın: sebze tarhını, ağacı, köpeği ve ocağı. Küp boş, ocak cızırdıyor, köpek sırılsıklam.",
   "ev.k2_watering.fetch": "Suyu kendin getir",
@@ -38,7 +35,6 @@
   "ev.k2_watering.hide.ok": "Seni ıslak ayak izlerinden buldular. Büyükler ocağı kimin söndürdüğünü uzun uzun sorup durdu, oysa izler küçüktü ve doğruca sana çıkıyordu.",
   "ev.k2_watering.tell": "Büyükleri karşıla ve her şeyi anlat",
   "ev.k2_watering.tell.ok": "Köpeği bile atlamadan her şeyi dürüstçe anlattın. Büyükler iç çekip yeniden suya gitti, en küçük testiyi taşıman için seni de yanlarına aldılar.",
-
   "ev.k2_dark.title": "Karanlık",
   "ev.k2_dark.text": "Gece uyandın: ocak sönmüş, ev zifiri karanlık, köşede bir şey hışırdıyor. Belki bir fare. Belki de değil.",
   "ev.k2_dark.wake": "Büyükleri uyandır",
@@ -48,7 +44,6 @@
   "ev.k2_dark.look.failure": "Bir çömleğe takıldın, çömlek tangırdadı, sen çığlığı bastın; bütün ev uyandı, ardından da komşular. Hışırtı sır olarak kaldı.",
   "ev.k2_dark.cover": "Başını örtüye göm ve nefesini tut",
   "ev.k2_dark.cover.ok": "Şafağa kadar öyle yatıp her sesi dinledin. Sabah köşede eski paçavralardan başka bir şey çıkmadı, sen de bütün gün esnedin.",
-
   "ev.k2_dark_later.title": "Karanlıkta bir hışırtı",
   "ev.k2_dark_later.text": "Bu gece avluda bir şey hışırdıyor - tıpkı çocukken karanlık köşeye canavara bakmaya gittiğin o gece gibi. Yalnız şimdi bakacak senden başka kimse yok.",
   "ev.k2_dark_later.go": "Bir ışık al ve dışarı çık",
@@ -56,7 +51,6 @@
   "ev.k2_dark_later.go.failure": "Kuru yapraklarda esen rüzgârmış sadece. Ama karanlıkta tökezleyip elini kendi ışığında yaktın.",
   "ev.k2_dark_later.neighbors": "Komşuları uyandır",
   "ev.k2_dark_later.neighbors.ok": "Komşular sopalarla gelip avluyu aradılar, kimseyi bulamadılar. Söylene söylene dağıldılar; biri de çocukken senin daha cesur olduğunu duyduğunu söyledi.",
-
   "ev.k2_scary_neighbor.title": "Korkunç komşu",
   "ev.k2_scary_neighbor.text": "İki ev ötede yüzü çopur, tek gözlü bir ihtiyar oturuyor. Büyük çocuklar onun yaramazları yediğini söylüyor. Bugün kapısının önünde oturmuş, parmağıyla seni çağırıyor ve avucunda bir şey saklıyor.",
   "ev.k2_scary_neighbor.approach": "Yanına git",
@@ -66,7 +60,6 @@
   "ev.k2_scary_neighbor.run.ok": "Eve kadar koştun ve uzun süre onun evinin önünden geçmemek için yolunu değiştirdin.",
   "ev.k2_scary_neighbor.stone": "Büyükler gibi ona bir çakıl at",
   "ev.k2_scary_neighbor.stone.ok": "Çakıl ihtiyarın çok uzağına düştü. O sadece tek gözüyle sana baktı - ve o bakış seni günlerce utandırdı.",
-
   "ev.k2_neighbor_legacy.title": "İhtiyarın mirası",
   "ev.k2_neighbor_legacy.text": "Küçükken yanına koştuğun tek gözlü ihtiyar öldü. Ölmeden önce oyma bıçaklarının ve yarım kalmış tahta kuşun sana verilmesini istemiş.",
   "ev.k2_neighbor_legacy.learn": "Kuşu bitir ve oymacılığı öğren",
@@ -75,7 +68,6 @@
   "ev.k2_neighbor_legacy.keep.ok": "Bıçakları temiz bir beze sarıp kuşla birlikte kaldırdın. Arada bir çıkarıp onun gülüşünü hatırlıyorsun.",
   "ev.k2_neighbor_legacy.sell": "İyi bıçakları sat",
   "ev.k2_neighbor_legacy.sell.ok": "Çarşıdaki bir usta bıçaklara iyi para verdi ve onları uzun uzun evirip çevirdi: “Eski iş. Artık böylesini yapan yok.” Kuşu kendine sakladın.",
-
   "ev.k2_mask.title": "Maske",
   "ev.k2_mask.text": "Şenlikte kalabalığın arasından kocaman maskeli bir adam fırladı - dişleri sivri, gözleri patlak, sakalı tüylü otlardan. Tam sana doğru eğildi ve hırladı.",
   "ev.k2_mask.hide": "Ağlayıp büyüklerin arkasına saklan",
@@ -86,7 +78,6 @@
   "ev.k2_mask.growl": "Sen de ona hırla",
   "ev.k2_mask.growl.success": "Maske korkmuş gibi geri sıçradı, etraftakiler kahkahayı bastı. “İşte canavar bu!” dedi biri ve uzun süre sana böyle seslendiler.",
   "ev.k2_mask.growl.failure": "Hırlaman cıyaklama gibi çıktı. Maske başını salladı ve korkutmaya daha değer birini aramaya gitti.",
-
   "ev.k2_big_dog.title": "Patikadaki köpek",
   "ev.k2_big_dog.text": "Eve giden patikanın ortasına kocaman, yabancı bir köpek uzanmış. Hırlamıyor ama kalkmıyor da, sarı gözleriyle sana bakıyor sadece. Etrafından dolaşmanın tek yolu dikenlerin içinden.",
   "ev.k2_big_dog.pass": "Ona bakmadan yanından geç",
@@ -97,7 +88,6 @@
   "ev.k2_big_dog.share": "Lokmanı ona ver",
   "ev.k2_big_dog.share.success": "Köpek ikramı nazikçe aldı, avucunu kokladı ve seni kapıya kadar geçirdi. Artık her gün seni patikada bekliyor.",
   "ev.k2_big_dog.share.failure": "Köpek lokmayı çiğnemeden yuttu ve başka var mı diye baktı. Yoktu. Sonunda yine dikenlerin içinden geçmek zorunda kaldın.",
-
   "ev.k2_lost_field.title": "Kayboldun",
   "ev.k2_lost_field.text": "Bir yusufçuğun peşinden uzun otların arasına daldın; o uçup gidince etrafında başından yüksek saplardan başka bir şey kalmadı. Ev görünmüyor, ses duyulmuyor.",
   "ev.k2_lost_field.shout": "Olduğun yerde durup bağır",
@@ -108,7 +98,6 @@
   "ev.k2_lost_field.smoke.failure": "Duman başkasınınmış - çobanların ateşi. Çobanlar seni doyurdu ve akşama doğru herkesin telaştan çıldırdığı evine getirdi.",
   "ev.k2_lost_field.sit": "Oturup ağla",
   "ev.k2_lost_field.sit.ok": "Sapların arasında uyuyakalana kadar ağladın. Eve giden yolda birinin kucağında uyandın ve uzun süre nerede olduğunu anlayamadın.",
-
   "ev.k2_tall_tale.title": "Duvarın ardındaki canavar",
   "ev.k2_tall_tale.text": "Komşu çocuklarına eski duvarın arkasında üç kuyruklu bir canavar yaşadığını anlattın. Onu az önce uydurdun ama çocuklar inandı - şimdi büyükler de orada tam olarak ne gördüğünü soruyor.",
   "ev.k2_tall_tale.confess": "Uydurduğunu itiraf et",
@@ -118,7 +107,6 @@
   "ev.k2_tall_tale.embellish.failure": "Üçüncü kuyruğun rengini sordular, sen de karıştırdın. Bir hafta boyunca komşu çocukları sana yalancı dedi.",
   "ev.k2_tall_tale.swear": "Hepsinin doğru olduğuna yemin et",
   "ev.k2_tall_tale.swear.ok": "Öyle ateşli yemin ettin ki sana inandılar - ve bütün çocukların duvara yaklaşmasını yasakladılar. Artık sen de oraya gidemiyorsun.",
-
   "ev.k2_storyteller_grown.title": "Masalcı",
   "ev.k2_storyteller_grown.text": "Bir akşam ateşin başında biri, senin küçükken üç kuyruklu bir canavar uydurduğunu hatırladı. “Bize bir şey anlat,” diyor komşular, ihtiyarlar bile yaklaşıp oturuyor.",
   "ev.k2_storyteller_grown.tell": "Yeni bir hikâye anlat",
@@ -126,7 +114,6 @@
   "ev.k2_storyteller_grown.tell.failure": "Hızlı başladın ama yarısında sözü nereye bağlayacağını unuttun. Dinleyenler kibarca esnedi.",
   "ev.k2_storyteller_grown.joke": "Şakaya vur",
   "ev.k2_storyteller_grown.joke.ok": "“Canavar büyüdü ve taşındı,” dedin, herkes güldü. Bazen bu kadarı yeter.",
-
   "ev.k2_imaginary_friend.title": "Görünmez arkadaş",
   "ev.k2_imaginary_friend.text": "Senden başka kimsenin görmediği bir arkadaşın var. Adı Hışır, ocağın arkasındaki köşede yaşıyor ve yemekte ona bir lokma ayırıyorsun. Büyükler endişeyle birbirine bakmaya başladı.",
   "ev.k2_imaginary_friend.defend": "Arkadaşını savun",
@@ -145,7 +132,6 @@
   "ev.k2_imaginary_friend.healer.african": "Bir kâhin atalara danışsın",
   "ev.k2_imaginary_friend.healer.success": "Seni uzun uzun süzdüler, sonra büyüklere, “Bırakın. Böyle arkadaşlar iyi çocuklara gelir, onlar büyüyünce de kendiliğinden gider,” dediler.",
   "ev.k2_imaginary_friend.healer.failure": "Başında uzun uzun okudular, tütsülediler, su serptiler. Hışır bundan sonra ortadan kayboldu - belki de sadece gücendi.",
-
   "ev.k2_imaginary_return.title": "Eski bir dost",
   "ev.k2_imaginary_return.text": "Kimseyle iki çift laf edemediğin zor bir yılda birden kendini çocukluğunun görünmez arkadaşı Hışır'la yüksek sesle konuşurken yakaladın. Ve işin tuhafı, içine bir ferahlık geldi.",
   "ev.k2_imaginary_return.talk": "Onunla biraz daha konuş",
@@ -153,7 +139,6 @@
   "ev.k2_imaginary_return.people": "Kendine gül ve insanların arasına çık",
   "ev.k2_imaginary_return.people.success": "Hiçbir iş yokken, öylesine komşulara uğradın. Seni oturttular, doyurdular, dinlediler - meğer onların yılı da zor geçmiş.",
   "ev.k2_imaginary_return.people.failure": "Komşuların sana ayıracak vakti yoktu. Eve döndün ve sohbetini yine Hışır'la bitirdin.",
-
   "ev.k2_big_kids_secret.title": "Yemin",
   "ev.k2_big_kids_secret.text": "Sokağın büyük çocukları seni ilk kez yanlarına aldı - eski bir evin yıkıntısındaki gizli yerlerine. Hazineleri orada saklı: çömlek kırıkları, tüyler, bir deniz kabuğu. Ayrılırken sana susacağına dair yemin ettirdiler. Akşam da büyükler yarım gün nerede kaldığını soruyor.",
   "ev.k2_big_kids_secret.keep": "Taş gibi sus",
@@ -163,14 +148,12 @@
   "ev.k2_big_kids_secret.lie": "Komşularda oynadığını söyle",
   "ev.k2_big_kids_secret.lie.success": "Sana inandılar. İlk kez bir sırrı taşımanın ne kadar ağır - ve ne kadar hoş - olduğunu öğrendin.",
   "ev.k2_big_kids_secret.lie.failure": "Komşular da tam o sırada çocukları sizde mi diye sormaya gelmişti. Yalan kısa sürdü, konuşma uzun.",
-
   "ev.k2_oath_repaid.title": "Eski bir yemin",
   "ev.k2_oath_repaid.text": "Bir zamanlar seni yıkıntıya götüren o büyük çocuklardan biri çoktan büyümüş, sözü dinlenen biri olmuş. Seni sokakta tanıdı: “Sen bizi ele vermeyen o küçüksün!”",
   "ev.k2_oath_repaid.help": "İşlerinde yardım iste",
   "ev.k2_oath_repaid.help.ok": "Seni doğru insanlarla tanıştırdı, kendisi de faizsiz biraz borç verdi. “Kabuğun hatırına,” dedi ve göz kırptı.",
   "ev.k2_oath_repaid.remember": "Sadece eski günleri an",
   "ev.k2_oath_repaid.remember.ok": "Hava kararana kadar oturup o hazine yığınında neler olduğunu tek tek saydınız. Meğer kabuğu hâlâ saklıyormuş.",
-
   "ev.k2_bedtime_story.title": "Bir masal daha",
   "ev.k2_bedtime_story.text": "Her akşam aynı masalı istiyorsun - kurnaz kaplumbağa ile aptal dev masalını - ve tek bir kelime atlayanın vay haline. Bu gece masalcı tam ortasında uyuyakaldı.",
   "ev.k2_bedtime_story.wake": "Dürtüp sonunu iste",
@@ -180,7 +163,6 @@
   "ev.k2_bedtime_story.finish.ok": "Fısıltıyla bitirdin; seninkinde kaplumbağa devi iki kez kandırdı. Meğer masalcı uyumuyormuş, sonra senin sonunu başkalarına da anlattı.",
   "ev.k2_bedtime_story.sleep": "Sen de uyu",
   "ev.k2_bedtime_story.sleep.ok": "Masalcının böğrüne sokulup uyudun ve rüyanda kaplumbağa sonunda kazandı.",
-
   "ev.k2_tale_passed.title": "O masal",
   "ev.k2_tale_passed.text": "Komşunun küçükleri yakanı bırakmıyor: anlat da anlat. Sen de birden o kurnaz kaplumbağa masalına başlıyorsun - çocukken kendi uydurduğun sonuyla.",
   "ev.k2_tale_passed.same": "Hatırladığın gibi anlat",
@@ -188,7 +170,6 @@
   "ev.k2_tale_passed.new_end": "Yeni bir son uydur",
   "ev.k2_tale_passed.new_end.success": "Yeni son eskisinden de güzel oldu. Artık küçükler her akşam sadece onu istiyor - kelimesi kelimesine.",
   "ev.k2_tale_passed.new_end.failure": "Küçükler yeni sonu beğenmedi. “Yanlış!” diye bağırıp eskisini istediler.",
-
   "ev.k2_first_chore.title": "İlk görev",
   "ev.k2_first_chore.text": "Annen {npc} sana ilk kez gerçek bir iş verdi: üç ev ötedeki hasta komşuya bir çömlekçik sıcak yemek götürmek. “Koşma, kapağını da açma,” dedi.",
   "ev.k2_first_chore.careful": "Yavaşça, iki elinle taşı",
@@ -200,7 +181,6 @@
   "ev.k2_first_chore.run": "Çabuk bitsin diye koş",
   "ev.k2_first_chore.run.success": "Rüzgârdan hızlı vardın, yemek hâlâ sıcaktı. Komşu güldü: “İşte haberci dediğin!”",
   "ev.k2_first_chore.run.failure": "Sokağın ortasında boylu boyunca yere serildin. Sıcak yemek elini yaktı, çömlekçik de ikiye ayrıldı.",
-
   "ev.k2_tantrum.title": "Fırtına",
   "ev.k2_tantrum.text": "Baban {npc} seni yanına almadı. Avlunun ortasında kendini yere attın, bağırdın ve ayaklarını öyle bir yere vurdun ki komşular koşup geldi.",
   "ev.k2_tantrum.scream": "Daha da yüksek sesle bağır",
@@ -211,7 +191,6 @@
   "ev.k2_tantrum.follow": "Gizlice peşinden koş",
   "ev.k2_tantrum.follow.success": "Baban seni ancak tarlaların kenarında fark etti, iç çekti ve elini tuttu. Bütün yazın en güzel günüydü.",
   "ev.k2_tantrum.follow.failure": "Yüz adım sonra onu gözden kaybettin ve burnunu çekerek geri döndün. Evde bir de azar işittin.",
-
   "ev.k2_share.title": "Paylaşmak",
   "ev.k2_share.text": "Elinde olgun, tatlı bir meyve var - bütün, sadece senin. Yanında senden de küçük, cılız, üstündeki başkasından kalma giysiler bol gelen bir komşu çocuğu duruyor ve sana değil, meyveye bakıyor.",
   "ev.k2_share.half": "Yarısını ver",
@@ -220,14 +199,12 @@
   "ev.k2_share.all.ok": "Küçük bir anda çekirdeğiyle birlikte hepsini yedi ve sana öyle bir baktı ki hiç pişman olmadın.",
   "ev.k2_share.eat": "Arkanı dönüp kendin ye",
   "ev.k2_share.eat.ok": "Meyve tatlıydı ama nedense umduğun kadar tatlı değildi.",
-
   "ev.k2_share_repaid.title": "Yarım meyve",
   "ev.k2_share_repaid.text": "Çarşıda bir yabancı yanına gelip birden gülümsüyor: “Seni hatırlıyorum. Küçükken bana meyveni vermiştin. Ondan tatlısını hiç yemedim.” Şimdi burada tezgâhı var - ve işleri iyi görünüyor.",
   "ev.k2_share_repaid.accept": "Hediyesini kabul et",
   "ev.k2_share_repaid.accept.ok": "Sepetini en iyi malıyla doldurdu ve karşılığında hiçbir şey almadı. “İyiliğe iyilik,” dedi.",
   "ev.k2_share_repaid.refuse": "Reddet ve sadece sohbet et",
   "ev.k2_share_repaid.refuse.ok": "Çarşı kapanana kadar konuştunuz. O günden beri uzaktan başıyla selam veriyor, yan tezgâhtakiler de saygıyla nereden tanıştığınızı soruyor.",
-
   "ev.k2_dead_bird.title": "Yavru kuş",
   "ev.k2_dead_bird.text": "Ağacın altında yuvadan düşmüş bir yavru kuş yatıyor - tüysüz, gözleri kapalı. Kımıldamıyor. Yanına çömeldin ve ilk kez ne yapacağını bilmiyorsun.",
   "ev.k2_dead_bird.warm": "Avuçlarında ısıt",
@@ -246,7 +223,6 @@
   "ev.k2_dead_bird.bury.ok": "Bir çubukla küçük bir çukur kazdın ve uzun süre toprak yığınının başında oturdun. Büyükler sana karışmadı.",
   "ev.k2_dead_bird.ask": "Büyüklere neden kımıldamadığını sor",
   "ev.k2_dead_bird.ask.ok": "Sana her canlının bir gün sonsuza dek uyuduğunu, nereye gittiğini ise herkesin kendince düşündüğünü söylediler. Bütün akşam bunu düşündün.",
-
   "ev.k2_stuck_high.title": "Yüksekte",
   "ev.k2_stuck_high.text": "Çitin yanındaki ağaca tırmandın - izin verilenden yükseğe, niyet ettiğinden yükseğe. Çıkmak kolaydı. Aşağı bakmak korkutucu, altındaki dal da usul usul gıcırdıyor.",
   "ev.k2_stuck_high.shout": "Yardım için seslen",
@@ -256,7 +232,6 @@
   "ev.k2_stuck_high.climb_down.failure": "Son dal kırıldı. Toza pat diye düştün, uzun bir an nefes alamadın, sonra da acıdan çok gururun incindiği için ağladın.",
   "ev.k2_stuck_high.stay": "Otur ve etrafı seyret",
   "ev.k2_stuck_high.stay.ok": "Yukarıdan her şey görünüyordu: damlar, yollar, uzak tarlalar ve karınca boyunda insanlar. Yokluğunu ancak akşam fark ettiler, seni indirmek için ateş yakmak gerekti.",
-
   "ev.k2_altar_food.title": "Senin için değil",
   "ev.k2_altar_food.text": "Ev sunağına ikramlar bırakılmış - tatlı toplar ve olgun meyveler. Büyükler bunların insanlar için olmadığını söylüyor. Ama etrafta kimse yok, kokusu da karnını kazındırıyor.",
   "ev.k2_altar_food.text.polytheist": "Ev sunağına evin tanrıları için ikram bırakılmış - ballı bir çörek ve olgun meyveler. Büyükler dokunulmayacağını söylüyor. Ama etrafta kimse yok, kokusu da karnını kazındırıyor.",
@@ -272,7 +247,6 @@
   "ev.k2_altar_food.ask.ok": "Sana önce onların yiyeceğini, sonra ikramın herkese paylaştırılacağını anlattılar. Akşama kadar bekledin - ve beklediğine değdi.",
   "ev.k2_altar_food.leave": "Uzaklaş ve bakma",
   "ev.k2_altar_food.leave.ok": "Arkanı döndün, hatta gözlerini sımsıkı yumdun. Akşam ilk parçayı sana verdiler - büyükler her şeyi görmüş.",
-
   "ev.k2_open_pen.title": "Herkese özgürlük",
   "ev.k2_open_pen.text": "Ağılda kapalı hayvanlara acıdın ve biraz gezinsinler diye kapıyı açtın. Gezindiler de - komşuların bostanlarında, sokakta ve birinin kurumaya serilmiş çamaşırlarının üstünde.",
   "ev.k2_open_pen.chase": "Geri kovala",
@@ -283,7 +257,6 @@
   "ev.k2_open_pen.blame": "Kapının kendi kendine açıldığını söyle",
   "ev.k2_open_pen.blame.success": "Büyükler rüzgâra söylenip mandalı onardı. Sen de dünyanın en masum yüzüyle izledin.",
   "ev.k2_open_pen.blame.failure": "Kapının önünde senin ayak izlerin duruyordu - küçücük, kimseninkiyle karıştırılamayacak izler.",
-
   "ev.k2_m_shadow.text": "Bütün sabah kendi gölgenden kaçmaya, sonra da onun başına basmaya çalıştın. Gölge senden kurnaz çıktı.",
   "ev.k2_m_echo.text": "Boş, koca bir küpün içine adını bağırdın, küp de gümbür gümbür aynısını söyledi. Büyüklerin sabrı tükenene kadar yarım gün böyle konuştunuz.",
   "ev.k2_m_mud_cakes.text": "Çamurdan koca bir sofra hazırladın ve ciddi ciddi bütün büyüklere ikram ettin. Her biri dürüstçe çiğniyormuş gibi yapıp yemeği övdü.",
@@ -303,5 +276,6 @@
   "ev.k2_m_snail.text": "Bir salyangoz buldun, ona bir ad verdin ve bütün gün avucunda taşıdın. Sabaha sürünüp gitmişti - kendi salyangoz işlerine, herhalde.",
   "ev.k2_m_wet_mat.text": "Gece rüyanda bir nehir gördün, sabah da yatağın güneşte kuruyordu. Evdeki herkes özenle hiçbir şey olmamış gibi davrandı.",
   "ev.k2_m_run_away.text": "Küstün ve evden sonsuza dek gittin - yan avlunun köşesine kadar. Sonsuza dek, akşam yemeğinin kokusu gelince bitti.",
-  "ev.k2_m_reflection.text": "İlk kez su dolu bir kâsede yüzünü iyice gördün ve oradaki yabancı çocuğa uzun uzun yüz buruşturdun. Çocuk da sana buruşturdu - bu çok şüpheliydi."
+  "ev.k2_m_reflection.text": "İlk kez su dolu bir kâsede yüzünü iyice gördün ve oradaki yabancı çocuğa uzun uzun yüz buruşturdun. Çocuk da sana buruşturdu - bu çok şüpheliydi.",
+  "ev.k2_oath_repaired.remember.ok": "Sen alacakaranlığa kadar oturuyorsun, bu hazine yığınının içindekileri gözden geçiriyorsun. Görünüşe göre o hâlâ kabuğu saklıyor."
 }

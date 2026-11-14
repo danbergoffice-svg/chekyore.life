@@ -1,5 +1,5 @@
 {
-  "coin.byz_miliaresion": "miliaresion",
+  "coin.byz_miliaresion": "{p=n:miliaresion|miliaresion}",
   "class.slave.BYZ": "ev kölesi",
   "class.slave.short.BYZ": "Köleler ve hizmetkârlar",
   "class.slave.family.BYZ": "bir ev kölesi ailesinde",

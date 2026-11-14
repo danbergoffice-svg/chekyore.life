@@ -1,6 +1,6 @@
 {
-  "coin.dirham": "dirhem",
-  "coin.akce": "akçe",
+  "coin.dirham": "{p=n:dirhem|dirhem}",
+  "coin.akce": "{p=n:akçe|akçe}",
   "class.slave.ISL": "köle",
   "class.peasant.ISL": "fellah",
   "class.craftsman.ISL": "çarşı zanaatkârının çocuğu",
@@ -142,5 +142,6 @@
   "lifestyle.food.feasts.desc.ISL": "Onlarca yemekli ziyafetler, tatlılar, konuklar ve şöhret. Pahalı",
   "lifestyle.medicine.physician.desc.ISL": "Bilgili bir hekim ailenin sağlığını gözetir. Pahalı, ama daha az kişi ölür",
   "lifestyle.baths.daily.desc.ISL": "Buhar, mermer göbek taşları, mahallenin haberleri. Şehirde yaşamak gerekir",
-  "prof.translator.desc.ISL": "Hekimlerin, filozofların ve gökbilimcilerin kitaplarını Yunancadan ve Süryaniceden çevirirsin. Ücret altınla ödenir, ölçütler de katıdır."
+  "prof.translator.desc.ISL": "Hekimlerin, filozofların ve gökbilimcilerin kitaplarını Yunancadan ve Süryaniceden çevirirsin. Ücret altınla ödenir, ölçütler de katıdır.",
+  "prof.caravaneer.desc.ISL": "Develeri bir su çölünden diğerine, kervansaraydan kervansaraya götürüyorsun. Kazançlı ve tehlikeli."
 }

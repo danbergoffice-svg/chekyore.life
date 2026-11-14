@@ -591,7 +591,7 @@
   "ev.f_convert_friends.cut": "Hesap verme: bu benim yolum",
   "ev.f_convert_friends.gift": "Cemaatlerine sessizce parayla yardım et",
   "ev.f_convert_kin.title": "Kan bağı",
-  "ev.f_convert_kin.text": "Kardeşin {npc}, inancını değiştirdiğinden beri seninle konuşmuyor. Bugün sokakta burun buruna geldiniz.",
+  "ev.f_convert_kin.text": "{g=npc_sex:Erkek kardeşin|Kız kardeşin} {npc}, inancını değiştirdiğinden beri seninle konuşmuyor. Bugün sokakta burun buruna geldiniz.",
   "ev.f_convert_kin.reach": "İlk sen konuş",
   "ev.f_convert_kin.reach.success": "Tuhaf bir sessizlik, sonra gözyaşları - ve bir sarılma. İnançlarınız artık farklı, ama kanınız aynı.",
   "ev.f_convert_kin.reach.failure": "{npc} arkasını döndü ve tek söz etmeden gitti.",

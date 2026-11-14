@@ -1,0 +1,20 @@
+{
+  "era.EUR": "L'Europe médiévale",
+  "era.EUR.short": "Europe",
+  "era.EUR.years": "An 1000 - 1500",
+  "region.cologne": "Cologne",
+  "region.cologne.in": "à Cologne",
+  "region.cologne.intro": "Cologne est la plus grande ville du Saint-Empire romain, sur le Rhin. Elle conserve les reliques des Trois Rois, ses marchands commercent de Londres à Novgorod, et ses bourgeois discutent avec l'archevêque pour savoir qui dirige la ville.",
+  "region.florence": "Florence",
+  "region.florence.in": "à Florence",
+  "region.florence.intro": "Florence est une république citadine sur l'Arno. Sa richesse est le tissu de laine et la banque, sa malédiction les querelles des grandes familles. Les guildes et les marchands gouvernent ici, pas les rois.",
+  "region.london": "Londres",
+  "region.london.in": "à Londres",
+  "region.london.intro": "Londres est le grand port de l'Angleterre sur la Tamise. Après 1066, des rois normands y règnent, trois langues y sont parlées, et la ville est fière de ses libertés et de ses guildes de marchands.",
+  "region.paris": "Paris",
+  "region.paris.in": "à Paris",
+  "region.paris.intro": "Paris est la capitale des rois capétiens de France. Une cathédrale s'élève sur l'Île de la Cité, des étudiants discutent sur la Rive Gauche, et autour de la ville s'étendent des champs et des vignobles cultivés par des paysans pour leurs seigneurs.",
+  "region.toledo": "Tolède",
+  "region.toledo.in": "à Tolède",
+  "region.toledo.intro": "La Castille a pris Tolède aux musulmans en 1085. Dans ses rues, les cloches des églises sonnent, les synagogues chantent et l'appel à la prière résonne encore, tandis que des érudits des trois religions traduisent ensemble des livres arabes en latin."
+}

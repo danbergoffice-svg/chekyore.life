@@ -8,7 +8,6 @@
   "ev.k5_herd_stray.salt": "Avucundaki tuzla onu kandır",
   "ev.k5_herd_stray.salt.success": "Keçi tuzun kokusunu aldı, indi ve bağlıymış gibi peşine takıldı. Yaşlı çoban homurdandı: bu numarayı kırk yıl önce kendisi icat etmişti.",
   "ev.k5_herd_stray.salt.failure": "Keçi tuzu yaladı, sana minnetle baktı ve daha da yukarı tırmandı. Onu bir komşu indirdi, zahmeti için de ona ödeme yapmak gerekti.",
-
   "ev.k5_gleaning.title": "Başak Toplama",
   "ev.k5_gleaning.text": "Hasattan sonra çocuklar biçilmiş tarlayı dolaşıp kalan başakları toplar - yoksullar ezelden beri böyle karın doyurur. Ama tarlanın kenarında el değmemiş demetler duruyor ve bekçi bir ağacın altında uyuklamış.",
   "ev.k5_gleaning.text.MAY": "Hasattan sonra çocuklar başkasının tarlasını dolaşıp unutulmuş koçanları toplar - yoksullar ezelden beri böyle karın doyurur. Ama tarlanın kenarında soyulmamış koçanlardan bir yığın duruyor ve bekçi gölgede uyuklamış.",
@@ -18,7 +17,6 @@
   "ev.k5_gleaning.pinch.success": "Bekçi hiç uyanmadı. Evde ganimetinden koyu bir çorba pişti ve kimse bu kadarının nereden geldiğini sormadı.",
   "ev.k5_gleaning.pinch.failure": "Bekçi en olmadık anda uyandı. Seni tarlanın bir ucundan öbür ucuna kovaladı, akşama da bütün çevre rezilliğini duymuştu.",
   "ev.k5_gleaning.share": "Avucundakini yanında toplayan yaşlı kadına ver",
-
   "ev.k5_water_jar.title": "Kırık Testi",
   "ev.k5_water_jar.text": "Büyük bir testiyle su taşıyorsun - bu sabah üçüncü kez. Yolun yarısında kulp ıslak parmaklarından kayıyor ve testi bir taşa çarpıp parçalanıyor. Su, sen daha 'ah' demeden toza karışıp kayboluyor.",
   "ev.k5_water_jar.text.RUS": "Omuzunda bir sırıkla su taşıyorsun - bu sabah üçüncü kez. Yolun yarısında kayıyorsun, kovalardan biri taşa çarpıyor ve dibi fırlıyor. Su, sen daha 'ah' demeden toprağa çekiliyor.",
@@ -29,7 +27,6 @@
   "ev.k5_water_jar.hide.success": "Eksikliği ancak bir hafta sonra fark ettiler ve onu bir yabancının alıp gittiğine karar verdiler. Hâlâ biraz utanıyorsun.",
   "ev.k5_water_jar.hide.failure": "Parçaları komşunun köpeği eşeleyip çıkardı ve gururla tam kapının önüne getirdi. Hem kırdığın için, hem de özellikle yalan için azar işittin.",
   "ev.k5_water_jar.carry": "Gereken kadar dolana kadar suyu eline ne geçerse onunla taşı",
-
   "ev.k5_field_talent.title": "Keskin Hafıza",
   "ev.k5_field_talent.text": "Her şeyi aklında tutuyorsun: komşular kaç ölçek tahıl borç aldı, yağmurlar hangi gün geldi, kimin keçileri sınır şeridini çiğnedi. Köy muhtarı bir tartışmada büyükleri düzelttiğini duydu ve düşünceye daldı. İşaretleri ve hesabı öğreten birini tanıyormuş - ama orada tarlada çalışmak değil, oturmak gerekiyor.",
   "ev.k5_field_talent.learn": "Okumaya gönderilmek için yalvar",
@@ -37,14 +34,12 @@
   "ev.k5_field_talent.evenings": "Akşamları, fırsat buldukça öğren",
   "ev.k5_field_talent.evenings.success": "İşaretlerin başında uyuya kaldın, ama kışa doğru muhtardan hızlı hesap yapıyordun. O da fark etmemiş gibi yaptı.",
   "ev.k5_field_talent.evenings.failure": "Gündüz tarla, akşam ders - bir ay sonra anlatımın tam ortasında uyuyakaldın. Öğretmen iç geçirdi: her şeyin bir zamanı var.",
-
   "ev.k5_f_village_reader.title": "Çevrenin Okur Yazarı",
   "ev.k5_f_village_reader.text": "Çevrede işaretleri okuyabilen ve çakıl taşı olmadan hesap yapabilen neredeyse tek kişi sensin. Sana her şeyi getiriyorlar: borç kayıtlarını, uzaktan gelen haberleri, sınır kavgalarını. Bugün vergi tahsildarı geldi ve komşular sana umutla bakıyor.",
   "ev.k5_f_village_reader.check": "Hesaplarını herkesin önünde kontrol et",
   "ev.k5_f_village_reader.check.success": "Hesabında her haneden fazladan bir ölçek alındığını buldun. Tahsildar mosmor oldu ama yeniden saydı. Akşam komşular sana ellerinden ne geldiyse getirdi.",
   "ev.k5_f_village_reader.check.failure": "Hata çıkmadı - hesap doğruydu. Tahsildar gitti ama yüzünü unutmadı, bir dahaki sefere de senin haneden son tanesine kadar aldılar.",
   "ev.k5_f_village_reader.quiet": "Sonra komşulara sessizce anlat",
-
   "ev.k5_night_watch.title": "Gece Bekçisi",
   "ev.k5_night_watch.text": "Ürün olgunlaşmak üzere ve geceleri tarlaya hayvanlar iniyor. Seni sabaha kadar nöbet tutasın diye tarlanın kenarındaki bir kulübeye oturttular. Etraf karanlık, çalıların arasında bir şey hışırdıyor, gözlerin de kapanıyor.",
   "ev.k5_night_watch.awake": "Uyuma: şarkı söyle, kendini çimdikle, yıldızları say",
@@ -54,7 +49,6 @@
   "ev.k5_night_watch.nap": "Biraz uyu - hayvanlar da uyur herhalde",
   "ev.k5_night_watch.nap.success": "Sabaha kadar uyudun ve hiçbir şey olmadı. Büyükler uyanıklığın için seni övdü, sen de alçakgönüllülükle sustun.",
   "ev.k5_night_watch.nap.failure": "Meğer hayvanlar uyumazmış. Sabah şeridin yarısı ezilmişti, sen de büyüklerin bağırışıyla uyandın.",
-
   "ev.k5_ruined_work.title": "Çatlak",
   "ev.k5_ruined_work.text": "Atölyede ilk kez sana gerçek bir iş verdiler: müşterinin beklediği bir parçayı bitirmek. Öyle çok uğraştın ki fazla bastırdın ve parçanın üzerinde bir çatlak belirdi. Usta akşama döner.",
   "ev.k5_ruined_work.confess": "Ustayı bekle ve göster",
@@ -64,7 +58,6 @@
   "ev.k5_ruined_work.redo": "Kimse yokken yeniden yapmayı dene",
   "ev.k5_ruined_work.redo.success": "Usta döndüğünde yerinde yeni bir parça duruyordu - biraz yamuk ama sağlam. Elinde evirip çevirdi, bir süre sustu, sonra dedi ki: “Yarın bir tane daha yaparsın.”",
   "ev.k5_ruined_work.redo.failure": "İkincisi birinciden, üçüncüsü ikinciden kötü çıktı. Usta seni kırıntıların arasında buldu ve azarlamadı bile - sadece ziyan olanı saydı.",
-
   "ev.k5_journeyman_trick.title": "Kalfanın Hilesi",
   "ev.k5_journeyman_trick.text": "Atölyede üç yıldır çalışan kalfa seni bir köşeye çekip bir hile gösterdi: ustanın yarım gününü alan işi tek hareketle yapmanın yolunu. “Sakın kimseye söyleme,” diye fısıldıyor. “Usta buna zanaatı bozmak diyor.”",
   "ev.k5_journeyman_trick.keep": "Aklında tut ve sus",
@@ -72,20 +65,17 @@
   "ev.k5_journeyman_trick.try": "Hemen dene",
   "ev.k5_journeyman_trick.try.success": "İlk denemede oldu! Kalfa ıslık çaldı: onun bir haftasını almıştı.",
   "ev.k5_journeyman_trick.try.failure": "Hile, hareketin yanında tecrübe de istiyordu. Bozulan parçayı usta buldu, kalfa da seni ilk kez görüyormuş gibi davrandı.",
-
   "ev.k5_f_trick_pays.title": "Eski Hile",
   "ev.k5_f_trick_pays.text": "Bir sipariş yetişmek zorunda: bir haftalık iş, iki günlük süre. Derken çocukken bir kalfanın sana gösterdiği hileyi hatırlıyorsun. Üç kat hızlı olur, ama eski ustalar buna baştan savma derdi.",
   "ev.k5_f_trick_pays.quick": "Kestirmeden yap",
   "ev.k5_f_trick_pays.quick.success": "Müşteri işini zamanında aldı ve hızından başka hiçbir şey fark etmedi. Bir ay sonra iki kişi daha getirdi.",
   "ev.k5_f_trick_pays.quick.failure": "Hile seni yarı yolda bıraktı: bir ay içinde parça dağılmaya başladı. Müşteri geri geldi - ve o günden beri seni her köşede anlatıyor.",
   "ev.k5_f_trick_pays.old_way": "Eski usulle, geceleri çalışarak yap",
-
   "ev.k5_first_tip.title": "İlk Kazanç",
   "ev.k5_first_tip.text": "Seni ağır bir sepeti zengin bir eve götürmeye yolladılar. Evin hanımı her şeye baktı, memnun kaldı ve avucuna küçük bir ödeme sıkıştırdı - sepet için değil, sana, çevik ayakların için. Hayatında kendi kazandığın ilk şey.",
   "ev.k5_first_tip.stash": "Gizli yerine sakla",
   "ev.k5_first_tip.home": "Ev halkına ver",
   "ev.k5_first_tip.treat": "Bütün arkadaş takımına şeker al",
-
   "ev.k5_count_for_father.title": "Çakıl Taşıyla Hesap",
   "ev.k5_count_for_father.text": "Baban {npc} hesabı ilk kez sana bıraktı: satılan her ölçek için bir çakıl taşı ayırıyorsun, o da pazarlık ediyor. Akşama doğru, yaşlı bir adama ödediğinden az tarttığını fark ediyorsun. Yanlışlıkla mı, değil mi - anlaşılmıyor.",
   "ev.k5_count_for_father.tell_father": "Babana sessizce söyle",
@@ -93,9 +83,7 @@
   "ev.k5_count_for_father.tell_father.failure": "Baban kaşlarını çattı: “Sen taşlarını say, sana sorulmayana karışma.” Akşama kadar sessizce saydın.",
   "ev.k5_count_for_father.tell_buyer": "Yaşlı adama yetişip ona söyle",
   "ev.k5_count_for_father.silent": "Sus: büyükler daha iyi bilir",
-
   "ev.k5_f_honest_child.text": "Çocukken pazarda peşinden koştuğun yaşlı adam çoktan öldü, ama bir akrabası seni buldu: ihtiyar ömrünün sonuna kadar tezgâhtaki dürüst çocuğu anlatmış. Akrabası şimdi büyük işler çeviriyor ve bunları seninle yürütmek istiyor.",
-
   "ev.k5_market_stranger.title": "Hafif Bohça",
   "ev.k5_market_stranger.text": "Seni bir işle pazarın öbür ucuna yolladılar. Yolda bir yabancı sesleniyor: şu bohçayı kapıya götür, orada bekleyen var, sana da her zamankinin iki katını öderler. Bohça şüphe uyandıracak kadar hafif, yabancı da durmadan omzunun üstünden bakıyor.",
   "ev.k5_market_stranger.errand": "Durma: önce kendi işin",
@@ -105,7 +93,6 @@
   "ev.k5_market_stranger.report": "Yabancıyı pazar nazırına göster",
   "ev.k5_market_stranger.report.success": "Nazır, yabancının sabahtan beri aranan hırsız olduğunu anladı. Bütün pazarın önünde övüldün ve sana iki avuç kuru meyve verdiler.",
   "ev.k5_market_stranger.report.failure": "Sen nazırı ararken yabancı kalabalığa karışıp kayboldu. Nazır seni dinledi ve biraz daha az hikâye uydurmanı öğütledi.",
-
   "ev.k5_haggle_alone.title": "Tezgâhta Tek Başına",
   "ev.k5_haggle_alone.text": "Büyükler bir yere gitti ve ilk kez tezgâhta tek başına kaldın. Bir müşteri yaklaşıyor - zevk için pazarlık edenlerden. En iyisini seçiyor ve fiyatın yarısını teklif ediyor.",
   "ev.k5_haggle_alone.hold": "Fiyatında diren",
@@ -115,7 +102,6 @@
   "ev.k5_haggle_alone.gift": "Fiyattan inme ama ufak bir hediye ekle",
   "ev.k5_haggle_alone.gift.success": "Küçük hediye onu yumuşattı ve tam ödedi. Üç gün sonra geri geldi - yanında bir arkadaşıyla.",
   "ev.k5_haggle_alone.gift.failure": "Hediyeyi memnuniyetle aldı, sonra yine de üçte birini kırdırdı. Böylelerinden yıllarca pazarlık öğrenilir.",
-
   "ev.k5_strict_tutor.title": "Sert Öğretmen",
   "ev.k5_strict_tutor.text": "Sana bir öğretmen tuttular - hiç gülmeyen ve tek bir hatayı bile affetmeyen kuru bir adam. Hata yaparsan parmaklarına çubukla vuruyor, dersi öğrenmezsen yemeksiz bırakıyor. Bugün yine dersini öğrenmedin, dışarıda da güneş parlıyor.",
   "ev.k5_strict_tutor.endure": "Öğrenene kadar otur ve çalış",
@@ -125,13 +111,11 @@
   "ev.k5_strict_tutor.complain": "Evin büyüklerine şikâyet et",
   "ev.k5_strict_tutor.complain.success": "Ona ne söylendi bilinmez, ama o günden sonra öğretmen daha seyrek vurdu, hatta bir keresinde başını salladı: “Fena değil.”",
   "ev.k5_strict_tutor.complain.failure": "Büyükler dinledi ve öğretmenin her zaman haklı olduğuna karar verdi. Öğretmen de duydu - ve unutmadı.",
-
   "ev.k5_f_old_tutor.title": "Yaşlı Öğretmen",
   "ev.k5_f_old_tutor.text": "Kapıda eski püskü giysili bir ihtiyar duruyor ve sert öğretmenini hemen tanıyamıyorsun. Öğrencileri dağılmış, gücü kalmamış, istemeye de hiç alışık olmadığı belli. Sadece şunu söylüyor: “Derslerini öğrenen birkaç kişiden biriydin.”",
   "ev.k5_f_old_tutor.take_in": "Onu eve al - küçüklere ders versin",
   "ev.k5_f_old_tutor.alms": "Yol için bir şey ver",
   "ev.k5_f_old_tutor.pretend": "Tanımıyormuş gibi yap",
-
   "ev.k5_tenant_tally.title": "Eksik",
   "ev.k5_tenant_tally.text": "Kâhya, toprağınızı işleyenlerden ürün payını toplamaya seni de götürdü - çiftlik işlerini öğrenme vakti. Bir hanenin payı eksik çıkıyor: tarlalarının yarısı çürümüş, evde de hasta bir ihtiyar var. Kâhya sana başıyla işaret ediyor: “Eksiği yaz, bahara kadar tahsil ederiz.”",
   "ev.k5_tenant_tally.write": "Olduğu gibi yaz",
@@ -141,14 +125,12 @@
   "ev.k5_tenant_tally.ask": "Kâhyadan mühlet iste",
   "ev.k5_tenant_tally.ask.success": "Kâhya ensesini kaşıdı ve kabul etti: hasta bir evden zaten alınacak bir şey yok. Aile seni kapıya kadar eğilerek uğurladı.",
   "ev.k5_tenant_tally.ask.failure": "“Kararı efendi verir, sen değil,” diye kesip attı kâhya. Yine de sesinde saygıya benzer bir şey vardı.",
-
   "ev.k5_f_tenant_son.title": "İyilik Unutulmaz",
   "ev.k5_f_tenant_son.text": "Gece kapını genç bir adam çalıyor - onu, bir zamanlar eksiğine yardım ettiğin o hanenin oğlanı olarak tanıyorsun. Fısıldıyor: tepenin ardında haydutlar toplanıyor ve senin evinden söz ediyorlar.",
   "ev.k5_f_tenant_son.stand": "Adamlarını kaldır ve onları kapıda karşıla",
   "ev.k5_f_tenant_son.stand.success": "Haydutlar kapıyı sürgülü, ardında da sopalı bir düzine insan buldu. Başlamadan çekip gittiler. Sabah bütün çevre ne kadar iyi idare ettiğini konuşuyordu.",
   "ev.k5_f_tenant_son.stand.failure": "Korkunç bir gece oldu: kapı dayandı ama kiler yağmalandı, sen de arbedede yaralandın.",
   "ev.k5_f_tenant_son.hide": "En değerli şeyleri sakla ve sabaha kadar uzaklaş",
-
   "ev.k5_judgment_seat.title": "Büyüklerin Yanında",
   "ev.k5_judgment_seat.text": "Büyükler şikâyetleri dinlerken seni ilk kez yanlarına oturttular. Dik oturmalı, susmalı ve öğrenmelisin. Önünüzde yoksul bir dul ağlıyor: komşusu sınır taşlarını kaydırıp onun şeridini sürmüş, kendisi de taşların hep orada durduğuna yemin ediyor.",
   "ev.k5_judgment_seat.silent": "Sana söylendiği gibi sessizce otur",
@@ -158,7 +140,6 @@
   "ev.k5_judgment_seat.doze": "Uyukla - dava üç saattir sürüyor",
   "ev.k5_judgment_seat.doze.success": "Bir asanın yere vuruşuyla uyandın - karar çoktan verilmişti. Dul kadından başka kimse bir şey fark etmedi, o da giderken sana gülümsedi.",
   "ev.k5_judgment_seat.doze.failure": "En ağırbaşlı anda bütün salonu inleten bir horlama çıkardın. Davalı kahkahayı bastı ve davaya ara vermek gerekti.",
-
   "ev.k5_etiquette.title": "Konuğu Selamlamak",
   "ev.k5_etiquette.text": "Eve önemli bir konuk geldi ve seni onu selamlamaya çıkardılar. Sözleri bir hafta boyunca ezberledin: reverans, hitap, konuğun bütün unvanları sırasıyla. Ve işte karşısında duruyorsun - kafan da süpürülmüş bir oda gibi bomboş.",
   "ev.k5_etiquette.improvise": "Kendi sözlerinle ama kendinden emin bir şey söyle",
@@ -168,17 +149,14 @@
   "ev.k5_etiquette.prompt": "Yaşlı hizmetkâra göz ucuyla bak - fısıldıyor",
   "ev.k5_etiquette.prompt.success": "Hizmetkâr fısıldadı, sen kelimesi kelimesine tekrarladın ve kusursuz oldu. Konuk hafızanı övdü, sen ve hizmetkâr da suç ortakları gibi bakıştınız.",
   "ev.k5_etiquette.prompt.failure": "Fısıltıyı tam duyamadın ve konuğa eski rakibinin unvanıyla hitap ettin. Salonda çıt çıkmadı.",
-
   "ev.k5_whispered_answers.title": "Derste Fısıltı",
   "ev.k5_whispered_answers.text": "Derslerde canın sıkılmasın diye yanına hizmetkârlardan bir çocuk oturttular. Öğretmen ona hiçbir şey sormuyor, ama o senden hızlı kavrıyor ve cevapları fısıldıyor. Bugün öğretmen fısıltıyı duydu ve kimin sesi olduğunu soruyor.",
   "ev.k5_whispered_answers.admit": "İtiraf et: fısıltılar sana yardım içindi",
-  "ev.k5_whispered_answers.blame": "Onun izinsiz araya girdiğini söyle",
+  "ev.k5_whispered_answers.blame": "{g:Onun|Onun} izinsiz araya girdiğini söyle",
   "ev.k5_whispered_answers.both": "Öğretmenden ikinize birden ders vermesini iste",
   "ev.k5_whispered_answers.both.success": "Öğretmen burun kıvırdı ama kabul etti - yeter ki sen daha istekli çalış. O günden sonra açıkça yan yana oturdunuz, sen de geri kalmamak için elinden geleni yaptın.",
   "ev.k5_whispered_answers.both.failure": "Öğretmen, okumanın hizmetkârlara göre olmadığını söyledi ve onu kapının yanına oturttular. Artık fısıldayacak kimse yok.",
-
   "ev.k5_f_companion.text": "Bir zamanlar derslerde sana cevap fısıldayan o çocuk çoktan büyüdü ve şimdi büyük bir konağın işlerini yönetiyor. Haber geldi: güvenilir, okuması yazması olan birine ihtiyacın olursa - bir zamanlar kimin kendisini savunduğunu unutmamışlar.",
-
   "ev.k5_slave_leftovers.title": "Başkasının Tabağından Bir Lokma",
   "ev.k5_slave_leftovers.text": "Efendinin konukları yerken sen duvarın dibinde duruyorsun. İçlerinden şişman, neşeli biri seni gizlice çağırdı ve kendi tabağından bir parça uzattı. Kölelerin konuk sofrasından yemek alması yasak, kâhya da başka tarafa bakıyor - şimdilik.",
   "ev.k5_slave_leftovers.save": "Al ve mutfaktaki küçükler için sakla",
@@ -188,14 +166,12 @@
   "ev.k5_slave_leftovers.eat.success": "Parçayı neredeyse çiğnemeden yuttun. Hayatında bundan lezzetli bir şey yememiştin, konuk da giderken sana göz kırptı.",
   "ev.k5_slave_leftovers.eat.failure": "Tam duvarın dibinde boğazına kaçtı ve herkes döndü. Konuk mahcup oldu, ama cezayı yine sen yedin.",
   "ev.k5_slave_leftovers.refuse": "Başını salla ve gözlerini indir",
-
   "ev.k5_slave_storeroom.title": "Kilerde Dersler",
   "ev.k5_slave_storeroom.text": "Kilere bakan yaşlı köle, ne kadar hızlı saydığını fark etti. Akşamları sana erzakın hesabını tutmayı öğretmeyi teklif ediyor - kendi bildiği gibi, çentiklerle ve işaretlerle. Efendi böyle bir şey emretmedi, kilerde boş otururken yakalanırsanız ikinizin de başı yanar.",
   "ev.k5_slave_storeroom.learn": "Ondan öğren",
   "ev.k5_slave_storeroom.learn.success": "Bütün kış isli bir kandilin ışığında çuvalları ve küpleri saydınız. İlkbaharda yaşlı adam senin ondan iyi saydığını söyledi ve hatırladığın kadarıyla ilk kez gülümsedi.",
   "ev.k5_slave_storeroom.learn.failure": "Üçüncü akşam yakalandınız. Yaşlı adam senden fazla ceza yedi, ama öğretmeyi bırakmadı - sadece daha dikkatli oldu.",
   "ev.k5_slave_storeroom.decline": "Riske girme",
-
   "ev.k5_f_storeroom_keys.title": "Kilerin Anahtarları",
   "ev.k5_f_storeroom_keys.text": "Yaşlı kilerci öldü ve efendi anahtarları emanet edecek birini arıyor. Biri, yaşlı adamın sana hesap öğrettiğini hatırladı. Anahtarlar daha iyi yemek, kendine ait bir köşe ve saygı demek - ama kaybolan her ölçeğin hesabını vermek de.",
   "ev.k5_f_storeroom_keys.accept": "Anahtarları al",
@@ -203,7 +179,6 @@
   "ev.k5_f_storeroom_keys.feed.success": "Hesabı öyle tutmayı öğrendin ki açlara giden fazladan bir avuç hiçbir kayıtta görünmüyor. Yaşlı adam seninle gurur duyardı.",
   "ev.k5_f_storeroom_keys.feed.failure": "Eksik daha ilk sayımda fark edildi. Anahtarları elinden aldılar, ceza da ağır oldu.",
   "ev.k5_f_storeroom_keys.decline": "Reddet: hesabı çok ağır",
-
   "ev.k5_slave_errand.title": "Meydandaki Hikâyeci",
   "ev.k5_slave_errand.text": "Seni bir işle şehrin öbür ucuna yolladılar, dönüşte de bir hikâyecinin kalabalık topladığı bir meydana denk geldin. Tam en korkunç yere gelmiş. Öğlene kadar dönmen bekleniyor, güneş de çoktan yükseldi.",
   "ev.k5_slave_errand.listen": "En azından bu hikâyeyi sonuna kadar dinle",
@@ -213,7 +188,6 @@
   "ev.k5_slave_errand.backwards": "Yürürken dinle, geri geri sokağa doğru çekil",
   "ev.k5_slave_errand.backwards.success": "Öyle yavaş geri çekildin ki neredeyse hepsini duydun ve öğlene de yetiştin. Hikâyenin sonunu kendin uydurdun - üstelik daha iyi oldu.",
   "ev.k5_slave_errand.backwards.failure": "Geri geri giderken bir satıcı kadının sepetine çarptın ve hikâyenin sonu yerine kadının senin hakkında düşündüğü her şeyi dinledin.",
-
   "ev.k5_ink_spill.title": "Leke",
   "ev.k5_ink_spill.text": "Öğretmen bir dakikalığına çıktı ve masada en iyi eserini bıraktı - altı ay boyunca kopya ettiği eseri. Daha yakından bakmak için uzandın ve mürekkebi devirdin. Satırların üzerine kara bir leke yayılıyor.",
   "ev.k5_ink_spill.text.babylon": "Öğretmen bir dakikalığına çıktı ve masada taze bir kil tablet bıraktı - sabahtan beri üzerinde çalıştığı tableti. Daha yakından bakmak için uzandın ve yenin işaretlerin yarısını sıvazladı. Kil hâlâ yumuşak, ama yazılanlar artık okunmuyor.",
@@ -225,7 +199,6 @@
   "ev.k5_ink_spill.deny": "Zaten böyleydi de",
   "ev.k5_ink_spill.deny.success": "Öğretmen bozulan yere uzun süre gözlerini kısarak baktı ve suçun cereyanda olduğuna karar verdi. Sen de öyle hevesle başını salladın ki boynun ağrıdı.",
   "ev.k5_ink_spill.deny.failure": "Öğretmen tek söz etmeden elini tuttu ve avucunu yukarı çevirdi. Avucun da tıpkı onun eseri gibi kapkaraydı.",
-
   "ev.k5_m_slave_sweep.text": "Daha hava kararlıyken seni avluyu süpürmeye kaldırıyorlar. Süpürge senden uzun, ama yaşlı aşçı kadın gizlice kazandan sıcak bir şey sıkıştırıyor ve evde en iyi senin süpürdüğünü söylüyor.",
   "ev.k5_m_slave_baby.text": "Efendinin bebeğini uyuyana kadar sallaman istendi. Sen de daha küçücüksün, kolların uyuştu, ama bebek sonunda mışıl mışıl uyuyunca gurura benzer bir şey hissettin.",
   "ev.k5_m_slave_feet.text": "Konuklar tozlu bir yoldan geldi ve onların ayaklarını yıkaman istendi. İçlerinden saçı ağarmış, yorgun biri sana teşekkür etti - sade bir şekilde, bir dengine eder gibi. Bunu uzun süre unutmadın.",

@@ -167,7 +167,7 @@
   "ev.d_new_love.text": "Bunca şeyden sonra kalbinin hâlâ böyle çarpabileceğini sanmazdın. Ama yan sokaktaki {g:çömlekçinin dul karısı|dul çömlekçi} her sabah sana gülümsüyor - ve kendini o gülümsemeyi beklerken yakalıyorsun.",
   "ev.d_new_love.court": "İlk adımı at",
   "ev.d_new_love.court.success": "Sessizce, gürültüsüz patırtısız evlendiniz - hem mutluluğun hem kaybın değerini bilen insanlar gibi.",
-  "ev.d_new_love.court.failure": "Nazikçe geri çevirdi: kendi yaraları hâlâ çok taze. Anlıyorsun - ama yine de acıyor.",
+  "ev.d_new_love.court.failure": "{g:Nazikçe geri çevirdi|Nazikçe geri çevirdi}: {g:onun|onun} yaraları hâlâ çok taze. Anlıyorsun - ama yine de acıyor.",
   "ev.d_new_love.slow": "Acele etme",
   "ev.d_new_love.slow.ok": "Sabahları sadece selamlaşıyor, bazen pazara birlikte yürüyorsunuz. Bırak zaman karar versin.",
   "ev.d_new_love.no": "Kalbin henüz hazır değil",

@@ -1,6 +1,6 @@
 {
   "ev.amr_fc_school.temple": "Tapınağa adanmak",
-  "ev.amr_fc_school.temple.ok": "Rahiplere verilen ziyafet evin erzakını neredeyse bitirdi, ama baş rahip seni bizzat kucağına aldı ve söz verdi: “Büyüyünce onu alacağız.”",
+  "ev.amr_fc_school.temple.ok": "Rahiplere verilen ziyafet evin erzakını neredeyse bitirdi, ama baş rahip seni bizzat kucağına aldı ve söz verdi: “{g:O|O} büyüyünce {g:onu|onu} alacağız.”",
   "ev.amr_fc_school.ward": "{g:“Gençler evi”ne söz vermek|“Şarkı evi”ne söz vermek}",
   "ev.amr_fc_school.ward.ok": "Mahallenin öğretmenleri geldi, tamal yediler, sağlığına sıcak atole içtiler ve güldüler: “Mahalleye bir {g:savaşçı|şarkıcı} daha.”",
   "ev.amr_fc_school.title": "Öğretmenlere verilen söz",

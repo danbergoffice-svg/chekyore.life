@@ -750,7 +750,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
             <EarlyGame
               era={hero.era}
               region={hero.region}
-              lang={lang}
+              lang={lang === 'fr' || lang === 'es' ? 'en' : lang}
               age={hero.age}
               livesBefore={state.settings.livesBefore ?? 0}
               seen={(platform.kvGet(SEEN_KEY) ?? '').split(',').filter(Boolean)}

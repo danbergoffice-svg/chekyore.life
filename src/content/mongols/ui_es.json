@@ -1,0 +1,20 @@
+{
+  "era.MNG": "Los Mongoles: la Planicie y el Gran Imperio",
+  "era.MNG.years": "1150 - 1600",
+  "era.MNG.short": "Mongoles",
+  "region.onon": "El Onon y el Kherlen",
+  "region.karakorum": "Karakorum",
+  "region.khanbaliq": "Khanbaliq",
+  "region.sarai": "Sarai",
+  "region.tabriz": "Tabriz",
+  "region.onon.intro": "La tierra mongola entre los ríos Onon y Kherlen. Las familias mueven sus yurtes y rebaños cuatro veces al año, las clanes se enzarzlan y juran hermandad, y sobre todo ruise el Cielo Azul Eterno. Chinggis Khan vino de aquí, y tras todas las conquistas, sus descendientes volvieron a este lugar.",
+  "region.karakorum.intro": "La capital del imperio en el valle del Orkhon: un muro de barro, el palacio del khan, barrios de mercantes musulmanes y artesanos chinos, una iglesia, mezquitas y santuarios budistas uno al lado del otro. Mensajeros corren a caballo de todo el mundo, y todavía pastan rebaños alrededor de los muros.",
+  "region.khanbaliq.intro": "La gran capital de Khubilai sobre el sitio del viejo Zhongdu - Dadu en chino. Calles rectas, dinero de papel, un canal que llega hasta el Yangtsé y un millón de súbditos de todos los pueblos. Aquí los mongoles son la nación gobernante, y aun se acostumbran lentamente al seda y a las casas de piedra.",
+  "region.sarai.intro": "La capital del Ulús de Jochid - la Horda Dorada - sobre el Volga inferior. Una ciudad de adobe de mezquitas y bazares, donde vienen las pieles desde la Rus, esclavos de la Crimea y seda de la China. Los príncipes rusos viajan aquí por patentes para gobernar, y cada primavera la orda sale a caballo hacia las pradas de la estepa.",
+  "region.tabriz.intro": "La capital de los Ilkhans, los gobernantes mongoles de Irán. Los maestros persas construyen mezquitas de ladrillo esmaltado, el vizir Rashid al-Din escribe una historia del mundo, y cada verano los nobles mongoles se van con sus tiendas de campaña a las pradas de montaña frescas.",
+  "region.onon.in": "en el Onon",
+  "region.karakorum.in": "en Karakorum",
+  "region.khanbaliq.in": "en Khanbaliq",
+  "region.sarai.in": "en Sarai",
+  "region.tabriz.in": "en Tabriz"
+}

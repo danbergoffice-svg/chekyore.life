@@ -1,5 +1,5 @@
 import type { ComponentChildren } from 'preact'
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { canNameHouse, customHeir, familyGoalOffers, setFamilyGoal, setHouse } from '../engine/dynasty'
 import { Arms, HOUSE_LIST } from './Arms'
 import { heirs, inheritanceShare } from '../engine/life'
@@ -111,15 +111,7 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
           )}
           <span class="grow" />
           {sound}
-          {LANGS.length > 1 && (
-            <div class="lang-switch" role="group" aria-label={t('settings.language')}>
-              {LANGS.map((l) => (
-                <button type="button" class={l === lang ? 'active' : ''} aria-pressed={l === lang} onClick={() => onLang(l)}>
-                  {l.toUpperCase()}
-                </button>
-              ))}
-            </div>
-          )}
+          <LangSwitch lang={lang} onLang={onLang} />
         </div>
       </header>
       <div class="title-block">
@@ -180,6 +172,47 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
       )}
       {players !== null && <p class="small center players-note">{t('menu.players', { n: players, count: players.toLocaleString(LOCALE[lang]) })}</p>}
       <p class="small muted center beta-note">{t('beta.notice')}</p>
+    </div>
+  )
+}
+
+/** Одна кнопка в шапке: по нажатию выпадает список языков. */
+function LangSwitch({ lang, onLang }: { lang: Lang; onLang: (lang: Lang) => void }) {
+  const { t } = useUi()
+  const [open, setOpen] = useState(false)
+  const box = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!open) return
+    const onDoc = (e: MouseEvent) => {
+      if (box.current && !box.current.contains(e.target as Node)) setOpen(false)
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('mousedown', onDoc)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDoc)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+  if (LANGS.length < 2) return null
+  return (
+    <div class={`lang-switch ${open ? 'open' : ''}`} ref={box}>
+      <button type="button" class="lang-current" aria-haspopup="listbox" aria-expanded={open} aria-label={t('settings.language')} onClick={() => setOpen((v) => !v)}>
+        {LANG_NAMES[lang]}
+      </button>
+      {open && (
+        <ul class="lang-menu" role="listbox" aria-label={t('settings.language')}>
+          {LANGS.map((l) => (
+            <li key={l}>
+              <button type="button" role="option" aria-selected={l === lang} class={l === lang ? 'active' : ''} onClick={() => { onLang(l); setOpen(false) }}>
+                {LANG_NAMES[l]}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

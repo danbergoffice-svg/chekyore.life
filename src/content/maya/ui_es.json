@@ -1,0 +1,17 @@
+{
+  "era.MAY": "Los Mayas: Clásico Tardío",
+  "era.MAY.years": "DC 550–900",
+  "era.MAY.short": "Los Mayas",
+  "region.tikal": "Tikal",
+  "region.calakmul": "Calakmul",
+  "region.palenque": "Palenque",
+  "region.copan": "Copán",
+  "region.tikal.intro": "Tikal es una extensa ciudad en el corazón de la selva: pirámides blancas de templos más altas que los árboles, plazas, reservorios y decenas de miles de personas a su alrededor. Sus reyes a veces gobiernan a sus vecinos y a veces pagan tributo a sus enemigos.",
+  "region.calakmul.intro": "Calakmul es la capital del reino de la serpiente, Kaanul. Sus señores ponen a sus propios hombres en los trones del norte, y en la temporada de lluvias los pantanos que rodean la ciudad se llenan de agua.",
+  "region.palenque.intro": "Palenque, conocido localmente como Lakamha, «Agua Grande», se asienta en las colinas boscosas por donde corren arroyos de la roca. Desde aquí se ve la llanura hasta el río Usumacinta, y el palacio está gobernado por los herederos de gran Pakal.",
+  "region.copan.intro": "Copán se encuentra en un verdor valle en el sur del mundo maya. Tiene a los mejores escultores y escribas: las estelas de los reyes están talladas tan profundo que la piedra parece viva.",
+  "region.tikal.in": "en Tikal",
+  "region.calakmul.in": "en Calakmul",
+  "region.palenque.in": "en Palenque",
+  "region.copan.in": "en Copán"
+}

@@ -1,5 +1,5 @@
 {
-  "coin.amole": "kalıp tuz",
+  "coin.amole": "{p=n:kalıp tuz|kalıp tuz}",
   "class.slave.ETH": "bağlı hizmetkâr",
   "class.peasant.ETH": "atadan kalma toprağı olan köylü",
   "class.craftsman.ETH": "zanaatkâr çocuğu",

@@ -92,7 +92,7 @@
   "vice.drinker.MAY": "balché içer",
   "vice.opium.MAY": "sarhoş edici içkiler olmadan yapamaz",
   "vice.gambler.MAY": "bahislerde kakao kaybeder",
-  "coin.cacao.MAY": "kakao çekirdeği",
+  "coin.cacao.MAY": "{p=n:kakao çekirdeği|kakao çekirdeği}",
   "prof.salt_trader.MAY": "Tuz tüccarı",
   "prof.salt_trader.as.MAY": "tuz tüccarı",
   "cause.snakebite.MAY": "yılan sokması",
