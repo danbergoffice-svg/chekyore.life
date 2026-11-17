@@ -1199,3 +1199,7 @@ html.gallery #app { max-width: none; padding: 0; }
 .pg-order button { min-height: 28px; }
 .pg-layer { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; }
 @media (max-width: 700px) { .pg { grid-template-columns: 1fr; } .pg-side { position: static; max-height: none; } .pg-grid { grid-template-columns: 1fr; } }
+.pg-grab { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 13px; margin: 6px 0 10px; }
+.pg-grab button { min-height: 28px; padding: 2px 8px; font-size: 12px; }
+.pg-grab button.on { outline: 2px solid currentColor; font-weight: 700; }
+.pg-move summary { cursor: pointer; font-size: 13px; padding: 2px 0; }

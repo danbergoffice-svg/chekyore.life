@@ -9,7 +9,7 @@ import { ERA_META } from '../content'
 import type { SceneDef } from '../engine/types'
 import { lookOf } from './scene'
 import type { Cast } from './scene'
-import { boxOf, buildPainted, composePainted, DEFAULT_ORDER, getLayout, PH, PW, saveLayout, setLayout } from './painted'
+import { boxOf, buildPainted, composePainted, DEFAULT_ORDER, getLayout, PH, PW, saveLayout, setLayout, slotOf } from './painted'
 import type { PaintedLayout, PaintedScene, Placed } from './painted'
 import type { SceneInput } from './scene'
 import DEFAULT_LAYOUT from './painted-layout.json'
@@ -32,32 +32,33 @@ interface Frame {
 
 /** Поля раскладки, которые правятся ползунками: путь в JSON, подпись, мин, макс, шаг. */
 const FIELDS: [string, string, number, number, number][] = [
-  ['ground', 'Линия ног (y)', 180, 260, 1],
-  ['groundStripH', 'Земля: подъём над линией ног (до 25)', 4, 25, 1],
-  ['groundStripY', 'Земля: сдвиг от линии ног', -20, 20, 1],
+  ['ground', 'Линия ног (y)', 60, 300, 1],
+  ['groundStripH', 'Земля: подъём над линией ног', 4, 200, 1],
+  ['groundStripY', 'Земля: сдвиг от линии ног (вниз +)', -220, 100, 1],
   ['groundStripTexture', 'Земля: сила текстуры', 0, 1, 0.05],
   ['groundStripSrc', 'Земля: откуда брать текстуру', 0, 0.75, 0.05],
-  ['far.y', 'Даль: сдвиг вниз', -80, 80, 1],
-  ['landmark.y', 'Ориентир: сдвиг вниз', -80, 80, 1],
+  ['far.y', 'Даль: сдвиг вниз', -300, 300, 1],
+  ['landmark.y', 'Ориентир: сдвиг вниз', -300, 300, 1],
   ['home.x', 'Свой дом: x', 0, 960, 5],
-  ['home.y', 'Свой дом: глубина (вверх -)', -120, 40, 1],
+  ['home.y', 'Свой дом: глубина (вверх -)', -300, 100, 1],
   ['home.scale', 'Свой дом: масштаб', 0.4, 1.6, 0.05],
   ['street.houses', 'Улица: сколько домов (0–2)', 0, 2, 1],
-  ['street.x', 'Улица: дом от края', 0, 480, 5],
-  ['street.y', 'Улица: глубина дома', -120, 40, 1],
+  ['street.x', 'Улица: дом от края', -200, 960, 5],
+  ['street.y', 'Улица: глубина дома', -300, 100, 1],
   ['street.scale', 'Улица: масштаб дома', 0.4, 1.6, 0.05],
   ['people.center', 'Люди: центр', 0, 960, 5],
-  ['people.y', 'Люди: глубина (вверх -)', -120, 40, 1],
+  ['people.y', 'Люди: глубина (вверх -)', -300, 100, 1],
   ['people.step', 'Люди: шаг между людьми', 10, 220, 1],
   ['people.stepCrowded', 'Люди: шаг, если больше 6', 10, 160, 1],
   ['people.scale', 'Люди: масштаб', 0.5, 1.6, 0.05],
   ['animals.x', 'Животные: x', 0, 960, 5],
-  ['animals.y', 'Животные: глубина', -120, 40, 1],
+  ['animals.y', 'Животные: глубина', -300, 100, 1],
   ['animals.step', 'Животные: шаг', 20, 200, 1],
   ['animals.scale', 'Животные: масштаб', 0.4, 1.8, 0.05],
   ['props.scale', 'Предметы: масштаб', 0.4, 1.8, 0.05],
   ['props.x', 'Предметы: x', 0, 960, 5],
   ['props.fireX', 'Очаг: x', 0, 960, 5],
+  ['props.y', 'Предметы: глубина', -300, 100, 1],
   ['fx.rain.alpha', 'Дождь: непрозрачность', 0, 1, 0.05],
   ['fx.snow.alpha', 'Снег: непрозрачность', 0, 1, 0.05],
   ['fx.fog.alpha', 'Туман: непрозрачность', 0, 1, 0.05],
@@ -66,6 +67,20 @@ const FIELDS: [string, string, number, number, number][] = [
   ['tint.war.alpha', 'Война: сила тона', 0, 0.8, 0.02],
   ['tint.epidemic.alpha', 'Мор: сила тона', 0, 0.8, 0.02],
 ]
+/** Свободный сдвиг и масштаб каждого слоя целиком (move.<слой>). */
+const MOVE_FIELDS = (slot: string): [string, string, number, number, number][] => [
+  [`move.${slot}.x`, 'вбок', -960, 960, 1],
+  [`move.${slot}.y`, 'вниз +, вверх -', -300, 300, 1],
+  [`move.${slot}.scale`, 'масштаб', 0.2, 3, 0.05],
+]
+const NO_MOVE = { x: 0, y: 0, scale: 1 }
+/** Раскладка с полным move (старые сохранения его не знают). */
+function withMove(l: PaintedLayout): PaintedLayout {
+  const m = { ...((l as { move?: Record<string, typeof NO_MOVE> }).move ?? {}) }
+  for (const s of DEFAULT_ORDER) m[s] = { ...NO_MOVE, ...m[s] }
+  return { ...l, move: m } as PaintedLayout
+}
+
 const COLORS: [string, string][] = [
   ['tint.night.color', 'Ночь'],
   ['tint.sunset.color', 'Закат'],
@@ -149,7 +164,8 @@ function FrameView({ f, onOpen }: { f: Frame; onOpen: () => void }) {
 function EditFrame({ frame, layout, onLive, onDone }: { frame: Frame; layout: PaintedLayout; onLive: (l: PaintedLayout) => void; onDone: (l: PaintedLayout) => void }) {
   const ref = useRef<HTMLCanvasElement>(null)
   const [scene, setScene] = useState<PaintedScene | null>(frame.scene)
-  const drag = useRef<{ l: Placed; x: number; y: number; start: PaintedLayout } | null>(null)
+  const drag = useRef<{ l: Placed | null; slot: string | null; x: number; y: number; start: PaintedLayout } | null>(null)
+  const [grab, setGrab] = useState('')
   const [hint, setHint] = useState('')
   useEffect(() => {
     if (ref.current && scene) composePainted(ref.current.getContext('2d')!, scene, 0)
@@ -167,14 +183,21 @@ function EditFrame({ frame, layout, onLive, onDone }: { frame: Frame; layout: Pa
   const down = (e: PointerEvent) => {
     if (!scene) return
     const p = point(e)
+    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
+    // Выбран слой - тянем его целиком, где бы ни нажали.
+    if (grab) {
+      drag.current = { l: null, slot: grab, x: p.x, y: p.y, start: withMove(layout) }
+      setHint(`Тяну слой: ${ORDER_NAMES[grab]}`)
+      return
+    }
     const hit = [...scene.plan.layers].reverse().find((l) => {
       const b = boxOf(scene, l)
       return b && p.x >= b.x0 && p.x <= b.x1 && p.y >= b.y0 && p.y <= b.y1
     })
     if (!hit) return
-    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
-    drag.current = { l: hit, x: p.x, y: p.y, start: layout }
-    setHint(`Тяну: ${NAMES[hit.group!]}`)
+    const slot = hit.group ? null : slotOf(hit)
+    drag.current = { l: hit, slot, x: p.x, y: p.y, start: withMove(layout) }
+    setHint(`Тяну: ${slot ? `слой «${ORDER_NAMES[slot]}»` : NAMES[hit.group!]}`)
   }
   const move = (e: PointerEvent) => {
     const d = drag.current
@@ -183,6 +206,14 @@ function EditFrame({ frame, layout, onLive, onDone }: { frame: Frame; layout: Pa
     const dx = Math.round(p.x - d.x)
     const dy = Math.round(p.y - d.y)
     const L = JSON.parse(JSON.stringify(d.start)) as PaintedLayout
+    if (d.slot || !d.l) {
+      const m = (L as unknown as { move: Record<string, { x: number; y: number }> }).move[d.slot!]
+      const st = (d.start as unknown as { move: Record<string, { x: number; y: number }> }).move[d.slot!]
+      m.x = st.x + dx
+      m.y = st.y + dy
+      rebuild(L)
+      return
+    }
     const g = d.l.group!
     if (g === 'street') {
       // Дом слева задан расстоянием от правого края кадра, справа - от левого (зеркально).
@@ -209,7 +240,18 @@ function EditFrame({ frame, layout, onLive, onDone }: { frame: Frame; layout: Pa
   return (
     <div>
       <canvas ref={ref} width={PW} height={PH} class="pg-edit" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} />
-      <p class="pg-note">{hint || 'Перетащите мышью людей, дом, соседний дом, животных или предметы: вбок и вглубь (вверх - дальше). Двигается вся группа во всех кадрах.'}</p>
+      <p class="pg-note">{hint || 'Тяните мышью что угодно: людей, дома, животных, предметы - а там, где их нет, землю, даль или ориентир. Двигается весь слой во всех кадрах.'}</p>
+      <div class="pg-grab">
+        Тянуть:{' '}
+        <button type="button" class={grab === '' ? 'on' : ''} onClick={() => setGrab('')}>
+          что под мышью
+        </button>
+        {DEFAULT_ORDER.map((s) => (
+          <button type="button" class={grab === s ? 'on' : ''} onClick={() => setGrab(s)}>
+            {ORDER_NAMES[s]}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
@@ -353,6 +395,19 @@ export function PaintedGallery() {
             <button type="button" disabled={i === 0} onClick={() => update({ ...layout, order: swap(arr, i, i - 1) })} aria-label="ниже">↑</button>
             <button type="button" disabled={i === arr.length - 1} onClick={() => update({ ...layout, order: swap(arr, i, i + 1) })} aria-label="выше">↓</button>
           </div>
+        ))}
+        <h2>Свободно: каждый слой целиком</h2>
+        <p class="pg-note">Сдвиг и масштаб всего слоя поверх остальных настроек. То же - мышью в открытом кадре: «Тянуть: земля» и т. п.</p>
+        {DEFAULT_ORDER.map((slot) => (
+          <details class="pg-move">
+            <summary>{ORDER_NAMES[slot]}</summary>
+            {MOVE_FIELDS(slot).map(([path, label, min, max, step]) => (
+              <label>
+                {label}: <b>{String(get(withMove(layout), path))}</b>
+                <input type="range" min={min} max={max} step={step} value={Number(get(withMove(layout), path))} onInput={(e) => update(set(withMove(layout), path, +(e.target as HTMLInputElement).value))} />
+              </label>
+            ))}
+          </details>
         ))}
         <h2>Спрятанные картинки ({layout.hide.length})</h2>
         {layout.hide.map((h) => (

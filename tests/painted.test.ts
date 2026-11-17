@@ -70,6 +70,25 @@ describe('Живописные сцены', () => {
     setLayout(base)
   })
 
+  it('любой слой двигается целиком: землю можно опустить к самому низу, людей - сдвинуть и увеличить', async () => {
+    const { setLayout, getLayout } = await import('../src/pixel/painted')
+    const ix = index('gothic')
+    const base = getLayout()
+    const input = { scene: { place: 'yard' as const }, region: 'paris', seed: 'o', cast: family as never }
+    const before = planPainted(input, ix)!.layers
+    const move = { ...(base as unknown as { move: object }).move, ground: { x: 0, y: 70, scale: 1 }, people: { x: -100, y: 10, scale: 1.5 }, sky: { x: 0, y: -40, scale: 1.2 } }
+    setLayout({ ...base, move } as never)
+    const after = planPainted(input, ix)!.layers
+    setLayout(base)
+    const strip = (ls: typeof before) => ls.find((l) => l.strip)!
+    expect(strip(after).y).toBe(strip(before).y + 70)
+    const hero = (ls: typeof before) => ls.filter((l) => l.key.startsWith('person.'))[0]
+    expect(hero(after).x).toBe(hero(before).x - 100)
+    expect(hero(after).h).toBeCloseTo((hero(before).h ?? ix[hero(before).key][5]!) * 1.5)
+    const sky = after.find((l) => l.key.startsWith('sky.'))!
+    expect([sky.y, sky.k]).toEqual([-40, 1.2])
+  })
+
   it('дом изнутри по достатку: бедный, средний, богатый', () => {
     const ix = index('japanese')
     const first = (home: number) => planPainted({ scene: { place: 'home' }, region: 'kyoto', seed: 'h', cast: { ...family, home } as never }, ix)!.layers[0].key

@@ -82,6 +82,8 @@ export interface Placed {
   /** Земля под ногами: насколько поднимается над линией ног (до 25), откуда брать текстуру и её сила.
    *  Идёт до низа кадра; основа - цвет земли самого кадра над линией ног, текстура - слабо сверху. */
   strip?: { h: number; src: number; texture: number }
+  /** Масштаб фона или погоды (move.<слой>.scale; у объектов масштаб уже в h). */
+  k?: number
   /** Группа раскладки (галерея: перетаскивание меняет её x/y в painted-layout.json). */
   group?: 'home' | 'street' | 'people' | 'animals' | 'props'
 }
@@ -175,7 +177,7 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     // Полоса земли переднего плана под линией ног (не выше 25 точек): люди, звери и дома стоят на одной земле.
     if (Y.groundStrip) {
       const ground = pick(index, 'ground', land, 'green', 'dry')
-      if (ground) L.push({ key: ground, x: 0, y: G + Y.groundStripY, strip: { h: Math.min(25, Y.groundStripH), src: Y.groundStripSrc, texture: Y.groundStripTexture } })
+      if (ground) L.push({ key: ground, x: 0, y: G + Y.groundStripY, strip: { h: Y.groundStripH, src: Y.groundStripSrc, texture: Y.groundStripTexture } })
     }
   }
 
@@ -247,6 +249,21 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     if (time === 'night') tints.push(T.indoorNight)
   } else if (T[time]) tints.push(T[time])
   if (mood && mood !== 'feast' && T[mood]) tints.push(T[mood])
+  // Свободный сдвиг и масштаб любого слоя целиком (галерея: «тянуть слой»).
+  const MOVE = (Y as { move?: Record<string, { x?: number; y?: number; scale?: number }> }).move ?? {}
+  for (const l of L) {
+    const m = MOVE[slotOf(l)]
+    if (!m) continue
+    l.x += m.x ?? 0
+    l.y += m.y ?? 0
+    const k = m.scale ?? 1
+    if (k === 1) continue
+    if (BACKDROPS.has(l.key.split('.')[0]) || l.key.startsWith('fx.')) l.k = k
+    else {
+      const sh = l.h ?? index[l.key]?.[5] ?? undefined
+      if (sh) l.h = sh * k
+    }
+  }
   // Порядок слоёв снизу вверх - из раскладки (галерея: стрелки ↑↓). Внутри группы порядок прежний.
   const order = Y.order ?? DEFAULT_ORDER
   const rank = (l: Placed) => {
@@ -378,8 +395,13 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
     if (l.strip) {
       drawStrip(ctx, s, im, w, h, l.y, l.strip)
     } else if (BACKDROPS.has(layer)) {
-      ctx.drawImage(im, l.x, l.y, PW, (h * PW) / w)
+      const r = backdropRect(l, w, h)
+      ctx.drawImage(im, r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0)
     } else if (layer === 'fx') {
+      // Сдвиг и масштаб погоды - от центра кадра.
+      const k = l.k ?? 1
+      ctx.translate(l.x + (PW * (1 - k)) / 2, l.y + (PH * (1 - k)) / 2)
+      ctx.scale(k, k)
       if (l.drift === 'down') {
         const dy = (t * 60) % PH
         ctx.drawImage(im, 0, dy - PH, PW, PH)
@@ -516,11 +538,25 @@ function drawStrip(ctx: CanvasRenderingContext2D, s: PaintedScene, im: CanvasIma
   ctx.drawImage(c, 0, top)
 }
 
-/** Прямоугольник объекта в кадре (для перетаскивания в галерее); null - фон или погода. */
+/** Где лежит фон: во всю ширину от (x, y), масштаб - от центра кадра по горизонтали. */
+function backdropRect(l: Placed, w: number, h: number): { x0: number; x1: number; y0: number; y1: number } {
+  const k = l.k ?? 1
+  const dh0 = (h * PW) / w
+  const dw = PW * k
+  const dh = dh0 * k
+  const x0 = l.x + (PW - dw) / 2
+  const y0 = l.y + (dh0 - dh) / 2
+  return { x0, x1: x0 + dw, y0, y1: y0 + dh }
+}
+
+/** Прямоугольник слоя в кадре (для перетаскивания в галерее): объект, фон или земля; null - погода. */
 export function boxOf(s: PaintedScene, l: Placed): { x0: number; x1: number; y0: number; y1: number } | null {
   const e = s.index[l.key]
-  if (!e || !l.group) return null
-  const [, , , w, h, sceneH] = e
+  if (!e) return null
+  const [layer, , , w, h, sceneH] = e
+  if (l.strip) return { x0: 0, x1: PW, y0: Math.round(l.y - Math.max(4, l.strip.h) + 6), y1: PH }
+  if (BACKDROPS.has(layer)) return backdropRect(l, w, h)
+  if (layer === 'fx') return null
   const k = (l.h ?? sceneH ?? h) / h
   return { x0: l.x - (w * k) / 2, x1: l.x + (w * k) / 2, y0: l.y - h * k, y1: l.y }
 }
