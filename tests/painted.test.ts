@@ -83,7 +83,8 @@ describe('Живописные сцены', () => {
     const after = planPainted(input, ix)!.layers
     setLayout(base)
     const strip = (ls: typeof before) => ls.find((l) => l.strip)!
-    expect(strip(after).y).toBe(strip(before).y + 70)
+    const baseGroundY = (base as unknown as { move?: { ground?: { y?: number } } }).move?.ground?.y ?? 0
+    expect(strip(after).y).toBe(strip(before).y - baseGroundY + 70)
     const hero = (ls: typeof before) => ls.filter((l) => l.key.startsWith('person.'))[0]
     expect(hero(after).x).toBe(hero(before).x - 100)
     expect(hero(after).h).toBeCloseTo((hero(before).h ?? ix[hero(before).key][5]!) * 1.5)

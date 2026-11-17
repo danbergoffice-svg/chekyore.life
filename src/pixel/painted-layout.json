@@ -8,10 +8,10 @@
     "y": 0
   },
   "groundStrip": true,
-  "groundStripH": 25,
-  "groundStripY": -6,
-  "groundStripSrc": 0.3,
-  "groundStripTexture": 0.35,
+  "groundStripH": 95,
+  "groundStripY": 55,
+  "groundStripSrc": 0.6,
+  "groundStripTexture": 1,
   "home": {
     "x": 79,
     "scale": 1,
@@ -19,20 +19,20 @@
   },
   "street": {
     "houses": 1,
-    "x": 88,
+    "x": 96,
     "scale": 1,
-    "y": 28
+    "y": 27
   },
   "field": {
     "x": 860,
     "h": 70
   },
   "people": {
-    "center": 428,
+    "center": 470,
     "step": 73,
     "stepCrowded": 20,
     "scale": 1.25,
-    "y": 35
+    "y": 18
   },
   "animals": {
     "x": 672,
@@ -103,13 +103,13 @@
     }
   },
   "order": [
-    "ground",
     "sky",
     "interior",
     "far",
     "landmark",
     "houses",
     "props",
+    "ground",
     "animals",
     "people",
     "fx"
@@ -137,7 +137,7 @@
     },
     "ground": {
       "x": 0,
-      "y": 0,
+      "y": 49,
       "scale": 1
     },
     "houses": {
