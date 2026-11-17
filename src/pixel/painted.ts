@@ -3,7 +3,7 @@
 // люди (сословие × пол × возраст), животные, предметы, погода - лежат в public/art/<стиль>/<слой>.bin
 // (склеенные WebP) с оглавлением index.json. Кадр 960×300, линия ног y=220, как у детальной сцены (hd.ts).
 // Пока слои грузятся или если для места нет слоёв (мастерская, школа, баня) - показывается прежняя пиксельная сцена.
-// Включается флагом painted_share (src/goal.ts paintedOn) или ?painted=1|0.
+// Включено у всех, где есть слои (флаг painted_share, src/goal.ts paintedOn); пиксельные - в настройках (prefs.art).
 import type { SceneInput, Cast, CastMember } from './scene'
 import { lookOf, rand } from './scene'
 import type { Weather } from './fx'

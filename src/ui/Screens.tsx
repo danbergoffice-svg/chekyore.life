@@ -815,6 +815,17 @@ export function Settings(props: {
             : { id: String(n), label: n === 60 ? t('settings.year.min') : t('settings.year.sec', { n }) },
         )}
       />
+      {(platform.flags.painted_share ?? 0) > 0 && (
+        <Choice
+          title={t('settings.art')}
+          value={p.art ?? 'painted'}
+          onChange={(art) => {
+            platform.track('art_switch', { art })
+            props.onPrefs({ ...p, art })
+          }}
+          options={(['painted', 'pixel'] as const).map((id) => ({ id, label: t(`settings.art.${id}`) }))}
+        />
+      )}
       <label class="toggle">
         <input type="checkbox" checked={p.contrast} onChange={(e) => props.onPrefs({ ...p, contrast: e.currentTarget.checked })} />
         <span class="option-label">{t('settings.contrast')}</span>

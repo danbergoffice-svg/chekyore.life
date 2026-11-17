@@ -102,6 +102,8 @@ export function App() {
     // Сборка только с частью языков (CrazyGames - английский): сохранённый язык вне сборки не берём.
     return platform.languages && !platform.languages.includes(p.lang) ? { ...p, lang: platform.languages[0] } : p
   })
+  // Графика сцен: модуль painted читает флаг при отрисовке (ключи кадров его учитывают), смена в настройках сразу видна.
+  setPainted(paintedOn(prefs.art, platform.flags))
   const [screen, setScreen] = useState<Screen>('loading')
   const [memorial, setMemorial] = useState<LifeSummary[]>([])
   // Хроника рода: какой род открыт (из мемориала).
@@ -175,8 +177,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      setPainted(paintedOn(platform.playerId(), platform.flags))
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old', painted: paintedOn(platform.playerId(), platform.flags) ? 1 : 0 })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old', painted: paintedOn(prefs.art, platform.flags) ? 1 : 0 })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {

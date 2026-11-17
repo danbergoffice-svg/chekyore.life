@@ -135,8 +135,11 @@ describe('Живописные сцены', () => {
     expect([0, 5, 15, 40, 70].map(ageStage)).toEqual(['baby', 'child', 'teen', 'adult', 'elder'])
   })
 
-  it('флаг painted_share: 0 - никого, 1 - всех', () => {
-    expect(paintedOn('a', { painted_share: 0 })).toBe(false)
-    expect(paintedOn('a', { painted_share: 1 })).toBe(true)
+  it('живописная по умолчанию там, где есть слои; пиксельная - по выбору в настройках', () => {
+    expect(paintedOn(undefined, { painted_share: 0 })).toBe(false)
+    expect(paintedOn(undefined, { painted_share: 1 })).toBe(true)
+    expect(paintedOn('painted', { painted_share: 1 })).toBe(true)
+    expect(paintedOn('pixel', { painted_share: 1 })).toBe(false)
+    expect(paintedOn('painted', { painted_share: 0 })).toBe(false)
   })
 })
