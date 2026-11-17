@@ -77,22 +77,35 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
       canvas.height = ch
     }
     canvas.classList.toggle('hd', !!built.hd)
-    composeScene(ctx, built, t.current)
     const amb = ambient ? pushAmbience(ambienceOf(built)) : 0
-    // Живописная сцена из слоёв (painted.ts): пока грузится - видна пиксельная; если для места слоёв нет - остаётся она.
+    // Живописная сцена из слоёв (painted.ts). Пока она грузится, холст пуст (без мигания пиксельной сцены);
+    // если для места живописи нет или она не загрузилась - рисуется пиксельная.
     let painted: PaintedScene | null = null
+    let pixel = !paintedEnabled()
     let gone = false
-    if (paintedEnabled()) {
+    if (pixel) composeScene(ctx, built, t.current)
+    else {
+      canvas.width = PW
+      canvas.height = PH
+      canvas.classList.add('hd', 'painting')
+      ctx.clearRect(0, 0, PW, PH)
       buildPainted(input).then((p) => {
-        if (gone || !p) return
+        if (gone) return
+        canvas.classList.remove('painting')
+        if (!p) {
+          pixel = true
+          const [w, h] = sceneSize(built)
+          canvas.width = w
+          canvas.height = h
+          canvas.classList.toggle('hd', !!built.hd)
+          composeScene(ctx, built, t.current)
+          return
+        }
         painted = p
-        canvas.width = PW
-        canvas.height = PH
-        canvas.classList.add('hd')
         composePainted(ctx, p, t.current)
       })
     }
-    const draw = () => (painted ? composePainted(ctx, painted, t.current) : composeScene(ctx, built, t.current))
+    const draw = () => (painted ? composePainted(ctx, painted, t.current) : pixel ? composeScene(ctx, built, t.current) : undefined)
     if (still || reducedMotion()) return () => {
       gone = true
       if (amb) popAmbience(amb)

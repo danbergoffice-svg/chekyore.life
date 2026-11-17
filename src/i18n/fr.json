@@ -48,6 +48,8 @@
   "life.money": "Richesse",
   "life.debt": "endettato",
   "life.menu": "Menu",
+  "life.skip_childhood": "Passer l'enfance",
+  "life.skip_childhood_confirm": "Passer l'enfance ? Les années jusqu'à 13 ans passeront d'elles-mêmes : le destin fera les choix.",
   "tab.life": "Vie",
   "tab.hero": "Toi",
   "tab.people": "Personnes",

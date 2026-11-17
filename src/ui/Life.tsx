@@ -104,6 +104,8 @@ export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
 export type Speed = (typeof SPEEDS)[number]
 
 interface LifeProps {
+  /** Пропустить детство: годы до 13 проходят сами (кнопка в шапке). */
+  onSkipChildhood?: () => void
   state: GameState
   era: EraDef
   onStart: (focus: string | null) => void
@@ -167,7 +169,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream, notices = true, onNotices, notice }: LifeProps) {
+export function Life({ onSkipChildhood, state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream, notices = true, onNotices, notice }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -426,7 +428,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   return (
     <div class={b ? 'life layout-b' : 'life'}>
       {b ? (
-        <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} details={
+        <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} onSkipChildhood={onSkipChildhood} details={
           <>
             <p class="hero-meta">
               {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}

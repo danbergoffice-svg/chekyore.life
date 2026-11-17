@@ -1467,6 +1467,38 @@ function die(state: GameState, era: EraDef): void {
 
 /** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов).
  *  pick - свой выбор варианта (калибровка целей): номер в options или null - как обычно, случайно. */
+/** Один шаг бота: начать год, решить событие или закончить год. Вернёт страну, в которой герой теперь живёт. */
+export function autoStep(
+  state: GameState,
+  era: EraDef,
+  pick?: (options: ChoiceDef[], state: GameState) => number | null,
+  pickFocus?: (focuses: FocusDef[], state: GameState) => string | null,
+): EraDef {
+  // Переехал в другую страну - дальше её события (страна уже загружена: переезд открыт только в загруженные).
+  if (state.hero.era !== era.id && isEraLoaded(state.hero.era)) era = eraById(state.hero.era)
+  if (state.phase === 'year') {
+    const focuses = availableFocuses(state, era)
+    // Свой выбор фокуса не трогает поток случайности - иначе жизнь с ним и без него разойдётся с первого года.
+    const r = focuses.length ? next(state) : 0
+    const f = focuses.length ? (pickFocus?.(focuses, state) ?? focuses[Math.floor(r * focuses.length)].id) : null
+    ensureGoal(state, eraNow(state, era))
+    startYear(state, era, f)
+  } else if (state.queue.length > 0) {
+    const ev = currentEvent(state, era)!
+    const options = eventChoices(state, era, ev).filter((c) => choiceAvailable(state, c, ev))
+    // Сон выбирается и решается своим потоком случайности - с ним и без него остальная жизнь одинакова.
+    const own = pick && ev.id !== 'dream_intro' && options.length ? pick(options, state) : null
+    const r = own !== null ? 0 : ev.id === 'dream_intro' ? dreamRng(state, 'auto_choice')() : next(state)
+    choose(state, era, options.length ? options[own ?? Math.floor(r * options.length)].id : null)
+    if (state.dream) {
+      autoDream(state)
+      resolveDream(state, eraNow(state, era))
+    }
+    dismiss(state, era)
+  } else finishYear(state, era)
+  return era
+}
+
 export function autoplay(
   state: GameState,
   era: EraDef,
@@ -1474,29 +1506,16 @@ export function autoplay(
   pick?: (options: ChoiceDef[], state: GameState) => number | null,
   pickFocus?: (focuses: FocusDef[], state: GameState) => string | null,
 ): GameState {
-  for (let i = 0; i < maxYears * 6 && state.phase !== 'dead'; i++) {
-    // Переехал в другую страну - дальше её события (страна уже загружена: переезд открыт только в загруженные).
-    if (state.hero.era !== era.id && isEraLoaded(state.hero.era)) era = eraById(state.hero.era)
-    if (state.phase === 'year') {
-      const focuses = availableFocuses(state, era)
-      // Свой выбор фокуса не трогает поток случайности - иначе жизнь с ним и без него разойдётся с первого года.
-      const r = focuses.length ? next(state) : 0
-      const f = focuses.length ? (pickFocus?.(focuses, state) ?? focuses[Math.floor(r * focuses.length)].id) : null
-      ensureGoal(state, eraNow(state, era))
-      startYear(state, era, f)
-    } else if (state.queue.length > 0) {
-      const ev = currentEvent(state, era)!
-      const options = eventChoices(state, era, ev).filter((c) => choiceAvailable(state, c, ev))
-      // Сон выбирается и решается своим потоком случайности - с ним и без него остальная жизнь одинакова.
-      const own = pick && ev.id !== 'dream_intro' && options.length ? pick(options, state) : null
-      const r = own !== null ? 0 : ev.id === 'dream_intro' ? dreamRng(state, 'auto_choice')() : next(state)
-      choose(state, era, options.length ? options[own ?? Math.floor(r * options.length)].id : null)
-      if (state.dream) {
-        autoDream(state)
-        resolveDream(state, eraNow(state, era))
-      }
-      dismiss(state, era)
-    } else finishYear(state, era)
-  }
+  for (let i = 0; i < maxYears * 6 && state.phase !== 'dead'; i++) era = autoStep(state, era, pick, pickFocus)
   return state
+}
+
+/**
+ * Пропустить детство (кнопка в шапке экрана жизни): годы до age проходят сами, события решает судьба, как у бота.
+ * Останавливается в начале года (phase 'year'), когда герою age, - дальше игрок решает сам. Вернёт возраст, с которого пропустили.
+ */
+export function skipChildhood(state: GameState, era: EraDef, age = 13): number {
+  const from = state.hero.age
+  for (let i = 0; i < 2000 && (state.phase as string) !== 'dead' && (state.hero.age < age || state.phase !== 'year'); i++) era = autoStep(state, era)
+  return from
 }

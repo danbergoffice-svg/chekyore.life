@@ -423,3 +423,5 @@ html.skin .spin-button::before { content: ''; position: absolute; top: 0; bottom
   transform: skewX(-18deg); animation: spin-shine 3.6s ease-in-out 1.2s infinite; }
 @keyframes spin-shine { 0% { left: -60%; } 38%, 100% { left: 130%; } }
 @media (prefers-reduced-motion: reduce) { html.skin .spin-button::before { animation: none; display: none; } }
+
+html.skin .hud-skip { border-radius: 0; border: 2px dashed rgba(243, 234, 215, 0.45); background: transparent; color: var(--sheet); }

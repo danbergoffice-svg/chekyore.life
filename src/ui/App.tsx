@@ -1,7 +1,7 @@
 import { applyTheme } from '../theme'
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
-import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
+import { choose, currentEvent, dismiss, eventChoices, finishYear, skipChildhood, startYear } from '../engine/game'
 import { chronicleSuccessor, continueWithHeir, earliestBirth, earliestStart, heirHome, heirs, memorialCanContinue, stateFromMemorial, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
@@ -11,7 +11,7 @@ import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear, utmParams } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
 import { crisisOn, goalGroup, layoutB, musicNew, musicTrack, paintedOn, shortFirst } from '../goal'
-import { setPainted } from '../pixel/painted'
+import { prefetchPainted, setPainted } from '../pixel/painted'
 import { ensureGoal, goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
@@ -246,6 +246,10 @@ export function App() {
     // A/B XM: половина игроков слышит новую музыку (src/goal.ts musicNew, флаг music_share).
     if (screen !== 'loading') setMusic(musicTrack(inLife && heroEra ? heroEra : null, heroRegion, musicNew(platform.playerId(), platform.flags)))
   }, [screen, heroEra, heroRegion])
+  // Живописные сцены края героя - заранее, пока игрок читает экран рождения.
+  useEffect(() => {
+    if (heroRegion) prefetchPainted(heroRegion)
+  }, [heroRegion])
 
   // Переезд в другую страну: её события и тексты. Соседние страны (куда можно уехать) подгружаются заранее,
   // пока герой подрастает, - переезд предлагается только в уже загруженные.
@@ -723,6 +727,18 @@ export function App() {
     if (!era || game.current?.phase !== 'year') return
     yearStart.current = snapshot(game.current)
     startYear(game.current, era, focus)
+    afterTurn()
+  }
+
+  /** Пропустить детство (кнопка в шапке): годы до 13 лет проходят сами - события решает судьба, как у бота. */
+  const onSkipChildhood = () => {
+    const s = game.current
+    if (!era || !s || s.phase === 'dead' || s.hero.age >= 13) return
+    if (!window.confirm(ui.t('life.skip_childhood_confirm'))) return
+    const from = skipChildhood(s, era)
+    yearStart.current = null
+    setYearChanges([])
+    platform.track('childhood_skip', { from, to: s.hero.age })
     afterTurn()
   }
 
@@ -1245,6 +1261,7 @@ export function App() {
               platform.track('menu_open', { from: 'life' })
               setLifeMenu(true)
             }}
+            onSkipChildhood={onSkipChildhood}
             frozen={lifeMenu}
             tourNonce={tourNonce}
             onDiceGame={onDiceGame}

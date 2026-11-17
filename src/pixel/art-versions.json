@@ -1,0 +1,19 @@
+{
+ "andean": "index-bceebbf1c8.json",
+ "aztec": "index-0fa54e5555.json",
+ "byzantine": "index-18fc86bd66.json",
+ "chinese": "index-736f951551.json",
+ "egyptian": "index-28bee0d1a6.json",
+ "ethiopian": "index-e871733fab.json",
+ "gothic": "index-8018418f08.json",
+ "greek": "index-792d910603.json",
+ "indian": "index-076b684084.json",
+ "islamic": "index-93e191921c.json",
+ "japanese": "index-1df6d27fe8.json",
+ "maya": "index-ce8bbb9289.json",
+ "mesopotamian": "index-0b0e010923.json",
+ "mongol": "index-64e8f30848.json",
+ "roman": "index-ef47586056.json",
+ "russian": "index-2f7be9371b.json",
+ "sahel": "index-fa14315ede.json"
+}

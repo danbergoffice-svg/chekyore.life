@@ -48,6 +48,8 @@
   "life.money": "Wealth",
   "life.debt": "in debt",
   "life.menu": "Menu",
+  "life.skip_childhood": "Skip childhood",
+  "life.skip_childhood_confirm": "Skip childhood? The years until 13 will pass on their own: fate will make the choices.",
   "tab.life": "Life",
   "tab.hero": "You",
   "tab.people": "Family",

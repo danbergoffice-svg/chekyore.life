@@ -48,6 +48,8 @@
   "life.money": "Bienes",
   "life.debt": "en deuda",
   "life.menu": "Menú",
+  "life.skip_childhood": "Saltar la infancia",
+  "life.skip_childhood_confirm": "¿Saltar la infancia? Los años hasta los 13 pasarán solos: el destino tomará las decisiones.",
   "tab.life": "Vida",
   "tab.hero": "Tú",
   "tab.people": "Personas",

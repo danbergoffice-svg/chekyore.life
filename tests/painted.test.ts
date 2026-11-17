@@ -1,14 +1,15 @@
 // Живописные сцены из слоёв (src/pixel/painted.ts): у каждого края и места есть всё нужное, и кадр собирается.
 import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { ageStage, planPainted, portraitKey } from '../src/pixel/painted'
+import { ageStage, BACKDROPS, planPainted, portraitKey } from '../src/pixel/painted'
 import type { ArtIndex } from '../src/pixel/painted'
 import { lookOf } from '../src/pixel/scene'
 import { ERA_META } from '../src/content'
 import { SCENE_PLACES } from '../src/engine/types'
 import { paintedOn } from '../src/goal'
 
-const index = (style: string): ArtIndex => JSON.parse(fs.readFileSync(`public/art/${style}/index.json`, 'utf8'))
+import VERSIONS from '../src/pixel/art-versions.json'
+const index = (style: string): ArtIndex => JSON.parse(fs.readFileSync(`public/art/${style}/${(VERSIONS as Record<string, string>)[style]}`, 'utf8')).items
 const regions = Object.values(ERA_META).flatMap((e) => e.regions.map((r) => r.id))
 const family = {
   members: [
@@ -23,6 +24,13 @@ const family = {
 } as const
 
 describe('Живописные сцены', () => {
+  it('файлы паков из оглавлений лежат на месте', () => {
+    for (const [style, file] of Object.entries(VERSIONS as Record<string, string>)) {
+      const pack = JSON.parse(fs.readFileSync(`public/art/${style}/${file}`, 'utf8'))
+      for (const f of Object.values(pack.files as Record<string, string>)) expect(fs.existsSync(`public/art/${style}/${f}`), `${style}/${f}`).toBe(true)
+    }
+  })
+
   it('у каждого края есть оглавление и ориентир', () => {
     for (const region of regions) {
       const ix = index(lookOf(region).style)
@@ -41,6 +49,8 @@ describe('Живописные сцены', () => {
           if (['workshop', 'school', 'bath', 'home'].includes(place)) expect(plan!.layers[0].key, `${region} ${place}`).toMatch(/^interior\./)
           else expect(plan!.layers[0].key).toBe(`sky.${time}`)
           for (const l of plan!.layers) expect(ix[l.key], `${region} ${place} ${l.key}`).toBeTruthy()
+          // Первый слой - фон во весь кадр (небо или комната): иначе кадр без фона (баг 17.11 - комната рисовалась мимо холста).
+          expect(BACKDROPS.has(ix[plan!.layers[0].key][0]), `${region} ${place}`).toBe(true)
           // Семья на картинке вся: 5 человек.
           expect(plan!.layers.filter((l) => l.key.startsWith('person.')).length).toBe(5)
         }
@@ -54,13 +64,14 @@ describe('Живописные сцены', () => {
     expect([0, 1, 2, 3, 4].map(first)).toEqual(['interior.home_poor', 'interior.home_poor', 'interior.home_mid', 'interior.home_rich', 'interior.home_rich'])
   })
 
-  it('портрет героя есть у всех стилей, сословий, полов и возрастов (кроме младенца)', () => {
+  it('портрет героя есть у всех стилей, сословий, полов и возрастов, и у младенца', () => {
     for (const region of regions) {
       const ix = index(lookOf(region).style)
       for (const cls of ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble', 'royal'])
         for (const sex of ['m', 'f'] as const)
           for (const age of [6, 15, 35, 70]) expect(portraitKey(ix, { region, sex, age, cls }), `${region} ${cls} ${sex} ${age}`).toBeTruthy()
-      expect(portraitKey(ix, { region, sex: 'm', age: 1 })).toBeNull()
+      expect(portraitKey(ix, { region, sex: 'm', age: 1 })).toBe('portrait.baby_m')
+      expect(portraitKey(ix, { region, sex: 'f', age: 0 })).toBe('portrait.baby_f')
     }
   })
 

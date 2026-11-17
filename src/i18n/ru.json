@@ -48,6 +48,8 @@
   "life.money": "Достаток",
   "life.debt": "долги",
   "life.menu": "Меню",
+  "life.skip_childhood": "Пропустить детство",
+  "life.skip_childhood_confirm": "Пропустить детство? Годы до 13 лет пройдут сами: решения примет судьба.",
   "tab.life": "Жизнь",
   "tab.hero": "Герой",
   "tab.people": "Близкие",

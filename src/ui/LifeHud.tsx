@@ -16,6 +16,8 @@ export function HudHeader(props: {
   coin: string
   look: AvatarInput
   onMenu: () => void
+  /** «Пропустить детство»: кнопка видна, пока герою нет 13 лет. */
+  onSkipChildhood?: () => void
   /** Подробности героя: занятие, положение, долг, болезнь, ожидаемая жизнь. */
   details: ComponentChildren
 }) {
@@ -40,6 +42,11 @@ export function HudHeader(props: {
             {mourning(hero) && <span class="warn" title={t('life.grief_tip')}> · {t('life.grief')}</span>}
           </p>
         </div>
+        {props.onSkipChildhood && hero.age < 13 && props.state.phase !== 'dead' && (
+          <button type="button" class="hud-skip" onClick={props.onSkipChildhood}>
+            {t('life.skip_childhood')}
+          </button>
+        )}
         <button type="button" class="hud-menu" aria-label={t('life.menu')} onClick={props.onMenu}>
           <Icon name="menu" />
         </button>

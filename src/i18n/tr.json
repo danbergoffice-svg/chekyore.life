@@ -48,6 +48,8 @@
   "life.money": "Servet",
   "life.debt": "borçlu",
   "life.menu": "Menü",
+  "life.skip_childhood": "Çocukluğu atla",
+  "life.skip_childhood_confirm": "Çocukluk atlansın mı? 13 yaşına kadarki yıllar kendiliğinden geçecek: kararları kader verecek.",
   "tab.life": "Hayat",
   "tab.hero": "Sen",
   "tab.people": "Yakınlar",

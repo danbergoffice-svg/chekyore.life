@@ -353,6 +353,9 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 /* Пиксельные сцены */
 .scene { display: block; width: 100%; aspect-ratio: 16 / 5; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; background: var(--paper-2); }
 .scene.hd { image-rendering: auto; }
+/* Живописная сцена грузится: холст пуст, затем плавно проявляется (painted.ts). */
+.scene { transition: opacity 0.25s ease; }
+.scene.painting { opacity: 0; }
 .panel > .scene { margin-bottom: 12px; }
 .modal > .scene { border-radius: 16px 16px 0 0; }
 /* Рисованная иллюстрация момента (G3): 256×144, 16:9. */
@@ -946,6 +949,8 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .hud-info { flex: 1; min-width: 0; }
 .hud-name { margin: 0; font-size: 19px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hud-meta { margin: 2px 0 0; font-size: 14px; color: #c3cae0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+/* «Пропустить детство» - рядом с меню, пока герою нет 13. */
+.hud-skip { flex: none; max-width: 96px; min-height: 48px; padding: 4px 8px; border: 1px solid #3a4670; border-radius: 10px; background: #1f2945; color: inherit; font: inherit; font-size: 12px; font-weight: 700; line-height: 1.15; cursor: pointer; }
 .hud-menu { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid #3a4670; border-radius: 10px; background: #1f2945; color: inherit; cursor: pointer; }
 .hud-health { height: 4px; background: #2a3558; }
 .hud-health span { display: block; height: 4px; background: #d0674b; transition: width 0.25s ease-out; }

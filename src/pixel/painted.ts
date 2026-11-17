@@ -7,15 +7,21 @@
 import type { SceneInput, Cast, CastMember } from './scene'
 import { lookOf, rand } from './scene'
 import type { Weather } from './fx'
+// Стиль → файл оглавления (с хешем содержимого). Пишет tools/pack.py набора графики; так новая упаковка
+// всегда получает новые адреса и офлайн-кэш сайта (sw.js) не смешивает старые файлы с новыми.
+import ART_VERSIONS from './art-versions.json'
 
 export const PW = 960
 export const PH = 300
 export const PGROUND = 220
-/** Версия паков: увеличить после перепаковки, чтобы браузер взял новые файлы. */
-const ART_VERSION = 1
 
 type Entry = [layer: string, offset: number, length: number, w: number, h: number, sceneH: number | null]
 export type ArtIndex = Record<string, Entry>
+interface ArtPack {
+  /** Слой → имя файла пака (с хешем). */
+  files: Record<string, string>
+  items: ArtIndex
+}
 
 let on = false
 /** Включить живописные сцены (App по флагу). */
@@ -50,6 +56,8 @@ export interface PaintedPlan {
 }
 
 const INDOOR = new Set(['workshop', 'school', 'bath'])
+/** Слои-фоны: рисуются во всю ширину кадра от своей точки (x, y), а не «ногами на линию земли». */
+export const BACKDROPS = new Set(['sky', 'interior', 'far', 'landmark', 'ground'])
 const WITH_LANDMARK = new Set(['landmark', 'street', 'market', 'temple', 'palace', 'harbor', 'arena', 'tomb', 'river', 'road', 'sea'])
 const PROP_KEYS = new Set(['fire', 'boat', 'bed', 'cradle', 'table', 'scroll', 'coins', 'amphora', 'tree', 'palm', 'olive', 'grain', 'cart', 'lamp', 'altar', 'statue', 'banner', 'shield', 'loom', 'anvil'])
 const CLASSES = ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble']
@@ -175,31 +183,49 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
 
 // ---------------------------------------------------------------- Загрузка
 
-const indexes = new Map<string, Promise<ArtIndex | null>>()
+const indexes = new Map<string, Promise<ArtPack | null>>()
 const packs = new Map<string, Promise<ArrayBuffer | null>>()
 const images = new Map<string, Promise<CanvasImageSource | null>>()
 
-export function loadIndex(style: string): Promise<ArtIndex | null> {
+function loadPackIndex(style: string): Promise<ArtPack | null> {
   let p = indexes.get(style)
   if (!p) {
-    p = fetch(`./art/${style}/index.json?v=${ART_VERSION}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .catch(() => null)
+    const file = (ART_VERSIONS as Record<string, string>)[style]
+    p = file
+      ? fetch(`./art/${style}/${file}`)
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null)
+      : Promise.resolve(null)
     indexes.set(style, p)
   }
   return p
+}
+
+export async function loadIndex(style: string): Promise<ArtIndex | null> {
+  return (await loadPackIndex(style))?.items ?? null
 }
 
 function loadPack(style: string, layer: string): Promise<ArrayBuffer | null> {
   const id = `${style}/${layer}`
   let p = packs.get(id)
   if (!p) {
-    p = fetch(`./art/${style}/${layer}.bin?v=${ART_VERSION}`)
-      .then((r) => (r.ok ? r.arrayBuffer() : null))
-      .catch(() => null)
+    p = loadPackIndex(style).then((ix) =>
+      ix?.files[layer]
+        ? fetch(`./art/${style}/${ix.files[layer]}`)
+            .then((r) => (r.ok ? r.arrayBuffer() : null))
+            .catch(() => null)
+        : null,
+    )
     packs.set(id, p)
   }
   return p
+}
+
+/** Заранее подтянуть оглавление и основные слои края (меню, начало жизни) - кадр появится сразу. */
+export function prefetchPainted(region: string): void {
+  if (!on) return
+  const style = lookOf(region).style
+  for (const layer of ['sky', 'far', 'landmark', 'ground', 'house', 'person', 'interior', 'portrait']) loadPack(style, layer)
 }
 
 async function decode(blob: Blob): Promise<CanvasImageSource | null> {
@@ -259,7 +285,7 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
     const [layer, , , w, h, sceneH] = e
     ctx.save()
     if (l.alpha !== undefined) ctx.globalAlpha = l.alpha
-    if (layer === 'sky' || layer === 'far' || layer === 'landmark' || layer === 'ground') {
+    if (BACKDROPS.has(layer)) {
       ctx.drawImage(im, l.x, l.y, PW, (h * PW) / w)
     } else if (layer === 'fx') {
       if (l.drift === 'down') {
@@ -305,10 +331,10 @@ export interface PortraitInput {
   integrated?: boolean
 }
 
-/** Ключ портрета в оглавлении: сословие × пол × возраст; младенцу живописного портрета нет. */
+/** Ключ портрета в оглавлении: сословие × пол × возраст; до 2 лет - младенец на руках (мальчик или девочка). */
 export function portraitKey(index: ArtIndex, p: PortraitInput): string | null {
   const stage = ageStage(p.age)
-  if (stage === 'baby') return null
+  if (stage === 'baby') return index[`portrait.baby_${p.sex}`] ? `portrait.baby_${p.sex}` : null
   const c = p.enslaved ? 'slave' : p.cls && CLASSES.includes(p.cls) ? p.cls : p.cls === 'royal' ? 'noble' : 'peasant'
   for (const k of [`portrait.${c}_${p.sex}_${stage}`, `portrait.peasant_${p.sex}_${stage}`]) if (index[k]) return k
   return null
