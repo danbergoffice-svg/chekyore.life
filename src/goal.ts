@@ -87,3 +87,17 @@ export function musicTrack(era: string | null, region: string | undefined, fresh
   if (era && region && EGYPT.has(region)) return 'v2/egy'
   return MUSIC_V2.has(id) ? `v2/${id}` : id
 }
+
+/** Эксперимент XP: живописные сцены из слоёв (src/pixel/painted.ts); ?painted=1|0 - проверить руками (запоминается). */
+export function paintedOn(playerId: string, flags: { painted_share?: number }): boolean {
+  let forced: string | null = null
+  try {
+    forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('painted') : null
+    if (forced === '1' || forced === '0') localStorage.setItem('thousands.painted', forced)
+    else forced = localStorage.getItem('thousands.painted')
+  } catch {
+    // нет хранилища - решает флаг
+  }
+  if (forced === '1' || forced === '0') return forced === '1'
+  return share(playerId, 'painted', flags.painted_share ?? 0)
+}

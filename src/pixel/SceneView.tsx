@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'preact/hooks'
 import type { SceneDef } from '../engine/types'
 import { buildScene, composeScene, H, lookOf, sceneSize, W } from './scene'
 import { frameImage } from './art'
+import { buildPainted, composePainted, paintedEnabled, PH, PW } from './painted'
+import type { PaintedScene } from './painted'
 import type { BuiltScene, Cast, SceneMood } from './scene'
 import type { Weather } from './fx'
 import { setAmbience } from '../audio'
@@ -59,7 +61,7 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
   const ref = useRef<HTMLCanvasElement>(null)
   const t = useRef(0)
   const input = { scene, region, seed, cast, season, weather, mood, art, year }
-  const key = JSON.stringify(input)
+  const key = JSON.stringify(input) + (paintedEnabled() ? ':painted' : '')
   const live = useRef({ paused, still })
   live.current = { paused, still }
 
@@ -77,7 +79,24 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
     canvas.classList.toggle('hd', !!built.hd)
     composeScene(ctx, built, t.current)
     const amb = ambient ? pushAmbience(ambienceOf(built)) : 0
-    if (still || reducedMotion()) return () => amb && popAmbience(amb)
+    // Живописная сцена из слоёв (painted.ts): пока грузится - видна пиксельная; если для места слоёв нет - остаётся она.
+    let painted: PaintedScene | null = null
+    let gone = false
+    if (paintedEnabled()) {
+      buildPainted(input).then((p) => {
+        if (gone || !p) return
+        painted = p
+        canvas.width = PW
+        canvas.height = PH
+        canvas.classList.add('hd')
+        composePainted(ctx, p, t.current)
+      })
+    }
+    const draw = () => (painted ? composePainted(ctx, painted, t.current) : composeScene(ctx, built, t.current))
+    if (still || reducedMotion()) return () => {
+      gone = true
+      if (amb) popAmbience(amb)
+    }
     let visible = true
     let raf = 0
     let last = performance.now()
@@ -93,10 +112,11 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
       if (acc < 1 / FPS) return
       t.current += acc
       acc = 0
-      composeScene(ctx, built, t.current)
+      draw()
     }
     raf = requestAnimationFrame(frame)
     return () => {
+      gone = true
       cancelAnimationFrame(raf)
       io?.disconnect()
       if (amb) popAmbience(amb)

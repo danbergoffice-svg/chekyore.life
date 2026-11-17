@@ -63,6 +63,9 @@ export interface Flags {
   /** Эксперимент XM (12.11.2026): доля игроков с новой музыкой (public/music/v2, src/goal.ts musicNew), свой хеш id;
    *  0 - у всех старая. По умолчанию 0: сборки порталов (CrazyGames, Яндекс) остаются со старой, сайт берёт долю из flags.json. */
   music_share: number
+  /** Эксперимент XP (17.11.2026): доля игроков с живописными сценами из слоёв (public/art, src/pixel/painted.ts);
+   *  0 - у всех пиксельные. На порталах слоёв нет (не влезают в лимит), там всегда 0. */
+  painted_share: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -97,6 +100,7 @@ export const DEFAULT_FLAGS: Flags = {
   // Перелом сорокалетия - A/B 50 на 50 (10.11.2026).
   crisis_share: 0.5,
   music_share: 0,
+  painted_share: 0,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'
