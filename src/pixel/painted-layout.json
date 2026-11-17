@@ -1,32 +1,100 @@
 {
   "_comment": "Раскладка живописной сцены 960×300 (painted.ts). Правится в галерее (?gallery=painted): кнопка «Сохранить настройки» скачивает этот файл целиком - положить сюда же.",
   "ground": 220,
-  "far": { "y": 0 },
-  "landmark": { "y": 0 },
-  "groundStrip": false,
-  "home": { "x": 170, "scale": 1 },
-  "street": { "houses": 1, "x": 850, "scale": 1 },
-  "field": { "x": 860, "h": 70 },
-  "people": { "center": 470, "step": 56, "stepCrowded": 42, "scale": 1 },
-  "animals": { "x": 730, "step": 75, "scale": 1 },
-  "props": { "fireX": 560, "x": 640, "step": 70, "scale": 1 },
+  "far": {
+    "y": 0
+  },
+  "landmark": {
+    "y": 0
+  },
+  "groundStrip": true,
+  "groundStripH": 22,
+  "groundStripY": -6,
+  "groundStripSrc": 0.3,
+  "home": {
+    "x": 170,
+    "scale": 1
+  },
+  "street": {
+    "houses": 1,
+    "x": 850,
+    "scale": 1
+  },
+  "field": {
+    "x": 860,
+    "h": 70
+  },
+  "people": {
+    "center": 470,
+    "step": 56,
+    "stepCrowded": 42,
+    "scale": 1
+  },
+  "animals": {
+    "x": 730,
+    "step": 75,
+    "scale": 1
+  },
+  "props": {
+    "fireX": 560,
+    "x": 640,
+    "step": 70,
+    "scale": 1
+  },
   "fx": {
-    "rain": { "alpha": 0.5 },
-    "snow": { "alpha": 0.5 },
-    "fog": { "alpha": 0.45 },
-    "smoke": { "alpha": 0.6 },
-    "fire": { "alpha": 0.85 },
-    "feast": { "alpha": 1, "band": 0.4 }
+    "rain": {
+      "alpha": 0.5
+    },
+    "snow": {
+      "alpha": 0.5
+    },
+    "fog": {
+      "alpha": 0.45
+    },
+    "smoke": {
+      "alpha": 0.6
+    },
+    "fire": {
+      "alpha": 0.85
+    },
+    "feast": {
+      "alpha": 1,
+      "band": 0.4
+    }
   },
   "tint": {
-    "night": { "color": "#1c2550", "alpha": 0.38 },
-    "sunset": { "color": "#ff9a5a", "alpha": 0.12 },
-    "dawn": { "color": "#ffc3b0", "alpha": 0.1 },
-    "overcast": { "color": "#6a7080", "alpha": 0.18 },
-    "indoorNight": { "color": "#c98a4a", "alpha": 0.22 },
-    "war": { "color": "#7a3020", "alpha": 0.28 },
-    "epidemic": { "color": "#9aa060", "alpha": 0.25 },
-    "famine": { "color": "#a08860", "alpha": 0.25 }
+    "night": {
+      "color": "#1c2550",
+      "alpha": 0.38
+    },
+    "sunset": {
+      "color": "#ff9a5a",
+      "alpha": 0.12
+    },
+    "dawn": {
+      "color": "#ffc3b0",
+      "alpha": 0.1
+    },
+    "overcast": {
+      "color": "#6a7080",
+      "alpha": 0.18
+    },
+    "indoorNight": {
+      "color": "#c98a4a",
+      "alpha": 0.22
+    },
+    "war": {
+      "color": "#7a3020",
+      "alpha": 0.28
+    },
+    "epidemic": {
+      "color": "#9aa060",
+      "alpha": 0.25
+    },
+    "famine": {
+      "color": "#a08860",
+      "alpha": 0.25
+    }
   },
   "hide": []
 }

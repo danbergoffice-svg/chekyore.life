@@ -79,6 +79,8 @@ export interface Placed {
   drift?: 'down' | 'side'
   /** Только верхняя полоса картинки (доля высоты): гирлянды праздника. */
   band?: number
+  /** Полоса земли под ногами: высота в кадре и откуда брать текстуру (доля высоты картинки земли). */
+  strip?: { h: number; src: number }
 }
 
 export interface PaintedPlan {
@@ -167,9 +169,10 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     if (far) L.push({ key: far, x: 0, y: Y.far.y })
     const landmark = WITH_LANDMARK.has(place) && has(index, `landmark.${region}`) ? `landmark.${region}` : null
     if (landmark) L.push({ key: landmark, x: 0, y: Y.landmark.y })
+    // Полоса земли переднего плана под линией ног (не выше 25 точек): люди, звери и дома стоят на одной земле.
     if (Y.groundStrip) {
       const ground = pick(index, 'ground', land, 'green', 'dry')
-      if (ground) L.push({ key: ground, x: 0, y: G })
+      if (ground) L.push({ key: ground, x: 0, y: G + Y.groundStripY, strip: { h: Math.min(25, Y.groundStripH), src: Y.groundStripSrc } })
     }
   }
 
@@ -355,7 +358,9 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
     const [layer, , , w, h, sceneH] = e
     ctx.save()
     if (l.alpha !== undefined) ctx.globalAlpha = l.alpha
-    if (BACKDROPS.has(layer)) {
+    if (l.strip) {
+      drawStrip(ctx, im, w, h, l.y, l.strip)
+    } else if (BACKDROPS.has(layer)) {
       ctx.drawImage(im, l.x, l.y, PW, (h * PW) / w)
     } else if (layer === 'fx') {
       if (l.drift === 'down') {
@@ -420,4 +425,28 @@ export async function loadPortrait(p: PortraitInput): Promise<CanvasImageSource 
   const index = await loadIndex(style)
   const key = index && portraitKey(index, p)
   return key ? loadImage(style, index!, key) : null
+}
+
+let stripCanvas: HTMLCanvasElement | null = null
+/** Полоса земли: срез текстуры земли высотой strip.h с мягким верхним краем (не «наклейка»). */
+function drawStrip(ctx: CanvasRenderingContext2D, im: CanvasImageSource, w: number, h: number, y: number, strip: { h: number; src: number }): void {
+  const sh = Math.max(4, Math.round(strip.h))
+  stripCanvas ??= document.createElement('canvas')
+  const c = stripCanvas
+  c.width = PW
+  c.height = sh
+  const g = c.getContext('2d')!
+  g.globalCompositeOperation = 'source-over'
+  g.clearRect(0, 0, PW, sh)
+  const srcH = Math.max(1, (sh * w) / PW)
+  const srcY = Math.min(h - srcH, Math.max(0, strip.src * h))
+  g.drawImage(im, 0, srcY, w, srcH, 0, 0, PW, sh)
+  const fade = g.createLinearGradient(0, 0, 0, sh)
+  fade.addColorStop(0, 'rgba(0,0,0,0)')
+  fade.addColorStop(0.45, 'rgba(0,0,0,1)')
+  fade.addColorStop(1, 'rgba(0,0,0,1)')
+  g.globalCompositeOperation = 'destination-in'
+  g.fillStyle = fade
+  g.fillRect(0, 0, PW, sh)
+  ctx.drawImage(c, 0, y)
 }

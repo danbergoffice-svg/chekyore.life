@@ -31,6 +31,9 @@ interface Frame {
 /** Поля раскладки, которые правятся ползунками: путь в JSON, подпись, мин, макс, шаг. */
 const FIELDS: [string, string, number, number, number][] = [
   ['ground', 'Линия ног (y)', 180, 260, 1],
+  ['groundStripH', 'Полоса земли: высота (до 25)', 4, 25, 1],
+  ['groundStripY', 'Полоса земли: сдвиг от линии ног', -20, 20, 1],
+  ['groundStripSrc', 'Полоса земли: откуда брать текстуру', 0, 0.75, 0.05],
   ['far.y', 'Даль: сдвиг вниз', -80, 80, 1],
   ['landmark.y', 'Ориентир: сдвиг вниз', -80, 80, 1],
   ['home.x', 'Свой дом: x', 0, 960, 5],
@@ -248,7 +251,7 @@ export function PaintedGallery() {
           </label>
         ))}
         <label class="pg-check">
-          <input type="checkbox" checked={layout.groundStrip} onChange={() => update({ ...layout, groundStrip: !layout.groundStrip })} /> отдельная полоса земли
+          <input type="checkbox" checked={layout.groundStrip} onChange={() => update({ ...layout, groundStrip: !layout.groundStrip })} /> полоса земли под ногами
         </label>
         {COLORS.map(([path, label]) => (
           <label class="pg-check">
