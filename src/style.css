@@ -1169,3 +1169,29 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 
 /* Настройки: «Расскажи об игре подробнее» - кнопка с пояснением. */
 .settings-tour { display: grid; gap: 2px; width: 100%; margin: 14px 0 4px; text-align: left; }
+
+/* ---------- Галерея живописных сцен (?gallery=painted) ---------- */
+html.gallery body { max-width: none; }
+html.gallery #app { max-width: none; padding: 0; }
+.pg { display: grid; grid-template-columns: 300px 1fr; gap: 16px; padding: 12px; min-height: 100vh; }
+.pg-side { position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto; display: grid; gap: 8px; font-size: 14px; padding-right: 6px; }
+.pg-side h1 { font-size: 22px; margin: 0; }
+.pg-side h2 { font-size: 16px; margin: 10px 0 0; }
+.pg-side label { display: grid; gap: 2px; }
+.pg-side label.pg-check { display: flex; align-items: center; gap: 6px; }
+.pg-side fieldset { display: flex; flex-wrap: wrap; gap: 2px 10px; border: 1px solid var(--line); padding: 6px; }
+.pg-side input[type='range'] { width: 100%; }
+.pg-note { font-size: 13px; color: var(--muted); margin: 0; }
+.pg-buttons { display: grid; gap: 8px; margin: 10px 0 20px; }
+.pg-hidden { font-size: 12px; display: flex; justify-content: space-between; gap: 6px; }
+.pg-summary { margin: 0 0 10px; display: flex; gap: 16px; align-items: center; }
+.pg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 12px; }
+.pg-frame { display: grid; gap: 4px; padding: 6px; background: rgba(243, 234, 215, 0.06); border: 2px solid transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.pg-frame.bad { border-color: #ef8a6c; }
+.pg-frame canvas { width: 100%; aspect-ratio: 16 / 5; background: repeating-conic-gradient(#555 0 25%, #333 0 50%) 0 0 / 16px 16px; }
+.pg-label { font-size: 13px; }
+.pg-problem { font-size: 12px; color: #ef8a6c; }
+.pg-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); display: grid; place-items: center; z-index: 50; }
+.pg-dialog { width: min(900px, 94vw); max-height: 90vh; overflow-y: auto; background: var(--bg); padding: 16px; display: grid; gap: 8px; }
+.pg-layer { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; }
+@media (max-width: 700px) { .pg { grid-template-columns: 1fr; } .pg-side { position: static; max-height: none; } .pg-grid { grid-template-columns: 1fr; } }

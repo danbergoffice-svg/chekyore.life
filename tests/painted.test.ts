@@ -75,6 +75,22 @@ describe('Живописные сцены', () => {
     }
   })
 
+  it('улица: соседних домов не больше настройки и они разные; праздник - полосой, война - тоном', () => {
+    for (const region of regions) {
+      const ix = index(lookOf(region).style)
+      for (let i = 0; i < 20; i++) {
+        const plan = planPainted({ scene: { place: 'street' }, region, seed: `s${i}`, mood: i % 2 ? 'feast' : 'war' }, ix)!
+        const houses = plan.layers.filter((l) => l.key.startsWith('house.')).map((l) => l.key)
+        expect(new Set(houses).size, region).toBe(houses.length)
+        if (i % 2) expect(plan.layers.find((l) => l.key === 'fx.feast')?.band, region).toBeGreaterThan(0)
+        else {
+          expect(plan.layers.some((l) => l.key === 'fx.war')).toBe(false)
+          expect(plan.tints.length).toBeGreaterThan(0)
+        }
+      }
+    }
+  })
+
   it('свой двор: дом нужного уровня, сгоревший - обгоревший', () => {
     const ix = index('gothic')
     const plan = (homeState?: 'burned') => planPainted({ scene: { place: 'yard' }, region: 'paris', seed: 'y', cast: { ...family, homeState } as never }, ix)!

@@ -10,6 +10,37 @@ import type { Weather } from './fx'
 // Стиль → файл оглавления (с хешем содержимого). Пишет tools/pack.py набора графики; так новая упаковка
 // всегда получает новые адреса и офлайн-кэш сайта (sw.js) не смешивает старые файлы с новыми.
 import ART_VERSIONS from './art-versions.json'
+// Раскладка кадра (где дома, люди, сколько прозрачности у погоды, тонировка, спрятанные картинки) - правится
+// в галерее ?gallery=painted и сохраняется сюда.
+import DEFAULT_LAYOUT from './painted-layout.json'
+
+export type PaintedLayout = Omit<typeof DEFAULT_LAYOUT, 'hide'> & { hide: string[] }
+const LAYOUT_KEY = 'thousands.painted_layout'
+/** Раскладка: правки из галереи в этом браузере (localStorage) поверх файла. */
+let layout: PaintedLayout = (() => {
+  try {
+    const saved = typeof localStorage !== 'undefined' ? localStorage.getItem(LAYOUT_KEY) : null
+    if (saved) return { ...(DEFAULT_LAYOUT as PaintedLayout), ...JSON.parse(saved) } as PaintedLayout
+  } catch {
+    // нет хранилища или испорчено - файл
+  }
+  return DEFAULT_LAYOUT as PaintedLayout
+})()
+/** Галерея меняет раскладку на лету. */
+export function setLayout(l: PaintedLayout): void {
+  layout = l
+}
+/** Запомнить правки галереи в этом браузере (они действуют и в игре). */
+export function saveLayout(l: PaintedLayout): void {
+  try {
+    localStorage.setItem(LAYOUT_KEY, JSON.stringify(l))
+  } catch {
+    // нет хранилища
+  }
+}
+export function getLayout(): PaintedLayout {
+  return layout
+}
 
 export const PW = 960
 export const PH = 300
@@ -46,13 +77,15 @@ export interface Placed {
   alpha?: number
   /** Погода, которая движется: дождь и снег сверху вниз, туман вбок. */
   drift?: 'down' | 'side'
+  /** Только верхняя полоса картинки (доля высоты): гирлянды праздника. */
+  band?: number
 }
 
 export interface PaintedPlan {
   style: string
   layers: Placed[]
-  /** Тон поверх всего кадра: ночь, закат, рассвет, пасмурно. */
-  tint?: { color: string; alpha: number }
+  /** Тона поверх всего кадра: ночь, закат, рассвет, пасмурно; война, мор, голод. */
+  tints: { color: string; alpha: number }[]
 }
 
 const INDOOR = new Set(['workshop', 'school', 'bath'])
@@ -74,14 +107,29 @@ function personKey(index: ArtIndex, cls: string | undefined, sex: 'm' | 'f', age
   const stage = ageStage(age)
   if (stage === 'baby') return index['person.baby_swaddled'] ? 'person.baby_swaddled' : null
   const c = cls && CLASSES.includes(cls) ? cls : cls === 'royal' ? 'noble' : 'peasant'
-  for (const k of [`person.${c}_${sex}_${stage}_stand`, `person.peasant_${sex}_${stage}_stand`, `person.peasant_${sex}_adult_stand`]) if (index[k]) return k
+  for (const k of [`person.${c}_${sex}_${stage}_stand`, `person.peasant_${sex}_${stage}_stand`, `person.peasant_${sex}_adult_stand`]) if (has(index, k)) return k
   return null
 }
 
 /** Первый подходящий ключ из списка, иначе любой этого слоя. */
 function pick(index: ArtIndex, layer: string, ...ids: (string | undefined)[]): string | null {
-  for (const id of ids) if (id && index[`${layer}.${id}`]) return `${layer}.${id}`
-  return Object.keys(index).find((k) => k.startsWith(layer + '.')) ?? null
+  for (const id of ids) if (id && has(index, `${layer}.${id}`)) return `${layer}.${id}`
+  return Object.keys(index).find((k) => k.startsWith(layer + '.') && has(index, k)) ?? null
+}
+
+/** Картинка есть и не спрятана в галерее (hide: '<стиль>/<ключ>'). */
+function has(index: ArtIndex, key: string): boolean {
+  return !!index[key] && !hidden.has(`${styleOf(index)}/${key}`)
+}
+let hidden = new Set<string>()
+const STYLE_OF = new WeakMap<ArtIndex, string>()
+function styleOf(index: ArtIndex): string {
+  return STYLE_OF.get(index) ?? ''
+}
+/** Запомнить, какому стилю принадлежит оглавление (для списка спрятанных картинок). */
+export function tagIndex(index: ArtIndex, style: string): ArtIndex {
+  STYLE_OF.set(index, style)
+  return index
 }
 
 /** Где стоять людям семьи: герой в центре, рядом супруг, дети, родители, остальные. */
@@ -93,6 +141,9 @@ function castOrder(c: Cast): CastMember[] {
 /** Что и где лежит в кадре. index - оглавление стиля края. Null - для этого места живописи нет. */
 export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | null {
   const { scene, region, seed, cast, mood } = input
+  const Y = layout
+  hidden = new Set(Y.hide)
+  const G = Y.ground
   const place = scene.place ?? 'street'
   const look = lookOf(region)
   const r = rand(`${seed}:painted`)
@@ -102,7 +153,7 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
   // Помещение: дом изнутри по достатку (сгоревший дом - снаружи, на пепелище), мастерская, школа, баня.
   const lvl = Math.max(0, Math.min(4, cast?.home ?? 1))
   const room = INDOOR.has(place) ? place : place === 'home' && !burned && scene.disaster !== 'fire' ? (lvl <= 1 ? 'home_poor' : lvl === 2 ? 'home_mid' : 'home_rich') : null
-  const inside = room && index[`interior.${room}`] ? `interior.${room}` : null
+  const inside = room && has(index, `interior.${room}`) ? `interior.${room}` : null
   if (room && !inside && INDOOR.has(place)) return null
   if (inside) {
     L.push({ key: inside, x: 0, y: 0 })
@@ -111,44 +162,50 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     if (!sky) return null
     L.push({ key: sky, x: 0, y: 0 })
     const land = look.land
+    // Даль и ориентир - во весь кадр со своей землёй до низа; отдельная полоса земли - по настройке.
     const far = pick(index, 'far', land, 'green', 'dry')
-    if (far) L.push({ key: far, x: 0, y: PGROUND + 25 - PH })
-    const landmark = WITH_LANDMARK.has(place) ? pick(index, 'landmark', region) : null
-    if (landmark && landmark.endsWith('.' + region)) L.push({ key: landmark, x: 0, y: PGROUND + 35 - PH })
-    const ground = pick(index, 'ground', land, 'green', 'dry')
-    if (ground) L.push({ key: ground, x: 0, y: PGROUND })
+    if (far) L.push({ key: far, x: 0, y: Y.far.y })
+    const landmark = WITH_LANDMARK.has(place) && has(index, `landmark.${region}`) ? `landmark.${region}` : null
+    if (landmark) L.push({ key: landmark, x: 0, y: Y.landmark.y })
+    if (Y.groundStrip) {
+      const ground = pick(index, 'ground', land, 'green', 'dry')
+      if (ground) L.push({ key: ground, x: 0, y: G })
+    }
   }
 
-  // Дома: свой двор - дом семьи; улица и рынок - соседние дома по краям; поле - хижина вдали.
+  // Дома: свой двор - дом семьи; улица и рынок - соседний дом с одной стороны (сторона по зерну); поле - хижина вдали.
   const objects: Placed[] = []
   if (!inside && (place === 'home' || place === 'yard')) {
     const k = pick(index, 'house', burned || scene.disaster === 'fire' ? `home${lvl}_burned` : `home${lvl}`, `home${lvl}`)
-    if (k) objects.push({ key: k, x: 170, y: PGROUND + 4 })
+    if (k) objects.push({ key: k, x: Y.home.x, y: G + 4, h: scaled(index, k, Y.home.scale) })
   } else if (place === 'street' || place === 'market' || place === 'road') {
-    const a = pick(index, 'house', `home${1 + Math.floor(r() * 3)}`)
-    const b = pick(index, 'house', `home${1 + Math.floor(r() * 3)}`)
-    if (a) objects.push({ key: a, x: 120, y: PGROUND + 4 })
-    if (b) objects.push({ key: b, x: 850, y: PGROUND + 4, flip: true })
+    const levels = [1, 2, 3].sort(() => r() - 0.5)
+    const left = r() < 0.5
+    for (let i = 0; i < Math.min(2, Y.street.houses); i++) {
+      const k = pick(index, 'house', `home${levels[i]}`)
+      const onLeft = i === 0 ? left : !left
+      if (k) objects.push({ key: k, x: onLeft ? PW - Y.street.x : Y.street.x, y: G + 4, flip: !onLeft, h: scaled(index, k, Y.street.scale) })
+    }
   } else if (place === 'field') {
     const k = pick(index, 'house', 'home1')
-    if (k) objects.push({ key: k, x: 860, y: PGROUND - 6, h: 70 })
+    if (k) objects.push({ key: k, x: Y.field.x, y: G - 6, h: Y.field.h })
   }
 
   // Предметы сцены (козы и кони из props - к животным).
-  const props = (scene.props ?? []).filter((p) => PROP_KEYS.has(p) && index[`prop.${p}`])
-  props.forEach((p, i) => objects.push({ key: `prop.${p}`, x: p === 'fire' ? 560 : 640 + i * 70, y: PGROUND + 6 }))
+  const props = (scene.props ?? []).filter((p) => PROP_KEYS.has(p) && has(index, `prop.${p}`))
+  props.forEach((p, i) => objects.push({ key: `prop.${p}`, x: p === 'fire' ? Y.props.fireX : Y.props.x + i * Y.props.step, y: G + 6, h: scaled(index, `prop.${p}`, Y.props.scale) }))
   const animals = [...(cast?.animals ?? []), ...(scene.props ?? []).filter((p) => p === 'goat' || p === 'horse')]
-  ;[...new Set(inside ? [] : animals)].filter((a) => index[`animal.${a}`]).slice(0, 3).forEach((a, i) => objects.push({ key: `animal.${a}`, x: 730 + i * 75, y: PGROUND + 10, flip: i % 2 === 1 }))
+  ;[...new Set(inside ? [] : animals)].filter((a) => has(index, `animal.${a}`)).slice(0, 3).forEach((a, i) => objects.push({ key: `animal.${a}`, x: Y.animals.x + i * Y.animals.step, y: G + 10, flip: i % 2 === 1, h: scaled(index, `animal.${a}`, Y.animals.scale) }))
 
   // Люди: семья героя, иначе прохожие по месту.
   const people: Placed[] = []
   const members = cast ? castOrder(cast) : []
   if (members.length) {
-    const step = members.length > 6 ? 42 : 56
-    const start = 470 - ((members.length - 1) * step) / 2
+    const step = members.length > 6 ? Y.people.stepCrowded : Y.people.step
+    const start = Y.people.center - ((members.length - 1) * step) / 2
     members.forEach((m, i) => {
       const k = personKey(index, m.cls, m.sex, m.age)
-      if (k) people.push({ key: k, x: start + i * step, y: PGROUND + 8, flip: m.role !== 'hero' && start + i * step > 520 })
+      if (k) people.push({ key: k, x: start + i * step, y: G + 8, flip: m.role !== 'hero' && start + i * step > Y.people.center + 50, h: scaled(index, k, Y.people.scale) })
     })
   } else {
     const n = Math.max(0, Math.min(6, scene.people ?? 2))
@@ -158,13 +215,13 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
       const sex = r() < 0.5 ? 'm' : 'f'
       const age = r() < 0.15 ? 9 : r() < 0.15 ? 66 : 32
       const k = personKey(index, pool[Math.floor(r() * pool.length)], sex, age)
-      const x = 300 + (i + 0.5) * (380 / Math.max(1, n)) + (r() - 0.5) * 20
-      if (k) people.push({ key: k, x, y: PGROUND + 8, flip: x > 480 })
+      const x = Y.people.center - 170 + (i + 0.5) * (380 / Math.max(1, n)) + (r() - 0.5) * 20
+      if (k) people.push({ key: k, x, y: G + 8, flip: x > Y.people.center + 10, h: scaled(index, k, Y.people.scale) })
     }
   }
   L.push(...objects, ...people)
 
-  // Погода и состояние мира - поверх.
+  // Погода - прозрачной картинкой поверх; праздник - полосой гирлянд сверху; война, мор и голод - тоном кадра.
   const fx = new Set<string>()
   const w: Weather | null | undefined = input.weather
   if (w === 'rain' || w === 'storm' || scene.props?.includes('rain')) fx.add('rain')
@@ -172,13 +229,25 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
   if (w === 'fog') fx.add('fog')
   if (scene.props?.includes('smoke')) fx.add('smoke')
   if (scene.disaster === 'fire') fx.add('fire')
-  if (mood === 'war' || mood === 'epidemic' || mood === 'feast') fx.add(mood)
+  if (mood === 'feast') fx.add('feast')
+  const FX = Y.fx as Record<string, { alpha: number; band?: number }>
   for (const f of fx) {
-    if (!index[`fx.${f}`] || (inside && f !== 'fire' && f !== 'smoke' && f !== 'epidemic' && f !== 'feast')) continue
-    L.push({ key: `fx.${f}`, x: 0, y: 0, alpha: f === 'rain' || f === 'snow' ? 0.5 : f === 'fog' ? 0.45 : 0.6, drift: f === 'rain' || f === 'snow' ? 'down' : f === 'fog' ? 'side' : undefined })
+    if (!has(index, `fx.${f}`) || !FX[f] || (inside && f !== 'fire' && f !== 'smoke' && f !== 'feast')) continue
+    L.push({ key: `fx.${f}`, x: 0, y: 0, alpha: FX[f].alpha, band: FX[f].band, drift: f === 'rain' || f === 'snow' ? 'down' : f === 'fog' ? 'side' : undefined })
   }
-  const tint = inside ? (time === 'night' ? { color: '#c98a4a', alpha: 0.22 } : undefined) : time === 'night' ? { color: '#1c2550', alpha: 0.38 } : time === 'sunset' ? { color: '#ff9a5a', alpha: 0.12 } : time === 'dawn' ? { color: '#ffc3b0', alpha: 0.1 } : time === 'overcast' ? { color: '#6a7080', alpha: 0.18 } : undefined
-  return { style: look.style, layers: L, tint }
+  const T = Y.tint as Record<string, { color: string; alpha: number }>
+  const tints: { color: string; alpha: number }[] = []
+  if (inside) {
+    if (time === 'night') tints.push(T.indoorNight)
+  } else if (T[time]) tints.push(T[time])
+  if (mood && mood !== 'feast' && T[mood]) tints.push(T[mood])
+  return { style: look.style, layers: L, tints }
+}
+
+/** Высота объекта в кадре с поправкой масштаба из раскладки (undefined - как в оглавлении). */
+function scaled(index: ArtIndex, key: string, k: number): number | undefined {
+  const sh = index[key]?.[5]
+  return sh && k !== 1 ? sh * k : undefined
 }
 
 // ---------------------------------------------------------------- Загрузка
@@ -202,7 +271,8 @@ function loadPackIndex(style: string): Promise<ArtPack | null> {
 }
 
 export async function loadIndex(style: string): Promise<ArtIndex | null> {
-  return (await loadPackIndex(style))?.items ?? null
+  const items = (await loadPackIndex(style))?.items
+  return items ? tagIndex(items, style) : null
 }
 
 function loadPack(style: string, layer: string): Promise<ArrayBuffer | null> {
@@ -296,6 +366,10 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
         const dx = (t * 8) % PW
         ctx.drawImage(im, dx - PW, 0, PW, PH)
         ctx.drawImage(im, dx, 0, PW, PH)
+      } else if (l.band) {
+        // Только верх картинки (гирлянды): нижняя часть праздничного слоя - чужой пейзаж.
+        const bh = Math.round(h * l.band)
+        ctx.drawImage(im, 0, 0, w, bh, 0, 0, PW, PH * l.band)
       } else ctx.drawImage(im, 0, 0, PW, PH)
     } else {
       // Объект: холст стоит низом на линии ног; масштаб - из оглавления (sceneH точек кадра на всю высоту холста).
@@ -308,11 +382,11 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
     }
     ctx.restore()
   }
-  if (s.plan.tint) {
+  for (const tint of s.plan.tints) {
     ctx.save()
     ctx.globalCompositeOperation = 'multiply'
-    ctx.globalAlpha = s.plan.tint.alpha * 2
-    ctx.fillStyle = s.plan.tint.color
+    ctx.globalAlpha = Math.min(1, tint.alpha * 2)
+    ctx.fillStyle = tint.color
     ctx.fillRect(0, 0, PW, PH)
     ctx.restore()
   }

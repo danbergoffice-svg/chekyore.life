@@ -23,12 +23,20 @@ initPlatform()
 const root = document.getElementById('app')!
 root.textContent = ''
 watchErrors()
-render(
-  <CrashGuard text={crashText()}>
-    <App />
-  </CrashGuard>,
-  root,
-)
+// Галерея и редактор живописных сцен (?gallery=painted) - отдельным куском кода, игре не мешает.
+if (new URLSearchParams(location.search).get('gallery') === 'painted') {
+  import('./pixel/PaintedGallery').then(({ PaintedGallery }) => {
+    document.documentElement.classList.add('gallery')
+    render(<PaintedGallery />, root)
+  })
+} else {
+  render(
+    <CrashGuard text={crashText()}>
+      <App />
+    </CrashGuard>,
+    root,
+  )
+}
 
 /** Тексты экрана ошибки - без словарей игры (они могли и сломаться): язык из настроек или браузера. */
 function crashText() {
