@@ -941,6 +941,8 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .hud-row { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 12px 0 16px; }
 .hud-portrait { flex: none; width: 48px; height: 48px; padding: 0; border: 1px solid #3a4670; border-radius: 8px; overflow: hidden; background: #d8c7a3; cursor: pointer; }
 .hud-portrait .avatar { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+/* Живописный портрет (painted.ts): гладко, в квадратной шапке - лицо, а не середина. */
+.avatar.painted { image-rendering: auto; object-position: 50% 15%; }
 .hud-info { flex: 1; min-width: 0; }
 .hud-name { margin: 0; font-size: 19px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hud-meta { margin: 2px 0 0; font-size: 14px; color: #c3cae0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }

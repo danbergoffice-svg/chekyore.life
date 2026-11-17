@@ -1,7 +1,7 @@
 // Живописные сцены из слоёв (src/pixel/painted.ts): у каждого края и места есть всё нужное, и кадр собирается.
 import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { ageStage, planPainted } from '../src/pixel/painted'
+import { ageStage, planPainted, portraitKey } from '../src/pixel/painted'
 import type { ArtIndex } from '../src/pixel/painted'
 import { lookOf } from '../src/pixel/scene'
 import { ERA_META } from '../src/content'
@@ -36,17 +36,31 @@ describe('Живописные сцены', () => {
       for (const place of SCENE_PLACES) {
         for (const time of ['day', 'night'] as const) {
           const plan = planPainted({ scene: { place, time, props: ['fire', 'goat', 'rain'] }, region, seed: 'x', cast: family as never, weather: 'snow', mood: 'war' }, ix)
-          if (['workshop', 'school', 'bath'].includes(place)) {
-            expect(plan).toBeNull()
-            continue
-          }
           expect(plan, `${region} ${place}`).not.toBeNull()
+          // Мастерская, школа, баня и дом - изнутри.
+          if (['workshop', 'school', 'bath', 'home'].includes(place)) expect(plan!.layers[0].key, `${region} ${place}`).toMatch(/^interior\./)
+          else expect(plan!.layers[0].key).toBe(`sky.${time}`)
           for (const l of plan!.layers) expect(ix[l.key], `${region} ${place} ${l.key}`).toBeTruthy()
-          expect(plan!.layers[0].key).toBe(`sky.${time}`)
           // Семья на картинке вся: 5 человек.
           expect(plan!.layers.filter((l) => l.key.startsWith('person.')).length).toBe(5)
         }
       }
+    }
+  })
+
+  it('дом изнутри по достатку: бедный, средний, богатый', () => {
+    const ix = index('japanese')
+    const first = (home: number) => planPainted({ scene: { place: 'home' }, region: 'kyoto', seed: 'h', cast: { ...family, home } as never }, ix)!.layers[0].key
+    expect([0, 1, 2, 3, 4].map(first)).toEqual(['interior.home_poor', 'interior.home_poor', 'interior.home_mid', 'interior.home_rich', 'interior.home_rich'])
+  })
+
+  it('портрет героя есть у всех стилей, сословий, полов и возрастов (кроме младенца)', () => {
+    for (const region of regions) {
+      const ix = index(lookOf(region).style)
+      for (const cls of ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble', 'royal'])
+        for (const sex of ['m', 'f'] as const)
+          for (const age of [6, 15, 35, 70]) expect(portraitKey(ix, { region, sex, age, cls }), `${region} ${cls} ${sex} ${age}`).toBeTruthy()
+      expect(portraitKey(ix, { region, sex: 'm', age: 1 })).toBeNull()
     }
   })
 

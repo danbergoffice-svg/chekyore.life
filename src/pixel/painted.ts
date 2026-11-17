@@ -86,27 +86,34 @@ function castOrder(c: Cast): CastMember[] {
 export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | null {
   const { scene, region, seed, cast, mood } = input
   const place = scene.place ?? 'street'
-  if (INDOOR.has(place)) return null
   const look = lookOf(region)
   const r = rand(`${seed}:painted`)
   const time = scene.time ?? 'day'
   const L: Placed[] = []
-  const sky = pick(index, 'sky', time, 'day')
-  if (!sky) return null
-  L.push({ key: sky, x: 0, y: 0 })
-  const land = look.land
-  const far = pick(index, 'far', land, 'green', 'dry')
-  if (far) L.push({ key: far, x: 0, y: PGROUND + 25 - PH })
-  const landmark = WITH_LANDMARK.has(place) ? pick(index, 'landmark', region) : null
-  if (landmark && landmark.endsWith('.' + region)) L.push({ key: landmark, x: 0, y: PGROUND + 35 - PH })
-  const ground = pick(index, 'ground', land, 'green', 'dry')
-  if (ground) L.push({ key: ground, x: 0, y: PGROUND })
+  const burned = !!cast?.homeState && cast.homeState !== 'rebuilding'
+  // Помещение: дом изнутри по достатку (сгоревший дом - снаружи, на пепелище), мастерская, школа, баня.
+  const lvl = Math.max(0, Math.min(4, cast?.home ?? 1))
+  const room = INDOOR.has(place) ? place : place === 'home' && !burned && scene.disaster !== 'fire' ? (lvl <= 1 ? 'home_poor' : lvl === 2 ? 'home_mid' : 'home_rich') : null
+  const inside = room && index[`interior.${room}`] ? `interior.${room}` : null
+  if (room && !inside && INDOOR.has(place)) return null
+  if (inside) {
+    L.push({ key: inside, x: 0, y: 0 })
+  } else {
+    const sky = pick(index, 'sky', time, 'day')
+    if (!sky) return null
+    L.push({ key: sky, x: 0, y: 0 })
+    const land = look.land
+    const far = pick(index, 'far', land, 'green', 'dry')
+    if (far) L.push({ key: far, x: 0, y: PGROUND + 25 - PH })
+    const landmark = WITH_LANDMARK.has(place) ? pick(index, 'landmark', region) : null
+    if (landmark && landmark.endsWith('.' + region)) L.push({ key: landmark, x: 0, y: PGROUND + 35 - PH })
+    const ground = pick(index, 'ground', land, 'green', 'dry')
+    if (ground) L.push({ key: ground, x: 0, y: PGROUND })
+  }
 
   // Дома: свой двор - дом семьи; улица и рынок - соседние дома по краям; поле - хижина вдали.
   const objects: Placed[] = []
-  const burned = !!cast?.homeState && cast.homeState !== 'rebuilding'
-  if (place === 'home' || place === 'yard') {
-    const lvl = Math.max(0, Math.min(4, cast?.home ?? 1))
+  if (!inside && (place === 'home' || place === 'yard')) {
     const k = pick(index, 'house', burned || scene.disaster === 'fire' ? `home${lvl}_burned` : `home${lvl}`, `home${lvl}`)
     if (k) objects.push({ key: k, x: 170, y: PGROUND + 4 })
   } else if (place === 'street' || place === 'market' || place === 'road') {
@@ -123,7 +130,7 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
   const props = (scene.props ?? []).filter((p) => PROP_KEYS.has(p) && index[`prop.${p}`])
   props.forEach((p, i) => objects.push({ key: `prop.${p}`, x: p === 'fire' ? 560 : 640 + i * 70, y: PGROUND + 6 }))
   const animals = [...(cast?.animals ?? []), ...(scene.props ?? []).filter((p) => p === 'goat' || p === 'horse')]
-  ;[...new Set(animals)].filter((a) => index[`animal.${a}`]).slice(0, 3).forEach((a, i) => objects.push({ key: `animal.${a}`, x: 730 + i * 75, y: PGROUND + 10, flip: i % 2 === 1 }))
+  ;[...new Set(inside ? [] : animals)].filter((a) => index[`animal.${a}`]).slice(0, 3).forEach((a, i) => objects.push({ key: `animal.${a}`, x: 730 + i * 75, y: PGROUND + 10, flip: i % 2 === 1 }))
 
   // Люди: семья героя, иначе прохожие по месту.
   const people: Placed[] = []
@@ -159,10 +166,10 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
   if (scene.disaster === 'fire') fx.add('fire')
   if (mood === 'war' || mood === 'epidemic' || mood === 'feast') fx.add(mood)
   for (const f of fx) {
-    if (!index[`fx.${f}`]) continue
+    if (!index[`fx.${f}`] || (inside && f !== 'fire' && f !== 'smoke' && f !== 'epidemic' && f !== 'feast')) continue
     L.push({ key: `fx.${f}`, x: 0, y: 0, alpha: f === 'rain' || f === 'snow' ? 0.5 : f === 'fog' ? 0.45 : 0.6, drift: f === 'rain' || f === 'snow' ? 'down' : f === 'fog' ? 'side' : undefined })
   }
-  const tint = time === 'night' ? { color: '#1c2550', alpha: 0.38 } : time === 'sunset' ? { color: '#ff9a5a', alpha: 0.12 } : time === 'dawn' ? { color: '#ffc3b0', alpha: 0.1 } : time === 'overcast' ? { color: '#6a7080', alpha: 0.18 } : undefined
+  const tint = inside ? (time === 'night' ? { color: '#c98a4a', alpha: 0.22 } : undefined) : time === 'night' ? { color: '#1c2550', alpha: 0.38 } : time === 'sunset' ? { color: '#ff9a5a', alpha: 0.12 } : time === 'dawn' ? { color: '#ffc3b0', alpha: 0.1 } : time === 'overcast' ? { color: '#6a7080', alpha: 0.18 } : undefined
   return { style: look.style, layers: L, tint }
 }
 
@@ -283,4 +290,34 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
     ctx.fillRect(0, 0, PW, PH)
     ctx.restore()
   }
+}
+
+// ---------------------------------------------------------------- Портрет героя
+
+export interface PortraitInput {
+  region: string
+  sex: 'm' | 'f'
+  age: number
+  cls?: string
+  enslaved?: boolean
+  /** Иноземец, ещё не вжившийся: портрет в стиле родного края. */
+  homeRegion?: string
+  integrated?: boolean
+}
+
+/** Ключ портрета в оглавлении: сословие × пол × возраст; младенцу живописного портрета нет. */
+export function portraitKey(index: ArtIndex, p: PortraitInput): string | null {
+  const stage = ageStage(p.age)
+  if (stage === 'baby') return null
+  const c = p.enslaved ? 'slave' : p.cls && CLASSES.includes(p.cls) ? p.cls : p.cls === 'royal' ? 'noble' : 'peasant'
+  for (const k of [`portrait.${c}_${p.sex}_${stage}`, `portrait.peasant_${p.sex}_${stage}`]) if (index[k]) return k
+  return null
+}
+
+/** Живописный портрет (256×320, как пиксельный 32×40) или null - тогда остаётся пиксельный. */
+export async function loadPortrait(p: PortraitInput): Promise<CanvasImageSource | null> {
+  const style = lookOf(p.homeRegion && !p.integrated ? p.homeRegion : p.region).style
+  const index = await loadIndex(style)
+  const key = index && portraitKey(index, p)
+  return key ? loadImage(style, index!, key) : null
 }
