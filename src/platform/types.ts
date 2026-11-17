@@ -91,14 +91,14 @@ export const DEFAULT_FLAGS: Flags = {
   kids_share: 1,
   // 08.11: цель у всех (жалобы игроков «цели нет» - это была контрольная группа 20%); 0.8 вернёт A/B.
   goal_share: 1,
-  goal_marks_share: 0.5,
+  // Тесты закрыты 17.11 (решение владельца): метки ▲▼, короткие первые события и перелом - у всех, «вторая жизнь знатным» выключена.
+  goal_marks_share: 1,
   goal_weight: 1.5,
   goal_change_age: 16,
   goal_free_from: 4,
-  short_first_share: 0.5,
+  short_first_share: 1,
   layout_share: 1,
-  // Перелом сорокалетия - A/B 50 на 50 (10.11.2026).
-  crisis_share: 0.5,
+  crisis_share: 1,
   music_share: 0,
   painted_share: 0,
 }

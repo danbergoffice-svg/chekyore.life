@@ -17,8 +17,8 @@
   ],
   "fullscreen_gap_sec": 180,
   "ab_buckets": {
-    "a": 0.5,
-    "b": 0.5
+    "a": 1,
+    "b": 0
   },
   "ach_rarity": {},
   "portrait_style": "painting",
@@ -28,11 +28,12 @@
   "kids_share": 1,
   "goal_share": 1,
   "layout_share": 1,
-  "goal_marks_share": 0.5,
+  "goal_marks_share": 1,
   "goal_weight": 1.5,
   "goal_change_age": 16,
   "goal_free_from": 4,
-  "crisis_share": 0.5,
-  "music_share": 0.5,
-  "painted_share": 0.5
+  "crisis_share": 1,
+  "music_share": 1,
+  "painted_share": 0.5,
+  "short_first_share": 1
 }
