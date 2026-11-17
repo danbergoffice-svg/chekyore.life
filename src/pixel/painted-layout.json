@@ -11,6 +11,7 @@
   "groundStripH": 22,
   "groundStripY": -6,
   "groundStripSrc": 0.3,
+  "groundStripTexture": 0.35,
   "home": {
     "x": 170,
     "scale": 1

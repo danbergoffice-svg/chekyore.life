@@ -79,8 +79,9 @@ export interface Placed {
   drift?: 'down' | 'side'
   /** Только верхняя полоса картинки (доля высоты): гирлянды праздника. */
   band?: number
-  /** Полоса земли под ногами: высота в кадре и откуда брать текстуру (доля высоты картинки земли). */
-  strip?: { h: number; src: number }
+  /** Земля под ногами: насколько поднимается над линией ног (до 25), откуда брать текстуру и её сила.
+   *  Идёт до низа кадра; основа - цвет земли самого кадра над линией ног, текстура - слабо сверху. */
+  strip?: { h: number; src: number; texture: number }
 }
 
 export interface PaintedPlan {
@@ -172,7 +173,7 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     // Полоса земли переднего плана под линией ног (не выше 25 точек): люди, звери и дома стоят на одной земле.
     if (Y.groundStrip) {
       const ground = pick(index, 'ground', land, 'green', 'dry')
-      if (ground) L.push({ key: ground, x: 0, y: G + Y.groundStripY, strip: { h: Math.min(25, Y.groundStripH), src: Y.groundStripSrc } })
+      if (ground) L.push({ key: ground, x: 0, y: G + Y.groundStripY, strip: { h: Math.min(25, Y.groundStripH), src: Y.groundStripSrc, texture: Y.groundStripTexture } })
     }
   }
 
@@ -359,7 +360,7 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
     ctx.save()
     if (l.alpha !== undefined) ctx.globalAlpha = l.alpha
     if (l.strip) {
-      drawStrip(ctx, im, w, h, l.y, l.strip)
+      drawStrip(ctx, s, im, w, h, l.y, l.strip)
     } else if (BACKDROPS.has(layer)) {
       ctx.drawImage(im, l.x, l.y, PW, (h * PW) / w)
     } else if (layer === 'fx') {
@@ -428,25 +429,73 @@ export async function loadPortrait(p: PortraitInput): Promise<CanvasImageSource 
 }
 
 let stripCanvas: HTMLCanvasElement | null = null
-/** Полоса земли: срез текстуры земли высотой strip.h с мягким верхним краем (не «наклейка»). */
-function drawStrip(ctx: CanvasRenderingContext2D, im: CanvasImageSource, w: number, h: number, y: number, strip: { h: number; src: number }): void {
-  const sh = Math.max(4, Math.round(strip.h))
+const groundColor = new WeakMap<PaintedScene, string>()
+
+/** Средний цвет земли кадра чуть выше линии ног (что уже нарисовано: даль и ориентир). */
+function sampleGround(ctx: CanvasRenderingContext2D, y: number): string {
+  try {
+    const d = ctx.getImageData(0, Math.max(0, y - 16), PW, 12).data
+    let r = 0
+    let g = 0
+    let b = 0
+    let n = 0
+    for (let i = 0; i < d.length; i += 4 * 5) {
+      if (d[i + 3] < 200) continue
+      r += d[i]
+      g += d[i + 1]
+      b += d[i + 2]
+      n++
+    }
+    if (!n) return '#8a7556'
+    return `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(b / n)})`
+  } catch {
+    return '#8a7556'
+  }
+}
+
+/**
+ * Земля переднего плана: от (линия ног - strip.h) до низа кадра. Основа - цвет земли кадра (с затемнением книзу),
+ * сверху слабо текстура земли стиля; верхний край мягкий - не «наклейка».
+ */
+function drawStrip(ctx: CanvasRenderingContext2D, s: PaintedScene, im: CanvasImageSource, w: number, h: number, y: number, strip: { h: number; src: number; texture: number }): void {
+  const top = Math.round(y - Math.max(4, strip.h) + 6)
+  const sh = PH - top
+  let base = groundColor.get(s)
+  if (!base) {
+    base = sampleGround(ctx, top)
+    groundColor.set(s, base)
+  }
   stripCanvas ??= document.createElement('canvas')
   const c = stripCanvas
   c.width = PW
   c.height = sh
   const g = c.getContext('2d')!
   g.globalCompositeOperation = 'source-over'
+  g.globalAlpha = 1
   g.clearRect(0, 0, PW, sh)
-  const srcH = Math.max(1, (sh * w) / PW)
-  const srcY = Math.min(h - srcH, Math.max(0, strip.src * h))
-  g.drawImage(im, 0, srcY, w, srcH, 0, 0, PW, sh)
-  const fade = g.createLinearGradient(0, 0, 0, sh)
+  g.fillStyle = base
+  g.fillRect(0, 0, PW, sh)
+  // Книзу чуть темнее - земля «уходит» к зрителю.
+  const shade = g.createLinearGradient(0, 0, 0, sh)
+  shade.addColorStop(0, 'rgba(0,0,0,0)')
+  shade.addColorStop(1, 'rgba(0,0,0,0.28)')
+  g.fillStyle = shade
+  g.fillRect(0, 0, PW, sh)
+  if (strip.texture > 0) {
+    const srcH = Math.max(1, Math.min(h, (sh * w) / PW))
+    const srcY = Math.min(h - srcH, Math.max(0, strip.src * h))
+    g.globalAlpha = strip.texture
+    g.globalCompositeOperation = 'overlay'
+    g.drawImage(im, 0, srcY, w, srcH, 0, 0, PW, sh)
+    g.globalCompositeOperation = 'source-over'
+    g.globalAlpha = 1
+  }
+  const soft = Math.min(sh, Math.max(6, strip.h * 0.7))
+  const fade = g.createLinearGradient(0, 0, 0, soft)
   fade.addColorStop(0, 'rgba(0,0,0,0)')
-  fade.addColorStop(0.45, 'rgba(0,0,0,1)')
   fade.addColorStop(1, 'rgba(0,0,0,1)')
   g.globalCompositeOperation = 'destination-in'
   g.fillStyle = fade
-  g.fillRect(0, 0, PW, sh)
-  ctx.drawImage(c, 0, y)
+  g.fillRect(0, 0, PW, soft)
+  ctx.drawImage(c, 0, top)
 }
