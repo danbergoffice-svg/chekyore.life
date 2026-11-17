@@ -1,6 +1,6 @@
 {
   "_comment": "Раскладка живописной сцены 960×300 (painted.ts). Правится в галерее (?gallery=painted): кнопка «Сохранить настройки» скачивает этот файл целиком - положить сюда же. move - свободный сдвиг (x, y) и масштаб любого слоя целиком, поверх остальных настроек.",
-  "ground": 220,
+  "ground": 260,
   "far": {
     "y": 0
   },
@@ -8,37 +8,37 @@
     "y": 0
   },
   "groundStrip": true,
-  "groundStripH": 22,
+  "groundStripH": 25,
   "groundStripY": -6,
   "groundStripSrc": 0.3,
   "groundStripTexture": 0.35,
   "home": {
-    "x": 170,
+    "x": 79,
     "scale": 1,
-    "y": 0
+    "y": 31
   },
   "street": {
     "houses": 1,
-    "x": 850,
+    "x": 88,
     "scale": 1,
-    "y": 0
+    "y": 28
   },
   "field": {
     "x": 860,
     "h": 70
   },
   "people": {
-    "center": 470,
-    "step": 56,
-    "stepCrowded": 42,
-    "scale": 1,
-    "y": 0
+    "center": 428,
+    "step": 73,
+    "stepCrowded": 20,
+    "scale": 1.25,
+    "y": 35
   },
   "animals": {
-    "x": 730,
+    "x": 672,
     "step": 75,
     "scale": 1,
-    "y": 0
+    "y": 27
   },
   "props": {
     "fireX": 560,
@@ -103,11 +103,11 @@
     }
   },
   "order": [
+    "ground",
     "sky",
     "interior",
     "far",
     "landmark",
-    "ground",
     "houses",
     "props",
     "animals",

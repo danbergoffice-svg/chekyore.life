@@ -45,12 +45,14 @@ describe('Живописные сцены', () => {
         for (const time of ['day', 'night'] as const) {
           const plan = planPainted({ scene: { place, time, props: ['fire', 'goat', 'rain'] }, region, seed: 'x', cast: family as never, weather: 'snow', mood: 'war' }, ix)
           expect(plan, `${region} ${place}`).not.toBeNull()
+          // Полосу земли раскладка может опустить под небо (порядок слоёв): первым считается первый слой без неё.
+          const base = plan!.layers.find((l) => !l.strip)!
           // Мастерская, школа, баня и дом - изнутри.
-          if (['workshop', 'school', 'bath', 'home'].includes(place)) expect(plan!.layers[0].key, `${region} ${place}`).toMatch(/^interior\./)
-          else expect(plan!.layers[0].key).toBe(`sky.${time}`)
+          if (['workshop', 'school', 'bath', 'home'].includes(place)) expect(base.key, `${region} ${place}`).toMatch(/^interior\./)
+          else expect(base.key).toBe(`sky.${time}`)
           for (const l of plan!.layers) expect(ix[l.key], `${region} ${place} ${l.key}`).toBeTruthy()
           // Первый слой - фон во весь кадр (небо или комната): иначе кадр без фона (баг 17.11 - комната рисовалась мимо холста).
-          expect(BACKDROPS.has(ix[plan!.layers[0].key][0]), `${region} ${place}`).toBe(true)
+          expect(BACKDROPS.has(ix[base.key][0]), `${region} ${place}`).toBe(true)
           // Семья на картинке вся: 5 человек.
           expect(plan!.layers.filter((l) => l.key.startsWith('person.')).length).toBe(5)
         }
