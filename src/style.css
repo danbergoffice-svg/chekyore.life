@@ -939,8 +939,11 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .new-life-row .new-life-btn { margin-top: 0; flex: 1; }
 
 /* Этап 2, рукав XA «b» (макет 06): шапка 64 px, полоса здоровья 4 px, цель и веха под вкладками, нижняя панель времени. */
-.layout-b { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
-.hud { position: sticky; top: 0; z-index: 6; background: #10162a; margin: 0 -16px; }
+/* overflow-x: clip - страховка: ничто внутри экрана жизни не делает страницу шире экрана (аудит 18.11: шапка с полями
+   −16 px вылезала на 375 px, страница становилась 391 px и съезжала вбок). clip, а не hidden: липкие шапка и панель работают. */
+.layout-b { padding-bottom: calc(80px + env(safe-area-inset-bottom)); overflow-x: clip; }
+/* Экран жизни B - без полей .screen, поэтому шапка во всю ширину без отрицательных полей. */
+.hud { position: sticky; top: 0; z-index: 6; background: #10162a; margin: 0; }
 .hud-row { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 12px 0 16px; }
 .hud-portrait { flex: none; width: 48px; height: 48px; padding: 0; border: 1px solid #3a4670; border-radius: 8px; overflow: hidden; background: #d8c7a3; cursor: pointer; }
 .hud-portrait .avatar { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }

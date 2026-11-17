@@ -1387,6 +1387,7 @@
   "tour.skip": "Geç",
   "tour.next": "İleri",
   "tour.done": "Anladım, oyna",
+  "tour.ok": "Anladım",
   "tour.speed.title": "Zaman kendi akar",
   "tour.speed.text": "Bu düğme zamanı durdurur ve yeniden başlatır. Hızı seçmek için basılı tut: ×½ ile ×10 arası.",
   "tour.skip.title": "Doğrudan olaya",

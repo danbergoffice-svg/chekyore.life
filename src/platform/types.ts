@@ -66,6 +66,14 @@ export interface Flags {
   /** Живописные сцены из слоёв (public/art, src/pixel/painted.ts): > 0 - есть у всех (по умолчанию, пиксельные - в настройках),
    *  0 - у всех пиксельные и переключателя нет. На порталах слоёв нет (не влезают в лимит), там всегда 0. */
   painted_share: number
+  /** Эксперимент XT (аудит 18.11): доля новичков, у которых обучение идёт по шагу «по ходу жизни» (Tour drip), а не шестью
+   *  карточками до первого выбора; свой хеш id, ?tour=wall|drip. 0 - у всех как было. */
+  tour_drip_share: number
+  /** Эксперимент XG (аудит 18.11): доля игроков, у которых цель жизни выбирается в goal_late_age лет, а не сразу после
+   *  рождения; свой хеш id, ?goalat=0|6. У взрослого наследника цель - как раньше, сразу. */
+  goal_late_share: number
+  /** Возраст героя, в котором в рукаве XG мать загадывает желание (окно выбора цели). */
+  goal_late_age: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -101,6 +109,10 @@ export const DEFAULT_FLAGS: Flags = {
   crisis_share: 1,
   music_share: 0,
   painted_share: 0,
+  // XT и XG по умолчанию выключены (порталы - как было); сайт берёт доли из flags.json.
+  tour_drip_share: 0,
+  goal_late_share: 0,
+  goal_late_age: 6,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

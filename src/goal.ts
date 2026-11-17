@@ -36,15 +36,29 @@ export function layoutB(playerId: string, flags: { layout_share: number }): bool
   return share(playerId, 'layout', flags.layout_share)
 }
 
+/** Эксперимент XT (аудит 18.11): обучение по шагу «по ходу жизни» вместо шести карточек подряд; ?tour=wall|drip - проверить руками. */
+export function tourDrip(playerId: string, flags: { tour_drip_share?: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('tour') : null
+  if (forced === 'wall' || forced === 'drip') return forced === 'drip'
+  return share(playerId, 'tour_drip', flags.tour_drip_share ?? 0)
+}
+
+/** Эксперимент XG (аудит 18.11): с какого возраста героя спрашивать цель - 0 (сразу) или goal_late_age; ?goalat=0|6 - проверить руками. */
+export function goalAge(playerId: string, flags: { goal_late_share?: number; goal_late_age?: number }): number {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('goalat') : null
+  if (forced !== null && /^\d+$/.test(forced)) return Number(forced)
+  return share(playerId, 'goal_late', flags.goal_late_share ?? 0) ? (flags.goal_late_age ?? 6) : 0
+}
+
 /**
  * Пора спросить цель: у героя её нет и в этой жизни ещё не спрашивали. Раньше - только между годами (phase 'year'),
  * и старое сохранение посреди года (жизнь начата до появления целей, 02.11) оставалось без цели до конца года;
- * теперь окно открывается сразу и останавливает время, как любое событие.
+ * теперь окно открывается сразу и останавливает время, как любое событие. fromAge - рукав XG: до этого возраста не спрашивать.
  */
-export function goalDue(state: GameState, group: GoalGroup): boolean {
+export function goalDue(state: GameState, group: GoalGroup, fromAge = 0): boolean {
   // Счётчики жизни (telemetry.lifeStats) - у прошлого героя свои: его «уже спрашивали» к наследнику не относится.
   const asked = state.stats?.heroId === state.hero.id && !!state.stats.goalAsked
-  return group > 0 && state.phase !== 'dead' && state.hero.alive && !state.hero.goal && !asked
+  return group > 0 && state.phase !== 'dead' && state.hero.alive && !state.hero.goal && !asked && state.hero.age >= fromAge
 }
 
 /** Цель видна в интерфейсе: полоса цели (GoalBar) в шапке/над лентой и строка в карточке «Продолжить». */

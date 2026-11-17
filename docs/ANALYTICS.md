@@ -53,6 +53,14 @@
 | dream_end | dream, score, outcome (breakthrough/partial/failure/death), hint_used, known | сон кончился |
 | dream_training / dream_training_end | dream / dream, score, hint_used | тренировка сна из «Школьной программы»; её `dream_step` идут с `training: 1` и в отчёт `/admin` не попадают |
 | achievement_unlocked | id, rare (1 — секретная, трудная или у <5% игроков) | получена награда (ТЗ v3, п. 10) |
+| tour_end | step, skipped, mode? | обучение закончено: шесть карточек подряд (mode нет) или все шаги по ходу жизни (mode: drip) |
+| tour_step | key (speed, skip, hero, tabs, goal, menu), age, skipped | рукав XT «по ходу жизни» (аудит 18.11): показан и закрыт один шаг обучения; не больше одного шага за игровой год |
+
+Общие параметры A/B аудита 18.11 (в каждом событии, `platform.setContext`): `tour` — `wall` (шесть карточек до первого выбора)
+или `drip` (по шагу по ходу жизни, флаг `tour_drip_share`, `?tour=wall|drip`); `goal_at` — возраст, с которого спрашивают
+цель жизни: 0 — сразу после рождения, 6 — мать загадывает желание в 6 лет (флаги `goal_late_share`, `goal_late_age`, `?goalat=0|6`).
+Главная мерка для обоих тестов — «три решения за три минуты» (3 `choice_made` за 180 с после `life_start` первой жизни), затем
+уход на 0–1 году, доживание до 5 и 20 лет и D1.
 
 Позже (этапы 2–4): ad_request/ad_shown/ad_rewarded, challenge_end, portrait_request/portrait_done.
 

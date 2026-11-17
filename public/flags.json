@@ -35,5 +35,8 @@
   "crisis_share": 1,
   "music_share": 1,
   "painted_share": 1,
-  "short_first_share": 1
+  "short_first_share": 1,
+  "tour_drip_share": 0.5,
+  "goal_late_share": 0.5,
+  "goal_late_age": 6
 }

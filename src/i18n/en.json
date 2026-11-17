@@ -1387,6 +1387,7 @@
   "tour.skip": "Skip",
   "tour.next": "Next",
   "tour.done": "Got it, play",
+  "tour.ok": "Got it",
   "tour.speed.title": "Time runs by itself",
   "tour.speed.text": "This button pauses time and starts it again. Hold it to pick a speed, from ×½ to ×10.",
   "tour.skip.title": "Straight to the event",
