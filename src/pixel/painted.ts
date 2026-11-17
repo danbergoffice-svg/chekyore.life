@@ -82,6 +82,8 @@ export interface Placed {
   /** Земля под ногами: насколько поднимается над линией ног (до 25), откуда брать текстуру и её сила.
    *  Идёт до низа кадра; основа - цвет земли самого кадра над линией ног, текстура - слабо сверху. */
   strip?: { h: number; src: number; texture: number }
+  /** Дождь, снег, туман - рисуются кодом (картинки погоды из генерации тащили в кадр лица и орнамент). */
+  weather?: 'rain' | 'snow' | 'fog'
   /** Масштаб фона или погоды (move.<слой>.scale; у объектов масштаб уже в h). */
   k?: number
   /** Группа раскладки (галерея: перетаскивание меняет её x/y в painted-layout.json). */
@@ -240,7 +242,12 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
   if (mood === 'feast') fx.add('feast')
   const FX = Y.fx as Record<string, { alpha: number; band?: number }>
   for (const f of fx) {
-    if (!has(index, `fx.${f}`) || !FX[f] || (inside && f !== 'fire' && f !== 'smoke' && f !== 'feast')) continue
+    if (!FX[f] || (inside && f !== 'fire' && f !== 'smoke' && f !== 'feast')) continue
+    if (f === 'rain' || f === 'snow' || f === 'fog') {
+      L.push({ key: `fx.${f}`, x: 0, y: 0, alpha: FX[f].alpha, weather: f })
+      continue
+    }
+    if (!has(index, `fx.${f}`)) continue
     L.push({ key: `fx.${f}`, x: 0, y: 0, alpha: FX[f].alpha, band: FX[f].band, drift: f === 'rain' || f === 'snow' ? 'down' : f === 'fog' ? 'side' : undefined })
   }
   const T = Y.tint as Record<string, { color: string; alpha: number }>
@@ -372,7 +379,7 @@ export async function buildPainted(input: SceneInput): Promise<PaintedScene | nu
   const plan = planPainted(input, index)
   if (!plan) return null
   const img = new Map<string, CanvasImageSource>()
-  const got = await Promise.all(plan.layers.map((l) => loadImage(style, index, l.key).then((im) => [l.key, im] as const)))
+  const got = await Promise.all(plan.layers.filter((l) => !l.weather).map((l) => loadImage(style, index, l.key).then((im) => [l.key, im] as const)))
   for (const [k, im] of got) if (im) img.set(k, im)
   if (!img.has(plan.layers[0].key)) return null
   return { plan, index, img }
@@ -386,6 +393,10 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
   ctx.imageSmoothingQuality = 'high'
   ctx.clearRect(0, 0, PW, PH)
   for (const l of s.plan.layers) {
+    if (l.weather) {
+      drawWeather(ctx, l, t)
+      continue
+    }
     const im = s.img.get(l.key)
     const e = s.index[l.key]
     if (!im || !e) continue
@@ -559,4 +570,84 @@ export function boxOf(s: PaintedScene, l: Placed): { x0: number; x1: number; y0:
   if (layer === 'fx') return null
   const k = (l.h ?? sceneH ?? h) / h
   return { x0: l.x - (w * k) / 2, x1: l.x + (w * k) / 2, y0: l.y - h * k, y1: l.y }
+}
+
+// ---------------------------------------------------------------- Погода кодом
+
+/** Частицы погоды: одни и те же для всех кадров (псевдослучайно по номеру), чтобы не мигали. */
+const PARTICLES = Array.from({ length: 220 }, (_, i) => {
+  const h = (n: number) => {
+    const x = Math.sin(i * 127.1 + n * 311.7) * 43758.5453
+    return x - Math.floor(x)
+  }
+  return { x: h(1), y: h(2), a: h(3), b: h(4) }
+})
+
+/** Дождь - косые светлые штрихи, снег - хлопья с покачиванием, туман - мягкие белёсые полосы с дрейфом.
+ *  alpha из раскладки (fx.<погода>.alpha) - сила; move.fx сдвигает и масштабирует. */
+function drawWeather(ctx: CanvasRenderingContext2D, l: Placed, t: number): void {
+  const A = l.alpha ?? 0.5
+  const k = l.k ?? 1
+  ctx.save()
+  ctx.translate(l.x + (PW * (1 - k)) / 2, l.y + (PH * (1 - k)) / 2)
+  ctx.scale(k, k)
+  if (l.weather === 'rain') {
+    // Лёгкая серость дождливого дня, потом штрихи.
+    ctx.fillStyle = `rgba(80,92,110,${0.3 * A})`
+    ctx.fillRect(0, 0, PW, PH)
+    ctx.lineCap = 'round'
+    for (const p of PARTICLES) {
+      const len = 12 + p.a * 14
+      const speed = 380 + p.b * 220
+      const y = ((p.y * (PH + 40) + t * speed) % (PH + 40)) - 20
+      const x = ((p.x * (PW + 60) - (y + 20) * 0.22) % (PW + 60) + PW + 60) % (PW + 60) - 30
+      ctx.strokeStyle = `rgba(225,232,245,${(0.5 + p.a * 0.4) * Math.min(1, A * 1.8)})`
+      ctx.lineWidth = 1 + p.b * 1.1
+      ctx.beginPath()
+      ctx.moveTo(x, y)
+      ctx.lineTo(x - len * 0.22, y + len)
+      ctx.stroke()
+    }
+  } else if (l.weather === 'snow') {
+    ctx.fillStyle = `rgba(225,232,245,${0.16 * A})`
+    ctx.fillRect(0, 0, PW, PH)
+    for (const p of PARTICLES) {
+      const r = 0.8 + p.a * 2.2
+      const speed = 18 + p.b * 30 + r * 6
+      const y = ((p.y * (PH + 20) + t * speed) % (PH + 20)) - 10
+      const x = (p.x * PW + Math.sin(t * (0.6 + p.b) + p.a * 6.28) * 8 + PW) % PW
+      ctx.fillStyle = `rgba(255,255,255,${(0.55 + p.b * 0.4) * Math.min(1, A * 1.6)})`
+      ctx.beginPath()
+      ctx.arc(x, y, r, 0, Math.PI * 2)
+      ctx.fill()
+    }
+  } else {
+    // Туман: гуще к земле, три полосы плывут вбок с разной скоростью.
+    const g = ctx.createLinearGradient(0, 0, 0, PH)
+    g.addColorStop(0, `rgba(230,232,235,${0.18 * A})`)
+    g.addColorStop(0.55, `rgba(230,232,235,${0.55 * A})`)
+    g.addColorStop(1, `rgba(230,232,235,${0.85 * A})`)
+    ctx.fillStyle = g
+    ctx.fillRect(0, 0, PW, PH)
+    for (let i = 0; i < 3; i++) {
+      const cy = PH * (0.45 + i * 0.17)
+      const off = (t * (6 + i * 4)) % PW
+      for (const dx of [-PW, 0]) {
+        for (let j = 0; j < 4; j++) {
+          const cx = ((j + 0.5) * PW) / 4 + off + dx + i * 70
+          const rg = ctx.createRadialGradient(cx, cy, 0, cx, cy, 170)
+          rg.addColorStop(0, `rgba(240,242,245,${0.35 * A})`)
+          rg.addColorStop(1, 'rgba(240,242,245,0)')
+          ctx.fillStyle = rg
+          ctx.save()
+          ctx.translate(cx, cy)
+          ctx.scale(1.8, 0.35)
+          ctx.translate(-cx, -cy)
+          ctx.fillRect(cx - 170, cy - 170, 340, 340)
+          ctx.restore()
+        }
+      }
+    }
+  }
+  ctx.restore()
 }

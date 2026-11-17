@@ -136,7 +136,7 @@ function check(canvas: HTMLCanvasElement, s: PaintedScene): string[] {
   if (bottom > 3) out.push('пустой низ')
   const houses = s.plan.layers.filter((l) => l.key.startsWith('house.')).map((l) => l.key)
   if (new Set(houses).size !== houses.length) out.push('одинаковые дома')
-  const missing = s.plan.layers.filter((l) => !s.img.has(l.key)).map((l) => l.key)
+  const missing = s.plan.layers.filter((l) => !l.weather && !s.img.has(l.key)).map((l) => l.key)
   if (missing.length) out.push(`не загрузилось: ${missing.join(', ')}`)
   return out
 }
