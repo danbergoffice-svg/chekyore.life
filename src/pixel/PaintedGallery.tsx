@@ -9,8 +9,9 @@ import { ERA_META } from '../content'
 import type { SceneDef } from '../engine/types'
 import { lookOf } from './scene'
 import type { Cast } from './scene'
-import { buildPainted, composePainted, getLayout, PH, PW, saveLayout, setLayout } from './painted'
-import type { PaintedLayout, PaintedScene } from './painted'
+import { boxOf, buildPainted, composePainted, DEFAULT_ORDER, getLayout, PH, PW, saveLayout, setLayout } from './painted'
+import type { PaintedLayout, PaintedScene, Placed } from './painted'
+import type { SceneInput } from './scene'
 import DEFAULT_LAYOUT from './painted-layout.json'
 
 const REGIONS = Object.values(ERA_META).flatMap((e) => e.regions.map((r) => r.id))
@@ -21,6 +22,7 @@ const MOODS = ['', 'feast', 'war', 'epidemic', 'famine'] as const
 const WEATHER = ['', 'rain', 'snow', 'fog'] as const
 
 interface Frame {
+  input: SceneInput
   id: string
   region: string
   place: string
@@ -38,16 +40,24 @@ const FIELDS: [string, string, number, number, number][] = [
   ['far.y', 'Даль: сдвиг вниз', -80, 80, 1],
   ['landmark.y', 'Ориентир: сдвиг вниз', -80, 80, 1],
   ['home.x', 'Свой дом: x', 0, 960, 5],
+  ['home.y', 'Свой дом: глубина (вверх -)', -120, 40, 1],
   ['home.scale', 'Свой дом: масштаб', 0.4, 1.6, 0.05],
   ['street.houses', 'Улица: сколько домов (0–2)', 0, 2, 1],
-  ['street.x', 'Улица: дом от края', 60, 480, 5],
+  ['street.x', 'Улица: дом от края', 0, 480, 5],
+  ['street.y', 'Улица: глубина дома', -120, 40, 1],
   ['street.scale', 'Улица: масштаб дома', 0.4, 1.6, 0.05],
-  ['people.center', 'Люди: центр', 200, 760, 5],
-  ['people.step', 'Люди: шаг', 20, 120, 1],
+  ['people.center', 'Люди: центр', 0, 960, 5],
+  ['people.y', 'Люди: глубина (вверх -)', -120, 40, 1],
+  ['people.step', 'Люди: шаг между людьми', 10, 220, 1],
+  ['people.stepCrowded', 'Люди: шаг, если больше 6', 10, 160, 1],
   ['people.scale', 'Люди: масштаб', 0.5, 1.6, 0.05],
   ['animals.x', 'Животные: x', 0, 960, 5],
+  ['animals.y', 'Животные: глубина', -120, 40, 1],
+  ['animals.step', 'Животные: шаг', 20, 200, 1],
   ['animals.scale', 'Животные: масштаб', 0.4, 1.8, 0.05],
   ['props.scale', 'Предметы: масштаб', 0.4, 1.8, 0.05],
+  ['props.x', 'Предметы: x', 0, 960, 5],
+  ['props.fireX', 'Очаг: x', 0, 960, 5],
   ['fx.rain.alpha', 'Дождь: непрозрачность', 0, 1, 0.05],
   ['fx.snow.alpha', 'Снег: непрозрачность', 0, 1, 0.05],
   ['fx.fog.alpha', 'Туман: непрозрачность', 0, 1, 0.05],
@@ -71,6 +81,13 @@ function set(o: PaintedLayout, path: string, value: unknown): PaintedLayout {
   for (const k of keys.slice(0, -1)) cur = cur[k] as Record<string, unknown>
   cur[keys[keys.length - 1]] = value
   return copy
+}
+
+const ORDER_NAMES: Record<string, string> = { sky: 'небо', interior: 'комната', far: 'даль', landmark: 'ориентир края', ground: 'земля под ногами', houses: 'дома', props: 'предметы', animals: 'животные', people: 'люди', fx: 'погода и праздник' }
+const swap = (arr: string[], i: number, j: number) => {
+  const a = [...arr]
+  ;[a[i], a[j]] = [a[j], a[i]]
+  return a
 }
 
 /** Семья для кадров: герой, супруга, двое детей, мать; куры, собака, конь. */
@@ -128,6 +145,75 @@ function FrameView({ f, onOpen }: { f: Frame; onOpen: () => void }) {
   )
 }
 
+/** Увеличенный кадр: мышью (или пальцем) двигаются группы - люди, свой дом, соседний дом, животные, предметы. */
+function EditFrame({ frame, layout, onLive, onDone }: { frame: Frame; layout: PaintedLayout; onLive: (l: PaintedLayout) => void; onDone: (l: PaintedLayout) => void }) {
+  const ref = useRef<HTMLCanvasElement>(null)
+  const [scene, setScene] = useState<PaintedScene | null>(frame.scene)
+  const drag = useRef<{ l: Placed; x: number; y: number; start: PaintedLayout } | null>(null)
+  const [hint, setHint] = useState('')
+  useEffect(() => {
+    if (ref.current && scene) composePainted(ref.current.getContext('2d')!, scene, 0)
+  }, [scene])
+  const rebuild = async (l: PaintedLayout) => {
+    setLayout(l)
+    onLive(l)
+    setScene(await buildPainted(frame.input))
+  }
+  const point = (e: PointerEvent) => {
+    const r = ref.current!.getBoundingClientRect()
+    return { x: ((e.clientX - r.left) / r.width) * PW, y: ((e.clientY - r.top) / r.height) * PH }
+  }
+  const NAMES: Record<string, string> = { people: 'люди', home: 'свой дом', street: 'соседний дом', animals: 'животные', props: 'предметы' }
+  const down = (e: PointerEvent) => {
+    if (!scene) return
+    const p = point(e)
+    const hit = [...scene.plan.layers].reverse().find((l) => {
+      const b = boxOf(scene, l)
+      return b && p.x >= b.x0 && p.x <= b.x1 && p.y >= b.y0 && p.y <= b.y1
+    })
+    if (!hit) return
+    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
+    drag.current = { l: hit, x: p.x, y: p.y, start: layout }
+    setHint(`Тяну: ${NAMES[hit.group!]}`)
+  }
+  const move = (e: PointerEvent) => {
+    const d = drag.current
+    if (!d) return
+    const p = point(e)
+    const dx = Math.round(p.x - d.x)
+    const dy = Math.round(p.y - d.y)
+    const L = JSON.parse(JSON.stringify(d.start)) as PaintedLayout
+    const g = d.l.group!
+    if (g === 'street') {
+      // Дом слева задан расстоянием от правого края кадра, справа - от левого (зеркально).
+      L.street.x = Math.max(0, Math.min(480, d.start.street.x + (d.l.x < PW / 2 ? -dx : dx)))
+      L.street.y = d.start.street.y + dy
+    } else if (g === 'props' && d.l.key === 'prop.fire') {
+      L.props.fireX = d.start.props.fireX + dx
+      L.props.y = d.start.props.y + dy
+    } else {
+      const grp = L[g] as { x?: number; center?: number; y: number }
+      const st = d.start[g] as { x?: number; center?: number; y: number }
+      if (g === 'people') grp.center = (st.center ?? 0) + dx
+      else grp.x = (st.x ?? 0) + dx
+      grp.y = st.y + dy
+    }
+    rebuild(L)
+  }
+  const up = () => {
+    if (!drag.current) return
+    drag.current = null
+    setHint('')
+    onDone(getLayout() as PaintedLayout)
+  }
+  return (
+    <div>
+      <canvas ref={ref} width={PW} height={PH} class="pg-edit" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} />
+      <p class="pg-note">{hint || 'Перетащите мышью людей, дом, соседний дом, животных или предметы: вбок и вглубь (вверх - дальше). Двигается вся группа во всех кадрах.'}</p>
+    </div>
+  )
+}
+
 export function PaintedGallery() {
   const [style, setStyle] = useState('japanese')
   const [places, setPlaces] = useState<string[]>(['street', 'home', 'yard', 'market', 'temple', 'field'])
@@ -166,7 +252,7 @@ export function PaintedGallery() {
             composePainted(probe.getContext('2d')!, s, 0)
             problems = check(probe, s)
           }
-          out.push({ id: `${region}:${place}`, region, place, scene: s, problems })
+          out.push({ input: { scene, region, seed: `${region}:${place}`, cast: familyCast(home, burned), mood: mood || undefined, weather: weather || null }, id: `${region}:${place}`, region, place, scene: s, problems })
         }
       if (!gone) {
         setFrames(out)
@@ -259,6 +345,15 @@ export function PaintedGallery() {
             <input type="color" value={String(get(layout, path))} onInput={(e) => update(set(layout, path, (e.target as HTMLInputElement).value))} /> {label}
           </label>
         ))}
+        <h2>Порядок слоёв (снизу вверх)</h2>
+        <p class="pg-note">Что выше в списке - рисуется позади. Стрелками можно, например, поставить животных перед людьми.</p>
+        {(layout.order ?? DEFAULT_ORDER).map((slot, i, arr) => (
+          <div class="pg-order">
+            <span>{ORDER_NAMES[slot] ?? slot}</span>
+            <button type="button" disabled={i === 0} onClick={() => update({ ...layout, order: swap(arr, i, i - 1) })} aria-label="ниже">↑</button>
+            <button type="button" disabled={i === arr.length - 1} onClick={() => update({ ...layout, order: swap(arr, i, i + 1) })} aria-label="выше">↓</button>
+          </div>
+        ))}
         <h2>Спрятанные картинки ({layout.hide.length})</h2>
         {layout.hide.map((h) => (
           <div class="pg-hidden">
@@ -296,7 +391,7 @@ export function PaintedGallery() {
             <h2>
               {open.region} · {open.place}
             </h2>
-            <FrameView f={open} onOpen={() => undefined} />
+            <EditFrame frame={open} layout={layout} onLive={setL} onDone={update} />
             <p class="pg-note">Слои снизу вверх. «Спрятать» - картинка больше не используется (берётся другая того же слоя).</p>
             {open.scene?.plan.layers.map((l) => (
               <div class="pg-layer">

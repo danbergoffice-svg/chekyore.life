@@ -58,6 +58,18 @@ describe('Живописные сцены', () => {
     }
   })
 
+  it('порядок слоёв из раскладки: животные можно поставить перед людьми', async () => {
+    const { setLayout, getLayout, slotOf } = await import('../src/pixel/painted')
+    const ix = index('gothic')
+    const base = getLayout()
+    const input = { scene: { place: 'yard' as const }, region: 'paris', seed: 'o', cast: family as never }
+    const slots = () => [...new Set(planPainted(input, ix)!.layers.map(slotOf))]
+    expect(slots().indexOf('people')).toBeGreaterThan(slots().indexOf('animals'))
+    setLayout({ ...base, order: ['sky', 'far', 'landmark', 'ground', 'houses', 'props', 'people', 'animals', 'fx'] })
+    expect(slots().indexOf('animals')).toBeGreaterThan(slots().indexOf('people'))
+    setLayout(base)
+  })
+
   it('дом изнутри по достатку: бедный, средний, богатый', () => {
     const ix = index('japanese')
     const first = (home: number) => planPainted({ scene: { place: 'home' }, region: 'kyoto', seed: 'h', cast: { ...family, home } as never }, ix)!.layers[0].key

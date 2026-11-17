@@ -1193,5 +1193,9 @@ html.gallery #app { max-width: none; padding: 0; }
 .pg-problem { font-size: 12px; color: #ef8a6c; }
 .pg-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); display: grid; place-items: center; z-index: 50; }
 .pg-dialog { width: min(900px, 94vw); max-height: 90vh; overflow-y: auto; background: var(--bg); padding: 16px; display: grid; gap: 8px; }
+.pg-edit { width: 100%; aspect-ratio: 16 / 5; cursor: grab; touch-action: none; background: #333; }
+.pg-edit:active { cursor: grabbing; }
+.pg-order { display: grid; grid-template-columns: 1fr 32px 32px; gap: 4px; align-items: center; font-size: 13px; }
+.pg-order button { min-height: 28px; }
 .pg-layer { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; }
 @media (max-width: 700px) { .pg { grid-template-columns: 1fr; } .pg-side { position: static; max-height: none; } .pg-grid { grid-template-columns: 1fr; } }

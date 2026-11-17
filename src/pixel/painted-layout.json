@@ -14,12 +14,14 @@
   "groundStripTexture": 0.35,
   "home": {
     "x": 170,
-    "scale": 1
+    "scale": 1,
+    "y": 0
   },
   "street": {
     "houses": 1,
     "x": 850,
-    "scale": 1
+    "scale": 1,
+    "y": 0
   },
   "field": {
     "x": 860,
@@ -29,18 +31,21 @@
     "center": 470,
     "step": 56,
     "stepCrowded": 42,
-    "scale": 1
+    "scale": 1,
+    "y": 0
   },
   "animals": {
     "x": 730,
     "step": 75,
-    "scale": 1
+    "scale": 1,
+    "y": 0
   },
   "props": {
     "fireX": 560,
     "x": 640,
     "step": 70,
-    "scale": 1
+    "scale": 1,
+    "y": 0
   },
   "fx": {
     "rain": {
@@ -97,5 +102,17 @@
       "alpha": 0.25
     }
   },
+  "order": [
+    "sky",
+    "interior",
+    "far",
+    "landmark",
+    "ground",
+    "houses",
+    "props",
+    "animals",
+    "people",
+    "fx"
+  ],
   "hide": []
 }

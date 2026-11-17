@@ -82,6 +82,8 @@ export interface Placed {
   /** Земля под ногами: насколько поднимается над линией ног (до 25), откуда брать текстуру и её сила.
    *  Идёт до низа кадра; основа - цвет земли самого кадра над линией ног, текстура - слабо сверху. */
   strip?: { h: number; src: number; texture: number }
+  /** Группа раскладки (галерея: перетаскивание меняет её x/y в painted-layout.json). */
+  group?: 'home' | 'street' | 'people' | 'animals' | 'props'
 }
 
 export interface PaintedPlan {
@@ -181,14 +183,14 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
   const objects: Placed[] = []
   if (!inside && (place === 'home' || place === 'yard')) {
     const k = pick(index, 'house', burned || scene.disaster === 'fire' ? `home${lvl}_burned` : `home${lvl}`, `home${lvl}`)
-    if (k) objects.push({ key: k, x: Y.home.x, y: G + 4, h: scaled(index, k, Y.home.scale) })
+    if (k) objects.push({ key: k, x: Y.home.x, y: G + 4 + Y.home.y, h: scaled(index, k, Y.home.scale), group: 'home' })
   } else if (place === 'street' || place === 'market' || place === 'road') {
     const levels = [1, 2, 3].sort(() => r() - 0.5)
     const left = r() < 0.5
     for (let i = 0; i < Math.min(2, Y.street.houses); i++) {
       const k = pick(index, 'house', `home${levels[i]}`)
       const onLeft = i === 0 ? left : !left
-      if (k) objects.push({ key: k, x: onLeft ? PW - Y.street.x : Y.street.x, y: G + 4, flip: !onLeft, h: scaled(index, k, Y.street.scale) })
+      if (k) objects.push({ key: k, x: onLeft ? PW - Y.street.x : Y.street.x, y: G + 4 + Y.street.y, flip: !onLeft, h: scaled(index, k, Y.street.scale), group: 'street' })
     }
   } else if (place === 'field') {
     const k = pick(index, 'house', 'home1')
@@ -197,9 +199,9 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
 
   // Предметы сцены (козы и кони из props - к животным).
   const props = (scene.props ?? []).filter((p) => PROP_KEYS.has(p) && has(index, `prop.${p}`))
-  props.forEach((p, i) => objects.push({ key: `prop.${p}`, x: p === 'fire' ? Y.props.fireX : Y.props.x + i * Y.props.step, y: G + 6, h: scaled(index, `prop.${p}`, Y.props.scale) }))
+  props.forEach((p, i) => objects.push({ key: `prop.${p}`, x: p === 'fire' ? Y.props.fireX : Y.props.x + i * Y.props.step, y: G + 6 + Y.props.y, h: scaled(index, `prop.${p}`, Y.props.scale), group: 'props' }))
   const animals = [...(cast?.animals ?? []), ...(scene.props ?? []).filter((p) => p === 'goat' || p === 'horse')]
-  ;[...new Set(inside ? [] : animals)].filter((a) => has(index, `animal.${a}`)).slice(0, 3).forEach((a, i) => objects.push({ key: `animal.${a}`, x: Y.animals.x + i * Y.animals.step, y: G + 10, flip: i % 2 === 1, h: scaled(index, `animal.${a}`, Y.animals.scale) }))
+  ;[...new Set(inside ? [] : animals)].filter((a) => has(index, `animal.${a}`)).slice(0, 3).forEach((a, i) => objects.push({ key: `animal.${a}`, x: Y.animals.x + i * Y.animals.step, y: G + 10 + Y.animals.y, group: 'animals', flip: i % 2 === 1, h: scaled(index, `animal.${a}`, Y.animals.scale) }))
 
   // Люди: семья героя, иначе прохожие по месту.
   const people: Placed[] = []
@@ -209,7 +211,7 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     const start = Y.people.center - ((members.length - 1) * step) / 2
     members.forEach((m, i) => {
       const k = personKey(index, m.cls, m.sex, m.age)
-      if (k) people.push({ key: k, x: start + i * step, y: G + 8, flip: m.role !== 'hero' && start + i * step > Y.people.center + 50, h: scaled(index, k, Y.people.scale) })
+      if (k) people.push({ key: k, x: start + i * step, y: G + 8 + Y.people.y, group: 'people', flip: m.role !== 'hero' && start + i * step > Y.people.center + 50, h: scaled(index, k, Y.people.scale) })
     })
   } else {
     const n = Math.max(0, Math.min(6, scene.people ?? 2))
@@ -220,7 +222,7 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
       const age = r() < 0.15 ? 9 : r() < 0.15 ? 66 : 32
       const k = personKey(index, pool[Math.floor(r() * pool.length)], sex, age)
       const x = Y.people.center - 170 + (i + 0.5) * (380 / Math.max(1, n)) + (r() - 0.5) * 20
-      if (k) people.push({ key: k, x, y: G + 8, flip: x > Y.people.center + 10, h: scaled(index, k, Y.people.scale) })
+      if (k) people.push({ key: k, x, y: G + 8 + Y.people.y, group: 'people', flip: x > Y.people.center + 10, h: scaled(index, k, Y.people.scale) })
     }
   }
   L.push(...objects, ...people)
@@ -245,7 +247,21 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     if (time === 'night') tints.push(T.indoorNight)
   } else if (T[time]) tints.push(T[time])
   if (mood && mood !== 'feast' && T[mood]) tints.push(T[mood])
+  // Порядок слоёв снизу вверх - из раскладки (галерея: стрелки ↑↓). Внутри группы порядок прежний.
+  const order = Y.order ?? DEFAULT_ORDER
+  const rank = (l: Placed) => {
+    const i = order.indexOf(slotOf(l))
+    return i < 0 ? order.length : i
+  }
+  L.sort((a, b) => rank(a) - rank(b))
   return { style: look.style, layers: L, tints }
+}
+
+export const DEFAULT_ORDER = ['sky', 'interior', 'far', 'landmark', 'ground', 'houses', 'props', 'animals', 'people', 'fx']
+const SLOT: Record<string, string> = { sky: 'sky', interior: 'interior', far: 'far', landmark: 'landmark', ground: 'ground', house: 'houses', prop: 'props', animal: 'animals', person: 'people', fx: 'fx' }
+/** Группа порядка слоя по ключу: house.home2 → houses. */
+export function slotOf(l: Placed): string {
+  return SLOT[l.key.split('.')[0]] ?? 'fx'
 }
 
 /** Высота объекта в кадре с поправкой масштаба из раскладки (undefined - как в оглавлении). */
@@ -498,4 +514,13 @@ function drawStrip(ctx: CanvasRenderingContext2D, s: PaintedScene, im: CanvasIma
   g.fillStyle = fade
   g.fillRect(0, 0, PW, soft)
   ctx.drawImage(c, 0, top)
+}
+
+/** Прямоугольник объекта в кадре (для перетаскивания в галерее); null - фон или погода. */
+export function boxOf(s: PaintedScene, l: Placed): { x0: number; x1: number; y0: number; y1: number } | null {
+  const e = s.index[l.key]
+  if (!e || !l.group) return null
+  const [, , , w, h, sceneH] = e
+  const k = (l.h ?? sceneH ?? h) / h
+  return { x0: l.x - (w * k) / 2, x1: l.x + (w * k) / 2, y0: l.y - h * k, y1: l.y }
 }
