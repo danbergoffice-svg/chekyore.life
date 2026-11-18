@@ -82,8 +82,11 @@ export interface Placed {
   /** Земля под ногами: насколько поднимается над линией ног (до 25), откуда брать текстуру и её сила.
    *  Идёт до низа кадра; основа - цвет земли самого кадра над линией ног, текстура - слабо сверху. */
   strip?: { h: number; src: number; texture: number }
-  /** Дождь, снег, туман - рисуются кодом (картинки погоды из генерации тащили в кадр лица и орнамент). */
-  weather?: 'rain' | 'snow' | 'fog'
+  /** Дождь, снег, туман, огонь и дым - рисуются кодом (картинки погоды из генерации тащили в кадр лица и орнамент;
+   *  картинки пожара и дыма - чужие здания, колонны и стену огня поверх людей, правка 18.11). */
+  weather?: 'rain' | 'snow' | 'fog' | 'fire' | 'smoke' | 'feast'
+  /** Огонь и дым: от какого дома идут (его рамка в кадре); без дома - правая треть кадра. */
+  source?: Placed
   /** Масштаб фона или погоды (move.<слой>.scale; у объектов масштаб уже в h). */
   k?: number
   /** Группа раскладки (галерея: перетаскивание меняет её x/y в painted-layout.json). */
@@ -98,6 +101,8 @@ export interface PaintedPlan {
 }
 
 const INDOOR = new Set(['workshop', 'school', 'bath'])
+/** Стили, у которых картинка праздника с чужими зданиями и панно (проверка 18.11, tools/fx-sheet.html). */
+const FEAST_CODE = new Set(['byzantine', 'chinese', 'japanese', 'sahel'])
 /** Слои-фоны: рисуются во всю ширину кадра от своей точки (x, y), а не «ногами на линию земли». */
 export const BACKDROPS = new Set(['sky', 'interior', 'far', 'landmark', 'ground'])
 const WITH_LANDMARK = new Set(['landmark', 'street', 'market', 'temple', 'palace', 'harbor', 'arena', 'tomb', 'river', 'road', 'sea'])
@@ -241,10 +246,17 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
   if (scene.disaster === 'fire') fx.add('fire')
   if (mood === 'feast') fx.add('feast')
   const FX = Y.fx as Record<string, { alpha: number; band?: number }>
+  // Огонь и дым идут от дома: свой двор - дом семьи, улица - соседний дом, поле - хижина вдали.
+  const source = objects.find((o) => o.key.startsWith('house.'))
   for (const f of fx) {
     if (!FX[f] || (inside && f !== 'fire' && f !== 'smoke' && f !== 'feast')) continue
-    if (f === 'rain' || f === 'snow' || f === 'fog') {
-      L.push({ key: `fx.${f}`, x: 0, y: 0, alpha: FX[f].alpha, weather: f })
+    if (f === 'rain' || f === 'snow' || f === 'fog' || f === 'fire' || f === 'smoke') {
+      L.push({ key: `fx.${f}`, x: 0, y: 0, alpha: FX[f].alpha, weather: f, source: f === 'fire' || f === 'smoke' ? source : undefined })
+      continue
+    }
+    // Праздник: у части стилей картинка гирлянд тащит в кадр чужие здания и панно - там гирлянды рисуются кодом.
+    if (f === 'feast' && FEAST_CODE.has(look.style)) {
+      L.push({ key: 'fx.feast', x: 0, y: 0, alpha: 1, weather: 'feast' })
       continue
     }
     if (!has(index, `fx.${f}`)) continue
@@ -274,6 +286,11 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
   // Порядок слоёв снизу вверх - из раскладки (галерея: стрелки ↑↓). Внутри группы порядок прежний.
   const order = Y.order ?? DEFAULT_ORDER
   const rank = (l: Placed) => {
+    // Огонь и дым - сразу за домами: люди и звери стоят перед ними, а не тонут в пламени.
+    if (l.weather === 'fire' || l.weather === 'smoke') {
+      const h = order.indexOf('houses')
+      return h < 0 ? order.length : h + 0.5
+    }
     const i = order.indexOf(slotOf(l))
     return i < 0 ? order.length : i
   }
@@ -393,6 +410,14 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
   ctx.imageSmoothingQuality = 'high'
   ctx.clearRect(0, 0, PW, PH)
   for (const l of s.plan.layers) {
+    if (l.weather === 'fire' || l.weather === 'smoke') {
+      drawBlaze(ctx, s, l, t)
+      continue
+    }
+    if (l.weather === 'feast') {
+      drawGarlands(ctx, s.plan.style, t)
+      continue
+    }
     if (l.weather) {
       drawWeather(ctx, l, t)
       continue
@@ -570,6 +595,164 @@ export function boxOf(s: PaintedScene, l: Placed): { x0: number; x1: number; y0:
   if (layer === 'fx') return null
   const k = (l.h ?? sceneH ?? h) / h
   return { x0: l.x - (w * k) / 2, x1: l.x + (w * k) / 2, y0: l.y - h * k, y1: l.y }
+}
+
+// ---------------------------------------------------------------- Огонь и дым кодом
+
+/** Огонь и дым от дома (правка 18.11). Пламя - языки с градиентом от тёмно-красного к жёлтому и тёплый отсвет,
+ *  дым - мягкие клубы, которые поднимаются и расходятся по ветру. Без дома - у правого края, на линии земли. */
+function drawBlaze(ctx: CanvasRenderingContext2D, s: PaintedScene, l: Placed, t: number): void {
+  const A = l.alpha ?? 0.8
+  const b = l.source ? boxOf(s, l.source) : null
+  const G = layout.ground
+  const box = b ?? { x0: PW * 0.62, x1: PW * 0.82, y0: G - 70, y1: G }
+  const w = box.x1 - box.x0
+  const hgt = Math.max(30, box.y1 - box.y0)
+  const cx = (box.x0 + box.x1) / 2
+  // Дым: от крыши (или над пламенем) вверх и вправо, клубы растут и бледнеют.
+  const smokeBase = box.y1 - hgt * (l.weather === 'fire' ? 0.75 : 0.55)
+  const puffs = l.weather === 'fire' ? 26 : 18
+  ctx.save()
+  for (let i = 0; i < puffs; i++) {
+    const p = PARTICLES[i]
+    const life = (p.a + t * (0.05 + p.b * 0.04)) % 1
+    const rise = life * (smokeBase + 30)
+    const x = cx + (p.x - 0.5) * w * 0.5 + life * life * 90 + Math.sin(t * 0.7 + i) * 6
+    const y = smokeBase - rise
+    const r = (l.weather === 'fire' ? 16 : 12) + life * (l.weather === 'fire' ? 50 : 42)
+    const a = Math.sin(Math.PI * Math.min(1, life * 1.4)) * (l.weather === 'fire' ? 0.55 : 0.8) * A
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r)
+    const tone = l.weather === 'fire' ? '58,52,50' : '105,102,98'
+    g.addColorStop(0, `rgba(${tone},${a})`)
+    g.addColorStop(1, `rgba(${tone},0)`)
+    ctx.fillStyle = g
+    ctx.beginPath()
+    ctx.arc(x, y, r, 0, Math.PI * 2)
+    ctx.fill()
+  }
+  if (l.weather === 'smoke') return ctx.restore()
+  // Отсвет пожара на всё вокруг.
+  const glow = ctx.createRadialGradient(cx, box.y1 - hgt * 0.3, 0, cx, box.y1 - hgt * 0.3, w * 1.4)
+  glow.addColorStop(0, `rgba(255,150,60,${0.35 * A})`)
+  glow.addColorStop(1, 'rgba(255,150,60,0)')
+  ctx.globalCompositeOperation = 'screen'
+  ctx.fillStyle = glow
+  ctx.fillRect(cx - w * 1.4, box.y1 - hgt * 0.3 - w * 1.4, w * 2.8, w * 2.8)
+  ctx.globalCompositeOperation = 'source-over'
+  // Языки пламени: растут от крыши и из окон, у основания мягкие (без ровного края, иначе это костёр),
+  // жар - светом поверх дома (screen), так что горящий дом под огнём виден.
+  const roof = box.y1 - hgt * 0.48
+  ctx.filter = 'blur(1.4px)'
+  ctx.globalCompositeOperation = 'screen'
+  const body = ctx.createRadialGradient(cx, roof + hgt * 0.15, 0, cx, roof + hgt * 0.15, w * 0.55)
+  body.addColorStop(0, `rgba(255,150,50,${0.55 * A})`)
+  body.addColorStop(1, 'rgba(255,120,40,0)')
+  ctx.fillStyle = body
+  ctx.fillRect(cx - w, roof - hgt * 0.6, w * 2, hgt * 1.4)
+  ctx.globalCompositeOperation = 'source-over'
+  const tongue = (fx: number, by: number, fw: number, fh: number, sway: number, core: boolean) => {
+    const g = ctx.createLinearGradient(0, by + fw * 0.3, 0, by - fh)
+    if (core) {
+      g.addColorStop(0, 'rgba(255,236,150,0)')
+      g.addColorStop(0.2, `rgba(255,236,150,${0.9 * A})`)
+      g.addColorStop(1, 'rgba(255,245,200,0)')
+    } else {
+      g.addColorStop(0, 'rgba(200,50,15,0)')
+      g.addColorStop(0.18, `rgba(205,55,18,${0.9 * A})`)
+      g.addColorStop(0.55, `rgba(242,115,32,${0.82 * A})`)
+      g.addColorStop(1, 'rgba(255,190,80,0)')
+    }
+    ctx.fillStyle = g
+    ctx.beginPath()
+    ctx.moveTo(fx - fw / 2, by + fw * 0.3)
+    ctx.bezierCurveTo(fx - fw * 0.8, by - fh * 0.3, fx - fw * 0.15 + sway * 0.6, by - fh * 0.62, fx + sway, by - fh)
+    ctx.bezierCurveTo(fx + fw * 0.2 + sway * 0.6, by - fh * 0.55, fx + fw * 0.8, by - fh * 0.28, fx + fw / 2, by + fw * 0.3)
+    ctx.closePath()
+    ctx.fill()
+  }
+  for (let layer = 0; layer < 2; layer++) {
+    for (let i = 0; i < 6; i++) {
+      const p = PARTICLES[40 + i + layer * 6]
+      const px = 0.15 + (0.7 * (i + 0.2 + p.a * 0.6)) / 6
+      const center = 1 - Math.abs(px - 0.5) * 1.2
+      const flick = 0.78 + 0.22 * Math.sin(t * (5 + p.b * 6) + i * 2.3) + 0.07 * Math.sin(t * 15 + i * 4)
+      const fh = hgt * (0.35 + p.b * 0.45) * center * flick * (layer ? 0.55 : 1)
+      const fw = w * (0.1 + p.a * 0.1) * (layer ? 0.55 : 1)
+      const by = roof + hgt * (0.06 + p.a * 0.08)
+      tongue(box.x0 + w * px, by, fw, fh, Math.sin(t * (2 + p.a) + i * 1.9) * fw * 0.45, layer === 1)
+    }
+  }
+  // Огонь из окон - пониже, небольшой.
+  for (let i = 0; i < 2; i++) {
+    const p = PARTICLES[60 + i]
+    const flick = 0.75 + 0.25 * Math.sin(t * (6 + i) + i * 3)
+    tongue(box.x0 + w * (0.32 + i * 0.36), box.y1 - hgt * 0.18, w * 0.09, hgt * 0.28 * flick, Math.sin(t * 3 + i) * 3, false)
+    tongue(box.x0 + w * (0.32 + i * 0.36), box.y1 - hgt * 0.18, w * 0.05, hgt * 0.16 * flick, Math.sin(t * 3 + i) * 2, true)
+  }
+  ctx.filter = 'none'
+  // Искры.
+  for (let i = 0; i < 24; i++) {
+    const p = PARTICLES[80 + i]
+    const life = (p.a + t * (0.3 + p.b * 0.3)) % 1
+    const x = cx + (p.x - 0.5) * w * 0.8 + Math.sin(t * 2 + i) * 6
+    const y = roof - life * hgt * 1.3
+    ctx.fillStyle = `rgba(255,${180 + Math.round(p.b * 60)},90,${(1 - life) * 0.9 * A})`
+    ctx.fillRect(x, y, 1.6, 1.6)
+  }
+  ctx.restore()
+}
+
+/** Гирлянды праздника кодом: три провисающие нити с флажками и фонариками в цветах стиля, слегка качаются. */
+const FEAST_COLORS: Record<string, string[]> = {
+  byzantine: ['#c9a227', '#7b1e3a', '#1f4e8c', '#e8d9a8'],
+  chinese: ['#c8281e', '#e0a526', '#f2e3c2', '#2f6b4f'],
+  japanese: ['#c8281e', '#f4ead5', '#2b4c7e', '#e0a526'],
+  sahel: ['#c8571e', '#e8b33a', '#2d6a4f', '#f1e4c8'],
+}
+function drawGarlands(ctx: CanvasRenderingContext2D, style: string, t: number): void {
+  const colors = FEAST_COLORS[style] ?? FEAST_COLORS.chinese
+  ctx.save()
+  for (let row = 0; row < 3; row++) {
+    const y0 = 8 + row * 20
+    const sag = 26 + row * 6
+    const spans = 3 + (row % 2)
+    const sw = PW / spans
+    for (let j = 0; j < spans; j++) {
+      const x0 = j * sw + (row % 2 ? -sw / 2 : 0)
+      const x1 = x0 + sw
+      const sway = Math.sin(t * 1.2 + row + j) * 2
+      ctx.strokeStyle = 'rgba(60,40,25,0.75)'
+      ctx.lineWidth = 1.4
+      ctx.beginPath()
+      ctx.moveTo(x0, y0)
+      ctx.quadraticCurveTo((x0 + x1) / 2, y0 + sag * 2 + sway, x1, y0)
+      ctx.stroke()
+      const n = 9
+      for (let i = 1; i < n; i++) {
+        const u = i / n
+        const x = x0 + (x1 - x0) * u
+        const y = (1 - u) * (1 - u) * y0 + 2 * u * (1 - u) * (y0 + sag * 2 + sway) + u * u * y0
+        ctx.fillStyle = colors[(i + row + j) % colors.length]
+        if ((i + row) % 3 === 0 && (style === 'chinese' || style === 'japanese')) {
+          // Фонарик.
+          ctx.beginPath()
+          ctx.ellipse(x, y + 9, 5.5, 7.5, 0, 0, Math.PI * 2)
+          ctx.fill()
+          ctx.fillStyle = 'rgba(60,40,25,0.8)'
+          ctx.fillRect(x - 3, y + 1, 6, 1.6)
+        } else {
+          // Флажок.
+          ctx.beginPath()
+          ctx.moveTo(x - 5, y)
+          ctx.lineTo(x + 5, y)
+          ctx.lineTo(x, y + 12)
+          ctx.closePath()
+          ctx.fill()
+        }
+      }
+    }
+  }
+  ctx.restore()
 }
 
 // ---------------------------------------------------------------- Погода кодом
