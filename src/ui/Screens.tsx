@@ -53,6 +53,8 @@ interface MenuProps {
   go: (s: 'memorial' | 'settings' | 'about' | 'awards') => void
   /** Кнопка музыки. */
   sound?: ComponentChildren
+  /** «Тихая главная» (П2): новичку внизу только «Об игре». */
+  quiet?: boolean
 }
 
 /** Сколько всего игроков заходило в игру: один запрос за загрузку страницы, число помнится до перезагрузки. */
@@ -63,10 +65,12 @@ let playersSeen: number | null = null
 
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
  *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, - в «Об игре». */
-export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, onFeedback, onPromo, onAccount, onLang, go, sound }: MenuProps) {
+export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, onFeedback, onPromo, onAccount, onLang, go, sound, quiet }: MenuProps) {
   const { t, lang } = useUi()
   const [confirmNew, setConfirmNew] = useState(false)
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
+  // Сколько сцен витрины подряд оказались без живописи: после полного круга - пиксельная (живопись не грузится вовсе).
+  const misses = useRef(0)
   useEffect(() => {
     const id = setInterval(() => setShot((x) => (x + 1) % SHOWCASE.length), 5000)
     return () => clearInterval(id)
@@ -100,7 +104,7 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
   return (
     <div class="screen menu">
       <header class="menu-hero">
-        <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={`${t(`region.${view.region}`)} · ${t(`era.${view.era}.short`)}`} />
+        <Scene scene={view.scene} region={view.region} seed={`menu:${shot}`} label={`${t(`region.${view.region}`)} · ${t(`era.${view.era}.short`)}`} onNoPainted={misses.current < SHOWCASE.length ? () => { misses.current++; setShot((x) => (x + 1) % SHOWCASE.length) } : undefined} />
         <div class="menu-topbar">
           <span class="badge">{t('beta.badge')}</span>
           {platform.account && user !== undefined && (
@@ -155,16 +159,17 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
         slot
       )}
 
+      {/* П2 (A/B home_quiet): пока нет прожитой жизни - только «Об игре»; остальное откроется после первой жизни. */}
       <nav class="menu-nav">
-        <button class="link" onClick={() => go('memorial')}>{t('menu.nav.memorial')}</button>
-        <button class="link" onClick={() => go('awards')}>{t('menu.nav.awards')}</button>
-        <button class="link" onClick={() => go('settings')}>{t('menu.nav.settings')}</button>
+        {!quiet && <button class="link" onClick={() => go('memorial')}>{t('menu.nav.memorial')}</button>}
+        {!quiet && <button class="link" onClick={() => go('awards')}>{t('menu.nav.awards')}</button>}
+        {!quiet && <button class="link" onClick={() => go('settings')}>{t('menu.nav.settings')}</button>}
         <button class="link" onClick={() => go('about')}>{t('menu.nav.about')}</button>
-        {EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
-        {onPromo && <button class="link" onClick={onPromo}>{t('menu.nav.promo')}</button>}
-        {onAccount && <button class="link" onClick={onAccount}>{t('menu.nav.account')}</button>}
+        {!quiet && EXTERNAL && <button class="link" onClick={onFeedback}>{t('menu.nav.feedback')}</button>}
+        {!quiet && onPromo && <button class="link" onClick={onPromo}>{t('menu.nav.promo')}</button>}
+        {!quiet && onAccount && <button class="link" onClick={onAccount}>{t('menu.nav.account')}</button>}
       </nav>
-      {EXTERNAL && (
+      {!quiet && EXTERNAL && (
         <>
           <SupportLink from="menu" />
           <p class="small muted center social-title">{t('social.title')}</p>
@@ -510,7 +515,7 @@ export function FatePicker(props: { pick: string | null; onPick: (kind: 'high' |
   )
 }
 
-export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void; note?: string; howTo?: 'marks' | 'goal' | 'plain' }) {
+export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void; note?: string }) {
   const { t, lang } = useUi()
   const hero = props.state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -559,17 +564,8 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
           </>
         )}
       </dl>
-      {/* Как играть - три строки в первых жизнях (правка 13): 22% новичков уходили на первом году, не сделав выбора. */}
-      {props.howTo && (
-        <section class="how-to" aria-labelledby="how-to-title">
-          <h2 id="how-to-title" class="caps">{t('howto.title')}</h2>
-          <ol>
-            <li>{t('howto.time')}</li>
-            <li>{t('howto.choices')}</li>
-            <li>{t(`howto.${props.howTo}`)}</li>
-          </ol>
-        </section>
-      )}
+      {/* Блок «Как это устроено» убран (Р6 аудита 18.11): он говорил о панели «над картинкой», которой нет, и о цели
+          в первый год, которая теперь может прийти в 6 лет. Его заменили подсказки в момент, когда элемент нужен (Tour). */}
       <p class="intro">{t(`region.${hero.region}.intro`)}</p>
       {props.note && <p class="challenge-note"><Icon name="trophy" /> {props.note}</p>}
       <div class="sticky-cta">

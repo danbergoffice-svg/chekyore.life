@@ -321,8 +321,12 @@ export const webPlatform: Platform = {
   flags,
 
   lang(): Lang {
+    // Язык из адреса (/?lang=es - ссылки hreflang и превью на языке), иначе язык браузера.
+    const fromUrl = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('lang') ?? '' : ''
+    if (['en', 'ru', 'tr', 'fr', 'es'].includes(fromUrl)) return fromUrl as Lang
     const l = typeof navigator !== 'undefined' ? (navigator.language ?? '').toLowerCase() : ''
-    return l.startsWith('ru') ? 'ru' : l.startsWith('tr') ? 'tr' : 'en'
+    // Язык браузера: все пять языков игры; остальные - английский.
+    return l.startsWith('ru') ? 'ru' : l.startsWith('tr') ? 'tr' : l.startsWith('es') ? 'es' : l.startsWith('fr') ? 'fr' : 'en'
   },
 
   ab: abBucket,

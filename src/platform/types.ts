@@ -11,6 +11,8 @@ export interface Flags {
   /** Секунд на год на скорости ×1: детство (0 … child_age лет) и дальше. */
   year_sec_child: number
   year_sec: number
+  /** Детский год, в котором больше нет событий (пустой или все события уже прошли), сек. на ×1 (Р2 аудита 18.11: 6 → 3). */
+  year_sec_child_quiet: number
   /** До какого возраста героя (включительно) год идёт в детском темпе year_sec_child. */
   child_age: number
   /** Возрасты заставок глав. */
@@ -68,6 +70,10 @@ export interface Flags {
   painted_share: number
   /** Эксперимент XT (аудит 18.11): доля новичков, у которых обучение идёт по шагу «по ходу жизни» (Tour drip), а не шестью
    *  карточками до первого выбора; свой хеш id, ?tour=wall|drip. 0 - у всех как было. */
+  /** Эксперимент П4 (аудит 18.11): доля игроков с кнопкой «Другая судьба» в первый год первой жизни. */
+  rebirth_share: number
+  /** Эксперимент П2 (аудит 18.11): доля игроков с «тихой главной» - пока нет прожитой жизни, внизу меню только «Об игре». */
+  home_quiet_share: number
   tour_drip_share: number
   /** Эксперимент XG (аудит 18.11): доля игроков, у которых цель жизни выбирается в goal_late_age лет, а не сразу после
    *  рождения; свой хеш id, ?goalat=0|6. У взрослого наследника цель - как раньше, сразу. */
@@ -81,6 +87,7 @@ export const DEFAULT_FLAGS: Flags = {
   protected_lives: 2,
   year_sec_child: 6,
   year_sec: 10,
+  year_sec_child_quiet: 3,
   child_age: 12,
   chapter_ages: [16, 30, 45, 60],
   fullscreen_gap_sec: 180,
@@ -108,8 +115,11 @@ export const DEFAULT_FLAGS: Flags = {
   layout_share: 1,
   crisis_share: 1,
   music_share: 0,
-  painted_share: 0,
+  // Живопись - у всех с 17.11; по умолчанию 1, чтобы до загрузки flags.json не мелькала пиксельная манера (П3 аудита 18.11).
+  painted_share: 1,
   // XT и XG по умолчанию выключены (порталы - как было); сайт берёт доли из flags.json.
+  rebirth_share: 0,
+  home_quiet_share: 0,
   tour_drip_share: 0,
   goal_late_share: 0,
   goal_late_age: 6,

@@ -78,10 +78,13 @@ function yearsBackward<T extends readonly [{ year: number }, number]>(list: T[])
  * Длительность года на скорости ×1. Стандартная - из флагов (в детстве, до child_age лет, короче).
  * Если игрок выбрал свою (до минуты), детство удлиняется в той же пропорции.
  */
-function yearMs(age: number, custom?: number): number {
+function yearMs(age: number, custom?: number, quiet = false): number {
   const f = platform.flags
   const adult = custom ?? f.year_sec
-  return (age <= f.child_age ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
+  if (age > f.child_age) return adult * 1000
+  // Детский год без событий впереди - быстрее (Р2 аудита 18.11): пустые паузы детства были главной скукой первых минут.
+  const child = quiet ? Math.min(f.year_sec_child_quiet ?? f.year_sec_child, f.year_sec_child) : f.year_sec_child
+  return ((adult * child) / f.year_sec) * 1000
 }
 const TICK_MS = 100
 /** Выборы события костей, которые открывают стол с мини-игрой. */
@@ -106,6 +109,8 @@ export type Speed = (typeof SPEEDS)[number]
 interface LifeProps {
   /** Пропустить детство: годы до 13 проходят сами (кнопка в шапке). */
   onSkipChildhood?: () => void
+  /** «Другая судьба» (П4): пока герой младенец (до 2 лет) в первой жизни - один раз к барабану. */
+  onRebirth?: () => void
   state: GameState
   era: EraDef
   onStart: (focus: string | null) => void
@@ -171,7 +176,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ onSkipChildhood, state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, tourDrip, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream, notices = true, onNotices, notice }: LifeProps) {
+export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, tourDrip, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream, notices = true, onNotices, notice }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -331,8 +336,8 @@ export function Life({ onSkipChildhood, state, era, onStart, onFinish, onChoose,
         c.onStart(c.selected)
         return
       }
-      const np = c.progress + (TICK_MS * c.speed) / yearMs(c.state.hero.age, c.yearSec)
       const ev = c.state.queue[0]
+      const np = c.progress + (TICK_MS * c.speed) / yearMs(c.state.hero.age, c.yearSec, !ev)
       if (ev && np >= ev.at) setProgress(ev.at)
       else if (np >= 1 && !ev) {
         setProgress(0)
@@ -441,10 +446,11 @@ export function Life({ onSkipChildhood, state, era, onStart, onFinish, onChoose,
   useEffect(() => {
     if (fresh) setLastNotice(fresh.text)
   }, [fresh?.id])
-  const noticeBar = notices && (
+  // Пустую полосу-заглушку не показываем (Р3 аудита 18.11): строка появляется с первой вестью и дальше не прячется.
+  const noticeBar = notices && (fresh || lastNotice) && (
     <div class={`notice-bar ${fresh ? 'fresh' : ''}`} role="status" aria-live="polite">
       <span class="notice-text" onClick={fresh?.close}>
-        {fresh?.text ?? lastNotice ?? <span class="muted">{t('notice.empty')}</span>}
+        {fresh?.text ?? lastNotice}
       </span>
       {fresh?.mute && (
         <button type="button" class="link small notice-mute" onClick={fresh.mute} title={t('plaque.mute')}>
@@ -459,10 +465,10 @@ export function Life({ onSkipChildhood, state, era, onStart, onFinish, onChoose,
   return (
     <div class={b ? 'life layout-b' : 'life'}>
       {b ? (
-        <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} onSkipChildhood={firstLife && hero.age < 3 ? undefined : onSkipChildhood} details={
+        <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} onSkipChildhood={firstLife && hero.age < 3 ? undefined : onSkipChildhood} onRebirth={hero.age < 2 ? onRebirth : undefined} details={
           <>
             <p class="hero-meta">
-              {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}
+              {t(`region.${hero.region}`)} · {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}
               {hero.band !== undefined && hero.age >= era.stages.youth && <span title={t('band.tip', { n: statusOf(hero, era) })}> · {t(`band.${hero.band}`)}</span>}
             </p>
             {mourning(hero) && <p class="hero-meta small warn grief-left">{t('life.grief_left', { n: Math.max(1, mourningLeft(state)) }, o)}</p>}
@@ -1423,7 +1429,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const titleKey = variantKey(lang, `ev.${ev.id}.title`, v)
   const title = hasKey(lang, titleKey) ? t(titleKey, params, o) : ''
   return (
-    <div class="modal-backdrop">
+    <div class="modal-backdrop event-backdrop">
       <div class={`modal event-sheet ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby={title ? 'ev-title' : undefined}>
         <Illustration era={hero.era} moment={momentOf(ev)} label={title} fire={ev.scene?.disaster === 'fire'}>
           <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={title} />

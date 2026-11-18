@@ -8,6 +8,7 @@
   "respin_ad": true,
   "year_sec_child": 6,
   "year_sec": 10,
+  "year_sec_child_quiet": 3,
   "child_age": 12,
   "chapter_ages": [
     16,
@@ -36,6 +37,8 @@
   "music_share": 1,
   "painted_share": 1,
   "short_first_share": 1,
+  "rebirth_share": 0.5,
+  "home_quiet_share": 0.5,
   "tour_drip_share": 0.5,
   "goal_late_share": 0.5,
   "goal_late_age": 6

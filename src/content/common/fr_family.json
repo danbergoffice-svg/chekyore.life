@@ -410,5 +410,11 @@
   "ev.c_wedding_debt_later.text": "Le prêteur d'argent est venu à propos de la dette du mariage - avec des intérêts qui ont grandi au fil des ans comme un enfant. {npc} propose de contribuer au paiement.",
   "ev.c_wedding_debt_later.title": "La dette de mariage",
   "ev.c_wedding_debt_later.together": "Acceptez l'aide de votre {g=npc_sex:du fils|de la fille}",
-  "ev.c_wedding_debt_later.together.ok": "{npc} posa silencieusement une bourse sur la table. Vous avez partagé la dette en deux - et cela vous a rapprochés plus que le mariage lui-même."
+  "ev.c_wedding_debt_later.together.ok": "{npc} posa silencieusement une bourse sur la table. Vous avez partagé la dette en deux - et cela vous a rapprochés plus que le mariage lui-même.",
+  "ev.f_ancestor_school.title": "L’école de l’ancêtre",
+  "ev.f_ancestor_school.text": "Le nom de ton ancêtre est gravé au-dessus de la porte de l’école : il y a longtemps, il a payé un maître et une maison pour les élèves. Le maître apprend de quelle famille tu viens et t’invite à étudier gratuitement.",
+  "ev.f_ancestor_school.study": "Étudier gratuitement",
+  "ev.f_ancestor_school.study.ok": "Tu te penches sur les lettres à côté des orphelins du quartier. Le maître est sévère, mais respecte la famille du fondateur, et les voisins le remarquent.",
+  "ev.f_ancestor_school.play": "Filer rejoindre tes amis",
+  "ev.f_ancestor_school.play.ok": "Le maître soupire : la famille du fondateur a eu des enfants plus sérieux. Il te garde quand même une place."
 }

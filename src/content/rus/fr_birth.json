@@ -22,5 +22,7 @@
   "ev.rus_fc_names_fever.text": "En hiver, une fièvre a parcouru la rue : des enfants se sont couchés dans plusieurs maisons, et vous aussi. Vous vous en êtes {g:sorti|sortie}, et grand-mère est triomphante : « Le mal t’appelait par ton nom de baptême, mais ici tout le monde crie {g:Nezhdan|Nezhdana} ! Alors il ne t’a jamais trouvé. »",
   "ev.rus_fc_names_fever.title": "Le mal regardait ailleurs",
   "ev.rus_fc_names_psalter.text": "Le prêtre qui t'a baptisé a tenu sa promesse : après les offices, il a commencé à t'appeler pour apprendre tes lettres - d'abord l'alphabet, puis le Psaume. Tu as gravé les lettres sur de l'écorce de bouleau avec un stylet en os, et au printemps tu pouvais épeler un psaume entier.",
-  "ev.rus_fc_names_psalter.title": "Le psautier du prêtre"
+  "ev.rus_fc_names_psalter.title": "Le psautier du prêtre",
+  "ev.rus_fc_caul.short": "Tu es né dans l’étuve, et coiffé. La vieille sage-femme a levé les bras : « Un chanceux ! Le feu ne le brûle pas, l’eau ne le noie pas ! » La coiffe peut être cousue dans une bourse pour ton cou, ou enterrée sous le seuil pour la chance de toute la maison.",
+  "ev.rus_fc_names.short": "Le prêtre t’a baptisé du nom d’un saint. Grand-mère chuchote : donne aussi à l’enfant un nom de maison, comme {g:Nejdan|Nejdana}, pour que le malheur cherche un nom pendant qu’on l’appelle par un autre. Ton père se demande : est-ce un péché de cacher un enfant à Dieu ?"
 }

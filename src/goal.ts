@@ -43,6 +43,22 @@ export function tourDrip(playerId: string, flags: { tour_drip_share?: number }):
   return share(playerId, 'tour_drip', flags.tour_drip_share ?? 0)
 }
 
+/** Эксперимент П4 (аудит 18.11): кнопка «Другая судьба» в первый год первой жизни - один раз сразу к барабану, без меню
+ *  и подтверждения (69 игроков уходили в меню «перебирать» рождения); ?rebirth=0|1 - проверить руками. */
+export function rebirthOn(playerId: string, flags: { rebirth_share?: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('rebirth') : null
+  if (forced === '0' || forced === '1') return forced === '1'
+  return share(playerId, 'rebirth', flags.rebirth_share ?? 0)
+}
+
+/** Эксперимент П2 (аудит 18.11): «тихая главная» - новичку без прожитых жизней внизу меню только «Об игре»;
+ *  ?home=quiet|full - проверить руками. */
+export function homeQuiet(playerId: string, flags: { home_quiet_share?: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('home') : null
+  if (forced === 'quiet' || forced === 'full') return forced === 'quiet'
+  return share(playerId, 'home_quiet', flags.home_quiet_share ?? 0)
+}
+
 /** Эксперимент XG (аудит 18.11): с какого возраста героя спрашивать цель - 0 (сразу) или goal_late_age; ?goalat=0|6 - проверить руками. */
 export function goalAge(playerId: string, flags: { goal_late_share?: number; goal_late_age?: number }): number {
   const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('goalat') : null

@@ -10,7 +10,7 @@ import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear, utmParams } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
-import { crisisOn, goalAge, goalGroup, layoutB, musicNew, musicTrack, paintedOn, shortFirst, tourDrip } from '../goal'
+import { crisisOn, goalAge, goalGroup, homeQuiet, layoutB, musicNew, musicTrack, paintedOn, rebirthOn, shortFirst, tourDrip } from '../goal'
 import { prefetchPainted, setPainted } from '../pixel/painted'
 import { ensureGoal, goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
@@ -177,7 +177,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old', painted: paintedOn(prefs.art, platform.flags) ? 1 : 0, tour: tourDrip(platform.playerId(), platform.flags) ? 'drip' : 'wall', goal_at: goalAge(platform.playerId(), platform.flags) })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old', painted: paintedOn(prefs.art, platform.flags) ? 1 : 0, tour: tourDrip(platform.playerId(), platform.flags) ? 'drip' : 'wall', goal_at: goalAge(platform.playerId(), platform.flags), home: homeQuiet(platform.playerId(), platform.flags) ? 'quiet' : 'full', rebirth: rebirthOn(platform.playerId(), platform.flags) ? 1 : 0 })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -989,7 +989,7 @@ export function App() {
   }
   /** Барабан на главной при живом герое свёрнут в «Начать другую жизнь» (правка 03): раскрывается после подтверждения. */
   const [drumOpen, setDrumOpen] = useState(false)
-  const newLifeConfirmed = (from: 'menu' | 'sheet') => {
+  const newLifeConfirmed = (from: 'menu' | 'sheet' | 'rebirth') => {
     platform.track('new_life_confirm', { had_active: game.current && game.current.phase !== 'dead' ? 1 : 0, from })
     backTo.current = 'menu'
     setLifeMenu(false)
@@ -1186,6 +1186,7 @@ export function App() {
             onLang={(lang) => setPrefs({ ...prefs, lang })}
             go={setScreen}
             sound={soundButton}
+            quiet={memorial.length === 0 && homeQuiet(platform.playerId(), platform.flags)}
           />
         )}
         {screen === 'menu' && giftsSheet}
@@ -1239,7 +1240,6 @@ export function App() {
             state={state}
             era={era}
             onStart={() => setScreen('life')}
-            howTo={memorial.length < 2 ? (['plain', 'goal', 'marks'] as const)[goalGroup(platform.playerId(), platform.flags)] : undefined}
             note={challengeOn && memorial.length >= 1 ? ui.t('challenge.note', { n: challengeAge, m: challengeAge + 1 }) : undefined}
           />
         )}
@@ -1263,6 +1263,11 @@ export function App() {
               setLifeMenu(true)
             }}
             onSkipChildhood={onSkipChildhood}
+            onRebirth={memorial.length === 0 && !prefs.rebirthUsed && rebirthOn(platform.playerId(), platform.flags) ? () => {
+              platform.track('rebirth_click', { age: state.hero.age })
+              setPrefs({ ...prefs, rebirthUsed: true })
+              newLifeConfirmed('rebirth')
+            } : undefined}
             frozen={lifeMenu}
             tourNonce={tourNonce}
             tourDrip={tourDrip(platform.playerId(), platform.flags)}

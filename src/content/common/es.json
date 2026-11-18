@@ -375,5 +375,18 @@
   "trait.kind": "bondadoso",
   "trait.pious": "piadoso",
   "trait.reserved": "reservado",
-  "trait.survivor": "sobrevivido por un milagro"
+  "trait.survivor": "sobrevivido por un milagro",
+  "focus.travel": "Ganas de viajar",
+  "focus.travel.desc": "Conocer tu propio país: cuesta dinero, pero anima y abre la mente; puede salir trabajo en otro lugar",
+  "ev.travel_work.title": "Trabajo en un lugar nuevo",
+  "ev.travel_work.text": "{place} te gustó, y un maestro del lugar, tras verte trabajar, te ofreció un puesto: mucho trabajo y pocas manos. En casa te esperan los viejos muros y las caras conocidas.",
+  "ev.travel_work.move": "Mudarse allí",
+  "ev.travel_work.home": "Volver a casa con historias",
+  "cause.consumption": "la tisis",
+  "cause.pox": "la viruela",
+  "cause.flux": "la disentería",
+  "cause.chest": "una fiebre del pecho",
+  "cause.wound": "una herida infectada",
+  "cause.heart": "el corazón cansado",
+  "cause.stroke": "una apoplejía"
 }

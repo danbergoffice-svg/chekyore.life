@@ -8,9 +8,11 @@
 //   /api/account*       - аккаунты: вход по ссылке на почту, сохранения, рассылка, удаление (worker/account.ts);
 //   GET /admin          - отзывы и отчёты, пароль ADMIN_PASSWORD (логин любой) (worker/admin.ts);
 //   GET /admin/export   - CSV для Excel/Google Таблиц (?table=events|feedback&days=N).
+//   GET /?lang=ru|es|fr|tr - страница игры с заголовком и превью на языке (worker/seo.ts).
 // Цифры для админки, бота и ежедневной сводки (worker/digest/) считает один модуль - worker/stats.ts.
 // IP-адреса не сохраняются: используются только для ограничения частоты запросов в памяти.
 
+import { localizeHtml, seoLang } from './seo'
 import { admin, authorized, exportCsv, unauthorized } from './admin'
 import { account, type AccountEnv } from './account'
 import { syncPlayers, type D1Database } from './stats'
@@ -129,7 +131,11 @@ export default {
   async fetch(req: Request, env: Env, ctx: Ctx): Promise<Response> {
     const url = new URL(req.url)
     const path = url.pathname
-    if (!path.startsWith('/api/') && path !== '/admin' && !path.startsWith('/admin/')) return env.ASSETS.fetch(req)
+    if (!path.startsWith('/api/') && path !== '/admin' && !path.startsWith('/admin/')) {
+      // /?lang=ru|es|fr|tr - та же страница с заголовком, описанием и превью на языке (worker/seo.ts).
+      const lang = seoLang(url)
+      return lang ? localizeHtml(await env.ASSETS.fetch(req), lang) : env.ASSETS.fetch(req)
+    }
     if (path === '/admin' || path === '/admin/export') {
       if (!(await authorized(req, env))) return unauthorized()
       if (!env.DB) return new Response('База D1 не подключена (привязка DB)', { status: 503 })

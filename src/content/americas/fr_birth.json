@@ -20,5 +20,7 @@
   "ev.amr_fc_thunder_healer.text": "Un vieux guérisseur, lui-même né dans une tempête, est venu pour vous : « Illapa a accepté l'offrande de votre famille - maintenant il vous attend. » Vous apprenez de lui à distinguer les herbes, à lire les feuilles de coca et à deviner avec un cochon d'Inde ce qui afflige une personne malade.",
   "ev.amr_fc_thunder_healer.title": "L'apprenti du guérisseur",
   "ev.amr_fc_thunder_storm.text": "Une tempête vous a surpris dans le haut pâturage avec les lamas. La foudre a frappé un rocher à trois pas de vous - elle vous a fait tomber, mais vous vous êtes relevé indemne. Maintenant, le village murmure : « Illapa est venu chercher ce qui lui appartient », et les anciens vous regardent avec un respect méfiant.",
-  "ev.amr_fc_thunder_storm.title": "Orage sur le pâturage élevé"
+  "ev.amr_fc_thunder_storm.title": "Orage sur le pâturage élevé",
+  "ev.amr_fc_school.short": "Chez les Mexicas, on promet un enfant aux maîtres dès le berceau. On pourrait te donner au temple : {g:le calmecac enseigne l’écriture et les astres|les filles du temple servent les dieux}. Ou te promettre à {g:la maison des jeunes, où l’on forme les guerriers|la maison du chant, où les jeunes apprennent à chanter et à danser}.",
+  "ev.amr_fc_thunder.short": "Tu es né pendant un orage : la foudre est tombée sur le village à cet instant précis. Les anciens disent qu’un tel enfant appartient à Illapa, le dieu du tonnerre. Il faut l’apaiser par une offrande au sommet de la colline, sinon le tonnerre te suivra."
 }

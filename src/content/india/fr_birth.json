@@ -24,5 +24,7 @@
   "ev.ind_fc_nazar_healer.text": "Le vieux guérisseur qui soignait autrefois vos coliques vous a reconnu au bazar : « Le petit crieur {g:lui-même|elle-même} ! » Il vous a invité dans sa boutique pour moudre des herbes, et pendant l’hiver, vous avez appris à quoi sert le fenouil, et ce que guérissent le curcuma et le gingembre.",
   "ev.ind_fc_nazar_healer.title": "La boutique du guérisseur",
   "ev.ind_fc_nazar_urs.text": "Pour l'urs - l'anniversaire de la mort du saint dont le tombeau vous a porté bébé - tout le district se rassemblait. Les qawwals chantaient jusqu'à l'aube, et à côté de vous dans la foule se trouvait quelqu'un de votre âge d'une autre foi : vous applaudissiez en rythme et bavardiez comme si vous vous connaissiez depuis toujours. Depuis cette nuit, vous avez un ami.",
-  "ev.ind_fc_nazar_urs.title": "L'urs du saint"
+  "ev.ind_fc_nazar_urs.title": "L'urs du saint",
+  "ev.ind_fc_nakshatra.short": "L’astrologue a dressé ton thème et froncé les sourcils : tu es né sous l’étoile Mula, et un tel enfant, dit-on, porte malheur à son père. Les brahmanes peuvent l’écarter par un rite. Ou l’on pourrait simplement te nommer d’après l’étoile et s’en remettre aux dieux.",
+  "ev.ind_fc_nazar.short": "Les invités ont rivalisé de compliments sur ta beauté, et depuis le soir tu hurles sans arrêt. Les femmes sont d’accord : le mauvais œil ! On pourrait te peindre un point noir sur la joue, te porter au tombeau d’un saint ou appeler un guérisseur."
 }

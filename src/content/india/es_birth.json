@@ -24,5 +24,7 @@
   "ev.ind_fc_nazar_healer.text": "El viejo sanador que una vez trató tu cólico te reconoció en el bazar: \"¡El pequeño gritón {g:él mismo|ella misma}!\" Te invitó a su tienda a moler hierbas, y durante el invierno aprendiste para qué sirve el hinojo y qué curan la cúrcuma y el jengibre.",
   "ev.ind_fc_nazar_healer.title": "La tienda del curandero",
   "ev.ind_fc_nazar_urs.text": "Para el urs - el aniversario de la muerte del santo a cuyo sepulcro fuiste llevado cuando eras un bebé - se reunió todo el distrito. Los qawwals cantaron hasta el amanecer, y junto a ti en la multitud se sentó alguien de tu edad de la otra fe: aplaudiste al ritmo y charlaste como si se conocieran toda la vida. Desde esa noche tienes un amigo.",
-  "ev.ind_fc_nazar_urs.title": "El urs del santo"
+  "ev.ind_fc_nazar_urs.title": "El urs del santo",
+  "ev.ind_fc_nakshatra.short": "El astrólogo trazó tu carta y frunció el ceño: naciste bajo la estrella Mula, y dicen que un niño así trae desgracia a su padre. Los brahmanes pueden evitarlo con un rito. O podrían ponerte el nombre de la estrella y confiar en los dioses.",
+  "ev.ind_fc_nazar.short": "Los invitados compitieron en alabar lo guapo que eres, y desde la tarde no paras de gritar. Las mujeres coinciden: ¡mal de ojo! Podrían pintarte un punto negro en la mejilla, llevarte a la tumba de un santo o llamar a un curandero."
 }

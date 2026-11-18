@@ -410,5 +410,11 @@
   "ev.c_wedding_debt_later.text": "El prestamista ha venido por la deuda de la boda, con intereses que han crecido a lo largo de los años como un niño. {npc} se ofrece a ayudar a pagar.",
   "ev.c_wedding_debt_later.title": "La deuda de la boda",
   "ev.c_wedding_debt_later.together": "Acepta la ayuda de tu {g=npc_sex:del hijo|de la hija}",
-  "ev.c_wedding_debt_later.together.ok": "{npc} silenciosamente puso una bolsa en la mesa. Dividiste la deuda a la mitad, y eso los acercó más que la boda misma."
+  "ev.c_wedding_debt_later.together.ok": "{npc} silenciosamente puso una bolsa en la mesa. Dividiste la deuda a la mitad, y eso los acercó más que la boda misma.",
+  "ev.f_ancestor_school.title": "La escuela del antepasado",
+  "ev.f_ancestor_school.text": "El nombre de tu antepasado está tallado sobre la puerta de la escuela: hace mucho pagó un maestro y una casa para los alumnos. El maestro sabe de qué familia vienes y te invita a estudiar gratis.",
+  "ev.f_ancestor_school.study": "Estudiar gratis",
+  "ev.f_ancestor_school.study.ok": "Te sientas ante las letras junto a los huérfanos del barrio. El maestro es severo, pero respeta a la familia del fundador, y los vecinos lo notan.",
+  "ev.f_ancestor_school.play": "Escaparte con tus amigos",
+  "ev.f_ancestor_school.play.ok": "El maestro suspira: la familia del fundador tuvo hijos más serios. Aun así, te guarda un sitio."
 }

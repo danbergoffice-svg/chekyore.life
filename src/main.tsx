@@ -49,6 +49,8 @@ function crashText() {
   lang ||= navigator.language.slice(0, 2)
   if (lang === 'ru') return { title: 'Что-то пошло не так', body: 'Игра споткнулась. Жизнь сохранена - нажмите, чтобы продолжить.', button: 'Продолжить' }
   if (lang === 'tr') return { title: 'Bir şeyler ters gitti', body: 'Oyun takıldı. Hayatın kaydedildi - devam etmek için dokun.', button: 'Devam et' }
+  if (lang === 'es') return { title: 'Algo salió mal', body: 'El juego tropezó. Tu vida está guardada: toca para continuar.', button: 'Continuar' }
+  if (lang === 'fr') return { title: 'Un problème est survenu', body: 'Le jeu a trébuché. Ta vie est sauvegardée : touche pour continuer.', button: 'Continuer' }
   return { title: 'Something went wrong', body: 'The game stumbled. Your life is saved - tap to continue.', button: 'Continue' }
 }
 

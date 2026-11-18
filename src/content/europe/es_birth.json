@@ -24,5 +24,7 @@
   "ev.eur_fc_baptism_godparent.text": "El {g:padrino|madrina} que una vez te sostuvo sobre esa fuente fría te llamó: \"Has crecido, y aún no he hecho nada por ti.\" {g:Él|Ella} te enseñó un poco del oficio de {g:su|su}, puso una buena palabra donde importaba y te dio una moneda de plata al despedirse.",
   "ev.eur_fc_baptism_godparent.title": "Tu padrino o madrina",
   "ev.eur_fc_baptism_midwife.text": "La vieja partera que te bautizó la noche en que naciste te llama \"mi pequeño niño de bautizo\" y sigue dándote pasteles de miel. La sigues por todo el distrito llevando su cesta, y ya sabes qué hierba es para la fiebre y cuál para el cólico.",
-  "ev.eur_fc_baptism_midwife.title": "La partera"
+  "ev.eur_fc_baptism_midwife.title": "La partera",
+  "ev.eur_fc_baptism.short": "Naciste de noche, débil y casi sin aliento. La iglesia queda lejos, y a un niño sin bautizar no se lo puede enterrar en tierra sagrada. La partera puede bautizarte ella misma, ahora mismo. O podrían abrigarte y llevarte al cura.",
+  "ev.eur_fc_balia.short": "En una buena casa el bebé va con una nodriza, y tu padre ha encontrado una aldeana que te cuidará un año o dos. La nodriza también podría vivir con vosotros. O tu madre quiere amamantarte ella misma, aunque la familia refunfuñe."
 }

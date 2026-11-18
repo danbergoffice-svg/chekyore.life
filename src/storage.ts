@@ -42,6 +42,8 @@ export interface Prefs {
   notices?: boolean
   /** Окно «сохранить достижения» после первой жизни уже показывали. */
   accountAsked?: boolean
+  /** «Другая судьба» (П4) уже использована - кнопка больше не показывается. */
+  rebirthUsed?: boolean
   promoCountry?: string
   /** День, когда панель «Дары» сама открылась (раз в день, если ждёт дар дня). */
   dailyShown?: string

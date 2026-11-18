@@ -26,5 +26,7 @@
   "ev.waf_fc_griot_praise.title": "Louanges à la fête",
   "ev.waf_fc_griot_praise.text": "À une grande fête, le fils du vieux griot qui chantait au nom de ton nom t'aperçut dans la foule et commença à t'en chanter — de la générosité de ta maison, de tes ancêtres et de toi. On se mit à tourner et à hocheter la tête, et les vieux dirent : cette maison sait comment montrer sa gratitude.",
   "ev.waf_fc_griot_mock.title": "Une chanson moqueuse",
-  "ev.waf_fc_griot_mock.text": "À le mariage d'autrui, le griot, qui une fois fut renvoyé sans rien de ton nom, t'aperçut et se mit à chanter un air sur une maison où « la louange vaut moins qu'une noix de kola ». Tout le monde savait à qui on faisait référence et se mit à crier de rire, et pendant longtemps, tes pairs de l'âge fredonneront la refrain à ta rencontre."
+  "ev.waf_fc_griot_mock.text": "À le mariage d'autrui, le griot, qui une fois fut renvoyé sans rien de ton nom, t'aperçut et se mit à chanter un air sur une maison où « la louange vaut moins qu'une noix de kola ». Tout le monde savait à qui on faisait référence et se mit à crier de rire, et pendant longtemps, tes pairs de l'âge fredonneront la refrain à ta rencontre.",
+  "ev.waf_fc_namesake.short": "Le septième jour, on te donnera un nom, et un homonyme : un second parent. Les anciens veulent le nom de {g:ton grand-père|ta grand-mère} : son esprit est revenu à la maison. Ton père pense à la maison de son maître marabout. Ou un homonyme de la maison d’un riche voisin.",
+  "ev.waf_fc_griot.short": "Le griot de ta famille est venu au baptême. Il a joué du balafon et chanté tes ancêtres, et maintenant il attend un cadeau. Un griot loue une maison généreuse à chaque fête, et se moque d’une maison avare devant tout le district."
 }

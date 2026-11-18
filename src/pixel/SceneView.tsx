@@ -56,7 +56,7 @@ const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(pre
  * Анимируется, только когда видна на экране; стоит на паузе игры (paused), в скрытой вкладке,
  * при prefers-reduced-motion и в неподвижных местах (still: лента итогов, дневник) - тогда один кадр.
  */
-export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean; art?: 'half' | 'full' | 'none'; year?: number; frame?: boolean }) {
+export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean; art?: 'half' | 'full' | 'none'; year?: number; frame?: boolean; onNoPainted?: () => void }) {
   const { scene, region, seed, label, cast, season, weather, mood, still, paused, ambient, art, year, frame } = props
   const ref = useRef<HTMLCanvasElement>(null)
   const t = useRef(0)
@@ -93,6 +93,8 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
         if (gone) return
         canvas.classList.remove('painting')
         if (!p) {
+          // Витрина на главной не смешивает манеры (П3 аудита 18.11): вместо пиксельной сцены - просит другую.
+          if (props.onNoPainted) return props.onNoPainted()
           pixel = true
           const [w, h] = sceneSize(built)
           canvas.width = w

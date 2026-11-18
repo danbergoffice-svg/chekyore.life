@@ -18,6 +18,8 @@ export function HudHeader(props: {
   onMenu: () => void
   /** «Пропустить детство»: кнопка видна, пока герою нет 13 лет. */
   onSkipChildhood?: () => void
+  /** «Другая судьба» (П4): на месте «Пропустить детство», пока герой первой жизни - младенец. */
+  onRebirth?: () => void
   /** Подробности героя: занятие, положение, долг, болезнь, ожидаемая жизнь. */
   details: ComponentChildren
 }) {
@@ -32,17 +34,22 @@ export function HudHeader(props: {
           <Avatar input={props.look} label={t('life.portrait', { n: hero.age })} />
         </button>
         <div class="hud-info">
-          <h1 class="hud-name">
-            {nameOf(hero.name, lang)} · {t('life.age', { n: hero.age })}
-          </h1>
+          {/* Две строки без многоточия (Р4 аудита 18.11): имя крупно и переносится целиком; ниже возраст · год · деньги.
+              Край (город) - в подробностях героя по нажатию на портрет. */}
+          <h1 class="hud-name">{nameOf(hero.name, lang)}</h1>
           <p class="hud-meta">
-            {formatYear(props.state.year, lang)} · {t(`region.${hero.region}`)} · {formatMoney(t, hero.money, props.coin)}
+            {t('life.age', { n: hero.age })} · {formatYear(props.state.year, lang)} · {formatMoney(t, hero.money, props.coin)}
             {hero.money < 0 && <span class="warn"> · {t('life.debt')}</span>}
             {ill && <span class="warn"> · {t('life.ill', {}, { sex: hero.sex })}</span>}
             {mourning(hero) && <span class="warn" title={t('life.grief_tip')}> · {t('life.grief')}</span>}
           </p>
         </div>
-        {props.onSkipChildhood && hero.age < 13 && props.state.phase !== 'dead' && (
+        {props.onRebirth && props.state.phase !== 'dead' && (
+          <button type="button" class="hud-skip" title={t('life.rebirth_tip')} onClick={props.onRebirth}>
+            {t('life.rebirth')}
+          </button>
+        )}
+        {!props.onRebirth && props.onSkipChildhood && hero.age < 13 && props.state.phase !== 'dead' && (
           <button type="button" class="hud-skip" onClick={props.onSkipChildhood}>
             {t('life.skip_childhood')}
           </button>

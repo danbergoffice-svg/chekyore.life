@@ -1,42 +1,52 @@
 <!doctype html>
-<html lang="ru" class="skin">
+<html lang="en" class="skin">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#16213a" />
-    <meta name="description" content="Тысячи жизней - бесплатная браузерная игра: родись в случайной стране и эпохе, от Древнего Египта и Рима до империи инков, и проживи одну жизнь, принимая решения. Thousands of Lives - a free browser life simulator set in a random era of history." />
-    <title>Тысячи жизней - симулятор жизни в истории | Thousands of Lives</title>
-    <!-- Превью ссылки в соцсетях и мессенджерах. Картинки og-ru.png и og-en.png рисует tools/og.html (npm run dev → /tools/og.html?lang=en). -->
+    <!-- Страница по умолчанию - английская (76% игроков с 8.11). Те же теги на ru/es/fr/tr отдаёт worker по /?lang=xx (worker/seo.ts). -->
+    <meta name="description" content="A free browser game. A birth lottery picks your country, era and family; then you live one life, choice by choice, in about 20 minutes. 14 countries, from Egypt to the Inca." />
+    <title>Thousands of Lives: a free life simulator in history</title>
+    <link rel="alternate" hreflang="en" href="https://thousands.life/" />
+    <link rel="alternate" hreflang="ru" href="https://thousands.life/?lang=ru" />
+    <link rel="alternate" hreflang="es" href="https://thousands.life/?lang=es" />
+    <link rel="alternate" hreflang="fr" href="https://thousands.life/?lang=fr" />
+    <link rel="alternate" hreflang="tr" href="https://thousands.life/?lang=tr" />
+    <link rel="alternate" hreflang="x-default" href="https://thousands.life/" />
+    <!-- Превью ссылки в соцсетях и мессенджерах. Картинки og-<язык>.jpg (1200×630) рисует tools/og.html (npm run dev → /tools/og.html?v=…&lang=en). -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Тысячи жизней" />
-    <meta property="og:title" content="Тысячи жизней - проживи одну жизнь в истории" />
-    <meta property="og:description" content="Родись в случайном месте истории - от Рима до империи инков. Одна жизнь, 13 стран, ваши решения. Thousands of Lives - a life in a random era of history." />
+    <meta property="og:site_name" content="Thousands of Lives" />
+    <meta property="og:title" content="Thousands of Lives: a free life simulator in history" />
+    <meta property="og:description" content="A free browser game. A birth lottery picks your country, era and family; then you live one life, choice by choice, in about 20 minutes. 14 countries, from Egypt to the Inca." />
     <meta property="og:url" content="https://thousands.life/" />
-    <meta property="og:image" content="https://thousands.life/og-ru.png" />
+    <meta property="og:image" content="https://thousands.life/og-en.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Тысячи жизней: Рим, Япония, Русь и ацтеки в пиксельной графике" />
-    <meta property="og:locale" content="ru_RU" />
-    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:image:alt" content="Thousands of Lives: a painted scene from a random life in history" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ru_RU" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="tr_TR" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Тысячи жизней - проживи одну жизнь в истории" />
-    <meta name="twitter:description" content="Родись в случайном месте истории - от Рима до империи инков. Thousands of Lives - a life in a random era of history." />
-    <meta name="twitter:image" content="https://thousands.life/og-ru.png" />
+    <meta name="twitter:title" content="Thousands of Lives: a free life simulator in history" />
+    <meta name="twitter:description" content="A free browser game. A birth lottery picks your country, era and family; then you live one life, choice by choice, in about 20 minutes. 14 countries, from Egypt to the Inca." />
+    <meta name="twitter:image" content="https://thousands.life/og-en.jpg" />
     <!-- Описание игры для поисковиков (schema.org). В сборке для порталов убирается (vite.config.ts). -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "VideoGame",
-        "name": "Тысячи жизней",
-        "alternateName": "Thousands of Lives",
+        "name": "Thousands of Lives",
+        "alternateName": ["Тысячи жизней", "Miles de vidas", "Mille vies", "Binlerce Hayat"],
         "url": "https://thousands.life/",
-        "image": "https://thousands.life/og-ru.png",
-        "description": "Браузерная игра-симулятор жизни: родись в случайной стране и эпохе - Древний Египет, Рим, Византия, Русь, Средневековая Европа, исламский мир, Индия, Китай, Япония, Эфиопия, Западная Африка, майя, ацтеки и инки - и проживи одну жизнь, принимая решения.",
+        "image": "https://thousands.life/og-en.jpg",
+        "description": "A free browser life simulator. A birth lottery picks where and when you are born - Ancient Egypt and Mesopotamia, Rome and Greece, Byzantium, Rus, medieval Europe, the Islamic world, India, China, Japan, Ethiopia, West Africa, the Maya, the Aztecs and Inca, the Mongol Empire - and you live one life, making choices year by year.",
         "genre": ["Life simulation", "Historical", "Text-based"],
         "gamePlatform": "Web browser",
         "applicationCategory": "Game",
         "operatingSystem": "Any",
-        "inLanguage": ["ru", "en", "tr"],
+        "inLanguage": ["en", "ru", "es", "fr", "tr"],
         "isAccessibleForFree": true,
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
@@ -45,19 +55,111 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- Заставка загрузки (18.11): видна до того, как загрузится игра, поэтому стили - прямо здесь. Рваный край - как у сцены
+         на главной (--torn в skin.css). Тексты для поисковиков стоят ниже заставки, под первым экраном, мелко и приглушённо. -->
+    <style>
+      html { background: #16213a; }
+      body { margin: 0; }
+      .splash { min-height: 100vh; min-height: 100svh; box-sizing: border-box; display: flex; flex-direction: column; align-items: center;
+        padding: 0 16px 10vh; color: #f3ead7; text-align: center; font-family: 'Alegreya Variable', Georgia, serif; }
+      /* На телефоне картинка выше (обрезается по краям), на широком экране - целиком 16:5. */
+      .splash-art { width: calc(100% + 32px); max-width: 960px; margin: 0 -16px; aspect-ratio: 4 / 3; background: #f3ead7;
+        clip-path: polygon(0 0, 100% 0, 100% 97.3%, 97.5% 99.8%, 95% 97.5%, 92.5% 99.4%, 90% 97.4%, 87.5% 99.6%, 85% 97.6%, 82.5% 99.7%, 80% 97.3%, 77.5% 99.9%, 75% 97.2%, 72.5% 99.6%, 70% 97.6%, 67.5% 99.4%, 65% 97.4%, 62.5% 99.3%, 60% 97.5%, 57.5% 99.8%, 55% 97.4%, 52.5% 99.8%, 50% 97.3%, 47.5% 99.7%, 45% 97.5%, 42.5% 99.6%, 40% 97.4%, 37.5% 99.8%, 35% 97.7%, 32.5% 99.6%, 30% 97.5%, 27.5% 99.3%, 25% 97.5%, 22.5% 99.7%, 20% 97.7%, 17.5% 99.8%, 15% 97.3%, 12.5% 99.5%, 10% 97.5%, 7.5% 99.3%, 5% 97.4%, 2.5% 99.4%, 0 97.2%); }
+      .splash-art img { display: block; width: 100%; height: 100%; object-fit: cover;
+        clip-path: polygon(0 0, 100% 0, 100% 95.2%, 97.5% 97.3%, 95% 95.4%, 92.5% 97.2%, 90% 95.3%, 87.5% 97.4%, 85% 95%, 82.5% 97.5%, 80% 95%, 77.5% 97.5%, 75% 95%, 72.5% 97.3%, 70% 95.3%, 67.5% 97.7%, 65% 95.1%, 62.5% 97.3%, 60% 95.4%, 57.5% 97.8%, 55% 95.3%, 52.5% 97.4%, 50% 95.6%, 47.5% 97.2%, 45% 95.5%, 42.5% 97.4%, 40% 95.1%, 37.5% 97.3%, 35% 95.2%, 32.5% 97.7%, 30% 95.1%, 27.5% 97.5%, 25% 95.4%, 22.5% 97.4%, 20% 95.3%, 17.5% 97.2%, 15% 95%, 12.5% 97.3%, 10% 95.4%, 7.5% 97.5%, 5% 95.2%, 2.5% 97.6%, 0 95.3%); }
+      @media (min-width: 600px) { .splash-art { aspect-ratio: 16 / 5; } }
+      .splash-title { margin: 28px 0 0; font-family: 'Thousands Letopis', Georgia, serif; font-weight: 500; font-size: clamp(2rem, 10vw, 2.7rem);
+        line-height: 1.1; letter-spacing: 0.02em; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55); }
+      .splash-sub { max-width: 26rem; margin: 10px 0 0; color: #bfa987; font-size: 1.05rem; font-weight: 600; line-height: 1.45; }
+      .splash-bar { position: relative; width: 160px; height: 4px; margin-top: 28px; overflow: hidden; background: rgba(243, 234, 215, 0.14); }
+      .splash-bar span { position: absolute; top: 0; bottom: 0; left: -40%; width: 40%; background: #ecd06f; animation: splash-run 1.3s ease-in-out infinite; }
+      @keyframes splash-run { to { left: 100%; } }
+      @media (prefers-reduced-motion: reduce) { .splash-bar span { animation: none; left: 0; width: 100%; opacity: 0.5; } }
+      .seo-intro { max-width: 40rem; margin: 0 auto; padding: 24px 16px 48px; color: rgba(191, 169, 135, 0.75); font: 0.9rem/1.5 Georgia, serif; }
+      .seo-intro h1, .seo-intro h2 { margin: 1.4em 0 0.3em; color: rgba(243, 234, 215, 0.8); font-size: 1rem; }
+      .seo-intro p { margin: 0 0 0.6em; }
+    </style>
   </head>
   <body>
     <div id="app">
-      <!-- Текст для поисковиков и для первых мгновений загрузки: игра заменяет его собой (main.tsx). -->
+      <div class="splash" aria-hidden="true">
+        <div class="splash-art"><img src="./splash.jpg" alt="" width="960" height="300" fetchpriority="high" /></div>
+        <p class="splash-title" id="splash-title">Thousands of Lives</p>
+        <p class="splash-sub" id="splash-sub">Be born at random in history. Live one life, choice by choice.</p>
+        <div class="splash-bar"><span></span></div>
+      </div>
+      <script>
+        // Название и строка на заставке - на языке игрока: из адреса (?lang=), из настроек игры или браузера.
+        ;(function () {
+          var T = {
+            en: ['Thousands of Lives', 'Be born at random in history. Live one life, choice by choice.'],
+            ru: ['Тысячи жизней', 'Родись в случайном месте истории и проживи одну жизнь.'],
+            es: ['Miles de vidas', 'Nace al azar en la historia. Vive una vida, decisión a decisión.'],
+            fr: ['Mille vies', 'Nais au hasard dans l’histoire. Vis une vie, choix après choix.'],
+            tr: ['Binlerce Hayat', 'Tarihte rastgele bir yerde doğ. Tek bir hayatı seçimlerinle yaşa.'],
+          }
+          var l = new URLSearchParams(location.search).get('lang') || ''
+          if (!T[l]) try { l = JSON.parse(localStorage.getItem('thousands.prefs') || '{}').lang || '' } catch (e) {}
+          if (!T[l]) l = (navigator.language || '').slice(0, 2)
+          if (!T[l]) l = 'en'
+          document.getElementById('splash-title').textContent = T[l][0]
+          document.getElementById('splash-sub').textContent = T[l][1]
+        })()
+      </script>
+      <!-- Текст для поисковиков на пяти языках: что за игра, как играется, честно о том, что тексты ещё проверяются. Игра заменяет его собой (main.tsx). -->
       <main class="seo-intro">
-        <h1>Тысячи жизней</h1>
-        <p>Бесплатная браузерная игра-симулятор жизни. Барабан лотереи решает, где и когда ты родишься, в каком сословии и каким полом.
-          Дальше год за годом ты принимаешь решения: семья, ремесло, вера, болезни, войны и знаки судьбы - и проживаешь одну жизнь до конца.</p>
-        <p>13 стран и эпох: Древний Египет и Двуречье, Рим и Греция, Византия, Русь, Средневековая Европа, исламский мир, Индия,
-          Китай, Япония, Эфиопия, Западная Африка (Мали и Сонгай), майя, ацтеки и инки. Исторические справки, сны о будущем, наследники и награды.</p>
-        <h2>Thousands of Lives</h2>
-        <p>A free browser life simulator. A birth lottery decides where and when you are born, your station and sex - then you live
-          one whole life in history, year by year, making choices about family, work, faith, illness and war.</p>
+        <section lang="en">
+          <h1>Thousands of Lives</h1>
+          <p>A free life simulator that runs in the browser, with nothing to install. A birth lottery decides where and when you are born,
+            into which family and as a boy or a girl. Then the years go by on their own, and the game stops whenever something happens:
+            family, work, faith, illness, war. Your choices shape one whole life, from the cradle to old age, in about 20 minutes.
+            When it ends, an heir can carry the family on.</p>
+          <p>14 countries before the Age of Discovery: Ancient Egypt and Mesopotamia, Rome and Greece, Byzantium, Rus, medieval Europe,
+            the Islamic world, India, China, Japan, Ethiopia, West Africa (Mali and Songhai), the Maya, the Aztecs and Inca, the Mongol Empire.
+            The game is in beta: the historical texts were prepared with the help of AI and have not yet been checked by historians.</p>
+        </section>
+        <section lang="ru">
+          <h2>Тысячи жизней</h2>
+          <p>Бесплатный симулятор жизни в браузере, ничего не нужно устанавливать. Лотерея рождения решает, где и когда ты родишься,
+            в какой семье и каким полом. Дальше годы идут сами, а игра останавливается, когда что-то случается: семья, ремесло, вера,
+            болезни, войны. Твои решения складываются в одну жизнь от колыбели до старости, примерно за 20 минут. Потом род может
+            продолжить наследник.</p>
+          <p>14 стран до эпохи Великих открытий: Древний Египет и Двуречье, Рим и Греция, Византия, Русь, Средневековая Европа,
+            исламский мир, Индия, Китай, Япония, Эфиопия, Западная Африка (Мали и Сонгай), майя, ацтеки и инки, Монгольская империя.
+            Игра в бете: исторические тексты подготовлены с помощью ИИ и ещё не проверены историками.</p>
+        </section>
+        <section lang="es">
+          <h2>Miles de vidas</h2>
+          <p>Un simulador de vida gratis en el navegador, sin instalar nada. Una lotería de nacimiento decide dónde y cuándo naces,
+            en qué familia y si eres chico o chica. Después los años pasan solos, y el juego se detiene cuando ocurre algo: familia,
+            oficio, fe, enfermedades, guerras. Tus decisiones forman una vida entera, de la cuna a la vejez, en unos 20 minutos.
+            Al final, un heredero puede continuar la familia.</p>
+          <p>14 países antes de la Era de los Descubrimientos: el antiguo Egipto y Mesopotamia, Roma y Grecia, Bizancio, la Rus,
+            la Europa medieval, el mundo islámico, India, China, Japón, Etiopía, África occidental (Malí y Songhai), los mayas,
+            los aztecas e incas, el Imperio mongol. El juego está en beta: los textos históricos se prepararon con ayuda de IA
+            y aún no los ha revisado un historiador.</p>
+        </section>
+        <section lang="fr">
+          <h2>Mille vies</h2>
+          <p>Un simulateur de vie gratuit dans le navigateur, sans rien installer. Une loterie de naissance décide où et quand tu nais,
+            dans quelle famille et si tu es fille ou garçon. Ensuite les années passent toutes seules, et le jeu s’arrête dès qu’il se
+            passe quelque chose : famille, métier, foi, maladies, guerres. Tes choix forment une vie entière, du berceau à la vieillesse,
+            en 20 minutes environ. À la fin, un héritier peut continuer la famille.</p>
+          <p>14 pays avant les Grandes Découvertes : l’Égypte ancienne et la Mésopotamie, Rome et la Grèce, Byzance, la Rus’,
+            l’Europe médiévale, le monde islamique, l’Inde, la Chine, le Japon, l’Éthiopie, l’Afrique de l’Ouest (Mali et Songhaï),
+            les Mayas, les Aztèques et les Incas, l’Empire mongol. Le jeu est en bêta : les textes historiques ont été préparés avec
+            l’aide de l’IA et n’ont pas encore été vérifiés par des historiens.</p>
+        </section>
+        <section lang="tr">
+          <h2>Binlerce Hayat</h2>
+          <p>Tarayıcıda çalışan ücretsiz bir hayat simülasyonu, hiçbir şey kurmanız gerekmez. Doğum piyangosu nerede ve ne zaman
+            doğacağına, hangi ailede, kız mı erkek mi olacağına karar verir. Sonra yıllar kendiliğinden geçer, bir şey olduğunda oyun durur:
+            aile, meslek, inanç, hastalık, savaş. Seçimlerin beşikten yaşlılığa tek bir hayatı, yaklaşık 20 dakikada şekillendirir.
+            Sonunda bir varis aileyi sürdürebilir.</p>
+          <p>Coğrafi Keşifler öncesinden 14 ülke: Eski Mısır ve Mezopotamya, Roma ve Yunanistan, Bizans, Rus, Orta Çağ Avrupası,
+            İslam dünyası, Hindistan, Çin, Japonya, Etiyopya, Batı Afrika (Mali ve Songay), Mayalar, Aztekler ve İnkalar, Moğol İmparatorluğu.
+            Oyun beta aşamasında: tarih metinleri yapay zekâ yardımıyla hazırlandı ve henüz tarihçiler tarafından kontrol edilmedi.</p>
+        </section>
       </main>
     </div>
     <script type="module" src="/src/main.tsx"></script>
