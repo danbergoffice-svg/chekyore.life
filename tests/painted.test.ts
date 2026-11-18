@@ -132,6 +132,20 @@ describe('Живописные сцены', () => {
     expect(plan('burned').layers.some((l) => l.key === 'house.home3_burned')).toBe(true)
   })
 
+  it('семья одного сословия - разные люди: поза, рост, цвет одежды по зерну; кожа не перекрашивается', async () => {
+    const { personVariant, recolorPixels } = await import('../src/pixel/painted')
+    const vs = ['a', 'b', 'c', 'd', 'e', 'f'].map((s) => personVariant(s))
+    expect(new Set(vs.map((v) => v.hue)).size).toBeGreaterThan(3)
+    expect(new Set(vs.map((v) => v.size.toFixed(3))).size).toBeGreaterThan(3)
+    expect(personVariant('a')).toEqual(personVariant('a'))
+    expect(personVariant('x', true)).toMatchObject({ pose: 'stand', flip: false })
+    const px = new Uint8ClampedArray([200, 150, 110, 255, /* кожа */ 240, 200, 205, 255, /* бледная розовая кожа */ 30, 60, 160, 255 /* синяя ткань */])
+    recolorPixels(px, 120)
+    expect([...px.slice(0, 3)]).toEqual([200, 150, 110])
+    expect([...px.slice(4, 7)]).toEqual([240, 200, 205])
+    expect([...px.slice(8, 11)]).not.toEqual([30, 60, 160])
+  })
+
   it('возраст → ступень картинки', () => {
     expect([0, 5, 15, 40, 70].map(ageStage)).toEqual(['baby', 'child', 'teen', 'adult', 'elder'])
   })
