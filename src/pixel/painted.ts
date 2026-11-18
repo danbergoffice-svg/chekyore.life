@@ -89,6 +89,9 @@ export interface Placed {
   source?: Placed
   /** Масштаб фона или погоды (move.<слой>.scale; у объектов масштаб уже в h). */
   k?: number
+  /** Человек: сдвиг оттенка одежды в градусах (кожа не трогается) и ширина относительно роста. */
+  hue?: number
+  wide?: number
   /** Группа раскладки (галерея: перетаскивание меняет её x/y в painted-layout.json). */
   group?: 'home' | 'street' | 'people' | 'animals' | 'props'
 }
@@ -117,12 +120,25 @@ export function ageStage(age: number): 'baby' | 'child' | 'teen' | 'adult' | 'el
   return age < 60 ? 'adult' : 'elder'
 }
 
-function personKey(index: ArtIndex, cls: string | undefined, sex: 'm' | 'f', age: number): string | null {
+function personKey(index: ArtIndex, cls: string | undefined, sex: 'm' | 'f', age: number, pose = 'stand'): string | null {
   const stage = ageStage(age)
   if (stage === 'baby') return index['person.baby_swaddled'] ? 'person.baby_swaddled' : null
   const c = cls && CLASSES.includes(cls) ? cls : cls === 'royal' ? 'noble' : 'peasant'
-  for (const k of [`person.${c}_${sex}_${stage}_stand`, `person.peasant_${sex}_${stage}_stand`, `person.peasant_${sex}_adult_stand`]) if (has(index, k)) return k
+  for (const k of [`person.${c}_${sex}_${stage}_${pose}`, `person.${c}_${sex}_${stage}_stand`, `person.peasant_${sex}_${stage}_stand`, `person.peasant_${sex}_adult_stand`]) if (has(index, k)) return k
   return null
+}
+
+/** Свой облик каждого человека по его зерну: поза (у взрослых), отражение, рост ±6%, ширина ±5%, цвет одежды.
+ *  Так семья одного сословия не выглядит одной и той же картинкой. Герой стоит и смотрит в кадр. */
+export function personVariant(seed: string, hero = false): { pose: string; flip: boolean; size: number; wide: number; hue: number } {
+  const r = rand(`${seed}:figure`)
+  const pose = hero ? 'stand' : (['stand', 'stand', 'walk', 'work'] as const)[Math.floor(r() * 4)]
+  const flip = r() < 0.5
+  const size = 0.94 + r() * 0.12
+  const wide = 0.95 + r() * 0.1
+  // Без сдвига у четверти людей - исходные цвета стиля тоже встречаются.
+  const hue = r() < 0.25 ? 0 : Math.round(30 + r() * 300)
+  return { pose, flip: hero ? false : flip, size, wide, hue }
 }
 
 /** Первый подходящий ключ из списка, иначе любой этого слоя. */
@@ -219,8 +235,9 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     const step = members.length > 6 ? Y.people.stepCrowded : Y.people.step
     const start = Y.people.center - ((members.length - 1) * step) / 2
     members.forEach((m, i) => {
-      const k = personKey(index, m.cls, m.sex, m.age)
-      if (k) people.push({ key: k, x: start + i * step, y: G + 8 + Y.people.y, group: 'people', flip: m.role !== 'hero' && start + i * step > Y.people.center + 50, h: scaled(index, k, Y.people.scale) })
+      const v = personVariant(m.seed || `${seed}:${i}`, m.role === 'hero')
+      const k = personKey(index, m.cls, m.sex, m.age, v.pose)
+      if (k) people.push({ key: k, x: start + i * step, y: G + 8 + Y.people.y, group: 'people', flip: m.role === 'hero' ? false : v.flip, h: (scaled(index, k, Y.people.scale) ?? index[k]?.[5] ?? 0) * v.size || undefined, wide: v.wide, hue: v.hue })
     })
   } else {
     const n = Math.max(0, Math.min(6, scene.people ?? 2))
@@ -229,9 +246,10 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     for (let i = 0; i < n; i++) {
       const sex = r() < 0.5 ? 'm' : 'f'
       const age = r() < 0.15 ? 9 : r() < 0.15 ? 66 : 32
-      const k = personKey(index, pool[Math.floor(r() * pool.length)], sex, age)
+      const v = personVariant(`${seed}:passer${i}`)
+      const k = personKey(index, pool[Math.floor(r() * pool.length)], sex, age, v.pose)
       const x = Y.people.center - 170 + (i + 0.5) * (380 / Math.max(1, n)) + (r() - 0.5) * 20
-      if (k) people.push({ key: k, x, y: G + 8 + Y.people.y, group: 'people', flip: x > Y.people.center + 10, h: scaled(index, k, Y.people.scale) })
+      if (k) people.push({ key: k, x, y: G + 8 + Y.people.y, group: 'people', flip: v.flip, h: (scaled(index, k, Y.people.scale) ?? index[k]?.[5] ?? 0) * v.size || undefined, wide: v.wide, hue: v.hue })
     }
   }
   L.push(...objects, ...people)
@@ -454,11 +472,11 @@ export function composePainted(ctx: CanvasRenderingContext2D, s: PaintedScene, t
     } else {
       // Объект: холст стоит низом на линии ног; масштаб - из оглавления (sceneH точек кадра на всю высоту холста).
       const k = (l.h ?? sceneH ?? h) / h
-      const dw = w * k
+      const dw = w * k * (l.wide ?? 1)
       const dh = h * k
       ctx.translate(l.x, l.y)
       if (l.flip) ctx.scale(-1, 1)
-      ctx.drawImage(im, -dw / 2, -dh, dw, dh)
+      ctx.drawImage(l.hue ? recolored(im, l.hue) : im, -dw / 2, -dh, dw, dh)
     }
     ctx.restore()
   }
@@ -480,6 +498,8 @@ export interface PortraitInput {
   age: number
   cls?: string
   enslaved?: boolean
+  /** Тип лица 1–4: у взрослого и старика - портрет с этим лицом, если он есть в стиле. */
+  face?: number
   /** Иноземец, ещё не вжившийся: портрет в стиле родного края. */
   homeRegion?: string
   integrated?: boolean
@@ -490,6 +510,11 @@ export function portraitKey(index: ArtIndex, p: PortraitInput): string | null {
   const stage = ageStage(p.age)
   if (stage === 'baby') return index[`portrait.baby_${p.sex}`] ? `portrait.baby_${p.sex}` : null
   const c = p.enslaved ? 'slave' : p.cls && CLASSES.includes(p.cls) ? p.cls : p.cls === 'royal' ? 'noble' : 'peasant'
+  if (p.face && (stage === 'adult' || stage === 'elder')) {
+    const tier = c === 'slave' || c === 'peasant' ? 'poor' : c === 'craftsman' || c === 'trader' ? 'mid' : 'rich'
+    const k = `portrait.face${p.face}_${p.sex}_${stage}_${tier}`
+    if (index[k]) return k
+  }
   for (const k of [`portrait.${c}_${p.sex}_${stage}`, `portrait.peasant_${p.sex}_${stage}`]) if (index[k]) return k
   return null
 }
@@ -500,6 +525,66 @@ export async function loadPortrait(p: PortraitInput): Promise<CanvasImageSource 
   const index = await loadIndex(style)
   const key = index && portraitKey(index, p)
   return key ? loadImage(style, index!, key) : null
+}
+
+// ---------------------------------------------------------------- Перекраска одежды
+
+const recolorCache = new WeakMap<object, Map<number, CanvasImageSource>>()
+/** Сдвиг оттенка насыщенных цветов одежды; тона кожи (оттенок 335–50° при насыщенности ниже 0.8) и серые - как были.
+ *  Кеш по самой картинке (у каждого стиля своя) и сдвигу: считается один раз. */
+function recolored(im: CanvasImageSource, hue: number): CanvasImageSource {
+  let byHue = recolorCache.get(im)
+  if (!byHue) recolorCache.set(im, (byHue = new Map()))
+  const hit = byHue.get(hue)
+  if (hit) return hit
+  let out: CanvasImageSource = im
+  try {
+    const w = (im as HTMLImageElement).width
+    const h = (im as HTMLImageElement).height
+    const c = document.createElement('canvas')
+    c.width = w
+    c.height = h
+    const x = c.getContext('2d')!
+    x.drawImage(im, 0, 0)
+    const data = x.getImageData(0, 0, w, h)
+    recolorPixels(data.data, hue)
+    x.putImageData(data, 0, 0)
+    out = c
+  } catch {
+    // нет холста (тесты) - как есть
+  }
+  byHue.set(hue, out)
+  return out
+}
+
+/** Сам сдвиг (чистая функция над RGBA, для тестов). */
+export function recolorPixels(d: Uint8ClampedArray, hue: number): void {
+  for (let i = 0; i < d.length; i += 4) {
+    if (d[i + 3] < 8) continue
+    const r = d[i] / 255
+    const g = d[i + 1] / 255
+    const b = d[i + 2] / 255
+    const max = Math.max(r, g, b)
+    const min = Math.min(r, g, b)
+    const l = (max + min) / 2
+    const dd = max - min
+    if (dd < 0.08) continue
+    const s = dd / (1 - Math.abs(2 * l - 1))
+    if (s < 0.22 || l < 0.08 || l > 0.92) continue
+    let hh = max === r ? ((g - b) / dd) % 6 : max === g ? (b - r) / dd + 2 : (r - g) / dd + 4
+    hh *= 60
+    if (hh < 0) hh += 360
+    // Кожа (от бледно-розовой до тёмной) и губы: тёплые тона не самой яркой насыщенности.
+    if ((hh >= 335 || hh <= 50) && s < 0.8 && l > 0.15) continue
+    hh = (hh + hue) % 360
+    const C = dd
+    const X = C * (1 - Math.abs(((hh / 60) % 2) - 1))
+    const m = l - C / 2
+    const [r1, g1, b1] = hh < 60 ? [C, X, 0] : hh < 120 ? [X, C, 0] : hh < 180 ? [0, C, X] : hh < 240 ? [0, X, C] : hh < 300 ? [X, 0, C] : [C, 0, X]
+    d[i] = Math.round((r1 + m) * 255)
+    d[i + 1] = Math.round((g1 + m) * 255)
+    d[i + 2] = Math.round((b1 + m) * 255)
+  }
 }
 
 let stripCanvas: HTMLCanvasElement | null = null

@@ -230,6 +230,7 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
   if (h.era !== era.id && isEraLoaded(h.era)) era = eraById(h.era)
   return {
     heroId: h.id,
+    face: faceOf(h),
     familyId: state.family.id,
     generation: h.generation,
     name: h.name,
@@ -578,6 +579,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   hero.birthYear = child.birthYear
   hero.age = yearsBetween(child.birthYear, prev.year)
   hero.money = inheritanceShare(prev, era, child)
+  // Лицо рода: от отца или матери (50/50), чтобы наследника узнавали по лицу.
+  const other = parent.npcs.find((n) => n.role === 'spouse')
+  hero.face = chance(state, 0.5) ? faceOf(parent) : faceOf({ id: other?.id ?? `${parent.id}:spouse` })
   rollAttrs(state, hero, parent)
   hero.traits = rollTraits(state, era, child.traits.concat(parent.traits))
   hero.hidden.reputation = Math.round(parent.hidden.reputation * 0.5)
@@ -678,4 +682,12 @@ export function pickKidsTarget(before: number[], r: () => number): number {
   let x = r() * options.reduce((a, [, w]) => a + w, 0)
   for (const [n, w] of options) if ((x -= w) < 0) return n
   return options[options.length - 1][0]
+}
+
+/** Тип лица 1–4 на живописном портрете: свой у героя или по его id (у основателя рода и у старых сохранений). */
+export function faceOf(h: { id: string; face?: number }): number {
+  if (h.face && h.face >= 1 && h.face <= 4) return h.face
+  let x = 7
+  for (const c of h.id) x = (x * 31 + c.charCodeAt(0)) >>> 0
+  return 1 + (x % 4)
 }

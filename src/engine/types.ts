@@ -698,6 +698,8 @@ export type TriggerDepend = 'region' | 'class' | 'profession' | 'spouse' | 'npc'
 
 export interface Hero {
   id: string
+  /** Тип лица на живописном портрете 1–4 (нет - по id); наследник берёт лицо отца или матери. */
+  face?: number
   name: string
   sex: Sex
   birthYear: number
@@ -799,6 +801,8 @@ export interface Animal {
 
 export interface LifeSummary {
   heroId: string
+  /** Тип лица героя (портрет в мемориале и итоге). */
+  face?: number
   familyId: string
   generation: number
   name: string

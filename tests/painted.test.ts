@@ -151,6 +151,32 @@ describe('Живописные сцены', () => {
     }
   })
 
+  it('семья одного сословия - разные люди: поза, рост, цвет одежды по зерну; кожа не перекрашивается', async () => {
+    const { personVariant, recolorPixels } = await import('../src/pixel/painted')
+    const vs = ['a', 'b', 'c', 'd', 'e', 'f'].map((s) => personVariant(s))
+    expect(new Set(vs.map((v) => v.hue)).size).toBeGreaterThan(3)
+    expect(new Set(vs.map((v) => v.size.toFixed(3))).size).toBeGreaterThan(3)
+    expect(personVariant('a')).toEqual(personVariant('a'))
+    expect(personVariant('x', true)).toMatchObject({ pose: 'stand', flip: false })
+    const px = new Uint8ClampedArray([200, 150, 110, 255, /* кожа */ 240, 200, 205, 255, /* бледная розовая кожа */ 30, 60, 160, 255 /* синяя ткань */])
+    recolorPixels(px, 120)
+    expect([...px.slice(0, 3)]).toEqual([200, 150, 110])
+    expect([...px.slice(4, 7)]).toEqual([240, 200, 205])
+    expect([...px.slice(8, 11)]).not.toEqual([30, 60, 160])
+  })
+
+  it('лицо портрета: тип лица 1–4 по id или свой; взрослый и старик - портрет с этим лицом по достатку, иначе прежний', async () => {
+    const { faceOf } = await import('../src/engine/life')
+    const { portraitKey } = await import('../src/pixel/painted')
+    expect(faceOf({ id: 'h1' })).toBe(faceOf({ id: 'h1' }))
+    expect(faceOf({ id: 'h1', face: 3 })).toBe(3)
+    expect(new Set(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((id) => faceOf({ id }))).size).toBeGreaterThan(2)
+    const ix = { 'portrait.face2_m_adult_mid': [], 'portrait.craftsman_m_adult': [], 'portrait.craftsman_m_child': [] } as never
+    expect(portraitKey(ix, { region: 'paris', sex: 'm', age: 35, cls: 'trader', face: 2 })).toBe('portrait.face2_m_adult_mid')
+    expect(portraitKey(ix, { region: 'paris', sex: 'm', age: 35, cls: 'craftsman', face: 1 })).toBe('portrait.craftsman_m_adult')
+    expect(portraitKey(ix, { region: 'paris', sex: 'm', age: 8, cls: 'craftsman', face: 2 })).toBe('portrait.craftsman_m_child')
+  })
+
   it('возраст → ступень картинки', () => {
     expect([0, 5, 15, 40, 70].map(ageStage)).toEqual(['baby', 'child', 'teen', 'adult', 'elder'])
   })
