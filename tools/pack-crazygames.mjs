@@ -8,7 +8,7 @@ import zlib from 'node:zlib'
 
 const DIR = 'dist-crazygames'
 const OUT = 'crazygames.zip'
-const DROP = ['CNAME', 'sw.js', 'manifest.webmanifest', 'og-ru.png', 'og-en.png', '_worker.js', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']
+const DROP = ['CNAME', 'sw.js', 'manifest.webmanifest', 'og-en.jpg', 'og-ru.jpg', 'og-es.jpg', 'og-fr.jpg', 'og-tr.jpg', '_worker.js', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']
 /** Разрешённые адреса: SDK портала и пространства имён SVG/XML (это не запросы в сеть). */
 const ALLOWED = [/^https:\/\/sdk\.crazygames\.com\//, /^http:\/\/www\.w3\.org\//]
 /**
@@ -25,6 +25,8 @@ if (!fs.existsSync(path.join(DIR, 'index.html'))) {
 for (const f of DROP) fs.rmSync(path.join(DIR, f), { force: true })
 // Новая музыка (A/B XM) идёт только на сайте: на портале music_share = 0, а 30 МБ не влезли бы в лимит.
 fs.rmSync(path.join(DIR, 'music', 'v2'), { recursive: true, force: true })
+// Живописные слои (A/B XP, 43 МБ) - только на сайте.
+fs.rmSync(path.join(DIR, 'art'), { recursive: true, force: true })
 
 const files = []
 const walk = (dir) => {

@@ -22,7 +22,7 @@ const buffers = new Map<string, Promise<AudioBuffer | null>>()
 
 const FADE = 2
 /** Номер версии музыки: увеличить после npm run music, чтобы офлайн-кэш сайта взял новые файлы. */
-const MUSIC_VERSION = 2
+const MUSIC_VERSION = 3
 
 /** Громкость: ползунок 0–1 линейно (в квадрате на телефоне было почти не слышно). */
 const level = () => (enabled && blocked.size === 0 ? volume : 0)

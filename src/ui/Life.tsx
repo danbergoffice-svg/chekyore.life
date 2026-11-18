@@ -57,7 +57,7 @@ import type { GoalGroup } from '../goal'
 import { goalDue as isGoalDue } from '../goal'
 import { GoalBar, GoalPick } from './GoalPick'
 import { HudHeader, MilestoneChip, TimeBar } from './LifeHud'
-import { Tour } from './Tour'
+import { Tour, TOUR } from './Tour'
 import { DiceGame } from './DiceGame'
 import { CrisisBoard } from './CrisisBoard'
 import type { StanceId } from '../engine/crisis'
@@ -78,10 +78,13 @@ function yearsBackward<T extends readonly [{ year: number }, number]>(list: T[])
  * Длительность года на скорости ×1. Стандартная - из флагов (в детстве, до child_age лет, короче).
  * Если игрок выбрал свою (до минуты), детство удлиняется в той же пропорции.
  */
-function yearMs(age: number, custom?: number): number {
+function yearMs(age: number, custom?: number, quiet = false): number {
   const f = platform.flags
   const adult = custom ?? f.year_sec
-  return (age <= f.child_age ? (adult * f.year_sec_child) / f.year_sec : adult) * 1000
+  if (age > f.child_age) return adult * 1000
+  // Детский год без событий впереди - быстрее (Р2 аудита 18.11): пустые паузы детства были главной скукой первых минут.
+  const child = quiet ? Math.min(f.year_sec_child_quiet ?? f.year_sec_child, f.year_sec_child) : f.year_sec_child
+  return ((adult * child) / f.year_sec) * 1000
 }
 const TICK_MS = 100
 /** Выборы события костей, которые открывают стол с мини-игрой. */
@@ -104,6 +107,10 @@ export const SPEEDS = [0, 0.5, 1, 2, 4, 10] as const
 export type Speed = (typeof SPEEDS)[number]
 
 interface LifeProps {
+  /** Пропустить детство: годы до 13 проходят сами (кнопка в шапке). */
+  onSkipChildhood?: () => void
+  /** «Другая судьба» (П4): пока герой младенец (до 2 лет) в первой жизни - один раз к барабану. */
+  onRebirth?: () => void
   state: GameState
   era: EraDef
   onStart: (focus: string | null) => void
@@ -129,6 +136,8 @@ interface LifeProps {
   onCrisisSave?: () => void
   /** Меняется - открыть обучение заново («Как играть» в меню). */
   tourNonce?: number
+  /** Рукав XT (аудит 18.11): обучение по одному шагу по ходу жизни, а не шесть карточек до первого выбора. */
+  tourDrip?: boolean
   /** Открыть настройки из жизни («Назад» вернёт в жизнь). */
   onSettings?: () => void
   choiceChanges: Change[]
@@ -140,7 +149,7 @@ interface LifeProps {
   /** Ранняя детская игра сыграна (src/kids/early.ts): прибавка, запись, отметка в жизни. */
   onKids?: (r: EarlyResult) => void
   /** Цель жизни (docs/TZ_goal.md): группа A/B игрока и выбор/смена цели. */
-  goal?: { group: GoalGroup; onPick: (c: GoalChoice, change: boolean) => void }
+  goal?: { group: GoalGroup; fromAge?: number; onPick: (c: GoalChoice, change: boolean) => void }
   /** Сон о будущем: ответы, подсказка, «Проснуться», закрыть итог. */
   dream?: { result: DreamResult | null; onAnswer: (value: unknown) => void; onHint: () => void; onWake: () => void; onClose: () => void }
   /** Строка вестей под шапкой (отзыв владельца 10.11: всплывающие плашки закрывали панель управления). false - скрыта. */
@@ -167,7 +176,7 @@ function visible(state: GameState, index: number, entry: DiaryEntry, progress: n
   return at === undefined || at <= progress
 }
 
-export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream, notices = true, onNotices, notice }: LifeProps) {
+export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish, onChoose, onDismiss, onLifestyle, onFamily, onPlanReturn, onMenu, frozen, shortFirst, layout, tourNonce, tourDrip, onDiceGame, onCrisisSave, onSettings, choiceChanges, yearChanges, yearSec, sound, onKids, goal, dream, notices = true, onNotices, notice }: LifeProps) {
   const { t, lang } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
@@ -225,7 +234,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   const f = platform.flags
   const kidsDue = !!onKids && state.phase === 'year' && f.kids_age > 0 && hero.age === f.kids_age && !lifeStats(state).kids && kidsOn(platform.playerId(), f)
   // Цель жизни: перед первым годом (после лотереи; у наследника - в начале его жизни; в старом сохранении - сразу), один раз за жизнь.
-  const goalDue = !!goal && isGoalDue(state, goal.group)
+  // В рукаве XG - не раньше goal.fromAge лет: мать загадывает желание, когда игрок уже прожил с героем детство.
+  const goalDue = !!goal && isGoalDue(state, goal.group, goal.fromAge ?? 0)
   const [changing, setChanging] = useState(false)
   const [goalOpen, setGoalOpen] = useState(false)
   // Новый шаг к цели - строка на три секунды (и событие аналитики); шаги, сделанные до выбора цели, не объявляются.
@@ -263,10 +273,38 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   useEffect(() => {
     if (tourNonce) setTour(true)
   }, [tourNonce])
-  const tourDue = !tour && (state.settings.livesBefore ?? 0) === 0 && !platform.kvGet('thousands.tour') && !modalOpen && !loss && !goalDue && hero.alive
+  const firstLife = (state.settings.livesBefore ?? 0) === 0
+  const tourDue = !tourDrip && !tour && firstLife && !platform.kvGet('thousands.tour') && !modalOpen && !loss && !goalDue && hero.alive
   useEffect(() => {
     if (tourDue) setTour(true)
   }, [tourDue])
+  // Обучение по ходу жизни (рукав XT): те же шаги, но по одному - когда элемент впервые нужен, и не больше шага за игровой год.
+  // Пройденные шаги - в thousands.tour.drip: «speed:0,skip:1» (шаг:возраст героя). Подсказки о скорости и о герое, уже
+  // закрытые игроком, считаются пройденными.
+  const dripSeen = (platform.kvGet('thousands.tour.drip') ?? '').split(',').filter(Boolean).map((x) => x.split(':'))
+  const dripDone = (key: string) => dripSeen.some(([k]) => k === key) || ((key === 'speed' || key === 'hero') && hints.includes(key))
+  const choicesMade = lifeStats(state).choices
+  const dripWhen: Record<string, boolean> = { speed: choicesMade >= 1, skip: choicesMade >= 2, hero: hero.age >= 3, tabs: hero.age >= 5, goal: !!hero.goal, menu: hero.age >= 8 }
+  const [drip, setDrip] = useState<string | null>(null)
+  const dripDue =
+    tourDrip && !tour && !drip && firstLife && !platform.kvGet('thousands.tour') && !modalOpen && !loss && !goalDue && hero.alive && !dripSeen.some(([, a]) => Number(a) === hero.age)
+      ? (TOUR.find((s) => !dripDone(s.key) && dripWhen[s.key])?.key ?? null)
+      : null
+  useEffect(() => {
+    if (dripDue) setDrip(dripDue)
+  }, [dripDue])
+  const endDrip = (_step: number, skipped: boolean) => {
+    if (!drip) return
+    const seen = [...dripSeen.map((p) => p.join(':')), `${drip}:${hero.age}`]
+    platform.kvSet('thousands.tour.drip', seen.join(','))
+    platform.track('tour_step', { key: drip, age: hero.age, skipped: skipped ? 1 : 0 })
+    if (drip === 'speed' || drip === 'hero') closeHint(drip)
+    if (TOUR.every((s) => s.key === drip || dripDone(s.key))) {
+      platform.kvSet('thousands.tour', '1')
+      platform.track('tour_end', { step: TOUR.length, skipped: 0, mode: 'drip' })
+    }
+    setDrip(null)
+  }
   const endTour = (step: number, skipped: boolean) => {
     setTour(false)
     platform.kvSet('thousands.tour', '1')
@@ -276,8 +314,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
     setHints(next)
     platform.kvSet('thousands.hints', next.join(','))
   }
-  const hold = modalOpen || !!loss || tour
-  tourOn.current = tour || tourDue
+  const hold = modalOpen || !!loss || tour || !!drip
+  tourOn.current = tour || tourDue || !!drip
   // Сигналы платформе: игра идёт, пока время не на паузе или открыто решение события; экран-глава (с рекламой),
   // пауза без решения и уход с экрана жизни - остановка.
   const playing = (speed > 0 || hold) && !chapterDue && !adOpen && !frozen && state.phase !== 'dead'
@@ -299,8 +337,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         c.onStart(c.selected)
         return
       }
-      const np = c.progress + (TICK_MS * c.speed) / yearMs(c.state.hero.age, c.yearSec)
       const ev = c.state.queue[0]
+      const np = c.progress + (TICK_MS * c.speed) / yearMs(c.state.hero.age, c.yearSec, !ev)
       if (ev && np >= ev.at) setProgress(ev.at)
       else if (np >= 1 && !ev) {
         setProgress(0)
@@ -409,10 +447,11 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   useEffect(() => {
     if (fresh) setLastNotice(fresh.text)
   }, [fresh?.id])
-  const noticeBar = notices && (
+  // Пустую полосу-заглушку не показываем (Р3 аудита 18.11): строка появляется с первой вестью и дальше не прячется.
+  const noticeBar = notices && (fresh || lastNotice) && (
     <div class={`notice-bar ${fresh ? 'fresh' : ''}`} role="status" aria-live="polite">
       <span class="notice-text" onClick={fresh?.close}>
-        {fresh?.text ?? lastNotice ?? <span class="muted">{t('notice.empty')}</span>}
+        {fresh?.text ?? lastNotice}
       </span>
       {fresh?.mute && (
         <button type="button" class="link small notice-mute" onClick={fresh.mute} title={t('plaque.mute')}>
@@ -427,10 +466,10 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   return (
     <div class={b ? 'life layout-b' : 'life'}>
       {b ? (
-        <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} details={
+        <HudHeader state={state} coin={coin} look={heroLook(hero)} onMenu={onMenu} onSkipChildhood={firstLife && hero.age < 3 ? undefined : onSkipChildhood} onRebirth={hero.age < 2 ? onRebirth : undefined} details={
           <>
             <p class="hero-meta">
-              {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}
+              {t(`region.${hero.region}`)} · {hero.profession ? t(`prof.${hero.profession}`, {}, o) : t('life.no_profession')}
               {hero.band !== undefined && hero.age >= era.stages.youth && <span title={t('band.tip', { n: statusOf(hero, era) })}> · {t(`band.${hero.band}`)}</span>}
             </p>
             {mourning(hero) && <p class="hero-meta small warn grief-left">{t('life.grief_left', { n: Math.max(1, mourningLeft(state)) }, o)}</p>}
@@ -765,6 +804,7 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
         />
       )}
       {tour && !modalOpen && <Tour onEnd={endTour} />}
+      {drip && !tour && !modalOpen && <Tour only={drip} onEnd={endDrip} />}
       {loss && (
         <div class="modal-backdrop">
           <div class="modal loss-card" role="dialog" aria-modal="true" aria-labelledby="loss-title">
@@ -1390,7 +1430,7 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
   const titleKey = variantKey(lang, `ev.${ev.id}.title`, v)
   const title = hasKey(lang, titleKey) ? t(titleKey, params, o) : ''
   return (
-    <div class="modal-backdrop">
+    <div class="modal-backdrop event-backdrop">
       <div class={`modal event-sheet ${ev.turning ? 'turning' : ''}`} role="dialog" aria-modal="true" aria-labelledby={title ? 'ev-title' : undefined}>
         <Illustration era={hero.era} moment={momentOf(ev)} label={title} fire={ev.scene?.disaster === 'fire'}>
           <Scene ambient art="full" frame year={state.year} scene={ev.scene ?? { place: 'landmark' }} region={hero.region} seed={ev.id} cast={eventCast(state, active?.npcId, ev.scene?.place, eventRoles(ev), ev.topic === 'work' && (hero.cls === 'trader' || hero.cls === 'craftsman'))} label={title} />

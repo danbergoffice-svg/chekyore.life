@@ -358,7 +358,7 @@
   "ev.c_teacher.text": "El maestro se queja de que tu {g=npc_sex:hijo|hija} {npc} cuenta moscas en lugar de letras y ya ha recibido la vara dos veces. {npc} insiste en que el maestro es simplemente malo.",
   "ev.c_teacher.title": "La Queja del Maestro",
   "ev.c_teen_wrestle.text": "Tu {g=npc_sex:hijo|hija} {npc} te desafió a una lucha de brazos y ganó. Dijiste que lo dejaste ganar a {g=npc_sex:él|ella}. Nadie lo creyó, incluido tú.",
-  "ev.c_teething.text": "{g=npc_sex:Tu hijo|Tu hija} {npc} grita noche tras noche: le salen los dientes. La vecina dice que frotes las encías con miel, la abuela que le cuelgues un diente de lobo al cuello. Probaste las dos cosas y ya estás {g:listo|lista} para morder a alguien.",
+  "ev.c_teething.text": "Tu {g=npc_sex:hijo|hija} {npc} grita noche tras noche: los dientes están saliendo. El vecino dice que frotes las encías con miel, la abuela dice que cuelgues un diente de lobo alrededor del cuello. Has probado ambas cosas y estás {g:listo|lista} para morder a alguien tú mismo.",
   "ev.c_toys.text": "Hiciste un pequeño caballo de madera con ruedas. Tu {g=npc_sex:hijo|hija} {npc} lo arrastra de un lado a otro desde el amanecer hasta el anochecer y le da cebada, cebada real de tus almacenes.",
   "ev.c_trade.craft": "Aprendiz {g=npc_sex:él|ella} de un artesano",
   "ev.c_trade.craft.ok": "El maestro tiene un nuevo aprendiz: {npc} se levanta antes del amanecer y vuelve a casa con los dedos quemados y los ojos brillantes.",
@@ -412,9 +412,9 @@
   "ev.c_wedding_debt_later.together": "Acepta la ayuda de tu {g=npc_sex:del hijo|de la hija}",
   "ev.c_wedding_debt_later.together.ok": "{npc} silenciosamente puso una bolsa en la mesa. Dividiste la deuda a la mitad, y eso los acercó más que la boda misma.",
   "ev.f_ancestor_school.title": "La escuela del antepasado",
-  "ev.f_ancestor_school.text": "Sobre la puerta de la escuela está tallado el nombre de tu antepasado: hace tiempo pagó un maestro y una casa para los alumnos. El maestro se entera de qué familia vienes y te invita a estudiar de balde.",
-  "ev.f_ancestor_school.study": "Estudiar de balde",
-  "ev.f_ancestor_school.study.ok": "Te sientas con las letras junto a los huérfanos del barrio. El maestro es severo, pero respeta a la familia del fundador, y los vecinos lo notan.",
-  "ev.f_ancestor_school.play": "Escaparte con los amigos",
-  "ev.f_ancestor_school.play.ok": "El maestro suspiró: en la familia del fundador hubo niños más serios. Aun así te guarda el lugar."
+  "ev.f_ancestor_school.text": "El nombre de tu antepasado está tallado sobre la puerta de la escuela: hace mucho pagó un maestro y una casa para los alumnos. El maestro sabe de qué familia vienes y te invita a estudiar gratis.",
+  "ev.f_ancestor_school.study": "Estudiar gratis",
+  "ev.f_ancestor_school.study.ok": "Te sientas ante las letras junto a los huérfanos del barrio. El maestro es severo, pero respeta a la familia del fundador, y los vecinos lo notan.",
+  "ev.f_ancestor_school.play": "Escaparte con tus amigos",
+  "ev.f_ancestor_school.play.ok": "El maestro suspira: la familia del fundador tuvo hijos más serios. Aun así, te guarda un sitio."
 }

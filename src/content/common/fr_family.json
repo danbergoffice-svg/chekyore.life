@@ -358,7 +358,7 @@
   "ev.c_teacher.text": "Le professeur se plaint que votre {g=npc_sex:fils|fille} {npc} compte les mouches au lieu des lettres et a déjà été frappé deux fois. {npc} insiste sur le fait que le professeur est simplement méchant.",
   "ev.c_teacher.title": "La plainte du professeur",
   "ev.c_teen_wrestle.text": "Votre {g=npc_sex:fils|fille} {npc} vous a défié à un bras de fer - et a gagné. Vous avez dit que vous l'avez laissé {g=npc_sex:lui|elle}. Personne n'y a cru, y compris vous.",
-  "ev.c_teething.text": "{g=npc_sex:Ton fils|Ta fille} {npc} crie nuit après nuit : les dents poussent. La voisine dit de frotter les gencives avec du miel, la grand-mère de pendre une dent de loup au cou. Tu as essayé les deux et tu es {g:prêt|prête} à mordre quelqu'un toi-même.",
+  "ev.c_teething.text": "Your {g=npc_sex:fils|fille} {npc} screams night after night: the teeth are coming. The neighbor says rub the gums with honey, Grandmother says hang a wolf's tooth round the neck. You've tried both and are ready to bite someone yourself.",
   "ev.c_toys.text": "Tu as fabriqué un petit cheval en bois sur roues. Ton/ta {g=npc_sex:fils|fille} {npc} le tire partout du matin au soir et lui donne de l'orge - de l'orge véritable, provenant de tes réserves.",
   "ev.c_trade.craft": "Apprenti {g=npc_sex:lui|elle} chez un artisan",
   "ev.c_trade.craft.ok": "Le maître a un nouvel apprenti : {npc} se lève avant l'aube et rentre chez lui avec les doigts brûlés et les yeux brillants.",
@@ -411,10 +411,10 @@
   "ev.c_wedding_debt_later.title": "La dette de mariage",
   "ev.c_wedding_debt_later.together": "Acceptez l'aide de votre {g=npc_sex:du fils|de la fille}",
   "ev.c_wedding_debt_later.together.ok": "{npc} posa silencieusement une bourse sur la table. Vous avez partagé la dette en deux - et cela vous a rapprochés plus que le mariage lui-même.",
-  "ev.f_ancestor_school.title": "L'école de l'ancêtre",
-  "ev.f_ancestor_school.text": "Le nom de ton ancêtre est gravé au-dessus de la porte de l'école : autrefois il a payé un maître et une maison pour les élèves. Le maître apprend de quelle famille tu viens et t'invite à étudier gratis.",
-  "ev.f_ancestor_school.study": "Étudier gratis",
-  "ev.f_ancestor_school.study.ok": "Tu es assis sur tes lettres à côté des orphelins du quartier. Le maître est sévère, mais il respecte la famille du fondateur, et les voisins le voient.",
-  "ev.f_ancestor_school.play": "Filer chez tes amis",
-  "ev.f_ancestor_school.play.ok": "Le maître a soupiré : dans la famille du fondateur, il y a eu des enfants plus sérieux. Il te garde quand même une place."
+  "ev.f_ancestor_school.title": "L’école de l’ancêtre",
+  "ev.f_ancestor_school.text": "Le nom de ton ancêtre est gravé au-dessus de la porte de l’école : il y a longtemps, il a payé un maître et une maison pour les élèves. Le maître apprend de quelle famille tu viens et t’invite à étudier gratuitement.",
+  "ev.f_ancestor_school.study": "Étudier gratuitement",
+  "ev.f_ancestor_school.study.ok": "Tu te penches sur les lettres à côté des orphelins du quartier. Le maître est sévère, mais respecte la famille du fondateur, et les voisins le remarquent.",
+  "ev.f_ancestor_school.play": "Filer rejoindre tes amis",
+  "ev.f_ancestor_school.play.ok": "Le maître soupire : la famille du fondateur a eu des enfants plus sérieux. Il te garde quand même une place."
 }

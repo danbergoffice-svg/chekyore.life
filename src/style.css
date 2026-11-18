@@ -353,6 +353,9 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 /* Пиксельные сцены */
 .scene { display: block; width: 100%; aspect-ratio: 16 / 5; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; background: var(--paper-2); }
 .scene.hd { image-rendering: auto; }
+/* Живописная сцена грузится: холст пуст, затем плавно проявляется (painted.ts). */
+.scene { transition: opacity 0.25s ease; }
+.scene.painting { opacity: 0; }
 .panel > .scene { margin-bottom: 12px; }
 .modal > .scene { border-radius: 16px 16px 0 0; }
 /* Рисованная иллюстрация момента (G3): 256×144, 16:9. */
@@ -777,7 +780,7 @@ div.hint .hint-x { background: none; border: 0; color: inherit; font: inherit; c
 .continue-card .avatar { width: 40px; height: 50px; border-radius: 8px; flex: none; image-rendering: pixelated; background: var(--paper-2); }
 .continue-text { flex: 1; min-width: 0; display: grid; }
 .continue-text strong { font-size: 1.05rem; }
-.continue-text span { color: var(--muted); font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.continue-text span { color: var(--muted); font-size: 0.9rem; overflow-wrap: anywhere; }
 .continue-go { color: var(--accent); font-size: 1.6rem; line-height: 1; }
 .menu-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 0; margin: 18px 0 8px; }
 .menu-nav .link { padding: 6px 0; color: var(--ink-2); text-decoration: none; }
@@ -926,9 +929,6 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .menu-sheet-new { width: 100%; margin-top: 8px; }
 .menu-sheet-confirm { display: grid; gap: 10px; padding: 12px 0 4px; }
 .menu-sheet-confirm p { margin: 0; }
-.how-to { margin: 14px 0 4px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; }
-.how-to h2 { margin: 0 0 6px; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--muted); }
-.how-to ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
 /* Кнопка «Начать жизнь» прилипает к низу экрана: на телефоне её не надо искать под описанием края. */
 .sticky-cta { position: sticky; bottom: 0; padding: 10px 0 calc(10px + env(safe-area-inset-bottom)); background: linear-gradient(to bottom, transparent, var(--bg) 35%); z-index: 2; }
 .sticky-cta .primary { width: 100%; }
@@ -936,14 +936,21 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 .new-life-row .new-life-btn { margin-top: 0; flex: 1; }
 
 /* Этап 2, рукав XA «b» (макет 06): шапка 64 px, полоса здоровья 4 px, цель и веха под вкладками, нижняя панель времени. */
-.layout-b { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
-.hud { position: sticky; top: 0; z-index: 6; background: #10162a; margin: 0 -16px; }
-.hud-row { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 12px 0 16px; }
+/* overflow-x: clip - страховка: ничто внутри экрана жизни не делает страницу шире экрана (аудит 18.11: шапка с полями
+   −16 px вылезала на 375 px, страница становилась 391 px и съезжала вбок). clip, а не hidden: липкие шапка и панель работают. */
+.layout-b { padding-bottom: calc(80px + env(safe-area-inset-bottom)); overflow-x: clip; }
+/* Экран жизни B - без полей .screen, поэтому шапка во всю ширину без отрицательных полей. */
+.hud { position: sticky; top: 0; z-index: 6; background: #10162a; margin: 0; }
+.hud-row { display: flex; align-items: center; gap: 10px; min-height: 64px; padding: 6px 12px 6px 16px; box-sizing: border-box; }
 .hud-portrait { flex: none; width: 48px; height: 48px; padding: 0; border: 1px solid #3a4670; border-radius: 8px; overflow: hidden; background: #d8c7a3; cursor: pointer; }
 .hud-portrait .avatar { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+/* Живописный портрет (painted.ts): гладко, в квадратной шапке - лицо, а не середина. */
+.avatar.painted { image-rendering: auto; object-position: 50% 15%; }
 .hud-info { flex: 1; min-width: 0; }
-.hud-name { margin: 0; font-size: 19px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hud-meta { margin: 2px 0 0; font-size: 14px; color: #c3cae0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+.hud-name { margin: 0; font-size: 19px; line-height: 1.15; overflow-wrap: anywhere; }
+.hud-meta { margin: 2px 0 0; font-size: 14px; color: #c3cae0; font-variant-numeric: tabular-nums; }
+/* «Пропустить детство» - рядом с меню, пока герою нет 13. */
+.hud-skip { flex: none; max-width: 96px; min-height: 48px; padding: 4px 8px; border: 1px solid #3a4670; border-radius: 10px; background: #1f2945; color: inherit; font: inherit; font-size: 12px; font-weight: 700; line-height: 1.15; cursor: pointer; }
 .hud-menu { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid #3a4670; border-radius: 10px; background: #1f2945; color: inherit; cursor: pointer; }
 .hud-health { height: 4px; background: #2a3558; }
 .hud-health span { display: block; height: 4px; background: #d0674b; transition: width 0.25s ease-out; }
@@ -1057,7 +1064,6 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 /* Поддержать проект (Boosty) - под каналами, во всю ширину их ряда. */
 .support-link { display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 26rem; min-height: 48px; margin: 18px auto 0; padding: 0 14px; border: 1px solid #f15f2c; border-radius: 10px; color: inherit; font-weight: 700; text-decoration: none; }
 .support-link:hover { background: color-mix(in srgb, #f15f2c 14%, transparent); }
-.pixel-icon { image-rendering: pixelated; flex: none; }
 
 /* Пакет 1: кнопки выбора события оживают через полторы секунды - полоска над ними наполняется, кнопки проступают. */
 .choices.arming { position: relative; }
@@ -1152,7 +1158,9 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 
 /* Строка вестей под шапкой (Life.tsx, отзыв владельца 10.11): прилипает вместе с вкладками, ничего не закрывает.
    Свежая весть - ярче; потом остаётся бледной до следующей. ✕ - скрыть (вернуть в настройках). */
-.notice-bar { display: flex; align-items: center; gap: 8px; min-height: 30px; padding: 4px 8px 4px 12px; border-bottom: 1px solid var(--line); font-size: 0.85rem; line-height: 1.25; color: var(--muted, inherit); }
+.notice-bar { display: flex; align-items: center; gap: 8px; min-height: 30px; padding: 4px 8px 4px 12px; border-bottom: 1px solid var(--line); font-size: 0.85rem; line-height: 1.25; color: var(--muted, inherit); animation: notice-in 0.35s ease-out; }
+@keyframes notice-in { from { opacity: 0; transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) { .notice-bar { animation: none; } }
 .notice-bar.fresh { color: var(--ink); background: color-mix(in srgb, var(--gold) 22%, transparent); }
 .notice-bar .notice-text { flex: 1; min-width: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
 .notice-bar .notice-text svg { width: 1em; height: 1em; vertical-align: -0.12em; }
@@ -1162,3 +1170,37 @@ html.portal input, html.portal textarea { -webkit-user-select: text; user-select
 
 /* Настройки: «Расскажи об игре подробнее» - кнопка с пояснением. */
 .settings-tour { display: grid; gap: 2px; width: 100%; margin: 14px 0 4px; text-align: left; }
+
+/* ---------- Галерея живописных сцен (?gallery=painted) ---------- */
+html.gallery body { max-width: none; }
+html.gallery #app { max-width: none; padding: 0; }
+.pg { display: grid; grid-template-columns: 300px 1fr; gap: 16px; padding: 12px; min-height: 100vh; }
+.pg-side { position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto; display: grid; gap: 8px; font-size: 14px; padding-right: 6px; }
+.pg-side h1 { font-size: 22px; margin: 0; }
+.pg-side h2 { font-size: 16px; margin: 10px 0 0; }
+.pg-side label { display: grid; gap: 2px; }
+.pg-side label.pg-check { display: flex; align-items: center; gap: 6px; }
+.pg-side fieldset { display: flex; flex-wrap: wrap; gap: 2px 10px; border: 1px solid var(--line); padding: 6px; }
+.pg-side input[type='range'] { width: 100%; }
+.pg-note { font-size: 13px; color: var(--muted); margin: 0; }
+.pg-buttons { display: grid; gap: 8px; margin: 10px 0 20px; }
+.pg-hidden { font-size: 12px; display: flex; justify-content: space-between; gap: 6px; }
+.pg-summary { margin: 0 0 10px; display: flex; gap: 16px; align-items: center; }
+.pg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 12px; }
+.pg-frame { display: grid; gap: 4px; padding: 6px; background: rgba(243, 234, 215, 0.06); border: 2px solid transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.pg-frame.bad { border-color: #ef8a6c; }
+.pg-frame canvas { width: 100%; aspect-ratio: 16 / 5; background: repeating-conic-gradient(#555 0 25%, #333 0 50%) 0 0 / 16px 16px; }
+.pg-label { font-size: 13px; }
+.pg-problem { font-size: 12px; color: #ef8a6c; }
+.pg-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); display: grid; place-items: center; z-index: 50; }
+.pg-dialog { width: min(900px, 94vw); max-height: 90vh; overflow-y: auto; background: var(--bg); padding: 16px; display: grid; gap: 8px; }
+.pg-edit { width: 100%; aspect-ratio: 16 / 5; cursor: grab; touch-action: none; background: #333; }
+.pg-edit:active { cursor: grabbing; }
+.pg-order { display: grid; grid-template-columns: 1fr 32px 32px; gap: 4px; align-items: center; font-size: 13px; }
+.pg-order button { min-height: 28px; }
+.pg-layer { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; }
+@media (max-width: 700px) { .pg { grid-template-columns: 1fr; } .pg-side { position: static; max-height: none; } .pg-grid { grid-template-columns: 1fr; } }
+.pg-grab { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 13px; margin: 6px 0 10px; }
+.pg-grab button { min-height: 28px; padding: 2px 8px; font-size: 12px; }
+.pg-grab button.on { outline: 2px solid currentColor; font-weight: 700; }
+.pg-move summary { cursor: pointer; font-size: 13px; padding: 2px 0; }

@@ -39,6 +39,7 @@ function portalHtml(platform: string | undefined): Plugin {
         .replace(/\s*<!--[^>]*соцсетях[\s\S]*?-->/g, '')
         .replace(/\s*<meta (property="og:|name="twitter:)[^>]*>/g, '')
         .replace(/\s*<link rel="(canonical|manifest|apple-touch-icon)"[^>]*>/g, '')
+        .replace(/\s*<link rel="alternate" hreflang[^>]*>/g, '')
         .replace(/\s*<!--[^>]*поисковиков \(schema\.org\)[\s\S]*?<\/script>/, '')
         .replace(/\s*<!-- Текст для поисковиков[\s\S]*?<\/main>/, '')
         .replace(/<html lang="ru"/, '<html lang="en"')

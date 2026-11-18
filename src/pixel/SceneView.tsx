@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'preact/hooks'
 import type { SceneDef } from '../engine/types'
 import { buildScene, composeScene, H, lookOf, sceneSize, W } from './scene'
 import { frameImage } from './art'
+import { buildPainted, composePainted, paintedEnabled, PH, PW } from './painted'
+import type { PaintedScene } from './painted'
 import type { BuiltScene, Cast, SceneMood } from './scene'
 import type { Weather } from './fx'
 import { setAmbience } from '../audio'
@@ -54,12 +56,12 @@ const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(pre
  * Анимируется, только когда видна на экране; стоит на паузе игры (paused), в скрытой вкладке,
  * при prefers-reduced-motion и в неподвижных местах (still: лента итогов, дневник) - тогда один кадр.
  */
-export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean; art?: 'half' | 'full' | 'none'; year?: number; frame?: boolean }) {
+export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean; art?: 'half' | 'full' | 'none'; year?: number; frame?: boolean; onNoPainted?: () => void }) {
   const { scene, region, seed, label, cast, season, weather, mood, still, paused, ambient, art, year, frame } = props
   const ref = useRef<HTMLCanvasElement>(null)
   const t = useRef(0)
   const input = { scene, region, seed, cast, season, weather, mood, art, year }
-  const key = JSON.stringify(input)
+  const key = JSON.stringify(input) + (paintedEnabled() ? ':painted' : '')
   const live = useRef({ paused, still })
   live.current = { paused, still }
 
@@ -75,9 +77,41 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
       canvas.height = ch
     }
     canvas.classList.toggle('hd', !!built.hd)
-    composeScene(ctx, built, t.current)
     const amb = ambient ? pushAmbience(ambienceOf(built)) : 0
-    if (still || reducedMotion()) return () => amb && popAmbience(amb)
+    // Живописная сцена из слоёв (painted.ts). Пока она грузится, холст пуст (без мигания пиксельной сцены);
+    // если для места живописи нет или она не загрузилась - рисуется пиксельная.
+    let painted: PaintedScene | null = null
+    let pixel = !paintedEnabled()
+    let gone = false
+    if (pixel) composeScene(ctx, built, t.current)
+    else {
+      canvas.width = PW
+      canvas.height = PH
+      canvas.classList.add('hd', 'painting')
+      ctx.clearRect(0, 0, PW, PH)
+      buildPainted(input).then((p) => {
+        if (gone) return
+        canvas.classList.remove('painting')
+        if (!p) {
+          // Витрина на главной не смешивает манеры (П3 аудита 18.11): вместо пиксельной сцены - просит другую.
+          if (props.onNoPainted) return props.onNoPainted()
+          pixel = true
+          const [w, h] = sceneSize(built)
+          canvas.width = w
+          canvas.height = h
+          canvas.classList.toggle('hd', !!built.hd)
+          composeScene(ctx, built, t.current)
+          return
+        }
+        painted = p
+        composePainted(ctx, p, t.current)
+      })
+    }
+    const draw = () => (painted ? composePainted(ctx, painted, t.current) : pixel ? composeScene(ctx, built, t.current) : undefined)
+    if (still || reducedMotion()) return () => {
+      gone = true
+      if (amb) popAmbience(amb)
+    }
     let visible = true
     let raf = 0
     let last = performance.now()
@@ -93,10 +127,11 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
       if (acc < 1 / FPS) return
       t.current += acc
       acc = 0
-      composeScene(ctx, built, t.current)
+      draw()
     }
     raf = requestAnimationFrame(frame)
     return () => {
+      gone = true
       cancelAnimationFrame(raf)
       io?.disconnect()
       if (amb) popAmbience(amb)

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <base href="/" />
+    <title>Лист эффектов</title>
+    <style>
+      body { margin: 0; background: #0b1020; color: #e8e2d4; font: 13px system-ui; }
+      .row { display: grid; grid-template-columns: 110px repeat(4, 1fr); gap: 4px; align-items: center; margin: 4px; }
+      canvas { width: 100%; display: block; }
+    </style>
+  </head>
+  <body>
+    <!-- Пожар, дым, праздник и дождь во всех стилях живописи, по строке на край (правка 18.11).
+         npm run dev → /tools/fx-sheet.html; ?t=1.3 - момент анимации. -->
+    <div id="g"></div>
+    <script type="module">
+      import { buildPainted, composePainted, setPainted, PW, PH } from '/src/pixel/painted.ts'
+      setPainted(true)
+      const t = Number(new URLSearchParams(location.search).get('t') ?? 1.3)
+      const regions = ['rome', 'thebes', 'constantinople', 'kaifeng', 'kyoto', 'paris', 'delhi', 'baghdad', 'lalibela', 'tikal', 'tenochtitlan', 'cusco', 'novgorod', 'niani', 'karakorum']
+      const scenes = [
+        { place: 'yard', disaster: 'fire', people: 2, props: ['horse'] },
+        { place: 'street', disaster: 'fire', people: 2 },
+        { place: 'yard', props: ['smoke', 'goat'], people: 2 },
+        { place: 'street', people: 2, mood: 'feast' },
+      ]
+      for (const region of regions) {
+        const row = document.createElement('div')
+        row.className = 'row'
+        row.innerHTML = `<b>${region}</b>`
+        document.getElementById('g').appendChild(row)
+        for (const scene of scenes) {
+          const c = document.createElement('canvas')
+          c.width = PW
+          c.height = PH
+          row.appendChild(c)
+          const s = await buildPainted({ region, seed: `sheet:${region}`, scene, mood: scene.mood })
+          if (s) composePainted(c.getContext('2d'), s, t)
+        }
+      }
+      window.sheetReady = true
+    </script>
+  </body>
+</html>

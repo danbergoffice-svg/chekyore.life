@@ -1,6 +1,7 @@
 // Обучение для новичка (идея владельца 04.11): пять-шесть шагов по экрану жизни с подсветкой элемента -
 // скорость и пауза, «К событию», параметры героя, вкладки, цель, меню со звуком и настройками. Один раз в первой
 // жизни, «Пропустить» на каждом шаге, повторить - из меню. Пока обучение открыто, время стоит.
+// only (рукав XT, аудит 18.11) - один шаг по ходу жизни: без счётчика «1 из 6» и без «Пропустить», одна кнопка «Понятно».
 import { useEffect, useLayoutEffect, useState } from 'preact/hooks'
 import { useUi } from './text'
 
@@ -22,12 +23,16 @@ export const TOUR: TourStep[] = [
 
 const find = (s: TourStep) => s.at.map((q) => document.querySelector(q)).find((e): e is HTMLElement => !!e && e.getBoundingClientRect().width > 0) ?? null
 
-export function Tour({ onEnd }: { onEnd: (step: number, skipped: boolean) => void }) {
+export function Tour({ onEnd, only }: { onEnd: (step: number, skipped: boolean) => void; only?: string }) {
   const { t } = useUi()
-  const steps = TOUR.filter((s) => find(s))
+  const steps = TOUR.filter((s) => (!only || s.key === only) && find(s))
   const [i, setI] = useState(0)
   const [rect, setRect] = useState<DOMRect | null>(null)
   const step = steps[i]
+  // Элемента шага нет на экране - обучение не должно держать время на паузе: закрыть сразу.
+  useEffect(() => {
+    if (!steps.length) onEnd(0, true)
+  }, [steps.length])
   useLayoutEffect(() => {
     const el = step && find(step)
     if (!el) return
@@ -54,13 +59,13 @@ export function Tour({ onEnd }: { onEnd: (step: number, skipped: boolean) => voi
     <div class="tour" role="dialog" aria-modal="true" aria-labelledby="tour-title">
       <div class="tour-spot" aria-hidden="true" style={{ left: `${rect.left - pad}px`, top: `${rect.top - pad}px`, width: `${rect.width + pad * 2}px`, height: `${rect.height + pad * 2}px` }} />
       <div class="tour-card" style={below ? { top: `${Math.min(window.innerHeight - 200, rect.bottom + 14)}px` } : { bottom: `${Math.min(window.innerHeight - 200, window.innerHeight - rect.top + 14)}px` }}>
-        <p class="tour-n">{t('tour.n', { i: i + 1, n: steps.length })}</p>
+        {!only && <p class="tour-n">{t('tour.n', { i: i + 1, n: steps.length })}</p>}
         <h2 id="tour-title">{t(`tour.${step.key}.title`)}</h2>
         <p>{t(`tour.${step.key}.text`)}</p>
         <div class="tour-btns">
-          <button type="button" class="link" onClick={() => onEnd(i, true)}>{t('tour.skip')}</button>
+          {!only && <button type="button" class="link" onClick={() => onEnd(i, true)}>{t('tour.skip')}</button>}
           <button type="button" class="primary" autoFocus onClick={() => (last ? onEnd(i, false) : setI(i + 1))}>
-            {last ? t('tour.done') : t('tour.next')}
+            {only ? t('tour.ok') : last ? t('tour.done') : t('tour.next')}
           </button>
         </div>
       </div>

@@ -11,6 +11,8 @@ export interface Flags {
   /** Секунд на год на скорости ×1: детство (0 … child_age лет) и дальше. */
   year_sec_child: number
   year_sec: number
+  /** Детский год, в котором больше нет событий (пустой или все события уже прошли), сек. на ×1 (Р2 аудита 18.11: 6 → 3). */
+  year_sec_child_quiet: number
   /** До какого возраста героя (включительно) год идёт в детском темпе year_sec_child. */
   child_age: number
   /** Возрасты заставок глав. */
@@ -63,6 +65,21 @@ export interface Flags {
   /** Эксперимент XM (12.11.2026): доля игроков с новой музыкой (public/music/v2, src/goal.ts musicNew), свой хеш id;
    *  0 - у всех старая. По умолчанию 0: сборки порталов (CrazyGames, Яндекс) остаются со старой, сайт берёт долю из flags.json. */
   music_share: number
+  /** Живописные сцены из слоёв (public/art, src/pixel/painted.ts): > 0 - есть у всех (по умолчанию, пиксельные - в настройках),
+   *  0 - у всех пиксельные и переключателя нет. На порталах слоёв нет (не влезают в лимит), там всегда 0. */
+  painted_share: number
+  /** Эксперимент XT (аудит 18.11): доля новичков, у которых обучение идёт по шагу «по ходу жизни» (Tour drip), а не шестью
+   *  карточками до первого выбора; свой хеш id, ?tour=wall|drip. 0 - у всех как было. */
+  /** Эксперимент П4 (аудит 18.11): доля игроков с кнопкой «Другая судьба» в первый год первой жизни. */
+  rebirth_share: number
+  /** Эксперимент П2 (аудит 18.11): доля игроков с «тихой главной» - пока нет прожитой жизни, внизу меню только «Об игре». */
+  home_quiet_share: number
+  tour_drip_share: number
+  /** Эксперимент XG (аудит 18.11): доля игроков, у которых цель жизни выбирается в goal_late_age лет, а не сразу после
+   *  рождения; свой хеш id, ?goalat=0|6. У взрослого наследника цель - как раньше, сразу. */
+  goal_late_share: number
+  /** Возраст героя, в котором в рукаве XG мать загадывает желание (окно выбора цели). */
+  goal_late_age: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -70,6 +87,7 @@ export const DEFAULT_FLAGS: Flags = {
   protected_lives: 2,
   year_sec_child: 6,
   year_sec: 10,
+  year_sec_child_quiet: 3,
   child_age: 12,
   chapter_ages: [16, 30, 45, 60],
   fullscreen_gap_sec: 180,
@@ -88,15 +106,23 @@ export const DEFAULT_FLAGS: Flags = {
   kids_share: 1,
   // 08.11: цель у всех (жалобы игроков «цели нет» - это была контрольная группа 20%); 0.8 вернёт A/B.
   goal_share: 1,
-  goal_marks_share: 0.5,
+  // Тесты закрыты 17.11 (решение владельца): метки ▲▼, короткие первые события и перелом - у всех, «вторая жизнь знатным» выключена.
+  goal_marks_share: 1,
   goal_weight: 1.5,
   goal_change_age: 16,
   goal_free_from: 4,
-  short_first_share: 0.5,
+  short_first_share: 1,
   layout_share: 1,
-  // Перелом сорокалетия - A/B 50 на 50 (10.11.2026).
-  crisis_share: 0.5,
+  crisis_share: 1,
   music_share: 0,
+  // Живопись - у всех с 17.11; по умолчанию 1, чтобы до загрузки flags.json не мелькала пиксельная манера (П3 аудита 18.11).
+  painted_share: 1,
+  // XT и XG по умолчанию выключены (порталы - как было); сайт берёт доли из flags.json.
+  rebirth_share: 0,
+  home_quiet_share: 0,
+  tour_drip_share: 0,
+  goal_late_share: 0,
+  goal_late_age: 6,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

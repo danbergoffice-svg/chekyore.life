@@ -1,66 +1,179 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>OG-картинка</title>
+    <!-- Живопись грузится по пути ./art/… от корня сайта. -->
+    <base href="/" />
+    <title>OG и заставка</title>
     <style>
-      @font-face { font-family: 'Thousands Letopis'; src: url('../src/fonts/ThousandsLetopis-VF.woff2') format('woff2'); font-weight: 300 700; font-display: block; }
-      body { margin: 0; background: #000; }
-      canvas { display: block; }
+      @font-face { font-family: 'Thousands Letopis'; src: url('/src/fonts/ThousandsLetopis-VF.woff2') format('woff2'); font-weight: 300 700; font-display: block; }
+      body { margin: 0; background: #0b1020; }
+      canvas { display: block; max-width: 100%; }
     </style>
   </head>
   <body>
-    <!-- Картинка для соцсетей 1200×630: npm run dev, открыть /tools/og.html?lang=ru (или en), снимок холста → public/og-ru.png -->
+    <!-- Картинка для соцсетей 1200×630 и картинка заставки загрузки - в живописном стиле игры (с 18.11; раньше - пиксельная сетка 2×2).
+         npm run dev → /tools/og.html?v=a&lang=en (v: a|b|c|d; lang: en|ru|es|fr|tr; v=splash - заставка 960×300 без текста).
+         Когда всё дорисовано, страница ставит window.ogReady = true; снимок - canvas.toDataURL('image/png'). -->
     <canvas id="c" width="1200" height="630"></canvas>
     <script type="module">
       import '@fontsource-variable/alegreya/wght.css'
-      import { drawScene, W, H } from '../src/pixel/scene.ts'
-      const lang = new URLSearchParams(location.search).get('lang') || 'ru'
+      import { buildPainted, composePainted, loadPortrait, setPainted, PW, PH } from '/src/pixel/painted.ts'
+
+      const q = new URLSearchParams(location.search)
+      const v = q.get('v') || 'a'
+      const lang = q.get('lang') || 'en'
+      // Тексты: коротко и честно - что это, как играется, сколько стоит.
       const T = {
-        ru: { title: 'Тысячи жизней', sub: 'Родись в случайном месте истории - от Рима до империи инков.', tag: 'Одна жизнь · 13 стран · ваши решения' },
-        en: { title: 'Thousands of Lives', sub: 'Be born somewhere random in history - from Rome to the Inca empire.', tag: 'One life · 13 countries · your choices' },
+        en: { title: 'Thousands of Lives', sub: 'Be born at random in history. Live one life, choice by choice.', tag: 'Free · in your browser · 14 countries', reels: ['Kyoto', '1588', 'Weaver’s daughter'], arc: 'From the cradle to old age in about 20 minutes', where: ['Rome', 'Kyoto', 'Tenochtitlan', 'Novgorod'] },
+        ru: { title: 'Тысячи жизней', sub: 'Родись в случайном месте истории и проживи одну жизнь.', tag: 'Бесплатно · в браузере · 14 стран', reels: ['Киото', '1588', 'Дочь ткача'], arc: 'От колыбели до старости минут за 20', where: ['Рим', 'Киото', 'Теночтитлан', 'Новгород'] },
+        es: { title: 'Miles de vidas', sub: 'Nace al azar en la historia. Vive una vida, decisión a decisión.', tag: 'Gratis · en el navegador · 14 países', reels: ['Kioto', '1588', 'Hija de tejedor'], arc: 'De la cuna a la vejez en unos 20 minutos', where: ['Roma', 'Kioto', 'Tenochtitlan', 'Nóvgorod'] },
+        fr: { title: 'Mille vies', sub: 'Nais au hasard dans l’histoire. Vis une vie, choix après choix.', tag: 'Gratuit · dans le navigateur · 14 pays', reels: ['Kyoto', '1588', 'Fille de tisserand'], arc: 'Du berceau à la vieillesse en 20 minutes environ', where: ['Rome', 'Kyoto', 'Tenochtitlan', 'Novgorod'] },
+        tr: { title: 'Binlerce Hayat', sub: 'Tarihte rastgele bir yerde doğ. Tek bir hayatı seçimlerinle yaşa.', tag: 'Ücretsiz · tarayıcıda · 14 ülke', reels: ['Kyoto', '1588', 'Dokumacı kızı'], arc: 'Beşikten yaşlılığa yaklaşık 20 dakikada', where: ['Roma', 'Kyoto', 'Tenochtitlan', 'Novgorod'] },
       }[lang]
-      await Promise.all([document.fonts.load("600 80px 'Thousands Letopis'"), document.fonts.load("400 30px 'Alegreya Variable'")]).catch(() => {})
+      const NIGHT = '#16213a', SHEET = '#f3ead7', MUSTARD = '#ecd06f', MUTED = '#bfa987', INK = '#130904', TERRA = '#df6c4f'
+
       const c = document.getElementById('c')
+      if (v === 'splash') { c.width = PW; c.height = PH }
       const ctx = c.getContext('2d')
-      ctx.fillStyle = '#2a211a'
-      ctx.fillRect(0, 0, 1200, 630)
-      // Четыре сцены из разных стран - сеткой 2×2 сверху.
-      const scenes = [
-        { region: 'rome', scene: { place: 'landmark', time: 'sunset', people: 3, props: ['sun'] } },
-        { region: 'kyoto', scene: { place: 'landmark', time: 'dawn', people: 3, props: ['sun'] } },
-        { region: 'novgorod', scene: { place: 'landmark', time: 'day', people: 3, props: [] } },
-        { region: 'tenochtitlan', scene: { place: 'landmark', time: 'day', people: 3, props: ['sun'] } },
-      ]
-      const off = document.createElement('canvas')
-      off.width = W
-      off.height = H
-      const pw = 600
-      const rowH = Math.round((pw * H) / W)
-      const ph = rowH * 2
-      ctx.imageSmoothingEnabled = false
-      scenes.forEach((s, i) => {
-        const o = off.getContext('2d')
-        o.clearRect(0, 0, W, H)
-        drawScene(o, { ...s, seed: `og:${i}` })
-        ctx.drawImage(off, (i % 2) * pw, Math.floor(i / 2) * rowH, pw, rowH)
-      })
-      const grad = ctx.createLinearGradient(0, ph - 120, 0, ph + 10)
-      grad.addColorStop(0, 'rgba(42,33,26,0)')
-      grad.addColorStop(1, 'rgba(42,33,26,1)')
-      ctx.fillStyle = grad
-      ctx.fillRect(0, ph - 120, 1200, 130)
-      ctx.fillStyle = '#f6ecd8'
-      ctx.textAlign = 'center'
-      ctx.font = "600 76px 'Thousands Letopis', serif"
-      ctx.fillText(T.title, 600, ph + 82)
-      ctx.font = "400 32px 'Alegreya Variable', serif"
-      ctx.fillStyle = '#e3cfa8'
-      ctx.fillText(T.sub, 600, ph + 135)
-      ctx.font = "500 24px 'Alegreya Variable', serif"
-      ctx.fillStyle = '#d6a649'
-      ctx.fillText(T.tag + '  ·  thousands.life', 600, 608)
-      document.body.dataset.ready = '1'
+      const W = c.width, H = c.height
+      setPainted(true)
+      await Promise.all([document.fonts.load("600 80px 'Thousands Letopis'"), document.fonts.load("500 30px 'Alegreya Variable'"), document.fonts.load("700 30px 'Alegreya Variable'")]).catch(() => {})
+
+      // Живописная сцена PW×PH на отдельном холсте - так же, как в игре.
+      async function scene(region, place, time, seed, people = 3) {
+        const s = await buildPainted({ region, seed, scene: { place, time, people, props: [time === 'night' ? 'moon' : 'sun'] } })
+        const o = document.createElement('canvas')
+        o.width = PW
+        o.height = PH
+        if (s) composePainted(o.getContext('2d'), s, 0)
+        return o
+      }
+      function night() {
+        ctx.fillStyle = NIGHT
+        ctx.fillRect(0, 0, W, H)
+        for (let i = 0; i < 2200; i++) {
+          ctx.fillStyle = `rgba(243,220,180,${Math.random() * 0.05})`
+          ctx.fillRect(Math.random() * W, Math.random() * H, 1.5, 1.5)
+        }
+      }
+      // Рваный край, как у сцены на главной: мелкий частый зубец (правка 18.11).
+      function torn(y, amp = 6, step = 22) {
+        ctx.beginPath()
+        ctx.moveTo(0, 0)
+        ctx.lineTo(W, 0)
+        ctx.lineTo(W, y)
+        for (let x = W, i = 0; x >= -step; x -= step, i++) ctx.lineTo(x, y + (i % 2 ? amp : -amp * 0.5))
+        ctx.lineTo(0, 0)
+        ctx.closePath()
+      }
+      function paper(x, y, w, h) {
+        ctx.beginPath()
+        ctx.moveTo(x + w * 0.006, y + h * 0.06)
+        ctx.lineTo(x + w * 0.994, y)
+        ctx.lineTo(x + w * 0.986, y + h * 0.94)
+        ctx.lineTo(x, y + h)
+        ctx.closePath()
+        ctx.fillStyle = SHEET
+        ctx.fill()
+      }
+      function text(s, x, y, font, color, align = 'center') {
+        ctx.font = font
+        ctx.fillStyle = color
+        ctx.textAlign = align
+        ctx.fillText(s, x, y)
+      }
+      function title(x, y, size, align = 'center') {
+        ctx.save()
+        ctx.shadowColor = 'rgba(0,0,0,0.55)'
+        ctx.shadowOffsetY = 4
+        text(T.title, x, y, `600 ${size}px 'Thousands Letopis', serif`, SHEET, align)
+        ctx.restore()
+      }
+      function domain(x, y, align = 'right', color = MUTED) {
+        text('thousands.life', x, y, "600 20px 'Alegreya Variable', serif", color, align)
+      }
+      // Вписать картинку «с обрезкой»: заполнить прямоугольник, лишнее срезать (fx - какую часть по ширине оставить).
+      function cover(src, dx, dy, dw, dh, fx = 0.5) {
+        const k = Math.max(dw / src.width, dh / src.height)
+        const sw = dw / k, sh = dh / k
+        ctx.drawImage(src, (src.width - sw) * fx, (src.height - sh) / 2, sw, sh, dx, dy, dw, dh)
+      }
+
+      if (v === 'splash') {
+        // Картинка заставки: одна сцена, без текста (текст заставки - живой, на языке игрока).
+        ctx.drawImage(await scene('kyoto', 'landmark', 'dawn', 'splash', 4), 0, 0)
+      } else if (v === 'a') {
+        // A. «Полоса»: широкая сцена с рваным краем, ниже название и обещание - как главная игры.
+        night()
+        const s = await scene('florence', 'landmark', 'sunset', 'og:a', 4)
+        ctx.save()
+        torn(365)
+        ctx.clip()
+        cover(s, 0, 0, W, 375)
+        ctx.restore()
+        title(W / 2, 470, 84)
+        text(T.sub, W / 2, 522, "500 30px 'Alegreya Variable', serif", MUTED)
+        text(T.tag, W / 2, 574, "700 22px 'Alegreya Variable', serif", MUSTARD)
+      } else if (v === 'b') {
+        // B. «Четыре судьбы»: четыре столбца разных стран, по центру - бумажная полоса с названием.
+        night()
+        const list = [['rome', 'street', 'sunset'], ['kyoto', 'landmark', 'dawn'], ['tenochtitlan', 'market', 'day'], ['novgorod', 'street', 'overcast']]
+        const cols = await Promise.all(list.map(([r, p, t], i) => scene(r, p, t, `og:b${i}`, 3)))
+        cols.forEach((s, i) => {
+          cover(s, i * 300 + 3, 0, 294, H, 0.5)
+          ctx.fillStyle = 'rgba(19,9,4,0.62)'
+          ctx.fillRect(i * 300 + 3, H - 50, 294, 50)
+          text(T.where[i], i * 300 + 150, H - 17, "700 22px 'Alegreya Variable', serif", SHEET)
+        })
+        paper(110, 206, 980, 160)
+        text(T.title, W / 2, 294, "600 76px 'Thousands Letopis', serif", INK)
+        text(T.sub, W / 2, 342, "600 26px 'Alegreya Variable', serif", '#5a4630')
+      } else if (v === 'c') {
+        // C. «Лотерея рождения»: слева три окна барабана с результатом, справа - сцена этой жизни.
+        night()
+        const s = await scene('kyoto', 'street', 'day', 'og:c', 4)
+        ctx.save()
+        ctx.beginPath()
+        ctx.moveTo(W, 0)
+        for (let y = 0, i = 0; y <= H + 24; y += 22, i++) ctx.lineTo(650 + (i % 2 ? 6 : -3), y)
+        ctx.lineTo(W, H)
+        ctx.closePath()
+        ctx.clip()
+        cover(s, 630, 0, 570, H, 0.6)
+        ctx.restore()
+        title(60, 118, 50, 'left')
+        text(T.sub.split('. ')[0].replace(/\.$/, '') + '.', 62, 166, "500 26px 'Alegreya Variable', serif", MUTED, 'left')
+        T.reels.forEach((r, i) => {
+          const x = 60, y = 214 + i * 90
+          paper(x, y, 440, 72)
+          ctx.fillStyle = TERRA
+          ctx.fillRect(x + 16, y + 22, 7, 30)
+          text(r, x + 42, y + 48, "700 34px 'Alegreya Variable', serif", INK, 'left')
+        })
+        text(T.tag, 62, 540 + 42, "700 22px 'Alegreya Variable', serif", MUSTARD, 'left')
+      } else if (v === 'd') {
+        // D. «Дуга жизни»: приглушённая сцена, поверх - четыре портрета одной героини от младенца до старости.
+        night()
+        const s = await scene('florence', 'street', 'sunset', 'og:d', 4)
+        cover(s, 0, 0, W, H)
+        ctx.fillStyle = 'rgba(22,33,58,0.74)'
+        ctx.fillRect(0, 0, W, H)
+        const pics = await Promise.all([1, 9, 32, 70].map((age) => loadPortrait({ region: 'florence', sex: 'f', age, cls: 'craftsman' })))
+        pics.forEach((p, i) => {
+          const x = 150 + i * 240, y = 160, w = 180, h = 225
+          ctx.fillStyle = SHEET
+          ctx.fillRect(x - 6, y - 6, w + 12, h + 12)
+          if (p) cover(p, x, y, w, h)
+          if (i < 3) text('›', x + w + 30, y + h / 2 + 14, "700 44px 'Alegreya Variable', serif", MUSTARD)
+        })
+        title(W / 2, 108, 70)
+        text(T.arc, W / 2, 462, "600 30px 'Alegreya Variable', serif", SHEET)
+        text(T.tag, W / 2, 512, "700 22px 'Alegreya Variable', serif", MUSTARD)
+      }
+      if (v === 'b') domain(W - 24, 36, 'right', SHEET)
+      else if (v !== 'splash') domain(W - 24, H - 18)
+      window.ogReady = true
     </script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 import { applyTheme } from '../theme'
 import { useEffect, useMemo, useReducer, useRef, useState } from 'preact/hooks'
 import { ERA_IDS, ERA_META, eraById, isEraLoaded, loadEra } from '../content'
-import { choose, currentEvent, dismiss, eventChoices, finishYear, startYear } from '../engine/game'
+import { choose, currentEvent, dismiss, eventChoices, finishYear, skipChildhood, startYear } from '../engine/game'
 import { chronicleSuccessor, continueWithHeir, earliestBirth, earliestStart, heirHome, heirs, memorialCanContinue, stateFromMemorial, highBirth, newLife, pickKidsTarget, rollBirth, royalBirth } from '../engine/life'
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
@@ -10,7 +10,8 @@ import { createT, loadEraTexts } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear, utmParams } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
-import { crisisOn, goalGroup, layoutB, musicNew, musicTrack, shortFirst } from '../goal'
+import { crisisOn, goalAge, goalGroup, homeQuiet, layoutB, musicNew, musicTrack, paintedOn, rebirthOn, shortFirst, tourDrip } from '../goal'
+import { prefetchPainted, setPainted } from '../pixel/painted'
 import { ensureGoal, goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
 import type { EarlyResult } from '../kids/early'
@@ -101,6 +102,8 @@ export function App() {
     // Сборка только с частью языков (CrazyGames - английский): сохранённый язык вне сборки не берём.
     return platform.languages && !platform.languages.includes(p.lang) ? { ...p, lang: platform.languages[0] } : p
   })
+  // Графика сцен: модуль painted читает флаг при отрисовке (ключи кадров его учитывают), смена в настройках сразу видна.
+  setPainted(paintedOn(prefs.art, platform.flags))
   const [screen, setScreen] = useState<Screen>('loading')
   const [memorial, setMemorial] = useState<LifeSummary[]>([])
   // Хроника рода: какой род открыт (из мемориала).
@@ -174,7 +177,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old' })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old', painted: paintedOn(prefs.art, platform.flags) ? 1 : 0, tour: tourDrip(platform.playerId(), platform.flags) ? 'drip' : 'wall', goal_at: goalAge(platform.playerId(), platform.flags), home: homeQuiet(platform.playerId(), platform.flags) ? 'quiet' : 'full', rebirth: rebirthOn(platform.playerId(), platform.flags) ? 1 : 0 })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -244,6 +247,10 @@ export function App() {
     // A/B XM: половина игроков слышит новую музыку (src/goal.ts musicNew, флаг music_share).
     if (screen !== 'loading') setMusic(musicTrack(inLife && heroEra ? heroEra : null, heroRegion, musicNew(platform.playerId(), platform.flags)))
   }, [screen, heroEra, heroRegion])
+  // Живописные сцены края героя - заранее, пока игрок читает экран рождения.
+  useEffect(() => {
+    if (heroRegion) prefetchPainted(heroRegion)
+  }, [heroRegion])
 
   // Переезд в другую страну: её события и тексты. Соседние страны (куда можно уехать) подгружаются заранее,
   // пока герой подрастает, - переезд предлагается только в уже загруженные.
@@ -724,6 +731,18 @@ export function App() {
     afterTurn()
   }
 
+  /** Пропустить детство (кнопка в шапке): годы до 13 лет проходят сами - события решает судьба, как у бота. */
+  const onSkipChildhood = () => {
+    const s = game.current
+    if (!era || !s || s.phase === 'dead' || s.hero.age >= 13) return
+    if (!window.confirm(ui.t('life.skip_childhood_confirm'))) return
+    const from = skipChildhood(s, era)
+    yearStart.current = null
+    setYearChanges([])
+    platform.track('childhood_skip', { from, to: s.hero.age })
+    afterTurn()
+  }
+
   const onFinish = () => {
     if (!era || game.current?.phase !== 'running') return
     finishYear(game.current, era)
@@ -970,7 +989,7 @@ export function App() {
   }
   /** Барабан на главной при живом герое свёрнут в «Начать другую жизнь» (правка 03): раскрывается после подтверждения. */
   const [drumOpen, setDrumOpen] = useState(false)
-  const newLifeConfirmed = (from: 'menu' | 'sheet') => {
+  const newLifeConfirmed = (from: 'menu' | 'sheet' | 'rebirth') => {
     platform.track('new_life_confirm', { had_active: game.current && game.current.phase !== 'dead' ? 1 : 0, from })
     backTo.current = 'menu'
     setLifeMenu(false)
@@ -1167,6 +1186,7 @@ export function App() {
             onLang={(lang) => setPrefs({ ...prefs, lang })}
             go={setScreen}
             sound={soundButton}
+            quiet={memorial.length === 0 && homeQuiet(platform.playerId(), platform.flags)}
           />
         )}
         {screen === 'menu' && giftsSheet}
@@ -1220,7 +1240,6 @@ export function App() {
             state={state}
             era={era}
             onStart={() => setScreen('life')}
-            howTo={memorial.length < 2 ? (['plain', 'goal', 'marks'] as const)[goalGroup(platform.playerId(), platform.flags)] : undefined}
             note={challengeOn && memorial.length >= 1 ? ui.t('challenge.note', { n: challengeAge, m: challengeAge + 1 }) : undefined}
           />
         )}
@@ -1243,8 +1262,15 @@ export function App() {
               platform.track('menu_open', { from: 'life' })
               setLifeMenu(true)
             }}
+            onSkipChildhood={onSkipChildhood}
+            onRebirth={memorial.length === 0 && !prefs.rebirthUsed && rebirthOn(platform.playerId(), platform.flags) ? () => {
+              platform.track('rebirth_click', { age: state.hero.age })
+              setPrefs({ ...prefs, rebirthUsed: true })
+              newLifeConfirmed('rebirth')
+            } : undefined}
             frozen={lifeMenu}
             tourNonce={tourNonce}
+            tourDrip={tourDrip(platform.playerId(), platform.flags)}
             onDiceGame={onDiceGame}
             onCrisisSave={persist}
             onSettings={() => {
@@ -1256,7 +1282,7 @@ export function App() {
             yearSec={prefs.yearSec}
             sound={soundButton}
             onKids={onKids}
-            goal={{ group: goalGroup(platform.playerId(), platform.flags), onPick: onGoal }}
+            goal={{ group: goalGroup(platform.playerId(), platform.flags), fromAge: goalAge(platform.playerId(), platform.flags), onPick: onGoal }}
             shortFirst={shortFirst(platform.playerId(), platform.flags)}
             layout={layoutB(platform.playerId(), platform.flags) ? 'b' : 'a'}
             dream={dreamProps}

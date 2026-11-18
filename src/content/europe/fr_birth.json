@@ -25,6 +25,6 @@
   "ev.eur_fc_baptism_godparent.title": "Votre parrain ou marraine",
   "ev.eur_fc_baptism_midwife.text": "La vieille sage-femme qui t'a baptisé la nuit de ta naissance t'appelle « mon petit enfant de baptême » et continue à te donner des gâteaux au miel. Tu la suis dans le quartier en portant son panier, et tu sais déjà quelle herbe est pour la fièvre et laquelle est pour les coliques.",
   "ev.eur_fc_baptism_midwife.title": "La sage-femme",
-  "ev.eur_fc_baptism.short": "Tu es {g:né|née} dans la nuit, {g:chétif|chétive}, et tu respires à peine. L'église est loin, et un enfant non baptisé ne peut pas être enterré en terre consacrée. La sage-femme peut te baptiser elle-même, tout de suite. Ou on peut t'emmitoufler et te porter au prêtre.",
-  "ev.eur_fc_balia.short": "Dans une bonne maison, le bébé va chez une nourrice, et ton père a trouvé une femme du village qui te prendra un an ou deux. Une nourrice pourrait vivre à la maison à la place. Ou ta mère veut t'allaiter elle-même, même si la famille ronchonne."
+  "ev.eur_fc_baptism.short": "Tu es né la nuit, faible et respirant à peine. L’église est loin, et un enfant non baptisé ne peut pas être enterré en terre consacrée. La sage-femme peut te baptiser elle-même, tout de suite. Ou l’on pourrait t’emmailloter et te porter au prêtre.",
+  "ev.eur_fc_balia.short": "Dans une bonne maison, le bébé part chez une nourrice, et ton père a trouvé une villageoise qui te prendra un an ou deux. Une nourrice pourrait aussi vivre chez vous. Ou ta mère veut t’allaiter elle-même, même si la famille grogne."
 }

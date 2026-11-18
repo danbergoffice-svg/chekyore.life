@@ -8,6 +8,7 @@
   "respin_ad": true,
   "year_sec_child": 6,
   "year_sec": 10,
+  "year_sec_child_quiet": 3,
   "child_age": 12,
   "chapter_ages": [
     16,
@@ -17,8 +18,8 @@
   ],
   "fullscreen_gap_sec": 180,
   "ab_buckets": {
-    "a": 0.5,
-    "b": 0.5
+    "a": 1,
+    "b": 0
   },
   "ach_rarity": {},
   "portrait_style": "painting",
@@ -28,10 +29,17 @@
   "kids_share": 1,
   "goal_share": 1,
   "layout_share": 1,
-  "goal_marks_share": 0.5,
+  "goal_marks_share": 1,
   "goal_weight": 1.5,
   "goal_change_age": 16,
   "goal_free_from": 4,
-  "crisis_share": 0.5,
-  "music_share": 0.5
+  "crisis_share": 1,
+  "music_share": 1,
+  "painted_share": 1,
+  "short_first_share": 1,
+  "rebirth_share": 0.5,
+  "home_quiet_share": 0.5,
+  "tour_drip_share": 0.5,
+  "goal_late_share": 0.5,
+  "goal_late_age": 6
 }

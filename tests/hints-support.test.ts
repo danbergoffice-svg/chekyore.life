@@ -6,6 +6,7 @@ import { autoplay } from '../src/engine/game'
 import { newLife } from '../src/engine/life'
 import { killNpc, makeNpc } from '../src/engine/rules'
 import { createT, hasKey } from '../src/i18n'
+import { ICONS } from '../src/ui/icons'
 import SOCIAL from '../src/ui/Social.tsx?raw'
 
 const ERAS = await loadAllEras()
@@ -47,11 +48,9 @@ describe('Подсказки и поддержка', () => {
     expect(createT('ru')('life.grief_left', { n: 2 }, { sex: 'f' })).toContain('около 2 лет')
   })
 
-  it('Boosty: адрес и значок 16×16', () => {
+  it('Boosty и каналы: адрес и значки-линии из общего набора (18.11, вместо пиксельных)', () => {
     expect(SOCIAL).toContain("'https://boosty.to/afterall/donate'")
-    const block = SOCIAL.slice(SOCIAL.indexOf('boosty: {'), SOCIAL.indexOf('],', SOCIAL.indexOf('boosty: {')))
-    const rows = [...block.matchAll(/'([.a-z]+)'/g)].map((m) => m[1])
-    expect(rows).toHaveLength(16)
-    for (const r of rows) expect(r).toHaveLength(16)
+    expect(SOCIAL).not.toContain('PixelIcon')
+    for (const id of ['reddit', 'instagram', 'telegram', 'tiktok', 'heart'] as const) expect(ICONS[id].length).toBeGreaterThan(0)
   })
 })

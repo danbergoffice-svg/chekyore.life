@@ -1,0 +1,170 @@
+{
+  "_comment": "Раскладка живописной сцены 960×300 (painted.ts). Правится в галерее (?gallery=painted): кнопка «Сохранить настройки» скачивает этот файл целиком - положить сюда же. move - свободный сдвиг (x, y) и масштаб любого слоя целиком, поверх остальных настроек.",
+  "ground": 260,
+  "far": {
+    "y": 0
+  },
+  "landmark": {
+    "y": 0
+  },
+  "groundStrip": true,
+  "groundStripH": 95,
+  "groundStripY": 55,
+  "groundStripSrc": 0.6,
+  "groundStripTexture": 1,
+  "home": {
+    "x": 79,
+    "scale": 1,
+    "y": 31
+  },
+  "street": {
+    "houses": 1,
+    "x": 96,
+    "scale": 1,
+    "y": 27
+  },
+  "field": {
+    "x": 860,
+    "h": 70
+  },
+  "people": {
+    "center": 470,
+    "step": 73,
+    "stepCrowded": 20,
+    "scale": 1.25,
+    "y": 18
+  },
+  "animals": {
+    "x": 672,
+    "step": 75,
+    "scale": 1,
+    "y": 27
+  },
+  "props": {
+    "fireX": 560,
+    "x": 640,
+    "step": 70,
+    "scale": 1,
+    "y": 0
+  },
+  "fx": {
+    "rain": {
+      "alpha": 0.5
+    },
+    "snow": {
+      "alpha": 0.5
+    },
+    "fog": {
+      "alpha": 0.45
+    },
+    "smoke": {
+      "alpha": 0.6
+    },
+    "fire": {
+      "alpha": 0.85
+    },
+    "feast": {
+      "alpha": 1,
+      "band": 0.4
+    }
+  },
+  "tint": {
+    "night": {
+      "color": "#1c2550",
+      "alpha": 0.38
+    },
+    "sunset": {
+      "color": "#ff9a5a",
+      "alpha": 0.12
+    },
+    "dawn": {
+      "color": "#ffc3b0",
+      "alpha": 0.1
+    },
+    "overcast": {
+      "color": "#6a7080",
+      "alpha": 0.18
+    },
+    "indoorNight": {
+      "color": "#c98a4a",
+      "alpha": 0.22
+    },
+    "war": {
+      "color": "#7a3020",
+      "alpha": 0.28
+    },
+    "epidemic": {
+      "color": "#9aa060",
+      "alpha": 0.25
+    },
+    "famine": {
+      "color": "#a08860",
+      "alpha": 0.25
+    }
+  },
+  "order": [
+    "sky",
+    "interior",
+    "far",
+    "landmark",
+    "houses",
+    "props",
+    "ground",
+    "animals",
+    "people",
+    "fx"
+  ],
+  "move": {
+    "sky": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "interior": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "far": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "landmark": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "ground": {
+      "x": 0,
+      "y": 49,
+      "scale": 1
+    },
+    "houses": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "props": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "animals": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "people": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "fx": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    }
+  },
+  "hide": []
+}
