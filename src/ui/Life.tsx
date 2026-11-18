@@ -31,7 +31,7 @@ import { lifeMarks } from '../pixel/avatar'
 import { formatMoney, formatYear, hasKey, nameOf, variantKey } from '../i18n'
 import type { T } from '../i18n'
 import { platform } from '../platform'
-import { lifeStats, trackEventShown, trackLossShown } from '../telemetry'
+import { lifeStats, lossRoleOf, trackEventShown, trackLossShown } from '../telemetry'
 import { isLossCard } from '../engine/illness'
 import { Scene } from '../pixel/SceneView'
 import { Illustration } from '../pixel/Illustration'
@@ -249,7 +249,8 @@ export function Life({ state, era, onStart, onFinish, onChoose, onDismiss, onLif
   if (ls.lossSeen === undefined) ls.lossSeen = hero.diary.length
   const lossAt = hero.alive && !modalOpen ? hero.diary.findIndex((d, i) => i >= (ls.lossSeen ?? 0) && isLossCard(d) && visible(state, i, d, progress)) : -1
   const loss = lossAt >= 0 ? hero.diary[lossAt] : null
-  const lossRole = loss ? ((loss.params?.role as { key?: string } | undefined)?.key ?? '').replace(/^rel\./, '') : ''
+  // Родство для аналитики: у обычной записи о смерти (diary.death_father…) параметра role нет - берём из ключа (A-01, 16.11).
+  const lossRole = loss ? lossRoleOf(loss) : ''
   useEffect(() => {
     if (loss) trackLossShown(lossRole || 'other')
   }, [lossAt])

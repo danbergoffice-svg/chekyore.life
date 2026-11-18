@@ -603,7 +603,7 @@ export function App() {
   }
   // На CrazyGames после бесплатных перекруток (всего три вращения) - ещё одно за рекламу; на сайте рекламы нет.
   const adsBlocked = !!platform.adsBlocked?.()
-  const adRespin = !!platform.flags.respin_ad && platform.name === 'crazygames' && respinLimit >= 0 && !adsBlocked
+  const adRespin = !!platform.flags.respin_ad && (platform.name === 'crazygames' || platform.name === 'yandex') && respinLimit >= 0 && !adsBlocked
   const [adBusy, setAdBusy] = useState(false)
   const [adFail, setAdFail] = useState(false)
   const onAdRespin = async () => {

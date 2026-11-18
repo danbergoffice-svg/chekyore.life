@@ -54,7 +54,7 @@
   "ev.c_grand_spoil.build.ok.E03": "Le char est sorti de travers, mais il est à eux. {npc} le montre à tout le monde : \"{g:Grand-père|Grand-mère} et moi l'avons fait !\"",
   "ev.c_grand_spoil.spoil.ok.E03": "Le char est caché sous votre lit, et le gâteau a été mangé sur le champ. C’est votre secret partagé.",
   "ev.c_grand_spoil.text.E03": "Votre {g=npc_sex:petit-fils|petite-fille} {npc} murmure une demande pour un gâteau au miel - et un chariot jouet. Les parents ont strictement interdit les gâteries.",
-  "ev.c_grand_craft_later.text.E03": "{npc} is nearly grown and makes things better than you do. One day {g=npc_sex:il|elle} admitted it all started with that crooked chariot the two of you built.",
+  "ev.c_grand_craft_later.text.E03": "{npc} est presque {g=npc_sex:grand|grande} et fabrique mieux que toi. Un jour {g=npc_sex:il|elle} a avoué : tout a commencé avec ce char tordu que vous aviez construit ensemble.",
   "ev.c_grand_craft_later.title.E03": "Le Chariot Crochu",
   "ev.c_h_wound.honey.E03": "Lavez-le avec du vin et habillez-le de miel, comme le faisaient les anciens",
   "ev.c_h_wound.honey.success.E03": "Vin, miel, un linge propre deux fois par jour. La plaie se referma - les anciens savaient ce qu’ils faisaient.",

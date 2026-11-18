@@ -177,7 +177,7 @@
   "ev.v_rel_child_wine.talk.E03": "Terbiyeli insanların nasıl içtiğini anlat: suyla ve ölçülü",
   "ev.v_rel_child_wine.talk.success.E03": "{npc} baş ağrısından yüzünü buruşturarak başını salladı. Bir daha kupasında sek şarap görmedin.",
   "ev.v_rel_child_wine_later.cut.E03": "Tek sikke daha yok",
-  "ev.v_rel_sibling_drink.text.E03": "{g=npc_sex:Erkek {g=npc_sex:erkek kardeşin|kız kardeşin}|Kız kardeşin} {npc} kapıda - yüzü şiş, sırtında başkasının pelerini, leş gibi şarap kokuyor. Biraz para istiyor, “yalnızca yarına kadar.”",
+  "ev.v_rel_sibling_drink.text.E03": "{g=npc_sex:Erkek kardeşin|Kız kardeşin} {npc} kapıda - yüzü şiş, sırtında başkasının pelerini, leş gibi şarap kokuyor. Biraz para istiyor, “yalnızca yarına kadar.”",
   "ev.v_rel_sibling_drink.give.ok.E03": "“Yarına kadar” sonsuza dek uzadı. Sikkeleri uzatırken bunu biliyordun.",
   "ev.v_rel_sibling_drink.takein.E03": "Yanına al, şaraptan uzak tut",
   "ev.v_rel_sibling_drink.takein.success.E03": "{npc} bir ay boyunca köpürdü, sövdü, ağladı. Sonra bir sabah şarap değil, iş istedi.",

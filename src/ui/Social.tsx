@@ -114,7 +114,7 @@ const ICONS: Record<string, { grid: string[]; colors: Record<string, string> }> 
 }
 
 // В сборке для CrazyGames список пуст на этапе сборки: портал проверяет, что в коде нет внешних адресов.
-export const CHANNELS: { id: string; url: string; name: string }[] = import.meta.env.VITE_PLATFORM === 'crazygames' ? [] : [
+export const CHANNELS: { id: string; url: string; name: string }[] = import.meta.env.VITE_PLATFORM ? [] : [
   { id: 'reddit', url: 'https://www.reddit.com/r/Thousands_of_lives/', name: 'Reddit' },
   { id: 'instagram', url: 'https://www.instagram.com/thousands.life_game/', name: 'Instagram' },
   { id: 'telegram', url: 'https://t.me/thousands_of_lives_game', name: 'Telegram' },
@@ -155,7 +155,7 @@ export function SocialLinks({ from, compact = false }: { from: 'menu' | 'sheet';
 }
 
 /** Поддержать проект (Boosty): внизу меню, только на сайте. */
-export const SUPPORT_URL = import.meta.env.VITE_PLATFORM === 'crazygames' ? '' : 'https://boosty.to/afterall/donate'
+export const SUPPORT_URL = import.meta.env.VITE_PLATFORM ? '' : 'https://boosty.to/afterall/donate'
 
 export function SupportLink({ from }: { from: 'menu' | 'sheet' }) {
   const { t } = useUi()

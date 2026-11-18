@@ -73,6 +73,7 @@ function Businesses({ state, era, money, act, adult }: { state: GameState; era: 
     <section class="estate business">
       <h2 class="section-title">{t('business.title')}</h2>
       <p class="small muted">{t('business.hint')}</p>
+      <p class="small muted">{t('business.attention')}</p>
       <p class="small">{t('business.form', { form: t(`business.form.${businessForm(state.hero.era)}`) })}</p>
       <ul class="kids">
         {list.map((b) => (

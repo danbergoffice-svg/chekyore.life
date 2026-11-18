@@ -37,18 +37,15 @@ const dictEn: Dict = { ...en, ...uiEn }
 const dicts: Record<Lang, Dict> = {
   ru: { ...ru, ...uiRu },
   en: dictEn,
-  // Турецкий переведён не весь: чего нет - берётся из английского (через прототип; allKeys - только переведённое).
-  tr: Object.assign(Object.create(dictEn) as Dict, tr, uiTr),
-  fr: Object.assign(Object.create(dictEn) as Dict, fr, uiFr),
-  es: Object.assign(Object.create(dictEn) as Dict, es, uiEs),
+  tr: { ...tr, ...uiTr },
+  fr: { ...fr, ...uiFr },
+  es: { ...es, ...uiEs },
 }
 
 const loadedTexts = new Map<string, Promise<void>>()
 
-/** Загрузить тексты папки контента (common, e03, china…) на языке. */
+/** Загрузить тексты папки контента (common, e03, china…) на языке. Каждый язык хранит свои строки. */
 export function loadTexts(lang: Lang, folder: string): Promise<void> {
-  // Чего нет в переводе - берётся из английского, его тоже нужно загрузить.
-  if (lang === 'tr' || lang === 'fr' || lang === 'es') return Promise.all([loadTexts('en', folder), loadOwn(lang, folder)]).then(() => undefined)
   return loadOwn(lang, folder)
 }
 

@@ -54,7 +54,7 @@
   "ev.c_grand_spoil.build.ok.E03": "El carro salió torcido, pero es suyo. {npc} se lo muestra a todos: \"¡{g:Abuelo|Abuela} y yo lo hicimos!\"",
   "ev.c_grand_spoil.spoil.ok.E03": "El carro está escondido bajo tu cama, y el pastel fue comido en el acto. Es vuestro secreto compartido.",
   "ev.c_grand_spoil.text.E03": "Tu {g=npc_sex:nieto|nieta} {npc} susurra un pedido de un pastel de miel - y un carrito de juguete. Los padres han prohibido estrictamente malcriarlo.",
-  "ev.c_grand_craft_later.text.E03": "{npc} is nearly grown and makes things better than you do. One day {g=npc_sex:él|ella} admitted it all started with that crooked chariot the two of you built.",
+  "ev.c_grand_craft_later.text.E03": "{npc} ya es casi {g=npc_sex:adulto|adulta} y hace las cosas mejor que tú. Un día {g=npc_sex:él|ella} lo confesó: todo empezó con aquel carro torcido que construisteis juntos.",
   "ev.c_grand_craft_later.title.E03": "El Carro Torcido",
   "ev.c_h_wound.honey.E03": "Lávalo con vino y cúbrelo con miel, como lo hacían los ancianos",
   "ev.c_h_wound.honey.success.E03": "Vino, miel, un paño limpio dos veces al día. La herida se cerró: los ancianos sabían lo que hacían.",

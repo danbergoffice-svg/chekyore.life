@@ -8,7 +8,8 @@ import type { Platform } from './types'
 const PLATFORM = import.meta.env.VITE_PLATFORM as string | undefined
 export const platform: Platform = PLATFORM === 'crazygames' ? crazyPlatform : PLATFORM === 'yandex' ? yandexPlatform : webPlatform
 /** Ссылки и данные за пределы платформы (сайт, соцсети, отзывы). Константа сборки: лишний код вырезается. */
-export const EXTERNAL = PLATFORM !== 'crazygames'
+// Наружу (ссылки на сайт и соцсети, Boosty, отзывы) - только на своём сайте; порталы (CrazyGames, Яндекс Игры) это запрещают.
+export const EXTERNAL = !PLATFORM || PLATFORM === 'web'
 export type { Flags, Platform, ShareResult } from './types'
 export { DEFAULT_FLAGS } from './types'
 

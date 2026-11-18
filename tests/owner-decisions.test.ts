@@ -89,7 +89,7 @@ describe('Окна покупок без повторов (MEC-038)', () => {
       let run = 0
       for (const d of land) {
         const ch = d.params?.choice as { key?: string } | undefined
-        run = ch?.key === 'ev.estate_land.buy' ? 0 : run + 1
+        run = ch?.key === 'ev.estate_land.buy' || ch?.key === 'ev.estate_land.buy_two' ? 0 : run + 1
         expect(run).toBeLessThanOrEqual(LAND_REFUSALS)
       }
     }

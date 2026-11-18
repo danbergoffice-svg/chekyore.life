@@ -9,5 +9,5 @@
   "ev.d_t_bondage.share": "Travailler la dette ensemble",
   "ev.d_t_bondage.share.ok": "Vous avez pris la moitié du travail vous-même : après votre propre champ, celui du créancier. Votre dos fait mal, mais la durée est divisée par deux.",
   "ev.d_t_bondage.leave": "Chacun répond de ses propres dettes",
-  "ev.d_t_bondage.leave.ok": "{npc} ne dit pas un mot à vous pendant que {g=npc_sex:he was|she was} led away."
+  "ev.d_t_bondage.leave.ok": "{npc} ne t'a pas dit un mot pendant qu'on l'emmenait."
 }

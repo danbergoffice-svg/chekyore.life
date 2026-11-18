@@ -8,7 +8,7 @@
   "ev.w_old_tomb.grand.ok.E03": "La pierre s'est montrée splendide. Vous y êtes allée trois fois, et à chaque fois vous avez changé un mot de l'inscription.",
   "ev.d_cold_house.divorce.ok.E03": "Le divorce a pris une journée. Vous étiez surpris de combien de choses ne sont finalement pas vraiment à vous.",
   "ev.d_cold_house.endure.ok.E03": "Vous apportez des gâteaux au temple et gardez le silence. Les dieux sont patients - ainsi doit l'être aussi vous.",
-  "ev.d_temptation.text.E03": "{g:The girl|The boy} que vous avez rêvée dans votre jeunesse est revenue dans la ville - devenue veuve, elle rit encore seulement avec {g:her|his} yeux. Les rendez-vous à la fontaine deviennent plus longs, et chez soi {npc} demande pourquoi vous êtes si en retard.",
+  "ev.d_temptation.text.E03": "{g:La fille|Le garçon} dont vous rêviez dans votre jeunesse est {g:revenue|revenu} en ville, {g:devenue veuve|devenu veuf}, et rit encore rien que des yeux. Les rendez-vous à la fontaine s'allongent, et à la maison {npc} demande pourquoi vous rentrez si tard.",
   "ev.d_temptation.farewell.ok.E03": "Tu as dit au revoir à la même fontaine. À la maison, {npc} se demanda pourquoi tu tenais {g=npc_sex:lui|elle} si fermement.",
   "ev.d_affair_found.title.E03": "La note",
   "ev.d_affair_found.text.E03": "{npc} a trouvé une note que vous ne devriez jamais avoir gardée. Il n'y avait qu'une seule question : « How long? »",

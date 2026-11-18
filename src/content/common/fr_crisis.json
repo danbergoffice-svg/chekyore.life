@@ -1,0 +1,20 @@
+{
+  "ev.crisis_turn.title": "Le tournant",
+  "ev.crisis_turn.text": "Tu as {age} ans. Les gens de ton âge meurent l'un après l'autre, les enfants ont grandi, et chaque matin le dos te rappelle les années. Comment vivre désormais — comme avant, ou autrement ?",
+  "ev.crisis_turn.start_over": "Recommencer",
+  "ev.crisis_turn.seek_freedom": "Chercher la liberté",
+  "ev.crisis_turn.hold_on": "Tenir à ce qui est tien",
+  "ev.crisis_turn.seek_meaning": "Chercher un sens",
+  "ev.crisis_turn.start_over.success": "Tu sors du tournant {g:en un autre homme|en une autre femme}.",
+  "ev.crisis_turn.start_over.failure": "Le nouveau départ t'a coûté cher.",
+  "ev.crisis_turn.seek_freedom.success": "La liberté est plus proche à présent.",
+  "ev.crisis_turn.seek_freedom.failure": "Les chaînes tiennent plus fort que tu ne croyais.",
+  "ev.crisis_turn.hold_on.success": "Tu as gardé ce qui est à toi.",
+  "ev.crisis_turn.hold_on.failure": "Tenir bon t'a pris tout ce que tu avais.",
+  "ev.crisis_turn.seek_meaning.success": "Tu as quand même trouvé quelque chose qui compte.",
+  "ev.crisis_turn.seek_meaning.failure": "Pas de réponse — seulement des questions.",
+  "diary.crisis": "Le tournant des quarante : {slot}.",
+  "diary.crisis.family": "Le tournant des quarante : {slot}. Appui sur les proches — {outcome}.",
+  "diary.crisis.home": "Le tournant des quarante : {slot}. Foyer engagé — {outcome}.",
+  "diary.crisis.gamble": "Le tournant des quarante : {slot}. Tu as encore risqué — {outcome}."
+}

@@ -24,5 +24,7 @@
   "ev.ane_fc_lamashtu_ashipu.title": "L'apprenti exorciste",
   "ev.ane_fc_lamashtu_ashipu.text": "Le vieux ashipu qui avait autrefois chassé Lamashtu de votre berceau vous a reconnu dans la rue et vous a appelé vers lui. Maintenant vous portez son sac d’herbes et d’argile, apprenant à modeler des figurines et à réciter des incantations dans lesquelles chaque mot doit être prononcé au moment exact.",
   "ev.ane_fc_lamashtu_god.title": "Le dieu personnel",
-  "ev.ane_fc_lamashtu_god.text": "Dans une année difficile, tu te tenais devant la niche avec la figure du dieu personnel de la famille - celui qui, dit-on, a plaidé pour toi quand tu étais encore dans le berceau. Tu lui parlais à voix basse pendant longtemps, et le matin ton cœur était léger, comme si quelqu'un de grand se tenait à ton épaule."
+  "ev.ane_fc_lamashtu_god.text": "Dans une année difficile, tu te tenais devant la niche avec la figure du dieu personnel de la famille - celui qui, dit-on, a plaidé pour toi quand tu étais encore dans le berceau. Tu lui parlais à voix basse pendant longtemps, et le matin ton cœur était léger, comme si quelqu'un de grand se tenait à ton épaule.",
+  "ev.ane_fc_bad_day.short": "Le scribe du temple a consulté le rouleau des jours et s'est rembruni : « Qui naît ce jour mourra d'un crocodile. » Ta mère est en larmes. Un prêtre peut t'accrocher au cou un charme écrit, ou l'on peut simplement te tenir loin du fleuve.",
+  "ev.ane_fc_lamashtu.short": "C'est la troisième nuit que tu cries et refuses le sein. Les vieilles murmurent : la démone Lamashtu chasse les nourrissons. Un exorciste peut la renvoyer, une amulette d'argile peut pendre près du berceau, ou la famille peut prier son dieu."
 }

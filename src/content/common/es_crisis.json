@@ -1,0 +1,20 @@
+{
+  "ev.crisis_turn.title": "El viraje",
+  "ev.crisis_turn.text": "Tienes {age} años. La gente de tu edad muere una tras otra, los hijos han crecido, y cada mañana la espalda te recuerda los años. ¿Cómo vivir en adelante — como antes, o de otro modo?",
+  "ev.crisis_turn.start_over": "Empezar de nuevo",
+  "ev.crisis_turn.seek_freedom": "Buscar la libertad",
+  "ev.crisis_turn.hold_on": "Aferrarte a lo tuyo",
+  "ev.crisis_turn.seek_meaning": "Buscar sentido",
+  "ev.crisis_turn.start_over.success": "Sales del viraje {g:hecho otro hombre|hecha otra mujer}.",
+  "ev.crisis_turn.start_over.failure": "El nuevo comienzo te costó caro.",
+  "ev.crisis_turn.seek_freedom.success": "La libertad está más cerca ahora.",
+  "ev.crisis_turn.seek_freedom.failure": "Las cadenas sujetan más de lo que creías.",
+  "ev.crisis_turn.hold_on.success": "Conservaste lo tuyo.",
+  "ev.crisis_turn.hold_on.failure": "Aferrarte te quitó todo lo que tenías.",
+  "ev.crisis_turn.seek_meaning.success": "Al fin encontraste algo que importa.",
+  "ev.crisis_turn.seek_meaning.failure": "No hay respuesta — solo preguntas.",
+  "diary.crisis": "El viraje de los cuarenta: {slot}.",
+  "diary.crisis.family": "El viraje de los cuarenta: {slot}. Apoyo en los cercanos — {outcome}.",
+  "diary.crisis.home": "El viraje de los cuarenta: {slot}. Hogar empeñado — {outcome}.",
+  "diary.crisis.gamble": "El viraje de los cuarenta: {slot}. Arriesgaste otra vez — {outcome}."
+}

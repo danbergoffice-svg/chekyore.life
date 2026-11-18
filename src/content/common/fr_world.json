@@ -55,7 +55,7 @@
   "ev.w_child_quarrel.meet.success": "À la fin du repas, vous empiliez vous-même les meilleurs morceaux dans les assiettes des beaux-parents.",
   "ev.w_child_quarrel.meet.failure": "Le dîner s'est terminé par une dispute à propos de la dot. {npc} ne vous a pas parlé pendant une semaine.",
   "ev.w_old_reconcile.title": "Reconciliation",
-  "ev.w_old_reconcile.text": "{npc} never came home. They say your {g=npc_sex:fils|fille} has long had a family of {g=npc_sex:fils|sa} own, and you have never once crossed {g=npc_sex:fils|sa} threshold.",
+  "ev.w_old_reconcile.text": "{npc} n'est jamais {g=npc_sex:rentré|rentrée}. On dit qu'{g=npc_sex:il a|elle a} depuis longtemps une famille à soi, et tu n'as pas une fois {g:franchi|franchie} le seuil de sa maison.",
   "ev.w_old_reconcile.go_first": "Allez vers eux en premier",
   "ev.w_old_reconcile.go_first.success": "Vous êtes {g:venu|venue} sans cadeaux ni discours. {npc} est resté longtemps dans l'encadrement de la porte - puis s'est silencieusement écarté et vous a laissé entrer.",
   "ev.w_old_reconcile.go_first.failure": "Ils vous ont écouté et ont fermé la porte. Peut-être plus tard. Peut-être jamais.",

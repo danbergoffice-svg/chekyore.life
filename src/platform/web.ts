@@ -71,7 +71,7 @@ function initMetrika(): void {
 }
 
 function common(): Record<string, unknown> {
-  return { platform: 'web', lang: context.lang ?? '', build: BUILD, ab: abBucket(), session_id: session, player_id: player, ...context }
+  return { platform: (import.meta.env.VITE_PLATFORM as string | undefined) || 'web', lang: context.lang ?? '', build: BUILD, ab: abBucket(), session_id: session, player_id: player, ...context }
 }
 
 /** События-счётчики: имя → [поле, по которому считать ('' - просто сколько раз), поле в session_end]:
@@ -135,7 +135,9 @@ function flush(beacon = false): void {
   const body = JSON.stringify({ events: batch })
   try {
     if (beacon && navigator.sendBeacon) {
-      navigator.sendBeacon(`${API}/events`, new Blob([body], { type: 'application/json' }))
+      // Приёмник на другом домене (сборка для Яндекс Игр): браузер не шлёт beacon с типом application/json без CORS-проверки,
+      // поэтому - простым текстом (приёмник читает тело как JSON при любом типе).
+      navigator.sendBeacon(`${API}/events`, new Blob([body], { type: /^https?:/.test(API) ? 'text/plain' : 'application/json' }))
       return
     }
     fetch(`${API}/events`, { method: 'POST', headers: { 'content-type': 'application/json' }, body, keepalive: true }).catch(() => {})

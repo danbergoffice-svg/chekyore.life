@@ -20,5 +20,7 @@
   "ev.amr_fc_thunder_healer.text": "Un viejo sanador, nacido él mismo en una tormenta, vino por ti: \"Illapa aceptó la ofrenda de tu familia - ahora te está esperando.\" Estás aprendiendo de él a distinguir hierbas, a leer hojas de coca y a adivinar con un cuy qué le aqueja a una persona enferma.",
   "ev.amr_fc_thunder_healer.title": "El aprendiz del sanador",
   "ev.amr_fc_thunder_storm.text": "Una tormenta te sorprendió en el pastizal alto con las llamas. Un rayo cayó sobre una roca a diez pasos de distancia: te derribó, pero te levantaste sin heridas. Ahora el pueblo susurra: \"Illapa vino por lo que es suyo\" y los ancianos te miran con un respeto cauteloso.",
-  "ev.amr_fc_thunder_storm.title": "Tormenta en el alto pasto"
+  "ev.amr_fc_thunder_storm.title": "Tormenta en el alto pasto",
+  "ev.amr_fc_school.short": "Entre los Mexica se promete a la criatura a los maestros aún en la cuna. Pueden entregarte al templo: {g:el calmecac enseña la escritura y las estrellas|las muchachas del templo sirven a los dioses}. O prometerte a {g:la casa de los jóvenes, donde crían guerreros|la casa del canto, donde los jóvenes aprenden a cantar y a bailar}.",
+  "ev.amr_fc_thunder.short": "Naciste en plena tormenta: un rayo cayó sobre la aldea en ese mismo instante. Los viejos dicen que tal criatura pertenece a Illapa, el dios del trueno. Hay que aplacarlo con una ofrenda en la cima del cerro, o el trueno te seguirá."
 }

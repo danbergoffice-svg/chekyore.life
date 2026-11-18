@@ -253,7 +253,7 @@
   "ev.c_teacher.title.7": "Paumes enflées",
   "ev.c_teacher.title.8": "Copier",
   "ev.c_teacher.title.9": "Mimétisme",
-  "ev.c_teething.text.1": "Your {g=npc_sex:fils|fille} {npc} screams night after night: the teeth are coming. The neighbor says rub the gums with honey, Grandmother says hang a wolf's tooth round the neck. You've tried both and are ready to bite someone yourself.",
+  "ev.c_teething.text.1": "{g=npc_sex:Ton fils|Ta fille} {npc} crie nuit après nuit : les dents poussent. La voisine dit de frotter les gencives avec du miel, la grand-mère de pendre une dent de loup au cou. Tu as essayé les deux et tu es {g:prêt|prête} à mordre quelqu'un toi-même.",
   "ev.c_teething.text.10": "Dans la nuit, tu t'es levé au cri pour la cinquième fois. Le bébé fait ses dents, et il semble que tu perdes ce qu'il te reste de raison.",
   "ev.c_teething.text.11": "Votre {g=npc_sex:fils|fille} {npc} refuse de manger, fourre un poing dans {g=npc_sex:fils|sa} bouche et vous lance un regard réprobateur, comme si chaque dent était de votre faute.",
   "ev.c_teething.text.12": "Toute la nuit, tu as bercé le berceau pendant que {npc} continuait de gémir : encore des dents. Vers le matin, vous vous êtes tous les deux endormis - toi juste sur le sol près du berceau.",

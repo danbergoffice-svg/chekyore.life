@@ -22,5 +22,7 @@
   "ev.eth_fc_rist_won.text": "Recientes parientes reclamaban la parte de tu familia en el rist: tu linaje, decían, no tenía nada que ver con esa tierra. En la audiencia bajo el viejo sicomoro, un hombre enpañado se levantó: « Bebí tej en el bautismo de este niño y escuché recitar los antepasados. » Otros se levantaron detrás de él, y la tierra siguió siendo de tu familia — y tu parte también.",
   "ev.eth_fc_rist_lost.text": "Los parientes lejanos reclamaron la parte de tu familia en el rist, y en la audiencia bajo el sicomoro ninguno de los hombres mayores pudo recordar tus antepasados más allá de tu abuelo. El juez dividió la tierra, y una parte pasó a los desconocidos. Tu padre salió del círculo sin decir una palabra — y comprendiste lo que había estado pensando en tu bautismo.",
   "ev.eth_fc_rist.modest.ok": "Solo se invitó a los vecinos; se horneó pan y se elaboró tella. Una noche cálida y económica, aunque tu padre estuvo pensativo toda la noche.",
-  "ev.eth_fc_rist_lost.title": "La demanda por usura"
+  "ev.eth_fc_rist_lost.title": "La demanda por usura",
+  "ev.eth_fc_saint.short": "Te bautizan, y el sacerdote pregunta qué nombre de iglesia darte, a quién pertenecerás. Puedes quedar bajo el manto de la Virgen María, bajo la mano de san Jorge, o bajo el ala del arcángel Miguel.",
+  "ev.eth_fc_rist.short": "Tu padre quiere un gran banquete de bautizo para los viejos de toda la comarca, para que recuerden de qué linaje eres. De eso depende tu parte de la tierra familiar. Tu madre se encoge de hombros: todos saben de quién eres {g:hijo|hija}."
 }

@@ -111,6 +111,20 @@ export function addPartner(state: GameState, businessId: string, npcId: string, 
   return true
 }
 
+/** Дело требует внимания (решение владельца 16.11): полная прибыль - только в год с фокусом «Торговля» или «Работа»,
+ *  иначе роду достаётся половина (дело идёт, но приказчики и компаньоны тянут на себя). */
+export const ATTENTION_FOCUS = ['trade', 'work']
+export const NO_ATTENTION = 0.5
+export const attentive = (state: GameState) => ATTENTION_FOCUS.includes(state.lastFocus ?? '')
+
+/** Беды дела (решение владельца 16.11): караван грабят, корабль тонет, власти берут поборы с любого дела.
+ *  Доля капитала (в процентах) уходит, прибыли в этот год нет. Раньше дело не могло прогореть даже в худший год. */
+export const PERILS: Record<string, { id: string; chance: number; loss: [number, number] }[]> = {
+  caravan: [{ id: 'robbed', chance: 0.07, loss: [30, 60] }],
+  shipping: [{ id: 'wreck', chance: 0.06, loss: [40, 80] }],
+  any: [{ id: 'levy', chance: 0.04, loss: [10, 25] }],
+}
+
 /** Год дела: доход по удаче, навыку и имени, расходы, раздел прибыли, ссоры компаньонов, разорение. */
 export function businessYear(state: GameState): void {
   const hero = state.hero
@@ -118,19 +132,31 @@ export function businessYear(state: GameState): void {
     if (b.foundedYear === state.year) continue
     const def = businessDef(b.type)
     if (!def) continue
-    const luck = int(state, B.luck[0], B.luck[1]) / 10
-    const skill = 1 + (hero.skills[def.skill] ?? 0) * B.skillBonus
-    const name = 1 + (b.reputation - 50) / 200
-    b.income = Math.round(b.capital * def.return * luck * skill * name)
-    b.expenses = Math.round(b.capital * def.expenses)
-    const profit = b.income - b.expenses
-    if (profit > 0) {
-      // Прибыль - по долям: роду его часть, компаньонам их (они уносят её домой).
-      hero.money += Math.round(profit * heroStake(b))
-      b.reputation = Math.min(100, b.reputation + B.reputation.good)
-    } else {
-      b.capital += profit
+    // Беда: доля капитала пропала, прибыли в этот год нет (имя дела страдает).
+    const peril = [...(PERILS[b.type] ?? []), ...PERILS.any].find((p) => chance(state, p.chance))
+    if (peril) {
+      const lost = Math.round((b.capital * int(state, peril.loss[0], peril.loss[1])) / 100)
+      b.capital -= lost
+      b.income = 0
+      b.expenses = lost
       b.reputation = Math.max(0, b.reputation + B.reputation.bad)
+      changeParam(hero, 'happiness', -4)
+      note(state, { key: `diary.business_${peril.id}`, params: { what: { key: `business.type.${b.type}` }, money: lost }, topic: 'money', icon: 'loss', score: 26, mood: -4, major: true })
+    } else {
+      const luck = int(state, B.luck[0], B.luck[1]) / 10
+      const skill = 1 + (hero.skills[def.skill] ?? 0) * B.skillBonus
+      const name = 1 + (b.reputation - 50) / 200
+      b.income = Math.round(b.capital * def.return * luck * skill * name)
+      b.expenses = Math.round(b.capital * def.expenses)
+      const profit = b.income - b.expenses
+      if (profit > 0) {
+        // Прибыль - по долям: роду его часть, компаньонам их (они уносят её домой).
+        hero.money += Math.round(profit * heroStake(b) * (attentive(state) ? 1 : NO_ATTENTION))
+        b.reputation = Math.min(100, b.reputation + B.reputation.good)
+      } else {
+        b.capital += profit
+        b.reputation = Math.max(0, b.reputation + B.reputation.bad)
+      }
     }
     // Компаньон, с которым не ладят, уходит со своей долей капитала.
     for (const p of [...b.partners]) {

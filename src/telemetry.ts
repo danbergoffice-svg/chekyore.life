@@ -83,6 +83,14 @@ export function trackEventShown(state: GameState, ev: EventDef): void {
 }
 
 /** Окно утраты близкого (карточка смерти): родство. Болезнь окна больше не открывает (решение владельца 10.11). */
+/** Родство в карточке утраты: из параметра role (смерть вдали, болезнь), иначе из ключа записи diary.death_<роль>. */
+export function lossRoleOf(entry: { key: string; params?: Record<string, unknown> }): string {
+  const role = (entry.params?.role as { key?: string } | undefined)?.key
+  if (role) return role.replace(/^rel\./, '')
+  const m = /^diary\.death_([a-z]+)$/.exec(entry.key)
+  return m && m[1] !== 'far' ? m[1] : 'other'
+}
+
 export function trackLossShown(role: string, isDeath = true): void {
   platform.track('loss_shown', { npc_role: role, is_death: isDeath ? 1 : 0 })
 }

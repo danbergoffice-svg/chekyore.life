@@ -177,7 +177,8 @@ export function offerAnswered(state: GameState, eventId: string, choiceId: strin
   const hero = state.hero
   if (eventId === 'estate_home') hero.homeAskedBand = hero.band ?? 0
   if (eventId !== 'estate_land') return
-  hero.landRefused = choiceId === 'buy' ? 0 : (hero.landRefused ?? 0) + 1
+  // Купил (один надел или два) - счёт отказов обнуляется; «Не покупать» - ещё один отказ (аналитика 16.11: buy_two считался отказом).
+  hero.landRefused = choiceId === 'buy' || choiceId === 'buy_two' ? 0 : (hero.landRefused ?? 0) + 1
 }
 
 /** Какое предложение о покупке подходит сейчас: дом, земля или рабы (по порядку того, чего не хватает). */

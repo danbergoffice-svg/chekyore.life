@@ -71,7 +71,7 @@
   "ev.may_d_first_blood.endure": "Suivre le rite",
   "ev.may_d_first_blood.endure.success": "Tu n’as pas fléchi. Dans la fumée de copal, tu as cru voir un serpent avec un visage humain. Les anciens ont hoché la tête avec approbation.",
   "ev.may_d_first_blood.endure.failure": "Ta tête tournait et tu t'es effondré juste à côté de l'autel. Les gens en murmureront.",
-  "ev.may_d_first_blood.delay": "Ask to put it off",
+  "ev.may_d_first_blood.delay": "Demander de le remettre",
   "ev.may_d_bride_service.title": "Servir pour une mariée",
   "ev.may_d_bride_service.text": "Le marieur l’a arrangé : la fille est consentante et sa famille aussi. Mais selon la coutume, le mari habite chez la mariée pendant quelques années et travaille pour sa famille jusqu’à ce qu’il prouve qu’il n’est pas un paresseux.",
   "ev.may_d_bride_service.serve": "Vivre avec sa famille et travailler",

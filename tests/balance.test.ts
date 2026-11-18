@@ -9,9 +9,9 @@ const breathe = () => new Promise((r) => setTimeout(r, 0))
 const settings = { mode: 'full', mortality: 'soft', softenHeavy: false, livesBefore: 3 } as const
 
 describe('Баланс', () => {
-  it('в старости состояние не тает: у доживших до 70 медиана богатства в 65 - не меньше 70% от богатства в 50', async () => {
+  it('в старости состояние не тает (600 жизней, чтобы доживших до 70 было больше 20): у доживших до 70 медиана богатства в 65 - не меньше 70% от богатства в 50', async () => {
     const ratios: number[] = []
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 600; i++) {
       if (i % 50 === 0) await breathe()
       const b = rollBirth(31000 + i, 'population', ERA_IDS.map((id) => ERA_META[id]))
       const era = ERAS[b.era]

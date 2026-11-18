@@ -22,7 +22,7 @@
     "AMR": "pochteca",
     "MAY": "pochteca"
   },
-  "luck": [4, 16],
+  "luck": [2, 16],
   "skillBonus": 0.004,
   "reputation": { "start": 30, "good": 3, "bad": -5 },
   "bankrupt": 0.3,

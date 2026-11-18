@@ -9,5 +9,5 @@
   "ev.d_t_bondage.share": "Saldar la deuda juntos",
   "ev.d_t_bondage.share.ok": "Usted se tomó la mitad del trabajo usted mismo: después de su propio campo, el del acreedor. Le duele la espalda, pero la duración se reduce a la mitad.",
   "ev.d_t_bondage.leave": "Todos responden por sus propias deudas",
-  "ev.d_t_bondage.leave.ok": "{npc} no dijo una palabra a usted mientras {g=npc_sex:he was|she was} led away."
+  "ev.d_t_bondage.leave.ok": "{npc} no te dijo ni una palabra mientras {g=npc_sex:se lo llevaban|se la llevaban}."
 }

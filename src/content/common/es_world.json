@@ -55,7 +55,7 @@
   "ev.w_child_quarrel.meet.success": "Al final de la comida estabas poniendo los mejores trozos en los platos de los suegros tú mismo.",
   "ev.w_child_quarrel.meet.failure": "La cena terminó en una pelea sobre la dote. {npc} no te habló durante una semana.",
   "ev.w_old_reconcile.title": "Reconciliation",
-  "ev.w_old_reconcile.text": "{npc} never came home. They say your {g=npc_sex:hijo|hija} has long had a family of {g=npc_sex:su|su} own, and you have never once crossed {g=npc_sex:su|su} threshold.",
+  "ev.w_old_reconcile.text": "{npc} nunca volvió a casa. Dicen que hace tiempo tiene familia propia, y tú no has cruzado ni una vez el umbral de su casa.",
   "ev.w_old_reconcile.go_first": "Ve a ellos primero",
   "ev.w_old_reconcile.go_first.success": "Llegaste sin regalos ni discursos. {npc} estuvo en la puerta durante mucho tiempo - luego se hizo a un lado en silencio y te dejó pasar.",
   "ev.w_old_reconcile.go_first.failure": "Te escucharon y cerraron la puerta. Tal vez más tarde. Tal vez nunca.",

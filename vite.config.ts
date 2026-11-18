@@ -11,6 +11,7 @@ import type { Plugin } from 'vite'
  * Файлы только для сайта (robots.txt, sitemap.xml с адресом сайта) в сборку портала не попадают.
  */
 const SITE_ONLY = ['robots.txt', 'sitemap.xml']
+const YANDEX_DROP = ['CNAME', 'sw.js', 'manifest.webmanifest', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'og-en.png', 'og-ru.png']
 function portalHtml(platform: string | undefined): Plugin {
   let outDir = 'dist'
   return {
@@ -20,8 +21,19 @@ function portalHtml(platform: string | undefined): Plugin {
     },
     closeBundle() {
       if (platform) for (const f of SITE_ONLY) fs.rmSync(path.join(outDir, f), { force: true })
+      // Яндекс Игры: игра живёт на странице портала - домен, установка как приложение и превью для соцсетей не нужны.
+      if (platform === 'yandex') for (const f of YANDEX_DROP) fs.rmSync(path.join(outDir, f), { force: true })
     },
     transformIndexHtml(html) {
+      if (platform === 'yandex')
+        // Яндекс Игры: без превью для соцсетей, canonical, манифеста и текста для поисковиков; SDK - первым скриптом (/sdk.js отдаёт сам Яндекс).
+        return html
+          .replace(/\s*<!--[^>]*соцсетях[\s\S]*?-->/g, '')
+          .replace(/\s*<meta (property="og:|name="twitter:)[^>]*>/g, '')
+          .replace(/\s*<link rel="(canonical|manifest|apple-touch-icon)"[^>]*>/g, '')
+          .replace(/\s*<!--[^>]*поисковиков \(schema\.org\)[\s\S]*?<\/script>/, '')
+          .replace(/\s*<!-- Текст для поисковиков[\s\S]*?<\/main>/, '')
+          .replace('<title>', '<script src="/sdk.js"></script>\n    <title>')
       if (platform !== 'crazygames') return html
       return html
         .replace(/\s*<!--[^>]*соцсетях[\s\S]*?-->/g, '')

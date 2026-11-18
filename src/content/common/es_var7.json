@@ -253,7 +253,7 @@
   "ev.c_teacher.title.7": "Palmas hinchadas",
   "ev.c_teacher.title.8": "Copying",
   "ev.c_teacher.title.9": "Mimetismo",
-  "ev.c_teething.text.1": "Tu {g=npc_sex:hijo|hija} {npc} grita noche tras noche: los dientes están saliendo. El vecino dice que frotes las encías con miel, la abuela dice que cuelgues un diente de lobo alrededor del cuello. Has probado ambas cosas y estás {g:listo|lista} para morder a alguien tú mismo.",
+  "ev.c_teething.text.1": "{g=npc_sex:Tu hijo|Tu hija} {npc} grita noche tras noche: le salen los dientes. La vecina dice que frotes las encías con miel, la abuela que le cuelgues un diente de lobo al cuello. Probaste las dos cosas y ya estás {g:listo|lista} para morder a alguien.",
   "ev.c_teething.text.10": "En la noche te levantaste llorando por quinta vez. El bebé está dentiendo, y parece que estás perdiendo lo que queda de tu mente.",
   "ev.c_teething.text.11": "Tu {g=npc_sex:hijo|hija} {npc} rechaza la comida, mete un puño en la boca de {g=npc_sex:su|su} y te lanza una mirada de reproche, como si cada diente fuera tu culpa.",
   "ev.c_teething.text.12": "Toda la noche mecerste la cuna mientras {npc} seguía gimiendo: otra vez los dientes. Hacia la mañana ambos se quedaron dormidos - tú justo en el suelo junto a la cuna.",
