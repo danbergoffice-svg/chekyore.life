@@ -116,7 +116,11 @@ describe('Живописные сцены', () => {
         const plan = planPainted({ scene: { place: 'street' }, region, seed: `s${i}`, mood: i % 2 ? 'feast' : 'war' }, ix)!
         const houses = plan.layers.filter((l) => l.key.startsWith('house.')).map((l) => l.key)
         expect(new Set(houses).size, region).toBe(houses.length)
-        if (i % 2) expect(plan.layers.find((l) => l.key === 'fx.feast')?.band, region).toBeGreaterThan(0)
+        // Праздник - полосой гирлянд сверху; у стилей с испорченной картинкой (18.11) - гирляндами кодом.
+        if (i % 2) {
+          const feast = plan.layers.find((l) => l.key === 'fx.feast')
+          expect(feast?.weather === 'feast' || (feast?.band ?? 0) > 0, region).toBe(true)
+        }
         else {
           expect(plan.layers.some((l) => l.key === 'fx.war')).toBe(false)
           expect(plan.tints.length).toBeGreaterThan(0)
@@ -130,6 +134,21 @@ describe('Живописные сцены', () => {
     const plan = (homeState?: 'burned') => planPainted({ scene: { place: 'yard' }, region: 'paris', seed: 'y', cast: { ...family, homeState } as never }, ix)!
     expect(plan().layers.some((l) => l.key === 'house.home3')).toBe(true)
     expect(plan('burned').layers.some((l) => l.key === 'house.home3_burned')).toBe(true)
+  })
+
+  it('пожар и дым: рисуются кодом от дома и стоят за людьми', () => {
+    for (const region of regions) {
+      const ix = index(lookOf(region).style)
+      for (const scene of [{ place: 'yard', disaster: 'fire' }, { place: 'street', props: ['smoke'] }] as const) {
+        const plan = planPainted({ scene: scene as never, region, seed: 'f' }, ix)!
+        const keys = plan.layers.map((l) => l.key)
+        const fx = plan.layers.find((l) => l.weather === 'fire' || l.weather === 'smoke')!
+        expect(fx, region).toBeTruthy()
+        expect(fx.source?.key.startsWith('house.'), region).toBe(true)
+        const firstPerson = keys.findIndex((k) => k.startsWith('person.'))
+        if (firstPerson >= 0) expect(keys.indexOf(fx.key), region).toBeLessThan(firstPerson)
+      }
+    }
   })
 
   it('возраст → ступень картинки', () => {
