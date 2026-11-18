@@ -146,6 +146,18 @@ describe('Живописные сцены', () => {
     expect([...px.slice(8, 11)]).not.toEqual([30, 60, 160])
   })
 
+  it('лицо портрета: тип лица 1–4 по id или свой; взрослый и старик - портрет с этим лицом по достатку, иначе прежний', async () => {
+    const { faceOf } = await import('../src/engine/life')
+    const { portraitKey } = await import('../src/pixel/painted')
+    expect(faceOf({ id: 'h1' })).toBe(faceOf({ id: 'h1' }))
+    expect(faceOf({ id: 'h1', face: 3 })).toBe(3)
+    expect(new Set(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((id) => faceOf({ id }))).size).toBeGreaterThan(2)
+    const ix = { 'portrait.face2_m_adult_mid': [], 'portrait.craftsman_m_adult': [], 'portrait.craftsman_m_child': [] } as never
+    expect(portraitKey(ix, { region: 'paris', sex: 'm', age: 35, cls: 'trader', face: 2 })).toBe('portrait.face2_m_adult_mid')
+    expect(portraitKey(ix, { region: 'paris', sex: 'm', age: 35, cls: 'craftsman', face: 1 })).toBe('portrait.craftsman_m_adult')
+    expect(portraitKey(ix, { region: 'paris', sex: 'm', age: 8, cls: 'craftsman', face: 2 })).toBe('portrait.craftsman_m_child')
+  })
+
   it('возраст → ступень картинки', () => {
     expect([0, 5, 15, 40, 70].map(ageStage)).toEqual(['baby', 'child', 'teen', 'adult', 'elder'])
   })

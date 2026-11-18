@@ -11,6 +11,7 @@ import type { T } from '../i18n'
 import { lifeMarks } from '../pixel/avatar'
 import type { AvatarInput } from '../pixel/avatar'
 import type { CardData } from './shareCard'
+import { faceOf } from '../engine/life'
 
 /** Портрет героя в этом возрасте - по истории жизни, без хранения картинок. */
 export function portraitInput(life: LifeSummary, age: number, last: boolean): AvatarInput {
@@ -21,6 +22,7 @@ export function portraitInput(life: LifeSummary, age: number, last: boolean): Av
     sex: life.sex,
     age,
     seed: life.heroId,
+    face: faceOf({ id: life.heroId, face: life.face }),
     cls: age < 18 ? birthCls : life.cls,
     happiness: y?.happiness,
     stress: y?.stress,

@@ -17,6 +17,8 @@ export interface AvatarInput {
   sex: 'm' | 'f'
   age: number
   seed: string
+  /** Тип лица живописного портрета 1–4 (src/engine/life.ts faceOf). */
+  face?: number
   cls?: string
   /** Телосложение −3…3: худоба … полнота. */
   body?: number

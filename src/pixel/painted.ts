@@ -473,6 +473,8 @@ export interface PortraitInput {
   age: number
   cls?: string
   enslaved?: boolean
+  /** Тип лица 1–4: у взрослого и старика - портрет с этим лицом, если он есть в стиле. */
+  face?: number
   /** Иноземец, ещё не вжившийся: портрет в стиле родного края. */
   homeRegion?: string
   integrated?: boolean
@@ -483,6 +485,11 @@ export function portraitKey(index: ArtIndex, p: PortraitInput): string | null {
   const stage = ageStage(p.age)
   if (stage === 'baby') return index[`portrait.baby_${p.sex}`] ? `portrait.baby_${p.sex}` : null
   const c = p.enslaved ? 'slave' : p.cls && CLASSES.includes(p.cls) ? p.cls : p.cls === 'royal' ? 'noble' : 'peasant'
+  if (p.face && (stage === 'adult' || stage === 'elder')) {
+    const tier = c === 'slave' || c === 'peasant' ? 'poor' : c === 'craftsman' || c === 'trader' ? 'mid' : 'rich'
+    const k = `portrait.face${p.face}_${p.sex}_${stage}_${tier}`
+    if (index[k]) return k
+  }
   for (const k of [`portrait.${c}_${p.sex}_${stage}`, `portrait.peasant_${p.sex}_${stage}`]) if (index[k]) return k
   return null
 }

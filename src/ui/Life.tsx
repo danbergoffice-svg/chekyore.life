@@ -66,6 +66,7 @@ import type { DiceResult } from '../engine/dice'
 import type { GoalChoice } from './GoalPick'
 import { earlySeed, kidsOn, SEEN_KEY } from '../kids/early'
 import type { EarlyResult } from '../kids/early'
+import { faceOf } from '../engine/life'
 
 type Tab = 'life' | 'hero' | 'people' | 'diary'
 
@@ -824,6 +825,7 @@ export function heroLook(hero: Hero): AvatarInput {
     sex: hero.sex,
     age: hero.age,
     seed: hero.id,
+    face: faceOf(hero),
     cls: hero.cls,
     body: hero.body ?? 0,
     happiness: hero.hidden.happiness,
