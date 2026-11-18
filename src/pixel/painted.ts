@@ -530,7 +530,7 @@ export async function loadPortrait(p: PortraitInput): Promise<CanvasImageSource 
 // ---------------------------------------------------------------- Перекраска одежды
 
 const recolorCache = new WeakMap<object, Map<number, CanvasImageSource>>()
-/** Сдвиг оттенка насыщенных цветов одежды; тона кожи (оттенок 335–50° при насыщенности ниже 0.8) и серые - как были.
+/** Сдвиг оттенка насыщенных цветов одежды; тёплые тона (оттенок 330–60°: кожа любого цвета, руки) и голова фигуры и серые - как были.
  *  Кеш по самой картинке (у каждого стиля своя) и сдвигу: считается один раз. */
 function recolored(im: CanvasImageSource, hue: number): CanvasImageSource {
   let byHue = recolorCache.get(im)
@@ -547,7 +547,7 @@ function recolored(im: CanvasImageSource, hue: number): CanvasImageSource {
     const x = c.getContext('2d')!
     x.drawImage(im, 0, 0)
     const data = x.getImageData(0, 0, w, h)
-    recolorPixels(data.data, hue)
+    recolorPixels(data.data, hue, w)
     x.putImageData(data, 0, 0)
     out = c
   } catch {
@@ -558,9 +558,26 @@ function recolored(im: CanvasImageSource, hue: number): CanvasImageSource {
 }
 
 /** Сам сдвиг (чистая функция над RGBA, для тестов). */
-export function recolorPixels(d: Uint8ClampedArray, hue: number): void {
+export function recolorPixels(d: Uint8ClampedArray, hue: number, width = 0): void {
+  // Голова (верхняя пятая часть фигуры по непрозрачным строкам) не перекрашивается вовсе: лицо, волосы, убор.
+  let headEnd = 0
+  if (width > 0) {
+    const rows = d.length / 4 / width
+    let top = -1
+    let bottom = -1
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < width; x++)
+        if (d[(y * width + x) * 4 + 3] > 128) {
+          if (top < 0) top = y
+          bottom = y
+          break
+        }
+    }
+    if (top >= 0) headEnd = top + Math.round((bottom - top) * 0.22)
+  }
   for (let i = 0; i < d.length; i += 4) {
     if (d[i + 3] < 8) continue
+    if (width > 0 && Math.floor(i / 4 / width) < headEnd) continue
     const r = d[i] / 255
     const g = d[i + 1] / 255
     const b = d[i + 2] / 255
@@ -574,8 +591,9 @@ export function recolorPixels(d: Uint8ClampedArray, hue: number): void {
     let hh = max === r ? ((g - b) / dd) % 6 : max === g ? (b - r) / dd + 2 : (r - g) / dd + 4
     hh *= 60
     if (hh < 0) hh += 360
-    // Кожа (от бледно-розовой до тёмной) и губы: тёплые тона не самой яркой насыщенности.
-    if ((hh >= 335 || hh <= 50) && s < 0.8 && l > 0.15) continue
+    // Кожа любого оттенка (от бледно-розовой до тёмно-коричневой и красно-охристой в египетской и эфиопской манере),
+    // руки и губы: все тёплые тона - розовые, красные, оранжевые, коричневые, жёлтые - не трогаем при любой насыщенности.
+    if (hh >= 330 || hh <= 60) continue
     hh = (hh + hue) % 360
     const C = dd
     const X = C * (1 - Math.abs(((hh / 60) % 2) - 1))
