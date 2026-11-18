@@ -40,7 +40,8 @@ export function GoalPick({ state, mode, onPick, onKeep }: Props) {
     onPick(c)
   }
   const parent = hero.npcs.find((n) => n.role === 'mother' && n.alive) ? 'mother' : hero.npcs.find((n) => n.role === 'father' && n.alive) ? 'father' : null
-  const ask = mode === 'change' ? 'goal.ask.change' : hero.generation > 1 || hero.age > 0 || !parent ? 'goal.ask.heir' : `goal.ask.${parent}`
+  // Ребёнок первой жизни (при рождении или в 6 лет, рукав XG) - цель как желание матери или отца; взрослый наследник - своя.
+  const ask = mode === 'change' ? 'goal.ask.change' : hero.generation > 1 || hero.age >= 16 || !parent ? 'goal.ask.heir' : `goal.ask.${parent}`
 
   const card = (id: GoalId, tier: GoalTier | null, done: number, onClick: () => void, extra?: string) => (
     <button class={`goal-card tier-${tier ?? 0}`} onClick={onClick}>
