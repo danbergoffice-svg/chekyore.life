@@ -3,6 +3,7 @@
 // бросить выбранный за него путь. Окончивший учёбу получает дело по своему направлению (в том числе такие, куда без учёбы
 // не попасть: писец, лекарь), а став наследником - навык. Правила - src/content/education.json и поле education страны.
 // Случайность - только rng.ts; детей, которых не учат, расчёт не трогает (поток случайностей прежний).
+import { ERA_META } from '../content'
 import RULES from '../content/education.json'
 import MAR from '../content/marriage.json'
 import { chance, pick as pickOne, weighted as weightedOne } from './rng'
@@ -124,7 +125,8 @@ export function learnRate(child: Npc): number {
   const L = RULES.learn
   const u = child.upbringing ?? { affection: 50, discipline: 50, autonomy: 50, support: 50 }
   const traits = L.traits as Record<string, number>
-  return Math.max(0.3, L.base + child.traits.reduce((s, t) => s + (traits[t] ?? 0), 0) + u.discipline * L.discipline + u.support * L.support)
+  const extra = (child.tutor ? CARE.tutorLearn : 0) + (child.oversee ? CARE.overseeLearn : 0) - (child.education?.home ? CARE.homeSlower : 0)
+  return Math.max(0.3, L.base + child.traits.reduce((s, t) => s + (traits[t] ?? 0), 0) + u.discipline * L.discipline + u.support * L.support + extra)
 }
 
 /** Вероятность в этом году бросить учёбу: свобода - выше, ласка и хорошие отношения - ниже. */
@@ -132,7 +134,8 @@ export function refuseChance(child: Npc, age: number): number {
   const R = RULES.refuse
   if (age < R.from) return 0
   const u = child.upbringing ?? { affection: 50, discipline: 50, autonomy: 50, support: 50 }
-  return Math.max(0, Math.min(R.max, R.base + u.autonomy * R.autonomy + u.affection * R.affection + child.attitude * R.attitude))
+  const p = Math.max(0, Math.min(R.max, R.base + u.autonomy * R.autonomy + u.affection * R.affection + child.attitude * R.attitude))
+  return child.oversee ? p * CARE.overseeRefuse : p
 }
 
 /** Раз в год: воспитание меняет отношения и (в 14) характер; учёба идёт, если есть чем платить. */
@@ -160,6 +163,104 @@ export function childrenYear(state: GameState, era: EraDef | EraMeta): void {
       }
     }
     if (isStudying(child)) studyYear(state, era, child, age)
+    careYear(state, child, age)
+  }
+}
+
+// ---------- Забота о детях (вкладка «Близкие», 20.11) ----------
+// Учитель или гувернантка: плата раз в год, учёба быстрее, поддержка семьи растёт. Спорт или воинское учение: плата
+// раз в год с 6 до 15 лет, через trainYears лет - метка (наследник получает силу или воинский навык). Присмотр за учёбой:
+// бросают вдвое реже и учатся чуть быстрее, но ребёнок отдаляется. Учение своему делу: учит сам герой, бесплатно.
+
+/** Цены (доля годовых расходов сословия) и сила заботы. */
+export const CARE = { tutor: 0.2, training: 0.08, tutorLearn: 0.2, tutorSupport: 4, overseeLearn: 0.1, overseeRefuse: 0.5, overseeAttitude: -1, homeSlower: 0.1, trainFrom: 6, trainTo: 15, trainYears: 4, trainAttitude: 1 }
+
+const careBase = (state: GameState) => {
+  const upkeep = ERA_META[state.hero.era]?.classes.find((c) => c.id === state.hero.cls)?.upkeep ?? 150
+  return Math.max(80, upkeep)
+}
+export const tutorCost = (state: GameState) => Math.max(3, Math.round(careBase(state) * CARE.tutor))
+export const trainingCost = (state: GameState) => Math.max(2, Math.round(careBase(state) * CARE.training))
+
+const kidOf = (state: GameState, id: string) => state.hero.npcs.find((n) => n.id === id && n.role === 'child' && n.alive && !n.away)
+
+export function setTutor(state: GameState, childId: string, on: boolean): boolean {
+  const c = kidOf(state, childId)
+  if (!c || npcAge(c, state.year) >= 16) return false
+  c.tutor = on || undefined
+  return true
+}
+export function setTraining(state: GameState, childId: string, kind: 'sport' | 'military' | null): boolean {
+  const c = kidOf(state, childId)
+  const age = c ? npcAge(c, state.year) : 0
+  if (!c || age < CARE.trainFrom || age > CARE.trainTo) return false
+  c.training = kind ?? undefined
+  return true
+}
+export function setOversee(state: GameState, childId: string, on: boolean): boolean {
+  const c = kidOf(state, childId)
+  if (!c || !isStudying(c)) return false
+  c.oversee = on || undefined
+  return true
+}
+
+/** Направление учёбы, которое ведёт к делу героя (если есть такое в стране). */
+export function ownTradeTrack(state: GameState, era: EraMeta): EducationTrackDef | undefined {
+  const prof = era.professions.find((p) => p.id === state.hero.profession)
+  return prof ? educationTracks(era).find((t) => t.skill === prof.skill) : undefined
+}
+
+/** Учить своему делу: учёба дома у самого героя, без платы (чуть медленнее, чем у мастера). */
+export function teachOwnTrade(state: GameState, era: EraMeta, childId: string): boolean {
+  const c = kidOf(state, childId)
+  const track = ownTradeTrack(state, era)
+  const age = c ? npcAge(c, state.year) : 0
+  if (!c || !track || isStudying(c) || c.education?.completedYear || c.education?.refusedYear || age < track.ages[0] || age > track.ages[1]) return false
+  initializeChild(state, c)
+  c.education = { path: track.id, level: 0, startedYear: state.year, progress: 0, home: true }
+  note(state, { key: 'diary.kin.teach_own', params: { who: { name: c.name }, sex: c.sex, path: { key: `children.path.${track.id}` } }, topic: 'family', icon: 'child', score: 16, mood: 2 })
+  listener?.('education_selected', c, state, { path: track.id, home: 1 })
+  return true
+}
+
+/** Год заботы: плата учителю и за учение, их плоды, присмотр. */
+function careYear(state: GameState, child: Npc, age: number): void {
+  const hero = state.hero
+  const opts = { who: { name: child.name }, sex: child.sex }
+  if (child.tutor) {
+    if (age >= 16) child.tutor = undefined
+    else {
+      const cost = tutorCost(state)
+      if (hero.money >= cost) {
+        hero.money -= cost
+        child.upbringing!.support = clamp(child.upbringing!.support + CARE.tutorSupport)
+        note(state, { key: 'diary.kin.tutor_paid', params: { ...opts, money: cost }, topic: 'money', score: 4 })
+      } else {
+        child.tutor = undefined
+        note(state, { key: 'diary.kin.tutor_gone', params: opts, topic: 'family', score: 10, mood: -1 })
+      }
+    }
+  }
+  if (child.training) {
+    if (age > CARE.trainTo) child.training = undefined
+    else if (age >= CARE.trainFrom) {
+      const cost = trainingCost(state)
+      if (hero.money >= cost) {
+        hero.money -= cost
+        child.trainYears = (child.trainYears ?? 0) + 1
+        child.attitude = Math.min(100, child.attitude + CARE.trainAttitude)
+        note(state, { key: `diary.kin.train_paid.${child.training}`, params: { ...opts, money: cost }, topic: 'money', score: 4 })
+        const tag = `trained_${child.training}`
+        if (child.trainYears >= CARE.trainYears && !(child.tags ?? []).includes(tag)) {
+          child.tags = [...(child.tags ?? []), tag]
+          note(state, { key: `diary.kin.trained.${child.training}`, params: opts, topic: 'family', icon: 'child', score: 22, mood: 3, major: true })
+        }
+      } else child.training = undefined
+    }
+  }
+  if (child.oversee) {
+    if (!isStudying(child)) child.oversee = undefined
+    else child.attitude = Math.max(-100, child.attitude + CARE.overseeAttitude)
   }
 }
 
@@ -178,7 +279,7 @@ function studyYear(state: GameState, era: EraDef | EraMeta, child: Npc, age: num
     listener?.('education_refused', child, state, { path: track.id, progress: Math.round(e.progress * 100) })
     return
   }
-  const cost = educationCost(state, era, track)
+  const cost = e.home ? 0 : educationCost(state, era, track)
   if (hero.money < cost) {
     if (e.unpaidYear !== state.year - 1) note(state, { key: 'diary.edu_unpaid', params: { ...opts, money: cost }, topic: 'money', score: 12, mood: -2 })
     e.unpaidYear = state.year

@@ -7,6 +7,7 @@ import { chance } from './rng'
 import { emitEstate } from './estate'
 import { note } from './rules'
 import type { Asset, Estate, EraDef, GameState, Npc, Will } from './types'
+import { disputeK } from './kin'
 
 type Custom = 'equal' | 'sons_first' | 'youngest_hearth'
 const RULES = ASSETS.inheritance as { customs: Record<Custom, { disinherit: boolean }>; disputeChance: number; disputeCost: number; disputeAttitude: number }
@@ -139,8 +140,9 @@ export function estateForHeir(prev: GameState, next: GameState, era: EraDef, kid
   if (others.length) hero.diary.push({ ...at, key: 'diary.inherit_passed', params: { n: others.length, list: { name: [...new Set(others.map((p) => p.to))].join(', ') } }, topic: 'family', score: 18 })
   // Обойдённые завещанием против обычая: спор - судебные траты и обида.
   for (const id of res.slighted) {
-    if (id === heirId || !chance(next, RULES.disputeChance)) continue
     const kid = kids.find((k) => k.id === id)
+    // Тёплые к родителю дети спорят реже, холодные - чаще (вкладка «Близкие»).
+    if (id === heirId || !chance(next, Math.min(1, RULES.disputeChance * disputeK(kid?.attitude ?? 0)))) continue
     const cost = Math.round(kept.reduce((s, a) => s + a.value, 0) * RULES.disputeCost)
     hero.money -= cost
     const sib = hero.npcs.find((n) => n.name === kid?.name && n.role === 'sibling')

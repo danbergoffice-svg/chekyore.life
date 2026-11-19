@@ -29,7 +29,7 @@ export function Children({ state, era, onChange }: { state: GameState; era: EraD
   )
 }
 
-function ChildCard({ state, era, child, onChange }: { state: GameState; era: EraDef; child: Npc; onChange: () => void }) {
+export function ChildCard({ state, era, child, onChange }: { state: GameState; era: EraDef; child: Npc; onChange: () => void }) {
   const { t, lang } = useUi()
   const coin = regionOf(era, state.hero.region).coin
   const age = npcAge(child, state.year)
@@ -98,7 +98,7 @@ function ChildCard({ state, era, child, onChange }: { state: GameState; era: Era
   )
 }
 
-function MatchCard({ state, era, child, onChange }: { state: GameState; era: EraDef; child: Npc; onChange: () => void }) {
+export function MatchCard({ state, era, child, onChange }: { state: GameState; era: EraDef; child: Npc; onChange: () => void }) {
   const { t, lang } = useUi()
   const m = child.match!
   const coin = regionOf(era, state.hero.region).coin

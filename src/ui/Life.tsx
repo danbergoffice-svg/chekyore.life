@@ -48,6 +48,7 @@ import { Icon, IconText } from './Icon'
 import { EarlyGame } from '../kids/EarlyGame'
 import { Children } from './Children'
 import { Arms, houseName } from './Arms'
+import { KinTab } from './Kin'
 import { BusinessTiles, EstateTiles, HeroSections, HoldingsSummary, TradeLine, useHeroSection } from './Holdings'
 import { familyGoalProgress } from '../engine/dynasty'
 import { GOAL_STEPS, goalMark, professionClosesGoal } from '../engine/goals'
@@ -190,6 +191,18 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
   // Подписи «кто есть кто» на картинке дома: герой - по имени, родные - «Имя - кто он тебе».
   const castNames: Record<string, string> = { [hero.id]: `${nameOf(hero.name, lang)} - ${t('scene.you', {}, o)}` }
   for (const n of hero.npcs) if (n.alive) castNames[n.id] = `${nameOf(n.name, lang)} - ${t(`npc.${roleKey(hero.npcs, n)}`, { sex: n.sex }).toLocaleLowerCase(lang)}`
+  // Плашка паузы на вкладках-настройках («Герой», «Близкие»).
+  const pausedBanner = speed === 0 && state.phase !== 'dead' && (
+            <div class="hero-paused" role="status">
+              <span class="small">{t('hero.paused')}</span>
+              <button type="button" class="primary small" onClick={() => {
+                changeSpeed(autoPaused.current ?? 1)
+                platform.track('hero_resume', {})
+              }}>
+                <Icon name="play" /> {t('hero.resume')}
+              </button>
+            </div>
+          )
   // Вкладка «Герой» ставит паузу (жалобы 19.11: пока настраиваешь хозяйство, выскакивают события года).
   // Скорость до паузы - здесь; вернулся на другую вкладку - время идёт как шло. Игрок сам тронул скорость - не вмешиваемся.
   const autoPaused = useRef<Speed | null>(null)
@@ -198,10 +211,12 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
     setSpeed(s)
   }
   const openTab = (id: Tab) => {
-    if (id === 'hero' && tab !== 'hero' && speed > 0) {
+    // «Близкие» - тоже настройка (сватовство, учёба, забота о родных): та же пауза (20.11).
+    const still = (x: Tab) => x === 'hero' || x === 'people'
+    if (still(id) && !still(tab) && speed > 0) {
       autoPaused.current = speed
       setSpeed(0)
-    } else if (id !== 'hero' && autoPaused.current !== null) {
+    } else if (!still(id) && autoPaused.current !== null) {
       setSpeed(autoPaused.current)
       autoPaused.current = null
     }
@@ -664,17 +679,7 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
       {tab === 'hero' && (
         <section class="panel">
           {tabHint('tab_hero') && <Hint text={t('hint.tab_hero', {}, o)} onClose={() => closeHint('tab_hero')} />}
-          {speed === 0 && state.phase !== 'dead' && (
-            <div class="hero-paused" role="status">
-              <span class="small">{t('hero.paused')}</span>
-              <button type="button" class="primary small" onClick={() => {
-                changeSpeed(autoPaused.current ?? 1)
-                platform.track('hero_resume', {})
-              }}>
-                <Icon name="play" /> {t('hero.resume')}
-              </button>
-            </div>
-          )}
+          {pausedBanner}
           <FamilyLine state={state} />
           {/* Хозяйство рода (план 19.11, docs/TZ_hero.md): сводка, разделы, плитки - вместо длинной ленты. */}
           <HoldingsSummary state={state} era={era} />
@@ -753,8 +758,8 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
       {tab === 'people' && (
         <>
           {tabHint('tab_people') && <Hint text={t('hint.tab_people', {}, o)} onClose={() => closeHint('tab_people')} />}
-          <Children state={state} era={era} onChange={() => onFamily?.()} />
-          <People state={state} />
+          {pausedBanner}
+          <KinTab state={state} era={era} onChange={() => onFamily?.()} />
         </>
       )}
 
@@ -1258,7 +1263,7 @@ function maritalText(t: T, hero: Hero, lang: Lang, prefix: 'chapter' | 'marital'
 
 /** Роль, возраст, отношение, занятие - строкой; для вкладки «Люди» и для строки «кто это» в окне события. */
 /** Живёт под одной крышей с героем: супруг, неженатые дети, родители и братья-сёстры, пока герой молод. */
-function livesWithHero(hero: Hero, n: Npc, year: number): boolean {
+export function livesWithHero(hero: Hero, n: Npc, year: number): boolean {
   if (!n.alive || n.away) return false
   if (n.role === 'spouse') return true
   if (n.role === 'child') return !n.married
@@ -1268,7 +1273,7 @@ function livesWithHero(hero: Hero, n: Npc, year: number): boolean {
 }
 
 /** Подробности о человеке: год рождения, черты, учёба, дети. */
-function npcMore(t: T, lang: Lang, all: Npc[], n: Npc): string {
+export function npcMore(t: T, lang: Lang, all: Npc[], n: Npc): string {
   const kids = all.filter((x) => x.parentId === n.id).length
   const e = n.education
   const edu = e?.completedYear ? t('people.more.edu_done', { path: t(`children.path.${e.path}`), sex: n.sex }) : e?.startedYear && !e.refusedYear ? t('people.more.edu_now', { path: t(`children.path.${e.path}`) }) : ''
@@ -1282,7 +1287,7 @@ function npcMore(t: T, lang: Lang, all: Npc[], n: Npc): string {
     .join(' · ')
 }
 
-function npcFacts(t: T, lang: Lang, n: Npc, year: number): string {
+export function npcFacts(t: T, lang: Lang, n: Npc, year: number): string {
   if (n.alive && n.away) return t(`people.away.${n.away.reason}`, { sex: n.sex, year: formatYear(n.away.since, lang) })
   if (!n.alive) {
     const died = t('npc.dead', { sex: n.sex, year: formatYear(n.deathYear ?? year, lang) })

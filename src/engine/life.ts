@@ -611,6 +611,9 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // Учёба, которую дал родитель.
   const edu = educationSkill(era, child)
   if (edu) hero.skills[edu.skill] = Math.max(hero.skills[edu.skill] ?? 0, edu.value)
+  // Спорт и воинское учение в детстве (вкладка «Близкие»): сила и воинский навык.
+  if (child.tags?.includes('trained_sport')) hero.attrs.strength = Math.min(100, hero.attrs.strength + 8)
+  if (child.tags?.includes('trained_military') && 'military' in hero.skills) hero.skills.military = Math.max(hero.skills.military, 15)
 
   ownFamily(state, era, parent, child)
   if (moved) {

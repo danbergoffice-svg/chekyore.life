@@ -110,7 +110,7 @@ export function HeroSections({ sec, onPick }: { sec: HeroSection; onPick: (s: He
 }
 
 /** Нижняя шторка: подробности плитки и действия. */
-function Sheet({ title, onClose, children }: { title: string; onClose: () => void; children: ComponentChildren }) {
+export function Sheet({ title, onClose, children }: { title: string; onClose: () => void; children: ComponentChildren }) {
   const { t } = useUi()
   useEffect(() => {
     const h = (e: KeyboardEvent) => e.key === 'Escape' && onClose()

@@ -40,6 +40,7 @@ import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, star
 import { ERA_META, eraById, isEraLoaded } from '../content'
 import { estateOffers, estatePrice, offerAnswered } from './estate'
 import { applyPeril, assetPeril, perilParams } from './perils'
+import { kinYear } from './kin'
 import type { PerilAction } from './perils'
 import type { EstateKind } from './estate'
 import { chronicleSuccessor, eraEnding, summarize } from './life'
@@ -133,6 +134,8 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   selfHealYear(state)
   // Дети: воспитание и учёба (плата за год, окончание, отказ подростка).
   childrenYear(state, era)
+  // Близкие: тёплая родня выручает в долгах, с холодной - ссоры (engine/kin.ts).
+  kinYear(state)
   // Торговля и дела рода: запас портится, товарищества приносят прибыль или убыток.
   tradeYear(state)
   businessYear(state)

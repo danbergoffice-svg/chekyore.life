@@ -526,6 +526,8 @@ export interface ChildEducation {
   refusedYear?: number
   /** Год, когда не хватило денег платить (учёба стояла). */
   unpaidYear?: number
+  /** Учит сам герой своему делу дома: бесплатно, но чуть медленнее. */
+  home?: boolean
 }
 
 /** Воспитание 0–100: ласка, строгость, свобода, поддержка семьи; год последней перемены (одна в год). */
@@ -600,6 +602,13 @@ export interface Npc {
   upbringing?: ChildUpbringing
   /** Сватовство, которое ждёт решения (src/engine/children.ts). */
   match?: ChildMatch
+  /** Год, когда герой последний раз что-то делал для этого человека (engine/kin.ts: одно действие в год). */
+  careYear?: number
+  /** Детям (вкладка «Близкие», 20.11): учитель или гувернантка, спорт или воинское учение (и сколько лет), присмотр за учёбой. */
+  tutor?: boolean
+  training?: 'sport' | 'military'
+  trainYears?: number
+  oversee?: boolean
 }
 
 export interface NpcAway {
