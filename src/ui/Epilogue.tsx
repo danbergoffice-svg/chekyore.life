@@ -149,7 +149,7 @@ export function storyCards(t: T, life: LifeSummary, era: EraDef, lang: Lang, ent
   // Узор - спокойная картина того, чем герой жил: его ремесло, а без занятия - сословие.
   const skill = era.professions.find((p) => p.id === life.profession)?.skill
   const patternScene = (skill && SKILL_SCENES[skill]) || CLASS_SCENES[life.cls] || CLASS_SCENES.peasant
-  out.push({ id: 'pattern', tone: 'sky', big: t(`archetype.${r.pattern.code}`, {}, o), label: t('pattern.title'), text: sides.join(' · ') || undefined, scene: still('pattern', patternScene) })
+  out.push({ id: 'pattern', tone: 'sky', big: t(`archetype.${r.pattern.code}`, {}, o), label: t('pattern.title'), text: sides.length ? `${t('pattern.explain')}: ${sides.join(' · ')}.` : t('pattern.disclaimer.no_best_life'), scene: still('pattern', patternScene) })
   if (quote) out.push({ id: 'quote', tone: 'paper', big: '', quote, scene: still('quote', { place: 'landmark', time: 'sunset', people: 0, props: ['sun'] }) })
   return out
 }
@@ -260,7 +260,7 @@ export function StoryCards({ life, cards }: { life: LifeSummary; cards: Story[] 
             ) : (
               <>
                 {c.label && <p class="story-label">{c.label}</p>}
-                <p class={`story-big${c.big.length > 9 ? ' long' : ''}`}>{c.big}</p>
+                <p class={`story-big${c.big.length > 11 ? ' long' : c.big.length > 6 ? ' mid' : ''}`}>{c.big}</p>
                 {c.text && <p class="story-text">{c.text}</p>}
               </>
             )}

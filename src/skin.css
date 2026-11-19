@@ -294,7 +294,9 @@ html.skin .story-portraits { display: flex; gap: 6px; }
 html.skin .story-portraits canvas { width: calc((100% - 18px) / 4) !important; min-width: 0; height: auto !important; background: #e2d3b3; }
 html.skin .story-label { margin: auto 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
 html.skin .story-big { font-family: var(--font-display); font-size: 56px; line-height: 1; margin: 6px 0 8px; }
+html.skin .story-big.mid { font-size: 40px; line-height: 1.05; }
 html.skin .story-big.long { font-size: 34px; line-height: 1.1; }
+html.skin .story-big { overflow-wrap: anywhere; }
 html.skin .story-label + .story-big, html.skin .story-big:first-child { margin-top: 6px; }
 html.skin .story > .story-big:first-of-type:not(:first-child) { margin-top: auto; }
 html.skin .story-text { margin: 0; font-size: 16px; line-height: 1.4; }
@@ -516,3 +518,12 @@ html.skin .hold-cond > span.low { background: #b4492b; }
 html.skin .hold-will { display: block; margin: 4px 0 0; }
 html.skin .hold-offers { display: grid; gap: 8px; }
 html.skin .hold-market { width: 100%; }
+
+/* Кто есть кто на картинке дома (20.11): невидимые зоны людей; подпись - при наведении мышью или касании. */
+.scene-who { position: relative; }
+html.skin .panel > .scene-who { margin-bottom: 12px; }
+html.skin .panel > .scene-who > .scene { clip-path: var(--rough-c); border-radius: 0; margin: 0; }
+.scene-spot { position: absolute; padding: 0; margin: 0; border: 0; background: transparent; cursor: help; min-width: 0; min-height: 0; }
+.scene-spot-label { position: absolute; left: 50%; bottom: 100%; transform: translate(-50%, -4px); white-space: nowrap; padding: 3px 7px; font-size: 12px; font-weight: 700;
+  background: var(--sheet, #f3ead7); color: var(--night, #16213a); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35); opacity: 0; pointer-events: none; transition: opacity 0.15s; z-index: 2; }
+.scene-spot:hover .scene-spot-label, .scene-spot:focus .scene-spot-label, .scene-spot:focus-visible .scene-spot-label { opacity: 1; }

@@ -187,6 +187,9 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
   const selected = focuses.find((f) => f.id === focus)?.id ?? focuses.find((f) => f.id === 'work')?.id ?? focuses[0]?.id ?? null
   const [speed, setSpeed] = useState<Speed>(1)
   const [heroSec, setHeroSec] = useHeroSection(hero.age >= era.stages.adult)
+  // Подписи «кто есть кто» на картинке дома: герой - по имени, родные - «Имя - кто он тебе».
+  const castNames: Record<string, string> = { [hero.id]: `${nameOf(hero.name, lang)} - ${t('scene.you', {}, o)}` }
+  for (const n of hero.npcs) if (n.alive) castNames[n.id] = `${nameOf(n.name, lang)} - ${t(`npc.${roleKey(hero.npcs, n)}`, { sex: n.sex }).toLocaleLowerCase(lang)}`
   // Вкладка «Герой» ставит паузу (жалобы 19.11: пока настраиваешь хозяйство, выскакивают события года).
   // Скорость до паузы - здесь; вернулся на другую вкладку - время идёт как шло. Игрок сам тронул скорость - не вмешиваемся.
   const autoPaused = useRef<Speed | null>(null)
@@ -596,7 +599,7 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
       )}
       {tab === 'life' && (
         <section class="panel">
-          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} year={state.year} ambient />
+          <Scene scene={yearScene} region={hero.region} seed={`${hero.id}:home`} cast={familyCast(state)} names={castNames} paused={speed === 0} season={season} weather={weatherFor(hero.region, season, state.year, hero.id)} mood={moodFor(hero.tags, hero.diary, state.year)} year={state.year} ambient />
 
           {stage === 'infancy' || focuses.length === 0 ? (
             <p class="muted">{t('life.infancy', {}, o)}</p>
@@ -1474,7 +1477,8 @@ function EventModal({ state, era, onChoose, onDismiss, changes, marks, short, on
               </button>
             )}
           </div>
-          {who && (
+          {/* Окно имени новорождённого: имени ещё нет - строку о нём покажем после выбора (жалоба 20.11). */}
+          {who && !(ev.dynamic === 'name' && !outcome) && (
             <p class="event-who">
               <b>{nameOf(who.name, lang)}</b>{'\u00a0— '}{t(`npc.${roleKey(hero.npcs, who)}`, { sex: who.sex }).toLocaleLowerCase(lang)} · {npcFacts(t, lang, who, state.year)}
             </p>

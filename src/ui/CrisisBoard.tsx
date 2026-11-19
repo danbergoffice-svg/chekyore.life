@@ -286,6 +286,10 @@ export function CrisisBoard(props: { state: GameState; era: EraDef; stance: Stan
         <span class="chip-static">{t('crisis.stake')}: {statName(stakes[0])} {Math.round(hero.attrs[stakes[0] as 'health'] ?? hero.hidden[stakes[0] as 'faith'] ?? 0)}</span>
         <span class="chip-static">{statName(stakes[1])} {Math.round(hero.attrs[stakes[1] as 'health'] ?? hero.hidden[stakes[1] as 'faith'] ?? 0)}</span>
       </div>
+      {/* Что значит «на кону» (жалоба 20.11: формулировкам не хватало пояснения). */}
+      <p class="small muted crisis-hint">
+        {t('crisis.stake_hint')} {t(stakes.every((p) => (hero.attrs[p as 'health'] ?? hero.hidden[p as 'faith'] ?? 0) >= 60) ? 'crisis.stake_ready' : 'crisis.stake_grow', {}, o)}
+      </p>
       <p class="small muted crisis-hint">{t(`crisis.hint.${stance}`, {}, o)}</p>
       <div class={`crisis-board ${showSecondBoard ? 'second' : ''}`}>
         {showSecondBoard ? (

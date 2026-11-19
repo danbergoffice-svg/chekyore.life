@@ -19,7 +19,7 @@ import type { IconName } from './icons'
 import { useUi } from './text'
 
 export type HeroSection = 'estate' | 'business' | 'trade' | 'me'
-export const HERO_SECTIONS: HeroSection[] = ['estate', 'business', 'trade', 'me']
+export const HERO_SECTIONS: HeroSection[] = ['me', 'estate', 'business', 'trade']
 
 const ASSET_ICON: Record<string, IconName> = { farm: 'barn', workshop: 'hammer', shop: 'stall', house: 'building', warehouse: 'store' }
 const BIZ_ICON: Record<string, IconName> = { artel: 'hammer', trading_house: 'scales', caravan: 'cart', shipping: 'ship' }
@@ -74,11 +74,11 @@ export function HoldingsSummary({ state, era }: { state: GameState; era: EraDef 
   )
 }
 
-/** Переключатель разделов вкладки: Хозяйство · Дела · Торговля · Я. Выбор помнится в этом браузере. */
-export function useHeroSection(adult: boolean): [HeroSection, (s: HeroSection) => void] {
+/** Переключатель разделов вкладки: Я · Хозяйство · Дела · Торговля («Я» - первым, просьба 20.11). Выбор помнится в этом браузере. */
+export function useHeroSection(_adult: boolean): [HeroSection, (s: HeroSection) => void] {
   const [sec, setSec] = useState<HeroSection>(() => {
     const saved = platform.kvGet('thousands.hero_section') as HeroSection | null
-    return saved && HERO_SECTIONS.includes(saved) ? saved : adult ? 'estate' : 'me'
+    return saved && HERO_SECTIONS.includes(saved) ? saved : 'me'
   })
   useEffect(() => {
     platform.kvSet('thousands.hero_section', sec)

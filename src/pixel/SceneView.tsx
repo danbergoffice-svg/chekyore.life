@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import type { SceneDef } from '../engine/types'
 import { buildScene, composeScene, H, lookOf, sceneSize, W } from './scene'
 import { frameImage } from './art'
-import { buildPainted, composePainted, paintedEnabled, PH, PW } from './painted'
+import { boxOf, buildPainted, composePainted, paintedEnabled, PH, PW } from './painted'
 import type { PaintedScene } from './painted'
 import type { BuiltScene, Cast, SceneMood } from './scene'
 import type { Weather } from './fx'
@@ -56,10 +56,12 @@ const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(pre
  * Анимируется, только когда видна на экране; стоит на паузе игры (paused), в скрытой вкладке,
  * при prefers-reduced-motion и в неподвижных местах (still: лента итогов, дневник) - тогда один кадр.
  */
-export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean; art?: 'half' | 'full' | 'none'; year?: number; frame?: boolean; onNoPainted?: () => void }) {
+export function Scene(props: { scene: SceneDef; region: string; seed: string; label?: string; cast?: Cast; names?: Record<string, string>; season?: number; weather?: Weather | null; mood?: SceneMood; still?: boolean; paused?: boolean; ambient?: boolean; art?: 'half' | 'full' | 'none'; year?: number; frame?: boolean; onNoPainted?: () => void }) {
   const { scene, region, seed, label, cast, season, weather, mood, still, paused, ambient, art, year, frame } = props
   const ref = useRef<HTMLCanvasElement>(null)
   const t = useRef(0)
+  // Кто есть кто (просьба 20.11): зоны людей семьи в кадре - подпись при наведении мышью или касании.
+  const [spots, setSpots] = useState<{ x: number; y: number; w: number; h: number; who: string }[]>([])
   const input = { scene, region, seed, cast, season, weather, mood, art, year }
   const key = JSON.stringify(input) + (paintedEnabled() ? ':painted' : '')
   const live = useRef({ paused, still })
@@ -105,6 +107,12 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
         }
         painted = p
         composePainted(ctx, p, t.current)
+        setSpots(
+          p.plan.layers.flatMap((l) => {
+            const b = l.who ? boxOf(p, l) : null
+            return b ? [{ x: (b.x0 / PW) * 100, y: (b.y0 / PH) * 100, w: ((b.x1 - b.x0) / PW) * 100, h: ((b.y1 - b.y0) / PH) * 100, who: l.who! }] : []
+          }),
+        )
       })
     }
     const draw = () => (painted ? composePainted(ctx, painted, t.current) : pixel ? composeScene(ctx, built, t.current) : undefined)
@@ -139,6 +147,18 @@ export function Scene(props: { scene: SceneDef; region: string; seed: string; la
   }, [key, still, ambient])
 
   const canvas = <canvas ref={ref} class="scene" width={W} height={H} role="img" aria-label={label} />
+  const named = props.names ? spots.filter((s) => props.names![s.who]) : []
+  if (!frame && props.names)
+    return (
+      <div class="scene-who">
+        {canvas}
+        {named.map((s) => (
+          <button type="button" class="scene-spot" style={{ left: `${s.x}%`, top: `${s.y}%`, width: `${s.w}%`, height: `${s.h}%` }} aria-label={props.names![s.who]} title={props.names![s.who]}>
+            <span class="scene-spot-label">{props.names![s.who]}</span>
+          </button>
+        ))}
+      </div>
+    )
   if (!frame) return canvas
   // Рамка-орнамент края (G5): пиксельный узор, нарисованный кодом.
   const img = frameImage(lookOf(region).style, year)

@@ -97,6 +97,8 @@ export interface Placed {
   wide?: number
   /** Группа раскладки (галерея: перетаскивание меняет её x/y в painted-layout.json). */
   group?: 'home' | 'street' | 'people' | 'animals' | 'props'
+  /** Человек из семьи героя: его id (CastMember.seed) - для подписи «кто есть кто» при наведении. */
+  who?: string
 }
 
 export interface PaintedPlan {
@@ -107,8 +109,9 @@ export interface PaintedPlan {
 }
 
 const INDOOR = new Set(['workshop', 'school', 'bath'])
-/** Стили, у которых картинка праздника с чужими зданиями и панно (проверка 18.11, tools/fx-sheet.html). */
-const FEAST_CODE = new Set(['byzantine', 'chinese', 'japanese', 'sahel'])
+/** Стили, у которых картинка праздника с чужими зданиями и панно (проверка 18.11, tools/fx-sheet.html), а у римского и
+ *  готического - электрические лампочки, у монгольского - пейзаж вместо гирлянд (жалоба 20.11): гирлянды рисует код. */
+const FEAST_CODE = new Set(['byzantine', 'chinese', 'japanese', 'sahel', 'roman', 'gothic', 'mongol'])
 /** Слои-фоны: рисуются во всю ширину кадра от своей точки (x, y), а не «ногами на линию земли». */
 export const BACKDROPS = new Set(['sky', 'interior', 'far', 'landmark', 'ground'])
 const WITH_LANDMARK = new Set(['landmark', 'street', 'market', 'temple', 'palace', 'harbor', 'arena', 'tomb', 'river', 'road', 'sea'])
@@ -240,7 +243,7 @@ export function planPainted(input: SceneInput, index: ArtIndex): PaintedPlan | n
     members.forEach((m, i) => {
       const v = personVariant(m.seed || `${seed}:${i}`, m.role === 'hero')
       const k = personKey(index, m.cls, m.sex, m.age, v.pose)
-      if (k) people.push({ key: k, x: start + i * step, y: G + 8 + Y.people.y, group: 'people', flip: m.role === 'hero' ? false : v.flip, h: (scaled(index, k, Y.people.scale) ?? index[k]?.[5] ?? 0) * v.size || undefined, wide: v.wide, hue: v.hue })
+      if (k) people.push({ key: k, who: m.seed, x: start + i * step, y: G + 8 + Y.people.y, group: 'people', flip: m.role === 'hero' ? false : v.flip, h: (scaled(index, k, Y.people.scale) ?? index[k]?.[5] ?? 0) * v.size || undefined, wide: v.wide, hue: v.hue })
     })
   } else {
     const n = Math.max(0, Math.min(6, scene.people ?? 2))
