@@ -48,9 +48,8 @@ import { Icon, IconText } from './Icon'
 import { EarlyGame } from '../kids/EarlyGame'
 import { Children } from './Children'
 import { Arms, houseName } from './Arms'
+import { BusinessTiles, EstateTiles, HeroSections, HoldingsSummary, TradeLine, useHeroSection } from './Holdings'
 import { familyGoalProgress } from '../engine/dynasty'
-import { Estate } from './Estate'
-import { Trade } from './Trade'
 import { GOAL_STEPS, goalMark, professionClosesGoal } from '../engine/goals'
 import type { GoalId } from '../engine/goals'
 import type { GoalGroup } from '../goal'
@@ -187,6 +186,7 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
   const [focus, setFocus] = useState<string | null>(state.lastFocus)
   const selected = focuses.find((f) => f.id === focus)?.id ?? focuses.find((f) => f.id === 'work')?.id ?? focuses[0]?.id ?? null
   const [speed, setSpeed] = useState<Speed>(1)
+  const [heroSec, setHeroSec] = useHeroSection(hero.age >= era.stages.adult)
   // Вкладка «Герой» ставит паузу (жалобы 19.11: пока настраиваешь хозяйство, выскакивают события года).
   // Скорость до паузы - здесь; вернулся на другую вкладку - время идёт как шло. Игрок сам тронул скорость - не вмешиваемся.
   const autoPaused = useRef<Speed | null>(null)
@@ -612,7 +612,10 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
               onPick={setFocus}
               o={o}
               hint={hintFor('focus', hero.age >= 5) ? <Hint text={t('hint.focus', {}, o)} onClose={() => closeHint('focus')} /> : null}
-              lifestyle={lifestyleDefs(state, era).length > 0 ? () => openTab('hero') : null}
+              lifestyle={lifestyleDefs(state, era).length > 0 ? () => {
+                setHeroSec('me')
+                openTab('hero')
+              } : null}
             />
           )}
 
@@ -670,8 +673,14 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
             </div>
           )}
           <FamilyLine state={state} />
-          {/* Деньги - первой строкой (отзыв игрока 03.11: «не нашёл, где моё богатство»). */}
-          <p class="hero-money"><strong>{t('hero.money')}:</strong> {formatMoney(t, hero.money, coin)}{hero.money < 0 ? ` · ${t('hero.in_debt')}` : ''}</p>
+          {/* Хозяйство рода (план 19.11, docs/TZ_hero.md): сводка, разделы, плитки - вместо длинной ленты. */}
+          <HoldingsSummary state={state} era={era} />
+          <HeroSections sec={heroSec} onPick={setHeroSec} />
+          {heroSec === 'estate' && <EstateTiles state={state} era={era} onChange={() => onFamily?.()} />}
+          {heroSec === 'business' && <BusinessTiles state={state} era={era} onChange={() => onFamily?.()} />}
+          {heroSec === 'trade' && <TradeLine state={state} era={era} onChange={() => onFamily?.()} />}
+          {heroSec === 'me' && (
+            <>
           {/* Как устроена жизнь героя (отзывы игроков 03–08.11: «не понимаю, что значат параметры и фокус»). */}
           <details class="howto small">
             <summary>{t('howto.title')}</summary>
@@ -709,22 +718,6 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
               {hero.abroad.planned && <p>{t('abroad.planned')}</p>}
             </div>
           )}
-          <p class="small">
-            <strong>{t('hero.home')}:</strong> {t(`home.${hero.home ?? 1}`, {}, o)}
-            {hero.rent && <> ({t('hero.rent', { sum: formatMoney(t, rentPerMonth(hero.rent), coin) })})</>}
-            {!!hero.land && <> · <strong>{t('hero.land')}:</strong> {t('hero.land_n', { n: hero.land })}</>}
-            {!!hero.slaves && <> · <strong>{t('hero.slaves')}:</strong> {hero.slaves}</>} · <strong>{t('hero.animals')}:</strong>{' '}
-            {hero.animals?.length
-              ? hero.animals
-                  .map((a) =>
-                    // Питомец - с кличкой и возрастом: «пёс Полкан, 7 лет».
-                    isPet(a.kind)
-                      ? `${t(`pet.${a.kind}`, {}, o)}${a.name ? ` ${nameOf(a.name, lang)}` : ''}${a.born !== undefined ? `, ${t('hero.pet_age', { n: Math.max(0, state.year - a.born) })}` : ''}`
-                      : t(`animal.${a.kind}`, {}, o),
-                  )
-                  .join('; ')
-              : t('hero.no_animals')}
-          </p>
           <div class="bars">
             {ATTRIBUTES.map((id) => <Bar label={t(`attr.${id}`)} value={hero.attrs[id]} />)}
           </div>
@@ -736,8 +729,6 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
           )}
           <Lifestyle state={state} era={era} coin={coin} onChange={onLifestyle} />
           <Career state={state} era={era} onChange={() => onFamily?.()} />
-          <Estate state={state} era={era} onChange={() => onFamily?.()} />
-          <Trade state={state} era={era} onChange={() => onFamily?.()} />
           <h2 class="section-title">{t('hero.traits')}</h2>
           <p>{hero.traits.map((tr) => t(`trait.${tr}`)).join(', ')}</p>
           <h2 class="section-title">{t('hero.skills')}</h2>
@@ -750,6 +741,8 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
                 .sort((a, b) => b[1] - a[1])
                 .map(([id, v]) => <Bar label={t(`skill.${id}`)} value={v} />)}
             </div>
+          )}
+            </>
           )}
         </section>
       )}

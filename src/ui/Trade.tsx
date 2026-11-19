@@ -7,7 +7,7 @@ import type { Business, EraDef, GameState } from '../engine/types'
 import { formatMoney, nameOf } from '../i18n'
 import { useUi } from './text'
 
-export function Trade({ state, era, onChange }: { state: GameState; era: EraDef; onChange: () => void }) {
+export function Trade({ state, era, onChange, marketOnly }: { state: GameState; era: EraDef; onChange: () => void; marketOnly?: boolean }) {
   const { t } = useUi()
   const coin = regionOf(era, state.hero.region).coin
   const money = (n: number) => formatMoney(t, n, coin)
@@ -56,12 +56,12 @@ export function Trade({ state, era, onChange }: { state: GameState; era: EraDef;
           })}
         </ul>
       </section>
-      <Businesses state={state} era={era} money={money} act={act} adult={adult} />
+      {!marketOnly && <Businesses state={state} era={era} money={money} act={act} adult={adult} />}
     </>
   )
 }
 
-function Businesses({ state, era, money, act, adult }: { state: GameState; era: EraDef; money: (n: number) => string; act: (fn: () => unknown) => void; adult: boolean }) {
+export function Businesses({ state, era, money, act, adult }: { state: GameState; era: EraDef; money: (n: number) => string; act: (fn: () => unknown) => void; adult: boolean }) {
   const { t, lang } = useUi()
   const list = (state.family.trade?.businesses ?? []).filter((b) => b.active)
   const offers = businessTypes().filter((ty) => {
@@ -97,7 +97,7 @@ function Businesses({ state, era, money, act, adult }: { state: GameState; era: 
   )
 }
 
-function BizRow({ state, b, money, act, lang }: { state: GameState; b: Business; money: (n: number) => string; act: (fn: () => unknown) => void; lang: string }) {
+export function BizRow({ state, b, money, act, lang }: { state: GameState; b: Business; money: (n: number) => string; act: (fn: () => unknown) => void; lang: string }) {
   const { t } = useUi()
   const cands = partnerCandidates(state, b)
   const stake = heroStake(b)

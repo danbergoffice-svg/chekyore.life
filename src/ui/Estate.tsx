@@ -2,7 +2,7 @@
 // продажа и завещание. Ничего не всплывает само - итоги года и раздел наследства идут записями в дневник.
 import { useState } from 'preact/hooks'
 import ASSETS from '../content/assets.json'
-import { acquireAsset, assetDef, assetLock, assetPrice, canImprove, estatePrice, estateValue, heroShare, homeUpgradeLock, improveAsset, improveCost, pledgeAsset, redeemAsset, saleValue, sellAsset, upgradeHome } from '../engine/estate'
+import { acquireAsset, assetDef, assetLock, assetPrice, canImprove, canRepair, conditionK, repairAsset, repairCost, estatePrice, estateValue, heroShare, homeUpgradeLock, improveAsset, improveCost, pledgeAsset, redeemAsset, saleValue, sellAsset, upgradeHome } from '../engine/estate'
 import { createWill, customDistribution, validateWill } from '../engine/inheritance'
 import { heirs } from '../engine/life'
 import { regionOf } from '../engine/rules'
@@ -54,7 +54,7 @@ export function Estate({ state, era, onChange }: { state: GameState; era: EraDef
           {offers.map((ty) => (
             <button type="button" class="option small" disabled={!!assetLock(state, ty)} onClick={() => act(() => acquireAsset(state, { type: ty }))}>
               <span class="option-label">{t(`asset.${ty}`, {}, { region: state.hero.region })}</span>
-              <span class="option-desc">{t('estate.buy.desc', { money: money(assetPrice(state, ty)), income: money(Math.round(assetPrice(state, ty) * (assetDef(ty)!.income - assetDef(ty)!.maintenance))) })}</span>
+              <span class="option-desc">{t('estate.buy.desc', { money: money(assetPrice(state, ty)), income: money(usualNet(state, ty)) })}</span>
             </button>
           ))}
         </div>
@@ -64,8 +64,31 @@ export function Estate({ state, era, onChange }: { state: GameState; era: EraDef
   )
 }
 
+/** Чистый доход нового хозяйства в обычный год: средняя сохранность, содержание и подать (как считает assetsYear). */
+const usualNet = (state: GameState, ty: AssetType) => Math.round(assetPrice(state, ty) * (assetDef(ty)!.income * conditionK(80) - assetDef(ty)!.maintenance - ASSETS.tax))
+
+/** Что можно купить сейчас (или почти: не хватает денег) - для шторки «Купить» на вкладке «Герой». */
+export function BuyOffers({ state, money, act }: { state: GameState; money: (n: number) => string; act: (fn: () => unknown) => void }) {
+  const { t } = useUi()
+  const offers = TYPES.filter((ty) => {
+    const lock = assetLock(state, ty)
+    return !lock || lock === 'estate.lock.money'
+  })
+  if (!offers.length) return <p class="small muted">{t('hold.buy_none')}</p>
+  return (
+    <div class="hold-offers">
+      {offers.map((ty) => (
+        <button type="button" class="option small" disabled={!!assetLock(state, ty)} onClick={() => act(() => acquireAsset(state, { type: ty }))}>
+          <span class="option-label">{t(`asset.${ty}`, {}, { region: state.hero.region })}</span>
+          <span class="option-desc">{t('estate.buy.desc', { money: money(assetPrice(state, ty)), income: money(usualNet(state, ty)) })}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
 /** Свой дом: окно «Дом побольше» приходит раз за жизнь (решение владельца 10.11), дальше дом перестраивают здесь. */
-function HomeRow({ state, money, act }: { state: GameState; money: (n: number) => string; act: (fn: () => unknown) => void }) {
+export function HomeRow({ state, money, act }: { state: GameState; money: (n: number) => string; act: (fn: () => unknown) => void }) {
   const { t } = useUi()
   const hero = state.hero
   const o = { sex: hero.sex }
@@ -84,7 +107,7 @@ function HomeRow({ state, money, act }: { state: GameState; money: (n: number) =
   )
 }
 
-function AssetRow({ state, a, money, act }: { state: GameState; a: Asset; money: (n: number) => string; act: (fn: () => unknown) => void }) {
+export function AssetRow({ state, a, money, act }: { state: GameState; a: Asset; money: (n: number) => string; act: (fn: () => unknown) => void }) {
   const { t } = useUi()
   const share = heroShare(state, a)
   return (
@@ -96,6 +119,11 @@ function AssetRow({ state, a, money, act }: { state: GameState; a: Asset; money:
         {a.pledged ? ` · ${t('estate.pledged', { money: money(a.pledged) })}` : ''}
       </span>
       <span class="choice-row">
+        {a.condition < 100 && (
+          <button type="button" class="option small" disabled={!canRepair(state, a)} onClick={() => act(() => repairAsset(state, a.id))}>
+            {t('hold.repair', { money: money(repairCost(a)) })}
+          </button>
+        )}
         {(a.level ?? 0) < ASSETS.improve.maxLevel && (
           <button type="button" class="option small" disabled={!canImprove(state, a)} onClick={() => act(() => improveAsset(state, a.id))}>
             {t('estate.improve', { money: money(improveCost(a)) })}
@@ -118,7 +146,7 @@ function AssetRow({ state, a, money, act }: { state: GameState; a: Asset; money:
   )
 }
 
-function WillEditor({ state, era, onChange, lang }: { state: GameState; era: EraDef; onChange: () => void; lang: string }) {
+export function WillEditor({ state, era, onChange, lang }: { state: GameState; era: EraDef; onChange: () => void; lang: string }) {
   const { t } = useUi()
   const kids = heirs(state)
   const assets = (state.family.estate?.assets ?? []).filter((a) => heroShare(state, a) > 0)
