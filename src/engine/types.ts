@@ -743,6 +743,11 @@ export interface Hero {
   home: number
   /** Свои наделы земли и рабы (engine/estate.ts); нет поля - нет владений. */
   land?: number
+  /** Что сеют на наделах (src/content/crops.json) и куда урожай: в запас рода (true) или сразу на рынок. */
+  crop?: string
+  cropStore?: boolean
+  /** Урожай прошлого года: культура, мер, сколько в запас, выручка. */
+  lastHarvest?: { year: number; crop: string; units: number; stored: number; money: number }
   slaves?: number
   /** Предложения покупки (аудит 10.11, решение владельца №7): сколько раз подряд отказался от земли. */
   landRefused?: number
@@ -947,6 +952,8 @@ export interface FamilyTrade {
   businesses: Business[]
   /** Итог личной торговли за всё время рода (прибыль минус убыток). */
   profit?: number
+  /** Где лежит запас (край): переехал - с собой только часть (engine/trade.ts relocateStock). */
+  region?: string
 }
 
 /** Вид семейного актива. Наделы земли пока считаются в Hero.land (совместимость), здесь - хозяйства и дела. */

@@ -8,6 +8,7 @@
 // в Китае, Японии и христианской Эфиопии такого выбора нет: там зависимые люди - крепостные и слуги при земле.
 import { ERA_META } from '../content'
 import { HOME_COST } from './household'
+import { harvestYear } from './crops'
 import { chance, int } from './rng'
 import { changeParam, faithMatches, HOME_TAGS, note } from './rules'
 import ASSETS from '../content/assets.json'
@@ -206,9 +207,10 @@ export function estateYear(state: GameState): void {
   // Урожай: от плохого до богатого; рабы на земле поднимают доход с неё.
   const before = hero.money
   if (land) {
+    // Урожай выбранной культуры (engine/crops.ts): на рынок по цене года или в запас рода.
     const harvest = 0.4 + int(state, 0, 10) / 10
     const hands = Math.min(1.25, 1 + (hero.slaves ?? 0) * 0.05)
-    hero.money += Math.round(land * LAND_INCOME * harvest * hands)
+    harvestYear(state, harvest * hands)
   }
   if (hero.slaves) hero.money += hero.slaves * SLAVE_INCOME
   ledger(state).land += hero.money - before

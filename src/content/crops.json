@@ -1,0 +1,15 @@
+{
+  "_doc": "Что сеять на наделах (src/engine/crops.ts, 20.11). Культура есть в стране по needs (features) или eras; notEras - где её нет. good - во что превращается урожай (товар рынка, goods.json); yield - мер с надела в средний год (подобрано так, чтобы надел в среднем давал прежние ~30 в год; дорогие культуры - меньше мер и сильнее качаются в цене).",
+  "crops": [
+    { "id": "wheat", "good": "grain", "yield": 3.3, "notEras": ["AMR", "MAY"] },
+    { "id": "rice", "good": "rice", "yield": 2.8, "needs": ["rice"] },
+    { "id": "maize", "good": "maize", "yield": 3.7, "eras": ["AMR", "MAY"] },
+    { "id": "grapes", "good": "wine", "yield": 1.1, "needs": ["wine"] },
+    { "id": "olives", "good": "olive_oil", "yield": 1.2, "needs": ["olive"] },
+    { "id": "tea", "good": "tea", "yield": 0.85, "needs": ["tea"] },
+    { "id": "dates", "good": "dates", "yield": 2.4, "eras": ["ANE", "ISL", "E03", "WAF"] },
+    { "id": "flax", "good": "cloth", "yield": 1.3, "eras": ["EUR", "RUS", "ANE", "E03", "BYZ"] },
+    { "id": "cotton", "good": "cloth", "yield": 1.3, "eras": ["IND", "ISL", "WAF", "AMR", "MAY"] },
+    { "id": "cacao", "good": "cacao", "yield": 1, "eras": ["AMR", "MAY"] }
+  ]
+}

@@ -242,7 +242,7 @@ export const SAMPLE_PARAMS = {
   grand: 2, alive: 1, side: 'x', mood: 1, skill: 'x', years: 'x', archetype: 'x', diff: 1, cost: 'x', d: '+1', faith: 'x', other_faith: 'x', capital: 'x', from: 'x', era: 'x', top: 'x', home: 'x', animal: 'x', born: 'x', died: 'x', focus: 'x', via: 'x', role: 'x',
   gift: 'x', desc: 'x', to: 'x', count: '1 234', sum: 'x', m: 2, goal: 'x', step: 'x', band: 'x', what: 'x', b: 1, have: 1, game: 'x', s: 'x', why: 'x', rent: 1,
   price: '1 234', coin: 'x', land: 2, slaves: 2, ill: 'x', path: 'x', level: 'x', f: 1, trait: 'x', yrs: 3, income: 1, form: 'x', buy: 1, sell: 1, max: 20, rep: 30, gens: 3, countries: 'x', losses: 1, need: 3, hook: 'x', suitor: 'x', email: 'x',
-  age: 40, slot: 'x', outcome: 'x', rebuild: '1 234', ruins: 12, bribe: 30, court: 8, sue: 10,
+  age: 40, slot: 'x', outcome: 'x', rebuild: '1 234', ruins: 12, bribe: 30, court: 8, sue: 10, unit: 'x', good: 'x', crop: 'x', stored: '',
 }
 
 /** Ключи, в которых после подстановки остались фигурные скобки. */
