@@ -199,3 +199,33 @@ describe('Живописные сцены', () => {
     expect(paintedOn('painted', { painted_share: 0 })).toBe(false)
   })
 })
+
+// Жалоба 19.11: у Марфы (Русь, посадские, 71 год) на надгробии старик - часть портретов-лиц нарисована не тем полом.
+describe('Портрет героя - того же пола', () => {
+  it('отбракованные картинки есть в наборах (без опечаток), подбор их не выдаёт и берёт портрет сословия', async () => {
+    const { PORTRAIT_REJECTS } = await import('../src/pixel/painted')
+    for (const r of PORTRAIT_REJECTS) {
+      const [style, key] = r.split('/')
+      expect(index(style)[key], r).toBeTruthy()
+    }
+    const ix = index('russian')
+    expect(portraitKey(ix, { region: 'novgorod', sex: 'f', age: 71, cls: 'craftsman', face: 2 })).toBe('portrait.craftsman_f_elder')
+    expect(portraitKey(ix, { region: 'novgorod', sex: 'f', age: 71, cls: 'peasant', face: 2 })).toBe('portrait.face2_f_elder_poor')
+  })
+
+  it('ни в одном крае, сословии, возрасте и лице не выпадает отбракованный портрет или портрет другого пола', async () => {
+    const { PORTRAIT_REJECTS } = await import('../src/pixel/painted')
+    for (const region of regions) {
+      const style = lookOf(region).style
+      const ix = index(style)
+      for (const cls of ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble', 'royal'])
+        for (const sex of ['m', 'f'] as const)
+          for (const age of [0, 6, 15, 35, 70])
+            for (const face of [undefined, 1, 2, 3, 4]) {
+              const k = portraitKey(ix, { region, sex, age, cls, face })!
+              expect(k, `${region} ${cls} ${sex} ${age} ${face}`).toMatch(new RegExp(`_${sex}(_|$)`))
+              expect(PORTRAIT_REJECTS.has(`${style}/${k}`), `${style}/${k}`).toBe(false)
+            }
+    }
+  })
+})

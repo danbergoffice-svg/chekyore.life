@@ -1,0 +1,27 @@
+{
+  "_doc": "Портреты героя, которые не годятся (painted.ts portraitKey их обходит и берёт портрет сословия того же пола). Ключ: <стиль>/<ключ картинки>. Проверка глазами 19.11: женские портреты-лица, нарисованные мужчинами, и пустые чёрные картинки. Перегенерировать - и убрать отсюда.",
+  "wrongSex": [
+    "russian/portrait.face1_f_adult_mid",
+    "russian/portrait.face1_f_elder_mid",
+    "russian/portrait.face2_f_elder_mid",
+    "russian/portrait.face4_f_adult_mid",
+    "russian/portrait.face4_f_adult_poor",
+    "russian/portrait.face4_f_adult_rich",
+    "greek/portrait.face1_f_adult_mid",
+    "greek/portrait.face1_f_adult_poor",
+    "greek/portrait.face1_f_adult_rich",
+    "greek/portrait.face1_f_elder_mid",
+    "greek/portrait.face1_f_elder_poor",
+    "greek/portrait.face1_f_elder_rich",
+    "byzantine/portrait.face1_f_elder_rich",
+    "ethiopian/portrait.face1_f_elder_rich",
+    "islamic/portrait.face1_f_elder_mid",
+    "mongol/portrait.face1_f_elder_rich",
+    "mongol/portrait.face4_f_adult_mid",
+    "mongol/portrait.face4_f_adult_poor"
+  ],
+  "empty": [
+    "egyptian/portrait.slave_m_teen",
+    "indian/portrait.craftsman_m_child"
+  ]
+}

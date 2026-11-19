@@ -13,6 +13,9 @@ import ART_VERSIONS from './art-versions.json'
 // Раскладка кадра (где дома, люди, сколько прозрачности у погоды, тонировка, спрятанные картинки) - правится
 // в галерее ?gallery=painted и сохраняется сюда.
 import DEFAULT_LAYOUT from './painted-layout.json'
+// Отбракованные портреты героя (не тот пол, пустые) - см. portraitKey.
+import REJECTS from './portrait-rejects.json'
+export const PORTRAIT_REJECTS = new Set([...REJECTS.wrongSex, ...REJECTS.empty])
 
 export type PaintedLayout = Omit<typeof DEFAULT_LAYOUT, 'hide'> & { hide: string[] }
 const LAYOUT_KEY = 'thousands.painted_layout'
@@ -507,15 +510,18 @@ export interface PortraitInput {
 
 /** Ключ портрета в оглавлении: сословие × пол × возраст; до 2 лет - младенец на руках (мальчик или девочка). */
 export function portraitKey(index: ArtIndex, p: PortraitInput): string | null {
+  const style = lookOf(p.homeRegion && !p.integrated ? p.homeRegion : p.region).style
+  // Картинка есть и не отбракована (portrait-rejects.json: другой пол на портрете, пустая картинка).
+  const ok = (k: string) => !!index[k] && !PORTRAIT_REJECTS.has(`${style}/${k}`)
   const stage = ageStage(p.age)
-  if (stage === 'baby') return index[`portrait.baby_${p.sex}`] ? `portrait.baby_${p.sex}` : null
+  if (stage === 'baby') return ok(`portrait.baby_${p.sex}`) ? `portrait.baby_${p.sex}` : null
   const c = p.enslaved ? 'slave' : p.cls && CLASSES.includes(p.cls) ? p.cls : p.cls === 'royal' ? 'noble' : 'peasant'
   if (p.face && (stage === 'adult' || stage === 'elder')) {
     const tier = c === 'slave' || c === 'peasant' ? 'poor' : c === 'craftsman' || c === 'trader' ? 'mid' : 'rich'
     const k = `portrait.face${p.face}_${p.sex}_${stage}_${tier}`
-    if (index[k]) return k
+    if (ok(k)) return k
   }
-  for (const k of [`portrait.${c}_${p.sex}_${stage}`, `portrait.peasant_${p.sex}_${stage}`]) if (index[k]) return k
+  for (const k of [`portrait.${c}_${p.sex}_${stage}`, `portrait.peasant_${p.sex}_${stage}`]) if (ok(k)) return k
   return null
 }
 
