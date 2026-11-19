@@ -4,7 +4,7 @@
 // присмотр, учение своему делу (engine/children.ts). Сватовство, которое ждёт ответа, - первым, как раньше.
 import { useState } from 'preact/hooks'
 import { CARE, ownTradeTrack, setOversee, setTraining, setTutor, teachOwnTrade, trainingCost, tutorCost, isStudying } from '../engine/children'
-import { caredThisYear, doKin, kinActions, kinCost, kinLock } from '../engine/kin'
+import { callDoctor, canCallDoctor, caredThisYear, doctorCost, doKin, kinActions, kinCost, kinLock } from '../engine/kin'
 import type { KinAction } from '../engine/kin'
 import { npcAge, regionOf, roleKey } from '../engine/rules'
 import type { EraDef, GameState, Npc } from '../engine/types'
@@ -113,6 +113,14 @@ function KinSheet({ state, era, n, onChange, onClose }: { state: GameState; era:
           {n.alive && <Warmth n={n} />}
         </div>
       </div>
+      {n.alive && n.ill && !n.away && (
+        <div class="hold-offers">
+          <button type="button" class="option small" disabled={!canCallDoctor(state, n)} onClick={() => act(() => callDoctor(state, n.id))}>
+            <span class="option-label">{t(n.ill.doctor ? 'kin.doctor.done' : 'kin.doctor')}</span>
+            <span class="option-desc">{n.ill.doctor ? t('kin.doctor.done_desc') : t('kin.doctor.desc', { money: money(doctorCost(state)) })}</span>
+          </button>
+        </div>
+      )}
       {actions.length > 0 && (
         <>
           <h3 class="arms-row-title">{t('kin.actions')}</h3>

@@ -389,6 +389,32 @@ export function eraEnding(state: GameState): boolean {
  * (род продолжается там). Уехавший неизвестно куда, проданный, сосланный, ушедший в монастырь - нет. */
 const HEIR_AWAY: AwayReason[] = ['homeland']
 
+/**
+ * Бездетный герой (просьба 20.11): род может продолжить племянник или племянница (дети живых братьев и сестёр) или
+ * ученик, если у героя было дело. Заводятся при смерти, только если других наследников нет; в роду они - «дети»
+ * с меткой nephew / apprentice (roleKey зовёт их по-своему).
+ */
+export const ADOPT = { nephews: 2, nephewAge: [14, 30] as [number, number], apprenticeAge: [16, 24] as [number, number], apprenticeFrom: 30 }
+export function adoptiveHeirs(state: GameState, era: EraDef): Npc[] {
+  const hero = state.hero
+  if (heirs(state).length) return []
+  const out: Npc[] = []
+  const sibs = hero.npcs.filter((n) => n.role === 'sibling' && n.alive && !n.away)
+  for (const sib of sibs.slice(0, ADOPT.nephews)) {
+    const kid = makeNpc(state, era, 'child', undefined, state.year - int(state, ADOPT.nephewAge[0], ADOPT.nephewAge[1]), Math.max(20, sib.attitude))
+    kid.tags = [...(kid.tags ?? []), 'nephew']
+    kid.parentId = undefined
+    out.push(kid)
+  }
+  if (hero.profession && hero.age >= ADOPT.apprenticeFrom && hero.cls !== 'slave' && !hero.tags.includes('enslaved')) {
+    const ap = makeNpc(state, era, 'child', undefined, state.year - int(state, ADOPT.apprenticeAge[0], ADOPT.apprenticeAge[1]), 50)
+    ap.tags = [...(ap.tags ?? []), 'apprentice']
+    ap.profession = hero.profession
+    out.push(ap)
+  }
+  return out
+}
+
 export function heirs(state: GameState): Npc[] {
   const npcs = state.hero.npcs
   for (const gen of [1, 2, 3]) {
@@ -614,6 +640,15 @@ export function continueWithHeir(prev: GameState, era: EraDef, childId: string):
   // Спорт и воинское учение в детстве (вкладка «Близкие»): сила и воинский навык.
   if (child.tags?.includes('trained_sport')) hero.attrs.strength = Math.min(100, hero.attrs.strength + 8)
   if (child.tags?.includes('trained_military') && 'military' in hero.skills) hero.skills.military = Math.max(hero.skills.military, 15)
+  // Племянник или ученик продолжает род бездетного: ученику - дело учителя.
+  if (child.tags?.includes('nephew') || child.tags?.includes('apprentice')) {
+    const kind = child.tags.includes('nephew') ? 'nephew' : 'apprentice'
+    hero.diary.push({ year: prev.year, age: hero.age, key: `diary.heir_${kind}`, params: { parent: { name: parent.name }, psex: parent.sex }, reg: hero.region, rel: hero.religion, topic: 'family', score: 40, major: true })
+    if (kind === 'apprentice' && parent.profession) {
+      const prof = era.professions.find((p) => p.id === parent.profession)
+      if (prof) hero.skills[prof.skill] = Math.max(hero.skills[prof.skill] ?? 0, 25)
+    }
+  }
 
   ownFamily(state, era, parent, child)
   if (moved) {

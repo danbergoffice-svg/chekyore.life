@@ -65,6 +65,8 @@ interface Story {
   portraits?: boolean
   /** Родные и близкие на карточке - портретами (не больше четырёх). */
   people?: Npc[]
+  /** Семейное древо (дети и внуки: кто чей) вместо портретов (просьба 20.11: портреты выходили одинаковыми). */
+  tree?: boolean
   quote?: { text: string; author: string }
 }
 
@@ -124,7 +126,7 @@ export function storyCards(t: T, life: LifeSummary, era: EraDef, lang: Lang, ent
     big: f.children ? `${f.children} + ${f.grandchildren}` : '0',
     label: f.children ? t('story.family') : t('story.family_none'),
     text: f.partners.map((p) => t('facts.partner', { who: { name: p.name }, n: p.years })).join('. ') || undefined,
-    ...(kin.length ? { people: kin } : { scene: still('family', { place: 'home', time: 'night', people: 1, props: ['lamp'] }) }),
+    ...(f.children ? { tree: true } : kin.length ? { people: kin } : { scene: still('family', { place: 'home', time: 'night', people: 1, props: ['lamp'] }) }),
   })
   // Скольких ровесников пережил и самый яркий факт жизни.
   const hook = lifeHighlights(life).find((h) => !h.key.startsWith('hook.lived'))
@@ -244,6 +246,7 @@ export function StoryCards({ life, cards }: { life: LifeSummary; cards: Story[] 
                 ))}
               </div>
             )}
+            {c.tree && <FamilyTree life={life} />}
             {c.people && (
               <div class="story-portraits">
                 {c.people.map((n) => (
@@ -391,5 +394,35 @@ export function Farewell({ life, era }: { life: LifeSummary; era: EraDef }) {
         </p>
       </section>
     </>
+  )
+}
+
+/** Семейное древо на карточке итога: герой и супруг(а), под ними дети, у каждого - его дети (внуки героя). */
+function FamilyTree({ life }: { life: LifeSummary }) {
+  const { lang } = useUi()
+  const name = (n: Npc) => `${nameOf(n.name, lang)}${n.alive ? '' : ' †'}`
+  const spouses = life.npcs.filter((n) => n.role === 'spouse')
+  const kids = life.npcs.filter((n) => n.role === 'child' && !n.tags?.includes('nephew') && !n.tags?.includes('apprentice')).sort((a, b) => a.birthYear - b.birthYear)
+  const grand = (id: string) => life.npcs.filter((n) => n.role === 'grandchild' && n.parentId === id)
+  const shown = kids.slice(0, 6)
+  return (
+    <div class="ftree">
+      <p class="ft-root">
+        <strong>{nameOf(life.name, lang)}</strong>
+        {spouses.length > 0 && <span> · {spouses.map(name).join(', ')}</span>}
+      </p>
+      <ul class="ft-kids">
+        {shown.map((k) => {
+          const g = grand(k.id)
+          return (
+            <li>
+              <span class="ft-kid">{name(k)}</span>
+              {g.length > 0 && <span class="ft-grand">{g.slice(0, 5).map(name).join(', ')}{g.length > 5 ? ` +${g.length - 5}` : ''}</span>}
+            </li>
+          )
+        })}
+        {kids.length > shown.length && <li class="ft-more">+{kids.length - shown.length}</li>}
+      </ul>
+    </div>
   )
 }

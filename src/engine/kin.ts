@@ -105,3 +105,19 @@ export function kinYear(state: GameState): void {
 
 /** Множитель шанса спора о наследстве от тепла ребёнка к умершему родителю (inheritance.ts). */
 export const disputeK = (attitude: number) => (attitude >= 60 ? 0.3 : attitude <= -30 ? 1.6 : 1)
+
+/** Лекарь к больному родственнику (20.11): плата - доля годовых расходов, шанс умереть ниже (illness.ts DOCTOR_CUT). */
+export const DOCTOR = { cost: 0.3 }
+export const doctorCost = (state: GameState) => Math.max(3, Math.round(kinBase(state) * DOCTOR.cost))
+export const canCallDoctor = (state: GameState, n: Npc) => !!n.alive && !!n.ill && !n.ill.doctor && !n.away && state.hero.money >= doctorCost(state)
+
+export function callDoctor(state: GameState, npcId: string): boolean {
+  const n = state.hero.npcs.find((x) => x.id === npcId)
+  if (!n || !canCallDoctor(state, n)) return false
+  const cost = doctorCost(state)
+  state.hero.money -= cost
+  n.ill!.doctor = true
+  n.attitude = Math.min(100, n.attitude + 5)
+  note(state, { key: 'diary.kin.doctor', params: { who: { name: n.name }, sex: n.sex, money: cost }, topic: 'family', score: 14, mood: 1 })
+  return true
+}

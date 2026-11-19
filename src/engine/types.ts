@@ -596,7 +596,7 @@ export interface Npc {
   /** Уехал или ушёл из семьи (в другой край, в монастырь, на службу, продан): в событиях и дома его нет. */
   away?: NpcAway
   /** Тяжело болен (engine/illness.ts): чем (ключ cause.*) и с какого года; через год - смерть или выздоровление. */
-  ill?: { cause: string; since: number }
+  ill?: { cause: string; since: number; doctor?: boolean }
   /** Детям героя: обучение и воспитание (src/engine/children.ts); нет поля - старое сохранение, заводится при первом годе. */
   education?: ChildEducation
   upbringing?: ChildUpbringing
@@ -753,6 +753,9 @@ export interface Hero {
   /** Свои наделы земли и рабы (engine/estate.ts); нет поля - нет владений. */
   land?: number
   /** Что сеют на наделах (src/content/crops.json) и куда урожай: в запас рода (true) или сразу на рынок. */
+  /** Тяга к вину 0–100 (engine/thirst.ts) и был ли пьющим (чтобы заметить, что бросил). */
+  thirst?: number
+  wasDrinker?: boolean
   crop?: string
   cropStore?: boolean
   /** Урожай прошлого года: культура, мер, сколько в запас, выручка. */

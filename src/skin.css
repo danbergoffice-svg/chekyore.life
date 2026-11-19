@@ -490,7 +490,7 @@ html.skin .hero-paused button { flex: none; width: auto; min-width: 0; margin: 0
 html.skin .hold-summary { background: var(--sheet); color: var(--night); padding: 10px 12px; margin: 6px 0 10px; clip-path: var(--rough-c); }
 html.skin .hold-figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
 html.skin .hold-figures > div { display: grid; gap: 1px; min-width: 0; }
-html.skin .hold-figures strong { font-family: var(--font-display); font-size: 0.95rem; white-space: nowrap; line-height: 1.1; overflow-wrap: anywhere; }
+html.skin .hold-figures strong { font-family: var(--font-display); font-size: 0.9rem; white-space: normal; line-height: 1.1; overflow-wrap: anywhere; }
 html.skin .hold-figures .warn, html.skin .hold-summary .warn { color: #8a3a1e; }
 html.skin .hold-label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #5a4a36; }
 html.skin .hold-parts { margin: 6px 0 0; border-top: 1px dashed rgba(19, 9, 4, 0.25); padding-top: 6px; }
@@ -562,3 +562,14 @@ html.skin .kin-sheet-head .kin-warmth { justify-items: start; }
 html.skin .kin-sheet-head .kin-warmth-track { width: 100%; background: rgba(243, 234, 215, 0.2); }
 html.skin .kin-sheet-head .kin-warmth-label { color: var(--muted); }
 html.skin .kin-dead > summary { cursor: pointer; }
+
+/* Семейное древо на карточке итога (20.11): ствол - герой, ветви - дети, листья - внуки. */
+html.skin .ftree { margin: 0 0 10px; font-size: 13px; line-height: 1.3; }
+html.skin .ft-root { margin: 0 0 4px; }
+html.skin .ft-kids { list-style: none; margin: 0; padding: 0 0 0 10px; border-left: 2px solid currentColor; opacity: 0.95; }
+html.skin .ft-kids li { position: relative; padding: 2px 0 2px 12px; }
+html.skin .ft-kids li::before { content: ''; position: absolute; left: -10px; top: 11px; width: 18px; border-top: 2px solid currentColor; }
+html.skin .ft-kid { font-weight: 700; }
+html.skin .ft-grand { display: block; font-size: 12px; opacity: 0.85; padding-left: 10px; }
+html.skin .ft-grand::before { content: '└ '; }
+html.skin .ft-more { opacity: 0.8; }

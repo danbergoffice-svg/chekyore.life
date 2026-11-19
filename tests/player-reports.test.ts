@@ -146,8 +146,10 @@ describe('Подкидыш бездетным (решение владельца
           })
           if (s.hero.age < 40) continue
           adults++
-          if (!s.hero.npcs.some((n) => n.role === 'child')) childless++
-          const h = heirs(s)
+          // Племянник и ученик (наследники бездетного, 20.11) - не свои дети.
+          const own = (n: { tags?: string[] }) => !n.tags?.includes('nephew') && !n.tags?.includes('apprentice')
+          if (!s.hero.npcs.some((n) => n.role === 'child' && own(n))) childless++
+          const h = heirs(s).filter(own)
           if (h.length) withHeir++
           const adoptedIds = new Set(s.hero.diary.filter((d) => d.key.startsWith('diary.adopted_')).map((d) => (d.params?.child as { name?: string } | undefined)?.name))
           if (h.some((n) => adoptedIds.has(n.name))) adoptedHeir++

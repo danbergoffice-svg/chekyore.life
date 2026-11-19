@@ -12,6 +12,8 @@ import type { DiaryEntry, GameState, Hero, Npc } from './types'
 export const ILL_DEATH = 0.6
 /** Врач на максимуме навыка снижает её вдвое. */
 export const HEAL_CUT = 0.5
+/** Позванный за деньги лекарь: смертность болезни ×DOCTOR_CUT. */
+export const DOCTOR_CUT = 0.55
 
 /**
  * Умение лечить, 0–1: навык «медицина» (врачи, лекари, знахари). Врач чаще выхаживает больных близких и себя,
@@ -22,15 +24,27 @@ export function healing(hero: Hero): number {
 }
 
 type Ill = { id: string; ages: [number, number]; weight: number }
-/** Болезни без привязки к эпохе: названия простые, такие, какими их называли сами люди. */
+/** Болезни без привязки к эпохе: названия простые, такие, какими их называли сами люди. Веса пересмотрены 20.11
+ *  (жалоба: «кровавый понос» и «детская болезнь» выпадали слишком часто): детские болезни разнообразнее, понос - реже,
+ *  у взрослых и стариков - свои недуги (опухоль, водянка, камни, нарыв, гангрена, отравление, тиф, бешенство). */
 const ILLS: Ill[] = [
-  { id: 'infant_illness', ages: [0, 9], weight: 5 },
-  { id: 'pox', ages: [0, 40], weight: 2 },
-  { id: 'flux', ages: [0, 70], weight: 3 },
-  { id: 'fever', ages: [3, 70], weight: 4 },
-  { id: 'consumption', ages: [12, 65], weight: 3 },
-  { id: 'chest', ages: [30, 120], weight: 3 },
+  { id: 'infant_illness', ages: [0, 4], weight: 2.5 },
+  { id: 'measles', ages: [1, 12], weight: 2 },
+  { id: 'whooping_cough', ages: [0, 7], weight: 1.5 },
+  { id: 'pox', ages: [0, 40], weight: 1.5 },
+  { id: 'flux', ages: [0, 70], weight: 1.2 },
+  { id: 'fever', ages: [3, 70], weight: 3 },
+  { id: 'typhus', ages: [10, 70], weight: 1.5 },
+  { id: 'consumption', ages: [12, 65], weight: 2.5 },
+  { id: 'chest', ages: [30, 120], weight: 2.5 },
   { id: 'wound', ages: [14, 60], weight: 1.5 },
+  { id: 'gangrene', ages: [15, 80], weight: 0.8 },
+  { id: 'tooth', ages: [15, 90], weight: 0.8 },
+  { id: 'food_poison', ages: [3, 90], weight: 0.6 },
+  { id: 'rabies', ages: [3, 70], weight: 0.3 },
+  { id: 'stone', ages: [30, 90], weight: 1 },
+  { id: 'tumor', ages: [35, 120], weight: 1.5 },
+  { id: 'dropsy', ages: [40, 120], weight: 1.5 },
   { id: 'heart', ages: [45, 120], weight: 3 },
   { id: 'stroke', ages: [50, 120], weight: 2.5 },
   { id: 'old_age', ages: [68, 120], weight: 5 },
@@ -62,7 +76,8 @@ export function npcHealthYear(state: GameState, npc: Npc, q: number): void {
   const params = { who: { name: npc.name }, sex: npc.sex, role: { key: `rel.${npc.role}`, sex: npc.sex } }
   if (npc.ill) {
     // Болен с прошлого года: смерть или выздоровление. Врач выхаживает только тех, кто рядом.
-    if (chance(state, ILL_DEATH * (home ? 1 - HEAL_CUT * heal : 1))) return killNpc(state, npc, npc.ill.cause)
+    // Позвали лекаря (вкладка «Близкие», engine/kin.ts callDoctor) - шанс умереть ниже.
+    if (chance(state, ILL_DEATH * (home ? 1 - HEAL_CUT * heal : 1) * (npc.ill.doctor ? DOCTOR_CUT : 1))) return killNpc(state, npc, npc.ill.cause)
     npc.ill = undefined
     if (home) {
       const healer = heal >= 0.3

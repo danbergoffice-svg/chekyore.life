@@ -93,6 +93,9 @@ export function descentOf(npcs: Npc[], npc: Npc): number {
 
 /** Ключ роли для подписи: правнуки хранятся как внуки, но подписываются отдельно. */
 export function roleKey(npcs: Npc[], npc: Npc): string {
+  // Наследник со стороны (20.11): племянник или ученик - формально «дитя» рода, но зовётся по-своему.
+  if (npc.role === 'child' && npc.tags?.includes('nephew')) return 'nephew'
+  if (npc.role === 'child' && npc.tags?.includes('apprentice')) return 'apprentice'
   return npc.role === 'grandchild' && descentOf(npcs, npc) === 3 ? 'great_grandchild' : npc.role
 }
 

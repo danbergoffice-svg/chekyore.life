@@ -41,6 +41,8 @@ import { ERA_META, eraById, isEraLoaded } from '../content'
 import { estateOffers, estatePrice, offerAnswered } from './estate'
 import { applyPeril, assetPeril, perilParams } from './perils'
 import { kinYear } from './kin'
+import { adoptiveHeirs } from './life'
+import { drinkChoice, thirstYear } from './thirst'
 import type { PerilAction } from './perils'
 import type { EstateKind } from './estate'
 import { chronicleSuccessor, eraEnding, summarize } from './life'
@@ -136,6 +138,8 @@ export function startYear(state: GameState, era: EraDef, focusId: string | null)
   childrenYear(state, era)
   // Близкие: тёплая родня выручает в долгах, с холодной - ссоры (engine/kin.ts).
   kinYear(state)
+  // Тяга к вину: гаснет без праздников, на пороге - пьянство (engine/thirst.ts).
+  thirstYear(state)
   // Торговля и дела рода: запас портится, товарищества приносят прибыль или убыток.
   tradeYear(state)
   businessYear(state)
@@ -1267,6 +1271,8 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
     else skipDream(state, active.dream)
   }
   const ctx = { npcId: active.npcId }
+  // «Выпить», «отметить», «пир» - копят тягу к вину.
+  drinkChoice(state, choiceId)
   const params = eventParams(state, active)
   const moodBefore = hero.hidden.happiness
   const diaryBefore = hero.diary.length
@@ -1482,6 +1488,8 @@ function die(state: GameState, era: EraDef): void {
   state.queue = []
   state.phase = 'dead'
   state.family.lives.push(summarize(state, era))
+  // Детей нет - род может продолжить племянник или ученик (после итога жизни: в число детей героя они не входят).
+  hero.npcs.push(...adoptiveHeirs(state, era))
 }
 
 /** Автоматически прожить жизнь до конца (для тестов и симуляционных прогонов).
