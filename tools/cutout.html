@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Вырезка портретов для надгробия</title>
+<style>
+  body { margin: 0; font: 11px sans-serif; background: #d6cdb9; }
+  .row { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; }
+  figure { margin: 0; width: 96px; text-align: center; }
+  canvas { width: 96px; height: 120px; display: block; background: #3f7fbf; }
+  figure.fail canvas { outline: 3px solid #b4492b; }
+  h2 { margin: 8px 4px 0; font-size: 13px; }
+</style>
+</head>
+<body>
+<!-- Проверка cutoutPainted (src/pixel/cutout.ts) на всех портретах всех стилей: npm run dev → /tools/cutout.html[?style=russian].
+     Красная рамка - вырезка не удалась и включился запасной вариант (мягкая рамка без вырезки). -->
+<div id="out"></div>
+<script type="module">
+import { cutoutPainted } from '/src/pixel/cutout.ts'
+import VERSIONS from '/src/pixel/art-versions.json'
+const only = new URLSearchParams(location.search).get('style')
+const out = document.getElementById('out')
+const stats = []
+for (const [style, file] of Object.entries(VERSIONS)) {
+  if (only && style !== only) continue
+  const ix = await fetch(`/art/${style}/${file}`).then((r) => r.json())
+  const buf = await fetch(`/art/${style}/${ix.files.portrait}`).then((r) => r.arrayBuffer())
+  const h2 = document.createElement('h2')
+  h2.textContent = style
+  out.append(h2)
+  const row = document.createElement('div')
+  row.className = 'row'
+  out.append(row)
+  for (const [key, e] of Object.entries(ix.items)) {
+    if (!key.startsWith('portrait.') || key.includes('baby')) continue
+    const bmp = await createImageBitmap(new Blob([buf.slice(e[1], e[1] + e[2])], { type: 'image/webp' }))
+    const c = document.createElement('canvas')
+    c.width = 256
+    c.height = 320
+    const x = c.getContext('2d')
+    x.drawImage(bmp, 0, 0, 256, 320)
+    const d = x.getImageData(0, 0, 256, 320)
+    const r = cutoutPainted(d.data, 256, 320)
+    x.putImageData(d, 0, 0)
+    const f = document.createElement('figure')
+    if (!r.ok) f.className = 'fail'
+    f.append(c)
+    const cap = document.createElement('figcaption')
+    cap.textContent = `${key.replace('portrait.', '')} ${Math.round(r.fg * 100)}%`
+    f.append(cap)
+    row.append(f)
+    stats.push({ style, key, ...r })
+  }
+}
+window.cutoutStats = stats
+document.title = 'готово'
+</script>
+</body>
+</html>
