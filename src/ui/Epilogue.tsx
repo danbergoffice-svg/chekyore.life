@@ -11,6 +11,7 @@ import type { T } from '../i18n'
 import type { Lang } from '../engine/types'
 import { Scene } from '../pixel/SceneView'
 import { Avatar } from '../pixel/AvatarView'
+import { StonePortrait } from '../pixel/StonePortrait'
 import type { AvatarInput } from '../pixel/avatar'
 import { portraitAges, portraitInput } from './lifeCard'
 import { diaryText, useUi } from './text'
@@ -39,7 +40,7 @@ export function Tombstone({ life, epitaph }: { life: LifeSummary; epitaph: strin
       <Scene scene={{ place: 'tomb', time: 'sunset', people: 2, props: ['lamp', 'olive'] }} region={life.region} seed={life.heroId} still frame year={life.deathYear} />
       <div class="stone">
         <div class="stone-portrait">
-          <Avatar input={portraitInput(life, life.age, true)} label={t('life.portrait', { n: life.age })} />
+          <StonePortrait input={portraitInput(life, life.age, true)} label={t('life.portrait', { n: life.age })} />
         </div>
         <h1 id="sum-name" class="stone-name">{name}</h1>
         <p class="stone-years">

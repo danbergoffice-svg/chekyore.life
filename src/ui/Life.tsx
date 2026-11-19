@@ -47,7 +47,7 @@ import type { Change } from './text'
 import { Icon, IconText } from './Icon'
 import { EarlyGame } from '../kids/EarlyGame'
 import { Children } from './Children'
-import { Arms } from './Arms'
+import { Arms, houseName } from './Arms'
 import { familyGoalProgress } from '../engine/dynasty'
 import { Estate } from './Estate'
 import { Trade } from './Trade'
@@ -1130,9 +1130,9 @@ function FamilyLine({ state }: { state: GameState }) {
   const have = g ? Math.min(g.target, familyGoalProgress(g, f.lives)) : 0
   return (
     <div class="family-line">
-      {f.house && <Arms id={f.house} size={32} label={t(`house.${f.house}`)} />}
+      {f.house && <Arms of={f} size={32} label={houseName(t, f)} />}
       <div>
-        {f.house && <strong>{t(`house.${f.house}`)}</strong>}
+        {f.house && <strong>{houseName(t, f)}</strong>}
         {g && (
           <p class="small">
             {t('fgoal.line_label')} - {t(`fgoal.${g.id}`)}: {g.done !== undefined ? t('fgoal.done_short') : t('fgoal.progress', { have: g.kind === 'rank' ? have : Math.round(have), need: g.target })}

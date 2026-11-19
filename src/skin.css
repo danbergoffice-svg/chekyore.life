@@ -270,8 +270,14 @@ html.skin .tomb { position: relative; padding-bottom: 4px; }
 html.skin .tomb .stone { position: relative; width: 84%; margin: -34px auto 0; padding: 16px 14px 18px; box-sizing: border-box; text-align: center;
   background: linear-gradient(180deg, #d6cdb9, #b9af99); color: #2a2620; border-radius: 140px 140px 6px 6px;
   box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.14), inset 0 2px 0 rgba(255, 255, 255, 0.35), 0 6px 0 #6f6656, 0 10px 18px rgba(0, 0, 0, 0.35); }
-html.skin .stone-portrait { width: 84px; height: 105px; margin: 0 auto 6px; padding: 4px; background: #e9e1cf; border-radius: 42px 42px 4px 4px; box-shadow: inset 0 0 0 2px #8c826d; }
-html.skin .stone-portrait canvas { width: 100% !important; height: 100% !important; image-rendering: pixelated; border-radius: 38px 38px 2px 2px; }
+/* Портрет на камне (19.11): ~70% ширины, без рамки и фона, чёрно-белый, как выбитый: светлая кромка снизу-справа,
+   тень сверху-слева; низ фигуры уходит в камень. */
+html.skin .stone-portrait { width: 70%; max-width: 380px; margin: -4px auto 2px; aspect-ratio: 4 / 5; }
+html.skin .stone-portrait canvas { display: block; background: none !important; box-shadow: none !important; border: 0 !important; border-radius: 0 !important; width: 100% !important; height: 100% !important; object-fit: contain; image-rendering: pixelated;
+  filter: grayscale(1) sepia(0.28) contrast(1.18) brightness(0.98) drop-shadow(1px 1px 0 rgba(255, 250, 235, 0.55)) drop-shadow(-1px -1px 0 rgba(40, 32, 22, 0.35));
+  mix-blend-mode: multiply; opacity: 0.92;
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%); mask-image: linear-gradient(180deg, #000 78%, transparent 100%); }
+html.skin .stone-portrait canvas.painted { image-rendering: auto; }
 html.skin .stone-name { font-family: var(--font-display); font-size: clamp(1.8rem, 9vw, 2.4rem); line-height: 1.05; margin: 4px 0 2px; color: #231d16; }
 html.skin .stone-years { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.03em; }
 html.skin .stone-age { margin: 0 0 8px; font-size: 14px; color: #5a5040; }
@@ -443,3 +449,30 @@ html.skin :is(button, input, select, textarea, .card, [class*='-card'], .chip, .
   [class*='track'], .ach-bar, .modal, .sheet, .note, .hint, .person, .focus, .ach, .tree-level, .eras li, .stats li, .changes li,
   .daily-days li, .challenge-note, .load-problem, .feedback-prompt, .dream-order li, .dream-truth, .card-preview, .avatar,
   .scene, .art-frame, .art, .gifts-btn, .badge, .player-chip) { border-radius: 0 !important; }
+
+/* Конструктор герба (19.11): бумажный лист, превью сверху (липнет при прокрутке), ряды вариантов; удобно на 375 px. */
+html.skin .arms-sheet { background: var(--sheet); color: var(--night); padding: 0 10px 14px; outline: 2px dashed rgba(243, 234, 215, 0.35); outline-offset: 4px; }
+html.skin .arms-preview { position: sticky; top: 0; z-index: 2; display: grid; justify-items: center; gap: 2px; margin: 0 -10px; padding: 14px 10px 10px;
+  background: var(--sheet); border-bottom: 2px dashed rgba(19, 9, 4, 0.3); }
+html.skin .arms-preview-name { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.1; text-align: center; overflow-wrap: anywhere; }
+html.skin .arms-warn { margin: 2px 0 0; max-width: 32ch; text-align: center; color: #8a3a1e; }
+html.skin .arms-row { padding: 10px 0 8px; border-bottom: 1px dashed rgba(19, 9, 4, 0.22); }
+html.skin .arms-row-title { margin: 0 0 6px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #5a4a36; }
+html.skin .arms-options, html.skin .arms-charges { display: flex; flex-wrap: wrap; gap: 6px; }
+html.skin .arms-charges { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); }
+html.skin .arms-option { display: grid; justify-items: center; gap: 2px; min-width: 46px; min-height: 48px; padding: 4px; border: 2px dashed transparent; border-radius: 0;
+  background: rgba(19, 9, 4, 0.05); color: var(--night); cursor: pointer; }
+html.skin .arms-divisions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+html.skin .arms-option.labeled { display: flex; align-items: center; justify-content: flex-start; gap: 8px; padding: 4px 8px; text-align: left; }
+html.skin .arms-option.labeled .arms-swatch-name { font-size: 14px; text-align: left; }
+html.skin .arms-option.on, html.skin .arms-swatch.on { border-color: var(--night); background: rgba(19, 9, 4, 0.1); }
+html.skin .arms-swatches { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; }
+html.skin .arms-swatch { display: grid; justify-items: center; gap: 3px; padding: 4px 0 3px; min-height: 48px; border: 2px dashed transparent; border-radius: 0;
+  background: none; color: var(--night); cursor: pointer; }
+html.skin .arms-chip { width: 28px; height: 28px; box-shadow: inset 0 0 0 2px rgba(19, 9, 4, 0.75); clip-path: var(--rough-a); }
+html.skin .arms-swatch-name { font-size: 10.5px; line-height: 1.1; text-align: center; letter-spacing: -0.01em; white-space: nowrap; }
+html.skin .arms-name { display: grid; gap: 6px; }
+html.skin .arms-name-opt { display: flex; gap: 8px; align-items: center; min-height: 36px; cursor: pointer; }
+html.skin .arms-name input.arms-name-input { width: 100%; box-sizing: border-box; padding: 8px 10px; font: inherit; color: var(--night); background: #fffaf0;
+  border: 2px dashed rgba(19, 9, 4, 0.45); border-radius: 0; }
+html.skin .arms-confirm { width: 100%; margin-top: 14px; background: var(--night); color: var(--sheet); }

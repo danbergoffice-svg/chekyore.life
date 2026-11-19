@@ -270,6 +270,7 @@ export function summarize(state: GameState, era: EraDef): LifeSummary {
     slaves: h.slaves,
     estateSnapshot: state.family.estate?.assets.length ? structuredClone(state.family.estate) : undefined,
     house: state.family.house,
+    arms: state.family.arms,
     familyGoal: state.family.goal ? { ...state.family.goal } : undefined,
     tradeSnapshot: state.family.trade && (state.family.trade.businesses.length || state.family.trade.inventory.goods.length) ? structuredClone(state.family.trade) : undefined,
   }
@@ -319,7 +320,7 @@ export function stateFromMemorial(era: EraDef, life: LifeSummary, memorial: Life
     goal: life.goal,
     dreamSeen: life.dreamSeen,
   })
-  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [], house: life.house, goal: life.familyGoal ? { ...life.familyGoal } : undefined, estate: life.estateSnapshot ? structuredClone(life.estateSnapshot) : { assets: [], debts: 0 }, trade: life.tradeSnapshot ? structuredClone(life.tradeSnapshot) : { inventory: { goods: [], capacity: 20 }, businesses: [] } }
+  s.family = { id: life.familyId, lives: memorial.filter((l) => l.familyId === life.familyId), flags: [], house: life.house, arms: life.arms, goal: life.familyGoal ? { ...life.familyGoal } : undefined, estate: life.estateSnapshot ? structuredClone(life.estateSnapshot) : { assets: [], debts: 0 }, trade: life.tradeSnapshot ? structuredClone(life.tradeSnapshot) : { inventory: { goods: [], capacity: 20 }, businesses: [] } }
   s.year = life.deathYear
   s.offChronicle = life.offChronicle
   s.phase = 'dead'

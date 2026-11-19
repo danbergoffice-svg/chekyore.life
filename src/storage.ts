@@ -1,6 +1,7 @@
 // Сохранения игры и настройки поверх модуля platform. Схема версионируется (SAVE_VERSION), старые сохранения мигрируют.
 import { SAVE_VERSION } from './engine/life'
 import { initializeChild } from './engine/children'
+import { migrateArms } from './engine/arms'
 import type { Earned } from './engine/achievements'
 import type { Lottery } from './engine/life'
 import type { GameState, Lang, LifeSummary } from './engine/types'
@@ -95,6 +96,9 @@ export function migrate(game: GameState | undefined): GameState | null {
     game.version = 9
   }
   if (game.version !== SAVE_VERSION) return null
+  // Герб: прежний готовый выбор (house) - в новый формат конструктора (без смены версии: поле необязательное).
+  migrateArms(game.family)
+  for (const l of game.family?.lives ?? []) migrateArms(l)
   return game
 }
 
@@ -116,7 +120,9 @@ export function uniqueHeroIds(game: GameState | null, memorial: LifeSummary[]): 
 
 /** Жизни из первой беты без итогового отчёта открыть нельзя - их пропускаем. */
 function cleanMemorial(memorial: LifeSummary[] | undefined): LifeSummary[] {
-  return (memorial ?? []).filter((l) => l && typeof l === 'object' && 'report' in l && Array.isArray(l.diary))
+  const out = (memorial ?? []).filter((l) => l && typeof l === 'object' && 'report' in l && Array.isArray(l.diary))
+  for (const l of out) migrateArms(l)
+  return out
 }
 
 export async function loadSave(): Promise<SaveFile> {

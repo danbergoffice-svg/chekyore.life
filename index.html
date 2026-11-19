@@ -1,9 +1,12 @@
 <!doctype html>
-<html lang="en" class="skin">
+<html lang="en" class="skin" translate="no">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#16213a" />
+    <!-- Переводчик браузера подменяет текст на странице, и Preact потом обновляет уже оторванные узлы: в костях
+         висели старые суммы («10 против 8 - поровну»), строки склеивались. У игры свои языки - страницу не переводим. -->
+    <meta name="google" content="notranslate" />
     <!-- Страница по умолчанию - английская (76% игроков с 8.11). Те же теги на ru/es/fr/tr отдаёт worker по /?lang=xx (worker/seo.ts). -->
     <meta name="description" content="A free browser game. A birth lottery picks your country, era and family; then you live one life, choice by choice, in about 20 minutes. 14 countries, from Egypt to the Inca." />
     <title>Thousands of Lives: a free life simulator in history</title>

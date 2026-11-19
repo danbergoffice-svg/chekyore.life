@@ -71,6 +71,25 @@ export interface DiceResult {
   ransom?: boolean
 }
 
+/** Бросок двух костей. */
+export type DicePair = [number, number]
+/** Бросок партии: мои кости и (когда бросил) кости соперника. */
+export interface DiceRound { me: DicePair; them?: DicePair; theyCheated?: boolean }
+export const pairSum = (p: DicePair) => p[0] + p[1]
+/** Кто взял бросок: 'me', 'them', 'tie' (суммы равны) или null, пока соперник не бросил. */
+export function roundWinner(r: DiceRound | undefined): 'me' | 'them' | 'tie' | null {
+  if (!r?.them) return null
+  const a = pairSum(r.me)
+  const b = pairSum(r.them)
+  return a > b ? 'me' : a < b ? 'them' : 'tie'
+}
+/** Счёт партии: сколько бросков взял каждый (ничьи не в счёт), и решена ли она (до двух побед). */
+export function diceScore(rounds: DiceRound[]): { me: number; them: number; done: boolean } {
+  const me = rounds.filter((r) => roundWinner(r) === 'me').length
+  const them = rounds.filter((r) => roundWinner(r) === 'them').length
+  return { me, them, done: me >= 2 || them >= 2 }
+}
+
 /** Порог азарта для уровня ставки (ТЗ, лестница ставок). */
 export const STAKE_LUST = { 1: 0, 2: 30, 3: 50, 4: 70, 5: 85 } as const
 /** Приёмы мастерства: характер соперника, переброс, жульничество, чтение чужого жульничества. */
@@ -202,11 +221,13 @@ export function applyDice(state: GameState, era: EraDef | EraMeta, r: DiceResult
   const params = { game: { key: 'dice.game' } }
 
   if (won) {
+    const was = hero.money
     hero.money += r.stake.amount
     d.net += r.stake.amount
     d.fame[hero.region] = clamp((d.fame[hero.region] ?? 0) + (big ? 15 : 6))
     if (r.stake.level >= 4 && hero.money < 0) hero.money = 0
-    note(state, { key: r.exposed ? 'diary.dice_exposed' : big ? 'diary.dice_bigwin' : 'diary.dice_win', params: { ...params, money: r.stake.amount }, topic: 'money', score: big ? 24 : 8, mood: big ? 6 : 2, major: big })
+    // В дневник - сколько на деле прибавилось: выигрыш ставкой семьи или себя в долгах обнуляет долг целиком.
+    note(state, { key: r.exposed ? 'diary.dice_exposed' : big ? 'diary.dice_bigwin' : 'diary.dice_win', params: { ...params, money: hero.money - was }, topic: 'money', score: big ? 24 : 8, mood: big ? 6 : 2, major: big })
     if (r.exposed) hero.hidden.reputation = clamp(hero.hidden.reputation + 3)
     // Крупный выигрыш тянет за собой одно из последствий - через год-два.
     if (big) {
@@ -229,23 +250,26 @@ export function applyDice(state: GameState, era: EraDef | EraMeta, r: DiceResult
     // Наказание - по обычаю края: штраф и позор, побои, плети, а в Европе могут отрубить руку.
     const hurt = PUNISH_HEALTH[flavor.punish]
     if (hurt) hero.attrs.health = Math.max(1, hero.attrs.health - hurt)
-    if (flavor.punish === 'fine') hero.money -= Math.round(base * 0.6)
+    const fine = flavor.punish === 'fine' ? Math.round(base * 0.6) : 0
+    hero.money -= fine
     if (flavor.punish === 'hand') hero.tags.includes('maimed') || hero.tags.push('maimed')
     hero.hidden.reputation = clamp(hero.hidden.reputation - 15)
     d.fame[hero.region] = 100
-    note(state, { key: `diary.dice_caught.${flavor.punish}`, params, topic: 'money', icon: 'loss', score: 30, mood: -10, major: true })
+    note(state, { key: `diary.dice_caught.${flavor.punish}`, params: fine ? { ...params, money: fine } : params, topic: 'money', icon: 'loss', score: 30, mood: -10, major: true })
   }
 
   // Где кости запрещены или осуждаются - за игру саму по себе можно поплатиться.
   if (r.festive) {
     // Сатурналии, ночь Дивали: играют все и открыто.
   } else if (flavor.law === 'banned' && chance(state, 0.2)) {
-    hero.money -= Math.round(base * 0.5)
+    const fine = Math.round(base * 0.5)
+    hero.money -= fine
     hero.hidden.reputation = clamp(hero.hidden.reputation - 5)
-    note(state, { key: 'diary.dice_law.banned', params, topic: 'money', score: 12, mood: -4 })
+    note(state, { key: 'diary.dice_law.banned', params: { ...params, money: fine }, topic: 'money', score: 12, mood: -4 })
   } else if (flavor.law === 'seasonal' && chance(state, 0.15)) {
-    hero.money -= Math.round(base * 0.3)
-    note(state, { key: 'diary.dice_law.seasonal', params, topic: 'money', score: 10, mood: -3 })
+    const fine = Math.round(base * 0.3)
+    hero.money -= fine
+    note(state, { key: 'diary.dice_law.seasonal', params: { ...params, money: fine }, topic: 'money', score: 10, mood: -3 })
   } else if (flavor.law === 'frowned') hero.hidden.reputation = clamp(hero.hidden.reputation - 1)
   syncTags(hero)
 }

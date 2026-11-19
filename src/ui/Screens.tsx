@@ -1,7 +1,8 @@
 import type { ComponentChildren } from 'preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { canNameHouse, customHeir, familyGoalOffers, setFamilyGoal, setHouse } from '../engine/dynasty'
-import { Arms, HOUSE_LIST } from './Arms'
+import { canNameHouse, customHeir, familyGoalOffers, setFamilyGoal } from '../engine/dynasty'
+import { Arms, houseName } from './Arms'
+import { ArmsBuilder } from './ArmsBuilder'
 import { heirs, inheritanceShare } from '../engine/life'
 import { ACHIEVEMENTS } from '../engine/achievements'
 import { birthPlace, classKey, descentOf, regionOf, roleKey, yearsBetween } from '../engine/rules'
@@ -593,7 +594,7 @@ export function Heirs(props: { state: GameState; era: EraDef; onChoose: (id: str
       <h1>{t('heirs.title')}</h1>
       <p class="lead">{t(gen === 3 ? 'heirs.lead_great' : gen === 2 ? 'heirs.lead_grand' : 'heirs.lead')}</p>
       {list.length > 0 && <FamilyGoalPick state={props.state} era={props.era} onChange={changed} />}
-      {list.length > 0 && canNameHouse(props.state) && <HousePick state={props.state} onChange={changed} />}
+      {list.length > 0 && canNameHouse(props.state) && <ArmsBuilder state={props.state} onChange={changed} />}
       <ul class="cards">
         {list.map((k) => {
           const age = yearsBetween(k.birthYear, props.state.year)
@@ -645,7 +646,7 @@ export function Memorial(props: { memorial: LifeSummary[]; onOpen: (heroId: stri
           <h2 class="section-title">
             {lives[lives.length - 1].house ? (
               <>
-                <Arms id={lives[lives.length - 1].house} size={26} /> {t(`house.${lives[lives.length - 1].house}`)}
+                <Arms of={lives[lives.length - 1]} size={26} /> {houseName(t, lives[lives.length - 1])}
               </>
             ) : (
               <>{t('memorial.family')} {nameOf(lives[0].name, lang)}</>
@@ -738,25 +739,6 @@ function FamilyGoalPick({ state, era, onChange }: { state: GameState; era: EraDe
   )
 }
 const RANKS = ['slave', 'peasant', 'craftsman', 'trader', 'landowner', 'noble']
-
-/** Имя рода и герб: после двух прожитых жизней - 20 на выбор. */
-function HousePick({ state, onChange }: { state: GameState; onChange: () => void }) {
-  const { t } = useUi()
-  return (
-    <section class="block house-pick">
-      <h2 class="section-title">{t('house.pick')}</h2>
-      <p class="small muted">{t('house.pick_hint')}</p>
-      <div class="house-grid">
-        {HOUSE_LIST.map((h) => (
-          <button type="button" class="house-option" onClick={() => { if (setHouse(state, h.id)) { platform.track('house_pick', { house: h.id }); onChange() } }}>
-            <Arms id={h.id} size={44} label={t(`house.${h.id}`)} />
-            <span class="small">{t(`house.${h.id}`)}</span>
-          </button>
-        ))}
-      </div>
-    </section>
-  )
-}
 
 export function Settings(props: {
   prefs: Prefs

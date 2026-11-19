@@ -5,17 +5,13 @@
 // На кнопке ставки - что ставишь (с ценой) и сколько получишь при выигрыше; проиграл скотину - можно откупиться деньгами.
 import { useMemo, useState } from 'preact/hooks'
 import type { GameState } from '../engine/types'
-import { canRansom, catchChance, diceOf, pickOpponent, SKILL, STAKE_LUST } from '../engine/dice'
-import type { DiceResult, Opponent, Stake } from '../engine/dice'
+import { canRansom, catchChance, diceOf, diceScore, pairSum as sum, pickOpponent, roundWinner, SKILL, STAKE_LUST } from '../engine/dice'
+import type { DicePair as Pair, DiceResult, DiceRound as Round, Opponent, Stake } from '../engine/dice'
 import { formatMoney, nameOf } from '../i18n'
 import { useUi } from './text'
 
-type Pair = [number, number]
-interface Round { me: Pair; them?: Pair; theyCheated?: boolean }
-
 const MAX_GAMES = 3
 const die = () => 1 + Math.floor(Math.random() * 6)
-const sum = (p: Pair) => p[0] + p[1]
 
 function Die({ v, rolling }: { v: number; rolling?: boolean }) {
   // Точки на гранях 1–6 по сетке 3×3.
@@ -52,7 +48,8 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   const [, flick] = useState(0)
 
   const freeRerolls = (d.skill >= SKILL.reroll ? 1 : 0) + (hero.tags.includes('lucky_dice') ? 1 : 0)
-  const score = (who: 'me' | 'them') => rounds.filter((r) => r.them && sum(r.me) !== sum(r.them) && (who === 'me' ? sum(r.me) > sum(r.them) : sum(r.me) < sum(r.them))).length
+  const tally = diceScore(rounds)
+  const score = (who: 'me' | 'them') => tally[who]
   const cur = rounds[rounds.length - 1]
   const waitingThem = !!cur && !cur.them
 
@@ -119,11 +116,10 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     const next = [...rounds.slice(0, -1), { ...cur, them, theyCheated: crooked }]
     setRounds(next)
     if (crooked && d.skill >= SKILL.spot) setSpotWait(true)
-    const mine = next.filter((r) => r.them && sum(r.me) > sum(r.them!)).length
-    const theirs = next.filter((r) => r.them && sum(r.me) < sum(r.them!)).length
-    if (mine >= 2 || theirs >= 2) {
+    const after = diceScore(next)
+    if (after.done) {
       const caught = cheated && Math.random() < catchChance(hero, opponent)
-      const result: DiceResult = { stake: stake!, won: mine >= 2, cheated, caught, exposed: false, fate: false, chase, opponent }
+      const result: DiceResult = { stake: stake!, won: after.me >= 2, cheated, caught, exposed: false, fate: false, chase, opponent }
       // Заметил жульничество в решающем броске - партия ждёт: обвинить или принять итог (раньше итог сам закрывал
       // окно через 0,7 с и кнопка «Обвинить» только мелькала).
       if (crooked && d.skill >= SKILL.spot) setDecided(result)
@@ -150,7 +146,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
     const money = formatMoney(t, ransom.stake.amount, props.coin)
     const animal = { key: `animal.${ransom.stake.animal ?? 'horse'}` }
     return (
-      <div class="dice">
+      <div class="dice" translate={false}>
         {ransom.caught && <p class="dice-result lose">{t('dice.caught')}</p>}
         <p class="dice-result lose" aria-live="polite">{t('dice.ransom.ask', { animal, money }, o)}</p>
         <div class="dice-ransom">
@@ -165,7 +161,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   if (!stake) {
     const canMore = games < MAX_GAMES && props.stakes.length > 0
     return (
-      <div class="dice">
+      <div class="dice" translate={false}>
         <p class="dice-stats small">{t('dice.stats', { s: d.skill, l: d.lust })}</p>
         {last && (
           <p class={`dice-result ${last.won && !last.caught ? 'win' : 'lose'}`} aria-live="polite">
@@ -200,7 +196,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
   }
 
   return (
-    <div class="dice">
+    <div class="dice" translate={false}>
       <p class="dice-stake-now small"><strong>{t('dice.on_table')}:</strong> {stakeLabel(stake)}</p>
       <p class="dice-score" aria-live="polite">{t('dice.score', { a: score('me'), b: score('them') })}</p>
       <div class="dice-board">
@@ -215,7 +211,7 @@ export function DiceGame(props: { state: GameState; stakes: Stake[]; coin: strin
           {cur?.them && <span class="dice-sum">{sum(cur.them)}</span>}
         </div>
       </div>
-      {cur?.them && sum(cur.me) === sum(cur.them) && <p class="small center">{t('dice.tie')}</p>}
+      {roundWinner(cur) === 'tie' && <p class="small center">{t('dice.tie')}</p>}
       <div class="dice-actions">
         {(!cur || cur.them) && score('me') < 2 && score('them') < 2 && !spotWait && (
           <button type="button" class="primary" disabled={!!rolling} onClick={throwMine}>{t('dice.throw')}</button>

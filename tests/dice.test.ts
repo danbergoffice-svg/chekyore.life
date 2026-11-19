@@ -3,7 +3,8 @@ import { describe, expect, it } from 'vitest'
 import { loadEra } from '../src/content'
 import { autoplay, choose, eligible } from '../src/engine/game'
 import { continueWithHeir, heirs, newLife } from '../src/engine/life'
-import { applyDice, DICE_QUIT_AFTER, diceOf, diceRefuse, diceStakes, diceYear, WIFE_TAKES_UNDER } from '../src/engine/dice'
+import { applyDice, DICE_QUIT_AFTER, diceOf, diceRefuse, diceScore, diceStakes, diceYear, roundWinner, WIFE_TAKES_UNDER } from '../src/engine/dice'
+import { createT, LANGS, loadTexts } from '../src/i18n'
 import { ANIMAL_COST, HOME_COST } from '../src/engine/household'
 import type { DiceResult, Stake } from '../src/engine/dice'
 import { makeNpc } from '../src/engine/rules'
@@ -201,5 +202,68 @@ describe('Кости', () => {
       else expect(small.away).toBeUndefined()
     }
     expect([...seen].sort()).toEqual(['diary.dice_lost.wife_kids', 'diary.dice_lost.wife_stay'])
+  })
+})
+
+// Жалоба 19.11 («Стук костей»): при 10 против 8 - «Поровну», строка статистики с чужими словами, суммы проигрышей
+// в дневнике не сходились с деньгами.
+describe('Кости: счёт, тексты и дневник', () => {
+  it('ничья - только при равных суммах; счёт не считает ничьи; партия решена на двух победах', () => {
+    expect(roundWinner({ me: [5, 5], them: [3, 5] })).toBe('me')
+    expect(roundWinner({ me: [3, 5], them: [4, 4] })).toBe('tie')
+    expect(roundWinner({ me: [1, 2], them: [6, 6] })).toBe('them')
+    expect(roundWinner({ me: [6, 6] })).toBeNull()
+    expect(roundWinner(undefined)).toBeNull()
+    for (let a = 2; a <= 12; a++)
+      for (let b = 2; b <= 12; b++) {
+        const w = roundWinner({ me: [a - 1, 1], them: [b - 1, 1] })
+        expect(w === 'tie').toBe(a === b)
+      }
+    const rounds = [{ me: [5, 5] as [number, number], them: [3, 5] as [number, number] }, { me: [4, 4] as [number, number], them: [2, 6] as [number, number] }]
+    expect(diceScore(rounds)).toEqual({ me: 1, them: 0, done: false })
+    expect(diceScore([...rounds, { me: [6, 1], them: [1, 1] }])).toEqual({ me: 2, them: 0, done: true })
+  })
+
+  it('строки стола без сырых ключей и скобок на всех языках', async () => {
+    for (const lang of LANGS) {
+      await loadTexts(lang, 'common')
+      const t = createT(lang)
+      for (const line of [t('dice.stats', { s: 18, l: 23 }), t('dice.score', { a: 0, b: 1 }), t('dice.tie'), t('dice.on_table'), t('dice.opp_short.unknown')]) {
+        expect(line, `${lang}: ${line}`).not.toMatch(/[{}]|dice\./)
+      }
+      expect(t('dice.stats', { s: 18, l: 23 })).toMatch(/18.*23/)
+    }
+  })
+
+  it('сумма в дневнике равна изменению денег: выигрыш, проигрыш, откуп, пойманный шулер, штраф по закону', () => {
+    const SIGN: Record<string, 1 | -1> = { 'diary.dice_win': 1, 'diary.dice_bigwin': 1, 'diary.dice_exposed': 1 }
+    const diaryMoney = (s: ReturnType<typeof adult>, from: number) =>
+      s.hero.diary.slice(from).reduce((n, e) => (e.key.startsWith('diary.dice_') && typeof e.params?.money === 'number' && !/\.(son|daughter|wife|wife_kids|wife_stay|self|house|land|slave|animal)$/.test(e.key) ? n + (SIGN[e.key] ?? -1) * (e.params.money as number) : n), 0)
+    const cases: [string, (s: ReturnType<typeof adult>) => DiceResult][] = [
+      ['выиграл монеты', (s) => play(diceStakes(s, era)[0], true)],
+      ['проиграл монеты', (s) => play(diceStakes(s, era)[0], false)],
+      ['проиграл кошелёк', (s) => play({ level: 2, kind: 'purse', amount: s.hero.money }, false)],
+      ['откупился от коня', (s) => play({ level: 3, kind: 'animal', amount: 60, animal: 'horse' }, false, { ransom: true })],
+      ['пойман на подмене', (s) => play({ level: 1, kind: 'coins', amount: 50 }, true, { cheated: true, caught: true })],
+      ['выиграл сына в долгах', (s) => {
+        s.hero.money = -500
+        return play({ level: 4, kind: 'son', amount: 300 }, true)
+      }],
+    ]
+    for (const eraId of ['EUR', 'ISL', 'E03', 'ANE'] as const) {
+      for (const [name, make] of cases) {
+        for (let seed = 1; seed <= 6; seed++) {
+          const s = adult(40 + seed)
+          s.hero.era = eraId
+          s.hero.money = 400
+          s.hero.animals = [{ kind: 'horse', since: s.year }]
+          const r = make(s)
+          const from = s.hero.diary.length
+          const money = s.hero.money
+          applyDice(s, era, r)
+          expect(diaryMoney(s, from), `${eraId} ${name} #${seed}`).toBe(s.hero.money - money)
+        }
+      }
+    }
   })
 })

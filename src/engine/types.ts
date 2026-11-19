@@ -1,3 +1,4 @@
+import type { ArmsSpec } from './arms'
 import type { HeroGoal } from './goals'
 import type { LifeReport } from './report'
 // Типы движка. Движок не содержит исторических данных: всё приходит из content/*.json.
@@ -849,6 +850,7 @@ export interface LifeSummary {
   animals?: Animal[]
   /** Имя рода и герб на момент смерти; цель рода. */
   house?: string
+  arms?: ArmsSpec
   familyGoal?: FamilyGoal
   /** Семейное имущество на момент смерти (до раздела) - для итога и продолжения рода из мемориала. */
   estateSnapshot?: Estate
@@ -868,8 +870,10 @@ export interface Family {
   flags: string[]
   /** Семейное имущество (src/engine/estate.ts): переживает смену поколений. Нет - сохранение до версии 8. */
   estate?: Estate
-  /** Имя рода и герб (src/content/houses.json): выбирают, когда род прожил две жизни. */
+  /** Род назван (знак для имени «Дом …»): выбирают, когда род прожил две жизни. */
   house?: string
+  /** Герб рода (src/engine/arms.ts). Нет при house - выбор до 19.11, переводится при загрузке (migrateArms). */
+  arms?: ArmsSpec
   /** Цель рода (src/engine/dynasty.ts): выбирают после первой жизни. */
   goal?: FamilyGoal
   /** Торговый запас и предприятия рода (src/engine/trade.ts, business.ts). Нет - сохранение до версии 9. */

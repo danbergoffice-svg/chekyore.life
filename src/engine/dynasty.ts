@@ -1,6 +1,8 @@
 // Род как целое (просьба владельца 09.11): имя рода и герб - после двух прожитых жизней; цель рода - после первой,
 // исходя из того, что оставил герой (сословие, богатство, дети, имущество, страны); выбор наследника с последствиями.
 import HOUSES from '../content/houses.json'
+import { cleanArms, legacyArms } from './arms'
+import type { ArmsSpec } from './arms'
 import { familyMeasure } from './chronicle'
 import type { EraDef, FamilyGoal, GameState, LifeSummary, Npc } from './types'
 
@@ -10,8 +12,15 @@ export const HOUSE_IDS = HOUSES.houses.map((h) => h.id)
 export const canNameHouse = (state: GameState) => !state.family.house && state.family.lives.length >= 2
 
 export function setHouse(state: GameState, id: string): boolean {
-  if (!HOUSE_IDS.includes(id) || state.family.house) return false
-  state.family = { ...state.family, house: id }
+  const arms = legacyArms(id)
+  return !!arms && setArms(state, arms)
+}
+
+/** Утвердить герб из конструктора (один раз): house - знак (для имени «Дом …» и метки «род назван»). */
+export function setArms(state: GameState, spec: ArmsSpec): boolean {
+  const arms = cleanArms(spec)
+  if (!arms || state.family.house) return false
+  state.family = { ...state.family, house: arms.charge, arms }
   return true
 }
 
