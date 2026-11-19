@@ -3,15 +3,16 @@
 // в нижней шторке по касанию плитки, так что прокрутка не растёт, сколько бы ни было имущества.
 import { useEffect, useState } from 'preact/hooks'
 import type { ComponentChildren } from 'preact'
-import { assetNet, estateValue, estateWorth, heroShare, manageable, SLAVE_INCOME, underSteward, yearTax } from '../engine/estate'
+import { assetNet, canInn, estateValue, estateWorth, heroShare, innCost, makeInn, manageable, SLAVE_INCOME, underSteward, yearTax } from '../engine/estate'
 import { cropOf, cropOutlook, cropsHere } from '../engine/crops'
-import { businessDef, businessLock, businessTypes, createBusiness, heroStake } from '../engine/business'
+import { businessDef, businessLock, businessTypes, canExpand, createBusiness, expandBusiness, growable, growBusiness, heroStake, unitCost } from '../engine/business'
+import { credit, loanLimit, loanLock, loanRate, LOAN, repayLoan, takeLoan } from '../engine/loans'
 import { capacity, stockTotal, stockValue, unitOf } from '../engine/trade'
 import { heirs } from '../engine/life'
 import { regionOf } from '../engine/rules'
 import { isPet } from '../engine/pets'
 import type { Asset, Business, EraDef, GameState } from '../engine/types'
-import { formatMoney } from '../i18n'
+import { formatMoney, formatYear, hasKey } from '../i18n'
 import { platform } from '../platform'
 import { AssetRow, BuyOffers, HomeRow, WillEditor } from './Estate'
 import { BizRow, Trade } from './Trade'
@@ -52,7 +53,7 @@ export function HoldingsSummary({ state, era }: { state: GameState; era: EraDef 
   const money = (n: number) => formatMoney(t, n, coin)
   const hero = state.hero
   const L = state.family.ledger?.year === state.year ? state.family.ledger : undefined
-  const parts = L ? ([['assets', L.assets], ['land', L.land], ['business', L.business], ['tax', L.tax], ['repairs', L.repairs]] as const).filter(([, v]) => v !== 0) : []
+  const parts = L ? ([['assets', L.assets], ['land', L.land], ['business', L.business], ['tax', L.tax], ['repairs', L.repairs], ['interest', L.interest ?? 0]] as const).filter(([, v]) => v !== 0) : []
   const total = parts.reduce((s, [, v]) => s + v, 0)
   const worth = totalWorth(state)
   const usual = usualIncome(state)
@@ -150,7 +151,7 @@ function Tile(props: { icon: IconName; title: string; sub?: string; net?: string
   )
 }
 
-type Open = { kind: 'asset'; id: string } | { kind: 'home' } | { kind: 'land' } | { kind: 'animals' } | { kind: 'buy' } | { kind: 'will' } | { kind: 'biz'; id: string } | { kind: 'found' } | { kind: 'market' } | null
+type Open = { kind: 'asset'; id: string } | { kind: 'home' } | { kind: 'land' } | { kind: 'animals' } | { kind: 'buy' } | { kind: 'will' } | { kind: 'biz'; id: string } | { kind: 'found' } | { kind: 'market' } | { kind: 'loan' } | null
 
 /** Раздел «Хозяйство»: дом, наделы, невольники, скот и хозяйства рода плитками; купить; завещание. */
 export function EstateTiles({ state, era, onChange }: { state: GameState; era: EraDef; onChange: () => void }) {
@@ -168,7 +169,7 @@ export function EstateTiles({ state, era, onChange }: { state: GameState; era: E
   const assets = (state.family.estate?.assets ?? []).filter((a) => heroShare(state, a) > 0)
   const animals = (hero.animals ?? []).filter((a) => !isPet(a.kind))
   const cur = open?.kind === 'asset' ? assets.find((a) => a.id === open.id) : undefined
-  const assetName = (a: Asset) => t(`asset.${a.type}`, {}, { region: hero.region })
+  const assetName = (a: Asset) => (a.inn ? t(hasKey(lang, `asset.inn.${hero.era}`) ? `asset.inn.${hero.era}` : 'asset.inn') : t(`asset.${a.type}`, {}, { region: hero.region }))
   const extra = Math.max(0, assets.length - manageable(state))
   return (
     <section class="hold">
@@ -223,6 +224,12 @@ export function EstateTiles({ state, era, onChange }: { state: GameState; era: E
           {underSteward(state, cur) && <p class="small warn">{t('hold.steward')}</p>}
           {(cur.idleUntil ?? 0) >= state.year && <p class="small warn">{t('hold.idle')}</p>}
           {cur.condition < 50 && <p class="small warn">{t('hold.worn')}</p>}
+          {cur.type === 'house' && !cur.inn && (cur.level ?? 0) >= 3 && (
+            <button type="button" class="option small" disabled={!canInn(state, cur)} onClick={() => act(() => makeInn(state, cur.id))}>
+              <span class="option-label">{t('hold.inn', { name: t(hasKey(lang, `asset.inn.${hero.era}`) ? `asset.inn.${hero.era}` : 'asset.inn') })}</span>
+              <span class="option-desc">{t('hold.inn.desc', { money: money(innCost(cur)) })}</span>
+            </button>
+          )}
           <ul class="kids">
             <AssetRow state={state} a={cur} money={money} act={(fn) => {
               act(fn)
@@ -275,11 +282,38 @@ export function BusinessTiles({ state, era, onChange }: { state: GameState; era:
           <Tile icon={BIZ_ICON[b.type] ?? 'scales'} title={t(`business.type.${b.type}`)} sub={t('hold.capital', { money: money(Math.round(b.capital * heroStake(b))) })} net={b.income || b.expenses ? signed(money, Math.round(profit(b) * heroStake(b))) : undefined} bad={profit(b) < 0} onClick={() => setOpen({ kind: 'biz', id: b.id })} />
         ))}
         {adult && offers.length > 0 && <Tile icon="plus" title={t('hold.found')} add onClick={() => setOpen({ kind: 'found' })} />}
+        {adult && <Tile icon="purse" title={t('loan.title')} sub={state.family.loan ? t('loan.short', { money: money(state.family.loan.principal) }) : t('loan.credit', { n: credit(state) })} onClick={() => setOpen({ kind: 'loan' })} />}
       </div>
+      {businessTypes().filter((ty) => growable(state, ty)).map((ty) => (
+        <div class="hold-hint">
+          <p class="small">{t(`business.grow.${ty}`)}</p>
+          <button type="button" class="primary small" onClick={() => act(() => growBusiness(state, ty))}>{t('business.grow.do')}</button>
+        </div>
+      ))}
+      {open?.kind === 'loan' && (
+        <Sheet title={t('loan.title')} onClose={() => setOpen(null)}>
+          <LoanSheet state={state} money={money} act={act} />
+        </Sheet>
+      )}
       {!list.length && <p class="small muted">{adult ? t('business.hint') : t('trade.young')}</p>}
       {list.length > 0 && <p class="small muted">{t('business.attention')}</p>}
       {cur && (
         <Sheet title={t(`business.type.${cur.type}`)} onClose={() => setOpen(null)}>
+          {cur.units && <p class="small">{t(`business.units.${cur.type}`, { n: cur.units })}</p>}
+          {cur.units && (
+            <div class="hold-offers">
+              <button type="button" class="option small" disabled={!canExpand(state, cur)} onClick={() => act(() => expandBusiness(state, cur.id))}>
+                <span class="option-label">{t(`business.expand.${cur.type}`)}</span>
+                <span class="option-desc">{t('business.expand.desc', { money: money(unitCost(cur)) })}</span>
+              </button>
+              {cur.type === 'artel' && (state.hero.slaves ?? 0) > 0 && (
+                <button type="button" class="option small" disabled={!canExpand(state, cur, 'slaves')} onClick={() => act(() => expandBusiness(state, cur.id, 'slaves'))}>
+                  <span class="option-label">{t('business.expand.artel_slave')}</span>
+                  <span class="option-desc">{t('business.expand.slave_desc')}</span>
+                </button>
+              )}
+            </div>
+          )}
           <ul class="kids">
             <BizRow state={state} b={cur} money={money} act={(fn) => {
               act(fn)
@@ -379,6 +413,36 @@ function LandSheet({ state, money, onChange }: { state: GameState; money: (n: nu
           onChange()
         }}>{t('land.store', { n: Math.max(0, capacity(state) - stockTotal(state)) })}</button>
       </div>
+    </>
+  )
+}
+
+/** Заём (20.11): взять бегунком до предела, ставка по кредитной истории рода; вернуть раньше срока. */
+function LoanSheet({ state, money, act }: { state: GameState; money: (n: number) => string; act: (fn: () => unknown) => void }) {
+  const { t, lang } = useUi()
+  const loan = state.family.loan
+  const lock = loanLock(state)
+  const limit = loanLimit(state)
+  const [n, setN] = useState(Math.round(limit / 2))
+  const amount = Math.max(1, Math.min(n, limit))
+  return (
+    <>
+      <p class="small">{t('loan.credit_long', { n: credit(state) })}</p>
+      {loan ? (
+        <>
+          <p class="small">{t('loan.now', { money: money(loan.principal), n: Math.round(loan.rate * 100), year: formatYear(loan.dueYear, lang), interest: money(Math.round(loan.principal * loan.rate)) })}</p>
+          <button type="button" class="primary" disabled={state.hero.money < loan.principal} onClick={() => act(() => repayLoan(state))}>{t('loan.repay', { money: money(loan.principal) })}</button>
+        </>
+      ) : lock ? (
+        <p class="small muted">{t(lock)}</p>
+      ) : (
+        <div class="market-qty">
+          <input type="range" min={1} max={limit} value={amount} aria-label={t('loan.amount')} onInput={(e) => setN(Number((e.target as HTMLInputElement).value))} />
+          <p class="small">{t('loan.offer', { money: money(amount), n: Math.round(loanRate(state) * 100), interest: money(Math.round(amount * loanRate(state))), years: LOAN.term })}</p>
+          <button type="button" class="primary" onClick={() => act(() => takeLoan(state, amount))}>{t('loan.take', { money: money(amount) })}</button>
+        </div>
+      )}
+      <p class="small muted">{t('loan.hint')}</p>
     </>
   )
 }

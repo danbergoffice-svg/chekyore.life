@@ -147,7 +147,7 @@ export function businessYear(state: GameState): void {
       const luck = int(state, B.luck[0], B.luck[1]) / 10
       const skill = 1 + (hero.skills[def.skill] ?? 0) * B.skillBonus
       const name = 1 + (b.reputation - 50) / 200
-      b.income = Math.round(b.capital * def.return * luck * skill * name)
+      b.income = Math.round(b.capital * def.return * luck * skill * name * (b.units ? GROW.scale : 1))
       b.expenses = Math.round(b.capital * def.expenses)
       const profit = b.income - b.expenses
       if (profit > 0) {
@@ -203,4 +203,63 @@ export function closingShares(b: Business): Record<string, number> {
   const out: Record<string, number> = { hero: b.capital * heroStake(b) }
   for (const p of b.partners as BusinessPartner[]) out[p.npcId] = b.capital * p.share
   return out
+}
+
+// ---------- Рост дел (просьба 20.11) ----------
+// Три дела одного вида, и старшему из них не меньше GROW.years лет, - их можно объединить в одно большое: морская
+// торговля - свой флот, торговый дом - свой рынок, артель - мануфактура, караван - торговый путь с постоялыми дворами.
+// Объединённое дело растёт: корабль, торговый ряд, мастерская (или невольники, где это в обычае), постоялый двор.
+// Доход большого дела - на scale выше (дешевле закупка, своё место на пути).
+
+export const GROW = { count: 3, years: 20, unitCost: 0.8, scale: 1.15, maxUnits: 12 }
+
+/** Можно ли объединить дела этого вида сейчас. */
+export function growable(state: GameState, type: string): boolean {
+  const list = active(state).filter((b) => b.type === type && !b.units && !b.partners.length)
+  if (list.length < GROW.count || active(state).some((b) => b.type === type && b.units)) return false
+  const oldest = Math.min(...list.map((b) => b.foundedYear ?? state.year))
+  return state.year - oldest >= GROW.years
+}
+
+/** Объединить три дела вида в одно большое. */
+export function growBusiness(state: GameState, type: string): Business | undefined {
+  if (!growable(state, type)) return undefined
+  const list = active(state).filter((b) => b.type === type && !b.units).sort((a, b) => (a.foundedYear ?? 0) - (b.foundedYear ?? 0)).slice(0, GROW.count)
+  const main = list[0]
+  for (const b of list.slice(1)) {
+    main.capital += b.capital
+    main.reputation = Math.max(main.reputation, b.reputation)
+    b.active = false
+    b.closedYear = state.year
+    b.capital = 0
+  }
+  main.units = GROW.count
+  main.initial = main.capital
+  note(state, { key: `diary.business_grown.${type}`, params: { what: { key: `business.type.${type}` } }, topic: 'money', icon: 'find', score: 40, mood: 6, major: true })
+  listener?.('business_created', state, { type: `${type}_grown`, capital: main.capital })
+  return main
+}
+
+/** Цена ещё одного корабля, ряда, мастерской, постоялого двора. */
+export const unitCost = (b: Business) => Math.round((businessDef(b.type)?.capital ?? 500) * GROW.unitCost)
+
+/** Можно ли расширить (how: 'money' - за деньги, 'slaves' - отдать невольника в мануфактуру). */
+export function canExpand(state: GameState, b: Business, how: 'money' | 'slaves' = 'money'): boolean {
+  if (!b.active || !b.units || b.units >= GROW.maxUnits) return false
+  if (how === 'slaves') return b.type === 'artel' && (state.hero.slaves ?? 0) > 0
+  return state.hero.money >= unitCost(b)
+}
+
+/** Расширить большое дело: за деньги или (мануфактура) невольником. */
+export function expandBusiness(state: GameState, businessId: string, how: 'money' | 'slaves' = 'money'): boolean {
+  const b = active(state).find((x) => x.id === businessId)
+  if (!b || !canExpand(state, b, how)) return false
+  const cost = unitCost(b)
+  if (how === 'slaves') state.hero.slaves = (state.hero.slaves ?? 0) - 1
+  else state.hero.money -= cost
+  b.capital += cost
+  b.initial = Math.max(b.initial ?? 0, b.capital)
+  b.units = (b.units ?? 0) + 1
+  note(state, { key: `diary.business_expanded.${b.type}${how === 'slaves' ? '_slave' : ''}`, params: { n: b.units, ...(how === 'money' ? { money: cost } : {}) }, topic: 'money', score: 16, mood: 2 })
+  return true
 }

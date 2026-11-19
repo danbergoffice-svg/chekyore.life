@@ -9,6 +9,7 @@
 import { ERA_META } from '../content'
 import { HOME_COST } from './household'
 import { harvestYear } from './crops'
+import { loanYear } from './loans'
 import { chance, int } from './rng'
 import { changeParam, faithMatches, HOME_TAGS, note } from './rules'
 import ASSETS from '../content/assets.json'
@@ -195,6 +196,8 @@ export function estateOffers(state: GameState): EstateKind[] {
 export function estateYear(state: GameState): void {
   // Семейные активы - в том же годовом расчёте (не отдельно, чтобы не посчитать доход дважды).
   assetsYear(state)
+  // Заём: проценты и возврат в срок (engine/loans.ts).
+  loanYear(state)
   const hero = state.hero
   const land = hero.land ?? 0
   const slaves = hero.slaves ?? 0
@@ -466,4 +469,25 @@ export function assetsYear(state: GameState): void {
     changeParam(hero, 'happiness', -5)
   }
   syncDebts(estate)
+}
+
+// ---------- Постоялый двор (просьба 20.11) ----------
+// Доходный дом, улучшенный до предела, можно перестроить в постоялый двор (по эпохе - таберна, караван-сарай, рёкан…):
+// дороже содержать, но доход заметно выше.
+export const INN = { cost: 0.5, income: 1.6, maintenance: 1.5, value: 1.3 }
+export const innCost = (a: Asset) => Math.round(a.value * INN.cost)
+export const canInn = (state: GameState, a: Asset) => a.type === 'house' && !a.inn && (a.level ?? 0) >= A.improve.maxLevel && heroShare(state, a) > 0 && state.hero.money >= innCost(a)
+
+export function makeInn(state: GameState, assetId: string): boolean {
+  const a = state.family.estate?.assets.find((x) => x.id === assetId)
+  if (!a || !canInn(state, a)) return false
+  const cost = innCost(a)
+  state.hero.money -= cost
+  a.inn = true
+  a.income = Math.round(a.income * INN.income)
+  a.maintenance = Math.round(a.maintenance * INN.maintenance)
+  a.value = Math.round(a.value * INN.value)
+  a.condition = 100
+  note(state, { key: 'diary.asset_inn', params: { money: cost }, topic: 'money', icon: 'find', score: 26, mood: 4, major: true })
+  return true
 }

@@ -895,6 +895,9 @@ export interface Family {
   trade?: FamilyTrade
   /** Доходы и расходы хозяйства за последний год (сводка на вкладке «Герой»). */
   ledger?: YearLedger
+  /** Заём под проценты (engine/loans.ts) и кредитная история рода 0–100 (нет - 50). */
+  loan?: { principal: number; rate: number; takenYear: number; dueYear: number }
+  credit?: number
 }
 
 /** Чистый доход хозяйства за год по источникам (деньги героя): хозяйства рода, наделы и невольники, дела, подать, починка. */
@@ -905,6 +908,8 @@ export interface YearLedger {
   business: number
   tax: number
   repairs: number
+  /** Проценты по займу. */
+  interest?: number
 }
 
 /** Цель рода: что измеряем (familyMeasure), сколько нужно, с какого поколения, когда исполнена. */
@@ -954,6 +959,9 @@ export interface Business {
   active: boolean
   foundedYear?: number
   closedYear?: number
+  /** Разросшееся дело (20.11): три дела одного вида за 20 лет - флот, свой рынок, мануфактура, торговый путь;
+   *  units - сколько кораблей, рядов, мастерских, постоялых дворов. Нет - обычное дело. */
+  units?: number
 }
 
 export interface FamilyTrade {
@@ -989,6 +997,8 @@ export interface Asset {
   pledged?: number
   /** После беды (паводок, отстройка, выгнали управляющего): до этого года включительно дохода нет. */
   idleUntil?: number
+  /** Доходный дом, перестроенный в постоялый двор (20.11). */
+  inn?: boolean
 }
 
 export interface Estate {
