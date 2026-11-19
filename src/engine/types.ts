@@ -378,6 +378,7 @@ export type Effect =
   /** Хозяйство: купить (дом - следующий по размеру, n наделов или рабов) или потерять n (refund - доля цены деньгами). */
   | { buy: 'home' | 'land' | 'slaves'; n?: number }
   | { lose_estate: 'land' | 'slaves'; n: number; refund?: number }
+  | { peril: import('./perils').PerilAction }
   /** Кости: азарт меняется на delta (зарок, ультиматум - минус). */
   | { dice_lust: number }
   | { chance: number; effects: Effect[] }
@@ -878,6 +879,18 @@ export interface Family {
   goal?: FamilyGoal
   /** Торговый запас и предприятия рода (src/engine/trade.ts, business.ts). Нет - сохранение до версии 9. */
   trade?: FamilyTrade
+  /** Доходы и расходы хозяйства за последний год (сводка на вкладке «Герой»). */
+  ledger?: YearLedger
+}
+
+/** Чистый доход хозяйства за год по источникам (деньги героя): хозяйства рода, наделы и невольники, дела, подать, починка. */
+export interface YearLedger {
+  year: number
+  assets: number
+  land: number
+  business: number
+  tax: number
+  repairs: number
 }
 
 /** Цель рода: что измеряем (familyMeasure), сколько нужно, с какого поколения, когда исполнена. */
@@ -958,6 +971,8 @@ export interface Asset {
   ownerShares: Record<string, number>
   /** Заложено: сколько должны под этот актив (10% в год). */
   pledged?: number
+  /** После беды (паводок, отстройка, выгнали управляющего): до этого года включительно дохода нет. */
+  idleUntil?: number
 }
 
 export interface Estate {
@@ -992,6 +1007,10 @@ export interface ActiveEvent {
   dice?: import('./dice').DiceResult[]
   /** Перелом сорокалетия этого окна (событие dynamic crisis): шары и исходы (engine/crisis.ts). */
   crisis?: import('./crisis').CrisisRecord
+  /** Хозяйство рода, о котором беда (события peril_*, engine/perils.ts), и его название и суммы для текста
+   *  (запомнены при начале беды: после «продать пепелище» хозяйства уже нет, а исход читается). */
+  assetId?: string
+  perilText?: Record<string, TextParam>
   /** Питомец события: вид и кличка (если есть). */
   petKind?: string
   petName?: string

@@ -1,0 +1,255 @@
+[
+  {
+    "id": "peril_fire",
+    "type": "personal",
+    "age_range": [
+      16,
+      99
+    ],
+    "base_weight": 1,
+    "trigger_only": true,
+    "topic": "money",
+    "icon": "loss",
+    "scene": {
+      "place": "street",
+      "time": "night",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "rebuild",
+        "effects": [
+          {
+            "peril": "rebuild"
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "craft_power": 1
+        }
+      },
+      {
+        "id": "sell_ruins",
+        "effects": [
+          {
+            "peril": "sell_ruins"
+          }
+        ],
+        "pattern": {
+          "memory_future": 1
+        }
+      },
+      {
+        "id": "abandon",
+        "effects": [
+          {
+            "peril": "abandon"
+          },
+          {
+            "param": "happiness",
+            "delta": -3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "peril_flood",
+    "type": "personal",
+    "age_range": [
+      16,
+      99
+    ],
+    "base_weight": 1,
+    "trigger_only": true,
+    "topic": "money",
+    "icon": "loss",
+    "scene": {
+      "place": "field",
+      "time": "day",
+      "people": 2
+    },
+    "choices": [
+      {
+        "id": "wait",
+        "effects": [
+          {
+            "peril": "wait"
+          },
+          {
+            "param": "stress",
+            "delta": 3
+          }
+        ],
+        "pattern": {
+          "home_road": -1
+        }
+      },
+      {
+        "id": "sell_half",
+        "effects": [
+          {
+            "peril": "sell_half"
+          }
+        ],
+        "pattern": {
+          "memory_future": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "peril_steward",
+    "type": "personal",
+    "age_range": [
+      16,
+      99
+    ],
+    "base_weight": 1,
+    "trigger_only": true,
+    "topic": "money",
+    "icon": "loss",
+    "scene": {
+      "place": "yard",
+      "time": "day",
+      "people": 3
+    },
+    "choices": [
+      {
+        "id": "dismiss",
+        "effects": [
+          {
+            "peril": "dismiss"
+          },
+          {
+            "param": "stress",
+            "delta": 2
+          }
+        ],
+        "pattern": {
+          "craft_power": 1
+        }
+      },
+      {
+        "id": "sue",
+        "effects": [
+          {
+            "peril": "sue"
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "ignore",
+        "effects": [
+          {
+            "peril": "ignore"
+          },
+          {
+            "param": "stress",
+            "delta": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "peril_disgrace",
+    "type": "personal",
+    "age_range": [
+      16,
+      99
+    ],
+    "base_weight": 1,
+    "trigger_only": true,
+    "topic": "money",
+    "icon": "loss",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 5
+    },
+    "choices": [
+      {
+        "id": "pay",
+        "effects": [
+          {
+            "peril": "pay"
+          },
+          {
+            "param": "stress",
+            "delta": 4
+          }
+        ],
+        "pattern": {
+          "memory_future": 1
+        }
+      },
+      {
+        "id": "yield",
+        "effects": [
+          {
+            "peril": "yield"
+          },
+          {
+            "param": "self_esteem",
+            "delta": -3
+          }
+        ],
+        "pattern": {
+          "craft_power": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "peril_lawsuit",
+    "type": "personal",
+    "age_range": [
+      16,
+      99
+    ],
+    "base_weight": 1,
+    "trigger_only": true,
+    "topic": "money",
+    "icon": "loss",
+    "scene": {
+      "place": "palace",
+      "time": "day",
+      "people": 4
+    },
+    "choices": [
+      {
+        "id": "court",
+        "effects": [
+          {
+            "peril": "court"
+          }
+        ],
+        "pattern": {
+          "craft_power": 2
+        }
+      },
+      {
+        "id": "yield",
+        "effects": [
+          {
+            "peril": "yield"
+          },
+          {
+            "param": "self_esteem",
+            "delta": -2
+          }
+        ],
+        "pattern": {
+          "craft_power": -1
+        }
+      }
+    ]
+  }
+]

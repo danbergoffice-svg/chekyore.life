@@ -39,6 +39,8 @@ import { abroadYear, homesickDue, naturalizeDue } from './abroad'
 import { autoDream, dreamDue, dreamRng, pickDream, resolveDream, skipDream, startDream } from './dreams'
 import { ERA_META, eraById, isEraLoaded } from '../content'
 import { estateOffers, estatePrice, offerAnswered } from './estate'
+import { applyPeril, assetPeril, perilParams } from './perils'
+import type { PerilAction } from './perils'
 import type { EstateKind } from './estate'
 import { chronicleSuccessor, eraEnding, summarize } from './life'
 import { ensureGoal, eventHelpsGoal, goalYear } from './goals'
@@ -64,6 +66,10 @@ function botDice(state: GameState, era: EraDef, festive: boolean): DiceResult[] 
   }
   return out
 }
+
+/** Расходы на положение с большой казны: доля в год сверх LUXURY_FROM годовых расходов. */
+export const LUXURY = 0.03
+export const LUXURY_FROM = 15
 
 /** Праздники, когда кости разрешены: Сатурналии, ночь Дивали. */
 export const FESTIVE = ['v_dice_saturnalia', 'ind_d_diwali_dice']
@@ -260,10 +266,11 @@ function background(state: GameState, era: EraDef, focus: FocusDef | null): Npc[
     const rent = hero.tags.includes('wealthy') && hero.money > 0 ? hero.money * 0.025 : 0
     // Кто больше зарабатывает, тот и живёт шире: треть обычного дохода занятия сверх обычных расходов уходит на дом,
     // слуг, одежду и подарки (по среднему доходу, а не по удаче года - иначе в плохой год сразу долг), а с большой казны -
-    // ещё процент в год (дом богача, челядь). Достаток остаётся, но растёт медленнее.
+    // ещё LUXURY в год сверх LUXURY_FROM годовых расходов (дом богача, челядь, пиры, дары). Достаток остаётся, но растёт
+    // медленнее: с 19.11 - 3% сверх 15 лет расходов (было 1% сверх 20 - род становился баснословно богатым за поколение).
     const base = upkeep
     const usual = prof ? ((prof.income[0] + prof.income[1]) / 2) * (0.75 + (hero.skills[prof.skill] ?? 0) / 100) : 0
-    upkeep += 0.33 * Math.max(0, usual + rent - base) + 0.01 * Math.max(0, hero.money - 20 * Math.max(base, 100))
+    upkeep += 0.33 * Math.max(0, usual + rent - base) + LUXURY * Math.max(0, hero.money - LUXURY_FROM * Math.max(base, 100))
     hero.money = Math.round(hero.money + income + rent - upkeep)
     // Долг растёт: заимодавцы берут лихву (8% в год) - так и попадают в долговую яму.
     if (hero.money < 0) hero.money = Math.round(hero.money * DEBT_INTEREST)
@@ -729,11 +736,13 @@ export const FOUNDLING = { from: 28, chance: 0.12 }
 const ESTATE_EVENTS: Record<string, EstateKind> = { estate_home: 'home', estate_land: 'land', estate_slaves: 'slaves' }
 
 /** Параметры текста события: имя и пол персонажа, о котором оно. */
-export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName'> & { eventId?: string }): Record<string, TextParam> {
+export function eventParams(state: GameState, active: Pick<ActiveEvent, 'npcId' | 'npcName' | 'npcSex' | 'petKind' | 'petName' | 'perilText'> & { eventId?: string }): Record<string, TextParam> {
   // Питомец: по кличке, а если клички нет - «попугай», «черепаха».
   const pet: Record<string, TextParam> = active.petKind ? { pet: active.petName ? { name: active.petName } : { key: `pet.${active.petKind}` } } : {}
   // Хозяйство: {price} {coin} - цена покупки, {home} - какой дом купить, {land} и {slaves} - сколько уже есть.
   if (active.eventId?.startsWith('estate_')) Object.assign(pet, estateParams(state, active.eventId))
+  // Беда хозяйства: {what} - какое, {rebuild} {ruins} {bribe} {court} {sue} - суммы.
+  if (active.perilText) Object.assign(pet, active.perilText)
   // Работа в краю, куда ездил: {place} - этот край.
   if (active.eventId === 'travel_work' && state.hero.lastTrip) pet.place = { key: `region.${state.hero.lastTrip}` }
   // Перелом: {age} - возраст героя.
@@ -878,6 +887,10 @@ function rollEvents(state: GameState, era: EraDef, births: Npc[] = []): void {
   if (!debtEv && hero.alive) {
     const offer = estateOffers(state).map((k) => byId(`estate_${k}`)).find((ev) => ev && fits(ev))
     if (offer && chance(state, 0.4)) add(offer)
+    // Беда хозяйства рода (пожар, паводок, управляющий, опала, тяжба) - одна в год, о конкретном хозяйстве.
+    const peril = assetPeril(state)
+    const pev = peril && byId(peril.eventId)
+    if (peril && pev && fits(pev) && !has(pev)) picked.push({ ...activate(state, pev), assetId: peril.assetId, perilText: perilParams(state, peril.assetId) })
   }
 
   // 1г. Бездетный взрослый (решение владельца 10.11, №4): подкидыш у ворот - чтобы род мог продолжиться через приёмного
@@ -1269,6 +1282,9 @@ export function choose(state: GameState, era: EraDef, choiceId: string | null): 
       active.dice = list.map((r) => ({ ...r, applied: true }))
       const net = list.reduce((n, r) => n + (r.won && !r.caught ? r.stake.amount : -r.stake.amount), 0)
       result = net >= 0 ? 'success' : 'failure'
+    } else if (ev.id.startsWith('peril_')) {
+      const act = choice.effects?.find((e): e is { peril: PerilAction } => 'peril' in e)?.peril
+      if (act) result = applyPeril(state, active.assetId, act)
     } else if (ev.dynamic === 'crisis') {
       // Перелом: шары брошены в окне (active.crisis); без окна (бот, тесты) - один шар и «Принять».
       result = applyCrisis(state, active.crisis ?? botCrisis(state, era, choice.id as StanceId))

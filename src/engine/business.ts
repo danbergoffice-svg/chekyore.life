@@ -8,6 +8,7 @@ import BIZ from '../content/business.json'
 import { chance, int } from './rng'
 import { changeParam, note, npcAge } from './rules'
 import { initializeTrade } from './trade'
+import { ledger } from './estate'
 import type { Business, BusinessPartner, GameState, Npc } from './types'
 
 interface BizDef {
@@ -151,7 +152,9 @@ export function businessYear(state: GameState): void {
       const profit = b.income - b.expenses
       if (profit > 0) {
         // Прибыль - по долям: роду его часть, компаньонам их (они уносят её домой).
-        hero.money += Math.round(profit * heroStake(b) * (attentive(state) ? 1 : NO_ATTENTION))
+        const got = Math.round(profit * heroStake(b) * (attentive(state) ? 1 : NO_ATTENTION))
+        hero.money += got
+        ledger(state).business += got
         b.reputation = Math.min(100, b.reputation + B.reputation.good)
       } else {
         b.capital += profit

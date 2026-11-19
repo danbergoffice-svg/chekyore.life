@@ -1,10 +1,10 @@
 {
-  "_doc": "Предприятия (src/engine/business.ts). capital - наименьший вклад; return - средний доход на капитал за год (до расходов), expenses - доля капитала на расходы; needs - хоть что-то из features страны; skill - навык героя, который поднимает доход. forms - как такое товарищество называлось в стране (текст business.form.<id>).",
+  "_doc": "Предприятия (src/engine/business.ts). capital - наименьший вклад; return - средний доход на капитал за год (до расходов; 19.11 снижен - род богател за одно поколение), expenses - доля капитала на расходы; needs - хоть что-то из features страны; skill - навык героя, который поднимает доход. forms - как такое товарищество называлось в стране (текст business.form.<id>).",
   "types": [
-    { "id": "artel", "capital": 300, "return": 0.2, "expenses": 0.08, "skill": "craft", "classes": ["peasant", "craftsman", "trader", "landowner"] },
-    { "id": "trading_house", "capital": 800, "return": 0.24, "expenses": 0.1, "skill": "trade", "classes": ["craftsman", "trader", "landowner", "noble"] },
-    { "id": "caravan", "capital": 1200, "return": 0.32, "expenses": 0.12, "skill": "trade", "needs": ["camels", "horses", "llamas"], "classes": ["trader", "landowner", "noble"] },
-    { "id": "shipping", "capital": 1500, "return": 0.34, "expenses": 0.13, "skill": "seafaring", "needs": ["sea"], "classes": ["trader", "landowner", "noble"] }
+    { "id": "artel", "capital": 300, "return": 0.16, "expenses": 0.08, "skill": "craft", "classes": ["peasant", "craftsman", "trader", "landowner"] },
+    { "id": "trading_house", "capital": 800, "return": 0.18, "expenses": 0.1, "skill": "trade", "classes": ["craftsman", "trader", "landowner", "noble"] },
+    { "id": "caravan", "capital": 1200, "return": 0.25, "expenses": 0.12, "skill": "trade", "needs": ["camels", "horses", "llamas"], "classes": ["trader", "landowner", "noble"] },
+    { "id": "shipping", "capital": 1500, "return": 0.27, "expenses": 0.13, "skill": "seafaring", "needs": ["sea"], "classes": ["trader", "landowner", "noble"] }
   ],
   "forms": {
     "E03": "societas",

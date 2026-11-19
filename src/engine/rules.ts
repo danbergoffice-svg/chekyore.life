@@ -588,6 +588,8 @@ export function applyEffects(state: GameState, era: EraDef, effects: Effect[] | 
       herdEffect(state, e.herd)
     } else if ('buy' in e) {
       buyEstate(state, e.buy, e.n ?? 1)
+    } else if ('peril' in e) {
+      // Беда хозяйства - в choose (engine/game.ts): ей нужен assetId события и исход для текста.
     } else if ('lose_estate' in e) {
       loseEstate(state, e.lose_estate, e.n, e.refund ?? 0)
     } else if ('dice_lust' in e) {
