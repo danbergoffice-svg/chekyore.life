@@ -187,6 +187,23 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
   const [focus, setFocus] = useState<string | null>(state.lastFocus)
   const selected = focuses.find((f) => f.id === focus)?.id ?? focuses.find((f) => f.id === 'work')?.id ?? focuses[0]?.id ?? null
   const [speed, setSpeed] = useState<Speed>(1)
+  // Вкладка «Герой» ставит паузу (жалобы 19.11: пока настраиваешь хозяйство, выскакивают события года).
+  // Скорость до паузы - здесь; вернулся на другую вкладку - время идёт как шло. Игрок сам тронул скорость - не вмешиваемся.
+  const autoPaused = useRef<Speed | null>(null)
+  const changeSpeed = (s: Speed) => {
+    autoPaused.current = null
+    setSpeed(s)
+  }
+  const openTab = (id: Tab) => {
+    if (id === 'hero' && tab !== 'hero' && speed > 0) {
+      autoPaused.current = speed
+      setSpeed(0)
+    } else if (id !== 'hero' && autoPaused.current !== null) {
+      setSpeed(autoPaused.current)
+      autoPaused.current = null
+    }
+    setTab(id)
+  }
   const [focusOpen, setFocusOpen] = useState(false)
   // Одноразовые подсказки (ТЗ P3): не ставят игру на паузу, закрываются касанием.
   const [hints, setHints] = useState<string[]>(() => (platform.kvGet('thousands.hints') ?? '').split(',').filter(Boolean))
@@ -522,7 +539,7 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
         <nav class="tabs" role="tablist">
           {(['life', 'hero', 'people', 'diary'] as Tab[]).map((id) => (
             <button role="tab" aria-selected={tab === id} class={tab === id ? 'tab active' : 'tab'} onClick={() => {
-                setTab(id)
+                openTab(id)
                 platform.track('tab_open', { tab: id })
               }}>
               {t(`tab.${id}`)}
@@ -533,7 +550,7 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
           <div class="speed" role="group" aria-label={t('life.speed')}>
             {SPEEDS.map((s) => (
               <button class={speed === s ? 'chip active' : 'chip'} aria-pressed={speed === s} aria-label={s === 0 ? t('life.pause') : `×${s}`} onClick={() => {
-                setSpeed(s)
+                changeSpeed(s)
                 platform.track('speed_change', { speed: s })
               }}>
                 {s === 0 ? <Icon name="pause" /> : s === 0.5 ? '×½' : `×${s}`}
@@ -595,7 +612,7 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
               onPick={setFocus}
               o={o}
               hint={hintFor('focus', hero.age >= 5) ? <Hint text={t('hint.focus', {}, o)} onClose={() => closeHint('focus')} /> : null}
-              lifestyle={lifestyleDefs(state, era).length > 0 ? () => setTab('hero') : null}
+              lifestyle={lifestyleDefs(state, era).length > 0 ? () => openTab('hero') : null}
             />
           )}
 
@@ -641,6 +658,17 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
       {tab === 'hero' && (
         <section class="panel">
           {tabHint('tab_hero') && <Hint text={t('hint.tab_hero', {}, o)} onClose={() => closeHint('tab_hero')} />}
+          {speed === 0 && state.phase !== 'dead' && (
+            <div class="hero-paused" role="status">
+              <span class="small">{t('hero.paused')}</span>
+              <button type="button" class="primary small" onClick={() => {
+                changeSpeed(autoPaused.current ?? 1)
+                platform.track('hero_resume', {})
+              }}>
+                <Icon name="play" /> {t('hero.resume')}
+              </button>
+            </div>
+          )}
           <FamilyLine state={state} />
           {/* Деньги - первой строкой (отзыв игрока 03.11: «не нашёл, где моё богатство»). */}
           <p class="hero-money"><strong>{t('hero.money')}:</strong> {formatMoney(t, hero.money, coin)}{hero.money < 0 ? ` · ${t('hero.in_debt')}` : ''}</p>
@@ -795,7 +823,7 @@ export function Life({ onSkipChildhood, onRebirth, state, era, onStart, onFinish
         <TimeBar
           speed={speed}
           onSpeed={(s) => {
-            setSpeed(s as Speed)
+            changeSpeed(s as Speed)
             platform.track('speed_change', { speed: s })
           }}
           progress={state.phase === 'running' ? progress : 0}

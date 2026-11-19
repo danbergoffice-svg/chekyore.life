@@ -1679,6 +1679,8 @@
   "career.wait": "You can change your work from {year}.",
   "event.more_names": "Other names",
   "hero.money": "Money",
+  "hero.paused": "Time is paused while you're on the Hero tab: the year's events will wait.",
+  "hero.resume": "Resume",
   "hero.in_debt": "in debt",
   "plaque.mute": "don't show these this life",
   "notice.empty": "News of your family and awards will appear here.",

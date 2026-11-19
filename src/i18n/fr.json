@@ -1675,6 +1675,8 @@
   "career.wait": "Tu pourras changer de métier à partir de {year}.",
   "event.more_names": "Autres noms",
   "hero.money": "Argent",
+  "hero.paused": "Le temps s'arrête tant que tu es sur l'onglet Héros : les événements de l'année attendront.",
+  "hero.resume": "Reprendre",
   "hero.in_debt": "endetté",
   "plaque.mute": "ne plus afficher dans cette vie",
   "notice.empty": "Les nouvelles de ta famille et les récompenses apparaîtront ici.",
