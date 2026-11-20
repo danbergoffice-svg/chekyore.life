@@ -94,6 +94,8 @@ const W = Number(process.env.W || 390)
   await card.screenshot({ path: `${dir}/daily-card.png` })
   await p.screenshot({ path: `${dir}/daily-menu.png`, fullPage: true })
   // 3. Жизнь дня: без барабана, сразу знакомство с семьёй.
+  // Панель «Дары» раз в день открывается сама - закрыть.
+  if (await p.$('.sheet-done')) await p.click('.sheet-done').catch(() => {})
   await p.click('.daily-play')
   await p.waitForSelector('.reveal', { timeout: 20000 })
   const who = await p.$eval('.reveal', (e) => e.innerText.slice(0, 120)).catch(() => '')
