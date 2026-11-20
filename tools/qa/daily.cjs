@@ -1,119 +1,101 @@
-// «Жизнь дня» (docs/TZ_daily.md): после первой жизни в меню карточка; жизнь дня начинается без барабана, после смерти -
-// место в таблице дня, ник, таблица; в меню - «твоё место». Сервер (/api/daily, /api/nick) подменён здесь же.
-// Для скорости: защита выключена, год - 1 с (подмена /flags.json). Нужен npx vite --port 5174.
-const { chromium } = require('playwright')
-const dir = process.env.SHOTS || 'shots'
-const W = Number(process.env.W || 390)
-;(async () => {
-  const b = await chromium.launch()
-  const ctx = await b.newContext({ viewport: { width: W, height: 844 }, locale: 'ru-RU', reducedMotion: 'reduce', deviceScaleFactor: 2 })
-  await ctx.route(/\/flags\.json/, async (r) => {
-    const f = await (await r.fetch()).json()
-    r.fulfill({ json: { ...f, protected_lives: 0, year_sec_child: 1, year_sec: 1, daily_share: 1, auto_spin_share: 0, ab_buckets: { a: 1 } } })
-  })
-  // Сервер жизни дня: 14 «чужих» итогов, свой - после /api/daily/result.
-  const rows = Array.from({ length: 14 }, (_, i) => ({ nick: i % 4 === 2 ? null : ['Makuska', 'Leyla', 'tom_h', 'Ana_Z', 'kerem', 'Ali_K', 'Sofi', 'Bao'][i % 8] + (i > 7 ? i : ''), country: 'MX', age: 70 - i * 5, kids: (i * 7) % 5, prof: null }))
-  let mine = null
-  const board = (date) => {
-    const all = [...rows, ...(mine ? [{ ...mine, me: true }] : [])].sort((a, b) => b.age - a.age || b.kids - a.kids).map((r, i) => ({ ...r, place: i + 1 }))
-    return { date, n: all.length, top: all.slice(0, 10), me: all.find((r) => r.me) ?? null }
-  }
-  let nick = null
-  await ctx.route(/\/api\/(daily|nick|events|time|players)/, async (r) => {
-    const url = new URL(r.request().url())
-    if (url.pathname === '/api/daily') return r.fulfill({ json: { ok: true, board: board(url.searchParams.get('date')) } })
-    if (url.pathname === '/api/daily/result') {
-      const body = r.request().postDataJSON()
-      mine = { nick, country: 'TR', age: body.age, kids: body.kids, prof: body.prof }
-      console.log('   итог ушёл на сервер:', JSON.stringify({ date: body.date, age: body.age, kids: body.kids, birth: body.birth }))
-      return r.fulfill({ json: { ok: true, board: board(body.date) } })
+// Дары за вход: после первой жизни — календарь на итогах, дар дня 1 (страна по выбору) выбирается у барабана;
+// следующие дни имитируем, сдвигая дату последнего дара в prefs. Защита выключена и год — 1 с, чтобы быстро дойти до смерти.
+const { chromium, devices } = require('playwright');
+const dir = process.env.SHOTS || 'shots';
+async function firstLife(p) {
+  await p.click('.spin-button'); await p.click('.spin-result .primary'); await p.waitForSelector('.reveal'); await p.click('.reveal .primary');
+  const t0 = Date.now();
+  while (Date.now() - t0 < 300000) {
+    if (await p.$('.summary, .early-death')) break;
+    if (await p.$('.dream-modal')) {
+      for (const inp of await p.$$('.dream-modal input')) await inp.fill('10').catch(() => {});
+      const pick = await p.$('.dream-pick button, .dream-order-btns button'); if (pick) await pick.click({ timeout: 500 }).catch(() => {});
+      await p.click('.dream-modal .primary:not([disabled])', { timeout: 800 }).catch(() => {}); continue;
     }
-    if (url.pathname === '/api/nick') {
-      nick = r.request().postDataJSON().nick
-      if (mine) mine.nick = nick
-      return r.fulfill({ json: { ok: true } })
+    if (await p.$('.modal')) {
+      if (await p.$('.outcome')) { await p.click('.outcome .primary', { timeout: 1000 }).catch(() => {}); continue; }
+      const opts = await p.$$('.choices .choice:not([disabled]), .choices .primary, .modal .primary');
+      if (opts.length) await opts[0].click({ timeout: 1000 }).catch(() => {}); continue;
     }
-    if (url.pathname === '/api/players') return r.fulfill({ json: { ok: true, n: 2480 } })
-    if (url.pathname === '/api/time') return r.fulfill({ status: 200, headers: { date: new Date().toUTCString() }, body: '' })
-    return r.fulfill({ json: { ok: true } })
-  })
-  const p = await ctx.newPage()
-  const errs = []
-  p.on('pageerror', (e) => errs.push(e.message))
-  const play = async (until, ms = 300000) => {
-    const t0 = Date.now()
-    while (Date.now() - t0 < ms) {
-      if (await until()) return true
-      if (await p.$('.dream-modal')) {
-        for (const inp of await p.$$('.dream-modal input')) await inp.fill('10').catch(() => {})
-        const pick = await p.$('.dream-pick button, .dream-order-btns button')
-        if (pick) await pick.click({ timeout: 500 }).catch(() => {})
-        await p.click('.dream-modal .primary:not([disabled])', { timeout: 800 }).catch(() => {})
-        continue
-      }
-      if (await p.$('.modal')) {
-        if (await p.$('.outcome')) {
-          await p.click('.outcome .primary', { timeout: 1000 }).catch(() => {})
-          continue
-        }
-        const opts = await p.$$('.choices .choice:not([disabled]), .choices .primary, .modal .primary')
-        if (opts.length) await opts[0].click({ timeout: 1000 }).catch(() => {})
-        continue
-      }
-      await p.click('.speed .chip:last-child', { timeout: 300 }).catch(() => {})
-      await p.waitForTimeout(20)
-    }
-    return false
+    if (await p.$('.death, .screen.dead')) await p.click('.screen .primary', { timeout: 500 }).catch(() => {});
+    await p.click('.speed .chip:last-child', { timeout: 300 }).catch(() => {});
+    await p.waitForTimeout(20);
   }
-  const dead = async () => !!(await p.$('.summary, .early-death'))
-  await p.goto('http://localhost:5174/?ab=a&tour=wall&goalat=0')
-  await p.waitForSelector('.menu .slot-machine')
-  console.log('0) новичок - карточки жизни дня нет:', !(await p.$('.daily-card')))
-  // 1. Первая жизнь до смерти.
-  await p.click('.spin-button')
-  await p.click('.spin-result .primary')
-  await p.waitForSelector('.reveal')
-  await p.click('.reveal .primary')
-  await play(dead)
-  console.log('1) первая жизнь прожита')
-  // 2. Меню: карточка жизни дня.
-  await p.click('text=Меню').catch(() => {})
-  await p.goto('http://localhost:5174/?ab=a&tour=wall&goalat=0')
-  await p.waitForSelector('.daily-card', { timeout: 15000 })
-  const card = await p.$('.daily-card')
-  await card.scrollIntoViewIfNeeded()
-  console.log('2) карточка в меню:', (await card.innerText()).replace(/\n+/g, ' | '))
-  await card.screenshot({ path: `${dir}/daily-card.png` })
-  await p.screenshot({ path: `${dir}/daily-menu.png`, fullPage: true })
-  // 3. Жизнь дня: без барабана, сразу знакомство с семьёй.
-  await p.click('.daily-play')
-  await p.waitForSelector('.reveal', { timeout: 20000 })
-  const who = await p.$eval('.reveal', (e) => e.innerText.slice(0, 120)).catch(() => '')
-  console.log('3) жизнь дня началась:', who.replace(/\n+/g, ' | '))
-  await p.click('.reveal .primary')
-  await play(dead)
-  for (let i = 0; i < 3 && !(await p.$('.daily-result')); i++) await p.waitForTimeout(500)
-  const res = await p.$('.daily-result')
-  console.log('4) итог жизни дня на прощании:', res ? (await res.innerText()).replace(/\n+/g, ' | ').slice(0, 400) : 'НЕТ')
-  if (res) {
-    await res.scrollIntoViewIfNeeded()
-    await res.screenshot({ path: `${dir}/daily-result.png` })
-    await p.fill('#daily-nick-in', 'fuck').catch(() => {})
-    await p.click('.daily-nick .primary').catch(() => {})
-    await p.fill('#daily-nick-in', 'Тест_игрок').catch(() => {})
-    await p.click('.daily-nick .primary').catch(() => {})
-    await p.waitForTimeout(800)
-    console.log('5) после ника - форма скрыта:', !(await p.$('.daily-nick')), '; моя строка:', await p.$eval('.daily-row.me', (e) => e.innerText.replace(/\n+/g, ' ')).catch(() => 'НЕТ'))
-    await (await p.$('.daily-result')).screenshot({ path: `${dir}/daily-result-nick.png` })
-  }
-  // 6. Меню: «твоё место» вместо кнопки, повторно не начать.
-  await p.goto('http://localhost:5174/?ab=a&tour=wall&goalat=0')
-  await p.waitForSelector('.daily-card', { timeout: 15000 })
-  console.log('6) карточка после игры:', (await p.$eval('.daily-card', (e) => e.innerText)).replace(/\n+/g, ' | '), '; кнопки нет:', !(await p.$('.daily-play')))
-  await (await p.$('.daily-card')).screenshot({ path: `${dir}/daily-card-done.png` })
-  // Страница не шире экрана.
-  const wide = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
-  console.log('нет горизонтальной прокрутки:', !wide)
-  console.log('ошибки страницы:', errs.length ? errs.join(' | ') : 'нет')
-  await b.close()
-})()
+  for (let i = 0; i < 5 && !(await p.$('.summary')); i++) { await p.click('.screen .primary').catch(() => {}); await p.waitForTimeout(300) }
+}
+const text = (p, sel) => p.$eval(sel, (e) => e.innerText.replace(/\n+/g, ' / ')).catch(() => 'НЕТ');
+const prefs = (p) => p.evaluate(() => JSON.parse(localStorage.getItem('thousands.prefs') || '{}'));
+/** Будто вчера был получен дар дня day: перезагрузить меню. */
+async function asIfYesterday(p, day, gifts = []) {
+  await p.evaluate(([day, gifts]) => {
+    const d = new Date(Date.now() - 86400000), pad = (n) => String(n).padStart(2, '0');
+    const prefs = JSON.parse(localStorage.getItem('thousands.prefs') || '{}');
+    prefs.daily = { last: `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`, day };
+    prefs.gifts = gifts;
+    delete prefs.dailyShown; // «новый день»: панель «Дары» снова может открыться сама
+    localStorage.setItem('thousands.prefs', JSON.stringify(prefs));
+  }, [day, gifts]);
+  await p.reload(); await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(800);
+}
+(async () => {
+  const b = await chromium.launch();
+  const ctx = await b.newContext({ ...devices['iPhone 13'], locale: 'ru-RU', reducedMotion: 'reduce' });
+  await ctx.route(/\/flags\.json/, async (r) => { const f = await (await r.fetch()).json(); r.fulfill({ json: { ...f, protected_lives: 0, year_sec_child: 1, year_sec: 1 } }) });
+  const p = await ctx.newPage();
+  const errs = []; p.on('pageerror', e => errs.push(e.message));
+  await p.goto('http://localhost:5174/?ab=a'); await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(800);
+  console.log('новичок | календаря и «Даров» нет:', !(await p.$('.daily-card')) && !(await p.$('.gifts-btn')));
+  await firstLife(p);
+  await p.waitForTimeout(1000);
+  console.log('итоги 1-й жизни | календарь:', await text(p, '.summary .daily-card'));
+  const card = await p.$('.summary .daily-card'); if (card) { await card.scrollIntoViewIfNeeded(); await card.screenshot({ path: `${dir}/daily-card.png` }) }
+  await p.click('.summary .daily-card .primary');
+  await p.waitForTimeout(300);
+  console.log('после «Забрать» | тост:', await text(p, '.toast'), '| карточка:', await text(p, '.summary .daily-card p:last-child'));
+  await p.locator('.summary button', { hasText: /Родиться снова/ }).first().click();
+  await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(300);
+  console.log('меню | кнопка «Дары»:', await text(p, '.gifts-btn'));
+  await p.click('.gifts-btn'); await p.waitForSelector('.sheet');
+  await p.click('.sheet-pick'); await p.waitForSelector('#country-title');
+  await p.locator('.modal button', { hasText: /Япония/ }).first().click();
+  await p.waitForTimeout(300);
+  console.log('меню | ярлык на барабане:', await p.$$eval('.reel-tag', (els) => els.map((e) => e.innerText).join(' ')));
+  await p.click('.spin-button'); await p.waitForSelector('.spin-result');
+  console.log('результат:', await text(p, '.spin-result .lead'));
+  await p.click('.spin-result .primary'); await p.waitForSelector('.reveal');
+  console.log('дары потрачены:', JSON.stringify((await prefs(p)).gifts));
+  // День 4 — знатная семья: кнопка над барабаном, барабан перезаряжается.
+  await p.setViewportSize({ width: 375, height: 667 });
+  await asIfYesterday(p, 3);
+  console.log('день 4 | панель открылась сама:', !!(await p.$('.sheet')), '|', await text(p, '.sheet .daily-card .primary'));
+  const spin = await p.$('.spin-button'); const box = await spin.boundingBox();
+  console.log('день 4 | «Крути» на первом экране (iPhone SE):', box.y + box.height <= 667, Math.round(box.y + box.height));
+  await p.screenshot({ path: `${dir}/daily-menu.png` });
+  await p.setViewportSize({ width: 360, height: 640 }); await p.waitForTimeout(300);
+  const box2 = await (await p.$('.spin-button')).boundingBox();
+  console.log('день 4 | «Крути» на первом экране (360×640):', box2.y + box2.height <= 640, Math.round(box2.y + box2.height));
+  await p.setViewportSize({ width: 390, height: 844 });
+  await p.click('.sheet .daily-card .primary'); await p.waitForTimeout(400);
+  console.log('день 4 | в панели:', await text(p, '.sheet .daily-card p:last-child'));
+  await p.click('.sheet-done'); await p.waitForTimeout(400);
+  console.log('день 4 | ярлык на барабане:', await p.$$eval('.reel-tag', (els) => els.map((e) => e.innerText).join(' ')));
+  await p.click('.spin-button'); await p.waitForSelector('.spin-result');
+  console.log('день 4 | результат:', await text(p, '.spin-result .lead'));
+  // День 7 — царская семья, с ним же ждёт здоровье.
+  await asIfYesterday(p, 6, ['health']);
+  await p.click('.sheet .daily-card .primary'); await p.waitForTimeout(400);
+  console.log('день 7 | в панели:', await text(p, '.sheet-sec h3'), '|', await text(p, '.sheet-gifts'));
+  await p.click('.sheet-done'); await p.waitForTimeout(400);
+  console.log('день 7 | ярлык на барабане:', await p.$$eval('.reel-tag', (els) => els.map((e) => e.innerText).join(' ')));
+  await p.click('.spin-button'); await p.waitForSelector('.spin-result');
+  console.log('день 7 | результат:', await text(p, '.spin-result .lead'));
+  await p.screenshot({ path: `${dir}/daily-royal.png` });
+  await p.click('.spin-result .primary'); await p.waitForSelector('.reveal');
+  console.log('день 7 | сословие:', await p.$eval('.reveal .facts', (e) => e.innerText.split('\n').slice(6, 8).join(': ')), '| осталось даров:', JSON.stringify((await prefs(p)).gifts));
+  // Пропуск дня — серия сначала.
+  await p.evaluate(() => { const x = JSON.parse(localStorage.getItem('thousands.prefs')); x.daily = { last: '2026-01-01', day: 5 }; delete x.dailyShown; localStorage.setItem('thousands.prefs', JSON.stringify(x)) });
+  await p.reload(); await p.waitForSelector('.menu .slot-machine'); await p.waitForTimeout(800);
+  console.log('пропуск | панель:', await text(p, '.sheet .daily-card .primary'), '|', await text(p, '.sheet .daily-card .muted'));
+  console.log({ errors: errs.slice(0, 3) });
+  await b.close();
+})();
