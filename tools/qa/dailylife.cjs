@@ -79,7 +79,12 @@ const W = Number(process.env.W || 390)
   // 2. Меню: карточка жизни дня.
   await p.click('text=Меню').catch(() => {})
   await p.goto('http://localhost:5174/?ab=a&tour=wall&goalat=0')
-  await p.waitForSelector('.daily-card', { timeout: 15000 })
+  await p.waitForSelector('.daily-card', { timeout: 15000 }).catch(async () => {
+    console.log('НЕТ КАРТОЧКИ. Ошибки:', errs.join(' | ') || 'нет')
+    console.log('Меню:', (await p.$eval('.menu', (e) => e.innerText).catch(() => '?')).replace(/\n+/g, ' | ').slice(0, 600))
+    console.log('Отладка:', await p.evaluate(() => JSON.stringify({ prefs: localStorage.getItem('thousands.prefs')?.slice(0, 300), keys: Object.keys(localStorage) })))
+    process.exit(1)
+  })
   const card = await p.$('.daily-card')
   await card.scrollIntoViewIfNeeded()
   console.log('2) карточка в меню:', (await card.innerText()).replace(/\n+/g, ' | '))
