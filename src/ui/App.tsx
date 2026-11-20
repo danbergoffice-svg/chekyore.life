@@ -6,7 +6,7 @@ import { chronicleSuccessor, continueWithHeir, earliestBirth, earliestStart, hei
 import type { Birth } from '../engine/life'
 import { newSeed, next } from '../engine/rng'
 import type { GameSettings, GameState, LifeSummary } from '../engine/types'
-import { createT, loadEraTexts } from '../i18n'
+import { createT, loadEraTexts, preloadCommon } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear, utmParams } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
@@ -38,7 +38,7 @@ import { Feedback, FeedbackPrompt } from './Feedback'
 import { SlotMachine } from './Slots'
 import { Icon } from './Icon'
 import { SoundControl } from './Sound'
-import { initAudio, onIosHint, setMusic, setSound } from '../audio'
+import { initAudio, musicAfter, onIosHint, setMusic, setSound } from '../audio'
 import { planReturn, routeTargets } from '../engine/abroad'
 import { answerDream, dreamDef, resolveDream, trainingOutcome, trainingState } from '../engine/dreams'
 import { DreamModal } from './Dream'
@@ -168,7 +168,10 @@ export function App() {
   /** Загрузить страну и тексты; extra - страны, где герой (или жизнь из мемориала) жил раньше, - их тексты для дневника. */
   const ensure = (eraId: string, lang = prefs.lang, extra: string[] = []) => {
     setLoadError(false)
-    return Promise.all([loadEra(eraId), loadEraTexts(lang, eraId), ...extra.filter((id) => id !== eraId).map((id) => loadEraTexts(lang, id))])
+    const all = Promise.all([loadEra(eraId), loadEraTexts(lang, eraId), ...extra.filter((id) => id !== eraId).map((id) => loadEraTexts(lang, id))])
+    // R8 ТЗ удержания: музыка ждёт, пока догрузится страна, - тексты важнее и делят с ней канал.
+    musicAfter(all)
+    return all
       .then(() => setLoadedVersion((v) => v + 1))
       .catch(() => {
         // Чаще всего это файлы прошлой версии сайта: один раз перезагружаем страницу, потом предлагаем повторить.
@@ -279,15 +282,26 @@ export function App() {
   useEffect(() => setSound(soundOn, volume), [soundOn, volume])
   const heroEra = state?.hero.era
   const heroRegion = state?.hero.region
+  // Рычаг уже дёрнули: в меню вместо трека меню - трек выпавшей страны (R8 ТЗ удержания). Новичок дёргает рычаг первым
+  // же касанием, и через несколько секунд уходит к семье - трек меню (~1,4 МБ) скачивался ради пары секунд.
+  const [pulled, setPulled] = useState(false)
+  useEffect(() => {
+    if (screen !== 'menu') setPulled(false)
+  }, [screen])
+  const spinEra = screen === 'menu' && pulled ? pending?.birth.era : undefined
+  const spinRegion = screen === 'menu' && pulled ? pending?.birth.region : undefined
   useEffect(() => {
     const inLife = screen === 'reveal' || screen === 'life' || screen === 'death' || screen === 'heirs'
+    const era = inLife && heroEra ? heroEra : (spinEra ?? null)
     // A/B XM: половина игроков слышит новую музыку (src/goal.ts musicNew, флаг music_share).
-    if (screen !== 'loading') setMusic(musicTrack(inLife && heroEra ? heroEra : null, heroRegion, musicNew(platform.playerId(), platform.flags)))
-  }, [screen, heroEra, heroRegion])
-  // Живописные сцены края героя - заранее, пока игрок читает экран рождения.
+    if (screen !== 'loading') setMusic(musicTrack(era, inLife ? heroRegion : spinRegion, musicNew(platform.playerId(), platform.flags)))
+  }, [screen, heroEra, heroRegion, spinEra, spinRegion])
+  // Живописные сцены края героя - заранее, пока игрок читает экран рождения. В первой жизни до первого выбора - только
+  // лёгкие слои, остальное по картинке; пачки целиком - после первого выбора (R8 ТЗ удержания: вес до первого выбора).
+  const madeChoice = !!state && state.stats?.heroId === state.hero.id && state.stats.choices > 0
   useEffect(() => {
-    if (heroRegion) prefetchPainted(heroRegion)
-  }, [heroRegion])
+    if (heroRegion) prefetchPainted(heroRegion, memorial.length > 0 || madeChoice)
+  }, [heroRegion, madeChoice])
 
   // Переезд в другую страну: её события и тексты. Соседние страны (куда можно уехать) подгружаются заранее,
   // пока герой подрастает, - переезд предлагается только в уже загруженные.
@@ -667,6 +681,29 @@ export function App() {
   useEffect(() => {
     if (screen === 'menu' && !pending) rollPending()
   }, [screen, pending])
+  // R7 ТЗ удержания: пока игрок смотрит меню, браузер свободен - подгрузить общий слой (тексты и события) и страну, которая
+  // уже выпала на барабане (pending). Рывок рычага тогда сразу даёт активную кнопку. Только без живого героя: у него
+  // своя страна уже загружена, и он, скорее всего, нажмёт «Продолжить».
+  const preloadEra = screen === 'menu' && !game.current?.hero.alive ? pending?.birth.era : undefined
+  useEffect(() => {
+    if (!preloadEra) return
+    let done = false
+    const run = () => {
+      if (done) return
+      done = true
+      const common = preloadCommon(prefs.lang)
+      const era = Promise.all([common, loadEra(preloadEra), loadEraTexts(prefs.lang, preloadEra)]).then(() => setLoadedVersion((v) => v + 1))
+      musicAfter(era)
+      era.catch(() => {})
+    }
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void }
+    if (w.requestIdleCallback) {
+      const id = w.requestIdleCallback(run, { timeout: 1000 })
+      return () => w.cancelIdleCallback?.(id)
+    }
+    const id = setTimeout(run, 300)
+    return () => clearTimeout(id)
+  }, [preloadEra, prefs.lang])
   /** «Новая жизнь» с итогов: в меню к барабану (жребий новый). */
   const [drumFocus, setDrumFocus] = useState(0)
   const startNew = (lottery = prefs.lottery, country: string | null = chosenCountry()) => {
@@ -679,6 +716,9 @@ export function App() {
     // Рывок рычага: где теряются новички - до барабана или после результата.
     if (pending.respin === 0) platform.track('spin', {})
     menuVisit.current.spun = true
+    setPulled(true)
+    // Сразу, не дожидаясь отрисовки: звук уже включился на касании, и трек меню не должен начать качаться.
+    setMusic(musicTrack(pending.birth.era, pending.birth.region, musicNew(platform.playerId(), platform.flags)))
     ensure(pending.birth.era)
     platform.gameplayStart()
   }

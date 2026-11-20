@@ -76,6 +76,12 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   рекламе и «без звука» платформы — `platform.onAudio`), значок и громкость — `src/ui/Sound.tsx`, настройки
   `prefs.sound`/`prefs.volume`. Треки сочиняет и синтезирует `npm run music` (`tools/gen/music.mjs`, нужен ffmpeg):
   `public/music/<id>.mp3` и MIDI в `tools/gen/music/`. После перегенерации — увеличить `MUSIC_VERSION`.
+  Новые треки `public/music/v2` идут ещё и в AAC 64 кбит/с (`.m4a`, ~1,4 МБ; mp3 — запасной): после их замены —
+  `node tools/gen/music-aac.mjs` (FFMPEG=путь, если ffmpeg не в PATH) и `MUSIC_VERSION`. Музыка ждёт загрузки текстов
+  страны (`musicAfter`), после рывка рычага в меню сразу играет трек выпавшей страны (ТЗ удержания R8, 20.11).
+- Вес до первого выбора (`npm run size`, порог `first_choice_mb` = 4): в первой жизни до первого выбора живопись берёт
+  интерьеры, фигуры, предметы, животных, достопримечательности и портреты по одной картинке (Range, `loadSlice` в
+  `src/pixel/painted.ts`, `sw.js` пропускает такие запросы мимо кэша), пачки целиком — после первого выбора.
 - `docs/TZ.md` (+ `TZ_dorabotka.docx`) — исходное ТЗ, `docs/TZ_v3.md` — правки владельца после тестов (**сделано**, статус в конце
   файла); `docs/DECISIONS.md` — принятые решения и отступления.
 - ТЗ v3, что где: уехавшие — `npc.away` + `sendAway` (`rules.ts`); отложенные последствия — `snapshot`/`dependsOf`/`storyline`

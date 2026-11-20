@@ -3,6 +3,7 @@
 // при обновлении удаляем старые кэши.
 // v3: приёмник /api/ мимо кэша, flags.json - из сети (кэш только без сети).
 // v4: новое оформление и шрифт «Летопись» 0.2 - старый кэш со старыми файлами удаляется при первом заходе.
+// 20.11: запросы части файла (Range: портреты по одному, src/pixel/painted.ts) - мимо кэша, сразу в сеть.
 const CACHE = 'thousands-v4'
 
 self.addEventListener('install', () => self.skipWaiting())
@@ -20,7 +21,7 @@ const isHtml = (res) => (res.headers.get('content-type') || '').includes('text/h
 self.addEventListener('fetch', (e) => {
   const req = e.request
   const url = new URL(req.url)
-  if (req.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/admin')) return
+  if (req.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/admin') || req.headers.has('range')) return
   e.respondWith(
     (async () => {
       const cache = await caches.open(CACHE)

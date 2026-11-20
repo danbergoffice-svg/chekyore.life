@@ -37,8 +37,9 @@
     "preact": "^10.29.8"
   },
   "size": {
-    "dist_mb": 45,
+    "dist_mb": 150,
     "first_mb": 3.5,
+    "first_choice_mb": 4,
     "image_kb": 30,
     "atlas_kb": 300
   }

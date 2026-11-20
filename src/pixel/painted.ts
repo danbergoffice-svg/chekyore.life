@@ -376,11 +376,40 @@ function loadPack(style: string, layer: string): Promise<ArrayBuffer | null> {
   return p
 }
 
-/** Заранее подтянуть оглавление и основные слои края (меню, начало жизни) - кадр появится сразу. */
-export function prefetchPainted(region: string): void {
+/**
+ * Одна картинка без всей пачки - запросом части файла (Range). Нужно портретам: пачка портретов стиля - 50 лиц,
+ * 0,5–1,4 МБ, а герою до первого выбора нужно одно (R8 ТЗ удержания). Сервер без Range отдаёт файл целиком (200) -
+ * тогда картинка вырезается из него. Пачка уже скачана - берём из неё.
+ */
+function loadSlice(style: string, layer: string, off: number, len: number): Promise<ArrayBuffer | null> {
+  const whole = packs.get(`${style}/${layer}`)
+  if (whole) return whole.then((buf) => (buf ? buf.slice(off, off + len) : null))
+  return loadPackIndex(style).then((ix) =>
+    ix?.files[layer]
+      ? fetch(`./art/${style}/${ix.files[layer]}`, { headers: { range: `bytes=${off}-${off + len - 1}` } })
+          .then((r) => (r.status === 206 ? r.arrayBuffer() : r.ok ? r.arrayBuffer().then((b) => b.slice(off, off + len)) : null))
+          .then((b) => (b && b.byteLength === len ? b : null))
+          .catch(() => null)
+      : null,
+  )
+}
+/** Слои, картинки которых до загрузки пачки берутся по одной (loadSlice): портреты (50 лиц), интерьеры (6 картинок,
+ *  до 620 КБ), фигуры, достопримечательности, предметы и животные - в кадре из них одна-три картинки. */
+const SLICED = new Set(['portrait', 'interior', 'person', 'landmark', 'prop', 'animal'])
+/** Пачки, которые после первого выбора догружаются целиком (офлайн-кэш, без запроса на каждую картинку). */
+const LATER = ['interior', 'person', 'landmark', 'prop', 'animal']
+/** Небо, дали, земля и дома - лёгкие пачки, нужны почти в каждом кадре: всегда целиком. */
+const WHOLE = ['sky', 'far', 'ground', 'house']
+
+/**
+ * Заранее подтянуть оглавление и слои края - кадр появится сразу. all = false (первая жизнь до первого выбора) - только
+ * лёгкие слои, остальное по картинке (loadSlice); all = true - и пачки интерьеров, фигур, достопримечательностей (они
+ * попадут в офлайн-кэш). Портреты - всегда по одному: герою за жизнь нужно пять из пятидесяти.
+ */
+export function prefetchPainted(region: string, all = true): void {
   if (!on) return
   const style = lookOf(region).style
-  for (const layer of ['sky', 'far', 'landmark', 'ground', 'house', 'person', 'interior', 'portrait']) loadPack(style, layer)
+  for (const layer of all ? [...WHOLE, ...LATER] : WHOLE) loadPack(style, layer)
 }
 
 async function decode(blob: Blob): Promise<CanvasImageSource | null> {
@@ -398,9 +427,8 @@ function loadImage(style: string, index: ArtIndex, key: string): Promise<CanvasI
   let p = images.get(id)
   if (!p) {
     const e = index[key]
-    p = e
-      ? loadPack(style, e[0]).then((buf) => (buf ? decode(new Blob([buf.slice(e[1], e[1] + e[2])], { type: 'image/webp' })) : null))
-      : Promise.resolve(null)
+    const bytes = !e ? null : SLICED.has(e[0]) ? loadSlice(style, e[0], e[1], e[2]) : loadPack(style, e[0]).then((buf) => (buf ? buf.slice(e[1], e[1] + e[2]) : null))
+    p = bytes ? bytes.then((b) => (b ? decode(new Blob([b], { type: 'image/webp' })) : null)) : Promise.resolve(null)
     images.set(id, p)
   }
   return p

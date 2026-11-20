@@ -1,4 +1,4 @@
-import { ERA_FOLDER, ERA_META, REGION_ERA, RELIGION_BY_ID } from '../content'
+import { ERA_FOLDER, ERA_META, loadCommonEvents, REGION_ERA, RELIGION_BY_ID } from '../content'
 import PETS from '../content/pets.json'
 import type { Lang, Sex, TextParam } from '../engine/types'
 import en from './en.json'
@@ -68,6 +68,14 @@ function loadOwn(lang: Lang, folder: string): Promise<void> {
     loadedTexts.set(id, p)
   }
   return p
+}
+
+/**
+ * Общий слой заранее (R7 ТЗ удержания): тексты common на языке игрока и общие события. Кнопка «Узнать свою семью»
+ * ждала их с рывка рычага (~0,5 МБ текстов), хотя две трети новичков дёргают рычаг в первые 7 секунд в меню.
+ */
+export function preloadCommon(lang: Lang): Promise<void> {
+  return Promise.all([loadTexts(lang, 'common'), loadCommonEvents()]).then(() => undefined)
 }
 
 /** Тексты страны вместе с общим слоем. */

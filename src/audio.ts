@@ -21,8 +21,38 @@ let current: { id: string; src: AudioBufferSourceNode; gain: GainNode } | null =
 const buffers = new Map<string, Promise<AudioBuffer | null>>()
 
 const FADE = 2
-/** Номер версии музыки: увеличить после npm run music, чтобы офлайн-кэш сайта взял новые файлы. */
-const MUSIC_VERSION = 3
+/** Номер версии музыки: увеличить после npm run music или перекодировки, чтобы офлайн-кэш сайта взял новые файлы. */
+const MUSIC_VERSION = 4
+
+/**
+ * Формат (R8 ТЗ удержания, 20.11): новые треки (public/music/v2) - ещё и AAC 64 кбит/с в .m4a (~1,4 МБ вместо ~2,1 МБ mp3
+ * 96 кбит/с), tools/gen/music-aac.mjs. AAC, а не Opus: его декодируют все нужные браузеры, включая Safari на iPhone
+ * (Opus Safari декодирует не везде - пришлось бы отдавать ему тяжёлый mp3), а при одной скорости 64 кбит/с файлы
+ * весят одинаково. mp3 остаётся запасным: браузер без AAC (Chromium без кодеков, часть Linux) или ошибка декодирования.
+ */
+const AAC =
+  typeof document !== 'undefined' &&
+  (() => {
+    try {
+      return document.createElement('audio').canPlayType('audio/mp4; codecs="mp4a.40.2"') !== ''
+    } catch {
+      return false
+    }
+  })()
+
+/** Музыка ждёт, пока догрузится то, без чего экран не готов (тексты и события страны): они важнее и делят тот же канал. */
+let gate: Promise<unknown> = Promise.resolve()
+/** Не начинать скачивание треков, пока не загрузится p (но не дольше 15 с - вдруг загрузка зависла). */
+export function musicAfter(p: Promise<unknown>): void {
+  const cap = new Promise((r) => setTimeout(r, 15000))
+  gate = Promise.all([gate, Promise.race([p.catch(() => null), cap])])
+}
+
+function fetchTrack(id: string, ext: 'm4a' | 'mp3'): Promise<AudioBuffer> {
+  return fetch(`./music/${id}.${ext}?v=${MUSIC_VERSION}`)
+    .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(String(r.status)))))
+    .then((data) => new Promise<AudioBuffer>((resolve, reject) => ctx!.decodeAudioData(data, resolve, reject)))
+}
 
 /** Громкость: ползунок 0–1 линейно (в квадрате на телефоне было почти не слышно). */
 const level = () => (enabled && blocked.size === 0 ? volume : 0)
@@ -50,9 +80,14 @@ function apply(): void {
 function load(id: string): Promise<AudioBuffer | null> {
   let p = buffers.get(id)
   if (!p) {
-    p = fetch(`./music/${id}.mp3?v=${MUSIC_VERSION}`)
-      .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(String(r.status)))))
-      .then((data) => new Promise<AudioBuffer>((resolve, reject) => ctx!.decodeAudioData(data, resolve, reject)))
+    // Звук включается уже на касании (pointerdown), а рывок рычага (click) приходит позже и меняет трек меню на трек
+    // страны (App.tsx onPull) - поэтому полсекунды ждём, ждём ворота (musicAfter) и качаем, только если трек ещё нужен.
+    p = new Promise((r) => setTimeout(r, 500))
+      .then(() => gate)
+      .then(() => {
+        if (wanted !== id && current?.id !== id) throw new Error('stale')
+        return AAC && id.startsWith('v2/') ? fetchTrack(id, 'm4a').catch(() => fetchTrack(id, 'mp3')) : fetchTrack(id, 'mp3')
+      })
       .catch(() => {
         buffers.delete(id)
         return null

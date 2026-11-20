@@ -97,16 +97,22 @@ const loaded: Record<string, EraDef> = {}
 const loading: Record<string, Promise<EraDef>> = {}
 let common: Promise<EventDef[]> | null = null
 
+/** Общие события всех стран (самый тяжёлый кусок событий): заранее, пока игрок в меню (R7 ТЗ удержания). */
+export function loadCommonEvents(): Promise<EventDef[]> {
+  common ??= loadFiles<EventDef>('common', 'events').catch((e) => {
+    common = null
+    throw e
+  })
+  return common
+}
+
 /** Загрузить страну со всеми событиями. Повторный вызов возвращает уже загруженную. */
 export function loadEra(id: string): Promise<EraDef> {
   const meta = ERA_META[id]
   if (!meta) return Promise.reject(new Error(`Unknown era ${id}`))
   if (id in loading) return loading[id]
-  common ??= loadFiles<EventDef>('common', 'events').catch((e) => {
-    common = null
-    throw e
-  })
-  loading[id] = Promise.all([common, loadFiles<EventDef>(ERA_FOLDER[id], 'events'), loadFiles<NewsDef>(ERA_FOLDER[id], 'news'), loadFiles<PrimerDef>(ERA_FOLDER[id], 'primer')]).then(
+  loadCommonEvents()
+  loading[id] = Promise.all([common!, loadFiles<EventDef>(ERA_FOLDER[id], 'events'), loadFiles<NewsDef>(ERA_FOLDER[id], 'news'), loadFiles<PrimerDef>(ERA_FOLDER[id], 'primer')]).then(
     ([shared, local, news, primers]) => {
       const byId = new Map<string, EventDef>()
       for (const ev of shared) if (fitsEra(ev, meta)) byId.set(ev.id, ev)
