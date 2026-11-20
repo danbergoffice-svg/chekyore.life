@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Жизнь дня - макеты</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,600;0,800;1,400&display=swap');
+/* Макеты «Жизнь дня», таблица дня, Летопись и вызовы (docs/TZ_daily.md). Палитра и бумага - как в src/skin.css. */
+@font-face { font-family: 'Letopis'; src: url('../../src/fonts/ThousandsLetopis-VF.woff2') format('woff2'); font-weight: 100 900; }
+:root {
+  --bg: #16213a; --earth: #0f1729; --card: #1f2c4a; --line: #33456b; --sheet: #f3ead7; --ink: #f3ead7; --ink-2: #e2d3b3;
+  --muted: #bfa987; --terra: #df6c4f; --mustard: #ecd06f; --olive: #b9bc7a; --night: #130904; --paper-ink: #2a1d12;
+  --font: 'Alegreya', Georgia, serif; --display: 'Letopis', 'Alegreya', Georgia, serif;
+  --rough-a: polygon(0.6% 6%, 99.4% 0, 98.6% 94%, 0 100%); --rough-b: polygon(0 0, 99% 5%, 100% 100%, 1.2% 95%);
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 18px 16px 40px; background: #0b1120; color: var(--ink); font: 16px/1.45 var(--font); }
+h1 { font: 700 28px/1.1 var(--display); margin: 0 0 6px; }
+.lead { color: var(--ink-2); max-width: 900px; margin: 0 0 18px; }
+.row { display: flex; gap: 26px; flex-wrap: wrap; align-items: flex-start; }
+.col { width: 380px; max-width: 100%; }
+.cap { font: 700 15px var(--font); color: var(--mustard); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 4px; }
+.why { color: var(--ink-2); font-size: 14.5px; margin: 8px 2px 0; }
+.phone { width: 380px; max-width: 100%; height: 780px; border-radius: 34px; border: 10px solid #05080f; overflow: hidden; position: relative;
+  box-shadow: 0 24px 60px rgba(0,0,0,.55); background: var(--bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.8  0 0 0 0 0.6  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.scroll { position: absolute; inset: 0; overflow-y: auto; padding: 0 0 24px; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.pad { padding: 0 16px; }
+.icon { width: 1.15em; height: 1.15em; vertical-align: -0.2em; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.icon .a { fill: var(--terra); stroke: none; }
+.primary { display: block; width: 100%; border: 0; padding: 13px 16px; font: 800 18px var(--font); background: var(--sheet); color: var(--night); clip-path: var(--rough-a); cursor: pointer; }
+.primary.terra { background: var(--terra); color: var(--sheet); }
+.secondary { display: block; width: 100%; padding: 11px 14px; font: 700 16px var(--font); background: transparent; color: var(--sheet); border: 2px dashed rgba(243,234,215,.45); cursor: pointer; }
+.eyebrow { font: 700 12.5px var(--font); letter-spacing: .12em; text-transform: uppercase; color: var(--olive); }
+.muted { color: var(--muted); }
+.title { font: 700 26px/1.1 var(--display); margin: 4px 0 2px; }
+
+/* --- меню --- */
+.scene { height: 150px; position: relative; overflow: hidden; background: linear-gradient(#2b3d68, #556a8f 55%, #9a8a6a 56%, #6c5a3e);
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 93% 90%, 84% 85%, 74% 91%, 63% 86%, 51% 92%, 40% 86%, 29% 91%, 18% 85%, 8% 90%, 0 86%); }
+.scene .sun { position: absolute; right: 52px; top: 26px; width: 26px; height: 26px; border-radius: 50%; background: #f0d9a0; box-shadow: 0 0 30px #f0d9a0; }
+.scene .hill { position: absolute; bottom: 30px; width: 200px; height: 60px; border-radius: 50% 50% 0 0; background: #4a5a3c; }
+.scene .house { position: absolute; bottom: 40px; width: 26px; height: 18px; background: #c08a52; }
+.scene .house::before { content: ''; position: absolute; left: -4px; top: -12px; border: 17px solid transparent; border-bottom: 12px solid #7a3b2c; border-top: 0; }
+.topbar { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; justify-content: space-between; }
+.chip { background: var(--sheet); color: var(--night); font: 800 12px var(--font); padding: 3px 9px; clip-path: var(--rough-b); }
+.gametitle { text-align: center; font: 700 30px/1 var(--display); margin: 10px 0 2px; }
+.gamesub { text-align: center; color: var(--ink-2); font-size: 14px; margin-bottom: 10px; }
+.drum { margin: 0 16px; padding: 12px 12px 14px; background: linear-gradient(#24407a, #182b52); border: 3px solid #b8924a; border-radius: 22px 22px 8px 8px; }
+.drum .lamps { display: flex; justify-content: space-between; margin: -4px 4px 8px; }
+.drum .lamps i { width: 7px; height: 7px; border-radius: 50%; background: #ffd77a; box-shadow: 0 0 6px #ffd77a; }
+.reels { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.reel { background: #f6eedc; color: var(--paper-ink); text-align: center; padding: 8px 4px; font: 700 12.5px/1.2 var(--font); border-radius: 4px; min-height: 52px; display: flex; align-items: center; justify-content: center; }
+.drum .ask { text-align: center; font: 700 15px var(--font); margin: 10px 0 8px; color: var(--sheet); }
+.daily { margin: 14px 16px 0; background: var(--sheet); color: var(--paper-ink); padding: 14px 14px 12px; clip-path: polygon(0 2%, 98% 0, 100% 97%, 2% 100%); position: relative; }
+.daily .eyebrow { color: #7a6a3a; display: flex; justify-content: space-between; }
+.daily .who { font: 700 21px/1.15 var(--display); margin: 6px 0 4px; }
+.daily .facts { font-size: 14.5px; color: #5b4632; }
+.daily .stats { display: flex; gap: 10px; margin: 10px 0; }
+.daily .stat { flex: 1; background: #e9dcc0; padding: 6px 8px; font-size: 13px; color: #5b4632; }
+.daily .stat b { display: block; font: 700 19px/1.1 var(--display); color: var(--paper-ink); }
+.daily .primary { background: var(--terra); color: var(--sheet); }
+.daily .timer { text-align: center; font-size: 13px; color: #7a6a52; margin-top: 7px; }
+.chall { margin: 12px 16px 0; }
+.chall .head { display: flex; justify-content: space-between; align-items: baseline; }
+.chall .list { display: flex; gap: 8px; margin-top: 6px; overflow-x: auto; }
+.cc { flex: 0 0 150px; background: var(--card); padding: 9px 10px; border-top: 3px solid var(--terra); font-size: 13.5px; line-height: 1.3; }
+.cc.done { border-top-color: #a9b56a; }
+.cc b { display: block; font-size: 14px; color: var(--sheet); }
+.cc .pc { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+/* --- после смерти: таблица --- */
+.dhead { padding: 18px 16px 10px; text-align: center; background: linear-gradient(#0f1729, rgba(15,23,41,0)); }
+.result { margin: 6px 16px 0; background: var(--sheet); color: var(--paper-ink); padding: 14px; clip-path: polygon(1% 0, 100% 2%, 99% 100%, 0 97%); text-align: center; }
+.result .big { font: 700 44px/1 var(--display); }
+.result .place { font: 700 20px var(--display); margin-top: 4px; }
+.result .cmp { font-size: 14.5px; color: #5b4632; margin-top: 6px; }
+.bar { height: 8px; background: #e0d0ae; margin: 10px 4px 2px; position: relative; }
+.bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--terra); }
+.bar span { position: absolute; top: -5px; width: 3px; height: 18px; background: var(--paper-ink); }
+.nick { margin: 12px 16px 0; background: var(--card); padding: 12px; border: 2px solid var(--mustard); }
+.nick input { width: 100%; padding: 10px; font: 600 16px var(--font); border: 0; background: var(--sheet); color: var(--night); margin: 8px 0; }
+.nick label { font-size: 13.5px; color: var(--ink-2); display: flex; gap: 6px; align-items: center; }
+.tabs { display: flex; margin: 14px 16px 0; border-bottom: 2px solid var(--line); }
+.tabs span { padding: 7px 12px; font-weight: 700; color: var(--muted); }
+.tabs span.on { color: var(--sheet); border-bottom: 3px solid var(--mustard); margin-bottom: -2px; }
+.board { margin: 0 16px; }
+.board .r { display: grid; grid-template-columns: 28px 1fr auto; gap: 8px; padding: 8px 4px; border-bottom: 1px solid rgba(243,234,215,.1); align-items: center; font-size: 15px; }
+.board .r .n { font: 700 17px var(--display); color: var(--muted); text-align: center; }
+.board .r .a { font: 700 17px var(--display); }
+.board .r small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.2; }
+.board .r.g1 .n { color: var(--mustard); } .board .r.g2 .n { color: #d8d8d8; } .board .r.g3 .n { color: #d39a62; }
+.board .r.me { background: rgba(223,108,79,.18); border-left: 3px solid var(--terra); }
+.board .gap { text-align: center; color: var(--muted); padding: 2px; letter-spacing: .3em; }
+.closes { text-align: center; color: var(--muted); font-size: 13.5px; margin: 10px 16px; }
+
+/* --- летопись --- */
+.chron { margin: 8px 16px 0; position: relative; padding-left: 22px; }
+.chron::before { content: ''; position: absolute; left: 7px; top: 6px; bottom: 6px; border-left: 2px dashed rgba(236,208,111,.5); }
+.day { position: relative; margin-bottom: 14px; background: var(--card); padding: 10px 12px; clip-path: polygon(0 0, 99% 3%, 100% 100%, 1% 97%); }
+.day::before { content: ''; position: absolute; left: -21px; top: 14px; width: 12px; height: 12px; border-radius: 50%; background: var(--mustard); box-shadow: 0 0 0 3px var(--bg); }
+.day .d { font: 700 13px var(--font); letter-spacing: .08em; text-transform: uppercase; color: var(--olive); }
+.day .w { font: 700 18px/1.2 var(--display); margin: 3px 0; }
+.day .win { display: flex; justify-content: space-between; font-size: 14.5px; }
+.day .win b { color: var(--mustard); }
+.day .mine { font-size: 13px; color: var(--terra); margin-top: 3px; }
+.day.today { border: 2px solid var(--mustard); }
+.hof { margin: 14px 16px 6px; text-align: center; }
+.hof .title { font-size: 28px; }
+
+/* --- вызовы --- */
+.week { margin: 14px 16px 0; display: flex; justify-content: space-between; align-items: baseline; }
+.ch { margin: 12px 16px 0; background: var(--sheet); color: var(--paper-ink); clip-path: polygon(0 1%, 99% 0, 100% 98%, 1% 100%); }
+.ch .top { padding: 12px 14px 8px; display: flex; gap: 12px; }
+.ch .seal { flex: 0 0 52px; height: 52px; border-radius: 50%; background: #7a3b2c; color: var(--sheet); display: flex; align-items: center; justify-content: center; font-size: 26px; border: 3px double #e9c98a; }
+.ch.done .seal { background: #6e7044; }
+.ch .t { font: 700 19px/1.15 var(--display); }
+.ch .cond { font-size: 14px; color: #5b4632; margin-top: 3px; }
+.ch .born { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 14px 8px; }
+.ch .born span { font: 700 12px var(--font); background: #e3d3b0; padding: 2px 7px; }
+.ch .foot { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px 12px; border-top: 1px dashed #c2a87e; font-size: 13.5px; color: #5b4632; }
+.ch .foot button { white-space: nowrap; flex: none; font: 800 15px var(--font); padding: 8px 14px; border: 0; background: var(--terra); color: var(--sheet); clip-path: var(--rough-a); cursor: pointer; }
+.ch.done .foot button { background: #6e7044; }
+.prog { height: 6px; background: #e0d0ae; margin: 0 14px 8px; } .prog i { display: block; height: 100%; background: var(--terra); }
+.note { margin: 14px 16px 0; font-size: 13.5px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<h1>Жизнь дня, Летопись и вызовы</h1>
+<p class="lead">Макеты к docs/TZ_daily.md. Блок видят только игроки, прожившие хотя бы одну жизнь. Пример дня - 21 ноября: Каир, 1340 год, кожевник. Экраны прокручиваются внутри телефона.</p>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-laurel" viewBox="0 0 24 24"><path d="M12 21c-5-2-8-6-8-12M12 21c5-2 8-6 8-12"/><path d="M5 12c2 0 3 1 3 3M4.5 8c2 0 3 1 3 3M19 12c-2 0-3 1-3 3M19.5 8c-2 0-3 1-3 3"/></symbol>
+  <symbol id="i-scroll" viewBox="0 0 24 24"><path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7"/><path d="M6 4a2 2 0 0 0-2 2v1h4V6a2 2 0 0 0-2-2zM7 20a2 2 0 0 1-2-2V9M10 9h6M10 13h6M10 17h4"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 14.5c3 0 6 2 6 5.5"/></symbol>
+</svg>
+
+<div class="row">
+
+<!-- 1. Меню -->
+<div class="col">
+  <div class="cap">1. Меню вернувшегося игрока</div>
+  <div class="phone"><div class="scroll">
+    <div class="scene"><div class="sun"></div><div class="hill" style="left:-30px"></div><div class="hill" style="left:170px;height:44px;background:#3f4f34"></div><div class="house" style="left:70px"></div><div class="house" style="left:110px;bottom:36px"></div>
+      <div class="topbar"><span class="chip">Бета</span><span class="chip">RU</span></div></div>
+    <div class="gametitle">Тысячи жизней</div>
+    <div class="gamesub">Кем ты родишься сегодня?</div>
+    <div class="drum"><div class="lamps"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="reels"><div class="reel">Новгород<br>1240</div><div class="reel">Ремесленники</div><div class="reel">Девочка</div></div>
+      <div class="ask">Кем будешь ты?</div><button class="primary">Крути</button></div>
+
+    <div class="daily">
+      <div class="eyebrow"><span><svg class="icon"><use href="#i-sun"/></svg> Жизнь дня · 21 ноября</span><span>одна попытка</span></div>
+      <div class="who">Ты - сын кожевника в Каире, 1340 год</div>
+      <div class="facts">Мамлюкский султанат · ремесленники · четверо братьев и сестёр. У всех сегодня одно рождение - проживи дольше других.</div>
+      <div class="stats">
+        <div class="stat"><b>14</b>уже прожили</div>
+        <div class="stat"><b>63 года</b>рекорд · Makuska</div>
+      </div>
+      <button class="primary">Прожить жизнь дня</button>
+      <div class="timer"><svg class="icon"><use href="#i-clock"/></svg> Новая жизнь через 7 ч 12 мин</div>
+    </div>
+
+    <div class="chall">
+      <div class="head"><span class="eyebrow"><svg class="icon"><use href="#i-flag"/></svg> Вызовы недели</span><span class="muted" style="font-size:13px">1 из 3</span></div>
+      <div class="list">
+        <div class="cc done"><b>Пережить чуму</b>Европа, XIV век<div class="pc">выполнено · 9% игроков</div></div>
+        <div class="cc"><b>Рабыней дожить до 30</b>Византия<div class="pc">справились 7%</div></div>
+        <div class="cc"><b>Своё дело к 40</b>Крестьянин на Руси<div class="pc">справились 12%</div></div>
+      </div>
+    </div>
+    <div class="pad" style="margin-top:14px"><button class="secondary">Продолжить: Ли Мин, 34 года</button></div>
+  </div></div>
+  <p class="why">Карточка под барабаном: кто ты сегодня, сколько уже сыграли, рекорд и время до новой. Новичок её не видит.</p>
+</div>
+
+<!-- 2. После смерти: таблица дня -->
+<div class="col">
+  <div class="cap">2. После смерти: таблица дня</div>
+  <div class="phone"><div class="scroll">
+    <div class="dhead"><div class="eyebrow">Жизнь дня · 21 ноября</div><div class="title">Юсуф ибн Ахмад</div><div class="muted">1340–1387 · кожевник · Каир</div></div>
+    <div class="result">
+      <div class="big">47 лет</div>
+      <div class="place">4-е место из 17</div>
+      <div class="cmp">Дольше 82% людей своего времени и края.<br>Дольше 13 сегодняшних игроков.</div>
+      <div class="bar"><i style="width:76%"></i><span style="left:76%"></span></div>
+    </div>
+    <div class="nick">
+      <b>Как тебя записать в Летопись?</b>
+      <input value="Yusuf_Cairo" aria-label="Никнейм">
+      <label><input type="checkbox" style="width:auto;margin:0"> не показывать моё имя (будет «Игрок из Турции»)</label>
+      <button class="primary" style="margin-top:10px">Записать</button>
+    </div>
+    <div class="tabs"><span class="on">Сегодня</span><span>Летопись</span><span>Вызовы</span></div>
+    <div class="board">
+      <div class="r g1"><span class="n">1</span><span>Makuska<small>купец, 3 детей</small></span><span class="a">63</span></div>
+      <div class="r g2"><span class="n">2</span><span>Leyla<small>кожевник, 5 детей</small></span><span class="a">58</span></div>
+      <div class="r g3"><span class="n">3</span><span>Игрок из Мексики<small>погонщик, 2 детей</small></span><span class="a">51</span></div>
+      <div class="r me"><span class="n">4</span><span>Yusuf_Cairo<small>кожевник, 4 детей · это ты</small></span><span class="a">47</span></div>
+      <div class="r"><span class="n">5</span><span>tom_h<small>писец, 1 ребёнок</small></span><span class="a">44</span></div>
+      <div class="r"><span class="n">6</span><span>Ana_Z<small>кожевник, нет детей</small></span><span class="a">39</span></div>
+      <div class="gap">· · ·</div>
+      <div class="r"><span class="n">17</span><span>kerem<small>умер в младенчестве</small></span><span class="a">1</span></div>
+    </div>
+    <div class="closes"><svg class="icon"><use href="#i-people"/></svg> Сегодня прожили 17 · таблица закроется через 7 ч</div>
+    <div class="pad"><button class="secondary">Дальше: прощание и наследник</button></div>
+  </div></div>
+  <p class="why">Сначала - место и сравнение со «всеми людьми того времени», чтобы и при 5 игроках было интересно. Ник спрашивается один раз.</p>
+</div>
+
+<!-- 3. Летопись -->
+<div class="col">
+  <div class="cap">3. Летопись</div>
+  <div class="phone"><div class="scroll">
+    <div class="hof"><div class="eyebrow"><svg class="icon"><use href="#i-scroll"/></svg> Записано в историю</div><div class="title">Летопись</div><div class="muted" style="font-size:14px">Победители каждой жизни дня. Навсегда.</div></div>
+    <div class="tabs" style="margin-top:4px"><span>Сегодня</span><span class="on">Летопись</span><span>Вызовы</span></div>
+    <div class="chron" style="margin-top:14px">
+      <div class="day today"><div class="d">21 ноября · идёт</div><div class="w">Каир, 1340 · сын кожевника</div><div class="win"><span>Лидер: <b>Makuska</b></span><span>63 года · 17 игроков</span></div><div class="mine">Ты - 4-й, 47 лет</div></div>
+      <div class="day"><div class="d">20 ноября</div><div class="w">Новгород, 1240 · боярская дочь</div><div class="win"><span><svg class="icon"><use href="#i-laurel"/></svg> <b>Leyla</b></span><span>71 год · 22 игрока</span></div><div class="mine">Ты - 9-я, 33 года</div></div>
+      <div class="day"><div class="d">19 ноября</div><div class="w">Теночтитлан, 1480 · сын воина</div><div class="win"><span><svg class="icon"><use href="#i-laurel"/></svg> <b>Игрок из США</b></span><span>54 года · 19 игроков</span></div></div>
+      <div class="day"><div class="d">18 ноября</div><div class="w">Киото, 1190 · дочь рыбака</div><div class="win"><span><svg class="icon"><use href="#i-laurel"/></svg> <b>Yusuf_Cairo</b></span><span>66 лет · 15 игроков</span></div><div class="mine">Это ты - 1-е место</div></div>
+      <div class="day"><div class="d">17 ноября</div><div class="w">Тимбукту, 1350 · сын писца</div><div class="win"><span><svg class="icon"><use href="#i-laurel"/></svg> <b>tom_h</b></span><span>58 лет · 21 игрок</span></div></div>
+      <div class="day"><div class="d">16 ноября</div><div class="w">Вавилон, 1750 до н.э. · рабыня</div><div class="win"><span><svg class="icon"><use href="#i-laurel"/></svg> <b>Ana_Z</b></span><span>44 года · 12 игроков</span></div></div>
+    </div>
+    <div class="note">Вызов недели 9–15 ноября «Пережить чуму» выполнили 12 игроков</div>
+  </div></div>
+  <p class="why">Лента по дням: жизнь дня, победитель, сколько играло и твоё место. Победители не стираются - «имя в истории».</p>
+</div>
+
+<!-- 4. Вызовы -->
+<div class="col">
+  <div class="cap">4. Вызовы недели</div>
+  <div class="phone"><div class="scroll">
+    <div class="hof"><div class="eyebrow"><svg class="icon"><use href="#i-flag"/></svg> 16–22 ноября</div><div class="title">Вызовы недели</div><div class="muted" style="font-size:14px">Барабан выпадет с этими условиями. Попыток сколько угодно - засчитывается лучшая.</div></div>
+    <div class="tabs" style="margin-top:4px"><span>Сегодня</span><span>Летопись</span><span class="on">Вызовы</span></div>
+
+    <div class="ch">
+      <div class="top"><div class="seal">I</div><div><div class="t">Рабыней дожить до 30</div><div class="cond">Родиться рабыней в Византии и прожить хотя бы 30 лет.</div></div></div>
+      <div class="born"><span>Византия</span><span>рабы</span><span>девочка</span></div>
+      <div class="prog"><i style="width:60%"></i></div>
+      <div class="foot"><span>Лучшая попытка: 18 лет · справились 7%</span><button>Принять</button></div>
+    </div>
+    <div class="ch">
+      <div class="top"><div class="seal">II</div><div><div class="t">Своё дело к сорока</div><div class="cond">Крестьянином на Руси открыть своё дело до 40 лет.</div></div></div>
+      <div class="born"><span>Русь</span><span>крестьяне</span><span>любой пол</span></div>
+      <div class="foot"><span>Ещё не пробовал · справились 12%</span><button>Принять</button></div>
+    </div>
+    <div class="ch done">
+      <div class="top"><div class="seal">III</div><div><div class="t">Пережить чуму</div><div class="cond">Родиться в Европе 1330–1345 годов и дожить до 1352-го.</div></div></div>
+      <div class="born"><span>Европа</span><span>XIV век</span><span>любое сословие</span></div>
+      <div class="prog"><i style="width:100%;background:#6e7044"></i></div>
+      <div class="foot"><span>Выполнено: 1356 год, 41 год · 9% игроков</span><button>Ещё раз</button></div>
+    </div>
+    <div class="note">Новые вызовы в понедельник. За выполненный вызов - значок в «Наградах» и строка в Летописи.</div>
+  </div></div>
+  <p class="why">Каждый вызов - понятная цель в одну строку и «сколько справились», чтобы было с чем сравнить себя.</p>
+</div>
+
+</div>
+</body>
+</html>
