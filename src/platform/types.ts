@@ -179,6 +179,8 @@ export interface Platform {
   /** Вариант A/B игрока. */
   ab(): string
   playerId(): string
+  /** Id этой загрузки страницы из маяка boot (index.html, только свой сайт); без метода или '' - маяка не было. */
+  bootId?(): string
   /** Игра на главном экране телефона: prompt - есть системное окно установки (Android, Chrome), ios - только подсказка
    *  «Поделиться → На экран „Домой“» (Safari), null - нельзя или уже установлена. */
   installKind(): 'prompt' | 'ios' | null

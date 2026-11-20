@@ -107,6 +107,23 @@
           if (!T[l]) l = 'en'
           document.getElementById('splash-title').textContent = T[l][0]
           document.getElementById('splash-sub').textContent = T[l][1]
+          // Маяк начала загрузки (R4 ТЗ удержания, 20.11): уходит сразу, до загрузки игры, - так видно и тех, у кого игра
+          // не загрузилась совсем. Игра кладёт тот же boot_id в app_open. Только на своём сайте: на порталах - нет.
+          if (!/^(www\.)?thousands\.life$|\.thousands-life\.pages\.dev$/.test(location.hostname) || !navigator.sendBeacon) return
+          try {
+            var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 10)
+            sessionStorage.setItem('thousands.boot_id', id)
+            var c = navigator.connection
+            var ev = { name: 'boot', ts: Date.now(), platform: 'web', boot_id: id, lang: l, tz: '', vw: innerWidth, vh: innerHeight, conn: (c && c.effectiveType) || '' }
+            try { ev.tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '' } catch (e) {}
+            try {
+              var pid = localStorage.getItem('thousands.player_id')
+              if (pid) ev.player_id = pid
+              var mark = /[?&]internal=([01])/.exec(location.search)
+              if (mark ? mark[1] === '1' : localStorage.getItem('thousands.internal') === '1') ev.internal = 1
+            } catch (e) {}
+            navigator.sendBeacon('/api/events', new Blob([JSON.stringify({ events: [ev] })], { type: 'text/plain' }))
+          } catch (e) {}
         })()
       </script>
       <!-- Текст для поисковиков на пяти языках: что за игра, как играется, честно о том, что тексты ещё проверяются. Игра заменяет его собой (main.tsx). -->

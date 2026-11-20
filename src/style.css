@@ -656,6 +656,8 @@ button:focus-visible, input:focus-visible + span, .file-button:focus-within { ou
 .star { font-size: 34px; line-height: 1; background: none; border: 0; padding: 2px; color: var(--muted); cursor: pointer; }
 .star.on { color: var(--gold); }
 .toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 10px; box-shadow: var(--shadow); z-index: 50; max-width: 90vw; }
+/* Подсказка про звук - сверху, чтобы не закрывать нижние кнопки (R2 ТЗ удержания). */
+.toast.toast-top { top: calc(12px + env(safe-area-inset-top, 0px)); bottom: auto; }
 
 /* Переключатель языка на главном экране */
 .lang-switch { display: flex; justify-content: flex-end; gap: 4px; margin-bottom: 8px; }

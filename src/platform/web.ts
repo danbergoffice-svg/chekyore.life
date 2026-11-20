@@ -196,6 +196,11 @@ export const webPlatform: Platform = {
       player = uuid()
       kvSet('thousands.player_id', player)
     }
+    // Служебное устройство (R11 ТЗ удержания): ?internal=1 помечает, ?internal=0 снимает; все события идут с internal: 1,
+    // приёмник не считает такого игрока в отчётах.
+    const internal = new URLSearchParams(location.search).get('internal')
+    if (internal === '1' || internal === '0') kvSet('thousands.internal', internal)
+    if (kvGet('thousands.internal') === '1') context.internal = 1
     initMetrika()
     flags = await fetchFlags({ ...DEFAULT_FLAGS })
     webPlatform.flags = flags
@@ -350,4 +355,12 @@ export const webPlatform: Platform = {
     return (await e.userChoice).outcome === 'accepted'
   },
   playerId: () => player,
+  bootId() {
+    // Маяк boot из index.html кладёт id загрузки сюда (R4 ТЗ удержания).
+    try {
+      return sessionStorage.getItem('thousands.boot_id') ?? ''
+    } catch {
+      return ''
+    }
+  },
 }

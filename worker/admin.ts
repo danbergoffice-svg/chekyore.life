@@ -1,6 +1,6 @@
 // /admin - отчёты и отзывы, /admin/export - выгрузка CSV. Пароль ADMIN_PASSWORD (Basic, логин любой).
 // Цифры считаются тем же кодом, что и бот, и ежедневная сводка (worker/stats.ts), дни - по Стамбулу.
-import { cohorts, dayIso, dayOf, dayStart, digestMessage, esc, FUNNEL_STEPS, pct, period, serialDb, SQL, summary, syncPlayers, type D1Database } from './stats'
+import { byCountry, cohorts, dayIso, dayOf, dayStart, digestMessage, esc, FUNNEL_STEPS, loadStats, pct, period, reportDb, serialDb, SQL, summary, syncPlayers, type D1Database } from './stats'
 import { safeEqual } from './telegram'
 
 export interface AdminEnv {
@@ -39,14 +39,18 @@ function table(rows: Record<string, unknown>[]): string {
 
 export async function admin(req: Request, env: AdminEnv): Promise<Response> {
   // Запросы по очереди, а не разом: иначе D1 «overloaded» (stats.serialDb).
-  const db = serialDb(env.DB!)
+  const raw = serialDb(env.DB!)
   const now = Date.now()
   const today = dayOf(now)
   const week = period(today, 7)
   const two = period(today, 14)
-  await syncPlayers(db, now)
+  await syncPlayers(raw, now)
+  // Переключатели (R6, R11 ТЗ удержания): по умолчанию без служебных устройств и без вкладок, которые так и не показали.
+  const url = new URL(req.url)
+  const filter = { internal: url.searchParams.get('internal') !== '1', hidden: url.searchParams.get('hidden') !== '1' }
+  const db = reportDb(raw, filter)
   const all = (sql: string, p = week) => db.prepare(sql).bind(p.from, p.to).all().then((r) => r.results)
-  const [fb, s, byDay, players, choices, dreams, cohortRows, digest, ab, daily, menuLeave] = await Promise.all([
+  const [fb, s, byDay, players, choices, dreams, cohortRows, digest, ab, daily, menuLeave, countries, boots, loads] = await Promise.all([
     db.prepare("SELECT datetime(ts/1000 + 10800,'unixepoch') AS time, rating, answers_json, contact, context_json FROM feedback ORDER BY ts DESC LIMIT 100").all(),
     summary(db, week, 100),
     all(SQL.funnelByDay, two),
@@ -58,6 +62,9 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     all(SQL.abSecondLife, two),
     all(SQL.dailyClaims, two),
     all(SQL.menuLeave, two),
+    byCountry(db, week, today),
+    all(SQL.bootLoss),
+    loadStats(db, week),
   ])
   // A/B второй жизни: доли - от начавших вторую жизнь в варианте.
   const abRows = ab.map((r) => {
@@ -74,6 +81,18 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     { title: `Воронка за 7 дней, ${week.label} (уникальные игроки; как /funnel)`, rows: FUNNEL_STEPS.map(([k, label], i) => ({ шаг: label, событие: k, игроки: f[k], '% от прошлого': i ? pct(f[k], f[FUNNEL_STEPS[i - 1][0]]) : '' })) },
     { title: 'Воронка по дням (14 дней, уникальные игроки)', rows: byDay },
     { title: 'A/B второй жизни за 14 дней: a - положение как выпало, b - сразу высокое (обе защищены до 20 лет; флаг ab_buckets)', rows: abRows },
+    {
+      title: `Новички по стране и языку за 7 дней (страна - по данным Cloudflare, с 20.11; «(нет)» - события раньше): начали жизнь, первый выбор, D1, медиана загрузки игры`,
+      rows: countries.map((r) => ({ страна: r.country, язык: r.lang, новых: r.new_players, 'начали жизнь': r.life_start, 'первый выбор': r.first_choice, D1: r.d1, 'load_ms (медиана)': r.load_ms ?? '-' })),
+    },
+    {
+      title: 'Загрузки страницы без запуска игры за 7 дней: маяк boot ушёл, app_open с тем же boot_id - нет (игра не загрузилась или вкладку закрыли раньше)',
+      rows: boots.map((r) => ({ страна: r.country, язык: r.lang, загрузок: r.boots, 'не запустились': `${r.lost} (${pct(Number(r.lost), Number(r.boots))})` })),
+    },
+    {
+      title: 'Загрузка страны после рывка рычага за 7 дней: мс от рывка до готовности (load_ready.ms), ожидание после остановки барабана (wait_ms), «долго» (12 с) и ошибки',
+      rows: loads.map((r) => ({ страна: r.country, рывков: r.ready, 'ms медиана': r.ms_median ?? '-', 'ms p90': r.ms_p90 ?? '-', 'ждали после барабана, медиана': r.wait_median ?? '-', 'долго (12 с)': r.slow, ошибки: r.error })),
+    },
     { title: 'Ушли из меню, так и не начав жизнь (новички, 14 дней): видели ли барабан и кнопку «Крути», сколько пробыли (событие menu_leave)', rows: menuRows },
     { title: 'Дары за вход за 14 дней: сколько игроков забрали дар каждого дня серии (на 7-й - царская семья)', rows: dailyRows },
     { title: 'Когорты по дню первого захода: вернулись через 1 день (D1) и через 7 дней (D7)', rows: cohortRows.map((c) => ({ day: c.day, new_players: c.new_players, D1: c.d1, D7: c.d7 })) },
@@ -107,12 +126,22 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
 <style>body{font:15px/1.45 system-ui,sans-serif;margin:16px;max-width:1100px;color:#2b2119;background:#f6efe2}h1{font-size:22px}h2{font-size:17px;margin-top:28px}
 table{border-collapse:collapse;font-size:13px}td,th{border:1px solid #d6c6aa;padding:4px 8px;text-align:left}th{background:#ebdfc8}.scroll{overflow-x:auto}
 article,.tg{background:#fbf6ec;border:1px solid #d6c6aa;border-radius:8px;padding:8px 12px;margin:8px 0}article p{margin:4px 0}.muted{color:#7d6b58;font-size:13px}
-.tg{white-space:pre-wrap;max-width:520px}.tg pre{margin:4px 0;font-size:13px;overflow-x:auto}</style></head>
-<body><h1>Тысячи жизней - отзывы и отчёты</h1><p class="muted">Дни считаются по Стамбулу (UTC+3). «7 дней» - сегодня и 6 дней до него, как в командах бота.<br>Посчитано в ${new Date(now + 10800e3).toISOString().slice(11, 16)} по Стамбулу; страница обновляется раз в 10 минут - <a href="/admin?fresh=1">пересчитать сейчас</a>.</p>${csv}
+.tg{white-space:pre-wrap;max-width:520px}.tg pre{margin:4px 0;font-size:13px;overflow-x:auto}
+.toggles a{display:inline-block;margin:0 8px 4px 0;padding:3px 10px;border:1px solid #d6c6aa;border-radius:12px;color:#2b2119;text-decoration:none}.toggles a.on{background:#2b2119;color:#f6efe2}</style></head>
+<body><h1>Тысячи жизней - отзывы и отчёты</h1><p class="muted">Дни считаются по Стамбулу (UTC+3). «7 дней» - сегодня и 6 дней до него, как в командах бота.<br>Посчитано в ${new Date(now + 10800e3).toISOString().slice(11, 16)} по Стамбулу; страница обновляется раз в 10 минут - <a href="/admin?fresh=1${viewQuery(filter, '&amp;')}">пересчитать сейчас</a>.</p>
+<p class="toggles">${toggle('Без служебных', filter.internal, viewQuery({ ...filter, internal: !filter.internal }))} ${toggle('Только видевшие вкладку', filter.hidden, viewQuery({ ...filter, hidden: !filter.hidden }))}
+<br><span class="muted">Служебные - устройства, открывшие игру с ?internal=1, и id из секрета INTERNAL_IDS. «Видевшие вкладку» - без игроков, чью вкладку открыли в фоне и ни разу не показали (событие app_open с vis: hidden без app_visible). Сводка Telegram считается всегда без тех и других.</span></p>${csv}
 <h2>Сводка за вчера - то же сообщение, что утром приходит в Telegram</h2><div class="tg">${digest}</div>
 ${reports.map((r) => `<h2>${esc(r.title)}</h2>${table(r.rows)}`).join('')}<h2>Отзывы (последние 100)</h2>${feedbackHtml}</body></html>`
   return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
 }
+
+/** Адрес /admin с переключателями (без пустых: по умолчанию оба включены). */
+function viewQuery(f: { internal: boolean; hidden: boolean }, lead = '?'): string {
+  const q = [!f.internal && 'internal=1', !f.hidden && 'hidden=1'].filter(Boolean).join('&amp;')
+  return q ? lead + q : ''
+}
+const toggle = (label: string, on: boolean, href: string) => `<a class="${on ? 'on' : ''}" href="/admin${href}">${on ? '✓' : '○'} ${esc(label)}</a>`
 
 /**
  * «Скачать всё»: один запрос к Worker отдаёт не больше EXPORT_LIMIT строк (память и время Worker ограничены, каждая
@@ -155,11 +184,11 @@ document.querySelectorAll('[data-all]').forEach(function (b) {
 // ---------- CSV ----------
 
 const COLUMNS = {
-  events: ['id', 'time_istanbul', 'ts', 'player_id', 'session_id', 'name', 'params_json', 'platform', 'build'],
+  events: ['id', 'time_istanbul', 'ts', 'player_id', 'session_id', 'name', 'params_json', 'platform', 'build', 'country', 'asn'],
   feedback: ['id', 'time_istanbul', 'ts', 'player_id', 'rating', 'answers_json', 'contact', 'context_json'],
 } as const
 const EXPORT_SQL = {
-  events: `SELECT id, datetime(ts/1000 + 10800,'unixepoch') AS time_istanbul, ts, player_id, session_id, name, params_json, platform, build
+  events: `SELECT id, datetime(ts/1000 + 10800,'unixepoch') AS time_istanbul, ts, player_id, session_id, name, params_json, platform, build, country, asn
 FROM events WHERE id > ?2 AND ts >= ?1 ORDER BY id LIMIT ?3`,
   feedback: `SELECT id, datetime(ts/1000 + 10800,'unixepoch') AS time_istanbul, ts, player_id, rating, answers_json, contact, context_json
 FROM feedback WHERE id > ?2 AND ts >= ?1 ORDER BY id LIMIT ?3`,

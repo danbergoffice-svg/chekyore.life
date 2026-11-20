@@ -459,7 +459,7 @@ async function suite(realBinds) {
   check('CSV: имя файла', /attachment; filename="thousands-events-\d{4}-\d\d-\d\d_\d{4}-\d\d-\d\d\.csv"/.test(r.headers.get('content-disposition') ?? ''))
   const ec = parseCsv(csv.replace(/^\uFEFF/, ''), ';')
   const want = DB.sql.prepare('SELECT COUNT(*) AS n FROM events WHERE ts >= ?').get(S.dayStart(T - 6)).n
-  same('CSV events: заголовок', ec[0], ['id', 'time_istanbul', 'ts', 'player_id', 'session_id', 'name', 'params_json', 'platform', 'build'])
+  same('CSV events: заголовок', ec[0], ['id', 'time_istanbul', 'ts', 'player_id', 'session_id', 'name', 'params_json', 'platform', 'build', 'country', 'asn'])
   same('CSV events: строк = событий за 7 дней', ec.length - 1, want)
   const p2row = ec.find((x) => x[3] === 'p2' && x[5] === 'app_open')
   same('CSV: время по Стамбулу', p2row?.[1], `${S.dayIso(Y)} 01:00:00`)
@@ -603,6 +603,67 @@ check('INTEGER и REAL дают одинаковые сообщения', JSON.s
     ['Тысячи жизней', 'Thousands of Lives <hello@thousands.life>'],
   ]
   check('MAIL_FROM: адрес отправителя чистится, испорченный - по умолчанию', cases.every(([a, b]) => senderFrom(a) === b), cases.map(([a]) => senderFrom(a)).join(' | '))
+}
+
+// 9г. ТЗ удержания (20.11): страна в событиях (R3), маяк загрузки (R4), невидимые вкладки (R6), служебные устройства (R11)
+{
+  const mod = await load(files.worker)
+  const DB = makeD1(false)
+  // База до 20.11: в events нет колонок country и asn - Worker добавляет их сам, старые строки остаются без страны.
+  DB.sql.exec('CREATE TABLE events (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, session_id TEXT, name TEXT NOT NULL, params_json TEXT, platform TEXT, build TEXT)')
+  DB.sql.prepare("INSERT INTO events (ts, player_id, session_id, name, params_json, platform, build) VALUES (?, 'r_old', 's', 'app_open', '{}', 'web', 'b')").run(now - 2 * H)
+  const env = { DB, ADMIN_PASSWORD: 'pw', INTERNAL_IDS: 'r_team1, r_team2', ASSETS: { fetch: async () => new Response('static') } }
+  let ipn = 0
+  const send = (events, country) => {
+    const headers = { 'content-type': 'text/plain', 'cf-connecting-ip': '10.9.0.' + ++ipn }
+    if (country) headers['cf-ipcountry'] = country
+    return mod.default.fetch(new Request('https://thousands.life/api/events', { method: 'POST', headers, body: JSON.stringify({ events }) }), env, ctx)
+  }
+  const e = (name, pid, p = {}) => ({ name, ts: now - H, player_id: pid, session_id: 's-' + pid, platform: 'web', build: 'b', lang: 'ru', life_index: 1, ...p })
+  let r = await send([{ name: 'boot', ts: now - H, platform: 'web', boot_id: 'b1', lang: 'ru', tz: 'Europe/Moscow', vw: 390, vh: 844, conn: '4g' }, { name: 'boot', ts: now - H, platform: 'web', boot_id: 'b2', lang: 'ru' }], 'RU')
+  check('R4: boot без player_id принят', r.status === 200 && (await r.json()).n === 2)
+  r = await send([e('app_open', 'r_ru', { boot_id: 'b1', vis: 'visible', tz: 'Europe/Moscow', load_ms: 2500 }), e('life_start', 'r_ru'), e('first_choice', 'r_ru')], 'RU')
+  r = await send([e('app_open', 'r_tr', { vis: 'visible', load_ms: 900 }), e('life_start', 'r_tr')], 'TR')
+  r = await send([e('app_open', 'r_hid', { vis: 'hidden' })], 'US')
+  r = await send([e('app_open', 'r_hid2', { vis: 'hidden' })], 'US')
+  r = await send([e('app_visible', 'r_hid2', { sec_hidden: 40 })], 'US')
+  r = await send([e('app_open', 'r_int', { internal: 1 }), e('life_start', 'r_int', { internal: 1 })], 'DE')
+  r = await send([e('app_open', 'r_team1'), e('life_start', 'r_team1')])
+  const cols = DB.sql.prepare('PRAGMA table_info(events)').all().map((c) => c.name)
+  check('R3: старая база получила колонки country и asn', cols.includes('country') && cols.includes('asn'), cols.join(','))
+  const cn = Object.fromEntries(DB.sql.prepare('SELECT player_id AS p, country AS c FROM events').all().map((x) => [x.p ?? 'boot', x.c]))
+  check('R3: страна пишется в новые строки, у старых - пусто, без страны в запросе - пусто', cn.r_ru === 'RU' && cn.r_tr === 'TR' && cn.boot === 'RU' && cn.r_old === null && cn.r_team1 === null, JSON.stringify(cn))
+  const marks = Object.fromEntries(DB.sql.prepare('SELECT player_id AS p, internal AS i, visible AS v FROM player_marks').all().map((x) => [x.p, `${x.i}/${x.v}`]))
+  same('R6/R11: метки игроков (служебный/вкладка видна)', marks, { r_team1: '1/null', r_team2: '1/null', r_hid: '0/0', r_hid2: '0/1', r_int: '1/null' })
+  // Два дня: строки «час и два назад» после полуночи по Стамбулу попадают во вчера.
+  const P = S.period(T, 2)
+  await S.syncPlayers(DB, now)
+  const all = await S.summary(DB, P)
+  const clean = await S.summary(S.reportDb(DB), P)
+  same('R11/R6: в отчётах без служебных и невидимых вкладок - только r_ru, r_tr, r_hid2 (+ r_old)', [all.opened, clean.opened, clean.funnel.life_start], [7, 4, 2])
+  const onlyHidden = await S.summary(S.reportDb(DB, { internal: false, hidden: true }), P)
+  check('R11: переключатель «со служебными» их возвращает', onlyHidden.opened === 6, String(onlyHidden.opened))
+  const boots = (await DB.prepare(S.SQL.bootLoss).bind(P.from, P.to).all()).results
+  same('R4: загрузок без app_open (по boot_id)', boots.map((x) => [x.country, x.lang, x.boots, x.lost]), [['RU', 'ru', 2, 1]])
+  const countries = await S.byCountry(S.reportDb(DB), P, T, false)
+  same('R3: новички по стране (без служебных и невидимых)', countries.map((x) => [x.country, x.new_players, x.life_start, x.first_choice, x.load_ms]), [
+    ['(нет)', 1, '0 (0%)', '0 (0%)', null],
+    ['RU', 1, '1 (100%)', '1 (100%)', 2500],
+    ['TR', 1, '1 (100%)', '0 (0%)', 900],
+    ['US', 1, '0 (0%)', '0 (0%)', null],
+  ])
+  const auth = { authorization: 'Basic ' + Buffer.from('x:pw').toString('base64') }
+  const get = (path) => mod.default.fetch(new Request('https://thousands.life' + path, { headers: auth }), env, ctx)
+  r = await get('/admin')
+  const html = await r.text()
+  check('R3/R4/R11: /admin - разбивка по стране, загрузки без запуска, переключатели', r.status === 200 && html.includes('Новички по стране') && html.includes('без запуска игры') && html.includes('✓ Без служебных') && html.includes('href="/admin?internal=1"'))
+  r = await get('/admin?internal=1&hidden=1')
+  check('R11: /admin?internal=1&hidden=1 - оба переключателя выключены', r.status === 200 && (await r.text()).includes('○ Без служебных'))
+  r = await get('/admin/export?table=events&days=1')
+  const rowsCsv = parseCsv((await r.text()).replace(/^\ufeff/, ''), ';')
+  const ci = rowsCsv[0].indexOf('country')
+  check('R3: выгрузка CSV с колонками country и asn', ci > 0 && rowsCsv[0][ci + 1] === 'asn' && rowsCsv.some((x) => x[ci] === 'RU'))
+  await settle()
 }
 
 // 10. Секреты не попадают в логи; SQL без подстановки чисел в текст запроса

@@ -57,6 +57,66 @@ export function serialDb(db: D1Database, pauses = [1000, 2000, 4000]): D1Databas
   }
 }
 
+/**
+ * ТЗ удержания (20.11): страна и сеть провайдера в events (R3), метки игроков в player_marks (R6, R11):
+ * internal = 1 - служебное устройство (?internal=1 или секрет INTERNAL_IDS), visible = 0 - вкладку при загрузке
+ * так и не показали (фон, открыта с Reddit «на потом»). Создаётся и сайтом, и утренней сводкой - кто первый придёт в базу.
+ */
+let retentionReady = false
+export async function ensureRetention(db: D1Database): Promise<void> {
+  if (retentionReady) return
+  await db.exec('CREATE TABLE IF NOT EXISTS player_marks (player_id TEXT PRIMARY KEY, internal INTEGER NOT NULL DEFAULT 0, visible INTEGER);')
+  const cols = (await db.prepare('PRAGMA table_info(events)').all<{ name: string }>()).results.map((r) => r.name)
+  // Таблицы событий ещё нет - её создаст сайт сразу с новыми колонками (SCHEMA в worker/index.ts).
+  if (cols.length) {
+    for (const [col, type] of [
+      ['country', 'TEXT'],
+      ['asn', 'INTEGER'],
+    ]) {
+      if (cols.includes(col)) continue
+      // Два экземпляра Worker могли добавить колонку одновременно - «duplicate column» не ошибка.
+      await db.exec(`ALTER TABLE events ADD COLUMN ${col} ${type};`).catch((e: unknown) => {
+        if (!/duplicate column/i.test(String(e))) throw e
+      })
+    }
+  }
+  retentionReady = true
+}
+
+/** Кого не считать в отчётах: служебные устройства (internal) и игроков, чью вкладку так и не показали (hidden). */
+export interface ReportFilter {
+  internal: boolean
+  hidden: boolean
+}
+export const REPORT_DEFAULT: ReportFilter = { internal: true, hidden: true }
+const FILTERED = Symbol('filtered')
+
+/**
+ * База для отчётов без служебных и «невиденных» игроков: в каждом SELECT к events, feedback и players после WHERE
+ * добавляется условие на player_marks. Запись (INSERT в players при syncPlayers) не трогается. События без игрока
+ * (boot до первого запуска) остаются.
+ */
+export function reportDb(db: D1Database, f: ReportFilter = REPORT_DEFAULT): D1Database {
+  if ((db as D1Database & { [FILTERED]?: boolean })[FILTERED]) return db
+  const conds = [f.internal && 'internal = 1', f.hidden && 'visible = 0'].filter(Boolean)
+  if (!conds.length) return db
+  const marked = `(SELECT player_id FROM player_marks WHERE ${conds.join(' OR ')})`
+  const rewrite = (sql: string) =>
+    /^\s*(INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|PRAGMA)\b/i.test(sql)
+      ? sql
+      : sql.replace(/\bFROM (events|feedback|players)(?:\s+(?!WHERE\b)(\w+))?\s+WHERE\s/g, (_, table: string, alias?: string) => {
+          const col = alias ? `${alias}.player_id` : 'player_id'
+          return `FROM ${table}${alias ? ' ' + alias : ''} WHERE (${col} IS NULL OR ${col} NOT IN ${marked}) AND `
+        })
+  const out: D1Database & { [FILTERED]?: boolean } = {
+    prepare: (sql: string) => db.prepare(rewrite(sql)),
+    batch: (statements: D1Prepared[]) => db.batch(statements),
+    exec: (sql: string) => db.exec(sql),
+  }
+  out[FILTERED] = true
+  return out
+}
+
 export const DAY = 864e5
 /** Сдвиг Стамбула от UTC: +3 часа. */
 export const TZ_SHIFT = 3 * 36e5
@@ -106,6 +166,10 @@ const FUNNEL_COLS = `COUNT(DISTINCT CASE WHEN name='app_open' THEN player_id END
 
 /** Только события шагов воронки: по индексу events_name_ts, а не все события периода. */
 const FUNNEL_WHERE = `name IN ('app_open','life_start','first_choice','age_milestone','life_end') AND ts >= ?1 AND ts < ?2`
+
+/** Страна для отчётов: RU, TR, US отдельно, остальные - «прочие», строки без страны (до 20.11) - «(нет)». */
+const COUNTRY_SQL = `CASE WHEN country IN ('RU','TR','US') THEN country WHEN country IS NULL OR country = '' THEN '(нет)' ELSE 'прочие' END`
+const countryOf = (c: unknown) => (c === 'RU' || c === 'TR' || c === 'US' ? c : c == null || c === '' ? '(нет)' : 'прочие')
 
 // Бесплатный D1 - 5 млн прочитанных строк в день на всё. Поэтому запросы читают только нужные события по индексу
 // (name, ts), «первый заход игрока» берут из таблицы players, а не из всей истории событий (syncPlayers).
@@ -201,6 +265,24 @@ FROM m GROUP BY what ORDER BY players DESC, what`,
   // Соединяются в JS (cohorts): соединение в SQL D1 считает как перебор пар строк.
   cohortPlayers: `SELECT player_id, CAST((first_ts/1000 + 10800)/86400 AS INTEGER) AS d0 FROM players WHERE first_ts >= ?1 AND first_ts < ?2`,
   cohortOpens: `SELECT DISTINCT player_id, ${DAYNUM_SQL} AS d FROM events WHERE name IN ('app_open','session_end') AND ts >= ?1 AND player_id IS NOT NULL`,
+  // R3 ТЗ удержания: игроки периода - страна (колонка country, у строк до 20.11 её нет), язык и время загрузки первого
+  // захода, начали ли жизнь и сделали ли выбор. Соединяется с новыми игроками (cohortPlayers) в JS (byCountry).
+  countryPlayers: `SELECT player_id, MAX(country) AS country, MAX(CASE WHEN name='app_open' THEN json_extract(params_json,'$.lang') END) AS lang,
+  MIN(CASE WHEN name='app_open' THEN json_extract(params_json,'$.load_ms') END) AS load_ms,
+  MAX(name='life_start') AS life_start, MAX(name='first_choice') AS first_choice
+FROM events WHERE name IN ('app_open','life_start','first_choice') AND ts >= ?1 AND ts < ?2 AND player_id IS NOT NULL GROUP BY player_id`,
+  // R4: загрузки страницы (маяк boot из index.html) без app_open с тем же boot_id - игра так и не загрузилась.
+  // app_open ищется и в первый час после периода (загрузка на границе суток). Служебные устройства - не считаются.
+  bootLoss: `WITH b AS (
+  SELECT json_extract(params_json,'$.boot_id') AS bid, ${COUNTRY_SQL} AS country, COALESCE(json_extract(params_json,'$.lang'),'-') AS lang
+  FROM events WHERE name='boot' AND ts >= ?1 AND ts < ?2 AND COALESCE(json_extract(params_json,'$.internal'),0) = 0
+), o AS (
+  SELECT DISTINCT json_extract(params_json,'$.boot_id') AS bid FROM events WHERE name='app_open' AND ts >= ?1 AND ts < ?2 + 3600000 AND json_extract(params_json,'$.boot_id') IS NOT NULL
+)
+SELECT country, lang, COUNT(*) AS boots, SUM(bid NOT IN (SELECT bid FROM o)) AS lost FROM b GROUP BY country, lang ORDER BY boots DESC, country, lang LIMIT 30`,
+  // R5: долгая загрузка страны после рывка рычага, ошибка загрузки и сколько ждали активную кнопку.
+  loadEvents: `SELECT name, ${COUNTRY_SQL} AS country, json_extract(params_json,'$.ms') AS ms, json_extract(params_json,'$.wait_ms') AS wait_ms
+FROM events WHERE name IN ('load_ready','load_slow','load_error') AND ts >= ?1 AND ts < ?2 LIMIT 20000`,
 }
 
 // ---------- Расчёт ----------
@@ -289,6 +371,7 @@ export function feedbackLine(answersJson: unknown, max = 200): string {
 let playersReady = false
 export async function syncPlayers(db: D1Database, now = Date.now()): Promise<number> {
   // Сводка (worker/digest) может прийти в базу раньше сайта - таблицы на этот случай.
+  await ensureRetention(db)
   if (!playersReady) {
     await db.exec(
       'CREATE TABLE IF NOT EXISTS players (player_id TEXT PRIMARY KEY, first_ts INTEGER); CREATE INDEX IF NOT EXISTS players_first ON players(first_ts); CREATE TABLE IF NOT EXISTS counters (name TEXT PRIMARY KEY, value INTEGER NOT NULL, mark INTEGER NOT NULL, updated INTEGER NOT NULL);',
@@ -368,6 +451,100 @@ export async function cohorts(db: D1Database, today: number, n = 21): Promise<Co
   return [...byDay]
     .sort((x, y) => y[0] - x[0])
     .map(([d0, g]) => ({ day: dayIso(d0), new_players: g.total, d1: cell(d0, 1, g.d1, g.total), d7: cell(d0, 7, g.d7, g.total) }))
+}
+
+export interface CountryRow {
+  country: string
+  lang: string
+  new_players: number
+  life_start: string
+  first_choice: string
+  d1: string
+  load_ms: number | null
+}
+
+const median = (xs: number[]) => {
+  if (!xs.length) return null
+  const s = [...xs].sort((a, b) => a - b)
+  return s[Math.floor((s.length - 1) / 2)]
+}
+const quantile = (xs: number[], q: number) => {
+  if (!xs.length) return null
+  const s = [...xs].sort((a, b) => a - b)
+  return s[Math.min(s.length - 1, Math.floor(q * s.length))]
+}
+
+/**
+ * R3 ТЗ удержания: новые игроки периода по стране (и языку, если byLang): сколько начали жизнь, сделали первый выбор,
+ * вернулись на следующий день (D1 - только у тех, у кого следующий день уже наступил; иначе «-»), медиана load_ms.
+ */
+export async function byCountry(db: D1Database, p: Period, today: number, byLang = true): Promise<CountryRow[]> {
+  const [c, e, a] = await Promise.all([
+    db.prepare(SQL.cohortPlayers).bind(p.from, p.to).all<{ player_id: string; d0: number }>(),
+    db.prepare(SQL.countryPlayers).bind(p.from, p.to).all<Record<string, unknown>>(),
+    db.prepare(SQL.cohortOpens).bind(dayStart(p.first + 1)).all<{ player_id: string; d: number }>(),
+  ])
+  const info = new Map(e.results.map((r) => [String(r.player_id), r]))
+  const opens = new Set(a.results.map((r) => `${r.player_id}:${num(r.d)}`))
+  const groups = new Map<string, { country: string; lang: string; n: number; ls: number; fc: number; d1n: number; d1: number; load: number[] }>()
+  for (const r of c.results) {
+    const x = info.get(String(r.player_id))
+    const country = countryOf(x?.country)
+    const l = String(x?.lang ?? '')
+    const lang = byLang ? (l === 'ru' || l === 'en' ? l : 'прочие') : 'все'
+    const key = `${country}|${lang}`
+    const g = groups.get(key) ?? { country, lang, n: 0, ls: 0, fc: 0, d1n: 0, d1: 0, load: [] }
+    const d0 = num(r.d0)
+    g.n++
+    if (num(x?.life_start)) g.ls++
+    if (num(x?.first_choice)) g.fc++
+    if (d0 + 1 <= today) {
+      g.d1n++
+      if (opens.has(`${r.player_id}:${d0 + 1}`)) g.d1++
+    }
+    if (x?.load_ms != null) g.load.push(num(x.load_ms))
+    groups.set(key, g)
+  }
+  return [...groups.values()]
+    .sort((x, y) => y.n - x.n || (x.country < y.country ? -1 : 1))
+    .map((g) => ({
+      country: g.country,
+      lang: g.lang,
+      new_players: g.n,
+      life_start: `${g.ls} (${pct(g.ls, g.n)})`,
+      first_choice: `${g.fc} (${pct(g.fc, g.n)})`,
+      d1: g.d1n ? `${g.d1} (${pct(g.d1, g.d1n)})` : '-',
+      load_ms: median(g.load),
+    }))
+}
+
+export interface LoadRow {
+  country: string
+  ready: number
+  ms_median: number | null
+  ms_p90: number | null
+  wait_median: number | null
+  slow: number
+  error: number
+}
+
+/** R5/R7: загрузка страны после рывка рычага по стране - медиана и p90 ожидания, сколько раз «долго» и ошибок. */
+export async function loadStats(db: D1Database, p: Period): Promise<LoadRow[]> {
+  const rows = (await db.prepare(SQL.loadEvents).bind(p.from, p.to).all<Record<string, unknown>>()).results
+  const by = new Map<string, { ms: number[]; wait: number[]; slow: number; error: number }>()
+  for (const r of rows) {
+    const k = String(r.country)
+    const g = by.get(k) ?? { ms: [], wait: [], slow: 0, error: 0 }
+    if (r.name === 'load_ready') {
+      if (r.ms != null) g.ms.push(num(r.ms))
+      if (r.wait_ms != null) g.wait.push(num(r.wait_ms))
+    } else if (r.name === 'load_slow') g.slow++
+    else g.error++
+    by.set(k, g)
+  }
+  return [...by]
+    .map(([country, g]) => ({ country, ready: g.ms.length, ms_median: median(g.ms), ms_p90: quantile(g.ms, 0.9), wait_median: median(g.wait), slow: g.slow, error: g.error }))
+    .sort((x, y) => y.ready - x.ready || (x.country < y.country ? -1 : 1))
 }
 
 // ---------- Форматирование для Telegram (parse_mode HTML) ----------
@@ -495,11 +672,25 @@ export const HELP = [
 /** Ежедневная сводка: вчера (по Стамбулу) с дельтой к позавчера. Её же шлёт команда /digest. */
 export async function digestMessage(db: D1Database, now: number): Promise<string> {
   await syncPlayers(db, now)
+  // Без служебных устройств и вкладок, которые так и не показали (R6, R11 ТЗ удержания).
+  db = reportDb(db)
   const y = dayOf(now) - 1
   const cur = await summary(db, period(y))
   if (!cur.events && !cur.feedback.n) return `<b>Тысячи жизней, вчера ${esc(dayLabel(y))}</b>\nВчера активности не было.`
-  const prev = await summary(db, period(y - 1))
-  return formatSummary(`Тысячи жизней, вчера ${dayLabel(y)}`, cur, prev, dayLabel(y - 1))
+  const [prev, cy, cb] = await Promise.all([summary(db, period(y - 1)), byCountry(db, period(y), y, false), byCountry(db, period(y - 1), y, false)])
+  return [formatSummary(`Тысячи жизней, вчера ${dayLabel(y)}`, cur, prev, dayLabel(y - 1)), formatCountries(cy, cb)].join('\n')
+}
+
+/** Новые игроки вчера по стране; D1 - у пришедших позавчера (их «завтра» - это вчера). */
+export function formatCountries(yesterday: CountryRow[], before: CountryRow[]): string {
+  if (!yesterday.length && !before.length) return ''
+  const d1 = new Map(before.map((r) => [r.country, r.d1]))
+  const names = [...new Set([...yesterday.map((r) => r.country), ...before.map((r) => r.country)])]
+  const row = (c: string) => {
+    const r = yesterday.find((x) => x.country === c)
+    return [c, r?.new_players ?? 0, r ? r.life_start.replace(/^\d+ \((.*)\)$/, '$1') : '-', r ? r.first_choice.replace(/^\d+ \((.*)\)$/, '$1') : '-', d1.get(c)?.replace(/^\d+ \((.*)\)$/, '$1') ?? '-']
+  }
+  return ['<b>Новые по стране</b> (жизнь, первый выбор - вчера; D1 - пришедшие позавчера)', grid([['страна', 'новых', 'жизнь', 'выбор', 'D1'], ...names.map(row)])].join('\n')
 }
 
 /** Ответ на команду бота; незнакомая команда - список команд. */
@@ -510,6 +701,7 @@ export async function commandReply(db: D1Database | undefined, command: string, 
   if (!db) return 'База D1 не подключена к сайту (привязка DB) - считать не из чего.'
   db = serialDb(db)
   await syncPlayers(db, now)
+  db = reportDb(db)
   if (command === '/stats') {
     const [t, y] = await Promise.all([summary(db, period(today)), summary(db, period(today - 1))])
     return formatTwoDays(t, y)

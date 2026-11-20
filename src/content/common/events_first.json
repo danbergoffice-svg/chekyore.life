@@ -420,7 +420,7 @@
    0,
    0
   ],
-  "base_weight": 1,
+  "base_weight": 0.5,
   "once": true,
   "topic": "life",
   "scene": {
@@ -983,7 +983,7 @@
    0,
    0
   ],
-  "base_weight": 1,
+  "base_weight": 0.5,
   "once": true,
   "topic": "life",
   "scene": {

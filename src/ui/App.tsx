@@ -129,6 +129,18 @@ export function App() {
   const [feedbackFrom, setFeedbackFrom] = useState<Screen>('menu')
   const [thanks, setThanks] = useState(false)
   const [soundHint, setSoundHint] = useState(false)
+  /** Подсказка про беззвучный режим уже просилась, но экран ещё не тот (меню, знакомство с семьёй, до первого выбора). */
+  const soundHintDue = useRef(false)
+  const screenRef = useRef<Screen>('loading')
+  const trySoundHint = () => {
+    const s = game.current?.stats
+    const choices = s && s.heroId === game.current?.hero.id ? s.choices : 0
+    if (!soundHintDue.current || screenRef.current !== 'life' || choices < 1) return
+    soundHintDue.current = false
+    platform.kvSet('thousands.sound_hint', '1')
+    setSoundHint(true)
+    setTimeout(() => setSoundHint(false), 7000)
+  }
   const [setupOpen, setSetupOpen] = useState(false)
   // Выбор страны следующей жизни (пробный период, награда за отзыв).
   const [countryOpen, setCountryOpen] = useState(false)
@@ -137,6 +149,9 @@ export function App() {
   useEffect(() => {
     if (screen !== 'death') setFullSummary(false)
   }, [screen])
+
+  screenRef.current = screen
+  useEffect(trySoundHint, [screen])
 
   const state = game.current
   const hero = state?.hero
@@ -157,7 +172,10 @@ export function App() {
       .then(() => setLoadedVersion((v) => v + 1))
       .catch(() => {
         // Чаще всего это файлы прошлой версии сайта: один раз перезагружаем страницу, потом предлагаем повторить.
-        if (reloadOnceForUpdate()) return
+        // R5 ТЗ удержания: ошибка - в аналитику; reloaded: 1 - страница сейчас перезагрузится сама (событие уйдёт маяком).
+        const reloaded = reloadOnceForUpdate()
+        platform.track('load_error', { where: 'era', era: eraId, reloaded: reloaded ? 1 : 0 })
+        if (reloaded) return
         setLoadError(true)
       })
   }
@@ -187,7 +205,25 @@ export function App() {
       }
       const { first: utmFirst, ...utm } = utmParams(location.search)
       if (utmFirst) platform.setContext({ utm: utmFirst })
-      platform.track('app_open', { referrer, ...utm, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()), vw: window.innerWidth, vh: window.innerHeight })
+      // R4, R6 ТЗ удержания: boot_id - склейка с маяком загрузки (index.html); vis - вкладка видна или открыта в фоне
+      // (с Reddit «на потом»); tz - часовой пояс устройства (отличить Россию от русскоязычных за границей).
+      let tz = ''
+      try {
+        tz = Intl.DateTimeFormat().resolvedOptions().timeZone ?? ''
+      } catch {
+        tz = ''
+      }
+      const vis = document.visibilityState
+      platform.track('app_open', { referrer, ...utm, life_code: params.get('life') ?? '', load_ms: Math.round(performance.now()), vw: window.innerWidth, vh: window.innerHeight, boot_id: platform.bootId?.() ?? '', vis, tz })
+      // Открыта в фоне: при первом показе - app_visible (сколько секунд вкладка пролежала скрытой с начала загрузки).
+      if (vis === 'hidden') {
+        const onShow = () => {
+          if (document.visibilityState !== 'visible') return
+          document.removeEventListener('visibilitychange', onShow)
+          platform.track('app_visible', { sec_hidden: Math.round(performance.now() / 1000) })
+        }
+        document.addEventListener('visibilitychange', onShow)
+      }
       trackUserParams(lives)
       if (game.current) await ensure(game.current.hero.era, prefs.lang, game.current.hero.erasLived)
       setScreen('menu')
@@ -231,11 +267,12 @@ export function App() {
   const volume = prefs.volume ?? 0.6
   useEffect(() => {
     // Один раз за всё время на iPhone: музыку глушит переключатель беззвучного режима.
+    // R2 ТЗ удержания: первый звук - рывок рычага в меню, и подсказка внизу закрывала «Узнать свою семью». Теперь она ждёт
+    // экрана жизни после первого выбора и выходит сверху.
     onIosHint(() => {
       if (platform.kvGet('thousands.sound_hint')) return
-      platform.kvSet('thousands.sound_hint', '1')
-      setSoundHint(true)
-      setTimeout(() => setSoundHint(false), 7000)
+      soundHintDue.current = true
+      trySoundHint()
     })
     initAudio(soundOn, volume)
   }, [])
@@ -890,6 +927,7 @@ export function App() {
     trackChoice(game.current!, { historical: ev?.type === 'global_historical' ? 1 : 0, ...(mark ? { mark } : {}), ...(ms !== undefined ? { ms_to_choice: ms } : {}) })
     setChoiceChanges(changes(before, game.current!))
     afterTurn()
+    trySoundHint()
   }
 
   const onDismiss = () => {
@@ -1445,7 +1483,7 @@ export function App() {
         {screen === 'awards' && <Awards earned={earned} memorial={memorial} onBack={goBack} onTrain={startTraining} />}
         {screen === 'awards' && trainingProps && <DreamModal {...trainingProps} />}
         {soundHint && (
-          <p class="toast" role="status" onClick={() => setSoundHint(false)}>
+          <p class="toast toast-top" role="status" onClick={() => setSoundHint(false)}>
             {ui.t('sound.ios_hint')}
           </p>
         )}

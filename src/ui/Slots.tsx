@@ -4,6 +4,7 @@ import { ERA_IDS, ERA_META } from '../content'
 import type { Birth } from '../engine/life'
 import { formatYear } from '../i18n'
 import { playLever, playReels } from '../audio'
+import { platform } from '../platform'
 import type { ReelTiming } from '../sfx'
 import { Scene } from '../pixel/SceneView'
 import { useUi } from './text'
@@ -184,9 +185,24 @@ export function SlotMachine(props: {
   const [slow, setSlow] = useState(false)
   useEffect(() => {
     if (props.ready || phase === 'idle') return
-    const id = setTimeout(() => setSlow(true), 12000)
+    const id = setTimeout(() => {
+      setSlow(true)
+      // R5 ТЗ удержания: один раз за ожидание (барабан на каждую жизнь - новый, key = seed).
+      platform.track('load_slow', { where: 'spin', era: birth.era, sec: 12 })
+    }, 12000)
     return () => clearTimeout(id)
   }, [props.ready, phase === 'idle'])
+  // R5: сколько ждал игрок - ms от рывка рычага до загрузки страны (0 - была готова заранее, R7), wait_ms - после
+  // остановки барабана до активной кнопки «Узнать свою семью». Один раз, когда кнопка стала активной.
+  const timing = useRef({ pull: 0, ready: 0, done: 0, sent: false })
+  useEffect(() => {
+    const m = timing.current
+    if (props.ready && m.pull && !m.ready) m.ready = performance.now()
+    if (phase === 'done' && !m.done) m.done = performance.now()
+    if (m.sent || !m.pull || !props.ready || phase !== 'done') return
+    m.sent = true
+    platform.track('load_ready', { where: 'spin', era: birth.era, ms: Math.round(m.ready - m.pull), wait_ms: Math.max(0, Math.round(m.ready - m.done)) })
+  }, [props.ready, phase])
   useEffect(() => {
     if (phase === 'done') result.current?.scrollIntoView({ block: 'nearest', behavior: fast ? 'auto' : 'smooth' })
   }, [phase])
@@ -221,6 +237,8 @@ export function SlotMachine(props: {
 
   const pull = () => {
     if (phase !== 'idle') return
+    timing.current.pull = performance.now()
+    if (props.ready) timing.current.ready = timing.current.pull
     playLever()
     props.onPull()
     setPhase('pull')

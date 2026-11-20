@@ -15,7 +15,7 @@
 import { localizeHtml, seoLang } from './seo'
 import { admin, authorized, exportCsv, unauthorized } from './admin'
 import { account, type AccountEnv } from './account'
-import { syncPlayers, type D1Database } from './stats'
+import { ensureRetention, syncPlayers, type D1Database } from './stats'
 import { sendMessage, telegramWebhook, type Ctx } from './telegram'
 
 interface Env extends AccountEnv {
@@ -25,12 +25,14 @@ interface Env extends AccountEnv {
   TELEGRAM_TOKEN?: string
   TELEGRAM_CHAT_ID?: string
   TELEGRAM_WEBHOOK_SECRET?: string
+  /** Служебные id игроков через запятую (команда, тестировщики): не входят в отчёты (R11 ТЗ удержания). */
+  INTERNAL_IDS?: string
 }
 
 const ORIGINS = [/^https:\/\/(www\.)?thousands\.life$/, /^https:\/\/[a-z0-9-]+\.thousands-life\.pages\.dev$/, /^https:\/\/([a-z0-9-]+\.)*yandex\.(ru|net|com|by|kz|uz|com\.tr)$/, /^http:\/\/localhost(:\d+)?$/]
 
 const SCHEMA = `
-CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, session_id TEXT, name TEXT NOT NULL, params_json TEXT, platform TEXT, build TEXT);
+CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, player_id TEXT, session_id TEXT, name TEXT NOT NULL, params_json TEXT, platform TEXT, build TEXT, country TEXT, asn INTEGER);
 CREATE INDEX IF NOT EXISTS events_name_ts ON events(name, ts);
 DROP INDEX IF EXISTS events_player;
 DROP INDEX IF EXISTS events_ts;
@@ -41,10 +43,33 @@ CREATE TABLE IF NOT EXISTS counters (name TEXT PRIMARY KEY, value INTEGER NOT NU
 `
 
 let schemaReady = false
-async function ensureSchema(db: D1Database) {
-  if (schemaReady) return
-  await db.exec(SCHEMA.trim().split('\n').join(' '))
-  schemaReady = true
+let internalReady = false
+async function ensureSchema(db: D1Database, env?: Env) {
+  if (!schemaReady) {
+    await db.exec(SCHEMA.trim().split('\n').join(' '))
+    // Колонки country и asn в старой базе, таблица меток игроков (worker/stats.ts).
+    await ensureRetention(db)
+    schemaReady = true
+  }
+  // Служебные id из секрета - в метки (новые id в секрете подхватит следующий экземпляр Worker).
+  if (env && !internalReady) {
+    const ids = (env.INTERNAL_IDS ?? '').split(/[\s,;]+/).filter((x) => /^[\w-]{4,64}$/.test(x))
+    if (ids.length) await db.batch(ids.map((id) => db.prepare(MARK_INTERNAL).bind(id)))
+    internalReady = true
+  }
+}
+
+const MARK_INTERNAL = 'INSERT INTO player_marks (player_id, internal) VALUES (?, 1) ON CONFLICT(player_id) DO UPDATE SET internal = 1'
+/** Вкладку при загрузке не показали: метка, если о игроке ещё ничего не известно. */
+const MARK_HIDDEN = 'INSERT INTO player_marks (player_id, visible) VALUES (?, 0) ON CONFLICT(player_id) DO UPDATE SET visible = COALESCE(visible, 0)'
+/** Вкладку показали: снять метку (запись только у тех, у кого она была - без лишних строк в базе). */
+const MARK_VISIBLE = 'UPDATE player_marks SET visible = 1 WHERE player_id = ? AND visible = 0'
+
+/** Страна и сеть провайдера (R3 ТЗ удержания) - из данных Cloudflare о запросе; IP не хранится. */
+function origin(req: Request): { country: string | null; asn: number | null } {
+  const cf = (req as Request & { cf?: { country?: string; asn?: number } }).cf
+  const country = (cf?.country ?? req.headers.get('cf-ipcountry') ?? '').toUpperCase().slice(0, 2)
+  return { country: /^[A-Z0-9]{2}$/.test(country) ? country : null, asn: typeof cf?.asn === 'number' ? cf.asn : null }
 }
 
 // Ограничение частоты: не больше 60 запросов в минуту с одного адреса (в памяти этого экземпляра, адрес не пишется в базу).
@@ -78,17 +103,31 @@ async function events(req: Request, env: Env): Promise<Response> {
   const list = Array.isArray(body?.events) ? body!.events.slice(0, 50) : []
   if (!list.length) return json({ ok: false }, 400)
   const db = env.DB!
-  await ensureSchema(db)
+  await ensureSchema(db, env)
   const now = Date.now()
-  const stmt = db.prepare('INSERT INTO events (ts, player_id, session_id, name, params_json, platform, build) VALUES (?, ?, ?, ?, ?, ?, ?)')
-  const rows = list
-    .filter((e) => e && typeof e.name === 'string' && /^[a-z0-9_]{2,40}$/.test(e.name as string))
-    .map((e) => {
-      const { name, ts, player_id, session_id, platform, build, ...params } = e
-      const time = typeof ts === 'number' && Math.abs(ts - now) < 7 * 864e5 ? ts : now
-      return stmt.bind(time, str(player_id), str(session_id), name, JSON.stringify(params).slice(0, 4000), str(platform, 16), str(build, 32))
-    })
-  if (rows.length) await db.batch(rows)
+  const { country, asn } = origin(req)
+  const stmt = db.prepare('INSERT INTO events (ts, player_id, session_id, name, params_json, platform, build, country, asn) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+  const valid = list.filter((e) => e && typeof e.name === 'string' && /^[a-z0-9_]{2,40}$/.test(e.name as string))
+  const rows = valid.map((e) => {
+    const { name, ts, player_id, session_id, platform, build, ...params } = e
+    const time = typeof ts === 'number' && Math.abs(ts - now) < 7 * 864e5 ? ts : now
+    return stmt.bind(time, str(player_id), str(session_id), name, JSON.stringify(params).slice(0, 4000), str(platform, 16), str(build, 32), country, asn)
+  })
+  // Метки игрока (worker/stats.ts, reportDb): служебное устройство (?internal=1 - во всех событиях internal: 1),
+  // вкладка при загрузке скрыта (app_open с vis: hidden) или её показали (app_visible, app_open с vis: visible).
+  const marks = new Map<string, string>()
+  for (const e of valid) {
+    const pid = str(e.player_id)
+    if (!pid) continue
+    if (e.internal === 1) marks.set(`i:${pid}`, MARK_INTERNAL)
+    if (e.name === 'app_open' && e.vis === 'hidden') marks.set(`h:${pid}`, MARK_HIDDEN)
+    if (e.name === 'app_visible' || (e.name === 'app_open' && e.vis === 'visible')) {
+      marks.delete(`h:${pid}`)
+      marks.set(`v:${pid}`, MARK_VISIBLE)
+    }
+  }
+  const markRows = [...marks].map(([k, q]) => db.prepare(q).bind(k.slice(2)))
+  if (rows.length) await db.batch([...rows, ...markRows])
   return json({ ok: true, n: rows.length })
 }
 
@@ -140,7 +179,7 @@ export default {
       if (!(await authorized(req, env))) return unauthorized()
       if (!env.DB) return new Response('База D1 не подключена (привязка DB)', { status: 503 })
       try {
-        await ensureSchema(env.DB)
+        await ensureSchema(env.DB, env)
         return path === '/admin' ? await adminCached(req, env, ctx) : await exportCsv(req, env)
       } catch (e) {
         return new Response('Ошибка базы: ' + String(e).slice(0, 300), { status: 500, headers: { 'content-type': 'text/plain; charset=utf-8' } })
@@ -196,13 +235,15 @@ async function adminCached(req: Request, env: Env, ctx: Ctx): Promise<Response> 
   const cache = (globalThis as { caches?: { default?: Cache } }).caches?.default
   const url = new URL(req.url)
   if (!cache) return admin(req, env)
-  const key = new Request(new URL('/admin?__cache', url).toString())
+  // Переключатели отчётов (служебные, невидимые вкладки) - своя копия страницы в кэше на каждое сочетание.
+  const view = ['internal', 'hidden'].map((k) => `${k}=${url.searchParams.get(k) === '1' ? 1 : 0}`).join('&')
+  const key = new Request(new URL(`/admin?__cache&${view}`, url).toString())
   if (!url.searchParams.has('fresh')) {
     const hit = await cache.match(key)
     if (hit) return new Response(hit.body, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } })
   }
   // Последняя удачная страница хранится ещё неделю: если D1 перегружен, лучше показать её с пометкой, чем ошибку.
-  const staleKey = new Request(new URL('/admin?__stale', url).toString())
+  const staleKey = new Request(new URL(`/admin?__stale&${view}`, url).toString())
   let res: Response
   try {
     res = await admin(req, env)
