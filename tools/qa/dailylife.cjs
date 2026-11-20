@@ -9,7 +9,7 @@ const W = Number(process.env.W || 390)
   const ctx = await b.newContext({ viewport: { width: W, height: 844 }, locale: 'ru-RU', reducedMotion: 'reduce', deviceScaleFactor: 2 })
   await ctx.route(/\/flags\.json/, async (r) => {
     const f = await (await r.fetch()).json()
-    r.fulfill({ json: { ...f, protected_lives: 0, year_sec_child: 1, year_sec: 1, daily_share: 1, auto_spin_share: 0, ab_buckets: { a: 1 } } })
+    r.fulfill({ json: { ...f, protected_lives: 0, year_sec_child: 1, year_sec: 1, daily_share: 1, auto_spin_share: 0, kids_share: 0, ab_buckets: { a: 1 } } })
   })
   // Сервер жизни дня: 14 «чужих» итогов, свой - после /api/daily/result.
   const rows = Array.from({ length: 14 }, (_, i) => ({ nick: i % 4 === 2 ? null : ['Makuska', 'Leyla', 'tom_h', 'Ana_Z', 'kerem', 'Ali_K', 'Sofi', 'Bao'][i % 8] + (i > 7 ? i : ''), country: 'MX', age: 70 - i * 5, kids: (i * 7) % 5, prof: null }))
@@ -51,12 +51,16 @@ const W = Number(process.env.W || 390)
         await p.click('.dream-modal .primary:not([disabled])', { timeout: 800 }).catch(() => {})
         continue
       }
+      if (await p.$('.tour-btns')) {
+        await p.click('.tour-btns button', { timeout: 500 }).catch(() => {})
+        continue
+      }
       if (await p.$('.modal')) {
         if (await p.$('.outcome')) {
           await p.click('.outcome .primary', { timeout: 1000 }).catch(() => {})
           continue
         }
-        const opts = await p.$$('.choices .choice:not([disabled]), .choices .primary, .modal .primary')
+        const opts = await p.$$('.choices .choice:not([disabled]), .choices .primary, .modal .primary, .modal-body button:not([disabled])')
         if (opts.length) await opts[0].click({ timeout: 1000 }).catch(() => {})
         continue
       }
@@ -74,8 +78,7 @@ const W = Number(process.env.W || 390)
   await p.click('.spin-result .primary')
   await p.waitForSelector('.reveal')
   await p.click('.reveal .primary')
-  await play(dead)
-  console.log('1) первая жизнь прожита')
+  console.log('1) первая жизнь прожита:', await play(dead))
   // 2. Меню: карточка жизни дня.
   await p.click('text=Меню').catch(() => {})
   await p.goto('http://localhost:5174/?ab=a&tour=wall&goalat=0')
