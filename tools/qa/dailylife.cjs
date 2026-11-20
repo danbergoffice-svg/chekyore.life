@@ -9,7 +9,7 @@ const W = Number(process.env.W || 390)
   const ctx = await b.newContext({ viewport: { width: W, height: 844 }, locale: 'ru-RU', reducedMotion: 'reduce', deviceScaleFactor: 2 })
   await ctx.route(/\/flags\.json/, async (r) => {
     const f = await (await r.fetch()).json()
-    r.fulfill({ json: { ...f, protected_lives: 0, year_sec_child: 1, year_sec: 1, daily_share: 1, auto_spin_share: 0, kids_share: 0, ab_buckets: { a: 1 } } })
+    r.fulfill({ json: { ...f, protected_lives: 0, year_sec_child: 0.3, year_sec: 0.3, year_sec_child_quiet: 0.3, daily_share: 1, auto_spin_share: 0, kids_share: 0, ab_buckets: { a: 1 } } })
   })
   // Сервер жизни дня: 14 «чужих» итогов, свой - после /api/daily/result.
   const rows = Array.from({ length: 14 }, (_, i) => ({ nick: i % 4 === 2 ? null : ['Makuska', 'Leyla', 'tom_h', 'Ana_Z', 'kerem', 'Ali_K', 'Sofi', 'Bao'][i % 8] + (i > 7 ? i : ''), country: 'MX', age: 70 - i * 5, kids: (i * 7) % 5, prof: null }))
@@ -40,7 +40,7 @@ const W = Number(process.env.W || 390)
   const p = await ctx.newPage()
   const errs = []
   p.on('pageerror', (e) => errs.push(e.message))
-  const play = async (until, ms = 300000) => {
+  const play = async (until, ms = 700000) => {
     const t0 = Date.now()
     while (Date.now() - t0 < ms) {
       if (await until()) return true
