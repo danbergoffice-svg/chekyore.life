@@ -142,6 +142,8 @@ export function AssetRow({ state, a, money, act }: { state: GameState; a: Asset;
           {t('estate.sell', { money: money(Math.max(0, saleValue(state, a) - (a.pledged ?? 0))) })}
         </button>
       </span>
+      {/* Что такое залог (20.11: игрок понял «Pledge» как «вложить деньги в здание»): только пока имущество не заложено. */}
+      {!a.pledged && <span class="small muted pledge-hint">{t('estate.pledge.hint')}</span>}
     </li>
   )
 }

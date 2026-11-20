@@ -1519,6 +1519,7 @@
   "estate.sell": "Sat: +{money}",
   "estate.pledge": "Rehin ver: +{money}",
   "estate.redeem": "Rehni geri al: {money}",
+  "estate.pledge.hint": "Değerin yarısını hemen alırsın. Borç için yılda %10 ödersin ve mülkü kurtarmak için istediğin zaman geri ödeyebilirsin. Borca düşersen alacaklı mülke el koyabilir.",
   "estate.buy": "Satın al:",
   "estate.buy.desc": "{money} · yılda ≈{income} gelir",
   "estate.home": "Evin: {home}.",
