@@ -2183,7 +2183,7 @@
   "dlife.done_wait": "Günün hayatını yaşadın. Sonucun tabloda görünecek.",
   "dlife.continue": "Günün hayatına devam et",
   "dlife.play": "Günün hayatını yaşa",
-  "dlife.new_in": "Yeni hayat {h} sa {m} dk sonra",
+  "dlife.new_in": "Yeni hayat {left} sonra",
   "dlife.result.place": "{n} kişi içinde {place}. sıra",
   "dlife.result.sending": "Günün tablosuna yazılıyor…",
   "dlife.result.offline": "Bağlantı yok: sonuç internet gelince kaydedilecek.",
@@ -2200,7 +2200,9 @@
   "dlife.board.from": "Oyuncu · {country}",
   "dlife.board.you": "bu sensin",
   "dlife.board.kids": "çocuk ve torun: {n}",
-  "dlife.board.closes": "Bugün yaşayan: {n} · tablo {h} sa {m} dk sonra kapanır",
+  "dlife.board.closes": "Bugün yaşayan: {n} · tablo {left} sonra kapanır",
   "dlife.confirm": "Günün hayatına başlansın mı? {name} adlı kahramanın hayatı yarım kalacak.",
-  "dlife.won": "{date} günün hayatını kazandın! Bir sonraki hayatın: hanedan ailesi."
+  "dlife.won": "{date} günün hayatını kazandın! Bir sonraki hayatın: hanedan ailesi.",
+  "dlife.left_hm": "{h} sa {m} dk",
+  "dlife.left_m": "{m} dk"
 }

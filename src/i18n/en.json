@@ -2178,7 +2178,7 @@
   "dlife.done_wait": "Today's life is done. Your result will appear in the table.",
   "dlife.continue": "Continue the Life of the Day",
   "dlife.play": "Live the Life of the Day",
-  "dlife.new_in": "New life in {h} h {m} min",
+  "dlife.new_in": "New life in {left}",
   "dlife.result.place": "Place {place} of {n}",
   "dlife.result.sending": "Saving to today's table…",
   "dlife.result.offline": "No connection: the result will be saved once you're online.",
@@ -2195,7 +2195,9 @@
   "dlife.board.from": "Player · {country}",
   "dlife.board.you": "that's you",
   "dlife.board.kids": "children and grandchildren: {n}",
-  "dlife.board.closes": "Played today: {n} · the table closes in {h} h {m} min",
+  "dlife.board.closes": "Played today: {n} · the table closes in {left}",
   "dlife.confirm": "Start the Life of the Day? {name}'s life will be left unfinished.",
-  "dlife.won": "You won the Life of the Day for {date}! Your next life: a royal family."
+  "dlife.won": "You won the Life of the Day for {date}! Your next life: a royal family.",
+  "dlife.left_hm": "{h} h {m} min",
+  "dlife.left_m": "{m} min"
 }

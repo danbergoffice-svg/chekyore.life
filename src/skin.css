@@ -582,7 +582,8 @@ html.skin .ft-more { opacity: 0.8; }
 .daily-stats { display: flex; gap: 10px; margin: 10px 0 2px; }
 .daily-stats > div { flex: 1; background: #e9dcc0; padding: 6px 8px; font-size: 13px; color: #5b4632; }
 .daily-stats b { display: block; font: 700 19px/1.1 var(--font-display); color: #2a1d12; }
-.daily-card .daily-play { margin-top: 10px; width: 100%; background: var(--terra); color: var(--sheet); }
+html.skin .daily-card .daily-play { margin-top: 10px; width: 100%; background: var(--terra); color: var(--sheet); }
+html.skin .daily-card .daily-play:not(:disabled):hover { background: #c95a3f; }
 .daily-done { margin: 10px 0 0; font: 700 17px var(--font-display); text-align: center; color: #2a1d12; }
 .daily-timer { margin: 7px 0 0; text-align: center; font-size: 13px; color: #7a6a52; }
 .daily-result { margin: 14px 0; }

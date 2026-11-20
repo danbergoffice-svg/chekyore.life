@@ -8,10 +8,12 @@ import { nickOk, type DailyBoard, type DailyRow } from '../dailyLife'
 import { Icon } from './Icon'
 import { useUi } from './text'
 
-/** «7 ч 12 мин» до следующих суток UTC. */
-function left(ms: number): { h: number; m: number } {
+/** Сколько осталось до следующих суток UTC: «7 ч 12 мин» или, меньше часа, «55 мин». */
+function useLeft(ms: number): string {
+  const { t } = useUi()
   const min = Math.max(1, Math.ceil(ms / 60000))
-  return { h: Math.floor(min / 60), m: min % 60 }
+  const h = Math.floor(min / 60)
+  return h > 0 ? t('dlife.left_hm', { h, m: min % 60 }) : t('dlife.left_m', { m: min })
 }
 
 /** Страна игрока по коду Cloudflare на языке игры (для «Игрок из …»). */
@@ -47,7 +49,7 @@ interface CardProps {
 export function DailyLifeCard({ date, birth, board, status, msLeft, onPlay }: CardProps) {
   const { t, lang } = useUi()
   const best = board?.top[0]
-  const l = left(msLeft)
+  const l = useLeft(msLeft)
   return (
     <section class="daily-card" aria-labelledby="daily-who">
       <div class="daily-eyebrow">
@@ -84,7 +86,7 @@ export function DailyLifeCard({ date, birth, board, status, msLeft, onPlay }: Ca
         </button>
       )}
       <p class="daily-timer">
-        <Icon name="hourglass" /> {t('dlife.new_in', l)}
+        <Icon name="hourglass" /> {t('dlife.new_in', { left: l })}
       </p>
     </section>
   )
@@ -135,7 +137,7 @@ export function DailyLifeResult({ date, age, sex, peers, board, sending, nick, m
     setError(err)
   }
   const meInTop = !!board?.top.some((r) => r.me)
-  const l = left(msLeft)
+  const l = useLeft(msLeft)
   return (
     <section class="daily-result" aria-labelledby="daily-result-h">
       <p class="eyebrow">
@@ -194,7 +196,7 @@ export function DailyLifeResult({ date, age, sex, peers, board, sending, nick, m
               </>
             )}
           </ol>
-          <p class="small muted center">{t('dlife.board.closes', { n: board.n, ...l })}</p>
+          <p class="small muted center">{t('dlife.board.closes', { n: board.n, left: l })}</p>
         </>
       )}
     </section>

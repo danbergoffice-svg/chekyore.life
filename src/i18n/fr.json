@@ -2183,7 +2183,7 @@
   "dlife.done_wait": "Vie du jour terminée. Votre résultat apparaîtra dans le tableau.",
   "dlife.continue": "Continuer la vie du jour",
   "dlife.play": "Vivre la vie du jour",
-  "dlife.new_in": "Nouvelle vie dans {h} h {m} min",
+  "dlife.new_in": "Nouvelle vie dans {left}",
   "dlife.result.place": "Place : {place} sur {n}",
   "dlife.result.sending": "Enregistrement dans le tableau du jour…",
   "dlife.result.offline": "Pas de connexion : le résultat sera enregistré dès le retour du réseau.",
@@ -2200,7 +2200,9 @@
   "dlife.board.from": "Joueur · {country}",
   "dlife.board.you": "c'est vous",
   "dlife.board.kids": "enfants et petits-enfants : {n}",
-  "dlife.board.closes": "Joués aujourd'hui : {n} · le tableau se ferme dans {h} h {m} min",
+  "dlife.board.closes": "Joués aujourd'hui : {n} · le tableau se ferme dans {left}",
   "dlife.confirm": "Commencer la vie du jour ? La vie de {name} restera inachevée.",
-  "dlife.won": "Vous avez gagné la vie du jour du {date} ! Votre prochaine vie : une famille royale."
+  "dlife.won": "Vous avez gagné la vie du jour du {date} ! Votre prochaine vie : une famille royale.",
+  "dlife.left_hm": "{h} h {m} min",
+  "dlife.left_m": "{m} min"
 }
