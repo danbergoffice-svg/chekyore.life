@@ -4,12 +4,13 @@ import type { Lang } from '../engine/types'
 import { fetchFlags, kvGet, kvSet, loadLocal, saveLocal, sessionFlag, setSessionFlag, uuid } from './local'
 import { DEFAULT_FLAGS } from './types'
 import type { Flags, Platform, SharePayload, ShareResult } from './types'
+import type { DailyBoard } from '../dailyLife'
 
 const COUNTER_ID = 113771699
 const API = (import.meta.env.VITE_API_BASE as string | undefined) ?? '/api'
 const BUILD = typeof __BUILD__ === 'string' ? __BUILD__ : 'dev'
 /** Эти события идут только в свой приёмник, чтобы не засорять Метрику. */
-const RECEIVER_ONLY = new Set(['choice_made', 'dream_step', 'menu_leave'])
+const RECEIVER_ONLY = new Set(['choice_made', 'dream_step', 'menu_leave', 'daily_offer'])
 
 type Ym = ((id: number, method: string, ...args: unknown[]) => void) & { a?: unknown[][]; l?: number }
 declare global {
@@ -310,6 +311,38 @@ export const webPlatform: Platform = {
       // ignore
     }
     return Date.now()
+  },
+
+  // «Жизнь дня» (worker/daily.ts): таблица дня, итог, ник. Без сети - null, игра идёт дальше без таблицы.
+  async dailyBoard(date) {
+    try {
+      const res = await fetch(`${API}/daily?date=${encodeURIComponent(date)}&player=${encodeURIComponent(player)}`, { cache: 'no-store' })
+      const data = res.ok ? ((await res.json()) as { ok?: boolean; board?: DailyBoard }) : null
+      return data?.ok && data.board ? data.board : null
+    } catch {
+      return null
+    }
+  },
+
+  async dailySubmit(result) {
+    try {
+      const res = await fetch(`${API}/daily/result`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...result, player_id: player }) })
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; board?: DailyBoard } | null
+      // 409 - итог за этот день уже записан: таблица всё равно приходит.
+      return data?.board ?? null
+    } catch {
+      return null
+    }
+  },
+
+  async setNick(nick, hidden) {
+    try {
+      const res = await fetch(`${API}/nick`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ player_id: player, nick, hidden }) })
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null
+      return data?.ok ? { ok: true } : { ok: false, error: data?.error ?? 'net' }
+    } catch {
+      return { ok: false, error: 'net' }
+    }
   },
 
   async playersCount() {

@@ -44,6 +44,8 @@ interface SummaryProps {
   feedback?: preact.ComponentChildren
   /** Испытание после первой жизни - сразу под записью о смерти. */
   challenge?: preact.ComponentChildren
+  /** «Жизнь дня» (src/ui/DailyLife.tsx): место в таблице дня - сразу под записью о герое. */
+  daily?: preact.ComponentChildren
   onContinue?: () => void
   onAgain: () => void
   onMemorial: () => void
@@ -55,7 +57,7 @@ interface SummaryProps {
   awards?: { got: string[]; near: { id: string; progress: number }[]; goals: string[] }
 }
 
-export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback, challenge, awards, onOffChronicle }: SummaryProps) {
+export function Summary({ life, era, canContinue, onContinue, onAgain, onMemorial, onMenu, onUpdate, feedback, challenge, daily, awards, onOffChronicle }: SummaryProps) {
   // Хроника страны кончилась: наследник есть, но его жизнь - уже за краем эпохи.
   const eraEnded = !!onOffChronicle && canContinue && life.diary.some((d) => d.key === 'diary.era_end')
   const { t, lang } = useUi()
@@ -128,6 +130,8 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
           </div>
         </details>
       </section>
+
+      {daily}
 
       {/* 2. Жизнь в карточках: листаются как сторис */}
       <StoryCards life={life} cards={cards} />
@@ -250,7 +254,7 @@ export function Summary({ life, era, canContinue, onContinue, onAgain, onMemoria
 }
 
 /** Короткий итог ранней смерти: имя, годы, причина, исторический факт и две кнопки. */
-export function EarlyDeath({ life, era, onAgain, onFull, challenge }: { life: LifeSummary; era: EraDef; onAgain: () => void; onFull: () => void; challenge?: preact.ComponentChildren }) {
+export function EarlyDeath({ life, era, onAgain, onFull, challenge, daily }: { life: LifeSummary; era: EraDef; onAgain: () => void; onFull: () => void; challenge?: preact.ComponentChildren; daily?: preact.ComponentChildren }) {
   const { t, lang } = useUi()
   const o = { sex: life.sex, region: life.region, religion: life.religion }
   const name = nameOf(life.name, lang)
@@ -272,6 +276,7 @@ export function EarlyDeath({ life, era, onAgain, onFull, challenge }: { life: Li
           <p class="confidence">{t('summary.source')}</p>
         </div>
       </section>
+      {daily}
       {challenge}
       <div class="sticky-actions">
         <button class="primary" onClick={onAgain}>{t('actions.again')}</button>

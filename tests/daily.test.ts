@@ -1,68 +1,66 @@
-// Дары за вход (src/daily.ts): серия дней, лестница даров и их действие в жизни.
+// «Жизнь дня» (docs/TZ_daily.md): одно рождение на дату у всех, разные даты - разные жизни, кому показывать,
+// проверка ника, итог для таблицы. Сервер - npm run test:worker (раздел 9д).
 import { describe, expect, it } from 'vitest'
 import { ERA_IDS, ERA_META, loadAllEras } from '../src/content'
-import { BIG_DAYS, CHEST_GIFT, dailyNext, dayKey, GIFTS, HEALTH_GIFT, spendGifts } from '../src/daily'
-import { autoplay } from '../src/engine/game'
-import { newLife, rollBirth } from '../src/engine/life'
+import { dailyBirth, dailyOn, dailyResult, dailySeed, msToNextDay, nickOk, prevUtcDate, utcDate } from '../src/dailyLife'
+import { newLife } from '../src/engine/life'
 
-const ERAS = await loadAllEras()
-const breathe = () => new Promise((r) => setTimeout(r, 0))
+const eras = () => ERA_IDS.map((id) => ERA_META[id])
+const flags = { daily_share: 1, daily_min_lives: 1 }
 
-describe('Дары за вход', () => {
-  it('лестница: 7 даров, сильные дни 1, 4, 7, на седьмой - царская семья', () => {
-    expect(GIFTS).toHaveLength(7)
-    expect(BIG_DAYS).toEqual([1, 4, 7])
-    expect(GIFTS[0]).toBe('country')
-    expect(GIFTS[3]).toBe('noble')
-    expect(GIFTS[6]).toBe('royal')
+describe('Жизнь дня', () => {
+  it('одна дата - одно и то же рождение и номер жизни; рождение - в окне страны', () => {
+    const a = dailyBirth('2026-11-21', eras())
+    const b = dailyBirth('2026-11-21', eras())
+    expect(a).toEqual(b)
+    expect(dailySeed('2026-11-21')).toBe(dailySeed('2026-11-21'))
+    const era = ERA_META[a.era]
+    expect(era).toBeTruthy()
+    expect(era.regions.some((r) => r.id === a.region)).toBe(true)
   })
 
-  it('серия: подряд - следующий день, сегодня второй раз - нельзя, пропуск - снова первый, после седьмого - новая неделя', () => {
-    expect(dailyNext(undefined, '2026-10-28')).toEqual({ day: 1, broken: false })
-    expect(dailyNext({ last: '2026-10-28', day: 1 }, '2026-10-28')).toBeNull()
-    expect(dailyNext({ last: '2026-10-28', day: 1 }, '2026-10-29')).toEqual({ day: 2, broken: false })
-    expect(dailyNext({ last: '2026-10-28', day: 3 }, '2026-10-30')).toEqual({ day: 1, broken: true })
-    expect(dailyNext({ last: '2026-10-28', day: 7 }, '2026-10-29')).toEqual({ day: 1, broken: false })
-    expect(dailyNext({ last: '2026-10-25', day: 7 }, '2026-10-29')).toEqual({ day: 1, broken: false })
-    // Через границы месяца и года.
-    expect(dailyNext({ last: '2026-10-31', day: 4 }, '2026-11-01')).toEqual({ day: 5, broken: false })
-    expect(dailyNext({ last: '2026-12-31', day: 6 }, '2027-01-01')).toEqual({ day: 7, broken: false })
-    expect(dayKey(new Date(2026, 0, 5, 23, 59).getTime())).toBe('2026-01-05')
+  it('разные даты - разные жизни: за 60 дней не меньше 6 стран и 30 разных рождений', () => {
+    const births = Array.from({ length: 60 }, (_, i) => dailyBirth(utcDate(Date.UTC(2026, 10, 1) + i * 86400000), eras()))
+    expect(new Set(births.map((b) => b.era)).size).toBeGreaterThanOrEqual(6)
+    expect(new Set(births.map((b) => `${b.era}:${b.region}:${b.year}:${b.cls}:${b.sex}`)).size).toBeGreaterThanOrEqual(30)
+    expect(new Set(births.map((_, i) => dailySeed(utcDate(Date.UTC(2026, 10, 1) + i * 86400000)))).size).toBe(60)
   })
 
-  it('потраченные дары убираются по одному, лишние ждут', () => {
-    expect(spendGifts(['country', 'respins', 'country', 'health'], ['country', 'health'])).toEqual(['respins', 'country'])
-    expect(spendGifts([], ['royal'])).toEqual([])
+  it('сутки - по UTC: дата, вчера и время до полуночи', () => {
+    expect(utcDate(Date.UTC(2026, 10, 21, 23, 59))).toBe('2026-11-21')
+    expect(utcDate(Date.UTC(2026, 10, 22, 0, 1))).toBe('2026-11-22')
+    expect(prevUtcDate('2026-12-01')).toBe('2026-11-30')
+    expect(msToNextDay(Date.UTC(2026, 10, 21, 21, 0))).toBe(3 * 3600000)
   })
 
-  it('здоровье и богатство с рождения; остальная жизнь от того же seed не меняется', () => {
-    const settings = { mode: 'quick', mortality: 'soft', softenHeavy: false, livesBefore: 3 } as const
-    for (let i = 0; i < 40; i++) {
-      const b = rollBirth(9100 + i, 'population', ERA_IDS.map((id) => ERA_META[id]))
-      const plain = newLife(ERAS[b.era], settings, 9100 + i, undefined, b).hero
-      const gifted = newLife(ERAS[b.era], settings, 9100 + i, undefined, { ...b, boons: { health: HEALTH_GIFT, wealth: CHEST_GIFT } }).hero
-      expect(gifted.attrs.health).toBe(Math.min(95, plain.attrs.health + HEALTH_GIFT))
-      expect(gifted.money).toBe(Math.round(plain.money * CHEST_GIFT))
-      expect({ ...gifted.attrs, health: 0 }).toEqual({ ...plain.attrs, health: 0 })
-      expect(gifted.name).toBe(plain.name)
-      expect(gifted.traits).toEqual(plain.traits)
-    }
+  it('кому показывать: только свой сайт, после первой законченной жизни, в доле daily_share', () => {
+    expect(dailyOn('p1', flags, 1, 'web')).toBe(true)
+    expect(dailyOn('p1', flags, 0, 'web')).toBe(false)
+    expect(dailyOn('p1', flags, 3, 'crazygames')).toBe(false)
+    expect(dailyOn('p1', { daily_share: 0 }, 3, 'web')).toBe(false)
+    const half = Array.from({ length: 400 }, (_, i) => dailyOn('player-' + i, { daily_share: 0.5 }, 2, 'web')).filter(Boolean).length
+    expect(half).toBeGreaterThan(150)
+    expect(half).toBeLessThan(250)
   })
 
-  it('«Вещий сон»: не в первой жизни, но у доживших до 26 лет сон был почти у всех', async () => {
-    let alive = 0
-    let had = 0
-    for (let i = 0; i < 300; i++) {
-      if (i % 50 === 0) await breathe()
-      const era = ERAS[ERA_IDS[i % ERA_IDS.length]]
-      const s = autoplay(newLife(era, { mode: 'quick', mortality: 'soft', softenHeavy: false, livesBefore: 4, dreamChance: 0.05, dreamFirstBy: 25, dreamSure: true }, 9500 + i), era)
-      const intro = s.hero.diary.filter((d) => d.eventId === 'dream_intro')
-      expect(intro.length).toBeLessThanOrEqual(1)
-      if (s.hero.age >= 26) {
-        alive++
-        if (intro.length && intro[0].age <= 26) had++
-      }
-    }
-    expect(had / alive).toBeGreaterThan(0.9)
-  }, 300000)
+  it('ник: 3–16 букв любых алфавитов, цифры, «_» и «-»; без ссылок и пробелов', () => {
+    for (const ok of ['Yusuf_Cairo', 'Мария-7', 'Ayşe', 'José', 'abc']) expect(nickOk(ok)).toBe(true)
+    for (const bad of ['ab', 'a'.repeat(17), 'two words', 'www.site', 'x.com', 'hi!', '']) expect(nickOk(bad)).toBe(false)
+  })
+
+  it('итог для таблицы: возраст, живые дети и внуки, богатство, дело, рождение', async () => {
+    await loadAllEras()
+    const birth = dailyBirth('2026-11-21', eras())
+    const s = newLife(ERA_META[birth.era], { mode: 'quick', mortality: 'soft', softenHeavy: false, daily: '2026-11-21' }, dailySeed('2026-11-21'), undefined, birth)
+    s.hero.age = 47
+    s.hero.money = 1234.6
+    const kid = { ...s.hero.npcs[0], id: 'k1', role: 'child' as const, alive: true }
+    const dead = { ...kid, id: 'k2', alive: false }
+    const grand = { ...kid, id: 'k3', role: 'grandchild' as const }
+    s.hero.npcs.push(kid, dead, grand)
+    const r = dailyResult(s, '2026-11-21', birth)
+    expect(r).toMatchObject({ date: '2026-11-21', age: 47, wealth: 1235, birth: { era: birth.era, region: birth.region, year: birth.year } })
+    expect(r.kids).toBe(s.hero.npcs.filter((n) => n.alive && (n.role === 'child' || n.role === 'grandchild')).length)
+    expect(r.kids).toBeGreaterThanOrEqual(2)
+  })
 })

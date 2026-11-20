@@ -85,6 +85,10 @@ export interface Flags {
   auto_spin_share: number
   /** Эксперимент XR (ТЗ удержания R10): доля игроков с облегчённым знакомством с семьёй в первой жизни; ?reveal=lite|full. */
   reveal_lite_share: number
+  /** «Жизнь дня» (docs/TZ_daily.md): доля игроков, которым она показана (свой хеш id, ?daily=0|1), и сколько законченных
+   *  жизней нужно, чтобы её увидеть. Только свой сайт. */
+  daily_share?: number
+  daily_min_lives?: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -131,6 +135,9 @@ export const DEFAULT_FLAGS: Flags = {
   // XS и XR (ТЗ удержания) по умолчанию выключены; включать на сайте через flags.json.
   auto_spin_share: 0,
   reveal_lite_share: 0,
+  // Жизнь дня по умолчанию выключена; сайт берёт долю из flags.json.
+  daily_share: 0,
+  daily_min_lives: 1,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'
@@ -203,6 +210,12 @@ export interface Platform {
   /** Игрок портала (имя и аватар) или null - гость; без метода - у платформы нет аккаунтов. Подписка - вход посреди игры. */
   account?(): Promise<{ name: string; avatar?: string } | null>
   onAccount?(cb: (user: { name: string; avatar?: string } | null) => void): void
+  /** «Жизнь дня» (только свой сайт, worker/daily.ts): таблица дня и своё место; null - нет сети или платформе нельзя наружу. */
+  dailyBoard?(date: string): Promise<import('../dailyLife').DailyBoard | null>
+  /** Отправить итог жизни дня (вместе с ником, если он есть); ответ - таблица дня после записи. */
+  dailySubmit?(result: import('../dailyLife').DailyResult): Promise<import('../dailyLife').DailyBoard | null>
+  /** Записать ник игрока для таблиц; ошибка - код (nick_bad, nick_taken, rate, net). */
+  setNick?(nick: string, hidden: boolean): Promise<{ ok: true } | { ok: false; error: string }>
   /** У игрока блокировщик рекламы: реклама за награду недоступна (кнопку не показываем, только пояснение). */
   adsBlocked?(): boolean
 }

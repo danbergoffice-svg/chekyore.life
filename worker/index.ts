@@ -5,6 +5,7 @@
 //   HEAD|GET /api/time  - время сервера (заголовок Date и {now});
 //   GET /api/players    - сколько всего игроков заходило в игру ({n}; пересчёт не чаще раза в 10 минут);
 //   POST /api/telegram  - webhook бота: команды /stats /week /funnel /exits /digest /help (worker/telegram.ts);
+//   /api/daily*, /api/nick - «Жизнь дня»: таблица дня, итог, ник (worker/daily.ts);
 //   /api/account*       - аккаунты: вход по ссылке на почту, сохранения, рассылка, удаление (worker/account.ts);
 //   GET /admin          - отзывы и отчёты, пароль ADMIN_PASSWORD (логин любой) (worker/admin.ts);
 //   GET /admin/export   - CSV для Excel/Google Таблиц (?table=events|feedback&days=N).
@@ -15,6 +16,7 @@
 import { localizeHtml, seoLang } from './seo'
 import { admin, authorized, exportCsv, unauthorized } from './admin'
 import { account, type AccountEnv } from './account'
+import { daily } from './daily'
 import { ensureRetention, syncPlayers, type D1Database } from './stats'
 import { sendMessage, telegramWebhook, type Ctx } from './telegram'
 
@@ -211,6 +213,15 @@ export default {
       try {
         if (env.DB) await ensureSchema(env.DB)
         return await account(req, env, path, (data, status = 200) => json(data, status, headers))
+      } catch (e) {
+        return json({ ok: false, error: String(e).slice(0, 200) }, 500, headers)
+      }
+    }
+    // «Жизнь дня»: таблица дня, итог, ник (worker/daily.ts).
+    if (path === '/api/daily' || path.startsWith('/api/daily/') || path === '/api/nick') {
+      if (limited(ip, path === '/api/nick' ? 10 : 60)) return json({ ok: false, error: 'rate' }, 429, headers)
+      try {
+        return await daily(req, env, path, origin(req).country, (data, status = 200) => json(data, status, headers))
       } catch (e) {
         return json({ ok: false, error: String(e).slice(0, 200) }, 500, headers)
       }

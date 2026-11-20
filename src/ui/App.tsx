@@ -32,6 +32,9 @@ import { About, PromoModal, ChallengeCard, CountryModal, DailyCard, FatePicker, 
 import { CHEST_GIFT, dailyNext, dayKey, GIFT_ICON, GIFTS, HEALTH_GIFT, RESPIN_GIFT, spendGifts } from '../daily'
 import type { Gift } from '../daily'
 import { Awards } from './Awards'
+import { dailyDay, DailyLifeCard, DailyLifeResult } from './DailyLife'
+import { dailyBirth, dailyOn, dailyResult, dailySeed, msToNextDay, prevUtcDate, utcDate, type DailyBoard } from '../dailyLife'
+import { outlivedShare } from '../engine/highlights'
 import { sendFeedback } from '../feedback'
 import type { FeedbackData } from '../feedback'
 import { Feedback, FeedbackPrompt } from './Feedback'
@@ -67,6 +70,12 @@ const defaultPrefs: Prefs = {
 
 /** Перезагрузить страницу один раз за сессию (новая версия сайта); false - уже перезагружали. */
 /** До какого возраста защищена жизнь, если до неё прожито lives жизней: первые protected_lives - до first_life_min_age. */
+/** Запись мемориала о только что кончившейся жизни (для «Жизни дня» на экране прощания). */
+function lastLifeForDaily(state: GameState | null, memorial: LifeSummary[]): LifeSummary | null {
+  if (!state || state.phase !== 'dead') return null
+  return [...memorial].reverse().find((l) => l.heroId === state.hero.id) ?? null
+}
+
 function protectedAge(lives: number): number | undefined {
   return lives < (platform.flags.protected_lives ?? 1) ? platform.flags.first_life_min_age : undefined
 }
@@ -456,11 +465,18 @@ export function App() {
   // кнопка «Дар дня N ждёт» и дары, которые сработают в этой жизни. День - по времени сервера.
   const gifts = prefs.gifts ?? []
   const [today, setToday] = useState<string | null>(null)
+  // «Жизнь дня»: сутки по UTC (общие для всех стран), время - по серверу.
+  const [lifeDate, setLifeDate] = useState<string | null>(null)
+  const clockOffset = useRef(0)
   useEffect(() => {
     let offset = 0
-    const tick = () => setToday(dayKey(Date.now() + offset))
+    const tick = () => {
+      setToday(dayKey(Date.now() + offset))
+      setLifeDate(utcDate(Date.now() + offset))
+    }
     platform.serverTime().then((ms) => {
       offset = ms - Date.now()
+      clockOffset.current = offset
       tick()
     })
     // Вкладка открыта за полночь - новый день наступает и без перезагрузки.
@@ -468,6 +484,135 @@ export function App() {
     return () => clearInterval(id)
   }, [])
   const dailyNow = today && memorial.length >= 1 ? dailyNext(prefs.daily, today) : null
+
+  // «Жизнь дня» (src/dailyLife.ts, docs/TZ_daily.md): одна жизнь на всех за сутки UTC, одна попытка, без защиты и даров,
+  // итог - в таблицу дня (worker/daily.ts). Только свой сайт, после первой законченной жизни, доля daily_share.
+  const prefsRef = useRef(prefs)
+  prefsRef.current = prefs
+  const dailyShown = !!lifeDate && !!platform.dailyBoard && dailyOn(platform.playerId(), platform.flags, memorial.length, platform.name)
+  const dailyBirthToday = useMemo(() => (lifeDate ? dailyBirth(lifeDate, ERA_IDS.map((id) => ERA_META[id])) : null), [lifeDate])
+  const [dailyBoardState, setDailyBoardState] = useState<DailyBoard | null>(null)
+  const [dailySending, setDailySending] = useState(false)
+  const [dailyWinToast, setDailyWinToast] = useState<string | null>(null)
+  const inMenu = screen === 'menu'
+  useEffect(() => {
+    if (!dailyShown || !inMenu || !lifeDate) return
+    platform.track('daily_offer', {})
+    platform.dailyBoard!(lifeDate).then((b) => b && setDailyBoardState(b))
+  }, [dailyShown, inMenu, lifeDate])
+  // Вчерашняя жизнь дня закрылась: первое место (если играло хотя бы трое) - царская семья на следующую жизнь.
+  useEffect(() => {
+    if (!dailyShown || !lifeDate) return
+    const y = prevUtcDate(lifeDate)
+    if (prefs.dailySent !== y || prefs.dailyChecked === y) return
+    platform.dailyBoard!(y).then((b) => {
+      if (!b) return
+      const p = prefsRef.current
+      const won = b.me?.place === 1 && b.n >= 3
+      const g = p.gifts ?? []
+      setPrefs({ ...p, dailyChecked: y, ...(won && !g.includes('royal') ? { gifts: [...g, 'royal'] } : {}) })
+      if (won) {
+        platform.track('daily_win', { of: b.n, age: b.me!.age })
+        setDailyWinToast(y)
+        window.setTimeout(() => setDailyWinToast(null), 7000)
+      }
+    })
+  }, [dailyShown, lifeDate, prefs.dailySent])
+  // Жизнь дня кончилась - итог в таблицу; без сети - ещё раз при следующей смене экрана. Уже записан - просто таблица.
+  const dailyDead = state?.phase === 'dead' && state.settings.daily ? state.settings.daily : null
+  useEffect(() => {
+    const s = game.current
+    if (!dailyDead || !s || dailySending || !platform.dailySubmit) return
+    if (prefs.dailySent === dailyDead) {
+      if (dailyBoardState?.date !== dailyDead) platform.dailyBoard!(dailyDead).then((b) => b && setDailyBoardState(b))
+      return
+    }
+    setDailySending(true)
+    platform.dailySubmit(dailyResult(s, dailyDead, dailyBirth(dailyDead, ERA_IDS.map((id) => ERA_META[id])))).then((b) => {
+      setDailySending(false)
+      if (!b) return
+      setDailyBoardState(b)
+      setPrefs({ ...prefsRef.current, dailySent: dailyDead })
+      platform.track('daily_end', { age: s.hero.age, place: b.me?.place ?? 0, of: b.n })
+    })
+  }, [dailyDead, screen])
+  const dailyPlaying = !!state && state.phase !== 'dead' && !!lifeDate && state.settings.daily === lifeDate
+  /** «Прожить жизнь дня»: рождение по дате, без защиты до 20 лет, даров и перекрутки; идёт - продолжить. */
+  const startDaily = () => {
+    const s = game.current
+    if (!lifeDate || !dailyBirthToday) return
+    if (s && s.phase !== 'dead' && s.settings.daily === lifeDate) {
+      const go = () => setScreen('life')
+      if (isEraLoaded(s.hero.era)) go()
+      else ensure(s.hero.era, prefs.lang, s.hero.erasLived).then(() => isEraLoaded(s.hero.era) && go())
+      return
+    }
+    if (prefs.dailyTried === lifeDate) return
+    if (s && s.phase !== 'dead' && !window.confirm(ui.t('dlife.confirm', { name: { name: s.hero.name } }))) return
+    const date = lifeDate
+    const birth = dailyBirthToday
+    ensure(birth.era).then(() => {
+      if (!isEraLoaded(birth.era)) return
+      const ladder = dreamLadder(memorial)
+      const settings: GameSettings = {
+        mode: prefs.mode,
+        // Одинаковые правила для всех: обычная смертность, без защиты, без уникальности прошлых жизней.
+        mortality: 'soft',
+        softenHeavy: prefs.softenHeavy,
+        livesBefore: memorial.length,
+        primersOff: memorial.some((l) => (l.erasLived ?? [l.era]).includes(birth.era)) || undefined,
+        blockedEvents: platform.blockedEvents,
+        dreamChance: platform.flags.dream_chance,
+        dreamLevel: ladder.level,
+        dreamsSeen: ladder.seen,
+        goalWeight: goalGroup(platform.playerId(), platform.flags) > 0 ? platform.flags.goal_weight : undefined,
+        noGoal: goalGroup(platform.playerId(), platform.flags) === 0 || undefined,
+        crisis: crisisOn(platform.playerId(), platform.flags) || undefined,
+        daily: date,
+      }
+      game.current = newLife(ERA_META[birth.era], settings, dailySeed(date), undefined, birth)
+      platform.setContext({ mode: prefs.mode })
+      trackLifeStart(game.current, 'daily', false)
+      platform.track('daily_start', { era: birth.era })
+      setPrefs({ ...prefsRef.current, dailyTried: date })
+      setDrumOpen(false)
+      setYearChanges([])
+      setScreen('reveal')
+      persist()
+    })
+  }
+  const dailyMenuCard =
+    dailyShown && dailyBirthToday && lifeDate ? (
+      <DailyLifeCard
+        date={lifeDate}
+        birth={dailyBirthToday}
+        board={dailyBoardState?.date === lifeDate ? dailyBoardState : null}
+        status={dailyPlaying ? 'playing' : prefs.dailyTried === lifeDate ? 'done' : 'new'}
+        msLeft={msToNextDay(Date.now() + clockOffset.current)}
+        onPlay={startDaily}
+      />
+    ) : undefined
+  const dailyResultCard =
+    dailyDead && lastLifeForDaily(state, memorial) ? (
+      <DailyLifeResult
+        date={dailyDead}
+        age={state!.hero.age}
+        sex={state!.hero.sex}
+        peers={outlivedShare(lastLifeForDaily(state, memorial)!)}
+        board={dailyBoardState?.date === dailyDead ? dailyBoardState : null}
+        sending={dailySending}
+        nick={prefs.nick}
+        msLeft={msToNextDay(Date.now() + clockOffset.current)}
+        onNick={async (nick, hidden) => {
+          const r = await platform.setNick!(nick, hidden)
+          if (!r.ok) return r.error
+          setPrefs({ ...prefsRef.current, nick, nickHidden: hidden })
+          platform.track('nick_set', { hidden: hidden ? 1 : 0 })
+          platform.dailyBoard!(dailyDead).then((b) => b && setDailyBoardState(b))
+          return null
+        }}
+      />
+    ) : undefined
   const [giftToast, setGiftToast] = useState<Gift | null>(null)
   const claimDaily = () => {
     if (!dailyNow || !today) return
@@ -1007,6 +1152,8 @@ export function App() {
     game.current.settings.protectedUntil = protectedAge(memorial.length)
     // Испытание считает годы этой жизни - с возраста, в котором наследник стал героем.
     game.current.settings.startAge = game.current.hero.age
+    // Наследник жизни дня играет обычную жизнь: в таблицу дня идёт только сама жизнь дня.
+    game.current.settings.daily = undefined
     // Первые жизни уникальны и у наследника: события предка (и всех прошлых жизней) не повторяются, детей - своё число.
     Object.assign(game.current.settings, { eventsSeen: undefined, eventsSoft: undefined, kidsTarget: undefined }, uniqueSettings(memorial, game.current.rng))
     // Лестница снов - с учётом сна предка.
@@ -1249,6 +1396,7 @@ export function App() {
           <Menu
             current={state}
             slot={slotMachine}
+            daily={dailyMenuCard}
             drumOpen={drumOpen}
             gifts={giftsButton}
             onNewLife={() => newLifeConfirmed('menu')}
@@ -1405,6 +1553,7 @@ export function App() {
               platform.track('summary_action', { action: 'full', early: true })
               setFullSummary(true)
             }}
+            daily={dailyResultCard}
             challenge={
               <>
                 {dailyCard}
@@ -1431,6 +1580,7 @@ export function App() {
             onMemorial={() => setScreen('memorial')}
             onMenu={toMenu}
             onUpdate={onUpdateLife}
+            daily={dailyResultCard}
             challenge={
               <>
                 {dailyCard}
@@ -1466,7 +1616,7 @@ export function App() {
               // Сейчас идёт другая жизнь - её не продолжить, если взять род из мемориала.
               if (state && state.phase !== 'dead' && !window.confirm(ui.t('memorial.continue_confirm', { name: { name: state.hero.name } }))) return
               platform.track('memorial_continue', { gen: openedLife.generation })
-              game.current = stateFromMemorial(openedEra, openedLife, memorial, { ...(state?.settings ?? game.current?.settings ?? {}), mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy } as GameSettings)
+              game.current = stateFromMemorial(openedEra, openedLife, memorial, { ...(state?.settings ?? game.current?.settings ?? {}), mode: prefs.mode, mortality: prefs.mortality, softenHeavy: prefs.softenHeavy, daily: undefined } as GameSettings)
               offChronicle.current = false
               persist()
               setScreen('heirs')
@@ -1488,6 +1638,11 @@ export function App() {
             }}
             onBack={goBack}
           />
+        )}
+        {dailyWinToast && (
+          <p class="toast ach-toast" role="status" onClick={() => setDailyWinToast(null)}>
+            <Icon name="crown" /> {ui.t('dlife.won', { date: dailyDay(dailyWinToast, prefs.lang) })}
+          </p>
         )}
         {familyGoalToast && (
           <p class="toast ach-toast" role="status" onClick={() => setFamilyGoalToast(null)}>

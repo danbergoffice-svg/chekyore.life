@@ -40,6 +40,8 @@ interface MenuProps {
   current: GameState | null
   /** Барабан лотереи рождения - сразу под названием игры, на первом экране. */
   slot: ComponentChildren
+  /** «Жизнь дня»: карточка под барабаном (нет - не показывается). */
+  daily?: ComponentChildren
   onContinue: () => void
   /** Барабан раскрыт, хотя герой жив: игрок подтвердил «Начать другую жизнь». */
   drumOpen?: boolean
@@ -66,7 +68,7 @@ let playersSeen: number | null = null
 
 /** Главный экран (макет A, 28.10): сцена во всю ширину с кнопками поверх, название, барабан с «Дарами»,
  *  «Продолжить» с портретом героя и строка ссылок. Всё, что раньше было ниже, - в «Об игре». */
-export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, onFeedback, onPromo, onAccount, onLang, go, sound, quiet }: MenuProps) {
+export function Menu({ current, slot, daily, onContinue, drumOpen, onNewLife, gifts, onFeedback, onPromo, onAccount, onLang, go, sound, quiet }: MenuProps) {
   const { t, lang } = useUi()
   const [confirmNew, setConfirmNew] = useState(false)
   const [shot, setShot] = useState(() => Math.floor(Math.random() * SHOWCASE.length))
@@ -159,6 +161,9 @@ export function Menu({ current, slot, onContinue, drumOpen, onNewLife, gifts, on
       ) : (
         slot
       )}
+
+      {/* «Жизнь дня» (src/ui/DailyLife.tsx): под барабаном, только у вернувшихся игроков. */}
+      {daily}
 
       {/* П2 (A/B home_quiet): пока нет прожитой жизни - только «Об игре»; остальное откроется после первой жизни. */}
       <nav class="menu-nav">

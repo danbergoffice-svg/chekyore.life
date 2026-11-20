@@ -666,6 +666,71 @@ check('INTEGER и REAL дают одинаковые сообщения', JSON.s
   await settle()
 }
 
+// 9д. «Жизнь дня» (docs/TZ_daily.md): итоги, таблица дня, место вне топ-10, повтор, подделки, ники
+{
+  const mod = await load(files.worker)
+  const DB = makeD1(false)
+  const env = { DB, ASSETS: { fetch: async () => new Response('static') } }
+  let n = 0
+  const req = (path, init = {}, country = 'TR') => {
+    const headers = new Headers(init.headers)
+    headers.set('cf-connecting-ip', '10.8.0.' + ++n)
+    headers.set('cf-ipcountry', country)
+    headers.set('origin', 'https://thousands.life')
+    if (init.body && !headers.has('content-type')) headers.set('content-type', 'application/json')
+    return mod.default.fetch(new Request('https://thousands.life' + path, { ...init, headers }), env, ctx)
+  }
+  const post = (path, body, country) => req(path, { method: 'POST', body: JSON.stringify(body) }, country)
+  const today = new Date().toISOString().slice(0, 10)
+  const old = new Date(Date.now() - 3 * 86400000).toISOString().slice(0, 10)
+  const birth = { era: 'ISL', region: 'cairo', year: 1340, cls: 'craftsman', sex: 'm' }
+  const result = (i, extra = {}) => ({ date: today, player_id: 'daily-p' + i, age: 20 + i * 3, kids: i % 3, wealth: 100 * i, prof: 'tanner', sec: 2000, birth, ...extra })
+
+  let r = await post('/api/nick', { player_id: 'daily-p11', nick: 'Yusuf_Cairo', hidden: false })
+  check('жизнь дня: ник записан', r.status === 200 && (await r.json()).ok === true)
+  r = await post('/api/nick', { player_id: 'daily-p2', nick: 'yusuf_cairo' })
+  check('жизнь дня: чужой ник (без учёта регистра) - 409 nick_taken', r.status === 409 && (await r.json()).error === 'nick_taken')
+  r = await post('/api/nick', { player_id: 'daily-p3', nick: 'fuck_you' })
+  check('жизнь дня: грубый ник - 400 nick_bad', r.status === 400 && (await r.json()).error === 'nick_bad')
+  r = await post('/api/nick', { player_id: 'daily-p4', nick: 'сука777' })
+  check('жизнь дня: грубый ник по-русски - 400', r.status === 400)
+  r = await post('/api/nick', { player_id: 'daily-p5', nick: 'www.site.com' })
+  check('жизнь дня: ссылка вместо ника - 400', r.status === 400)
+  r = await post('/api/nick', { player_id: 'daily-p12', nick: 'Скрытый', hidden: true })
+  check('жизнь дня: скрытый ник записан', r.status === 200)
+
+  for (let i = 1; i <= 12; i++) {
+    r = await post('/api/daily/result', result(i), i === 12 ? 'MX' : 'TR')
+    if (r.status !== 200) check('жизнь дня: итог ' + i + ' принят', false, String(r.status) + ' ' + (await r.text()))
+  }
+  r = await req(`/api/daily?date=${today}&player=daily-p1`)
+  let board = (await r.json()).board
+  check('жизнь дня: в таблице 12 игроков, топ - 10 строк', board.n === 12 && board.top.length === 10)
+  same('жизнь дня: порядок по возрасту', board.top.map((x) => x.age), [56, 53, 50, 47, 44, 41, 38, 35, 32, 29])
+  check('жизнь дня: своя строка вне топ-10 - 12-е место', board.me?.place === 12 && board.me?.age === 23 && board.me?.me === true)
+  check('жизнь дня: скрытый ник не виден, видна страна', board.top[0].nick === null && board.top[0].country === 'MX')
+  check('жизнь дня: ник виден', board.top[1].nick === 'Yusuf_Cairo')
+  check('жизнь дня: в ответе нет player_id', !JSON.stringify(board).includes('daily-p'))
+
+  r = await post('/api/daily/result', result(1, { age: 99 }))
+  const dup = await r.json()
+  check('жизнь дня: второй итог за день - 409, таблица в ответе', r.status === 409 && dup.board?.me?.age === 23)
+  r = await post('/api/daily/result', { ...result(13), date: old })
+  check('жизнь дня: итог за давний день - 400 date', r.status === 400 && (await r.json()).error === 'date')
+  r = await post('/api/daily/result', result(14, { birth: { ...birth, region: 'damascus' } }))
+  check('жизнь дня: другое рождение - 400 birth', r.status === 400 && (await r.json()).error === 'birth')
+  r = await post('/api/daily/result', result(15, { age: 80, sec: 10 }))
+  check('жизнь дня: слишком быстрая жизнь - 400 fast', r.status === 400 && (await r.json()).error === 'fast')
+  r = await post('/api/daily/result', result(16, { age: 140 }))
+  check('жизнь дня: возраст 140 - 400', r.status === 400)
+  r = await post('/api/daily/result', result(17, { kids: 2, age: 56, wealth: 1200 }))
+  board = (await r.json()).board
+  check('жизнь дня: равный возраст - выше тот, у кого больше детей', r.status === 200 && board.me?.place === 1 && board.top[1].age === 56)
+  r = await req(`/api/daily?date=2099-01-01`)
+  check('жизнь дня: дата из будущего - 400', r.status === 400)
+  await settle()
+}
+
 // 10. Секреты не попадают в логи; SQL без подстановки чисел в текст запроса
 check('токен и секрет webhook не в логах', !logs.some((l) => l.includes(TOKEN) || l.includes(WEBHOOK)), logs.filter((l) => l.includes(TOKEN)).join(' | '))
 const glued = [...new Set(sqlLog)].filter((q) => /\d{9,}/.test(q) || /'p\d'|'q\d/.test(q))

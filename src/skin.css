@@ -573,3 +573,41 @@ html.skin .ft-kid { font-weight: 700; }
 html.skin .ft-grand { display: block; font-size: 12px; opacity: 0.85; padding-left: 10px; }
 html.skin .ft-grand::before { content: '└ '; }
 html.skin .ft-more { opacity: 0.8; }
+
+/* ---------- «Жизнь дня» (src/ui/DailyLife.tsx, docs/TZ_daily.md): карточка в меню, итог с таблицей дня ---------- */
+.daily-card { margin: 14px auto 0; max-width: 520px; background: var(--sheet); color: #2a1d12; padding: 14px 14px 12px; clip-path: polygon(0 2%, 98% 0, 100% 97%, 2% 100%); }
+.daily-eyebrow { display: flex; justify-content: space-between; gap: 8px; font: 700 12.5px var(--font); letter-spacing: .1em; text-transform: uppercase; color: #7a6a3a; }
+.daily-who { font: 700 21px/1.15 var(--font-display); margin: 6px 0 4px; color: #2a1d12; }
+.daily-facts { margin: 0; font-size: 14.5px; color: #5b4632; }
+.daily-stats { display: flex; gap: 10px; margin: 10px 0 2px; }
+.daily-stats > div { flex: 1; background: #e9dcc0; padding: 6px 8px; font-size: 13px; color: #5b4632; }
+.daily-stats b { display: block; font: 700 19px/1.1 var(--font-display); color: #2a1d12; }
+.daily-card .daily-play { margin-top: 10px; width: 100%; background: var(--terra); color: var(--sheet); }
+.daily-done { margin: 10px 0 0; font: 700 17px var(--font-display); text-align: center; color: #2a1d12; }
+.daily-timer { margin: 7px 0 0; text-align: center; font-size: 13px; color: #7a6a52; }
+.daily-result { margin: 14px 0; }
+.daily-result .eyebrow { text-align: center; }
+.daily-sheet { background: var(--sheet); color: #2a1d12; padding: 14px; text-align: center; clip-path: polygon(1% 0, 100% 2%, 99% 100%, 0 97%); }
+.daily-sheet .big { font: 700 40px/1 var(--font-display); }
+.daily-sheet .place { font: 700 20px var(--font-display); margin-top: 4px; }
+.daily-sheet .place.muted { font: 400 15px var(--font); color: #7a6a52; }
+.daily-sheet .cmp { font-size: 14.5px; color: #5b4632; margin: 6px 0 0; }
+.daily-bar { height: 8px; background: #e0d0ae; margin: 10px 4px 2px; }
+.daily-bar i { display: block; height: 100%; background: var(--terra); }
+.daily-nick { margin-top: 12px; background: var(--card); padding: 12px; border: 2px solid var(--mustard); }
+.daily-nick input:not([type]) { width: 100%; padding: 10px; font: 600 16px var(--font); border: 0; background: var(--sheet); color: #130904; margin: 8px 0; box-sizing: border-box; }
+.daily-nick .check { display: flex; gap: 6px; align-items: center; font-size: 14px; color: var(--ink-2); margin-bottom: 10px; }
+.daily-nick .error { color: var(--down, #ef8a6c); font-size: 14px; margin: 0 0 8px; }
+.daily-nick .primary { width: 100%; }
+.daily-board-h { margin: 16px 0 4px; font: 700 18px var(--font-display); }
+.daily-board { list-style: none; margin: 0; padding: 0; }
+.daily-row { display: grid; grid-template-columns: 28px 1fr auto; gap: 8px; align-items: center; padding: 8px 4px; border-bottom: 1px solid rgba(243, 234, 215, .1); }
+.daily-row .n { font: 700 17px var(--font-display); color: var(--muted); text-align: center; }
+.daily-row .who { overflow: hidden; text-overflow: ellipsis; }
+.daily-row .who small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.2; }
+.daily-row .a { font: 700 17px var(--font-display); }
+.daily-row.p1 .n { color: var(--mustard); }
+.daily-row.p2 .n { color: #d8d8d8; }
+.daily-row.p3 .n { color: #d39a62; }
+.daily-row.me { background: rgba(223, 108, 79, .18); border-left: 3px solid var(--terra); }
+.daily-gap { text-align: center; color: var(--muted); padding: 2px; letter-spacing: .3em; }

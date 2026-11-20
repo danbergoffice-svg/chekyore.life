@@ -48,6 +48,13 @@ export interface Prefs {
   promoCountry?: string
   /** День, когда панель «Дары» сама открылась (раз в день, если ждёт дар дня). */
   dailyShown?: string
+  /** «Жизнь дня» (src/dailyLife.ts): дата UTC начатой попытки (одна в день), отправленного итога и последнего дня,
+   *  проверенного на победу (награда - царская семья); ник для таблиц и «не показывать меня». */
+  dailyTried?: string
+  dailySent?: string
+  dailyChecked?: string
+  nick?: string
+  nickHidden?: boolean
   /** «На главный экран»: done - добавили или поняли подсказку; later - отложили (на какой по счёту жизни). */
   install?: { state: 'done' | 'later'; lives: number }
 }

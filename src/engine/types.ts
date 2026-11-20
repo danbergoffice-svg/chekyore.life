@@ -1093,6 +1093,8 @@ export interface GameSettings {
   noGoal?: boolean
   /** A/B (crisis_share): в этой жизни есть перелом сорокалетия (engine/crisis.ts). */
   crisis?: boolean
+  /** «Жизнь дня» (src/dailyLife.ts): дата UTC, за которую идёт эта жизнь; итог уходит в таблицу дня. */
+  daily?: string
 }
 
 export interface GameState {
