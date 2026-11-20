@@ -66,6 +66,16 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
     all(SQL.bootLoss),
     loadStats(db, week),
   ])
+  // «Жизнь дня» (worker/daily.ts): воронка по событиям и итоги по дням. Таблицы daily_results ещё может не быть.
+  const lifeFunnel = await all("SELECT name AS step, COUNT(DISTINCT player_id) AS players FROM events WHERE name IN ('daily_offer', 'daily_start', 'daily_end', 'nick_set', 'daily_win') AND ts >= ?1 AND ts < ?2 GROUP BY name", two)
+  const LIFE_STEPS: [string, string][] = [['daily_offer', 'видели карточку в меню'], ['daily_start', 'начали жизнь дня'], ['daily_end', 'прожили (итог в таблице)'], ['nick_set', 'задали ник'], ['daily_win', 'получили царскую семью за 1-е место']]
+  const lifeRows = LIFE_STEPS.map(([k, label]) => ({ шаг: label, событие: k, игроки: Number((lifeFunnel as Record<string, unknown>[]).find((r) => r.step === k)?.players ?? 0) }))
+  const lifeDays = await raw
+    .prepare('SELECT date AS день, COUNT(*) AS игроков, MAX(age) AS рекорд, ROUND(AVG(age), 1) AS "средний возраст", SUM(CASE WHEN age < 5 THEN 1 ELSE 0 END) AS "умерли до 5 лет" FROM daily_results WHERE date >= ?1 GROUP BY date ORDER BY date DESC')
+    .bind(new Date(now - 14 * 86400000).toISOString().slice(0, 10))
+    .all()
+    .then((r) => r.results as Record<string, unknown>[])
+    .catch(() => [] as Record<string, unknown>[])
   // A/B второй жизни: доли - от начавших вторую жизнь в варианте.
   const abRows = ab.map((r) => {
     const n = Number(r.players)
@@ -94,6 +104,8 @@ export async function admin(req: Request, env: AdminEnv): Promise<Response> {
       rows: loads.map((r) => ({ страна: r.country, рывков: r.ready, 'ms медиана': r.ms_median ?? '-', 'ms p90': r.ms_p90 ?? '-', 'ждали после барабана, медиана': r.wait_median ?? '-', 'долго (12 с)': r.slow, ошибки: r.error })),
     },
     { title: 'Ушли из меню, так и не начав жизнь (новички, 14 дней): видели ли барабан и кнопку «Крути», сколько пробыли (событие menu_leave)', rows: menuRows },
+    { title: 'Жизнь дня за 14 дней (docs/TZ_daily.md): воронка - уникальные игроки', rows: lifeRows },
+    { title: 'Жизнь дня по дням: сколько прожили, рекорд и средний возраст (сутки по UTC)', rows: lifeDays },
     { title: 'Дары за вход за 14 дней: сколько игроков забрали дар каждого дня серии (на 7-й - царская семья)', rows: dailyRows },
     { title: 'Когорты по дню первого захода: вернулись через 1 день (D1) и через 7 дней (D7)', rows: cohortRows.map((c) => ({ day: c.day, new_players: c.new_players, D1: c.d1, D7: c.d7 })) },
     { title: 'Игроки и жизни по дням (14 дней)', rows: players },

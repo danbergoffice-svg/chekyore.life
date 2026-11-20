@@ -52,6 +52,11 @@
 | dream_step | dream, step, kind, correct (0/1), value (до 80 знаков), sec | ответ на шаге сна (только свой приёмник; отчёт «Сны о будущем» в `/admin`) |
 | dream_end | dream, score, outcome (breakthrough/partial/failure/death), hint_used, known | сон кончился |
 | dream_training / dream_training_end | dream / dream, score, hint_used | тренировка сна из «Школьной программы»; её `dream_step` идут с `training: 1` и в отчёт `/admin` не попадают |
+| daily_offer | — | карточка «Жизнь дня» в меню видна (только свой приёмник; docs/TZ_daily.md) |
+| daily_start | era | начата жизнь дня (у `life_start` этой жизни `lottery: daily`) |
+| daily_end | age, place, of | итог жизни дня записан в таблицу: возраст, место, сколько сыграло |
+| nick_set | hidden | игрок задал ник для таблиц (hidden: 1 - «не показывать моё имя») |
+| daily_win | of, age | вчерашняя жизнь дня закрылась, игрок первый (сыграло ≥ 3) - царская семья на следующую жизнь |
 | achievement_unlocked | id, rare (1 — секретная, трудная или у <5% игроков) | получена награда (ТЗ v3, п. 10) |
 | tour_end | step, skipped, mode? | обучение закончено: шесть карточек подряд (mode нет) или все шаги по ходу жизни (mode: drip) |
 | tour_step | key (speed, skip, hero, tabs, goal, menu), age, skipped | рукав XT «по ходу жизни» (аудит 18.11): показан и закрыт один шаг обучения; не больше одного шага за игровой год |

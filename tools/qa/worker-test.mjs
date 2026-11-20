@@ -728,6 +728,10 @@ check('INTEGER и REAL дают одинаковые сообщения', JSON.s
   check('жизнь дня: равный возраст - выше тот, у кого больше детей', r.status === 200 && board.me?.place === 1 && board.top[1].age === 56)
   r = await req(`/api/daily?date=2099-01-01`)
   check('жизнь дня: дата из будущего - 400', r.status === 400)
+  env.ADMIN_PASSWORD = 'pw'
+  r = await mod.default.fetch(new Request('https://thousands.life/admin?fresh=1', { headers: { authorization: 'Basic ' + Buffer.from('x:pw').toString('base64') } }), env, ctx)
+  const html = await r.text()
+  check('жизнь дня: /admin - воронка и итоги по дням', r.status === 200 && html.includes('Жизнь дня по дням') && html.includes(today) && html.includes('начали жизнь дня'), html.slice(0, 200))
   await settle()
 }
 

@@ -191,6 +191,11 @@ npm run build       # dist/ + dist/_worker.js (приёмник аналитик
   `{"herd": n}` (`herdEffect` в `household.ts`: n ≥ 1 - голов прибавилось, −1…0 - доля пала), наследство `youngest_hearth`
   (отчигин, `life.ts`), свои столицы края `capitals` (`capitalFor` в `rules.ts`), маршруты в Русь, Китай, ислам, Европу,
   головоломка «Отара» (`src/kids/herd.ts`). Тексты генерировались скриптами вне репозитория - править теперь прямо JSON.
+- «Жизнь дня» (21.11, `docs/TZ_daily.md`, этап 1): одна жизнь на всех по дате UTC (`src/dailyLife.ts`: `dailyBirth`, `dailySeed`,
+  `dailyOn` - свой сайт, после `daily_min_lives` жизней, доля `daily_share`, `?daily=0|1`), одна попытка (`prefs.dailyTried`), без защиты,
+  даров и уникальности; `settings.daily` - дата жизни (у наследника снимается). Карточка в меню и итог с таблицей и ником -
+  `src/ui/DailyLife.tsx` (тексты `dlife.*`, ключи `daily.*` заняты дарами за вход), сервер - `worker/daily.ts`, победитель вчерашнего
+  дня (сыграло ≥ 3) - дар `royal`. Тесты - `tests/dailylife.test.ts`, `npm run test:worker` (9д), в браузере - `node tools/qa/dailylife.cjs`.
 - Проверка контента ловит: текст «уехал/отправил» без `npc_away`, «дом сгорел» без `{"home":"burn"}`, неизвестных питомцев.
 
 ## Состояние ТЗ (docs/TZ.md)

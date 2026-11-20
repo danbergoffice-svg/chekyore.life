@@ -43,5 +43,7 @@
   "goal_late_share": 0.5,
   "goal_late_age": 6,
   "auto_spin_share": 0,
-  "reveal_lite_share": 0
+  "reveal_lite_share": 0,
+  "daily_share": 0.5,
+  "daily_min_lives": 1
 }
