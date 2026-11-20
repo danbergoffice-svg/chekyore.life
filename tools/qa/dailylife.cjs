@@ -88,7 +88,10 @@ const URL = 'http://localhost:5174/?ab=a&tour=wall&goalat=0'
           await p.click('.outcome .primary', { timeout: 1000 }).catch(() => {})
           continue
         }
-        const opts = await p.$$('.choices .choice:not([disabled]), .choices .primary, .modal .primary, .modal-body button:not([disabled])')
+        // Сначала варианты события, потом главная кнопка окна, и только потом любая (не справка «i»).
+        let opts = await p.$$('.choices .choice:not([disabled]), .choices .primary')
+        if (!opts.length) opts = await p.$$('.modal .primary:not([disabled])')
+        if (!opts.length) opts = await p.$$('.modal-body button:not([disabled]):not(.ev-info)')
         if (opts.length) await opts[0].click({ timeout: 1000 }).catch(() => {})
         continue
       }
