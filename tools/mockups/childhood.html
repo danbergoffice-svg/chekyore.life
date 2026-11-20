@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Детство до 7 лет - макеты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;0,800;1,400&family=Alegreya+SC:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* Макет «Детство до 7 лет»: три варианта подачи (свиток с тропой, главы с летописцем сверху, ночь с лампой).
+   Палитра - «Карта пути» (src/skin.css). Ребёнок рисуется пикселями (SVG), растёт по прокрутке. */
+:root {
+  --bg: #16213a; --night: #130904; --sheet: #f3ead7; --ink: #f3ead7; --ink-2: #e2d3b3; --muted: #bfa987;
+  --terra: #df6c4f; --mustard: #ecd06f; --olive: #6e7044; --card: #1f2c4a; --line: #33456b; --paper-ink: #2a1d12;
+  --font: 'Alegreya', Georgia, serif; --display: 'Alegreya SC', 'Alegreya', Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 17px/1.5 var(--font); padding: 16px; }
+h1 { font: 800 26px/1.15 var(--display); margin: 4px 0 6px; }
+.lead { color: var(--ink-2); max-width: 760px; margin: 0 0 14px; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button { font: 700 15px var(--font); padding: 9px 14px; border: 2px dashed rgba(243,234,215,.45); background: transparent; color: var(--sheet); cursor: pointer; }
+.tabs button.on { background: var(--sheet); color: var(--night); border-style: solid; border-color: var(--sheet); }
+.stage { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.note { flex: 1 1 260px; max-width: 420px; color: var(--ink-2); }
+.note h2 { font: 800 21px var(--display); color: var(--ink); margin: 0 0 6px; }
+.note ul { padding-left: 18px; margin: 6px 0; }
+.note li { margin: 4px 0; }
+.note .plus { color: #a9b56a; } .note .minus { color: #ef8a6c; }
+
+/* Рамка телефона */
+.phone { width: 390px; max-width: 100%; height: 760px; max-height: calc(100vh - 40px); min-height: 560px; border-radius: 34px; border: 10px solid #0b0f1a;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5); overflow: hidden; position: relative; background: var(--bg); flex: none; }
+.variant { display: none; } .variant.on { display: flex; }
+.scroll { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.skip { position: absolute; top: 12px; right: 12px; z-index: 5; font: 700 13px var(--font); padding: 5px 10px; background: rgba(19,9,4,.55); color: var(--sheet);
+  border: 1px solid rgba(243,234,215,.35); }
+.pix { image-rendering: pixelated; shape-rendering: crispEdges; display: block; }
+
+/* Общие куски текста */
+.choice { display: grid; gap: 8px; margin-top: 12px; }
+.choice button { font: 700 16px var(--font); text-align: left; padding: 10px 12px; cursor: pointer; display: flex; justify-content: space-between; gap: 8px; }
+.choice small { font-weight: 400; opacity: .75; }
+.game { margin-top: 14px; padding: 14px; text-align: center; }
+.game .t { font: 800 20px var(--display); }
+.game .play { margin-top: 10px; font: 800 17px var(--font); padding: 11px 22px; border: 0; cursor: pointer; background: var(--terra); color: var(--sheet); clip-path: polygon(0.6% 6%, 99.4% 0, 98.6% 94%, 0 100%); }
+
+/* ===== A. Свиток и тропа ===== */
+.A .scroll { bottom: 172px; padding: 18px 16px 30px; }
+.A .sheet { background: var(--sheet); color: var(--paper-ink); padding: 22px 18px 8px; clip-path: polygon(0 1%, 4% 0, 12% .6%, 22% 0, 35% .8%, 50% 0, 63% .7%, 77% 0, 90% .8%, 100% 0, 100% 99%, 93% 100%, 80% 99.3%, 66% 100%, 52% 99.2%, 38% 100%, 24% 99.3%, 10% 100%, 0 99.2%); }
+.A .sheet h3 { font: 800 22px var(--display); margin: 0 0 4px; }
+.A .place { font-style: italic; color: #6b5640; margin: 0 0 14px; }
+.A .beat { margin: 0 0 22px; }
+.A .yr { font: 800 13px var(--font); letter-spacing: .12em; text-transform: uppercase; color: var(--terra); }
+.A .beat p { margin: 2px 0 0; }
+.A .choice button { background: transparent; color: var(--paper-ink); border: 2px dashed #a58a68; }
+.A .choice button.sel { background: var(--paper-ink); color: var(--sheet); border-style: solid; }
+.A .game { background: #e9dcc0; }
+.A .path { position: absolute; left: 0; right: 0; bottom: 0; height: 172px; background: linear-gradient(#1d2a47, #0f1729); border-top: 2px solid var(--line); overflow: hidden; }
+.A .ground { position: absolute; left: 0; right: 0; bottom: 30px; border-top: 3px dashed #987654; }
+.A .tick { position: absolute; bottom: 8px; transform: translateX(-50%); font: 700 12px var(--font); color: var(--muted); }
+.A .tick::before { content: ''; position: absolute; left: 50%; top: -12px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: #987654; }
+.A .tick.past { color: var(--mustard); } .A .tick.past::before { background: var(--mustard); }
+.A .kid { position: absolute; bottom: 33px; transition: left .12s linear; }
+.A .home, .A .school { position: absolute; bottom: 33px; }
+.A .skip { top: auto; bottom: 134px; }
+.A .age { position: absolute; top: 12px; left: 12px; font: 800 15px var(--display); color: var(--mustard); }
+
+/* ===== B. Главы и герой сверху ===== */
+.B .head { position: absolute; top: 0; left: 0; right: 0; height: 132px; z-index: 3; background: #0f1729; border-bottom: 2px solid var(--line); padding: 14px 16px 0; display: flex; gap: 12px; align-items: flex-end; }
+.B .head .who { flex: 1; padding-bottom: 14px; }
+.B .head .nm { font: 800 21px var(--display); line-height: 1.1; }
+.B .head .ag { color: var(--mustard); font-weight: 700; }
+.B .dots { display: flex; gap: 4px; margin-top: 8px; }
+.B .dots i { flex: 1; height: 5px; background: var(--line); }
+.B .dots i.on { background: var(--mustard); }
+.B .portrait { width: 84px; height: 108px; background: radial-gradient(circle at 50% 70%, #33456b, #1f2c4a 70%); border: 2px solid var(--sheet); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; flex: none; margin-bottom: 14px; }
+.B .scroll { padding: 140px 16px 40px; }
+.B .ch { background: var(--card); margin: 0 0 18px; padding: 0 0 14px; clip-path: polygon(0 0, 99% 1.5%, 100% 100%, 1% 98%); }
+.B .ch .ban { height: 86px; display: flex; align-items: center; gap: 12px; padding: 0 16px; }
+.B .ch .num { font: 800 54px/1 var(--display); color: var(--sheet); opacity: .95; }
+.B .ch .cap { font: 700 15px var(--font); color: var(--night); background: var(--sheet); padding: 2px 8px; }
+.B .ch p { margin: 10px 16px 0; color: var(--ink); }
+.B .choice { margin: 10px 16px 0; }
+.B .choice button { background: transparent; color: var(--sheet); border: 2px dashed rgba(243,234,215,.45); }
+.B .choice button.sel { background: var(--sheet); color: var(--night); border-style: solid; }
+.B .game { background: var(--sheet); color: var(--night); margin: 10px 16px 0; }
+
+/* ===== C. Ночь и лампа ===== */
+.C { background: #0c0805; }
+.C .lamp { position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: radial-gradient(ellipse 60% 55% at 50% 92%, rgba(236,170,90,.42), rgba(236,170,90,.08) 60%, transparent 75%); pointer-events: none; }
+.C .bigyr { position: absolute; left: 0; right: 0; bottom: 9%; text-align: center; font: 800 190px/1 var(--display); color: rgba(243,234,215,.06); pointer-events: none; }
+.C .kid { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); pointer-events: none; }
+.C .floor { position: absolute; left: 12%; right: 12%; bottom: 8%; height: 2px; background: rgba(236,170,90,.4); }
+.C .scroll { padding: 0 26px; bottom: 40%; -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
+.C .line { min-height: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 18%; transition: opacity .35s; }
+.C .line .yr { font: 800 14px var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--mustard); }
+.C .line p { font-size: 21px; line-height: 1.45; margin: 6px 0 0; color: var(--sheet); }
+.C .choice button { background: rgba(243,234,215,.06); color: var(--sheet); border: 1px solid rgba(243,234,215,.35); }
+.C .choice button.sel { background: var(--sheet); color: var(--night); }
+.C .game { background: rgba(243,234,215,.08); border: 1px solid rgba(236,208,111,.5); }
+.C .end { min-height: 100%; padding-top: 22%; }
+
+@media (max-width: 460px) {
+  body { padding: 12px; }
+  .phone { width: 100%; border-width: 6px; border-radius: 22px; height: 82vh; }
+}
+</style>
+</head>
+<body>
+<h1>Детство до 7 лет: три варианта</h1>
+<p class="lead">Пример одной жизни: мальчик Ли Мин, Ханчжоу, 1180 год, семья гончара. Прокручивайте текст в телефоне - ребёнок растёт от младенца до 7 лет. На первом году есть один выбор, в 7 лет - мини-игра. Тексты - черновик для примера.</p>
+<div class="tabs" id="tabs">
+  <button data-v="A" class="on">A. Свиток и тропа</button>
+  <button data-v="B">B. Главы и портрет</button>
+  <button data-v="C">C. Ночь и лампа</button>
+</div>
+
+<!-- ===== A ===== -->
+<div class="stage variant A on" data-v="A">
+  <div class="phone A">
+    <button class="skip">Пропустить детство</button>
+    <div class="scroll" data-scroll>
+      <div class="sheet" data-text></div>
+    </div>
+    <div class="path">
+      <div class="age" data-age></div>
+      <div class="ground"></div>
+      <div class="home" data-home></div>
+      <div class="school" data-school></div>
+      <div data-ticks></div>
+      <div class="kid" data-kid></div>
+    </div>
+  </div>
+  <div class="note">
+    <h2>A. Свиток и тропа</h2>
+    Текст - на листе бумаги, внизу - полоса-тропа от дома к учителю. Ребёнок идёт по ней вместе с прокруткой: лежит, ползёт, встаёт, топает, бежит. Под ним - отметки лет.
+    <ul>
+      <li class="plus">Ближе всего к вашей идее, понятно без объяснений: «докрути - и дойдёт».</li>
+      <li class="plus">Тропа заодно показывает, сколько ещё читать.</li>
+      <li class="minus">Полоса внизу съедает почти пятую часть экрана телефона.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== B ===== -->
+<div class="stage variant B" data-v="B">
+  <div class="phone B">
+    <div class="head">
+      <div class="portrait" data-kid></div>
+      <div class="who">
+        <div class="nm">Ли Мин</div>
+        <div class="ag" data-age></div>
+        <div class="dots" data-dots></div>
+      </div>
+    </div>
+    <button class="skip" style="top:auto;bottom:12px">Пропустить детство</button>
+    <div class="scroll" data-scroll data-text></div>
+  </div>
+  <div class="note">
+    <h2>B. Главы и портрет</h2>
+    Каждый год - отдельная карточка с крупной цифрой. Сверху закреплён портрет героя в рамке: он растёт и шагает на месте, рядом имя, возраст и семь делений до школы.
+    <ul>
+      <li class="plus">Похоже на остальную игру (вкладка «Герой», карточки событий) - выглядит как часть жизни, а не вступление.</li>
+      <li class="plus">Короткие карточки легче читать, чем сплошной лист.</li>
+      <li class="minus">Ребёнок не «идёт», а растёт в окошке - эффект пути слабее.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== C ===== -->
+<div class="stage variant C" data-v="C">
+  <div class="phone C">
+    <div class="bigyr" data-big></div>
+    <div class="lamp"></div>
+    <div class="floor"></div>
+    <div class="kid" data-kid></div>
+    <button class="skip">Пропустить детство</button>
+    <div class="scroll" data-scroll data-text></div>
+  </div>
+  <div class="note">
+    <h2>C. Ночь и лампа</h2>
+    Тёмный экран, одна фраза на экран - как воспоминание. Внизу в круге света от лампы стоит ребёнок, крупно; за ним огромная цифра года. Прокрутка - и он растёт прямо на глазах, делая шаги на месте.
+    <ul>
+      <li class="plus">Самый кинематографичный и самый короткий: одна фраза на экран читается за 3 секунды.</li>
+      <li class="plus">Крупный ребёнок в центре - главный герой с первой секунды.</li>
+      <li class="minus">Мало места под текст: быт эпохи придётся сжать до одной-двух фраз в год.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// ---------- Тексты (пример: Китай, Ханчжоу, 1180, сын гончара) ----------
+const BEATS = [
+  { age: 0, yr: '1180 · рождение', t: 'Ты родился в год Быка, в Ханчжоу, в доме гончара Ли у Западных ворот. Повитуха обмыла тебя отваром полыни, а мать месяц не выходила со двора - так велит обычай.' },
+  { age: 0.4, yr: 'Сотый день', t: 'На сотый день бабушка надела тебе на шею серебряный замочек - «запереть» жизнь в теле. В ту зиму оспа унесла твоего старшего брата. Тебя берегли вдвойне.' },
+  { age: 1, yr: '1 год', t: 'В первый день рождения перед тобой разложили кисть, кусок глины и счёты. Родня затихла: что ты схватишь?', choice: [['Кисть', 'ум'], ['Кусок глины', 'тело'], ['Счёты', 'люди']] },
+  { age: 2, yr: '2 года', t: 'Ты встал на ноги у отцовского гончарного круга. Первое слово - «ма». Второе - «огонь»: печь во дворе горела день и ночь.' },
+  { age: 3, yr: '3 года', t: 'Тебе обрили голову, оставив два пучка над ушами, - так ходят все малыши квартала. Летом ты ловил цикад в бамбуковую клетку.' },
+  { age: 4, yr: '4 года', t: 'На Новый год ты впервые слышал, как трещит бамбук в костре. Мать сшила тебе башмачки с тигриными мордами - чтобы злые духи боялись.' },
+  { age: 5, yr: '5 лет', t: 'Ты носишь отцу воду и мнёшь глину ногами. Соседский мальчик каждое утро идёт к учителю, а ты смотришь ему вслед.' },
+  { age: 6, yr: '6 лет', t: 'Летом река вышла из берегов и залила нижний город. Ваша печь уцелела, но до осени ели один рис с солёной капустой.' },
+  { age: 7, yr: '7 лет', t: 'Тебе семь. Отец ставит на стол чашки для гостей и говорит: «Посмотрим, на что ты годишься».', game: true },
+]
+
+// ---------- Пиксельный ребёнок ----------
+const PAL = { h: '#2a1a10', s: '#e2b38a', k: '#1b120b', w: '#f3ead7', r: '#df6c4f', c: '#3f6aa0', d: '#2b3f63', y: '#ecd06f', b: '#6b4423' }
+const BABY = [
+  '..............',
+  '...wwwwwwwww..',
+  '..wwwwrwwwwwss.',
+  '.wwwwwwwwwwsssh',
+  '..wwwwwwrwwsksh',
+  '...wwwwwwwwssh.',
+]
+const CRAWL = [
+  ['...........hh.', '..........hhhs', '...cccccc.hssk', '..cccccccc.sss', '.cccccccccsss.', '.dd....cc.s...', '.ss.....ss....'],
+  ['...........hh.', '..........hhhs', '...cccccc.hssk', '..cccccccc.sss', '.cccccccccsss.', '..dd..cc..s...', '..ss...ss.....'],
+]
+/** Фигурка стоя/на ходу (смотрит вправо) для возраста 2..7; frame 0/1 - шаг. */
+function standing(age, frame, wobble) {
+  const W = 10, headH = 6, bodyH = Math.round(3 + age * 0.62), legH = Math.round(1 + age * 0.78)
+  const H = headH + bodyH + legH + (age >= 3 ? 1 : 0)
+  const g = Array.from({ length: H }, () => Array(W).fill('.'))
+  const set = (x, y, ch) => { if (y >= 0 && y < H && x >= 0 && x < W) g[y][x] = ch }
+  let y0 = 0
+  const x0 = 2
+  if (age >= 3) { set(x0 + 1, 0, 'h'); set(x0 + 4, 0, 'h'); y0 = 1 } // два пучка у малышей эпохи Сун
+  for (let y = 0; y < headH; y++) for (let x = 0; x < 6; x++) {
+    let ch = 's'
+    if (age < 3 ? y < 2 : y < 1) ch = 'h'
+    if (x === 0 && y < 4) ch = 'h'
+    if (y === headH - 1 && (x === 0 || x === 5)) ch = '.'
+    set(x0 + x, y0 + y, ch)
+  }
+  set(x0 + 4, y0 + 2, 'k')
+  if (age >= 1.5 && age < 2.6) set(x0 + 5, y0 + 4, 'r') // румянец малыша
+  const by = y0 + headH
+  for (let y = 0; y < bodyH; y++) for (let x = 0; x < 6; x++) set(x0 + x, by + y, y === bodyH - 1 && (x === 0 || x === 5) ? '.' : 'c')
+  if (age >= 4) for (let x = 0; x < 6; x++) set(x0 + x, by + Math.floor(bodyH / 2), 'r') // пояс
+  set(x0 + 3, y0 + headH - 1, 'y') // замочек на шее
+  // рука
+  if (wobble) { set(x0 + 6, by, 's'); set(x0 + 7, by - 1, 's') } else {
+    const ax = frame ? x0 + 4 : x0 + 2
+    for (let y = 1; y < bodyH - 1; y++) set(ax, by + y, 'd')
+    set(ax + (frame ? 1 : -1), by + bodyH - 1, 's')
+  }
+  // ноги
+  const ly = by + bodyH, lw = age >= 5 ? 2 : 1
+  const legs = frame ? [x0 + 2, x0 + 3] : [x0, x0 + 4]
+  for (const lx of legs) for (let y = 0; y < legH; y++) for (let k = 0; k < lw; k++) set(lx + k - (lx > x0 + 2 && lw === 2 ? 1 : 0), ly + y, y === legH - 1 ? (age >= 4 && age < 5 ? 'y' : 'b') : 'd')
+  return g.map((r) => r.join(''))
+}
+function grid(rows, z) {
+  const h = rows.length, w = Math.max(...rows.map((r) => r.length))
+  let out = ''
+  rows.forEach((r, y) => [...r].forEach((ch, x) => { if (ch !== '.') out += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${PAL[ch]}"/>` }))
+  return `<svg class="pix" width="${w * z}" height="${h * z}" viewBox="0 0 ${w} ${h}">${out}</svg>`
+}
+/** Ребёнок в возрасте age (0..7), шаг frame. */
+function kid(age, frame, z) {
+  if (age < 0.7) return grid(BABY, z)
+  if (age < 1.6) return grid(CRAWL[frame], z)
+  return grid(standing(Math.min(7, age), frame, age < 2.4 && frame === 1), z)
+}
+const ageWord = (a) => {
+  const n = Math.floor(a)
+  if (a < 1) return a < 0.3 ? 'новорождённый' : 'несколько месяцев'
+  return n + ' ' + (n === 1 ? 'год' : n < 5 ? 'года' : 'лет')
+}
+
+// ---------- Сборка вариантов ----------
+function beatHTML(b, i, v) {
+  let h = ''
+  if (b.choice) h += `<div class="choice">${b.choice.map(([t, s]) => `<button data-c>${t} <small>+ ${s}</small></button>`).join('')}</div>`
+  if (b.game) h += `<div class="game"><div class="t">Столики для гостей</div><div>Головоломка эпохи Сун · от неё зависит, кем станет Ли Мин</div><button class="play">Играть</button></div>`
+  if (v === 'A') return `<div class="beat" data-age="${b.age}"><div class="yr">${b.yr}</div><p>${b.t}</p>${h}</div>`
+  if (v === 'B') {
+    const hue = ['#7a3b2c', '#5b4a7a', '#8a6a2a', '#3f6a5a', '#7a5a3a', '#994a3a', '#4a5a7a', '#3f5f8f', '#6e7044'][i]
+    const num = b.age < 1 ? (b.age ? '100' : '0') : Math.floor(b.age)
+    return `<div class="ch" data-age="${b.age}"><div class="ban" style="background:${hue}"><span class="num">${num}</span><span class="cap">${b.yr}</span></div><p>${b.t}</p>${h}</div>`
+  }
+  return `<div class="line" data-age="${b.age}"${b.game ? ' style="min-height:100%"' : ''}><div class="yr">${b.yr}</div><p>${b.t}</p>${h}</div>`
+}
+
+for (const phone of document.querySelectorAll('.phone')) {
+  const v = phone.classList[1]
+  const text = phone.querySelector('[data-text]')
+  const scroller = phone.querySelector('[data-scroll]')
+  text.innerHTML = (v === 'A' ? '<h3>Детство Ли Мина</h3><div class="place">Ханчжоу, империя Сун · семья гончара</div>' : '') + BEATS.map((b, i) => beatHTML(b, i, v)).join('') + (v === 'C' ? '' : '<div style="height:30vh"></div>')
+  if (v === 'C') text.insertAdjacentHTML('afterbegin', '<div style="height:8%"></div>')
+  const kidEl = phone.querySelector('[data-kid]')
+  const ageEl = phone.querySelector('[data-age]:not(.beat):not(.ch):not(.line)')
+  // Пути A: дом слева, учитель справа, отметки лет.
+  if (v === 'A') {
+    phone.querySelector('[data-home]').innerHTML = grid(['....bbbb....', '..bbbbbbbb..', 'bbbbbbbbbbbb', '.wwwwwwwwww.', '.wwbbwwwwww.', '.wwbbwwrrww.', '.wwbbwwrrww.'], 5)
+    phone.querySelector('[data-home]').style.left = '6px'
+    phone.querySelector('[data-school]').innerHTML = grid(['..hh..', '.hhhh.', '.ssks.', '.ssss.', 'dddddd', 'dddddd', 'dddddd', 'dddddd', '.d..d.', '.d..d.', '.b..b.'], 4)
+    phone.querySelector('[data-school]').style.right = '10px'
+    phone.querySelector('[data-ticks]').innerHTML = [0, 1, 2, 3, 4, 5, 6, 7].map((n) => `<span class="tick" data-n="${n}" style="left:${20 + n * 9.5}%">${n}</span>`).join('')
+  }
+  if (v === 'B') phone.querySelector('[data-dots]').innerHTML = '<i></i>'.repeat(7)
+  let frame = 0, lastY = 0, acc = 0
+  const sections = [...text.querySelectorAll('[data-age]')]
+  function update() {
+    const y = scroller.scrollTop
+    acc += Math.abs(y - lastY); lastY = y
+    const age0 = currentAge()
+    const step = age0 < 1.6 ? 26 : age0 < 3 ? 18 : 12
+    if (acc > step) { frame ^= 1; acc = 0 }
+    render(age0)
+  }
+  function currentAge() {
+    const line = scroller.scrollTop + scroller.clientHeight * (v === 'C' ? 0.2 : 0.5)
+    const pts = sections.map((s) => [s.offsetTop, +s.dataset.age])
+    if (scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4) return 7
+    if (line <= pts[0][0]) return 0
+    for (let i = 0; i < pts.length - 1; i++) if (line < pts[i + 1][0]) return pts[i][1] + (pts[i + 1][1] - pts[i][1]) * (line - pts[i][0]) / (pts[i + 1][0] - pts[i][0])
+    return 7
+  }
+  function render(a) {
+    if (v === 'A') {
+      kidEl.innerHTML = kid(a, frame, 5)
+      kidEl.style.left = `calc(${17 + a * 9}% - 22px)`
+      ageEl.textContent = 'Ли Мин · ' + ageWord(a)
+      phone.querySelectorAll('.tick').forEach((t) => t.classList.toggle('past', +t.dataset.n <= a))
+    } else if (v === 'B') {
+      kidEl.innerHTML = kid(a, frame, a < 1.6 ? 5 : a < 4 ? 5 : 4)
+      ageEl.textContent = ageWord(a)
+      phone.querySelectorAll('.dots i').forEach((d, i) => d.classList.toggle('on', i < Math.floor(a)))
+    } else {
+      kidEl.innerHTML = kid(a, frame, a < 1.6 ? 8 : 9)
+      phone.querySelector('[data-big]').textContent = Math.floor(a)
+      sections.forEach((s) => {
+        const r = s.offsetTop - scroller.scrollTop
+        const h = scroller.clientHeight
+        s.style.opacity = Math.max(0.1, 1 - Math.abs(r) / (h * 0.7))
+      })
+    }
+  }
+  scroller.addEventListener('scroll', update, { passive: true })
+  phone.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-c]')
+    if (!b) return
+    b.parentElement.querySelectorAll('button').forEach((x) => x.classList.toggle('sel', x === b))
+  })
+  phone.querySelector('.skip').addEventListener('click', () => scroller.scrollTo({ top: scroller.scrollHeight, behavior: 'smooth' }))
+  requestAnimationFrame(() => render(0))
+}
+
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('button')
+  if (!b) return
+  document.querySelectorAll('#tabs button').forEach((x) => x.classList.toggle('on', x === b))
+  document.querySelectorAll('.variant').forEach((x) => x.classList.toggle('on', x.dataset.v === b.dataset.v))
+  window.dispatchEvent(new Event('resize'))
+  document.querySelectorAll('.variant.on [data-scroll]').forEach((s) => s.dispatchEvent(new Event('scroll')))
+})
+</script>
+</body>
+</html>
