@@ -80,6 +80,11 @@ export interface Flags {
   goal_late_share: number
   /** Возраст героя, в котором в рукаве XG мать загадывает желание (окно выбора цели). */
   goal_late_age: number
+  /** Эксперимент XS (ТЗ удержания R9, 20.11): доля новичков, у которых барабан в меню запускается сам; свой хеш id,
+   *  ?autospin=0|1. 0 - у всех как было. */
+  auto_spin_share: number
+  /** Эксперимент XR (ТЗ удержания R10): доля игроков с облегчённым знакомством с семьёй в первой жизни; ?reveal=lite|full. */
+  reveal_lite_share: number
 }
 
 export const DEFAULT_FLAGS: Flags = {
@@ -123,6 +128,9 @@ export const DEFAULT_FLAGS: Flags = {
   tour_drip_share: 0,
   goal_late_share: 0,
   goal_late_age: 6,
+  // XS и XR (ТЗ удержания) по умолчанию выключены; включать на сайте через flags.json.
+  auto_spin_share: 0,
+  reveal_lite_share: 0,
 }
 
 export type ShareResult = 'shared' | 'copied' | 'downloaded' | 'failed'

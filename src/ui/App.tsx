@@ -10,7 +10,7 @@ import { createT, loadEraTexts, preloadCommon } from '../i18n'
 import { EXTERNAL, initPlatform, platform } from '../platform'
 import { lifeStats, tickLife, trackChoice, trackLifeEnd, trackLifeStart, trackUserParams, trackYear, utmParams } from '../telemetry'
 import { applyEarly, kidsOn, SEEN_KEY } from '../kids/early'
-import { crisisOn, goalAge, goalGroup, homeQuiet, layoutB, musicNew, musicTrack, paintedOn, rebirthOn, shortFirst, tourDrip } from '../goal'
+import { autoSpinOn, crisisOn, goalAge, goalGroup, homeQuiet, layoutB, musicNew, musicTrack, paintedOn, rebirthOn, revealLite, shortFirst, tourDrip } from '../goal'
 import { prefetchPainted, setPainted } from '../pixel/painted'
 import { ensureGoal, goalMark, setGoal } from '../engine/goals'
 import type { GoalChoice } from './GoalPick'
@@ -198,7 +198,7 @@ export function App() {
       earnedRef.current = [...got, ...retro]
       setEarned(earnedRef.current)
       if (retro.length) saveAchievements(earnedRef.current)
-      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old', painted: paintedOn(prefs.art, platform.flags) ? 1 : 0, tour: tourDrip(platform.playerId(), platform.flags) ? 'drip' : 'wall', goal_at: goalAge(platform.playerId(), platform.flags), home: homeQuiet(platform.playerId(), platform.flags) ? 'quiet' : 'full', rebirth: rebirthOn(platform.playerId(), platform.flags) ? 1 : 0 })
+      platform.setContext({ lang: prefs.lang, life_index: lives.length + 1, mode: prefs.mode, kids: kidsOn(platform.playerId(), platform.flags) ? 1 : 0, goal: goalGroup(platform.playerId(), platform.flags), short_first: shortFirst(platform.playerId(), platform.flags) ? 1 : 0, layout: layoutB(platform.playerId(), platform.flags) ? 'b' : 'a', crisis: crisisOn(platform.playerId(), platform.flags) ? 1 : 0, music: musicNew(platform.playerId(), platform.flags) ? 'new' : 'old', painted: paintedOn(prefs.art, platform.flags) ? 1 : 0, tour: tourDrip(platform.playerId(), platform.flags) ? 'drip' : 'wall', goal_at: goalAge(platform.playerId(), platform.flags), home: homeQuiet(platform.playerId(), platform.flags) ? 'quiet' : 'full', rebirth: rebirthOn(platform.playerId(), platform.flags) ? 1 : 0, autospin: autoSpinOn(platform.playerId(), platform.flags) ? 1 : 0, reveal: revealLite(platform.playerId(), platform.flags) ? 'lite' : 'full' })
       const params = new URLSearchParams(location.search)
       let referrer = ''
       try {
@@ -711,10 +711,13 @@ export function App() {
     setScreen('menu')
     setDrumFocus((n) => n + 1)
   }
-  const onPull = () => {
+  // XS (R9 ТЗ удержания): у новичка барабан запускается сам - один раз за заход.
+  const autoSpun = useRef(false)
+  const onPull = (auto = false) => {
     if (!pending) return
-    // Рывок рычага: где теряются новички - до барабана или после результата.
-    if (pending.respin === 0) platform.track('spin', {})
+    autoSpun.current = true
+    // Рывок рычага: где теряются новички - до барабана или после результата; auto - барабан запустился сам (XS).
+    if (pending.respin === 0) platform.track('spin', auto ? { auto: 1 } : {})
     menuVisit.current.spun = true
     setPulled(true)
     // Сразу, не дожидаясь отрисовки: звук уже включился на касании, и трек меню не должен начать качаться.
@@ -1216,6 +1219,7 @@ export function App() {
       adBusy={adBusy}
       adsBlocked={adsBlocked}
       autoSpin={!!pending.auto}
+      autoStart={!autoSpun.current && !pending.respin && memorial.length === 0 && !game.current && autoSpinOn(platform.playerId(), platform.flags) ? 1200 : undefined}
       onSetup={memorial.length > 0 ? () => setSetupOpen(true) : undefined}
       focus={drumFocus}
       gifts={giftsButton}
@@ -1318,6 +1322,7 @@ export function App() {
             state={state}
             era={era}
             onStart={() => setScreen('life')}
+            lite={memorial.length === 0 && state.hero.generation === 1 && revealLite(platform.playerId(), platform.flags)}
             note={challengeOn && memorial.length >= 1 ? ui.t('challenge.note', { n: challengeAge, m: challengeAge + 1 }) : undefined}
           />
         )}

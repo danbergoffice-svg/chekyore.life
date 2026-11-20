@@ -137,6 +137,14 @@ function Reel(props: { label: string; items: Item[]; spinning: boolean; duration
 /** Какой запрос «к барабану» уже выполнен: при возврате в меню страница сама к нему не едет. */
 let focused = 0
 
+/** Было ли с начала загрузки страницы касание, клавиша или прокрутка (эксперимент XS: тогда барабан сам не запускается).
+ *  Слушатель - на всю страницу и с загрузки модуля: барабан пересоздаётся при перезарядке, а касание должно помниться. */
+let touchedPage = false
+if (typeof window !== 'undefined') {
+  const touched = () => (touchedPage = true)
+  for (const e of ['pointerdown', 'keydown', 'touchstart', 'wheel']) window.addEventListener(e, touched, { capture: true, passive: true, once: true })
+}
+
 /**
  * Барабан в главном меню: рычаг и кнопка «Крутить новую жизнь». Страна, которая выпадет, грузится с рывка рычага -
  * пока крутятся барабаны; если не успела, кнопка «Начать жизнь» ждёт загрузки.
@@ -147,7 +155,8 @@ export function SlotMachine(props: {
   ready: boolean
   error?: boolean
   onRetry?: () => void
-  onPull: () => void
+  /** auto - барабан запустился сам (эксперимент XS, autoStart). */
+  onPull: (auto?: boolean) => void
   onDone: () => void
   onSetup?: () => void
   /** Растёт, когда к барабану нужно прокрутить страницу (новая жизнь с экрана итогов). */
@@ -157,6 +166,8 @@ export function SlotMachine(props: {
   left?: number
   /** Это перекрутка: барабан сам дёргает рычаг сразу после появления. */
   autoSpin?: boolean
+  /** Эксперимент XS (R9 ТЗ удержания): через столько мс барабан запускается сам, если игрок ничего не нажал. */
+  autoStart?: number
   /** Бесплатные перекрутки кончились - ещё одна за рекламу (CrazyGames); adBusy - реклама грузится или идёт. */
   onAdRespin?: () => void
   adBusy?: boolean
@@ -235,17 +246,28 @@ export function SlotMachine(props: {
 
   const durations = fast ? [300, 400, 500] : [2300, 3200, 4100]
 
-  const pull = () => {
+  const pull = (auto = false) => {
     if (phase !== 'idle') return
     timing.current.pull = performance.now()
     if (props.ready) timing.current.ready = timing.current.pull
     playLever()
-    props.onPull()
+    props.onPull(auto)
     setPhase('pull')
     setTimeout(() => setPhase('spin'), fast ? 50 : 450)
   }
   useEffect(() => {
     if (props.autoSpin) pull()
+  }, [])
+  // XS: новичку барабан запускается сам - без звука (браузер не пускает звук без касания, он включится на следующем).
+  // Игрок уже касался страницы, нажимал клавиши или прокручивал (touchedPage) - автозапуска нет: он занят чем-то своим.
+  useEffect(() => {
+    if (!props.autoStart) return
+    const id = setTimeout(() => {
+      if (touchedPage) return
+      box.current?.scrollIntoView({ block: 'start', behavior: fast ? 'auto' : 'smooth' })
+      pull(true)
+    }, props.autoStart)
+    return () => clearTimeout(id)
   }, [])
   // Барабаны пошли - щелчки строк и стук остановки в такт ленте.
   useEffect(() => {
@@ -290,7 +312,7 @@ export function SlotMachine(props: {
           </div>
           <button
             class={`lever ${phase === 'pull' ? 'pulled' : ''}`}
-            onClick={phase === 'done' ? props.onRespin : pull}
+            onClick={phase === 'done' ? props.onRespin : () => pull()}
             disabled={phase === 'pull' || phase === 'spin' || (phase === 'done' && !canRespin)}
             aria-label={phase === 'done' ? t('spin.again.unlimited') : t('menu.spin')}
           >
@@ -302,7 +324,7 @@ export function SlotMachine(props: {
       </div>
 
       {phase === 'idle' && (
-        <button class="primary spin-button" onClick={pull}>
+        <button class="primary spin-button" onClick={() => pull()}>
           {t('menu.spin')}
         </button>
       )}

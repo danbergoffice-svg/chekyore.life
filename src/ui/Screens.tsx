@@ -516,15 +516,13 @@ export function FatePicker(props: { pick: string | null; onPick: (kind: 'high' |
   )
 }
 
-export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void; note?: string }) {
+/** lite - эксперимент XR (R10 ТЗ удержания): в первой жизни только сцена, имя, строка «край · год · положение» и кнопка;
+ *  вера, семья и характер - на вкладке «Герой». */
+export function Reveal(props: { state: GameState; era: EraDef; onStart: () => void; note?: string; lite?: boolean }) {
   const { t, lang } = useUi()
   const hero = props.state.hero
   const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
-  const father = hero.npcs.find((n) => n.role === 'father')
-  const mother = hero.npcs.find((n) => n.role === 'mother')
-  const siblings = hero.npcs.filter((n) => n.role === 'sibling' && n.alive).length
   const isHeir = hero.generation > 1
-  const coin = regionOf(props.era, hero.region).coin
   return (
     <div class="screen reveal">
       <Scene
@@ -534,6 +532,33 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
       />
       <p class="eyebrow">{isHeir ? t('reveal.heir') : t('reveal.born', {}, o)}</p>
       <h1 class="hero-name big">{nameOf(hero.name, lang)}</h1>
+      {props.lite && !isHeir ? (
+        <p class="lead reveal-line">
+          {t(`region.${hero.region}`)} · {formatYear(hero.birthYear, lang)} · {t(`class.${classKey(hero.cls, hero.tags)}`, {}, o)}
+        </p>
+      ) : (
+        <RevealFacts {...props} />
+      )}
+      {props.note && <p class="challenge-note"><Icon name="trophy" /> {props.note}</p>}
+      <div class="sticky-cta">
+        <button class="primary" onClick={props.onStart}>{t('reveal.start')}</button>
+      </div>
+    </div>
+  )
+}
+
+/** Полный экран знакомства: факты о семье и абзац о крае. */
+function RevealFacts(props: { state: GameState; era: EraDef }) {
+  const { t, lang } = useUi()
+  const hero = props.state.hero
+  const o = { sex: hero.sex, region: hero.region, religion: hero.religion }
+  const father = hero.npcs.find((n) => n.role === 'father')
+  const mother = hero.npcs.find((n) => n.role === 'mother')
+  const siblings = hero.npcs.filter((n) => n.role === 'sibling' && n.alive).length
+  const isHeir = hero.generation > 1
+  const coin = regionOf(props.era, hero.region).coin
+  return (
+    <>
       <dl class="facts">
         <dt>{t('reveal.era')}</dt>
         <dd>{t(`era.${hero.era}`)}</dd>
@@ -568,11 +593,7 @@ export function Reveal(props: { state: GameState; era: EraDef; onStart: () => vo
       {/* Блок «Как это устроено» убран (Р6 аудита 18.11): он говорил о панели «над картинкой», которой нет, и о цели
           в первый год, которая теперь может прийти в 6 лет. Его заменили подсказки в момент, когда элемент нужен (Tour). */}
       <p class="intro">{t(`region.${hero.region}.intro`)}</p>
-      {props.note && <p class="challenge-note"><Icon name="trophy" /> {props.note}</p>}
-      <div class="sticky-cta">
-        <button class="primary" onClick={props.onStart}>{t('reveal.start')}</button>
-      </div>
-    </div>
+    </>
   )
 }
 

@@ -59,6 +59,21 @@ export function homeQuiet(playerId: string, flags: { home_quiet_share?: number }
   return share(playerId, 'home_quiet', flags.home_quiet_share ?? 0)
 }
 
+/** Эксперимент XS (R9 ТЗ удержания, 20.11): новичку барабан запускается сам через 1,2 с после показа меню; свой хеш id
+ *  (с XT, XG, П2, П4 не связан); ?autospin=0|1 - проверить руками. */
+export function autoSpinOn(playerId: string, flags: { auto_spin_share?: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('autospin') : null
+  if (forced === '0' || forced === '1') return forced === '1'
+  return share(playerId, 'auto_spin', flags.auto_spin_share ?? 0)
+}
+
+/** Эксперимент XR (R10 ТЗ удержания): облегчённое знакомство с семьёй в первой жизни; ?reveal=lite|full - проверить руками. */
+export function revealLite(playerId: string, flags: { reveal_lite_share?: number }): boolean {
+  const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('reveal') : null
+  if (forced === 'lite' || forced === 'full') return forced === 'lite'
+  return share(playerId, 'reveal_lite', flags.reveal_lite_share ?? 0)
+}
+
 /** Эксперимент XG (аудит 18.11): с какого возраста героя спрашивать цель - 0 (сразу) или goal_late_age; ?goalat=0|6 - проверить руками. */
 export function goalAge(playerId: string, flags: { goal_late_share?: number; goal_late_age?: number }): number {
   const forced = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('goalat') : null

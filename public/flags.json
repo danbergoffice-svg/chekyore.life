@@ -41,5 +41,7 @@
   "home_quiet_share": 0.5,
   "tour_drip_share": 0.5,
   "goal_late_share": 0.5,
-  "goal_late_age": 6
+  "goal_late_age": 6,
+  "auto_spin_share": 0,
+  "reveal_lite_share": 0
 }
