@@ -1,6 +1,6 @@
 {
   "ev.crisis_turn.title": "The Turn",
-  "ev.crisis_turn.text": "You are {age}. People your age are dying one after another, the children have grown, and your back reminds you of the years every morning. How to live from here — as before, or differently?",
+  "ev.crisis_turn.text": "You are {age}. People your age are dying one after another, the children have grown, and your back reminds you of the years every morning. How to live from here - as before, or differently?",
   "ev.crisis_turn.start_over": "Start over",
   "ev.crisis_turn.seek_freedom": "Seek freedom",
   "ev.crisis_turn.hold_on": "Hold on to what you have",
@@ -12,9 +12,9 @@
   "ev.crisis_turn.hold_on.success": "You kept what is yours.",
   "ev.crisis_turn.hold_on.failure": "Holding on took everything you had.",
   "ev.crisis_turn.seek_meaning.success": "You found something that matters after all.",
-  "ev.crisis_turn.seek_meaning.failure": "No answer — only questions.",
+  "ev.crisis_turn.seek_meaning.failure": "No answer - only questions.",
   "diary.crisis": "The turn of forty: {slot}.",
-  "diary.crisis.family": "The turn of forty: {slot}. Leaned on family — {outcome}.",
-  "diary.crisis.home": "The turn of forty: {slot}. Pledged the household — {outcome}.",
-  "diary.crisis.gamble": "The turn of forty: {slot}. Risked it once more — {outcome}."
+  "diary.crisis.family": "The turn of forty: {slot}. Leaned on family - {outcome}.",
+  "diary.crisis.home": "The turn of forty: {slot}. Pledged the household - {outcome}.",
+  "diary.crisis.gamble": "The turn of forty: {slot}. Risked it once more - {outcome}."
 }

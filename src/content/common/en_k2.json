@@ -9,7 +9,6 @@
   "ev.k2_sweet_pot.ask.failure": "'It's for the feast,' they said. You counted the days on your fingers and ran out of fingers.",
   "ev.k2_sweet_pot.wait": "Wait for the feast",
   "ev.k2_sweet_pot.wait.ok": "Every day you went to the shelf and just looked. At the feast you got the biggest piece - for patience.",
-
   "ev.k2_haircut.title": "The little barber",
   "ev.k2_haircut.text": "You found the sharp knife the grown-ups use to cut thread, and decided that your hair keeps getting in your eyes and must go. There is no one around.",
   "ev.k2_haircut.cut": "Trim your own fringe",
@@ -20,7 +19,6 @@
   "ev.k2_haircut.dog.failure": "The dog did not put up with it. You got off with a fright and a scratch, and the knife was taken away from you for good.",
   "ev.k2_haircut.put_back": "Put the knife back",
   "ev.k2_haircut.put_back.ok": "You put the knife back where you found it and even straightened it so it lay just so. Your hair still got in your eyes, but your conscience was clear.",
-
   "ev.k2_hide_basket.title": "In the basket",
   "ev.k2_hide_basket.text": "You climbed into the big basket in the corner so that everyone would have to look for you. At first they called cheerfully, then anxiously, and now someone has already run to the neighbours.",
   "ev.k2_hide_basket.come_out": "Climb out and shout, 'Here I am!'",
@@ -28,7 +26,6 @@
   "ev.k2_hide_basket.stay": "Keep quiet - let them search",
   "ev.k2_hide_basket.stay.success": "They found you by your sneeze. The grown-ups hugged you so hard your bones creaked, and only then did they scold you.",
   "ev.k2_hide_basket.stay.failure": "You fell asleep in the basket while the whole street searched ditches and back yards until dark. When they found you, nobody laughed - and that was worse than any thrashing.",
-
   "ev.k2_watering.title": "The little helper",
   "ev.k2_watering.text": "In the morning the grown-ups filled a big jar with water and went off to work. You decided to help, and watered everything in the yard: the vegetable patch, the tree, the dog and the hearth. The jar is empty, the hearth is hissing, the dog is wet.",
   "ev.k2_watering.fetch": "Go and fetch water yourself",
@@ -38,7 +35,6 @@
   "ev.k2_watering.hide.ok": "They found you by your wet footprints. The grown-ups spent a long time asking who had flooded the hearth, though the footprints were small and led straight to you.",
   "ev.k2_watering.tell": "Meet the grown-ups and tell them everything",
   "ev.k2_watering.tell.ok": "You told them honestly, even about the dog. The grown-ups sighed and went for more water, and took you with them to carry the smallest jug.",
-
   "ev.k2_dark.title": "The dark",
   "ev.k2_dark.text": "You woke in the night. The fire has burned down, the house is pitch black, and something is rustling in the corner. A mouse, maybe. Or maybe not.",
   "ev.k2_dark.wake": "Wake the grown-ups",
@@ -48,7 +44,6 @@
   "ev.k2_dark.look.failure": "You tripped over a pot, it clattered, you screamed, and the whole house woke up, and the neighbours too. The rustling remained a mystery.",
   "ev.k2_dark.cover": "Pull the cover over your head and hold your breath",
   "ev.k2_dark.cover.ok": "You lay like that until dawn, listening to every sound. In the morning there was nothing in the corner but old rags, and you yawned all day.",
-
   "ev.k2_dark_later.title": "A rustle in the dark",
   "ev.k2_dark_later.text": "Something is rustling in the yard tonight - just like that time in childhood when you went into the dark corner to face the monster. Only now there is nobody to check but you.",
   "ev.k2_dark_later.go": "Take a light and go out",
@@ -56,7 +51,6 @@
   "ev.k2_dark_later.go.failure": "It was only the wind in the dry leaves. But you stumbled in the dark and burned your hand on your own light.",
   "ev.k2_dark_later.neighbors": "Wake the neighbours",
   "ev.k2_dark_later.neighbors.ok": "The neighbours came with sticks, searched the yard and found nobody. They went home grumbling, and one of them said you were braver as a child, by all accounts.",
-
   "ev.k2_scary_neighbor.title": "The frightening neighbour",
   "ev.k2_scary_neighbor.text": "Two houses down lives an old man with a pitted face and one eye. The older children say he eats naughty ones. Today he is sitting on his doorstep, beckoning to you with a finger and hiding something in his fist.",
   "ev.k2_scary_neighbor.approach": "Go to him",
@@ -66,7 +60,6 @@
   "ev.k2_scary_neighbor.run.ok": "You ran all the way home, and for a long time afterwards you took the long way round his house.",
   "ev.k2_scary_neighbor.stone": "Throw a pebble at him, like the big children do",
   "ev.k2_scary_neighbor.stone.ok": "The pebble fell far short. He only looked at you with his one eye - and that look made you ashamed for many days.",
-
   "ev.k2_neighbor_legacy.title": "The old man's gift",
   "ev.k2_neighbor_legacy.text": "The one-eyed old man you used to visit as a little child has died. Before he died, he asked for his carving knives and an unfinished wooden bird to be given to you.",
   "ev.k2_neighbor_legacy.learn": "Finish the bird and learn to carve",
@@ -75,7 +68,6 @@
   "ev.k2_neighbor_legacy.keep.ok": "You wrapped the knives in a clean cloth and put them away with the bird. Sometimes you take them out and remember his laugh.",
   "ev.k2_neighbor_legacy.sell": "Sell the good knives",
   "ev.k2_neighbor_legacy.sell.ok": "A craftsman at the market paid a fair price and turned them over in his hands for a long time: 'Old work. Nobody makes them like this now.' You kept the bird.",
-
   "ev.k2_mask.title": "The mask",
   "ev.k2_mask.text": "At the festival a man in a huge mask burst out of the crowd - fangs, bulging eyes and a beard of shaggy grass. He bent right down to you and growled.",
   "ev.k2_mask.hide": "Burst into tears and hide behind the grown-ups",
@@ -86,7 +78,6 @@
   "ev.k2_mask.growl": "Growl back",
   "ev.k2_mask.growl.success": "The mask jumped back as if frightened, and everyone around roared with laughter. 'What a beast!' someone said, and the name stuck for a long time.",
   "ev.k2_mask.growl.failure": "Your growl came out as a squeak. The mask shook its head and went off to scare someone more worthwhile.",
-
   "ev.k2_big_dog.title": "The dog on the path",
   "ev.k2_big_dog.text": "A huge strange dog is lying in the middle of the path home. It isn't growling, but it isn't moving either - just watching you with yellow eyes. The only way round is through the thorns.",
   "ev.k2_big_dog.pass": "Walk past without looking at it",
@@ -97,7 +88,6 @@
   "ev.k2_big_dog.share": "Give it your piece of food",
   "ev.k2_big_dog.share.success": "The dog took the treat gently, sniffed your palm and walked you all the way to the gate. Now it waits for you on the path every day.",
   "ev.k2_big_dog.share.failure": "The dog swallowed it without chewing and looked to see if there was more. There wasn't. You had to go through the thorns after all.",
-
   "ev.k2_lost_field.title": "Lost",
   "ev.k2_lost_field.text": "You chased a dragonfly into the tall growth, and when it flew away there was nothing around you but stalks taller than your head. You can't see home, and you can't hear anyone.",
   "ev.k2_lost_field.shout": "Stay where you are and shout",
@@ -108,7 +98,6 @@
   "ev.k2_lost_field.smoke.failure": "The smoke was someone else's - a herders' fire. The herders fed you and brought you home by evening, where everyone was beside themselves.",
   "ev.k2_lost_field.sit": "Sit down and cry",
   "ev.k2_lost_field.sit.ok": "You cried until you fell asleep among the stalks. You woke up in someone's arms on the way home, and for a long time you didn't know where you were.",
-
   "ev.k2_tall_tale.title": "The monster behind the wall",
   "ev.k2_tall_tale.text": "You told the neighbours' children that a monster with three tails lives behind the old wall. You made it up on the spot, but they believed you - and now even the grown-ups are asking what exactly you saw.",
   "ev.k2_tall_tale.confess": "Admit you made it up",
@@ -118,7 +107,6 @@
   "ev.k2_tall_tale.embellish.failure": "Someone asked what colour the third tail was, and you got muddled. For a week the neighbours' children called you a fibber.",
   "ev.k2_tall_tale.swear": "Swear it's all true",
   "ev.k2_tall_tale.swear.ok": "You swore so fiercely that they believed you - and forbade all the children to go near the wall. Now you can't go there either.",
-
   "ev.k2_storyteller_grown.title": "The storyteller",
   "ev.k2_storyteller_grown.text": "One evening by the fire someone remembers how, as a toddler, you invented a monster with three tails. 'Tell us something,' the neighbours ask, and even the old folk shuffle closer.",
   "ev.k2_storyteller_grown.tell": "Tell a new story",
@@ -126,7 +114,6 @@
   "ev.k2_storyteller_grown.tell.failure": "You started off briskly, but halfway through you forgot where you were going with it. Your listeners yawned politely.",
   "ev.k2_storyteller_grown.joke": "Laugh it off",
   "ev.k2_storyteller_grown.joke.ok": "'The monster grew up and moved away,' you said, and everyone laughed. Sometimes that's enough.",
-
   "ev.k2_imaginary_friend.title": "The invisible friend",
   "ev.k2_imaginary_friend.text": "You have a friend nobody else can see. You call him Rustle, he lives in the corner behind the hearth, and at meals you leave a bit of food for him. The grown-ups are starting to exchange worried looks.",
   "ev.k2_imaginary_friend.defend": "Stand up for your friend",
@@ -145,7 +132,6 @@
   "ev.k2_imaginary_friend.healer.african": "Let a diviner ask the ancestors",
   "ev.k2_imaginary_friend.healer.success": "You were studied for a long time, and then the grown-ups were told, 'Leave it. A friend like that comes to kind children and leaves by himself when they grow up.'",
   "ev.k2_imaginary_friend.healer.failure": "There was a great deal of chanting, smoke and sprinkling of water over you. Rustle vanished after that - or perhaps he just took offence.",
-
   "ev.k2_imaginary_return.title": "An old friend",
   "ev.k2_imaginary_return.text": "In a hard year, with no one to say a word to, you suddenly catch yourself talking out loud to Rustle - your invisible friend from childhood. And, strangely enough, it helps.",
   "ev.k2_imaginary_return.talk": "Talk to him a little longer",
@@ -153,7 +139,6 @@
   "ev.k2_imaginary_return.people": "Laugh at yourself and go and see people",
   "ev.k2_imaginary_return.people.success": "You dropped in on the neighbours for no reason at all. They sat you down, fed you and listened - it turned out they had had a hard year too.",
   "ev.k2_imaginary_return.people.failure": "The neighbours had no time for you. You went home and finished your talk with Rustle after all.",
-
   "ev.k2_big_kids_secret.title": "The oath",
   "ev.k2_big_kids_secret.text": "For the first time the big children of the street took you along - to their secret place in the ruins of an old house. Their treasures are hidden there: potsherds, feathers, a seashell. Before you left, they made you swear to keep quiet. And now, in the evening, the grown-ups want to know where you were half the day.",
   "ev.k2_big_kids_secret.keep": "Stay silent as a stone",
@@ -163,14 +148,12 @@
   "ev.k2_big_kids_secret.lie": "Say you were playing at the neighbours'",
   "ev.k2_big_kids_secret.lie.success": "They believed you. For the first time you found out how heavy a secret is to carry - and how nice.",
   "ev.k2_big_kids_secret.lie.failure": "The neighbours had just come by to ask whether their children were at your house. The lie was short; the conversation was long.",
-
   "ev.k2_oath_repaid.title": "An old oath",
   "ev.k2_oath_repaid.text": "One of those big children who once took you into the ruins has long since grown up and become someone of standing. He recognises you in the street: 'You're that little one who never gave us away!'",
   "ev.k2_oath_repaid.help": "Ask for help with your affairs",
   "ev.k2_oath_repaid.help.ok": "He introduced you to the right people and lent you a little himself, with no interest. 'For the seashell,' he said with a wink.",
   "ev.k2_oath_repaid.remember": "Just talk about old times",
   "ev.k2_oath_repaid.remember.ok": "You sat until dark, going over everything that was in that pile of treasures. It turns out he still keeps the shell.",
-
   "ev.k2_bedtime_story.title": "One more story",
   "ev.k2_bedtime_story.text": "Every evening you demand the same story - about the clever tortoise and the stupid giant - and woe betide anyone who skips a single word. Tonight the storyteller has fallen asleep right in the middle.",
   "ev.k2_bedtime_story.wake": "Shake them awake and demand the ending",
@@ -180,7 +163,6 @@
   "ev.k2_bedtime_story.finish.ok": "You finished it in a whisper, and in your version the tortoise outwitted the giant twice. The storyteller, it turned out, wasn't asleep, and later passed your ending on to others.",
   "ev.k2_bedtime_story.sleep": "Fall asleep too",
   "ev.k2_bedtime_story.sleep.ok": "You fell asleep snuggled against the storyteller's side, and in your dream the tortoise won after all.",
-
   "ev.k2_tale_passed.title": "That same story",
   "ev.k2_tale_passed.text": "The neighbours' little ones won't leave you alone: tell us a story, tell us a story. And suddenly you begin that same tale about the clever tortoise - with the ending you made up yourself as a child.",
   "ev.k2_tale_passed.same": "Tell it the way you remember",
@@ -188,7 +170,6 @@
   "ev.k2_tale_passed.new_end": "Make up a new ending",
   "ev.k2_tale_passed.new_end.success": "The new ending was even better than the old one. Now the little ones want only that one - every evening, word for word.",
   "ev.k2_tale_passed.new_end.failure": "The little ones didn't like the new ending. 'That's wrong!' they shouted, and demanded the old one.",
-
   "ev.k2_first_chore.title": "The first errand",
   "ev.k2_first_chore.text": "{npc}, your mother, has trusted you with a real task for the first time: to carry a little pot of hot food to a sick neighbour three houses away. 'Don't run and don't peek,' she said.",
   "ev.k2_first_chore.careful": "Carry it slowly, with both hands",
@@ -200,7 +181,6 @@
   "ev.k2_first_chore.run": "Run, to get it done faster",
   "ev.k2_first_chore.run.success": "You got there faster than the wind, and the food was still hot. The neighbour laughed: 'What a messenger!'",
   "ev.k2_first_chore.run.failure": "You went sprawling in the middle of the street. The hot food burned your hand, and the little pot cracked in two.",
-
   "ev.k2_tantrum.title": "The storm",
   "ev.k2_tantrum.text": "{npc}, your father, wouldn't take you with him. You threw yourself on the ground in the middle of the yard, screaming and drumming your heels so hard that the neighbours came running.",
   "ev.k2_tantrum.scream": "Scream even louder",
@@ -211,7 +191,6 @@
   "ev.k2_tantrum.follow": "Secretly run after him",
   "ev.k2_tantrum.follow.success": "Your father only noticed you at the edge of the fields. He sighed and took your hand. It was the best day of the whole summer.",
   "ev.k2_tantrum.follow.failure": "After a hundred steps you lost sight of him and trudged back, sniffling. And at home you got into trouble as well.",
-
   "ev.k2_share.title": "Sharing",
   "ev.k2_share.text": "You are holding a ripe, sweet fruit - a whole one, all yours. Beside you stands a neighbour's little one, even younger than you, thin, in hand-me-downs far too big, looking not at you but at the fruit.",
   "ev.k2_share.half": "Give half",
@@ -220,14 +199,12 @@
   "ev.k2_share.all.ok": "The little one ate it all in a flash, stone and all, and looked at you in a way that made you not regret it one bit.",
   "ev.k2_share.eat": "Turn away and eat it yourself",
   "ev.k2_share.eat.ok": "The fruit was sweet, but somehow not as sweet as you had expected.",
-
   "ev.k2_share_repaid.title": "Half a fruit",
   "ev.k2_share_repaid.text": "At the market a stranger comes up to you and suddenly smiles: 'I remember you. When we were small, you gave me your fruit. I've never eaten anything sweeter since.' He has a stall here now - and seems to be doing well.",
   "ev.k2_share_repaid.accept": "Accept his gift",
   "ev.k2_share_repaid.accept.ok": "He filled a basket with his best goods and wouldn't take a thing for it. 'One good turn deserves another,' he said.",
   "ev.k2_share_repaid.refuse": "Decline and just talk",
   "ev.k2_share_repaid.refuse.ok": "You talked until the market closed. Since then he nods to you from afar, and the other stallholders respectfully ask how you two know each other.",
-
   "ev.k2_dead_bird.title": "The fledgling",
   "ev.k2_dead_bird.text": "Under the tree lies a baby bird fallen from its nest - bare, eyes shut. It isn't moving. You squat down beside it, and for the first time you don't know what to do.",
   "ev.k2_dead_bird.warm": "Warm it in your hands",
@@ -246,7 +223,6 @@
   "ev.k2_dead_bird.bury.ok": "You dug a little hole with a stick and sat by the mound for a long time. The grown-ups left you alone.",
   "ev.k2_dead_bird.ask": "Ask the grown-ups why it isn't moving",
   "ev.k2_dead_bird.ask.ok": "They told you that everything alive falls asleep for good one day, and as for where it goes, everyone has their own thoughts. You thought about it all evening.",
-
   "ev.k2_stuck_high.title": "Up high",
   "ev.k2_stuck_high.text": "You climbed the tree by the fence - higher than you were allowed, higher than you meant to. Going up was easy. Looking down is frightening, and the branch under you is quietly creaking.",
   "ev.k2_stuck_high.shout": "Call for help",
@@ -256,7 +232,6 @@
   "ev.k2_stuck_high.climb_down.failure": "The last branch snapped. You landed in the dust with a thump, couldn't breathe for a long moment, and then howled more from hurt pride than from pain.",
   "ev.k2_stuck_high.stay": "Sit and look around",
   "ev.k2_stuck_high.stay.ok": "From up there you could see everything: roofs, roads, far-off fields and people the size of ants. Nobody missed you until evening, and they had to get you down by firelight.",
-
   "ev.k2_altar_food.title": "Not for you",
   "ev.k2_altar_food.text": "Treats have been left at the household altar - sweet balls and ripe fruit. The grown-ups say they are not for people. But there's nobody around, and the smell is making your stomach ache.",
   "ev.k2_altar_food.text.polytheist": "Treats have been left at the household altar for the gods of the house - a honey cake and ripe fruit. The grown-ups say you mustn't touch. But there's nobody around, and the smell is making your stomach ache.",
@@ -272,7 +247,6 @@
   "ev.k2_altar_food.ask.ok": "They explained that they eat first, and later the food will be shared among everyone. You waited until evening - and your wait was rewarded.",
   "ev.k2_altar_food.leave": "Walk away and don't look",
   "ev.k2_altar_food.leave.ok": "You turned away and even screwed your eyes shut. That evening you were the first to be given a piece - the grown-ups had seen everything.",
-
   "ev.k2_open_pen.title": "Freedom for all",
   "ev.k2_open_pen.text": "You felt sorry for the animals shut up in the pen, so you opened the gate to let them go for a walk. They went for a walk - through the neighbours' vegetable patches, down the street and across somebody's washing laid out to dry.",
   "ev.k2_open_pen.chase": "Herd them back in",
@@ -283,7 +257,6 @@
   "ev.k2_open_pen.blame": "Say the gate opened by itself",
   "ev.k2_open_pen.blame.success": "The grown-ups grumbled about the wind and fixed the latch. You watched with the most innocent face in the world.",
   "ev.k2_open_pen.blame.failure": "Your footprints were right there by the gate - little ones, impossible to mistake for anyone else's.",
-
   "ev.k2_m_shadow.text": "All morning you tried to run away from your own shadow, and then to stand on its head. The shadow turned out to be cleverer.",
   "ev.k2_m_echo.text": "You shouted your name into a big empty jar, and the jar boomed it back. The two of you talked like that for half a day, until the grown-ups ran out of patience.",
   "ev.k2_m_mud_cakes.text": "You made a whole feast out of mud and solemnly served it to every grown-up. Each of them dutifully pretended to chew and praised the cooking.",

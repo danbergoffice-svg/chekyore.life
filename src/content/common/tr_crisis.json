@@ -1,6 +1,6 @@
 {
   "ev.crisis_turn.title": "Dönüm",
-  "ev.crisis_turn.text": "{age} yaşındasın. Yaşıtların birer birer göçüyor, çocuklar büyüdü, sırtın her sabah yılları hatırlatıyor. Bundan sonra nasıl yaşayacaksın — eskisi gibi mi, başka türlü mü?",
+  "ev.crisis_turn.text": "{age} yaşındasın. Yaşıtların birer birer göçüyor, çocuklar büyüdü, sırtın her sabah yılları hatırlatıyor. Bundan sonra nasıl yaşayacaksın - eskisi gibi mi, başka türlü mü?",
   "ev.crisis_turn.start_over": "Yeniden başla",
   "ev.crisis_turn.seek_freedom": "Özgürlüğü ara",
   "ev.crisis_turn.hold_on": "Elindekine tutun",
@@ -12,9 +12,9 @@
   "ev.crisis_turn.hold_on.success": "Seninkini korudun.",
   "ev.crisis_turn.hold_on.failure": "Tutunmak bütün gücünü aldı.",
   "ev.crisis_turn.seek_meaning.success": "Yine de önemli bir şey buldun.",
-  "ev.crisis_turn.seek_meaning.failure": "Cevap yok — yalnızca sorular.",
+  "ev.crisis_turn.seek_meaning.failure": "Cevap yok - yalnızca sorular.",
   "diary.crisis": "Kırk yaş dönümü: {slot}.",
-  "diary.crisis.family": "Kırk yaş dönümü: {slot}. Yakınlarına yaslandın — {outcome}.",
-  "diary.crisis.home": "Kırk yaş dönümü: {slot}. Hane rehine verildi — {outcome}.",
-  "diary.crisis.gamble": "Kırk yaş dönümü: {slot}. Bir kez daha riske girdin — {outcome}."
+  "diary.crisis.family": "Kırk yaş dönümü: {slot}. Yakınlarına yaslandın - {outcome}.",
+  "diary.crisis.home": "Kırk yaş dönümü: {slot}. Hane rehine verildi - {outcome}.",
+  "diary.crisis.gamble": "Kırk yaş dönümü: {slot}. Bir kez daha riske girdin - {outcome}."
 }

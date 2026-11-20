@@ -16,7 +16,7 @@
   "ev.aw_return_sibling.title": "Your {g=npc_sex:brother|sister} is back",
   "ev.aw_return_sibling.text": "{npc} came back from distant lands with no money and nowhere to live, and asks to stay with you until back on their feet.",
   "ev.aw_return_sibling.take_in": "Take them in",
-  "ev.aw_return_sibling.take_in.ok": "{npc} now lives nearby and tells stories of far countries in the evenings - even the neighbors come to listen.",
+  "ev.aw_return_sibling.take_in.ok": "{npc} now lives nearby and tells stories of far countries in the evenings - even the neighbours come to listen.",
   "ev.aw_return_sibling.help_little": "Give money for the road",
   "ev.aw_return_sibling.help_little.ok": "You gave a little money. {npc} thanked you and left again - to look for luck somewhere else.",
   "ev.aw_ransom_child.title": "The captive is found",

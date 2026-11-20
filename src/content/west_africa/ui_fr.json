@@ -1,17 +1,17 @@
 {
-  "era.WAF": "Afrique de l'Ouest : Mali et Songhai",
+  "era.WAF": "Afrique de l'Ouest : Mali et Songhai",
   "era.WAF.years": "1230 - 1600",
   "era.WAF.short": "Mali",
   "region.niani": "Niani",
-  "region.timbuktu": "Timbuktu",
+  "region.timbuktu": "Tombouctou",
   "region.gao": "Gao",
-  "region.djenne": "Djenne",
-  "region.niani.intro": "Niani est la ville du mansa, roi du Mali, implantée au milieu des champs de mil et des baobabs sur la rivière Sankarani. Chaque ancêtre y est rappelé, les griots chantent de Sundiata et les fondeurs sont respectés et un peu craints.",
-  "region.timbuktu.intro": "Timbuktu se situe là où le Niger rencontre le désert. Des caravanes apportent ici du sel du Sahara et, dans les mosquées de Djinguereber et de Sankore, les savants discutent des manuscrits.",
-  "region.gao.intro": "Gao est l'ancienne ville songhai sur le large du Niger : pêcheurs et marins sorko, cavalerie et ports d'embarquement. À l'heureuse, les souverains d'ici gouverneront une grande partie de l'Afrique de l'Ouest.",
-  "region.djenne.intro": "Djenne est une ville en brique de terre sur une île dans le delta intérieur du Niger. Chaque année, les crues l'isoles du monde, et sur son marché l'or des terres forestières rencontre le sel du désert.",
+  "region.djenne": "Djenné",
+  "region.niani.intro": "Niani est la ville du mansa, roi du Mali, implantée au milieu des champs de mil et des baobabs sur la rivière Sankarani. Chaque ancêtre y est rappelé, les griots chantent Soundiata et les forgerons sont respectés et un peu craints.",
+  "region.timbuktu.intro": "Tombouctou se situe là où le Niger rencontre le désert. Des caravanes apportent ici du sel du Sahara et, dans les mosquées de Djinguereber et de Sankore, les savants discutent des manuscrits.",
+  "region.gao.intro": "Gao est une ancienne ville songhai sur le large Niger : pêcheurs sorko et bateliers, cavalerie et embarcadères ; avec le temps, ses souverains gouverneront toute l'Afrique de l'Ouest.",
+  "region.djenne.intro": "Djenné est une ville en brique de terre sur une île dans le delta intérieur du Niger. Chaque année, les crues l'isolent du monde, et sur son marché l'or des terres forestières rencontre le sel du désert.",
   "region.niani.in": "à Niani",
-  "region.timbuktu.in": "à Timbuktu",
+  "region.timbuktu.in": "à Tombouctou",
   "region.gao.in": "à Gao",
-  "region.djenne.in": "à Djenne"
+  "region.djenne.in": "à Djenné"
 }

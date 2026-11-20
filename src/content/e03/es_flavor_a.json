@@ -26,7 +26,7 @@
   "ev.c_fear_dark.text.E03": "Tu {g=npc_sex:hijo|hija} {npc} tiene miedo de la oscuridad: la anciana de la casa de al lado contaba historias de Lamia, que roba a los niños traviesos. Ahora una lámpara arde junto a la cama toda la noche, y el aceite se gasta como si fuera un festival.",
   "ev.c_mischief.text.3.E03": "Tu {g=npc_sex:hijo|hija} {npc} cambió tus mejores sandalias por un puñado de nueces y un escarabajo muerto. Ambas partes consideran el trato justo, todos excepto tú.",
   "ev.c_river.thank.ok.E03": "El pescador se fue con una jarra de vino. Durante mucho tiempo seguiste sobresaltándote con la palabra \"río\".",
-  "ev.c_child_fall.text.E03": "Tu {g=npc_sex:hijo|hija} {npc} trepó al viejo olivo junto al camino y se cayó. El brazo está hinchado y colga de manera extraña. {g=npc_sex:Él|Ella} está esforzándose mucho por no llorar.",
+  "ev.c_child_fall.text.E03": "Tu {g=npc_sex:hijo|hija} {npc} trepó al viejo olivo junto al camino y se cayó. El brazo está hinchado y cuelga de manera extraña. {g=npc_sex:Él|Ella} está esforzándose mucho por no llorar.",
   "ev.c_lost.text.E03": "En el festival, tu {g=npc_sex:hijo|hija} {npc} se perdió entre la multitud. Pasaste medio día corriendo por el mercado - y encontraste al fugitivo junto al templo, en primera fila, con la boca abierta, escuchando a un narrador.",
   "ev.c_knucklebones.text.E03": "Tu {g=npc_sex:hijo|hija} {npc} te venció en canicas cinco veces seguidas. En la sexta notaste que los huesos de {g=npc_sex:su|su} obedecían sospechosamente.",
   "ev.c_teacher.home_teach.ok.E03": "Por las tardes, los dos se sientan sobre la tableta. Han descubierto que habían olvidado la mitad de las letras ellos mismos.",

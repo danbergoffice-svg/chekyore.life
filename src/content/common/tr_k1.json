@@ -29,7 +29,7 @@
   "ev.k1_guest_holds.excuse.ok": "Misafir anlayışla başını salladı ama bütün akşam belirgin biçimde hüzünlüydü. Ev halkı mahcup oldu, sen ise hiç umursamadın.",
   "ev.k1_guest_holds.wash": "Kucağına ver, ama önce ellerini yıkasın ve senin için hayır dua etsin",
   "ev.k1_guest_holds.wash.success": "Misafir şaşırdı ama elini yüzünü yıkadı ve kendi dilinde senin için eski bir dua okudu. Öksürüğü sana hiç geçmedi.",
-  "ev.k1_guest_holds.wash.failure": "Misafir bu kadar törene alındı ama yine de seni kucağına aldı - birkaç gün sonra sen yine de öksürmeye başladın.",
+  "ev.k1_guest_holds.wash.failure": "Misafir bu törenlere bozuldu ama yine de seni kucağına aldı - birkaç gün sonra sen yine de öksürmeye başladın.",
   "ev.k1_night_crying.title": "Gece Ağlaması",
   "ev.k1_night_crying.text": "Üç haftadır geceleri ağlıyorsun - ne acıdan ne açlıktan, hava kararır kararmaz sadece ağlıyorsun. Komşular duvara vuruyor, annen {npc} ayakta uyuyor. Yaşlı kadınlar gece ağlamasının bir şeyin seni rahatsız ettiği anlamına geldiğini söylüyor.",
   "ev.k1_night_crying.walk": "Ne kadar gerekirse, seni şafağa kadar kucağında gezdir",

@@ -6,7 +6,7 @@
   "ev.estate_home.save": "Keep the money and live as before",
   "ev.estate_home.save.ok": "The money stayed in the chest. A bit cramped, but calm.",
   "ev.estate_land.title": "Land for sale",
-  "ev.estate_land.text": "A neighbour is selling a plot of ploughland by the river. Your own land feeds you in any times, if the sky is kind. The plot costs {price} {coin}.",
+  "ev.estate_land.text": "A neighbour is selling a plot of ploughland by the river. Your own land feeds you in good times and bad, if the sky is kind. The plot costs {price} {coin}.",
   "ev.estate_land.buy": "Buy a plot ({price} {coin})",
   "ev.estate_land.buy.ok": "You walked the boundaries of your land. It is yours now, and so is its harvest.",
   "ev.estate_land.buy_two": "Buy two plots",

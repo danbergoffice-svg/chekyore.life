@@ -85,7 +85,7 @@
   "ev.c_trade_high.text.ANE": "{g=npc_sex:Oğlun|Kızın} {npc} büyüdü. Dostların öğütlüyor: tanrılara hizmet şeref getirir, kâtip okulu saygınlık ve hazinede bir görev, aile mülkü de güvence. Seçim senin - ama {npc} şimdiden kendi bildiğini söylüyor.",
   "ev.j_sol_recruiter.text.ANE": "Kasabaya kraliyet tellalı geldi: ordu sefer için toplanıyor, dönenlere toprak ve ganimetten pay vaat ediliyor. Son seferin gazilerinin artık kendi evlerinde yaşadığı söyleniyor.",
   "ev.school_offer.text.ANE": "Ailen seni kâtip okuluna gönderip göndermemeyi düşünüyor. Öğretmenler sopa kullanıyor, ama kâtip asla taş taşımaz. Okul pahalı, üstelik evde şimdi senin yardımına ihtiyaç var.",
-  "class.landowner.family.ANE": "bir kâtip, rahip ya da çiftlik sahibi bir memurun ailesine",
+  "class.landowner.family.ANE": "bir kâtip, rahip ya da çiftlik sahibi bir memurun ailesinde",
   "prof.farmer.desc.ANE": "Taşkından sonra tarlalar, arpa ve gernik buğdayı, bir de hasadını senden önce sayan bir kâtip.",
   "prof.laborer.desc.ANE": "Taş taşır, kanal kazar, tahıl yüklenirsin. Ücreti ekmek ve bira.",
   "prof.artisan.desc.ANE": "Bakır, ahşap, deri, fayans: bir tapınak atölyesi ya da kendi dükkânın.",
