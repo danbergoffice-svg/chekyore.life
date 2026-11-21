@@ -2204,5 +2204,10 @@
   "dlife.confirm": "Commencer la vie du jour ? La vie de {name} restera inachevée.",
   "dlife.won": "Vous avez gagné la vie du jour du {date} ! Votre prochaine vie : une famille royale.",
   "dlife.left_hm": "{h} h {m} min",
-  "dlife.left_m": "{m} min"
+  "dlife.left_m": "{m} min",
+  "kin.doctor": "Faire venir un guérisseur",
+  "kin.doctor.desc": "soins et attention · {money}",
+  "kin.doctor.done": "Le guérisseur est venu",
+  "kin.doctor.done_desc": "il soigne - il y a plus d'espoir maintenant",
+  "diary.kin.doctor": "Vous avez fait venir un guérisseur : {who} est malade. −{money}."
 }

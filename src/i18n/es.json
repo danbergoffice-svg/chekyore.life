@@ -2204,5 +2204,10 @@
   "dlife.confirm": "¿Empezar la vida del día? La vida de {name} quedará sin terminar.",
   "dlife.won": "¡Ganaste la vida del día del {date}! Tu próxima vida: una familia real.",
   "dlife.left_hm": "{h} h {m} min",
-  "dlife.left_m": "{m} min"
+  "dlife.left_m": "{m} min",
+  "kin.doctor": "Llamar a un sanador",
+  "kin.doctor.desc": "cura y cuidados · {money}",
+  "kin.doctor.done": "El sanador ya vino",
+  "kin.doctor.done_desc": "está curando: ahora hay más esperanza",
+  "diary.kin.doctor": "Llamaste a un sanador: {who} está {g=sex:enfermo|enferma}. −{money}."
 }

@@ -517,6 +517,7 @@ html.skin .hold-cond > span.mid { background: #c79a2e; }
 html.skin .hold-cond > span.low { background: #b4492b; }
 html.skin .hold-will { display: block; margin: 4px 0 0; }
 html.skin .hold-offers { display: grid; gap: 8px; }
+html.skin .hold-offers + .arms-row-title { margin-top: 16px; }
 html.skin .hold-market { width: 100%; }
 
 /* Кто есть кто на картинке дома (20.11): невидимые зоны людей; подпись - при наведении мышью или касании. */

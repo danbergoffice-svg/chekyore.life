@@ -2204,5 +2204,10 @@
   "dlife.confirm": "Günün hayatına başlansın mı? {name} adlı kahramanın hayatı yarım kalacak.",
   "dlife.won": "{date} günün hayatını kazandın! Bir sonraki hayatın: hanedan ailesi.",
   "dlife.left_hm": "{h} sa {m} dk",
-  "dlife.left_m": "{m} dk"
+  "dlife.left_m": "{m} dk",
+  "kin.doctor": "Hekim çağır",
+  "kin.doctor.desc": "tedavi ve bakım · {money}",
+  "kin.doctor.done": "Hekim geldi",
+  "kin.doctor.done_desc": "tedavi ediyor - artık umut daha fazla",
+  "diary.kin.doctor": "Hekim çağırdın: {who} hasta. −{money}."
 }

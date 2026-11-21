@@ -2199,5 +2199,10 @@
   "dlife.confirm": "Start the Life of the Day? {name}'s life will be left unfinished.",
   "dlife.won": "You won the Life of the Day for {date}! Your next life: a royal family.",
   "dlife.left_hm": "{h} h {m} min",
-  "dlife.left_m": "{m} min"
+  "dlife.left_m": "{m} min",
+  "kin.doctor": "Call a healer",
+  "kin.doctor.desc": "treatment and care · {money}",
+  "kin.doctor.done": "The healer has come",
+  "kin.doctor.done_desc": "treating them - there is more hope now",
+  "diary.kin.doctor": "You called a healer: {who} is ill. −{money}."
 }
